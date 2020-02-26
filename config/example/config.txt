@@ -491,3 +491,15 @@ MAX_CLIENT_CID_HISTORY 20
 
 ## Uncomment to enable automatic performance profiling of rounds
 ENABLE_AUTO_PROFILER
+
+## Uncomment to disable respawning by default.
+#DISABLE_RESPAWN
+
+## Uncomment to allow players joined as observer respawning.
+#RESPAWN_OBSERVER
+
+## Respawn delay in minutes before one may respawn as a crew member.
+RESPAWN_DELAY 20
+
+## Respawn delay in minutes before one may respawn as a drone.
+RESPAWN_DELAY_DRONE 10
