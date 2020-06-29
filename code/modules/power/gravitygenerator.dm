@@ -207,7 +207,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		return ..()
 	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = I
-		if(PS.amount < 10)
+		if(PS.get_amount() < 10)
 			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
 			return
 
