@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	box = /obj/item/storage/box/responseteam
 	gloves = /obj/item/clothing/gloves/combat
 
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield/ert)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
