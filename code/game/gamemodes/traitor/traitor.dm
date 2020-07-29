@@ -18,7 +18,7 @@
 
 	var/list/datum/mind/pre_traitors = list()
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
-	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
+//	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
 
 /datum/game_mode/traitor/announce()
@@ -40,9 +40,10 @@
 	var/num_traitors = 1
 
 	if(config.traitor_scaling)
-		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff)))
+		num_traitors = max(1, round((num_players())/(config.traitor_scaling))+1)
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
+		log_game("Number of traitors chosen: [num_traitors]")
 
 	for(var/j = 0, j < num_traitors, j++)
 		if(!possible_traitors.len)
