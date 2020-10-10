@@ -587,7 +587,7 @@ SUBSYSTEM_DEF(ticker)
 	// Play a haha funny noise
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	SEND_SOUND(world, sound(round_end_sound))
+	SEND_SOUND(world, sound(round_end_sound, volume = 80))
 	sleep(sound_length)
 
 	world.Reboot()

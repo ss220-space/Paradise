@@ -28,6 +28,18 @@
 	// No handling for this on the mob level
 	return 0
 
+/mob/proc/update_confused_effects()
+	// No handling for this on the mob level
+	return 0
+
+/mob/proc/update_drowsyness_effects()
+	// No handling for this on the mob level
+	return 0
+
+/mob/proc/update_sound_override_effects()
+	// No handling for this on the mob level
+	return 0
+
 /mob/proc/update_tint_effects()
 	// No handling for this on the mob level
 	return 0

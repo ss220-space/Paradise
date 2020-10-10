@@ -20,11 +20,10 @@
 	if(druggy)
 		overlay_fullscreen("high", /obj/screen/fullscreen/high)
 		throw_alert("high", /obj/screen/alert/high)
-		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	else
 		clear_fullscreen("high")
 		clear_alert("high")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
+	update_sound_override_effects()
 
 /mob/living/update_nearsighted_effects()
 	if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
@@ -135,3 +134,21 @@
 			updatehealth("var edit")
 		if("resize")
 			update_transform()
+
+/mob/living/update_confused_effects()
+	update_sound_override_effects()
+
+/mob/living/update_drowsyness_effects()
+	update_sound_override_effects()
+
+/mob/living/update_sound_override_effects()
+	if (slurring && drunk)
+		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
+	else if (druggy)
+		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
+	else if (drowsyness)
+		sound_environment_override = SOUND_ENVIRONMENT_DIZZY
+	else if (confused)
+		sound_environment_override = SOUND_ENVIRONMENT_DIZZY
+	else if (stat == UNCONSCIOUS)
+		sound_environment_override = SOUND_ENVIRONMENT_UNDERWATER

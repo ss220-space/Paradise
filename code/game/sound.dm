@@ -130,6 +130,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound
 
 			S.volume *= pressure_factor
+
+			if (pressure_factor < 0.5)
+				S.environment = SOUND_ENVIRONMENT_UNDERWATER
 			//End Atmosphere affecting sound
 
 		if(S.volume <= 0)
@@ -181,7 +184,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+		var/sound/S = sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)
+		S.environment = SOUND_ENVIRONMENT_PADDED_CELL
+		SEND_SOUND(src, S) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

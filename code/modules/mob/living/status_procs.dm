@@ -125,6 +125,7 @@
 
 /mob/living/SetConfused(amount)
 	confused = max(amount, 0)
+	update_confused_effects()
 
 /mob/living/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(confused, amount, bound_lower, bound_upper)
@@ -149,6 +150,7 @@
 
 /mob/living/SetDrowsy(amount)
 	drowsyness = max(amount, 0)
+	update_drowsyness_effects()
 
 /mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
@@ -340,10 +342,9 @@
 
 	if(slurring && drunk)
 		throw_alert("drunk", /obj/screen/alert/drunk)
-		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
 	else
 		clear_alert("drunk")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
+	update_sound_override_effects()
 
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
