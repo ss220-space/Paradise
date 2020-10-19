@@ -145,6 +145,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
 		S.y = 1
 
+		if(S.file == 'sound/goonstation/voice/howl.ogg' && distance > 0 && S.volume > 60 && isvulpkanin(src))
+        	addtimer(CALLBACK(src, /mob/.proc/emote, "howl"), rand(10,30)) // Vulps cant resist! >)
+
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		// Sounds can't have their own environment. A sound's environment will be:

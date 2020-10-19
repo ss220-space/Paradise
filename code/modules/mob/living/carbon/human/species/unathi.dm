@@ -120,3 +120,15 @@
 
 	speed_mod = -0.80
 	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)
+
+/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_wag
+	H.verbs |= /mob/living/carbon/human/proc/emote_swag
+	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+
+/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_wag
+	H.verbs -= /mob/living/carbon/human/proc/emote_swag
+	H.verbs -= /mob/living/carbon/human/proc/emote_hiss

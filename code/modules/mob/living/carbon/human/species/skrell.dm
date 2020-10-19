@@ -45,3 +45,11 @@
 		"is twisting their own neck!",
 		"makes like a fish and suffocates!",
 		"is strangling themselves with their own tendrils!")
+
+/datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_warble
+
+/datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_warble
