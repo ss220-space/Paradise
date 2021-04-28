@@ -287,8 +287,6 @@
 
 	var/full_day_logs = FALSE
 
-	var/allow_head_of_departaments_assign_civilian = FALSE
-
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -822,9 +820,6 @@
 
 				if ("full_day_logs")
 					config.full_day_logs = TRUE
-
-				if ("allow_head_of_departaments_assign_civilian")
-					config.allow_head_of_departaments_assign_civilian = TRUE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")
