@@ -59,6 +59,7 @@
 		if(!find_ticket.NextRow())
 			QDEL_NULL(find_ticket)
 			return FALSE
+		QDEL_NULL(find_ticket)
 		return TRUE
 	else if(config.overflow_whitelist.Find(lowertext(src.ckey)))
 		return TRUE
