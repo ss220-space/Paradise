@@ -9,7 +9,7 @@
 		return MARTIAL_COMBO_FAIL
 	if(target.undergoing_cardiac_arrest())
 		to_chat(user, "<span class='notice'>[target] inhales deeply!</span>")
-		target.adjustOxyLoss(-40)
+		target.adjustOxyLoss(-100)
 		target.set_heartattack(FALSE)
 		user.adjust_nutrition(-75)
 		target.shock_internal_organs(100)
@@ -20,5 +20,5 @@
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : defib", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 	else
-		to_chat(user, "<span class='notice'>[target] have pulse.Aborting...</span>")
+		to_chat(user, "<span class='notice'>[target] does not require shock.Aborting...</span>")
 		return MARTIAL_COMBO_FAIL
