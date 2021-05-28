@@ -1,5 +1,5 @@
 /datum/event/meteor_wave/goreop/announce()
-	var/meteor_declaration = "Метеориты заявили о своем намерении полностью уничтожить [station_name()] своими собственными телами. Осмелится ли экипаж остановить их?"
+	var/meteor_declaration = "Метеоритные оперативники заявили о своем намерении полностью уничтожить [station_name()] своими собственными телами. Осмелится ли экипаж остановить их?"
 	GLOB.event_announcement.Announce(meteor_declaration, "Объявление 'Войны'", 'sound/effects/siren.ogg')
 
 /datum/event/meteor_wave/goreop/setup()

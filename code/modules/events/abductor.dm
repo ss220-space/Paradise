@@ -4,7 +4,7 @@
 	//spawn abductor team
 	processing = 0 //so it won't fire again in next tick
 	if(!makeAbductorTeam())
-		message_admins("Игроки на роли Абдукторов не были найдены. Повторная попытка через 30 секунд.")
+		message_admins("Abductor event failed to find players. Retrying in 30s.")
 		spawn(300)
 			makeAbductorTeam()
 

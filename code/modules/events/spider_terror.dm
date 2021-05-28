@@ -13,7 +13,7 @@
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА", 'sound/effects/siren-spooky.ogg')
 	else
-		log_and_message_admins("Внимание: Не удалось создать существо для события ''Пауки Ужаса''")
+		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
@@ -49,7 +49,7 @@
 			spawncount = 1
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Ужаса?", null, TRUE, source = spider_type)
 	if(length(candidates) < spawncount)
-		message_admins("Внимание: недостаточно игроков заняло роль пауков Ужаса: всего [length(candidates)] из [spawncount]!")
+		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)

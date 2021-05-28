@@ -12,7 +12,7 @@
 	if(successSpawn)
 		GLOB.event_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая трубопроводы и вентиляцию.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ", new_sound = 'sound/AI/aliens.ogg')
 	else
-		log_and_message_admins("Внимание: не удалось создать существо для события 'Нашествие Чужих'")
+		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
 /datum/event/alien_infestation/start()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
