@@ -47,7 +47,7 @@
 			locstring = "гидропонике"
 		if(LOC_VAULT)
 			spawn_area_type = /area/security/nuke_storage
-			locstring = "убежище"
+			locstring = "хранилище"
 		if(LOC_CONSTR)
 			spawn_area_type = /area/construction
 			locstring = "the construction area"

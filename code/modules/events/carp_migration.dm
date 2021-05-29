@@ -13,9 +13,9 @@
 /datum/event/carp_migration/announce()
 	var/announcement = ""
 	if(severity == EVENT_LEVEL_MAJOR)
-		announcement = "Массовая миграция неизвестных биологических объектов была обнаружена вблизи станции [station_name()], будьте наготове."
+		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
 	else
-		announcement = "Неизвестные биологические объекты были обнаружены вблизи станции [station_name()], будьте наготове."
+		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
 	GLOB.event_announcement.Announce(announcement, "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
 /datum/event/carp_migration/start()
