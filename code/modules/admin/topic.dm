@@ -1861,18 +1861,28 @@
 					PDA.owner = new_name
 					PDA.name = "PDA-[new_name] ([PDA.ownjob])"
 		//rename general records with mob old name
-		for(var/datum/data/record/R in GLOB.data_core.general)
-			if(R.fields["name"] == old_name)
-				R.fields["name"] = new_name
+		for(var/datum/data/record/G in GLOB.data_core.general)
+			if(G.fields["name"] == old_name)
+				G.fields["name"] = new_name
 				break
 		//rename security records with mob old name
-		for(var/datum/data/record/E in GLOB.data_core.security)
-			if(E.fields["name"] == old_name)
-				E.fields["name"] = new_name
+		for(var/datum/data/record/S in GLOB.data_core.security)
+			if(S.fields["name"] == old_name)
+				S.fields["name"] = new_name
+				break
+		//rename medical records with mob old name				
+		for(var/datum/data/record/M in GLOB.data_core.medical)
+			if(M.fields["name"] == old_name)
+				M.fields["name"] = new_name
+				break
+		//rename locked records with mob old name				
+		for(var/datum/data/record/L in GLOB.data_core.locked)
+			if(L.fields["name"] == old_name)
+				L.fields["name"] = new_name
+				L.fields["id"] = md5("[new_name][M.mind.assigned_role]")
 				break
 
 		log_and_message_admins(message + "[new_name].")
-
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
