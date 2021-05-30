@@ -24,8 +24,8 @@
 	title = "Cyborg"
 	flag = JOB_CYBORG
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 5
+	spawn_positions = 5
 	supervisors = "your laws and the AI"	//Nodrak
 	department_head = list("AI")
 	selection_color = "#ddffdd"
