@@ -795,7 +795,8 @@
 	altername = "Пустой бланк для любых целей"
 	category = "Общие формы"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Заявление</B></font></center><BR><span class=\"paper_field\"></span><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись (дополнительная):<td><span class=\"paper_field\"></span></font>"
-	footer = footer_signstamp
+	footer = null
+
 
 /obj/item/paper/form/NT_REQ_01
 	name = "Форма NT-REQ-01"
@@ -804,6 +805,9 @@
 	category = "Общие формы"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Сторона запроса</B></font></center><BR><table></td><tr><td>Имя запросившего:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Способ получения:<BR><font size = \"1\">Предпочитаемый способ</font><td><span class=\"paper_field\"></span><BR></td><tr><td><BR>Причина запроса:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Список запроса:<BR><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Сторона поставки</B></font></center><BR><table></td><tr><td>Имя поставщика:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Способ доставки:<BR><font size = \"1\">Утверждённый способ</font><td><span class=\"paper_field\"></span><BR></td><tr><td><BR>Комментарии:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Список поставки и цены:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Итоговая стоимость:<BR><font size = \"1\">Пропустите, если бесплатно</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись стороны запроса:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись стороны поставки:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы (если требуется):<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
 	footer = footer_signstamp
+
+/obj/item/paper/form/NT_REQ_01/cargo
+	category = "Отдел снабжения"
 
 /obj/item/paper/form/NT_E_112
 	name = "Форма NT-E-112"
@@ -1024,25 +1028,9 @@
 /obj/item/paper/form/NT_SUP_01
 	name = "Форма NT-SUP-01"
 	id = "NT-SUP-01"
-	altername = "Заявление о получении ресурсов в личное использование"
-	category = "Отдел снабжения"
-	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Заявление о получении ресурсов в личное использование</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR><BR>Список необходимых ресурсов: <span class=\"paper_field\"></span><BR>Причина запроса ресурсов: <span class=\"paper_field\"></span><BR><BR>Итоговая стоимость: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Цена назначается сотрудником отдела снабжения, от 10 до 200 кредитов за единицу ресурса, определение цены зависит от ценности указанного ресурса. Обработанное заявление будет изучено для регулирования счета сотрудника отдела снабжения. В случае утери кредитов заявителя, принявший сотрудник заказ выплачивает стоимость запрошенных ресурсов. Выплата за обработанный заказ составляет 10%.<BR></font>"
-	footer = null
-
-/obj/item/paper/form/NT_SUP_02
-	name = "Форма NT-SUP-02"
-	id = "NT-SUP-02"
 	altername = "Регистрационная форма для подтверждения заказа"
 	category = "Отдел снабжения"
 	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Регистрационная форма для подтверждения заказа</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR>Подробное объяснение о необходимости заказа: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR>Подпись руководителя: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Данная форма является приложением для оригинального автоматического документа, полученного с рук заявителя. Для подтверждения заказа заявителя необходимы указанные подписи и соответствующие печати отдела по заказу.<BR></font>"
-	footer = null
-
-/obj/item/paper/form/NT_SUP_03
-	name = "Форма NT-SUP-03"
-	id = "NT-SUP-03"
-	altername = "Заявление о получении ресурсов"
-	category = "Отдел снабжения"
-	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Заявление о получении ресурсов</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR><BR>Список необходимых ресурсов: <span class=\"paper_field\"></span><BR>Причина запроса ресурсов: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Все полученное имущество принадлежит Nanotrasen, в случае утери указанного списка ресурсов, все затраты на восстановление будут вычтены из счета заявителя.<BR></font>"
 	footer = null
 
 /obj/item/paper/deltainfo
