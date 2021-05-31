@@ -794,11 +794,8 @@
 	id = "NT-BLANK"
 	altername = "Пустой бланк для любых целей"
 	category = "Общие формы"
-	is_header_needed = FALSE
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Заявление</B></font></center><BR><span class=\"paper_field\"></span><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись (дополнительная):<td><span class=\"paper_field\"></span></font>"
 	footer = footer_signstamp
-
-/obj/item/paper/form/NT_BLANK/New()
-	info = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\"><span class=\"paper_field\"></span></font></td><tr><td></td><tr><td><B><font size=\"4\"><span class=\"paper_field\"></span></font></B></td><tr><td><table></td><tr><td>Научная Станция Nanotrasen &#34;[GLOB.map_name]&#34;<td><span class=\"paper_field\"></span></td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\"><span class=\"paper_field\"></span></font></center><BR><HR><BR></font>"
 
 /obj/item/paper/form/NT_REQ_01
 	name = "Форма NT-REQ-01"
@@ -1023,6 +1020,30 @@
 	category = "Медицинский отдел"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Скончавшийся:<td><span class=\"paper_field\"></span><BR></td><tr><td>Раса:<td><span class=\"paper_field\"></span><BR></td><tr><td>Пол:<td><span class=\"paper_field\"></span><BR></td><tr><td>Возраст:<td><span class=\"paper_field\"></span><BR></td><tr><td>Группа крови:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Отчёт о вскрытии</B></font></center><BR><table></td><tr><td>Тип смерти:<td><span class=\"paper_field\"></span><BR></td><tr><td>Описание тела:<td><span class=\"paper_field\"></span><BR></td><tr><td>Метки и раны:<td><span class=\"paper_field\"></span><BR></td><tr><td>Вероятная причина смерти:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR>Детали:<BR><span class=\"paper_field\"></span><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Вскрытие провёл:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
 	footer = footer_signstamp
+
+/obj/item/paper/form/NT_SUP_01
+	name = "Форма NT-SUP-01"
+	id = "NT-SUP-01"
+	altername = "Заявление о получении ресурсов в личное использование"
+	category = "Отдел снабжения"
+	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Заявление о получении ресурсов в личное использование</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR><BR>Список необходимых ресурсов: <span class=\"paper_field\"></span><BR>Причина запроса ресурсов: <span class=\"paper_field\"></span><BR><BR>Итоговая стоимость: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Цена назначается сотрудником отдела снабжения, от 10 до 200 кредитов за единицу ресурса, определение цены зависит от ценности указанного ресурса. Обработанное заявление будет изучено для регулирования счета сотрудника отдела снабжения. В случае утери кредитов заявителя, принявший сотрудник заказ выплачивает стоимость запрошенных ресурсов. Выплата за обработанный заказ составляет 10%.<BR></font>"
+	footer = null
+
+/obj/item/paper/form/NT_SUP_02
+	name = "Форма NT-SUP-02"
+	id = "NT-SUP-02"
+	altername = "Регистрационная форма для подтверждения заказа"
+	category = "Отдел снабжения"
+	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Регистрационная форма для подтверждения заказа</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR>Подробное объяснение о необходимости заказа: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR>Подпись руководителя: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Данная форма является приложением для оригинального автоматического документа, полученного с рук заявителя. Для подтверждения заказа заявителя необходимы указанные подписи и соответствующие печати отдела по заказу.<BR></font>"
+	footer = null
+
+/obj/item/paper/form/NT_SUP_03
+	name = "Форма NT-SUP-03"
+	id = "NT-SUP-03"
+	altername = "Заявление о получении ресурсов"
+	category = "Отдел снабжения"
+	info = "<font face=\"Verdana\" color=black><center><H3>Отдел снабжения</H3></center><center><B>Заявление о получении ресурсов</B></center><BR>Имя заявителя: <span class=\"paper_field\"></span><BR>Должность заявителя: <span class=\"paper_field\"></span><BR><BR>Список необходимых ресурсов: <span class=\"paper_field\"></span><BR>Причина запроса ресурсов: <span class=\"paper_field\"></span><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><BR><HR><center><font size = \"1\"><I>Все полученное имущество принадлежит Nanotrasen, в случае утери указанного списка ресурсов, все затраты на восстановление будут вычтены из счета заявителя.<BR></font>"
+	footer = null
 
 /obj/item/paper/deltainfo
 	name = "Информационный буклет НСС Керберос"
