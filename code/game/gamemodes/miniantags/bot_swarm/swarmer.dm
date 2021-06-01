@@ -83,7 +83,7 @@
 	attacktext = "shocks"
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
-	speed = 0
+	speed = 1
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	faction = list("swarmer")

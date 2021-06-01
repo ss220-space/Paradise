@@ -70,10 +70,7 @@
 
 /mob/living/simple_animal/slaughter/Life(seconds, times_fired)
 	..()
-	if(boost < world.time)
-		speed = 1
-	else
-		speed = 0
+	speed = 1
 
 /mob/living/simple_animal/slaughter/proc/attempt_objectives()
 	if(mind)
@@ -110,8 +107,6 @@
 
 /mob/living/simple_animal/slaughter/phasein()
 	. = ..()
-	speed = 0
-	boost = world.time + 60
 
 // Cult slaughter demon
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
