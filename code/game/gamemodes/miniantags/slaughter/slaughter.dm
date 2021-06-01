@@ -34,7 +34,6 @@
 	melee_damage_upper = 30
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	var/boost = 0
 
 
 	var/devoured = 0
