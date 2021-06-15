@@ -215,7 +215,7 @@
 	piles += new /datum/seed_pile(O.plantname, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
 	return
 	
-	//Расширенный инвентарь и tgui
+//Расширенный инвентарь и tgui
 /datum/seed_pile/extended
 	var/id_string = ""
 	var/list/seeds = list() //Храним список объектов, чтобы не искать циклом по contents
