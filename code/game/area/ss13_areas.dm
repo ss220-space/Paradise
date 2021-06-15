@@ -1360,6 +1360,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Medical Research"
 	icon_state = "medresearch"
 
+/area/medical/research/nhallway
+	name = "\improper RnD North Hallway"
+	icon_state = "medresearch"
+
+/area/medical/research/shallway
+	name = "\improper RnD South Hallway"
+	icon_state = "medresearch"
+
+/area/medical/research/restroom
+	name = "\improper RnD Restroom"
+	icon_state = "medresearch"
+
 /area/medical/research_shuttle_dock
 	name = "\improper Research Shuttle Dock"
 	icon_state = "medresearch"
