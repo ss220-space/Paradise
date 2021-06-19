@@ -588,6 +588,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		sacrifices_used += SOULS_TO_REVIVE
 		mob_to_revive.revive()
 		mob_to_revive.grab_ghost()
+		mob_to_revive.eye_blurry = 0
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
