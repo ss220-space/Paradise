@@ -1236,12 +1236,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
+		update_blind_effects()
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
 		loc = card//Throw AI into the card.
-		aiRestorePowerRoutine = 0 //fix blind AI lacks power
-		update_blind_effects()
-		update_sight()
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
