@@ -185,12 +185,6 @@
 	flags = BLOCKHAIR
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-	toggle_message = "You attach the face shield to the"
-	alt_toggle_message = "You remove the face shield from the"
-	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
-	can_toggle = 1
-	toggle_cooldown = 20
-	toggle_sound = 'sound/items/zippoclose.ogg'
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/redtaghelm
