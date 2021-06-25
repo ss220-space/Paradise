@@ -17,7 +17,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/species/drask/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/attack_self(mob/user)
@@ -186,6 +188,12 @@
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	dog_fashion = null
+	toggle_message = "You attach the face shield to the"
+	alt_toggle_message = "You remove the face shield from the"
+	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
+	can_toggle = 1
+	toggle_cooldown = 20
+	toggle_sound = 'sound/items/zippoclose.ogg'
 
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
