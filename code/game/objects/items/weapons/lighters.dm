@@ -195,14 +195,14 @@
 	icon_off = "zippo_cmo"
 
 /obj/item/lighter/zippo/ce
-	name = "Chief Engineer engraved zippo"
+	name = "Chief Engineer zippo"
 	desc = "A limited edition Zippo for NT Heads. Somebody've tried to repair cover with blue tape."
 	icon_state = "zippo_ce"
 	icon_on = "zippo_ce_on"
 	icon_off = "zippo_ce"
 
 /obj/item/lighter/zippo/rd
-	name = "Research Director engraved zippo"
+	name = "Research Director zippo"
 	desc = "A limited edition Zippo for NT Heads. Uses advanced tech to make fire from plasma."
 	icon_state = "zippo_rd"
 	icon_on = "zippo_rd_on"
