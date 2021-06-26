@@ -86105,6 +86105,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/item/lighter/zippo/rd{
+	name = "Research Director zippo";
 	pixel_x = 9;
 	pixel_y = 7
 	},
