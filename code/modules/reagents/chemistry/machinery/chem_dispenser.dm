@@ -40,7 +40,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
-	dispensable_reagents = sortList(dispensable_reagents)
+	dispensable_reagents = sortAssoc(dispensable_reagents)
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
@@ -85,7 +85,7 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
-	upgrade_reagents = null
+	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/New()
 	..()
@@ -110,7 +110,7 @@
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
-			dispensable_reagents |= upgrade_reagents
+			dispensable_reagents = sortAssoc(mergeLists(dispensable_reagents, upgrade_reagents))
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -188,8 +188,7 @@
 		data["beakerMaxVolume"] = null
 
 	var/chemicals[0]
-	var/assocSortedDispensableReagents = sortAssoc(dispensable_reagents)
-	for(var/re in assocSortedDispensableReagents)
+	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
