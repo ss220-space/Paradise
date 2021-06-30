@@ -16,7 +16,7 @@ Bonus
 
 /datum/symptom/painkiller
 
-	name = "Neural Blokade"
+	name = "Neural Blockade"
 	stealth = -3
 	resistance = -2
 	stage_speed = -1
