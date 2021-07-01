@@ -241,7 +241,7 @@
 
 	return id_string
 
-/proc/generate_strainText(obj/item/seeds/O) //Генерация отображаемого текста описания
+/obj/machinery/seed_extractor/proc/generate_strainText(obj/item/seeds/O) //Генерация отображаемого текста описания
 	var/strain_text = ""
 
 	for (var/datum/plant_gene/reagent/G in O.genes)
