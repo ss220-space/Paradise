@@ -222,11 +222,10 @@
 
 /datum/seed_pile/extended/New(obj/item/seeds/O)
 	..(O.plantname, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
-	src.id_string = generate_seedId(O)
 	src.seeds += O
 
 /obj/machinery/seed_extractor/proc/generate_seedId(obj/item/seeds/O) //Генерация строки-идентификатора для поиска
-	var/id_string = copytext("[O.type]",16)
+	var/id_string = copytext("[O.type]",17)
 
 	id_string += "[O.lifespan]_[O.endurance]_[O.maturation]_[O.production]_[O.yield]_[O.potency]_[O.weed_rate]_[O.weed_chance]"
 
@@ -275,7 +274,9 @@
 			N.seeds += O
 			return
 
-	piles += new /datum/seed_pile/extended(O)
+	var/datum/seed_pile/extended/NP = new(O)
+	NP.id_string = id_string
+	piles += NP
 	return
 
 /obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
