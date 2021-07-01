@@ -225,7 +225,7 @@
 	src.id_string = generate_seedId(O)
 	src.seeds += O
 
-/proc/generate_seedId(obj/item/seeds/O) //Генерация строки-идентификатора для поиска
+/obj/machinery/seed_extractor/proc/generate_seedId(obj/item/seeds/O) //Генерация строки-идентификатора для поиска
 	var/id_string = copytext("[O.type]",16)
 
 	id_string += "[O.lifespan]_[O.endurance]_[O.maturation]_[O.production]_[O.yield]_[O.potency]_[O.weed_rate]_[O.weed_chance]"
