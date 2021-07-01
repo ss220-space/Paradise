@@ -260,7 +260,7 @@
 	if(istype(O.loc,/mob))
 		var/mob/M = O.loc
 		if(!M.drop_item())
-			return 0
+			return FALSE
 	else if(istype(O.loc,/obj/item/storage))
 		var/obj/item/storage/S = O.loc
 		S.remove_from_storage(O,src)
