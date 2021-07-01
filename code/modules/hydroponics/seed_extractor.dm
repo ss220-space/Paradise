@@ -266,7 +266,7 @@
 		S.remove_from_storage(O,src)
 
 	O.forceMove(src)
-	. = 1
+	. = TRUE
 
 	var/id_string = generate_seedId(O)
 	for (var/datum/seed_pile/extended/N in piles)
