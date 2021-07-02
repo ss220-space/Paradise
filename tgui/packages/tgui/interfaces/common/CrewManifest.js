@@ -82,7 +82,6 @@ export const CrewManifest = (props, context) => {
   */
   // And thats it
 
-
   const {
     manifest,
   } = finalData;
@@ -110,6 +109,18 @@ export const CrewManifest = (props, context) => {
         )}
         level={2}>
         {ManifestTable(heads)}
+      </Section>
+
+      <Section
+        title={(
+          <Box backgroundColor={deptCols.procedure} m={-1} pt={1} pb={1}>
+            <Box ml={1} textAlign="center" fontSize={1.4}>
+              Procedure
+            </Box>
+          </Box>
+        )}
+        level={2}>
+        {ManifestTable(ser.filter((ser.rank === "Magistrate") || (ser.rank === "Internal Affairs Agent") || (ser.rank === "Nanotrasen Representative") || (ser.rank === "Human Resources Agent")))}
       </Section>
 
       <Section
