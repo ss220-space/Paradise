@@ -19248,6 +19248,14 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/lighter/zippo/hos{
+	pixel_x = -6;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -42734,6 +42742,10 @@
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/clothing/mask/cigarette/cigar,
+/obj/item/lighter/zippo/cap{
+	pixel_x = 8;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -45180,6 +45192,10 @@
 	},
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 5
+	},
+/obj/item/lighter/zippo/ce{
+	pixel_x = 9;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52410,6 +52426,14 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/item/lighter/zippo/hop{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 5;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -82309,6 +82333,14 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/storage/fancy/cigarettes/cigpack_midori{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/obj/item/lighter/zippo/cmo{
+	pixel_x = -5;
+	pixel_y = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -86072,6 +86104,14 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/lighter/zippo/rd{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_random{
+	pixel_x = 6;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
