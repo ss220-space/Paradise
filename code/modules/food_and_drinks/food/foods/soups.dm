@@ -10,7 +10,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#785210"
 	bitesize = 5
-	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	list_reagents = list("protein" = 8, "water" = 5, "vitamin" = 4)
 	tastes = list("meatball" = 1)
 
 /obj/item/reagent_containers/food/snacks/slimesoup
@@ -47,7 +47,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#AFC4B5"
 	bitesize = 5
-	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	list_reagents = list("plantmatter" = 8, "water" = 5, "vitamin" = 4)
 	tastes = list("vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/nettlesoup
@@ -57,7 +57,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#AFC4B5"
 	bitesize = 5
-	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	list_reagents = list("plantmatter" = 8, "water" = 5, "vitamin" = 4)
 	tastes = list("nettles" = 1)
 
 /obj/item/reagent_containers/food/snacks/mysterysoup
@@ -98,7 +98,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#D92929"
 	bitesize = 5
-	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
+	list_reagents = list("plantmatter" = 5, "tomatojuice" = 10, "vitamin" = 3)
 	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/misosoup
@@ -107,7 +107,7 @@
 	icon_state = "misosoup"
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
-	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	list_reagents = list("plantmatter" = 7, "vitamin" = 2)
 	tastes = list("miso" = 1)
 
 /obj/item/reagent_containers/food/snacks/mushroomsoup
@@ -117,7 +117,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#E386BF"
 	bitesize = 5
-	list_reagents = list("nutriment" = 8, "vitamin" = 4)
+	list_reagents = list("plantmatter" = 8, "vitamin" = 4)
 	tastes = list("mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/beetsoup
@@ -127,7 +127,7 @@
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	filling_color = "#FAC9FF"
-	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	list_reagents = list("plantmatter" = 7, "vitamin" = 2)
 	tastes = list("beet" = 1)
 
 /obj/item/reagent_containers/food/snacks/beetsoup/New()
@@ -145,7 +145,7 @@
 	icon_state = "stew"
 	filling_color = "#9E673A"
 	bitesize = 7
-	list_reagents = list("nutriment" = 10, "oculine" = 5, "tomatojuice" = 5, "vitamin" = 5)
+	list_reagents = list("plantmatter" = 8, "protein" = 6, "oculine" = 5, "tomatojuice" = 5, "vitamin" = 5)
 	tastes = list("tomato" = 1, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/stewedsoymeat
@@ -153,7 +153,7 @@
 	desc = "Even non-vegetarians will LOVE this!"
 	icon_state = "stewedsoymeat"
 	trash = /obj/item/trash/plate
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list("plantmatter" = 8)
 	tastes = list("soy" = 1, "vegetables" = 1)
 
 
@@ -168,7 +168,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#FF3C00"
 	bitesize = 5
-	list_reagents = list("nutriment" = 5, "capsaicin" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	list_reagents = list("plantmatter" = 5, "capsaicin" = 2, "tomatojuice" = 2, "vitamin" = 2)
 	tastes = list("hot peppers" = 1, "tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/coldchili
@@ -178,5 +178,5 @@
 	filling_color = "#2B00FF"
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
-	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	list_reagents = list("plantmatter" = 5, "frostoil" = 2, "tomatojuice" = 2, "vitamin" = 2)
 	tastes = list("tomato" = 1, "mint" = 1)

@@ -23,7 +23,7 @@
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 2, "chocolate" = 4)
+	list_reagents = list("plantmatter" = 2, "chocolate" = 4)
 	tastes = list("chocolate" = 1)
 
 /obj/item/reagent_containers/food/snacks/candy/caramel
@@ -39,21 +39,21 @@
 	desc = "A hard, brittle candy with a distinctive taste."
 	icon_state = "toffee"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("plantmatter" = 3, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/nougat
 	name = "nougat"
 	desc = "A soft, chewy candy commonly found in candybars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("plantmatter" = 3, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/taffy
 	name = "saltwater taffy"
 	desc = "Old fashioned saltwater taffy. Chewy!"
 	icon_state = "candy1"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("plantmatter" = 3, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/taffy/New()
 	..()
@@ -101,14 +101,14 @@
 	desc = "A little treat for blood donors."
 	trash = /obj/item/trash/candy
 	bitesize = 5
-	list_reagents = list("nutriment" = 10, "sugar" = 3)
+	list_reagents = list("plantmatter" = 10, "sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/candy_corn
 	name = "candy corn"
 	desc = "It's a handful of candy corn. Cannot be stored in a detective's hat, alas."
 	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
-	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	list_reagents = list("plantmatter" = 4, "sugar" = 2)
 	tastes = list("candy corn" = 1)
 
 // ***********************************************************

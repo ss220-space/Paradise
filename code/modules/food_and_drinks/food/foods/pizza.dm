@@ -14,7 +14,7 @@
 	desc = "The golden standard of pizzas."
 	icon_state = "pizzamargherita"
 	slice_path = /obj/item/reagent_containers/food/snacks/margheritaslice
-	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
+	list_reagents = list("plantmatter" = 30, "tomatojuice" = 6, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/margheritaslice
 	name = "margherita slice"
@@ -22,7 +22,7 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzamargheritaslice"
 	filling_color = "#BAA14C"
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list("plantmatter" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
@@ -96,7 +96,7 @@
 	desc = "Gastronomists have yet to classify this dish as 'pizza'."
 	icon_state = "macpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
-	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
+	list_reagents = list("plantmatter" = 25, "protein" = 5, "vitamin" = 5)
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 

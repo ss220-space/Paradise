@@ -24,7 +24,7 @@
 	id = "nutriment"
 	description = "A questionable mixture of various pure nutrients commonly found in processed foods."
 	reagent_state = SOLID
-	nutriment_factor = 15 * REAGENTS_METABOLISM
+	nutriment_factor = 10 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 	var/brute_heal = 1
 	var/burn_heal = 0
@@ -65,12 +65,20 @@
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"
 	id = "protein"
+	nutriment_factor = 30 * REAGENTS_METABOLISM
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
+
+
+/datum/reagent/consumable/nutriment/protein/on_mob_life(mob/living/M)
+	if(isskrell(M))
+		M.adjustToxLoss(1)
+	return ..()
 
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
+	nutriment_factor = 25 * REAGENTS_METABOLISM
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
 
@@ -98,6 +106,7 @@
 	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_description = "sweetness"
 	taste_mult = 1.5
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -133,6 +142,7 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
 	taste_description = "soy"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/ketchup
 	name = "Ketchup"
@@ -142,6 +152,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
@@ -317,6 +328,7 @@
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
+	diet_flags = DIET_HERB | DIET_OMNI
 	taste_description = "bitter cocoa"
 
 /datum/reagent/consumable/vanilla
@@ -327,6 +339,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FFFACD"
 	taste_description = "bitter vanilla"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
@@ -336,6 +349,7 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	taste_description = "chocolate"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
@@ -349,6 +363,7 @@
 	color = "#FEFEFE"
 	taste_description = "garlic"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -389,6 +404,7 @@
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/cornoil/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -427,6 +443,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "cheap ramen and memories"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
@@ -466,6 +483,7 @@
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "rice"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/cherryjelly
 	name = "Cherry Jelly"
@@ -578,6 +596,8 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.2)
+	if(isvulpkanin(M))
+		M.adjustToxLoss(1)
 	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
@@ -628,8 +648,9 @@
 	reagent_state = LIQUID
 	color = "#B4B400"
 	metabolization_rate = 0.2
-	nutriment_factor = 2.5 * REAGENTS_METABOLISM
+	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "broth"
+	diet_flags = DIET_CARN | DIET_OMNI
 
 /datum/reagent/consumable/cheese
 	name = "Cheese"
@@ -976,6 +997,7 @@
 	color = "#d3a308"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "fruity mushroom"
+	diet_flags = DIET_HERB | DIET_OMNI
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -18,7 +18,7 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
-	dietflags = DIET_OMNI
+	dietflags = DIET_CARN
 	hunger_drain = 0.17
 	speed_mod = -0.5
 	burn_mod = 2

@@ -11,7 +11,7 @@
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
 	junkiness = 20
-	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
+	list_reagents = list("plantmatter" = 1, "sodiumchloride" = 1, "sugar" = 3)
 	tastes = list("crisps" = 1)
 
 /obj/item/reagent_containers/food/snacks/sosjerky
@@ -21,7 +21,7 @@
 	trash = /obj/item/trash/sosjerky
 	filling_color = "#631212"
 	junkiness = 25
-	list_reagents = list("protein" = 1, "sugar" = 3)
+	list_reagents = list("protein" = 2, "sugar" = 3)
 	tastes = list("chewy beef" = 1)
 
 /obj/item/reagent_containers/food/snacks/pistachios
@@ -61,7 +61,7 @@
 	trash = /obj/item/trash/cheesie
 	filling_color = "#FFA305"
 	junkiness = 25
-	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
+	list_reagents = list("protein" = 1, "fake_cheese" = 2, "sugar" = 3)
 	tastes = list("cheese" = 1, "crisps" = 2)
 
 /obj/item/reagent_containers/food/snacks/syndicake
@@ -71,7 +71,7 @@
 	filling_color = "#FF5D05"
 	trash = /obj/item/trash/syndi_cakes
 	bitesize = 3
-	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
+	list_reagents = list("plantmatter" = 4, "salglu_solution" = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/tastybread
@@ -81,7 +81,7 @@
 	trash = /obj/item/trash/tastybread
 	filling_color = "#A66829"
 	junkiness = 20
-	list_reagents = list("nutriment" = 2, "sugar" = 4)
+	list_reagents = list("plantmatter" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
 
 
