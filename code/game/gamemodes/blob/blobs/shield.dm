@@ -1,8 +1,8 @@
 /obj/structure/blob/shield
-	name = "strong blob"
+	name = "Укрепленный Блоб"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_shield"
-	desc = "Some blob creature thingy"
+	desc = "Очередное порождение Блоба."
 	max_integrity = 150
 	brute_resist = 0.25
 	explosion_block = 3
@@ -17,7 +17,7 @@
 	if(obj_integrity < max_integrity * 0.5)
 		icon_state = "[initial(icon_state)]_damaged"
 		name = "weakened [initial(name)]"
-		desc = "A wall of twitching tendrils."
+		desc = "Стена подергивающихся усиков слизи."
 		atmosblock = FALSE
 	else
 		icon_state = initial(icon_state)
@@ -31,8 +31,8 @@
 	return 0
 
 /obj/structure/blob/shield/reflective
-	name = "reflective blob"
-	desc = "A solid wall of slightly twitching tendrils with a reflective glow."
+	name = "Отражающий Блоб"
+	desc = "Сплошная стена из слегка подергивающихся усиков с светоотражающим свечением."
 	icon_state = "blob_glow"
 	max_integrity = 100
 	brute_resist = 0.5

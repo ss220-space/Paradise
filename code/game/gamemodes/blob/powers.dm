@@ -2,7 +2,7 @@
 
 /mob/camera/blob/proc/can_buy(var/cost = 15)
 	if(blob_points < cost)
-		to_chat(src, "<span class='warning'>You cannot afford this!</span>")
+		to_chat(src, "<span class='warning'>Вы не можете себе этого позволить!</span>")
 		return 0
 	add_points(-cost)
 	return 1
@@ -10,42 +10,42 @@
 // Power verbs
 
 /mob/camera/blob/verb/transport_core()
-	set category = "Blob"
-	set name = "Jump to Core"
-	set desc = "Transport back to your core."
+	set category = "Блоб"
+	set name = "Перемещение к Ядру"
+	set desc = "Переместиться обратно к вашему Ядру."
 
 	if(blob_core)
 		src.loc = blob_core.loc
 
 /mob/camera/blob/verb/jump_to_node()
-	set category = "Blob"
-	set name = "Jump to Node"
-	set desc = "Transport back to a selected node."
+	set category = "Блоб"
+	set name = "Перемещение к Узлу"
+	set desc = "Переместиться обратно к выбранному Ззлу."
 
 	if(GLOB.blob_nodes.len)
 		var/list/nodes = list()
 		for(var/i = 1; i <= GLOB.blob_nodes.len; i++)
 			var/obj/structure/blob/node/B = GLOB.blob_nodes[i]
-			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
-		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
+			nodes["Узел Блоба #[i] ([get_location_name(B)])"] = B
+		var/node_name = input(src, "Выберите узел для перемещения.", "Перемещение к Узлу") in nodes
 		var/obj/structure/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
 			src.loc = chosen_node.loc
 
 /mob/camera/blob/verb/toggle_node_req()
-	set category = "Blob"
-	set name = "Toggle Node Requirement"
-	set desc = "Toggle requiring nodes to place resource and factory blobs."
+	set category = "Блоб"
+	set name = "Переключить Требования Узла"
+	set desc = "Переключение требуется узлу для размещения Фабрик и Ресурсных Блобов."
 	nodes_required = !nodes_required
 	if(nodes_required)
-		to_chat(src, "<span class='warning'>You now require a nearby node or core to place factory and resource blobs.</span>")
+		to_chat(src, "<span class='warning'>Вам требуется ближайший узел или ядро для размещения Фабрик и Ресурсных Блобов.</span>")
 	else
-		to_chat(src, "<span class='warning'>You no longer require a nearby node or core to place factory and resource blobs.</span>")
+		to_chat(src, "<span class='warning'>Вам больше не требуется ближайший узел или ядро для размещения Фабрик и Ресурсных Блобов.</span>")
 
 /mob/camera/blob/verb/create_shield_power()
-	set category = "Blob"
-	set name = "Create/Upgrade Shield Blob (15)"
-	set desc = "Create/Upgrade a shield blob. Using this on an existing shield blob turns it into a reflective blob, capable of reflecting most energy projectiles but making it much weaker than usual to brute attacks."
+	set category = "Блоб"
+	set name = "Создать/Улучшить Укрепленного Блоба (15)"
+	set desc = "Создать/Улучшить Укрепленного Блоба. Использование этого на существующем Укрепленном Блобе преобразует его в Отражающего Блоба, способного отражать большинство энергетических снарядов, но делает его намного слабее для грубых атак."
 
 	var/turf/T = get_turf(src)
 	create_shield(T)
@@ -57,11 +57,11 @@
 
 	if(!S)
 		if(!B)//We are on a blob
-			to_chat(src, "There is no blob here!")
+			to_chat(src, "Здесь нет Блоба!")
 			return
 
 		else if(!istype(B, /obj/structure/blob/normal))
-			to_chat(src, "Unable to use this blob, find a normal one.")
+			to_chat(src, "Невозможно использовать этого блоба, найди другой.")
 			return
 
 		else if(!can_buy(15))
@@ -72,27 +72,27 @@
 	else
 
 		if(istype(S, /obj/structure/blob/shield/reflective))
-			to_chat(src, "<span class='warning'>There's already a reflector blob here!</span>")
+			to_chat(src, "<span class='warning'>Здесь уже есть Отражающий Блоб!</span>")
 			return
 
 
 		else if(S.obj_integrity < S.max_integrity * 0.5)
-			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
+			to_chat(src, "<span class='warning'>Этот Укрепленный Блоб слишком поврежден, чтобы его изменить!</span>")
 			return
 
 		else if (!can_buy(15))
 			return
 
-		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")
+		to_chat(src, "<span class='warning'>Вы выделяете отражающую слизь на Укрепленного Блоба, позволяя ему отражать энергетические снаряды за счет снижение сопротивления к грубым атакам.</span>")
 
 		S.change_to(/obj/structure/blob/shield/reflective)
 		S.color = blob_reagent_datum.color
 	return
 
 /mob/camera/blob/verb/create_resource()
-	set category = "Blob"
-	set name = "Create Resource Blob (40)"
-	set desc = "Create a resource tower which will generate points for you."
+	set category = "Блоб"
+	set name = "Создать Ресурсного Блоба (40)"
+	set desc = "Создание Ресурсного Блоба будет приносить вам очки."
 
 
 	var/turf/T = get_turf(src)
@@ -103,20 +103,20 @@
 	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		to_chat(src, "There is no blob here!")
+		to_chat(src, "Здесь нет Блоба!")
 		return
 
 	if(!istype(B, /obj/structure/blob/normal))
-		to_chat(src, "Unable to use this blob, find a normal one.")
+		to_chat(src, "Невозможно использовать этого блоба, найди другой.")
 		return
 
 	for(var/obj/structure/blob/resource/blob in orange(4, T))
-		to_chat(src, "There is a resource blob nearby, move more than 4 tiles away from it!")
+		to_chat(src, "Поблизости есть Ресурсный Блоб, размести новый за 4 клетки от него!")
 		return
 
 	if(nodes_required)
 		if(!(locate(/obj/structure/blob/node) in orange(3, T)) && !(locate(/obj/structure/blob/core) in orange(4, T)))
-			to_chat(src, "<span class='warning'>You need to place this blob closer to a node or core!</span>")
+			to_chat(src, "<span class='warning'>Нужно разместить этого блоба ближе к Ядру или Узлу!</span>")
 			return //handholdotron 2000
 
 	if(!can_buy(40))
@@ -131,9 +131,9 @@
 	return
 
 /mob/camera/blob/verb/create_node()
-	set category = "Blob"
-	set name = "Create Node Blob (60)"
-	set desc = "Create a Node."
+	set category = "Блоб"
+	set name = "Создать Узел Блоба (60)"
+	set desc = "Создать Узел."
 
 
 	var/turf/T = get_turf(src)
@@ -144,15 +144,15 @@
 	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		to_chat(src, "There is no blob here!")
+		to_chat(src, "Здесь нет Блоба!")
 		return
 
 	if(!istype(B, /obj/structure/blob/normal))
-		to_chat(src, "Unable to use this blob, find a normal one.")
+		to_chat(src, "Невозможно использовать этого блоба, найди другой.")
 		return
 
 	for(var/obj/structure/blob/node/blob in orange(5, T))
-		to_chat(src, "There is another node nearby, move more than 5 tiles away from it!")
+		to_chat(src, "Поблизойти есть другой Узел, размести новый за 5 клеток от него!")
 		return
 
 	if(!can_buy(60))
@@ -167,9 +167,9 @@
 
 
 /mob/camera/blob/verb/create_factory()
-	set category = "Blob"
-	set name = "Create Factory Blob (60)"
-	set desc = "Create a Spore producing blob."
+	set category = "Блоб"
+	set name = "Создать Фабрику Блоба (60)"
+	set desc = "Создает Фабрику производящую Споровиков Блоба."
 
 
 	var/turf/T = get_turf(src)
@@ -179,20 +179,20 @@
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
-		to_chat(src, "You must be on a blob!")
+		to_chat(src, "Здесь нет Блоба!")
 		return
 
 	if(!istype(B, /obj/structure/blob/normal))
-		to_chat(src, "Unable to use this blob, find a normal one.")
+		to_chat(src, "Невозможно использовать этого блоба, найди другой.")
 		return
 
 	for(var/obj/structure/blob/factory/blob in orange(7, T))
-		to_chat(src, "There is a factory blob nearby, move more than 7 tiles away from it!")
+		to_chat(src, "Поблизости есть Фабрика Блоба, размести новый за 7 клеток от него!")
 		return
 
 	if(nodes_required)
 		if(!(locate(/obj/structure/blob/node) in orange(3, T)) && !(locate(/obj/structure/blob/core) in orange(4, T)))
-			to_chat(src, "<span class='warning'>You need to place this blob closer to a node or core!</span>")
+			to_chat(src, "<span class='warning'>Нужно разместить этого блоба ближе к Ядру или Узлу!</span>")
 			return //handholdotron 2000
 
 	if(!can_buy(60))
@@ -207,9 +207,9 @@
 
 
 /mob/camera/blob/verb/create_blobbernaut()
-	set category = "Blob"
-	set name = "Create Blobbernaut (60)"
-	set desc = "Create a powerful blob-being, a Blobbernaut"
+	set category = "Блоб"
+	set name = "Создать Блоббернаута (60)"
+	set desc = "Создать мощное порождение Блоба, Блоббернаута"
 
 	var/turf/T = get_turf(src)
 
@@ -218,11 +218,11 @@
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
-		to_chat(src, "You must be on a blob!")
+		to_chat(src, "Вы должны быть на Блобе!")
 		return
 
 	if(!istype(B, /obj/structure/blob/factory))
-		to_chat(src, "Unable to use this blob, find a factory blob.")
+		to_chat(src, "Невозможно изменить этого Блоба, найдите Фабрику Блоба!")
 		return
 
 	if(!can_buy(60))
@@ -237,22 +237,22 @@
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
+		var/list/candidates = SSghost_spawns.poll_candidates("Не хотите сыграть за Блоббернаута?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
 		if(candidates.len)
 			var/mob/C = pick(candidates)
 			if(C)
 				blobber.key = C.key
-				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
-				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
+				to_chat(blobber, "<span class='biggerdanger'>Ты Блоббернаут! Ты должен помогать всем порождениям Блоба в их миссии поглощения всего!</span>")
+				to_chat(blobber, "<span class='danger'>Ты исцеляешься стоя на порождениях Блоба, однако ты будешь медленно распадаться если будешь за их пределами.</span>")
 		if(!blobber.ckey)
 			blobber.AIStatus = AI_ON
 	return
 
 
 /mob/camera/blob/verb/relocate_core()
-	set category = "Blob"
-	set name = "Relocate Core (80)"
-	set desc = "Relocates your core to the node you are on, your old core will be turned into a node."
+	set category = "Блоб"
+	set name = "Переместить Ядро (80)"
+	set desc = "Перемещение вашего Ядра вместо Узла на котором вы находитесь, ваше старое ядро преобразуется в Узел."
 
 
 	var/turf/T = get_turf(src)
@@ -262,7 +262,7 @@
 
 	var/obj/structure/blob/node/B = locate(/obj/structure/blob/node) in T
 	if(!B)
-		to_chat(src, "You must be on a blob node!")
+		to_chat(src, "Вы должны находиться на Блобе!")
 		return
 
 	if(!can_buy(80))
@@ -276,9 +276,9 @@
 
 
 /mob/camera/blob/verb/revert()
-	set category = "Blob"
-	set name = "Remove Blob"
-	set desc = "Removes a blob. You will receive 30% cost refund for special Blob structures."
+	set category = "Блоб"
+	set name = "Убрать Блоба"
+	set desc = "Убирает Блоба. Вы получаете 30% от его стоимости."
 
 	var/turf/T = get_turf(src)
 	remove_blob(T)
@@ -289,25 +289,25 @@
 	if(!T)
 		return
 	if(!B)
-		to_chat(src, "<span class='warning'>There is no blob there!</span>")
+		to_chat(src, "<span class='warning'>Здесь нет Блоба!</span>")
 		return
 	if(B.point_return < 0)
-		to_chat(src, "<span class='warning'>Unable to remove this blob.</span>")
+		to_chat(src, "<span class='warning'>Невозможно убрать этого Блоба.</span>")
 		return
 	if(max_blob_points < B.point_return + blob_points)
-		to_chat(src, "<span class='warning'>You have too many resources to remove this blob!</span>")
+		to_chat(src, "<span class='warning'>У вас слишком много ресурсов для убирания этого Блоба!</span>")
 		return
 	if(B.point_return)
 		add_points(B.point_return)
-		to_chat(src, "<span class='notice'>Gained [B.point_return] resources from removing \the [B].</span>")
+		to_chat(src, "<span class='notice'>Получено [B.point_return] ресурсов от убранного [B].</span>") //Убрано \the после "убранного"
 	qdel(B)
 	return
 
 
 /mob/camera/blob/verb/expand_blob_power()
-	set category = "Blob"
-	set name = "Expand/Attack Blob (5)"
-	set desc = "Attempts to create a new blob in this tile. If the tile isn't clear we will attack it, which might clear it."
+	set category = "Блоб"
+	set name = "Расширить/Атака Блоба (5)"
+	set desc = "Попытка создания Блоба на этой плите. Если плиты не очищена, то мы атакуем её для расчистки."
 
 	var/turf/T = get_turf(src)
 	expand_blob(T)
@@ -320,12 +320,12 @@
 		return
 	var/obj/structure/blob/B = locate() in T
 	if(B)
-		to_chat(src, "There is a blob here!")
+		to_chat(src, "Здесь уже есть Блоб!")
 		return
 
 	var/obj/structure/blob/OB = locate() in circlerange(T, 1)
 	if(!OB)
-		to_chat(src, "There is no blob adjacent to you.")
+		to_chat(src, "Поблизости с вами нет Блоба.")
 		return
 
 	if(!can_buy(5))
@@ -343,15 +343,15 @@
 
 
 /mob/camera/blob/verb/rally_spores_power()
-	set category = "Blob"
-	set name = "Rally Spores"
-	set desc = "Rally the spores to move to your location."
+	set category = "Блоб"
+	set name = "Сбор Споровиков"
+	set desc = "Сбор Споровиков для перемещения на назначенную локацию."
 
 	var/turf/T = get_turf(src)
 	rally_spores(T)
 
 /mob/camera/blob/proc/rally_spores(var/turf/T)
-	to_chat(src, "You rally your spores.")
+	to_chat(src, "Вы собрали ваших Споровиков.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
 	if(!surrounding_turfs.len)
@@ -364,26 +364,26 @@
 	return
 
 /mob/camera/blob/verb/split_consciousness()
-	set category = "Blob"
-	set name = "Split consciousness (100) (One use)"
-	set desc = "Expend resources to attempt to produce another sentient overmind."
+	set category = "Блоб"
+	set name = "Разделить сознание (100) (Одно использование)"
+	set desc = "Потратить ресурсы для попытки создания еще одного Разумного Сверхразума."
 
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
 	if(split_used)
-		to_chat(src, "<span class='warning'>You have already produced an offspring.</span>")
+		to_chat(src, "<span class='warning'>Вы уже произвели потомка.</span>")
 		return
 	if(is_offspring)
-		to_chat(src, "<span class='warning'>You cannot split as an offspring of another Blob.</span>")
+		to_chat(src, "<span class='warning'>Вы не можете разделиться как потомок другого Блоба</span>")
 		return
 
 	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
 	if(!N)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		to_chat(src, "<span class='warning'>Необходим Узел для рождения вашего потомка.</span>")
 		return
 	if(!istype(N, /obj/structure/blob/node))
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		to_chat(src, "<span class='warning'>Необходим Узел для рождения вашего потомка.</span>")
 		return
 	if(!can_buy(100))
 		return
@@ -397,25 +397,25 @@
 		BL.blobwincount += initial(BL.blobwincount)
 
 /mob/camera/blob/verb/blob_broadcast()
-	set category = "Blob"
-	set name = "Blob Broadcast"
-	set desc = "Speak with your blob spores and blobbernauts as your mouthpieces. This action is free."
+	set category = "Блоб"
+	set name = "Вещание Блоба"
+	set desc = "Говорите со своими порождениями и Блобернаутами. Это бесплатно."
 
-	var/speak_text = clean_input("What would you like to say with your minions?", "Blob Broadcast", null)
+	var/speak_text = clean_input("Что вы хотели бы сказать вашим порождениям?", "Вещение Блоба", null)
 
 	if(!speak_text)
 		return
 	else
-		to_chat(usr, "You broadcast with your minions, <B>[speak_text]</B>")
+		to_chat(usr, "Вы вещаете своим порождениям, <B>[speak_text]</B>")
 	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
 		if(blob_minion.stat == CONSCIOUS)
 			blob_minion.say(speak_text)
 	return
 
 /mob/camera/blob/verb/create_storage()
-	set category = "Blob"
-	set name = "Create Storage Blob (40)"
-	set desc = "Create a storage tower which will store extra resources for you. This increases your max resource cap by 50."
+	set category = "Блоб"
+	set name = "Создать Хранилище Блоба (40)"
+	set desc = "Создание Хранилища Блоба, которое способно хранить для вас дополнительные ресурсы. Максимальное ограничение ресурсов увеличивается на 50."
 
 
 	var/turf/T = get_turf(src)
@@ -426,15 +426,15 @@
 	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		to_chat(src, "There is no blob here!")
+		to_chat(src, "Здесь нет Блоба!")
 		return
 
 	if(!istype(B, /obj/structure/blob/normal))
-		to_chat(src, "Unable to use this blob, find a normal one.")
+		to_chat(src, "Невозможно использовать этого Блоба, найди другой.")
 		return
 
 	for(var/obj/structure/blob/storage/blob in orange(3, T))
-		to_chat(src, "There is a storage blob nearby, move more than 4 tiles away from it!")
+		to_chat(src, "Поблизости есть Хранилище Блоба, размести новое за 4 клетками от него!")
 		return
 
 	if(!can_buy(40))
@@ -451,9 +451,9 @@
 
 
 /mob/camera/blob/verb/chemical_reroll()
-	set category = "Blob"
-	set name = "Reactive Chemical Adaptation (50)"
-	set desc = "Replaces your chemical with a random, different one."
+	set category = "Блоб"
+	set name = "Химическая Адаптация (50)"
+	set desc = "Заменяет ваше химическое вещество на другое случайное."
 
 	if(!can_buy(50))
 		return
@@ -469,23 +469,23 @@
 	for(var/mob/living/simple_animal/hostile/blob/BLO)
 		BLO.adjustcolors(blob_reagent_datum.complementary_color)
 
-	to_chat(src, "Your reagent is now: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")
+	to_chat(src, "Ваш реагент Блоба: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")
 
 /mob/camera/blob/verb/blob_help()
-	set category = "Blob"
-	set name = "*Blob Help*"
-	set desc = "Help on how to blob."
-	to_chat(src, "<b>As the overmind, you can control the blob!</b>")
-	to_chat(src, "Your blob reagent is: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")
-	to_chat(src, "<b>You can expand, which will attack people, damage objects, or place a Normal Blob if the tile is clear.</b>")
-	to_chat(src, "<i>Normal Blobs</i> will expand your reach and can be upgraded into special blobs that perform certain functions.")
-	to_chat(src, "<b>You can upgrade normal blobs into the following types of blob:</b>")
-	to_chat(src, "<i>Shield Blobs</i> are strong and expensive blobs which take more damage. In additon, they are fireproof and can block air, use these to protect yourself from station fires. Upgrading them again will result in a <i>Reflective blob</i>, capable of reflecting laser projectiles at the cost of the strong blob's extra health.")
-	to_chat(src, "<i>Resource Blobs</i> are blobs which produce more resources for you, build as many of these as possible to consume the station. This type of blob must be placed near node blobs or your core to work.")
-	to_chat(src, "<i>Factory Blobs</i> are blobs that spawn blob spores which will attack nearby enemies. This type of blob must be placed near node blobs or your core to work.")
-	to_chat(src, "<i>Blobbernauts</i> can be produced from factories for a cost, and are hard to kill, powerful, but ultimately dumb. The factory used to create one will be destroyed in the process.")
-	to_chat(src, "<i>Storage Blobs</i> are storage towers which will store extra resources for you. This increases your max resource cap by 50.")
-	to_chat(src, "<i>Node Blobs</i> are blobs which grow, like the core. Like the core it can activate resource and factory blobs.")
-	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
-	to_chat(src, "<b>Shortcuts:</b> Click = Expand Blob <b>|</b> CTRL Click = Create Shield Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Alt Click = Remove Blob")
-	to_chat(src, "Attempting to talk will send a message to all other <b>overminds</b>, allowing you to coordinate with them.")
+	set category = "Блоб"
+	set name = "*Справка Блоба*"
+	set desc = "Помощь в том как быть Блобом."
+	to_chat(src, "<b>Как Сверхразум, вы можете контролировать Блоба!</b>")
+	to_chat(src, "Ваш реагент Блоба: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")
+	to_chat(src, "<b>Вы можете расширяться на плитку, повреждать объекты и атаковать живых существ. </b>")
+	to_chat(src, "<i>Обычные Блобы</i> - расширяет ваш обзор и позволяет вам создавать специальные структуры на нем, выполняющие определенную функции.")
+	to_chat(src, "<b>Вы можете улучшить обычного Блоба на данные типы:</b>")
+	to_chat(src, "<i>Укрепленные Блобы</i> - сильные и дорогие Блобы, способные сдерживать больше урона. Кроме того они пожароустойчивы и блокируют воздух. Используйте их для защиты себя от огня. Улучшение изменит их на <i>Отражающего Блоба</i>, способного отражать лазерные снаряды за счет уменьшения дополнительного здоровья.")
+	to_chat(src, "<i>Ресурсные Блобы</i> - Блобы производящие для вас ресурсы. Размещаются возле Ядра или Узла. Создайте их как можно больше, чтобы скорее поглотить станцию.")
+	to_chat(src, "<i>Фабрики Блоба</i> - Порождает Споровиков атакующих ближайших врагов. Их можно контролировать, а также они могут захватить цель и сделать из него Споровика-Зомби. Размещается возле Ядра или Узла.")
+	to_chat(src, "<i>Блоббернауты</i> - могут быть произведены путем изменения Фабрик Блоба. Фабрика при этом будет уничтожена. Блоббернаутов сложно убить, они крайне мощные и тупые.")
+	to_chat(src, "<i>Хранилище Блоба</i> - хранилище дающее вам дополнительное место для ресурсов. Увеличивает максимальную вместимость на 50.")
+	to_chat(src, "<i>Узлы Блоба</i> - Блобы, которые расширяются как и Ядро. Позволяет размещать Фабрики и Ресурсных Блобов.")
+	to_chat(src, "<b>В дополнении к кнопкам на вашем экране, у вашего HUD'а имеются кнопки быстрого действия.</b>")
+	to_chat(src, "<b>Кнопки Быстрого Действия:</b> ЛКМ = Расширить Блоба <b>|</b> CTRL + ЛКМ = Создать Укрепленного Блоба <b>|</b> Средняя Кнопка Мыши = Сбор Споровиков <b>|</b> Alt + ЛКМ = Убрать Блоба")
+	to_chat(src, "Попытка поговорить отправит сообщения другим порождениям и <b>Сверхразумам</b>, используйте это для координации с ними.")

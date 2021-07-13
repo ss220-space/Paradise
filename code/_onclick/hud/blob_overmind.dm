@@ -13,8 +13,8 @@
 
 /obj/screen/blob/BlobHelp
 	icon_state = "ui_help"
-	name = "Blob Help"
-	desc = "Help on playing blob!"
+	name = "Справка Блоба"
+	desc = "Помощь в игре за Блоба!"
 
 /obj/screen/blob/BlobHelp/Click()
 	if(isovermind(usr))
@@ -23,8 +23,8 @@
 
 /obj/screen/blob/JumpToNode
 	icon_state = "ui_tonode"
-	name = "Jump to Node"
-	desc = "Moves your camera to a selected blob node."
+	name = "Переместиться к Узлу"
+	desc = "Перемещает камеру к выбранному Узлу Блоба."
 
 /obj/screen/blob/JumpToNode/Click()
 	if(isovermind(usr))
@@ -33,8 +33,8 @@
 
 /obj/screen/blob/JumpToCore
 	icon_state = "ui_tocore"
-	name = "Jump to Core"
-	desc = "Moves your camera to your blob core."
+	name = "Переместиться к Ядру"
+	desc = "Перемещает камеру к вашему Ядру Блоба."
 
 /obj/screen/blob/JumpToCore/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
@@ -49,8 +49,8 @@
 
 /obj/screen/blob/Blobbernaut
 	icon_state = "ui_blobbernaut"
-	name = "Produce Blobbernaut (60)"
-	desc = "Produces a strong, intelligent blobbernaut from a factory blob for 60 resources.<br>The factory blob will be destroyed in the process."
+	name = "Создать Блоббернаута (60)"
+	desc = "Произвести сильное разумное порождение Блоба на Фабрике Блоба за 60 ресурсов.<br>Фабрика Блоба уничтожается в процессе."
 
 /obj/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))
@@ -59,8 +59,8 @@
 
 /obj/screen/blob/StorageBlob
 	icon_state = "ui_storage"
-	name = "Produce Storage Blob (40)"
-	desc = "Produces a storage blob for 40 resources.<br>Storage blobs will raise your max resource cap by 50."
+	name = "Сохдать Хранилище Блоба (40)"
+	desc = "Создать Хранилище за 40 ресурсов.<br>Увеличиваем максимальную вместимость ресурсов на 50."
 
 /obj/screen/blob/StorageBlob/Click()
 	if(isovermind(usr))
@@ -69,8 +69,8 @@
 
 /obj/screen/blob/ResourceBlob
 	icon_state = "ui_resource"
-	name = "Produce Resource Blob (40)"
-	desc = "Produces a resource blob for 40 resources.<br>Resource blobs will give you resources every few seconds."
+	name = "Создать Ресурсного Блоба (40)"
+	desc = "Создает Ресурсного Блоба за 40 ресурсов.<br>Ресурсные Блобы будут давать вам ресурсы каждые несколько секунд ."
 
 /obj/screen/blob/ResourceBlob/Click()
 	if(isovermind(usr))
@@ -79,8 +79,8 @@
 
 /obj/screen/blob/NodeBlob
 	icon_state = "ui_node"
-	name = "Produce Node Blob (60)"
-	desc = "Produces a node blob for 60 resources.<br>Node blobs will expand and activate nearby resource and factory blobs."
+	name = "Создать Узел Блоба (60)"
+	desc = "Создает Узел Блоба за 60 ресурсов.<br>Узел Блоба позволит вам размещать вблизи Фабрику и Ресурсного Блоба."
 
 /obj/screen/blob/NodeBlob/Click()
 	if(isovermind(usr))
@@ -89,8 +89,8 @@
 
 /obj/screen/blob/FactoryBlob
 	icon_state = "ui_factory"
-	name = "Produce Factory Blob (60)"
-	desc = "Produces a factory blob for 60 resources.<br>Factory blobs will produce spores every few seconds."
+	name = "Создать Фабрику Блоба (60)"
+	desc = "Создает Фабрику Блоба за 60 ресурсов.<br>Фабрика Блоба будет выпускать Споровиков каждые несколько секунд."
 
 /obj/screen/blob/FactoryBlob/Click()
 	if(isovermind(usr))
@@ -99,8 +99,8 @@
 
 /obj/screen/blob/ReadaptChemical
 	icon_state = "ui_chemswap"
-	name = "Readapt Chemical (50)"
-	desc = "Randomly rerolls your chemical for 50 resources."
+	name = "Химическая Адаптация (50)"
+	desc = "Заменяет ваше химическое вещество на другое случайное за 50 ресурсов."
 
 /obj/screen/blob/ReadaptChemical/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
@@ -115,8 +115,8 @@
 
 /obj/screen/blob/RelocateCore
 	icon_state = "ui_swap"
-	name = "Relocate Core (80)"
-	desc = "Swaps a node and your core for 80 resources."
+	name = "Переместить Ядро (80)"
+	desc = "Меняет местами ваше Ядро и Узел за 80 ресурсов."
 
 /obj/screen/blob/RelocateCore/Click()
 	if(isovermind(usr))
@@ -125,8 +125,8 @@
 
 /obj/screen/blob/Split
 	icon_state = "ui_split"
-	name = "Split consciousness (100)"
-	desc = "Creates another Blob Overmind at the targeted node. One use only.<br>Offspring are unable to use this ability."
+	name = "Разделение Сознания (100)"
+	desc = "Создает еще одного разумного Сверхразума Блоба на выбронном Узле. Только одно использование.<br>Потомок не может использовать эту способность."
 
 /obj/screen/blob/Split/Click()
 	if(isovermind(usr))
@@ -138,7 +138,7 @@
 	var/obj/screen/using
 
 	blobpwrdisplay = new /obj/screen()
-	blobpwrdisplay.name = "blob power"
+	blobpwrdisplay.name = "Мощь Блоба"
 	blobpwrdisplay.icon_state = "block"
 	blobpwrdisplay.screen_loc = ui_health
 	blobpwrdisplay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -147,7 +147,7 @@
 	static_inventory += blobpwrdisplay
 
 	blobhealthdisplay = new /obj/screen()
-	blobhealthdisplay.name = "blob health"
+	blobhealthdisplay.name = "Здоровье Блоба"
 	blobhealthdisplay.icon_state = "block"
 	blobhealthdisplay.screen_loc = ui_internal
 	static_inventory += blobhealthdisplay

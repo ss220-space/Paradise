@@ -1,5 +1,5 @@
 /obj/structure/blob/factory
-	name = "factory blob"
+	name = "Фабрика Блоба"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
 	max_integrity = 200

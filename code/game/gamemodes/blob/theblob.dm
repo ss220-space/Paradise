@@ -3,7 +3,7 @@
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
-	desc = "Some blob creature thingy"
+	desc = "Порождение Блоба"
 	density = 0
 	opacity = 0
 	anchored = 1
@@ -204,21 +204,21 @@
 
 /obj/structure/blob/examine(mob/user)
 	. = ..()
-	. += "It looks like it's made of [get_chem_name()]."
-	. += "It looks like this chemical does: [get_chem_desc()]"
+	. += "Похоже он сделан из: [get_chem_name()]."
+	. += "Похоже, это химическое вещество: [get_chem_desc()]"
 
 
 /obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
-	return "unknown"
+	return "неизвестное"
 
 /obj/structure/blob/proc/get_chem_desc()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
-	return "something unknown"
+	return "что-то неизвестное"
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0
@@ -230,16 +230,16 @@
 	..()
 	if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
-		name = "fragile blob"
-		desc = "A thin lattice of slightly twitching tendrils."
+		name = "Хрупкий Блоб"
+		desc = "Тонкие решетки завитков с подергивающимися усиками слизи."
 		brute_resist = 0.5
 	else if(overmind)
 		icon_state = "blob"
-		name = "blob"
-		desc = "A thick wall of writhing tendrils."
+		name = "Блоб"
+		desc = "Плотная стена с всюду извивающимися усиками слизи."
 		brute_resist = 0.25
 	else
 		icon_state = "blob"
-		name = "dead blob"
-		desc = "A thick wall of lifeless tendrils."
+		name = "Мертвый Блоб"
+		desc = "Толстая стена из безжизненных усиков слизи."
 		brute_resist = 0.25

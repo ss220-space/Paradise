@@ -40,8 +40,8 @@
 ////////////////
 
 /mob/living/simple_animal/hostile/blob/blobspore
-	name = "blob"
-	desc = "Some blob thing."
+	name = "Споровик"
+	desc = "Порождение Блоба."
 	icon_state = "blobpod"
 	icon_living = "blobpod"
 	health = 40
@@ -90,8 +90,8 @@
 			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
 	maxHealth += 40
 	health = maxHealth
-	name = "blob zombie"
-	desc = "A shambling corpse animated by the blob."
+	name = "Зомбифицированный Блоб"
+	desc = "Шаркающий труп оживленный Блобом"
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
@@ -104,7 +104,7 @@
 	update_icons()
 	H.forceMove(src)
 	oldguy = H
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message("<span class='warning'>Тело [H.name] восстало!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// Only execute the below if we successfuly died
@@ -158,8 +158,8 @@
 /////////////////
 
 /mob/living/simple_animal/hostile/blob/blobbernaut
-	name = "blobbernaut"
-	desc = "Some HUGE blob thing."
+	name = "Блоббернаут"
+	desc = "ОГРОМНОЕ порождение Блоба."
 	icon_state = "blobbernaut"
 	icon_living = "blobbernaut"
 	icon_dead = "blobbernaut_dead"
@@ -195,8 +195,8 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/New()
 	..()
-	if(name == "blobbernaut")
-		name = text("blobbernaut ([rand(1, 1000)])")
+	if(name == "Блоббернаут")
+		name = text("Блоббернаут ([rand(1, 1000)])") //Тут могла быть проблема в том что он имя проверяет, а я его на русский изменил
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died
@@ -206,16 +206,16 @@
 	flick("blobbernaut_death", src)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/verb/communicate_overmind()
-	set category = "Blobbernaut"
-	set name = "Blob Telepathy"
-	set desc = "Send a message to the Overmind"
+	set category = "Блоббернаут"
+	set name = "Телепатия Блоба"
+	set desc = "Отправить сообщение Сверхразуму"
 
 	if(stat != DEAD)
 		blob_talk()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
-	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	var/message = input(src, "Высказал Сверхразуму", "Телепатия Блоба")
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Телепатия Блоба, <span class='name'>[name]([overmind])</span> <span class='message'>высказал, \"[message]\"</span></span></i></font>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

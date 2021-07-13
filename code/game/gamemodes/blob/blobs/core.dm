@@ -1,5 +1,5 @@
 /obj/structure/blob/core
-	name = "blob core"
+	name = "Ядро Блоба"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 400
@@ -106,9 +106,9 @@
 	if(!new_overmind)
 		// sendit
 		if(is_offspring)
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = src)
+			candidates = SSghost_spawns.poll_candidates("Не хотите сыграть за отпрыска Блоба?", ROLE_BLOB, TRUE, source = src)
 		else
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = src)
+			candidates = SSghost_spawns.poll_candidates("Не хотите сыграть за Блоба?", ROLE_BLOB, TRUE, source = src)
 
 		if(length(candidates))
 			C = pick(candidates)

@@ -1,6 +1,6 @@
 /mob/camera/blob
-	name = "Blob Overmind"
-	real_name = "Blob Overmind"
+	name = "Сверхразум Блоба"
+	real_name = "Сверхразум Блоба"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "marker"
 
@@ -67,7 +67,7 @@
 
 	if(src.client)
 		if(client.prefs.muted & MUTE_IC)
-			to_chat(src, "You cannot send IC messages (muted).")
+			to_chat(src, "Вы не можете отправить внутреигровое сообщение (IC muted).")
 			return
 		if(src.client.handle_spam_prevention(message,MUTE_IC))
 			return
@@ -85,8 +85,8 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
+	var/verb = "высказал,"
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Блоб Телепатия, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
@@ -100,10 +100,10 @@
 
 /mob/camera/blob/Stat()
 	..()
-	if(statpanel("Status"))
+	if(statpanel("Статус"))
 		if(blob_core)
-			stat(null, "Core Health: [blob_core.obj_integrity]")
-		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
+			stat(null, "Здоровье Ядра: [blob_core.obj_integrity]")
+		stat(null, "Накопленная Мощь: [blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
 	if(world.time < last_movement)
