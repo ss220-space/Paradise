@@ -62,7 +62,6 @@ body:
         - MAIN
         - EX
         - WL
-        - INF
         - PRIME
     validations:
       required: true
