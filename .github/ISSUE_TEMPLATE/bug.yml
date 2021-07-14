@@ -54,6 +54,13 @@ body:
     validations:
       required: true
   - type: input
+    id: server_name
+    attributes:
+      label: Название сервера
+      description: Укажите название сервера на котором произошел баг (MAIN, EX...)
+    validations:
+      required: true
+  - type: input
     id: server_time
     attributes:
       label: Примерное время и дата
