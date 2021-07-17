@@ -85,7 +85,7 @@
 	if(!message)
 		return
 
-	var/verb = "высказал,"
+	var/verb = "сообщил,"
 	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Блоб Телепатия, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for(var/mob/M in GLOB.mob_list)

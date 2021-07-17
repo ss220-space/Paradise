@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	log_game("[key_name(blob)] был выбран Блобом")
 	greet_blob(blobmind)
-	to_chat(blob, "<span class='userdanger'>Ты чувствуешь себя вялым и вздутым! Скоро ты лопнешь!</span>")
+	to_chat(blob, "<span class='userdanger'>Ты чувствуешь себя усталым и вздутым! У тебя мало времени перед тем как ты лопнешь!</span>")
 	spawn(600)
 		burst_blob(blobmind)
 	return 1
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode/blob/proc/greet_blob(var/datum/mind/blob)
 	to_chat(blob.current, "<span class='userdanger'>Вы заражены Блобом!</span>")
-	to_chat(blob.current, "<b>Ваше тело готово стать новым ядром Блоба, чтобы поглотить станцию.</b>")
+	to_chat(blob.current, "<b>Ваше тело готово стать новым ядром Блоба, которое поглотит станцию.</b>")
 	to_chat(blob.current, "<b>Найдите хорошее место для создания ядра и сокрушите станцию!</b>")
 	to_chat(blob.current, "<b>Когда вы нашли место, подождите момента вылупления ядра. Это произойдет автоматически и вы не можете ускорить процесс.</b>")
 	to_chat(blob.current, "<b>Если вы выйдете за пределы станции или в космос - вы погибнете. Убедитесь что ваше место имеет достаточную площадь для покрытия.</b>")
@@ -126,7 +126,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>Вы чувствуете что готовы взорваться, но выбрали неподходящее место. Нужно вернуться на станцию!</span>")
-					message_admins("[key_name_admin(C)] был в космосе когда носитель блоба взорвался, и умрет если [C.p_they()] [C.p_do()] не вернется на станцию.")
+					message_admins("[key_name_admin(C)] находился в космосе когда носитель блоба взорвался, и умрет если [C.p_they()] не вернется на станцию.")
 					spawn(300)
 						burst_blob(blob, 1)
 				else
@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		sleep(100)
 
-		show_message("<span class='userdanger'>Вы чувствуете вялость и вздутие.</span>")
+		show_message("<span class='userdanger'>Вы чувствуете усталость и вздутие.</span>")
 
 		sleep(wait_time)
 
@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			send_intercept(1)
 			declared = 1
 		if(1)
-			GLOB.event_announcement.Announce("Подтверждена вспышка биологической угрозы 5 уровня на борту [station_name()]. Весь персонал должен сдерживать вспышку.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			GLOB.event_announcement.Announce("Подтверждена вспышка биологической угрозы 5 уровня на борту станции [station_name()]. Весь персонал должен сдерживать вспышку.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(2)
 

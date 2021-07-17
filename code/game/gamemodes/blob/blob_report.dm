@@ -7,11 +7,11 @@
 		if(1)
 			interceptname = "Процедуры Реагирования на Биологическую Угрозу 5-6 уровня"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Биологическая опасность.</FONT><HR>"
-			intercepttext += "Отчеты указывают на передачу биологически опасного агента на [station_name()] во время последнего прибытия части экипажа.<BR>"
+			intercepttext += "Отчеты указывают на передачу биологически опасного агента на станцию [station_name()] во время последнего прибытия части экипажа.<BR>"
 			intercepttext += "Предварительный анализ организма классифицирует его как биологическую опасность 5 уровня. Происхождение неизвестно.<BR>"
-			intercepttext += "Nanotrasen издало директиву 7-10 для [station_name()]. Станция находится на карантине.<BR>"
-			intercepttext += "Приказы для всего персонала [station_name()]:<BR>"
-			intercepttext += " 1. Не покидать карантинную зону.<BR>"
+			intercepttext += "Nanotrasen издало директиву 7-10 для станции [station_name()]. Станция находится на карантине.<BR>"
+			intercepttext += "Приказы для всего персонала станции [station_name()]:<BR>"
+			intercepttext += " 1. Не покидайте карантинную зону.<BR>"
 			intercepttext += " 2. Опредилить местонахождение вспышек микроорганизмов на станции.<BR>"
 			intercepttext += " 3. При обнаружении, используйте любые необходимые средства для его сдерживания.<BR>"
 			intercepttext += " 4. Избегать повреждения основных инфраструктур станции.<BR>"
@@ -26,7 +26,7 @@
 
 			interceptname = "Classified [command_name()] Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Биологическая опасность.</FONT><HR>"
-			intercepttext += "Издана директива 7-12 для [station_name()].<BR>"
+			intercepttext += "Издана директива 7-12 для станции [station_name()].<BR>"
 			intercepttext += "Биологическая угроза вышла из под контроля и достигла критической массы.<BR>"
 			intercepttext += "Текущие приказы:<BR>"
 			intercepttext += "1. Защитить Диск Ядерной Аутентификации.<BR>"
@@ -41,7 +41,7 @@
 					to_chat(aiPlayer, "Законы обновлены: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("Отчет был загружен и распечатан на всех коммуникационных консолях.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	GLOB.event_announcement.Announce("Отчет был загружен и распечатан на всех коммуникационных консолях.", "Входящее Секретное Сообщение", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
 
 /datum/station_state
 	var/floor = 0

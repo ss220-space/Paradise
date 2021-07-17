@@ -1,5 +1,5 @@
 /obj/structure/blob/shield
-	name = "Укрепленный Блоб"
+	name = "Крепкий Блоб"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_shield"
 	desc = "Очередное порождение Блоба."
@@ -17,7 +17,7 @@
 	if(obj_integrity < max_integrity * 0.5)
 		icon_state = "[initial(icon_state)]_damaged"
 		name = "weakened [initial(name)]"
-		desc = "Стена подергивающихся усиков слизи."
+		desc = "Стена подергивающихся усиков."
 		atmosblock = FALSE
 	else
 		icon_state = initial(icon_state)

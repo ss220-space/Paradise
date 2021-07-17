@@ -90,7 +90,7 @@
 			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
 	maxHealth += 40
 	health = maxHealth
-	name = "Зомбифицированный Блоб"
+	name = "Блоб Зомби"
 	desc = "Шаркающий труп оживленный Блобом"
 	melee_damage_lower = 10
 	melee_damage_upper = 15
@@ -104,7 +104,7 @@
 	update_icons()
 	H.forceMove(src)
 	oldguy = H
-	visible_message("<span class='warning'>Тело [H.name] восстало!</span>")
+	visible_message("<span class='warning'>[H.name] восстал из мертвых!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// Only execute the below if we successfuly died
@@ -214,8 +214,8 @@
 		blob_talk()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
-	var/message = input(src, "Высказал Сверхразуму", "Телепатия Блоба")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Телепатия Блоба, <span class='name'>[name]([overmind])</span> <span class='message'>высказал, \"[message]\"</span></span></i></font>"
+	var/message = input(src, "Сообщил Сверхразуму", "Телепатия Блоба")
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Телепатия Блоба, <span class='name'>[name]([overmind])</span> <span class='message'>сообщил, \"[message]\"</span></span></i></font>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

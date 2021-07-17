@@ -36,7 +36,7 @@
 	color = "#B68D00"
 	complementary_color = "#c0a856"
 	message = "Блоб лопается и обливает вас горящим маслом"
-	message_living = ", и вы чувствуете, как ваша кожа пузырится, обугливается и плавится."
+	message_living = ", и вы чувствуете, как ваша кожа обугливается и плавится."
 
 /datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -47,8 +47,8 @@
 		M.emote("scream")
 
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
-	name = "Ядовитые Волокна"
-	description = "Наносит урон с высоким содержанием Токсинов, вызывает галлюцинации и попадание спор в кровоток."
+	name = "Ядовитые Филаменты"
+	description = "Наносит сильный токсический урон, вызывает галлюцинации и впрыскивает споры в кровоток."
 	id = "envenomed_filaments"
 	color = "#9ACD32"
 	complementary_color = "#b0cd73"
@@ -158,7 +158,7 @@
 	id = "radioactive_gel"
 	color = "#2476f0"
 	complementary_color = "#24f0f0"
-	message_living = ", и вы чувствует тепло тепло изнутри."
+	message_living = ", и вы чувствуете тепло изнутри."
 
 /datum/reagent/blob/radioactive_gel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)

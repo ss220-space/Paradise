@@ -28,7 +28,7 @@
 	if(GAMEMODE_IS_BLOB)
 		var/datum/game_mode/blob/blob_mode = src
 		if(blob_mode.infected_crew.len)
-			var/text = "<FONT size = 2><B>Блоб [(blob_mode.infected_crew.len > 1 ? "s were" : " was")]:</B></FONT>"
+			var/text = "<FONT size = 2><B>Блоб [(blob_mode.infected_crew.len > 1 ? "ы были" : " был")]:</B></FONT>"
 
 			for(var/datum/mind/blob in blob_mode.infected_crew)
 				text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"

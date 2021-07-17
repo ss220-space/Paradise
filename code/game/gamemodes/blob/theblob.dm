@@ -205,14 +205,14 @@
 /obj/structure/blob/examine(mob/user)
 	. = ..()
 	. += "Похоже он сделан из: [get_chem_name()]."
-	. += "Похоже, это химическое вещество: [get_chem_desc()]"
+	. += "Похоже, его химическое вещество: [get_chem_desc()]"
 
 
 /obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
-	return "неизвестное"
+	return "неизвестно"
 
 /obj/structure/blob/proc/get_chem_desc()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
@@ -231,15 +231,15 @@
 	if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
 		name = "Хрупкий Блоб"
-		desc = "Тонкие решетки завитков с подергивающимися усиками слизи."
+		desc = "Тонкие решетки завитков с подергивающимися усиками."
 		brute_resist = 0.5
 	else if(overmind)
 		icon_state = "blob"
 		name = "Блоб"
-		desc = "Плотная стена с всюду извивающимися усиками слизи."
+		desc = "Плотная стена с всюду извивающимися усиками."
 		brute_resist = 0.25
 	else
 		icon_state = "blob"
 		name = "Мертвый Блоб"
-		desc = "Толстая стена из безжизненных усиков слизи."
+		desc = "Толстая стена из безжизненных усиков."
 		brute_resist = 0.25
