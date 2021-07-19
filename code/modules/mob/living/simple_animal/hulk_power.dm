@@ -321,7 +321,7 @@
 //Hulk Honk
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_honk
 	name = "HulkHONK"
-	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку(от страха).На ваших братьях клоунах работает как лечение."
+	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах работает как лечение."
 	panel = "Hulk"
 	action_icon_state = "honk_hulk"
 	action_background_icon_state = "bg_hulk"
