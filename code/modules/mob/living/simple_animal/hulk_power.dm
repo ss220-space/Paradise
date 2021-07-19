@@ -2,7 +2,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_transform
 	name = "Transform"
-	desc = ""
+	desc = "Превращение в халка."
 	panel = "Hulk"
 	action_icon_state = "transformarion_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -44,7 +44,7 @@
 //Dash
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash
 	name = "Dash"
-	desc = ""
+	desc = "Разбег.Чем он дальше,тем больнее будет,тем кто встанет у вас на пути."
 	panel = "Hulk"
 	action_icon_state = "charge_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -210,7 +210,7 @@
 //Jump
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump
 	name = "Leap"
-	desc = ""
+	desc = "Прыжок.Можно легко сломать кому-нибудь кость,если попасть прямо в цель."
 	panel = "Hulk"
 	action_icon_state = "jump_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -321,7 +321,7 @@
 //Hulk Honk
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_honk
 	name = "HulkHONK"
-	desc = ""
+	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку(от страха).На ваших братьях клоунах работает как лечение."
 	panel = "Hulk"
 	action_icon_state = "honk_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -355,7 +355,7 @@
 //Hulk Joke
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_joke
 	name = "Joke"
-	desc = ""
+	desc = "Пускает большое облако дыма,а так-же лечит вас.Хорошее решение если вам нужно отступить."
 	panel = "Hulk"
 	action_icon_state = "joke_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -386,7 +386,7 @@
 //Hulk Mill
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_mill
 	name = "Windmill"
-	desc = ""
+	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещаниях."
 	panel = "Hulk"
 	action_icon_state = "mill_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -438,7 +438,7 @@
 
 /obj/effect/proc_holder/spell/targeted/click/hulk/hulk_spit
 	name = "Fire Spit"
-	desc = ""
+	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
 	panel = "Hulk"
 	invocation_type = "shout"
 	action_icon_state = "harchok_hulk"
@@ -470,7 +470,7 @@
 
 /obj/effect/proc_holder/spell/targeted/click/hulk/hulk_lazor
 	name = "LazorZ"
-	desc = ""
+	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	panel = "Hulk"
 	invocation_type = "shout"
 	action_icon_state = "lazer_hulk"
