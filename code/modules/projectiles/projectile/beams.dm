@@ -47,7 +47,7 @@
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 30
+	damage = 33
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"
@@ -125,7 +125,7 @@
 	stun = 2
 	weaken = 2
 	stutter = 2
-	stamina = 15
+	stamina = 40
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 
@@ -183,7 +183,7 @@
 	name = "execution slaughter beam"
 	icon_state = "blue_laser"
 	damage = 40
-	stamina = 20
+	stamina = 33
 	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
@@ -193,7 +193,7 @@
 /obj/item/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 30
+	damage = 33
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"

@@ -171,7 +171,7 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
-	e_cost = 250
+	e_cost = 175
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma

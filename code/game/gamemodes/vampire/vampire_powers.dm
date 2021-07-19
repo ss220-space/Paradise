@@ -224,10 +224,11 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(3)
-		target.Weaken(3)
+		target.Stun(4)
+		target.Weaken(4)
 		target.stuttering = 20
-		target.adjustStaminaLoss(90)
+		target.adjustStaminaLoss(60)
+		target.stuttering = 20
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
 

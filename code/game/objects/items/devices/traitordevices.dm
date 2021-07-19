@@ -48,7 +48,7 @@ effective or pretty fucking useless.
 	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
 			M.Weaken(rand(1,3))
-			M.adjustStaminaLoss(rand(40,80))
+			M.adjustStaminaLoss(rand(20, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else

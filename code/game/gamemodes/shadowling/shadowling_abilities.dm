@@ -50,9 +50,10 @@
 	if (distance <= 1) //Melee glare
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		H.Stun(3)
-		H.AdjustSilence(3)
-		H.adjustStaminaLoss(90)
+
+		H.Stun(4)
+		H.AdjustSilence(10)
+		H.adjustStaminaLoss(50)
 	else //Distant glare
 		var/loss = 10 - distance
 		var/duration = 10 - loss
@@ -424,7 +425,7 @@
 		update_flags |= M.EyeBlind(5, FALSE)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
-			M.Stun(3)
+			M.Stun(2)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
 		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)

@@ -187,8 +187,7 @@
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.SetStuttering(stunforce)
-	L.adjustStaminaLoss(10)
-
+	L.adjustStaminaLoss(15)
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey

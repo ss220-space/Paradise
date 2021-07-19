@@ -1,4 +1,4 @@
-#define UPGRADE_COOLDOWN  40
+#define UPGRADE_COOLDOWN  36
 #define UPGRADE_KILL_TIMER  100
 
 //times it takes for a mob to eat

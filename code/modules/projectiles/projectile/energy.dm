@@ -14,7 +14,7 @@
 	nodamage = 1
 	stun = 1
 	weaken = 1
-	stamina = 15
+	stamina = 25
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'
@@ -54,7 +54,7 @@
 	damage = 1
 	damage_type = TOX
 	weaken = 1
-	stamina = 30
+	stamina = 40
 	range = 7
 	shockbull = TRUE
 
