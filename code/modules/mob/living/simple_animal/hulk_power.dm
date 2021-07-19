@@ -210,7 +210,7 @@
 //Jump
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump
 	name = "Leap"
-	desc = "Прыжок.Можно легко сломать кому-нибудь кость,если попасть прямо в цель."
+	desc = "Прыжок. Можно легко сломать кому-то кость при столкновении."
 	panel = "Hulk"
 	action_icon_state = "jump_hulk"
 	action_background_icon_state = "bg_hulk"
