@@ -355,7 +355,7 @@
 //Hulk Joke
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_joke
 	name = "Joke"
-	desc = "Пускает большое облако дыма,а так-же лечит вас.Хорошее решение если вам нужно отступить."
+	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
 	panel = "Hulk"
 	action_icon_state = "joke_hulk"
 	action_background_icon_state = "bg_hulk"
