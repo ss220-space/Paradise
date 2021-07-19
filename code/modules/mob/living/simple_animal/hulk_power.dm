@@ -44,7 +44,7 @@
 //Dash
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash
 	name = "Dash"
-	desc = "Разбег.Чем он дольше,тем больнее будет,тем кто встанет у вас на пути."
+	desc = "Разбег. Чем он дольше, тем больнее будет, тем кто встанет у вас на пути."
 	panel = "Hulk"
 	action_icon_state = "charge_hulk"
 	action_background_icon_state = "bg_hulk"
