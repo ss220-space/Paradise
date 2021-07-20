@@ -271,7 +271,7 @@
 	C.SetStuttering(5)
 	C.Stun(1)
 	C.Weaken(1)
-	C.adjustStaminaLoss(35)
+	C.adjustStaminaLoss(45)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
