@@ -167,7 +167,7 @@
 	stun = 1
 	weaken = 1
 	stutter = 1
-	stamina = 15
+	stamina = 25
 	jitter = 20
 	range = 7
 	icon_state = "spark"
