@@ -54,7 +54,7 @@
 	damage = 1
 	damage_type = TOX
 	weaken = 1
-	stamina = 40
+	stamina = 55
 	range = 7
 	shockbull = TRUE
 
@@ -71,7 +71,7 @@
 	icon_state = "cbbolt"
 	damage = 15
 	damage_type = TOX
-	stamina = 30
+	stamina = 55
 	nodamage = 0
 	weaken = 1
 	stutter = 1
