@@ -272,10 +272,10 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(1)
+		C.Weaken(2)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(1)
+		C.Stun(2)
 		C.Jitter(150)
 		C.adjustStaminaLoss(60)
 	for(var/obj/structure/window/W in view(4))
