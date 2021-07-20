@@ -84,7 +84,7 @@
 	add_attack_logs(user, target, "Stunned with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	if(prob(50))
+	if(prob(75))
 		target.Weaken(stun_time)
 	else
 		target.Weaken(stun_time + 1)
