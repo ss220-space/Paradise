@@ -178,22 +178,20 @@
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as [user.p_they()] stare[user.p_s()] into [target]'s eyes</span>")
-		if(do_mob(user, target, 50))
+		if(do_mob(user, target, 60))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
 				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>")
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
-				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Weaken(6)
-				target.Stun(6)
-				target.stuttering = 10
+				to_chat(target, "<span class='warning'>You suddenly feel very weak.</span>")
+				target.SetSleeping(20)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
-	name = "Diseased Touch (100)"
+	name = "Diseased Touch (50)"
 	desc = "Touches your victim with infected blood giving them Grave Fever, which will, left untreated, causes toxic building and frequent collapsing."
 	gain_desc = "You have gained the Diseased Touch ability which causes those you touch to become weak unless treated medically."
 	action_icon_state = "vampire_disease"
@@ -224,13 +222,15 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(4)
-		target.Weaken(4)
+		target.Stun(2)
+		target.Weaken(2)
 		target.stuttering = 20
-		target.adjustStaminaLoss(60)
-		target.stuttering = 20
+		target.adjustStaminaLoss(70)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
+		for(var/i = 1 to 5)
+			target.adjustStaminaLoss(10)
+			sleep(35)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -391,7 +391,7 @@
 	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
-	name = "Summon Bats (75)"
+	name = "Summon Bats (50)"
 	desc = "You summon a pair of space bats who attack nearby targets until they or their target is dead."
 	gain_desc = "You have gained the Summon Bats ability."
 	action_icon_state = "vampire_bats"
@@ -471,7 +471,7 @@
 // Blink for vamps
 // Less smoke spam.
 /obj/effect/proc_holder/spell/vampire/shadowstep
-	name = "Shadowstep (30)"
+	name = "Shadowstep (15)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
 	action_icon_state = "blink"
