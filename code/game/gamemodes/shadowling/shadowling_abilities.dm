@@ -51,9 +51,13 @@
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
 
-		H.Stun(4)
+		H.Stun(2)
 		H.AdjustSilence(10)
-		H.adjustStaminaLoss(50)
+		H.adjustStaminaLoss(70)
+		for(var/i = 1 to 5)
+			target.adjustStaminaLoss(10)
+			sleep(35)
+
 	else //Distant glare
 		var/loss = 10 - distance
 		var/duration = 10 - loss
