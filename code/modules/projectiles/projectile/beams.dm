@@ -182,7 +182,7 @@
 /obj/item/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"
 	icon_state = "blue_laser"
-	damage = 40
+	damage = 50
 	stamina = 33
 	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
