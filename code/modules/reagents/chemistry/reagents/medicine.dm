@@ -911,7 +911,7 @@
 	update_flags |= M.AdjustParalysis(-3, FALSE)
 	update_flags |= M.AdjustStunned(-3, FALSE)
 	update_flags |= M.AdjustWeakened(-3, FALSE)
-	update_flags |= M.adjustStaminaLoss(-13*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
