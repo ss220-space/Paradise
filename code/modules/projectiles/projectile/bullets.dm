@@ -41,7 +41,7 @@
 	name = "invisible bullet"
 	damage = 0
 	weaken = 1
-	stamina = 30
+	stamina = 60
 	icon_state = null
 	hitsound_wall = null
 
@@ -217,7 +217,7 @@
 	damage = 0
 	stun = 1
 	weaken = 1
-	stamina = 30
+	stamina = 60
 	slur = 20
 	stutter = 20
 
