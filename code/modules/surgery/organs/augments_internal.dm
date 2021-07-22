@@ -138,8 +138,8 @@
 	..()
 	if(crit_fail)
 		return
-	if(owner.getStaminaLoss() > 70)
-		owner.adjustStaminaLoss(-7)
+	if(owner.getStaminaLoss() > 60)
+		owner.adjustStaminaLoss(-12)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	..()
