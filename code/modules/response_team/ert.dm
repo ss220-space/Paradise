@@ -254,10 +254,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
+	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. К сожалению, мы не сможем вам помочь в этот раз.", "ОБР не доступно", new_sound = 'sound/AI/announces/noert.ogg')
 
 /datum/response_team/proc/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. Мы отправляем отряд первоклассных ассистентов для помощи вам. Ожидайте.", "ОБР в пути", new_sound = 'sound/AI/announces/yesert.ogg')
 
 // -- AMBER TEAM --
 
@@ -270,7 +270,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. Мы подготовим для вас отряд СВЕТЛО-ЯНТАРНОГО ОБР, и отправим как только это станет возможным.", "ОБР в пути", new_sound = 'sound/AI/announces/yesert.ogg')
 
 // -- RED TEAM --
 
@@ -284,7 +284,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. Мы подготовим для вас отряд КРАСНОГО ОБР, и отправим как только это станет возможным.", "ОБР в пути", new_sound = 'sound/AI/announces/yesert.ogg')
 
 // -- GAMMA TEAM --
 
@@ -298,7 +298,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. Мы подготовим для вас отряд ГАММА ОБР, и отправим как только это станет возможным.", "ОБР в пути", new_sound = 'sound/AI/announces/yesert.ogg')
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

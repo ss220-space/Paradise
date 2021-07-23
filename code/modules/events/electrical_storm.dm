@@ -3,7 +3,7 @@
 	var/lightsoutRange	= 25
 
 /datum/event/electrical_storm/announce()
-	GLOB.event_announcement.Announce("На борту станции зафиксирован электрический шторм. Пожалуйста, устраните потенциальные электронные перегрузки.", "ВНИМАНИЕ: ЭЛЕКТРИЧЕСКИЙ ШТОРМ")
+	GLOB.event_announcement.Announce("На борту станции зафиксирован электрический шторм. Пожалуйста, устраните потенциальные электронные перегрузки.", "ВНИМАНИЕ: ЭЛЕКТРИЧЕСКИЙ ШТОРМ", new_sound = 'sound/AI/event/estorm.ogg')
 
 /datum/event/electrical_storm/start()
 	var/list/epicentreList = list()
@@ -26,4 +26,3 @@
 		var/obj/effect/landmark/epicentre = thing
 		for(var/obj/machinery/power/apc/apc in range(epicentre, lightsoutRange))
 			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
-

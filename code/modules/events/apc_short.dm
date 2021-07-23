@@ -20,8 +20,8 @@
 			continue
 		SEND_SOUND(M, S)
 
-/datum/event/apc_short/announce() // закороченные - выведенные из строя
-	GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "СБОЙ СИСТЕМЫ ПИТАНИЯ", new_sound = 'sound/AI/attention.ogg')
+/datum/event/apc_short/announce()
+	GLOB.event_announcement.Announce("Зафиксирована неизвестная активность в энергосети станции [station_name()]. В качестве меры предосторожности, питание на станции было временно отключено.", "КРИТИЧЕСКИЙ СБОЙ СИСТЕМЫ ПИТАНИЯ", new_sound = pick('sound/AI/event/poweroff1.ogg','sound/AI/event/poweroff2.ogg'))
 
 /datum/event/apc_short/end()
 	return TRUE
@@ -32,7 +32,7 @@
 		/area/turret_protected/ai)
 
 	if(announce)
-		GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "СБОЙ СИСТЕМЫ ПИТАНИЯ", new_sound = 'sound/AI/attention.ogg')
+		GLOB.event_announcement.Announce("Зафиксирована неизвестная активность в энергосети станции [station_name()]. В качестве меры предосторожности, питание на станции было временно отключено.", "КРИТИЧЕСКИЙ СБОЙ СИСТЕМЫ ПИТАНИЯ", new_sound = pick('sound/AI/event/poweroff1.ogg','sound/AI/event/poweroff2.ogg'))
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
@@ -60,7 +60,7 @@
 
 /proc/power_restore(announce=TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+		GLOB.event_announcement.Announce("Питание восстановлено для станции [station_name()]. Мы приносим извинения, за принесённые неудобства.", "Питание восстановлено", new_sound = 'sound/AI/event/poweron.ogg')
 
 	// recharge the APCs
 	for(var/thing in GLOB.apcs)
@@ -73,7 +73,7 @@
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+		GLOB.event_announcement.Announce("Все СПИНы [station_name()] были запитанны. Мы приносим извинения, за принесённые неудобства.", "Питание восстановлено", new_sound = 'sound/AI/event/poweron.ogg')
 
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)

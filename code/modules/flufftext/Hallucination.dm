@@ -891,7 +891,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(18)
 					to_chat(src, "<h1 class='alert'>Biohazard Alert</h1>")
 					to_chat(src, "<br><br><span class='alert'>Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.</span><br><br>")
-					playsound_local(null, 'sound/AI/outbreak5.ogg')
+					playsound_local(null, 'sound/AI/event/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)
 					for(var/i in 0 to 2)

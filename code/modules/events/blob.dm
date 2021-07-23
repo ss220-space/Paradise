@@ -5,7 +5,7 @@
 
 /datum/event/blob/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА", 'sound/AI/outbreak5.ogg')
+		GLOB.event_announcement.Announce("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой! Протоколы изоляции экипажа станции были активированны.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА", 'sound/AI/event/outbreak5.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 

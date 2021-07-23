@@ -14,7 +14,7 @@
 									 "Не хочешь ничего покупать? Ну, я твою мамку тоже покупать не хотел.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС")
+	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС", new_sound = 'sound/AI/event/rampant_brand_int.ogg')
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/vending/V in GLOB.machines)

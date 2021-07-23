@@ -10,7 +10,7 @@
 /datum/event/meteor_wave/announce()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.", "ВНИМАНИЕ: АСТЕРОИДЫ", new_sound = 'sound/AI/meteors.ogg')
+			GLOB.event_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.", "ВНИМАНИЕ: АСТЕРОИДЫ", new_sound = pick('sound/AI/event/meteors.ogg','sound/AI/event/meteors2.ogg'))
 		else
 			GLOB.event_announcement.Announce("Станция проходит через скопление астероидов.", "ВНИМАНИЕ: АСТЕРОИДЫ")
 
