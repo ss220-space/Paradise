@@ -193,7 +193,21 @@
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
+/obj/structure/closet/secure_closet/checkpoint
+	name = "security checkpoint locker"
+	req_access = list(ACCESS_SECURITY)
+	icon_state = "sec1"
+	icon_closed = "sec"
+	icon_locked = "sec1"
+	icon_opened = "secopen"
+	icon_broken = "secbroken"
+	icon_off = "secoff"
 
+/obj/structure/closet/secure_closet/checkpoint/populate_contents()
+	new /obj/item/storage/firstaid/regular(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
