@@ -651,7 +651,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/pennywise
-	name = "Pennywise Costume"
+	name = "pennywise costume"
 	desc = "It's everything you ever were afraid of."
 	icon_state = "pennywise"
 	item_color = "pennywise"

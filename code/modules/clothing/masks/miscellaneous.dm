@@ -408,11 +408,17 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
-	name = "Pennywise Mask"
+	name = "pennywise mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
+/obj/item/clothing/mask/gas/clown_hat/sciclown
+	name = "mad scientist's clown mask"
+	desc = "Clown's scientist-style mask."
+	icon_state = "sciclown"
+	item_state = "sciclown"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas

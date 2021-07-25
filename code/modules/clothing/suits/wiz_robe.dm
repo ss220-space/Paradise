@@ -55,7 +55,7 @@
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/marisa
-	name = "Witch Hat"
+	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
 	dog_fashion = null
@@ -119,7 +119,7 @@
 		)
 
 /obj/item/clothing/suit/wizrobe/marisa
-	name = "Witch Robe"
+	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"
@@ -154,7 +154,7 @@
 	magical = FALSE
 
 /obj/item/clothing/head/wizard/marisa/fake
-	name = "Witch Hat"
+	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
@@ -164,7 +164,7 @@
 	magical = FALSE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
-	name = "Witch Robe"
+	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"

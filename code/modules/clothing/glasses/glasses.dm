@@ -238,7 +238,7 @@
 		)
 
 /obj/item/clothing/glasses/gglasses
-	name = "Green Glasses"
+	name = "green glasses"
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
 	item_state = "gglasses"
