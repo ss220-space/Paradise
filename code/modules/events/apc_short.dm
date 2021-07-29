@@ -73,7 +73,7 @@
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("Все СПИНы [station_name()] были запитанны. Мы приносим извинения, за принесённые неудобства.", "Питание восстановлено", new_sound = 'sound/AI/event/poweron.ogg')
+		GLOB.event_announcement.Announce("Все СПИНы [station_name()] были заряжены. Мы приносим извинения, за принесённые неудобства.", "Питание восстановлено", new_sound = 'sound/AI/event/poweron.ogg')
 
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)

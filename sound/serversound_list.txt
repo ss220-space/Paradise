@@ -12,3 +12,4 @@ sound/ambience/song_game.ogg
 sound/music/pilotpriest-origin-one.ogg
 sound/music/pilotpriest-tell-them-now.ogg
 sound/music/pilotpriest-now-be-the-light.ogg
+sound/AI/admin_horror_music.ogg

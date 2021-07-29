@@ -143,7 +143,7 @@
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
 					return
-				crew_announcement.Announce(input)
+				crew_announcement.Announce(input, new_sound = sound('sound/AI/announces/announce.ogg'))
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
@@ -230,7 +230,7 @@
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
-				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/announces/commandreport.ogg')
+				GLOB.priority_announcement.Announce("Коды для активации станционной системы самоуничтожения были запрошены [usr]. Принятие или отказ этого запроса будут высланы в скором времени.", "Запрос кодов системы самоуничтожения",'sound/AI/announces/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
