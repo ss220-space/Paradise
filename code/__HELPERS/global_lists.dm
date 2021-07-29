@@ -117,6 +117,11 @@
 		if(R.selectable)
 			GLOB.selectable_robolimbs[R.company] = R
 
+	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
+	for(var/path in subtypesof(/datum/sprite_accessory/hair_gradient))
+		var/datum/sprite_accessory/hair_gradient/H = new path()
+		GLOB.hair_gradients_list[H.name] = H
+
 	// Setup world topic handlers
 	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
 		var/datum/world_topic_handler/wth = new topic_handler_type()

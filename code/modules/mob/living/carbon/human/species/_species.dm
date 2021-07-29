@@ -131,6 +131,8 @@
 	var/default_fhair_colour
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
+	var/grad_style				///The gradient style used for the mob's hair.
+	var/grad_color				///The gradient color used to color the gradient.
 
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()

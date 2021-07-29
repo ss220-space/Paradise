@@ -21,6 +21,11 @@
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
+	///Colour used for the hair gradient.
+	var/grad_color = "000"
+	///Style used for the hair gradient.
+	var/grad_style
+
 	//Equipment slots
 	var/obj/item/clothing/under/w_uniform = null
 	var/obj/item/shoes = null

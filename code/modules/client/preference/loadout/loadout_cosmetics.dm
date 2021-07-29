@@ -22,3 +22,8 @@
 /datum/gear/lipstick/lime
 	display_name = "lipstick, lime"
 	path = /obj/item/lipstick/lime
+
+/datum/gear/dyespray
+	display_name = "hair dye spray"
+	path = /obj/item/dyespray
+	sort_category = "Cosmetics"
