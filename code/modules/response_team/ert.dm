@@ -254,7 +254,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. К сожалению, мы не сможем вам помочь в этот раз.", "ОБР не доступно", new_sound = 'sound/AI/announces/noert.ogg')
+	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. К сожалению, мы не сможем вам помочь в этот раз.", "ОБР недоступно", new_sound = 'sound/AI/announces/noert.ogg')
 
 /datum/response_team/proc/announce_team()
 	GLOB.event_announcement.Announce("Внимание, поступил запрос отряда быстрого реагирования со станции [station_name()]. Мы отправляем отряд первоклассных ассистентов для помощи вам. Ожидайте.", "ОБР в пути", new_sound = 'sound/AI/announces/yesert.ogg')

@@ -382,6 +382,10 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			if(M.client)
 				shake_camera(M, 15, 1)
 				M.playsound_local(our_turf, null, 100, 1, 0.5, S = alert_sound)
+	if(on)
+		GLOB.event_announcement.Announce("Системы обеспечения исскуственной гравитации введены в строй", new_sound = sound('sound/AI/event/gravityon.ogg'))
+	else
+		GLOB.event_announcement.Announce("Системы обеспечения исскуственной гравитации выведены из строя", new_sound = sound('sound/AI/event/gravityoff.ogg'))
 
 // TODO: Make the gravity generator cooperate with the space manager
 /obj/machinery/gravity_generator/main/proc/gravity_in_level()
