@@ -11,10 +11,10 @@
 	flags = CONDUCT
 
 	var/times_used = 0 //Number of times it's been used.
-	var/broken = 0     //Is the flash burnt out?
+	var/broken = FALSE     //Is the flash burnt out?
 	var/last_used = 0 //last world.time it was used.
-	var/battery_panel = 0 //whether the flash can be modified with a cell or not
-	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
+	var/battery_panel = FALSE //whether the flash can be modified with a cell or not
+	var/overcharged = FALSE   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = FALSE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
 
@@ -29,19 +29,19 @@
 		if(istype(W, /obj/item/screwdriver))
 			if(battery_panel)
 				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-				battery_panel = 0
+				battery_panel = FALSE
 			else
 				to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-				battery_panel = 1
+				battery_panel = TRUE
 		if(battery_panel && !overcharged)
 			if(istype(W, /obj/item/stock_parts/cell))
 				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 				qdel(W)
-				overcharged = 1
+				overcharged = TRUE
 				overlays += "overcharge"
 
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
-	broken = 1
+	broken = TRUE
 	icon_state = "[initial(icon_state)]burnt"
 	visible_message("<span class='notice'>The [src.name] burns out!</span>")
 
@@ -133,4 +133,3 @@
 	for(var/mob/living/carbon/M in viewers(3, null))
 		memorize_carbon(M, null, 10, 0)
 	burn_out()
-	..()
