@@ -206,12 +206,6 @@
         to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
     return
 
-/obj/item/flash/memorizer
-	name = "memorizer"
-	desc = "If you see this, you're not likely to remember it any time soon."
-	icon_state = "memorizer"
-	item_state = "nullrod"
-
 /obj/item/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
