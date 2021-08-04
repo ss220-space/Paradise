@@ -5765,6 +5765,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"aur" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research{
+	name = "Research Division"
+	})
 "aus" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -13594,6 +13604,10 @@
 "aSF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 60;
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21656,6 +21670,16 @@
 	icon_state = "vault"
 	},
 /area/maintenance/turbine)
+"bvm" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/medical/sleeper)
 "bvn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -29748,11 +29772,16 @@
 	},
 /area/crew_quarters/chief)
 "bUt" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/area/hallway/primary/central/west)
+/obj/item/radio/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "bUv" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -30487,7 +30516,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/maintenance/asmaint)
 "bWO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -38786,7 +38815,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowcorner"
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/se)
 "cyt" = (
@@ -47845,10 +47874,9 @@
 /area/quartermaster/storage)
 "dac" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/hallway/primary/central/nw)
+/area/hallway/primary/port)
 "dae" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -51535,7 +51563,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowcorner"
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/west)
 "dmi" = (
@@ -52624,13 +52652,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "dpe" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/maintenance/asmaint)
 "dpf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -52670,7 +52694,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "dpj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -54078,8 +54102,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port)
 "dtr" = (
@@ -65369,7 +65392,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/maintenance/asmaint)
 "dYc" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/plasteel{
@@ -88790,7 +88813,6 @@
 /area/security/securearmoury)
 "ldM" = (
 /obj/structure/table/reinforced,
-/obj/machinery/defibrillator_mount/loaded,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -93718,8 +93740,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port)
 "mAF" = (
@@ -95918,30 +95939,6 @@
 	dir = 1
 	},
 /area/security/customs)
-"nfO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 11
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/aft)
 "nfX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -98447,6 +98444,30 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"nRQ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/aft)
 "nRT" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/poster/official/random{
@@ -99634,6 +99655,15 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"omz" = (
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/vip)
 "omJ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28;
@@ -102665,7 +102695,7 @@
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/maintenance/asmaint)
 "pgE" = (
 /obj/structure/chair,
 /obj/machinery/newscaster{
@@ -104354,6 +104384,14 @@
 	icon_state = "white"
 	},
 /area/medical/sleeper)
+"pEo" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/captain)
 "pEt" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -108904,16 +108942,6 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/aisat)
-"qXQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
-/area/medical/research{
-	name = "Research Division"
-	})
 "qYh" = (
 /turf/simulated/wall/r_wall,
 /area/chapel/office)
@@ -110148,6 +110176,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -110338,7 +110369,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowcorner"
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
 "rsV" = (
@@ -110491,7 +110522,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "rwW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet,
@@ -119182,6 +119213,18 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
+"ukv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/port)
 "ukA" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -123002,6 +123045,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -123210,14 +123254,6 @@
 	tag = "icon-whiteblue (NORTH)"
 	},
 /area/medical/sleeper)
-"vpV" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/captain)
 "vpW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/o2{
@@ -123894,7 +123930,6 @@
 /area/security/prison/cell_block/A)
 "vzW" = (
 /obj/structure/table/reinforced,
-/obj/machinery/defibrillator_mount/loaded,
 /obj/machinery/power/apc{
 	cell_type = 5000;
 	name = "south bump Important Area";
@@ -127785,7 +127820,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/maintenance/asmaint)
 "wDa" = (
 /obj/structure/chair{
 	dir = 8
@@ -131758,15 +131793,6 @@
 	icon_state = "white"
 	},
 /area/medical/medbay3)
-"xIe" = (
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/bridge/vip)
 "xIm" = (
 /obj/structure/transit_tube{
 	icon_state = "D-NE";
@@ -161620,7 +161646,7 @@ rUa
 bxh
 dlR
 dpn
-bUE
+dac
 cXa
 dzt
 cbC
@@ -161877,7 +161903,7 @@ rVw
 bxh
 uZl
 dot
-bUy
+ukv
 bWx
 igc
 iru
@@ -162648,7 +162674,7 @@ sbt
 bxh
 dlR
 dpn
-bUE
+dac
 bYj
 hne
 dBB
@@ -162903,7 +162929,7 @@ bOo
 bOo
 sbD
 bxh
-dlR
+vfh
 dpn
 bUE
 cir
@@ -164445,7 +164471,7 @@ oqv
 rnY
 sgM
 dil
-bUt
+vvX
 uIF
 dPt
 lcr
@@ -164702,7 +164728,7 @@ cUL
 cZw
 ded
 dil
-bUt
+vvX
 uIF
 dPt
 quA
@@ -165730,7 +165756,7 @@ cUN
 rpY
 den
 dil
-bUt
+vvX
 uIF
 dPt
 quA
@@ -166493,12 +166519,12 @@ cEa
 kXX
 lKE
 mMd
-dac
+mMd
 rsM
 bFn
 cRI
-dac
-dac
+mMd
+mMd
 bMH
 cxl
 vvX
@@ -169343,7 +169369,7 @@ xjd
 dPQ
 bSE
 cpK
-xIe
+omz
 csK
 xAH
 dfW
@@ -170133,7 +170159,7 @@ lIH
 dkn
 bNH
 wId
-qXQ
+aur
 hXm
 ohz
 cUZ
@@ -170390,7 +170416,7 @@ fNC
 gik
 fNC
 lIH
-qXQ
+aur
 cSo
 hbY
 cVc
@@ -171374,7 +171400,7 @@ aaa
 jOq
 kfX
 lSG
-lSG
+bUt
 mUS
 bCo
 cMU
@@ -171441,7 +171467,7 @@ xYU
 xYU
 xYU
 uAm
-nfO
+nRQ
 xYU
 rVe
 doW
@@ -174466,7 +174492,7 @@ bHx
 pUb
 cWk
 dbo
-vpV
+pEo
 bOS
 bQN
 bSN
@@ -174518,8 +174544,8 @@ diy
 dlf
 dfy
 dfy
-dfy
-dfy
+kTg
+kTg
 duk
 duk
 duk
@@ -175275,7 +175301,7 @@ cUb
 cPF
 vRl
 ldM
-pIZ
+bvm
 vtu
 dcl
 klC
@@ -175290,7 +175316,7 @@ dmn
 dqt
 dfy
 pgx
-dfy
+kTg
 duk
 hGy
 dsR
