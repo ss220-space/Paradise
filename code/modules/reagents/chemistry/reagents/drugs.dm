@@ -320,7 +320,7 @@
 	update_flags |= M.AdjustParalysis(-2.5, FALSE)
 	update_flags |= M.AdjustStunned(-2.5, FALSE)
 	update_flags |= M.AdjustWeakened(-2.5, FALSE)
-	update_flags |= M.adjustStaminaLoss(-2, FALSE)
+	update_flags |= M.adjustStaminaLoss(-5, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
 	M.status_flags |= GOTTAGOFAST
 	if(prob(50))
@@ -489,7 +489,7 @@
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-40, FALSE)
+	update_flags |= M.adjustStaminaLoss(-12, FALSE)
 	if(prob(90))
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	if(prob(5))
@@ -683,7 +683,7 @@
 	update_flags |= M.AdjustParalysis(-2, FALSE)
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
-	update_flags |= M.adjustStaminaLoss(-2, FALSE)
+	update_flags |= M.adjustStaminaLoss(-5, FALSE)
 	M.status_flags |= GOTTAGOFAST
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)

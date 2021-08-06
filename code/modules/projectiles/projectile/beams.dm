@@ -122,9 +122,10 @@
 	name = "sniper beam"
 	icon_state = "sniperlaser"
 	damage = 60
-	stun = 5
-	weaken = 5
-	stutter = 5
+	stun = 2
+	weaken = 2
+	stutter = 2
+	stamina = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 

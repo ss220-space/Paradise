@@ -11,11 +11,11 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	var/stunforce = 7
+	var/stunforce = 2
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/cell = null
-	var/hitcost = 1000
-	var/throw_hit_chance = 35
+	var/hitcost = 400
+	var/throw_hit_chance = 50
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -187,6 +187,7 @@
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.SetStuttering(stunforce)
+	L.adjustStaminaLoss(10)
 
 	if(user)
 		L.lastattacker = user.real_name
@@ -231,7 +232,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	stunforce = 5
+	stunforce = 2
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = SLOT_BACK

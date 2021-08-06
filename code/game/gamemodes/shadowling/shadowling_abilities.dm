@@ -50,8 +50,9 @@
 	if (distance <= 1) //Melee glare
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		H.Stun(10)
-		H.AdjustSilence(10)
+		H.Stun(3)
+		H.AdjustSilence(3)
+		H.adjustStaminaLoss(90)
 	else //Distant glare
 		var/loss = 10 - distance
 		var/duration = 10 - loss
@@ -197,7 +198,7 @@
 					to_chat(M, "<span class='danger'>You feel a blast of paralyzingly cold air wrap around you and flow past, but you are unaffected!</span>")
 					continue
 			to_chat(M, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
-			M.Stun(2)
+			M.Stun(1)
 			M.apply_damage(10, BURN)
 			if(M.bodytemperature)
 				M.bodytemperature -= 200 //Extreme amount of initial cold

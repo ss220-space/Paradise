@@ -157,7 +157,7 @@
 	user.SetStunned(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
-	U.adjustStaminaLoss(-75)
+	U.adjustStaminaLoss(-60)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
@@ -166,6 +166,7 @@
 				U.adjustOxyLoss(-5)
 				U.adjustToxLoss(-2)
 				U.adjustFireLoss(-2)
+				U.adjustStaminaLoss(-10)
 				sleep(35)
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise
@@ -184,8 +185,8 @@
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Weaken(10)
-				target.Stun(10)
+				target.Weaken(6)
+				target.Stun(6)
 				target.stuttering = 10
 		else
 			revert_cast(usr)
@@ -223,9 +224,10 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(5)
-		target.Weaken(5)
+		target.Stun(3)
+		target.Weaken(3)
 		target.stuttering = 20
+		target.adjustStaminaLoss(90)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
@@ -269,11 +271,12 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(4)
+		C.Weaken(1)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(4)
+		C.Stun(1)
 		C.Jitter(150)
+		C.adjustStaminaLoss(60)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
