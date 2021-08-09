@@ -184,6 +184,13 @@
 					if(!GLOB.ert_request_answered)
 						ERT_Announce(ert_reason , event_triggered_by, 1)
 			else
+				var/list/excludemodes = list(/datum/game_mode/nuclear, /datum/game_mode/blob)
+				if(SSticker.mode.type in excludemodes)
+					return
+				var/list/excludeevents = list(/datum/event/blob, /datum/event/disease_outbreak)
+				for(var/datum/event/E in SSevents.active_events|SSevents.finished_events)
+					if(E.type in excludeevents)
+						return
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
