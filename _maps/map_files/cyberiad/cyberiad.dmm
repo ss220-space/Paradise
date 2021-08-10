@@ -87232,9 +87232,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"cZw" = (
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "cZy" = (
 /obj/machinery/door/window/southright{
 	name = "Containment Pen";
@@ -99500,9 +99497,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"otV" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "ovZ" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -130406,10 +130400,10 @@ bxm
 bxm
 aab
 aab
-cZw
-otV
-otV
-cZw
+bMG
+bMG
+bMG
+bMG
 bTJ
 bVB
 bXc
@@ -130664,7 +130658,7 @@ bxm
 aaa
 aaa
 aaa
-abM
+aab
 aaa
 aaa
 bMG
@@ -132715,8 +132709,8 @@ bFe
 bBB
 bIM
 bvX
-abM
-abM
+aab
+aab
 aaa
 bLd
 bLd
@@ -132724,9 +132718,9 @@ bLd
 bLd
 bLd
 bLd
-abM
-abM
-abM
+aab
+aab
+aab
 bFC
 ceA
 cgn
