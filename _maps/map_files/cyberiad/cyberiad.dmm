@@ -50354,11 +50354,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/public/glass{
-	name = "Pet Store"
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
-/area/civilian/pet_store)
+/area/maintenance/fsmaint2)
 "bPy" = (
 /obj/structure/table,
 /obj/item/assembly/prox_sensor{
@@ -97684,26 +97684,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
-"iqQ" = (
-/obj/structure/table/wood,
-/obj/item/toy/plushie/orange_cat{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 28;
-	pixel_y = 6
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -11
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "iua" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -98001,10 +97981,6 @@
 	tag = "icon-whiteblue (WEST)"
 	},
 /area/security/medbay)
-"jfd" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/civilian/pet_store)
 "jit" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -98101,19 +98077,6 @@
 	icon_state = "darkred"
 	},
 /area/security/securearmoury)
-"jpB" = (
-/obj/structure/table/wood,
-/obj/machinery/fishtank/bowl{
-	pixel_y = 5
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "jAf" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -98763,22 +98726,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
-"ltT" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "lvT" = (
 /obj/structure/rack{
 	dir = 8;
@@ -98945,16 +98892,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
-"lSc" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "lZI" = (
 /obj/machinery/computer/secure_data{
 	layer = 3.5
@@ -99457,20 +99394,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"nXT" = (
-/obj/structure/table/wood,
-/obj/machinery/fishtank/bowl{
-	pixel_y = 5
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "obW" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -99853,11 +99776,6 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint/medical)
-"phf" = (
-/obj/structure/grille/broken,
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "pnd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -100334,17 +100252,14 @@
 	},
 /area/security/permabrig)
 "qAR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -100748,22 +100663,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"rIk" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "rIF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall,
@@ -101263,38 +101162,6 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
-"sYw" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/sink{
-	dir = 8;
-	icon_state = "sink";
-	pixel_x = -12;
-	pixel_y = 0
-	},
-/obj/item/reagent_containers/glass/bucket,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "tbC" = (
 /obj/structure/chair{
 	dir = 4
@@ -101595,17 +101462,10 @@
 	},
 /area/security/medbay)
 "uan" = (
-/obj/structure/table/wood,
-/obj/item/stack/wrapping_paper,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
-	},
-/obj/structure/sign/poster/official/love_ian{
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
+/obj/structure/grille/broken,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "uar" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -102771,23 +102631,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/main)
-"xKf" = (
-/obj/machinery/vending/crittercare,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
-/obj/machinery/camera{
-	c_tag = "Pet Shop";
-	dir = 9
-	},
-/turf/simulated/floor/wood,
-/area/civilian/pet_store)
 "xOU" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -145180,13 +145023,13 @@ bct
 bfR
 bfR
 bfR
-bfR
-bfR
-bfR
 qAR
-ltT
-sYw
-rIk
+qAR
+qAR
+qAR
+bfR
+bfR
+bfR
 bPx
 byQ
 bAW
@@ -145439,12 +145282,12 @@ aGY
 aGY
 aGY
 aGY
+aGY
+aGY
+aGY
+aGY
 aJM
-blT
-jpB
-lSc
-nXT
-jfd
+aGX
 bvg
 bwv
 bwv
@@ -145694,14 +145537,14 @@ aGY
 aGY
 aGY
 aGY
-phf
+aGY
+aGY
+aGY
+aGY
+uan
 aHO
 aQL
-blT
-uan
-xKf
-iqQ
-jfd
+aGX
 bvg
 bwv
 bwv
@@ -145954,11 +145797,11 @@ bau
 bau
 bau
 bau
-blT
-blT
-blT
-blT
-blT
+bau
+bau
+bau
+bau
+bau
 sxo
 bwv
 bwv
