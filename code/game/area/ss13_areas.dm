@@ -1183,12 +1183,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Mechanic Workshop"
 	icon_state = "engine"
 
-/area/engine/mechanic_workshop/expedition
-	name = "\improper Hangar Expedition"
+/area/engine/mechanic_workshop/hanger
+	name = "\improper Hanger Bay"
 	icon_state = "engine"
 
 /area/engine/mechanic_workshop/hangar
-	name = "\improper Hangаr Bay"
+	name = "\improper Hangar Bay"
+	icon_state = "engine"
+
+/area/engine/mechanic_workshop/expedition
+	name = "\improper Expedition Bay"
 	icon_state = "engine"
 
 /area/engine/supermatter
@@ -1364,16 +1368,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Medical Research"
 	icon_state = "medresearch"
 
-/area/medical/research/nhallway
-	name = "\improper RnD North Hallway"
+/area/medical/research/shallway
+	name = "\improper Medical Research Shallway"
 	icon_state = "medresearch"
 
-/area/medical/research/shallway
-	name = "\improper RnD South Hallway"
+/area/medical/research/nhallway
+	name = "\improper Medical Research Nhallway"
 	icon_state = "medresearch"
 
 /area/medical/research/restroom
-	name = "\improper RnD Restroom"
+	name = "\improper Medical Research Restroom"
 	icon_state = "medresearch"
 
 /area/medical/research_shuttle_dock
@@ -1451,8 +1455,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Security Lobby"
 	icon_state = "securitylobby"
 
+/area/security/reception
+	name = "\improper Security Reception"
+	icon_state = "securitylobby"
+
 /area/security/brig
 	name = "\improper Brig"
+	icon_state = "brig"
+
+/area/security/brigstaff
+	name = "\improper Brig Staff Room"
 	icon_state = "brig"
 
 /area/security/brig/prison_break()
@@ -1468,6 +1480,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
 	can_get_auto_cryod = FALSE
+
+/area/security/permahallway
+	name = "\improper Prison Hallway"
+	icon_state = "sec_prison_perma"
 
 /area/security/prison
 	name = "\improper Prison Wing"
@@ -1498,18 +1514,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
 
-/area/security/reception
-	name = "\improper Brig Reception"
-	icon_state = "brig"
-
 /area/security/execution
 	name = "\improper Execution"
 	icon_state = "execution"
 	can_get_auto_cryod = FALSE
-
-/area/security/permahallway
-	name = "\improper Permabrig Hallway"
-	icon_state = "sec_prison_perma"
 
 /area/security/processing
 	name = "\improper Prisoner Processing"
@@ -1524,10 +1532,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/seceqstorage
 	name = "\improper Security Equipment Storage"
 	icon_state = "securityequipmentstorage"
-
-/area/security/brigstaff
-	name = "\improper Brig Staff Room"
-	icon_state = "brig"
 
 /area/security/interrogationhallway
 	name = "\improper Interrogation Hallway"
@@ -1747,6 +1751,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/toxins/misc_lab
 	name = "\improper Research Testing Lab"
 	icon_state = "toxmisc"
+
+/area/toxins/research_break
+	name = "/improper Research Break Room"
+	icon_state = "medresearch"
 
 /area/toxins/test_chamber
 	name = "\improper Research Testing Chamber"

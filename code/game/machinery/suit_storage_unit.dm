@@ -92,6 +92,10 @@
 /obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(ACCESS_PILOT)
 
+/obj/machinery/suit_storage_unit/security/hos
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/security/hos
+	req_access = list(ACCESS_HOS)
+
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
