@@ -1,5 +1,5 @@
 
-      
+
 // Cannabis
 /obj/item/seeds/cannabis
 	name = "pack of cannabis seeds"
@@ -125,4 +125,5 @@
 	name = "omega cannibas leaf"
 	desc = "You feel dizzy looking at it. What the fuck?"
 	icon_state = "ocannabis"
+	volume = 125
 	wine_power = 0.9
