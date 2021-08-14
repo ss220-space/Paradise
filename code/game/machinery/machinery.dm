@@ -527,9 +527,9 @@ Class Procs:
 							var/obj/item/stock_parts/cell/tA = A
 							var/obj/item/stock_parts/cell/tB = B
 							if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
-                                continue
-							else if(B.rating <= A.rating)
 								continue
+						else if(B.rating <= A.rating)
+							continue
 						W.remove_from_storage(B, src)
 						W.handle_item_insertion(A, 1)
 						component_parts -= A
