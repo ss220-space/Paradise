@@ -1048,7 +1048,7 @@
 
 	else if(href_list["noteedits"])
 		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
 			"note_id" = note_id
 		))
 		if(!query_noteedits.warn_execute())
@@ -1165,7 +1165,7 @@
 
 	else if(href_list["watcheditlog"])
 		var/target_ckey = href_list["watcheditlog"]
-		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:targetkey", list(
 			"targetkey" = target_ckey
 		))
 		if(!query_watchedits.warn_execute())
@@ -1860,16 +1860,14 @@
 				if(PDA.owner == old_name)
 					PDA.owner = new_name
 					PDA.name = "PDA-[new_name] ([PDA.ownjob])"
-		//rename general records with mob old name
-		for(var/datum/data/record/R in GLOB.data_core.general)
-			if(R.fields["name"] == old_name)
-				R.fields["name"] = new_name
-				break
-		//rename security records with mob old name
-		for(var/datum/data/record/E in GLOB.data_core.security)
-			if(E.fields["name"] == old_name)
-				E.fields["name"] = new_name
-				break
+		//update the datacore records! This is goig to be a bit costly.
+		for(var/list/L in list(GLOB.data_core.general, GLOB.data_core.medical, GLOB.data_core.security, GLOB.data_core.locked))
+			for(var/datum/data/record/R in L)
+				if(R.fields["name"] == old_name)
+					R.fields["name"] = new_name
+					if(length(R.fields["id"]) == 32)
+						R.fields["id"] = md5("[new_name][M.mind.assigned_role]")
+					break
 
 		log_and_message_admins(message + "[new_name].")
 
@@ -2945,7 +2943,7 @@
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
 		var/sql_key = href_list["memoeditlist"]
-		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("memo")] WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
 		))
 		if(!query_memoedits.warn_execute())

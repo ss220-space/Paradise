@@ -85,6 +85,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
+	var/id //ID for tint controlle
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -713,6 +714,11 @@ About the new airlock wires panel:
 	. = ..()
 	if(isElectrified())
 		shock(user, 100)
+
+/obj/machinery/door/airlock/attack_animal(mob/user)
+	if(istype(user, /mob/living/simple_animal/hulk))
+		var/mob/living/simple_animal/hulk/H = user
+		H.attack_hulk(src)
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))

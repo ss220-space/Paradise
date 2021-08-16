@@ -1,6 +1,5 @@
 var/list/chatResources = list(
 	"goon/browserassets/js/jquery.min.js",
-	"goon/browserassets/js/jquery.mark.min.js",
 	"goon/browserassets/js/json2.min.js",
 	"goon/browserassets/js/twemoji.min.js",
 	"goon/browserassets/js/browserOutput.js",
@@ -309,6 +308,10 @@ var/to_chat_src
 			message = replacetext(message, "\improper", "")
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
+
+		if(config.twitch_censor)
+			for(var/char in config.twich_censor_list)
+				message = replacetext(message, char, config.twich_censor_list[char])
 
 		var/client/C
 		if(istype(target, /client))

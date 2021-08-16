@@ -36,6 +36,7 @@
 	l_ear = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/hos
+	l_pocket = /obj/item/lighter/zippo/hos
 	suit_store = /obj/item/gun/energy/gun
 	pda = /obj/item/pda/heads/hos
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
@@ -83,7 +84,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
@@ -127,7 +128,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/sunglasses/noir/thermal
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/lighter/zippo
@@ -185,7 +186,7 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1
@@ -256,7 +257,7 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1

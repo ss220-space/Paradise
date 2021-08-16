@@ -8,6 +8,9 @@
 
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
+	var/twitch_censor = FALSE
+	var/list/twich_censor_list = list()
+
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout
 	var/log_say = 0						// log client say
@@ -23,7 +26,9 @@
 	var/log_pda = 0						// log pda messages
 	var/log_world_output = 0			// log world.log << messages
 	var/log_runtimes = 0                // logs world.log to a file
+	var/disable_root_log = 0			// disable writing world.log to log panel / root logger of DreamDaemon
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
+	var/log_timers_on_bucket_reset = 0  // logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
@@ -61,6 +66,8 @@
 	var/guest_jobban = 1
 	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
+	var/usewhitelist_database = 0
+	var/usewhitelist_nojobbanned = FALSE
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
 	var/automute_on = 0					//enables automuting/spam prevention
@@ -286,6 +293,8 @@
 
 	var/full_day_logs = FALSE
 
+	var/allow_head_of_departaments_assign_civilian = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -446,8 +455,14 @@
 				if("log_hrefs")
 					config.log_hrefs = 1
 
+				if("disable_root_log")
+					config.disable_root_log = 1
+
 				if("log_runtime")
 					config.log_runtimes = 1
+
+				if("log_timers_on_bucket_reset")
+					config.log_timers_on_bucket_reset = 1
 
 				if("mentors")
 					config.mods_are_mentors = 1
@@ -550,6 +565,12 @@
 
 				if("usewhitelist")
 					config.usewhitelist = 1
+
+				if("usewhitelist_database")
+					config.usewhitelist_database = 1
+
+				if("usewhitelist_nojobbanned")
+					config.usewhitelist_nojobbanned = TRUE
 
 				if("feature_object_spell_system")
 					config.feature_object_spell_system = 1
@@ -817,9 +838,14 @@
 				if ("full_day_logs")
 					config.full_day_logs = TRUE
 
+				if ("allow_head_of_departaments_assign_civilian")
+					config.allow_head_of_departaments_assign_civilian = TRUE
+
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
+		else if(type == "twitch_censor")
+			twich_censor_list[name] = value
 
 		else if(type == "game_options")
 			value = text2num(value)
@@ -922,6 +948,8 @@
 				sqlport = value
 			if("feedback_database")
 				sqlfdbkdb = value
+			if("utility_database")
+				sqlfdbkdbutil = value
 			if("feedback_login")
 				sqlfdbklogin = value
 			if("feedback_password")
