@@ -1161,7 +1161,6 @@
 	},
 /area/centcom/specops)
 "bjW" = (
-/obj/item/gun/magic,
 /obj/item/gun/magic/staff,
 /obj/item/gun/magic/staff/chaos,
 /obj/item/gun/magic/staff/door,
@@ -2534,6 +2533,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/srtops)
+"cEa" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/computer/cryopod/robot{
+	pixel_x = 30
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/blops)
 "cEj" = (
 /obj/structure/table/reinforced,
 /obj/effect/landmark{
@@ -8796,6 +8804,15 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"huo" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/computer/cryopod/robot{
+	pixel_y = -28
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "hup" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger/wallcharger{
@@ -14607,9 +14624,6 @@
 /obj/item/radio/headset/syndicate/alt/lavaland,
 /obj/item/radio/headset/syndicate/alt/syndteam{
 	name = "syndicate team headset"
-	},
-/obj/item/radio/headset/uplink{
-	name = "uplink radio headset"
 	},
 /turf/unsimulated/floor{
 	icon_state = "floor";
@@ -83211,7 +83225,7 @@ sMS
 sMS
 sMS
 rOy
-wHp
+huo
 veF
 ila
 kZP
@@ -88345,7 +88359,7 @@ sXn
 sXn
 sXn
 ual
-vlY
+cEa
 vlY
 veF
 veF
