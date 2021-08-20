@@ -583,6 +583,12 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
+	if(!arePowerSystemsOn() && isrobot(user) && get_dist(src, user) == 1)
+			if(density)
+				open(1)
+			else
+				close(1)
+		return
 
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
