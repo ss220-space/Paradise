@@ -16609,9 +16609,8 @@
 	},
 /area/shuttle/supply)
 "bvg" = (
-/turf/simulated/shuttle/wall/interior{
-	icon_state = "swall_f10";
-	tag = "icon-swall_f10"
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc1"
 	},
 /area/shuttle/supply)
 "bvh" = (
@@ -42689,9 +42688,8 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "drK" = (
-/turf/simulated/shuttle/wall/interior{
-	icon_state = "swall_f6";
-	tag = "icon-swall_f6"
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc2"
 	},
 /area/shuttle/supply)
 "drL" = (
