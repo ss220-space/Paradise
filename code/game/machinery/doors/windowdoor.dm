@@ -212,6 +212,15 @@
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
 
+/obj/machinery/door/window/attack_robot(mob/user)
+	if(!hasPower() && get_dist(src, user) < 2)
+		if(density)
+			open(1)
+		else
+			close(1)
+	else
+		return attack_hand(user)
+
 /obj/machinery/door/window/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)

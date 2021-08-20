@@ -59,6 +59,18 @@
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return
 
+/obj/machinery/door/poddoor/attack_robot(mob/user)
+	if(!density)
+		return
+	if(!hasPower() && get_dist(src, user) == 1)
+		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
+		if(do_after(user, 25, target = src)) // toolspeed от лома киборга, т.к. только для киборгов, фиксируем.
+			if(!hasPower())
+				open()
+			else
+				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+
+
 /obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
 	if(!density)
 		return
