@@ -174,10 +174,11 @@
 	if(welded)
 		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
 		return
-	if(density)
-		open()
-	else
-		close()
+	if(!hasPower() && get_dist(src, user) < 2)
+		if(density)
+			open()
+		else
+			close()
 
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	forcetoggle()

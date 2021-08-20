@@ -583,7 +583,9 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
-	if(!arePowerSystemsOn() && isrobot(user) && get_dist(src, user) == 1)
+
+/obj/machinery/door/airlock/attack_robot(mob/user)
+	if(!arePowerSystemsOn() && get_dist(src, user) < 2)
 		if(welded)
 			to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
 			return
