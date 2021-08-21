@@ -80,7 +80,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 			return
 		//Ядра аномалий можно разобрать только при улучшеном автомате. 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
 		if(istype(O,/obj/item/assembly/signaler/anomaly))
-			if(src.decon_mod < 12)
+			if(decon_mod < 12)
 				to_chat(user, "<span class='warning'>[src.name] не может обработать такой сложный предмет!</span>")
 				return
 		busy = 1
