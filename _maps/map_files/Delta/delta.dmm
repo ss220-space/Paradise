@@ -5464,16 +5464,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"awR" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
-	},
-/turf/simulated/shuttle/wall/interior{
-	icon_state = "swall_f10";
-	tag = "icon-swall_f10"
-	},
-/area/shuttle/transport)
 "awU" = (
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/shuttle/floor,
@@ -5539,7 +5529,7 @@
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
 	},
-/obj/structure/chair/comfy/shuttle,
+/obj/machinery/computer/shuttle/ferry/request,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "axg" = (
@@ -5765,10 +5755,6 @@
 	dir = 1
 	},
 /area/janitor)
-"ayn" = (
-/obj/machinery/computer/shuttle/ferry/request,
-/turf/simulated/shuttle/floor,
-/area/shuttle/transport)
 "ayo" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6302,10 +6288,7 @@
 	dir = 1;
 	tag = "icon-propulsion (NORTH)"
 	},
-/turf/simulated/shuttle/wall/interior{
-	icon_state = "swall_f6";
-	tag = "icon-swall_f6"
-	},
+/turf/simulated/shuttle/plating,
 /area/shuttle/transport)
 "aAK" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -6320,6 +6303,7 @@
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aAN" = (
@@ -6879,14 +6863,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
-"aDz" = (
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
-	},
-/obj/structure/closet/crate,
-/turf/simulated/shuttle/floor,
-/area/shuttle/transport)
 "aDA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7481,10 +7457,6 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/crew_quarters/bar)
-"aFs" = (
-/obj/structure/closet/crate,
-/turf/simulated/shuttle/floor,
-/area/shuttle/transport)
 "aFt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7557,12 +7529,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
-"aFJ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/transport)
 "aFL" = (
 /obj/structure/closet/crate/internals,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -7636,9 +7602,7 @@
 	},
 /area/clownoffice)
 "aGl" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aGm" = (
@@ -9096,9 +9060,7 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aLX" = (
@@ -9122,9 +9084,7 @@
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aMf" = (
@@ -12651,6 +12611,7 @@
 	name = "port bay 3";
 	width = 5
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "bcz" = (
@@ -72358,6 +72319,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
+"iZo" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/structure/closet/crate,
+/turf/simulated/shuttle/floor,
+/area/shuttle/transport)
 "iZp" = (
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
@@ -114846,6 +114815,14 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
+"tLj" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/shuttle/floor,
+/area/shuttle/transport)
 "tLr" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -123263,6 +123240,14 @@
 "vKJ" = (
 /turf/simulated/wall/r_wall,
 /area/security/detectives_office)
+"vLk" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/obj/structure/closet/crate,
+/turf/simulated/shuttle/floor,
+/area/shuttle/transport)
 "vLq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -166975,16 +166960,16 @@ aaa
 aaa
 aaa
 aAJ
-mcI
-aDz
-aFs
-aGl
-aGl
+tLj
 aLW
 aGl
 aGl
 aGl
 aLW
+aGl
+aGl
+aGl
+iZo
 bck
 acC
 acC
@@ -167488,17 +167473,17 @@ aaa
 aaa
 aaa
 aaa
-awR
-mcI
+aAJ
+tLj
 axf
-ayn
-aFJ
-aFJ
+aGl
+aGl
+aGl
 aLZ
-aFJ
-aFJ
-aFJ
-aLZ
+aGl
+aGl
+aGl
+vLk
 bck
 acC
 acC
@@ -167745,7 +167730,7 @@ aaa
 aaa
 aaa
 aaa
-awR
+aAJ
 tzI
 tzI
 tzI
