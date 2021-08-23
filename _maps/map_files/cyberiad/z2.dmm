@@ -12848,7 +12848,7 @@
 "Hz" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/chimichanga,
-/obj/item/reagent_containers/food/snacks/clownstears,
+/obj/item/reagent_containers/food/snacks/soup/clownstears,
 /obj/item/reagent_containers/food/snacks/lasagna,
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza,
 /obj/item/reagent_containers/food/condiment/pack/ketchup,
@@ -13947,7 +13947,7 @@
 "Mv" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/chimichanga,
-/obj/item/reagent_containers/food/snacks/clownstears,
+/obj/item/reagent_containers/food/snacks/soup/clownstears,
 /obj/item/reagent_containers/food/snacks/customizable,
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza,
 /obj/item/reagent_containers/food/snacks/sushi_Ebi,

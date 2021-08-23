@@ -11,7 +11,7 @@
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 
-/obj/item/reagent_containers/food/snacks/meatballsoup
+/obj/item/reagent_containers/food/snacks/soup/meatballsoup
 	name = "meatball soup"
 	desc = "You've got balls kid, BALLS!"
 	icon_state = "meatballsoup"
