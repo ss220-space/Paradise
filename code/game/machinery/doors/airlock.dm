@@ -584,17 +584,6 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
 
-/obj/machinery/door/airlock/attack_robot(mob/user)
-	if(!arePowerSystemsOn() && get_dist(src, user) < 2)
-		if(welded)
-			to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
-			return
-		if(density)
-			open(1)
-		else
-			close(1)
-		return
-
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
