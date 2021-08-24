@@ -62,7 +62,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(disabled)
 		return
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>[src.name] сперва необходимо подключить к консоли!</span>")
+		to_chat(user, "<span class='warning'>[src.name] сперва требуется подключить к R&D консоли!</span>")
 		return
 	if(busy)
 		to_chat(user, "<span class='warning'>[src.name] сейчас занят.</span>")
