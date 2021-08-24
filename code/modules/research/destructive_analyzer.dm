@@ -7,7 +7,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 */
 /obj/machinery/r_n_d/destructive_analyzer
 	name = "Destructive Analyzer"
-	desc = "Изучайте науку, ломая вещи!"
+	desc = "Изучайте науку, разрушая предметы!"
 	icon_state = "d_analyzer"
 	var/decon_mod = 0
 
