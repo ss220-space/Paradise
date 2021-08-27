@@ -3032,11 +3032,11 @@
 	dir = 1;
 	switchcount = 50
 	},
+/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/space,
 /area/centcom/evac)
 "cPV" = (
 /turf/space,
@@ -26020,11 +26020,11 @@
 /area/centcom/zone3)
 "tyk" = (
 /obj/item/twohanded/required/kirbyplants,
+/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/space,
 /area/centcom/evac)
 "tyu" = (
 /obj/machinery/vending/chinese/free,
