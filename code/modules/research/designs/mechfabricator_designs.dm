@@ -1206,11 +1206,11 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_hypo
+/datum/design/borg_upgrade_hypospray
 	name = "Cyborg Upgrade (Upgraded Hypospray)"
-	id = "borg_upgrade_hypo"
+	id = "borg_upgrade_hypospray"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/hypo
+	build_path = /obj/item/borg/upgrade/hypospray
 	req_tech = list("biotech" = 7, "materials" = 7)
 	materials = list(MAT_METAL=15000, MAT_GLASS=5000, MAT_DIAMOND=5000)
 	construction_time = 120

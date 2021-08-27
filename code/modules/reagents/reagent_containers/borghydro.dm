@@ -127,6 +127,7 @@
 	mode = choices.Find(choice)
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
+	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)

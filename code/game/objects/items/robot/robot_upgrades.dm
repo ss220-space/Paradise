@@ -413,7 +413,7 @@
 		ES.energy = ES.max_energy
 	return TRUE
 
-/obj/item/borg/upgrade/hypo
+/obj/item/borg/upgrade/hypospray
 	name = "cyborg hypospray upgrade"
 	desc = "Adds and replaces some reagents with better ones"
 	icon_state = "cyborg_upgrade2"
@@ -421,11 +421,11 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/hypo/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	if(locate(/obj/item/borg/upgrade/hypo) in R)
+	if(locate(/obj/item/borg/upgrade/hypospray) in R)
 		to_chat(usr, "<span class='warning'>This unit is already equipped with a cyborg hypospray upgrade.</span>")
 		return 0
 
