@@ -429,7 +429,9 @@
 		to_chat(usr, "<span class='warning'>This unit is already equipped with a cyborg hypospray upgrade.</span>")
 		return 0
 
-	for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
+	var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
+	if(H)
+		R.module.modules.Remove(H)
 		qdel(H)
 	R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
 	R.module.rebuild()
