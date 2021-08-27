@@ -53,10 +53,8 @@
 			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
-			W.layer = initial(W.layer)
-			W.plane = initial(W.plane)
-			W.loc = affected_mob.loc
-			W.dropped(affected_mob)
+			if(affected_mob.unEquip(W))
+				affected_mob.unEquip(W)
 		if(isobj(affected_mob.loc))
 			var/obj/O = affected_mob.loc
 			O.force_eject_occupant(affected_mob)
