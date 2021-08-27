@@ -1196,6 +1196,26 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_medstorage
+	name = "Cyborg Upgrade (Medical Storage)"
+	id = "borg_upgrade_medstorage"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/medstorage
+	req_tech = list("bluespace" = 6, "materials" = 7)
+	materials = list(MAT_METAL=15000, MAT_BLUESPACE=2000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_hypo
+	name = "Cyborg Upgrade (Upgraded Hypospray)"
+	id = "borg_upgrade_hypo"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/hypo
+	req_tech = list("biotech" = 7, "materials" = 7)
+	materials = list(MAT_METAL=15000, MAT_GLASS=5000, MAT_DIAMOND=5000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 //Misc
 /datum/design/mecha_tracking
 	name = "Exosuit Tracking Beacon"

@@ -387,3 +387,50 @@
 			msg_cooldown = world.time
 	else
 		deactivate()
+
+/obj/item/borg/upgrade/medstorage
+	name = "medical storage increaser"
+	desc = "Improves medical storage with bluespace technology to store more medicines"
+	icon_state = "cyborg_upgrade2"
+	origin_tech = "bluespace=6;materials=6"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/medstorage/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+
+	if(locate(/obj/item/borg/upgrade/medstorage) in R)
+		to_chat(usr, "<span class='warning'>This unit is already equipped with a medical storage increaser.</span>")
+		return 0
+
+	var/obj/item/robot_module/medical/M = locate() in R
+	if(!M)
+		return
+	for(var/datum/robot_energy_storage/ES in M.storages)
+		ES.max_energy *= 3
+		ES.recharge_rate *= 3
+		ES.energy = ES.max_energy
+	return TRUE
+
+/obj/item/borg/upgrade/hypo
+	name = "cyborg hypospray upgrade"
+	desc = "Adds and replaces some reagents with better ones"
+	icon_state = "cyborg_upgrade2"
+	origin_tech = "biotech=7;materials=7"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/hypo/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+
+	if(locate(/obj/item/borg/upgrade/hypo) in R)
+		to_chat(usr, "<span class='warning'>This unit is already equipped with a cyborg hypospray upgrade.</span>")
+		return 0
+
+	for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
+		qdel(H)
+	R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
+	R.module.rebuild()
+	return TRUE
