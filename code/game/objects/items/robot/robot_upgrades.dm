@@ -392,7 +392,7 @@
 	name = "medical storage increaser"
 	desc = "Improves medical storage with bluespace technology to store more medicines"
 	icon_state = "cyborg_upgrade2"
-	origin_tech = "bluespace=6;materials=6"
+	origin_tech = "bluespace=4;materials=5;engineering=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
@@ -409,7 +409,7 @@
 		return
 	for(var/datum/robot_energy_storage/ES in M.storages)
 		ES.max_energy *= 3
-		ES.recharge_rate *= 3
+		ES.recharge_rate *= 2
 		ES.energy = ES.max_energy
 	return TRUE
 
@@ -417,7 +417,7 @@
 	name = "cyborg hypospray upgrade"
 	desc = "Adds and replaces some reagents with better ones"
 	icon_state = "cyborg_upgrade2"
-	origin_tech = "biotech=7;materials=7"
+	origin_tech = "biotech=6;materials=5"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
