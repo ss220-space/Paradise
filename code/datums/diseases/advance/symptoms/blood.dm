@@ -18,7 +18,7 @@ Bonus
 	name = "Viral Hematopoiesis"
 	stealth = -2
 	resistance = -2
-	stage_speed = -6
+	stage_speed = -4
 	transmittable = -1
 	level = 5
 	var/check = FALSE
@@ -31,7 +31,8 @@ Bonus
 			if(3,4)
 				to_chat(M, "<span class='notice'>You feel hungry</span>")
 			if(5)
-				to_chat(M, "<span class='notice'>You can hear own heartbeat</span>")
+				if(prob(10))
+					to_chat(M, "<span class='notice'>You can hear own heartbeat</span>")
 				check = TRUE
 	if(check == TRUE && (M.blood_volume < BLOOD_VOLUME_NORMAL) && !(NO_BLOOD in M.dna.species.species_traits))
 		M.blood_volume += 0.4
