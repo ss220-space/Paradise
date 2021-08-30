@@ -737,7 +737,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/maintenance/engrooms
-	name = "Abadoned Engineers Rooms"
+	name = "Abandoned Engineers Rooms"
 	icon_state = "yellow"
 
 /area/maintenance/xenozoo
@@ -1297,6 +1297,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
+
+/area/teleporter/abandoned
+    name = "\improper Abandoned Teleporter"
+    icon_state = "teleporter"
+    ambientsounds = ENGINEERING_SOUNDS
 
 /area/gateway
 	name = "\improper Gateway"
