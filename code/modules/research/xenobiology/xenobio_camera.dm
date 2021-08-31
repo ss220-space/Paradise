@@ -190,12 +190,15 @@
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+		if(ispath(remote_eye.loc.type,/turf/simulated/wall))
+			to_chat(owner, "<span class='warning'>Что-то мешает.</span>")
+			return
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
 			S.forceMove(remote_eye.loc)
 			S.visible_message("[S] warps in!")
 			X.stored_slimes -= S
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/slime_pick_up
 	name = "Pick up Slime"
@@ -219,7 +222,7 @@
 				S.forceMove(X)
 				X.stored_slimes += S
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/feed_slime
 	name = "Feed Slimes"
@@ -233,6 +236,9 @@
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+		if(ispath(remote_eye.loc.type,/turf/simulated/wall))
+			to_chat(owner, "<span class='warning'>Что-то мешает.</span>")
+			return
 		if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
 			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
 			return
@@ -243,7 +249,7 @@
 			X.monkeys --
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/monkey_recycle
 	name = "Recycle Monkeys"
@@ -258,7 +264,7 @@
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(!recycler)
-		to_chat(owner, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
+		to_chat(owner, "<span class='warning'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
@@ -268,7 +274,7 @@
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/slime_scan
 	name = "Scan Slime"
@@ -307,7 +313,7 @@
 			X.current_potion.attack(S, C)
 			break
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/hotkey_help
 	name = "Hotkey Help"
@@ -409,6 +415,9 @@
 	if(!GLOB.cameranet.checkTurfVis(T))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
+	if(ispath(T.type,/turf/simulated/wall))
+		to_chat(user, "<span class='warning'>Что-то мешает.</span>")
+		return
 	var/mob/living/C = user
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
@@ -423,6 +432,9 @@
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickCtrl(mob/living/user, turf/T)
 	if(!GLOB.cameranet.checkTurfVis(T))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
+		return
+	if(ispath(T.type,/turf/simulated/wall))
+		to_chat(user, "<span class='warning'>Что-то мешает.</span>")
 		return
 	var/mob/living/C = user
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
