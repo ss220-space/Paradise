@@ -151,6 +151,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	if(GLOB.PDA_Manifest.len)
 		return
 	var/heads[0]
+	var/pro[0]
 	var/sec[0]
 	var/eng[0]
 	var/med[0]
@@ -173,6 +174,12 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			depthead = 1
 			if(real_rank == "Captain" && heads.len != 1)
 				heads.Swap(1,  heads.len)
+
+		if((real_rank == "Magistrate") || (real_rank == "Internal Affairs Agent") || (real_rank == "Nanotrasen Representative"))
+			pro[++pro.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			department = 1
+			if((real_rank == "Magistrate") && pro.len != 1)
+				pro.Swap(1,  pro.len)
 
 		if(real_rank in GLOB.security_positions)
 			sec[++sec.len] = list("name" = name, "rank" = rank, "active" = isactive)
@@ -220,6 +227,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 	GLOB.PDA_Manifest = list(\
 		"heads" = heads,\
+		"pro" = pro,\
 		"sec" = sec,\
 		"eng" = eng,\
 		"med" = med,\
