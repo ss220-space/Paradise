@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			depthead = 1
-			if(rank == "Captain" && heads.len != 1)
+			if(real_rank == "Captain" && heads.len != 1)
 				heads.Swap(1,  heads.len)
 
 		if(real_rank in GLOB.security_positions)
@@ -237,11 +237,10 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		manifest_inject(H)
 
-/datum/datacore/proc/manifest_modify(name, assignment)
+/datum/datacore/proc/manifest_modify(name, rank, assignment)
 	if(GLOB.PDA_Manifest.len)
 		GLOB.PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
-	var/real_title = assignment
 
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
@@ -249,18 +248,9 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 				foundrecord = t
 				break
 
-	var/list/all_jobs = get_job_datums()
-
-	for(var/datum/job/J in all_jobs)
-		var/list/alttitles = get_alternate_titles(J.title)
-		if(!J)	continue
-		if(assignment in alttitles)
-			real_title = J.title
-			break
-
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
-		foundrecord.fields["real_rank"] = real_title
+		foundrecord.fields["real_rank"] = rank
 
 GLOBAL_VAR_INIT(record_id_num, 1001)
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
