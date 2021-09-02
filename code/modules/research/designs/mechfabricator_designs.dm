@@ -1196,11 +1196,11 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_medstorage
+/datum/design/borg_upgrade_storageincreaser
 	name = "Cyborg Upgrade (Medical Storage)"
-	id = "borg_upgrade_medstorage"
+	id = "borg_upgrade_storageincreaser"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/medstorage
+	build_path = /obj/item/borg/upgrade/storageincreaser
 	req_tech = list(TECH_BLUESPACE = 5, TECH_MATERIAL = 7, TECH_ENGINEERING = 5)
 	materials = list(MAT_METAL=15000, MAT_BLUESPACE=2000, MAT_SILVER=6000)
 	construction_time = 120
