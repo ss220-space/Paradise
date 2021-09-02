@@ -410,7 +410,7 @@
 	if(abs(temperature_delta) > 1)
 		var/air_heat_capacity = air_contents.heat_capacity()
 
-		var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
+		var/heat = (1 - cold_protection) * (0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
 
 		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
 		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
