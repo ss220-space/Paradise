@@ -111,7 +111,7 @@
 
 	/*
 	Pump mode:
-	If mix ratio is set to 100:0 or 0:100, mixer will act like a gas pump, avoiding unnecessary checks for acutal mixing process
+	If mixing ratio is set to 100:0 or 0:100, mixer will act like a gas pump, avoiding unnecessary checks for actual mixing process
 	pump = 0 - pump mode is OFF
 	pump = 1 - pump mode is ON, transfers gas from intake 1 to outlet (node 1 -> node 3)
 	pump = 2 - pump mode is ON, transfers gas from intake 2 to outlet (node 2 -> node 3)
