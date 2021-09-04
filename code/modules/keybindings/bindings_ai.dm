@@ -31,11 +31,11 @@
 	return 1
 
 /mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
-	var/camnum_lenght = length(stored_locations)
-	if(camnum > camnum_lenght || (camnum == 0 && camnum_lenght != 10))
+	var/camnum_length = length(stored_locations)
+	if(camnum > camnum_length || (camnum == 0 && camnum_length < 10))
 		to_chat(user, "<span class='warning'>You have no stored camera on [camnum] position</span>")
 		return 0
-	if(!camnum)
+	if(camnum == 0)
 		camnum = 10
 	current_camera = camnum
 	return 1
