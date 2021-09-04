@@ -16,12 +16,14 @@
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"),
-	"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"),
-	"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"),
-	"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"),
-	"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"),
-	"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+	var/list/reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
+		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
+		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+	
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
@@ -37,15 +39,16 @@
 /obj/item/reagent_containers/borghypo/upgraded
 	name = "upgraded cyborg hypospray"
 	desc = "An upgraded advanced chemical synthesizer and injection system, designed for heavy-duty medical equipment."
-	reagent_ids = list("salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"),
-	"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"),
-	"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"),
-	"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"),
-	"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"),
-	"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"),
-	"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"),
-	"calomel" = list('icons/obj/items.dmi', "soap"),
-	"oculine" = list('icons/obj/surgery.dmi', "eyes"))
+	reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
+		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
+		"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"), \
+		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
+		"calomel" = list('icons/obj/items.dmi', "soap"), \
+		"oculine" = list('icons/obj/surgery.dmi', "eyes")) \
 
 
 /obj/item/reagent_containers/borghypo/New()
