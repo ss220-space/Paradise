@@ -47,13 +47,11 @@
 	to_chat(user, "<span class='notice'>Now you on camera position: [camname]</span>")
 
 /mob/living/silicon/ai/proc/current_camera_next(client/user)
-	current_camera++
-	if(current_camera > length(stored_locations))
+	if(current_camera >= length(stored_locations))
 		current_camera = 1
 
 /mob/living/silicon/ai/proc/current_camera_back(client/user)
-	current_camera--
-	if(!current_camera)
+	if(current_camera <= 1)
 		current_camera = length(stored_locations)
 
 
