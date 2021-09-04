@@ -31,9 +31,10 @@
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list("syndicate_nanites" = list('icons/mob/swarmer.dmi', "swarmer_ranged"),
-	"potass_iodide" = list('icons/obj/decals.dmi', "radiation"),
-	"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+	reagent_ids = list( \
+		"syndicate_nanites" = list('icons/mob/swarmer.dmi', "swarmer_ranged"), \
+		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
+		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = 1
 
 /obj/item/reagent_containers/borghypo/upgraded
@@ -150,7 +151,8 @@
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
 	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
-	reagent_ids = list("salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"),
-	"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
+	reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
 
 #undef BORGHYPO_REFILL_VALUE
