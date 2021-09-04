@@ -53,8 +53,3 @@
 /mob/living/silicon/ai/proc/current_camera_back(client/user)
 	if(current_camera <= 1)
 		current_camera = length(stored_locations)
-
-
-
-
-
