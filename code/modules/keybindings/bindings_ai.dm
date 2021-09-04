@@ -27,6 +27,7 @@
 		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")
 		return 0
 	return 1
+
 /mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
 	var/camnum_lenght = length(stored_locations)
 	if(camnum > camnum_lenght || (camnum == 0 && camnum_lenght != 10))
