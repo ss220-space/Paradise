@@ -23,6 +23,7 @@
 					update_binded_camera(user)
 					return
 		return ..()
+
 /mob/living/silicon/ai/proc/check_for_binded_cameras(client/user)
 	if(!length(stored_locations))
 		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")
