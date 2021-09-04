@@ -1,4 +1,5 @@
 /mob/living/silicon/ai/var/current_camera = 0
+
 /mob/living/silicon/ai/key_down(_key, client/user)
 	if(user.keys_held["Shift"])
 		if(text2num(_key) != null)
