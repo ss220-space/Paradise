@@ -48,7 +48,7 @@
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"), \
 		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
 		"calomel" = list('icons/obj/items.dmi', "soap"), \
-		"oculine" = list('icons/obj/surgery.dmi', "eyes")) \
+		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
 
 
 /obj/item/reagent_containers/borghypo/New()
