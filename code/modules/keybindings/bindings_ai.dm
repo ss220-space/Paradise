@@ -14,12 +14,12 @@
 				return
 			if("N")
 				if(check_for_binded_cameras(user))
-					current_camera++
+					current_camera_next(user)
 					update_binded_camera(user)
 					return
 			if("B")
 				if(check_for_binded_cameras(user))
-					current_camera--
+					current_camera_back(user)
 					update_binded_camera(user)
 					return
 		return ..()
@@ -42,14 +42,20 @@
 
 /mob/living/silicon/ai/proc/update_binded_camera(client/user)
 	var/camname
-	var/camnummax = length(stored_locations)
-	if(current_camera > camnummax)
-		current_camera = 1
-	else if(!current_camera)
-		current_camera = camnummax
 	camname = stored_locations[current_camera]
 	ai_goto_location(camname)
-	to_chat(user, "<span class='warning'>Now you on position: [camname] | Number [current_camera] | All cameras value: [camnummax]</span>")
+	to_chat(user, "<span class='warning'>Now you on camera position: [camname]</span>")
+
+/mob/living/silicon/ai/proc/current_camera_next(client/user)
+	current_camera++
+	if(current_camera > length(stored_locations))
+		current_camera = 1
+
+/mob/living/silicon/ai/proc/current_camera_back(client/user)
+	current_camera--
+	if(!current_camera)
+		current_camera = length(stored_locations)
+
 
 
 
