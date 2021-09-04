@@ -44,7 +44,7 @@
 	var/camname
 	camname = stored_locations[current_camera]
 	ai_goto_location(camname)
-	to_chat(user, "<span class='warning'>Now you on camera position: [camname]</span>")
+	to_chat(user, "<span class='notice'>Now you on camera position: [camname]</span>")
 
 /mob/living/silicon/ai/proc/current_camera_next(client/user)
 	current_camera++
