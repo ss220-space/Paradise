@@ -48,7 +48,7 @@
 	else if(!current_camera)
 		current_camera = camnummax
 	camname = stored_locations[current_camera]
-	ai_goto_location(stored_locations[current_camera])
+	ai_goto_location(camname)
 	to_chat(user, "<span class='warning'>Now you on position: [camname] | Number [current_camera] | All cameras value: [camnummax]</span>")
 
 
