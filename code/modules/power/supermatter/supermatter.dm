@@ -399,7 +399,7 @@
 /obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
 	if(istype(AM, /mob/living))
 		var/mob/living/user = AM
-		user.dust()
+		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
