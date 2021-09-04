@@ -37,6 +37,7 @@
 		camnum = 10
 	current_camera = camnum
 	return 1
+
 /mob/living/silicon/ai/proc/update_binded_camera(client/user)
 	var/camname
 	var/camnummax = length(stored_locations)
