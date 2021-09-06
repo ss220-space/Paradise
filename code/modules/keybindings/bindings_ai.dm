@@ -49,7 +49,11 @@
 /mob/living/silicon/ai/proc/current_camera_next(client/user)
 	if(current_camera >= length(stored_locations))
 		current_camera = 1
+	else
+		current_camera += 1
 
 /mob/living/silicon/ai/proc/current_camera_back(client/user)
 	if(current_camera <= 1)
 		current_camera = length(stored_locations)
+	else
+		current_camera -= 1
