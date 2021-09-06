@@ -455,26 +455,24 @@
 			remove_object(O)
 
 	//Sheets == Переписанный с 0 кусок. Желающие могут попробовать починить офф-код
-	for (var/obj/item/stack/O in holdingitems)
-		if (beaker.reagents.holder_full())
+	for (var/obj/item/stack/O in holdingitems) 	//Начинаем перебирать стаки
+		if (beaker.reagents.holder_full())		//Если полон - выходим из цикла
 			break
-		var/allowed = get_allowed_by_id(O)
-		if(isnull(allowed))
-			break
-		var/amountr = 0
-		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-		for(amountr = 1; amountr <= round(O.amount); amountr++)
-			if (!space)
-				amountr -= 1
+		var/allowed = get_allowed_by_id(O)		//Получаем предметы, доступные для прокрутки
+		if(isnull(allowed))						//Если их нет, продолжаем
+			continue
+		while(O.amount)				//Перерабатываем все
+			if(O.amount < 1)		//Если меньше 1, то уничтожаем объект
+				remove_object(O)
 				break
-			for (var/r_id in allowed)
-				var/amount = min(allowed[r_id]*efficiency, space)
-				space -= amount
-				beaker.reagents.add_reagent(r_id,amount)
-		O.amount -= amountr
-		if (!round(O.amount))
-			remove_object(O)
-			break
+			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume //Определяем свободное место
+			if (!space)				//Нет места - выходим из цикла
+				break
+			O.amount -= 1			//Удаляем 1 предмет
+			for (var/r_id in allowed)	//Перебираем результат помола
+				var/amount = min(allowed[r_id]*efficiency, space) 	//Сколько осталось свободного места
+				space -= amount 									//Места стало меньше
+				beaker.reagents.add_reagent(r_id,amount)			//Добавили реагент
 	//======
 
 	//Plants
