@@ -84,6 +84,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
+	r_pocket = /obj/item/lighter/zippo/warden
 	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
