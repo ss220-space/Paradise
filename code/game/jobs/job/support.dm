@@ -139,6 +139,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
+	r_pocket = /obj/item/lighter/zippo/qm
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
 

@@ -22,6 +22,15 @@
 	icon_off = "lighter-[color]"
 	icon_state = icon_off
 
+//EXTRA LIGHTERS
+
+/obj/item/lighter/sec
+	name = "security lighter"
+	desc = "Not so cheap. For security purposes."
+	icon_state = "lighter_sec"
+	icon_on = "lighter_sec_on"
+	icon_off = "lighter_sec"
+
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
 	if(!lit)
@@ -98,7 +107,7 @@
 // Zippo lighters
 /obj/item/lighter/zippo
 	name = "zippo lighter"
-	desc = "The zippo."
+	desc = "The zippo. Timeless classics."
 	icon_state = "zippo"
 	item_state = "zippo"
 	icon_on = "zippoon"
@@ -131,6 +140,7 @@
 	return
 
 //EXTRA LIGHTERS
+
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
@@ -207,6 +217,104 @@
 	icon_state = "zippo_rd"
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
+
+/obj/item/lighter/zippo/qm
+	name = "Quartermaster zippo"
+	desc = "Zippo & NanoTrasen special edition. You can see small APPROVED sign at the bottom."
+	icon_state = "zippo_qm"
+	icon_on = "zippo_qm_on"
+	icon_off = "zippo_qm"
+
+/obj/item/lighter/zippo/paramed
+	name = "Paramedic zippo"
+	desc = "Zippo & NanoTrasen special edition. Don't confuse it with crew monitor."
+	icon_state = "zippo_paramed"
+	icon_on = "zippo_paramed_on"
+	icon_off = "zippo_paremed"
+
+/obj/item/lighter/zippo/miner
+	name = "Miner zippo"
+	desc = "Zippo & NanoTrasen special edition. You still can light a cigarette from lava."
+	icon_state = "zippo_miner"
+	icon_on = "zippo_miner_on"
+	icon_off = "zippo_miner"
+
+/obj/item/lighter/zippo/magist
+	name = "Magistrate zippo"
+	desc = "Zippo & NanoTrasen special edition. I AM THE LAW!"
+	icon_state = "zippo_magist"
+	icon_on = "zippo_magist_on"
+	icon_off = "zippo_magist"
+
+/obj/item/lighter/zippo/hydro
+	name = "Hydroponics zippo"
+	desc = "Zippo & NanoTrasen special edition. You now exactly what to do with it."
+	icon_state = "zippo_hydro"
+	icon_on = "zippo_hydro_on"
+	icon_off = "zippo_hydro"
+
+/obj/item/lighter/zippo/gene
+	name = "Geneticist zippo"
+	desc = "Zippo & NanoTrasen special edition. Helps you before you start to fire lasers from your eyes."
+	icon_state = "zippo_gene"
+	icon_on = "zippo_gene_on"
+	icon_off = "zippo_gene"
+
+/obj/item/lighter/zippo/eng
+	name = "Engineer zippo"
+	desc = "Zippo & NanoTrasen special edition. Don't use it in phoron atmosphere."
+	icon_state = "zippo_eng"
+	icon_on = "zippo_eng_on"
+	icon_off = "zippo_eng"
+
+/obj/item/lighter/zippo/coroner
+	name = "Coroner zippo"
+	desc = "Zippo & NanoTrasen special edition. Using dead crewmember's skulls as ashtrays is prohibited."
+	icon_state = "zippo_coroner"
+	icon_on = "zippo_coroner_on"
+	icon_off = "zippo_coroner"
+
+/obj/item/lighter/zippo/chem
+	name = "Ash generator 3000"
+	desc = "Zippo & NanoTrasen special edition. You can see something scratched on it: DONT HEAT FUCKING OIL."
+	icon_state = "zippo_chem"
+	icon_on = "zippo_chem_on"
+	icon_off = "zippo_chem"
+
+/obj/item/lighter/zippo/cargo
+	name = "Cargo zippo"
+	desc = "Zippo & NanoTrasen special edition. It is lighter than usual."
+	icon_state = "zippo_cargo"
+	icon_on = "zippo_cargo_on"
+	icon_off = "zippo_cargo"
+
+/obj/item/lighter/zippo/iaa
+	name = "Internal Affairs zippo"
+	desc = "Zippo & NanoTrasen special edition. Perfectly designed for burning paper."
+	icon_state = "zippo_iaa"
+	icon_on = "zippo_iaa_on"
+	icon_off = "zippo_iaa"
+
+/obj/item/lighter/zippo/warden
+	name = "Warden zippo"
+	desc = "Zippo & NanoTrasen special edition. Knowledge of Space Law not included."
+	icon_state = "zippo_warden"
+	icon_on = "zippo_warden_on"
+	icon_off = "zippo_warden"
+
+/obj/item/lighter/zippo/med
+	name = "Medic zippo"
+	desc = "Zippo & NanoTrasen special edition. It's not fair that you're not allowed to smoke on work."
+	icon_state = "zippo_med"
+	icon_on = "zippo_med_on"
+	icon_off = "zippo_med"
+
+/obj/item/lighter/zippo/sci
+	name = "Scientist zippo"
+	desc = "Zippo & NanoTrasen special edition. For all your harmful experiments."
+	icon_state = "zippo_sci"
+	icon_on = "zippo_sci_on"
+	icon_off = "zippo_sci"
 
 ///////////
 //MATCHES//
