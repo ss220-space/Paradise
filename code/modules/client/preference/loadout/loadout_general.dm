@@ -2,34 +2,10 @@
 	display_name = "a d20"
 	path = /obj/item/dice/d20
 
-/datum/gear/uplift
-	display_name = "a pack of Uplifts"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
-
-/datum/gear/robust
-	display_name = "a pack of Robusts"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_robust
-
-/datum/gear/carp
-	display_name = "a pack of Carps"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_carp
-
-/datum/gear/midori
-	display_name = "a pack of Midoris"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
-
 /datum/gear/smokingpipe
 	display_name = "smoking pipe"
 	path = /obj/item/clothing/mask/cigarette/pipe
 	cost = 2
-
-/datum/gear/lighter
-	display_name = "a cheap lighter"
-	path = /obj/item/lighter
-
-/datum/gear/matches
-	display_name = "a box of matches"
-	path = /obj/item/storage/box/matches
 
 /datum/gear/candlebox
 	display_name = "a box candles"
@@ -142,6 +118,7 @@
 	display_name ="synthesizer"
 	path = /obj/item/instrument/piano_synth
 	cost = 2
+
 //////////////////////
 //		Mugs		//
 //////////////////////
@@ -197,3 +174,127 @@
 	display_name = "crewmember coffee mug"
 	description = "A crewmember's coffee mug, emblazoned in the colors of the Service department."
 	path = /obj/item/reagent_containers/food/drinks/mug/serv
+
+//////////////////////
+//		Smoking		//
+//////////////////////
+
+/datum/gear/smoking/pipe
+	display_name = "smoking pipe"
+	path = /obj/item/clothing/mask/cigarette/pipe
+	cost = 2
+	sort_category = "Smoking"
+
+/datum/gear/smoking/cigpacks
+	subtype_path = /datum/gear/smoking/cigpacks
+	sort_category = "Smoking"
+	subtype_cost_overlap = TRUE
+
+/datum/gear/smoking/cigpacks/uplift
+	display_name = "a pack of Uplifts"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
+
+/datum/gear/smoking/cigpacks/robust
+	display_name = "a pack of Robusts"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_robust
+
+/datum/gear/smoking/cigpacks/carp
+	display_name = "a pack of Carps"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_carp
+
+/datum/gear/smoking/cigpacks/midori
+	display_name = "a pack of Midoris"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
+
+/datum/gear/smoking/lighter
+	display_name = "a cheap lighter"
+	path = /obj/item/lighter
+	sort_category = "Smoking"
+
+/datum/gear/smoking/lighter/sec
+	display_name = "a security lighter"
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Physician", "Internal Affairs Agent")
+	path = /obj/item/lighter/sec
+	sort_category = "Smoking"
+
+
+/datum/gear/smoking/matches
+	display_name = "a box of matches"
+	path = /obj/item/storage/box/matches
+	sort_category = "Smoking"
+
+/datum/gear/smoking/zippo
+	subtype_path = /datum/gear/smoking/zippo
+	sort_category = "Smoking"
+	subtype_cost_overlap = FALSE
+
+/datum/gear/smoking/zippo/miner
+	display_name = "Miner zippo"
+	description = "A miner's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Shaft Miner")
+	path = /obj/item/lighter/zippo/miner
+	cost = 2
+
+/datum/gear/smoking/zippo/cargo
+	display_name = "Cargo zippo"
+	description = "A cargo zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Cargo Technician")
+	path = /obj/item/lighter/zippo/cargo
+	cost = 2
+
+
+/datum/gear/smoking/zippo/hydro
+	display_name = "Hydroponics zippo"
+	description = "A botanist's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Botanist")
+	path = /obj/item/lighter/zippo/hydro
+	cost = 2
+
+/datum/gear/smoking/zippo/paramed
+	display_name = "Paramedic zippo"
+	description = "A paramedic's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Paramedic")
+	path = /obj/item/lighter/zippo/paramed
+	cost = 2
+
+/datum/gear/smoking/zippo/gene
+	display_name = "Geneticist zippo"
+	description = "A geneticist's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Geneticist")
+	path = /obj/item/lighter/zippo/gene
+	cost = 2
+
+/datum/gear/smoking/zippo/coroner
+	display_name = "Coroner zippo"
+	description = "A coroner's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Coroner")
+	path = /obj/item/lighter/zippo/coroner
+	cost = 2
+
+/datum/gear/smoking/zippo/med
+	display_name = "Medic zippo"
+	description = "A medic's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Medical Doctor")
+	path = /obj/item/lighter/zippo/med
+	cost = 2
+
+/datum/gear/smoking/zippo/eng
+	display_name = "Engineer zippo"
+	description = "A engineer's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Station Engineer", "Mechanic", "Life Support Specialist")
+	path = /obj/item/lighter/zippo/eng
+	cost = 2
+
+/datum/gear/smoking/zippo/iaa
+	display_name = "Internal Affairs zippo"
+	description = "A Internal Affairs zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Internal Affairs Agent")
+	path = /obj/item/lighter/zippo/iaa
+	cost = 2
+
+/datum/gear/smoking/zippo/sci
+	display_name = "Scientist zippo"
+	description = "A scientist's zippo lighter. You still need to find something to smoke."
+	allowed_roles = list("Scientist", "Roboticist")
+	path = /obj/item/lighter/zippo/sci
+	cost = 2
