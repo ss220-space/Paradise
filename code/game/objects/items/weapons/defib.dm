@@ -530,6 +530,38 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+				if(H.undergoing_cardiac_arrest())
+					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
+						user.visible_message("<span class='boldnotice'>[user] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+						update_icon()
+						busy = FALSE
+						return
+					else
+						var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
+						if(heart.status & ORGAN_DEAD)
+							user.visible_message("<span class='boldnotice'>[user] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
+							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+							update_icon()
+							busy = FALSE
+							return
+						H.set_heartattack(FALSE)
+						H.shock_internal_organs(100)
+						user.visible_message("<span class='boldnotice'>[user] pings: Cardiac arrhythmia corrected.</span>")
+						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
+						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+						playsound(get_turf(src), "bodyfall", 50, 1)
+						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+						if(isrobot(user))
+							var/mob/living/silicon/robot/R = user
+							R.cell.use(revivecost)
+						update_icon()
+						cooldown = TRUE
+						spawn(50)
+						cooldown = FALSE
+						update_icon()
+						busy = FALSE
+						return
 				if(H.stat == DEAD)
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
