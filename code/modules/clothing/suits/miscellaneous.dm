@@ -1134,9 +1134,7 @@
 	icon_state = "suragi_jacket_brigmed"
 	item_state = "suragi_jacket_brigmed"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, \
-	/obj/item/radio, /obj/item/tank/emergency_oxygen,/obj/item/rad_laser)
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/emergency_oxygen, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/virus
 	name = "Virology Suragi Jacket"
