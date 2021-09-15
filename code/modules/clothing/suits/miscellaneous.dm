@@ -1145,6 +1145,7 @@
 	item_state = "suragi_jacket_virus"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
 	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper)
+
 /obj/item/clothing/suit/storage/suragi_jacket/chem
 	name = "Chemistry Suragi Jacket"
 	desc = "Standard issue white and orange jacket manufactured by Suragi Kit. Extremely durable. There is a small label attached inside. It says: 'DO NOT HEAT FUCKING OIL GOD FUCKING DAMMIT'"
