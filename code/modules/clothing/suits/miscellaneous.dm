@@ -1094,7 +1094,7 @@
 	icon_state = "suragi_jacket_carg"
 	item_state = "suragi_jacket_carg"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(obj/item/pen, obj/item/paper, obj/item/stamp, /obj/item/destTagger, /obj/item/rcs)
+	allowed = list(/obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/destTagger, /obj/item/rcs)
 
 /obj/item/clothing/suit/storage/suragi_jacket/atmos
 	name = "Atmospherics Suragi Jacket"
@@ -1134,7 +1134,7 @@
 	icon_state = "suragi_jacket_brigmed"
 	item_state = "suragi_jacket_brigmed"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
-	list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, \
 	/obj/item/radio, /obj/item/tank/emergency_oxygen,/obj/item/rad_laser)
 
@@ -1184,5 +1184,5 @@
 	icon_state = "suragi_jacket_jan"
 	item_state = "suragi_jacket_jan"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 3, "rad" = 0, "fire" = 0, "acid" = 3)
-	allowed = list(obj/item/soap, /obj/item/reagent_containers/spray/cleaner, /obj/item/storage/bag/trash, /obj/item/lightreplacer)
+	allowed = list(/obj/item/soap, /obj/item/reagent_containers/spray/cleaner, /obj/item/storage/bag/trash, /obj/item/lightreplacer)
 // Suragi end
