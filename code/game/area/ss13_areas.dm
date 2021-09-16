@@ -737,7 +737,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/maintenance/engrooms
-	name = "Abadoned Engineers Rooms"
+	name = "Abandoned Engineers Rooms"
 	icon_state = "yellow"
 
 /area/maintenance/xenozoo
@@ -1298,13 +1298,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 
+/area/teleporter/abandoned
+    name = "\improper Abandoned Teleporter"
+    icon_state = "teleporter"
+    ambientsounds = ENGINEERING_SOUNDS
+
 /area/gateway
 	name = "\improper Gateway"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/AIsattele
-	name = "\improper Abandoned Teleporter"
+	name = "\improper Unknown Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 	there_can_be_many = TRUE
@@ -1377,7 +1382,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
-	name = "\improper Chief Medical Officer's office"
+	name = "\improper Chief Medical Officer's Office"
 	icon_state = "CMO"
 
 /area/medical/cmostore
