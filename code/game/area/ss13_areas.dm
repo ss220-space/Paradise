@@ -718,18 +718,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/maintenance/abandonedbar
-	name = "Maintenance Bar"
+	name = "Abandoned Bar"
 	icon_state = "yellow"
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
 
 /area/maintenance/electrical_shop
-	name ="Electronics Den"
+	name = "Electronics Den"
 	icon_state = "yellow"
 
 /area/maintenance/gambling_den
-	name = "Gambling Den"
+	name = "Abandoned Fight Club"
+	icon_state = "yellow"
+
+/area/maintenance/gambling_den/casino
+	name = "Abandoned Casino"
 	icon_state = "yellow"
 
 /area/maintenance/consarea
@@ -1204,7 +1208,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine"
 
 /area/engine/chiefs_office
-	name = "\improper Chief Engineer's office"
+	name = "\improper Chief Engineer's Office"
 	icon_state = "engine_control"
 
 /area/engine/mechanic_workshop
