@@ -318,8 +318,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
-	H.remove_hud_from(src)
 	data_hud_seen -= hud_index
+	H.remove_hud_from(src)
 
 /mob/dead/observer/verb/open_hud_panel()
 	set category = "Ghost"
