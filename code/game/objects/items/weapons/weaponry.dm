@@ -226,7 +226,7 @@
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
+					lastdeflect = world.time + 600
 				return TRUE
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
@@ -238,7 +238,7 @@
 			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "m:ss")]</span>")
+			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
 		return ..()
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
