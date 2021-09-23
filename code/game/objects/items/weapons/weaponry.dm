@@ -209,7 +209,7 @@
 				I.throw_at(I.thrownby, 20, 20, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
+					lastdeflect = world.time + 600
 				return TRUE
 			else if(prob(30))
 				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
@@ -217,7 +217,7 @@
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
+					lastdeflect = world.time + 600
 				return FALSE
 			else
 				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
