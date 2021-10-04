@@ -81,11 +81,11 @@
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
 					P.rigged = 1
 					P.updateinfolinks()
-
-		P.loc = user.loc
-		user.put_in_hands(P)
-		P.add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		if(in_range(user, src))
+			P.loc = user.loc
+			user.put_in_hands(P)
+			P.add_fingerprint(user)
+			to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 
