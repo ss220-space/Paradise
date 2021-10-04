@@ -320,7 +320,7 @@
 
 /obj/item/robot_module/butler/New()
 	..()
-	modules += new /obj/item/handheld_chem_dispenser/booze(src)
+	modules += new /obj/item/handheld_chem_dispenser/beer(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
 
 	modules += new /obj/item/pen(src)
@@ -376,7 +376,6 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
-
 
 /obj/item/robot_module/miner
 	name = "miner robot module"

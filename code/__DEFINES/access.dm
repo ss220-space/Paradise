@@ -97,6 +97,7 @@
 #define ACCESS_SYNDICATE_LEADER 151//Nuke Op Leader Access
 #define ACCESS_VOX 152//Vox Access
 #define ACCESS_SYNDICATE_COMMAND 153//Admin syndi officer
+#define ACCESS_SYNDICATE_RESEARCH 154//Syndicate Research Access
 
 //Trade Stations
 #define ACCESS_TRADE_SOL 160

@@ -46,6 +46,7 @@
 	var/powernet = null
 	var/list/records = null
 	var/contain_parts = 1
+	var/board_state = FALSE //Для переноса состояния в машину
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 

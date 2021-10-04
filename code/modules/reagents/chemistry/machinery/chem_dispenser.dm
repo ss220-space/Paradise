@@ -1,3 +1,6 @@
+//======
+//Машина, минимум функций, плата
+// Обычный
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
 	density = TRUE
@@ -32,7 +35,13 @@
 /obj/machinery/chem_dispenser/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
+	var/obj/item/circuitboard/chem_dispenser/board = new /obj/item/circuitboard/chem_dispenser(null)
+	if(board_state || board.board_state)
+		board_state = TRUE
+		board.board_state = TRUE
+		component_parts += board
+	else
+		component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -67,6 +76,74 @@
 	component_parts += new /obj/item/stock_parts/cell/bluespace
 	RefreshParts()
 
+/obj/item/circuitboard/chem_dispenser
+	name = "circuit board (Chem Dispenser)"
+	build_path = /obj/machinery/chem_dispenser
+	board_type = "machine"
+	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
+	req_one_access = list(ACCESS_TOX, ACCESS_SYNDICATE_RESEARCH) //Плату могут менять только ученые
+	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stock_parts/cell = 1)
+	var/access_types = list("Chem Dispenser", "Botanical Chem Dispenser")
+	id = 1
+
+// Ботанический
+/obj/machinery/chem_dispenser/botanical
+	name = "botanical chemical dispenser"
+	desc = "A botanical chemical dispenser on a budget."
+	ui_title = "Botanical Chem Dispenser"
+	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
+	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
+
+/obj/machinery/chem_dispenser/botanical/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/item/circuitboard/chem_dispenser/botanical
+	name = "circuit board (Botanical Chem Dispenser)"
+	build_path = /obj/machinery/chem_dispenser/botanical
+	id = 2
+
+// Переключение между обычным и ботаническим
+/obj/item/circuitboard/chem_dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
+		if(board_state)
+			to_chat(user, "<span class='notice'>На плате отсутствует считыватель.</span>")
+		else
+			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
+			if(allowed(user))
+				user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
+				var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "Chem Dispenser") as null|anything in access_types
+				if(console_choice == null)
+					return
+				switch(console_choice)
+					if("Chem Dispenser")
+						name = "circuit board (Chem Dispenser)"
+						build_path = /obj/machinery/chem_dispenser
+						id = 1
+					if("Botanical Chem Dispenser")
+						name = "circuit board (Botanical Chem Dispenser)"
+						build_path = /obj/machinery/chem_dispenser/botanical
+						id = 2
+
+				to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
+			else
+				to_chat(user, "<span class='warning'>Access Denied</span>")
+			return
+	return ..()
+
+// Ботанический на лаваленде. Платы нет
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
@@ -86,7 +163,7 @@
 		"ash",
 		"diethylamine")
 	upgrade_reagents = list()
-
+	
 /obj/machinery/chem_dispenser/mutagensaltpeter/New()
 	..()
 	component_parts = list()
@@ -99,6 +176,92 @@
 	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
+// Безалкогольное
+/obj/machinery/chem_dispenser/soda
+	icon_state = "soda_dispenser"
+	name = "soda fountain"
+	desc = "A drink fabricating machine, capable of producing many sugary drinks with just one touch."
+	ui_title = "Soda Dispens-o-matic"
+	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
+	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
+	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
+	hacked_reagents = list("thirteenloko")
+	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
+	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
+	is_drink = TRUE
+
+/obj/machinery/chem_dispenser/soda/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/soda/upgraded/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/item/circuitboard/chem_dispenser/soda
+	name = "Circuit board (Soda Machine)"
+	build_path = /obj/machinery/chem_dispenser/soda
+
+// Алкогольное
+/obj/machinery/chem_dispenser/beer
+	icon_state = "booze_dispenser"
+	name = "booze dispenser"
+	ui_title = "Booze Portal 9001"
+	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
+	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
+	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
+	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
+	is_drink = TRUE
+
+/obj/machinery/chem_dispenser/beer/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/beer/upgraded/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/item/circuitboard/chem_dispenser/beer
+	name = "Circuit board (Beer Machine)"
+	build_path = /obj/machinery/chem_dispenser/beer
+
+//======
+//Функции
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
@@ -125,7 +288,6 @@
 		. += "<span class='notice'>[src]'s maintenance hatch is open!</span>"
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.<span>"
-
 
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
@@ -292,7 +454,6 @@
 		cell = null
 	return ..()
 
-
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -335,101 +496,9 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/chem_dispenser/soda
-	icon_state = "soda_dispenser"
-	name = "soda fountain"
-	desc = "A drink fabricating machine, capable of producing many sugary drinks with just one touch."
-	ui_title = "Soda Dispens-o-matic"
-	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
-	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
-	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
-	hacked_reagents = list("thirteenloko")
-	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
-	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
-	is_drink = TRUE
-
-/obj/machinery/chem_dispenser/soda/New()
-	..()
-	QDEL_LIST(component_parts)
-	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-
-/obj/machinery/chem_dispenser/soda/upgraded/New()
-	..()
-	QDEL_LIST(component_parts)
-	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-
-/obj/machinery/chem_dispenser/beer
-	icon_state = "booze_dispenser"
-	name = "booze dispenser"
-	ui_title = "Booze Portal 9001"
-	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
-	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
-	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
-	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
-	is_drink = TRUE
-
-/obj/machinery/chem_dispenser/beer/New()
-	..()
-	QDEL_LIST(component_parts)
-	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-
-/obj/machinery/chem_dispenser/beer/upgraded/New()
-	..()
-	QDEL_LIST(component_parts)
-	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-
-//botanical chemical dispenser
-/obj/machinery/chem_dispenser/botanical
-	name = "botanical chemical dispenser"
-	desc = "A botanical chemical dispenser on a budget."
-	ui_title = "Botanical Chem Dispenser"
-	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
-	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
-
-/obj/machinery/chem_dispenser/botanical/New()
-	..()
-	QDEL_LIST(component_parts)
-	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-
-// Handheld chem dispenser
+//======
+//Ручные раздатчики
+// Обычный
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
 	icon = 'icons/obj/chemical.dmi'
@@ -447,6 +516,33 @@
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
 
+// Ботанический
+/obj/item/handheld_chem_dispenser/botanical
+	name = "handheld botanical chemical dispenser"
+	dispensable_reagents = list("mutagen", "saltpetre", "eznutriment", "left4zednutriment", "robustharvestnutriment", "water", "atrazine",
+	 "pestkiller", "cryoxadone", "ammonia", "ash", "diethylamine")
+
+// Безалкогольное
+/obj/item/handheld_chem_dispenser/soda
+	name = "handheld soda fountain"
+	item_state = "handheld_soda"
+	icon_state = "handheld_soda"
+	is_drink = TRUE
+	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
+	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
+	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+
+// Алкогольное
+/obj/item/handheld_chem_dispenser/beer
+	name = "handheld bar tap"
+	item_state = "handheld_booze"
+	icon_state = "handheld_booze"
+	is_drink = TRUE
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
+	 "vermouth", "cognac", "ale", "mead", "synthanol")
+
+//======
+//Функции
 /obj/item/handheld_chem_dispenser/Initialize()
 	..()
 	cell = new(src)
@@ -609,35 +705,3 @@
 		return
 	..()
 
-/obj/item/handheld_chem_dispenser/booze
-	name = "handheld bar tap"
-	item_state = "handheld_booze"
-	icon_state = "handheld_booze"
-	is_drink = TRUE
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
-	 "vermouth", "cognac", "ale", "mead", "synthanol")
-
-/obj/item/handheld_chem_dispenser/soda
-	name = "handheld soda fountain"
-	item_state = "handheld_soda"
-	icon_state = "handheld_soda"
-	is_drink = TRUE
-	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
-	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
-
-/obj/item/handheld_chem_dispenser/botanical
-	name = "handheld botanical chemical dispenser"
-	dispensable_reagents = list(
-		"mutagen",
-		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
-		"water",
-		"atrazine",
-		"pestkiller",
-		"cryoxadone",
-		"ammonia",
-		"ash",
-		"diethylamine")

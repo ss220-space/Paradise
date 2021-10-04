@@ -148,6 +148,8 @@
 				if(component_check)
 					playsound(src.loc, P.usesound, 50, 1)
 					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
+					new_machine.board_state = src.circuit.board_state
+
 					new_machine.on_construction()
 					for(var/obj/O in new_machine.component_parts)
 						qdel(O)
@@ -569,48 +571,6 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
-/obj/item/circuitboard/chem_dispenser
-	name = "circuit board (Chem Dispenser)"
-	build_path = /obj/machinery/chem_dispenser
-	board_type = "machine"
-	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
-	req_one_access = list(ACCESS_TOX, ACCESS_CHEMISTRY)
-	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/cell = 1)
-	var/access_types = list("Chem Dispenser", "Botanical Chem Dispenser")
-	id = 1
-
-/obj/item/circuitboard/chem_dispenser/botanical
-	name = "circuit board (Botanical Chem Dispenser)"
-	build_path = /obj/machinery/chem_dispenser/botanical
-	id = 2
-
-/obj/item/circuitboard/chem_dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
-		if(allowed(user))
-			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
-			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "Chem Dispenser") as null|anything in access_types
-			if(console_choice == null)
-				return
-			switch(console_choice)
-				if("Chem Dispenser")
-					name = "circuit board (Chem Dispenser)"
-					build_path = /obj/machinery/chem_dispenser
-					id = 1
-				if("Botanical Chem Dispenser")
-					name = "circuit board (Botanical Chem Dispenser)"
-					build_path = /obj/machinery/chem_dispenser/botanical
-					id = 2
-
-			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
-		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
-		return
-	return ..()
-
 /obj/item/circuitboard/chem_master
 	name = "circuit board (ChemMaster 3000)"
 	build_path = /obj/machinery/chem_master
@@ -698,14 +658,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
-
-/obj/item/circuitboard/chem_dispenser/soda
-	name = "Circuit board (Soda Machine)"
-	build_path = /obj/machinery/chem_dispenser/soda
-
-/obj/item/circuitboard/chem_dispenser/beer
-	name = "Circuit board (Beer Machine)"
-	build_path = /obj/machinery/chem_dispenser/beer
 
 /obj/item/circuitboard/circuit_imprinter
 	name = "Circuit board (Circuit Imprinter)"
