@@ -52,7 +52,6 @@
 
 	add_fingerprint(M)
 
-
 /obj/item/paper_bin/attack_hand(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -103,7 +102,6 @@
 	else
 		return ..()
 
-
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -111,7 +109,6 @@
 			. += "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
 		else
 			. += "<span class='notice'>There are no papers in the bin.</span>"
-
 
 /obj/item/paper_bin/update_icon()
 	if(amount < 1)
@@ -145,7 +142,6 @@
 	add_fingerprint(user)
 	return
 
-
 /obj/item/paper_bin/nanotrasen
 	name = "nanotrasen paper bin"
 	letterhead_type = /obj/item/paper/nanotrasen
@@ -153,4 +149,3 @@
 /obj/item/paper_bin/syndicate
 	name = "syndicate paper bin"
 	letterhead_type = /obj/item/paper/syndicate
-
