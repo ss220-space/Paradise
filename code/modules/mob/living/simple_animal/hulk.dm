@@ -6,8 +6,8 @@
 	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Hulk"
 	icon_living = "Hulk"
-	maxHealth = 400
-	health = 400
+	maxHealth = 225
+	health = 225
 	speed = 1.25
 	harm_intent_damage = 20
 	melee_damage_lower = 20
@@ -43,8 +43,8 @@
 	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Champion of Honk"
 	icon_living = "Champion of Honk"
-	maxHealth = 250
-	health = 250
+	maxHealth = 200
+	health = 200
 	speed = 1
 	harm_intent_damage = 5
 	melee_damage_lower = 5
@@ -66,8 +66,8 @@
 	icon = 'icons/mob/zilla.dmi'
 	icon_state = "zilla"
 	icon_living = "zilla"
-	maxHealth = 450
-	health = 450
+	maxHealth = 250
+	health = 250
 	speed = 1.5
 	harm_intent_damage = 30
 	melee_damage_lower = 30
