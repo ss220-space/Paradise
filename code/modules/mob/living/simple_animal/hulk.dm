@@ -43,8 +43,8 @@
 	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Champion of Honk"
 	icon_living = "Champion of Honk"
-	maxHealth = 140
-	health = 140
+	maxHealth = 175
+	health = 175
 	speed = 1
 	harm_intent_damage = 5
 	melee_damage_lower = 5
