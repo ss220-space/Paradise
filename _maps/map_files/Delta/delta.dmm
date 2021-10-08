@@ -69198,7 +69198,10 @@
 	},
 /area/toxins/xenobiology)
 "ikr" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security{
+	name = "head of security suit storage unit";
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
