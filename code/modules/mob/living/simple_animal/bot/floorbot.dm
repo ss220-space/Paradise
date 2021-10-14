@@ -21,7 +21,7 @@
 
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
 	var/targetdirection
-	var/amount = 0
+	var/amount = 10
 	var/replacetiles = 0
 	var/eattiles = 0
 	var/maketiles = 0
@@ -33,7 +33,7 @@
 	var/turf/target
 	var/oldloc = null
 	var/toolbox_color = ""
-	var/list/loaded_tiles = list()
+	var/list/loaded_tiles = list("floor tiles" = list(10, /turf/simulated/floor/plasteel))
 
 	#define HULL_BREACH		1
 	#define BRIDGE_MODE		2
@@ -110,7 +110,7 @@
 			loaded = min(50, T.amount)
 			T.use(loaded)
 			loaded_tiles += list( \
-									"[T.name]" = list(loaded, T.type))
+									"[T.name]" = list(loaded, T.turf_type))
 		to_chat(user, "<span class='notice'>You load [loaded]x [T.name] into the floorbot. [p_they(TRUE)] now contains [amount] tiles.</span>")
 		amount += loaded
 		nagged = 0
@@ -330,8 +330,7 @@
 				var/stack_index = loaded_tiles.Find("floor tiles")
 				if(!stack_index)
 					stack_index = 1
-				var/obj/item/stack/tile/Tile_type = loaded_tiles[loaded_tiles[stack_index]][2]
-				var/turf/simulated/floor/Tile_floor = Tile_type.turf_type
+				var/turf/simulated/floor/Tile_floor = loaded_tiles[loaded_tiles[stack_index]][2]
 
 				loaded_tiles[loaded_tiles[stack_index]][1] -= 1
 				if(loaded_tiles[loaded_tiles[stack_index]][1]<1)
@@ -352,8 +351,7 @@
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		spawn(50)
 			if(mode == BOT_REPAIRING)
-				var/obj/item/stack/tile/Tile_type = loaded_tiles[loaded_tiles[1]][2]
-				var/turf/simulated/floor/Tile_floor = Tile_type.turf_type
+				var/turf/simulated/floor/Tile_floor = loaded_tiles[loaded_tiles[1]][2]
 				loaded_tiles[loaded_tiles[1]][1] -= 1
 				if(loaded_tiles[loaded_tiles[1]][1]<1)
 					loaded_tiles -= loaded_tiles[loaded_tiles[1]]
@@ -394,7 +392,7 @@
 			else
 				qdel(T)
 			loaded_tiles += list( \
-									"[T.name]" = list(i, T.type))
+									"[T.name]" = list(i, T.turf_type))
 			amount += i
 		update_icon()
 		target = null
