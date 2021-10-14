@@ -21,7 +21,7 @@
 
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
 	var/targetdirection
-	var/amount = 10
+	var/amount = 0
 	var/replacetiles = 0
 	var/eattiles = 0
 	var/maketiles = 0
@@ -33,6 +33,7 @@
 	var/turf/target
 	var/oldloc = null
 	var/toolbox_color = ""
+	var/list/loaded_tiles = list()
 
 	#define HULL_BREACH		1
 	#define BRIDGE_MODE		2
@@ -95,19 +96,25 @@
 
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
-	if(istype(W, /obj/item/stack/tile/plasteel))
-		var/obj/item/stack/tile/plasteel/T = W
-		if(amount >= 50)
-			return
-		var/loaded = min(50-amount, T.amount)
-		T.use(loaded)
-		amount += loaded
-		if(loaded > 0)
-			to_chat(user, "<span class='notice'>You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles.</span>")
-			nagged = 0
-			update_icon()
+	if(istype(W, /obj/item/stack/tile))
+		var/obj/item/stack/tile/T = W
+		var/stack_index = loaded_tiles.Find(T.name)
+		var/loaded = 0
+		if(stack_index)
+			if(loaded_tiles[loaded_tiles[stack_index]][1] >= 50)
+				return
+			loaded = min(50-loaded_tiles[loaded_tiles[stack_index]][1], T.amount)
+			T.use(loaded)
+			loaded_tiles[loaded_tiles[stack_index]][1] += loaded
 		else
-			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
+			loaded = min(50, T.amount)
+			T.use(loaded)
+			loaded_tiles += list( \
+									"[T.name]" = list(loaded, T.type))
+		to_chat(user, "<span class='notice'>You load [loaded]x [T.name] into the floorbot. [p_they(TRUE)] now contains [amount] tiles.</span>")
+		amount += loaded
+		nagged = 0
+		update_icon()
 	else
 		..()
 
@@ -161,7 +168,7 @@
 
 	if(amount <= 0 && !target) //Out of tiles! We must refill!
 		if(eattiles) //Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
+			target = scan(/obj/item/stack/tile)
 			process_type = null
 
 		if(!target && maketiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
@@ -232,7 +239,7 @@
 			return
 
 		if(loc == target || loc == target.loc)
-			if(istype(target, /obj/item/stack/tile/plasteel))
+			if(istype(target, /obj/item/stack/tile))
 				eattile(target)
 			else if(istype(target, /obj/item/stack/sheet/metal))
 				maketile(target)
@@ -319,12 +326,22 @@
 		mode = BOT_REPAIRING
 		spawn(50)
 			if(mode == BOT_REPAIRING)
+				//Попытаемся найти самую простую плитку. Если не найдем - используем первую в листе
+				var/stack_index = loaded_tiles.Find("floor tiles")
+				if(!stack_index)
+					stack_index = 1
+				var/obj/item/stack/tile/Tile_type = loaded_tiles[loaded_tiles[stack_index]][2]
+				var/turf/simulated/floor/Tile_floor = Tile_type.turf_type
+
+				loaded_tiles[loaded_tiles[stack_index]][1] -= 1
+				if(loaded_tiles[loaded_tiles[stack_index]][1]<1)
+					loaded_tiles -= loaded_tiles[loaded_tiles[stack_index]]
+				amount -= 1
 				if(autotile) //Build the floor and include a tile.
-					target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
+					target_turf.ChangeTurf(Tile_floor)
 				else //Build a hull plating without a floor tile.
 					target_turf.ChangeTurf(/turf/simulated/floor/plating)
 				mode = BOT_IDLE
-				amount -= 1
 				update_icon()
 				anchored = FALSE
 				target = null
@@ -335,17 +352,22 @@
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		spawn(50)
 			if(mode == BOT_REPAIRING)
+				var/obj/item/stack/tile/Tile_type = loaded_tiles[loaded_tiles[1]][2]
+				var/turf/simulated/floor/Tile_floor = Tile_type.turf_type
+				loaded_tiles[loaded_tiles[1]][1] -= 1
+				if(loaded_tiles[loaded_tiles[1]][1]<1)
+					loaded_tiles -= loaded_tiles[loaded_tiles[1]]
+				amount -= 1
 				F.broken = 0
 				F.burnt = 0
-				F.ChangeTurf(/turf/simulated/floor/plasteel)
+				F.ChangeTurf(Tile_floor)
 				mode = BOT_IDLE
-				amount -= 1
 				update_icon()
 				anchored = FALSE
 				target = null
 
-/mob/living/simple_animal/bot/floorbot/proc/eattile(obj/item/stack/tile/plasteel/T)
-	if(!istype(T, /obj/item/stack/tile/plasteel))
+/mob/living/simple_animal/bot/floorbot/proc/eattile(obj/item/stack/tile/T)
+	if(!istype(T, /obj/item/stack/tile))
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_REPAIRING
@@ -354,13 +376,26 @@
 			target = null
 			mode = BOT_IDLE
 			return
-		if(amount + T.amount > 50)
-			var/i = 50 - amount
-			amount += i
-			T.amount -= i
+		var/stack_index = loaded_tiles.Find(T.name)
+		if(stack_index)
+			if(loaded_tiles[loaded_tiles[stack_index]][1] + T.amount > 50)
+				var/i = 50 - loaded_tiles[loaded_tiles[stack_index]][2]
+				loaded_tiles[loaded_tiles[stack_index]][1] += i
+				amount += i
+				T.amount -= i
+			else
+				loaded_tiles[loaded_tiles[stack_index]][1] += T.amount
+				amount += T.amount
+				qdel(T)
 		else
-			amount += T.amount
-			qdel(T)
+			var/i = min(50, T.amount)
+			if(i < T.amount)
+				T.amount -= i
+			else
+				qdel(T)
+			loaded_tiles += list( \
+									"[T.name]" = list(i, T.type))
+			amount += i
 		update_icon()
 		target = null
 		mode = BOT_IDLE
