@@ -260,6 +260,24 @@
 	orient_right = 1
 	icon_state = "body_scanner_0-r"
 
+//////
+//Syndie sleepers.
+
+/obj/machinery/cryopod/syndie
+	icon_state = "sleeper_s"
+	base_icon_state = "sleeper_s-open"
+	occupied_icon_state = "sleeper_s"
+	dir = 8
+
+/obj/machinery/cryopod/syndie/right
+	orient_right = 1
+	icon_state = "sleeper_s"
+	base_icon_state = "sleeper_s-open"
+	occupied_icon_state = "sleeper_s"
+	dir = 4
+
+//////
+
 /obj/machinery/cryopod/New()
 	announce = new /obj/item/radio/intercom(src)
 

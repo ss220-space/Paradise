@@ -81,6 +81,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
+	var/syndicate = 0 //добавленный для синдибазы флаг
+
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 

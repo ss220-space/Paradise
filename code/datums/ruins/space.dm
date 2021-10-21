@@ -308,3 +308,11 @@
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
 //----------- EDITED_end
+/datum/map_template/ruin/space/syndicate_space_base
+	id = "syndicate_space_base"
+	suffix = "syndicatebase.dmm"
+	name = "Syndicate Research and Monitoring Space Station - 'Taipan' "
+	description = "Top secret syndicate space station designated to monitor NT activity, be a trading point for the black market and research illegal bioweapons! It is closely guarded by an elite team of syndicate agents."
+	allow_duplicates = FALSE // One of these is enough
+	always_place = TRUE // This is on the always spawn list
+	cost = 0 // Force spawned so shouldnt have a cost

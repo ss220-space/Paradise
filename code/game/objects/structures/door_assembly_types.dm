@@ -274,3 +274,64 @@
 	airlock_type = /obj/machinery/door/airlock/wood
 	mineral = "wood"
 	glass_type = /obj/machinery/door/airlock/wood/glass
+
+//////////////////////////////////
+/*
+	Syndie airlock assemblies by Furukai
+*/
+
+/obj/structure/door_assembly/door_assembly_syndie_sec
+	name = "syndicate security airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
+	base_name = "syndicate special security airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/security/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/security
+	material_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/door_assembly/door_assembly_syndie_public
+	name = "syndicate public airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/public.dmi'
+	base_name = "syndicate special public airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/public/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/public
+	material_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/door_assembly/door_assembly_syndie_atmos
+	name = "syndicate atmos airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/atmos.dmi'
+	base_name = "syndicate special atmos airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/atmos/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/atmos
+	material_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/door_assembly/door_assembly_syndie_maint
+	name = "syndicate maintenance airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/maintenance.dmi'
+	base_name = "syndicate special maintenance airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/maintenance/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/maintenance
+	material_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/door_assembly/door_assembly_syndie_med
+	name = "syndicate medical airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/medical.dmi'
+	base_name = "syndicate special medical airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/medical/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/medical
+	material_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/door_assembly/door_assembly_syndie_cargo
+	name = "syndicate cargo airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/cargo.dmi'
+	base_name = "syndicate special cargo airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/cargo/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/cargo
+	material_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/door_assembly/door_assembly_syndie_research
+	name = "syndicate research airlock assembly"
+	icon = 'icons/obj/doors/airlocks/syndicate/research.dmi'
+	base_name = "syndicate special research airlock"
+	glass_type = /obj/machinery/door/airlock/syndicate/research/glass
+	airlock_type = /obj/machinery/door/airlock/syndicate/research
+	material_type = /obj/item/stack/sheet/mineral/plastitanium

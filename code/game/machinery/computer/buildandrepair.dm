@@ -287,6 +287,9 @@
 	build_path = /obj/machinery/computer/supplycomp
 	origin_tech = "programming=3"
 	var/contraband_enabled = 0
+/obj/item/circuitboard/supplycomp/syndicate
+	name = "Circuit board (Syndicate Supply Pad Console)"
+	build_path = /obj/machinery/computer/syndie_supplycomp
 
 /obj/item/circuitboard/operating
 	name = "Circuit board (Operating Computer)"

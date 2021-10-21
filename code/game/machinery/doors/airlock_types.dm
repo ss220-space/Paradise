@@ -628,6 +628,91 @@
 
 //////////////////////////////////
 /*
+	Syndie airlocks by Furukai
+*/
+
+/obj/machinery/door/airlock/syndicate
+	name = "evil looking airlock"
+	overlays_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
+
+/obj/machinery/door/airlock/syndicate/security
+	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_sec
+	normal_integrity = 500
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/security/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/public
+	icon = 'icons/obj/doors/airlocks/syndicate/public.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_public
+	normal_integrity = 500
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/public/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/atmos
+	icon = 'icons/obj/doors/airlocks/syndicate/atmos.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_atmos
+	normal_integrity = 400
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/atmos/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/maintenance
+	icon = 'icons/obj/doors/airlocks/syndicate/maintenance.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_maint
+	normal_integrity = 300
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/maintenance/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 250
+
+/obj/machinery/door/airlock/syndicate/medical
+	icon = 'icons/obj/doors/airlocks/syndicate/medical.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_med
+	normal_integrity = 400
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/medical/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/cargo
+	icon = 'icons/obj/doors/airlocks/syndicate/cargo.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_cargo
+	normal_integrity = 400
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/cargo/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/research
+	icon = 'icons/obj/doors/airlocks/syndicate/research.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_syndie_research
+	normal_integrity = 400
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/research/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/*
 	Misc Airlocks
 */
 

@@ -97,6 +97,13 @@
 #define ACCESS_SYNDICATE_LEADER 151//Nuke Op Leader Access
 #define ACCESS_VOX 152//Vox Access
 #define ACCESS_SYNDICATE_COMMAND 153//Admin syndi officer
+#define ACCESS_SYNDICATE_COMMS_OFFICER 154 // Ghost role 'Taipan' Syndicate Comms Officer Access
+#define ACCESS_SYNDICATE_RESEARCH_DIRECTOR 155 // Ghost role 'Taipan' Syndicate Research Director Access
+#define ACCESS_SYNDICATE_SCIENTIST 156 // Ghost role 'Taipan' Syndicate Scientist Access
+#define ACCESS_SYNDICATE_CARGO 157 // Ghost role 'Taipan' Syndicate Cargo Access
+#define ACCESS_SYNDICATE_KITCHEN 158 // Ghost role 'Taipan' Syndicate Kitchen Access
+#define ACCESS_SYNDICATE_ENGINE 159 // Ghost role 'Taipan' Syndicate Engineering Access
+
 
 //Trade Stations
 #define ACCESS_TRADE_SOL 160

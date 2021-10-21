@@ -14,6 +14,7 @@
 	var/delay = 10
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
+	var/syndicate = 0 //добавленный для синдибазы флаг
 
 /obj/machinery/r_n_d/server/New()
 	..()
@@ -201,6 +202,7 @@
 	var/list/servers = list()
 	var/list/consoles = list()
 	var/badmin = 0
+	var/syndicate = 0 //добавленный для синдибазы флаг
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)
 	if(..())
@@ -287,6 +289,8 @@
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
 					continue
+				if(S.syndicate != syndicate) // Флаг в действии
+					continue
 				dat += "[S.name] || "
 				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
 				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A>"
@@ -297,6 +301,8 @@
 			dat += "[temp_server.name] Access Rights<BR><BR>"
 			dat += "Consoles with Upload Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
+				if(C.syndicate != syndicate) // Флаг в действии 2
+					continue
 				var/turf/console_turf = get_turf(C)
 				dat += "* <A href='?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
 				if(C.id in temp_server.id_with_upload)
@@ -305,6 +311,8 @@
 					dat += " (Add)</A><BR>"
 			dat += "Consoles with Download Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
+				if(C.syndicate != syndicate) // Флаг в действии 3
+					continue
 				var/turf/console_turf = get_turf(C)
 				dat += "* <A href='?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
 				if(C.id in temp_server.id_with_download)

@@ -1805,6 +1805,19 @@
 	products = list(/obj/item/reagent_containers/food/snacks/chips =6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
 
+/obj/machinery/vending/syndierobotics
+	name = "Синди Робо-ДеЛюкс!"
+	desc = "Всё что нужно, чтобы сделать личного железного друга из ваших врагов!"
+	icon_state = "robotics"
+	icon_deny = "robotics-deny"
+	req_access_txt = "150"
+	products = list(/obj/item/robot_parts/chest = 2, /obj/item/robot_parts/head = 2,
+	 /obj/item/robot_parts/l_arm = 2, /obj/item/robot_parts/r_arm = 2,
+	 /obj/item/robot_parts/l_leg = 2, /obj/item/robot_parts/r_leg = 2,
+	 /obj/item/stock_parts/cell/high = 6, /obj/item/crowbar = 2,
+	 /obj/item/flash = 4, /obj/item/stack/cable_coil = 4,
+	 /obj/item/mmi/syndie = 2, /obj/item/robotanalyzer = 2)
+
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
 	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
