@@ -241,3 +241,50 @@
 			return ..()
 	else
 		return ..()
+
+//Добавила ниже версию синдикатского грифски в код вместо редактирования стандартного через маппинг.
+//Причина в том, что нельзя нормально отредактировать доступ к нему по карте иначе
+//А так же через код я смогла научить его бить НТ и не бить своих без повода.
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate
+	radio_channel = "Syndicate"
+	name = "Генерал Синди"
+	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
+	faction = list("syndicate", "neutral")
+	allow_pai = 1
+	auto_patrol = 1
+	remote_disabled = 1
+	weaponscheck = 1
+	check_records = 0
+	idcheck = 0
+	bot_core_type = /obj/machinery/bot_core/syndicate
+
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/look_for_perp()
+	anchored = 0
+	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+		if((C.stat) || (C.handcuffed))
+			continue
+
+		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+			continue
+
+		threatlevel = C.assess_threat(src)
+
+		if(!threatlevel)
+			continue
+
+		else if(threatlevel >= 4 || !("syndicate" in C.faction))
+			target = C
+			oldtarget_name = C.name
+			speak("You are a bold one")
+			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
+			visible_message("[src] ignites his energy swords!")
+			icon_state = "griefsky-c"
+			visible_message("<b>[src]</b> points at [C.name]!")
+			mode = BOT_HUNT
+			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			break
+		else
+			continue
+
+/obj/machinery/bot_core/syndicate
+	req_access = list(ACCESS_SYNDICATE)

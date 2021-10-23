@@ -387,7 +387,7 @@
 						if(!disk.stored) continue
 						var/datum/tech/tech = disk.stored
 
-						var/cost = tech.getCost(data_storage.techLevels[tech.id])
+						var/cost = tech.getCost(data_storage.techLevels[tech.id]) * 100
 						if(cost)
 							data_storage.techLevels[tech.id] = tech.level
 							data_storage.cash += cost

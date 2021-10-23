@@ -123,7 +123,9 @@
 /turf/simulated/floor/plating/asteroid/airless/cave,
 /area/ruin/unpowered)
 "aF" = (
-/mob/living/simple_animal/mouse/brown,
+/mob/living/simple_animal/mouse/brown{
+	faction = list("neutral", "syndicate")
+	},
 /turf/simulated/floor/plating/asteroid/airless/cave,
 /area/ruin/unpowered)
 "aH" = (
@@ -1536,7 +1538,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "df" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse/gray{
+	faction = list("neutral", "syndicate")
+	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dg" = (
@@ -2182,7 +2186,8 @@
 /obj/structure/table/wood,
 /obj/structure/sign/barsign{
 	pixel_y = 32;
-	req_access = list(150)
+	req_access = null;
+	req_access_txt = "158"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/absinthe,
 /turf/simulated/floor/plasteel{
@@ -6310,7 +6315,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "mh" = (
 /obj/structure/closet/secure_closet/injection{
-	req_access = list(150)
+	req_access = null;
+	req_access_txt = "154"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6832,6 +6838,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"mO" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/medbay)
 "mP" = (
 /obj/machinery/atmospherics/binary/volume_pump{
 	dir = 8
@@ -10125,18 +10138,6 @@
 	codes_txt = "patrol;next_patrol=GR3";
 	location = "GR2"
 	},
-/mob/living/simple_animal/bot/secbot/griefsky{
-	access_card = 150;
-	auto_patrol = 1;
-	check_records = 0;
-	faction = list("syndicate","silicon");
-	frustration_number = 200;
-	idcheck = 1;
-	player_access = list(150);
-	radio_channel = "Syndicate";
-	remote_disabled = 1;
-	weaponscheck = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -10144,6 +10145,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "rH" = (
@@ -10553,7 +10555,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse/white,
+/mob/living/simple_animal/mouse/white{
+	faction = list("neutral", "syndicate")
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11986,7 +11990,8 @@
 "vs" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = list(150)
+	req_access = null;
+	req_access_txt = "159"
 	},
 /obj/item/extinguisher/mini,
 /turf/simulated/floor/plasteel{
@@ -11998,7 +12003,8 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = list(150)
+	req_access = null;
+	req_access_txt = "159"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14012,7 +14018,9 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "zi" = (
-/mob/living/simple_animal/mouse,
+/mob/living/simple_animal/mouse{
+	faction = list("neutral","syndicate")
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "zj" = (
@@ -14115,6 +14123,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
+"zt" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/medbay)
 "zu" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -14150,6 +14172,20 @@
 /obj/item/stack/ore/plasma,
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
+"zx" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/medbay)
 "zy" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -16587,7 +16623,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Dq" = (
 /mob/living/simple_animal/mouse/brown{
-	desc = "Имеет суицидальные наклонности";
+	desc = "It's a small, disease-ridden rodent.";
+	faction = list("neutral", "syndicate");
 	name = "Борис"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17407,7 +17444,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "Ew" = (
 /obj/structure/closet/secure_closet/medical2{
-	req_access = list(150)
+	req_access = null;
+	req_access_txt = "150"
 	},
 /obj/item/storage/box/bodybags,
 /obj/effect/turf_decal/tile/blue{
@@ -17476,10 +17514,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "EA" = (
-/obj/structure/closet/secure_closet/medical2{
-	req_access = list(150)
-	},
-/obj/item/storage/box/bodybags,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -17487,6 +17521,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/closet/secure_closet/medical2{
+	req_access = null;
+	req_access_txt = "150"
+	},
+/obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -17854,6 +17893,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/west)
+"Fa" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/medbay)
 "Fb" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/mineral/random/high_chance,
@@ -22546,7 +22592,9 @@
 "MS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
+/mob/living/simple_animal/mouse/brown{
+	faction = list("neutral", "syndicate")
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -22642,6 +22690,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/chair/sofa{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22926,9 +22977,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/structure/chair/sofa/left{
-	dir = 4
-	},
+/obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23276,9 +23325,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/structure/chair/sofa{
-	dir = 4
-	},
+/obj/machinery/computer/cloning,
+/obj/effect/turf_decal/tile/blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23295,6 +23343,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/structure/chair/sofa,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23604,18 +23653,19 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "OX" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/machinery/clonepod/biomass,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4;
+	layer = 2.9
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/structure/chair/sofa/right{
-	dir = 4
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1;
+	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	icon_state = "showroomfloor"
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "OY" = (
@@ -23968,17 +24018,16 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "PC" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	name = "Riot Control";
+	req_access_txt = "150"
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
+/obj/machinery/shower{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	icon_state = "showroomfloor"
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "PD" = (
@@ -25049,7 +25098,9 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "Rp" = (
-/mob/living/simple_animal/mouse/brown,
+/mob/living/simple_animal/mouse/brown{
+	faction = list("neutral", "syndicate")
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "Rq" = (
@@ -30063,12 +30114,6 @@
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "Zz" = (
 /obj/structure/bed,
-/mob/living/carbon/human/monkey{
-	faction = list("neutral","syndicate");
-	name = "ПУПС";
-	real_name = "ПУПС";
-	voice_name = "ПУПС"
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -30079,6 +30124,9 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
+	},
+/mob/living/carbon/human/monkey{
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61631,9 +61679,9 @@ JC
 KC
 JC
 Mo
-MZ
+zx
 NI
-HF
+mO
 HF
 PF
 Gx
@@ -62145,9 +62193,9 @@ JF
 KF
 Lt
 Mo
-MZ
+zt
 NK
-HF
+Fa
 HF
 PH
 Gx
