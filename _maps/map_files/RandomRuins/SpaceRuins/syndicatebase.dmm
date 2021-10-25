@@ -902,7 +902,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -1635,7 +1635,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "dv" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -1650,7 +1650,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "dw" = (
 /obj/machinery/light{
 	dir = 8
@@ -2158,7 +2158,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "ep" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -2181,7 +2181,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "eq" = (
 /obj/structure/table/wood,
 /obj/structure/sign/barsign{
@@ -2194,7 +2194,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "es" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -2511,7 +2511,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = 24
 	},
@@ -2627,7 +2627,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -2664,7 +2664,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "fx" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -2682,14 +2682,14 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "fy" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "fz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -2815,7 +2815,7 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/brown,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
@@ -3236,7 +3236,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "gA" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/chocolate,
@@ -3244,7 +3244,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "gB" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/syndicake,
@@ -3593,7 +3593,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -3877,7 +3877,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "hK" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -3895,7 +3895,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "hL" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -4348,6 +4348,7 @@
 "iv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -4513,7 +4514,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "iO" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -4538,7 +4539,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/bar)
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "iQ" = (
 /obj/machinery/disposal,
 /obj/effect/decal/cleanable/dirt,
@@ -4959,12 +4960,12 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen/freezer)
 "jE" = (
 /obj/structure/kitchenspike,
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_x = 28
-	},
 /obj/machinery/alarm/syndicate{
 	pixel_y = -32
+	},
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5299,6 +5300,7 @@
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "km" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
+	name = "Arrivals Teleporter";
 	req_access_txt = "154"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5319,14 +5321,15 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "kn" = (
-/obj/machinery/door/airlock/syndicate/security/glass{
-	req_access_txt = "154"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Full_Lockdown";
 	name = "Station Lockdown"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/syndicate/security/glass{
+	name = "Arrivals Teleporter";
+	req_access_txt = "154"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5346,12 +5349,13 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "kp" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/janitorialcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -6006,7 +6010,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 28
 	},
@@ -6456,7 +6460,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
@@ -7284,11 +7288,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7304,6 +7308,7 @@
 	},
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/light/small,
+/obj/item/lightreplacer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7368,7 +7373,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -7597,11 +7602,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/floodlight,
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/floodlight,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8179,7 +8184,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "oZ" = (
-/obj/structure/closet/syndicate/personal,
+/obj/structure/closet/syndicate/personal{
+	name = "Research Director armoury closet"
+	},
 /obj/item/megaphone,
 /obj/item/batterer,
 /obj/item/storage/secure/briefcase/syndie,
@@ -8513,7 +8520,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = 24
 	},
@@ -9187,7 +9194,7 @@
 	icon_state = "pipe-j2";
 	tag = "icon-pipe-j2 (EAST)"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -9316,7 +9323,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -10027,7 +10034,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -10199,7 +10206,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
@@ -10322,6 +10329,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"rZ" = (
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "sb" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
@@ -10362,7 +10375,7 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 32
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -11320,7 +11333,7 @@
 	dir = 8
 	},
 /obj/item/flag/syndi,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -11882,7 +11895,7 @@
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "vc" = (
 /obj/machinery/light,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -12105,10 +12118,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "vB" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -12124,6 +12133,10 @@
 /obj/item/multitool/ai_detect,
 /obj/item/storage/belt/utility,
 /obj/item/storage/toolbox/syndicate,
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12860,6 +12873,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/coin/iron,
 /obj/item/clothing/head/kitty/mouse,
+/obj/item/clothing/suit/blacktrenchcoat,
 /obj/item/clothing/accessory/corset,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
@@ -12914,14 +12928,14 @@
 	name = "Syndicate Logo"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/syndicate/unpowered/syndicate_space_base/main/central_w)
+/area/syndicate/unpowered/syndicate_space_base/main/north)
 "wV" = (
 /obj/effect/decal/syndie_logo/sc/logo3{
 	desc = "Death to Nanotrasen";
 	name = "Syndicate Logo"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/syndicate/unpowered/syndicate_space_base/main/central_w)
+/area/syndicate/unpowered/syndicate_space_base/main/north)
 "wW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13057,6 +13071,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -13138,7 +13153,9 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "xx" = (
-/obj/structure/closet/syndicate/personal,
+/obj/structure/closet/syndicate/personal{
+	name = "Comms Officer armoury closet"
+	},
 /obj/item/dnainjector/xraymut,
 /obj/item/card/emag,
 /obj/item/clothing/head/HoS/beret{
@@ -13632,6 +13649,7 @@
 "yt" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -13875,7 +13893,7 @@
 "yP" = (
 /obj/machinery/light,
 /obj/structure/weightmachine/weightlifter,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -14224,13 +14242,13 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "zD" = (
 /obj/machinery/light,
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/toy/plushie/orange_fox/grump,
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "zE" = (
@@ -14286,7 +14304,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/red/full,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -15046,7 +15064,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = 24
 	},
@@ -15143,7 +15161,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
@@ -15486,11 +15504,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/structure/punching_bag,
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
-/obj/structure/punching_bag,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15804,7 +15822,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -16311,28 +16329,15 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "CS" = (
-/obj/machinery/door/airlock/syndicate/security/glass{
-	req_access_txt = "150"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/armory/hallway)
+/turf/simulated/floor/carpet/black,
+/area/syndicate/unpowered/syndicate_space_base/main/north)
 "CT" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -16582,6 +16587,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -16660,6 +16666,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -16799,7 +16806,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -17013,7 +17020,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -17825,6 +17832,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -17937,7 +17945,7 @@
 "Ff" = (
 /obj/structure/table/wood,
 /obj/structure/bedsheetbin,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -18707,7 +18715,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -20206,7 +20214,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -20267,7 +20275,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -20498,6 +20506,10 @@
 "Jo" = (
 /turf/simulated/mineral/titanium,
 /area/ruin/unpowered)
+"Jp" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "Jq" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Woman Restroom"
@@ -21011,7 +21023,7 @@
 	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -21184,12 +21196,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
 /obj/machinery/alarm/syndicate{
 	pixel_x = 32
+	},
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = 24
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
@@ -21214,12 +21226,12 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
 "Kw" = (
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21730,12 +21742,6 @@
 	tag = "icon-dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
-"Lm" = (
-/obj/machinery/door/airlock/syndicate/maintenance{
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "Ln" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22171,10 +22177,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
 /obj/structure/closet/secure_closet/medical1{
 	req_access = null;
 	req_access_txt = "150"
@@ -22184,6 +22186,10 @@
 /obj/item/storage/belt/medical,
 /obj/item/storage/belt/medical,
 /obj/item/storage/pill_bottle/patch_pack,
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22765,7 +22771,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "Ng" = (
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -23119,6 +23125,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23151,11 +23161,11 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/structure/closet/firecloset,
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -24534,6 +24544,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -25092,6 +25103,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "Ro" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /obj/structure/barricade/wooden,
@@ -25763,6 +25775,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "Sw" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
 	req_access_txt = "150"
 	},
 /obj/machinery/door/firedoor,
@@ -26111,7 +26124,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/computer/robotics{
+	req_access = null;
+	req_access_txt = "155"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26133,7 +26149,15 @@
 	dir = 1;
 	on = 1
 	},
-/obj/item/toy/crayon/spraycan,
+/obj/item/circuitboard/supplycomp/syndicate{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/circuitboard/quantumpad/syndiepad,
+/obj/item/toy/crayon/spraycan{
+	pixel_x = 15;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26570,6 +26594,10 @@
 /obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/item/flag/syndi,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "TX" = (
@@ -26742,7 +26770,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
 	},
@@ -27299,15 +27327,19 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "Vc" = (
-/obj/item/flag/syndi,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "Vd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -27326,7 +27358,7 @@
 	dir = 8
 	},
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = -24
 	},
@@ -27523,12 +27555,12 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_x = -24
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27565,9 +27597,6 @@
 /turf/template_noop,
 /area/template_noop)
 "VC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -27581,14 +27610,15 @@
 	pixel_x = -32;
 	req_one_access = list(150)
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "VD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/structure/chair/comfy/purp{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -27877,27 +27907,32 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "We" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/carpet/black,
-/area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
-"Wf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
+"Wf" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "Wg" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -28043,7 +28078,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate{
+/obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_y = -24
 	},
@@ -28346,10 +28381,14 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "WN" = (
-/obj/structure/chair/comfy/purp{
-	dir = 4
-	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "WO" = (
@@ -28868,10 +28907,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
@@ -28880,6 +28915,10 @@
 /obj/item/storage/belt/utility,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/glasses/science,
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28950,10 +28989,6 @@
 	name = "ERR#UNKWN Server Room"
 	})
 "XI" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
 /obj/machinery/computer/rdservercontrol{
 	req_access_txt = "155";
 	servers = list(0027);
@@ -28966,6 +29001,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/firealarm/syndicate/taipan{
+	dir = 1;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -57305,7 +57344,7 @@ DY
 EU
 Gj
 Hq
-Iu
+Wf
 Jt
 Kp
 Li
@@ -57537,7 +57576,7 @@ dY
 ff
 gu
 hq
-dn
+Jp
 jt
 aO
 li
@@ -58328,7 +58367,7 @@ yE
 xD
 tL
 BN
-CS
+Em
 BN
 EU
 Go
@@ -58850,7 +58889,7 @@ Hv
 Iy
 Iy
 Iy
-Lm
+Sw
 Me
 MQ
 NA
@@ -60401,7 +60440,7 @@ Gx
 Gx
 Gx
 Gx
-Lm
+Sw
 Gx
 Gx
 SB
@@ -61429,7 +61468,7 @@ HF
 PE
 Gx
 Gx
-Lm
+Sw
 Gx
 Gx
 SB
@@ -62415,12 +62454,12 @@ bh
 bG
 ch
 aS
-aU
+jF
 eq
 fy
 gA
 fy
-aU
+jF
 jF
 kE
 lB
@@ -62672,7 +62711,7 @@ aS
 bI
 aS
 aS
-aU
+jF
 es
 fz
 es
@@ -64747,7 +64786,7 @@ sO
 tY
 rF
 rF
-wR
+rF
 xY
 za
 wR
@@ -65004,7 +65043,7 @@ sR
 sR
 sR
 wo
-wW
+CS
 wW
 wW
 zV
@@ -65261,7 +65300,7 @@ sS
 ud
 nV
 qK
-wX
+nV
 yf
 zb
 zW
@@ -68886,7 +68925,7 @@ RE
 Sn
 Sz
 Tf
-TN
+rZ
 Uq
 Va
 Vz
@@ -70175,7 +70214,7 @@ TQ
 Uv
 Vd
 VD
-Wf
+TR
 WN
 Xf
 XN

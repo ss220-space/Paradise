@@ -1808,15 +1808,23 @@
 /obj/machinery/vending/syndierobotics
 	name = "Синди Робо-ДеЛюкс!"
 	desc = "Всё что нужно, чтобы сделать личного железного друга из ваших врагов!"
+	ads_list = list("Make them beep-boop like a robot should!","Robotisation is NOT a crime!","Nyoom!")
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
 	req_access_txt = "150"
-	products = list(/obj/item/robot_parts/chest = 2, /obj/item/robot_parts/head = 2,
-	 /obj/item/robot_parts/l_arm = 2, /obj/item/robot_parts/r_arm = 2,
-	 /obj/item/robot_parts/l_leg = 2, /obj/item/robot_parts/r_leg = 2,
-	 /obj/item/stock_parts/cell/high = 6, /obj/item/crowbar = 2,
-	 /obj/item/flash = 4, /obj/item/stack/cable_coil = 4,
-	 /obj/item/mmi/syndie = 2, /obj/item/robotanalyzer = 2)
+	products = list(/obj/item/robot_parts/robot_suit = 2,
+					/obj/item/robot_parts/chest = 2,
+					/obj/item/robot_parts/head = 2,
+					/obj/item/robot_parts/l_arm = 2,
+					/obj/item/robot_parts/r_arm = 2,
+					/obj/item/robot_parts/l_leg = 2,
+					/obj/item/robot_parts/r_leg = 2,
+					/obj/item/stock_parts/cell/high = 6,
+					/obj/item/crowbar = 2,
+					/obj/item/flash = 4,
+					/obj/item/stack/cable_coil = 4,
+					/obj/item/mmi/syndie = 2,
+					/obj/item/robotanalyzer = 2)
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
