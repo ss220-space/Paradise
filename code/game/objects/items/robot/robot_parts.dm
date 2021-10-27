@@ -264,7 +264,17 @@
 			if(!aisync)
 				lawsync = FALSE
 
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, ai_to_sync_to = forced_ai)
+			if(sabotaged)
+				aisync = FALSE
+				lawsync = FALSE
+
+			if(M.syndicate == 1)
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/syndicate_override
+
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
+
 			if(!O)
 				return
 
@@ -356,7 +366,10 @@
 			created_name = ""
 
 	else if(href_list["Master"])
-		forced_ai = select_active_ai(usr)
+		if(!sabotaged)
+			forced_ai = select_active_ai(usr)
+		if(sabotaged)
+			forced_ai = null
 		if(!forced_ai)
 			to_chat(usr, "<span class='error'>No active AIs detected.</span>")
 

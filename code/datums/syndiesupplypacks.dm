@@ -916,6 +916,14 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "robotics assembly crate"
 	access = ACCESS_ROBOTICS
 
+/datum/syndie_supply_packs/science/borg_circuit
+	name = "Syndicate Cyborg Circuit Crate"
+	contains = list(/obj/item/mmi/robotic_brain/syndicate)
+	cost = 93750
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "Syndicate Cyborg Circuit crate"
+	access = ACCESS_SYNDICATE_RESEARCH_DIRECTOR
+
 /datum/syndie_supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
 	contains = list(/obj/item/tank/plasma,

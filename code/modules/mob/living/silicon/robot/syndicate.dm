@@ -39,6 +39,10 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
+/mob/living/silicon/robot/syndicate/reset_module()
+	..()
+	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
+
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
