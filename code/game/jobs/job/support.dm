@@ -272,7 +272,8 @@
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
-		/obj/item/instrument/bikehorn = 1
+		/obj/item/instrument/bikehorn = 1,
+		/obj/item/toy/sword/bananium = 1
 	)
 
 	backpack = /obj/item/storage/backpack/clown
