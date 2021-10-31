@@ -249,14 +249,38 @@
 	radio_channel = "Syndicate"
 	name = "Генерал Синди"
 	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
-	faction = list("syndicate", "neutral")
+	faction = list("syndicate")
 	allow_pai = 1
 	auto_patrol = 1
 	remote_disabled = 1
 	weaponscheck = 1
 	check_records = 0
-	idcheck = 0
+	idcheck = 1
 	bot_core_type = /obj/machinery/bot_core/syndicate
+
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/sword_attack(mob/living/carbon/C)     // esword attack
+	src.do_attack_animation(C)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
+	spawn(2)
+	icon_state = spin_icon
+	var/threat = C.assess_threat(src)
+	if(!("syndicate" in C.faction))
+		threat = "Nanotrasen"
+	if(ishuman(C))
+		C.apply_damage(dmg, BRUTE)
+		if(prob(stun_chance))
+			C.Weaken(5)
+	add_attack_logs(src, C, "sliced")
+	if(declare_arrests)
+		var/area/location = get_area(src)
+		if(!spam_flag)
+			if(!("syndicate" in C.faction))
+				speak("Back away! I will deal with this [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+			else
+				speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+			spam_flag = 1
+			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			visible_message("[src] flails his swords and cuts [C]!")
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/look_for_perp()
 	anchored = 0
@@ -269,10 +293,21 @@
 
 		threatlevel = C.assess_threat(src)
 
+
+		if(!("syndicate" in C.faction))
+			threatlevel = 20
+		else if("syndicate" in C.faction)
+			continue
+
+		var/obj/item/card/CID = C.get_id_card()
+		if(idcheck)
+			if(istype(CID, /obj/item/card/id/syndicate))
+				threatlevel = 0
+
 		if(!threatlevel)
 			continue
 
-		else if(threatlevel >= 4 || !("syndicate" in C.faction))
+		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
 			speak("You are a bold one")

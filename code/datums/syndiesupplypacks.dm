@@ -345,6 +345,19 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 20000
 	containername = "Syndicate Energy Combo crate"
 
+/datum/syndie_supply_packs/security/armory/deagle
+	name = "Syndicate Desert Eagle Crate"
+	contains = list(/obj/item/gun/projectile/automatic/pistol/deagle)
+	cost = 15000
+	containername = "Syndicate Desert Eagle crate"
+/datum/syndie_supply_packs/security/armory/m50
+	name = "Syndicate Handgun Magazine .50ae Crate"
+	contains = list(/obj/item/ammo_box/magazine/m50,
+					/obj/item/ammo_box/magazine/m50,
+					/obj/item/ammo_box/magazine/m50)
+	cost = 5000
+	containername = "Syndicate Handgun Magazine .50ae crate"
+
 /datum/syndie_supply_packs/security/armory/revolver
 	name = "Syndicate .357 Revolver Crate"
 	contains = list(/obj/item/gun/projectile/revolver,

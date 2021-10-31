@@ -133,7 +133,7 @@
 	var/cash_per_slip = 20			//points gained per slip returned
 	var/cash_per_crate = 50			//points gained per crate returned
 	var/cash_per_intel = 2500		//points gained per intel returned
-	var/cash_per_plasma = 50		//points gained per plasma returned
+	var/cash_per_plasma = 100		//points gained per plasma returned
 	var/cash_per_design = 500		//points gained per research design returned
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************

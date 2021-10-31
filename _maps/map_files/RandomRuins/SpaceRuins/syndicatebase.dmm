@@ -890,6 +890,14 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate/unpowered/syndicate_space_base/toilets)
+"ce" = (
+/obj/structure/safe/floor,
+/obj/item/spellbook/oneuse/random,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/unpowered)
 "cf" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Shower"
@@ -3733,6 +3741,7 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "hr" = (
@@ -4862,6 +4871,7 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "jv" = (
@@ -8199,6 +8209,8 @@
 /obj/item/clothing/head/cardborg,
 /obj/item/clothing/accessory/rbscarf,
 /obj/item/organ/internal/cyberimp/arm/gun/laser,
+/obj/item/clothing/suit/cardborg,
+/obj/item/pda/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "pa" = (
@@ -10430,6 +10442,19 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
+"si" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "sj" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -12920,6 +12945,13 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "wT" = (
+/obj/structure/safe/floor,
+/obj/item/stack/spacecash/c1000{
+	amount = 50000
+	},
+/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+/obj/item/pda/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "wU" = (
@@ -13170,6 +13202,7 @@
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
+/obj/item/pda/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "xy" = (
@@ -13194,6 +13227,33 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
+"xA" = (
+/obj/structure/safe/floor,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky,
+/obj/item/stack/tile/arcade_carpet{
+	amount = 50
+	},
+/obj/item/stack/tile/arcade_carpet{
+	amount = 50
+	},
+/obj/item/stack/tile/arcade_carpet{
+	amount = 50
+	},
+/obj/item/stack/tile/arcade_carpet{
+	amount = 50
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/bar)
 "xB" = (
 /obj/structure/dresser,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13577,9 +13637,13 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 2;
-	name = "Creature Pen"
+	name = "Creature Pen";
+	req_access_txt = "150"
 	},
 /obj/effect/decal/remains/xeno,
+/mob/living/simple_animal/slime{
+	faction = list("slime","neutral","syndicate")
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "yl" = (
@@ -13592,9 +13656,13 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 2;
-	name = "Creature Pen"
+	name = "Creature Pen";
+	req_access_txt = "150"
 	},
 /obj/effect/decal/cleanable/blood/gibs/xeno/down,
+/mob/living/simple_animal/slime{
+	faction = list("slime","neutral","syndicate")
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "yn" = (
@@ -14029,6 +14097,9 @@
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_x = -32
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "zh" = (
@@ -14118,6 +14189,7 @@
 	lootcount = 3;
 	name = "3maintenance loot spawner"
 	},
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "zr" = (
@@ -15909,6 +15981,7 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Co" = (
@@ -15943,6 +16016,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Cs" = (
@@ -22960,6 +23034,29 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/safe/floor,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+/obj/item/reagent_containers/food/drinks/bottle/patron{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/bottle/patron{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
 	tag = "icon-wood-broken3"
@@ -24787,6 +24884,7 @@
 	lootcount = 3;
 	name = "3maintenance loot spawner"
 	},
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "QI" = (
@@ -26020,6 +26118,7 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/vending/syndierobotics,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26047,6 +26146,9 @@
 	dir = 4
 	},
 /obj/machinery/vending/snack/free,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26091,6 +26193,9 @@
 	dir = 1
 	},
 /obj/structure/reagent_dispensers/oil,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26498,6 +26603,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26773,6 +26881,9 @@
 /obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
 	pixel_x = 24
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27542,6 +27653,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28224,6 +28338,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28237,6 +28354,9 @@
 /obj/machinery/light,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -25
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28252,6 +28372,9 @@
 	pixel_y = -32
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28266,6 +28389,9 @@
 	dir = 4
 	},
 /obj/machinery/vending/cigarette/free,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -64510,7 +64636,7 @@ bo
 bR
 co
 cQ
-dC
+xA
 ez
 fG
 ez
@@ -67901,7 +68027,7 @@ TK
 Un
 TI
 Vx
-TK
+si
 WH
 WY
 WY
@@ -81162,7 +81288,7 @@ pe
 pe
 Ii
 Uw
-af
+ce
 af
 aq
 Uw
