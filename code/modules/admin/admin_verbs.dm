@@ -658,7 +658,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/force_hijack()
 	set category = "Event"
-	set name = "Shuttle hijack"
+	set name = "Toggle shuttle force hijack"
 	set desc = "Force shuttle fly to syndicate base."
 
 	if(!check_rights(R_EVENT))
