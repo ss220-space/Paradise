@@ -667,7 +667,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/obj/docking_port/mobile/emergency/S = locate()
 	if(!S)
 		return
-	S.forceHijacked = S.forceHijacked ? 0 : 1
+	S.forceHijacked = !S.forceHijacked
 	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
 	log_admin("[key_name(usr)] [admin_verb] force shuttle hijack.")
 	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.", 1)
