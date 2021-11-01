@@ -669,7 +669,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 	S.forceHijacked = !S.forceHijacked
 	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
-	log_admin("[key_name(usr)] [admin_verb] force shuttle hijack.")
+	log_admin("[key_name(usr)] [admin_verb] forced shuttle hijack.")
 	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "[admin_verb] forced shuttle hijack")
 
