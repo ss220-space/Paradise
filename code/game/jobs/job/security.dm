@@ -138,8 +138,9 @@
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-
+	
 	implants = list(/obj/item/implant/mindshield)
+	satchel = /obj/item/storage/backpack/satchel_detective
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

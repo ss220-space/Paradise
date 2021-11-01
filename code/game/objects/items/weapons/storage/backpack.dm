@@ -245,11 +245,26 @@
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
 	icon_state = "satchel-norm"
 
+/obj/item/storage/backpack/satchel_detective
+	name = "detective's satchel"
+	desc = "It reeks of tobacco and noir."
+	icon_state = "satchel-detective"
+
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel_clown
+	name = "Giggles Von Honkerton"
+	desc = "It's a backpack made by Honk! Co."
+	icon_state = "satchel-clown"
+
+/obj/item/storage/backpack/satchel_mime
+	name = "Parcel Parceaux"
+	desc = "A silent satchel made for those silent workers. Silence Co."
+	icon_state = "satchel-mime"
 
 /obj/item/storage/backpack/satchel/explorer
 	name = "explorer satchel"
