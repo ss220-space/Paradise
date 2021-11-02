@@ -12325,6 +12325,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/vending/wallmed/syndicate{
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -19558,11 +19561,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/vending/medical/syndicate_access{
-	premium = list(/obj/item/gun/medbeam = 1);
-	req_access = null;
-	req_access_txt = "156"
-	},
+/obj/machinery/vending/medical/syndicate_access/beamgun,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -20259,11 +20258,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/vending/medical/syndicate_access{
-	premium = list(/obj/item/gun/medbeam = 1);
-	req_access = null;
-	req_access_txt = "156"
-	},
+/obj/machinery/vending/medical/syndicate_access/beamgun,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28099,7 +28094,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "Wn" = (
-/obj/machinery/vending/medical/syndicate_access,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -28108,6 +28102,10 @@
 	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/vending/medical/syndicate_access{
+	req_access = null;
+	req_access_txt = "156"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28209,7 +28207,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/vending/medical/syndicate_access{
+	req_access = null;
+	req_access_txt = "156"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -29829,7 +29830,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/vending/medical/syndicate_access{
+	req_access = null;
+	req_access_txt = "156"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

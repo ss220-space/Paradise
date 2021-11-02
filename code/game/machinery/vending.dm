@@ -1241,7 +1241,12 @@
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
+	icon_state = "syndi-big-med"
+	icon_deny = "syndi-big-med-deny"
 	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/vending/medical/syndicate_access/beamgun
+	premium = list(/obj/item/gun/medbeam = 1)
 
 /obj/machinery/vending/medical/Initialize(mapload)
 	component_parts = list()
