@@ -6,10 +6,10 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION	514		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -119,6 +119,29 @@
 		cmd_admin_discord_pm()
 		return
 
+	if(href_list["hublist"])
+		switch(href_list["hublist"])
+			if("7726")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7726")
+				return
+			if("7721")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7721")
+				return
+			if("7723")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7723")
+				return
+			if("7724")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://ex.ss220.space:7724")
+				return
+			if("7725")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7725")
+				return
+		return
 
 
 	//Logs all hrefs
@@ -1265,6 +1288,23 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+/client/proc/hublistpanel()
+	var/dat = {"<html><meta charset="UTF-8"><body>"}
+	var/tally = length(GLOB.clients)
+	if(tally > 90)
+		dat += "Игроков на этом сервере уже <b>[tally]</b>. Пожалуйста, выберите другой сервер.<br>Это поможет обеспечить комфортную игру другим на текущем сервере. Но мы вас не заставляем переходить, это окно можно просто закрыть. Спасибо за понимание!<br><HR><br>"
+	dat += "<a href='?src=[UID()];hublist=7721'>Подключиться</a> <b>Paradise Main</b> (НСН Керберос) — Основной сервер<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7726'>Подключиться</a> <b>Paradise Secondary</b> (НСН Керберос) <b style='color: #2ecc71'>(новый)</b> — Второй сервер, копия основного для равномерного распределения онлайна<br><br><HR><br>"
+	dat += "<a href='?src=[UID()];hublist=7724'>Подключиться</a> <b>Paradise Extended eXperimental</b> (НСН Кибериада) — очень долгие раунды без раундстартовых антагов<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7723'>Подключиться</a> <b>Paradise WL</b> (НСН Керберос/НСН Кибериада) — вайтлист, без временных ограничений по профессиям, самозапись через команду <b>/заявка</b> в Discord (Требуется суммарно 30+ часов игрового опыта на EX/Main/Secondary)<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7725'>Подключиться</a> <b>Bay12 Sierra</b> (ИКН Сьерра) — атмосферное и более требовательное РП, билд Infinity<br><br><HR>"
+	dat += "<i>После нажатия кнопки подключения может показаться будто всё зависло, но это не так. Следует подождать пока загрузиться другой сервер.</i><br>"
+	dat += "</body></html>"
+
+	var/datum/browser/popup = new(usr, "hublist", "<div align='center'>Сервера проекта SS220</div>", 600, 550)
+	popup.set_content(dat)
+	popup.open(0)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
