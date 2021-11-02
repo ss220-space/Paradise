@@ -18338,7 +18338,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance";
-	req_access_txt = "5;12"
+	req_one_access_txt = "5;12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -33534,9 +33534,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "cLC" = (
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
@@ -82230,6 +82227,9 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/item/paper/Cloning{
+	pixel_x = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue";
@@ -100915,8 +100915,11 @@
 	})
 "qjp" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/closet/walllocker/emerglocker/north{
+	pixel_x = -30;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "qjr" = (
@@ -122263,7 +122266,7 @@
 /turf/space,
 /area/space/nearstation)
 "vxP" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
