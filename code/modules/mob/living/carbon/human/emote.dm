@@ -1055,20 +1055,6 @@
 			to_chat(src, "<span class='notice'>Неизвестный эмоут '[act]'. Введи *help для отображения списка.</span>")
 
 	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
-
- //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
- // Maybe some people are okay with that.
-
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client)
-				continue
-
-			if(isnewplayer(M))
-				continue
-
-			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
-				M.show_message(message)
-
 		switch(m_type)
 			if(1)
 				custom_emote(EMOTE_VISUAL, message)
