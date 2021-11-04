@@ -101,7 +101,7 @@
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
 
 /obj/structure/chair/wheelchair/bike
-	name = "bicycle"
+	name = "motorcycle"
 	desc = "Two wheels of FURY!"
 	//placeholder until i get a bike sprite
 	icon = 'icons/vehicles/motorcycle.dmi'
