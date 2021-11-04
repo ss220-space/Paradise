@@ -338,6 +338,7 @@
 /obj/effect/spawner/lootdrop/trade_sol/vehicle
 	name = "9. vehicle"
 	loot = list(
+				/obj/vehicle/bicycle = 50,
 				/obj/vehicle/motorcycle = 50,
 				/obj/vehicle/snowmobile = 50,
 				/obj/vehicle/snowmobile/blue = 50,

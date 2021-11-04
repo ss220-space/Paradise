@@ -12901,7 +12901,7 @@
 /area/shuttle/trade/sol)
 "bfi" = (
 /obj/effect/spawner/lootdrop/trade_sol/vehicle{
-	loot = list(/obj/vehicle/motorcycle = 50, /obj/vehicle/snowmobile/key = 50, /obj/vehicle/snowmobile/blue/key = 50, /obj/vehicle/space/speedbike/red = 50, /obj/vehicle/space/speedbike = 50);
+	loot = list(/obj/vehicle/bicycle = 50, /obj/vehicle/motorcycle = 50, /obj/vehicle/snowmobile/key = 50, /obj/vehicle/snowmobile/blue/key = 50, /obj/vehicle/space/speedbike/red = 50, /obj/vehicle/space/speedbike = 50);
 	name = "4. Vehicle"
 	},
 /turf/simulated/floor/wood,
