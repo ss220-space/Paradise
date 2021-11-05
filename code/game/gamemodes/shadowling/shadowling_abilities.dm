@@ -54,7 +54,7 @@
 		H.Stun(2)
 		H.AdjustSilence(10)
 		H.adjustStaminaLoss(70)
-		for(var/i = 1 to 5)
+		spawn for(var/i = 1 to 5)
 			H.adjustStaminaLoss(10)
 			sleep(35)
 
