@@ -95,15 +95,15 @@
 
 /datum/reagent/consumable/drink/blackeye_brew/on_mob_life(mob/living/M)
 	if(prob(25))
-		var/list/tider_talk = list("I OWN THIS STATION NOW, I JUST BOUGHT IT.",
-									"SECRET TECHNIQUE: TOOLBOX TO THE FACE!",
-									"SECRET TECHNIQUE: PLASMA CANISTER FIRE!",
-									"SECRET TECHNIQUE: TABLE AND DISPOSAL!",
-									"[pick("MY BROTHER", " MY DOG", "MY BEST FRIEND", "THE BORER", "GEORGE MELONS", "BADMINS")] DID IT!",
-									";s WHATS SPACE LAW?!",
-									"I BOUGHT THESE GLOVES, NOT STEAL THEM",
-									"THIS DOOR WAS SHOCKED WHEN I GOT HERE",
-									"ANIMALS ARE NOT CREW")
+		var/list/tider_talk = list("Я ВЛАДЕЮ ЭТОЙ СТАНЦИЕЙ, Я КУПИЛ ЕЁ.",
+									"СЕКРЕТНАЯ ТЕХНИКА: ЯЩИК В ЛИЦО!",
+									"СЕКРЕТНАЯ ТЕХНИКА: ПОЖАР ПЛАЗМЕННОЙ КАНИСТРЫ!",
+									"СЕКРЕТНАЯ ТЕХНИКА: СТОЛ И УТИЛИЗАЦИЯ!",
+									"[pick("МОЙ БРАТ", "МОЯ СОБАКА", "МОЙ ДРУГ", "МОЗГОВОЙ ЧЕРВЬ")] СДЕЛАЛ ЭТО!",
+									"ЧЕ ЗА КОСМОЗАКОН?!",
+									"Я КУПИЛ ЭТИ ПЕРЧАТКИ, А НЕ УКРАЛ.",
+									"ЭТА ДВЕРЬ УДАРИЛА ТОКОМ, КОГДА Я ДОТРОНУЛСЯ.",
+									"ЖИВОТНЫЕ - НЕ ЭКИПАЖ.")
 		M.say(pick(tider_talk))
 	return ..()
 
