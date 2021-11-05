@@ -599,6 +599,9 @@ emp_act
 					apply_effect(1, WEAKEN, run_armor_check(affecting, "melee"))
 					add_attack_logs(M, src, "Alien tackled")
 					visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+				else
+					visible_message("<span class='danger'>[M] tried to tackle down [src]!</span>")
+					add_attack_logs(M, src, "Alien tried to tackle")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
