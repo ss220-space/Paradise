@@ -11,6 +11,7 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	var/staminaforce = 25
 	var/stunforce = 2
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/cell = null
@@ -187,7 +188,7 @@
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.SetStuttering(stunforce)
-	L.adjustStaminaLoss(20)
+	L.adjustStaminaLoss(staminaforce)
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
@@ -231,8 +232,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	stunforce = 2
-	hitcost = 2000
+	staminaforce = 33
+	stunforce = 1
+	hitcost = 1000
 	throw_hit_chance = 10
 	slot_flags = SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler = null
