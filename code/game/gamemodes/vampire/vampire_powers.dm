@@ -228,7 +228,7 @@
 		target.adjustStaminaLoss(70)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
-		for(var/i = 1 to 5)
+		spawn for(var/i = 1 to 5)
 			target.adjustStaminaLoss(10)
 			sleep(35)
 
