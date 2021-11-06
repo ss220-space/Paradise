@@ -225,12 +225,10 @@
 		target.Stun(2)
 		target.Weaken(2)
 		target.stuttering = 20
-		target.adjustStaminaLoss(70)
+		target.adjustStaminaLoss(20)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
-		spawn for(var/i = 1 to 5)
-			target.adjustStaminaLoss(10)
-			sleep(35)
+		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
