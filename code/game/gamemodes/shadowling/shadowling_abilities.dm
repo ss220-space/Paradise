@@ -53,10 +53,8 @@
 
 		H.Stun(2)
 		H.AdjustSilence(10)
-		H.adjustStaminaLoss(70)
-		for(var/i = 1 to 5)
-			H.adjustStaminaLoss(10)
-			sleep(35)
+		H.adjustStaminaLoss(20)
+		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 	else //Distant glare
 		var/loss = 10 - distance
