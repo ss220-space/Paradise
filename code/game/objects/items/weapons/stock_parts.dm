@@ -31,6 +31,13 @@
 				user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
 	return
 
+/obj/item/storage/part_replacer/proc/play_rped_sound()
+	//Plays the sound for RPED exchanging or installing parts.
+	if(alt_sound && prob(3))
+		playsound(src, alt_sound, 40, 1)
+	else
+		playsound(src, primary_sound, 40, 1)
+
 /obj/item/storage/part_replacer/bluespace
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
@@ -44,13 +51,21 @@
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.5
+	var/empty_mode = 4 //То, что выгружаем. Если меньше или равно, то выгружаем
 
-/obj/item/storage/part_replacer/proc/play_rped_sound()
-	//Plays the sound for RPED exchanging or installing parts.
-	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 40, 1)
+/obj/item/storage/part_replacer/bluespace/drop_inventory()
+	if(usr.a_intent == INTENT_HARM) //Меняем режим выгрузки
+		empty_mode -= 1
+		if(empty_mode < 0)
+			empty_mode = 4
+		to_chat(usr, "<span class='notice'>[src.name] будет выгружать предметы рангом [empty_mode] и ниже.</span>")
 	else
-		playsound(src, primary_sound, 40, 1)
+		var/turf/T = get_turf(src)
+		hide_from(usr)
+		for(var/obj/item/stock_parts/I in contents)
+			if(I.rating <= empty_mode)
+				remove_from_storage(I, T)
+				CHECK_TICK
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
