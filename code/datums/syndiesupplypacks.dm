@@ -959,8 +959,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/science/syndiecargo
 	name = "Syndicate Supply Console Circuit Crate"
-	contains = list(/obj/item/circuitboard/supplycomp/syndicate,
-					/obj/item/circuitboard/supplycomp/syndicate)
+	contains = list(/obj/item/circuitboard/syndicatesupplycomp,
+					/obj/item/circuitboard/syndicatesupplycomp/public)
 	cost = 2000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "Supply Console Circuit crate"

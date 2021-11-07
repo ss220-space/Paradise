@@ -7,7 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
-	var/teleport_cooldown = 250 //if 400 - 30 seconds base due to base parts
+	var/teleport_cooldown = 250 //if 400, cd = 30 seconds due to base parts
 	var/teleport_speed = 25
 	var/last_teleport //to handle the cooldown
 	var/teleporting = 0 //if it's in the process of teleporting
@@ -15,8 +15,8 @@
 	var/obj/machinery/syndiepad/linked_pad = null
 	var/receive = 0 // получающий ли посылки это телепад или отправляющий.
 	var/force_ignore_teleport_blocking = TRUE //Этот флаг позволяет обходить запреты зоны на телепорт. Лучше его не выключать для этих падов
-	var/id = null
-	var/target_id = null
+	var/id = null //id телепада для приёма им посылок
+	var/target_id = null //id телепада на который будут отправлены посылки
 	var/allow_humans = FALSE // Может ли телепад телепортировать живые организмы? Админ Флаг, не изменяемый игроками.
 	var/console_link = FALSE // Привязан ли телепад к консоли?
 
@@ -30,7 +30,7 @@
 /obj/machinery/syndiepad/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null) //идея. сделать обычную плату телепада, но если вместо блюспейс кристалла добавить телекристалл, она сделает синдипад
+	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null)
 	component_parts += new /obj/item/stack/telecrystal(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -53,7 +53,7 @@
 	teleport_speed = initial(teleport_speed)
 	teleport_speed -= (E*10)
 	teleport_cooldown = initial(teleport_cooldown)
-	teleport_cooldown -= (E * 100)
+	teleport_cooldown -= (E * 56.25) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
 	if(console_link)
 		for(var/obj/effect/syndie_data_storage/S in myArea)
 			S.sync()
@@ -142,7 +142,9 @@
 		return
 
 	if(receive)
-		to_chat(user, "<span class='warning'>Receive mode is on! Please change mode if you want this pad to deliver your crates!</span>")
+		if(!console_link)
+			to_chat(user, "<span class='warning'>Receive mode is on! Please change mode if you want this pad to deliver your crates!</span>")
+			return
 
 	if(!linked_pad || QDELETED(linked_pad))
 		to_chat(user, "<span class='notice'>No linked target pad detected! Attempting to link '[src]' to the target!</span>")

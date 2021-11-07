@@ -176,6 +176,7 @@
 			pads_cooldown += P.teleport_cooldown
 			linked_pads += P
 			continue
+	pads_cooldown = round(pads_cooldown)
 	if (receiving_pads != list() && linked_pads != list())
 		telepads_status = "Pads ready"
 	else
@@ -230,11 +231,11 @@
  **************************/
 /obj/machinery/computer/syndie_supplycomp
 	name = "Supply Pad Console"
-	desc = "Used to order supplies by using syndiepads!."
+	desc = "Used to order supplies by using syndiepads!"
 	icon_screen = "syndinavigation"
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE_CARGO)
-	circuit = /obj/item/circuitboard/supplycomp/syndicate
+	circuit = /obj/item/circuitboard/syndicatesupplycomp
 	/// Is this a public console
 	var/is_public = FALSE
 	/// Time of last request
@@ -252,10 +253,10 @@
 	if(data_storage == null)
 		for(var/obj/effect/syndie_data_storage/S in myArea)
 			data_storage = S
-	if(data_storage == null)
-		var/atom/DS = new /obj/effect/syndie_data_storage
-		spawn_atom_to_turf(DS, get_turf(src))
-		data_storage = DS
+		if(data_storage == null)
+			var/atom/DS = new /obj/effect/syndie_data_storage
+			spawn_atom_to_turf(DS, get_turf(src))
+			data_storage = DS
 
 /obj/machinery/computer/syndie_supplycomp/proc/buy() // Этот код заточен под поиск точек для спавна, активации траты энергии и анимации падов
 
@@ -312,7 +313,7 @@
 		for(var/atom/movable/MA in sellArea)
 			if(MA.anchored)
 				continue
-			if(istype(MA, /mob/dead)) // Если окажется что на паде труп, то это защитит его от уничтожения
+			if(istype(MA, /mob/dead) || istype(MA, /mob/living)) // Если окажется что на паде труп или человек, то это защитит его от уничтожения
 				continue
 			if(istype(MA,/obj/structure/closet/crate/syndicate) || istype(MA,/obj/structure/closet/crate/secure/syndicate))
 				++crate_count
@@ -426,6 +427,8 @@
 							data_storage.discoveredPlants[S.type] = S.potency
 							msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 							data_storage.cash += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+					qdel(thing)
+
 			qdel(MA)
 			data_storage.sold_atoms += "."
 
@@ -450,7 +453,7 @@
 /obj/machinery/computer/syndie_supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
-	//circuit = /obj/item/circuitboard/ordercomp
+	circuit = /obj/item/circuitboard/syndicatesupplycomp/public
 	req_access = list()
 	is_public = TRUE
 
@@ -553,7 +556,11 @@
 	switch(action)
 		if("withdraw")
 			var/cash_sum = input(usr, "Amount", "How much money do you wish to withdraw") as null|num
-			withdraw_cash(cash_sum, usr)
+			if(cash_sum <= 0)
+				return
+			else
+				if(in_range(usr, src))
+					withdraw_cash(round(cash_sum), usr)
 		if("teleport")
 			if(data_storage.telepads_status == "Pads not linked!"|| data_storage == null)
 				//Проверка на наличие хранилища данных
@@ -574,7 +581,6 @@
 					data_storage.is_cooldown = TRUE
 				buy()
 
-		//копипаст требующий доработки начинается тут
 		if("order")
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
@@ -661,6 +667,7 @@
 		if("add_money")
 			var/money2add = input("Введите сколько кредитов вы хотите добавить") as null|num
 			data_storage.cash += money2add
+
 
 	add_fingerprint(usr)
 

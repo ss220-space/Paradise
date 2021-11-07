@@ -108,6 +108,8 @@
 				backpack_contents[box] = 1
 		H.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc
 
+	H.mind.offstation_role = TRUE
+
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech
 	name = "Syndicate Cargo Technician sleeper"
 	mob_name = "Syndicate Cargo Technician"
