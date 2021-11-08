@@ -29,7 +29,7 @@
 	..()
 	START_PROCESSING(SSobj, src)
 	var/obj/item/I = loc
-	if(I) //Если находится в предмете, то полностью заряжен. Предназначено для оружия
+	if(istype(I)) //Если находится в предмете, то полностью заряжен. Предназначено для оружия
 		charge = maxcharge
 	else
 		charge = round(maxcharge/10,1)
