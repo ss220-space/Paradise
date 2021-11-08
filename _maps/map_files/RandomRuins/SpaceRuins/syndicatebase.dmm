@@ -242,6 +242,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
+"ba" = (
+/mob/living/simple_animal/hostile/winter/snowman/ranged,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/ruin/unpowered)
 "bb" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -1617,7 +1621,9 @@
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
 "dr" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
+/mob/living/simple_animal/hostile/skeleton/eskimo{
+	faction = list("skeleton","winter")
+	},
 /turf/simulated/floor/plating/ice,
 /area/ruin/unpowered)
 "ds" = (
@@ -14044,7 +14050,9 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "yT" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
+/mob/living/simple_animal/hostile/skeleton/eskimo{
+	faction = list("skeleton","winter")
+	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered)
 "yU" = (
@@ -23711,6 +23719,11 @@
 	},
 /obj/machinery/autolathe{
 	hacked = 1
+	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -85687,7 +85700,7 @@ Ya
 Ya
 Ya
 Ya
-Ya
+ba
 Ya
 Ya
 pe
@@ -85941,7 +85954,7 @@ pe
 qy
 pe
 Ya
-Ya
+En
 Ya
 Ya
 Ya

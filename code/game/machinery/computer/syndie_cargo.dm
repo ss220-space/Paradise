@@ -365,7 +365,7 @@
 										msg += "Packages incorrectly counted."
 									else if(slip.erroneous & MANIFEST_ERROR_ITEM)
 										msg += "We found unshipped items on our dock."
-									msg += "  Don't dissapoint us again!<br>"
+									msg += "  Don't dissapoint us like that!<br>"
 								else
 									cashEarned = round(data_storage.cash_per_crate - slip.points)
 									data_storage.cash += cashEarned
@@ -479,6 +479,9 @@
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 		data_storage.cash += C.amount
 		to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
+		var/mob/living/carbon/human/H = user
+		var/name = H.get_authentification_name()
+		data_storage.blackmarket_message += "<span class='good'>+[C.amount]</span>: [name] adds credits to the console.<br>"
 		SStgui.update_uis(src)
 		C.use(C.amount)
 	else
@@ -661,12 +664,16 @@
 			// Public consoles cant view messages
 			if(is_public)
 				return
-			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Black Market Cargo Message Log", 800, 600)
-			ccmsg_browser.set_content(data_storage.blackmarket_message)
-			ccmsg_browser.open()
+			var/datum/browser/bmmsg_browser = new(usr, "ccmsg", "Black Market Cargo Message Log", 800, 600)
+			bmmsg_browser.set_content(data_storage.blackmarket_message)
+			bmmsg_browser.open()
 		if("add_money")
-			var/money2add = input("Введите сколько кредитов вы хотите добавить") as null|num
+			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
 			data_storage.cash += money2add
+			if(money2add > 0)
+				data_storage.blackmarket_message += "<span class='good'>+[money2add]</span>: We are pleased with your work. Here's your reward.<br>"
+			else if(money2add < 0)
+				data_storage.blackmarket_message += "<span class='bad'>[money2add]</span>: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
 
 
 	add_fingerprint(usr)
@@ -680,6 +687,9 @@
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 		var/obj/item/stack/spacecash/C = new(amt = cash_sum)
 		to_chat(user, "<span class='info'>The machine give you [C]!</span>")
+		var/mob/living/carbon/human/H = user
+		var/name = H.get_authentification_name()
+		data_storage.blackmarket_message += "<span class='bad'>-[cash_sum]</span>: [name] withdraws credits from the console.<br>"
 		user.put_in_hands(C)
 	else
 		to_chat(user, "<span class='notice'>Нельзя снять больше денег, чем доступно в консоли!</span>")

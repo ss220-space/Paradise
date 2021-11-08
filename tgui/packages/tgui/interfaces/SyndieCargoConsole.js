@@ -129,7 +129,7 @@ const StatusPane = (_properties, context) => {
               onClick={() => act("teleport")}
             />
             <Button
-              content="View Syncicate Black Market Log"
+              content="View Syndicate Black Market Log"
               onClick={() => act("showMessages")}
             />
           </LabeledList.Item>
