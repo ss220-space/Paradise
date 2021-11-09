@@ -170,10 +170,12 @@
 	for(var/obj/machinery/syndiepad/P in cargoarea)
 		if(P.receive && P.console_link)
 			pads_cooldown += P.teleport_cooldown
+			P.id = "syndie_cargo_receive" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
 			receiving_pads += P
 			continue
 		if(!P.receive && P.console_link)
 			pads_cooldown += P.teleport_cooldown
+			P.target_id = "syndie_cargo_load" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
 			linked_pads += P
 			continue
 	pads_cooldown = round(pads_cooldown)

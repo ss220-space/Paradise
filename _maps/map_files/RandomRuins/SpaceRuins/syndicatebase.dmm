@@ -23031,12 +23031,7 @@
 /obj/machinery/conveyor/north{
 	id = "SQMLoad2"
 	},
-/obj/machinery/syndiepad{
-	console_link = 1;
-	id = "syndie_cargo_receive";
-	name = "syndicate quantum pad #receive";
-	receive = 1
-	},
+/obj/machinery/syndiepad/receivepad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23453,18 +23448,6 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/cargo)
-"Ol" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad2"
-	},
-/obj/machinery/syndiepad{
-	console_link = 1;
-	id = "syndie_cargo_receive";
-	name = "syndicate quantum pad #receive";
-	receive = 1
-	},
-/turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "Om" = (
 /obj/structure/grille{
@@ -24193,15 +24176,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "Pw" = (
-/obj/machinery/syndiepad{
-	console_link = 1;
-	id = "syndie_cargo_receive";
-	name = "syndicate quantum pad #receive";
-	receive = 1
-	},
 /obj/machinery/conveyor/north{
 	id = "SQMLoad2"
 	},
+/obj/machinery/syndiepad/receivepad,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "Px" = (
@@ -24912,17 +24890,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
-"Qz" = (
-/obj/machinery/syndiepad{
-	console_link = 1;
-	name = "syndicate quantum pad #3";
-	target_id = "syndie_cargo_load"
-	},
-/obj/machinery/conveyor/north{
-	id = "SQMLoad"
-	},
-/turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/cargo)
 "QA" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
@@ -25290,17 +25257,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
-"Rl" = (
-/obj/machinery/syndiepad{
-	console_link = 1;
-	name = "syndicate quantum pad #4";
-	target_id = "syndie_cargo_load"
-	},
-/obj/machinery/conveyor/north{
-	id = "SQMLoad"
-	},
-/turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/cargo)
 "Rm" = (
 /obj/machinery/porta_turret/syndicate/grenade,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -25560,14 +25516,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "RL" = (
-/obj/machinery/syndiepad{
-	console_link = 1;
-	name = "syndicate quantum pad #5";
-	target_id = "syndie_cargo_load"
-	},
 /obj/machinery/conveyor/north{
 	id = "SQMLoad"
 	},
+/obj/machinery/syndiepad/loadpad,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "RM" = (
@@ -70731,12 +70683,12 @@ gh
 LR
 MH
 Nr
-Ol
-Ol
+Pw
+Pw
 Pw
 KR
-Qz
-Rl
+RL
+RL
 RL
 RL
 Sz

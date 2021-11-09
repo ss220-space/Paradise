@@ -2127,10 +2127,7 @@
 	},
 /area/centcom/specops)
 "chS" = (
-/obj/machinery/syndiepad{
-	id = "syndie_cargo_load";
-	receive = 1
-	},
+/obj/machinery/syndiepad/admin/receivepad,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "vault"
@@ -21687,9 +21684,7 @@
 	},
 /area/centcom/court)
 "qvT" = (
-/obj/machinery/syndiepad{
-	target_id = "syndie_cargo_receive"
-	},
+/obj/machinery/syndiepad/admin/loadpad,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "vault"

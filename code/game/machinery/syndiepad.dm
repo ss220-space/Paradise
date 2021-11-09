@@ -20,6 +20,25 @@
 	var/allow_humans = FALSE // Может ли телепад телепортировать живые организмы? Админ Флаг, не изменяемый игроками.
 	var/console_link = FALSE // Привязан ли телепад к консоли?
 
+/obj/machinery/syndiepad/receivepad
+	name = "syndicate quantum pad #receive"
+	id = "syndie_cargo_receive"
+	console_link = TRUE
+	receive = 1
+
+/obj/machinery/syndiepad/loadpad
+	name = "syndicate quantum pad #load"
+	id = "syndie_cargo_load"
+	console_link = TRUE
+
+/obj/machinery/syndiepad/admin/receivepad
+	id = "syndie_cargo_load" //админский синдипад получающий посылки
+	receive = 1
+
+/obj/machinery/syndiepad/admin/loadpad
+	target_id = "syndie_cargo_receive" //админский синдипад отправляющий посылки
+	allow_humans = TRUE
+
 /obj/machinery/syndiepad/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
@@ -124,9 +143,14 @@
 
 /obj/machinery/syndiepad/proc/pad_sync()
 	for(var/obj/machinery/syndiepad/S in GLOB.machines)
+		if(src.console_link == TRUE && S.console_link == TRUE) //Мы не хотим привязываться к другим привязанным к консоли телепадам
+			continue
+		if(S.id == null)
+			continue
 		if(S.id == src.target_id)
-			linked_pad = S
-			break
+			if(S != src) //Так же мы не хотим привязываться сами к себе
+				linked_pad = S
+				break
 
 /obj/machinery/syndiepad/attack_hand(mob/user)
 	if(console_link)
@@ -152,6 +176,8 @@
 		if(!linked_pad || target_id == null)
 			to_chat(user, "<span class='warning'>Attempt failed! No target with the ID: '[target_id]' was found!</span>")
 		else
+			if(console_link)
+				doteleport(usr)
 			to_chat(user, "<span class='notice'>Successfully linked!</span>")
 		return
 
