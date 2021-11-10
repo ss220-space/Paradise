@@ -17,11 +17,11 @@
 	color = "#cc0044"
 	taste_description = "рая"
 
-//Ябло-покалипсис: Low chance to cause a goonchem vortex that pulls things within a very small radius (2 tiles?) towards the drinker
+//Яблопокалипсис: Low chance to cause a goonchem vortex that pulls things within a very small radius (2 tiles?) towards the drinker
 /datum/reagent/consumable/drink/apple_pocalypse
-	name = "Ябло-покалипсис"
+	name = "Яблопокалипсис"
 	id = "apple-pocalypse"
-	description = "Если бы судный день был в форме фрукта, скорее всего это было бы яблоко."
+	description = "Если бы судный день имел форму фрукта, скорее всего это было бы яблоко."
 	reagent_state = LIQUID
 	color = "#44FF44"
 	taste_description = "судного дня"
@@ -109,12 +109,12 @@
 
 //Grape Granade: causes the drinker to sometimes burp, has a low chance to cause a goonchem vortex that pushes things within a very small radius (1-2 tiles) away from the drinker
 /datum/reagent/consumable/drink/grape_granade
-	name = "Виноградная граната"
+	name = "Гранатовый взрыв"
 	id = "grape_granade"
-	description = "Взрывной вкус винограда, любимый сотрудниками ОБР по всей системе."
+	description = "Взрывной гранатовый вкус, любимый сотрудниками ОБР по всей системе."
 	reagent_state = LIQUID
 	color = "#9933ff"
-	taste_description = "стариков"
+	taste_description = "дедов"
 
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
 	if(prob(1))
@@ -130,7 +130,7 @@
 /datum/reagent/consumable/drink/meteor_malt
 	name = "Метеорный солод"
 	id = "meteor_malt"
-	description = "На пересекающемся с вашими вкусовыми рецепторами курсе были обнаружены безалкогольные напитки."
+	description = "Зафиксировано движение безалкогольных напитков на встречном с вашими вкусовыми рецепторами курсе."
 	reagent_state = LIQUID
 	color = "#cc9900"
 	taste_description = "летающих космических скал"
