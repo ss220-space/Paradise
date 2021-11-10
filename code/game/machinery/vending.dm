@@ -928,8 +928,8 @@
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
 					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 	vend_delay = 15
-	slogan_list = list("Надеюсь, никто не попросит меня о чёртовой кружке чая…","Алкоголь — друг человека. Ты же не бросишь друга?","Очень рад вас обслужить!","Никто на этой станции не хочет выпить?")
-	ads_list = list("Выпьем!","Бухло вам на пользу!","Алкоголь — лучший друг человека.","Очень рад вас обслужить!","Хотите отличного холодного пива?","Ничто так не лечит, как бухло!","Пригубите!","Выпей!","Возьмите пива!","Пиво вам на пользу!","Только лучший алкоголь!","Бухло лучшего качества с 2053 года!","Вино с множеством наград!","Максимум алкоголя!","Мужчина пьёт пиво.","Тост: «За прогресс!»")
+	slogan_list = list("Надеюсь, никто не попросит меня о чёртовой кружке чая…","Алкоголь — друг человека. Вы же не бросите друга?","Очень рад вас обслужить!","Никто на этой станции не хочет выпить?")
+	ads_list = list("Выпьем!","Бухло пойдёт вам на пользу!","Алкоголь — друг человека.","Очень рад вас обслужить!","Хотите отличного холодного пива?","Ничто так не лечит, как бухло!","Пригубите!","Выпейте!","Возьмите пивка!","Пиво пойдёт вам на пользу!","Только лучший алкоголь!","Бухло лучшего качества с 2053 года!","Вино со множеством наград!","Максимум алкоголя!","Мужчины любят пиво","Тост: «За прогресс!»")
 	refill_canister = /obj/item/vending_refill/boozeomat
 
 /obj/machinery/vending/boozeomat/syndicate_access
@@ -948,7 +948,7 @@
 /obj/machinery/vending/coffee
 	name = "\improper Hot Drinks machine"
 	desc = "A vending machine which dispenses hot drinks."
-	ads_list = list("Выпей!","Выпьем!","На здоровье!","Вам бы понравится горячий супец?","Я бы убил за чашечку кофе!","Лучшие зёрна в галактике.","Для Вас — только лучшие напитки.","М-м-м-м… Ничего общего с кофе.","Я люблю кофе, а Вы?","Кофе помогает работать!","Возьмите немного чайку.","Надеемся, Вам нравится самое лучшее!","Глотните нашего нового шоколаду!","Admin conspiracies")
+	ads_list = list("Выпейте!","Выпьем!","На здоровье!","Не хотите горячего супчику?","Я бы убил за чашечку кофе!","Лучшие зёрна в галактике","Для Вас — только лучшие напитки","М-м-м-м… Ничто не сравнится с кофе","Я люблю кофе, а Вы?","Кофе помогает работать!","Возьмите немного чайку","Надеемся, Вы предпочитаете лучшее!","Отведайте наш новый шоколад!","Admin conspiracies")
 	icon_state = "coffee"
 	icon_vend = "coffee-vend"
 	item_slot = TRUE
@@ -1067,7 +1067,7 @@
 	desc = "A soft drink vendor provided by Robust Industries, LLC."
 	icon_state = "Cola_Machine"
 	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
-	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано более миллиона бутылок!","Хотите пить? Почему бы не взять колу?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки в целом космосе.")
+	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано больше миллиона бутылок!","Хотите пить? Почему бы не взять колы?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки во всём космосе")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 10,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 10)
@@ -1165,8 +1165,8 @@
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
 	desc = "If you want to get cancer, might as well do it in style."
-	slogan_list = list("Космосигареты на вкус хороши, какими они и должны быть.","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите сегодня!")
-	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай.","Лучшие сигареты с 2150 года.","Сигареты с множеством наград.")
+	slogan_list = list("Космосигареты весьма хороши на вкус, какими они и должны быть","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите!")
+	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай","Лучшие сигареты с 2150 года","Сигареты с множеством наград")
 	vend_delay = 34
 	icon_state = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
@@ -1195,7 +1195,7 @@
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"
 	ads_list = list("Наверняка не очень-то и вредно для Вас!","Допинг проведёт через безденежье лучше, чем деньги через бездопингье!","На здоровье!")
-	slogan_list = list("Включи, настрой, получи!","С химией жить веселей!","Затянись!","Сохраняй улыбку на устах и песню в своём сердце!")
+	slogan_list = list("Включи, настрой, получи!","С химией жить веселей!","Затянитесь!","Сохраняй улыбку на устах и песню в своём сердце!")
 	products = list(/obj/item/storage/fancy/cigarettes = 5,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
@@ -1223,7 +1223,7 @@
 	desc = "Medical drug dispenser."
 	icon_state = "med"
 	icon_deny = "med-deny"
-	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для Вашего медотдела.","Только лучшие инструменты.","Натуральные химикаты!","Эта штука спасает жизни.","Может сами примете?","Пинг!")
+	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
 	req_access_txt = "5"
 	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
@@ -1262,7 +1262,7 @@
 /obj/machinery/vending/wallmed
 	name = "\improper NanoMed"
 	desc = "Wall-mounted Medical Equipment dispenser."
-	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для Вашего медотдела.","Только лучшие инструменты.","Натуральные химикаты!","Эта штука спасает жизни.","Может сами примете?")
+	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
@@ -1286,7 +1286,7 @@
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 	icon_state = "syndimed"
 	icon_deny = "syndimed-deny"
-	ads_list = list("Go end some lives!","The best stuff for your ship.","Только лучшие инструменты.","Натуральные химикаты!","Эта штука спасает жизни.","Может сами примете?","Пинг!")
+	ads_list = list("Иди и оборви несколько жизней!","Лучшее снаряжение для вашего корабля","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
 	req_access_txt = "150"
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
