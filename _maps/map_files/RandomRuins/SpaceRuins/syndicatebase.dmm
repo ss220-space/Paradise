@@ -3648,7 +3648,7 @@
 	req_access_txt = "154"
 	},
 /obj/machinery/door/poddoor/shutters{
-	dir = 8;
+	dir = 2;
 	id_tag = "Syndie_teleport"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5039,12 +5039,12 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "jH" = (
 /obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/icecreamsandwich,
 /obj/machinery/door/window/eastright{
 	color = "red";
-	dir = 1;
+	dir = 2;
 	req_one_access_txt = "158"
 	},
-/obj/item/reagent_containers/food/snacks/icecreamsandwich,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5052,12 +5052,12 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "jI" = (
 /obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/hotdog,
 /obj/machinery/door/window/eastright{
 	color = "red";
-	dir = 1;
+	dir = 2;
 	req_one_access_txt = "158"
 	},
-/obj/item/reagent_containers/food/snacks/hotdog,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5067,7 +5067,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
 	color = "red";
-	dir = 1;
+	dir = 2;
 	req_one_access_txt = "158"
 	},
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice,
@@ -5890,6 +5890,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
+/obj/structure/closet/crate/hydroponics/prespawned,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6955,6 +6956,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"mS" = (
+/obj/structure/grille{
+	layer = 2.8
+	},
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/kitchen)
 "mT" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -8178,9 +8186,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastleft{
 	color = "red";
-	dir = 2;
+	dir = 1;
 	name = "Hydroponics Desk";
-	req_access_txt = "150"
+	req_access_txt = "156;158"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
@@ -10725,6 +10733,7 @@
 /obj/structure/table/wood,
 /obj/item/stack/wrapping_paper,
 /obj/item/stack/tape_roll,
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "sR" = (
@@ -11136,11 +11145,12 @@
 	name = "Riot Control";
 	req_access_txt = "154"
 	},
+/obj/item/folder,
+/obj/item/stamp/syndicate,
 /obj/item/phone{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/stamp/syndicate,
 /turf/simulated/floor/redgrid,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "tC" = (
@@ -12150,7 +12160,9 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/turrets)
+/area/syndicate/unpowered/syndicate_space_base/turrets{
+	dynamic_lighting = 1
+	})
 "vy" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -12760,6 +12772,14 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
+"wr" = (
+/obj/structure/grille{
+	layer = 2.8
+	},
+/obj/structure/cable,
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/botany)
 "ws" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -12846,10 +12866,6 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "wA" = (
-/obj/machinery/door/airlock/syndicate/security/glass{
-	name = "Security Airlock";
-	req_access_txt = "150"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -12859,6 +12875,10 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/syndicate/security{
+	name = "Security Airlock";
+	req_access_txt = "150"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14094,6 +14114,9 @@
 "za" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/syndicake,
+/obj/machinery/recharger{
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "zb" = (
@@ -14179,7 +14202,8 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "zk" = (
-/obj/machinery/door/airlock/syndicate/maintenance/glass{
+/obj/machinery/door/airlock/syndicate/research/glass{
+	name = "Old Lab Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -14432,6 +14456,9 @@
 "zJ" = (
 /obj/structure/table,
 /obj/item/autoimplanter,
+/obj/machinery/alarm/syndicate{
+	pixel_y = -32
+	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -14616,7 +14643,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Aa" = (
 /obj/effect/decal/remains/human,
-/obj/machinery/constructable_frame,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Ac" = (
@@ -14662,7 +14689,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/constructable_frame,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Ah" = (
@@ -14781,10 +14808,6 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "Ay" = (
-/obj/machinery/door/airlock/syndicate/security/glass{
-	name = "Security Airlock";
-	req_access_txt = "150"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -14794,6 +14817,10 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/syndicate/security{
+	name = "Security Airlock";
+	req_access_txt = "150"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15716,12 +15743,26 @@
 	pixel_y = 32
 	},
 /obj/item/crowbar/red,
-/obj/item/lipstick/green,
+/obj/item/lipstick/green{
+	desc = "Дешёвый бренд помады. На ней выгравировано 'Софии от Дороти. Твой любимый цвет жизни'. Видно что помаду уже давно не использовали...";
+	name = "Зелёная губная помада"
+	},
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
+"BL" = (
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/structure/safe/floor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "BM" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -16426,6 +16467,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
+"CP" = (
+/obj/effect/abstract/syndie_data_storage,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/cargo)
 "CQ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -18913,6 +18961,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
+	name = "Medbay Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
@@ -18927,6 +18976,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
+	name = "Medbay Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
@@ -19852,7 +19902,7 @@
 	},
 /obj/machinery/computer/syndie_supplycomp,
 /obj/item/paper/syndicate{
-	info = "Для отправки особо важных посылок используйте только наши ящики! Вместо того чтобы направиться на сортировку по протоколу, эти ящики будут отправлены запросившим поставки от вас офицерам, после рутинной проверки.";
+	info = "Для отправки особо важных посылок используйте только наши ящики! Вместо того чтобы направиться на сортировку по протоколу, эти ящики будут отправлены запросившим поставки от вас офицерам, после рутинной проверки. Под особо важными посылками мы подразумеваем уникальные заказы офицеров и только их! Технологии, плазму и так далее шлите в обычных ящиках.";
 	name = "Особое напоминание"
 	},
 /turf/simulated/floor/plasteel{
@@ -20292,14 +20342,20 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "IM" = (
-/obj/structure/target_stake,
-/obj/machinery/magnetic_module,
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/firing_range)
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -20708,14 +20764,13 @@
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "Jv" = (
 /obj/structure/rack,
-/obj/item/target/syndicate,
-/obj/item/target/syndicate,
-/obj/item/target/syndicate,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/target/syndicate,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
+/obj/item/target/alien,
+/obj/item/target/alien,
+/obj/item/target/alien,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21679,6 +21734,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
+	name = "Medbay Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
@@ -22062,6 +22118,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
+	name = "Medbay Airlock";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
@@ -22470,6 +22527,7 @@
 	},
 /obj/item/tank/emergency_oxygen/plasma,
 /obj/structure/closet/emcloset,
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22497,6 +22555,7 @@
 	pixel_x = -32
 	},
 /obj/item/crowbar/red,
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22958,6 +23017,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23708,6 +23770,10 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SyndieRnDPrivacy"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23719,9 +23785,19 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access_txt = "150"
 	},
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	dir = 2;
+	name = "Riot Control";
+	req_access_txt = "156"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SyndieRnDPrivacy"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23730,6 +23806,10 @@
 "OI" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SyndieRnDPrivacy"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "OJ" = (
@@ -23742,7 +23822,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/syndicate/research/glass{
+/obj/machinery/door/airlock/syndicate/research{
 	name = "Research Airlock";
 	req_access_txt = "156"
 	},
@@ -23796,7 +23876,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/syndie_data_storage,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -24101,6 +24180,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/folder,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -24141,6 +24221,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/stack/tape_roll,
 /obj/item/stack/tape_roll,
+/obj/item/folder,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -24188,6 +24269,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "Py" = (
@@ -24641,7 +24723,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/computer/syndie_supplycomp,
 /obj/item/paper/syndicate{
-	info = "Для отправки особо важных посылок используйте только наши ящики! Вместо того чтобы направиться на сортировку по протоколу, эти ящики будут отправлены запросившим поставки от вас офицерам, после рутинной проверки.";
+	info = "Для отправки особо важных посылок используйте только наши ящики! Вместо того чтобы направиться на сортировку по протоколу, эти ящики будут отправлены запросившим поставки от вас офицерам, после рутинной проверки. Под особо важными посылками мы подразумеваем уникальные заказы офицеров и только их! Технологии, плазму и так далее шлите в обычных ящиках.";
 	name = "Особое напоминание"
 	},
 /turf/simulated/floor/plasteel{
@@ -24719,7 +24801,7 @@
 "Qj" = (
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access_txt = "156"
+	req_access_txt = "156;157"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -24825,7 +24907,7 @@
 /obj/machinery/computer/rdconsole/core{
 	id = 0027;
 	req_access = null;
-	req_access_txt = "150";
+	req_access_txt = "156";
 	syndicate = 1
 	},
 /obj/effect/decal/warning_stripes/northeast,
@@ -25205,6 +25287,12 @@
 "Rf" = (
 /obj/machinery/r_n_d/destructive_analyzer,
 /obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/door_control{
+	id = "SyndieRnDPrivacy";
+	name = "Privacy shutters control";
+	pixel_x = 24;
+	req_one_access_txt = "156"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -25362,6 +25450,14 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 33;
+	pixel_y = -7
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 33;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26104,6 +26200,15 @@
 	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26517,6 +26622,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/mirror{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27338,6 +27446,14 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
+"UR" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/syndicate/maintenance{
+	name = "Maintenance Airlock";
+	req_access_txt = "156"
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "US" = (
 /obj/effect/turf_decal/plaque,
 /obj/structure/disposalpipe/junction{
@@ -27382,6 +27498,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "UU" = (
 /obj/structure/table/wood,
+/obj/item/folder,
 /obj/item/storage/fancy/cigarettes/syndicate,
 /obj/item/robotanalyzer,
 /obj/item/robotanalyzer,
@@ -27630,6 +27747,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27982,8 +28102,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+/obj/structure/mirror{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28042,6 +28162,9 @@
 "VZ" = (
 /obj/structure/table/wood/fancy,
 /obj/random/plushie,
+/obj/machinery/recharger{
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "Wa" = (
@@ -29635,6 +29758,7 @@
 	lootcount = 3;
 	name = "3maintenance loot spawner"
 	},
+/obj/item/storage/wallet/random,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "Ys" = (
@@ -60635,7 +60759,7 @@ kA
 lp
 kv
 nB
-oR
+wr
 ps
 Xq
 rz
@@ -60911,7 +61035,7 @@ Ek
 Fc
 Gw
 Hu
-IM
+Kz
 II
 Kz
 Hu
@@ -62177,7 +62301,7 @@ kC
 lx
 kI
 nH
-jF
+mS
 ps
 rC
 rA
@@ -62434,7 +62558,7 @@ kD
 ly
 mx
 nI
-jF
+mS
 ps
 qB
 rA
@@ -64780,7 +64904,7 @@ Ms
 QS
 Rq
 RY
-Sw
+UR
 SQ
 SQ
 SQ
@@ -65047,7 +65171,7 @@ Vp
 Vp
 WX
 Xs
-SQ
+BL
 YC
 Sv
 Sv
@@ -68885,7 +69009,7 @@ Ka
 MA
 Ka
 Oc
-Ka
+CP
 Pt
 Qb
 Qw
@@ -72191,7 +72315,7 @@ cF
 cF
 dV
 eP
-fY
+IM
 eA
 ik
 hZ
@@ -72448,7 +72572,7 @@ cG
 dj
 dV
 eQ
-fY
+IM
 eA
 il
 ji

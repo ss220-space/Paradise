@@ -34,7 +34,7 @@
 
 	return reqform
 
-/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/obj/effect/syndie_data_storage/data_storage) // тут код создающий ящики
+/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/obj/effect/abstract/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
@@ -121,13 +121,14 @@
 	Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку "Link pads"
 	Такой подход позволяет игрокам построить собственное синдикарго
  **************************/
-/obj/effect/syndie_data_storage
+/obj/effect/abstract/syndie_data_storage
 	layer = TURF_LAYER
 	density = FALSE
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = null
 	invisibility = INVISIBILITY_ABSTRACT
 	desc = "This shit has the data for the syndie cargo consoles, so it can be synchronized between them, they don't function normally without it"
+
 	/// Available money amount
 	var/cash = 5000
 	var/cash_per_slip = 20			//points gained per slip returned
@@ -160,7 +161,7 @@
 	var/list/researchDesigns = list()
 	var/sold_atoms = ""
 
-/obj/effect/syndie_data_storage/proc/sync()
+/obj/effect/abstract/syndie_data_storage/proc/sync()
 
 	var/area/syndicate/unpowered/syndicate_space_base/cargo/cargoarea = get_area(src)
 
@@ -185,7 +186,7 @@
 		to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
 		telepads_status = "Pads not linked!"
 
-/obj/effect/syndie_data_storage/proc/cooldown()
+/obj/effect/abstract/syndie_data_storage/proc/cooldown()
 	if(is_cooldown)
 		telepads_status = "Pads on cooldown"
 		wait_time = round((last_teleport + pads_cooldown - world.time) / 10)
@@ -196,7 +197,7 @@
 		return wait_time
 
 
-/obj/effect/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
+/obj/effect/abstract/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
 		return
 	var/datum/syndie_supply_packs/SP = locateUID(packId)
@@ -216,11 +217,11 @@
 
 	return O
 
-/obj/effect/syndie_data_storage/Initialize(mapload)
+/obj/effect/abstract/syndie_data_storage/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/effect/syndie_data_storage/LateInitialize()
+/obj/effect/abstract/syndie_data_storage/LateInitialize()
 	for(var/typepath in subtypesof(/datum/syndie_supply_packs))
 		var/datum/syndie_supply_packs/SP = new typepath()
 		if(SP.name == "HEADER") continue		// To filter out group headers
@@ -242,7 +243,7 @@
 	var/is_public = FALSE
 	/// Time of last request
 	var/reqtime = 0
-	var/obj/effect/syndie_data_storage/data_storage = null
+	var/obj/effect/abstract/syndie_data_storage/data_storage = null
 
 /obj/machinery/computer/syndie_supplycomp/Initialize(mapload)
 	..()
@@ -253,10 +254,10 @@
 
 /obj/machinery/computer/syndie_supplycomp/proc/compSync()
 	if(data_storage == null)
-		for(var/obj/effect/syndie_data_storage/S in myArea)
+		for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
 			data_storage = S
 		if(data_storage == null)
-			var/atom/DS = new /obj/effect/syndie_data_storage
+			var/atom/DS = new /obj/effect/abstract/syndie_data_storage
 			spawn_atom_to_turf(DS, get_turf(src))
 			data_storage = DS
 

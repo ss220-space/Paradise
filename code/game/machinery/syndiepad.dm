@@ -74,7 +74,7 @@
 	teleport_cooldown = initial(teleport_cooldown)
 	teleport_cooldown -= (E * 56.25) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
 	if(console_link)
-		for(var/obj/effect/syndie_data_storage/S in myArea)
+		for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
 			S.sync()
 			break
 
@@ -99,7 +99,7 @@
 				return
 			else
 				console_link = FALSE
-				for(var/obj/effect/syndie_data_storage/S in myArea)
+				for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
 					S.sync()
 					break
 		else if(!console_link)
@@ -108,7 +108,7 @@
 				return
 			else
 				console_link = TRUE
-				for(var/obj/effect/syndie_data_storage/S in myArea)
+				for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
 					S.sync()
 					break
 

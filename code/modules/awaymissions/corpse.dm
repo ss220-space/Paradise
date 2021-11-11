@@ -93,6 +93,10 @@
 		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
+		if(M.dna)
+			M.dna.real_name = mob_name
+		if(M.mind)
+			M.mind.name = mob_name
 		if(!mob_gender)
 			mob_gender = pick(MALE, FEMALE)
 		M.gender = mob_gender

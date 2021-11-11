@@ -1,3 +1,18 @@
+/obj/item/paper/syndicate/code_words
+	name = "Code Words"
+
+/obj/item/paper/syndicate/code_words/New()
+	..()
+
+	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
+	var/responses = jointext(GLOB.syndicate_code_response, ", ")
+	info += "<B>Синдикат предоставил вам следующие кодовые слова, чтобы определять потенциальных агентов на станции:</B><BR>\n"
+	info += "<B>Кодовые слова:</B>[phrases]<BR>\n"
+	info += "<B>Кодовые ответы:</B>[responses]<BR>\n"
+	info += "Используйте слова при общении с потенциальными агентами. В тоже время будьте осторожны, ибо кто угодно может оказаться потенциальным врагом."
+	info_links = info
+	overlays += "paper_words"
+
 // Space Base Spawners. Исспользуется переделанная копия спавнеров лавалендовских.
 /obj/effect/mob_spawn/human/space_base_syndicate
 	name = "Syndicate Scientist sleeper"
@@ -38,7 +53,7 @@
 			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
-		skin_tone = FALSE //может это пофиксит проблемку
+		skin_tone = rand(-25, 0)
 
 	return TRUE
 
@@ -71,6 +86,9 @@
 /datum/outfit/space_base_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
 
+	if(!istype(H.get_item_by_slot(slot_wear_id), /obj/item/card/id/syndicate/comms_officer)) //Если мы не телекомщик, к обычной частоте нет доступа
+		var/obj/item/radio/RF = H.get_item_by_slot(slot_r_ear)
+		RF.set_frequency(SYND_FREQ)
 	if(H.dna.species)
 
 		var/race = H.dna.species.name
@@ -81,9 +99,6 @@
 				H.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(H), slot_l_hand)
 				H.internal = H.l_hand
 
-				backpack_contents.Insert(1, box)
-				backpack_contents[box] = 1
-				H.update_action_buttons_icon()
 			if("Plasmaman")
 				var/L = H.get_item_by_slot(slot_l_store)
 				var/R = H.get_item_by_slot(slot_r_store)
@@ -99,16 +114,14 @@
 				H.equip_to_slot(new /obj/item/clothing/head/helmet/space/plasmaman(H), slot_head)
 				H.internal = H.l_hand
 
-				backpack_contents.Insert(1, box)
-				backpack_contents[box] = 1
-				H.update_action_buttons_icon()
-			else
-				box = /obj/item/storage/box/survival_syndi
-				backpack_contents.Insert(1, box)
-				backpack_contents[box] = 1
+		H.update_action_buttons_icon()
 		H.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc
 
-	H.mind.offstation_role = TRUE
+
+// Это фиксит белую кожу. Костяк, увы.
+	var/datum/dna/D = H.dna
+	if(!D.species.is_small)
+		H.change_dna(D, TRUE, TRUE)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech
 	name = "Syndicate Cargo Technician sleeper"
@@ -136,6 +149,10 @@
 	description = "Даже синдикату нужны рабочие руки! У вас в распоряжении свой бар, кухня и ботаника. Накормите этих голодных учёных или помогите им создать последнее блюдо для ваших врагов. Здесь всё равно платят в разы лучше!"
 	flavour_text = "Вы Повар синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрэйзен, имеет собственную массивную научную базу в вашем секторе. Готовьте еду и напитки экипажу и постарайтесь не высовываться!"
 	outfit = /datum/outfit/space_base_syndicate/chef
+
+/obj/effect/mob_spawn/human/space_base_syndicate/chef/special(mob/living/carbon/human/H)
+	var/datum/martial_art/cqc/under_siege/justacook = new
+	justacook.teach(H)
 
 /datum/outfit/space_base_syndicate/chef
 	name = "Space Base Syndicate Chef"
@@ -185,6 +202,7 @@
 	id = /obj/item/card/id/syndicate/comms_officer
 	backpack_contents = list(
 		/obj/item/paper/monitorkey = 1, // message console does NOT spawn with this
+		/obj/item/paper/syndicate/code_words = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
 
