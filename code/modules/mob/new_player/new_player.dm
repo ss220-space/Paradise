@@ -47,14 +47,14 @@
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
-	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"}
+	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Настроить персонажа</A><br /><i>[real_name]</i></p>"}
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Готов</A></p>"
+		else	output += "<p><b>Вы готовы</b> (<a href='byond://?src=[UID()];ready=2'>Отменить</A>)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
-		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>Открыть манифест экипажа</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Войти в игру!</A></p>"
 
 	var/list/antags = client.prefs.be_special
 	if(antags && antags.len)
@@ -63,16 +63,16 @@
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-		output += "<p>Observe (Please wait...)</p>"
+		output += "<p>Наблюдать (Подождите...)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+		output += "<p><a href='byond://?src=[UID()];observe=1'>Наблюдать</A></p>"
 
-	if(GLOB.join_tos)
-		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
+/* 	if(GLOB.join_tos)
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Условия пользования</A></p>"
 
-	output += "</center>"
+	output += "</center>" */
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>Опции игрока</div>", 240, 330)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
@@ -186,7 +186,7 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe?[(config.respawn_observer ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
+		if(alert(src,"Вы уверены что хотите наблюдать?[(config.respawn_observer ? "" : " Вы не сможете вернуться в раунд после этого!")]","Настройка персонажа","Да","Нет") == "Да")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
@@ -198,7 +198,7 @@
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
-			to_chat(src, "<span class='notice'>Now teleporting.</span>")
+			to_chat(src, "<span class='notice'>Тепепортируемся.</span>")
 			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
@@ -402,10 +402,10 @@
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
 				character.forceMove(pick(GLOB.latejoin))
-				join_message = "has arrived on the station"
+				join_message = "прибыл на станцию"
 		else
 			character.forceMove(pick(GLOB.latejoin))
-			join_message = "has arrived on the station"
+			join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
@@ -461,7 +461,7 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
@@ -479,13 +479,13 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
-					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
+					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"]."
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever

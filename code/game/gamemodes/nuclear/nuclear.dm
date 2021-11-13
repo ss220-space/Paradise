@@ -21,9 +21,9 @@
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
 /datum/game_mode/nuclear/announce()
-	to_chat(world, "<B>The current game mode is - Nuclear Emergency!</B>")
-	to_chat(world, "<B>A [syndicate_name()] Strike Force is approaching [station_name()]!</B>")
-	to_chat(world, "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n<B>Syndicate</B>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<B>Personnel</B>: Hold the disk and <B>escape with the disk</B> on the shuttle!")
+	to_chat(world, "<B>Текущий игровой режим - Nuclear Emergency!</B>")
+	to_chat(world, "<B>Ударная Группа [syndicate_name()] приближается к [station_name()]!</B>")
+	to_chat(world, "Нанотрейзен перевозил ядерное взрывное устройство на военную базу. Транспортный корабль загадочным образом потерял связь с Управлением Космического Движения (УКД). Примерно в это время был обнаружен странный диск. [station_name()]. Он был идентифицирован Нанотрейзен как ядерный аутентификационный диск и теперь оперативники Синдиката прибыли, чтобы вернуть диск и взорвать Космическую Станцию! Скорее всего, поблизости есть корабли Синдиката, поэтому постарайтесь не потерять диск!\n<B>Синдикат</B>: Верните диск и взорвите ядерную бомбу в любом месте Космической Станции.\n<B>Экипаж</B>: Удержите диск и <B>сбежите с ним</B> на шаттл!")
 
 /datum/game_mode/nuclear/can_start()//This could be better, will likely have to recode it later
 	if(!..())

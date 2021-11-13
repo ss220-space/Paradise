@@ -212,7 +212,7 @@
 	flags = NODECONSTRUCT
 	var/base_icon_state = "body_scanner_0"
 	var/occupied_icon_state = "body_scanner_1"
-	var/on_store_message = "has entered long-term storage."
+	var/on_store_message = "погрузился в криосон."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)

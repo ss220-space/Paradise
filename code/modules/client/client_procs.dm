@@ -291,7 +291,7 @@
 		show_update_prompt = TRUE
 	// Actually sent to client much later, so it appears after MOTD.
 
-	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
+	to_chat(src, "<span class='warning'>Если титульный экран черный, значит ресурсы все еще загружаются. Подождите, пока не появится титульный экран.</span>")
 
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
@@ -1251,7 +1251,7 @@
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+	to_chat(src, "<span class='userdanger'>Ваш клиент BYOND (v: [byond_version].[byond_build]) устарел. Это может вызвать сбои. Мы настоятельно рекомендуем Вам скачать последнюю версию клиента с <a href='https://www.byond.com/download/'>byond.com</a> перед игрой. Вы также можете обновиться через лаунчер BYOND.</span>")
 
 /**
   * Checks if the client has accepted TOS

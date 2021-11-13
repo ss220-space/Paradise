@@ -37,8 +37,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/changeling_amount = 4
 
 /datum/game_mode/changeling/announce()
-	to_chat(world, "<B>The current game mode is - Changeling!</B>")
-	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
+	to_chat(world, "<B>Текущий игровой режим - Changeling!</B>")
+	to_chat(world, "<B>На станции есть инопланетные Генокрады. Не позволяйте Генокрадам добиться успеха!</B>")
 
 /datum/game_mode/changeling/pre_setup()
 	if(config.protect_roles_from_antagonist)

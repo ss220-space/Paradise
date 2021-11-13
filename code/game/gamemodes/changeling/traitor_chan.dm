@@ -9,8 +9,8 @@
 	var/protected_species_changeling = list("Machine")
 
 /datum/game_mode/traitor/changeling/announce()
-	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
-	to_chat(world, "<B>There is an alien creature on the station along with some syndicate operatives out for their own gain! Do not let the changeling and the traitors succeed!</B>")
+	to_chat(world, "<B>Текущий игровой режим - Traitor+Changeling!</B>")
+	to_chat(world, "<B>На станции есть инопланетное существо и несколько оперативников Синдиката, которые преследуют свои цели! Не позволяйте Генокрадам и Предателям добиться успеха!</B>")
 
 
 /datum/game_mode/traitor/changeling/pre_setup()

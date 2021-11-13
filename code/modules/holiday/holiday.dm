@@ -13,7 +13,7 @@
 
 // When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
 /datum/holiday/proc/greet()
-	return "Have a happy [name]!"
+	return "Счастливого [name]!"
 
 // Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon". See new_station_name()
 /datum/holiday/proc/getStationPrefix()
@@ -65,7 +65,7 @@
 	end_month = JANUARY
 
 /datum/holiday/groundhog
-	name = "Groundhog Day"
+	name = "Дня сурка"
 	begin_day = 2
 	begin_month = FEBRUARY
 
@@ -76,20 +76,20 @@
 	end_day = 15 //1 day extra
 
 /datum/holiday/random_kindness
-	name = "Random Acts of Kindness Day"
+	name = "Дня случайных проявлений доброты"
 	begin_day = 17
 	begin_month = FEBRUARY
 
 /datum/holiday/random_kindness/greet()
-	return "Go do some random acts of kindness for a stranger!" //haha yeah right
+	return "Сделайте случайные добрые дела для незнакомца!" //haha yeah right
 
 /datum/holiday/pi
-	name = "Pi Day"
+	name = "Дня Пи"
 	begin_day = 14
 	begin_month = MARCH
 
 /datum/holiday/no_this_is_patrick
-	name = "St. Patrick's Day"
+	name = "Дня Святого Патрика"
 	begin_day = 17
 	begin_month = MARCH
 
@@ -100,83 +100,83 @@
 	end_day = 8 //7 days extra so everyone can enjoy the festivities
 
 /datum/holiday/fourtwenty
-	name = "Four-Twenty"
+	name = "4:20"
 	begin_day = 20
 	begin_month = APRIL
 
 /datum/holiday/earth
-	name = "Earth Day"
+	name = "Дня Земли"
 	begin_day = 22
 	begin_month = APRIL
 
 /datum/holiday/labor
-	name = "Labor Day"
+	name = "Дня труда"
 	begin_day = 1
 	begin_month = MAY
 
 /datum/holiday/firefighter
-	name = "Firefighter's Day"
+	name = "Дня пожарного"
 	begin_day = 4
 	begin_month = MAY
 
 // No holidays in June :'(
 
 /datum/holiday/doctor
-	name = "Doctor's Day"
+	name = "Дня доктора"
 	begin_day = 1
 	begin_month = JULY
 
 /datum/holiday/UFO
-	name = "UFO Day"
+	name = "Дня НЛО"
 	begin_day = 2
 	begin_month = JULY
 
 /datum/holiday/writer
-	name = "Writer's Day"
+	name = "Дня писателя"
 	begin_day = 8
 	begin_month = JULY
 
 /datum/holiday/friendship
-	name = "Friendship Day"
+	name = "Дня дружбы"
 	begin_day = 30
 	begin_month = JULY
 
 /datum/holiday/friendship/greet()
-	return "Have a magical [name]!"
+	return "Волшебного [name]!"
 
 /datum/holiday/beer
-	name = "Beer Day"
+	name = "Дня пива"
 	begin_day = 5
 	begin_month = AUGUST
 
 /datum/holiday/pirate
-	name = "Talk-Like-a-Pirate Day"
+	name = "Дня пиратов"
 	begin_day = 19
 	begin_month = SEPTEMBER
 
 /datum/holiday/pirate/greet()
-	return "Ye be talkin' like a pirate today or else ye'r walkin' tha plank, matey!"
+	return "Ты говоришь сегодня как пират, иначе ты пойдешь по доске, приятель!"
 
 /datum/holiday/questions
-	name = "Stupid-Questions Day"
+	name = "Днем глупых вопросов"
 	begin_day = 28
 	begin_month = SEPTEMBER
 
 /datum/holiday/questions/greet()
-	return "Are you having a happy [name]?"
+	return "Весело проводите время с [name]?"
 
 /datum/holiday/animal
-	name = "Animal's Day"
+	name = "Дня животных"
 	begin_day = 4
 	begin_month = OCTOBER
 
 /datum/holiday/smile
-	name = "Smiling Day"
+	name = "Дня улыбок"
 	begin_day = 7
 	begin_month = OCTOBER
 
 /datum/holiday/boss
-	name = "Boss' Day"
+	name = "Дня босса"
 	begin_day = 16
 	begin_month = OCTOBER
 
@@ -188,38 +188,38 @@
 	end_month = NOVEMBER
 
 /datum/holiday/halloween/greet()
-	return "Have a spooky Halloween!"
+	return "Жуткого Хэллоуина!"
 
 /datum/holiday/vegan
-	name = "Vegan Day"
+	name = "Дня веганов"
 	begin_day = 1
 	begin_month = NOVEMBER
 
 /datum/holiday/kindness
-	name = "Kindness Day"
+	name = "Дня доброты"
 	begin_day = 13
 	begin_month = NOVEMBER
 
 /datum/holiday/flowers
-	name = "Flowers Day"
+	name = "Дня цветов"
 	begin_day = 19
 	begin_month = NOVEMBER
 
 /datum/holiday/hello
-	name = "Saying-'Hello' Day"
+	name = "Дня приветствия"
 	begin_day = 21
 	begin_month = NOVEMBER
 
 /datum/holiday/hello/greet()
-	return "[pick(list("Aloha", "Bonjour", "Hello", "Hi", "Greetings", "Salutations", "Bienvenidos", "Hola", "Howdy"))]! " + ..()
+	return "[pick(list("Алоха", "Бонжур", "Здравствуйте", "Привет", "Приветствую", "Салют", "Биенвинидос", "Хола", "Хауди"))]! " + ..()
 
 /datum/holiday/human_rights
-	name = "Human-Rights Day"
+	name = "Дня прав человека"
 	begin_day = 10
 	begin_month = DECEMBER
 
 /datum/holiday/monkey
-	name = "Monkey Day"
+	name = "Дня мартышек"
 	begin_day = 14
 	begin_month = DECEMBER
 
@@ -232,18 +232,18 @@
 	eventChance = 20
 
 /datum/holiday/xmas/greet()
-	var/greeting = "Have a merry Christmas!"
+	var/greeting = "Счастливого Рождества!"
 	if(prob(30))
-		greeting += "<br><br>To celebrate, choose a random crewmate on the Manifest and give them a gift!"
+		greeting += "<br><br>Чтобы отпраздновать, выберите случайного члена экипажа в Крюманифесте и подарите ему подарок!"
 	return greeting
 
 /datum/holiday/boxing
-	name = "Boxing Day"
+	name = "Дня бокса"
 	begin_day = 26
 	begin_month = DECEMBER
 
 /datum/holiday/friday_thirteenth
-	name = "Friday the 13th"
+	name = "Пятницы 13-ой"
 
 /datum/holiday/friday_thirteenth/shouldCelebrate(dd, mm, yy)
 	if(dd == 13)
@@ -252,7 +252,7 @@
 	return 0
 
 /datum/holiday/friday_thirteenth/getStationPrefix()
-	return pick("Mike","Friday","Evil","Myers","Murder","Deathly","Stabby")
+	return pick("Майк","Пятница","Зло","Майерс","Убийца","Смертельный")
 
 /datum/holiday/easter
 	name = EASTER

@@ -28,8 +28,8 @@
 //Announces the game type//
 ///////////////////////////
 /datum/game_mode/revolution/announce()
-	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Involve other employees (excluding the heads of staff, and security officers) in to the revolution.  Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by implantiong them with mindshield implants).</B>")
+	to_chat(world, "<B>Текущий игровой режим - Revolution!</B>")
+	to_chat(world, "<B>Некоторые члены экипажа пытаются начать революцию!<BR>\nРеволюционеры - Убейте всех Глав. Вовлекайте в революцию других членов экипажа (кроме Глав и офицеров СБ) в революцию. Защищайте своего Лидера.<BR>\nЭкипаж - Защищайте Глав. Уничтожьте Лидеров Революции и промойте мозги остальным революционерам (с помощью МЩ, импланта защиты разума).</B>")
 
 ///////////////////////////////////////////
 //Магический спелл для приглашения в реву//

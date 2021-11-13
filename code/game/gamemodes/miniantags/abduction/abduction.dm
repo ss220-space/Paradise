@@ -18,10 +18,10 @@
 	var/list/datum/mind/possible_abductors = list()
 
 /datum/game_mode/abduction/announce()
-	to_chat(world, "<B>The current game mode is - Abduction!</B>")
-	to_chat(world, "There are alien <b>abductors</b> sent to [world.name] to perform nefarious experiments!")
-	to_chat(world, "<b>Abductors</b> - kidnap the crew and replace their organs with experimental ones.")
-	to_chat(world, "<b>Crew</b> - don't get abducted and stop the abductors.")
+	to_chat(world, "<B>Текущий игровой режим - Abduction!</B>")
+	to_chat(world, "Обнаружены инопланетные <b>абдукторы</b> отправленные на [world.name] чтобы проводить свои гнусные эксперименты!")
+	to_chat(world, "<b>Абдукторы</b> - похищайте экипаж и заменяйте их органы на экспериментальные.")
+	to_chat(world, "<b>Экипаж</b> - не дайте себя похитить и остановите похитителей.")
 
 /datum/game_mode/abduction/pre_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)

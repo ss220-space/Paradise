@@ -35,8 +35,8 @@
 	var/vampire_amount = 4
 
 /datum/game_mode/vampire/announce()
-	to_chat(world, "<B>The current game mode is - Vampires!</B>")
-	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>")
+	to_chat(world, "<B>Текущий игровой режим - Vampires!</B>")
+	to_chat(world, "<B>На станции есть вампиры из Космической Трансильвании, держите свою кровь и шею в безопасности!</B>")
 
 /datum/game_mode/vampire/pre_setup()
 

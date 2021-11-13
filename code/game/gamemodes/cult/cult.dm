@@ -58,8 +58,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/const/max_cultists_to_start = 4
 
 /datum/game_mode/cult/announce()
-	to_chat(world, "<B>The current game mode is - Cult!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
+	to_chat(world, "<B>Текущий игровой режим - Cult!</B>")
+	to_chat(world, "<B>Некоторые члены экипажа пытаются создать культ!<BR>\nКультисты - выполняйте свои задачи. Преобразуйте членов экипажа в культ, используя offer rune. Помните - вас нет, есть только культ.<BR>\nПерсонал - не позволяйте культу преуспеть в своей миссии. Промывайте им мозги святой водой, она возвращает их к той вере, которую разрешила ЦК.</B>")
 
 /datum/game_mode/cult/pre_setup()
 	if(config.protect_roles_from_antagonist)

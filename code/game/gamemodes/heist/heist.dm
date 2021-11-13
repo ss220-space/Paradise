@@ -20,11 +20,11 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	var/win_button_triggered = 0
 
 /datum/game_mode/heist/announce()
-	to_chat(world, "<B>The current game mode is - Heist!</B>")
-	to_chat(world, "<B>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</B>")
-	to_chat(world, "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
-	to_chat(world, "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")
-	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
+	to_chat(world, "<B>Текущий игровой режим - Heist!</B>")
+	to_chat(world, "<B>Неопознанная Блюспейс сигнатура проскользнула мимо Икара и приближается к [station_name()]!</B>")
+	to_chat(world, "Кем бы они ни были, скорее всего они не замышляют ничего хорошего. Защитите экипаж и ресурсы станции от этой подлой угрозы!")
+	to_chat(world, "<B>Рейдеры:</B> Грабьте [station_name()], берите всё что вам нужно, или выберите мирный путь и попытайтесь торговать с ними.")
+	to_chat(world, "<B>Экипаж:</B> Торгуйте с рейдерами, или отбивайтеcь от них и их низких цен... И их арбалетов.")
 
 /datum/game_mode/heist/can_start()
 

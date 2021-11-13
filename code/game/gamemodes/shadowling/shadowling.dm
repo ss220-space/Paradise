@@ -77,8 +77,8 @@ Made by Xhuis
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 
 /datum/game_mode/shadowling/announce()
-	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
-	to_chat(world, "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>")
+	to_chat(world, "<b>Текущий игровой режим - Shadowling!</b>")
+	to_chat(world, "<b>На станции обнаружены <span class='deadsay'>тенелинги</span>. Экипаж: Убейте призраков, прежде чем они успеют съесть или поработить экипаж. Тенелинги: Поработите экипаж, оставаясь в тени.</b>")
 
 /datum/game_mode/shadowling/pre_setup()
 	if(config.protect_roles_from_antagonist)
