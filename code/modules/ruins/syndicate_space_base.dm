@@ -117,7 +117,7 @@
 		H.update_action_buttons_icon()
 		H.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc
 
-
+	H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
 // Это фиксит белую кожу. Костяк, увы.
 	var/datum/dna/D = H.dna
 	if(!D.species.is_small)
