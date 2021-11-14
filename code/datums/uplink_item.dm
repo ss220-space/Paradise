@@ -853,7 +853,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Unable to be understood by vampire and changeling agents."
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
-	cost = 17
+	cost = 26
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
 	cant_discount = TRUE
@@ -863,7 +863,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	cost = 12
+	cost = 22
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
