@@ -232,21 +232,14 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	staminaforce = 33
+	staminaforce = 20
 	stunforce = 1
-	hitcost = 1000
-	throw_hit_chance = 10
+	hitcost = 500
+	throw_hit_chance = 50
 	slot_flags = SLOT_BACK
-	var/obj/item/assembly/igniter/sparkler = null
-
-/obj/item/melee/baton/cattleprod/New()
-	..()
-	sparkler = new(src)
-
-/obj/item/melee/baton/cattleprod/Destroy()
-	QDEL_NULL(sparkler)
-	return ..()
 
 /obj/item/melee/baton/cattleprod/baton_stun()
-	if(sparkler.activate())
-		..()
+	do_sparks(1, 1, src)
+	playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
+	..()
+
