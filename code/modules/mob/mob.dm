@@ -1483,3 +1483,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
+
+GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
+	/area/chapel
+)))
+
+/mob/proc/holy_check()
+	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
+		return FALSE
+
+	if(!mind)
+		return FALSE
+
+	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	return TRUE
