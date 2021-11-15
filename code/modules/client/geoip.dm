@@ -48,14 +48,14 @@ var/global/list/geoip_ckey_updated = list()
 				proxy = "<span style='color: red'>true</span>"
 
 				if(config.proxy_autoban)
-					var/reason = "Your IP was detected as proxy. No proxy allowed on server."
+					var/reason = "Ваш IP-адрес был определен как прокси. Прокси не разрешен на сервере."
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
-					to_chat(C, "<span class='danger'><BIG><B>You have been banned by SyndiCat.\nReason: [reason].</B></BIG></span>")
-					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
+					to_chat(C, "<span class='danger'><BIG><B>Вы были забанены SyndiCat.\nПричина: [reason].</B></BIG></span>")
+					to_chat(C, "<span class='red'>Это перманентный бан.</span>")
 					if(config.banappeals)
-						to_chat(C, "<span class='red'>To try to resolve this matter head to [config.banappeals]</span>")
+						to_chat(C, "<span class='red'>Чтобы попытаться решить этот вопрос, отправляйтесь в [config.banappeals]</span>")
 					else
-						to_chat(C, "<span class='red'>No ban appeals URL has been set.</span>")
+						to_chat(C, "<span class='red'>URL-адрес для подачи апелляции не задан.</span>")
 					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")
 					log_admin("SyndiCat has banned [C.ckey].")
 					log_admin("Reason: [reason]")

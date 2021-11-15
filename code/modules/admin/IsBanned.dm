@@ -108,13 +108,13 @@
 			var/expires = ""
 			var/appealmessage = ""
 			if(config.banappeals)
-				appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				appealmessage = " Вы можете апеллировать бан здесь <a href='[config.banappeals]'>[config.banappeals]</a>."
 			if(text2num(duration) > 0)
-				expires = " The ban is for [duration] minutes and expires on [expiration] (server time).[appealmessage]"
+				expires = " Бан выдан на [duration] минут и истечет [expiration] (server time).[appealmessage]"
 			else
-				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
+				expires = " Этот бан не истекает автоматически, его необходимо обжаловать.[appealmessage]"
 
-			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime].[expires]"
+			var/desc = "\nПричина: Вы или другой пользователь этого компьютера или соединения ([pckey]) был забанен здесь. Причина бана:\n[reason]\nБан выдал [ackey] Дата: [bantime].[expires]"
 
 			. = list("reason"="[bantype]", "desc"="[desc]")
 

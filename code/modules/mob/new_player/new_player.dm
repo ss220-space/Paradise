@@ -53,14 +53,14 @@
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Готов</A></p>"
 		else	output += "<p><b>Вы готовы</b> (<a href='byond://?src=[UID()];ready=2'>Отменить</A>)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];manifest=1'>Открыть манифест экипажа</A></p>"
-		output += "<p><a href='byond://?src=[UID()];late_join=1'>Войти в игру!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>Открыть список экипажа</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Присоединиться</A></p>"
 
 	var/list/antags = client.prefs.be_special
 	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Глобальная Антаг кандидатура</A>"
+		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Глобальная Антаг кандидатура</A>"
+		output += "<br /><small>Вы <b>[client.skip_antag ? "не подходите" : "подходите"]</b> на все антаг роли.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Наблюдать (Подождите...)</p>"

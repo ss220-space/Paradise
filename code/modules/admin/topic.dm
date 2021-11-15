@@ -544,9 +544,9 @@
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
 				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+					to_chat(M, "<span class='warning'>Чтобы попытаться решить этот вопрос, отправляйтесь в [config.banappeals]</span>")
 				else
-					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
+					to_chat(M, "<span class='warning'>URL-адрес для подачи апелляции не задан.</span>")
 			if("No")
 				return
 
@@ -1094,15 +1094,15 @@
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
-				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
-				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
+				to_chat(M, "<span class='warning'><big><b>Вы были забанены [usr.client.ckey].\nПричина: [reason].</b></big></span>")
+				to_chat(M, "<span class='warning'>Это временный бан, он будет снят через [mins] минут.</span>")
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+					to_chat(M, "<span class='warning'>Чтобы попытаться решить этот вопрос, отправляйтесь в [config.banappeals]</span>")
 				else
-					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
+					to_chat(M, "<span class='warning'>URL-адрес для подачи апелляции не задан.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 
@@ -1112,14 +1112,14 @@
 				if(!reason)
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
-				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
-				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
+				to_chat(M, "<span class='warning'><big><b>Вы были забанены [usr.client.ckey].\nПричина: [reason].</b></big></span>")
+				to_chat(M, "<span class='warning'>Этот бан не истекает автоматически, его необходимо обжаловать.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+					to_chat(M, "<span class='warning'>Чтобы попытаться решить этот вопрос, отправляйтесь в [config.banappeals]</span>")
 				else
-					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
+					to_chat(M, "<span class='warning'>URL-адрес для подачи апелляции не задан.</span>")
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
