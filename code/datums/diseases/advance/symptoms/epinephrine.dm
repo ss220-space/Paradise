@@ -37,5 +37,5 @@ Bonus
 		M.reagents.add_reagent("epinephrine", 0.6)
 	if(M.reagents.get_reagent_amount("epinephrine") > 20)
 		var/obj/item/organ/internal/heart/heart = M.get_int_organ(/obj/item/organ/internal/heart)
-		heart.receive_damage(1)
+		heart?.receive_damage(1)
 	return
