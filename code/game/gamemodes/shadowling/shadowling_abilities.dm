@@ -51,7 +51,7 @@
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
 
-		H.Stun(2)
+		H.Weaken(2)
 		H.AdjustSilence(10)
 		H.adjustStaminaLoss(20)
 		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
