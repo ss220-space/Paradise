@@ -447,7 +447,7 @@
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(4)
+			C.Silence(5)
 			C.Stuttering(8)
 			C.CultSlur(10)
 			C.Jitter(8)
@@ -526,7 +526,10 @@
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.canBeHandcuffed() || C.get_arm_ignore())
-			CuffAttack(C, user)
+			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.sleeping)
+				CuffAttack(C, user)
+			else
+				user.visible_message("<span class='cultitalic'>This victim is still resisting!</span>")
 		else
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")
 			return
