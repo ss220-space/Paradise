@@ -1153,10 +1153,6 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-
 		H.grant_all_languages()
 
 		to_chat(usr, "Added all languages to [H].")

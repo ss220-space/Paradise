@@ -9,13 +9,10 @@ GLOBAL_LIST_INIT(enkeys, list(
 
 
 /proc/sanitize_english_key_to_russian(t)
-	t = lowertext(t)
-	if(t in GLOB.enkeys)
-		return GLOB.enkeys[t]
-	return t
+	var/new_char = GLOB.enkeys[lowertext(char)]
+	return (new_char != null) ? new_char : char
 
 /proc/sanitize_english_string_to_russian(text)
 	. = ""
 	for(var/i in 1 to length_char(text))
 		. += sanitize_english_key_to_russian(copytext_char(text, i, i+1))
-	return .
