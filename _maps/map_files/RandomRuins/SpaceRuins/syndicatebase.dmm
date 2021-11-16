@@ -11189,6 +11189,11 @@
 	dir = 8;
 	pixel_x = 30
 	},
+/obj/structure/bed/dogbed{
+	desc = "A comfy-looking snake bed. You can even strap your pet in, just in case the gravity turns off.";
+	name = "Snake bed"
+	},
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
