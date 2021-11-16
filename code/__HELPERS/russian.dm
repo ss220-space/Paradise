@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(enkeys, list(
 ))
 
 
-/proc/sanitize_english_key_to_russian(t)
+/proc/sanitize_english_key_to_russian(char)
 	var/new_char = GLOB.enkeys[lowertext(char)]
 	return (new_char != null) ? new_char : char
 
