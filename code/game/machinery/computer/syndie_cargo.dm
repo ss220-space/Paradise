@@ -69,8 +69,8 @@
 	if(istype(object, /datum/syndie_supply_packs/misc/randomised)) // тут выбирается рандомный контент для всяких шляп
 		var/datum/syndie_supply_packs/misc/randomised/SO = object
 		contains = list()
-		if(object.contains.len)
-			for(var/j=1, j<=SO.num_contained, j++)
+		if(length(object.contains))
+			for(var/j in 1 to SO.num_contained)
 				contains += pick(object.contains)
 	else
 		contains = object.contains
@@ -180,7 +180,7 @@
 			linked_pads += P
 			continue
 	pads_cooldown = round(pads_cooldown)
-	if (receiving_pads != list() && linked_pads != list())
+	if (length(receiving_pads) && length(linked_pads))
 		telepads_status = "Pads ready"
 	else
 		to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
@@ -223,9 +223,10 @@
 
 /obj/effect/abstract/syndie_data_storage/LateInitialize()
 	for(var/typepath in subtypesof(/datum/syndie_supply_packs))
-		var/datum/syndie_supply_packs/SP = new typepath()
-		if(SP.name == "HEADER") continue		// To filter out group headers
-		syndie_supply_packs["[SP.type]"] = SP
+		var/datum/syndie_supply_packs/SP = typepath
+		if(initial(SP.name) == "HEADER")		// To filter out group headers
+			continue
+		syndie_supply_packs["[typepath ]"] = new SP
 	sync()
 	orderNum = rand(1,9000)
 
@@ -263,12 +264,12 @@
 
 /obj/machinery/computer/syndie_supplycomp/proc/buy() // Этот код заточен под поиск точек для спавна, активации траты энергии и анимации падов
 
-	if(!data_storage.shoppinglist.len)
+	if(!length(data_storage.shoppinglist))
 		return 2
 
 	var/list/spawnTurfs = list()
 	var/list/recievingPads = data_storage.receiving_pads
-	for(var/j=1, j<=recievingPads.len, j++)
+	for(var/j in 1 to length(recievingPads))
 		spawnTurfs += get_turf(recievingPads[j])
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
@@ -277,7 +278,7 @@
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/i=1, i<=recievingPads.len, i++)
+		for(var/i in 1 to length(recievingPads))
 			recievingPads[i].use_power(10000 / recievingPads[i].power_efficiency)
 			flick("sqpad-beam", recievingPads[i])
 			playsound(get_turf(recievingPads[i]), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
@@ -310,7 +311,7 @@
 
 	var/list/DSLP = data_storage.linked_pads
 
-	for(var/k = 1; k <= DSLP.len; k++)
+	for(var/k in 1 to length(DSLP))
 		sellArea = get_turf(DSLP[k])
 
 		for(var/atom/movable/MA in sellArea)
@@ -339,12 +340,14 @@
 					data_storage.sold_atoms += " [thing:name]"
 					if(find_slip && istype(thing,/obj/item/paper/manifest))
 						var/obj/item/paper/manifest/slip = thing
-						if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+						var/slip_stamped_len = length(slip.stamped)
+						if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 							// Did they mark it as erroneous?
 							var/denied = 0
-							for(var/i=1,i<=slip.stamped.len,i++)
+							for(var/i in 1 to slip_stamped_len)
 								if(slip.stamped[i] == /obj/item/stamp/denied)
 									denied = 1
+									break
 							if(slip.erroneous && denied) // Caught a mistake
 								cashEarned = slip.points - data_storage.cash_per_crate
 								data_storage.cash += cashEarned // For now, give a full refund for paying attention (minus the crate cost)
@@ -416,7 +419,7 @@
 					// Sell exotic plants
 					if(istype(thing, /obj/item/seeds))
 						var/obj/item/seeds/S = thing
-						if(S.rarity == 0) // Mundane species
+						if(!S.rarity) // Mundane species
 							msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
 						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to CentComm
 							var/potDiff = S.potency - data_storage.discoveredPlants[S.type] // Compare it to the previous best
@@ -473,11 +476,10 @@
 	return
 
 /obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/user, params)
-
+	if(!powered())
+		return 0
 	if(istype(I, /obj/item/stack/spacecash))
 		//consume the money
-		if(!powered())
-			return
 		var/obj/item/stack/spacecash/C = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 		data_storage.cash += C.amount
@@ -487,8 +489,8 @@
 		data_storage.blackmarket_message += "<span class='good'>+[C.amount]</span>: [name] adds credits to the console.<br>"
 		SStgui.update_uis(src)
 		C.use(C.amount)
-	else
-		return ..()
+		return 1
+	return ..()
 
 /obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -501,19 +503,15 @@
 
 	var/list/requests_list = list()
 
-	for(var/set_name in data_storage.requestlist)
-		var/datum/syndie_supply_order/SO = set_name
-		if(SO)
-			if(!SO.comment)
-				SO.comment = "No comment."
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
+	for(var/datum/syndie_supply_order/SO as anything in data_storage.requestlist)
+		if(!SO.comment)
+			SO.comment = "No comment."
+		requests_list += list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum)))
 	data["requests"] = requests_list // покупки с активными кнопками approve/deny
 
 	var/list/orders_list = list()
-	for(var/set_name in data_storage.shoppinglist)
-		var/datum/syndie_supply_order/SO = set_name
-		if(SO)
-			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment)))
+	for(var/datum/syndie_supply_order/SO as anything in data_storage.shoppinglist)
+		orders_list += list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment))
 	data["orders"] = orders_list
 
 	data["is_public"] = is_public
@@ -562,18 +560,16 @@
 	switch(action)
 		if("withdraw")
 			var/cash_sum = input(usr, "Amount", "How much money do you wish to withdraw") as null|num
-			if(cash_sum <= 0)
+			if(cash_sum <= 0 || (!is_public && !is_authorized(usr)) || ..()))
 				return
-			else
-				if(in_range(usr, src))
-					withdraw_cash(round(cash_sum), usr)
+			withdraw_cash(round(cash_sum), usr)
 		if("teleport")
 			if(data_storage.telepads_status == "Pads not linked!"|| data_storage == null)
 				//Проверка на наличие хранилища данных
-				if(data_storage == null)
+				if(!data_storage)
 					compSync()
 				//Проверка на синхронизацию телепадов
-				if(data_storage.linked_pads == list())
+				if(length(data_storage.linked_pads))
 					data_storage.sync()
 
 			var/list/DSLP = data_storage.linked_pads
@@ -581,10 +577,10 @@
 			if(data_storage.telepads_status == "Pads ready")
 				sell()
 				//Телепорт
-				for(var/i = 1; i <= DSLP.len; i++)
+				for(var/i in 1 tp length(DSLP))
 					DSLP[i].checks(usr)
-					data_storage.last_teleport = world.time
-					data_storage.is_cooldown = TRUE
+				data_storage.last_teleport = world.time
+				data_storage.is_cooldown = TRUE
 				buy()
 
 		if("order")
@@ -617,7 +613,7 @@
 				idname = usr.real_name
 
 			//make our supply_order datums
-			for(var/i = 1; i <= amount; i++)
+			for(var/i in 1 to amount)
 				var/datum/syndie_supply_order/O = data_storage.generateSupplyOrder(params["crate"], idname, idrank, reason, amount)
 				if(!O)
 					return
@@ -632,7 +628,7 @@
 			var/ordernum = text2num(params["ordernum"])
 			var/datum/syndie_supply_order/O
 			var/datum/syndie_supply_packs/P
-			for(var/i=1, i<=data_storage.requestlist.len, i++)
+			for(var/i in 1 to length(data_storage.requestlist))
 				var/datum/syndie_supply_order/SO = data_storage.requestlist[i]
 				if(SO.ordernum == ordernum)
 					O = SO
@@ -648,7 +644,7 @@
 
 		if("deny")
 			var/ordernum = text2num(params["ordernum"])
-			for(var/i=1, i<=data_storage.requestlist.len, i++)
+			for(var/i in 1 to length(data_storage.requestlist))
 				var/datum/syndie_supply_order/SO = data_storage.requestlist[i]
 				if(SO.ordernum == ordernum)
 					// If we are on a public console, only allow cancelling of our own orders

@@ -291,18 +291,12 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(src)
-
-
-		if(!("syndicate" in C.faction))
+		if(idcheck && istype(C.get_id_card(), /obj/item/card/id/syndicate))
+			threatlevel = 0
+		else if(!("syndicate" in C.faction))
 			threatlevel = 20
-		else if("syndicate" in C.faction)
-			continue
-
-		var/obj/item/card/CID = C.get_id_card()
-		if(idcheck)
-			if(istype(CID, /obj/item/card/id/syndicate))
-				threatlevel = 0
+		else
+			threatlevel = C.assess_threat(src)
 
 		if(!threatlevel)
 			continue

@@ -588,7 +588,7 @@
 	can_be_emaged = FALSE
 
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
-	if(locked == 1 && broken == 0)
+	if(locked && !broken)
 		to_chat(user, "<span class='notice'>Отличная попытка, но нет!</span>")
 		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
 

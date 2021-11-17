@@ -112,13 +112,7 @@
 
 	var/on_CD = 0
 	act = lowertext(act)
-	switch(act)
-		if("hiss")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
+	if(!force && act == "hiss" && handle_emote_CD())
 		return
 
 	switch(act)
@@ -157,14 +151,13 @@
 			regenerate_icons()
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/shh(change, mob/M)
-	if(change)
-		if(change > 0)
-			if(M && stat != DEAD)
-				new /obj/effect/temp_visual/heart(loc)
-				custom_emote(1, "hisses happily!")
-		else
-			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				custom_emote(1, "hisses angrily!")
+	if(!M || stat)
+		return
+	if(change > 0)
+		new /obj/effect/temp_visual/heart(loc)
+		custom_emote(1, "hisses happily!")
+	else
+		custom_emote(1, "hisses angrily!")
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Initialize(mapload)
 	. = ..()
@@ -324,7 +317,7 @@
 	mutations.Remove(BREATHLESS)
 	minbodytemp = initial(minbodytemp)
 
-	if(inventory_head && inventory_head.snake_fashion)
+	if(inventory_head?.snake_fashion)
 		var/datum/snake_fashion/SF = new inventory_head.snake_fashion(src)
 		SF.apply(src)
 
@@ -343,9 +336,9 @@
 		if(!SF.obj_color)
 			SF.obj_color = inventory_head.color
 
-		if(health <= 0 || src.rest) //труп или отдыхает
+		if(stat || src.rest) //без сознания или отдыхает
 			head_icon = SF.get_overlay()
-			if(health <= 0)
+			if(stat)
 				head_icon.pixel_y = -2
 				head_icon.pixel_x = -2
 		else

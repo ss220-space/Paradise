@@ -318,7 +318,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
-	if(mmi != null && mmi.syndicate == 1)
+	if(mmi?.syndicate)
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
@@ -444,14 +444,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Syndicate Saboteur")
 			spawn_syndicate_borgs(src, "Saboteur", get_turf(src))
 			qdel(src)
+			return
 
 		if("Syndicate Medical")
 			spawn_syndicate_borgs(src, "Medical", get_turf(src))
 			qdel(src)
+			return
 
 		if("Syndicate Bloodhound")
 			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
 			qdel(src)
+			return
 
 	//languages
 	module.add_languages(src)

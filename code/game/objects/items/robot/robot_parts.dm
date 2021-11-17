@@ -268,7 +268,7 @@
 				aisync = FALSE
 				lawsync = FALSE
 
-			if(M.syndicate == 1)
+			if(M.syndicate)
 				aisync = FALSE
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override

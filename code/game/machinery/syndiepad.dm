@@ -39,14 +39,7 @@
 	target_id = "syndie_cargo_receive" //админский синдипад отправляющий посылки
 	allow_humans = TRUE
 
-/obj/machinery/syndiepad/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/syndiepad/LateInitialize()
-	pad_sync()
-
-/obj/machinery/syndiepad/New()
+/obj/machinery/syndiepad/Initialize()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null)
@@ -56,6 +49,10 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 	RefreshParts()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/syndiepad/LateInitialize()
+	pad_sync()
 
 /obj/machinery/syndiepad/Destroy()
 	linked_pad = null
@@ -74,9 +71,8 @@
 	teleport_cooldown = initial(teleport_cooldown)
 	teleport_cooldown -= (E * 56.25) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
 	if(console_link)
-		for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
-			S.sync()
-			break
+		var/obj/effect/abstract/syndie_data_storage/S = locate() in myArea
+		S?.sync()
 
 /obj/machinery/syndiepad/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -94,23 +90,17 @@
 
 	if(panel_open)
 		if(console_link)
-			var/choice = input("Отвязать телепад от консоли?") in list("Yes", "No")
-			if(choice != "Yes")
+			if(alert("Отвязать телепад от консоли?",, "Да", "Нет") == "Нет")
 				return
-			else
-				console_link = FALSE
-				for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
-					S.sync()
-					break
+			console_link = FALSE
+			var/obj/effect/abstract/syndie_data_storage/S = locate() in myArea
+			S?.sync()
 		else if(!console_link)
-			var/choice = input("Привязать телепад к консоли?") in list("Yes", "No")
-			if(choice != "Yes")
+			if(alert("Привязать телепад к консоли?",, "Да", "Нет") == "Нет")
 				return
-			else
-				console_link = TRUE
-				for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
-					S.sync()
-					break
+			console_link = TRUE
+			var/obj/effect/abstract/syndie_data_storage/S = locate() in myArea
+			S?.sync()
 
 
 /obj/machinery/syndiepad/multitool_act(mob/user, obj/item/I)
@@ -121,19 +111,20 @@
 	if(console_link)
 		to_chat(user, "<span class='notice'>Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!</span>")
 		return
-	if(receive == 0)
-		receive = 1
+	receive = !receive 
+	if(receive)
 		to_chat(user, "<span class='notice'>Включен режим получения посылок.</span>")
-		id = input("Задайте ID этому телепаду для получения им посылок")
+		var/new_id = input("Задайте ID этому телепаду для получения им посылок")
+		if(new_id)
+			id = new_id
 		linked_pad = null
 		target_id = null
-		return
-	if(receive == 1)
-		receive = 0
+	else
 		to_chat(user, "<span class='notice'>Включен режим отправки посылок.</span>")
-		target_id = input("Задайте ID телепада на который будут приходить посылки.")
+		var/new_target_id = input("Задайте ID телепада на который будут приходить посылки.")
+		if(new_target_id && new_target_id != id)
+			target_id = new_target_id
 		linked_pad = null
-		return
 
 /obj/machinery/syndiepad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -143,14 +134,15 @@
 
 /obj/machinery/syndiepad/proc/pad_sync()
 	for(var/obj/machinery/syndiepad/S in GLOB.machines)
-		if(src.console_link == TRUE && S.console_link == TRUE) //Мы не хотим привязываться к другим привязанным к консоли телепадам
+		if(S.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам
 			continue
-		if(S.id == null)
+		if(!S.id)
 			continue
-		if(S.id == src.target_id)
-			if(S != src) //Так же мы не хотим привязываться сами к себе
-				linked_pad = S
-				break
+		if(S == src)
+			continue
+		if(S.id == target_id)
+			linked_pad = S
+			break
 
 /obj/machinery/syndiepad/attack_hand(mob/user)
 	if(console_link)
