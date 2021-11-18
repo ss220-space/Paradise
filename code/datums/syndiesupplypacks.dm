@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	manifest += "<ul>"
 	for(var/path in contains)
 		if(!path)	continue
-		var/atom/movable/AM = path
+		var/atom/movable/AM = path //Получение переменной возможно лишь благодаря initial()
 		manifest += "<li>[initial(AM.name)]</li>"
 		// Add the name to the UI manifest
 		ui_manifest += "[initial(AM.name)]"
@@ -99,7 +99,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 350
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
-	group = SYNDIE_SUPPLY_EMERGENCY
 
 /datum/syndie_supply_packs/emergency/internals
 	name = "Internals Crate"

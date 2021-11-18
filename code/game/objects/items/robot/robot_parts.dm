@@ -368,8 +368,6 @@
 	else if(href_list["Master"])
 		if(!sabotaged)
 			forced_ai = select_active_ai(usr)
-		if(sabotaged)
-			forced_ai = null
 		if(!forced_ai)
 			to_chat(usr, "<span class='error'>No active AIs detected.</span>")
 

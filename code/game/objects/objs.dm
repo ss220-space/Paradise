@@ -364,3 +364,17 @@ a {
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
 
+/proc/get_obj_in_atom_without_warning(atom/A, mob/user = usr)
+	if(!istype(A))
+		return null
+	if(isobj(A))
+		return A
+
+	. = null
+	for(var/obj/O in A)
+		if(!.)
+			. = O
+		else
+			break
+
+

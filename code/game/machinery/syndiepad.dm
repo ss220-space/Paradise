@@ -111,7 +111,7 @@
 	if(console_link)
 		to_chat(user, "<span class='notice'>Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!</span>")
 		return
-	receive = !receive 
+	receive = !receive
 	if(receive)
 		to_chat(user, "<span class='notice'>Включен режим получения посылок.</span>")
 		var/new_id = input("Задайте ID этому телепаду для получения им посылок")
@@ -134,7 +134,7 @@
 
 /obj/machinery/syndiepad/proc/pad_sync()
 	for(var/obj/machinery/syndiepad/S in GLOB.machines)
-		if(S.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам
+		if(S.console_link && src.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам если мы привязаны к консоли
 			continue
 		if(!S.id)
 			continue
@@ -226,6 +226,7 @@
 			flick("sqpad-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
 			var/tele_success = FALSE
+
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is living, check if allowed, don't let through if not
 				if(isliving(ROI) && allow_humans == FALSE)
@@ -233,10 +234,6 @@
 						to_chat(user, "<span class='warning'>Error: You cannot teleport living organisms for security reasons!</span>")
 					else
 						to_chat(user, "<span class='warning'>Error: '[ROI]' was not teleported! You cannot teleport living organisms for security reasons!</span>")
-					continue
-				// if dead body, never teleport. All my homies hate corpses, they stink!
-				if(istype(ROI, /mob/dead))
-					to_chat(user, "<span class='warning'>Error: '[ROI]' was not teleported! You cannot teleport dead bodies! It's gross!</span>")
 					continue
 				// if is living and in container, check if allowed, don't let through if not
 				if((ROI.contents) && allow_humans == FALSE)

@@ -635,6 +635,7 @@
 	name = "evil looking airlock"
 	desc = "Why does it have those blowers?"
 	overlays_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
+	note_overlay_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
 	paintable = FALSE
 
 /obj/machinery/door/airlock/syndicate/security

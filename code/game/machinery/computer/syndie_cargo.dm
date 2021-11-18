@@ -18,31 +18,33 @@
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
-	reqform.info += "<h3>Syndicate RaMSS 'Taipan' Supply Requisition Form</h3><hr>"
-	reqform.info += "INDEX: #[ordernum]<br>"
-	reqform.info += "REQUESTED BY: [orderedby]<br>"
-	reqform.info += "RANK: [orderedbyRank]<br>"
-	reqform.info += "REASON: [comment]<br>"
-	reqform.info += "SUPPLY CRATE TYPE: [object.name]<br>"
-	reqform.info += "NUMBER OF CRATES: [crates]<br>"
-	reqform.info += "CONTENTS:<br>"
-	reqform.info += object.manifest
-	reqform.info += "<hr>"
-	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
+
+	reqform.info = {"<h3>Syndicate RaMSS 'Taipan' Supply Requisition Form</h3><hr>
+					INDEX: #[ordernum]<br>
+					REQUESTED BY: [orderedby]<br>
+					RANK: [orderedbyRank]<br>
+					REASON: [comment]<br>
+					SUPPLY CRATE TYPE: [object.name]<br>
+					NUMBER OF CRATES: [crates]<br>
+					CONTENTS:<br>
+					[object.manifest]
+					<hr>
+					STAMP BELOW TO APPROVE THIS REQUISITION:<br>"}
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-	return reqform
+//	return reqform
 
 /datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/obj/effect/abstract/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
 	//create the crate
-	var/atom/Crate = new object.containertype(_loc)
-	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
+	var/atom/crate = new object.containertype(_loc)
+	crate.name = "[object.containername] [comment ? "([comment])":"" ]"
+	var/obj/structure/closet/OBJ = get_obj_in_atom_without_warning(crate)
 	if(object.access)
-		Crate:req_access = list(text2num(object.access))
+		OBJ.req_access = list(text2num(object.access))
 
 	//create the manifest slip
 	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
@@ -51,18 +53,19 @@
 	slip.ordernumber = ordernum
 
 	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
-	var/packagesAmt = data_storage.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0) // пометка ошибки возможной
+	var/packagesAmt = data_storage.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
-	slip.info = "<h3>Syndicate RaMSS 'Taipan' Shipping Manifest</h3><hr><br>"
-	slip.info +="Order: #[ordernum]<br>"
-	slip.info +="Destination: [stationName]<br>"
-	slip.info +="Requested By: [orderedby]<br>"
-	slip.info +="Rank: [orderedbyRank]<br>"
-	slip.info +="Reason: [comment]<br>"
-	slip.info +="Supply Crate Type: [object.name]<br>"
-	slip.info +="[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
-	slip.info +="CONTENTS:<br><ul>"
+
+	slip.info = {"<h3>Syndicate RaMSS 'Taipan' Shipping Manifest</h3><hr><br>
+				Order: #[ordernum]<br>
+				Destination: [stationName]<br>
+				Requested By: [orderedby]<br>
+				Rank: [orderedbyRank]<br>
+				Reason: [comment]<br>
+				Supply Crate Type: [object.name]<br>
+				[packagesAmt] PACKAGES IN THIS SHIPMENT<br>
+				CONTENTS:<br><ul>"}
 
 	//we now create the actual contents
 	var/list/contains
@@ -77,13 +80,14 @@
 
 	for(var/typepath in contains)
 		if(!typepath)	continue
-		var/atom/A = new typepath(Crate)
-		if(object.amount && A.vars.Find("amount") && A:amount)
-			A:amount = object.amount
+		var/atom/A = new typepath(crate)
+		var/obj/item/stack/AO = get_obj_in_atom_without_warning(A)
+		if(object.amount && A.vars.Find("amount") && AO?.amount)
+			AO.amount = object.amount
 		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
 
-	if(istype(Crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
-		var/obj/structure/closet/critter/CritCrate = Crate
+	if(istype(crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
+		var/obj/structure/closet/critter/CritCrate = crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
@@ -93,25 +97,25 @@
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lostAmt = max(round(Crate.contents.len/10), 1)
+			var/lostAmt = max(round(crate.contents.len/10), 1)
 			//lose some of the items
 			while(--lostAmt >= 0)
-				qdel(pick(Crate.contents))
+				qdel(pick(crate.contents))
 
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
-	slip.loc = Crate
-	if(istype(Crate, /obj/structure/closet/crate))
-		var/obj/structure/closet/crate/CR = Crate
+	slip.loc = crate
+	if(istype(crate, /obj/structure/closet/crate))
+		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
 		CR.update_icon()
-	if(istype(Crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = Crate
+	if(istype(crate, /obj/structure/largecrate))
+		var/obj/structure/largecrate/LC = crate
 		LC.manifest = slip
 		LC.update_icon()
 
-	return Crate
+//	return crate
 
 
 /***************************
@@ -162,10 +166,8 @@
 	var/sold_atoms = ""
 
 /obj/effect/abstract/syndie_data_storage/proc/sync()
-
 	var/area/syndicate/unpowered/syndicate_space_base/cargo/cargoarea = get_area(src)
-
-	linked_pads = list() // Обнуление на случай повторной синхронизации.
+	linked_pads = list() 	// Обнуление на случай повторной синхронизации.
 	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
 	pads_cooldown = 0
 	for(var/obj/machinery/syndiepad/P in cargoarea)
@@ -265,7 +267,7 @@
 /obj/machinery/computer/syndie_supplycomp/proc/buy() // Этот код заточен под поиск точек для спавна, активации траты энергии и анимации падов
 
 	if(!length(data_storage.shoppinglist))
-		return 2
+		return
 
 	var/list/spawnTurfs = list()
 	var/list/recievingPads = data_storage.receiving_pads
@@ -313,11 +315,11 @@
 
 	for(var/k in 1 to length(DSLP))
 		sellArea = get_turf(DSLP[k])
-
 		for(var/atom/movable/MA in sellArea)
 			if(MA.anchored)
 				continue
-			if(istype(MA, /mob/dead) || istype(MA, /mob/living)) // Если окажется что на паде труп или человек, то это защитит его от уничтожения
+			var/mob/MB = get_mob_in_atom_without_warning(MA)
+			if(MB?.stat || istype(MA, /mob/living)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
 				continue
 			if(istype(MA,/obj/structure/closet/crate/syndicate) || istype(MA,/obj/structure/closet/crate/secure/syndicate))
 				++crate_count
@@ -334,10 +336,18 @@
 				++crate_count
 
 				var/find_slip = 1
-				for(var/thing in MA)
-
+				for(var/atom/thing in MA)
+					var/obj/OT = get_obj_in_atom_without_warning(thing)
+					var/mob/MT = get_mob_in_atom_without_warning(thing)
+					if(isobj(thing))
+						data_storage.sold_atoms += " [OT.name]"
+					else if(ismob(thing))
+						data_storage.sold_atoms += " [MT.name]"
+					else
+						data_storage.sold_atoms += "Not Specified"
 					// Sell manifests
-					data_storage.sold_atoms += " [thing:name]"
+//					data_storage.sold_atoms += " [thing.name]"
+
 					if(find_slip && istype(thing,/obj/item/paper/manifest))
 						var/obj/item/paper/manifest/slip = thing
 						var/slip_stamped_len = length(slip.stamped)
@@ -560,9 +570,10 @@
 	switch(action)
 		if("withdraw")
 			var/cash_sum = input(usr, "Amount", "How much money do you wish to withdraw") as null|num
-			if(cash_sum <= 0 || (!is_public && !is_authorized(usr)) || ..()))
+			if(cash_sum <= 0 || (!is_public && !is_authorized(usr)) || ..())
 				return
-			withdraw_cash(round(cash_sum), usr)
+			if(in_range(usr, src)) //эта проверка нужна чтобы деньги не могли снять при этом отойдя далеко от консоли
+				withdraw_cash(round(cash_sum), usr)
 		if("teleport")
 			if(data_storage.telepads_status == "Pads not linked!"|| data_storage == null)
 				//Проверка на наличие хранилища данных
@@ -577,7 +588,9 @@
 			if(data_storage.telepads_status == "Pads ready")
 				sell()
 				//Телепорт
-				for(var/i in 1 tp length(DSLP))
+				investigate_log("[key_name(usr)] has sold '[data_storage.sold_atoms]' using syndicate cargo. Remaining credits: [data_storage.cash]", "syndicate cargo")
+				data_storage.sold_atoms = null
+				for(var/i in 1 to length(DSLP))
 					DSLP[i].checks(usr)
 				data_storage.last_teleport = world.time
 				data_storage.is_cooldown = TRUE
@@ -637,7 +650,7 @@
 						data_storage.requestlist.Cut(i,i+1)
 						data_storage.cash -= P.cost
 						data_storage.shoppinglist += O
-						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining credits: [data_storage.cash].", "cargo")
+						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining credits: [data_storage.cash].", "syndicate cargo")
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient credits for this request.</span>")
 					break
@@ -679,8 +692,6 @@
 
 
 /obj/machinery/computer/syndie_supplycomp/proc/withdraw_cash(cash_sum, mob/user)
-	if(cash_sum == null || cash_sum == 0)
-		return
 	if(cash_sum <= data_storage.cash)
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)

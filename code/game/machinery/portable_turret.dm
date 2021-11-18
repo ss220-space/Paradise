@@ -582,7 +582,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(in_faction(L))
 		return TURRET_NOT_TARGET
 
-	if(faction == "syndicate" && istype(L.get_id_card(), /obj/item/card/id/syndicate)
+	if(faction == "syndicate" && istype(L.get_id_card(), /obj/item/card/id/syndicate))
 		return TURRET_NOT_TARGET
 
 	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!

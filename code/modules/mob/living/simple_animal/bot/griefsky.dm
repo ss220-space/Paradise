@@ -17,7 +17,7 @@
 	var/stun_chance = 50
 	var/spam_flag = 0
 	var/frustration_number = 15
-	
+
 /mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Giftskee"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
@@ -47,7 +47,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
-	
+
 /mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(ismob(AM) && AM == target)
@@ -90,7 +90,7 @@
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
-		if(prob(stun_chance)) 
+		if(prob(stun_chance))
 			C.Weaken(5)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
@@ -135,9 +135,9 @@
 							frustration++
 						else
 							frustration = 0
-				else 
+				else
 					back_to_idle()
-					speak("You fool")			
+					speak("You fool")
 			else
 				back_to_idle()
 
@@ -211,7 +211,7 @@
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
 		..()
-	
+
 /mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
 	return
 
@@ -220,7 +220,7 @@
 		return
 	if(prob(block_chance_melee))
 		visible_message("[src] deflects [user]'s attack with his energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)	
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/attack_hand(mob/living/carbon/human/H)
@@ -261,7 +261,6 @@
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/sword_attack(mob/living/carbon/C)     // esword attack
 	src.do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
-	spawn(2)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)
 	if(!("syndicate" in C.faction))
