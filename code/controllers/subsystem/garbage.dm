@@ -317,7 +317,7 @@ SUBSYSTEM_DEF(garbage)
 
 				SSgarbage.Queue(D)
 			if(QDEL_HINT_HARDDEL_NOW)	//qdel should assume this object won't gc, and hard del it post haste.
-				SSgarbage.HardDelete(D, 1)
+				SSgarbage.HardDelete(D, TRUE)
 			if(QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
 				SSgarbage.Queue(D)
 				#ifdef REFERENCE_TRACKING
