@@ -167,6 +167,7 @@
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	bayonet = TRUE
+	embed_chance = 90
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
