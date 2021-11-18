@@ -1,13 +1,13 @@
 SUBSYSTEM_DEF(garbage)
 	name = "Garbage"
 	priority = FIRE_PRIORITY_GARBAGE
-	wait = 2 SECONDS
+	wait = 25 SECONDS
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
 	offline_implications = "Garbage collection is no longer functional, and objects will not be qdel'd. Immediate server restart recommended."
 
-	var/list/collection_timeout = list(2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
+	var/list/collection_timeout = list(150 SECONDS, 25 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick
@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(garbage)
 	queue[refid] = gctime
 
 //this is mainly to separate things profile wise.
-/datum/controller/subsystem/garbage/proc/HardDelete(datum/D)
+/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, need_real_del = 0)
 	var/time = world.timeofday
 	var/tick = TICK_USAGE
 	var/ticktime = world.time
@@ -214,7 +214,8 @@ SUBSYSTEM_DEF(garbage)
 	var/type = D.type
 	var/refID = "\ref[D]"
 
-	del(D)
+	if(need_real_del)
+		del(D)
 
 	tick = (TICK_USAGE - tick + ((world.time - ticktime) / world.tick_lag * 100))
 
@@ -315,10 +316,8 @@ SUBSYSTEM_DEF(garbage)
 				I.no_respect_force++
 
 				SSgarbage.Queue(D)
-			if(QDEL_HINT_HARDDEL)		//qdel should assume this object won't gc, and queue a hard delete
-				SSgarbage.Queue(D, GC_QUEUE_HARDDELETE)
 			if(QDEL_HINT_HARDDEL_NOW)	//qdel should assume this object won't gc, and hard del it post haste.
-				SSgarbage.HardDelete(D)
+				SSgarbage.HardDelete(D, 1)
 			if(QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
 				SSgarbage.Queue(D)
 				#ifdef REFERENCE_TRACKING
