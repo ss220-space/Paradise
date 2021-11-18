@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(garbage)
 	queue[refid] = gctime
 
 //this is mainly to separate things profile wise.
-/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, need_real_del = 0)
+/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, need_real_del = FALSE)
 	var/time = world.timeofday
 	var/tick = TICK_USAGE
 	var/ticktime = world.time
