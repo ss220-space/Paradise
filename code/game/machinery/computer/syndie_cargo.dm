@@ -33,8 +33,6 @@
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-//	return reqform
-
 /datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/obj/effect/abstract/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
@@ -114,8 +112,6 @@
 		var/obj/structure/largecrate/LC = crate
 		LC.manifest = slip
 		LC.update_icon()
-
-//	return crate
 
 
 /***************************

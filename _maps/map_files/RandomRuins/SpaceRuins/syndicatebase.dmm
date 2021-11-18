@@ -11913,9 +11913,7 @@
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/flashlight/seclite,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "uW" = (
 /obj/machinery/light{
@@ -11938,9 +11936,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "uY" = (
 /obj/machinery/light{
@@ -12619,9 +12615,7 @@
 	pixel_x = 5;
 	pixel_y = -5
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "wd" = (
 /obj/structure/rack{
@@ -12637,9 +12631,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "we" = (
 /obj/effect/turf_decal/stripes/line{
@@ -12942,9 +12934,7 @@
 /obj/item/melee/energy/sword/saber{
 	pixel_x = 10
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "wH" = (
 /obj/structure/rack{
@@ -12954,9 +12944,7 @@
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "wI" = (
 /obj/machinery/light/small{
@@ -13348,9 +13336,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "xD" = (
 /obj/machinery/suit_storage_unit/syndicate/secure,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "xE" = (
 /obj/structure/table,
@@ -13359,9 +13345,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "xF" = (
 /obj/structure/rack{
@@ -13374,9 +13358,7 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "xG" = (
 /obj/structure/rack{
@@ -13386,9 +13368,7 @@
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "xH" = (
 /obj/structure/rack{
@@ -13398,9 +13378,7 @@
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "xJ" = (
 /obj/structure/rack{
@@ -13443,9 +13421,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "xK" = (
 /obj/structure/grille{
@@ -13954,9 +13930,7 @@
 /obj/item/ammo_box/magazine/m12g/buckshot,
 /obj/item/ammo_box/magazine/m12g/buckshot,
 /obj/item/ammo_box/magazine/m12g/buckshot,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "yI" = (
 /obj/structure/rack{
@@ -13966,9 +13940,7 @@
 /obj/item/ammo_box/magazine/mm556x45,
 /obj/item/ammo_box/magazine/mm556x45,
 /obj/item/ammo_box/magazine/mm556x45,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "yJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -14006,9 +13978,7 @@
 	req_one_access_txt = "150"
 	},
 /obj/item/organ/internal/cyberimp/brain/anti_stun,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "yL" = (
 /obj/structure/falsewall/plastitanium,
@@ -14445,9 +14415,7 @@
 /obj/machinery/alarm/syndicate{
 	pixel_y = -32
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "zK" = (
 /obj/machinery/porta_turret/syndicate{
@@ -14458,9 +14426,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "zL" = (
 /obj/machinery/light,
@@ -14542,9 +14508,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/red/full,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "zS" = (
 /obj/machinery/light{
