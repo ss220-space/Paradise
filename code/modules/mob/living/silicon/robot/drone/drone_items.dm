@@ -61,7 +61,7 @@
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
 				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
 				)
-			return
+		return
 	..()
 
 
