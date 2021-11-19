@@ -93,7 +93,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	embed_chance = 70
-	embedded_fall_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
@@ -130,7 +129,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	embed_chance = 15
-	embedded_fall_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/extend = 1
 	var/swiping = FALSE

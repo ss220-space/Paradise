@@ -180,8 +180,7 @@
 	force = 5
 	throwforce = 15
 	sharp = TRUE
-	embed_chance = 40
-	embedded_fall_chance = 15
+	embed_chance = 25
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
@@ -383,7 +382,6 @@
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = TRUE
 	embed_chance = 50
-	embedded_fall_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
@@ -527,8 +525,7 @@
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
 	sharp = TRUE
-	embed_chance = 20
-	embedded_fall_chance = 20
+	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
@@ -597,8 +594,7 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
-	embed_chance = 20
-	embedded_fall_chance = 20
+	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/twohanded/chainsaw/update_icon()
@@ -896,7 +892,6 @@
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharp = TRUE
 	embed_chance = 50
-	embedded_fall_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/twohanded/bamboospear/update_icon()

@@ -116,7 +116,6 @@
 	sharp = TRUE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	embed_chance = 45
-	embedded_fall_chance = 0
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/bayonet = FALSE	//Can this be attached to a gun?
 

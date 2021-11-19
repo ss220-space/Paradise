@@ -36,7 +36,6 @@
 	force = 1
 	throwforce = 1
 	embed_chance = 25
-	embedded_fall_chance = 0
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")

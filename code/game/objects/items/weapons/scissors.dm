@@ -5,8 +5,7 @@
 	item_state = "scissor"
 	force = 5
 	sharp = 1
-	embed_chance = 25
-	embedded_fall_chance = 0
+	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'

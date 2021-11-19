@@ -145,8 +145,7 @@
 	slot_flags = SLOT_BACK|SLOT_BELT
 	block_chance = 30
 	sharp = TRUE
-	embed_chance = 40
-	embedded_fall_chance = 0
+	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -235,7 +234,6 @@
 	slot_flags = SLOT_BACK
 	sharp = TRUE
 	embed_chance = 20
-	embedded_fall_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -327,7 +325,6 @@
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = TRUE
 	embed_chance = 45
-	embedded_fall_chance = 0
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
 
@@ -416,7 +413,6 @@
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharp = TRUE
 	embed_chance = 45
-	embedded_fall_chance = 0
 	embedded_ignore_throwspeed_threshold = TRUE
 	slot_flags = null
 	flags = HANDSLOW

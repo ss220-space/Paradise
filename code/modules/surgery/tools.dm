@@ -83,7 +83,6 @@
 	throw_speed = 3
 	throw_range = 5
 	embed_chance = 10
-	embedded_fall_chance = 0
 	embedded_ignore_throwspeed_threshold = TRUE
 	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
 	origin_tech = "materials=1;biotech=1"
@@ -149,8 +148,7 @@
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
-	embed_chance = 45
-	embedded_fall_chance = 5
+	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	origin_tech = "biotech=1;combat=1"
