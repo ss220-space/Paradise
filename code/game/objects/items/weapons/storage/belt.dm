@@ -233,9 +233,7 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola,
-		/obj/item/forensics/sample_kit/powder,
-		/obj/item/forensics/sample_kit)
+		/obj/item/restraints/legcuffs/bola)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
@@ -259,6 +257,34 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
+
+/obj/item/storage/belt/detective
+	name = "detective belt"
+	desc = "An expensive leather belt with attached pouches and holster on it, can hold security and forensics gear."
+	icon_state = "detectivebelt"
+	item_state = "detective"
+	storage_slots = 5
+	max_w_class = WEIGHT_CLASS_NORMAL
+	use_item_overlays = 1
+	can_hold = list(
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_box,
+		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/forensics/sample_kit/powder,
+		/obj/item/forensics/sample_kit)
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
