@@ -160,7 +160,7 @@
 	id = "detbelt"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
-	build_path = /obj/item/storage/belt/security
+	build_path = /obj/item/storage/belt/detective
 	category = list("initial","Leather and Cloth")
 
 /datum/design/medbelt
