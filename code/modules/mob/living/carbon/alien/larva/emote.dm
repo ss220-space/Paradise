@@ -107,7 +107,7 @@
 			m_type = 1
 		if("collapse")
 			Paralyse(2)
-			message = text("collapses!", src)
+			message = "collapses!"
 			m_type = 2
 		if("help")
 			to_chat(src, "burp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roll, scratch,\nscretch, shake, sign-#, sulk, sway, tail, twitch, whimper")
