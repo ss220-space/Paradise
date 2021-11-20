@@ -378,6 +378,11 @@
 	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
 	icon_state = "beret_centcom_captain"
 
+/obj/item/clothing/head/beret/tsf/pilot/veteran
+	name = "TSF ace pilot beret"
+	desc = "A black beret adorned with the emblem of black, white and yellow triangle of 2nd Solaris Fighter Squadron, worn by it's members. This one has a tag with the last name Hawkins sewn on it's inner side."
+	icon_state = "beret_tsf_veteran"
+
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
 	icon_state = "sombrero"
