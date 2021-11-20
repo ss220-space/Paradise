@@ -112,6 +112,11 @@
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
 
+/obj/item/reagent_containers/spray/cleaner/robo
+	name = "RoboClean"
+	desc = "BLAM!-brand non-foaming space cleaner! Approved for science purposes by MIT"
+	list_reagents = list("cleaner" = 250)
+
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
 

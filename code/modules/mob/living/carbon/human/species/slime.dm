@@ -42,7 +42,9 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime,
 		"heart" = /obj/item/organ/internal/heart/slime,
-		"lungs" = /obj/item/organ/internal/lungs/slime
+		"lungs" = /obj/item/organ/internal/lungs/slime,
+		"tongue" =     /obj/item/organ/internal/tongue/slime,
+		"stomach" =	/obj/item/organ/internal/stomach/slime
 		)
 	mutantears = null
 	has_limbs = list(

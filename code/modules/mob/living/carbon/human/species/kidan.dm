@@ -11,7 +11,6 @@
 	tox_mod = 1.7
 
 	species_traits = list(IS_WHITELISTED)
-	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
@@ -30,7 +29,9 @@
 		"brain" =    /obj/item/organ/internal/brain/kidan,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
-		"lantern" =  /obj/item/organ/internal/lantern
+		"lantern" =  /obj/item/organ/internal/lantern,
+		"proboscis" =     /obj/item/organ/internal/tongue/kidan,
+		"stomach" =     /obj/item/organ/internal/stomach/kidan
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)

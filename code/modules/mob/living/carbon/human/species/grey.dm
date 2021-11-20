@@ -14,7 +14,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/grey,
 		"brain" =    /obj/item/organ/internal/brain/grey,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
+		"eyes" =     /obj/item/organ/internal/eyes/grey,	//5 darksight.
+		"psilingual matrix" =     /obj/item/organ/internal/tongue/grey
 		)
 
 	brute_mod = 1.25 //greys are fragile

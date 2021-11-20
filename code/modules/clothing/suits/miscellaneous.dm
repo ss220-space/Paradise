@@ -1184,3 +1184,22 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 3, "rad" = 0, "fire" = 0, "acid" = 3)
 	allowed = list(/obj/item/soap, /obj/item/reagent_containers/spray/cleaner, /obj/item/storage/bag/trash, /obj/item/lightreplacer)
 // Suragi end
+
+//Techpriest suit
+/obj/item/clothing/suit/hooded/techpriest
+	name = "techpriest robes"
+	desc = "A robe for those who REALLY love their toasters. Tight fit makes it useless for majority of xenoraces."
+	icon_state = "techpriest"
+	item_state = "techpriest"
+	hoodtype = /obj/item/clothing/head/hooded/techpriest
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 50, "acid" = 50)
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan)
+
+/obj/item/clothing/head/hooded/techpriest
+	name = "techpriest's hood"
+	desc = "A hood for those who REALLY love their toasters. Tight fit makes it useless for majority of xenoraces."
+	icon_state = "techpriesthood"
+	item_state = "techpriesthood"
+	body_parts_covered = HEAD
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 50, "acid" = 50)
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan)

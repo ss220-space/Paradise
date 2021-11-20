@@ -48,7 +48,8 @@
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
+		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord,
+		"vox-grate" = /obj/item/organ/internal/tongue/robot
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
@@ -70,10 +71,11 @@
 	suicide_messages = list(
 		"is powering down!",
 		"is smashing their own monitor!",
-		"is twisting their own neck!",
-		"is downloading extra RAM!",
-		"is frying their own circuits!",
-		"is blocking their ventilation port!")
+		"is shortening their own circuits!",
+		"is blocking their ventilation port!",
+		"is terminating their system process",
+		"is formatting their system data"
+		)
 
 	var/datum/action/innate/change_monitor/monitor
 

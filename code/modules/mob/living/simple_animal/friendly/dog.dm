@@ -696,8 +696,8 @@
 	desc = "It's a borgi."
 	icon_state = "borgi"
 	icon_living = "borgi"
-	bark_sound = null	//No robo-bjork...
-	yelp_sound = null	//Or robo-Yelp.
+	bark_sound = "Beep"	//No robo-bjork...
+	yelp_sound = "Boop."	//Or robo-Yelp.
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

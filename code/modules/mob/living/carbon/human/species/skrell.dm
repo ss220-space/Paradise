@@ -13,7 +13,7 @@
 	the secrets of their empire to their allies."
 
 
-	species_traits = list(LIPS, NO_OBESITY)
+	species_traits = list(LIPS) // Earlier they had NO_OBESITY, but now they're like SW Twi'leks. Yes, you can have fat skrell senator.
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -36,7 +36,8 @@
 		"brain" =    /obj/item/organ/internal/brain/skrell,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/skrell, //Default darksight of 2.
-		"headpocket" = /obj/item/organ/internal/headpocket
+		"headpocket" = /obj/item/organ/internal/headpocket,
+		"stomach" =	/obj/item/organ/internal/stomach/skrell
 		)
 
 	suicide_messages = list(

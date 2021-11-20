@@ -1699,6 +1699,32 @@
 	RefreshParts()
 	return ..()
 
+/obj/machinery/vending/wardrobe/robo_wardrobe
+	name = "RoboDrobe"
+	desc = "A vending machine designed to dispense clothing known only to roboticists."
+	icon_state = "robodrobe"
+	slogan_list = ("Praise the Omnissiah! Praise the Machine Spirits!")
+	ads_list = list("You turn me TRUE, use defines!","0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
+	light_color = LIGHT_COLOR_WHITE
+	products = list(/obj/item/clothing/glasses/hud/diagnostic = 3,
+					/obj/item/reagent_containers/spray/cleaner/robo = 3,
+					/obj/item/clothing/under/rank/roboticist = 3,
+					/obj/item/clothing/under/plasmaman/robotics = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/robotics = 3,
+					/obj/item/clothing/suit/storage/labcoat = 3,
+					/obj/item/clothing/shoes/black = 3,
+					/obj/item/clothing/shoes/jackboots = 3,
+					/obj/item/clothing/shoes/jackboots/jacksandals = 3,
+					/obj/item/clothing/gloves/fingerless = 3,
+					/obj/item/clothing/head/soft/black = 3,
+					/obj/item/clothing/mask/bandana/skull = 3,
+					/obj/item/clothing/head/beret/sci = 3)
+	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 3,
+					/obj/item/organ/internal/tongue/robot/mechanicus = 3)
+	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
+/obj/item/vending_refill/wardrobe/robo_wardrobe
+	machine_name = "RoboDrobe"
+
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
 	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
