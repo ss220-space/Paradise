@@ -107,6 +107,17 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 
+	/obj/item/clothing/head/HoS/commissar
+	name = "commissar cap"
+	desc = "The robust standard-issue cap of the Head of Security. Boosting morale with style."
+	icon_state = "hoscap"
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	strip_delay = 80
+	flags = THICKMATERIAL
+	resistance_flags = FIRE_PROOF
+	dog_fashion = /datum/dog_fashion/head/commissar
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/drask,/datum/species/vulpkanin,/datum/species/unathi,/datum/species/tajaran,/datum/species/skrell,/datum/species/shadow,/datum/species/shadowling,/datum/species/wryn)
+
 /obj/item/clothing/head/HoS/beret
 	name = "head of security beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."

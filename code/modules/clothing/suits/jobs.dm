@@ -291,6 +291,22 @@
 	put_on_delay = 40
 	resistance_flags = NONE
 
+/obj/item/clothing/suit/hos/commissar
+	name = "commissar's coat"
+	desc = "A reinforced trenchcoat, worn by the Heads of Security who prefer both style and protection."
+	icon_state = "hos_commissar"
+	item_state = "hos_commissar"
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	strip_delay = 60
+	put_on_delay = 60
+	flags = THICKMATERIAL
+	resistance_flags = FIRE_PROOF
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/drask,/datum/species/vulpkanin,/datum/species/unathi,/datum/species/tajaran,/datum/species/skrell,/datum/species/shadow,/datum/species/shadowling,/datum/species/wryn)
+
 //Head of Personnel
 /obj/item/clothing/suit/mantle/armor/head_of_personnel
 	name = "head of personnel's shawl"

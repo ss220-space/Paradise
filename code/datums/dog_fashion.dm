@@ -53,6 +53,11 @@
 	name = "Sergeant REAL_NAME"
 	desc = "The ever-loyal, the ever-vigilant."
 
+/datum/dog_fashion/head/commissar
+	name = "Commissar REAL_NAME"
+	desc = "Вперёд, собаки, в атаку!"
+	speak_emote = "orders"
+
 /datum/dog_fashion/head/chef
 	name = "Sous chef REAL_NAME"
 	desc = "Your food will be taste-tested.  All of it."

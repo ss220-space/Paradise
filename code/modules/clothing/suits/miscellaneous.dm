@@ -1193,7 +1193,7 @@
 	item_state = "techpriest"
 	hoodtype = /obj/item/clothing/head/hooded/techpriest
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 25, "fire" = 50, "acid" = 50)
-	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan)
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/wryn)
 
 /obj/item/clothing/head/hooded/techpriest
 	name = "techpriest's hood"
@@ -1202,7 +1202,7 @@
 	item_state = "techpriest"
 	body_parts_covered = HEAD
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 25, "fire" = 50, "acid" = 50)
-	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan)
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/wryn)
 
 /obj/item/clothing/suit/hooded/techpriest/biologis
 	name = "biologis robes"
@@ -1211,7 +1211,7 @@
 	item_state = "biologis"
 	hoodtype = /obj/item/clothing/head/hooded/techpriest
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 25, "fire" = 50, "acid" = 50)
-	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/drask,/datum/species/vulpkanin,/datum/species/unathi,/datum/species/tajaran,/datum/species/skrell,/datum/species/shadow,/datum/species/shadowling)
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/drask,/datum/species/vulpkanin,/datum/species/unathi,/datum/species/tajaran,/datum/species/skrell,/datum/species/shadow,/datum/species/shadowling,/datum/species/wryn)
 
 /obj/item/clothing/head/hooded/techpriest/biologis
 	name = "biologis hood"
@@ -1220,4 +1220,4 @@
 	item_state = "biologis"
 	body_parts_covered = HEAD
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 25, "fire" = 50, "acid" = 50)
-	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/drask,/datum/species/vulpkanin,/datum/species/unathi,/datum/species/tajaran,/datum/species/skrell,/datum/species/shadow,/datum/species/shadowling)
+	species_exception = list(/datum/species/golem,/datum/species/plasmaman,/datum/species/nucleation,/datum/species/diona,/datum/species/grey,/datum/species/vox,/datum/species/kidan,/datum/species/drask,/datum/species/vulpkanin,/datum/species/unathi,/datum/species/tajaran,/datum/species/skrell,/datum/species/shadow,/datum/species/shadowling,/datum/species/wryn)
