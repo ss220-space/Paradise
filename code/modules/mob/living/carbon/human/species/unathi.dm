@@ -45,7 +45,9 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
 		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
+		"eyes" =     /obj/item/organ/internal/eyes/unathi, //3 darksight.
+		"tongue" =     /obj/item/organ/internal/tongue/lizard,
+		"stomach" =     /obj/item/organ/internal/stomach/lizard
 		)
 
 	has_limbs = list(

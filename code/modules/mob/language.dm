@@ -258,6 +258,17 @@
 	flags = RESTRICTED
 	syllables = list("hs","zt","kr","st","sh")
 
+/datum/language/monkey
+	name = "Monkey"
+	desc = "Ook ook!"
+	speech_verb = "says"
+	ask_verb = "asks"
+	exclaim_verbs = list("rustles")
+	colour = "diona"
+	key = "q"
+	flags = RESTRICTED
+	syllables = list("ook")
+
 /datum/language/diona/get_random_name()
 	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of"))]"
 	new_name += " [pick(list("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum"))]"
@@ -268,7 +279,7 @@
 	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
 	speech_verb = "states"
 	ask_verb = "queries"
-	exclaim_verbs = list("exclaims")
+	exclaim_verbs = list("exclaims","announces")
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
@@ -404,6 +415,22 @@
 					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
 					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 
+/datum/language/gothic
+	name = "Gothic"
+	desc = "Maintained by the various noble houses in major monarchic and ex-monarchic systems and states, this elegant, structured language is used for ascended conversations between aristocrates."
+	speech_verb = "enunciates"
+	colour = "solcom"
+	key = "3"
+	space_chance = 100
+	syllables = list("alorem", "ipsumo", "dolor", "sitre", "amete", "consecteturo", "adipiscingo", "elit",
+					 "sede", "dor", "eiusmode", "tempora", "incididunto", "utre", "laboro", "etre", "dolore",
+					 "magnar", "aliquato", "ut", "enim", "adre", "minim", "veniamo", "quis", "nostrudo",
+					 "exercitation", "ullamcor", "laboris", "nisitre", "ut", "aliquipsum", "exire", "ea", "commodore",
+					 "consequatro", "duis", "aute", "irure", "dolor", "in", "reprehenderite", "in",
+					 "voluptateri", "velit", "essen", "cillumus", "dolore", "eu", "fugiati", "nullaratus",
+					 "pariatur", "excepteur", "sinteri", "occaecat", "cupidatat", "non", "proidente", "sunt",
+					 "in", "culpar", "qui", "officia", "officio", "deserunte", "mollitor", "malleus", "munitorum", "anima", "id", "est", "laborum")
+
 /datum/language/gutter
 	name = "Gutter"
 	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
@@ -411,7 +438,7 @@
 	ask_verb = "gnarls"
 	exclaim_verbs = list("snarls")
 	colour = "gutter"
-	key = "3"
+	key = "4"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 
 /datum/language/clown
@@ -424,9 +451,31 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
+/datum/language/nucleation
+	name = "Supercrystallic Dra'Zarang"
+	desc = "Simple cracking language of Nucleations, utilizing not so much sounds but also almost unhearable vibrations of their bodies, created under cultural influence of Drasks."
+	speech_verb = "crackles"
+	ask_verb = "creeks"
+	exclaim_verbs = list("cracks")
+	colour = "gutter"
+	key = "z"
+	flags = RESTRICTED
+	syllables = list("zing", "zong", "dring", "dreng", "zarang", "drang")
+
+/datum/language/plasmaman
+	name = "Boronic Jargon"
+	desc = "Simple chirping jargon of Plasmamen, utilizing not so much sounds but also almost unhearable vibrations of their gases and bones, created under cultural influence of Drasks and Nucleations."
+	speech_verb = "chirps"
+	ask_verb = "chitters"
+	exclaim_verbs = list("exclaims","yells")
+	colour = "gutter"
+	key = "zp"
+	flags = RESTRICTED
+	syllables = list("zing", "zong", "dring", "dreng", "zarang", "drang")
+
 /datum/language/com_srus
-	name = "Neo-Russkiya"
-	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
+	name = "Neo-Russian"
+	desc = "Neo-Russian, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
 	exclaim_verbs = list("exaggerates")
@@ -442,7 +491,7 @@
 					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
 					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod","yak","ce","sho","vzhe")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
@@ -585,7 +634,7 @@
 	..(speaker,message,speaker_mask)
 
 /datum/language/binary
-	name = "Robot Talk"
+	name = "Binary Sequence"
 	desc = "Most human stations support free-use communications protocols and routing hubs for synthetic use."
 	colour = "say_quote"
 	speech_verb = "states"
@@ -654,6 +703,26 @@
 	key = "db"
 	flags = RESTRICTED
 	follow = TRUE
+	syllables = list ("beep", "boop")
+
+/datum/language/linguatechnis
+	name = "Lingua Technis"
+	desc = "A religion-infused binary language, created by students of Martian Institute of Technologies."
+	speech_verb = "states"
+	ask_verb = "queries"
+	exclaim_verbs = list("exclaims","declares","announces")
+	key = "lt"
+	flags = RESTRICTED
+
+/datum/language/linguatechnis/noosphere
+	name = "Lingua Technis Noosphere Transmission"
+	desc = "A religion-infused binary language, created by students of Martian Institute of Technologies."
+	speech_verb = "states"
+	ask_verb = "queries"
+	exclaim_verbs = list("exclaims","declares","announces")
+	key = "ltn"
+	flags = RESTRICTED | HIVEMIND | NO_TALK_MSG | NO_STUTTER
+	follow = FALSE
 	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
@@ -735,7 +804,7 @@
 	else
 		return ..()
 
-/datum/language/human/monkey
+/datum/language/monkey
 	name = "Chimpanzee"
 	desc = "Ook ook ook."
 	speech_verb = "chimpers"

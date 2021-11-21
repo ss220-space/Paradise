@@ -64,6 +64,8 @@
 		"cortical stack" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
+		"stomach" =	/obj/item/organ/internal/stomach/vox,
+		"tongue" = /obj/item/organ/internal/tongue/vox
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	has_limbs = list(

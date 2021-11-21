@@ -52,7 +52,8 @@
 		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"tail" =   list("path" = /obj/item/organ/external/tail/monkey))
+		"tail" =   list("path" = /obj/item/organ/external/tail/monkey,
+		"tongue" = /obj/item/organ/internal/tongue/monkey))
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
@@ -86,6 +87,7 @@
 
 	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
+	language = "Monkey"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
@@ -97,7 +99,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
 		"brain" =    /obj/item/organ/internal/brain/tajaran,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		"tongue" = /obj/item/organ/internal/tongue/farwa
 		)
 
 	has_limbs = list(
@@ -124,6 +127,7 @@
 
 	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
+	language = "Monkey"
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
@@ -135,7 +139,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
 		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin, //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		"tongue" =	 /obj/item/organ/internal/tongue/wolpin
 		)
 
 	has_limbs = list(
@@ -161,6 +166,7 @@
 
 	greater_form = /datum/species/skrell
 	default_language = "Neara"
+	language = "Monkey"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
@@ -173,7 +179,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
 		"brain" =    /obj/item/organ/internal/brain/skrell,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		"eyes" =     /obj/item/organ/internal/eyes/skrell, //Skrell monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		"tongue" =	 /obj/item/organ/internal/tongue/neara
 		)
 /datum/species/monkey/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -193,6 +200,7 @@
 	tail = "stoktail"
 	greater_form = /datum/species/unathi
 	default_language = "Stok"
+	language = "Monkey"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
@@ -206,7 +214,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
 		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		"eyes" =     /obj/item/organ/internal/eyes/unathi,
+		"tongue" =	 /obj/item/organ/internal/tongue/stok
 		)
 
 	has_limbs = list(

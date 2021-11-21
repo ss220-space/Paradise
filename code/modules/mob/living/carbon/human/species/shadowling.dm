@@ -18,7 +18,8 @@
 
 	has_organ = list(
 		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes)
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"tongue" = /obj/item/organ/internal/tongue/)
 
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)

@@ -38,6 +38,7 @@
 		"is twisting their skull off!")
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
+		"lingual bone" =	/obj/item/organ/internal/tongue/bone,
 	) //Has default darksight of 2.
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)

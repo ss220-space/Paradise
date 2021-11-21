@@ -35,7 +35,9 @@
 		"liver" =    /obj/item/organ/internal/liver/plasmaman,
 		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
 		"brain" =    /obj/item/organ/internal/brain/plasmaman,
-		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
+		"eyes" =     /obj/item/organ/internal/eyes/plasmaman,
+		"stomach" =		/obj/item/organ/internal/stomach/plasmaman,
+		"lingual bone" =		/obj/item/organ/internal/tongue/bone/plasmaman
 		)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman

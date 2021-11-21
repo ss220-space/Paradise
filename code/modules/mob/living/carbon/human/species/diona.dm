@@ -42,7 +42,9 @@
 		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
 		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
+		"anchoring ligament" = /obj/item/organ/internal/appendix/diona,
+		"cortical communicator" = /obj/item/organ/internal/tongue/diona,
+		"digestive vacuole" = /obj/item/organ/internal/stomach/diona
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/diona

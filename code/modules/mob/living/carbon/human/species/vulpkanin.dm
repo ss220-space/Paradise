@@ -36,8 +36,11 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
 		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin,
+		"tongue" =	/obj/item/organ/internal/tongue/vulpkanin,
+		"stomach" =	/obj/item/organ/internal/stomach/vulpkanin, /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
+		"tongue" = /obj/item/organ/internal/tongue/vulpkanin
 		)
 
 	has_limbs = list(

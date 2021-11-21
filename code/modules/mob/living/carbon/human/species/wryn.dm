@@ -32,7 +32,10 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes/wryn, //3 darksight.
 		"appendix" = /obj/item/organ/internal/appendix,
-		"antennae" =    /obj/item/organ/internal/wryn/hivenode
+		"antennae" =    /obj/item/organ/internal/wryn/hivenode,
+		"proboscis" =	/obj/item/organ/internal/tongue/wryn,
+		"stomach" =		/obj/item/organ/internal/stomach/wryn,
+		"tongue" = /obj/item/organ/internal/tongue/wryn
 		)
 
 	has_limbs = list(

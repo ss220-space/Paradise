@@ -59,7 +59,9 @@
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
 		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
-		"brain" =  					/obj/item/organ/internal/brain/drask
+		"brain" =  					/obj/item/organ/internal/brain/drask,
+		"digestive matrix" =		/obj/item/organ/internal/stomach/drask,
+		"vocal resonator" =			/obj/item/organ/internal/tongue/drask
 		)
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)

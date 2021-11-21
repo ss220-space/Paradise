@@ -143,7 +143,9 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"tongue" =     /obj/item/organ/internal/tongue,
+		"stomach" =     /obj/item/organ/internal/stomach
 		)
 	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(

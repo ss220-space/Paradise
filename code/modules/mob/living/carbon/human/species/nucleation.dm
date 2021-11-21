@@ -13,7 +13,7 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_HUNGER, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
@@ -25,7 +25,8 @@
 		"heart" =    /obj/item/organ/internal/heart,
 		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
 		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
-		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
+		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal,
+		"gamma-electric resonator" = /obj/item/organ/internal/tongue/nucleation,
 		)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
