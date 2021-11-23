@@ -876,7 +876,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Заикание")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Шведский акцент")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Чавский акцент")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Лисп")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Шепелявость")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Головокружение")
 
 
