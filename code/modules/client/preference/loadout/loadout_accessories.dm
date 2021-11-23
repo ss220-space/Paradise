@@ -1,166 +1,166 @@
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
 	slot = slot_tie
-	sort_category = "Аксессуары"
+	sort_category = "Accessories"
 
 /datum/gear/accessory/scarf
-	display_name = "шарф"
+	display_name = "scarf"
 	path = /obj/item/clothing/accessory/scarf
 
 /datum/gear/accessory/scarf/red
-	display_name = "красный шарф"
+	display_name = "scarf, red"
 	path = /obj/item/clothing/accessory/scarf/red
 
 /datum/gear/accessory/scarf/green
-	display_name = "зелёный шарф"
+	display_name = "scarf, green"
 	path = /obj/item/clothing/accessory/scarf/green
 
 /datum/gear/accessory/scarf/darkblue
-	display_name = "тёмно-синий шарф"
+	display_name = "scarf, dark blue"
 	path = /obj/item/clothing/accessory/scarf/darkblue
 
 /datum/gear/accessory/scarf/purple
-	display_name = "фиолетовый шарф"
+	display_name = "scarf, purple"
 	path = /obj/item/clothing/accessory/scarf/purple
 
 /datum/gear/accessory/scarf/yellow
-	display_name = "желтый шарф"
+	display_name = "scarf, yellow"
 	path = /obj/item/clothing/accessory/scarf/yellow
 
 /datum/gear/accessory/scarf/orange
-	display_name = "оранжевый шарф"
+	display_name = "scarf, orange"
 	path = /obj/item/clothing/accessory/scarf/orange
 
 /datum/gear/accessory/scarf/lightblue
-	display_name = "голубой шарф"
+	display_name = "scarf, light blue"
 	path = /obj/item/clothing/accessory/scarf/lightblue
 
 /datum/gear/accessory/scarf/white
-	display_name = "белый шарф"
+	display_name = "scarf, white"
 	path = /obj/item/clothing/accessory/scarf/white
 
 /datum/gear/accessory/scarf/black
-	display_name = "чёрный шарф"
+	display_name = "scarf, black"
 	path = /obj/item/clothing/accessory/scarf/black
 
 /datum/gear/accessory/scarf/zebra
-	display_name = "полосатый шарф"
+	display_name = "scarf, zebra"
 	path = /obj/item/clothing/accessory/scarf/zebra
 
 /datum/gear/accessory/scarf/christmas
-	display_name = "новогодний шарф"
+	display_name = "scarf, christmas"
 	path = /obj/item/clothing/accessory/scarf/christmas
 
 /datum/gear/accessory/scarf/stripedred
-	display_name = "полосатый красный шарф"
+	display_name = "scarf, striped red"
 	path = /obj/item/clothing/accessory/stripedredscarf
 
 /datum/gear/accessory/scarf/stripedgreen
-	display_name = "полосатый зелёный шарф"
+	display_name = "scarf, striped green"
 	path = /obj/item/clothing/accessory/stripedgreenscarf
 
 /datum/gear/accessory/scarf/stripedblue
-	display_name = "полосатый синий шарф"
+	display_name = "scarf, striped blue"
 	path = /obj/item/clothing/accessory/stripedbluescarf
 
 /datum/gear/accessory/holobadge
-	display_name = "голозначок, булавка"
+	display_name = "holobadge, pin"
 	path = /obj/item/clothing/accessory/holobadge
-	allowed_roles = list("Глава службы безопасности", "Смотритель", "Детектив", "Офицер службы безопасности", "Пилот пода службы безопасности")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/accessory/holobadge_n
-	display_name = "голозначок, шнур"
+	display_name = "holobadge, cord"
 	path = /obj/item/clothing/accessory/holobadge/cord
-	allowed_roles = list("Глава службы безопасности", "Смотритель", "Детектив", "Офицер службы безопасности", "Пилот пода службы безопасности")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/accessory/tieblue
-	display_name = "синий галстук"
+	display_name = "tie, blue"
 	path = /obj/item/clothing/accessory/blue
 
 /datum/gear/accessory/tiered
-	display_name = "красный галстук"
+	display_name = "tie, red"
 	path = /obj/item/clothing/accessory/red
 
 /datum/gear/accessory/tieblack
-	display_name = "чёрный галстук"
+	display_name = "tie, black"
 	path = /obj/item/clothing/accessory/black
 
 /datum/gear/accessory/tiehorrible
-	display_name = "рвотно-зеленый галстук"
+	display_name = "tie, vomit green"
 	path = /obj/item/clothing/accessory/horrible
 
 /datum/gear/accessory/stethoscope
-	display_name = "стетоскоп"
+	display_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list("Медик брига", "Врач", "Парамедик", "Главный Врач")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
 
 /datum/gear/accessory/cowboyshirt
-	display_name = "черная ковбойская рубашка"
+	display_name = "cowboy shirt, black"
 	path = /obj/item/clothing/accessory/cowboyshirt
 
 /datum/gear/accessory/cowboyshirt/short_sleeved
-	display_name = "черная ковбойская рубашка с короткими рукавами"
+	display_name = "cowboy shirt, short sleeved black"
 	path = /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/white
-	display_name = "белая ковбойская рубашка"
+	display_name = "cowboy shirt, white"
 	path = /obj/item/clothing/accessory/cowboyshirt/white
 
 /datum/gear/accessory/cowboyshirt/white/short_sleeved
-	display_name = "белая ковбойская рубашка с короткими рукавами"
+	display_name = "cowboy shirt, short sleeved white"
 	path = /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/pink
-	display_name = "розовая ковбойская рубашка"
+	display_name = "cowboy shirt, pink"
 	path = /obj/item/clothing/accessory/cowboyshirt/pink
 
 /datum/gear/accessory/cowboyshirt/pink/short_sleeved
-	display_name = "розовая ковбойская рубашка с короткими рукавами"
+	display_name = "cowboy shirt, short sleeved pink"
 	path = /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/red
-	display_name = "красная ковбойская рубашка"
+	display_name = "cowboy shirt, red"
 	path = /obj/item/clothing/accessory/cowboyshirt/red
 
 /datum/gear/accessory/cowboyshirt/red/short_sleeved
-	display_name = "красная ковбойская рубашка с короткими рукавами"
+	display_name = "cowboy shirt, short sleeved red"
 	path = /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/navy
-	display_name = "морская ковбойская рубашка"
+	display_name = "cowboy shirt, navy"
 	path = /obj/item/clothing/accessory/cowboyshirt/navy
 
 /datum/gear/accessory/cowboyshirt/navy/short_sleeved
-	display_name = "морская ковбойская рубашка с короткими рукавами"
+	display_name = "cowboy shirt, short sleeved navy"
 	path = /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 
 /datum/gear/accessory/locket
-	display_name = "золотой медальон"
+	display_name = "gold locket"
 	path = /obj/item/clothing/accessory/necklace/locket
 
 /datum/gear/accessory/necklace
-	display_name = "простое ожерелье"
+	display_name = "simple necklace"
 	path = /obj/item/clothing/accessory/necklace
 
 /datum/gear/accessory/corset
-	display_name = "чёрный корсет"
+	display_name = "corset, black"
 	path = /obj/item/clothing/accessory/corset
 
 /datum/gear/accessory/corsetred
-	display_name = "красный корсет"
+	display_name = "corset, red"
 	path = /obj/item/clothing/accessory/corset/red
 
 /datum/gear/accessory/corsetblue
-	display_name = "синий корсет"
+	display_name = "corset, blue"
 	path = /obj/item/clothing/accessory/corset/blue
 
 
 /datum/gear/accessory/armband_red
-	display_name = "повязка"
+	display_name = "armband"
 	path = /obj/item/clothing/accessory/armband
 
 /datum/gear/accessory/armband_civ
-	display_name = "сине-желтая повязка"
+	display_name = "armband, blue-yellow"
 	path = /obj/item/clothing/accessory/armband/yb
 
 /datum/gear/accessory/armband_job
@@ -168,36 +168,36 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/accessory/armband_job/sec
-	display_name = "повязка службы безопасности"
+	display_name = " armband, security"
 	path = /obj/item/clothing/accessory/armband/sec
-	allowed_roles = list("Глава службы безопасности", "Смотритель", "Детектив", "Офицер службы безопасности", "Пилот пода службы безопасности")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Security Pod Pilot")
 
 /datum/gear/accessory/armband_job/cargo
-	display_name = "повязка карго"
+	display_name = "cargo armband"
 	path = /obj/item/clothing/accessory/armband/cargo
-	allowed_roles = list("Квартирмейстер","Грузчик", "Шахтер")
+	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner")
 
 /datum/gear/accessory/armband_job/medical
-	display_name = "медицинская повязка"
+	display_name = "armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list("Медик брига", "Врач", "Парамедик", "Главный Врач", "Патологоанатом")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic", "Brig Physician")
 
 /datum/gear/accessory/armband_job/emt
-	display_name = "повязка скорой помощи"
+	display_name = "armband, EMT"
 	path = /obj/item/clothing/accessory/armband/medgreen
-	allowed_roles = list("Парамедик", "Медик брига")
+	allowed_roles = list("Paramedic", "Brig Physician")
 
 /datum/gear/accessory/armband_job/engineering
-	display_name = "повязка инженера"
+	display_name = "armband, engineering"
 	path = /obj/item/clothing/accessory/armband/engine
-	allowed_roles = list("Главный инженер","Станционный инженер", "Атмосферный техник")
+	allowed_roles = list("Chief Engineer","Station Engineer", "Life Support Specialist")
 
 /datum/gear/accessory/armband_job/hydro
-	display_name = "повязка ботаника"
+	display_name = "armband, hydroponics"
 	path = /obj/item/clothing/accessory/armband/hydro
-	allowed_roles = list("Ботаник")
+	allowed_roles = list("Botanist")
 
 /datum/gear/accessory/armband_job/sci
-	display_name = "повязка ученых"
+	display_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
-	allowed_roles = list("Директор исследований","Учёный", "Робототехник")
+	allowed_roles = list("Research Director","Scientist", "Roboticist")

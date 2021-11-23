@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(total_cost < max_gear_slots)
 				fcolor = "#E67300"
 			dat += "<table align='center' width='100%'>"
-			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> потрачено очков.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Сбросить</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
@@ -546,7 +546,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
-					dat += "<font size=2>Требования: "
+					dat += "<font size=2>Restrictions: "
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
