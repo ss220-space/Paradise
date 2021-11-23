@@ -60,7 +60,7 @@
 	if(antags && antags.len)
 		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Кандидат на антагониста</A>"
 		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Кандидат на антагониста</A>"
-		output += "<br /><small>Вы <b>[client.skip_antag ? "не притендуете" : "притендуете"]</b> на роль антагониста.</small></p>"
+		output += "<br /><small>Вы <b>[client.skip_antag ? "не претендуете" : "претендуете"]</b> на роль антагониста.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Наблюдатель (Пожалуйста ожидайте...)</p>"
