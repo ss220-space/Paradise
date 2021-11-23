@@ -33,10 +33,10 @@
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
 	var/output = {"<meta charset="UTF-8">"} + GLOB.join_tos
-	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
-	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
+	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Согласен</A>"
+	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>НЕ согласен</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
-	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Privacy Consent</div>", 500, 400)
+	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Соглашение</div>", 500, 400)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
@@ -46,33 +46,33 @@
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-		real_name = "Random Character Slot"
-	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"}
+		real_name = "Случайный слот персонажа"
+	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Настройка персонажа</A><br /><i>[real_name]</i></p>"}
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Готов</A></p>"
+		else	output += "<p><b>Ждём начало раунда</b> (<a href='byond://?src=[UID()];ready=2'>Отмена</A>)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
-		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>Просмотреть состав экипажа</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Подключиться к игре!</A></p>"
 
 	var/list/antags = client.prefs.be_special
 	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Кандидат на антагониста</A>"
+		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Кандидат на антагониста</A>"
+		output += "<br /><small>Вы <b>[client.skip_antag ? "не притендуете" : "притендуете"]</b> на роль антагониста.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-		output += "<p>Observe (Please wait...)</p>"
+		output += "<p>Наблюдатель (Пожалуйста ожидайте...)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+		output += "<p><a href='byond://?src=[UID()];observe=1'>Наблюдатель</A></p>"
 
 	if(GLOB.join_tos)
-		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Правила игры</A></p>"
 
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>Главное меню</div>", 240, 330)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
