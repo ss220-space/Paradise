@@ -131,6 +131,11 @@
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
+/obj/item/reagent_containers/spray/cleaner/robo
+	name = "RoboCleaner"
+	desc = "Bzzzt-brand non-foaming space cleaner from MIT!"
+	list_reagents = list("cleaner" = 250)
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"

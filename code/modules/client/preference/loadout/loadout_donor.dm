@@ -77,6 +77,22 @@
 	donator_tier = 3
 	cost = 2
 
+/datum/gear/donor/biologis_robe
+	display_name = "Lilith Decima's Biologis Robe"
+	path = /obj/item/clothing/suit/hooded/techpriest/biologis
+	donator_tier = 2
+	cost = 1
+
+/datum/gear/donor/biologis_robe/decima
+	display_name = "Lilith Decima's Biologis Robe"
+	path = /obj/item/clothing/suit/hooded/techpriest/biologis/lilith
+	cost = 1
+
+/datum/gear/donor/mask/techpriest
+	display_name = "Techpriest Visage"
+	path = /obj/item/clothing/mask/gas/techpriest
+	cost = 1
+
 /datum/gear/donor/id_decal_prisoner
 	display_name = "Prisoner ID Decal"
 	path = /obj/item/id_decal/prisoner

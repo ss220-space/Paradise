@@ -41,6 +41,21 @@
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
+/obj/item/clothing/mask/gas/techpriest
+	name = "techpriest mask"
+	desc = "A gas mask with integrated reactive shielding. Looks neat, designed by MIT for it's students."
+	icon_state = "techpriest"
+	item_state = "techpriest"
+	flash_protect = 2
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10,"energy" = 10, "bomb" = 20, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
+	origin_tech = "materials=2;engineering=3"
+	actions_types = list(/datum/action/item_action/toggle)
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSEYES
+	flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	visor_flags_inv = HIDEEYES
+	resistance_flags = FIRE_PROOF
+
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
 	desc = "A military-grade gas mask that can be connected to an air supply."

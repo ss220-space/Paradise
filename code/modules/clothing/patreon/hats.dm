@@ -61,3 +61,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi'
 		)
+
+/obj/item/clothing/head/fluff/belkan
+	name = "TSF ace beret"
+	desc = "A black beret, decorated with triangular insignia of 2nd Solaris Fighter Squadron, worn by it's ace Damien Hawkins, known as Duke."
+	icon_state = "beret_belkan"
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	strip_delay = 60
+	resistance_flags = FIRE_PROOF
+	species_exception = list(/datum/species/golem,/datum/species/vox,/datum/species/skrell,/datum/species/tajaran,/datum/species/unathi,/datum/species/machine,/datum/species/vulpkanin,/datum/species/kidan,/datum/species/wryn,/datum/species/plasmaman,/datum/species/skeleton,/datum/species/shadow,/datum/species/shadow/ling,/datum/species/slime,/datum/species/grey,/datum/species/drask,/datum/species/diona,/datum/species/nucleation,)

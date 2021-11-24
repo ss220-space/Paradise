@@ -11,7 +11,9 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
-#include "_maps\cyberiad.dm"
+#include "_maps\delta.dm"
+#include "_maps\map_files\Delta\delta.dmm"
+#include "_maps\map_files\Delta\Lavaland.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1410,6 +1412,7 @@
 #include "code\modules\clothing\masks\miscellaneous.dm"
 #include "code\modules\clothing\patreon\glasses.dm"
 #include "code\modules\clothing\patreon\hats.dm"
+#include "code\modules\clothing\patreon\suits.dm"
 #include "code\modules\clothing\shoes\colour.dm"
 #include "code\modules\clothing\shoes\magboots.dm"
 #include "code\modules\clothing\shoes\miscellaneous.dm"

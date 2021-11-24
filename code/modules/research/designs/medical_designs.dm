@@ -312,6 +312,28 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/surgery
 	category = list("Medical")
 
+/datum/design/cyberimp_noosphere
+	name = "Vox-grate"
+	desc = "A special implant, designed to interface with organic races."
+	id = "ci-surgey"
+	req_tech = list("materials" = 3, "engineering" = 3, "biotech" = 3, "programming" = 3, "magnets" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	construction_time = 300
+	build_path = /obj/item/organ/internal/tongue/robot
+	category = list("Medical")
+
+/datum/design/cyberimp_noosphere
+	name = "Noosphere Transmitter"
+	desc = "A special transmitter, connected to the research communication network of MIT, named Noosphere."
+	id = "ci-surgey"
+	req_tech = list("materials" = 3, "engineering" = 3, "biotech" = 3, "programming" = 3, "magnets" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 500)
+	construction_time = 300
+	build_path = /obj/item/organ/internal/tongue/robot/mechanicus
+	category = list("Medical")
+
 /datum/design/cyberimp_toolset
 	name = "Toolset Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm."

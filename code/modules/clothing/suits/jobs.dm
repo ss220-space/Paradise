@@ -291,6 +291,21 @@
 	put_on_delay = 40
 	resistance_flags = NONE
 
+/obj/item/clothing/suit/overcoat/hos/commissar
+	name = "comissar's trenchcoat"
+	desc = "A reinforced trenchcoat, worn by the Head of Security. For boosting morale with style."
+	icon_state = "commissar"
+	item_state = "commissar"
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|ARMS
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	strip_delay = 120
+	put_on_delay = 40
+	resistance_flags = NONE
+	species_exception = list(/datum/species/golem,/datum/species/vox,/datum/species/skrell,/datum/species/tajaran,/datum/species/unathi,/datum/species/machine,/datum/species/vulpkanin,/datum/species/kidan,/datum/species/wryn,/datum/species/plasmaman,/datum/species/skeleton,/datum/species/shadow,/datum/species/shadow/ling,/datum/species/slime,/datum/species/grey,/datum/species/drask,/datum/species/diona,/datum/species/nucleation)
+
 //Head of Personnel
 /obj/item/clothing/suit/mantle/armor/head_of_personnel
 	name = "head of personnel's shawl"
@@ -380,3 +395,27 @@
 	item_state = "rdmantle"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/rad_laser)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 50, rad = 0, fire = 50, acid = 50)
+
+/obj/item/clothing/suit/hooded/techpriest
+	name = "techpriest robes"
+	desc = "For those who REALLY love their machines, designed by MIT."
+	icon_state = "techpriest"
+	item_state = "techpriest"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10,"energy" = 10, "bomb" = 20, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
+	hoodtype = /obj/item/clothing/head/hooded/techpriest
+	flags = THICKMATERIAL
+	resistance_flags = FIRE_PROOF
+	species_exception = list(/datum/species/golem,/datum/species/vox,/datum/species/tajaran,/datum/species/unathi,/datum/species/vulpkanin,/datum/species/kidan,/datum/species/wryn,/datum/species/plasmaman,/datum/species/skeleton,/datum/species/shadow,/datum/species/shadow/ling,/datum/species/grey,/datum/species/drask,/datum/species/diona,/datum/species/nucleation,)
+
+/obj/item/clothing/head/hooded/techpriest
+	name = "techpriest hood"
+	desc = "A hood for those who REALLY love their machines, designed by MIT."
+	icon_state = "techpriesthood"
+	item_state = "techpriesthood"
+	body_parts_covered = HEAD
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10,"energy" = 10, "bomb" = 20, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
+	flags = THICKMATERIAL
+	flags_inv = HIDEEARS
+	resistance_flags = FIRE_PROOF
+	species_exception = list(/datum/species/golem,/datum/species/vox,/datum/species/tajaran,/datum/species/unathi,/datum/species/vulpkanin,/datum/species/kidan,/datum/species/wryn,/datum/species/plasmaman,/datum/species/skeleton,/datum/species/shadow,/datum/species/shadow/ling,/datum/species/grey,/datum/species/drask,/datum/species/diona,/datum/species/nucleation,)

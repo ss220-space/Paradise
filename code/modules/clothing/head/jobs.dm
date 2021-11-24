@@ -112,6 +112,14 @@
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
 
+/obj/item/clothing/head/HoS/commissar
+	name = "comissar's cap"
+	desc = "A robust peaked cap of the Head of Security, for boosting morale with style."
+	icon_state = "commissar"
+	strip_delay = 120
+	species_exception = list(/datum/species/golem,/datum/species/vox,/datum/species/skrell,/datum/species/tajaran,/datum/species/unathi,/datum/species/machine,/datum/species/vulpkanin,/datum/species/kidan,/datum/species/wryn,/datum/species/plasmaman,/datum/species/skeleton,/datum/species/shadow,/datum/species/shadow/ling,/datum/species/slime,/datum/species/grey,/datum/species/drask,/datum/species/diona,/datum/species/nucleation,)
+	dog_fashion = /datum/dog_fashion/head/commissar
+
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
@@ -125,7 +133,7 @@
 	desc = "A red cap with an old-fashioned badge on the front for establishing that you are, in fact, the law."
 	icon_state = "customshelm"
 	item_state = "customshelm"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
