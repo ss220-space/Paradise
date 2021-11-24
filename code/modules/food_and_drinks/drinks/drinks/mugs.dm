@@ -12,6 +12,16 @@
 	desc = "A fun mug for your coffee or other hot beverage!"
 	novelty = TRUE
 
+/obj/item/reagent_containers/food/drinks/mug/aquila/white
+	name = "aquila mug"
+	desc = "White mug for your drinks with Holy Aquila on it's side, blessed by the Emperor of Mankind."
+	icon_state = "aquila_white"
+
+/obj/item/reagent_containers/food/drinks/mug/aquila/black
+	name = "aquila mug"
+	desc = "Black mug for your drinks with Holy Aquila on it's, blessed by the Emperor of Mankind."
+	icon_state = "aquila_black"
+
 /datum/novelty_mug
 	var/name = "novelty coffee mug"
 	var/description = "A fun mug for your coffee or other hot beverage!"

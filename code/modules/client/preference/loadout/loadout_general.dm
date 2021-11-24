@@ -159,6 +159,20 @@
 	cost = 2
 	sort_category = "Mugs"
 
+/datum/gear/aquila_mug/white
+	display_name = "white Aquila mug"
+	description = "A white mug with Holy Aquila on it's side. You'll need to supply your own beverage though."
+	path = /obj/item/reagent_containers/food/drinks/mug/aquila/white
+	cost = 1
+	sort_category = "Mugs"
+
+/datum/gear/aquila_mug/black
+	display_name = "black Aquila mug"
+	description = "A black mug with Holy Aquila on it's side. You'll need to supply your own beverage though."
+	path = /obj/item/reagent_containers/food/drinks/mug/aquila/black
+	cost = 1
+	sort_category = "Mugs"
+
 /datum/gear/mug/flask
 	display_name = "flask"
 	description = "A flask for drink transportation. You'll need to supply your own beverage though."
