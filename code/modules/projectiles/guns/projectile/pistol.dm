@@ -138,7 +138,7 @@
 	icon_state = "boltmag"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/caseless/bolter
-	caliber = ".50"
+	caliber = ".75"
 	max_ammo = 7
 	multiple_sprites = 2
 
@@ -147,7 +147,7 @@
 	desc = "A reactive-propelled shell that is typically loaded into Garm-pattern bolter pistols."
 	icon_state = ".50"
 	projectile_type = /obj/item/projectile/bullet/bolter
-	caliber = ".50"
+	caliber = ".75"
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
