@@ -1,7 +1,7 @@
 ﻿/obj/item/gun/projectile/automatic/flamer
         name = "\improper grimdark flamethrower"
         desc = "A brutal flamer, used by ERT inquisitors and xenophobic terroristic groups."
-        icon_state = "flamer"
+        icon_state = "flamethrower"
         item_state = "flamethrower"
         w_class = WEIGHT_CLASS_NORMAL
         origin_tech = "combat=4;materials=2;illegal=3"
