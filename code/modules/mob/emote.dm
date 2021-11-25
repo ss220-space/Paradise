@@ -188,7 +188,7 @@
 					continue
 				if(!M.has_vision(information_only=TRUE))
 					continue
-				to_chat(src, message)
+				to_chat(M, message)
 				if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 					M.create_chat_message(src, input, FALSE, TRUE, TRUE)
 			return 1
@@ -198,13 +198,14 @@
 					continue
 				if(!M.can_hear())
 					continue
-				if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
-					to_chat(src, "<I>... You can almost hear something ...</I>")
+				if(M.stat == UNCONSCIOUS || (M.sleeping > 0 && M.stat != DEAD))
+					to_chat(M, "<I>... You can almost hear something ...</I>")
 				else
-					to_chat(src, message)
+					to_chat(M, message)
 					if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 						M.create_chat_message(src, input, FALSE, TRUE, TRUE)
 
+			// Gives the ability to be heard by atoms(For example: recorder)
 			// based on say code
 			var/list/listening_obj = new
 			for(var/atom/movable/A in view(7, src))
