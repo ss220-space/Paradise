@@ -169,6 +169,18 @@
 
 	log_emote(message, src)
 
+	// Coloring text for runechat
+	var/speaker_name = src.name
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		speaker_name = H.GetVoice()
+
+	if(isobserver(src))
+		if(speaker_name != src.real_name && src.real_name)
+			speaker_name = "[src.real_name] ([speaker_name])"
+
+	colorize_name(src, speaker_name)
+
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!M.client)
 			continue //skip monkeys and leavers
