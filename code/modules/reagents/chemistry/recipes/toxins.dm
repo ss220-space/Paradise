@@ -8,7 +8,7 @@
 	mix_message = "Ugh, it smells like the morgue in here."
 
 /datum/chemical_reaction/neurotoxin2
-	name = "neurotoxin2"
+    name = "neurotoxin2"
 	id = "neurotoxin2"
 	result = "neurotoxin2"
 	required_reagents = list("space_drugs" = 1)
@@ -16,6 +16,17 @@
 	min_temp = T0C + 400
 	mix_sound = null
 	mix_message = null
+
+/datum/chemical_reaction/tea2
+    name = "tea2"
+    id = "tea2"
+    result = "tea2"
+    required_reagents = list("tea" = 1, "polonium" = 1, "vodka" = 1)
+    result_amount = 3
+    mix_sound = null
+    mix_message = null
+// I fucking hate coding on my tablet via Github.com
+// By the way, I probably should make Ukrainian analog of Vodka.
 
 /datum/chemical_reaction/cyanide
 	name = "Cyanide"
