@@ -58,10 +58,10 @@
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 
 /obj/item/gun/rclrifle
-    name = "84-mm Karl recoilless rifle"
+    name = "84-mm SRR-84 Karl recoilless rifle"
     desc = "Guten tag, untermenschen.
-    icon_state = "rocket"
-	item_state = "rocket"
+    icon_state = "karl"
+	item_state = "karl"
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 10
@@ -101,4 +101,4 @@
 		rockets -= I
 		qdel(I)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, "<span class='warning'>Nicht munitionen!.</span>")
