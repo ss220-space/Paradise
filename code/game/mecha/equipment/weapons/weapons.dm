@@ -333,7 +333,6 @@
         projectiles_per_shot = 6
         projectile = /obj/item/projectile/bullet/bolter
         projectile_delay = 5
-        fire_sound = 'sound/weapons/gunshots/bolter.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
