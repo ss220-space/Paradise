@@ -364,6 +364,15 @@
 	name = "SRX-13 Heavy Missile Launcher"
 	heavy_missile = 1
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/ontos
+        name = "SPR-84 Recoilless Rifle"
+        desc = "Auf wiedersein, Nanotrasen!"
+        icon_state = "mecha_grenadelnchr"
+        projectile = /obj/item/rshell/heat
+        projectiles = 1
+        projectile_energy_cost = 500
+        missile_speed = 4
+
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
