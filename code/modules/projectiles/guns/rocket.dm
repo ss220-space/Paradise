@@ -57,7 +57,7 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 
-/obj/item/gun/rrkarl
+/obj/item/gun/rclrifle
     name = "84-mm Karl recoilless rifle"
     desc = "Guten tag, untermenschen.
     icon_state = "rocket"
