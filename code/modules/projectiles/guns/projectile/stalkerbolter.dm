@@ -22,7 +22,7 @@
         icon_state = ".50mag"
         origin_tech = "combat=6"
         ammo_type = /obj/item/ammo_casing/caseless/bolter/sniper
-        max_ammo = 6
+        max_ammo = 1
         caliber = ".80"
 
 
