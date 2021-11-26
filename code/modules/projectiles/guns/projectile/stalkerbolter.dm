@@ -36,8 +36,8 @@
         muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 /obj/item/projectile/bullet/bolter/sniper
         damage = 90
-        stun = 6.5
-        weaken = 7.5
+        stun = 1.5
+        weaken = 3
         dismemberment = 50
         armour_penetration = 80
         var/breakthings = TRUE
