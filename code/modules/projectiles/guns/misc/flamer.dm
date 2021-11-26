@@ -41,14 +41,14 @@
 
 /obj/item/ammo_box/magazine/flamer
         name = "flamer fuel tank"
-        icon_state = "flamer"
+        icon_state = ".50"
         ammo_type = /obj/item/ammo_casing/flamer
         max_ammo = 20
         multiple_sprites = 0
         caliber = "flamer"
 
 
-/obj/item/ammo_casing/caseless/bolter
+/obj/item/ammo_casing/caseless/flamer
         name = "flamer casing"
         desc = "You aren't supposed to see this thing. Please, put it back into a fuel tank under risk of timeline eradication."
         icon_state = ".50"
