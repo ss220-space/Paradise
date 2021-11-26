@@ -32,7 +32,7 @@
 
 /obj/mecha/combat/leman/loaded/New()
         ..()
-        var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/bolter
+        var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/bolter
         ME.attach(src)
         ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/ontos
         ME.attach(src)
