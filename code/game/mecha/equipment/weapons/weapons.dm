@@ -333,6 +333,7 @@
         projectiles_per_shot = 6
         projectile = /obj/item/projectile/bullet/bolter
         projectile_delay = 5
+        fire_sound = 'sound/weapons/gunshots/harbringer.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
@@ -378,6 +379,7 @@
         projectiles = 1
         projectile_energy_cost = 500
         missile_speed = 4
+		fire_sound = 'sound/weapons/gunshots/tank.ogg'
 
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
