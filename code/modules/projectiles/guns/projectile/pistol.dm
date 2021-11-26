@@ -158,8 +158,8 @@
 	damage = 75
 	stun = 5
 	weaken = 5
-	dismemberment = 40
-	armour_penetration = 50
+	dismemberment = 20
+	armour_penetration = 35
 	var/breakthings = TRUE
 
 /obj/item/projectile/bullet/bolter/on_hit(atom/target, blocked = 0, hit_zone)
