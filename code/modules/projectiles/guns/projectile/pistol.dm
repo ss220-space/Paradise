@@ -130,6 +130,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/boltmag
+	fire_sound = 'sound/weapons/gunshots/harbringer.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.
 	can_suppress = 0
 	fire_delay = 15
 
