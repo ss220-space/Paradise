@@ -328,7 +328,7 @@
 	name = "XMG-9 Autocannon"
 	projectiles_per_shot = 6
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/bolter
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/bolter
         name = "BMG-50 Assault Bolter"
         projectiles_per_shot = 6
         projectile = /obj/item/projectile/bullet/bolter
