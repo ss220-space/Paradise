@@ -155,12 +155,11 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/projectile/bullet/bolter
-	damage = 75
-	stun = 1.5
-	weaken = 1.5
-	dismemberment = 20
-	armour_penetration = 35
-	var/breakthings = TRUE
+    damage = 75
+    dismemberment = 20
+    armour_penetration = 35
+    var/breakthings = TRUE
+
 
 /obj/item/projectile/bullet/bolter/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
