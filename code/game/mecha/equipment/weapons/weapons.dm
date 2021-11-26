@@ -330,7 +330,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/bolter
         name = "BMG-50 Assault Bolter"
-        projectiles_per_shot = 6
+        projectiles_per_shot = 3
         projectile = /obj/item/projectile/bullet/bolter
         projectile_delay = 5
         fire_sound = 'sound/weapons/gunshots/harbringer.ogg'
