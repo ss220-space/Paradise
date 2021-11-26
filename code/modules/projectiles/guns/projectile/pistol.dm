@@ -156,8 +156,8 @@
 
 /obj/item/projectile/bullet/bolter
 	damage = 75
-	stun = 5
-	weaken = 5
+	stun = 1.5
+	weaken = 1.5
 	dismemberment = 20
 	armour_penetration = 35
 	var/breakthings = TRUE
