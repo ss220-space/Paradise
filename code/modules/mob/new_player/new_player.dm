@@ -586,7 +586,14 @@
 	close_spawn_windows()
 
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc)
+	// TODO: Do it properly
+	var/training = TRUE;
+	var/mob/living/carbon/human/new_character
+	if(training)
+		new_character = new /mob/living/carbon/human/human_training (loc)
+	else
+		new_character = new(loc)
+
 	new_character.lastarea = get_area(loc)
 
 	if(SSticker.random_players || appearance_isbanned(new_character))
