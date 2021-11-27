@@ -4,7 +4,7 @@
         icon_state = "sniper"
         item_state = "sniper"
         recoil = 3.5
-        fire_sound = 'sound/weapons/gunshots/harbringer.ogg'
+        fire_sound = 'sound/effects/harbinger.ogg'
         zoomable = TRUE
         zoom_amt = 10
         weapon_weight = WEAPON_HEAVY

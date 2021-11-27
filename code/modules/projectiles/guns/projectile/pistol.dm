@@ -130,7 +130,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/bolter
-	fire_sound = 'sound/effects/harbringer.ogg'
+	fire_sound = 'sound/effects/harbinger.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = 0
