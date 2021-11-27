@@ -56,6 +56,7 @@
 		qdel(I)
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+<<<<<<< HEAD
 
 /obj/item/gun/rclrifle
     name = "84-mm SRR-84 Karl recoilless rifle"
@@ -102,3 +103,5 @@
 		qdel(I)
 	else
 		to_chat(user, "<span class='warning'>Nicht munitionen!.</span>")
+=======
+>>>>>>> parent of 579e04eafc (Recoilless Rifle)
