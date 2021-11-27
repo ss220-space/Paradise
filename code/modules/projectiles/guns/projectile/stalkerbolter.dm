@@ -1,4 +1,4 @@
-﻿/obj/item/gun/projectile/automatic/stalker_bolter
+/obj/item/gun/projectile/automatic/stalker_bolter
         name = "Stalker-pattern bolter"
         desc = "A powerful long-range bolter, used as a sniper weapon."
         icon_state = "sniper"
@@ -40,7 +40,7 @@
         weaken = 1.5
         dismemberment = 65
         armour_penetration = 60
-        var/breakthings = TRUE
+        breakthings = TRUE
 /obj/item/projectile/bullet/bolter/sniper/on_hit(atom/target, blocked = 0, hit_zone)
         if((blocked != 100) && (!ismob(target) && breakthings))
                 target.ex_act(rand(1,2))

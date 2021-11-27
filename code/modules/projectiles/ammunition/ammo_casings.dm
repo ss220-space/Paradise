@@ -336,6 +336,15 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/rshell
+	name = "84mm shell"
+	desc = "A HEAT shell designed to be fired from a recoilless rifle."
+	icon_state = "rclshell"
+	projectile_type = /obj/item/missile
+	caliber = "84mm"
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 

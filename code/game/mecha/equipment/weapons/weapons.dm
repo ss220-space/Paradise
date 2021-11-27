@@ -333,7 +333,7 @@
         projectiles_per_shot = 3
         projectile = /obj/item/projectile/bullet/bolter
         projectile_delay = 5
-        fire_sound = 'sound/weapons/gunshots/harbringer.ogg'
+        fire_sound = 'sound/effects/harbringer.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
@@ -371,15 +371,15 @@
 	name = "SRX-13 Heavy Missile Launcher"
 	heavy_missile = 1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/ontos
+obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/ontos
         name = "SPR-84 Recoilless Rifle"
         desc = "Auf wiedersein, Nanotrasen!"
         icon_state = "mecha_grenadelnchr"
-        projectile = /obj/item/rshell/heat
+        projectile = /obj/item/missile
         projectiles = 1
         projectile_energy_cost = 500
         missile_speed = 4
-		fire_sound = 'sound/weapons/gunshots/tank.ogg'
+        fire_sound = 'sound/effects/bang.ogg'
 
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
