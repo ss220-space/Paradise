@@ -130,6 +130,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/boltmag
+	fire_sound = 'sound/weapons/gunshots/harbringer.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.
 	can_suppress = 0
 	fire_delay = 15
 
@@ -138,7 +141,7 @@
 	icon_state = "boltmag"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/caseless/bolter
-	caliber = ".50"
+	caliber = ".78"
 	max_ammo = 7
 	multiple_sprites = 2
 
@@ -147,17 +150,16 @@
 	desc = "A reactive-propelled shell that is typically loaded into Garm-pattern bolter pistols."
 	icon_state = ".50"
 	projectile_type = /obj/item/projectile/bullet/bolter
-	caliber = ".50"
+	caliber = ".78"
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/projectile/bullet/bolter
-	damage = 40
-	stun = 5
-	weaken = 5
-	dismemberment = 25
-	armour_penetration = 50
-	var/breakthings = TRUE
+    damage = 75
+    dismemberment = 20
+    armour_penetration = 35
+    var/breakthings = TRUE
+
 
 /obj/item/projectile/bullet/bolter/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))

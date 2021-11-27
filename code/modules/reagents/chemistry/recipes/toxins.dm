@@ -17,6 +17,16 @@
 	mix_sound = null
 	mix_message = null
 
+/datum/chemical_reaction/tea2
+    name = "tea2"
+    id = "tea2"
+    result = "tea2"
+    required_reagents = list("tea" = 1, "polonium" = 1, "vodka" = 1)
+    result_amount = 3
+    min_temp = T0C + 500
+    mix_sound = null
+    mix_message = null
+
 /datum/chemical_reaction/cyanide
 	name = "Cyanide"
 	id = "cyanide"

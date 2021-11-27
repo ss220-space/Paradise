@@ -56,3 +56,49 @@
 		qdel(I)
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+
+/obj/item/gun/rclrifle
+    name = "84-mm SRR-84 Karl recoilless rifle"
+    desc = "Guten tag, untermenschen.
+    icon_state = "karl"
+	item_state = "karl"
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 2
+	throw_range = 10
+	force = 5.0
+	flags = CONDUCT
+	origin_tech = "combat=6"
+	var/missile_speed = 4
+	var/missile_range = 30
+	var/max_rockets = 1
+	var/list/rockets = new/list()
+
+    /obj/item/gun/rclrifle/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_casing/rocket/rshell))
+		if(rockets.len < max_rockets)
+			user.drop_item()
+			I.loc = src
+			rockets += I
+			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
+			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] cannot hold more rockets.</span>")
+	else
+		return ..()
+
+/obj/item/gun/rclrifle/can_shoot()
+	return rockets.len
+
+/obj/item/gun/rclrifle/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
+	if(rockets.len)
+		var/obj/item/ammo_casing/rocket/I = rockets[1]
+		var/obj/item/rshell/M = new /obj/item/rshell(user.loc)
+		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
+		M.primed = 1
+		M.throw_at(target, missile_range, missile_speed, user, 1)
+		message_admins("[key_name_admin(user)] fired a shell from a recoilless rifle ([name]).")
+		log_game("[key_name_admin(user)] used a recoilless rifle ([name]).")
+		rockets -= I
+		qdel(I)
+	else
+		to_chat(user, "<span class='warning'>Nicht munitionen!.</span>")

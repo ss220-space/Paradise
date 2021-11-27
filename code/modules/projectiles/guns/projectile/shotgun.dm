@@ -293,6 +293,56 @@
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
 	qdel(src)
 
+/obj/item/gun/projectile/shotgun/boltaction/antifur
+    name = "Vulpkanin's Death"
+    desc = "When those furries get really annoying."
+    icon_state = "ishotgun-sawn"
+    item_state = "moistnugget"
+    can_bayonet = FALSE
+    fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+    mag_type = /obj/item/ammo_box/magazine/internal/boltaction/antifur
+
+/obj/item/gun/projectile/shotgun/boltaction/antifur/pump(mob/M)
+    playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
+    if(bolt_open)
+        pump_reload(M)
+    else
+        pump_unload(M)
+    bolt_open = !bolt_open
+    update_icon()    //I.E. fix the desc
+    return 1
+
+/obj/item/gun/projectile/shotgun/boltaction/antifur/attackby(obj/item/A, mob/user, params)
+    if(!bolt_open)
+        to_chat(user, "<span class='notice'>The bolt is closed!</span>")
+        return
+    . = ..()
+
+/obj/item/gun/projectile/shotgun/boltaction/antifur/examine(mob/user)
+    . = ..()
+    . += "The bolt is [bolt_open ? "open" : "closed"]."
+
+/obj/item/ammo_box/magazine/internal/boltaction/antifur
+    name = "antifurry bolt action rifle internal magazine"
+    desc = "Oh god, this shouldn't be here"
+    ammo_type = /obj/item/ammo_casing/antifur
+    caliber = "antifurry"
+    max_ammo = 5
+    multiload = 1
+
+/obj/item/ammo_casing/antifur
+    desc = "A bullet casing of special anti-xenos design."
+    icon_state = ".50"
+    caliber = "antifurry"
+    projectile_type = /obj/item/projectile/bullet/antifur
+    muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+    muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+
+/obj/item/projectile/bullet/antifur
+    damage = 100
+    weaken = 5
+    armour_penetration = 50
+
 // Automatic Shotguns//
 
 /obj/item/gun/projectile/shotgun/automatic

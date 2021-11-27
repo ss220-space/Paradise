@@ -474,6 +474,29 @@
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
 	return ..()
+	
+/datum/reagent/poloniumtea
+    name = "Tea"
+    id = "tea2"
+    description = "Mixed with tea and alcohol, polonium amplifies it's natural properties"
+    reagent_state =LIQUID
+    color = "#101000"
+    adj_dizzy = -2
+	adj_drowsy = -1
+	adj_sleepy = -3
+	adj_temp_hot = 20
+	addiction_chance = 1
+	addiction_chance_additional = 1
+	addiction_threshold = 10
+	minor_addiction = TRUE
+	drink_icon = "glass_brown"
+	drink_name = "Glass of Tea"
+	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
+	taste_description = "tea"
+	
+/datum/reagent/poloniumtea/on_mob_life(mob/living/M)
+    M.apply_effect(20, IRRADIATE, negate_armor = 1)
+    return ..()
 
 /datum/reagent/histamine
 	name = "Histamine"
