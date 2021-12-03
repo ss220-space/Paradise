@@ -1,26 +1,20 @@
 /mob/living/carbon/human/proc/monkeyize()
-	var/mob/H = src
-
-	if (!H.dna.GetSEState(GLOB.monkeyblock)) // Monkey block NOT present.
-		H.dna.SetSEState(GLOB.monkeyblock,1)
-		genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
+	if (!dna.GetSEState(GLOB.monkeyblock)) // Monkey block NOT present.
+		dna.SetSEState(GLOB.monkeyblock,1)
+		genemutcheck(src,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/living/carbon/human/proc/is_monkeyized()
-	var/mob/H = src
-	if (H.dna.GetSEState(GLOB.monkeyblock))
+	if (dna.GetSEState(GLOB.monkeyblock))
 		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/proc/humanize()
-	var/mob/H = src
-
-	if (H.dna.GetSEState(GLOB.monkeyblock)) // Monkey block present.
-		H.dna.SetSEState(GLOB.monkeyblock,0)
-		genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
+	if (dna.GetSEState(GLOB.monkeyblock)) // Monkey block present.
+		dna.SetSEState(GLOB.monkeyblock,0)
+		genemutcheck(src,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/living/carbon/human/proc/is_humanized()
-	var/mob/H = src
-	if (H.dna.GetSEState(GLOB.monkeyblock))
+	if (dna.GetSEState(GLOB.monkeyblock))
 		return FALSE
 	return TRUE
 
