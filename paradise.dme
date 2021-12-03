@@ -11,7 +11,11 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
-#include "_maps\cyberiad.dm"
+#include "_maps\training.dm"
+#include "_maps\map_files\cyberiad\z2.dmm"
+#include "_maps\map_files\generic\Lavaland.dmm"
+#include "_maps\map_files\generic\space.dmm"
+#include "_maps\map_files\training\training2.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1167,6 +1171,7 @@
 #include "code\game\objects\structures\transit_tubes\station.dm"
 #include "code\game\objects\structures\transit_tubes\transit_tube.dm"
 #include "code\game\objects\structures\transit_tubes\transit_tube_pod.dm"
+#include "code\game\objects\training\basic_tasks.dm"
 #include "code\game\objects\training\training_master.dm"
 #include "code\game\turfs\simulated.dm"
 #include "code\game\turfs\turf.dm"
@@ -1706,6 +1711,7 @@
 #include "code\modules\map_fluff\delta.dm"
 #include "code\modules\map_fluff\maps.dm"
 #include "code\modules\map_fluff\metastation.dm"
+#include "code\modules\map_fluff\training.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
 #include "code\modules\martial_arts\cqc.dm"

@@ -363,9 +363,12 @@
 		alert(msg)
 		return FALSE
 
-	SSjobs.AssignRole(src, rank, 1)
+	// SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	qdel(src)
+	return;
+
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
