@@ -4,9 +4,7 @@
 		genemutcheck(src,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/living/carbon/human/proc/is_monkeyized()
-	if (dna.GetSEState(GLOB.monkeyblock))
-		return TRUE
-	return FALSE
+	return dna.GetSEState(GLOB.monkeyblock)
 
 /mob/living/carbon/human/proc/humanize()
 	if (dna.GetSEState(GLOB.monkeyblock)) // Monkey block present.
@@ -14,9 +12,7 @@
 		genemutcheck(src,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/living/carbon/human/proc/is_humanized()
-	if (dna.GetSEState(GLOB.monkeyblock))
-		return FALSE
-	return TRUE
+	return !dna.GetSEState(GLOB.monkeyblock)
 
 /mob/new_player/AIize()
 	spawning = 1
