@@ -236,19 +236,17 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	orderNum = rand(1,9000)
 
 /datum/syndie_data_storage/Destroy(force)
-	if(force)
-		GLOB.data_storages -= src
-		linked_pads = null
-		receiving_pads = null
-		shoppinglist = null
-		syndie_supply_packs = null
-		discoveredPlants = null
-		techLevels = null
-		researchDesigns = null
-		..()
-		. = QDEL_HINT_HARDDEL_NOW
-	else
+	if(!force)
 		return QDEL_HINT_LETMELIVE
+	GLOB.data_storages -= src
+	linked_pads = null
+	receiving_pads = null
+	shoppinglist = null
+	syndie_supply_packs = null
+	discoveredPlants = null
+	techLevels = null
+	researchDesigns = null
+	return ..()
 /***************************
     Консоль заказов синдикарго
  **************************/

@@ -77,8 +77,9 @@
 		S?.sync()
 
 /obj/machinery/syndiepad/proc/LocateDataStorage()
+	var/area/src_area = get_area(src)
 	for(var/obj/machinery/computer/syndie_supplycomp/SC in GLOB.syndie_cargo_consoles)
-		if(get_area(SC) != get_area(src))
+		if(get_area(SC) != src_area)
 			continue
 		var/datum/syndie_data_storage/S = SC.data_storage
 		return S
