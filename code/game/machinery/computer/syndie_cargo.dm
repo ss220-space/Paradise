@@ -193,6 +193,7 @@
 			telepads_status = "Pads ready"
 			is_cooldown = FALSE
 		return wait_time
+	return 0
 
 
 /obj/effect/abstract/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
@@ -315,7 +316,7 @@
 			if(MA.anchored)
 				continue
 			var/mob/MB = get_mob_in_atom_without_warning(MA)
-			if(!MB || MB.stat || istype(MA, /mob/living)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
+			if(MB?.stat || istype(MA, /mob/living)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
 				continue
 			if(istype(MA,/obj/structure/closet/crate/syndicate) || istype(MA,/obj/structure/closet/crate/secure/syndicate))
 				++crate_count
@@ -675,7 +676,7 @@
 			var/datum/browser/bmmsg_browser = new(usr, "ccmsg", "Black Market Cargo Message Log", 800, 600)
 			bmmsg_browser.set_content(data_storage.blackmarket_message)
 			bmmsg_browser.open()
-		if("add_money")
+		if("add_money") //Admin button. Used to reward or tax cargo with the money.
 			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
 			data_storage.cash += money2add
 			if(money2add > 0)
