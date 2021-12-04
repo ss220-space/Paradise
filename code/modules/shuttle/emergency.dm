@@ -62,7 +62,7 @@
 
 			if("Abort")
 				if(authorized.len)
-					GLOB.minor_announcement.Announce("Все разрещения на досрочный запуск шаттла были отозваны.")
+					GLOB.minor_announcement.Announce("Все авторизации на досрочный запуск шаттла были отозваны.")
 					authorized.Cut()
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
