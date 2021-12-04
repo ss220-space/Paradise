@@ -166,7 +166,9 @@
 	linked_pads = list() 	// Обнуление на случай повторной синхронизации.
 	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
 	pads_cooldown = 0
-	for(var/obj/machinery/syndiepad/P in cargoarea)
+	for(var/obj/machinery/syndiepad/P in GLOB.syndiepads)
+		if(get_area(P) != cargoarea)
+			continue
 		if(P.receive && P.console_link)
 			pads_cooldown += P.teleport_cooldown
 			P.id = "syndie_cargo_receive" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
@@ -181,7 +183,8 @@
 	if (length(receiving_pads) && length(linked_pads))
 		telepads_status = "Pads ready"
 	else
-		to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
+		if(usr) //Во избежание рантаймов по to_chat при автоматической раундстарт синхронизации синдипадов
+			to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
 		telepads_status = "Pads not linked!"
 
 /obj/effect/abstract/syndie_data_storage/proc/cooldown()
