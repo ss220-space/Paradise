@@ -387,7 +387,8 @@
 							ACCESS_SYNDICATE_SCIENTIST,
 							ACCESS_SYNDICATE_CARGO,
 							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_ENGINE)
+							ACCESS_SYNDICATE_ENGINE,
+							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "commander"
 
 /obj/item/card/id/syndicate/research_director

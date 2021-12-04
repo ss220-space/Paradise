@@ -7,8 +7,8 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 	info += "<B>Синдикат предоставил вам следующие кодовые слова, чтобы определять потенциальных агентов на станции:</B><BR>\n"
-	info += "<B>Кодовые слова:</B>[phrases]<BR>\n"
-	info += "<B>Кодовые ответы:</B>[responses]<BR>\n"
+	info += "<B>Кодовые слова: </B>[phrases]<BR>\n"
+	info += "<B>Кодовые ответы: </B>[responses]<BR>\n"
 	info += "Используйте слова при общении с потенциальными агентами. В тоже время будьте осторожны, ибо кто угодно может оказаться потенциальным врагом."
 	info_links = info
 	overlays += "paper_words"

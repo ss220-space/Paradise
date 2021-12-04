@@ -1,3 +1,5 @@
+GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage datums
+
 /********************
     SUPPLY ORDER //доработать
  ********************/
@@ -33,7 +35,7 @@
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/obj/effect/abstract/syndie_data_storage/data_storage) // тут код создающий ящики
+/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/datum/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
@@ -115,21 +117,26 @@
 
 
 /***************************
-    Хранилище данных. Ставится в ту же зону что и консоли.
+    Хранилище данных.
 	Консоли её находят и используют как сервер для снхронизации данных.
-	Этот обьект не видно в игре
 	Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку "Link pads"
 	Такой подход позволяет игрокам построить собственное синдикарго
  **************************/
-/obj/effect/abstract/syndie_data_storage
+/datum/syndie_data_storage
+
+/****************************
+Код со времён когда этот обьект был абстрактным эффектом вместо датума, оставлен на всякий случай.
+
 	layer = TURF_LAYER
 	density = FALSE
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = null
 	invisibility = INVISIBILITY_ABSTRACT
 	desc = "This shit has the data for the syndie cargo consoles, so it can be synchronized between them, they don't function normally without it"
+***************************/
 
 	/// Available money amount
+	var/area/cargoarea
 	var/cash = 5000
 	var/cash_per_slip = 20			//points gained per slip returned
 	var/cash_per_crate = 50			//points gained per crate returned
@@ -161,8 +168,7 @@
 	var/list/researchDesigns = list()
 	var/sold_atoms = ""
 
-/obj/effect/abstract/syndie_data_storage/proc/sync()
-	var/area/syndicate/unpowered/syndicate_space_base/cargo/cargoarea = get_area(src)
+/datum/syndie_data_storage/proc/sync()
 	linked_pads = list() 	// Обнуление на случай повторной синхронизации.
 	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
 	pads_cooldown = 0
@@ -187,7 +193,7 @@
 			to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
 		telepads_status = "Pads not linked!"
 
-/obj/effect/abstract/syndie_data_storage/proc/cooldown()
+/datum/syndie_data_storage/proc/cooldown()
 	if(is_cooldown)
 		telepads_status = "Pads on cooldown"
 		wait_time = round((last_teleport + pads_cooldown - world.time) / 10)
@@ -199,7 +205,7 @@
 	return 0
 
 
-/obj/effect/abstract/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
+/datum/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
 		return
 	var/datum/syndie_supply_packs/SP = locateUID(packId)
@@ -219,11 +225,8 @@
 
 	return O
 
-/obj/effect/abstract/syndie_data_storage/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/effect/abstract/syndie_data_storage/LateInitialize()
+/datum/syndie_data_storage/proc/DataStorageInitialize() //Вызывать сразу после создания хранилища данных
+	GLOB.data_storages += src
 	for(var/typepath in subtypesof(/datum/syndie_supply_packs))
 		var/datum/syndie_supply_packs/SP = typepath
 		if(initial(SP.name) == "HEADER")		// To filter out group headers
@@ -232,6 +235,20 @@
 	sync()
 	orderNum = rand(1,9000)
 
+/datum/syndie_data_storage/Destroy(force)
+	if(force)
+		GLOB.data_storages -= src
+		linked_pads = null
+		receiving_pads = null
+		shoppinglist = null
+		syndie_supply_packs = null
+		discoveredPlants = null
+		techLevels = null
+		researchDesigns = null
+		..()
+		. = QDEL_HINT_HARDDEL_NOW
+	else
+		return QDEL_HINT_LETMELIVE
 /***************************
     Консоль заказов синдикарго
  **************************/
@@ -246,23 +263,31 @@
 	var/is_public = FALSE
 	/// Time of last request
 	var/reqtime = 0
-	var/obj/effect/abstract/syndie_data_storage/data_storage = null
+	var/datum/syndie_data_storage/data_storage = null
 
 /obj/machinery/computer/syndie_supplycomp/Initialize(mapload)
 	..()
+	GLOB.syndie_cargo_consoles += src
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndie_supplycomp/LateInitialize()
 	compSync()
 
+/obj/machinery/computer/syndie_supplycomp/Destroy()
+	circuit = null
+	data_storage = null
+	GLOB.syndie_cargo_consoles -= src
+	return ..()
+
 /obj/machinery/computer/syndie_supplycomp/proc/compSync()
 	if(data_storage == null)
-		for(var/obj/effect/abstract/syndie_data_storage/S in myArea)
-			data_storage = S
+		for(var/datum/syndie_data_storage/S in GLOB.data_storages)
+			if(S.cargoarea == get_area(src))
+				data_storage = S
 		if(data_storage == null)
-			var/atom/DS = new /obj/effect/abstract/syndie_data_storage
-			spawn_atom_to_turf(DS, get_turf(src))
-			data_storage = DS
+			data_storage = new /datum/syndie_data_storage
+			data_storage.cargoarea = get_area(src)
+			data_storage.DataStorageInitialize(get_area(src))
 
 /obj/machinery/computer/syndie_supplycomp/proc/buy() // Этот код заточен под поиск точек для спавна, активации траты энергии и анимации падов
 

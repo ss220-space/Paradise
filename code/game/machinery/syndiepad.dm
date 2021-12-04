@@ -57,6 +57,7 @@
 
 /obj/machinery/syndiepad/Destroy()
 	linked_pad = null
+	GLOB.syndiepads -= src
 	return ..()
 
 /obj/machinery/syndiepad/RefreshParts()
@@ -72,8 +73,16 @@
 	teleport_cooldown = initial(teleport_cooldown)
 	teleport_cooldown -= (E * 56.25) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
 	if(console_link)
-		var/obj/effect/abstract/syndie_data_storage/S = locate() in myArea
+		var/datum/syndie_data_storage/S = LocateDataStorage()
 		S?.sync()
+
+/obj/machinery/syndiepad/proc/LocateDataStorage()
+	for(var/obj/machinery/computer/syndie_supplycomp/SC in GLOB.syndie_cargo_consoles)
+		if(get_area(SC) != get_area(src))
+			continue
+		var/datum/syndie_data_storage/S = SC.data_storage
+		return S
+	return null
 
 /obj/machinery/syndiepad/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -94,13 +103,13 @@
 			if(alert("Отвязать телепад от консоли?",, "Да", "Нет") == "Нет")
 				return
 			console_link = FALSE
-			var/obj/effect/abstract/syndie_data_storage/S = locate() in myArea
+			var/datum/syndie_data_storage/S = LocateDataStorage()
 			S?.sync()
 		else if(!console_link)
 			if(alert("Привязать телепад к консоли?",, "Да", "Нет") == "Нет")
 				return
 			console_link = TRUE
-			var/obj/effect/abstract/syndie_data_storage/S = locate() in myArea
+			var/datum/syndie_data_storage/S = LocateDataStorage()
 			S?.sync()
 
 

@@ -16381,13 +16381,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
-"CP" = (
-/obj/effect/abstract/syndie_data_storage,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/cargo)
 "CQ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -68873,7 +68866,7 @@ Ka
 MA
 Ka
 Oc
-CP
+Ka
 Pt
 Qb
 Qw
