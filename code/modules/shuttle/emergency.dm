@@ -58,7 +58,7 @@
 
 			if("Repeal")
 				if(authorized.Remove(W:registered_name))
-					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] разрешение(-я).")
+					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] авторизацию(-й).")
 
 			if("Abort")
 				if(authorized.len)
