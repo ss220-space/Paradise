@@ -232,7 +232,7 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				emergency_shuttle_docked.Announce("Эвакуационный шаттл состыковался со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.")
+				emergency_shuttle_docked.Announce("Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.")
 
 /*
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
