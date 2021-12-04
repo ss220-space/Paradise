@@ -188,17 +188,12 @@
 	popup.open()
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, type)
-	var/armorval = 0
-
-	if(def_zone)
-		if(def_zone == "head")
-			if(inventory_head)
-				armorval = inventory_head.armor.getRating(type)
-		return armorval
-	else
-		if(inventory_head)
-			armorval += inventory_head.armor.getRating(type)
-	return armorval * 0.5
+	var/armorval = inventory_head?.armor.getRating(type)
+	if(!def_zone)
+		armorval *= 0.5
+	else if(def_zone != "head")
+		armorval = 0
+	return armorval 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Topic(href, href_list)
 	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))

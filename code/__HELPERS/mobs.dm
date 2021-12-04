@@ -562,18 +562,13 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
 // Gets the first mob contained in an atom but doesn't warn the user at all
-/proc/get_mob_in_atom_without_warning(atom/A, mob/user = usr)
+/proc/get_mob_in_atom_without_warning(atom/A)
 	if(!istype(A))
 		return null
 	if(ismob(A))
 		return A
 
-	. = null
-	for(var/mob/M in A)
-		if(!.)
-			. = M
-		else
-			break
+	return locate(/mob) in A
 
 // Suppress the mouse macros
 /client/var/next_mouse_macro_warning
