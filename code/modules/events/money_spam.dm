@@ -44,53 +44,53 @@
 			var/message
 			switch(pick(1,2,3,4,5,6,7))
 				if(1)
-					sender = pick("MaxBet","MaxBet Online Casino","There is no better time to register","I'm excited for you to join us")
-					message = pick("Triple deposits are waiting for you at MaxBet Online when you register to play with us.",\
-					"You can qualify for a 200% Welcome Bonus at MaxBet Online when you sign up today.",\
-					"Once you are a player with MaxBet, you will also receive lucrative weekly and monthly promotions.",\
-					"You will be able to enjoy over 450 top-flight casino games at MaxBet.")
+					sender = pick("'Богатый Ларри'","Онлайн казино 'Богатый Ларри'","НЕ УПУСТИ МОМЕНТ - РЕГИСТРИРУЙСЯ","Рад, что ты присоединился к нам")
+					message = pick("Утрой свои вложения! Всё что нужно - зарегистрироваться в онлайн казино 'Богатый Ларри'",\
+					"ТОЛЬКО СЕГОДНЯ! 200% бонус при первом пополнении. Регистрируйся в онлайн казино 'Богатый Ларри'",\
+					"Еженедельные и ежемесячные бонусы уже ждут ТЕБЯ! Регистрируйся в онлайн казино 'Богатый Ларри'",\
+					"Более чем 450 первоклассных игр ждут ТЕБЯ! Регистрируйся в онлайн казино 'Богатый Ларри'")
 				if(2)
-					sender = pick(300;"QuickDatingSystem",200;"Find your russian bride",50;"Tajaran beauties are waiting",50;"Find your secret skrell crush",50;"Beautiful unathi brides")
-					message = pick("Your profile caught my attention and I wanted to write and say hello (QuickDating).",\
-					"If you will write to me on my email [pick(GLOB.first_names_female)]@[pick(GLOB.last_names_female)].[pick("ru","ck","tj","ur","nt")] I shall necessarily send you a photo (QuickDating).",\
-					"I want that we write each other and I hope, that you will like my profile and you will answer me (QuickDating).",\
-					"You have (1) new message!",\
-					"You have (2) new profile views!")
+					sender = pick(300;"Быстрые свидания 'L.O.V.E'",200;"Найди свою русскую невестку",50;"Таяранские красавицы уже ждут тебя",50;"Горячие скреллы хотят 'согреться' с тобой",50;"Красивые невестки унатхи уже ждут своего жениха")
+					message = pick("Хэй, красавчик! Твой аккаунт привлёк меня... Привет ~ Давай встретимся? (Быстрые свидания 'L.O.V.E').",\
+					"Если ты напишешь мне на почту - [pick(GLOB.first_names_female)]@[pick(GLOB.last_names_female)].[pick("ru","ck","tj","ur","nt")], то я обязательно скину тебе фоточку ~ <3 (Быстрые свидания 'L.O.V.E').",\
+					"Привет, я хочу чтобы мы писали друг другу и... Я надеюсь, что ты лайкнешь мой профиль и ответишь мне. (Быстрые свидания 'L.O.V.E).",\
+					"У вас (1) новое сообщение!",\
+					"У вас (2) новых посещения профиля!")
 				if(3)
-					sender = pick("Galactic Payments Association","Better Business Bureau","Nyx E-Payments","NAnoTransen Finance Deparmtent","Luxury Replicas")
-					message = pick("Luxury watches for Blowout sale prices!",\
-					"Watches, Jewelry & Accessories, Bags & Wallets !",\
-					"Deposit 100$ and get 300$ totally free!",\
-					" 100K NT.|WOWGOLD ?nly $89            <HOT>",\
-					"We have been filed with a complaint from one of your customers in respect of their business relations with you.",\
-					"We kindly ask you to open the COMPLAINT REPORT (attached) to reply on this complaint..")
+					sender = pick("Ассоциация галактических платежей","Бюро 'Лучший бизнес'","Электронные платежи 'XYU'","Финансовый департамент НануТруйзен","Роскошные Копии")
+					message = pick("Роскошные часы по броским ценам!",\
+					"Ювелирные изделия и аксессуары, сумки и кошельки, а также часы!",\
+					"Вложи 100$ и получи 300$ АБСОЛЮТНО БЕСПЛАТНО!",\
+					"Украшения в стилистике NanoTrasen? Всего за 89$?!",\
+					"Нам поступила жалоба от одного из ваших клиентов. Выплатите компенсацию в размере 49$ на счёт отправителя.",\
+					"Убедительная просьба открыть ОТЧЁТ О ЖАЛОБЕ (прилагается к сообщению), чтобы... Ответить на данную жалобу?..")
 				if(4)
-					sender = pick("Buy Dr. Maxman","Having dysfuctional troubles?")
-					message = pick("DR MAXMAN: REAL Doctors, REAL Science, REAL Results!",\
-					"Dr. Maxman was created by George Acuilar, M.D, a CentComm Certified Urologist who has treated over 70,000 patients sector wide with 'male problems'.",\
-					"After seven years of research, Dr Acuilar and his team came up with this simple breakthrough male enhancement formula.",\
-					"Men of all species report AMAZING increases in length, width and stamina.")
+					sender = pick("Купи Др.Большой Ч","У вас дисфункциональные проблемы?")
+					message = pick("ДОКТОР БОЛЬШОЙ Ч: НАСТОЯЩИЕ Доктора, НАСТОЯЩИЕ Учёные, НАСТОЯЩИЕ Результаты!",\
+					"Др. Большой Ч был создан Бобом Мелкий Х, доктор медицинских наук, сертицированный ЦК уролог, котороый помог боле чем 70,000 пациентам со всей Галактики справиться с их 'мужскими проблемами'.",\
+					"После семи лет исследований доктор Мелкий Х и его команда разработали эту простую революционную формулу улучшения мужских способностей.",\
+					"Мужчины всех видов сообщают об УДИВИТЕЛЬНОМ увеличении длины, ширины и выносливости.")
 				if(5)
-					sender = pick("Dr","Crown prince","King Regent","Professor","Captain")
-					sender += " " + pick("Robert","Alfred","Josephat","Kingsley","Sehi","Zbahi")
-					sender += " " + pick("Mugawe","Nkem","Gbatokwia","Nchekwube","Ndim","Ndubisi")
-					message = pick("YOUR FUND HAS BEEN MOVED TO [pick("Salusa","Segunda","Cepheus","Andromeda","Gruis","Corona","Aquila","ARES","Asellus")] DEVELOPMENTARY BANK FOR ONWARD REMITTANCE.",\
-					"We are happy to inform you that due to the delay, we have been instructed to IMMEDIATELY deposit all funds into your account",\
-					"Dear fund beneficiary, We have please to inform you that overdue funds payment has finally been approved and released for payment",\
-					"Due to my lack of agents I require an off-world financial account to immediately deposit the sum of 1 POINT FIVE MILLION credits.",\
-					"Greetings sir, I regretfully to inform you that as I lay dying here due to my lack ofheirs I have chosen you to recieve the full sum of my lifetime savings of 1.5 billion credits")
+					sender = pick("Доктор","Наследный принц","Король-регент","Профессор","Капитан")
+					sender += " " + pick("Роберт","Альфред","Дорин","Карл","Тодд","Жбани")
+					sender += " " + pick("Вузави","Серый","Златоволосый","Привелкательный","II Решительный","XXXII Вечноправящий")
+					message = pick("ВАШ КАПИТАЛ БЫЛ ПЕРЕВЕДЁН В БАНК РАЗВИТИЯ СИСТЕМЫ [pick("Салуса","Сегунда","Цефей","Андромеда","Груис","Корона","Аквила","АРЕС","Аселлус")].",\
+					"Мы рады сообщить вам, что в связи с задержкой нам было поручено НЕМЕДЛЕННО внести все средства на ваш счет",\
+					"Уважаемый получатель средств, сообщаем вам, что просроченный платеж окончательно утвержден и выпущен для оплаты",\
+					"Так как у меня нет посредников, мне необходим счёт за пределами системы, чтобы срочно внести туда сумму в 1,5 МИЛЛИОНА КРЕДИТОВ!",\
+					"Приветствую вас, сэр. Я с сожалением сообщаю вам, что, умирая здесь в отсутсвии наследников, я выбрал вас, чтобы передать полную сумму моих сбережений в размере 1,5 миллиарда кредитов")
 				if(6)
-					sender = pick("Nanotrasen Morale Divison","Feeling Lonely?","Bored?","www.wetskrell.nt")
-					message = pick("The Nanotrasen Morale Division wishes to provide you with quality entertainment sites.",\
-					"WetSkrell.nt is a xenophillic website endorsed by NT for the use of male crewmembers among it's many stations and outposts.",\
-					"Wetskrell.nt only provides the higest quality of male entertaiment to Nanotrasen Employees.",\
-					"Simply enter your Nanotrasen Bank account system number and pin. With three easy steps this service could be yours!")
+					sender = pick("Отдел мотивации NanoTrasen","Чувствуешь себя одиноко?","Скучаешь?","www.wetskrell.nt")
+					message = pick("Отдел мотивации NanoTrasen делится с вами лучшим сайтом равзлечений для взрослых",\
+					"WetSkrell.nt - это ксенофильный веб-сайт, одобренный NanoTrasen для использования членами экипажа мужского пола среди множества станций и аванпостов.",\
+					"Wetskrell.nt предоставляет только высококачественные развлечения для мужчин, сотрудников Nanotrasen.",\
+					"Просто введите номер своего банковского счета NanoTrasen и pin-код. Только эти три простых шагов отделяют тебя от океана скользких удовольствий!")
 				if(7)
-					sender = pick("You have won free tickets!","Click here to claim your prize!","You are the 1000th vistor!","You are our lucky grand prize winner!")
-					message = pick("You have won tickets to the newest ACTION JAXSON MOVIE!",\
-					"You have won tickets to the newest crime drama DETECTIVE MYSTERY IN THE CLAMITY CAPER!",\
-					"You have won tickets to the newest romantic comedy 16 RULES OF LOVE!",\
-					"You have won tickets to the newest thriller THE CULT OF THE SLEEPING ONE!")
+					sender = pick("Вы выиграли БЕСПЛАТНЫЕ билеты!","Нажмите ->СЮДА<- чтобы забрать свой ПРИЗ!","Вы десятитысячный посетитель!","Вы счастливый обладатель главного приза!")
+					message = pick("Вы выиграли билеты на новейший экшн фильм 'Крутой сын Джека'!",\
+					"Вы выиграли билеты на новейшую криминальную драму 'Тайна детектива-соблазнителя'!",\
+					"Вы выиграли билеты на новейшую романтическую комедию '69 правил любви'!",\
+					"Вы выиграли билеты на новейший триллер 'Культ спящего Хонка'!")
 
 			if(useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
 				return
@@ -101,6 +101,6 @@
 				for(var/mob/living/silicon/ai/ai in GLOB.mob_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)
-						ai.show_message("<i>Intercepted message from <b>[sender]</b></i> (Unknown / spam?) <i>to <b>[P:owner]</b>: [message]</i>")
+						ai.show_message("<i>Перехваченное сообщение от <b>[sender]</b></i> (Unknown / spam?) <i>для <b>[P:owner]</b>: [message]</i>")
 
-			PM.notify("<b>Message from [sender] (Unknown / spam?), </b>\"[message]\" (Unable to Reply)", 0)
+			PM.notify("<b>Сообщение от [sender] (Неизвестного / Спам?), </b>\"[message]\" (Не доступно для ответа)", 0)
