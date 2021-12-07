@@ -336,12 +336,50 @@
 	if(!contents.len)
 		overlays += "[icon_state]_empty"
 
+//////////////////////
+//CIG PACK TGCM port//
+//////////////////////
+/obj/item/storage/fancy/cigarettes/tgmc
+icon = 'icons/obj/cigarettes_tgmc.dmi'
+storage_slots = 18
+max_combined_w_class = 18
+
+/obj/item/storage/fancy/cigarettes/tgmc/dromedaryco
+	name = "\improper Nanotrasen Gold packet"
+	desc = "Building better worlds, and rolling better cigarettes. These fancy cigarettes are Nanotrasen's entry into the market. Comes backed by a fierce legal team."
+	icon_state = "ntpacket"
+	item_state = "ntpacket"
+
+/obj/item/storage/fancy/cigarettes/tgmc/luckystars
+	name = "\improper Lucky Stars packet"
+	desc = "A mellow blend made from synthetic, pod-grown tobacco. The commercial jingle is guaranteed to get stuck in your head."
+	icon_state = "lspacket"
+	item_state = "lspacket"
+
+/obj/item/storage/fancy/cigarettes/tgmc/kpack
+	name = "\improper Koorlander Gold packet"
+	desc = "Koorlander, Gold: 3% tobacco. 97% other. For when you want to look cool and the risk of a slow horrible death isn't really a factor."
+	icon_state = "kpacket"
+	item_state = "kpacket"
+
+/obj/item/storage/fancy/cigarettes/tgmc/lady_finger
+	name = "\improper ArctiCool Menthols packet"
+	desc = "An entry level brand of cigarettes with a bright blue packaging. For when you want to smell like lozenges and smoke"
+	icon_state = "acpacket"
+	item_state = "acpacket"
+
+/obj/item/storage/fancy/cigarettes/tgmc/chemrettes
+	name = "\improper Chemrette packet"
+	desc = "A prescription packet containing eighteen marijuana cigarettes. Now with a new design!"
+	icon_state = "chempacketbox"
+	item_state = "chempacketbox"
+	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 /*
  * cigcase 
  */
 
 /obj/item/storage/fancy/cigcase
-	icon = 'icons/obj/cigarettes.dmi'
+	icon = 'icons/obj/cigarettes_tgmc.dmi'
 	icon_state = "cigarcase"
 	icon_type = "cigar"
 	name = "Cigar Case"
