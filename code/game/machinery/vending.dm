@@ -1197,15 +1197,15 @@
 	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
 	vend_delay = 34
 	icon_state = "liberationstation"
-	products = list(/obj/item/storage/fancy/cigarettes_tgmc/dromedaryco = 16,
-	 				/obj/item/storage/fancy/cigarettes_tgmc/luckystars = 12,
-					/obj/item/storage/fancy/cigarettes_tgmc/lady_finger = 8,
+	products = list(/obj/item/storage/fancy/cigarettes/tgmc/dromedaryco = 16,
+	 				/obj/item/storage/fancy/cigarettes/tgmc/luckystars = 12,
+					/obj/item/storage/fancy/cigarettes/tgmc/lady_finger = 8,
 					/obj/item/storage/fancy/cigcase/CubanRich = 3)
-	contraband = list(/obj/item/storage/fancy/cigarettes_tgmc/chemrettes = 2)
-	premium = list(/obj/item/storage/fancy/cigarettes_tgmc/kpack = 4)
-	prices = list(/obj/item/storage/fancy/cigarettes_tgmc/dromedaryco = 200,
-				  /obj/item/storage/fancy/cigarettes_tgmc/luckystars = 250,
-				  /obj/item/storage/fancy/cigarettes_tgmc/lady_finger = 300,
+	contraband = list(/obj/item/storage/fancy/cigarettes/tgmc/chemrettes = 2)
+	premium = list(/obj/item/storage/fancy/cigarettes/tgmc/kpack = 4)
+	prices = list(/obj/item/storage/fancy/cigarettes/tgmc/dromedaryco = 200,
+				  /obj/item/storage/fancy/cigarettes/tgmc/luckystars = 250,
+				  /obj/item/storage/fancy/cigarettes/tgmc/lady_finger = 300,
 				  /obj/item/storage/fancy/cigcase/CubanRich = 2000)
 
 /obj/machinery/vending/tgmc_cigarette/free
