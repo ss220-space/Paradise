@@ -1190,6 +1190,26 @@
 
 /obj/machinery/vending/cigarette/syndicate/free
 	prices = list()
+/obj/machinery/vending/tgmc_cigarette
+	name = "marine cigarette machine"
+	desc = "A specialized vending machine designed to contribute to your slow and uncomfortable death."
+	slogan_list = list("One smoke pack saves one marine life.","Smoke a day keeps the doctor away.","Smoke now, and win the adoration of your peers.", "They beat cancer centuries ago, so smoke away.", "Made in Terragov.")
+	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
+	vend_delay = 34
+	icon_state = "liberationstation"
+	products = list(/obj/item/storage/fancy/cigarettes_tgmc/dromedaryco = 16,
+	 				/obj/item/storage/fancy/cigarettes_tgmc/luckystars = 12,
+					/obj/item/storage/fancy/cigarettes_tgmc/lady_finger = 8,
+					/obj/item/storage/fancy/cigcase/CubanRich = 3)
+	contraband = list(/obj/item/storage/fancy/cigarettes_tgmc/chemrettes = 2)
+	premium = list(/obj/item/storage/fancy/cigarettes_tgmc/kpack = 4)
+	prices = list(/obj/item/storage/fancy/cigarettes_tgmc/dromedaryco = 200,
+				  /obj/item/storage/fancy/cigarettes_tgmc/luckystars = 250,
+				  /obj/item/storage/fancy/cigarettes_tgmc/lady_finger = 300,
+				  /obj/item/storage/fancy/cigcase/CubanRich = 2000)
+
+/obj/machinery/vending/tgmc_cigarette/free
+	prices = list()
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"

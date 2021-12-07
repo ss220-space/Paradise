@@ -339,50 +339,121 @@
 //////////////////////
 //CIG PACK TGCM port//
 //////////////////////
-/obj/item/storage/fancy/cigarettes/tgmc
-icon = 'icons/obj/cigarettes_tgmc.dmi'
-storage_slots = 18
-max_combined_w_class = 18
 
-/obj/item/storage/fancy/cigarettes/tgmc/dromedaryco
+//yeah, kinda lazy to ctrl+c -> ctrl+v class from above, but it's ok for now, i guess
+/obj/item/storage/fancy/cigarettes_tgmc
+	name = "cigarette packet"
+	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics."
+	icon = 'icons/obj/cigarettes_tgmc.dmi'
+	icon_state = "cigpacket"
+	item_state = "cigpacket"
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 2
+	slot_flags = SLOT_BELT
+	storage_slots = 18
+	max_combined_w_class = 18
+	can_hold = list(/obj/item/clothing/mask/cigarette,
+		/obj/item/lighter,
+		/obj/item/match)
+	cant_hold = list(/obj/item/clothing/mask/cigarette/cigar,
+		/obj/item/clothing/mask/cigarette/pipe,
+		/obj/item/lighter/zippo)
+	icon_type = "cigarette"
+	var/cigarette_type = /obj/item/clothing/mask/cigarette
+
+/obj/item/storage/fancy/cigarettes_tgmc/New()
+	..()
+	for(var/i = 1 to storage_slots)
+		new cigarette_type(src)
+
+/obj/item/storage/fancy/cigarettes_tgmc/update_icon()
+	icon_state = "[initial(icon_state)][contents.len]"
+
+/obj/item/storage/fancy/cigarettes_tgmc/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!istype(M, /mob))
+		return
+
+	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
+		var/got_cig = 0
+		for(var/num=1, num <= contents.len, num++)
+			var/obj/item/I = contents[num]
+			if(istype(I, /obj/item/clothing/mask/cigarette))
+				var/obj/item/clothing/mask/cigarette/C = I
+				user.equip_to_slot_if_possible(C, slot_wear_mask)
+				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
+				update_icon()
+				got_cig = 1
+				break
+		if(!got_cig)
+			to_chat(user, "<span class='warning'>There are no smokables in the pack!</span>")
+	else
+		..()
+
+/obj/item/storage/fancy/cigarettes_tgmc/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+	if(istype(W, /obj/item/match))
+		var/obj/item/match/M = W
+		if(M.lit == 1)
+			if(!stop_messages)
+				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
+			return 0
+	if(istype(W, /obj/item/lighter))
+		var/obj/item/lighter/L = W
+		if(L.lit == 1)
+			if(!stop_messages)
+				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
+			return 0
+	//if we get this far, handle the insertion checks as normal
+	.=..()
+
+/obj/item/storage/fancy/cigarettes_tgmc/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!length(contents))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
+/obj/item/storage/fancy/cigarettes_tgmc/dromedaryco
 	name = "\improper Nanotrasen Gold packet"
 	desc = "Building better worlds, and rolling better cigarettes. These fancy cigarettes are Nanotrasen's entry into the market. Comes backed by a fierce legal team."
 	icon_state = "ntpacket"
 	item_state = "ntpacket"
 
-/obj/item/storage/fancy/cigarettes/tgmc/luckystars
+/obj/item/storage/fancy/cigarettes_tgmc/luckystars
 	name = "\improper Lucky Stars packet"
 	desc = "A mellow blend made from synthetic, pod-grown tobacco. The commercial jingle is guaranteed to get stuck in your head."
 	icon_state = "lspacket"
 	item_state = "lspacket"
 
-/obj/item/storage/fancy/cigarettes/tgmc/kpack
+/obj/item/storage/fancy/cigarettes_tgmc/kpack
 	name = "\improper Koorlander Gold packet"
 	desc = "Koorlander, Gold: 3% tobacco. 97% other. For when you want to look cool and the risk of a slow horrible death isn't really a factor."
 	icon_state = "kpacket"
 	item_state = "kpacket"
 
-/obj/item/storage/fancy/cigarettes/tgmc/lady_finger
+/obj/item/storage/fancy/cigarettes_tgmc/lady_finger
 	name = "\improper ArctiCool Menthols packet"
 	desc = "An entry level brand of cigarettes with a bright blue packaging. For when you want to smell like lozenges and smoke"
 	icon_state = "acpacket"
 	item_state = "acpacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
-/obj/item/storage/fancy/cigarettes/tgmc/chemrettes
+/obj/item/storage/fancy/cigarettes_tgmc/chemrettes
 	name = "\improper Chemrette packet"
 	desc = "A prescription packet containing eighteen marijuana cigarettes. Now with a new design!"
 	icon_state = "chempacketbox"
 	item_state = "chempacketbox"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
+	
 /*
  * cigcase 
  */
 
 /obj/item/storage/fancy/cigcase
-	icon = 'icons/obj/cigarettes_tgmc.dmi'
+	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigarcase"
 	icon_type = "cigar"
 	name = "Cigar Case"
+	desc = "Looks fancy."
 	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
@@ -396,7 +467,16 @@ max_combined_w_class = 18
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/clothing/mask/cigarette/cigar(src)
 	return
-	
+
+/*
+ * cigcase from tgmc
+ */
+/obj/item/storage/fancy/cigcase/CubanRich
+	icon = 'icons/obj/cigarettes_tgmc.dmi'
+	icon_state = "cigarcase"
+	icon_type = "cigar"
+	name = "Cuban cigar Case"
+	desc = "When you feel especially rich."
 
 /*
  * Vial Box
