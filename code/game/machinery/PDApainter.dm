@@ -45,8 +45,7 @@
 		var/iconImage = "[icon2base64(icon(initial(P.icon), initial(P.icon_state), frame = 1))]"
 		colorlist[initial(P.icon_state)] = list(iconImage, initial(P.desc))
 
-	// TODO: Sorting breaks the list. Need method.
-	//colorlist = sortList(colorlist)
+	colorlist = sortAssoc(colorlist)
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
@@ -162,7 +161,6 @@
 		if("eject_pda")
 			eject_pda()
 		if("choose_pda")
-			// choose_pda()
 			if(storedpda)
 				storedpda.icon_state = params["selectedPda"]
 				storedpda.desc = colorlist[storedpda.icon_state][2]
