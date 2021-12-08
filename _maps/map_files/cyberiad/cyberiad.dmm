@@ -23770,6 +23770,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/machinery/vending/tgmc_cigarette,
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
 "aTS" = (

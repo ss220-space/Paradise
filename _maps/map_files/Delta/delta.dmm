@@ -95240,6 +95240,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/vending/tgmc_cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -101686,7 +101687,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "qsc" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/surgery1)
 "qsg" = (
 /obj/structure/flora/ausbushes/palebush,
@@ -103586,9 +103587,6 @@
 	tag = "icon-cult"
 	},
 /area/lawoffice)
-"qSE" = (
-/turf/simulated/wall,
-/area/toxins/explab)
 "qSG" = (
 /obj/item/phone{
 	pixel_x = -3;
@@ -107583,9 +107581,6 @@
 	icon_state = "diagonalWall3"
 	},
 /area/shuttle/syndicate_sit)
-"rPI" = (
-/turf/simulated/wall/rust,
-/area/toxins/mixing)
 "rPP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -110334,9 +110329,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
-"szR" = (
-/turf/simulated/wall/r_wall,
-/area/chapel/office)
 "szY" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
@@ -114220,7 +114212,7 @@
 	},
 /area/library)
 "tCB" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/surgery2)
 "tCM" = (
 /obj/machinery/camera{
@@ -159873,7 +159865,7 @@ dvC
 ikA
 ikA
 nig
-cXa
+ikA
 muV
 oJS
 cQv
@@ -160130,7 +160122,7 @@ dvC
 ikA
 cJO
 epA
-rAM
+oOo
 rgj
 qrW
 uxj
@@ -160644,7 +160636,7 @@ cDz
 ikA
 kmL
 jkc
-rAM
+oOo
 tzZ
 mwh
 odT
@@ -160899,16 +160891,16 @@ xJC
 mDe
 dvC
 ikA
-rAM
-rAM
-rAM
-rAM
+oOo
+oOo
+oOo
+oOo
 qlJ
 cRY
 lDu
 lVe
 qlJ
-rAM
+oOo
 ikA
 ikA
 ikA
@@ -161927,19 +161919,19 @@ nqI
 mDe
 nso
 ikA
-rAM
-rAM
-rAM
-rAM
+oOo
+oOo
+oOo
+oOo
 rAM
 heE
 voL
 lXa
 mzZ
-rAM
-rAM
-rAM
-rAM
+oOo
+oOo
+oOo
+oOo
 ddi
 kvB
 cto
@@ -162955,19 +162947,19 @@ cbC
 yhX
 ugg
 ikA
-rAM
-rAM
-rAM
-rAM
+oOo
+oOo
+oOo
+oOo
 mzZ
 qGp
 voL
 cQH
 cUU
-rAM
-rAM
-rAM
-rAM
+oOo
+oOo
+oOo
+oOo
 ddi
 gXb
 phh
@@ -163241,11 +163233,11 @@ fGj
 uwp
 fGj
 wKr
-rPI
+dkI
 pZR
 xPY
 yhO
-vlG
+dkI
 rzM
 uLX
 tqc
@@ -163755,11 +163747,11 @@ tzX
 bIK
 qGP
 aSP
-vlG
+dkI
 eap
 txb
 pwH
-vlG
+dkI
 hlJ
 fGj
 rNX
@@ -163983,23 +163975,23 @@ cbC
 hwE
 ugg
 ikA
-rAM
-rAM
-rAM
-rAM
+oOo
+oOo
+oOo
+oOo
 hUH
 iJW
 cUW
 cTr
 hUH
-rAM
-rAM
+oOo
+oOo
 oOo
 oOo
 ddi
-qSE
+ddi
 wZL
-qSE
+ddi
 deR
 qtq
 dkI
@@ -164243,7 +164235,7 @@ ikA
 xYt
 xYt
 xYt
-rAM
+oOo
 bVJ
 odT
 muV
@@ -165271,7 +165263,7 @@ ikA
 xYt
 xYt
 xYt
-rAM
+oOo
 otn
 icz
 cNl
@@ -165832,11 +165824,11 @@ mmQ
 cmA
 riE
 dIx
-szR
-szR
-szR
-szR
-szR
+dIx
+dIx
+dIx
+dIx
+dIx
 dIx
 hYL
 dIx
