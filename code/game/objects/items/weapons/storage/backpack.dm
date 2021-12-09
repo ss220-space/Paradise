@@ -225,6 +225,15 @@
 		H.update_inv_back()
 
 
+/obj/item/storage/backpack/satchel/withwallet/New()
+	..()
+	new /obj/item/storage/wallet/random(src)
+
+
+/obj/item/storage/backpack/satchel_norm
+	name = "satchel"
+	desc = "A deluxe NT Satchel, made of the highest quality leather."
+	icon_state = "satchel-norm"
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -236,15 +245,15 @@
 	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
 	icon_state = "satchel-lizard"
 
-/obj/item/storage/backpack/satchel/withwallet/New()
-	..()
-	new /obj/item/storage/wallet/random(src)
+/obj/item/storage/backpack/satchel/clown
+	name = "Giggles Von Honkerton"
+	desc = "It's a satchel made by Honk! Co."
+	icon_state = "satchel-clown"
 
-/obj/item/storage/backpack/satchel_norm
-	name = "satchel"
-	desc = "A deluxe NT Satchel, made of the highest quality leather."
-	icon_state = "satchel-norm"
-
+/obj/item/storage/backpack/satchel/mime
+	name = "Parcel Parceaux"
+	desc = "A silent satchel made for those silent workers. Silence Co."
+	icon_state = "satchel-mime"
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
@@ -287,6 +296,11 @@
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
+
+/obj/item/storage/backpack/satchel/detective
+	name = "forensic satchel"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "satchel-detective"
 
 /obj/item/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
