@@ -63,6 +63,12 @@
 			return
 		set_light(0)
 
+/turf/space/proc/check_for_adjanced_structures() //Check for another lattices or not space turf for connenction. Return: 0 if no one of them; 1 if lattice is near; 2 if not space is near.
+	for(var/turf/CTf in list(NORTH_OF_TURF(src),EAST_OF_TURF(src),SOUTH_OF_TURF(src),WEST_OF_TURF(src)))
+		if(!istype(CTf, /turf/space)) return 2
+		else if(locate(/obj/structure/lattice) in CTf.contents) return 1
+	return 0
+
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()
 	if(istype(C, /obj/item/stack/rods))
@@ -80,7 +86,10 @@
 			else
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
 			return
-		if(R.use(1))
+		if(!check_for_adjanced_structures())
+			to_chat(user, "<span class='warning'>There are no lattices or structures nearby to which the lattice can be attached!</span>")
+			return
+		else if(R.use(1))
 			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
