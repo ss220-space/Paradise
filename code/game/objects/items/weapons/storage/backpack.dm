@@ -220,12 +220,12 @@
 	icon_state = "satchel-lizard"
 
 /obj/item/storage/backpack/satchel_clown
-	name = "Giggles Von Honkerton"
+	name = "Giggles Von Robuston"
 	desc = "It's a satchel made by Honk! Co."
 	icon_state = "satchel-clown"
 
 /obj/item/storage/backpack/satchel_mime
-	name = "Parcel Parceaux"
+	name = "Parcel Parobust"
 	desc = "A silent satchel made for those silent workers. Silence Co."
 	icon_state = "satchel-mime"
 
