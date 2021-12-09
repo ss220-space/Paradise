@@ -74,7 +74,7 @@
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
 	var/automute_on = 0					//enables automuting/spam prevention
-	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
+	var/jobs_have_minimal_access = TRUE	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
 	var/medal_hub_address = null
 	var/medal_hub_password = null
