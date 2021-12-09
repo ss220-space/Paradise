@@ -184,9 +184,10 @@
 		var/mob/living/carbon/C = L
 		C.shock_internal_organs(33)
 
-	L.Stun(stunforce)
-	L.Weaken(stunforce)
-	L.SetStuttering(stunforce)
+	L.Slowed(stunforce)
+	L.Stuttering(stunforce)
+	L.Jitter(stunforce)
+	addtimer(CALLBACK(src, .proc/stun_delay, L), 2 SECONDS)
 
 	if(user)
 		L.lastattacker = user.real_name
@@ -201,6 +202,9 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.forcesay(GLOB.hit_appends)
+
+obj/item/melee/baton/proc/stun_delay(mob/living/L)
+	L.Weaken(stunforce)
 
 /obj/item/melee/baton/emp_act(severity)
 	if(cell)
