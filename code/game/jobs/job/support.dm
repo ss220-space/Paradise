@@ -205,7 +205,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
@@ -276,7 +276,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/satchel/clown
+	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -358,7 +358,7 @@
 		/obj/item/cane = 1
 	)
 	backpack = /obj/item/storage/backpack/mime
-	satchel = /obj/item/storage/backpack/satchel/mime
+	satchel = /obj/item/storage/backpack/satchel_mime
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
