@@ -228,6 +228,7 @@
 	name = "Parcel Parceaux"
 	desc = "A silent satchel made for those silent workers. Silence Co."
 	icon_state = "satchel-mime"
+
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
@@ -292,6 +293,7 @@
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 
+//make sure to not inherit backpack/satchel if you want to create a new satchel
 /obj/item/storage/backpack/satchel
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
