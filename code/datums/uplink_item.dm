@@ -854,7 +854,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
 	cost = 16
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE
 	cant_discount = TRUE
