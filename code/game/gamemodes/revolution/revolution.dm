@@ -34,7 +34,8 @@
 ///////////////////////////////////////////
 //Магический спелл для приглашения в реву//
 ///////////////////////////////////////////
-
+// Уходит на старые времена. Пока пока стелс конверт без слов и РП.
+/*
 /datum/action/innate/revolution_recruitment
 	name = "Recruitment"
 	button_icon_state = "genetic_mindscan"
@@ -83,6 +84,7 @@
 	if(choice == "No")
 		to_chat(recruit, "<span class='danger'>You reject this traitorous cause!")
 		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
+*/
 
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
@@ -124,7 +126,7 @@
 		for(var/datum/mind/head_mind in heads)
 			mark_for_death(rev_mind, head_mind)
 
-		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
+		equip_revolutionary(rev_mind)
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
@@ -161,7 +163,7 @@
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
-		var/datum/action/innate/revolution_recruitment/C = new()
+		//var/datum/action/innate/revolution_recruitment/C = new()
 		C.Grant(rev_mind.current)
 		obj_count++
 
@@ -181,7 +183,8 @@
 
 	var/obj/item/toy/crayon/spraycan/R = new(mob)
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
-
+	var/obj/item/flash/F = new(mob)
+	
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
@@ -190,15 +193,21 @@
 		"right hand" = slot_r_hand,
 	)
 	var/where2 = mob.equip_in_one_of_slots(C, slots)
+	var/where3 = mob.equip_in_one_of_slots(F, slots)
 	mob.equip_in_one_of_slots(R,slots)
 
 	mob.update_icons()
 
 	if(!where2)
-		to_chat(mob, "The Syndicate were unfortunately unable to get you a chameleon security HUD.")
+		to_chat(mob, "Синдикат не смог достать вам очки хамелеон СБ.")
 	else
-		to_chat(mob, "The chameleon security HUD in your [where2] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
-		return 1
+		to_chat(mob, "Вам выдали в вооружение очки хамелеон СБ в [where2]. Это поможет вам понять кто имплантирован майндщилдом и не могут быть завербованы.")
+	if(!where3)
+		to_chat(H, "<span class='userdanger'>К сожалению, ты не смог получить [F]. Это очень плохо поэтому срочно adminhelp про это (нажми F1 и опиши эту проблему).</span>")
+		return FALSE
+	else
+		to_chat(H, "<span class='danger'>Твой [F] расположен в [where3].</span>")
+		return TRUE
 
 /////////////////////////////////
 //Gives head revs their targets//
@@ -304,8 +313,8 @@
 	if((rev_mind in revolutionaries) || remove_head)
 		revolutionaries -= rev_mind
 		rev_mind.special_role = null
-		for(var/datum/action/innate/revolution_recruitment/C in rev_mind.current.actions)
-			qdel(C)
+		//for(var/datum/action/innate/revolution_recruitment/C in rev_mind.current.actions)
+		//	qdel(C)
 		rev_mind.current.create_attack_log("<font color='red'>Has renounced the revolution!</font>")
 		rev_mind.current.create_log(CONVERSION_LOG, "renounced the revolution")
 		if(beingborged)
