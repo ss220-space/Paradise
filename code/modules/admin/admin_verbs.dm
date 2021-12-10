@@ -111,7 +111,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/force_hijack
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -266,6 +267,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights == R_HOST)
+			verbs += /client/proc/view_pingstat
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
@@ -284,6 +287,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.admin_verbs_possess,
 		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
+		/client/proc/view_pingstat,
 		GLOB.admin_verbs_rejuv,
 		GLOB.admin_verbs_sounds,
 		GLOB.admin_verbs_spawn,
@@ -654,6 +658,23 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/force_hijack()
+	set category = "Event"
+	set name = "Toggle Shuttle Force Hijack"
+	set desc = "Force shuttle fly to syndicate base."
+
+	if(!check_rights(R_EVENT))
+		return
+
+	var/obj/docking_port/mobile/emergency/S = locate()
+	if(!S)
+		return
+	S.forceHijacked = !S.forceHijacked
+	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
+	log_admin("[key_name(usr)] [admin_verb] forced shuttle hijack.")
+	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.", 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "[admin_verb] forced shuttle hijack")
 
 /client/proc/deadmin_self()
 	set name = "De-admin self"

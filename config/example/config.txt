@@ -254,6 +254,9 @@ CHECK_RANDOMIZER
 ## Prevent jobbanned to pass through whitelist
 #USEWHITELIST_NOJOBBANNED
 
+## Minimum age of byond account that allowed to play withoud discord verification
+#MINIMUM_BYONDACC_AGE 0
+
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 
@@ -532,3 +535,6 @@ RESPAWN_DELAY_DRONE 10
 
 # Log all timers on timer auto reset
 LOG_TIMERS_ON_BUCKET_RESET
+
+## Hublist url for dynamic servers list
+#HUBLIST_URL http://example.com
