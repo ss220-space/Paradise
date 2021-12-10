@@ -1101,6 +1101,30 @@
 	info = "<font face=\"Verdana\" color=black>⠀⠀⠀Члену экипажа, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, было выдано разрешение на оружие. Я соглашаюсь с условиями его использования, хранения и применения. Данное оружие я обязуюсь применять только в целях самообороны, защиты своих личных вещей, и рабочего места, а так же для защиты своих коллег.<BR>⠀⠀⠀При попытке применения оружия, против остальных членов экипажа не предоставляющих угрозу, или при запугивании данным оружием, я лишаюсь лицензии на оружие, а так же понесу наказания, при нарушении закона.<BR><I><B><BR>Название и тип оружия: <span class=\"paper_field\"></span></B><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR>Подпись уполномоченного: <span class=\"paper_field\"></span><BR>Подпись получателя: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче получателю.<BR>*Документ не является действительным без печати Вардена/ГСБ и его подписи.</font></font>"
 	footer = footer_confidential
 
+/obj/item/paper/form/NT_SEC_06
+	name = "Форма NT-SEC-06"
+	id = "NT-SEC-06"
+	altername = "Разрешение на присваивание канала связи"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><I><font size=\"4\"><B>Разрешение</B></font></I></center><BR>Я <B><span class=\"paper_field\"></span></B>, прошу Вашего разрешения на присваивание канала связи <B><span class=\"paper_field\"></span></B>, для грамотной работы организации.<BR><BR>Должность заявителя: <span class=\"paper_field\"></span><BR><BR><HR><BR><center><I><font size=\"4\"><B>Подписи и штампы</B></font></I></center><BR><I><BR>Время: <span class=\"paper_field\"></span><BR><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR><BR>Подпись главы персонала: <span class=\"paper_field\"></span><BR><BR>Подпись главы службы безопасности: <span class=\"paper_field\"></span></I><BR><BR><HR><font size = \"1\">*Обязательно провести копирование документа для главы персонала, оригинал документа должен быть выдан заявителю.</font><BR><BR><font size = \"1\">*Обязательно провести копирование документа для службы безопасности.</font></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_SEC_07
+	name = "Форма NT-SEC-07"
+	id = "NT-SEC-07"
+	altername = "Лицензия на использование канала связи и владение дополнительным оборудованием"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><I><font size=\"4\"><B>Лицензия</B></font></I></center><BR>Имя обладателя лицензии: <span class=\"paper_field\"></span><BR><BR>Должность обладателя лицензии: <span class=\"paper_field\"></span><BR><BR>Зарегистрированный канал связи: <span class=\"paper_field\"></span><BR><BR>Перечень зарегистрированной экипировки: <span class=\"paper_field\"></span><BR><HR><BR><center><I><font size=\"4\"><B>Подписи и штампы</B></font></I></center><BR><I><BR>Время: <span class=\"paper_field\"></span><BR><BR>Подпись заявителя: <span class=\"paper_field\"></span><BR><BR>Подпись главы персонала: <span class=\"paper_field\"></span><BR><BR>Подпись главы службы безопасности: <span class=\"paper_field\"></span></I><BR><HR><font size = \"1\">*Обязательно провести копирование документа для главы персонала, оригинал документа должен быть выдан обладателю лицензии.</font><BR><BR><font size = \"1\">*Обязательно провести копирование документа для службы безопасности.</font><BR><BR><font size = \"1\">*Данная форма документа, обязательно должна подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, лицензия будет являться недействительной.</font></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_SEC_08
+	name = "Форма NT-SEC-08"
+	id = "NT-SEC-08"
+	altername = "Лицензирование вооружения и экипировки для исполнения деятельности"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><I><font size=\"4\"><B>Лицензия</B></font></I></center><BR><BR>Имя обладателя лицензии: <span class=\"paper_field\"></span><BR>Должность обладателя лицензии: <span class=\"paper_field\"></span><BR>Перечень зарегистрированного вооружения: <span class=\"paper_field\"></span><BR>Перечень зарегистрированной экипировки: <span class=\"paper_field\"></span><BR><BR><HR><BR><center><I><font size=\"4\"><B>Подписи и штампы</B></font></I></center><BR><BR>Время: <span class=\"paper_field\"></span><BR>Подпись обладателя  лицензии: <span class=\"paper_field\"></span><BR>Подпись главы службы безопасности: <span class=\"paper_field\"></span><BR><BR><HR><font size = \"1\"><I> *Данная форма документа, обязательно должна подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, лицензия будет является недействительной. Обязательно провести копирование документа для службы безопасности, оригинал документа должен быть выдан обладателю лицензии. В случае несоответствия должности обладателя лицензии, можно приступить к процедуре аннулирования лицензии и изъятию вооружения, экипировки.<BR></font>"
+	footer = footer_confidential
+
 //Юридический отдел
 /obj/item/paper/form/NT_LD_00
 	name = "Форма NT-LD-00"
