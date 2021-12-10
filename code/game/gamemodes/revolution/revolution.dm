@@ -206,7 +206,7 @@
 		to_chat(mob, "<span class='userdanger'>К сожалению, ты не смог получить [F]. Это очень плохо поэтому срочно adminhelp про это (нажми F1 и опиши эту проблему).</span>")
 		return FALSE
 	else
-		to_chat(mob, "<span class='danger'>Твой [F] расположен в [where3].</span>")
+		to_chat(mob, "<span class='danger'>[F] расположен в [where3].</span>")
 		return TRUE
 
 /////////////////////////////////
