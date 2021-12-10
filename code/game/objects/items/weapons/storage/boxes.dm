@@ -892,6 +892,24 @@
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 	return
 
+/obj/item/storage/box/matches/tgmc
+	desc = "A small box of 'Space-Proof' premium matches."
+	icon = 'icons/obj/cigarettes_tgmc.dmi'
+	icon_state = "matchbox"
+	item_state = "matchbox"
+	storage_slots = 14
+
+/obj/item/storage/box/matches/tgmc/update_icon()
+	switch(contents.len/storage_slots)
+		if(0 to 0.1)
+			icon_state = "matchbox_empty"
+		if(0.1 to 0.45)
+			icon_state = "matchbox_almostempty"
+		if(0.45 to 0.90)
+			icon_state = "matchbox_almostfull"
+		if(0.90 to 1)
+			icon_state = "matchbox"
+
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
 	desc = "Contains autoinjectors."

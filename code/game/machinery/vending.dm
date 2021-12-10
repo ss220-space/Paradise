@@ -1200,13 +1200,15 @@
 	products = list(/obj/item/storage/fancy/cigarettes/tgmc/dromedaryco = 16,
 	 				/obj/item/storage/fancy/cigarettes/tgmc/luckystars = 12,
 					/obj/item/storage/fancy/cigarettes/tgmc/lady_finger = 8,
-					/obj/item/storage/fancy/cigcase/CubanRich = 3)
+					/obj/item/storage/fancy/cigcase/CubanRich = 3,
+					/obj/item/storage/box/matches/tgmc = 10)
 	contraband = list(/obj/item/storage/fancy/cigarettes/tgmc/chemrettes = 2)
 	premium = list(/obj/item/storage/fancy/cigarettes/tgmc/kpack = 4)
 	prices = list(/obj/item/storage/fancy/cigarettes/tgmc/dromedaryco = 200,
 				  /obj/item/storage/fancy/cigarettes/tgmc/luckystars = 250,
 				  /obj/item/storage/fancy/cigarettes/tgmc/lady_finger = 300,
-				  /obj/item/storage/fancy/cigcase/CubanRich = 2000)
+				  /obj/item/storage/fancy/cigcase/CubanRich = 2000,
+				  /obj/item/storage/box/matches/tgmc = 25)
 
 /obj/machinery/vending/tgmc_cigarette/free
 	prices = list()
