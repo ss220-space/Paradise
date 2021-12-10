@@ -808,8 +808,8 @@
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT></span>")
 					SSticker.mode.update_rev_icons_removed(src)
 					special_role = null
-				for(var/datum/action/innate/revolution_recruitment/C in current.actions)
-					qdel(C)
+				//for(var/datum/action/innate/revolution_recruitment/C in current.actions)
+				//	qdel(C)
 				log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-rev'd [key_name_admin(current)]")
 
@@ -851,8 +851,8 @@
 				SSticker.mode.head_revolutionaries += src
 				SSticker.mode.update_rev_icons_added(src)
 				special_role = SPECIAL_ROLE_HEAD_REV
-				var/datum/action/innate/revolution_recruitment/C = new()
-				C.Grant(src.current)
+				//var/datum/action/innate/revolution_recruitment/C = new()
+				//C.Grant(src.current)
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
 
@@ -1800,8 +1800,8 @@
 	SSticker.mode.head_revolutionaries += src
 	SSticker.mode.update_rev_icons_added(src)
 	special_role = SPECIAL_ROLE_HEAD_REV
-	var/datum/action/innate/revolution_recruitment/C = new()
-	C.Grant(current)
+	//var/datum/action/innate/revolution_recruitment/C = new()
+	//C.Grant(current)
 
 	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.greet_revolutionary(src,0)

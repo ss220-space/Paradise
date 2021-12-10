@@ -126,9 +126,9 @@
 		for(var/datum/mind/head_mind in heads)
 			mark_for_death(rev_mind, head_mind)
 
-		equip_revolutionary(rev_mind)
-
 	for(var/datum/mind/rev_mind in head_revolutionaries)
+		var/mob/living/carbon/human/M = rev_mind.current
+		equip_revolutionary(M)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
 	if(SSshuttle)
@@ -164,7 +164,7 @@
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		//var/datum/action/innate/revolution_recruitment/C = new()
-		C.Grant(rev_mind.current)
+		//C.Grant(rev_mind.current)
 		obj_count++
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -203,10 +203,10 @@
 	else
 		to_chat(mob, "Вам выдали в вооружение очки хамелеон СБ в [where2]. Это поможет вам понять кто имплантирован майндщилдом и не могут быть завербованы.")
 	if(!where3)
-		to_chat(H, "<span class='userdanger'>К сожалению, ты не смог получить [F]. Это очень плохо поэтому срочно adminhelp про это (нажми F1 и опиши эту проблему).</span>")
+		to_chat(mob, "<span class='userdanger'>К сожалению, ты не смог получить [F]. Это очень плохо поэтому срочно adminhelp про это (нажми F1 и опиши эту проблему).</span>")
 		return FALSE
 	else
-		to_chat(H, "<span class='danger'>Твой [F] расположен в [where3].</span>")
+		to_chat(mob, "<span class='danger'>Твой [F] расположен в [where3].</span>")
 		return TRUE
 
 /////////////////////////////////
@@ -250,7 +250,8 @@
 			revolutionaries -= stalin
 			head_revolutionaries += stalin
 			log_game("[key_name(stalin)] has been promoted to a head rev")
-			equip_revolutionary(stalin.current)
+			var/mob/living/carbon/human/M = stalin.current
+			equip_revolutionary(M)
 			forge_revolutionary_objectives(stalin)
 			greet_revolutionary(stalin)
 
@@ -294,8 +295,8 @@
 		return 0
 	revolutionaries += rev_mind
 	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
-	rev_mind.current.create_attack_log("<font color='red'>Has been recruited to the revolution!</font>")
-	rev_mind.current.create_log(CONVERSION_LOG, "recruited to the revolution")
+	rev_mind.current.create_attack_log("<font color='red'>Has been converted to the revolution!</font>")
+	rev_mind.current.create_log(CONVERSION_LOG, "converted to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
@@ -318,12 +319,12 @@
 		rev_mind.current.create_attack_log("<font color='red'>Has renounced the revolution!</font>")
 		rev_mind.current.create_log(CONVERSION_LOG, "renounced the revolution")
 		if(beingborged)
-			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who recruited you."]</FONT></span>")
+			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who converted you."]</FONT></span>")
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 
 		else
 			rev_mind.current.Paralyse(5)
-			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who recruited you...</FONT></span>")
+			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who converted you...</FONT></span>")
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))
