@@ -100,6 +100,16 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 
+/mob/living/simple_animal/pet/dog/security
+	name = "Мухтар"
+	desc = "Старый служебный пёс. Он по-прежнему гордо несёт свою службу, несмотря на задетую центральную нервную систему."
+	icon_state = "german_shep"
+	icon_living = "german_shep"
+	icon_dead = "german_shep_dead"
+	response_help  = "pets"
+	response_disarm = "bops"
+	response_harm   = "kicks"
+
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
