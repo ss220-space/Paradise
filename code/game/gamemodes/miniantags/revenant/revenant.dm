@@ -234,6 +234,7 @@
 	if(!src)
 		return
 	if(holy_check(src))
+		to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))
