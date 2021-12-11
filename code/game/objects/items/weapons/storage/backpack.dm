@@ -165,6 +165,12 @@
 	item_state = "engiepack"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/storage/backpack/cargo
+	name = "Cargo backpack"
+	desc = "It's a huge backpack for daily looting of station's stashes."
+	icon_state = "cargopack"
+	item_state = "cargopack"
+
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
 	desc = "A robust backpack for stashing your loot."

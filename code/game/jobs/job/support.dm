@@ -141,7 +141,7 @@
 	id = /obj/item/card/id/supply
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
-
+	backpack = /obj/item/storage/backpack/cargo
 
 
 /datum/job/cargo_tech
@@ -167,7 +167,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
-
+	backpack = /obj/item/storage/backpack/cargo
 
 
 /datum/job/mining
