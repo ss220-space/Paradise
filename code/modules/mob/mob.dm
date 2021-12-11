@@ -1489,11 +1489,4 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 )))
 
 /mob/proc/holy_check()
-	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
-		return FALSE
-
-	if(!mind)
-		return FALSE
-
-	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
-	return TRUE
+	return (mind && is_type_in_typecache(get_area(src), GLOB.holy_areas))
