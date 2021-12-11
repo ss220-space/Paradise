@@ -110,6 +110,13 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 8
 
+/mob/living/simple_animal/pet/dog/security/ranger
+	name = "Ranger"
+	desc = "That's Ranger, your friendly and fierce k9. He has seen the terror of Xenomorphs, so it's best to be nice to him. <b>RANGER LEAD THE WAY</b>!"
+	icon_state = "ranger"
+	icon_living = "ranger"
+	icon_dead = "ranger_dead"
+
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
