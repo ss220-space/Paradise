@@ -96,9 +96,7 @@
 	icon_state = "blackdog"
 	icon_living = "blackdog"
 	icon_dead = "blackdog_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	icon_resting = "blackdog_rest"
 
 /mob/living/simple_animal/pet/dog/security
 	name = "Мухтар"
@@ -106,9 +104,11 @@
 	icon_state = "german_shep"
 	icon_living = "german_shep"
 	icon_dead = "german_shep_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	health = 35
+	maxHealth = 35
+	melee_damage_type = STAMINA
+	melee_damage_lower = 10
+	melee_damage_upper = 8
 
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
