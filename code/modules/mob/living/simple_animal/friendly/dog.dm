@@ -109,6 +109,7 @@
 	melee_damage_type = STAMINA
 	melee_damage_lower = 10
 	melee_damage_upper = 8
+	attacktext = "bites"
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
