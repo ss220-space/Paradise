@@ -183,6 +183,12 @@
 	icon_state = "botpack"
 	item_state = "botpack"
 
+/obj/item/storage/backpack/lizard
+	name = "lizard skin backpack"
+	desc = "A backpack made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
+	icon_state = "lizardpack"
+	item_state = "lizardpack"
+
 /obj/item/storage/backpack/chemistry
 	name = "chemistry backpack"
 	desc = "A backpack specially designed to repel stains and hazardous liquids."
