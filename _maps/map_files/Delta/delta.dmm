@@ -101687,7 +101687,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "qsc" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/surgery1)
 "qsg" = (
 /obj/structure/flora/ausbushes/palebush,
@@ -103587,6 +103587,9 @@
 	tag = "icon-cult"
 	},
 /area/lawoffice)
+"qSE" = (
+/turf/simulated/wall,
+/area/toxins/explab)
 "qSG" = (
 /obj/item/phone{
 	pixel_x = -3;
@@ -107581,6 +107584,9 @@
 	icon_state = "diagonalWall3"
 	},
 /area/shuttle/syndicate_sit)
+"rPI" = (
+/turf/simulated/wall/rust,
+/area/toxins/mixing)
 "rPP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -110329,6 +110335,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
+"szR" = (
+/turf/simulated/wall/r_wall,
+/area/chapel/office)
 "szY" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
@@ -114212,7 +114221,7 @@
 	},
 /area/library)
 "tCB" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/surgery2)
 "tCM" = (
 /obj/machinery/camera{
@@ -159865,7 +159874,7 @@ dvC
 ikA
 ikA
 nig
-ikA
+cXa
 muV
 oJS
 cQv
@@ -160122,7 +160131,7 @@ dvC
 ikA
 cJO
 epA
-oOo
+rAM
 rgj
 qrW
 uxj
@@ -160636,7 +160645,7 @@ cDz
 ikA
 kmL
 jkc
-oOo
+rAM
 tzZ
 mwh
 odT
@@ -160891,16 +160900,16 @@ xJC
 mDe
 dvC
 ikA
-oOo
-oOo
-oOo
-oOo
+rAM
+rAM
+rAM
+rAM
 qlJ
 cRY
 lDu
 lVe
 qlJ
-oOo
+rAM
 ikA
 ikA
 ikA
@@ -161919,19 +161928,19 @@ nqI
 mDe
 nso
 ikA
-oOo
-oOo
-oOo
-oOo
+rAM
+rAM
+rAM
+rAM
 rAM
 heE
 voL
 lXa
 mzZ
-oOo
-oOo
-oOo
-oOo
+rAM
+rAM
+rAM
+rAM
 ddi
 kvB
 cto
@@ -162947,19 +162956,19 @@ cbC
 yhX
 ugg
 ikA
-oOo
-oOo
-oOo
-oOo
+rAM
+rAM
+rAM
+rAM
 mzZ
 qGp
 voL
 cQH
 cUU
-oOo
-oOo
-oOo
-oOo
+rAM
+rAM
+rAM
+rAM
 ddi
 gXb
 phh
@@ -163233,11 +163242,11 @@ fGj
 uwp
 fGj
 wKr
-dkI
+rPI
 pZR
 xPY
 yhO
-dkI
+vlG
 rzM
 uLX
 tqc
@@ -163747,11 +163756,11 @@ tzX
 bIK
 qGP
 aSP
-dkI
+vlG
 eap
 txb
 pwH
-dkI
+vlG
 hlJ
 fGj
 rNX
@@ -163975,23 +163984,23 @@ cbC
 hwE
 ugg
 ikA
-oOo
-oOo
-oOo
-oOo
+rAM
+rAM
+rAM
+rAM
 hUH
 iJW
 cUW
 cTr
 hUH
-oOo
-oOo
+rAM
+rAM
 oOo
 oOo
 ddi
-ddi
+qSE
 wZL
-ddi
+qSE
 deR
 qtq
 dkI
@@ -164235,7 +164244,7 @@ ikA
 xYt
 xYt
 xYt
-oOo
+rAM
 bVJ
 odT
 muV
@@ -165263,7 +165272,7 @@ ikA
 xYt
 xYt
 xYt
-oOo
+rAM
 otn
 icz
 cNl
@@ -165824,11 +165833,11 @@ mmQ
 cmA
 riE
 dIx
-dIx
-dIx
-dIx
-dIx
-dIx
+szR
+szR
+szR
+szR
+szR
 dIx
 hYL
 dIx
