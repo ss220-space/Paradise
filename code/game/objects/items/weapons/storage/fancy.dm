@@ -365,6 +365,7 @@
 	desc = "Koorlander, Gold: 3% tobacco. 97% other. For when you want to look cool and the risk of a slow horrible death isn't really a factor."
 	icon_state = "kpacket"
 	item_state = "kpacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/tgmc/lady_finger
 	name = "\improper ArctiCool Menthols packet"
@@ -381,7 +382,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
 /*
- * cigcase 
+ * cigcase
  */
 
 /obj/item/storage/fancy/cigcase
