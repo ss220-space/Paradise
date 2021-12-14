@@ -98,26 +98,6 @@
 	icon_dead = "blackdog_dead"
 	icon_resting = "blackdog_rest"
 
-/mob/living/simple_animal/pet/dog/security
-	name = "Мухтар"
-	desc = "Старый служебный пёс. Он по-прежнему гордо несёт ношу хорошего мальчика."
-	icon_state = "german_shep"
-	icon_living = "german_shep"
-	icon_dead = "german_shep_dead"
-	health = 35
-	maxHealth = 35
-	melee_damage_type = STAMINA
-	melee_damage_lower = 10
-	melee_damage_upper = 8
-	attacktext = "bites"
-
-/mob/living/simple_animal/pet/dog/security/ranger
-	name = "Ranger"
-	desc = "That's Ranger, your friendly and fierce k9. He has seen the terror of Xenomorphs, so it's best to be nice to him. <b>RANGER LEAD THE WAY</b>!"
-	icon_state = "ranger"
-	icon_living = "ranger"
-	icon_dead = "ranger_dead"
-
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
