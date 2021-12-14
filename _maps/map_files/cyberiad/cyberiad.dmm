@@ -2222,6 +2222,8 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"

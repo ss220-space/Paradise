@@ -122278,6 +122278,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
