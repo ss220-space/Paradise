@@ -33,7 +33,6 @@
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = icon_on
-	//item_state = icon_on
 	force = 5
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
