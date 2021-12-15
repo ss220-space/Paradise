@@ -56,7 +56,6 @@
 	lit = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = icon_off
-	//item_state = icon_off
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
