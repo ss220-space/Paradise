@@ -1,5 +1,6 @@
 /datum/world_topic_handler/playerlist_ext
 	topic_key = "playerlist_ext"
+	requires_commskey = TRUE
 
 /datum/world_topic_handler/playerlist_ext/execute(list/input, key_valid)
 	var/list/players = list()
