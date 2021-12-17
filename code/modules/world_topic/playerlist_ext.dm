@@ -5,21 +5,35 @@
 /datum/world_topic_handler/playerlist_ext/execute(list/input, key_valid)
 	var/list/players = list()
 	var/list/just_keys = list()
+	world.log << "== playerlist_ext called =="
 
+	world.log << "all clients:"
 	for(var/client/C in GLOB.clients)
-		players[C.key] += C.key
-		just_keys += C.key
+		var/ckey = C.ckey
+		world.log << "+ [ckey]"
+		players[ckey] += ckey
+		just_keys += ckey
 
+	world.log << "all minds:"
 	for(var/datum/mind/M in SSticker.minds)
+		var/ckey = ckey(M.key)
 		if(!M.current)
+			world.log << "[ckey] no current mob"
 			continue
 		if(M.current.client)
+			world.log << "[ckey] has current client"
 			continue
 		if(M.current.player_ghosted)
-			if(!players[M.key])
+			world.log << "[ckey] has player_ghosted"
+			if(!players[ckey])
+				world.log << "[ckey] dont have attached player client"
 				continue
+		if(players[ckey])
+			world.log << "[ckey] already in list"
+			continue
 
-		players[M.key] = M.key
-		just_keys += M.key
+		world.log << "+ [ckey]"
+		players[ckey] = ckey
+		just_keys += ckey
 
 	return json_encode(just_keys)
