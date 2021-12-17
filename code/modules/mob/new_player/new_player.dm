@@ -22,6 +22,8 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
+	if(length(GLOB.clients) > 100)
+		client.hublistpanel(TRUE)
 	if(client.tos_consent)
 		new_player_panel_proc()
 	else
@@ -98,8 +100,8 @@
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
-			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready:", "[totalPlayersReady]")
+			//if(check_rights(R_ADMIN, 0, src))
+			stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
@@ -147,6 +149,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
@@ -168,6 +176,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
@@ -195,8 +209,6 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
-				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
 			QDEL_NULL(mind)
 			if (config.respawn_observer) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
@@ -213,6 +225,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
@@ -611,11 +629,7 @@
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	var/dat = {"<html><meta charset="UTF-8"><body>"}
-	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = 1)
-
-	src << browse(dat, "window=manifest;size=370x420;can_close=1")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
 
 /mob/new_player/Move()
 	return 0

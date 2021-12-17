@@ -259,6 +259,12 @@ SUBSYSTEM_DEF(timer)
 	// Add all timed events from the secondary queue as well
 	alltimers += second_queue
 
+	for (var/datum/timedevent/t in alltimers)
+		t.bucket_joined = FALSE
+		t.bucket_pos = -1
+		t.prev = null
+		t.next = null
+
 	// If there are no timers being tracked by the subsystem,
 	// there is no need to do any further rebuilding
 	if (!length(alltimers))
@@ -302,6 +308,7 @@ SUBSYSTEM_DEF(timer)
 		new_bucket_count++
 		var/bucket_pos = BUCKET_POS(timer)
 		timer.bucket_pos = bucket_pos
+		timer.bucket_joined = TRUE
 
 		var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
 		if (!bucket_head)
@@ -550,6 +557,7 @@ SUBSYSTEM_DEF(timer)
 		stack_trace("addtimer called with a negative wait. Converting to [world.tick_lag]")
 
 	if (callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
+		SSgarbage.HardDelete(callback.object, TRUE)		//Okay, in this case we really should harddel the object
 		stack_trace("addtimer called with a callback assigned to a qdeleted object. In the future such timers will not \
 			be supported and may refuse to run or run with a 0 wait")
 

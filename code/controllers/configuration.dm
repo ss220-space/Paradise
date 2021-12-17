@@ -6,10 +6,14 @@
 
 	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
 
+	var/minimum_byondacc_age = 0
+
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
 	var/twitch_censor = FALSE
 	var/list/twich_censor_list = list()
+	var/hublist_url = null
+	var/list/topic_filtering_whitelist = list()
 
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout
@@ -554,6 +558,9 @@
 				if("repositoryurl")
 					config.repositoryurl = value
 
+				if("hublist_url")
+					config.hublist_url = value
+
 				if("guest_jobban")
 					config.guest_jobban = 1
 
@@ -571,6 +578,9 @@
 
 				if("usewhitelist_nojobbanned")
 					config.usewhitelist_nojobbanned = TRUE
+
+				if("minimum_byondacc_age")
+					config.minimum_byondacc_age = text2num(value)
 
 				if("feature_object_spell_system")
 					config.feature_object_spell_system = 1
@@ -840,6 +850,9 @@
 
 				if ("allow_head_of_departaments_assign_civilian")
 					config.allow_head_of_departaments_assign_civilian = TRUE
+
+				if("topic_filtering_whitelist")
+					config.topic_filtering_whitelist = splittext(value, " ")
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")
