@@ -1,0 +1,10 @@
+"a" = (/turf/simulated/mineral/random/volcanic,/area/lavaland/surface/outdoors)
+"R" = (/obj/bfl_crack,/turf/simulated/mineral/random/volcanic,/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+aaaaa
+aaaaa
+aaaaa
+aRaaa
+aaaaa
+"}
