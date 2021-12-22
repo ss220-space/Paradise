@@ -19,18 +19,22 @@
 		return TRUE
 	return FALSE
 
+//Отправить сигнал о включении, сигнал о выключении
 /obj/machinery/bfl_emitter
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
+	var/emag = FALSE
+	var/state = FALSE
 
 /obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
 
+//Получить сигнал о включении, если state == 0, вызвать лазер-пожиратель; 
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Base_Close"
-	var/emag = FALSE
+	var/state = FALSE
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	if(!emagged)
