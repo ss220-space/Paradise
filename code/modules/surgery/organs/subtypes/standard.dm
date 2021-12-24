@@ -283,7 +283,7 @@
 			owner?.AdjustConfused(30)
 		if(2)
 			owner?.AdjustConfused(20)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, overloading your motor control!</span>")
+	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
 
 /obj/item/organ/external/tail
 	limb_name = "tail"
