@@ -374,6 +374,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
+			module_sprites["Qualified doctor"] = "qualified-doctor"
 			status_flags &= ~CANPUSH
 			see_reagents = TRUE
 
