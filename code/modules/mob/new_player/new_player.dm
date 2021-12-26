@@ -501,7 +501,7 @@
 		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>Станция отметила эти профессии как приоритетные: "
+		dat += "<font color='lime'>Станция отметила эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -551,7 +551,7 @@
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
 	if(num_jobs_available)
-		dat += "Choose from the following open positions:<br><br>"
+		dat += "Выберите из следующих открытых позиций:<br><br>"
 		dat += "<table><tr><td valign='top'>"
 		for(var/jobcat in categorizedJobs)
 			if(categorizedJobs[jobcat]["colBreak"])
