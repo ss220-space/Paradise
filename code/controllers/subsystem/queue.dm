@@ -9,11 +9,13 @@ SUBSYSTEM_DEF(queue)
 /datum/controller/subsystem/queue/Initialize(start_timeofday)
 	if(config.queue_engine_enabled)
 		enabled = TRUE
+		send_status(TRUE)
+
 	return ..()
 
 // This is designed for ease of simplicity for sending quick messages from parts of the code
-/datum/controller/subsystem/queue/proc/send_status()
-	if(!enabled || !(Master?.current_runlevel & (RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME)))
+/datum/controller/subsystem/queue/proc/send_status(force = FALSE)
+	if(!enabled || (!force && !(Master?.current_runlevel & (RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME))))
 		return
 
 	var/staff = 0
