@@ -8,7 +8,7 @@
 	// world.log << "== playerlist_ext called =="
 
 	// world.log << "all clients:"
-	for(var/client/C in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		var/ckey = C.ckey
 		// world.log << "+ [ckey]"
 		players[ckey] += ckey
