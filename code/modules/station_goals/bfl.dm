@@ -38,30 +38,30 @@ var/crack_GPS
 			if (0)
 				emitter_activate()
 
-/obj/machinery/bfl_emitter/emitter_activate
-//locate bfl_receiver на шахте
+/obj/machinery/bfl_emitter/proc/emitter_activate()
+//locate bfl_receiver at lavaland
+	anchored = 1
 	state = TRUE
 	icon_state = "Emitter_On"
 	if(receiver)
-    	return
-		for(var/turf/T as anything in block(locate(1, 1, GLOB.space_manager.get_zlev_by_name(MINING)), locate(world.maxx, world.maxy, GLOB.space_manager.get_zlev_by_name(MINING))))
-    		receiver = locate() in T
-    		if(receiver)
-        		break
-	else
-		//activate red laser
-/obj/machinery/bfl_emitter/emitter_deactivate
-//locate bfl_receiver на шахте
-//если красный лазер включен, выключить-удалить его
+		return
+	for(var/turf/T as anything in block(locate(1, 1, GLOB.space_manager.get_zlev_by_name(MINING)), locate(world.maxx, world.maxy, GLOB.space_manager.get_zlev_by_name(MINING))))
+		receiver = locate() in T
+		if(receiver)
+			break
+	//if(!receiver)
+		//activate red laser; state_death_star = TRUE
+/obj/machinery/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
 	icon_state = "Emitter_Off"
+//if(state_deat_star)
+	//delete laser
 
-
-/obj/machinery/bfl_emitter/New()
+///obj/machinery/bfl_emitter/New()
 
 /obj/machinery/bfl_receiver
 	var/state = FALSE
-
+	anchored = 1
 	name = "BFL Receiver"
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Base_Close"
@@ -69,10 +69,10 @@ var/crack_GPS
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	switch(state)
 		if (1)
-			state_bfl_receiver = FALSE
+			state = FALSE
 			icon_state = "Receiver_Off"
 		if (0)
-			state_bfl_receiver = TRUE
+			state = TRUE
 			icon_state = "Receiver_On"
 
 /obj/machinery/bfl_receiver
@@ -85,6 +85,7 @@ var/crack_GPS
 	icon_state = "Crack"
 	layer = HIGH_TURF_LAYER
 
+	//space for gps tracker
 	var/obj/item/tank/internal
 	var/internal_type = /obj/item/gps/internal/bfl_crack
 
@@ -103,4 +104,4 @@ var/crack_GPS
 	//Сделать включение сигнала при получении репорта on_report
 	//tracking = 0
 
-/obj/singularity/bfl_red
+//Red laser /obj/singularity/bfl_red
