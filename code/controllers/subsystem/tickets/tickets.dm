@@ -117,10 +117,10 @@ SUBSYSTEM_DEF(tickets)
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(C, TRUE, ticket_help_type)] "
 	L += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) "
-	L += "([admin_jump_link(C.mob)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
-	L += "[isAI(C.mob) ? "(<a href='?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
-	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
-	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[msg]</span>"
+	L += "([admin_jump_link(C.mob)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>ТИКЕТ</a>) "
+	L += "[isAI(C.mob) ? "(<a href='?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>ВЗЯТЬ</a>) "
+	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>АВТО-ОТВЕТ</a>) "
+	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>КОНВЕРТ</a>) :</span> <span class='[ticket_help_span]'>[msg]</span>"
 	return L.Join()
 
 //Open a new ticket and populate details then add to the list of open tickets
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	var/client/C = usr.client
 	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || ((T.ticketState != TICKET_OPEN) && (T.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
-		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Another admin appears to already be handling this." : "This ticket is already marked as closed or resolved"] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
+		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Другой админ уже разбирает этот тикет." : "Этот тикет уже закрыт или решён."] Вы точно хотите продолжить?", "Подтверждение", "Да", "Нет") != "Да")
 			return
 	T.assignStaff(C)
 
@@ -244,7 +244,7 @@ SUBSYSTEM_DEF(tickets)
 			var/msg_sound = sound('sound/effects/adminhelp.ogg')
 			SEND_SOUND(returnClient(N), msg_sound)
 			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] ответил сообщением: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
-			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+			message_staff("[C] авто-ответил на [ticket_owner]\'s adminhelp сообщением:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Авто-ответ: [message_key]"
 			resolveTicket(N)
 			log_game("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
@@ -425,12 +425,12 @@ UI STUFF
 
 	var/dat = {"<meta charset="UTF-8"><h1>[ticket_system_name]</h1>"}
 
-	dat +="<a href='?src=[UID()];refresh=1'>Показать все</a><a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Обновить</a>"
+	dat +="<a href='?src=[UID()];refresh=1'>Показать все тикеты</a><a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Обновить</a>"
 
-	dat += "<h2>Ticket #[T.ticketNum]</h2>"
+	dat += "<h2>Тикет #[T.ticketNum]</h2>"
 
 	dat += "<h3>[T.client_ckey] / [T.mobControlled] открыл [ticket_name] в [T.timeOpened] в локации [T.locationSent]</h3>"
-	dat += "<h4>Ticket Status: <font color='red'>[status]</font>"
+	dat += "<h4>Статус Тикета: <font color='red'>[status]</font>"
 	dat += "<table style='width:950px; border: 3px solid;'>"
 	dat += "<tr><td>[T.title]</td></tr>"
 
