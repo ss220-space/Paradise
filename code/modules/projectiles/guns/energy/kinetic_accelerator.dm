@@ -1,6 +1,6 @@
 /obj/item/gun/energy/kinetic_accelerator
-	name = "proto-kinetic accelerator"
-	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. Capable of holding up to six slots worth of mod kits."
+	name = "Протокинетический акселератор"
+	desc = "Самозарядный дальнобойный шахтерский инструмент, урон которого повышается при низком давлении. Можно устанавливать модификации."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
@@ -31,10 +31,10 @@
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
+			. += "Осталось доступно для модификации <b>[get_remaining_mod_capacity()]%</b> места."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
-				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. += "<span class='notice'>Установлена модификация «[M.name]», заняв <b>[M.cost]%</b> места.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
@@ -46,11 +46,11 @@
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!modkits.len)
-		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
+		to_chat(user, "<span class='notice'>Модификации не установлены.</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
+	to_chat(user, "<span class='notice'>Вы извлекаете модификации</span>")
 	for(var/obj/item/borg/upgrade/modkit/M in modkits)
 		M.uninstall(src)
 
@@ -144,7 +144,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.</span>")
+		to_chat(loc, "<span class='warning'>[src] негромко заряжается.</span>")
 	update_icon()
 	overheat = FALSE
 
@@ -163,8 +163,8 @@
 
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
-	name = "experimental kinetic accelerator"
-	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
+	name = "Экспериментальный кинетический акселератор"
+	desc = "Модифицированная версия протокинетического акселератора, в которой вдвое больше места для модификаций."
 	icon_state = "kineticgun_h"
 	item_state = "kineticgun_h"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
@@ -187,7 +187,7 @@
 
 //Projectiles
 /obj/item/projectile/kinetic
-	name = "kinetic force"
+	name = "кинетический удар"
 	icon_state = null
 	damage = 40
 	damage_type = BRUTE
@@ -217,7 +217,7 @@
 			for(var/obj/item/borg/upgrade/modkit/M in mods)
 				M.projectile_prehit(src, target, kinetic_gun)
 		if(!lavaland_equipment_pressure_check(get_turf(target)))
-			name = "weakened [name]"
+			name = "ослабленный [name]"
 			damage = damage * pressure_decrease
 			pressure_decrease_active = TRUE
 
@@ -249,7 +249,7 @@
 
 //Modkits
 /obj/item/borg/upgrade/modkit
-	name = "kinetic accelerator modification kit"
+	name = "Улучшение для кинетического акселератора"
 	desc = "An upgrade for kinetic accelerators."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
@@ -267,7 +267,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+		. += "<span class='notice'>Занимает <b>[cost]%</b> места для модификаций.</span>"
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
@@ -286,10 +286,10 @@
 	. = TRUE
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
-			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
+			to_chat(user, "<span class='notice'>Устанавливаемая модификация подходит только для шахтботов.</span>")
 			return FALSE
 	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
-		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
+		to_chat(user, "<span class='notice'>Устанавливаемая модификация не подходит для шахтботов.</span>")
 		return FALSE
 	if(denied_type)
 		var/number_of_denied = 0
@@ -302,15 +302,15 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
-			to_chat(user, "<span class='notice'>You install the modkit.</span>")
+			to_chat(user, "<span class='notice'>Вы устанавливаете модификацию.</span>")
 			playsound(loc, usesound, 100, 1)
 			user.unEquip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else
-			to_chat(user, "<span class='notice'>The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits.</span>")
+			to_chat(user, "<span class='notice'>Устанавливаемая модификация будет конфликтовать с уже установленной модификацией. Выньте установленные модификации ломиком.</span>")
 	else
-		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
+		to_chat(user, "<span class='notice'>У вас не осталось свободного места (<b>[KA.get_remaining_mod_capacity()]%</b>, нужно [cost]%) для установки этой модификации. Выньте установленные модификации ломиком.</span>")
 		. = FALSE
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
@@ -328,8 +328,8 @@
 
 //Range
 /obj/item/borg/upgrade/modkit/range
-	name = "range increase"
-	desc = "Increases the range of a kinetic accelerator when installed."
+	name = "Увеличение дальности"
+	desc = "Увеличивает дальность кинетического акселератора."
 	modifier = 1
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
@@ -339,8 +339,8 @@
 
 //Damage
 /obj/item/borg/upgrade/modkit/damage
-	name = "damage increase"
-	desc = "Increases the damage of kinetic accelerator when installed."
+	name = "Увеличение урона"
+	desc = "Увеличивает урон кинетического акселератора."
 	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/item/projectile/kinetic/K)
@@ -349,8 +349,8 @@
 
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
-	name = "cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
+	name = "Ускорение перезарядки"
+	desc = "Уменьшает время перезарядки кинетического акселератора. Не подходит для шахтботов."
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown
 	maximum_of_type = 2
 	modifier = 3.2
@@ -366,8 +366,8 @@
 	..()
 
 /obj/item/borg/upgrade/modkit/cooldown/minebot
-	name = "minebot cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for minebot use."
+	name = "Ускорение перезарядки шахтбота"
+	desc = "Уменьшает время перезарядки кинетического акселератора. Подходит только для шахтботов."
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
@@ -413,35 +413,35 @@
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
-			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
+			to_chat(L, "<span class='userdanger'>По вам попали из [K.name]!</span>")
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
-	name = "mining explosion"
-	desc = "Causes the kinetic accelerator to destroy rock in an AoE."
+	name = "Шахтёрские взрывы"
+	desc = "Позволяет кинетическому акселератору разрушать скалы вокруг цели."
 	denied_type = /obj/item/borg/upgrade/modkit/aoe/turfs
 	turf_aoe = TRUE
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	name = "offensive mining explosion"
-	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE."
+	name = "Атакующие шахтёрские взрывы"
+	desc = "Позволяет кинетическому акселератору разрушать скалы и вредить монстрам вокруг цели."
 	maximum_of_type = 3
 	modifier = 0.25
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
-	name = "offensive explosion"
-	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
+	name = "Атакующие взрывы"
+	desc = "Позволяет кинетическому акселератору вредить монстрам вокруг цели."
 	modifier = 0.2
 
 //Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
-	name = "minebot passthrough"
-	desc = "Causes kinetic accelerator shots to pass through minebots."
+	name = "Пронзание шахтботов"
+	desc = "Позволяет выстрелам кинетического акселератора пролетать сквозь шахтботов."
 	cost = 0
 
 //Tendril-unique modules
 /obj/item/borg/upgrade/modkit/cooldown/repeater
-	name = "rapid repeater"
-	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown."
+	name = "Быстрый повторитель"
+	desc = "Учетверяет скорость перезарядки кинетического акселератора при стрельбе по живой цели, но сильно замедляет обычную перезарядку."
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
 	cost = 50
@@ -459,8 +459,8 @@
 		KA.attempt_reload(KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
 
 /obj/item/borg/upgrade/modkit/lifesteal
-	name = "lifesteal crystal"
-	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
+	name = "Кристалл кражи жизни"
+	desc = "Позволяет выстрелам кинетического акселератора немного лечить стрелка при стрельбе по живой цели."
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
 	cost = 20
@@ -475,8 +475,8 @@
 		L.heal_ordered_damage(modifier, damage_heal_order)
 
 /obj/item/borg/upgrade/modkit/resonator_blasts
-	name = "resonator blast"
-	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
+	name = "Резонаторный взрыв"
+	desc = "Позволяет выстрелам кинетического акселератора создавать и подрывать в месте попадания резонаторные взрывы."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
@@ -491,8 +491,8 @@
 		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, 30)
 
 /obj/item/borg/upgrade/modkit/bounty
-	name = "death syphon"
-	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
+	name = "Сифон смерти"
+	desc = "Убийство или помощь в убийстве существа навсегда увеличат ваш урон против существ этого типа."
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
 	cost = 30
@@ -531,8 +531,8 @@
 
 //Indoors
 /obj/item/borg/upgrade/modkit/indoors
-	name = "decrease pressure penalty"
-	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
+	name = "Улучшение эффективности в атмосфере"
+	desc = "Синдикатовская модификация, увеличивающая урон от выстрелов кинетического акселератора в средах с высоким давлением."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2
@@ -544,8 +544,8 @@
 
 //Trigger Guard
 /obj/item/borg/upgrade/modkit/trigger_guard
-	name = "modified trigger guard"
-	desc = "Allows creatures normally incapable of firing guns to operate the weapon when installed."
+	name = "Модифицированный спусковой крючок"
+	desc = "Позволяет стрелять из этого оружия существам, которые обычно не могут пользоваться оружием."
 	cost = 20
 	denied_type = /obj/item/borg/upgrade/modkit/trigger_guard
 
@@ -562,8 +562,8 @@
 //Cosmetic
 
 /obj/item/borg/upgrade/modkit/chassis_mod
-	name = "super chassis"
-	desc = "Makes your KA yellow. All the fun of having a more powerful KA without actually having a more powerful KA."
+	name = "Супершасси"
+	desc = "Перекрашивает ваш КА в жёлтый цвет. Очень забавно иметь более мощный КА, на самом деле не имея более мощного КА."
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	var/chassis_icon = "kineticgun_u"
@@ -581,14 +581,14 @@
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
-	name = "hyper chassis"
-	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
+	name = "Гипершасси"
+	desc = "Перекрашивает ваш КА в оранжевый цвет. Очень забавно иметь разрывные выстрелы, на самом деле не имея разрывных выстрелов."
 	chassis_icon = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/tracer
-	name = "white tracer bolts"
-	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion."
+	name = "Белые трассирующие снаряды"
+	desc = "Позволяет снарядам кинетического акселератора оставлять в полёте белые трассы и облака взрыва."
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/tracer
 	var/bolt_color = "#FFFFFF"
@@ -598,8 +598,8 @@
 	K.color = bolt_color
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable
-	name = "adjustable tracer bolts"
-	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
+	name = "Настраиваемые трассирующие снаряды"
+	desc = "Позволяет снарядам кинетического акселератора оставлять в полёте трассы и облака взрыва заданного цвета. Для выбора цвета используйте модификацию в руках."
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	bolt_color = input(user,"","Choose Color",bolt_color) as color|null
+	bolt_color = input(user,"","Выберите цвет",bolt_color) as color|null

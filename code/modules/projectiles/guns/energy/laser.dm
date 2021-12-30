@@ -1,6 +1,6 @@
 /obj/item/gun/energy/laser
-	name = "laser gun"
-	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
+	name = "Лазерный карабин"
+	desc = "Базовый энергетический лазерный карабин. Стреляет лучами концентрированного света, проходящими сквозь стекло и тонкий металл."
 	icon_state = "laser"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -11,24 +11,24 @@
 	shaded_charge = 1
 
 /obj/item/gun/energy/laser/practice
-	name = "practice laser gun"
-	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
+	name = "Тренировочный лазерный карабин"
+	desc = "Модифицированная версия базового лазерного карабина. Стреляет менее концентрированными лучами и предназначено для тренировок."
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
 	needs_permit = 0
 
 /obj/item/gun/energy/laser/retro
-	name ="retro laser gun"
+	name ="Ретро лазерный карабин"
 	icon_state = "retro"
-	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
+	desc = "Устаревшая модель базового лазерного карабин, больше не используемая охранными и военными силами NanoTrasen. Тем не менее, он всё же обладает приличной убойной силой, что, вместе с простотой обслуживания, делает ретро лазерный карабин любимым оружием пиратов и прочих преступников."
 	ammo_x_offset = 3
 
 /obj/item/gun/energy/laser/captain
-	name = "antique laser gun"
+	name = "Старинный лазерный пистолет"
 	icon_state = "caplaser"
 	item_state = "caplaser"
-	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with assistant leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
+	desc = "Это старинный лазерный пистолет. Все его детали высочайшего качества. Он декорирован хромом и кожей ассистента. Предмет буквально пропитан энергией. На предмете изображена космическая станции 13. Она взрывается."
 	force = 10
 	origin_tech = null
 	ammo_x_offset = 3

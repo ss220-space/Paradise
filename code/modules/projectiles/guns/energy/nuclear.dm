@@ -22,8 +22,8 @@
 	return
 
 /obj/item/gun/energy/gun/mini
-	name = "miniature energy gun"
-	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
+	name = "Миниатюрный энергопистолет"
+	desc = "Небольшой энергопистолет со встроенным фонариком. У него два режима: оглушающий и летальный."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
@@ -43,8 +43,8 @@
 		overlays += "mini-light"
 
 /obj/item/gun/energy/gun/hos
-	name = "\improper X-01 MultiPhase Energy Gun"
-	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+	name = "\improper Многофазный энергопистолет Икс-01"
+	desc = "Это дорогая, современная версия антикварного лазерного пистолета. У этого оружия есть несколько уникальных режимов ведения огня, но нет возможности самостоятельно перезаряжаться с течением времени."
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
@@ -53,8 +53,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/gun/energy/gun/blueshield
-	name = "advanced stun revolver"
-	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
+	name = "Улучшенный оглушающий револьвер"
+	desc = "Улучшенный оглушающий револьвер со способностью стрелять как электродами, так и лазером."
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
@@ -63,13 +63,13 @@
 	shaded_charge = 1
 
 /obj/item/gun/energy/gun/blueshield/pdw9
-	name = "PDW-9 taser pistol"
-	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
+	name = "Тазер-пистолет PDW-9"
+	desc = "Пистолет военного образца, используемый многими ополченцами этого сектора космоса."
 	icon_state = "pdw9pistol"
 
 /obj/item/gun/energy/gun/turret
-	name = "hybrid turret gun"
-	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
+	name = "Гибридный ствол турели"
+	desc = "Тяжелая гибридная энергетическая пушка с двумя режимами: оглушающим и летальным."
 	icon_state = "turretlaser"
 	item_state = "turretlaser"
 	slot_flags = null
@@ -81,8 +81,8 @@
 	ammo_x_offset = 2
 
 /obj/item/gun/energy/gun/nuclear
-	name = "advanced energy gun"
-	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
+	name = "Продвинутый энергетический карабин"
+	desc = "Энергетический карабин с экспериментальным миниатюрным ядерным реактором, автоматически заряжающим внутреннюю батарею."
 	icon_state = "nucgun"
 	item_state = "nucgun"
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
