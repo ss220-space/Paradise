@@ -31,7 +31,7 @@ var/crack_GPS
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
 	anchored = 1
-	denstiy = 1
+	density = 1
 
 /obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
 	switch(state)
@@ -52,13 +52,13 @@ var/crack_GPS
 		to_chat(usr, "Emitter successfully sabotaged")
 
 /obj/machinery/bfl_emitter/process()
-	.=..()
-	if(!receiver || !receiver.state || emag)
-		if(!laser)
-			var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
-			laser = new (rand_location)
-			if(receiver)
-				receiver.receiver_deactivate()
+	if(state)
+		if(!receiver || !receiver.state || emag)
+			if(!laser)
+				var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+				laser = new (rand_location)
+				if(receiver)
+					receiver.receiver_deactivate()
 
 
 /obj/machinery/bfl_emitter/proc/emitter_activate()
@@ -77,6 +77,8 @@ var/crack_GPS
 		if(receiver)
 			break
 
+	if(receiver)
+		receiver.mining = TRUE
 
 /obj/machinery/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
@@ -105,6 +107,7 @@ var/crack_GPS
 		var/obj/structure/filler/F = new(T)
 		F.parent = src
 		fillers += F
+
 /obj/machinery/bfl_emitter/Destroy()
 	. = ..()
 	emitter_deactivate()
@@ -114,6 +117,7 @@ var/crack_GPS
 	var/state = FALSE
 	var/mining = FALSE
 	var/obj/item/storage/internal
+	var/ore_type = FALSE
 
 	name = "BFL Receiver"
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
@@ -129,7 +133,13 @@ var/crack_GPS
 
 /obj/machinery/bfl_receiver/process()
 	if (mining && state)
-		internal += new /obj/item/stack/ore/plasma
+		switch(ore_type)
+			if(2)
+				internal += new /obj/item/stack/ore/plasma
+			if(1)
+				internal += new /obj/item/stack/ore/glass
+			else
+				return 0
 
 /obj/machinery/bfl_receiver/verb/empty_storage()
 	set name = "Empty the storage"
@@ -137,21 +147,33 @@ var/crack_GPS
 
 	internal.quick_empty()
 
-//make big machines like in harvester
 /obj/machinery/bfl_receiver/New()
 	.=..()
+	pixel_x = -32
+	pixel_y = -32
 	verbs += /obj/machinery/bfl_receiver/verb/empty_storage
-	//locate bfl_crack
-	//if !located, locate lavaland turf
-	//if !lavalnd turf
+	var/turf/turf_under = get_turf(src)
+	if(locate(/obj/bfl_crack) in turf_under)
+		ore_type = 2 //plasma
+	else
+		if(istype(turf_under, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
+			ore_type = 1 //sand
+		else
+			ore_type = 0 //sosi bibu
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	state = TRUE
 	icon_state = "Receiver_On"
+	density = 1
 
 /obj/machinery/bfl_receiver/proc/receiver_deactivate()
 	state = FALSE
 	icon_state = "Receiver_Off"
+	density = 0
+
+/obj/bfl_lens
+	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
+	icon_state = "Crack"
 
 /obj/bfl_crack
 	name = "rich plasma deposit"
@@ -159,6 +181,8 @@ var/crack_GPS
 	anchored = 1
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Crack"
+	pixel_x = -32
+	pixel_y = -32
 	layer = HIGH_TURF_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -172,13 +196,24 @@ var/crack_GPS
 
 /obj/item/gps/internal/bfl_crack
 	gpstag = "NT signal"
-	//Сделать включение сигнала при получении репорта on_report
-	//tracking = 0
 
 /obj/singularity/bfl_red
 	name = "BFL"
 	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
+	speed_process = TRUE
+
+/obj/singularity/bfl_red/move(force_move)
+	if(!move_self)
+		return 0
+
+	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
+
+	if(force_move)
+		movement_dir = force_move
+	else
+		loc = locate((world.time/15 % 255) + 1, (sin(world.time/15) + 1)*125 + 1, 3)
+	step(src, movement_dir)
 
 /obj/singularity/bfl_red/expand()
 	.=..()
@@ -207,3 +242,14 @@ var/crack_GPS
 	pixel_x = 0
 	pixel_y = 0
 	grav_pull = 0
+
+/obj/singularity/bfl_red/mish_SINGULARITY/move(force_move)
+	if(!move_self)
+		return 0
+
+	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
+
+	if(force_move)
+		movement_dir = force_move
+
+	step(src, movement_dir)
