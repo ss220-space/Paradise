@@ -28,7 +28,7 @@ var/crack_GPS
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
-
+	anchored = 1
 
 /obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
 	if(!emag)
@@ -40,31 +40,41 @@ var/crack_GPS
 
 /obj/machinery/bfl_emitter/proc/emitter_activate()
 //locate bfl_receiver at lavaland
-	anchored = 1
 	state = TRUE
 	icon_state = "Emitter_On"
 	if(receiver)
+		receiver.mining = TRUE
 		return
-	for(var/turf/T as anything in block(locate(1, 1, GLOB.space_manager.get_zlev_by_name(MINING)), locate(world.maxx, world.maxy, GLOB.space_manager.get_zlev_by_name(MINING))))
+
+	for(var/obj/machinery/bfl_receiver/T as anything in block(locate(1, 1, GLOB.space_manager.get_zlev_by_name(MINING)), locate(world.maxx, world.maxy, GLOB.space_manager.get_zlev_by_name(MINING))))
 		receiver = locate() in T
 		if(receiver)
 			break
-	//if(!receiver)
+
+
+	//if(!receiver || !receiver.state)
 		//activate red laser; state_death_star = TRUE
+
 /obj/machinery/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
 	icon_state = "Emitter_Off"
+	if(receiver)
+		receiver.mining = FALSE
+
 //if(state_deat_star)
 	//delete laser
 
+//make big machines like in harvester
 ///obj/machinery/bfl_emitter/New()
 
 /obj/machinery/bfl_receiver
 	var/state = FALSE
-	anchored = 1
+	var/mining = FALSE
+
 	name = "BFL Receiver"
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Base_Close"
+	anchored = 1
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	switch(state)
@@ -75,8 +85,11 @@ var/crack_GPS
 			state = TRUE
 			icon_state = "Receiver_On"
 
-/obj/machinery/bfl_receiver
+/obj/machinery/bfl_receiver/process()
+	//if (mining && )
 
+//make big machines like in harvester
+///obj/machinery/bfl_receiver/New()
 /obj/bfl_crack
 	name = "rich plasma deposit"
 	can_be_hit = FALSE
@@ -84,6 +97,7 @@ var/crack_GPS
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Crack"
 	layer = HIGH_TURF_LAYER
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	//space for gps tracker
 	var/obj/item/tank/internal
