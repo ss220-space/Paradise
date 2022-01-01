@@ -343,9 +343,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log += "High Priority - From: [linkedSender] - [message]"
+			message_log += "Высокий приоритет - От: [linkedSender] - [message]"
 		else // Normal
-			message_log += "From: [linkedSender] - [message]"
+			message_log += "От: [linkedSender] - [message]"
 	set_light(2)
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
