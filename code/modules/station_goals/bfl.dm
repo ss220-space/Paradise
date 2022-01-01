@@ -34,16 +34,25 @@ var/crack_GPS
 	density = 1
 
 /obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
-	switch(state)
-		if (1)
-			if(!emag)
-				emitter_deactivate()
-		if (0)
-			if(world.time - start_time > 30 SECONDS)
-				emitter_activate()
-				start_time = world.time
-			else
-				to_chat(usr, "Error, emitter is still cooling down")
+	var/response
+	if(state)
+		response = alert(user, "You trying to deactivate BFL emitter machine, are you sure?", "BFL Emitter", "deactivate", "nothing")
+	else
+		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "nothing")
+
+	if(response == "deactivate")
+		if(!emag)
+			emitter_deactivate()
+		else
+			visible_message("E.r$%^0r")
+	if (response == "activate")
+		if(world.time - start_time > 30 SECONDS)
+			emitter_activate()
+			start_time = world.time
+		else
+			visible_message("Error, emitter is still cooling down")
+	if (response == "nothing")
+		return
 
 /obj/machinery/bfl_emitter/emag_act()
 	. = ..()
@@ -59,6 +68,7 @@ var/crack_GPS
 				laser = new (rand_location)
 				if(receiver)
 					receiver.receiver_deactivate()
+					receiver.lens.deactivate_lens()
 
 
 /obj/machinery/bfl_emitter/proc/emitter_activate()
@@ -70,6 +80,8 @@ var/crack_GPS
 
 	if(receiver)
 		receiver.mining = TRUE
+		if(receiver.state)
+			receiver.lens.activate_lens()
 		return
 
 	for(var/obj/machinery/bfl_receiver/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
@@ -79,18 +91,24 @@ var/crack_GPS
 
 	if(receiver)
 		receiver.mining = TRUE
+		//better to be safe then sorry
+		if(receiver.state && receiver.lens)
+			receiver.lens.activate_lens()
+		return
 
 /obj/machinery/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
 	icon_state = "Emitter_Off"
 	if(receiver)
 		receiver.mining = FALSE
+		if(receiver.lens.state)
+			receiver.lens.activate_lens()
 
 	if(laser)
 		qdel(laser)
 		laser = null
 
-//code stolen from bluespace_tap, including comment below.
+//code stolen from bluespace_tap, including comment below. Btw, he was right about new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
 /obj/machinery/bfl_emitter/New()
@@ -113,10 +131,13 @@ var/crack_GPS
 	emitter_deactivate()
 	QDEL_LIST(fillers)
 
+/obj/item/storage/bag/ore/holding/bfl_storage
+
 /obj/machinery/bfl_receiver
 	var/state = FALSE
 	var/mining = FALSE
-	var/obj/item/storage/internal
+	var/obj/item/storage/bag/ore/holding/bfl_storage/internal
+	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 
 	name = "BFL Receiver"
@@ -125,33 +146,38 @@ var/crack_GPS
 	anchored = 1
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
-	switch(state)
-		if (1)
-			receiver_deactivate()
-		if (0)
-			receiver_activate()
+	var/response
+	if(state)
+		response = alert(user, "You trying to deactivate BFL receiver machine, are you sure?", "BFL Receiver", "deactivate", "empty ore storage", "nothing")
+	else
+		response = alert(user, "You trying to activate BFL receiver machine, are you sure?", "BFL Receiver", "activate", "empty ore storage", "nothing")
+
+	if(response == "deactivate")
+		receiver_deactivate()
+	if (response == "activate")
+		receiver_activate()
+	//TODO: find out why it's not working
+	if(response == "empty ore storage")
+		internal.drop_inventory(user)
+	if (response == "nothing")
+		return
 
 /obj/machinery/bfl_receiver/process()
-	if (mining && state)
-		switch(ore_type)
-			if(2)
-				internal += new /obj/item/stack/ore/plasma
-			if(1)
-				internal += new /obj/item/stack/ore/glass
-			else
-				return 0
-
-/obj/machinery/bfl_receiver/verb/empty_storage()
-	set name = "Empty the storage"
-	set category = "Object"
-
-	internal.quick_empty()
+	if (!(mining && state))
+		return
+	switch(ore_type)
+		if(2)
+			internal = /obj/item/stack/ore/plasma
+		if(1)
+			internal = /obj/item/stack/ore/glass
+		else
+			return 0
 
 /obj/machinery/bfl_receiver/New()
 	.=..()
 	pixel_x = -32
 	pixel_y = -32
-	verbs += /obj/machinery/bfl_receiver/verb/empty_storage
+
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
 		ore_type = 2 //plasma
@@ -162,18 +188,70 @@ var/crack_GPS
 			ore_type = 0 //sosi bibu
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
-	state = TRUE
-	icon_state = "Receiver_On"
-	density = 1
+	if(lens)
+		state = TRUE
+		icon_state = "Receiver_On"
+		density = 1
+	else
+		visible_message("Error, lens not found")
 
 /obj/machinery/bfl_receiver/proc/receiver_deactivate()
 	state = FALSE
 	icon_state = "Receiver_Off"
 	density = 0
 
-/obj/bfl_lens
+/obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(istype(AM, /obj/machinery/bfl_lens))
+		lens = AM
+
+/obj/machinery/bfl_receiver/Uncrossed(atom/movable/AM)
+	. = ..()
+	if(AM == lens)
+		lens = null
+		if(state)
+			receiver_deactivate()
+/obj/machinery/bfl_lens
+	var/step_count = 0
+	var/state = FALSE
+	max_integrity = 40
+	layer = 2.91
+	name = "High-precision lens"
+	desc = "Extremely fragile, handle with care."
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
-	icon_state = "Crack"
+	icon_state = "Lens_Off"
+
+/obj/machinery/bfl_lens/proc/activate_lens()
+	icon_state = "Lens_On"
+	state = TRUE
+	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64)
+
+/obj/machinery/bfl_lens/proc/deactivate_lens()
+	icon_state = "Lens_Off"
+	overlays.Cut()
+	state = FALSE
+
+/obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	default_unfasten_wrench(user, I, time = 60)
+
+/obj/machinery/bfl_lens/New()
+	. = ..()
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/machinery/bfl_lens/Destroy()
+	visible_message("Lens shatters in a million pieces")
+	. = ..()
+
+
+/obj/machinery/bfl_lens/Move(atom/newloc, direct, movetime)
+	. = ..()
+	if(step_count > 5)
+		Destroy()
+	step_count++
 
 /obj/bfl_crack
 	name = "rich plasma deposit"
@@ -212,7 +290,7 @@ var/crack_GPS
 	if(force_move)
 		movement_dir = force_move
 	else
-		loc = locate((world.time/15 % 255) + 1, (sin(world.time/15) + 1)*125 + 1, 3)
+		loc = locate((world.time/16 % 255) + 1, (sin(world.time/16) + 1)*125 + 1, 3)
 	step(src, movement_dir)
 
 /obj/singularity/bfl_red/expand()
@@ -230,7 +308,7 @@ var/crack_GPS
 	starting_energy = 250
 	.=..(loc, starting_energy, temp)
 
-/obj/singularity/bfl_red/mish_SINGULARITY //nofix
+/obj/singularity/bfl_red/mish_SINGULARITY
 	name = "Михаил"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
