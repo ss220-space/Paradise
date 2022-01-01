@@ -120,7 +120,6 @@
 		return
 
 
-
 	//Logs all hrefs
 	if(config && config.log_hrefs)
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
@@ -372,6 +371,8 @@
 
 	if(!geoip)
 		geoip = new(src, address)
+
+	url = winget(src, null, "url")
 
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
@@ -1048,7 +1049,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> на Discord-сервере.</span>")
+		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1059,7 +1060,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> на Discord-сервере!</span>")
+		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
 		if(prefs)
 			prefs.load_preferences(usr)
 

@@ -102,6 +102,7 @@
 	/// Days since the client's BYOND account was created
 	var/byondacc_age = 0
 
+	var/last_ping_duration = 0
 
 	// Do not attempt to merge these vars together. They are for different things
 	/// Last world.time that a PM was send to discord by a player
@@ -112,6 +113,8 @@
 
 	/// Has the client accepted the TOS about data collection and other stuff
 	var/tos_consent = FALSE
+
+	var/url
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

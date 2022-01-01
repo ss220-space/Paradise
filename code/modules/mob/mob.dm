@@ -1013,6 +1013,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[Master.formatcpu()]")
+			stat("Map CPU:", "[Master.format_mapcpu()]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())
@@ -1365,6 +1366,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
 	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
 	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
 	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
 
