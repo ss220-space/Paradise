@@ -194,8 +194,6 @@
 			qdel(W)
 			qdel(src)
 
-
-
 /*
  * Subtype of Double-Bladed Energy Swords
  */
@@ -238,38 +236,6 @@
 	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
 	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS
-
-
-/obj/item/toy/sword/bananium
-	name = "bananium sword"
-	desc = "An elegant weapon, for a more civilized age."
-	icon_state = "sword0"
-	item_state = "sword0"
-	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("slipped")
-	var/slip_stun = 5
-
-/obj/item/toy/sword/bananium/attack_self(mob/user)
-	active = !active
-	if(active)
-		to_chat(user, "<span class='notice'>You extend the bananium blade with a quick flick of your wrist.</span>")
-		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		icon_state = "swordyellow"
-		item_state = "swordyellow"
-		w_class = WEIGHT_CLASS_BULKY
-	else
-		to_chat(user, "<span class='notice'>You push the bananium blade back down into the handle.</span>")
-		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		icon_state = "sword0"
-		item_state = "sword0"
-		w_class = WEIGHT_CLASS_SMALL
-
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	add_fingerprint(user)
-	return
 
 
 /*
