@@ -36,21 +36,21 @@
 ////////////
 
 /obj/item/circuitboard/machine/bfl_emitter
-name = "BFL Emitter (Machine Board)"
-build_path = /obj/machinery/bsa/back
-origin_tech = "engineering=2;combat=2;bluespace=2"
-req_components = list(
-					/obj/item/stock_parts/manipulator/femto = 2
+	name = "BFL Emitter (Machine Board)"
+	build_path = /obj/machinery/bsa/back
+	origin_tech = "engineering=4;combat=4;bluespace=4"
+	req_components = list(
+					/obj/item/stock_parts/manipulator/femto = 2,
 					/obj/item/stock_parts/capacitor/quadratic = 5,
 					/obj/item/stock_parts/micro_laser/quadultra = 20,
 					/obj/item/gun/energy/lasercannon = 4,
 					/obj/item/stack/cable_coil = 6)
 
 /obj/item/circuitboard/machine/bfl_receiver
-name = "BFL Receiver (Machine Board)"
-build_path = /obj/machinery/bsa/back
-origin_tech = "engineering=2;combat=2;bluespace=2"
-req_components = list(
+	name = "BFL Receiver (Machine Board)"
+	build_path = /obj/machinery/bsa/back
+	origin_tech = "engineering=4;combat=4;bluespace=4"
+	req_components = list(
 					/obj/item/stock_parts/capacitor/quadratic = 20,
 					/obj/item/stack/cable_coil = 2)
 
@@ -99,18 +99,19 @@ req_components = list(
 		to_chat(usr, "Emitter successfully sabotaged")
 
 /obj/machinery/bfl_emitter/process()
-	if(state)
-		if(!receiver || !receiver.state || emag)
-			if(!laser)
-				var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
-				laser = new (rand_location)
-				if(receiver)
-					receiver.receiver_deactivate()
-					receiver.lens.deactivate_lens()
+	if(!state)
+		return
+	if(laser)
+		return
+	if(!receiver || !receiver.state || emag)
+		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+		laser = new (rand_location)
+		if(receiver)
+			receiver.receiver_deactivate()
+			receiver.lens.deactivate_lens()
 
 
 /obj/machinery/bfl_emitter/proc/emitter_activate()
-//locate bfl_receiver at lavaland
 	state = TRUE
 	icon_state = "Emitter_On"
 	var/turf/location = get_step(src, NORTH)
@@ -169,15 +170,19 @@ req_components = list(
 	emitter_deactivate()
 	QDEL_LIST(fillers)
 
-/obj/item/storage/bag/ore/holding/bfl_storage
-
 ////////////
 //Receiver//
 ////////////
+/obj/item/storage/bag/ore/holding/bfl_storage/proc/empty_storage(turf/location)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, location)
+		CHECK_TICK
+
 /obj/machinery/bfl_receiver
 	var/state = FALSE
 	var/mining = FALSE
 	var/obj/item/storage/bag/ore/holding/bfl_storage/internal
+	var/internal_type = /obj/item/storage/bag/ore/holding/bfl_storage
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 
@@ -199,7 +204,8 @@ req_components = list(
 		receiver_activate()
 	//TODO: find out why it's not working
 	if(response == "empty ore storage")
-		internal.drop_inventory(user)
+		var/turf/location = get_step(src, SOUTH)
+		internal.empty_storage(location)
 	if (response == "nothing")
 		return
 
@@ -208,16 +214,18 @@ req_components = list(
 		return
 	switch(ore_type)
 		if(2)
-			internal = /obj/item/stack/ore/plasma
+			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
 		if(1)
-			internal = /obj/item/stack/ore/glass
+			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
 		else
-			return 0
+			return
 
 /obj/machinery/bfl_receiver/New()
 	.=..()
 	pixel_x = -32
 	pixel_y = -32
+	//it's just works ¯\_(ツ)_/¯
+	internal = new internal_type(src)
 
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
@@ -252,6 +260,8 @@ req_components = list(
 		lens = null
 		if(state)
 			receiver_deactivate()
+
+///obj/item/storage/bag/ore/holding/bfl_storage/empty_storage()
 
 ////////
 //Lens//
@@ -301,6 +311,7 @@ req_components = list(
 	step_count++
 
 
+//everything else
 /obj/bfl_crack
 	name = "rich plasma deposit"
 	can_be_hit = FALSE

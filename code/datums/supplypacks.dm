@@ -1896,9 +1896,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/bfl
 	name = "BFL assembly crate"
-	cost 150
+	cost = 150
 	contains = list(
-					/obj/item/circuitboard/machine/bfl_emitter
+					/obj/item/circuitboard/machine/bfl_emitter,
 					/obj/item/circuitboard/machine/bfl_receiver
 					)
 
