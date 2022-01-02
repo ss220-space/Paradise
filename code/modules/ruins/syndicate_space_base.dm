@@ -66,7 +66,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/syndicate/science
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/scientist
 	implants = list(/obj/item/implant/weapons_auth)
@@ -141,6 +141,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	id = /obj/item/card/id/syndicate/cargo
 	shoes = /obj/item/clothing/shoes/black
+	back = /obj/item/storage/backpack/syndicate/cargo
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef
 	name = "Syndicate Chef Sleeper"
@@ -163,6 +164,7 @@
 	suit = /obj/item/clothing/suit/chef/classic
 	id = /obj/item/card/id/syndicate/kitchen
 	shoes = /obj/item/clothing/shoes/black
+	back = /obj/item/storage/backpack/syndicate
 
 /obj/effect/mob_spawn/human/space_base_syndicate/engineer
 	name = "Syndicate Atmos Engineer Sleeper"
@@ -181,6 +183,7 @@
 	belt = /obj/item/storage/belt/utility/atmostech
 	id = /obj/item/card/id/syndicate/engineer
 	shoes = /obj/item/clothing/shoes/workboots
+	back = /obj/item/storage/backpack/syndicate/engineer
 
 /obj/effect/mob_spawn/human/space_base_syndicate/comms
 	name = "Syndicate Comms Officer sleeper"

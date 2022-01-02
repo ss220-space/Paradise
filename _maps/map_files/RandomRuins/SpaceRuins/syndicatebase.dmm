@@ -12092,6 +12092,7 @@
 	req_access = null;
 	req_access_txt = "159"
 	},
+/obj/item/storage/backpack/syndicate/engineer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

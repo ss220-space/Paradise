@@ -177,6 +177,9 @@
 	new /obj/item/storage/belt/military(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/encryptionkey/syndicate/nukeops(src)
+	new /obj/item/storage/backpack/syndicate/command(src)
+	new /obj/item/storage/backpack/fluff/syndiesatchel(src)
+	new /obj/item/storage/backpack/duffel/syndie(src)
 
 /obj/structure/closet/secure_closet/syndicate/research_director
 	name = "Syndicate Research Director's Locker"
@@ -206,6 +209,9 @@
 	new /obj/item/organ/internal/cyberimp/arm/gun/laser(src)
 	new /obj/item/encryptionkey/syndicate/nukeops(src)
 	new /obj/item/batterer(src)
+	new /obj/item/storage/backpack/syndicate/command(src)
+	new /obj/item/storage/backpack/fluff/syndiesatchel(src)
+	new /obj/item/storage/backpack/duffel/syndie(src)
 
 /obj/structure/closet/secure_closet/syndicate/cargo
 	name = "Syndicate Cargo Technician's Locker"
@@ -228,6 +234,8 @@
 	new /obj/item/clothing/under/rank/cargotech/skirt(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/encryptionkey/syndicate/nukeops(src)
+	new /obj/item/storage/backpack/syndicate/cargo(src)
+	new /obj/item/storage/backpack/duffel/syndie(src)
 
 /obj/structure/closet/secure_closet/syndicate/medbay
 	name = "Syndicate Medical Doctor's Locker"
@@ -255,6 +263,8 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/head/headmirror(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
+	new /obj/item/storage/backpack/syndicate/med(src)
+	new /obj/item/storage/backpack/duffel/syndie(src)
 
 /obj/structure/closet/secure_closet/syndicate/hydro
 	name = "Syndicate Botanist's Locker"
@@ -278,6 +288,8 @@
 	new /obj/item/cultivator(src)
 	new /obj/item/hatchet(src)
 	new /obj/item/storage/box/disks_plantgene(src)
+	new /obj/item/storage/backpack/syndicate(src)
+	new /obj/item/storage/backpack/duffel/syndie(src)
 
 /obj/structure/closet/secure_closet/syndicate/chef
 	name = "Syndicate Chef's Locker"
@@ -306,3 +318,5 @@
 	new /obj/item/clothing/under/rank/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
 	new /obj/item/reagent_containers/glass/rag(src)
+	new /obj/item/storage/backpack/syndicate(src)
+	new /obj/item/storage/backpack/duffel/syndie(src)
