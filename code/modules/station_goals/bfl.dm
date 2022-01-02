@@ -202,7 +202,6 @@
 		receiver_deactivate()
 	if (response == "activate")
 		receiver_activate()
-	//TODO: find out why it's not working
 	if(response == "empty ore storage")
 		var/turf/location = get_step(src, SOUTH)
 		internal.empty_storage(location)
