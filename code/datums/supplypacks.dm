@@ -1894,6 +1894,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	containername = "shield control board crate"
 
+/datum/supply_packs/misc/station_goal/bfl
+	name = "BFL assembly crate"
+	cost 150
+	contains = list(
+					/obj/item/circuitboard/machine/bfl_emitter
+					/obj/item/circuitboard/machine/bfl_receiver
+					)
+
+/datum/supply_packs/misc/station_goal/bfl_lens
+	name = "High-precision lens"
+	cost = 200
+	contains = list(
+					/obj/machinery/bfl_lens
+					)
+
+/datum/supply_packs/misc/station_goal/bfl_goal
+	name = "Mission goal"
+	cost = 2500
+	contains = list(
+					/obj/structure/toilet/golden_toilet
+					)
+
 ///////////// Bathroom Fixtures
 
 /datum/supply_packs/misc/toilet

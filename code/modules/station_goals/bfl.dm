@@ -1,24 +1,62 @@
-//Crew has to build receiver on the special
-var/crack_GPS
 /datum/station_goal/bfl
-	name = "Mining laser"
-	var/goal = 45000
+	name = "BFL Mining laser"
 
 /datum/station_goal/bfl/get_report()
-	return {"<b>Mining laser construcion</b><br>"}
+	return {"<b>Mining laser construcion</b><br>
+	Our surveillance drone detected a enormous deposit, oozing with plasma. We need you to construct a BFL system to collect the plasma and send it to the Central Command via cargo shuttle. In order to prove
+	<br>
+	In order to complete the mission, you must to order a special pack in cargo called Mission goal, and place it content somewhere on the station.
+	<br>
+	Its base parts should be available for shipping by your cargo shuttle.
+	<br>
+	-Nanotrasen Naval Command"}
 
 
 /datum/station_goal/bfl/on_report()
-	//Unlock BFL parts
-	//var/datum/supply_packs/misc/station_goal/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
-	//P.special_enabled = TRUE
+	//Unlock BFL related things
+	var/datum/supply_packs/misc/station_goal/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl]"]
+	P.special_enabled = TRUE
 
+	P =  SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_lens]"]
+	P.special_enabled = TRUE
+
+	P =  SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
+	P.special_enabled = TRUE
 
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
+	for(var/obj/structure/toilet/golden_toilet/B)
+		if(B && is_station_contact(B.z))
+			return TRUE
 	return FALSE
 
+////////////
+//Building//
+////////////
+
+/obj/item/circuitboard/machine/bfl_emitter
+name = "BFL Emitter (Machine Board)"
+build_path = /obj/machinery/bsa/back
+origin_tech = "engineering=2;combat=2;bluespace=2"
+req_components = list(
+					/obj/item/stock_parts/manipulator/femto = 2
+					/obj/item/stock_parts/capacitor/quadratic = 5,
+					/obj/item/stock_parts/micro_laser/quadultra = 20,
+					/obj/item/gun/energy/lasercannon = 4,
+					/obj/item/stack/cable_coil = 6)
+
+/obj/item/circuitboard/machine/bfl_receiver
+name = "BFL Receiver (Machine Board)"
+build_path = /obj/machinery/bsa/back
+origin_tech = "engineering=2;combat=2;bluespace=2"
+req_components = list(
+					/obj/item/stock_parts/capacitor/quadratic = 20,
+					/obj/item/stack/cable_coil = 2)
+
+///////////
+//Emitter//
+///////////
 /obj/machinery/bfl_emitter
 	var/emag = FALSE
 	var/state = FALSE
@@ -108,7 +146,7 @@ var/crack_GPS
 		qdel(laser)
 		laser = null
 
-//code stolen from bluespace_tap, including comment below. Btw, he was right about new datum
+//code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
 /obj/machinery/bfl_emitter/New()
@@ -133,6 +171,9 @@ var/crack_GPS
 
 /obj/item/storage/bag/ore/holding/bfl_storage
 
+////////////
+//Receiver//
+////////////
 /obj/machinery/bfl_receiver
 	var/state = FALSE
 	var/mining = FALSE
@@ -211,15 +252,20 @@ var/crack_GPS
 		lens = null
 		if(state)
 			receiver_deactivate()
+
+////////
+//Lens//
+////////
 /obj/machinery/bfl_lens
 	var/step_count = 0
 	var/state = FALSE
-	max_integrity = 40
-	layer = 2.91
 	name = "High-precision lens"
 	desc = "Extremely fragile, handle with care."
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Off"
+	max_integrity = 40
+	layer = 2.91
+	density = 1
 
 /obj/machinery/bfl_lens/proc/activate_lens()
 	icon_state = "Lens_On"
@@ -244,6 +290,7 @@ var/crack_GPS
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message("Lens shatters in a million pieces")
+	overlays.Cut()
 	. = ..()
 
 
@@ -252,6 +299,7 @@ var/crack_GPS
 	if(step_count > 5)
 		Destroy()
 	step_count++
+
 
 /obj/bfl_crack
 	name = "rich plasma deposit"
@@ -277,6 +325,7 @@ var/crack_GPS
 
 /obj/singularity/bfl_red
 	name = "BFL"
+	desc = "Giant laser, which is supposed for mining"
 	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
 	speed_process = TRUE
@@ -310,6 +359,7 @@ var/crack_GPS
 
 /obj/singularity/bfl_red/mish_SINGULARITY
 	name = "Михаил"
+	desc = "A gravitational singularity."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
 
