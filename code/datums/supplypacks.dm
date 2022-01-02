@@ -1903,7 +1903,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 
 /datum/supply_packs/misc/station_goal/bfl_lens
-	name = "High-precision lens"
+	name = "BFL High-precision lens"
 	cost = 200
 	contains = list(
 					/obj/machinery/bfl_lens
