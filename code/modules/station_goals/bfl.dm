@@ -254,8 +254,6 @@
 		if(state)
 			receiver_deactivate()
 
-///obj/item/storage/bag/ore/holding/bfl_storage/empty_storage()
-
 ////////
 //Lens//
 ////////
