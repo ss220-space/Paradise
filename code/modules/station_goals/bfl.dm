@@ -78,19 +78,18 @@
 	else
 		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "nothing")
 
-	if(response == "deactivate")
-		if(!emag)
-			emitter_deactivate()
-		else
-			visible_message("E.r$%^0r")
-	if (response == "activate")
-		if(world.time - start_time > 30 SECONDS)
-			emitter_activate()
-			start_time = world.time
-		else
-			visible_message("Error, emitter is still cooling down")
-	if (response == "nothing")
-		return
+	switch(response)
+		if("deactivate")
+			if(emag)
+				visible_message("E.r$%^0r")
+			else
+				emitter_deactivate()
+		if("activate")
+			if(world.time - start_time > 30 SECONDS)
+				emitter_activate()
+				start_time = world.time
+			else
+				visible_message("Error, emitter is still cooling down")
 
 /obj/machinery/bfl_emitter/emag_act()
 	. = ..()
@@ -123,14 +122,14 @@
 			receiver.lens.activate_lens()
 		return
 
-	for(var/obj/machinery/bfl_receiver/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
+	for(var/turf/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
 		receiver = locate() in T
 		if(receiver)
 			break
 
 	if(receiver)
 		receiver.mining = TRUE
-		//better to be safe then sorry
+		//better to be safe than sorry
 		if(receiver.state && receiver.lens)
 			receiver.lens.activate_lens()
 		return
@@ -150,7 +149,7 @@
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
-/obj/machinery/bfl_emitter/New()
+/obj/machinery/bfl_emitter/Initialize()
 	.=..()
 	pixel_x = -32
 	pixel_y = 0
@@ -198,15 +197,14 @@
 	else
 		response = alert(user, "You trying to activate BFL receiver machine, are you sure?", "BFL Receiver", "activate", "empty ore storage", "nothing")
 
-	if(response == "deactivate")
-		receiver_deactivate()
-	if (response == "activate")
-		receiver_activate()
-	if(response == "empty ore storage")
-		var/turf/location = get_step(src, SOUTH)
-		internal.empty_storage(location)
-	if (response == "nothing")
-		return
+	switch(response)
+		if("deactivate")
+			receiver_deactivate()
+		if("activate")
+			receiver_activate()
+		if("empty ore storage")
+			var/turf/location = get_step(src, SOUTH)
+			internal.empty_storage(location)
 
 /obj/machinery/bfl_receiver/process()
 	if (!(mining && state))
@@ -216,8 +214,6 @@
 			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
 		if(1)
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
-		else
-			return
 
 /obj/machinery/bfl_receiver/New()
 	.=..()
@@ -229,11 +225,10 @@
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
 		ore_type = 2 //plasma
+	else if(istype(turf_under, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
+		ore_type = 1 //sand
 	else
-		if(istype(turf_under, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
-			ore_type = 1 //sand
-		else
-			ore_type = 0 //sosi bibu
+		ore_type = 0 //sosi bibu
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	if(lens)
@@ -292,7 +287,7 @@
 		return
 	default_unfasten_wrench(user, I, time = 60)
 
-/obj/machinery/bfl_lens/New()
+/obj/machinery/bfl_lens/Initialize()
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
@@ -305,6 +300,8 @@
 
 /obj/machinery/bfl_lens/Move(atom/newloc, direct, movetime)
 	. = ..()
+	if(!.)
+		return
 	if(step_count > 5)
 		Destroy()
 	step_count++
@@ -353,7 +350,7 @@
 	step(src, movement_dir)
 
 /obj/singularity/bfl_red/expand()
-	.=..()
+	. = ..()
 	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
 	pixel_x = -32
@@ -365,7 +362,7 @@
 
 /obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
 	starting_energy = 250
-	.=..(loc, starting_energy, temp)
+	. = ..(loc, starting_energy, temp)
 
 /obj/singularity/bfl_red/mish_SINGULARITY
 	name = "Михаил"
@@ -374,7 +371,7 @@
 	icon_state = "mouse_gray"
 
 /obj/singularity/bfl_red/mish_SINGULARITY/expand()
-	.=..()
+	. = ..()
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
 	pixel_x = 0
