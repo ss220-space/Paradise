@@ -68,7 +68,7 @@
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
 	var/obj/machinery/bfl_receiver/receiver = FALSE
-	var/start_time = 0
+	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
 /obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
 	var/response
@@ -83,7 +83,7 @@
 				visible_message("E.r$%^0r")
 			else
 				emitter_deactivate()
-				start_time = world.time
+				deactivate_time = world.time
 		if("activate")
 			if(world.time - start_time > 30 SECONDS)
 				emitter_activate()
@@ -153,7 +153,7 @@
 	pixel_x = -32
 	pixel_y = 0
 	var/list/occupied = list()
-	for(var/direct in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
+	for(var/direction in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
 		occupied += get_step(src, direct)
 	occupied += locate(x, y + 2, z)
 	occupied += locate(x + 1, y + 2, z)
