@@ -154,7 +154,7 @@
 	pixel_y = 0
 	var/list/occupied = list()
 	for(var/direction in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
-		occupied += get_step(src, direct)
+		occupied += get_step(src, direction)
 	occupied += locate(x, y + 2, z)
 	occupied += locate(x + 1, y + 2, z)
 	occupied += locate(x - 1, y + 2, z)
@@ -296,7 +296,7 @@
 	. = ..()
 
 
-/obj/machinery/bfl_lens/Move(atom/newloc, direct, movetime)
+/obj/machinery/bfl_lens/Move(atom/newloc, direction, movetime)
 	. = ..()
 	if(!.)
 		return
