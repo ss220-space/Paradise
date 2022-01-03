@@ -164,9 +164,9 @@
 		fillers += F
 
 /obj/machinery/bfl_emitter/Destroy()
-	. = ..()
 	emitter_deactivate()
 	QDEL_LIST(fillers)
+	return ..()
 
 ////////////
 //Receiver//
@@ -293,7 +293,7 @@
 /obj/machinery/bfl_lens/Destroy()
 	visible_message("Lens shatters in a million pieces")
 	overlays.Cut()
-	. = ..()
+	return ..()
 
 
 /obj/machinery/bfl_lens/Move(atom/newloc, direction, movetime)
