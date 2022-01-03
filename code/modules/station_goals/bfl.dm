@@ -83,10 +83,10 @@
 				visible_message("E.r$%^0r")
 			else
 				emitter_deactivate()
+				start_time = world.time
 		if("activate")
 			if(world.time - start_time > 30 SECONDS)
 				emitter_activate()
-				start_time = world.time
 			else
 				visible_message("Error, emitter is still cooling down")
 
