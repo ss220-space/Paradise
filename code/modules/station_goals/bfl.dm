@@ -58,19 +58,18 @@
 //Emitter//
 ///////////
 /obj/machinery/bfl_emitter
+	name = "BFL Emitter"
+	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
+	icon_state = "Emitter_Off"
+	anchored = TRUE
+	density = TRUE
+
 	var/emag = FALSE
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
 	var/obj/machinery/bfl_receiver/receiver = FALSE
 	var/start_time = 0
 	var/list/obj/structure/fillers = list()
-
-	name = "BFL Emitter"
-	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
-	icon_state = "Emitter_Off"
-	anchored = 1
-	density = 1
-
 /obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
 	var/response
 	if(state)
@@ -178,17 +177,17 @@
 		CHECK_TICK
 
 /obj/machinery/bfl_receiver
+	name = "BFL Receiver"
+	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
+	icon_state = "Receiver_Off"
+	anchored = TRUE
+
 	var/state = FALSE
 	var/mining = FALSE
 	var/obj/item/storage/bag/ore/holding/bfl_storage/internal
 	var/internal_type = /obj/item/storage/bag/ore/holding/bfl_storage
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
-
-	name = "BFL Receiver"
-	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
-	icon_state = "Receiver_Off"
-	anchored = 1
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	var/response
@@ -261,8 +260,6 @@
 //Lens//
 ////////
 /obj/machinery/bfl_lens
-	var/step_count = 0
-	var/state = FALSE
 	name = "High-precision lens"
 	desc = "Extremely fragile, handle with care."
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
@@ -270,6 +267,9 @@
 	max_integrity = 40
 	layer = 2.91
 	density = 1
+
+	var/step_count = 0
+	var/state = FALSE
 
 /obj/machinery/bfl_lens/proc/activate_lens()
 	icon_state = "Lens_On"
@@ -311,7 +311,7 @@
 /obj/bfl_crack
 	name = "rich plasma deposit"
 	can_be_hit = FALSE
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Crack"
 	pixel_x = -32
