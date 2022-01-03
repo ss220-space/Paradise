@@ -12256,11 +12256,12 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "vE" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/combat,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/item/areaeditor/permit/syndicate,
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
