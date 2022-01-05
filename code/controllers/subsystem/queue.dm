@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(queue)
-	name = "Queue"
+	name = "QueueWebhook"
 	flags = SS_NO_FIRE
 	/// Is the SS enabled
 	var/enabled = FALSE
