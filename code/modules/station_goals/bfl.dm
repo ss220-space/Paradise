@@ -85,7 +85,7 @@
 				emitter_deactivate()
 				deactivate_time = world.time
 		if("activate")
-			if(world.time - start_time > 30 SECONDS)
+			if(world.time - deactivate_time > 30 SECONDS)
 				emitter_activate()
 			else
 				visible_message("Error, emitter is still cooling down")
