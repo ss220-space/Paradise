@@ -31,6 +31,7 @@ SUBSYSTEM_DEF(queue)
 	var/list/status = list()
 	status["max_slots"] += max_slots
 	status["occupied_slots"] += occupied_slots
+	status["staff"] += staff
 
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, config.queue_engine_webhook, json_encode(status), list("content-type" = "application/json"))
 
