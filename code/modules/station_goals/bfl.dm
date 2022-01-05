@@ -214,8 +214,8 @@
 		if(1)
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
 
-/obj/machinery/bfl_receiver/New()
-	.=..()
+/obj/machinery/bfl_receiver/Initialize()
+	. = ..()
 	pixel_x = -32
 	pixel_y = -32
 	//it's just works ¯\_(ツ)_/¯
