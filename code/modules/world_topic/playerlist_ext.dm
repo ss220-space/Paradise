@@ -14,7 +14,7 @@
 		players[ckey] += ckey
 		just_keys += ckey
 
-	world.log << "alive_mob_list:"
+	// world.log << "alive_mob_list:"
 	for(var/mob/M in GLOB.alive_mob_list)
 		// world.log << "next [M.ckey] [M.last_known_ckey] (mob [M.name])"
 		if(!M.last_known_ckey)
