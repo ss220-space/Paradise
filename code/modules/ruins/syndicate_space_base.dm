@@ -124,6 +124,8 @@
 	if(!D.species.is_small)
 		H.change_dna(D, TRUE, TRUE)
 
+/obj/effect/mob_spawn/human/space_base_syndicate/special(mob/living/carbon/human/H)
+	SEND_SOUND(H, 'sound/effects/contractstartup.ogg')
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech
 	name = "Syndicate Cargo Technician sleeper"
 	mob_name = "Syndicate Cargo Technician"
@@ -153,6 +155,7 @@
 	outfit = /datum/outfit/space_base_syndicate/chef
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef/special(mob/living/carbon/human/H)
+	SEND_SOUND(H, 'sound/effects/contractstartup.ogg')
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 
