@@ -181,8 +181,7 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
-	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/mob/dead/observer/ghost = get_ghost(TRUE)
+	if(stat == DEAD || (status_flags & FAKEDEATH))
 		var/revivable
 		if(!ghost_can_reenter()) // DNR or AntagHUD
 			revivable = FALSE
