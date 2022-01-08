@@ -216,10 +216,7 @@ REAGENT SCANNER
 		to_chat(user, "<span class='warning'>Вы не достаточно ловки, чтобы использовать это устройство.</span>")
 		return
 	
-	if(scanner.window_height)
-		scanner.window_height = initial(scanner.window_height)
-	else
-		scanner.window_height = 85
+	scanner.window_height = initial(scanner.window_height)
 	if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
 		. = list()
 		user.visible_message("<span class='warning'>[user] анализирует жизненные показатели пола!</span>", "<span class='notice'>Вы по глупости анализировали жизненные показатели пола!</span>")
@@ -443,7 +440,6 @@ REAGENT SCANNER
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
 	var/scan_data = medical_scan_results(M, mode, advanced)
 	to_chat(user, "[jointext(scan_data, "<br>")]")
-	//У нас просто в коде было две одинаковых WTF
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Вкл/Выкл локализацию"
