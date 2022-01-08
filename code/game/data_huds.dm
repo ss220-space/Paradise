@@ -182,11 +182,9 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || (status_flags & FAKEDEATH))
-		var/revivable
+		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
 		if(!ghost_can_reenter()) // DNR or AntagHUD
 			revivable = FALSE
-		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
-			revivable = TRUE
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
