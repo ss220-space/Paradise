@@ -47,7 +47,9 @@
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
 	user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>", "<span class='notice'>You analyze [M]'s vitals.</span>")
 
-	healthscan(user, M, 1)
+	scan_title = "Сканирование: [M]"
+	scan_data = medical_scan_action(user, M, src, mode, advanced)
+	show_results(user)
 
 /datum/data/pda/utility/scanmode/dna
 	base_name = "DNA Scanner"

@@ -282,20 +282,27 @@ REAGENT SCANNER
 	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
 	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
-	if(H.status_flags & FAKEDEATH)
-		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
-		. += "Общий статус: МЕРТВ"
-	else
-		. += "Общий статус: [H.stat > 1 ? "<span class='danger'>МЕРТВ</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
+	var/DNR = !H.ghost_can_reenter()
+	if(H.stat == DEAD)
+		if(DNR)
+			. += "Общий статус: МЕРТВ <b>\[DNR]</b>"
+	else //Если живой или отключка
+		if(H.status_flags & FAKEDEATH)
+			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
+			. += "Общий статус: МЕРТВ"
+		else
+			. += "Общий статус: [H.stat > 1 ? "<span class='danger'>МЕРТВ</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
 	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
 	. += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	. += "Температура тела: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)"
 	if(H.timeofdeath && (H.stat == DEAD || (H.status_flags & FAKEDEATH)))
 		. += "Время смерти: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(tdelta < (DEFIB_TIME_LIMIT * 10))
+		if(tdelta < (DEFIB_TIME_LIMIT * 10) && !DNR)
 			. += "<span class='danger'>&emsp;Субъект умер [DisplayTimeText(tdelta)] назад"
 			. += "&emsp;Дефибриляция возможна!</span>"
+		else
+			. += "<span class='danger'>&emsp;Субъект умер [DisplayTimeText(tdelta)] назад"
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
