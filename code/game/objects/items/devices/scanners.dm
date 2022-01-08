@@ -305,7 +305,7 @@ REAGENT SCANNER
 			. += "<span class='danger'>&emsp;Субъект умер [DisplayTimeText(tdelta)] назад"
 			. += "&emsp;Дефибриляция возможна!</span>"
 		else
-			. += "<span class='danger'>&emsp;Субъект умер [DisplayTimeText(tdelta)] назад"
+			. += "<span class='danger'>&emsp;Субъект умер [DisplayTimeText(tdelta)] назад</span>"
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
