@@ -286,6 +286,8 @@ REAGENT SCANNER
 	if(H.stat == DEAD)
 		if(DNR)
 			. += "Общий статус: <span class='danger'>МЕРТВ <b>\[DNR]</b></span>"
+		else
+			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
 	else //Если живой или отключка
 		if(H.status_flags & FAKEDEATH)
 			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
