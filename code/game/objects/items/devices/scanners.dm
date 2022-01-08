@@ -285,11 +285,11 @@ REAGENT SCANNER
 	var/DNR = !H.ghost_can_reenter()
 	if(H.stat == DEAD)
 		if(DNR)
-			. += "Общий статус: МЕРТВ <b>\[DNR]</b>"
+			. += "Общий статус: <span class='danger'>МЕРТВ <b>\[DNR]</b></span>"
 	else //Если живой или отключка
 		if(H.status_flags & FAKEDEATH)
 			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
-			. += "Общий статус: МЕРТВ"
+			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
 		else
 			. += "Общий статус: [H.stat > 1 ? "<span class='danger'>МЕРТВ</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
 	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
