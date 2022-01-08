@@ -355,8 +355,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>Твое тело все еще живо!</span>")
 		return
 
-	var/choice = alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", "Да", "Нет")
-	if(choice == "Да")
+	if(alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", "Да", "Нет") == "Да")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive статус включён.</span>")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
