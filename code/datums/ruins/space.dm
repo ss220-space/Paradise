@@ -308,6 +308,7 @@
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
 //----------- EDITED_end
+/* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
 	id = "syndicate_space_base"
 	suffix = "syndicatebase.dmm"
@@ -316,3 +317,4 @@
 	allow_duplicates = FALSE // One of these is enough
 	always_place = TRUE // This is on the always spawn list
 	cost = 0 // Force spawned so shouldnt have a cost
+*/

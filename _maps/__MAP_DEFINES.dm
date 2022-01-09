@@ -38,6 +38,7 @@
 	#define EMPTY_AREA_2 "Empty Area 2"
 	#define EMPTY_AREA_3 "Empty Area 3"
 	#define AWAY_MISSION "Away Mission"
+	#define RAMSS_TAIPAN "RAMSS Taipan"
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)
