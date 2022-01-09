@@ -85,6 +85,7 @@
 		if("deactivate")
 			if(emag)
 				visible_message("BFL software update, please wait.<br> 99% complete")
+				playsound(src, 'sound/BFL/prank.ogg', 100, 1, falloff = 1)
 			else
 				emitter_deactivate()
 				deactivate_time = world.time
@@ -323,7 +324,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	default_unfasten_wrench(user, I, time = 60)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
+	default_unfasten_wrench(user, I, time = 140)
 
 /obj/machinery/bfl_lens/Initialize()
 	. = ..()
@@ -332,6 +334,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message("Lens shatters in a million pieces")
+	playsound(src, "shatter", 70, 1)
 	overlays.Cut()
 	return ..()
 
