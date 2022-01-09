@@ -1303,7 +1303,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "50 Plasma Sheets Crate"
 	contains = list(/obj/item/stack/sheet/mineral/plasma)
 	amount = 50
-	cost = 3000
+	cost = 6000
 	containername = "plasma sheets crate"
 
 /datum/syndie_supply_packs/materials/uranium50
@@ -1312,6 +1312,13 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	amount = 50
 	cost = 2500
 	containername = "uranium sheets crate"
+
+/datum/syndie_supply_packs/materials/titanium50
+	name = "50 Titanium Sheets Crate"
+	contains = list(/obj/item/stack/sheet/mineral/titanium)
+	amount = 50
+	cost = 6000
+	containername = "titanium sheets crate"
 
 /datum/syndie_supply_packs/materials/plastitanium50
 	name = "50 Plastitanium Sheets Crate"

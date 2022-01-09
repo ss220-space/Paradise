@@ -168,6 +168,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	..()
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
+	var/area/MyArea = getArea(src)
+	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
+		syndicate = 1
+		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 	if(!id)
 		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
 			S.initialize_serv()
