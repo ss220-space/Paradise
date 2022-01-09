@@ -34,7 +34,6 @@
 ////////////
 //Building//
 ////////////
-
 /obj/item/circuitboard/machine/bfl_emitter
 	name = "BFL Emitter (Machine Board)"
 	build_path = /obj/machinery/bsa/back
@@ -57,12 +56,15 @@
 ///////////
 //Emitter//
 ///////////
-/obj/machinery/bfl_emitter
+/obj/machinery/power/bfl_emitter
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
 	anchored = TRUE
 	density = TRUE
+	use_power = NO_POWER_USE
+	idle_power_usage = 100000
+	active_power_usage = 500000
 
 	var/emag = FALSE
 	var/state = FALSE
@@ -70,34 +72,53 @@
 	var/obj/machinery/bfl_receiver/receiver = FALSE
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
-/obj/machinery/bfl_emitter/attack_hand(mob/user as mob)
+
+/obj/machinery/power/bfl_emitter/attack_hand(mob/user as mob)
 	var/response
+	src.add_fingerprint(user)
 	if(state)
-		response = alert(user, "You trying to deactivate BFL emitter machine, are you sure?", "BFL Emitter", "deactivate", "nothing")
+		response = alert(user, "You trying to deactivate BFL emitter machine, are you sure?", "BFL Emitter", "deactivate", "connect to network", "nothing")
 	else
-		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "nothing")
+		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "connect to network", "nothing")
 
 	switch(response)
 		if("deactivate")
 			if(emag)
-				visible_message("E.r$%^0r")
+				visible_message("BFL software update, please wait.<br> 99% complete")
 			else
 				emitter_deactivate()
 				deactivate_time = world.time
 		if("activate")
+			if(!powernet)
+				to_chat(user, "The receiver isn't connected to a powernet.")
+				return
+			if(surplus() < active_power_usage)
+				to_chat(user, "The connected wire doesn't have enough current.")
+				return
 			if(world.time - deactivate_time > 30 SECONDS)
 				emitter_activate()
 			else
 				visible_message("Error, emitter is still cooling down")
+		if("connect to network")
+			connect_to_network()
+			if(!powernet)
+				visible_message("Powernet not found.")
 
-/obj/machinery/bfl_emitter/emag_act()
+
+/obj/machinery/power/bfl_emitter/emag_act()
 	. = ..()
 	if(!emag)
 		emag = TRUE
 		to_chat(usr, "Emitter successfully sabotaged")
 
-/obj/machinery/bfl_emitter/process()
-	if(!state)
+/obj/machinery/power/bfl_emitter/process()
+	if(state)
+		add_load(active_power_usage)
+	else
+		add_load(idle_power_usage)
+		return
+	if(surplus() < active_power_usage)
+		emitter_deactivate()
 		return
 	if(laser)
 		return
@@ -109,11 +130,12 @@
 			receiver.lens.deactivate_lens()
 
 
-/obj/machinery/bfl_emitter/proc/emitter_activate()
+/obj/machinery/power/bfl_emitter/proc/emitter_activate()
 	state = TRUE
 	icon_state = "Emitter_On"
 	var/turf/location = get_step(src, NORTH)
 	location.ex_act(1)
+	working_sound()
 
 	if(receiver)
 		receiver.mining = TRUE
@@ -133,7 +155,7 @@
 			receiver.lens.activate_lens()
 		return
 
-/obj/machinery/bfl_emitter/proc/emitter_deactivate()
+/obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
 	icon_state = "Emitter_Off"
 	if(receiver)
@@ -145,13 +167,20 @@
 		qdel(laser)
 		laser = null
 
+/obj/machinery/power/bfl_emitter/proc/working_sound()
+	set waitfor = FALSE
+	while(state)
+		playsound(src, 'sound/BFL/emitter.ogg', 100, 1, falloff = 1)
+		sleep(30)
+
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
-/obj/machinery/bfl_emitter/Initialize()
+/obj/machinery/power/bfl_emitter/Initialize()
 	.=..()
 	pixel_x = -32
 	pixel_y = 0
+
 	var/list/occupied = list()
 	for(var/direction in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
 		occupied += get_step(src, direction)
@@ -163,7 +192,10 @@
 		F.parent = src
 		fillers += F
 
-/obj/machinery/bfl_emitter/Destroy()
+	if(!powernet)
+		connect_to_network()
+
+/obj/machinery/power/bfl_emitter/Destroy()
 	emitter_deactivate()
 	QDEL_LIST(fillers)
 	return ..()
@@ -191,6 +223,7 @@
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	var/response
+	src.add_fingerprint(user)
 	if(state)
 		response = alert(user, "You trying to deactivate BFL receiver machine, are you sure?", "BFL Receiver", "deactivate", "empty ore storage", "nothing")
 	else
@@ -234,6 +267,7 @@
 		state = TRUE
 		icon_state = "Receiver_On"
 		density = 1
+		working_sound()
 	else
 		visible_message("Error, lens not found")
 
@@ -253,6 +287,12 @@
 		lens = null
 		if(state)
 			receiver_deactivate()
+
+/obj/machinery/bfl_receiver/proc/working_sound()
+	set waitfor = FALSE
+	while(state)
+		playsound(src, 'sound/BFL/receiver.ogg', 100, 1, falloff = 1)
+		sleep(80)
 
 ////////
 //Lens//
@@ -334,6 +374,7 @@
 	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
 	speed_process = TRUE
+	var/move = 0
 
 /obj/singularity/bfl_red/move(force_move)
 	if(!move_self)
@@ -344,7 +385,8 @@
 	if(force_move)
 		movement_dir = force_move
 	else
-		loc = locate((world.time/16 % 255) + 1, (sin(world.time/16) + 1)*125 + 1, 3)
+		move++
+		loc = locate((move % 255) + 1, sin((move + 1)*125) + 1, 3)
 	step(src, movement_dir)
 
 /obj/singularity/bfl_red/expand()
