@@ -406,28 +406,3 @@
 /obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
 	starting_energy = 250
 	. = ..(loc, starting_energy, temp)
-
-/obj/singularity/bfl_red/mish_SINGULARITY
-	name = "Михаил"
-	desc = "A gravitational singularity."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "mouse_gray"
-
-/obj/singularity/bfl_red/mish_SINGULARITY/expand()
-	. = ..()
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "mouse_gray"
-	pixel_x = 0
-	pixel_y = 0
-	grav_pull = 0
-
-/obj/singularity/bfl_red/mish_SINGULARITY/move(force_move)
-	if(!move_self)
-		return 0
-
-	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
-
-	if(force_move)
-		movement_dir = force_move
-
-	step(src, movement_dir)
