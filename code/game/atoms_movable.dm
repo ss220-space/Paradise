@@ -46,7 +46,7 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)
-	forceMove(null)
+	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(orbiting)
