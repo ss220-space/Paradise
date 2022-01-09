@@ -268,7 +268,6 @@
 		state = TRUE
 		icon_state = "Receiver_On"
 		density = 1
-		working_sound()
 	else
 		visible_message("Error, lens not found")
 
@@ -289,12 +288,6 @@
 		if(state)
 			receiver_deactivate()
 
-/obj/machinery/bfl_receiver/proc/working_sound()
-	set waitfor = FALSE
-	while(state)
-		playsound(src, 'sound/BFL/receiver.ogg', 100, 1, falloff = 1)
-		sleep(80)
-
 ////////
 //Lens//
 ////////
@@ -314,11 +307,18 @@
 	icon_state = "Lens_On"
 	state = TRUE
 	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64)
+	working_sound()
 
 /obj/machinery/bfl_lens/proc/deactivate_lens()
 	icon_state = "Lens_Off"
 	overlays.Cut()
 	state = FALSE
+
+/obj/machinery/bfl_lens/proc/working_sound()
+	set waitfor = FALSE
+	while(state)
+		playsound(src, 'sound/BFL/receiver.ogg', 100, 1, falloff = 1)
+		sleep(80)
 
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
 	. = TRUE
