@@ -181,6 +181,7 @@
 	.=..()
 	pixel_x = -32
 	pixel_y = 0
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
 
 	var/list/occupied = list()
 	for(var/direction in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
@@ -254,6 +255,7 @@
 	pixel_y = -32
 	//it's just works ¯\_(ツ)_/¯
 	internal = new internal_type(src)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
 
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
@@ -324,7 +326,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
 	default_unfasten_wrench(user, I, time = 140)
 
 /obj/machinery/bfl_lens/Initialize()
