@@ -1,3 +1,8 @@
+/*
+#define CARBON 1
+#define SILICON 2
+#define CAMERA 3
+*/
 /obj/item/holosign_creator/signmarer
 	name = "Signmarer Clown"
 	desc = "A handy-dandy holographic projector"
@@ -40,12 +45,20 @@
 
 	var/outmsg
 	var/turf/targloc = get_turf(target)
+	var/target_type = 0
 
-	//human/alien mobs
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(user.zone_selected == "eyes")
-			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
+		target_type = 1
+	if(issilicon(target))
+		target_type = 2
+	if(istype(target, /obj/machinery/camera))
+		target_type = 3
+
+	switch(target_type)
+		if(1)
+			var/mob/living/carbon/C = target
+			if(user.zone_selected == "eyes")
+				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
 			var/severity = 1
 			if(prob(33))
@@ -60,36 +73,33 @@
 					C.Stun(1)
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
+		if(2)
+			var/mob/living/silicon/S = target
+			//20% chance to actually hit the sensors
+			if(prob(20)
+				S.flash_eyes(affect_silicon = 1)
+				S.Weaken(rand(5,10))
+				to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
+				outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 
-	//robots and AI
-	if(issilicon(target))
-		var/mob/living/silicon/S = target
-		//20% chance to actually hit the sensors
-		if(prob(20)
-			S.flash_eyes(affect_silicon = 1)
-			S.Weaken(rand(5,10))
-			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+				add_attack_logs(user, S, "shone [src] in their eyes")
+			else
+				outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+		if(3)
+			if(istype(target, /obj/machinery/camera))
+			var/obj/machinery/camera/C = target
+			if(prob(20))
+				C.emp_act(1)
+				outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
 
-			add_attack_logs(user, S, "shone [src] in their eyes")
+				log_admin("[key_name(user)] EMPd a camera with a laser pointer")
+				user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
+				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+			else
+				outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
+
 		else
-			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
-
-	//cameras
-	if(istype(target, /obj/machinery/camera))
-		var/obj/machinery/camera/C = target
-		if(prob(20))
-			C.emp_act(1)
-			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
-
-			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
-			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
-			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
-		else
-			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
-
-	if(isturf(target))
-		create_holosign(target, user)
+			create_holosign(target, user)
 
 	energy -= 1
 	if(energy <= max_energy)
@@ -99,8 +109,6 @@
 		if(energy <= 0)
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
 			recharge_locked = 1
-
-	icon_state = "pointer"
 
 /obj/item/holosign_creator/signmarer/proc/create_holosign(atom/target, mob/user)
 	var/obj/structure/holosign/H = locate(holosign_type) in target
