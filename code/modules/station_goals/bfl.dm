@@ -5,9 +5,9 @@
 	return {"<b>Mining laser construcion</b><br>
 	Our surveillance drone detected a enormous deposit, oozing with plasma. We need you to construct a BFL system to collect the plasma and send it to the Central Command via cargo shuttle.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called Mission goal, and install it content anywhere on the station.
-	<br>
 	Its base parts should be available for shipping by your cargo shuttle.
+	<br>
+	In order to complete the mission, you must to order a special pack in cargo called Mission goal, and install it content anywhere on the station.
 	<br><br>
 	-Nanotrasen Naval Command"}
 
@@ -36,9 +36,12 @@
 ////////////
 /obj/item/circuitboard/machine/bfl_emitter
 	name = "BFL Emitter (Machine Board)"
-	build_path = /obj/machinery/bsa/back
+	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
+					/obj/item/stack/sheet/metal = 5,
+					/obj/item/stack/rods = 20,
+					/obj/item/stack/sheet/plasmaglass = 4,
 					/obj/item/stock_parts/manipulator/femto = 2,
 					/obj/item/stock_parts/capacitor/quadratic = 5,
 					/obj/item/stock_parts/micro_laser/quadultra = 20,
@@ -47,11 +50,13 @@
 
 /obj/item/circuitboard/machine/bfl_receiver
 	name = "BFL Receiver (Machine Board)"
-	build_path = /obj/machinery/bsa/back
+	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stock_parts/capacitor/quadratic = 20,
-					/obj/item/stack/cable_coil = 2)
+					/obj/item/stack/sheet/metal = 20,
+					/obj/item/stack/sheet/plasteel = 10,
+					/obj/item/stack/sheet/plasmaglass = 20,
+					/obj/item/stack/sheet/mineral/diamond = 8)
 
 ///////////
 //Emitter//
@@ -91,7 +96,7 @@
 				deactivate_time = world.time
 		if("activate")
 			if(!powernet)
-				to_chat(user, "The receiver isn't connected to a powernet.")
+				to_chat(user, "The emitter isn't connected to a powernet.")
 				return
 			if(surplus() < active_power_usage)
 				to_chat(user, "The connected wire doesn't have enough current.")
@@ -123,13 +128,25 @@
 		return
 	if(laser)
 		return
-	if(!receiver || !receiver.state || emag)
-		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
-		laser = new (rand_location)
-		if(receiver)
-			receiver.receiver_deactivate()
-			receiver.lens.deactivate_lens()
 
+	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
+		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+		if(!emag)
+			visible_message("Warning, laser calibration fail.")
+		laser = new (rand_location)
+		laser.move = rand_location.x
+		if(receiver)
+			receiver.mining = FALSE
+			if(receiver.lens)
+				receiver.lens.deactivate_lens()
+
+
+/obj/machinery/power/bfl_emitter/proc/receiver_test()
+	if(receiver)
+		if(receiver.state && receiver.lens)
+			receiver.lens.activate_lens()
+			receiver.mining = TRUE
+		return TRUE
 
 /obj/machinery/power/bfl_emitter/proc/emitter_activate()
 	state = TRUE
@@ -138,23 +155,14 @@
 	location.ex_act(1)
 	working_sound()
 
-	if(receiver)
-		receiver.mining = TRUE
-		if(receiver.state)
-			receiver.lens.activate_lens()
-		return
+	if(!receiver)
+		for(var/turf/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
+			receiver = locate() in T
+			if(receiver)
+				break
 
-	for(var/turf/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
-		receiver = locate() in T
-		if(receiver)
-			break
+	receiver_test()
 
-	if(receiver)
-		receiver.mining = TRUE
-		//better to be safe than sorry
-		if(receiver.state && receiver.lens)
-			receiver.lens.activate_lens()
-		return
 
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
@@ -162,7 +170,7 @@
 	if(receiver)
 		receiver.mining = FALSE
 		if(receiver.lens.state)
-			receiver.lens.activate_lens()
+			receiver.lens.deactivate_lens()
 
 	if(laser)
 		qdel(laser)
@@ -205,10 +213,16 @@
 ////////////
 //Receiver//
 ////////////
-/obj/item/storage/bag/ore/holding/bfl_storage/proc/empty_storage(turf/location)
+#define PLASMA 2
+#define SAND 1
+#define NOTHING 0
+
+/obj/item/storage/bag/ore/bfl_storage
+	storage_slots = 20
+/obj/item/storage/bag/ore/bfl_storage/proc/empty_storage(turf/location)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, location)
-		CHECK_TICK
+		sleep(rand(10, 20))
 
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
@@ -218,10 +232,11 @@
 
 	var/state = FALSE
 	var/mining = FALSE
-	var/obj/item/storage/bag/ore/holding/bfl_storage/internal
-	var/internal_type = /obj/item/storage/bag/ore/holding/bfl_storage
+	var/obj/item/storage/bag/ore/bfl_storage/internal
+	var/internal_type = /obj/item/storage/bag/ore/bfl_storage
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
+	var/last_user_ckey
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	var/response
@@ -233,20 +248,39 @@
 
 	switch(response)
 		if("deactivate")
-			receiver_deactivate()
+			to_chat(user, "No power. <br> You should open the pit manually ")
 		if("activate")
-			receiver_activate()
+			to_chat(user, "No power. <br> You should open the pit manually ")
 		if("empty ore storage")
-			var/turf/location = get_step(src, SOUTH)
+			if(lens)
+				to_chat(user, "Lens is in the way, you can't get any ore from storage.")
+				return
+			if(state && (user.ckey != last_user_ckey))
+				to_chat(user, "Your inner voice telling you should close the pit first.")
+				last_user_ckey = user.ckey
+				return
+			var/turf/location = get_turf(src)
 			internal.empty_storage(location)
 
+
+/obj/machinery/bfl_receiver/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(state)
+		receiver_deactivate()
+	else
+		receiver_activate()
+
 /obj/machinery/bfl_receiver/process()
+	overlays.Cut()
+	overlays += image('icons/obj/machines/BFL_Mission/Hole.dmi', icon_state = "Receiver_Light_[internal.contents.len]")
 	if (!(mining && state))
 		return
 	switch(ore_type)
-		if(2)
+		if(PLASMA)
 			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
-		if(1)
+		if(SAND)
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
 
 /obj/machinery/bfl_receiver/Initialize()
@@ -259,37 +293,39 @@
 
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
-		ore_type = 2 //plasma
+		ore_type = PLASMA
 	else if(istype(turf_under, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
-		ore_type = 1 //sand
+		ore_type = SAND
 	else
-		ore_type = 0 //sosi bibu
+		ore_type = NOTHING
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
-	if(lens)
-		state = TRUE
-		icon_state = "Receiver_On"
-		density = 1
-	else
-		visible_message("Error, lens not found")
+	state = TRUE
+	icon_state = "Receiver_On"
+	var/turf/T = get_turf(src)
+	T.ChangeTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
 
 /obj/machinery/bfl_receiver/proc/receiver_deactivate()
+	var/turf/turf_under = get_step(src, SOUTH)
+	var/turf/T = get_turf(src)
 	state = FALSE
 	icon_state = "Receiver_Off"
-	density = 0
+	T.ChangeTurf(turf_under.type)
 
 /obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(istype(AM, /obj/machinery/bfl_lens))
 		lens = AM
+		lens.step_count = 0
 
 /obj/machinery/bfl_receiver/Uncrossed(atom/movable/AM)
 	. = ..()
 	if(AM == lens)
 		lens = null
-		if(state)
-			receiver_deactivate()
 
+#undef PLASMA
+#undef SAND
+#undef NOTHING
 ////////
 //Lens//
 ////////
@@ -297,24 +333,32 @@
 	name = "High-precision lens"
 	desc = "Extremely fragile, handle with care."
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
-	icon_state = "Lens_Off"
+	icon_state = "Lens_Pull"
 	max_integrity = 40
-	layer = 2.91
+	layer = ABOVE_OBJ_LAYER
 	density = 1
 
 	var/step_count = 0
 	var/state = FALSE
 
+/obj/machinery/bfl_lens/update_icon()
+	if(state)
+		icon_state = "Lens_On"
+	else if(anchored)
+		icon_state = "Lens_Off"
+	else
+		icon_state = "Lens_Pull"
+
 /obj/machinery/bfl_lens/proc/activate_lens()
-	icon_state = "Lens_On"
 	state = TRUE
-	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64)
+	update_icon()
+	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
 	working_sound()
 
 /obj/machinery/bfl_lens/proc/deactivate_lens()
-	icon_state = "Lens_Off"
 	overlays.Cut()
 	state = FALSE
+	update_icon()
 
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
@@ -327,6 +371,7 @@
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	default_unfasten_wrench(user, I, time = 140)
+	update_icon()
 
 /obj/machinery/bfl_lens/Initialize()
 	. = ..()
@@ -388,10 +433,10 @@
 
 	if(force_move)
 		movement_dir = force_move
+		step(src, movement_dir)
 	else
 		move++
-		loc = locate((move % 255) + 1, sin((move + 1)*125) + 1, 3)
-	step(src, movement_dir)
+		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, 3))
 
 /obj/singularity/bfl_red/expand()
 	. = ..()
