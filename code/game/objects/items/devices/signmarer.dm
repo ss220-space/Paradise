@@ -29,6 +29,7 @@
 
 /obj/item/holosign_creator/signmarer/attack_self(mob/user)
 	qdel(sign)
+	sign = null
 	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
 	update_icon()
 
@@ -97,9 +98,10 @@
 
 /obj/item/holosign_creator/signmarer/proc/create_holosign(atom/target, mob/user)
 	var/obj/structure/holosign/H = locate(holosign_type) in target
-	if(H)
-		to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
-		qdel(H)
+	if(locate(holosign_type) in target)
+		to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
+		qdel(sign)
+		sign = null
 		update_icon()
 		return
 	var/turf/T = get_turf(target)
@@ -108,6 +110,7 @@
 	playsound(src, 'sound/machines/click.ogg', 20, 1)
 	if(sign)
 		qdel(sign)
+		sign = null
 	sign = new holosign_type(get_turf(target), src)
 	to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
 
