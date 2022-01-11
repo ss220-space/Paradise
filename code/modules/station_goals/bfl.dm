@@ -133,9 +133,9 @@
 		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
 		laser = new (rand_location)
 		for(var/M in GLOB.player_list)
-        	var/turf/mob_turf = get_turf(M)
-        	if(mob_turf && (mob_turf.z == 3))
-            	to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
+			var/turf/mob_turf = get_turf(M)
+			if(mob_turf && (mob_turf.z == 3))
+				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
 		laser.move = rand_location.x
 		if(receiver)
 			receiver.mining = FALSE
