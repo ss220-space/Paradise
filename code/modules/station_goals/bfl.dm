@@ -222,7 +222,7 @@
 /obj/item/storage/bag/ore/bfl_storage/proc/empty_storage(turf/location)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, location)
-		sleep(rand(10, 20))
+		CHECK_TICK
 
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
