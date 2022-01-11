@@ -241,7 +241,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/medbay
 	name = "Syndicate Medical Doctor's Locker"
-	req_access = list(ACCESS_SYNDICATE_SCIENTIST)
+	req_access = list(ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndicate_med_secure1"
 	icon_closed = "syndicate_med_secure"
 	icon_locked = "syndicate_med_secure1"
@@ -270,7 +270,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/hydro
 	name = "Syndicate Botanist's Locker"
-	req_one_access = list(ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_SCIENTIST)
+	req_one_access = list(ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndicate_hydro_secure1"
 	icon_closed = "syndicate_hydro_secure"
 	icon_locked = "syndicate_hydro_secure1"

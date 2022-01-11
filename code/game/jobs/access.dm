@@ -132,6 +132,8 @@
 							ACCESS_SYNDICATE_SCIENTIST,
 							ACCESS_SYNDICATE_CARGO,
 							ACCESS_SYNDICATE_KITCHEN,
+							ACCESS_SYNDICATE_MEDICAL,
+							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_ENGINE)
 
 /proc/get_all_accesses()
@@ -150,14 +152,17 @@
 
 /proc/get_all_syndicate_access()
 	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_VOX, ACCESS_SYNDICATE_COMMAND, ACCESS_SYNDICATE_COMMS_OFFICER, ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-				ACCESS_SYNDICATE_SCIENTIST, ACCESS_SYNDICATE_CARGO, ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_ENGINE)
+				ACCESS_SYNDICATE_SCIENTIST, ACCESS_SYNDICATE_CARGO, ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_MEDICAL, ACCESS_SYNDICATE_BOTANY, ACCESS_SYNDICATE_ENGINE)
 
 /proc/get_taipan_syndicate_access()
-	return list(ACCESS_SYNDICATE_COMMS_OFFICER,
+	return list(ACCESS_MAINT_TUNNELS,
+				ACCESS_SYNDICATE_COMMS_OFFICER,
 				ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
 				ACCESS_SYNDICATE_SCIENTIST,
 				ACCESS_SYNDICATE_CARGO,
 				ACCESS_SYNDICATE_KITCHEN,
+				ACCESS_SYNDICATE_MEDICAL,
+				ACCESS_SYNDICATE_BOTANY,
 				ACCESS_SYNDICATE_ENGINE)
 
 /proc/get_all_misc_access()
@@ -186,6 +191,8 @@
 			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
+		if(REGION_TAIPAN)
+			return get_taipan_syndicate_access()
 
 /proc/get_region_accesses_name(code)
 	switch(code)
@@ -207,6 +214,8 @@
 			return "Command"
 		if(REGION_CENTCOMM) //CC
 			return "CentComm"
+		if(REGION_TAIPAN) //Taipan
+			return "RAMSS Taipan"
 
 
 /proc/get_access_desc(A)
@@ -417,8 +426,21 @@
 			return "Syndicate Cargo Technician"
 		if(ACCESS_SYNDICATE_KITCHEN)
 			return "Syndicate Chef"
+		if(ACCESS_SYNDICATE_MEDICAL)
+			return "Syndicate Medic"
+		if(ACCESS_SYNDICATE_BOTANY)
+			return "Syndicate Botanist"
 		if(ACCESS_SYNDICATE_ENGINE)
 			return "Syndicate Atmos Engineer"
+
+/proc/get_region_access_desc(region, access)
+	switch(region)
+		if(REGION_CENTCOMM)
+			return get_centcom_access_desc(access)
+		if(REGION_TAIPAN)
+			return get_syndicate_access_desc(access)
+
+	return get_access_desc(access)
 
 /proc/get_all_jobs()
 	var/list/all_jobs = list()
@@ -550,23 +572,23 @@
 
 /proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
 	var/list/retval
-	for(var/i in num_min_region to num_max_region)
+	for(var/region in num_min_region to num_max_region)
 		var/list/accesses = list()
 		var/list/available_accesses
-		if(i == REGION_CENTCOMM) // Override necessary, because get_region_accesses(REGION_CENTCOM) returns BOTH CC and crew accesses.
+		if(region == REGION_CENTCOMM) // Override necessary, because get_region_accesses(REGION_CENTCOM) returns BOTH CC and crew accesses.
 			available_accesses = get_all_centcom_access()
 		else
-			available_accesses = get_region_accesses(i)
+			available_accesses = get_region_accesses(region)
 		for(var/access in available_accesses)
-			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
+			var/access_desc = get_region_access_desc(region, access)
 			if (access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,
 				))
 		retval += list(list(
-			"name" = get_region_accesses_name(i),
-			"regid" = i,
+			"name" = get_region_accesses_name(region),
+			"regid" = region,
 			"accesses" = accesses
 		))
 	return retval

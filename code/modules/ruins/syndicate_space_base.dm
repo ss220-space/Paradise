@@ -65,7 +65,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	back = /obj/item/storage/backpack/syndicate/science
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/scientist
@@ -89,7 +89,7 @@
 
 	if(!istype(H.get_item_by_slot(slot_wear_id), /obj/item/card/id/syndicate/comms_officer)) //Если мы не телекомщик, к обычной частоте нет доступа
 		var/obj/item/radio/RF = H.get_item_by_slot(slot_r_ear)
-		RF.set_frequency(SYND_FREQ)
+		RF.set_frequency(SYND_TAIPAN_FREQ)
 	if(H.dna.species)
 
 		var/race = H.dna.species.name
@@ -126,6 +126,64 @@
 
 /obj/effect/mob_spawn/human/space_base_syndicate/special(mob/living/carbon/human/H)
 	SEND_SOUND(H, 'sound/effects/contractstartup.ogg')
+
+/obj/effect/mob_spawn/human/space_base_syndicate/medic
+	name = "Syndicate Medic sleeper"
+	mob_name = "Syndicate Medic"
+	id_job = "Syndicate Medic"
+	important_info = "Не мешайте другим оперативникам синдиката (Таким как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и её сохранность является для вас высшим приоритетом!"
+	description = "Проводите медицинские опыты сомнительного содержания. Вылечивайте своих коллег, которые опять поссорились с генералом Синди, или оживляйте неудачных космических путников, для допросов или боргизации. Даже Синдикату нужны врачи!"
+	flavour_text = "Вы агент синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрэйзен, имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования на сколько можете и постарайтесь не высовываться. \
+	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
+	outfit = /datum/outfit/space_base_syndicate/medic
+	assignedrole = "Space Base Syndicate Medic"
+/datum/outfit/space_base_syndicate/medic
+	name = "Space Base Syndicate Medic"
+	r_hand = /obj/item/melee/energy/sword/saber
+	uniform = /obj/item/clothing/under/syndicate
+	glasses = /obj/item/clothing/glasses/hud/health
+	suit = /obj/item/clothing/suit/storage/labcoat
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
+	back = /obj/item/storage/backpack/syndicate/med
+	belt = /obj/item/storage/belt/medical
+	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	id = /obj/item/card/id/syndicate/medic
+	implants = list(/obj/item/implant/weapons_auth)
+	backpack_contents = list(
+		/obj/item/reagent_containers/applicator/brute = 1,
+		/obj/item/reagent_containers/applicator/burn = 1,
+		/obj/item/reagent_containers/hypospray/safety = 1,
+		/obj/item/healthanalyzer/advanced = 1,
+		/obj/item/reagent_containers/glass/bottle/charcoal = 1
+	)
+
+/obj/effect/mob_spawn/human/space_base_syndicate/botanist
+	name = "Syndicate Botanist sleeper"
+	mob_name = "Syndicate Botanist"
+	id_job = "Syndicate Botanist"
+	important_info = "Не мешайте другим оперативникам синдиката (Таким как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и её сохранность является для вас высшим приоритетом!"
+	description = "Выращивайте сомнительные растения. Помогите повару накормить экипаж, а учёным создать опаснейшие растения! Наслаждайтесь силой природы в руках Синдиката!"
+	flavour_text = "Вы агент синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрэйзен, имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования на сколько можете и постарайтесь не высовываться. \
+	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
+	outfit = /datum/outfit/space_base_syndicate/botanist
+	assignedrole = "Space Base Syndicate Botanist"
+/datum/outfit/space_base_syndicate/botanist
+	name = "Space Base Syndicate Botanist"
+	r_hand = /obj/item/melee/energy/sword/saber
+	uniform = /obj/item/clothing/under/syndicate
+	glasses = /obj/item/clothing/glasses/hud/hydroponic
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
+	suit = /obj/item/clothing/suit/apron
+	back = /obj/item/storage/backpack/syndicate
+	belt = /obj/item/storage/belt/botany
+	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	id = /obj/item/card/id/syndicate/botanist
+	implants = list(/obj/item/implant/weapons_auth)
+
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech
 	name = "Syndicate Cargo Technician sleeper"
 	mob_name = "Syndicate Cargo Technician"
@@ -139,7 +197,7 @@
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
 	uniform = /obj/item/clothing/under/rank/cargotech
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = /obj/item/clothing/suit/armor/vest
 	id = /obj/item/card/id/syndicate/cargo
 	shoes = /obj/item/clothing/shoes/black
@@ -181,7 +239,7 @@
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
 	head = /obj/item/clothing/head/beret/eng
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = -1
 	belt = /obj/item/storage/belt/utility/atmostech
 	id = /obj/item/card/id/syndicate/engineer
@@ -200,7 +258,7 @@
 
 /datum/outfit/space_base_syndicate/comms
 	name = "Space Base Syndicate Comms Officer"
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/taipan/tcomms_agent // See del_types above
 	r_hand = /obj/item/twohanded/dualsaber
 	mask = /obj/item/clothing/mask/chameleon
 	suit = /obj/item/clothing/suit/armor/vest
@@ -225,7 +283,7 @@
 
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	r_hand = /obj/item/melee/classic_baton/telescopic
 	l_pocket = /obj/item/melee/energy/sword/saber
 	head = /obj/item/clothing/head/beret/sci

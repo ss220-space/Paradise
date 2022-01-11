@@ -103,6 +103,9 @@
 #define ACCESS_SYNDICATE_CARGO 157 // Ghost role 'Taipan' Syndicate Cargo Access
 #define ACCESS_SYNDICATE_KITCHEN 158 // Ghost role 'Taipan' Syndicate Kitchen Access
 #define ACCESS_SYNDICATE_ENGINE 159 // Ghost role 'Taipan' Syndicate Engineering Access
+//Поскольку дальше уже зона Сол трейдеров и т.д. Следующие доступы будут идти по убывающей начиная с 149-ой
+#define ACCESS_SYNDICATE_MEDICAL 149 // Ghost role 'Taipan' Syndicate Medical Access
+#define ACCESS_SYNDICATE_BOTANY 148 // Ghost role 'Taipan' Syndicate Botany Access
 
 
 //Trade Stations

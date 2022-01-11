@@ -1257,6 +1257,16 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server{
 	name = "ERR#UNKWN Server Room"
 	})
+"bbV" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/mob_spawn/human/space_base_syndicate/botanist{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate/unpowered/syndicate_space_base/cryo)
 "bbZ" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal{
@@ -2162,7 +2172,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "156"
+	req_access_txt = "156, 149"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -4307,7 +4317,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6196,7 +6206,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Morgue Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6974,7 +6984,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_space_base_virology";
 	pixel_x = 25;
-	req_access_txt = "150";
+	req_access_txt = "149";
 	tag_exterior_door = "syndicate_space_base_virology_exterior";
 	tag_interior_door = "syndicate_space_base_virology_interior"
 	},
@@ -7680,7 +7690,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Morgue Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7858,7 +7868,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Animal Pen";
-	req_one_access_txt = "156;158"
+	req_one_access_txt = "148"
 	},
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/grass,
@@ -12472,7 +12482,7 @@
 	id_tag = "syndicate_space_base_virology_exterior";
 	locked = 1;
 	name = "Virology Lab Exterior Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12586,12 +12596,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13421,7 +13425,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13433,7 +13437,6 @@
 /obj/structure/grille{
 	layer = 2.8
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "mfg" = (
@@ -13451,7 +13454,6 @@
 /obj/structure/grille{
 	layer = 2.8
 	},
-/obj/structure/cable,
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
@@ -13475,7 +13477,7 @@
 "mfU" = (
 /obj/machinery/door/airlock/syndicate/public/glass{
 	name = "Hydroponics";
-	req_one_access_txt = "156;158"
+	req_one_access_txt = "148"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13496,7 +13498,7 @@
 	color = "red";
 	dir = 1;
 	name = "Hydroponics Desk";
-	req_access_txt = "156;158"
+	req_access_txt = "148"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
@@ -17060,7 +17062,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access_txt = "149"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -17541,7 +17543,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20732,7 +20734,7 @@
 	name = "exterior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access_txt = "150"
+	req_access_txt = "149"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -20769,7 +20771,7 @@
 	id_tag = "syndicate_space_base_virology_interior";
 	locked = 1;
 	name = "Virology Lab Interior Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27524,6 +27526,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
+"wrj" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/mob_spawn/human/space_base_syndicate/medic{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate/unpowered/syndicate_space_base/cryo)
 "wrs" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -28337,7 +28349,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28359,7 +28371,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "156"
+	req_access_txt = "149"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -65932,11 +65944,11 @@ mOz
 nEq
 okS
 oPB
-pBd
+wrj
 pBd
 qWB
 pBd
-pBd
+bbV
 sNt
 okS
 tIT
