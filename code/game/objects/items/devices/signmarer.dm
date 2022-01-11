@@ -15,6 +15,11 @@
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
+	var/pointer_busy = FALSE
+	var/energy = 5
+	var/max_energy = 5
+	var/recharging = 0
+	var/recharge_locked = 0
 	var/holosign_type = /obj/structure/holosoap
 	var/obj/structure/holosoap/sign
 	var/emag = FALSE
@@ -23,6 +28,13 @@
 	qdel(sign)
 	sign = null
 	update_icon()
+
+/obj/item/signmarer/proc/icon_flick()
+	icon_state = "signmarer_clown_on"
+	pointer_busy = TRUE
+	sleep(10)
+	pointer_busy = FALSE
+	icon_state = "signmarer_clown_off"
 
 /obj/item/signmarer/update_icon()
 	if(sign)
@@ -47,11 +59,25 @@
 	icon_state = "signmarer_clown_on"
 	laser_act(target, user, params)
 
+/obj/item/signmarer/process()
+	if(prob(20 - recharge_locked*5))
+		energy += 1
+		if(energy >= max_energy)
+			energy = max_energy
+			recharging = 0
+			recharge_locked = 0
+			..()
+
 /obj/item/signmarer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
+	if(pointer_busy)
+		to_chat(user, "<span class='notice'>You already pointing at something.</span>")
+		return
+	if(recharge_locked)
+		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		return
 	add_fingerprint(user)
-
 	var/target_type = 0
 
 	if(iscarbon(target))
@@ -63,6 +89,7 @@
 
 	switch(target_type)
 		if(CARBON)
+			energy -= 1
 			var/mob/living/carbon/C = target
 			if(user.zone_selected == "eyes")
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
@@ -73,7 +100,9 @@
 					C.Stun(1)
 			else
 				visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
+			icon_flick()
 		if(SILICON)
+			energy -= 1
 			var/mob/living/silicon/S = target
 			//20% chance to actually hit the sensors
 			if(prob(20))
@@ -86,20 +115,29 @@
 			else
 				visible_message("<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>")
 		if(CAMERA)
+			energy -= 1
+			icon_flick()
 			var/obj/machinery/camera/C = target
 			if(prob(20))
 				C.emp_act(1)
 				visible_message("<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
 
-				log_admin("[key_name(user)] EMPd a camera with a laser pointer")
-				user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
+				log_admin("[key_name(user)] EMPd a camera with a signmarer")
+				user.create_attack_log("[key_name(user)] EMPd a camera with a signmarer")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
 				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")
-
+			icon_flick()
 		else
 			create_holosign(target, user)
 	update_icon()
+	if(energy <= max_energy)
+		if(!recharging)
+			recharging = 1
+			START_PROCESSING(SSobj, src)
+		if(energy <= 0)
+			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			recharge_locked = 1
 
 /obj/item/signmarer/proc/create_holosign(atom/target, mob/user)
 	var/turf/T = get_turf(target)
