@@ -118,7 +118,7 @@
 		clear_holosign()
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
-	to_chat(user, "<span class='notice'>You create [holosign_type] with [src].</span>")
+	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")
 
 /obj/structure/holosoap
 	name = "holographic soap"
