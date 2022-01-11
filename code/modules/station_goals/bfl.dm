@@ -131,8 +131,6 @@
 
 	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
 		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
-		if(!emag)
-			visible_message("Warning, laser calibration fail.")
 		laser = new (rand_location)
 		laser.move = rand_location.x
 		if(receiver)
