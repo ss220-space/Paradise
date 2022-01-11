@@ -15,6 +15,7 @@
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
+	var/attack_made = FALSE
 	var/pointer_busy = FALSE
 	var/energy = 5
 	var/max_energy = 5
@@ -43,8 +44,8 @@
 		icon_state = "signmarer_clown_off"
 
 /obj/item/signmarer/attack(mob/living/M, mob/user)
-	icon_state = "signmarer_clown_on"
 	laser_act(M, user)
+	attack_made = TRUE
 
 /obj/item/signmarer/emag_act()
 	clear_holosign()
@@ -56,8 +57,9 @@
 	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
 
 /obj/item/signmarer/afterattack(var/atom/target, var/mob/living/user, params)
-	icon_state = "signmarer_clown_on"
-	laser_act(target, user, params)
+	if(!attack_made)
+		laser_act(target, user, params)
+	attack_made = FALSE
 
 /obj/item/signmarer/process()
 	if(prob(20 - recharge_locked*5))
@@ -90,6 +92,7 @@
 	switch(target_type)
 		if(CARBON)
 			energy -= 1
+			icon_flick()
 			var/mob/living/carbon/C = target
 			if(user.zone_selected == "eyes")
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
@@ -100,9 +103,9 @@
 					C.Stun(1)
 			else
 				visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
-			icon_flick()
 		if(SILICON)
 			energy -= 1
+			icon_flick()
 			var/mob/living/silicon/S = target
 			//20% chance to actually hit the sensors
 			if(prob(20))
@@ -127,7 +130,6 @@
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
 				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")
-			icon_flick()
 		else
 			create_holosign(target, user)
 	update_icon()
@@ -138,6 +140,8 @@
 		if(energy <= 0)
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
 			recharge_locked = 1
+			if(sign)
+				clear_holosign()
 
 /obj/item/signmarer/proc/create_holosign(atom/target, mob/user)
 	var/turf/T = get_turf(target)
