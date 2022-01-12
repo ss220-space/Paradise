@@ -15,7 +15,6 @@
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
-	var/attack_made = FALSE
 	var/pointer_busy = FALSE
 	var/energy = 5
 	var/max_energy = 5
@@ -46,10 +45,6 @@
 	else
 		icon_state = "signmarer_clown_off"
 
-/obj/item/signmaker/attack(mob/living/M, mob/user)
-	laser_act(M, user)
-	attack_made = TRUE
-
 /obj/item/signmaker/emag_act()
 	clear_holosign()
 	to_chat(usr, "You broke the pointer, oh no")
@@ -60,9 +55,7 @@
 	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
 
 /obj/item/signmaker/afterattack(var/atom/target, var/mob/living/user, params)
-	if(!attack_made)
-		laser_act(target, user, params)
-	attack_made = FALSE
+	laser_act(target, user, params)
 
 /obj/item/signmaker/process()
 	if(prob(20 - recharge_locked*5))
