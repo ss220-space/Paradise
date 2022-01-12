@@ -26,10 +26,11 @@
 	var/emag = FALSE
 
 /obj/item/signmaker/proc/clear_holosign()
-	if(sign)
-		qdel(sign)
-		sign = null
-		update_icon()
+	if(!sign)
+		return
+	qdel(sign)
+	sign = null
+	update_icon()
 
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
