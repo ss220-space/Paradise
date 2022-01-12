@@ -1,8 +1,8 @@
 #define CARBON 1
 #define SILICON 2
 #define CAMERA 3
-/obj/item/signmarer
-	name = "Signmarer Clown"
+/obj/item/signmaker
+	name = "Signmaker Clown"
 	desc = "A handy-dandy holographic projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmarer_clown_off"
@@ -25,52 +25,53 @@
 	var/obj/structure/holosoap/sign
 	var/emag = FALSE
 
-/obj/item/signmarer/proc/clear_holosign()
-	qdel(sign)
-	sign = null
-	update_icon()
+/obj/item/signmaker/proc/clear_holosign()
+	if(sign)
+		qdel(sign)
+		sign = null
+		update_icon()
 
-/obj/item/signmarer/proc/icon_flick()
+/obj/item/signmaker/proc/icon_flick()
+	set waitfor = FALSE
 	icon_state = "signmarer_clown_on"
 	pointer_busy = TRUE
 	sleep(10)
 	pointer_busy = FALSE
 	icon_state = "signmarer_clown_off"
 
-/obj/item/signmarer/update_icon()
+/obj/item/signmaker/update_icon()
 	if(sign)
 		icon_state = "signmarer_clown_on"
 	else
 		icon_state = "signmarer_clown_off"
 
-/obj/item/signmarer/attack(mob/living/M, mob/user)
+/obj/item/signmaker/attack(mob/living/M, mob/user)
 	laser_act(M, user)
 	attack_made = TRUE
 
-/obj/item/signmarer/emag_act()
+/obj/item/signmaker/emag_act()
 	clear_holosign()
 	to_chat(usr, "You broke the pointer, oh no")
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 
-/obj/item/signmarer/attack_self(mob/user)
+/obj/item/signmaker/attack_self(mob/user)
 	clear_holosign()
 	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
 
-/obj/item/signmarer/afterattack(var/atom/target, var/mob/living/user, params)
+/obj/item/signmaker/afterattack(var/atom/target, var/mob/living/user, params)
 	if(!attack_made)
 		laser_act(target, user, params)
 	attack_made = FALSE
 
-/obj/item/signmarer/process()
+/obj/item/signmaker/process()
 	if(prob(20 - recharge_locked*5))
 		energy += 1
-		if(energy >= max_energy)
-			energy = max_energy
-			recharging = 0
-			recharge_locked = 0
-			..()
+	if(energy >= max_energy)
+		energy = max_energy
+		recharging = 0
+		recharge_locked = 0
 
-/obj/item/signmarer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
+/obj/item/signmaker/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if(pointer_busy)
@@ -96,27 +97,32 @@
 			var/mob/living/carbon/C = target
 			if(user.zone_selected == "eyes")
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
-			//20% chance to actually hit the eyes
-			if(prob(20))
-				visible_message("<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>")
-				if(C.weakeyes)
-					C.Stun(1)
+				//20% chance to actually hit the eyes
+				if(prob(20))
+					visible_message("<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>")
+					if(C.weakeyes)
+						C.Stun(1)
+				else
+					visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
 			else
-				visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
+				visible_message("<span class='info'>You missed the [C] with [src].</span>")
 		if(SILICON)
 			energy -= 1
 			icon_flick()
 			var/mob/living/silicon/S = target
-			//20% chance to actually hit the sensors
-			if(prob(20))
-				S.flash_eyes(affect_silicon = 1)
-				S.Weaken(rand(5,10))
-				to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-				visible_message("<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>")
+			if(user.zone_selected == "eyes")
+				//20% chance to actually hit the sensors
+				if(prob(20))
+					S.flash_eyes(affect_silicon = 1)
+					S.Weaken(rand(5,10))
+					to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
+					visible_message("<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>")
 
-				add_attack_logs(user, S, "shone [src] in their eyes")
+					add_attack_logs(user, S, "shone [src] in their eyes")
+				else
+					visible_message("<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>")
 			else
-				visible_message("<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>")
+				visible_message("<span class='info'>You missed the [S] with [src].</span>")
 		if(CAMERA)
 			energy -= 1
 			icon_flick()
@@ -140,24 +146,20 @@
 		if(energy <= 0)
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
 			recharge_locked = 1
-			if(sign)
-				clear_holosign()
+			clear_holosign()
 
-/obj/item/signmarer/proc/create_holosign(atom/target, mob/user)
+/obj/item/signmaker/proc/create_holosign(atom/target, mob/user)
 	var/turf/T = get_turf(target)
 	var/obj/structure/holosign/found_holosoap = locate(holosign_type) in T
 	if(found_holosoap)
 		to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
 		if(found_holosoap == sign)
 			clear_holosign()
-		else
-			qdel(found_holosoap)
 		return
 	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	playsound(src, 'sound/machines/click.ogg', 20, 1)
-	if(sign)
-		clear_holosign()
+	clear_holosign()
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
 	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")
@@ -171,7 +173,16 @@
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	max_integrity = 1
-	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
+
+	var/obj/item/signmaker/_projector
+
+/obj/structure/holosoap/Initialize(mapload, projector)
+	. = ..()
+	_projector = projector
+
+/obj/structure/holosoap/Destroy()
+	_projector.clear_holosign()
+	return ..()
 
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
