@@ -110,6 +110,13 @@
 	. = ..()
 	set_frequency(SYND_FREQ)
 
+/obj/item/radio/headset/syndicate/admin_officer
+	name = "syndicate officer's headset"
+	icon_state = "taipan_headset"
+	item_state = "taipan_headset"
+	ks1type = /obj/item/encryptionkey/syndteam
+	ks2type = /obj/item/encryptionkey/syndicate/taipan
+
 /obj/item/radio/headset/syndicate/taipan
 	name = "syndicate taipan headset"
 	icon_state = "taipan_headset"

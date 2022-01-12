@@ -1,7 +1,7 @@
 //SUPPLY PACKS but SYNDIEPACKS!
 //NOTE: only secure crate types use the access var (and are lockable)
+//NOTE: any crate added here should cost more that 50 credits to prevent reselling of the crates to get money
 //BIG NOTE: Don't add living things to crates, that's bad, it will break the shuttle.
-//Тестовый список штук для синдикарго. Надо переделать ибо сейчас это просто копия обычного карго с парой изменений
 
 // Supply Groups
 #define SYNDIE_SUPPLY_EMERGENCY 1
@@ -1893,7 +1893,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/vending/imported
 	name = "Imported Vending Machines"
-	cost = 40
+	cost = 60
 	contains = list(/obj/item/vending_refill/sustenance,
 					/obj/item/vending_refill/robotics,
 					/obj/item/vending_refill/sovietsoda,

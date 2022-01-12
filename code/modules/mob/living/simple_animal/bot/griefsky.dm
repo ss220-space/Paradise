@@ -246,7 +246,7 @@
 //Причина в том, что нельзя нормально отредактировать доступ к нему по карте иначе
 //А так же через код я смогла научить его бить НТ и не бить своих без повода.
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate
-	radio_channel = "Syndicate"
+	radio_channel = "SyndTaipan"
 	name = "Генерал Синди"
 	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
 	faction = list("syndicate")

@@ -30,8 +30,15 @@
 	module = new /obj/item/robot_module/syndicate(src)
 
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/radio/borg/syndicate(src)
+
+	if(is_taipan(z))
+		radio = new /obj/item/radio/borg/syndicate/taipan(src)
+	else
+		radio = new /obj/item/radio/borg/syndicate(src)
+
 	radio.recalculateChannels()
+
+
 
 	spawn(5)
 		if(playstyle_string)

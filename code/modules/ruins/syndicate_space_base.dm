@@ -221,7 +221,7 @@
 	name = "Space Base Syndicate Chef"
 	head = /obj/item/clothing/head/chefhat
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = /obj/item/clothing/suit/chef/classic
 	id = /obj/item/card/id/syndicate/kitchen
 	shoes = /obj/item/clothing/shoes/black

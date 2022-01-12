@@ -27,6 +27,8 @@
 	#define AI_OK "AI Allowed"
 	/// Ruins will spawn on this z-level
 	#define SPAWN_RUINS "Spawn Ruins"
+	// Ghost role Taipan z-level.
+	#define TAIPAN "RaMSS Taipan"
 
 // Level names
 	#define MAIN_STATION "Main Station"

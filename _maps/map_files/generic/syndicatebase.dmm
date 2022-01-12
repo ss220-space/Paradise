@@ -14327,8 +14327,7 @@
 	dir = 8
 	},
 /obj/machinery/power/smes{
-	charge = 2e+006;
-	input_level = 200000
+	charge = 2e+006
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14363,8 +14362,7 @@
 	dir = 4
 	},
 /obj/machinery/power/smes{
-	charge = 2e+006;
-	input_level = 200000
+	charge = 2e+006
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14391,8 +14389,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes{
-	charge = 2e+006;
-	input_level = 200000
+	charge = 2e+006
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16426,9 +16423,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/autolathe/security{
-	hacked = 1
-	},
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
@@ -16444,6 +16438,9 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/machinery/autolathe/security{
+	name = "Syndicate Autolathe"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19116,6 +19113,10 @@
 	req_access_txt = "159"
 	},
 /obj/item/storage/backpack/syndicate/engineer,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
+/obj/item/clothing/glasses/meson/fluff,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -19124,8 +19125,6 @@
 "quU" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson/fluff,
-/obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -20879,6 +20878,10 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "rLn" = (
 /obj/structure/table/reinforced,
+/obj/item/card/id/syndicate/comms_officer{
+	name = "Spare Comms Agent card";
+	pixel_y = 3
+	},
 /obj/item/coin/antagtoken/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
@@ -23192,7 +23195,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tET" = (
 /obj/machinery/door/airlock/hatch{
-	req_one_access_txt = "156"
+	req_one_access_txt = "149"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -25510,7 +25513,7 @@
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "uSX" = (
 /obj/machinery/door/airlock/hatch{
-	req_one_access_txt = "156"
+	req_one_access_txt = "149"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -26875,9 +26878,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vXA" = (
-/obj/machinery/autolathe{
-	hacked = 1
-	},
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 8;
@@ -26887,6 +26887,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "CargoPrivacy1"
+	},
+/obj/machinery/autolathe/security{
+	name = "Syndicate Autolathe"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30603,9 +30606,6 @@
 	name = "Riot Control";
 	req_access_txt = "156"
 	},
-/obj/machinery/autolathe{
-	hacked = 1
-	},
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty{
 	pixel_x = -5;
@@ -30614,6 +30614,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "SyndieRnDPrivacy"
+	},
+/obj/machinery/autolathe/security{
+	name = "Syndicate Autolathe"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

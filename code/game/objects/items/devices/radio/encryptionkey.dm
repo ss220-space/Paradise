@@ -40,6 +40,11 @@
 	change_voice = FALSE
 	icon_state = "taipan_cypherkey"
 	channels = list("SyndTaipan" = 1)
+
+/obj/item/encryptionkey/syndicate/taipan/borg
+	change_voice = FALSE
+	icon_state = "taipan_cypherkey"
+	channels = list("SyndTaipan" = 1, "Syndicate" = 1)
 /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
 	channels = list("SyndTaipan" = 1, "Syndicate" = 1, "Common" = 1)
 
