@@ -5,8 +5,8 @@
 	name = "Signmaker Clown"
 	desc = "A handy-dandy holographic projector"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "signmarer_clown_off"
-	item_state = "signmarer_clown"
+	icon_state = "signmaker_clown_off"
+	item_state = "signmaker_clown"
 	slot_flags = SLOT_BELT
 	force = 0
 	throwforce = 0
@@ -33,17 +33,17 @@
 
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
-	icon_state = "signmarer_clown_on"
+	icon_state = "signmaker_clown_on"
 	pointer_busy = TRUE
 	sleep(10)
 	pointer_busy = FALSE
-	icon_state = "signmarer_clown_off"
+	icon_state = "signmaker_clown_off"
 
 /obj/item/signmaker/update_icon()
 	if(sign)
-		icon_state = "signmarer_clown_on"
+		icon_state = "signmaker_clown_on"
 	else
-		icon_state = "signmarer_clown_off"
+		icon_state = "signmaker_clown_off"
 
 /obj/item/signmaker/emag_act()
 	clear_holosign()
@@ -125,8 +125,8 @@
 				C.emp_act(1)
 				visible_message("<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
 
-				log_admin("[key_name(user)] EMPd a camera with a signmarer")
-				user.create_attack_log("[key_name(user)] EMPd a camera with a signmarer")
+				log_admin("[key_name(user)] EMPd a camera with a signmaker")
+				user.create_attack_log("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
 				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")
