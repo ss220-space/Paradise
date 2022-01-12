@@ -33,6 +33,7 @@
 
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
+
 	icon_state = "signmaker_clown_on"
 	pointer_busy = TRUE
 	sleep(10)
@@ -174,6 +175,7 @@
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
+	pressure_resistance = ONE_ATMOSPHERE
 	max_integrity = 1
 
 	var/obj/item/signmaker/_projector
