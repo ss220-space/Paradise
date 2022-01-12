@@ -55,10 +55,24 @@
 	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()
+
+	var/list/current_rcd_door_types = list()
 	/// An associative list containing an airlock's name, type path, and image. For use with the UI.
 	var/static/list/door_types_ui_list = list()
+
+	var/list/current_door_types_ui_list = list()
 	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/door_accesses_list = list()
+
+	var/list/current_door_accesses_list = list()
+
+	var/region_min = REGION_GENERAL
+	var/region_max = REGION_COMMAND
+
+	var/fulltile_window = FALSE
+	var/window_type = /obj/structure/window/reinforced
+	var/floor_type = /turf/simulated/floor/plating
+	var/wall_type = /turf/simulated/wall
 
 /obj/item/rcd/Initialize()
 	. = ..()
@@ -111,6 +125,10 @@
 				"id" = access
 			))
 
+	current_rcd_door_types = rcd_door_types
+	current_door_types_ui_list = door_types_ui_list
+	current_door_accesses_list = door_accesses_list
+
 /obj/item/rcd/examine(mob/user)
 	. = ..()
 	. += "MATTER: [matter]/[max_matter] matter-units."
@@ -134,7 +152,7 @@
 	proto.icon_state = "closed"
 	if(!proto.glass)
 		proto.add_overlay("fill_closed")
-	var/icon/I = getFlatIcon(proto)
+	var/icon/I = getFlatIcon(proto, no_anim = TRUE)
 	qdel(proto)
 	return "[icon2base64(I)]"
 
@@ -245,9 +263,9 @@
 /obj/item/rcd/ui_static_data(mob/user)
 	var/list/data = list(
 		"max_matter" = max_matter,
-		"regions" = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND),
-		"door_accesses_list" = door_accesses_list,
-		"door_types_ui_list" = door_types_ui_list
+		"regions" = get_accesslist_static_data(region_min, region_max),
+		"door_accesses_list" = current_door_accesses_list,
+		"door_types_ui_list" = current_door_types_ui_list
 	)
 	return data
 
@@ -277,7 +295,7 @@
 
 		if("door_type")
 			var/new_door_type = text2path(params["door_type"])
-			if(!(new_door_type in rcd_door_types))
+			if(!(new_door_type in current_rcd_door_types))
 				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
 				return FALSE
 			door_type = new_door_type
@@ -302,13 +320,13 @@
 
 		if("grant_region")
 			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+			if(isnull(region) || region < region_min || region > region_max)
 				return
 			selected_accesses |= get_region_accesses(region)
 
 		if("deny_region")
 			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+			if(isnull(region) || region < region_min || region > region_max)
 				return
 			selected_accesses -= get_region_accesses(region)
 
@@ -353,7 +371,7 @@
 			to_chat(user, "Building Floor...")
 			playsound(loc, usesound, 50, 1)
 			var/turf/AT = get_turf(A)
-			AT.ChangeTurf(/turf/simulated/floor/plating)
+			AT.ChangeTurf(floor_type)
 			return TRUE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this floor!</span>")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -371,8 +389,8 @@
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
-				var/turf/turf_to_change = A
-				turf_to_change.ChangeTurf(/turf/simulated/wall)
+				var/turf/AT = A
+				AT.ChangeTurf(wall_type)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
@@ -444,7 +462,7 @@
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/floor/plating)
+				AT.ChangeTurf(floor_type)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
@@ -504,12 +522,14 @@
 			var/turf/T2 = get_step(T1, cdir)
 			if(locate(/obj/structure/window/full/shuttle) in T2)
 				continue // Shuttle windows? Nah. We don't need extra windows there.
+			if(locate(/obj/structure/window/plastitanium) in T2)
+				continue
 			if(!(locate(/obj/structure/grille) in T2))
 				continue
 			for(var/obj/structure/window/W in T2)
 				if(W.dir == turn(cdir, 180))
 					qdel(W)
-			var/obj/structure/window/reinforced/W = new(T2)
+			var/obj/structure/window/W = new window_type(T2)
 			W.dir = turn(cdir, 180)
 		return TRUE
 	return FALSE
@@ -547,17 +567,22 @@
 		new /obj/structure/grille(A)
 		for(var/obj/structure/window/W in A)
 			qdel(W)
-		for(var/cdir in GLOB.cardinal)
-			var/turf/T = get_step(A, cdir)
-			if(locate(/obj/structure/grille) in T)
-				for(var/obj/structure/window/W in T)
-					if(W.dir == turn(cdir, 180))
-						qdel(W)
-			else // Build a window!
-				var/obj/structure/window/reinforced/W = new(A)
-				W.dir = cdir
-		var/turf/turf_to_change = A
-		turf_to_change.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+
+		if(!fulltile_window)
+			for(var/cdir in GLOB.cardinal)
+				var/turf/T = get_step(A, cdir)
+				if(locate(/obj/structure/grille) in T)
+					for(var/obj/structure/window/W in T)
+						if(W.dir == turn(cdir, 180))
+							qdel(W)
+				else  // Build a window!
+					var/obj/structure/window/W = new window_type(A)
+					W.dir = cdir
+		else
+			new window_type(A)
+
+		var/turf/AT = A
+		AT.ChangeTurf(floor_type) // Platings go under windows.
 		return TRUE
 	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
