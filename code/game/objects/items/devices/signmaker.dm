@@ -58,12 +58,14 @@
 	laser_act(target, user, params)
 
 /obj/item/signmaker/process()
-	if(prob(20 - recharge_locked*5))
-		energy += 1
-	if(energy >= max_energy)
-		energy = max_energy
-		recharging = 0
-		recharge_locked = 0
+	var/recharge_chance = 20 - recharge_locked*5
+	if(!prob(recharge_chance))
+		return
+	energy = min(max_energy, energy++)
+	if(energy == max_energy)
+		recharging = FALSE
+		recharge_locked = FALSE
+		return PROCESS_KILL
 
 /obj/item/signmaker/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
@@ -135,19 +137,19 @@
 	update_icon()
 	if(energy <= max_energy)
 		if(!recharging)
-			recharging = 1
+			recharging = TRUE
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
-			recharge_locked = 1
+			recharge_locked = TRUE
 			clear_holosign()
 
 /obj/item/signmaker/proc/create_holosign(atom/target, mob/user)
 	var/turf/T = get_turf(target)
 	var/obj/structure/holosign/found_holosoap = locate(holosign_type) in T
 	if(found_holosoap)
-		to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
 		if(found_holosoap == sign)
+			to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
 			clear_holosign()
 		return
 	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
