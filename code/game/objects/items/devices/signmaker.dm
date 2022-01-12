@@ -152,8 +152,8 @@
 		return
 	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
 		return
-	playsound(src, 'sound/machines/click.ogg', 20, 1)
 	clear_holosign()
+	playsound(src, 'sound/machines/click.ogg', 20, 1)
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
 	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")
@@ -175,7 +175,7 @@
 	_projector = projector
 
 /obj/structure/holosoap/Destroy()
-	_projector.clear_holosign()
+	_projector.sign = null
 	return ..()
 
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
