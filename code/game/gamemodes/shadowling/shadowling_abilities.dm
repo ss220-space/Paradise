@@ -57,22 +57,11 @@
 		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 	else //Distant glare
-		var/loss = 10 - distance
-		var/duration = 10 - loss
-		if(loss <= 0)
-			to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
-			return
-		H.slowed = duration
-		H.AdjustSilence(10)
+		H.Stun(1)
+		H.slowed = 5
+		H.AdjustSilence(5)
 		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
-		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss), duration SECONDS)
-
-/obj/effect/proc_holder/spell/targeted/click/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
-	if(!istype(target) || target.stat)
-		return
-	target.Stun(stun_time)
-	target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>",\
-		"<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
+		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
