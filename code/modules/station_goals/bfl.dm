@@ -36,6 +36,7 @@
 ////////////
 /obj/item/circuitboard/machine/bfl_emitter
 	name = "BFL Emitter (Machine Board)"
+	desc = "Be cautious, when emitter will be done it move up by one step"
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
@@ -50,6 +51,7 @@
 
 /obj/item/circuitboard/machine/bfl_receiver
 	name = "BFL Receiver (Machine Board)"
+	desc = "Must be built in the center of the deposit"
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
@@ -82,9 +84,9 @@
 	var/response
 	src.add_fingerprint(user)
 	if(state)
-		response = alert(user, "You trying to deactivate BFL emitter machine, are you sure?", "BFL Emitter", "deactivate", "connect to network", "nothing")
+		response = alert(user, "You trying to deactivate BFL emitter machine, are you sure?", "BFL Emitter", "deactivate", "nothing")
 	else
-		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "connect to network", "nothing")
+		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "nothing")
 
 	switch(response)
 		if("deactivate")
@@ -96,7 +98,9 @@
 				deactivate_time = world.time
 		if("activate")
 			if(!powernet)
-				to_chat(user, "The emitter isn't connected to a powernet.")
+				connect_to_network()
+			if(!powernet)
+				to_chat(user, "Powernet not found.")
 				return
 			if(surplus() < active_power_usage)
 				to_chat(user, "The connected wire doesn't have enough current.")
@@ -106,9 +110,7 @@
 			else
 				visible_message("Error, emitter is still cooling down")
 		if("connect to network")
-			connect_to_network()
-			if(!powernet)
-				visible_message("Powernet not found.")
+
 
 
 /obj/machinery/power/bfl_emitter/emag_act()
@@ -134,7 +136,7 @@
 		laser = new (rand_location)
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
-			if(mob_turf && (mob_turf.z == 3))
+			if(mob_turf?.z == 3)
 				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
 		laser.move = rand_location.x
 		if(receiver)
@@ -228,6 +230,7 @@
 
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
+	desc = "Activate buttons doesn't looks right. Probably should open the pit manually, try using a crowbar."
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
@@ -250,12 +253,12 @@
 
 	switch(response)
 		if("deactivate")
-			to_chat(user, "No power. <br> You should open the pit manually ")
+			to_chat(user, "No power. <br> You should open the pit manually, try using a crowbar")
 		if("activate")
-			to_chat(user, "No power. <br> You should open the pit manually ")
+			to_chat(user, "No power. <br> You should open the pit manually, try using a crowbar")
 		if("empty ore storage")
 			if(lens)
-				to_chat(user, "Lens is in the way, you can't get any ore from storage.")
+				to_chat(user, "The Lens interferes, you can't get any ore from storage.")
 				return
 			if(state && (user.ckey != last_user_ckey))
 				to_chat(user, "Your inner voice telling you should close the pit first.")
