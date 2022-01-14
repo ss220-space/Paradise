@@ -68,10 +68,6 @@
 		recharge_locked = FALSE
 		return PROCESS_KILL
 
-//creating holosoap should not consume energy
-//pointing signmaker into someone's eyes - should consume energy
-//when you creating holograms, it shouldn't flick
-//signmaker always on if hologram exists, always off if hologram doesn't exists
 /obj/item/signmaker/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
