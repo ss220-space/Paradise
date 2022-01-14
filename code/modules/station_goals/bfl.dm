@@ -51,7 +51,7 @@
 
 /obj/item/circuitboard/machine/bfl_receiver
 	name = "BFL Receiver (Machine Board)"
-	desc = "Must be built in the center of the deposit"
+	desc = "Must be built in the middle of the deposit"
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
@@ -109,7 +109,6 @@
 				emitter_activate()
 			else
 				visible_message("Error, emitter is still cooling down")
-		if("connect to network")
 
 
 
