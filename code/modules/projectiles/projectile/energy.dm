@@ -14,7 +14,7 @@
 	nodamage = 1
 	stun = 1
 	weaken = 1
-	stamina = 25
+	stamina = 33
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'

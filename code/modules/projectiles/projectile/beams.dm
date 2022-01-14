@@ -47,7 +47,7 @@
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 33
+	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"
