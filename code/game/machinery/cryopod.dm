@@ -217,6 +217,7 @@
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
 	var/disallow_occupant_types = list()
+	var/syndicate = FALSE
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
@@ -261,22 +262,14 @@
 	icon_state = "body_scanner_0-r"
 
 //////
-//Syndie sleepers.
+//Syndie cryopod.
 
 /obj/machinery/cryopod/syndie
 	icon_state = "sleeper_s"
 	base_icon_state = "sleeper_s-open"
 	occupied_icon_state = "sleeper_s"
 	dir = 8
-
-/obj/machinery/cryopod/syndie/right
-	orient_right = 1
-	icon_state = "sleeper_s"
-	base_icon_state = "sleeper_s-open"
-	occupied_icon_state = "sleeper_s"
-	dir = 4
-
-//////
+	syndicate = TRUE
 
 /obj/machinery/cryopod/New()
 	announce = new /obj/item/radio/intercom(src)
@@ -447,20 +440,21 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		ailist += A
-	if(ailist.len)
-		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if (announce_rank)
-			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+	if(!syndicate)
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+			ailist += A
+		if(ailist.len)
+			var/mob/living/silicon/ai/announcer = pick(ailist)
+			if (announce_rank)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+			else
+				announcer.say(";[occupant.real_name] [on_store_message]")
 		else
-			announcer.say(";[occupant.real_name] [on_store_message]")
-	else
-		if (announce_rank)
-			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
-		else
-			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+			if (announce_rank)
+				announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+			else
+				announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(1))

@@ -73,6 +73,8 @@
 	var/window_type = /obj/structure/window/reinforced
 	var/floor_type = /turf/simulated/floor/plating
 	var/wall_type = /turf/simulated/wall
+	var/matter_type = /obj/item/rcd_ammo
+	var/matter_type_large = /obj/item/rcd_ammo/large
 
 /obj/item/rcd/Initialize()
 	. = ..()
@@ -182,10 +184,14 @@
 		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
 		return
 
-	matter += R.ammoamt
-	qdel(R)
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+	user.put_in_active_hand(R)
+	if(R.type == matter_type || R.type == matter_type_large)
+		matter += R.ammoamt
+		qdel(R)
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+	else
+		to_chat(user, "<span class='warning'>This matter cartridge is incompatible with your RCD</span>")
 	SStgui.update_uis(src)
 
 /**

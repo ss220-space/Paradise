@@ -123,6 +123,21 @@
 /obj/item/stack/ore/bananium,
 /turf/simulated/floor/plating/asteroid/airless/cave,
 /area/ruin/unpowered)
+"apa" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "apy" = (
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/tranquillite,
@@ -3493,6 +3508,22 @@
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"dgi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "dgl" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/purple{
@@ -5124,13 +5155,13 @@
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "eNN" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "����� ������ � ���� ����� ����� ��� ����������";
-	dir = 4;
-	name = "����� ����������"
-	},
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "eOx" = (
@@ -5498,6 +5529,23 @@
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 6;
 	name = "Труба смешивания"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"fdU" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5964,6 +6012,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/bar)
+"fFk" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "fGa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6733,6 +6790,25 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
+"gll" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "gmY" = (
 /obj/machinery/door_control{
 	id = "syndieRnDchem";
@@ -8267,10 +8343,11 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "hBT" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Подаёт азот из атмосферки в систему охлаждения реактора, таким образом запитывая её хладагентом";
-	dir = 9;
-	name = "Труба подачи азота в реактор"
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
 	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -9252,19 +9329,22 @@
 "iAk" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 9;
+	dir = 4;
 	name = "Труба смешивания"
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "iAV" = (
-/obj/machinery/light{
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -9277,6 +9357,9 @@
 	dir = 1;
 	filter_type = 4;
 	on = 1
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9952,11 +10035,13 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "jeG" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 9;
+	name = "Труба смешивания"
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9983,13 +10068,13 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jfr" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/smes{
-	charge = 2e+006;
-	input_level = 200000
-	},
 /obj/structure/cable/yellow{
+	d1 = 4;
 	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10012,8 +10097,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "jgx" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10555,6 +10643,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
+"jGq" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "jGK" = (
 /obj/machinery/light{
 	dir = 4
@@ -10775,6 +10872,20 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "jTq" = (
+/obj/machinery/power/smes{
+	charge = 2e+006;
+	input_level = 100000
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"jTP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -10788,29 +10899,10 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"jTP" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"jTZ" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
 "jUw" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
+	dir = 6
 	},
-/obj/machinery/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10844,12 +10936,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "jVQ" = (
-/obj/machinery/power/terminal{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/machinery/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10893,10 +10983,12 @@
 /turf/simulated/shuttle/floor,
 /area/space)
 "jZB" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
+/obj/machinery/power/terminal{
+	dir = 1
 	},
-/obj/machinery/meter,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10910,17 +11002,8 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "kao" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"kbM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11966,14 +12049,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "laQ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 4;
@@ -12026,14 +12101,6 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ldu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Подаёт азот из атмосферки в систему охлаждения реактора, таким образом запитывая её хладагентом";
-	dir = 10;
-	name = "Труба подачи азота в реактор"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -12044,22 +12111,28 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 10;
+	name = "Труба смешивания"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ldS" = (
-/obj/machinery/atmospherics/binary/volume_pump,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ldT" = (
@@ -12077,22 +12150,9 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server{
 	name = "ERR#UNKWN Server Room"
 	})
-"lej" = (
+"leR" = (
 /obj/machinery/atmospherics/binary/circulator{
 	icon_state = "circ8-off"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"leR" = (
-/obj/machinery/power/generator,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12138,9 +12198,12 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
-/obj/machinery/atmospherics/binary/circulator{
-	icon_state = "circ4-off";
-	side = 4
+/obj/machinery/power/generator,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12170,16 +12233,13 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ljm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/binary/volume_pump,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/atmospherics/binary/circulator{
+	icon_state = "circ4-off";
+	side = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ljq" = (
@@ -12199,21 +12259,16 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "ljI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ljW" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lku" = (
@@ -13065,15 +13120,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lSP" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	dir = 10;
-	name = "Труба на фильтрацию"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13089,6 +13138,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -13107,22 +13164,16 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "lTV" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
-	},
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lTZ" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
-	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -13150,6 +13201,16 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "lUw" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/obj/machinery/meter,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"lVq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -13171,7 +13232,7 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"lVq" = (
+"lVE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -13181,24 +13242,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"lVE" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/line{
+"lXG" = (
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"lXG" = (
-/obj/structure/table,
-/obj/item/analyzer,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lYj" = (
@@ -13549,14 +13599,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "miy" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	name = "Труба на фильтрацию"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13595,41 +13639,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"mjg" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"mjj" = (
-/obj/machinery/atmospherics/binary/volume_pump{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"mjx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -13640,12 +13652,45 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"mjU" = (
+"mjg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"mjj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"mjU" = (
+/obj/machinery/atmospherics/binary/volume_pump{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"mmh" = (
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14423,12 +14468,26 @@
 	initialize_directions = 11
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "mWv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"mWx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -14442,18 +14501,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"mWx" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "mXY" = (
@@ -14474,6 +14521,18 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "mYg" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"mZI" = (
 /obj/machinery/computer/monitor{
 	name = "TEG monitoring console"
 	},
@@ -14483,7 +14542,7 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"mZI" = (
+"ncK" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -14493,22 +14552,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"ncK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ncT" = (
@@ -15712,9 +15755,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15730,15 +15773,17 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nKc" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 4;
@@ -15756,8 +15801,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nKz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
@@ -15788,28 +15833,8 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
-"nMO" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/engineering)
 "nNq" = (
-/obj/effect/turf_decal/stripes/corner{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -15837,16 +15862,19 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "nQK" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 4;
 	name = "Труба смешивания"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16317,9 +16345,9 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/machinery/alarm/server{
+/obj/machinery/alarm/syndicate{
 	pixel_y = -32;
-	req_one_access = list(150)
+	preset = 4
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
@@ -16379,9 +16407,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "osG" = (
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
 	},
+/obj/machinery/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16508,6 +16537,18 @@
 	id = "syndie_base_co2_in"
 	},
 /turf/simulated/floor/engine/co2,
+/area/syndicate/unpowered/syndicate_space_base/engineering)
+"owO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "owS" = (
 /obj/effect/turf_decal/tile/blue{
@@ -17302,12 +17343,12 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "pcv" = (
+/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
 	dir = 1;
 	name = "Труба на фильтрацию"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -17356,13 +17397,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "pgi" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	dir = 4;
-	name = "Труба на фильтрацию"
-	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 26
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17370,12 +17406,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "pgU" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	dir = 4;
-	name = "Труба на фильтрацию"
+/obj/structure/table,
+/obj/item/analyzer,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/machinery/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21580,7 +21615,11 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "sml" = (
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod/biomass{
+	radio_announce = 0;
+	req_access = null;
+	req_access_txt = "150"
+	},
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 4;
@@ -22895,6 +22934,26 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
+"tvd" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "tvg" = (
 /obj/structure/sign/poster/contraband/c20r,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -28151,6 +28210,20 @@
 "wKb" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
+"wKg" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 4;
+	name = "Труба на фильтрацию"
+	},
+/obj/machinery/alarm/syndicate{
+	pixel_y = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "wKG" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Man Restroom"
@@ -68765,12 +68838,12 @@ fTp
 dRV
 ePh
 ePh
-jeG
-jTq
+dRV
+dRV
 laQ
-lSP
-miy
-miy
+jTk
+pIV
+pIV
 nJH
 opD
 paF
@@ -69022,7 +69095,7 @@ fRO
 gNv
 ePh
 ePh
-jeO
+jgx
 jTP
 ldu
 lSS
@@ -69280,7 +69353,7 @@ gNJ
 hBN
 ePh
 jeO
-jTZ
+ldS
 ldS
 lTV
 mjg
@@ -69538,12 +69611,12 @@ ePh
 ePh
 jeO
 jUw
-lej
+ljI
 lTZ
 mjj
 mWx
 nKz
-osG
+dRV
 pfY
 dRV
 qvR
@@ -69792,16 +69865,16 @@ fgj
 fTB
 gQr
 ePh
-ePh
+hBT
 jfr
 jVQ
 leR
 lUw
-mjx
+mjU
 mYg
-nMO
-aJC
-pgi
+nNq
+fFk
+pfY
 pMO
 qwm
 aJC
@@ -70049,16 +70122,16 @@ fgK
 fTM
 gQr
 ePh
-ePh
-jfH
+iAk
+jTq
 jZB
 lho
 lVq
-mjj
+gll
 mZI
-nKz
-iAV
-pfY
+tvd
+aJC
+wKg
 pQo
 qwL
 aJC
@@ -70305,16 +70378,16 @@ aJC
 fci
 fTu
 gNJ
-hBT
-ePh
-jfH
-jTZ
+hCO
+iAV
+lSP
+osG
 ljm
 lVE
 mjU
 ncK
 nNq
-dRV
+mmh
 pfY
 pQx
 qxq
@@ -70562,14 +70635,14 @@ eam
 fgi
 fTA
 gRv
-gSX
-iAk
+dRV
+ePh
 jfH
 kao
 ljI
-dRV
-gLi
-hzP
+lTZ
+apa
+dgi
 nQK
 dRV
 pfY
@@ -70819,17 +70892,17 @@ dZk
 eXE
 fTR
 gSX
-hCO
-aJC
-jgx
-kbM
+gMi
+jeG
+jfH
+ljW
 ljW
 lXG
+owO
+hzP
+fdU
 dRV
-dRV
-ePh
-dRV
-pgU
+pfY
 dRV
 qzc
 aJC
@@ -71077,12 +71150,12 @@ fgK
 fVi
 ePh
 dRV
-iAV
-dRV
-dRV
-dRV
-dRV
-dRV
+aJC
+miy
+pgi
+pgi
+pgU
+jGq
 ndo
 gHo
 osV

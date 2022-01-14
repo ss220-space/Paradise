@@ -65,6 +65,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/New()
 	..()
+
+	if(is_taipan(z)) //Синдидоступ и никаких анонсов о клонированных при сборке на тайпане
+		radio_announce = FALSE
+		req_access = list(ACCESS_SYNDICATE)
+
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)

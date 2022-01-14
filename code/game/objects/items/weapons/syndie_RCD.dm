@@ -5,8 +5,8 @@
 	name = "Syndicate rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks. This one is made by syndicate"
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "combat_rcd"
-	item_state = "combat_rcd"
+	icon_state = "syndi_rcd"
+	item_state = "syndi_rcd"
 	materials = list(MAT_PLASMA = 10000, MAT_TITANIUM = 10000, MAT_METAL = 20000)
 	origin_tech = "engineering=4;materials=2;syndicate=4"
 	req_access = list(ACCESS_SYNDICATE)
@@ -33,6 +33,8 @@
 	window_type = /obj/structure/window/plastitanium
 	floor_type = /turf/simulated/floor/plating
 	wall_type = /turf/simulated/wall/mineral/plastitanium
+	matter_type = /obj/item/rcd_ammo/syndicate
+	matter_type_large = /obj/item/rcd_ammo/syndicate/large
 
 /obj/item/rcd/syndicate/Initialize()
 	. = ..()
@@ -124,25 +126,6 @@
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
 	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
-
-/obj/item/rcd/syndicate/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/rcd_ammo))
-		return ..()
-
-	var/obj/item/rcd_ammo/syndicate/R = W
-	if((matter + R.ammoamt) > max_matter)
-		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
-		return
-
-	if(!user.unEquip(R))
-		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
-		return
-
-	matter += R.ammoamt
-	qdel(R)
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
-	SStgui.update_uis(src)
 
 /obj/item/rcd/syndicate/combat
 	name = "Syndicate combat rapid-construction-device (RCD)"

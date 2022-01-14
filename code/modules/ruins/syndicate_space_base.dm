@@ -39,21 +39,26 @@
     return ..()
 
 /obj/effect/mob_spawn/human/space_base_syndicate/species_prompt()
-//Adding name and a gender pick. Furukai
 	if(allow_species_pick)
+		//пол
 		var/new_gender = alert("Please select gender.",, "Male","Female")
 		if(new_gender == "Male")
 			mob_gender = MALE
 		else
 			mob_gender = FEMALE
-		var/new_name = input("Enter your name:") as text
-		if(new_name)
-			mob_name = new_name
+		//раса
 		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
 		if(!selected_species)
 			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
+		//имя
+		var/new_name = input("Enter your name:") as text
+		if(new_name)
+			mob_name = new_name
+		else
+			mob_name = random_name(mob_gender, selected_species)
+		//цвет кожи
 		skin_tone = rand(-25, 0)
 
 	return TRUE
