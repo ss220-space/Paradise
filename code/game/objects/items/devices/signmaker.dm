@@ -69,7 +69,7 @@
 		return PROCESS_KILL
 
 /obj/item/signmaker/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
-	if( !(user in (viewers(7,target))) )
+	if( !(target in view(user)))
 		return
 	if(pointer_busy)
 		to_chat(user, "<span class='notice'>You already pointing at something.</span>")
@@ -174,14 +174,14 @@
 	pressure_resistance = ONE_ATMOSPHERE
 	max_integrity = 1
 
-	var/obj/item/signmaker/_projector
+	var/obj/item/signmaker/projector = null
 
-/obj/structure/holosoap/Initialize(mapload, projector)
+/obj/structure/holosoap/Initialize(mapload, new_projector)
 	. = ..()
-	_projector = projector
+	projector = new_projector
 
 /obj/structure/holosoap/Destroy()
-	_projector.sign = null
+	projector.sign = null
 	return ..()
 
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
