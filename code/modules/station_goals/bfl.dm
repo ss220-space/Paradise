@@ -229,7 +229,7 @@
 
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
-	desc = "Activate buttons doesn't looks right. Probably should open the pit manually, try using a crowbar."
+	desc = "Activate button doesn't look right. Probably should open the pit manually, try using a crowbar."
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
