@@ -223,7 +223,7 @@
 	melee_damage_upper = 15
 
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
-	..()
+	. = ..()
 	add_language("Galactic Common")
 
 /mob/living/simple_animal/pet/cat/cak
