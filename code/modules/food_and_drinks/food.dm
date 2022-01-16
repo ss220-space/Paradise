@@ -65,7 +65,7 @@
 	ant_timer = addtimer(CALLBACK(src, .proc/check_for_ants), 3000, TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/proc/check_liked(var/fraction, mob/M)
-	if(last_check_time + 50 < world.time)
+	if(last_check_time + 5 SECONDS < world.time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(foodtype & H.dna.species.toxic_food)
