@@ -3,7 +3,7 @@
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
-	Our surveillance drone detected a enormous deposit, oozing with plasma. We need you to construct a BFL system to collect plasma and send it to the Central Command via cargo shuttle.
+	Our surveillance drone detected an enormous deposit, oozing with plasma. We need you to construct a BFL system to collect plasma and send it to the Central Command via cargo shuttle.
 	<br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
