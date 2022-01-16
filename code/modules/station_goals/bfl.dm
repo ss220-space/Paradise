@@ -5,7 +5,7 @@
 	return {"<b>Mining laser construcion</b><br>
 	Our surveillance drone detected a enormous deposit, oozing with plasma. We need you to construct a BFL system to collect plasma and send it to the Central Command via cargo shuttle.
 	<br>
-	It's base parts should be available for shipping by your cargo shuttle.
+	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
 	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and install it content anywhere on the station.
 	<br><br>
