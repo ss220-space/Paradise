@@ -3,11 +3,11 @@
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
-	Our surveillance drone detected a enormous deposit, oozing with plasma. We need you to construct a BFL system to collect the plasma and send it to the Central Command via cargo shuttle.
+	Our surveillance drone detected a enormous deposit, oozing with plasma. We need you to construct a BFL system to collect plasma and send it to the Central Command via cargo shuttle.
 	<br>
-	Its base parts should be available for shipping by your cargo shuttle.
+	It's base parts should be available for shipping by your cargo shuttle.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called Mission goal, and install it content anywhere on the station.
+	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and install it content anywhere on the station.
 	<br><br>
 	-Nanotrasen Naval Command"}
 
@@ -26,7 +26,7 @@
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/structure/toilet/golden_toilet/B)
+	for(var/obj/structure/toilet/golden_toilet/bfl_goal/B)
 		if(B && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -183,7 +183,7 @@
 	set waitfor = FALSE
 	while(state)
 		playsound(src, 'sound/BFL/emitter.ogg', 100, 1, falloff = 1)
-		sleep(30)
+		sleep(25)
 
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
@@ -357,18 +357,20 @@
 	state = TRUE
 	update_icon()
 	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
+	set_light(8)
 	working_sound()
 
 /obj/machinery/bfl_lens/proc/deactivate_lens()
 	overlays.Cut()
 	state = FALSE
 	update_icon()
+	set_light(0)
 
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
 		playsound(src, 'sound/BFL/receiver.ogg', 100, 1, falloff = 1)
-		sleep(80)
+		sleep(25)
 
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -421,6 +423,8 @@
 /obj/item/gps/internal/bfl_crack
 	gpstag = "NT signal"
 
+/obj/structure/toilet/golden_toilet/bfl_goal
+	name = "\[NT REDACTED\]"
 /obj/singularity/bfl_red
 	name = "BFL"
 	desc = "Giant laser, which is supposed for mining"

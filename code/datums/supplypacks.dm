@@ -1910,12 +1910,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/machinery/bfl_lens
 					)
 	containername = "BFL High-precision lens"
-	
+
 /datum/supply_packs/misc/station_goal/bfl_goal
-	name = "Mission goal"
+	name = "BFL Mission goal"
 	cost = 12500
 	contains = list(
-					/obj/structure/toilet/golden_toilet
+					/obj/structure/toilet/golden_toilet/bfl_goal
 					)
 	containername = "Goal crate"
 
