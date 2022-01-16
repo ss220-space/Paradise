@@ -81,8 +81,10 @@ RUN yarn install && yarn build
 ## FINAL
 
 # DreamMaker
+ARG DREAM_MAKER_COMMAND="./tools/ci/dm.sh paradise.dme"
+
 WORKDIR /station
-RUN ./tools/ci/dm.sh paradise.dme
+RUN ${DREAM_MAKER_COMMAND}
 
 # Run server
 RUN apt-get install -y --no-install-recommends \
