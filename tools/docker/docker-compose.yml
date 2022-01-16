@@ -1,0 +1,18 @@
+version: '3.4'
+services:
+  workplace:
+    container_name: ${PROJECT_PREFIX}-workplace
+    entrypoint: DreamDaemon paradise.dmb -port ${INNER_PORT} -trusted -close -verbose
+    build:
+      context: ../../
+      args:
+        - BYOND_MAJOR=${BYOND_MAJOR}
+        - BYOND_MINOR=${BYOND_MINOR}
+        - RUSTG=${RUSTG}
+        - NODEJS=${NODEJS}
+    restart: always
+    ports:
+      - ${OUTER_PORT}:${INNER_PORT}
+    volumes:
+      - ${STORAGE_PATH}/config:/station/config
+      - ${STORAGE_PATH}/data:/station/data
