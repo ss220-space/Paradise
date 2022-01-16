@@ -88,7 +88,7 @@
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 0, 3, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 0, 2, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
