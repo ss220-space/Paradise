@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:20.04
 
 RUN dpkg --add-architecture i386 \
     && apt-get update \
@@ -47,7 +47,7 @@ RUN dpkg --add-architecture i386 \
         gcc-multilib \
         git
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile --default-toolchain=1.51.0 \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile --default-toolchain=1.52.1 \
     && ~/.cargo/bin/rustup target add i686-unknown-linux-gnu
 
 RUN git init \
@@ -59,6 +59,15 @@ RUN git init \
 
 # Copy file to container
 COPY . /station
+
+# Copy RUSTG
+RUN cp /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so /station/librust_g.so
+
+# Download DMJIT
+ARG DMJIT_VERSION="v0.1.0"
+ENV DMJIT_URL="https://github.com/ss220-space/dmjit/releases/download/${DMJIT_VERSION}/libdmjit.so"
+
+RUN curl $DMJIT_URL -L -o /station/libdmjit.so
 
 # Node
 WORKDIR /station/tgui
@@ -88,10 +97,8 @@ RUN ${DREAM_MAKER_COMMAND}
 
 # Run server
 RUN apt-get install -y --no-install-recommends \
-        libssl1.0.0:i386 \
+        libssl1.1:i386 \
         zlib1g:i386
-
-RUN cp /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so /station/librust_g.so
 
 VOLUME [ "/station/config", "/station/data" ]
 ENTRYPOINT DreamDaemon paradise.dmb -port 1337 -trusted -close -verbose
