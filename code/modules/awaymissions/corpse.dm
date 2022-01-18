@@ -19,6 +19,7 @@
 	var/flavour_text = ""	//flavour/fluff about the role, optional.
 	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."	//intended as OOC info about the role
 	var/important_info = ""	//important info such as rules that apply to you, etc. Optional.
+	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
 	var/faction = null
 	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
 	var/random = FALSE		//Don't set a name or gender, just go random
@@ -58,7 +59,10 @@
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
-	log_game("[user.ckey] became [mob_name]")
+	if(id_job == null)
+		log_game("[user.ckey] became [mob_name]")
+	else
+		log_game("[user.ckey] became [mob_name]. Job: [id_job]")
 	create(ckey = user.ckey)
 
 /obj/effect/mob_spawn/Initialize(mapload)
@@ -142,7 +146,7 @@
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
-	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
+	id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"

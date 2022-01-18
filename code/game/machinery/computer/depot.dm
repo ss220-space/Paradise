@@ -390,12 +390,21 @@
 	name = "syndicate teleporter console"
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
-	window_height = 300
+	window_height = 320
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
 	var/obj/effect/portal/redspace/myportal
 	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
+	var/blocked = FALSE 		//Блокирует кнопки телепортера если TRUE
+	var/last_opened_time = null	//Время когда в последний раз было открыто меню выбора телепорта
+	var/last_opener = null		//Последний открывший меню выбора телепорта
+	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
+	var/is_cooldown = FALSE		//На кулдауне ли мы?
+	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+
+/obj/machinery/computer/syndicate_depot/teleporter/taipan
+	req_one_access = "154"
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()
@@ -430,10 +439,23 @@
 		return TRUE
 	return FALSE
 
+/obj/machinery/computer/syndicate_depot/teleporter/proc/cooldown()
+	if(is_cooldown)
+		wait_time = round((last_opened_time + timeout - world.time) / 10)
+		if(wait_time <=0)
+			wait_time = 0
+			is_cooldown = FALSE
+			blocked = FALSE
+		return wait_time
+	return 0
+
 /obj/machinery/computer/syndicate_depot/teleporter/proc/choosetarget()
 	var/list/L = list()
 	var/list/areaindex = list()
-
+	last_opened_time = world.time
+	last_opener = usr
+	is_cooldown = TRUE
+	blocked = TRUE
 	for(var/obj/item/radio/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
@@ -447,13 +469,20 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
+	if(usr == last_opener && world.time >= last_opened_time + timeout)
+		return FALSE
+	//возможно проверку на дистанцию сюда впихнуть(личная заметка, потом удалю)
 	return(L[desc])
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
+	set waitfor = 0
 	if(portal_enabled && !myportal)
 		var/turf/tele_target = choosetarget()
-		if(!tele_target || myportal || myportal2)
+		if(!in_range(usr, src) || !tele_target || myportal || myportal2)
 			return
+		is_cooldown = FALSE
+		wait_time = 0
+		blocked = FALSE
 		var/turf/portal_turf = get_step(src, portaldir)
 		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, 0)
 		myportal = P
@@ -473,13 +502,17 @@
 /obj/machinery/computer/syndicate_depot/teleporter/ui_data(mob/user)
 	findbeacon()
 	var/list/data = ..()
+	data["rows"] += list(list(
+		"title" = "Status",
+		"status" = is_cooldown ? "Awaiting teleport position: [cooldown()]" : "Ready"
+	))
 	if(mybeacon)
 		data["rows"] += list(list(
 			"title" = "Incoming Teleport Beacon",
 			"status" = mybeacon.enabled ? "ON" : "OFF",
 			"buttontitle" = mybeacon.enabled ? "Disable" : "Enable",
 			"buttonact" = "primary",
-			"buttondisabled" = !allowed(user),
+			"buttondisabled" = (!allowed(user) || blocked),
 			"buttontooltip" = "When on, emagged teleporters can lock onto this location and open portals here."
 		))
 	data["rows"] += list(list(
@@ -487,7 +520,7 @@
 		"status" = portal_enabled ? "ON" : "OFF",
 		"buttontitle" = portal_enabled ? "Disable" : "Enable",
 		"buttonact" = "secondary",
-		"buttondisabled" = !allowed(user),
+		"buttondisabled" = (!allowed(user)|| blocked),
 		//"buttondisabled" = (!allowed(user) || (!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))),
 		"buttontooltip" = "When on, creates a bi-directional portal to the beacon of your choice."
 	))

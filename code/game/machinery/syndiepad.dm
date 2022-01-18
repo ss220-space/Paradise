@@ -260,16 +260,17 @@
 						continue
 				// if is anchored, don't let through
 				if(ROI.anchored)
-					if(isliving(ROI))
-						var/mob/living/L = ROI
-						if(L.buckled)
-							// TP people on office chairs
-							if(L.buckled.anchored)
+					if(!istype(ROI, /obj/mecha))
+						if(isliving(ROI))
+							var/mob/living/L = ROI
+							if(L.buckled)
+								// TP people on office chairs
+								if(L.buckled.anchored)
+									continue
+							else
 								continue
-						else
+						else if(!isobserver(ROI))
 							continue
-					else if(!isobserver(ROI))
-						continue
 				tele_success = do_teleport(ROI, get_turf(linked_pad), bypass_area_flag = force_ignore_teleport_blocking)
 				if(!tele_success)
 					to_chat(user, "<span class='warning'>Object '[ROI]'' was not teleported for unknown reason!</span>")

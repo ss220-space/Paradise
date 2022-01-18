@@ -18,6 +18,9 @@
 
 /obj/machinery/r_n_d/server/New()
 	..()
+	if(is_taipan(z))
+		syndicate = 1
+		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -203,6 +206,12 @@
 	var/list/consoles = list()
 	var/badmin = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
+
+/obj/machinery/computer/rdservercontrol/Initialize()
+	. = ..()
+	if(is_taipan(z))
+		syndicate = 1
+		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)
 	if(..())

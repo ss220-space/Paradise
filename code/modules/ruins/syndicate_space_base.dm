@@ -49,7 +49,8 @@
 		//раса
 		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
 		if(!selected_species)
-			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
+			to_chat(usr, "<span class='warning'>Spawning stopped.</span>")
+			return	FALSE	// You didn't pick, abort
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
 		//имя
