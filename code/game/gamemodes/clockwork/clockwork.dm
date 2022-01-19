@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	for(var/datum/mind/clockwork_mind in clockwork_cult)
 		SEND_SOUND(clockwork_mind.current, 'sound/ambience/antag/clockcult.ogg')
-		to_chat(clockwork_mind.current, CLOCKWORK_GREETING)
+		to_chat(clockwork_mind.current, CLOCK_GREETING)
 		equip_clocker(clockwork_mind.current)
 		clockwork_mind.current.faction |= "clockwork_cult"
 
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(clockwork_mind.current)
 
-		// add_clock_actions(clockwork_mind)
+		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
 		clocker_objs.study(clockwork_mind.current)
 	clockwork_threshold_check()
@@ -149,8 +149,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(!istype(H))
 		return
 	. += clock_give_item(/obj/item/melee/clockslab, H)
-	if(metal)
-		. += clock_give_item(/obj/item/stack/sheet/brass/ten, H)
+	//if(metal)
+		//. += clock_give_item(/obj/item/stack/sheet/brass/ten, H)
 	to_chat(H, "<span class='clock'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
 /datum/game_mode/proc/clock_give_item(obj/item/item_path, mob/living/carbon/human/H)
@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		if(!clocker_objs.clock_status && ishuman(clock_mind.current))
 			clocker_objs.setup()
 		update_clock_icons_added(clock_mind)
-		// add_clock_actions(clock_mind)
+		add_clock_actions(clock_mind)
 		var/datum/objective/serveclockwork/obj = new
 		obj.owner = clock_mind
 		clock_mind.objectives += obj
@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		if(crew_reveal)
 			clocked(clock_mind.current)
 		check_clock_size()
-		clocker_objs.study(clock_mind.current)
+		//clocker_objs.study(clock_mind.current)
 		return TRUE
 
 
@@ -284,20 +284,18 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clockhud.leave_hud(clock_mind.current)
 		set_antag_hud(clock_mind.current, null)
 
-/*
 /datum/game_mode/proc/add_clock_actions(datum/mind/clock_mind)
 	if(clock_mind.current)
-		var/datum/action/innate/cult/comm/C = new
-		var/datum/action/innate/cult/check_progress/D = new
+		var/datum/action/innate/clockwork/comm/C = new
+		var/datum/action/innate/clockwork/check_progress/D = new
 		C.Grant(clock_mind.current)
 		D.Grant(clock_mind.current)
 		if(ishuman(clock_mind.current))
-			var/datum/action/innate/cult/blood_magic/magic = new
+			var/datum/action/innate/clockwork/clock_magic/magic = new
 			magic.Grant(clock_mind.current)
-			var/datum/action/innate/cult/use_dagger/dagger = new
-			dagger.Grant(clock_mind.current)
+			//var/datum/action/innate/clockwork/use_dagger/dagger = new
+			//dagger.Grant(clock_mind.current)
 		clock_mind.current.update_action_buttons(TRUE)
-*/
 
 /datum/game_mode/cult/declare_completion()
 	if(clocker_objs.clock_status == RATVAR_HAS_RISEN)

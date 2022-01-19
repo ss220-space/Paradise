@@ -3,8 +3,8 @@
 /obj/item/melee/clockslab
 	name = "Clockwork slab"
 	desc = "A strange metal tablet. A clock in the center turns around and around."
-	icon = "icons/obj/clockwork_objects.dmi"
-	icon_state = "dread_ipad"
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clock_slab"
 	w_class = WEIGHT_CLASS_SMALL
 	var/prepared_spell = ""
 
@@ -56,7 +56,6 @@
 	attack_verb = list("stabbed", "poked", "slashed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
-	var/bonus_burn = 5
 
 
 

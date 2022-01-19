@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_BORER, 										// Cortical borer
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
-	ROLE_CLOCKER = /datum/game_mode/clockwork			// Clockwork Cultist
+	ROLE_CLOCKER = /datum/game_mode/clockwork,			// Clockwork Cultist
 	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
