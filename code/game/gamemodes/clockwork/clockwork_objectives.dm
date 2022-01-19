@@ -13,8 +13,8 @@
 	power_goal = length(GLOB.player_list)*CLOCK_POWER_PER_CREW
 	beacon_goal = round(length(GLOB.player_list)*0.1)
 	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
-	//if(!obj_demand.check_completion())
-	//	ready_to_summon()
+	if(!obj_demand.check_completion())
+		ready_to_summon()
 
 
 
@@ -40,7 +40,7 @@
 			if(!obj_demand.beacon_get)
 				to_chat(M, "<span class='clock'>The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]</span>")
 			if(!obj_demand.clockers_get)
-				to_chat(M, "<span class='clock'>Let the power from our clockers assemble the path for our Ratvar! [SSticker.mode.get_clockers()]/[clocker_goal]</span>")
+				to_chat(M, "<span class='clock'>Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]</span>")
 		if(RATVAR_NEEDS_SUMMONING)
 			to_chat(M, "<span class='clock'>Ratvar is strong enough! It's time to point his power on weak point of the Veil!</span>")
 			to_chat(M, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
@@ -63,6 +63,43 @@
 			to_chat(M, "<span class='cultitalic'><b>Clockers:</b> [clock_cult[1]]")
 			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [clock_cult[2]]")
 
+/datum/clockwork_objectives/proc/demand_check()
+	if(GLOB.clockwork_power >= power_goal)
+		obj_demand.power_get = TRUE
+		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+			if(clock_mind && clock_mind.current)
+				to_chat(clock_mind, "<span class='cultlarge'>Yes! That's enough power i need! Well done...</span>")
+				adjust_clockwork_power(-0.6*power_goal)
+				if(!obj_demand.check_completion())
+					to_chat(clock_mind, "<span class='cult'>But there's still more tasks to do.</span>")
+				else
+					ready_to_summon()
+	if(length(GLOB.clockwork_beacons) >= beacon_goal)
+		obj_demand.beacon_get = TRUE
+		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+			if(clock_mind && clock_mind.current)
+				to_chat(clock_mind, "<span class='cultlarge'>Now i see the weak points of the Veil. You have done well...</span>")
+				if(!obj_demand.check_completion())
+					to_chat(clock_mind, "<span class='cult'>But there's still more tasks to do.</span>")
+				else
+					ready_to_summon()
+	if(SSticker.mode.get_clockers() >= clocker_goal)
+		obj_demand.clockers_get = TRUE
+		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+			if(clock_mind && clock_mind.current)
+				to_chat(clock_mind, "<span class='cultlarge'>The army of my servants have grown. Now it will be easier...</span>")
+				if(!obj_demand.check_completion())
+					to_chat(clock_mind, "<span class='cult'>But there's still more tasks to do.</span>")
+				else
+					ready_to_summon()
+
+/datum/clockwork_objectives/proc/ready_to_summon()
+	clock_status = RATVAR_NEEDS_SUMMONING
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(clock_mind && clock_mind.current)
+			to_chat(clock_mind.current, "<span class='clock'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
+			to_chat(clock_mind.current, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
+
 //Objectives
 
 /datum/objective/serveclockwork //Given to clockers on conversion/roundstart
@@ -73,7 +110,7 @@
 	var/power_get = FALSE
 	var/beacon_get = FALSE
 	var/clockers_get = FALSE
-	explanation_text = "The ratvar demands power in order to prepare the summoning."
+	explanation_text = "The Ratvar demands power in order to prepare the summoning."
 
 /datum/objective/demand_power/check_completion()
 	return (power_get && beacon_get && clockers_get) || completed

@@ -227,6 +227,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_CULTIST)
 
+/datum/mind/proc/memory_edit_clockwork(mob/living/carbon/human/H)
+	. = _memory_edit_header("clockwork")
+	if(src in SSticker.mode.clockwork_cult)
+		. += "<a href='?src=[UID()];clock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+		. += "<br>Give <a href='?src=[UID()];clock=clockslab'>clockslab</a>."
+	else
+		. += "<b>NO</b>|<a href='?src=[UID()];clock=clocker'>clocker</a>"
+
+	. += _memory_edit_role_enabled(ROLE_CLOCKER)
+
 /datum/mind/proc/memory_edit_wizard(mob/living/carbon/human/H)
 	. = _memory_edit_header("wizard")
 	if(src in SSticker.mode.wizards)
@@ -478,6 +488,8 @@
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
+		/** CLOCKWORK **/
+		sections["clockwork"] = memory_edit_clockwork(H)
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
@@ -926,6 +938,26 @@
 				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
 					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
+
+	else if(href_list["clock"])
+		switch(href_list["clock"])
+			if("clear")
+				if(src in SSticker.mode.clockwork_cult)
+					SSticker.mode.remove_cultist(src)
+					special_role = null
+					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
+			if("clocker")
+				if(!(src in SSticker.mode.clockwork_cult))
+					to_chat(current, CLOCK_GREETING)
+					SSticker.mode.add_clocker(src)
+					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
+			if("clockslab")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.clock_give_item(/obj/item/melee/clockslab, H))
+					to_chat(usr, "<span class='warning'>Spawning Clock slab failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a clock slab")
 
 	else if(href_list["wizard"])
 

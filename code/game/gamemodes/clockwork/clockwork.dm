@@ -256,8 +256,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clockwork_cult -= clock_mind
 		clocker.faction -= "clockwork_cult"
 		clock_mind.special_role = null
-		// for(var/datum/action/innate/cult/C in clocker.actions)
-		// 	qdel(C)
+		for(var/datum/action/innate/clockwork/C in clocker.actions)
+			qdel(C)
 		update_cult_icons_removed(clock_mind)
 
 		if(ishuman(clocker))
@@ -270,7 +270,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		check_clock_size()
 		if(show_message)
 			clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/proc/update_clock_icons_added(datum/mind/clock_mind)
 	var/datum/atom_hud/antag/clockhud = GLOB.huds[ANTAG_HUD_CLOCK]

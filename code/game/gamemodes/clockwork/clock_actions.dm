@@ -1,8 +1,8 @@
 /datum/action/innate/clockwork
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
-	background_icon_state = "bg_cult"
+	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
+	background_icon_state = "bg_clockwork"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
-	buttontooltipstyle = "cult"
+	// buttontooltipstyle = "cult"
 
 /datum/action/innate/clockwork/IsAvailable()
 	if(!iscultist(owner))
@@ -11,9 +11,9 @@
 
 //Comms
 /datum/action/innate/clockwork/comm
-	name = "Communion"
+	name = "Hierophant's Network"
 	desc = "Whispered words that all clockers can hear.<br><b>Warning:</b>Nearby non-clockers can still hear you."
-	button_icon_state = "cult_comms"
+	button_icon_state = "hierophant"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/clockwork/comm/Activate()
