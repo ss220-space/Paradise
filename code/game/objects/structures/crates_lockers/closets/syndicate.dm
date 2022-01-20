@@ -162,7 +162,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/comms_officer/populate_contents()
 	new /obj/item/clothing/glasses/night(src)
-	new /obj/item/pda/syndicate(src)
+	new /obj/item/pda/syndicate/no_cartridge(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
@@ -194,7 +194,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/research_director/populate_contents()
 	new /obj/item/clothing/glasses/night(src)
-	new /obj/item/pda/syndicate(src)
+	new /obj/item/pda/syndicate/no_cartridge(src)
 	new /obj/item/dart_cartridge(src)
 	new /obj/item/dart_cartridge(src)
 	new /obj/item/dart_cartridge(src)

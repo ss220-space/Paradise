@@ -404,7 +404,7 @@
 	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
-	req_one_access = "154"
+	req_access = list(154)
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()
@@ -475,7 +475,6 @@
 	return(L[desc])
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
-	set waitfor = 0
 	if(portal_enabled && !myportal)
 		var/turf/tele_target = choosetarget()
 		if(!in_range(usr, src) || !tele_target || myportal || myportal2)
