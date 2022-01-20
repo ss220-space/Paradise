@@ -154,7 +154,7 @@
 		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 		else if(isclocker(src) && HAS_TRAIT(src, CLOCK_EYES))
-			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are sparkling with an unnatural amber!</span>\n"
+			msg += "<span class='clockitalic'><br>[p_their(TRUE)] eyes are sparkling with an unnatural amber!</br></span>\n"
 
 	//left ear
 	if(l_ear && !skipears)

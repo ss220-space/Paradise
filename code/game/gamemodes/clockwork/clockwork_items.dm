@@ -8,12 +8,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/prepared_spell = ""
 
+/obj/item/clockwork
+	name = "Clockwork item name"
+	icon = 'icons/obj/clockwork.dmi'
+
 
 //Can be used on an open APC to replace its guts with clockwork variants, and begin passively siphoning power from it
 /obj/item/clockwork/integration_cog
 	name = "integration cog"
 	desc = "A small cogwheel that fits in the palm of your hand."
-	icon_state = "wall_gear"
+	icon_state = "gear"
 	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/power/apc/apc
 
@@ -22,7 +26,7 @@
 	transform *= 0.5 //little cog!
 
 /obj/item/clockwork/integration_cog/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
+	STOP_PROCESSING(SSprocessing, src)
 	. = ..()
 
 /obj/item/clockwork/integration_cog/process()
@@ -30,12 +34,12 @@
 		if(istype(loc, /obj/machinery/power/apc))
 			apc = loc
 		else
-			STOP_PROCESSING(SSfastprocess, src)
+			STOP_PROCESSING(SSprocessing, src)
 	else
 		var/obj/item/stock_parts/cell/cell = apc.get_cell()
 		if(cell && (cell.charge / cell.maxcharge > COG_MAX_SIPHON_THRESHOLD))
 			cell.use(1)
-			adjust_clockwork_power(CLOCK_POWER_COG) //Power is shared, so only do it once; this runs very quickly so it's about 1W/second
+			adjust_clockwork_power(CLOCK_POWER_COG) //Power is shared, so only do it once; this runs very quickly so it's about CLOCK_POWER_COG(1)/second
 		if(prob(1))
 			playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 10, TRUE)
 			new/obj/effect/temp_visual/small_smoke(get_turf(apc))

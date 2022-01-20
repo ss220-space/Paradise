@@ -5,7 +5,7 @@
 	// buttontooltipstyle = "cult"
 
 /datum/action/innate/clockwork/IsAvailable()
-	if(!iscultist(owner))
+	if(!isclocker(owner))
 		return FALSE
 	return ..()
 

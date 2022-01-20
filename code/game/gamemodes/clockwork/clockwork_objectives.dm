@@ -1,4 +1,4 @@
-/datum/clockwork_objectives //Replace with team antag datum objectives from tg once ported
+/datum/clockwork_objectives //It's mostly same as blood cult
 	var/clock_status = RATVAR_IS_ASLEEP
 	var/datum/objective/demand_power/obj_demand = new // I demand three things! Power beacons and clockers
 	var/datum/objective/clockgod/obj_summon = new
@@ -10,13 +10,11 @@
 	if(clock_status != RATVAR_IS_ASLEEP)
 		return FALSE
 	clock_status = RATVAR_DEMANDS_POWER
-	power_goal = length(GLOB.player_list)*CLOCK_POWER_PER_CREW
-	beacon_goal = round(length(GLOB.player_list)*0.1)
+	power_goal = 1200 + length(GLOB.player_list)*CLOCK_POWER_PER_CREW // 1200 as 3 clockers + all crew * Per_crew
+	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
 	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
-	if(!obj_demand.check_completion())
+	if(obj_demand.check_completion())
 		ready_to_summon()
-
-
 
 /**
   * Called by cultists/cult constructs checking their objectives
@@ -57,39 +55,34 @@
 		var/list/clock_cult = SSticker.mode.get_clockers(TRUE)
 		var/total_clockers = clock_cult[1] + clock_cult[2]
 
-		to_chat(M, "<span class='cultitalic'><br><b>Current cult members: [total_clockers]</b></span>")
+		to_chat(M, "<span class='clockitalic'><br><b>Current cult members: [total_clockers]</b></span>")
 
 		if(clock_cult[2]) // If there are any constructs, separate them out
-			to_chat(M, "<span class='cultitalic'><b>Clockers:</b> [clock_cult[1]]")
-			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [clock_cult[2]]")
+			to_chat(M, "<span class='clockitalic'><b>Clockers:</b> [clock_cult[1]]")
+			to_chat(M, "<span class='clockitalic'><b>Constructs:</b> [clock_cult[2]]")
 
+/*
+ * Makes a check if power or beacon has been completed.
+ * The clockers check is in check_clock_size
+ */
 /datum/clockwork_objectives/proc/demand_check()
 	if(GLOB.clockwork_power >= power_goal)
 		obj_demand.power_get = TRUE
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind, "<span class='cultlarge'>Yes! That's enough power i need! Well done...</span>")
+				to_chat(clock_mind, "<span class='clocklarge'>Yes! That's enough power i need! Well done...</span>")
 				adjust_clockwork_power(-0.6*power_goal)
 				if(!obj_demand.check_completion())
-					to_chat(clock_mind, "<span class='cult'>But there's still more tasks to do.</span>")
+					to_chat(clock_mind, "<span class='clock'>But there's still more tasks to do.</span>")
 				else
 					ready_to_summon()
 	if(length(GLOB.clockwork_beacons) >= beacon_goal)
 		obj_demand.beacon_get = TRUE
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind, "<span class='cultlarge'>Now i see the weak points of the Veil. You have done well...</span>")
+				to_chat(clock_mind, "<span class='clocklarge'>Now i see the weak points of the Veil. You have done well...</span>")
 				if(!obj_demand.check_completion())
-					to_chat(clock_mind, "<span class='cult'>But there's still more tasks to do.</span>")
-				else
-					ready_to_summon()
-	if(SSticker.mode.get_clockers() >= clocker_goal)
-		obj_demand.clockers_get = TRUE
-		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind, "<span class='cultlarge'>The army of my servants have grown. Now it will be easier...</span>")
-				if(!obj_demand.check_completion())
-					to_chat(clock_mind, "<span class='cult'>But there's still more tasks to do.</span>")
+					to_chat(clock_mind, "<span class='clock'>But there's still more tasks to do.</span>")
 				else
 					ready_to_summon()
 

@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		if(crew_reveal)
 			clocked(clock_mind.current)
 		check_clock_size()
-		//clocker_objs.study(clock_mind.current)
+		clocker_objs.study(clock_mind.current)
 		return TRUE
 
 

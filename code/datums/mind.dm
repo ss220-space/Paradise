@@ -454,6 +454,7 @@
 		"implant",
 		"revolution",
 		"cult",
+		"clockwork",
 		"wizard",
 		"changeling",
 		"vampire", // "traitorvamp",
