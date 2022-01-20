@@ -1456,11 +1456,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 ///Adjust the nutrition of a mob
 /mob/proc/adjust_nutrition(change)
-	nutrition = max(1, nutrition + change)
+	nutrition = max(0, nutrition + change)
 
 ///Force set the mob nutrition
 /mob/proc/set_nutrition(change)
-	nutrition = max(1, change)
+	nutrition = max(0, change)
 
 /mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	. = ..()
