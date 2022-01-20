@@ -283,3 +283,14 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
+
+/datum/map_template/ruin/space/listeningasteroid
+    id = "listeningasteroid"
+    suffix = "listeningasteroid.dmm"
+    name = "Syndicate Listening Asteroid"
+    description = "Suspicious Asteroid in the space containing everything for listening to the NTSS."
+    allow_duplicates = FALSE
+    always_place = TRUE
+    cost = 0
+    //always_place = FALSE
+    //cost = 4
