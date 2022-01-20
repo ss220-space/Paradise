@@ -265,9 +265,9 @@
 //Syndie cryopod.
 
 /obj/machinery/cryopod/syndie
-	icon_state = "sleeper_s"
-	base_icon_state = "sleeper_s-open"
-	occupied_icon_state = "sleeper_s"
+	icon_state = "cryo_s"
+	base_icon_state = "cryo_s-open"
+	occupied_icon_state = "cryo_s"
 	dir = 8
 	syndicate = TRUE
 

@@ -1066,6 +1066,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
 	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
+	icon_state_initial = "syndieturret01"
+	icon_state_active = "syndieturret01"
+	icon_state_destroyed = "syndieturret2"
 	projectile = /obj/item/projectile/bullet/a40mm
 	eprojectile = /obj/item/projectile/bullet/a40mm
 

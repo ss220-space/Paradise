@@ -20865,7 +20865,7 @@
 	},
 /obj/item/toy/cards/deck/syndicate/black,
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-/obj/item/pda/syndicate,
+/obj/item/pda/syndicate/no_cartridge,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "rrN" = (
@@ -21522,6 +21522,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "rRZ" = (
 /obj/machinery/porta_turret/syndicate/grenade{
+	icon_state = "syndieturret01";
 	use_power = 1
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -81921,7 +81922,7 @@ mEC
 mEC
 mEC
 mEC
-xHx
+rRZ
 aTW
 aTW
 pdd
