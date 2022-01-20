@@ -46,6 +46,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 /proc/adjust_clockwork_power(amount)
 	GLOB.clockwork_power += amount
+	//if(power_reveal)
+	//	if(GLOB.clockwork_power >= clocker_objs.power_goal)
+	//		clocker_objs.demand_check
 
 /datum/game_mode/clockwork
 	name = "clockwork"
@@ -226,10 +229,18 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	if((clocker_players >= crew_reveal_number) && !crew_reveal)
 		crew_reveal = TRUE
+		clocker_objs.obj_demand.clockers_get = TRUE
 		for(var/datum/mind/M in clockwork_cult)
-			if(!M.current || !ishuman(M.current))
+			if(!M.current)
 				continue
+			to_chat(M, "<span class='cultlarge'>The army of my servants have grown. Now it will be easier...</span>")
+			if(!clocker_objs.obj_demand.check_completion())
+				to_chat(M, "<span class='clock'>But there's still more tasks to do.</span>")
+			else
+				clocker_objs.ready_to_summon()
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
+			if(!ishuman(M.current))
+				continue
 			to_chat(M.current, "<span class='clocklarge'>Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!")
 			addtimer(CALLBACK(src, .proc/clocked, M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Clockwork Cult of Ratvar from your station. Data suggests that about [reveal_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
@@ -247,7 +258,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		var/mob/living/carbon/human/H = clocker
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		// H.update_halo_layer()
-	clocker_objs.obj_demand.clockers_get = TRUE
 
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
