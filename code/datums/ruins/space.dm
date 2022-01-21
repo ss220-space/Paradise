@@ -99,12 +99,12 @@
 		treasure in this disused warehouse, launch it into space, and then \
 		ignore it. Forever."
 
-/datum/map_template/ruin/space/listeningpost
-	id = "listeningpost"
-	suffix = "listeningpost.dmm"
-	name = "Syndie Listening Post"
-	description = "What happens to Nuclear Operatives that fail in their mission? \
-		Certainly not assignment to a backwater listening post..."
+//datum/map_template/ruin/space/listeningpost
+//	id = "listeningpost"
+//	suffix = "listeningpost.dmm"
+//	name = "Syndie Listening Post"
+//	description = "What happens to Nuclear Operatives that fail in their mission? \
+//		Certainly not assignment to a backwater listening post..."
 
 /datum/map_template/ruin/space/empty_shell
 	id = "empty-shell"
@@ -289,8 +289,6 @@
     suffix = "listeningasteroid.dmm"
     name = "Syndicate Listening Asteroid"
     description = "Suspicious Asteroid in the space containing everything for listening to the NTSS."
-    allow_duplicates = FALSE
-    always_place = TRUE
-    cost = 0
-    //always_place = FALSE
-    //cost = 4
+    allow_duplicates = FALSE //It could be broken
+    always_place = FALSE
+    cost = 5 //Because it has a lot of weapons as well as Emag

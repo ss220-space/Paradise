@@ -44,7 +44,6 @@
 
 /datum/outfit/lavaland_syndicate
 	name = "Lavaland Syndicate Agent"
-	r_hand = /obj/item/gun/projectile/automatic/sniper_rifle
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
@@ -65,29 +64,38 @@
 	description = "Monitor comms and cameras and try to assist any agents on station while keeping your existence a secret."
 	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile."
 	outfit = /datum/outfit/lavaland_syndicate/comms
+obj/effect/mob_spawn/human/lavaland_syndicate/species_prompt()
+    if(allow_species_pick)
+        var/new_gender = alert("Please select gender.",, "Male","Female")
+        if(new_gender == "Male")
+            mob_gender = MALE
+        else
+            mob_gender = FEMALE
+        var/new_name = input("Enter your name:") as text
+        if(new_name)
+            mob_name = new_name
+        else
+            mob_name = random_name(mob_gender)
+    return TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space
 	flavour_text = "You are a syndicate agent, employed in a small listening outpost. You'd be bored to death if you couldn't listen in on those NT idiots mess up all the time."
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize(mapload)
 	. = ..()
-	if(prob(90)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
+	if(prob(0)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
 		new /mob/living/simple_animal/hostile/syndicate/ranged(get_turf(src))
 		return INITIALIZE_HINT_QDEL
 
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
 	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
-	r_hand = /obj/item/melee/energy/sword/saber
-	mask = /obj/item/clothing/mask/chameleon/gps
+	mask = /obj/item/clothing/mask/chameleon
 	suit = /obj/item/clothing/suit/armor/vest
 	backpack_contents = list(
-		/obj/item/paper/monitorkey = 1 // message console on lavaland does NOT spawn with this
+		/obj/item/storage/box/survival_syndi
 	)
 
-/obj/item/clothing/mask/chameleon/gps/New()
-	. = ..()
-	new /obj/item/gps/internal/lavaland_syndicate_base(src)
 
-/obj/item/gps/internal/lavaland_syndicate_base
-	gpstag = "Encrypted Signal"
+	
+

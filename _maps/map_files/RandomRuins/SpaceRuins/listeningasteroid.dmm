@@ -4,17 +4,17 @@
 "de" = (/obj/structure/table/wood,/obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita{pixel_y = 7},/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "eu" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "eF" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/door/firedoor,/obj/machinery/door/airlock/hatch/syndicate{name = "Bridge"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"eP" = (/obj/machinery/firealarm/syndicate{dir = 8; pixel_x = 25},/obj/machinery/tcomms/relay/ruskie{network_id = "LISTENINGOUTPOST-RELAY"},/obj/effect/turf_decal/stripes/red/full,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"eP" = (/obj/machinery/tcomms/relay/ruskie{network_id = "LISTENINGOUTPOST-RELAY"},/obj/effect/turf_decal/stripes/red/full,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "eV" = (/obj/machinery/light{dir = 4},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "fv" = (/obj/machinery/atmospherics/unary/tank/air{dir = 8},/turf/simulated/wall/mineral/plastitanium,/area/ruin/powered)
 "fC" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"fJ" = (/obj/structure/closet/syndicate,/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
+"fJ" = (/obj/structure/falsewall/reinforced,/turf/unsimulated/floor/plating,/area/ruin/unpowered)
 "gg" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "go" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "gG" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/door/firedoor,/obj/machinery/door/airlock/hatch/syndicate{name = "Engineering"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "gO" = (/obj/machinery/sleeper/syndie{dir = 4},/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "gU" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/door/firedoor,/obj/machinery/door/airlock/hatch/syndicate{name = "Bar"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"hl" = (/obj/structure/table/wood,/obj/item/ashtray/bronze,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"hl" = (/obj/structure/table/wood,/obj/item/ashtray/bronze,/obj/machinery/light{dir = 1; on = 1},/obj/item/clothing/mask/cigarette/cigar{pixel_y = 7},/obj/item/coin/antagtoken/syndicate{pixel_x = 10},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "hB" = (/obj/machinery/porta_turret/syndicate/interior,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "hN" = (/obj/structure/rack,/obj/item/ammo_box/c45,/obj/item/ammo_box/c45,/obj/item/ammo_box/c45,/obj/item/ammo_box/c45,/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "hO" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/hatch/syndicate,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
@@ -26,24 +26,26 @@
 "mz" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 10; initialize_directions = 10},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "mX" = (/obj/machinery/light/small{dir = 4; tag = "icon-bulb1 (EAST)"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "nh" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/machinery/vending/boozeomat/syndicate_access,/obj/effect/turf_decal/box/red,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
-"nF" = (/obj/structure/sign/poster/contraband/syndicate_recruitment{pixel_y = 30},/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
+"nF" = (/obj/structure/sign/poster/contraband/syndicate_recruitment{pixel_y = 30},/obj/structure/lattice/catwalk,/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
 "nR" = (/obj/machinery/vending/toyliberationstation,/obj/effect/turf_decal/box/red,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "pp" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"pw" = (/obj/structure/closet/walllocker/emerglocker{dir = 8; pixel_x = -30},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "qd" = (/turf/template_noop,/area/template_noop)
+"qe" = (/obj/effect/decal/cleanable/blood,/obj/structure/lattice/catwalk,/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
 "qt" = (/obj/machinery/atmospherics/unary/tank/oxygen{dir = 8},/turf/simulated/wall/mineral/plastitanium,/area/ruin/powered)
 "rB" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,/obj/effect/turf_decal/loading_area/red,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"rK" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/power/terminal{dir = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"rK" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/power/terminal{dir = 1},/obj/structure/closet/secure_closet/engineering_personal{req_access = "150"},/obj/item/storage/belt/utility/full/multitool,/obj/item/storage/belt/utility/full/multitool,/obj/item/clothing/gloves/combat,/obj/item/clothing/gloves/combat,/obj/item/stack/cable_coil/heavyduty,/obj/item/stack/cable_coil/heavyduty,/obj/item/stack/cable_coil/heavyduty,/obj/item/clothing/head/helmet/space/syndicate/black/engie,/obj/item/clothing/suit/space/syndicate/black/engie,/obj/item/tank/jetpack/oxygen/harness,/obj/item/tank/jetpack/oxygen/harness,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "rN" = (/obj/effect/turf_decal/loading_area/red,/obj/machinery/light/small{dir = 4; tag = "icon-bulb1 (EAST)"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "rP" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "sw" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 10; initialize_directions = 10},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
-"sX" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
+"sX" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/item/flag/syndi,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "to" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/closet/crate,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/glass/fifty,/obj/item/stack/sheet/glass/fifty,/obj/machinery/light,/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "tt" = (/obj/structure/closet/secure_closet/guncabinet{req_access = null; req_access_txt = "150"},/obj/item/gun/projectile/automatic/c20r{pixel_y = -3},/obj/item/gun/projectile/automatic/c20r,/obj/item/gun/projectile/automatic/c20r{pixel_y = 3},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
-"tV" = (/obj/structure/chair/wood{desc = "И что стул забыл на астероиде?."; dir = 8; name = "Стул.. Стул?"},/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
-"uD" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
-"uN" = (/obj/item/tank/emergency_oxygen/double/full,/obj/item/tank/emergency_oxygen/double/full,/obj/item/tank/emergency_oxygen/double/full,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6},/obj/structure/closet{name = "Emergency Internals Closet"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"tV" = (/obj/structure/chair/wood{desc = "И что стул забыл на астероиде?"; dir = 8; name = "Стул.. Стул?"},/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
+"uD" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
+"uN" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "vx" = (/obj/structure/closet/crate/trashcart,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
-"vC" = (/obj/structure/table/wood,/obj/item/paper{info = "Placeholder"; name = "Placeholder"},/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"vC" = (/obj/structure/table/wood,/obj/item/paper{ico = /list("paper_stamp-syndicate"); info = "<font face="Verdana" color=black><BR><center><H1>Приветствуем, агент</H1></center><BR><BR><B>Вы были высланы на этот, недавно открывшийся пост прослушки в связи с тем, что в этом секторе была обнаружена активность НТ.<BR> Также этот астероид является резервной точкой наших некоторых отрядов, но пока будет служить вам как пост прослушки. </B><BR><BR><BR><B>Ваши задачи: </B><BR><ul><BR><li> Прослушивать радиопереговоры<BR><li> Докладывать о ситуации на НИС НТ прямиком на базу синдиката, посредством факсов, специально для этого нами была оставлена Факс-машина.<BR><li> <B> <U> ЗАЩИЩАТЬ АСТЕРОИД ЛЮБОЙ ЦЕНОЙ </U> </B><BR><li> Помогать <B><U>ПОДТВЕРЖДЁННЫМ</U></B> агентам синдиката.<BR></ul><BR><font size = "1"> Надеемся на то что вы сможете выполнить поставленные задачи.</font><BR><BR>В связи с тем что НТ довольно смелые в этом секторе мы дали вам вооружение, которое составляет:<BR><ul><BR><li> ПП С20r 3<font size = "1">шт.</font><BR><li> Магазин с патронами .45ACP 9<font size = "1">шт.</font><BR><li> Ионная винтовка 3<font size = "1">шт.</font><BR><li> Комплект хардсьюта Синдиката 2<font size = "1">шт.</font><BR><li> Также должны присутствовать магазины для пистолета Стечкина и прочие боевые инструменты и вещи.<BR></ul><BR><BR></font>"; name = "ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ - Разъяснение миссии"; stamped = list(/obj/item/stamp/syndicate); stamps = "<HR><img src=large_stamp-syndicate.png"},/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "wD" = (/obj/machinery/optable,/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "wS" = (/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "xm" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
@@ -54,63 +56,71 @@
 "zP" = (/obj/machinery/light{dir = 8; on = 1},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "Ad" = (/obj/item/mounted/mirror{pixel_x = -25},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
 "Aw" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Ca" = (/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
-"CG" = (/obj/item/card/emag,/obj/item/card/emag,/obj/item/clothing/under/syndicate/tacticool,/obj/item/storage/firstaid/tactical,/obj/item/clothing/head/beret/sec{desc = "A beret made for the robust."; name = "Syndicate Officer Beret"},/obj/item/storage/belt/military/assault,/obj/item/ammo_box/magazine/pistolm9mm,/obj/item/ammo_box/magazine/pistolm9mm,/obj/item/ammo_box/magazine/pistolm9mm,/obj/item/ammo_box/magazine/pistolm9mm,/obj/item/stack/spacecash/c1000,/obj/item/stack/spacecash/c1000,/obj/item/stack/spacecash/c1000,/obj/item/lighter/zippo/gonzofist,/obj/item/kitchen/knife/combat,/obj/structure/closet,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Ca" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
+"CG" = (/obj/structure/closet/syndicate,/obj/item/clothing/accessory/holster,/obj/item/ammo_box/magazine/pistolm9mm,/obj/item/ammo_box/magazine/pistolm9mm,/obj/item/storage/wallet,/obj/item/lighter/zippo/hos{desc = "It looks somehow similar, could it be stolen?"; name = "Syndicate Comms zippo"},/obj/item/card/emag,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "CM" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = -30},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Df" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Df" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Dh" = (/obj/machinery/recharger/wallcharger{pixel_y = -25},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "Dv" = (/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "DA" = (/obj/structure/sink{dir = 8; pixel_x = -12; pixel_y = 2},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
-"DJ" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/obj/structure/bed/dogbed/ian,/mob/living/simple_animal/pet/cat/Syndi,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Ej" = (/obj/machinery/door/airlock/hatch/syndicate{name = "Toilet\Shower"},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
+"DJ" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/obj/structure/bed/dogbed/ian{name = "Gosha`s bed"},/mob/living/simple_animal/hostile/retaliate/carp{atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0); atom_say_verb = "bloops"; can_buckle = 1; desc = "One of the bad experiments of Syndicate to weaponize Space Carp, now serving as a pet"; dir = 8; faction = list("carp", "syndicate"); name = "Big Gosha"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Ej" = (/obj/machinery/door/airlock/hatch/syndicate{name = "Toilet\Shower"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
 "EX" = (/obj/machinery/light,/turf/simulated/floor/plasteel/white,/area/ruin/powered)
+"Fy" = (/obj/structure/lattice/catwalk,/turf/template_noop,/area/ruin/unpowered)
 "FT" = (/obj/machinery/alarm/syndicate{dir = 8; pixel_x = 25},/obj/machinery/recharger/wallcharger{pixel_y = -25},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "Gw" = (/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "GR" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/machinery/computer/operating,/turf/simulated/floor/plasteel/white,/area/ruin/powered)
-"Hb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/machinery/light,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Hb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/machinery/light,/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Ht" = (/obj/structure/table/wood,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Ie" = (/obj/machinery/porta_turret/syndicate/exterior,/turf/simulated/wall/mineral/plastitanium,/area/ruin/powered)
 "IN" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/machinery/vending/medical/syndicate_access,/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "Ji" = (/obj/structure/closet/crate/trashcart,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"JI" = (/obj/machinery/vending/wallmed/syndicate{pixel_x = 25},/obj/item/tank/anesthetic,/obj/item/tank/anesthetic,/obj/item/tank/anesthetic,/obj/item/clothing/mask/surgical,/obj/item/clothing/mask/surgical,/obj/item/clothing/mask/surgical,/obj/item/clothing/mask/breath/medical,/obj/item/clothing/mask/breath/medical,/obj/item/clothing/mask/breath/medical,/obj/item/storage/toolbox/surgery,/obj/structure/closet,/obj/item/storage/toolbox/surgery,/obj/item/defibrillator/compact/combat/loaded,/turf/simulated/floor/plasteel/white,/area/ruin/powered)
+"JI" = (/obj/machinery/vending/wallmed/syndicate{pixel_x = 25},/turf/simulated/floor/plasteel/white,/area/ruin/powered)
+"JU" = (/obj/effect/decal/cleanable/blood/drip,/turf/template_noop,/area/template_noop)
 "Kh" = (/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
+"Kx" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/lattice/catwalk,/turf/template_noop,/area/ruin/unpowered)
 "Ln" = (/obj/structure/rack,/obj/item/storage/toolbox/syndicate,/obj/item/storage/toolbox/syndicate,/obj/item/multitool,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"LA" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/highsecurity,/obj/machinery/door/poddoor{id_tag = SyndieBlastDoors},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"LA" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/highsecurity{req_access_txt = "150"},/obj/machinery/door/poddoor{id_tag = SyndieBlastDoors},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "LZ" = (/obj/effect/turf_decal/loading_area/red{dir = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Mv" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/closet,/obj/item/clothing/suit/space/syndicate/black/engie,/obj/item/clothing/head/helmet/space/syndicate/black/engie,/obj/item/clothing/mask/gas/syndicate,/obj/item/tank/oxygen,/obj/item/tank/oxygen,/obj/item/storage/belt/utility/full/multitool,/obj/item/storage/belt/utility/full/multitool,/obj/machinery/light,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"NA" = (/obj/structure/table/wood,/obj/machinery/light,/obj/item/ashtray/bronze,/obj/effect/turf_decal/box/red,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
+"Mv" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"NA" = (/obj/structure/table/wood,/obj/machinery/light,/obj/item/ashtray/bronze,/obj/effect/turf_decal/box/red,/obj/item/coin/antagtoken/syndicate{pixel_x = -6; pixel_y = 7},/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "NC" = (/obj/machinery/computer/camera_advanced,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "NO" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "NS" = (/obj/structure/table/wood,/obj/machinery/chem_dispenser/beer/upgraded,/obj/machinery/light,/obj/effect/turf_decal/box/red,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "Ob" = (/obj/machinery/vending/snack/free,/obj/effect/turf_decal/box/red,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "OM" = (/obj/machinery/suit_storage_unit/syndicate,/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "OU" = (/obj/structure/rack,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
+"OX" = (/obj/effect/decal/remains/human,/obj/structure/lattice/catwalk,/turf/template_noop,/area/ruin/unpowered)
+"Pb" = (/obj/structure/chair/stool/bar,/obj/structure/sign/barsign{pixel_y = -31; req_access = "150"},/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
 "Pd" = (/obj/machinery/light{dir = 4; on = 1},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "Pp" = (/obj/structure/closet/secure_closet/guncabinet{req_access = null; req_access_txt = "150"},/obj/item/gun/energy/ionrifle{pixel_y = -3},/obj/item/gun/energy/ionrifle,/obj/item/gun/energy/ionrifle{pixel_y = 3},/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
+"Pv" = (/obj/structure/closet/syndicate/personal,/turf/simulated/floor/mineral/plastitanium/red{name = "Red Plastitanium floor"},/area/ruin/powered)
 "Qf" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/door/firedoor,/obj/machinery/door/airlock/hatch/syndicate{name = "Medical"},/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "Qi" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
+"Ql" = (/obj/effect/decal/remains/human,/turf/template_noop,/area/template_noop)
 "Qn" = (/obj/structure/table/wood,/obj/item/stamp/syndicate,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Qu" = (/obj/machinery/firealarm/syndicate{pixel_y = 25},/obj/structure/rack,/obj/item/storage/toolbox/electrical{pixel_x = -3; pixel_y = 2},/obj/item/storage/toolbox/syndicate{pixel_x = -1; pixel_y = -2},/obj/item/storage/bag/trash,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Qu" = (/obj/machinery/firealarm/syndicate{pixel_y = 25},/obj/structure/rack,/obj/item/storage/toolbox/electrical{pixel_x = -3; pixel_y = 2},/obj/item/storage/toolbox/syndicate{pixel_x = -1; pixel_y = -2},/obj/item/storage/bag/trash,/obj/item/coin/iron,/obj/item/coin/iron,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Rz" = (/obj/structure/chair/office/dark{dir = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "RW" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Sq" = (/obj/structure/table/wood,/obj/machinery/photocopier/faxmachine/longrange/syndie{pixel_x = -3},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"SO" = (/obj/effect/decal/remains/human,/obj/structure/lattice/catwalk,/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
 "Tk" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 1},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Tr" = (/obj/structure/table/wood,/obj/machinery/chem_dispenser/soda/upgraded,/obj/effect/turf_decal/box/red,/turf/simulated/floor/plasteel/grimy,/area/ruin/powered)
-"Ts" = (/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
+"Ts" = (/obj/structure/lattice/catwalk,/turf/simulated/floor/plating/asteroid/airless,/area/ruin/unpowered)
 "TE" = (/obj/item/flag/syndi,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Uq" = (/obj/machinery/power/smes/engineering{desc = "A syndicate modificated Power Storage Unit to handle a whole outpost."; name = "Syndicate Modificated SMES"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Uq" = (/obj/machinery/power/smes/engineering{charge = 5e+006; desc = "A syndicate modificated Power Storage Unit to handle a whole outpost."; name = "Syndicate Modificated SMES"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "UH" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"VH" = (/obj/machinery/light/small{dir = 4; tag = "icon-bulb1 (EAST)"},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
+"VH" = (/obj/machinery/light/small{dir = 4; tag = "icon-bulb1 (EAST)"},/obj/machinery/atmospherics/unary/vent_pump/on,/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
 "Wa" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Wl" = (/obj/structure/table/wood,/obj/item/paper,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "WO" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "WU" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 1},/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1; initialize_directions = 11},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Xh" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/highsecurity,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"Xx" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/item/flag/syndi,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Xh" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/highsecurity{req_access_txt = "150"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Xx" = (/obj/item/tank/anesthetic,/obj/item/tank/anesthetic,/obj/item/tank/anesthetic,/obj/item/clothing/mask/surgical,/obj/item/clothing/mask/surgical,/obj/item/clothing/mask/surgical,/obj/item/clothing/mask/breath/medical,/obj/item/clothing/mask/breath/medical,/obj/item/clothing/mask/breath/medical,/obj/item/storage/toolbox/surgery,/obj/structure/closet,/obj/item/storage/toolbox/surgery,/obj/item/defibrillator/compact/combat/loaded,/turf/simulated/floor/plasteel/white,/area/ruin/powered)
 "XE" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11},/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 4; initialize_directions = 11},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Yn" = (/obj/structure/toilet{dir = 8; pixel_y = 8},/turf/simulated/floor/plasteel/freezer,/area/ruin/powered)
-"Yw" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/effect/mob_spawn/human/lavaland_syndicate/comms{assignedrole = "Syndicate Asteroid Comms Agent"; description = "Placeholder"; dir = 4; flavour_text = "Placeholder"; important_info = "Placeholder"; mob_name = "Syndicate Asteroid Comms Agent"; pickable_species = list("Human")},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
-"YG" = (/obj/machinery/door_control{id = SyndieBlastDoors; pixel_y = 25; req_access_txt = "150"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"Yw" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/effect/mob_spawn/human/lavaland_syndicate/comms{assignedrole = "Syndicate Asteroid Comms Agent"; description = "Вы являетесь работником теневой корпорации, что входит в Синдикат, именуемой Mi-13, в ваши обязанности входит защита астероида, отправка отчётов об его состоянии, а также о ситуации на станции. Помните, этот астероид был создан также как резервная точка для переброса ударных отрядов синдиката, по-этому оружие в оружейной можно брать только по необходимости."; dir = 4; faction = "syndicate"; flavour_text = "Вы - Агент телекоммуникаций, следите за станцией, охраняйте астероид и отправляйте отчёты прямиком на синдикат, не раскрывая своего присутствия."; important_info = "НЕ: 1. Мешайте другим антагонистам; 2. Раскрывайте своего местоположения и присутствия; НЕ ПОКИДАЙТЕ АСТЕРОИД."; mob_name = "Syndicate Asteroid Comms Agent"; pickable_species = list("Human")},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
+"YG" = (/obj/machinery/door_control{id = SyndieBlastDoors; name = "Arrivals Blast-Doors Control"; pixel_y = 25; req_access_txt = "150"},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "YZ" = (/obj/machinery/computer/message_monitor,/obj/item/paper/monitorkey,/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "Zh" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
 "ZX" = (/obj/machinery/alarm/syndicate{dir = 4; pixel_x = -25},/obj/structure/table/wood,/obj/item/paper_bin/syndicate{pixel_y = 8},/obj/item/pen/edagger{pixel_y = 8},/turf/simulated/floor/mineral/plastitanium{name = "Plastitanium floor"},/area/ruin/powered)
@@ -122,40 +132,40 @@ qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
 qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
 qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
 qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclcTsqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdlclclclclclcTsTsTsTsTsTslclclclclclclclclclclclclclcTsTsqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclctVlclclclclclclclclcqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdTsTslclclclclclclclclclclclclclclclclclclclclclclclclclclclcTsqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdTsTslclclclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclclclclxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlclclclclcqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclclclclxCGWlvClxQnhlNCYZYGJiTElxttfJOMhBOMfJPplxlclclclclcqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdTsTslclclclclclclxDvRzHtlxSqRzDvDvDvDvLnlxzPKhKhKhKhKhPdlxlclclclclcqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclclclclxYwmzDJlxZXDviomzZhDvePlxhNOUxmswuDDhFTlxlclclclcTsTsqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclxlxlxlxlxyXlxlxlxlxlxeFlxlxlxlxlxlxlxiElxlxlxlxlclclclclclcqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclxDAYnlxuNAwpprPppppppAwrPppTkpppprPpprBakDvDvlxlclclclclclcqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclxAdVHlxzMUHDvDvDvDvDvDvDvDvgoDvDvDvDvDvWaDveVlxlclclclclclcqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdlclclclclclxcOCaEjDfppppppWUppppppWUppXxppppXxppppXEDvDvlxlclclclclcTsqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdTslclclclclxlxlxlxlxlxlxlxgUlxlxlxQflxlxhOhOlxlxlxgGlxlxlxlclclclclclcqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdTslclclclclclclclxnRObbrnhQisXlxGRNOINlxRWmXlxQuxRWaggUqlxlclclclclclcqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdTsTslclclclclxGwGwGwGwGwzolxwDwSwSlxDvDvhOioWOfCWOrKfvlclclclclclcqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdlclclclclclclxNSTrdevxzoNAlxgOEXJIlxXhXhlxtoCMHbMveuqtlclclclcTsqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdlclclclclclclxlxlxlxlxlxlxlxlxlxlxlxLZLZlxlxlxlxlxlxlxlclclclcTsqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclxkyrNlxlclclclclclclclclclcTsqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclcIeLALAIelclclclclclclclclclcqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclcnFTsTsnFlclclclclclclclcTsqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdTsTslclclclclclclclclclclclclclclcTsTsTsTslclclclclclclclcqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdTslclclclclclclclclclclclclcqdTsTsqdlclclclclclclclcqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclcqdqdqdTslclclcqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclcTsqdqdqdlclclcqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdTsTslclclclclclclclcqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdTsTsTsqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
-qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdlclclcqdqdlclclcqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdlclclcqdqdqdqdlcqdqdlclclclclclclclclclclclclclclcqdqdqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclctVlclclclclclclclclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqd
+qdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclclcqdqdqdqdqdqdqd
+qdqdqdqdqdqdlclclclclclclclcfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJfJlclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdlclclclclclclclclclcfJlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxlxfJlclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdqdlclclclclclclclclcfJlxCGWlvClxQnhlNCYZYGJiTElxttPvOMhBOMPvPplxfJlclclclclclclcqdqdqdqdqdqd
+qdqdqdqdqdlclclclclclclclclcfJlxpwRzHtlxSqRzDvDvDvDvLnlxzPKhKhKhKhKhPdlxfJlclclclclclclclcqdqdqdqdqd
+qdqdqdqdqdlclclclclclcfJfJfJfJlxYwmzDJlxZXDviomzZhDvePlxhNOUxmswuDDhFTlxfJlclclclclclclclcqdqdqdqdqd
+qdqdqdlclclclclclclclcfJlxlxlxlxlxyXlxlxlxlxlxeFlxlxlxlxlxlxlxiElxlxlxlxfJlclclclclclclcqdqdqdqdqdqd
+qdqdqdlclclclclclclclcfJlxDAYnlxuNAwpprPppppppAwrPppTkpppprPpprBakDvTElxfJlclclclclclclclcqdqdqdqdqd
+qdqdqdqdlclclclclclclcfJlxAdVHlxzMUHDvDvDvDvDvDvDvDvgoDvDvDvDvDvWaDveVlxfJlclclclclclclcqdqdqdqdqdqd
+qdqdqdqdqdlclclclclclcfJlxcOCaEjDfppppppWUppppppWUppppppppppppppXEDvTElxfJlclclclclclclcqdqdqdqdqdqd
+qdqdqdlclclclclclclclcfJlxlxlxlxlxlxlxlxgUlxlxlxQflxlxhOhOlxlxlxgGlxlxlxfJlclclclclclclcqdqdqdqdqdqd
+qdqdqdlclclclclclclclcfJfJfJfJlxnRObbrnhQisXlxGRNOINlxRWmXlxQuxRWaggUqlxfJlclclclclclclclcqdqdqdqdqd
+qdqdqdqdqdlclclclclclclclclcfJlxGwGwGwGwGwzolxwDwSXxlxDvDvhOioWOfCWOrKfvfJlclclclclclclcqdqdqdqdqdqd
+qdqdqdqdqdqdlclclclclclclclcfJlxNSTrdevxPbNAlxgOEXJIlxXhXhlxtoCMHbMveuqtfJlclclclclclclclcqdqdqdqdqd
+qdqdqdqdqdqdqdlclclclclclclcfJlxlxlxlxlxlxlxlxlxlxlxlxLZLZlxlxlxlxlxlxlxfJlclclclclclclclcqdqdqdqdqd
+qdqdqdqdqdqdqdlclclclclclclcfJfJfJfJfJfJfJfJfJfJfJfJlxkyrNlxfJfJfJfJfJfJfJlclclclclclcqdqdqdqdqdqdqd
+qdqdqdqdqdlclclclclclclclclclclclclclclclclclclclclcIeLALAIelclclclclclclclclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclcnFTsTsnFlclclclclclclclclclclclclcqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclcTsTsTsTslclclclclclclclclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdlclclclclclclclclclclclclclclclclclclclcFySOTsFylclclclclclclclclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclclclcFyFyFyTslclclclclclclclclclclclcqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclclclcqeFyFyFylclclclclclclclclclcqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclclcOXFyFyFylclclclclclclclclclcqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclclcKxFyFyFylclclclclclclclclcqdqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdlclclclclclclclclclclcqdqdqdqdlclclclclclclclcqdqdqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdJUqdqdqdlclclclclclcqdqdqdqdqdqdqdqdqdqdqdqdqd
+qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdQlqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
 qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
 qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
 qdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqdqd
