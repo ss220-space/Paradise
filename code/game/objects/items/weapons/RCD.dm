@@ -348,7 +348,6 @@
  * * user - the mob using the RCD.
  */
 /obj/item/rcd/proc/mode_turf(atom/A, mob/user)
-
 	if(isspaceturf(A) || istype(A, /obj/structure/lattice))
 		if(useResource(1, user))
 			to_chat(user, "Building Floor...")
