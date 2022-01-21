@@ -349,7 +349,7 @@
  */
 /obj/item/rcd/proc/mode_turf(atom/A, mob/user)
 
-	if(isspaceturf(A) || istype(A, /obj/structure/lattice))		
+	if(isspaceturf(A) || istype(A, /obj/structure/lattice))
 		if(useResource(1, user))
 			to_chat(user, "Building Floor...")
 			playsound(loc, usesound, 50, 1)
@@ -361,8 +361,7 @@
 		return FALSE
 
 	if(isfloorturf(A))
-		var/turf/AT = get_turf(A)
-		if(locate(/obj/machinery/field) in AT )
+		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
@@ -373,8 +372,8 @@
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
-				AT = A
-				AT.ChangeTurf(/turf/simulated/wall)
+				var/turf/turf_to_change = A
+				turf_to_change.ChangeTurf(/turf/simulated/wall)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
@@ -395,8 +394,7 @@
  */
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
 	if(isfloorturf(A))
-		var/turf/AT = get_turf(A)
-		if(locate(/obj/machinery/field) in AT )
+		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
@@ -528,8 +526,7 @@
  */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
-		var/turf/AT = get_turf(A)
-		if(locate(/obj/machinery/field) in AT )
+		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
@@ -560,8 +557,8 @@
 			else // Build a window!
 				var/obj/structure/window/reinforced/W = new(A)
 				W.dir = cdir
-		AT = A
-		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+		var/turf/turf_to_change = A
+		turf_to_change.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 		return TRUE
 	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
