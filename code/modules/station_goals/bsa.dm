@@ -348,7 +348,9 @@
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()
 	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
-		gps_locators[G.gpstag] = G
+		var/turf/GT = get_turf(G)
+		if((!G.local) || (GT.z == src.z))
+			gps_locators[G.gpstag] = G
 
 	var/list/options = gps_locators
 	if(area_aim)
