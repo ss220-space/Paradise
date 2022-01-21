@@ -27,6 +27,7 @@
 	src.on_lattice = on_lattice
 	src.window_checks = window_checks
 	src.no_cult_structure = no_cult_structure
+	src.on_lattice = on_lattice
 
 /datum/stack_recipe/proc/post_build(obj/item/stack/S, obj/result)
 	return
