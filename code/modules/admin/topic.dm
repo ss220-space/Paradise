@@ -2025,8 +2025,7 @@
 		if(alert(usr, "Unlock the ability to summon Ratvar?", "Clock Cult Debug", "Yes", "No") != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.clocker_objs.ready_to_summon()
+		SSticker.mode.clocker_objs.ratvar_is_ready()
 		message_admins("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 

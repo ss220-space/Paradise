@@ -944,7 +944,7 @@
 		switch(href_list["clock"])
 			if("clear")
 				if(src in SSticker.mode.clockwork_cult)
-					SSticker.mode.remove_cultist(src)
+					SSticker.mode.remove_clocker(src)
 					special_role = null
 					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")

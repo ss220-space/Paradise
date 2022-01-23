@@ -1,6 +1,10 @@
 // Clockwork Power
 /// REMINDER: The clockwork_power(var) and clockwork_beacons(list) have been moved at _glovalvars/game_modes
 
+//Clockwork Magic
+/// How many on-hand spells
+#define CLOCK_MAX_HANDSPELLS 2
+
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400
 #define CLOCK_POWER_GAIN_MAXIMUM 1000
@@ -12,7 +16,7 @@
 #define CLOCK_POWER_GENERATOR 10
 #define CLOCK_POWER_COG 1
 
-// Cult Status
+// Clockwork Status
 /// At what population does it switch to highpop values
 #define CLOCK_POPULATION_THRESHOLD 100
 /// Percent for power to reveal (Lowpop)

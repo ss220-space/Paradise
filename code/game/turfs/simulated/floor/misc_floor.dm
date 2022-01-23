@@ -188,7 +188,7 @@
 
 /turf/simulated/floor/clockwork/make_plating()
 	if(!dropped_brass)
-		new /obj/item/stack/tile/brass(src)
+		new /obj/item/stack/sheet/brass(src)
 		dropped_brass = TRUE
 	if(baseturf == type)
 		return

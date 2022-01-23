@@ -1304,6 +1304,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
 		overlays_standing[HALO_LAYER] = new_halo_overlay
 
+	// add isclocker clock_halos
+
 	apply_overlay(HALO_LAYER)
 
 

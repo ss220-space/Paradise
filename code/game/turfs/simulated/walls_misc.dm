@@ -57,7 +57,7 @@
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
-	sheet_type = /obj/item/stack/tile/brass
+	sheet_type = /obj/item/stack/sheet/brass
 	sheet_amount = 1
 	girder_type = /obj/structure/clockwork/wall_gear
 	baseturf = /turf/simulated/floor/clockwork/reebe

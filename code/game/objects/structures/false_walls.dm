@@ -347,7 +347,7 @@
 	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
 	walltype = /turf/simulated/wall/clockwork
-	mineral = /obj/item/stack/tile/brass
+	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/Initialize(mapload)
 	. = ..()

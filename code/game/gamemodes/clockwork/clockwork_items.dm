@@ -24,9 +24,10 @@
 /obj/item/clockwork/integration_cog/Initialize()
 	. = ..()
 	transform *= 0.5 //little cog!
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clockwork/integration_cog/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
+	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/clockwork/integration_cog/process()
@@ -34,15 +35,15 @@
 		if(istype(loc, /obj/machinery/power/apc))
 			apc = loc
 		else
-			STOP_PROCESSING(SSprocessing, src)
+			STOP_PROCESSING(SSobj, src)
 	else
 		var/obj/item/stock_parts/cell/cell = apc.get_cell()
 		if(cell && (cell.charge / cell.maxcharge > COG_MAX_SIPHON_THRESHOLD))
-			cell.use(1)
+			cell.use(round(0.001*cell.maxcharge,1))
 			adjust_clockwork_power(CLOCK_POWER_COG) //Power is shared, so only do it once; this runs very quickly so it's about CLOCK_POWER_COG(1)/second
-		if(prob(1))
-			playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 10, TRUE)
-			new/obj/effect/temp_visual/small_smoke(get_turf(apc))
+			if(prob(2))
+				playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 10, TRUE)
+				new/obj/effect/temp_visual/small_smoke(get_turf(apc))
 
 //Ratvarian spear
 /obj/item/clockwork/weapon/ratvarian_spear

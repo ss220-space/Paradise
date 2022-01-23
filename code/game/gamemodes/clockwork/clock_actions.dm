@@ -26,9 +26,6 @@
 /datum/action/innate/clockwork/comm/proc/clockwork_commune(mob/living/user, message)
 	if(!user || !message)
 		return
-	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You can't speak!</span>")
-		return
 
 	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
 		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",

@@ -10,11 +10,11 @@
 	if(clock_status != RATVAR_IS_ASLEEP)
 		return FALSE
 	clock_status = RATVAR_DEMANDS_POWER
-	power_goal = 1200 + length(GLOB.player_list)*CLOCK_POWER_PER_CREW // 1200 as 3 clockers + all crew * Per_crew
+	power_goal = 1200 + length(GLOB.player_list)*CLOCK_POWER_PER_CREW // 1200 as 3 clockers(or 4) + all crew * Per_crew
 	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
 	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
 	if(obj_demand.check_completion())
-		ready_to_summon()
+		ratvar_is_ready()
 
 /**
   * Called by cultists/cult constructs checking their objectives
@@ -23,7 +23,7 @@
   *
   * * display_members set FALSE - additionally how many cult members.
   */
-/datum/clockwork_objectives/proc/study(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
+/datum/clockwork_objectives/proc/study(mob/living/M, display_members = FALSE)
 	if(!M)
 		return FALSE
 
@@ -63,30 +63,35 @@
 
 /*
  * Makes a check if power or beacon has been completed.
+ *
  * The clockers check is in check_clock_size
  */
-/datum/clockwork_objectives/proc/demand_check()
-	if(GLOB.clockwork_power >= power_goal)
+/datum/clockwork_objectives/proc/power_check()
+	if(GLOB.clockwork_power >= power_goal && !obj_demand.power_get)
 		obj_demand.power_get = TRUE
+		adjust_clockwork_power(-0.6*power_goal)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind, "<span class='clocklarge'>Yes! That's enough power i need! Well done...</span>")
-				adjust_clockwork_power(-0.6*power_goal)
+				to_chat(clock_mind.current, "<span class='clocklarge'>Yes! That's enough power i need! Well done...</span>")
 				if(!obj_demand.check_completion())
-					to_chat(clock_mind, "<span class='clock'>But there's still more tasks to do.</span>")
+					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
 				else
-					ready_to_summon()
-	if(length(GLOB.clockwork_beacons) >= beacon_goal)
+					ratvar_is_ready()
+
+/datum/clockwork_objectives/proc/beacon_check()
+	if(length(GLOB.clockwork_beacons) >= beacon_goal && !obj_demand.beacon_get)
 		obj_demand.beacon_get = TRUE
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind, "<span class='clocklarge'>Now i see the weak points of the Veil. You have done well...</span>")
+				to_chat(clock_mind.current, "<span class='clocklarge'>Now i see the weak points of the Veil. You have done well...</span>")
 				if(!obj_demand.check_completion())
-					to_chat(clock_mind, "<span class='clock'>But there's still more tasks to do.</span>")
+					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
 				else
-					ready_to_summon()
+					ratvar_is_ready()
 
-/datum/clockwork_objectives/proc/ready_to_summon()
+
+// After all goals 've completed check this proc for start summoning
+/datum/clockwork_objectives/proc/ratvar_is_ready()
 	clock_status = RATVAR_NEEDS_SUMMONING
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 		if(clock_mind && clock_mind.current)
@@ -95,7 +100,7 @@
 
 //Objectives
 
-/datum/objective/serveclockwork //Given to clockers on conversion/roundstart
+/datum/objective/serveclock //Given to clockers on conversion/roundstart
 	explanation_text = "Assist your fellow clockwork associates and Power Ratvar to Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
 
