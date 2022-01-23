@@ -172,7 +172,7 @@
 	icon_state = "Emitter_Off"
 	if(receiver)
 		receiver.mining = FALSE
-		if(receiver.lens.state)
+		if(receiver.lens?.state)
 			receiver.lens.deactivate_lens()
 
 	if(laser)
