@@ -89,16 +89,9 @@
 	name = "Sorium"
 	id = "sorium"
 	result = "sorium"
-	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1, "stabilizing_agent" = 1)
+	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1)
 	result_amount = 4
 	mix_message = "The mixture pops and crackles before settling down."
-
-/datum/chemical_reaction/sorium_explosion
-	name = "Sorium Explosion"
-	id = "sorium_explosion"
-	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1)
-	result_amount = 1
-	mix_message = "The mixture explodes with a big bang."
 
 /datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
