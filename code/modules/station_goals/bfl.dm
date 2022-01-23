@@ -241,6 +241,8 @@
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 	var/last_user_ckey
+	var/lightamount_icon
+	var/ore_count = 0
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	var/response
@@ -265,6 +267,9 @@
 				return
 			var/turf/location = get_turf(src)
 			internal.empty_storage(location)
+			ore_count = 0
+			if(lightamount_icon)
+				overlays -= lightamount_icon
 
 
 /obj/machinery/bfl_receiver/crowbar_act(mob/user, obj/item/I)
@@ -277,15 +282,21 @@
 		receiver_activate()
 
 /obj/machinery/bfl_receiver/process()
-	overlays.Cut()
-	overlays += image('icons/obj/machines/BFL_Mission/Hole.dmi', icon_state = "Receiver_Light_[internal.contents.len]")
+	if(lightamount_icon)
+		overlays -= lightamount_icon
+	lightamount_icon = image('icons/obj/machines/BFL_Mission/Hole.dmi', icon_state = "Receiver_Light_[internal.contents.len]")
+	overlays += lightamount_icon
 	if (!(mining && state))
+		return
+	if (ore_count >= internal.storage_slots * 50)
 		return
 	switch(ore_type)
 		if(PLASMA)
 			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
+			ore_count++
 		if(SAND)
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
+			ore_count++
 
 /obj/machinery/bfl_receiver/Initialize()
 	. = ..()
@@ -302,6 +313,10 @@
 		ore_type = SAND
 	else
 		ore_type = NOTHING
+
+/obj/machinery/bfl_receiver/Destroy()
+	overlays.Cut()
+	return ..()
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	state = TRUE
@@ -339,7 +354,7 @@
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Pull"
 	max_integrity = 40
-	layer = ABOVE_OBJ_LAYER
+	layer = ABOVE_MOB_LAYER
 	density = 1
 
 	var/step_count = 0
