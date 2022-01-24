@@ -1360,6 +1360,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
 	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Give Taipan Hud"] = "?_src_=vars;give_taipan_hud=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 

@@ -404,7 +404,7 @@
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
-
+		free_taipan_role(job)
 		SSjobs.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
