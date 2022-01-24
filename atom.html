@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;atom - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>atom <aside>/<a href="atom.html">atom</a></aside><aside> inherits /<a href="datum.html">datum</a></aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/alternate_appearance.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;alternate_appearance.dm 70"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="atom.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="atom.html#var/chat_color">chat_color</a></th><td>Last color calculated for the the chatmessage overlays. Used for caching.</td></tr>
+            <tr><th><a href="atom.html#var/chat_color_name">chat_color_name</a></th><td>Last name used to calculate a color for the chatmessage overlays. Used for caching.</td></tr>
+            <tr><th><a href="atom.html#var/container_type">container_type</a></th><td>Chemistry.</td></tr>
+            <tr><th><a href="atom.html#var/dont_save">dont_save</a></th><td>what icon the mob uses for speechbubbles</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="atom.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="atom.html#proc/acid_act">acid_act</a></th><td>Respond to acid being used on our atom</td></tr>
+            <tr><th><a href="atom.html#proc/after_slip">after_slip</a></th><td>Base proc, intended to be overriden.</td></tr>
+            <tr><th><a href="atom.html#proc/contents_ui_distance">contents_ui_distance</a></th><td>public</td></tr>
+            <tr><th><a href="atom.html#proc/get_all_adjacent_turfs">get_all_adjacent_turfs</a></th><td>Proc which gets all adjacent turfs to <code>src</code>, including the turf that <code>src</code> is on.</td></tr>
+            <tr><th><a href="atom.html#proc/get_runechat_color">get_runechat_color</a></th><td>Proc to allow atoms to set their own runechat colour</td></tr>
+            <tr><th><a href="atom.html#proc/is_drainable">is_drainable</a></th><td>Is this atom drainable of reagents</td></tr>
+            <tr><th><a href="atom.html#proc/is_drawable">is_drawable</a></th><td>Can we draw from this atom with an injectable atom</td></tr>
+            <tr><th><a href="atom.html#proc/is_injectable">is_injectable</a></th><td>Is this atom injectable into other atoms</td></tr>
+            <tr><th><a href="atom.html#proc/is_open_container">is_open_container</a></th><td>Convenience proc to see if a container is open for chemistry handling</td></tr>
+            <tr><th><a href="atom.html#proc/is_refillable">is_refillable</a></th><td>Can this atoms reagents be refilled</td></tr>
+            <tr><th><a href="atom.html#proc/mech_melee_attack">mech_melee_attack</a></th><td>Handle melee attack by a mech</td></tr>
+            <tr><th><a href="atom.html#proc/persistent_load">persistent_load</a></th><td>Atom Persistent Loader</td></tr>
+            <tr><th><a href="atom.html#proc/persistent_save">persistent_save</a></th><td>Atom Persistent Saver</td></tr>
+            <tr><th><a href="atom.html#proc/rename_interactive">rename_interactive</a></th><td></td></tr>
+            <tr><th><a href="atom.html#proc/shuttleRotate">shuttleRotate</a></th><td>Base proc</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/chat_color"><aside class="declaration">var </aside>chat_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 56"/></a></h5>
+        <p>Last color calculated for the the chatmessage overlays. Used for caching.</p><h5 id="var/chat_color_name"><aside class="declaration">var </aside>chat_color_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 52"/></a></h5>
+        <p>Last name used to calculate a color for the chatmessage overlays. Used for caching.</p><h5 id="var/container_type"><aside class="declaration">var </aside>container_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 21"/></a></h5>
+        <p>Chemistry.</p><h5 id="var/dont_save"><aside class="declaration">var </aside>dont_save
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 18"/></a></h5>
+        <p>what icon the mob uses for speechbubbles</p><h2 id="proc">Proc Details</h2><h5 id="proc/acid_act"><aside class="declaration">proc </aside>acid_act<aside>(acidpwr, acid_volume) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L839">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 839"/></a></aside>
+        </h5>
+        <p>Respond to acid being used on our atom</p>
+<p>Default behaviour is to send COMSIG_ATOM_ACID_ACT and return</p><h5 id="proc/after_slip"><aside class="declaration">proc </aside>after_slip<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/H) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L443">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 443"/></a></aside>
+        </h5>
+        <p>Base proc, intended to be overriden.</p>
+<p>This should only be called from one place: inside the slippery component.
+Called after a human mob slips on this atom.</p>
+<p>If you want the person who slipped to have something special done to them, put it here.</p><h5 id="proc/contents_ui_distance"><aside class="declaration">proc </aside>contents_ui_distance<aside>(src_object, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/tgui/states.dm#L90">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 90"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Check the distance for a living mob.
+Really only used for checks outside the context of a mob.
+Otherwise, use shared_living_ui_distance().</p>
+<p>required src_object The object which owns the UI.
+required user mob The mob who opened/is using the UI.</p>
+<p>return UI_state The state of the UI.</p><h5 id="proc/get_all_adjacent_turfs"><aside class="declaration">proc </aside>get_all_adjacent_turfs<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/__HELPERS/unsorted.dm#L2029">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unsorted.dm 2029"/></a></aside>
+        </h5>
+        <p>Proc which gets all adjacent turfs to <code>src</code>, including the turf that <code>src</code> is on.</p>
+<p>This is similar to doing <code>for(var/turf/T in range(1, src))</code>. However it is slightly more performant.
+Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.</p><h5 id="proc/get_runechat_color"><aside class="declaration">proc </aside>get_runechat_color<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/datums/chatmessage.dm#L271">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 271"/></a></aside>
+        </h5>
+        <p>Proc to allow atoms to set their own runechat colour</p>
+<p>This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
+Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property</p><h5 id="proc/is_drainable"><aside class="declaration">proc </aside>is_drainable<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L261">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 261"/></a></aside>
+        </h5>
+        <p>Is this atom drainable of reagents</p><h5 id="proc/is_drawable"><aside class="declaration">proc </aside>is_drawable<aside>(/<a href="mob.html">mob</a>/user, allowmobs) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L253">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 253"/></a></aside>
+        </h5>
+        <p>Can we draw from this atom with an injectable atom</p><h5 id="proc/is_injectable"><aside class="declaration">proc </aside>is_injectable<aside>(/<a href="mob.html">mob</a>/user, allowmobs) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L249">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 249"/></a></aside>
+        </h5>
+        <p>Is this atom injectable into other atoms</p><h5 id="proc/is_open_container"><aside class="declaration">proc </aside>is_open_container<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L245">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 245"/></a></aside>
+        </h5>
+        <p>Convenience proc to see if a container is open for chemistry handling</p><h5 id="proc/is_refillable"><aside class="declaration">proc </aside>is_refillable<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L257">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 257"/></a></aside>
+        </h5>
+        <p>Can this atoms reagents be refilled</p><h5 id="proc/mech_melee_attack"><aside class="declaration">proc </aside>mech_melee_attack<aside>(/<a href="obj.html">obj</a>/<a href="obj/mecha.html">mecha</a>/M) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L198">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 198"/></a></aside>
+        </h5>
+        <p>Handle melee attack by a mech</p><h5 id="proc/persistent_load"><aside class="declaration">proc </aside>persistent_load<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/controllers/subsystem/persistent_data.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;persistent_data.dm 48"/></a></aside>
+        </h5>
+        <p>Atom Persistent Loader</p>
+<p>Overridden on every atom which needs to load persistent data</p><h5 id="proc/persistent_save"><aside class="declaration">proc </aside>persistent_save<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/controllers/subsystem/persistent_data.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;persistent_data.dm 56"/></a></aside>
+        </h5>
+        <p>Atom Persistent Saver</p>
+<p>Overridden on every atom which needs to save persistent data</p><h5 id="proc/rename_interactive"><aside class="declaration">proc </aside>rename_interactive<aside>(/<a href="mob.html">mob</a>/user, /<a href="obj.html">obj</a>/implement, use_prefix, actually_rename, prompt) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/game/atoms.dm#L978">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 978"/></a></aside>
+        </h5>
+        <ul>
+<li>
+<p>Call this when you want to present a renaming prompt to the user.</p>
+<p>It's a simple proc, but handles annoying edge cases such as forgetting to add a &quot;cancel&quot; button,
+or being able to rename stuff remotely.</p>
+<p>Arguments:</p>
+<ul>
+<li>user - the renamer.</li>
+<li>implement - the tool doing the renaming (usually, a pen).</li>
+<li>use_prefix - whether the new name should follow the format of &quot;thing - user-given label&quot; or
+if we allow to change the name completely arbitrarily.</li>
+<li>actually_rename - whether we want to really change the <code>src.name</code>, or if we want to do everything <em>except</em> that.</li>
+<li>prompt - a custom &quot;what do you want rename this thing to be?&quot; prompt shown in the inpit box.</li>
+</ul>
+<p>Returns: Either null if the renaming was aborted, or the user-provided sanitized string.</p>
+</li>
+</ul><h5 id="proc/shuttleRotate"><aside class="declaration">proc </aside>shuttleRotate<aside>(rotation, params) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/shuttle/shuttle_rotate.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;shuttle_rotate.dm 8"/></a></aside>
+        </h5>
+        <p>Base proc</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ss220-space/Paradise/tree/787b2ad39a8a64df791fb97054ed55da6eddd735">787b2ad</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

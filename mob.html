@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;mob - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>mob <aside>/<a href="mob.html">mob</a></aside><aside> inherits /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/_onclick/hud/alert.dm#L684">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;alert.dm 684"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="mob.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="mob.html#var/buckled">buckled</a></th><td>movable atoms buckled to this mob</td></tr>
+            <tr><th><a href="mob.html#var/buckling">buckling</a></th><td>movable atom we are buckled to</td></tr>
+            <tr><th><a href="mob.html#var/open_uis">open_uis</a></th><td>global</td></tr>
+            <tr><th><a href="mob.html#var/zone_selected">zone_selected</a></th><td>The zone this mob is currently targeting</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="mob.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="mob.html#proc/ForceContractDisease">ForceContractDisease</a></th><td>Forces the mob to contract a virus. If the mob can have viruses. Ignores clothing and other protection
+Returns TRUE if it succeeds. False if it doesn't</td></tr>
+            <tr><th><a href="mob.html#proc/Process_Spacemove">Process_Spacemove</a></th><td>Process_Spacemove
+Called by /client/Move()
+For moving in space
+Return 1 for movement 0 for none</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_nutrition">adjust_nutrition</a></th><td>Adjust the nutrition of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/buckle_mob">buckle_mob</a></th><td>Buckle to another mob</td></tr>
+            <tr><th><a href="mob.html#proc/can_buckle">can_buckle</a></th><td>can the mob be buckled to something by default?</td></tr>
+            <tr><th><a href="mob.html#proc/can_resist">can_resist</a></th><td>Can this mob resist (default FALSE)</td></tr>
+            <tr><th><a href="mob.html#proc/can_unbuckle">can_unbuckle</a></th><td>can the mob be unbuckled from something by default?</td></tr>
+            <tr><th><a href="mob.html#proc/create_chat_message">create_chat_message</a></th><td>Creates a message overlay at a defined location for a given speaker</td></tr>
+            <tr><th><a href="mob.html#proc/get_mob_buckling_height">get_mob_buckling_height</a></th><td>returns the height in pixel the mob should have when buckled to another mob.</td></tr>
+            <tr><th><a href="mob.html#proc/get_telepathic_targets">get_telepathic_targets</a></th><td>Returns an assoc list which contains the mobs in range and their &quot;visible&quot; name.
+Mobs out of view but in range will be listed as unknown. Else they will have their visible name</td></tr>
+            <tr><th><a href="mob.html#proc/post_buckle_mob">post_buckle_mob</a></th><td>Call back post buckle to a mob to offset your visual height</td></tr>
+            <tr><th><a href="mob.html#proc/post_unbuckle_mob">post_unbuckle_mob</a></th><td>Call back post unbuckle from a mob, (reset your visual height here)</td></tr>
+            <tr><th><a href="mob.html#proc/set_nutrition">set_nutrition</a></th><td>Force set the mob nutrition</td></tr>
+            <tr><th><a href="mob.html#proc/set_typing_indicator">set_typing_indicator</a></th><td>Toggles the floating chat bubble above a players head.</td></tr>
+            <tr><th><a href="mob.html#proc/shared_ui_interaction">shared_ui_interaction</a></th><td>public</td></tr>
+            <tr><th><a href="mob.html#proc/shuttleRotate">shuttleRotate</a></th><td>Turf rotate procs</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/buckled"><aside class="declaration">var </aside>buckled
+            <aside>&ndash; /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob_defines.dm#L78">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 78"/></a></h5>
+        <p>movable atoms buckled to this mob</p><h5 id="var/buckling"><aside class="declaration">var </aside>buckling
+            <aside>&ndash; /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob_defines.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 80"/></a></h5>
+        <p>movable atom we are buckled to</p><h5 id="var/open_uis"><aside class="declaration">var </aside>open_uis
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/tgui/external.dm#L118">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 118"/></a></h5>
+        <p>global</p>
+<p>Used to track UIs for a mob.</p><h5 id="var/zone_selected"><aside class="declaration">var </aside>zone_selected
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob_defines.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 13"/></a></h5>
+        <p>The zone this mob is currently targeting</p><h2 id="proc">Proc Details</h2><h5 id="proc/ForceContractDisease"><aside class="declaration">proc </aside>ForceContractDisease<aside>(/<a href="datum.html">datum</a>/disease/D) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/datums/diseases/_MobProcs.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;diseases&#x2F;_MobProcs.dm 137"/></a></aside>
+        </h5>
+        <p>Forces the mob to contract a virus. If the mob can have viruses. Ignores clothing and other protection
+Returns TRUE if it succeeds. False if it doesn't</p>
+<p>Arguments:</p>
+<ul>
+<li>D - the disease the mob will try to contract</li>
+</ul><h5 id="proc/Process_Spacemove">Process_Spacemove<aside>(movement_dir) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob_movement.dm#L307">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 307"/></a></aside>
+        </h5>
+        <p>Process_Spacemove
+Called by /client/Move()
+For moving in space
+Return 1 for movement 0 for none</p><h5 id="proc/adjust_nutrition"><aside class="declaration">proc </aside>adjust_nutrition<aside>(change) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1420">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1420"/></a></aside>
+        </h5>
+        <p>Adjust the nutrition of a mob</p><h5 id="proc/buckle_mob">buckle_mob<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M, force, check_loc) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1206">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1206"/></a></aside>
+        </h5>
+        <p>Buckle to another mob</p>
+<p>You can buckle on mobs if you're next to them since most are dense</p>
+<p>Turns you to face the other mob too</p><h5 id="proc/can_buckle"><aside class="declaration">proc </aside>can_buckle<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1240">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1240"/></a></aside>
+        </h5>
+        <p>can the mob be buckled to something by default?</p><h5 id="proc/can_resist"><aside class="declaration">proc </aside>can_resist<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1343">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1343"/></a></aside>
+        </h5>
+        <p>Can this mob resist (default FALSE)</p><h5 id="proc/can_unbuckle"><aside class="declaration">proc </aside>can_unbuckle<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1244">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1244"/></a></aside>
+        </h5>
+        <p>can the mob be unbuckled from something by default?</p><h5 id="proc/create_chat_message"><aside class="declaration">proc </aside>create_chat_message<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/speaker, raw_message, italics, size) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/datums/chatmessage.dm#L187">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 187"/></a></aside>
+        </h5>
+        <p>Creates a message overlay at a defined location for a given speaker</p>
+<p>Arguments:</p>
+<ul>
+<li>speaker - The atom who is saying this message</li>
+<li>raw_message - The text content of the message</li>
+<li>italics - Vacuum and other things</li>
+<li>size - Size of the message</li>
+</ul><h5 id="proc/get_mob_buckling_height"><aside class="declaration">proc </aside>get_mob_buckling_height<aside>(/<a href="mob.html">mob</a>/seat) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1232">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1232"/></a></aside>
+        </h5>
+        <p>returns the height in pixel the mob should have when buckled to another mob.</p><h5 id="proc/get_telepathic_targets"><aside class="declaration">proc </aside>get_telepathic_targets<aside>() 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L492">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 492"/></a></aside>
+        </h5>
+        <p>Returns an assoc list which contains the mobs in range and their &quot;visible&quot; name.
+Mobs out of view but in range will be listed as unknown. Else they will have their visible name</p><h5 id="proc/post_buckle_mob">post_buckle_mob<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1220">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1220"/></a></aside>
+        </h5>
+        <p>Call back post buckle to a mob to offset your visual height</p><h5 id="proc/post_unbuckle_mob">post_unbuckle_mob<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1227">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1227"/></a></aside>
+        </h5>
+        <p>Call back post unbuckle from a mob, (reset your visual height here)</p><h5 id="proc/set_nutrition"><aside class="declaration">proc </aside>set_nutrition<aside>(change) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/mob.dm#L1424">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1424"/></a></aside>
+        </h5>
+        <p>Force set the mob nutrition</p><h5 id="proc/set_typing_indicator"><aside class="declaration">proc </aside>set_typing_indicator<aside>(state, me) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/mob/typing_indicator.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 17"/></a></aside>
+        </h5>
+        <p>Toggles the floating chat bubble above a players head.</p>
+<p>Arguments:</p>
+<ul>
+<li>state - Should a chat bubble be shown or hidden</li>
+<li>me - Is the bubble being caused by the 'me' emote command</li>
+</ul><h5 id="proc/shared_ui_interaction"><aside class="declaration">proc </aside>shared_ui_interaction<aside>(src_object) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/tgui/states.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 59"/></a></aside>
+        </h5>
+        <p>public</p>
+<p>Standard interaction/sanity checks. Different mob types may have overrides.</p>
+<p>return UI_state The state of the UI.</p><h5 id="proc/shuttleRotate"><aside class="parent"><a title="/atom" href="atom.html#proc/shuttleRotate">&uarr;</a></aside>shuttleRotate<aside>(rotation, params) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/shuttle/shuttle_rotate.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;shuttle_rotate.dm 32"/></a></aside>
+        </h5>
+        <p>Turf rotate procs</p>
+<p>Mob rotate procs</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ss220-space/Paradise/tree/787b2ad39a8a64df791fb97054ed55da6eddd735">787b2ad</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

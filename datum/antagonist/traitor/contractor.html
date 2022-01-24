@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;antagonist&#x2F;traitor&#x2F;contractor - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Contractor antagonist datum <aside>/<a href="datum.html">datum</a>/<a href="datum/antagonist/traitor.html">antagonist/traitor</a>/<a href="datum/antagonist/traitor/contractor.html">contractor</a></aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/antagonists/traitor/contractor/datums/contractor.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;contractor.dm 12"/></a></h1>
+
+<p>A variant of the Traitor, Contractors rely on kidnapping crew members to earn TC.</p>
+<p>Contractors are supplied with some unique items
+and three random low cost contraband items to help kickstart their contracts.
+A Traitor may become a Contractor if given the chance (random).
+They will forfeit all their initial TC and receive the above items.
+The opportunity to become a Contractor goes away after some time or if the traitor spends any initial TC.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/antagonist/traitor/contractor.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/antagonist/traitor/contractor.html#var/contractor_uplink">contractor_uplink</a></th><td>The associated contractor uplink. Only present if the offer was accepted.</td></tr>
+            <tr><th><a href="datum/antagonist/traitor/contractor.html#var/offer_deadline">offer_deadline</a></th><td>world.time at which the offer will expire.</td></tr>
+            <tr><th><a href="datum/antagonist/traitor/contractor.html#var/offer_duration">offer_duration</a></th><td>How long a traitor's chance to become a contractor lasts before going away. In deciseconds.</td></tr>
+            <tr><th><a href="datum/antagonist/traitor/contractor.html#var/tc_cost">tc_cost</a></th><td>How many telecrystals a traitor must forfeit to become a contractor.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/antagonist/traitor/contractor.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/antagonist/traitor/contractor.html#proc/become_contractor">become_contractor</a></th><td>Accepts the offer to be a contractor if possible.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/contractor_uplink"><aside class="declaration">var </aside>contractor_uplink
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item/contractor_uplink.html">item/contractor_uplink</a></aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/antagonists/traitor/contractor/datums/contractor.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;contractor.dm 21"/></a></h5>
+        <p>The associated contractor uplink. Only present if the offer was accepted.</p><h5 id="var/offer_deadline"><aside class="declaration">var </aside>offer_deadline
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/antagonists/traitor/contractor/datums/contractor.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;contractor.dm 23"/></a></h5>
+        <p>world.time at which the offer will expire.</p><h5 id="var/offer_duration"><aside class="declaration">var </aside>offer_duration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/antagonists/traitor/contractor/datums/contractor.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;contractor.dm 18"/></a></h5>
+        <p>How long a traitor's chance to become a contractor lasts before going away. In deciseconds.</p><h5 id="var/tc_cost"><aside class="declaration">var </aside>tc_cost
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/antagonists/traitor/contractor/datums/contractor.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;contractor.dm 16"/></a></h5>
+        <p>How many telecrystals a traitor must forfeit to become a contractor.</p><h2 id="proc">Proc Details</h2><h5 id="proc/become_contractor"><aside class="declaration">proc </aside>become_contractor<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/M, /<a href="obj.html">obj</a>/<a href="obj/item/uplink.html">item/uplink</a>/U) 
+        
+    
+            <a href="https://github.com/ss220-space/Paradise/blob/787b2ad39a8a64df791fb97054ed55da6eddd735/code/modules/antagonists/traitor/contractor/datums/contractor.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;traitor&#x2F;contractor&#x2F;datums&#x2F;contractor.dm 55"/></a></aside>
+        </h5>
+        <p>Accepts the offer to be a contractor if possible.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                <a class="white-text" href="https://github.com/ss220-space/Paradise/tree/787b2ad39a8a64df791fb97054ed55da6eddd735">787b2ad</a>
+                on branch master &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
