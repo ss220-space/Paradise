@@ -242,8 +242,8 @@
 	var/ore_type = FALSE
 	var/last_user_ckey
 	var/ore_count = 0
-	var/last_overlay_change
-	var/image/receiver_light
+	var/last_overlay_change = 0
+	var/image/receiver_light = null
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	var/response
