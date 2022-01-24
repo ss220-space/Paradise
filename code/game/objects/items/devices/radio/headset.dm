@@ -116,6 +116,8 @@
 	item_state = "taipan_headset"
 	ks1type = /obj/item/encryptionkey/syndteam
 	ks2type = /obj/item/encryptionkey/syndicate/taipan
+	freerange = TRUE
+	freqlock = FALSE
 
 /obj/item/radio/headset/syndicate/taipan
 	name = "syndicate taipan headset"
@@ -129,6 +131,8 @@
 
 /obj/item/radio/headset/syndicate/taipan/tcomms_agent
 	ks1type = /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
+	freerange = TRUE
+	freqlock = FALSE
 
 /obj/item/radio/headset/syndicate/taipan/New()
 	. = ..()

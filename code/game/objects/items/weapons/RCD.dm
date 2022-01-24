@@ -395,8 +395,8 @@
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(wall_type)
+				var/turf/turf_to_change = A
+				turf_to_change.ChangeTurf(wall_type)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
@@ -587,8 +587,8 @@
 		else
 			new window_type(A)
 
-		var/turf/AT = A
-		AT.ChangeTurf(floor_type) // Platings go under windows.
+		var/turf/turf_to_change = A
+		turf_to_change.ChangeTurf(floor_type) // Platings go under windows.
 		return TRUE
 	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)

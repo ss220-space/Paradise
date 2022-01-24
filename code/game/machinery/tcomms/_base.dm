@@ -309,14 +309,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
 				radios += R
 
-		// Add syndie radios for intercepts if its a regular department frequency
+/*		// Add syndie radios for intercepts if its a regular department frequency
 		for(var/antag_freq in SSradio.ANTAG_FREQS)
 			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
 			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
 				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
 					// Only add if it wasnt there already
 					radios |= R
-
+*/
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
