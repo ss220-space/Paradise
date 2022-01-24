@@ -1,5 +1,5 @@
 /obj/structure/blob/node
-	name = "blob node"
+	name = "Узел Блоба"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 200

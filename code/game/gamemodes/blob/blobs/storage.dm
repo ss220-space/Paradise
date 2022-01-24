@@ -1,5 +1,5 @@
 /obj/structure/blob/storage
-	name = "storage blob"
+	name = "Хранилище Блоба"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
 	max_integrity = 30
