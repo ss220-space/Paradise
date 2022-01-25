@@ -310,7 +310,6 @@
 	//it just works ¯\_(ツ)_/¯
 	internal = new internal_type(src)
 	receiver_light = new (loc)
-//	receiver_light.loc = loc
 	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
 
 	var/turf/turf_under = get_turf(src)
