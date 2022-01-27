@@ -105,6 +105,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
 
+	//Clockwork enchantment
+	var/enchanted = FALSE
+	var/enchant_type = null
+	var/enchants = list()
+
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)

@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/proc/equip_clocker(mob/living/carbon/human/H, metal = TRUE)
 	if(!istype(H))
 		return
-	. += clock_give_item(/obj/item/melee/clockslab, H)
+	. += clock_give_item(/obj/item/clockwork/clockslab, H)
 	if(metal)
 		. += clock_give_item(/obj/item/stack/sheet/brass/ten, H)
 	to_chat(H, "<span class='clock'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")

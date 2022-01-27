@@ -26,7 +26,7 @@
 	var/death_sound = 'sound/items/bikehorn.ogg'
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/melee/clockslab) && isclocker(user))
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -96,7 +96,7 @@
 	return ..()
 
 /obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/melee/clockslab) && isclocker(user))
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		to_chat(user, "<span class='danger'>You try to unsecure [src], but it's secures himself back tightly!</span>")
 		return
 	return ..()
@@ -182,8 +182,8 @@
 				break
 			I++
 			sleep(1)
-			if(I > convert_time*0.7)
-				L.adjustBruteLoss(25)
+			if(I > convert_time*0.8)
+				L.adjustBruteLoss(30)
 			else
 				L.adjustBruteLoss(5)
 		if(get_turf(L) == get_turf(src) && src.anchored && has_clocker)

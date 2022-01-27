@@ -4,6 +4,10 @@
 //Clockwork Magic
 /// How many on-hand spells
 #define CLOCK_MAX_HANDSPELLS 2
+#define NO_SPELL 0
+// Clockslab enchant type
+#define STUN_SPELL 1
+#define EMP_SPELL 2
 
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400

@@ -231,7 +231,7 @@
 	. = _memory_edit_header("clockwork")
 	if(src in SSticker.mode.clockwork_cult)
 		. += "<a href='?src=[UID()];clock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
-		. += "<br>Give <a href='?src=[UID()];clock=clockslab'>clockslab</a>."
+		. += "<br>Give <a href='?src=[UID()];clock=clockslab'>clockslab</a>|<a href='?src=[UID()];clock=brassmetal'>brassmetal</a>."
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];clock=clocker'>clocker</a>"
 
@@ -956,9 +956,14 @@
 					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
 			if("clockslab")
 				var/mob/living/carbon/human/H = current
-				if(!SSticker.mode.clock_give_item(/obj/item/melee/clockslab, H))
+				if(!SSticker.mode.clock_give_item(/obj/item/clockwork/clockslab, H))
 					to_chat(usr, "<span class='warning'>Spawning Clock slab failed!</span>")
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a clock slab")
+			if("brassmetal")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.clock_give_item(/obj/item/stack/sheet/brass/ten, H))
+					to_chat(usr, "<span class='warning'>Spawning brass metal failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 brass metal sheets")
 
 	else if(href_list["wizard"])
 
