@@ -454,6 +454,12 @@
 			return pda.id.rank
 		else
 			return pda.ownrank
+	var/obj/item/storage/wallet/wallet = get_idcard()
+	if(istype(wallet))
+		if(wallet.front_id)
+			return wallet.front_id.rank ? wallet.front_id.rank : if_no_job
+		else
+			return if_no_id
 	else
 		var/obj/item/card/id/id = get_idcard()
 		if(id)
@@ -465,6 +471,7 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
 		if(pda.id && istype(pda.id, /obj/item/card/id))
@@ -473,6 +480,9 @@
 			. = pda.ownjob
 	else if(istype(id))
 		. = id.assignment
+	else if(istype(wallet))
+		if(wallet.front_id && istype(wallet.front_id, /obj/item/card/id))
+			. = wallet.front_id.assignment
 	else
 		return if_no_id
 	if(!.)
@@ -484,6 +494,7 @@
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	if(istype(pda))
 		if(pda.id)
 			. = pda.id.registered_name
@@ -491,6 +502,9 @@
 			. = pda.owner
 	else if(istype(id))
 		. = id.registered_name
+	else if(istype(wallet))
+		if(wallet.front_id && istype(wallet.front_id, /obj/item/card/id))
+			. = wallet.front_id.registered_name
 	else
 		return if_no_id
 	return
@@ -521,8 +535,10 @@
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	if(istype(pda))		. = pda.owner
 	else if(istype(id))	. = id.registered_name
+	else if(istype(wallet)) . = wallet.front_id.registered_name
 	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 
@@ -530,15 +546,17 @@
 /mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/pda/pda = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
-
+	if(istype(wallet))
+		if(wallet.front_id && istype(wallet.front_id, /obj/item/card/id))
+			id = wallet.front_id
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
 			id = get_active_hand()
 		else if(istype(get_inactive_hand(), /obj/item/card/id))
 			id = get_inactive_hand()
-
 	if(istype(id))
 		return id
 
