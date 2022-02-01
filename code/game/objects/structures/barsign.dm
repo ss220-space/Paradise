@@ -400,6 +400,11 @@
 	icon = "papacafe"
 	desc = "Respect your Space Daddy!"
 
+/datum/barsign/wycctide
+	name = "SS220 Wycctide"
+	icon = "wycctide"
+	desc = "Oh no, it's coming!"
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
