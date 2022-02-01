@@ -62,6 +62,8 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	if(is_taipan(z))
+		req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()

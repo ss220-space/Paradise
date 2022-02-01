@@ -431,10 +431,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						if(cost)
 							data_storage.techLevels[tech.id] = tech.level
 							data_storage.cash += cost
-							for(var/mob/M in GLOB.player_list)
-								if(M.mind)
-									for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
-										objective.unit_completed(cost)
 							msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
 					// Sell designs
