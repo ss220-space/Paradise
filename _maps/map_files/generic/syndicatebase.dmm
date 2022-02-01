@@ -7814,6 +7814,17 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
+"haz" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 7;
+	height = 5;
+	id = "sst_taipan";
+	name = "Taipan";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "hcJ" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -21112,6 +21123,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
+"rCY" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sit_taipan";
+	name = "Taipan";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "rDd" = (
 /obj/structure/chair/wheelchair,
 /turf/simulated/floor/plating,
@@ -71885,7 +71907,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+haz
 mEC
 mEC
 mEC
@@ -74198,7 +74220,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rCY
 mEC
 mEC
 mEC

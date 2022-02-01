@@ -297,6 +297,12 @@ obj/item/circuitboard/syndicatesupplycomp/public
 	build_path = /obj/machinery/computer/syndie_supplycomp/public
 	origin_tech = "programming=3;syndicate=3"
 
+/obj/item/circuitboard/syndicate_teleporter
+	name = "Circuit board (Syndicate Redspace Teleporter)"
+	icon_state = "syndicate_circuit"
+	build_path = /obj/machinery/computer/syndicate_depot/teleporter
+	origin_tech = "programming=6;bluespace=5;syndicate=8"
+
 /obj/item/circuitboard/operating
 	name = "Circuit board (Operating Computer)"
 	build_path = /obj/machinery/computer/operating

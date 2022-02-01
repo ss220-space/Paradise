@@ -387,10 +387,13 @@
 // Syndicate teleporter control, used to manage incoming/outgoing teleports
 
 /obj/machinery/computer/syndicate_depot/teleporter
-	name = "syndicate teleporter console"
+	name = "Syndicate Redspace Teleporter Console"
+	desc = "This suspicious high-tech machine creates a Bi-Directional teleporter that is capable to ignore any bluespace interference!"
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
 	window_height = 320
+	circuit = /obj/item/circuitboard/syndicate_teleporter
+	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
 	var/obj/effect/portal/redspace/myportal
 	var/obj/effect/portal/redspace/myportal2
@@ -550,7 +553,6 @@
 /obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
 	portal_enabled = !portal_enabled
 	update_portal()
-
 
 /obj/machinery/computer/syndicate_depot/aiterminal
 	name = "syndicate ai terminal"

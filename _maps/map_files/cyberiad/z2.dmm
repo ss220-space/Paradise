@@ -707,7 +707,7 @@
 /area/centcom/zone1)
 "aOB" = (
 /obj/structure/rack/holorack,
-/obj/item/autoimplanter,
+/obj/item/autoimplanter/old,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
