@@ -405,6 +405,11 @@
 	icon = "wycctide"
 	desc = "Oh no, it's coming!"
 
+/datum/barsign/shitcur
+	name = "SS220 Shitcur"
+	icon = "shitcur"
+	desc = "Innocence proves nothing."
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
