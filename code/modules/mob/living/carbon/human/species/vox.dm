@@ -19,6 +19,8 @@
 
 	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
 
+	default_genes = list(DWARF)
+
 	breathid = "n2"
 
 	eyes = "vox_eyes_s"
@@ -88,6 +90,12 @@
 		"is deeply inhaling oxygen!")
 
 	speciesbox = /obj/item/storage/box/survival_vox
+
+/datum/species/vox/handle_dna(mob/living/carbon/human/H, remove)
+	..()
+	H.dna.SetSEState(GLOB.smallsizeblock, !remove, 1)
+	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.smallsizeblock)
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
