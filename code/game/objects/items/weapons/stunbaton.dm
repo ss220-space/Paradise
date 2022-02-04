@@ -11,11 +11,11 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	var/staminaforce = 25
+	var/staminaforce = 20
 	var/stunforce = 2
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/cell = null
-	var/hitcost = 400
+	var/hitcost = 500
 	var/throw_hit_chance = 50
 
 /obj/item/melee/baton/suicide_act(mob/user)
@@ -232,7 +232,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	staminaforce = 20
+	staminaforce = 25
 	stunforce = 1
 	hitcost = 500
 	throw_hit_chance = 50
