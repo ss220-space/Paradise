@@ -47,7 +47,7 @@
 
 	user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
 	var/distance = get_dist(H, user)
-	if (distance <= 1) //Melee glare
+	if (distance <= 2)
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
 
