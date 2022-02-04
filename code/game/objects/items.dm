@@ -106,9 +106,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/tip_timer = 0
 
 	//Clockwork enchantment
-	var/enchanted = FALSE
-	var/enchant_type = null
-	var/enchants = list()
+	var/enchanted = FALSE // Is it enchanted?
+	var/enchant_type = null // What's the type on enchantment on it?
+	var/enchants = list() // List(datum)
 
 
 /obj/item/New()

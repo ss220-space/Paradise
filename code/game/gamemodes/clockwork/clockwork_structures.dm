@@ -79,12 +79,12 @@
 					new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 					if(ishuman(L))
-						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
+						L.heal_overall_damage(2, 2, TRUE, FALSE, TRUE)
 
 					else if(isshade(L) || isconstruct(L))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)
-							M.adjustHealth(-1)
+							M.adjustHealth(-2)
 
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1
@@ -187,6 +187,9 @@
 			else
 				L.adjustBruteLoss(5)
 		if(get_turf(L) == get_turf(src) && src.anchored && has_clocker)
+			if((ishuman(L) || isbrain(L)) && L.mind)
+				var/obj/item/mmi/robotic_brain/clockwork/cube = new /obj/item/mmi/robotic_brain/clockwork(get_turf(src))
+				cube.transfer_personality(L)
 			L.gib()
 			adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 

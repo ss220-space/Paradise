@@ -66,18 +66,14 @@
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
 
-/obj/effect/clockwork/overlay/floor/bloodcult //this is used by BLOOD CULT, it shouldn't use such a path...
-	icon_state = "cult"
-
-
 //The base clockwork item. Can have an alternate desc and will show up in the list of clockwork objects.
 /obj/item/clockwork
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 //Shards of Alloy, suitable only as a source of power for a replica fabricator.
 /obj/item/clockwork/alloy_shards
-	name = "replicant alloy shards"
-	desc = "Broken shards of some oddly malleable metal. They occasionally move and seem to glow."
+	name = "replicant alloy shard"
+	desc = "A broken shard of some oddly malleable metal. It occasionally moves and seems to glow."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "alloy_shards"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -88,20 +84,14 @@
 /obj/item/clockwork/alloy_shards/Initialize()
 	. = ..()
 	if(randomsinglesprite)
-		replace_name_desc()
 		icon_state = "[icon_state][rand(1, randomspritemax)]"
 		pixel_x = rand(-sprite_shift, sprite_shift)
 		pixel_y = rand(-sprite_shift, sprite_shift)
 
-/obj/item/clockwork/alloy_shards/proc/replace_name_desc()
-	name = "replicant alloy shard"
-	desc = "A broken shard of some oddly malleable metal. It occasionally moves and seems to glow."
-
-/obj/item/clockwork/alloy_shards/clockgolem_remains
+/obj/item/clockwork/clockgolem_remains
 	name = "clockwork golem scrap"
 	desc = "A pile of scrap metal. It seems damaged beyond repair."
 	icon_state = "clockgolem_dead"
-	sprite_shift = 0
 
 /obj/item/clockwork/alloy_shards/large
 	w_class = WEIGHT_CLASS_TINY
@@ -116,18 +106,13 @@
 	sprite_shift = 10
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit
+	name = "gear bit"
+	desc = "A broken chunk of a gear. You want it."
 	randomspritemax = 4
 	icon_state = "gear_bit"
 	sprite_shift = 12
 
-/obj/item/clockwork/alloy_shards/medium/gear_bit/replace_name_desc()
-	name = "gear bit"
-	desc = "A broken chunk of a gear. You want it."
-
 /obj/item/clockwork/alloy_shards/medium/gear_bit/large //gives more power
-
-/obj/item/clockwork/alloy_shards/medium/gear_bit/large/replace_name_desc()
-	..()
 	name = "complex gear bit"
 
 /obj/item/clockwork/alloy_shards/small
@@ -164,21 +149,3 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "fallen_armor"
 	w_class = WEIGHT_CLASS_NORMAL
-
-//Ratvarian spear
-/obj/item/clockwork/weapon/ratvarian_spear
-	name = "ratvarian spear"
-	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
-	icon = 'icons/obj/clockwork_objects.dmi'
-	icon_state = "ratvarian_spear"
-	item_state = "ratvarian_spear"
-	force = 15 //Extra damage is dealt to targets in attack()
-	throwforce = 25
-	armour_penetration = 10
-	sharp = TRUE
-	embed_chance = 70
-	embedded_ignore_throwspeed_threshold = TRUE
-	attack_verb = list("stabbed", "poked", "slashed")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	w_class = WEIGHT_CLASS_BULKY
-	var/bonus_burn = 5

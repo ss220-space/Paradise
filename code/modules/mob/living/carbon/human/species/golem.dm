@@ -736,4 +736,5 @@
 	H.visible_message("<span class='danger'>[H] crumbles into cogs and gears! Then leftovers suddenly dusts!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
+	new /obj/item/clockwork/clockgolem_remains(get_turf(H))
 	qdel(H) // One-try only

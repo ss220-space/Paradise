@@ -261,6 +261,11 @@
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override
 
+			if(istype(M, /obj/item/mmi/robotic_brain/clockwork))
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/ratvar
+
 			if(!aisync)
 				lawsync = FALSE
 
@@ -287,6 +292,11 @@
 				O.make_laws()
 
 			M.brainmob.mind.transfer_to(O)
+
+			if(istype(M, /obj/item/mmi/robotic_brain/clockwork))
+				O.SetEmagged(TRUE)
+				if(!isclocker(O))
+					SSticker.mode.add_clocker(O.mind)
 
 			if(O.mind && O.mind.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")

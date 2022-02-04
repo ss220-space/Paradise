@@ -20,6 +20,7 @@
 	var/enchantment = NO_SPELL
 	var/req_amount = 0
 	var/time = 10
+	var/overlay = null
 	var/spell_action = FALSE // If we item needs an action button
 
 /datum/spell_enchant/New(name, enchantment, req_amount = 0, time = 10, spell_action = FALSE)
@@ -39,6 +40,9 @@
 	if(I)
 		can_enchanted = length(I.enchants)
 	if(can_enchanted) // it just works
+		if(I.enchanted == CASTING_SPELL)
+			to_chat(owner, "<span class='warning'> You can't enchant [I] right now while spell is working!</span>")
+			return
 		if(I.enchanted)
 			to_chat(owner, "<span class='clockitalic'>There is already prepared spell in [I]! If you choose another spell it will overwrite old one!</span>")
 		var/entered_spell_name
@@ -71,6 +75,7 @@
 			I.enchanted = TRUE
 			if(ES.spell_action)
 				new /datum/action/item_action/activate/once(I)
+			I.update_icon()
 			to_chat(owner, "<span class='clock'>You sealed the power in [I], you have prepared a [ES.name] invocation!</span>")
 		else
 			adjust_clockwork_power(ES.req_amount)

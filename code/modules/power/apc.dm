@@ -576,6 +576,11 @@
 			to_chat(user, "<span class='warning'>This APC already has a cog!</span>")
 			return
 		if(!opened)
+			playsound(src, 'sound/items/crowbar.ogg', 50, TRUE)
+			user.visible_message("[user] starts slicing [src]'s cover lock.", \
+			"<span class='notice'>You start slicing [src]'s cover lock apart with [W].</span>")
+			if(!do_after(user, 40, target = src))
+				return
 			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
 			"<span class='clock'>You slice [src]'s cover lock apart with [W], and the cover swings open.</span>")
 			opened = 1
