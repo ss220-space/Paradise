@@ -210,11 +210,10 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
-	holder.icon_state = "hudunknown"
-	if(wear_id)
+	if(wear_id && !(istype(wear_id, /obj/item/storage)) || (locate(/obj/item/card/id) in wear_id))
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
-		if(istype(wear_id, /obj/item/storage) && !(locate(/obj/item/card/id) in wear_id.contents))
-			holder.icon_state = "hudunknown"
+	else
+		holder.icon_state = "hudunknown"
 	sec_hud_set_security_status()
 
 /mob/living/carbon/human/proc/sec_hud_set_implants()

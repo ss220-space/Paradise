@@ -4,7 +4,7 @@
 	storage_slots = 10
 	icon = 'icons/obj/wallets.dmi'
 	icon_state = "brown_wallet"
-	item_state = null
+	item_state = "wallet"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	can_hold = list(
@@ -30,18 +30,15 @@
 	slot_flags = SLOT_ID
 
 	var/obj/item/card/id/front_id = null
-	var/obj/item/storage/wallet/walletid_icon_state = null
-	var/obj/item/storage/wallet/wallet = null
+	var/image/front_id_overlay = null
 
 /obj/item/storage/wallet/proc/id_check()
 	front_id = (locate(/obj/item/card/id) in contents)
-	if (front_id != null )
-		item_state = front_id.item_state
-		name = "[item_color] leather wallet with [front_id] on the front"
-		return TRUE
-	front_id = null
-	name = "[item_color] leather wallet"
-	return FALSE
+	if(!front_id)
+		name = "[item_color] leather wallet"
+		return FALSE
+	name = "[item_color] leather wallet with [front_id] on the front"
+	return TRUE
 
 
 /obj/item/storage/wallet/remove_from_storage(obj/item/W as obj, atom/new_location)
@@ -63,20 +60,27 @@
 		update_icon()
 
 /obj/item/storage/wallet/update_icon()
-	overlays -= image('icons/obj/wallets.dmi', walletid_icon_state)
+	overlays -= front_id_overlay
+
 	if(!front_id)
+		front_id_overlay = null
 		return
-	walletid_icon_state = front_id.icon_state
-	if (copytext(walletid_icon_state,1,4) == "ERT")
-		walletid_icon_state = "ERT"
-//		log_debug("walletid_icon_state:[walletid_icon_state], [copytext(walletid_icon_state,1,3)]")
-	else if(!walletid_icon_state in icon_states('icons/obj/wallets.dmi'))
-		walletid_icon_state = "id"
-	overlays += image('icons/obj/wallets.dmi', walletid_icon_state)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.wear_id == src)
-			H.sec_hud_set_ID()
+
+	var/front_id_icon_state_holder = front_id.icon_state
+	if (copytext(front_id_icon_state_holder,1,4) == "ERT")
+		front_id_icon_state_holder = "ERT"
+	else if(!front_id_icon_state_holder in icon_states(src.icon))
+		front_id_icon_state_holder = "id"
+
+	front_id_overlay = image('icons/obj/wallets.dmi', front_id_icon_state_holder)
+	overlays += front_id_overlay
+
+
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/H = loc
+	if(H.wear_id == src)
+		H.sec_hud_set_ID()
 
 /obj/item/storage/wallet/GetID()
 	return front_id
@@ -121,7 +125,7 @@
 	desc = "A cheap wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
 	icon = 'icons/obj/wallets.dmi'
-	item_state = null
+	item_state = "wallet"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	can_hold = list(
@@ -146,9 +150,6 @@
 		/obj/item/stamp)
 	slot_flags = SLOT_ID
 
-	front_id = null
-	walletid_icon_state = null
-	wallet = null
 
 
 /obj/item/storage/wallet/color/New()
@@ -165,8 +166,6 @@
 	desc = "[item_color] wallet made from... leather?"
 	icon_state = "[item_color]_wallet"
 
-///obj/item/storage/wallet/color/update_icon()
-//	update_icon()
 
 /obj/item/storage/wallet/color/remove_from_storage(obj/item/W as obj, atom/new_location)
 	. = ..(W, new_location)
