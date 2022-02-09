@@ -155,15 +155,15 @@
 		can_move = FALSE
 		switch(user.bodytemperature)
 			if(300 to INFINITY)
-				spawn(10) can_move = TRUE
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1 SECONDS)
 			if(295 to 300)
-				spawn(13) can_move = TRUE
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.3 SECONDS)
 			if(280 to 295)
-				spawn(16) can_move = TRUE
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.6 SECONDS)
 			if(260 to 280)
-				spawn(20) can_move = TRUE
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2 SECONDS)
 			else
-				spawn(25) can_move = TRUE
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2.5 SECONDS)
 		step(src, direction)
 	return
 
