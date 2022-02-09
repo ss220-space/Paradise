@@ -32,9 +32,9 @@
 		return
 	if(!check_sprite(target))
 		return
-	if(target.alpha != 255)
+	if(target.alpha < 255)
 		return
-	if(target.invisibility != 0)
+	if(!target.invisibility)
 		return
 	if(!active_dummy)
 		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
