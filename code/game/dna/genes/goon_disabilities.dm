@@ -174,50 +174,50 @@
 
 /datum/dna/gene/disability/speech/swedish/OnSay(mob/M, message)
 	// svedish
-	message = replacetextEx(message,"Я",pick("ЙА","Я"))
-	message = replacetextEx(message,"я",pick("йа","я"))
+	message = replacetextEx_char(message,"Я",pick("ЙА","Я"))
+	message = replacetextEx_char(message,"я",pick("йа","я"))
 
-	message = replacetextEx(message,"И",pick("ЙИ","ЬИ","И"))
-	message = replacetextEx(message,"и",pick("йи","ьи","и"))
+	message = replacetextEx_char(message,"И",pick("ЙИ","ЬИ","И"))
+	message = replacetextEx_char(message,"и",pick("йи","ьи","и"))
 
-	message = replacetextEx(message,"Ю",pick("ЙУ","ЬЮ","ЙЮ","Ю"))
-	message = replacetextEx(message,"ю",pick("йу","ью",,"йю","ю"))
+	message = replacetextEx_char(message,"Ю",pick("ЙУ","ЬЮ","ЙЮ","Ю"))
+	message = replacetextEx_char(message,"ю",pick("йу","ью",,"йю","ю"))
 
-	message = replacetextEx(message,"Е",pick("ЙЕ","ЙЭ","Е","Э"))
-	message = replacetextEx(message,"е",pick("йе","йэ","е","э"))
+	message = replacetextEx_char(message,"Е",pick("ЙЕ","ЙЭ","Е","Э"))
+	message = replacetextEx_char(message,"е",pick("йе","йэ","е","э"))
 
-	message = replacetextEx(message,"Э",pick("ЙЭ","Э"))
-	message = replacetextEx(message,"э",pick("йэ","э"))
+	message = replacetextEx_char(message,"Э",pick("ЙЭ","Э"))
+	message = replacetextEx_char(message,"э",pick("йэ","э"))
 
-	message = replacetextEx(message,"В",pick("Ф","В"))
-	message = replacetextEx(message,"в",pick("ф","в"))
+	message = replacetextEx_char(message,"В",pick("Ф","В"))
+	message = replacetextEx_char(message,"в",pick("ф","в"))
 
-	message = replacetextEx(message,"Т",pick("Д","Т"))
-	message = replacetextEx(message,"т",pick("д","т"))
+	message = replacetextEx_char(message,"Т",pick("Д","Т"))
+	message = replacetextEx_char(message,"т",pick("д","т"))
 
-	message = replacetextEx(message,"Д",pick("Д","Т"))
-	message = replacetextEx(message,"д",pick("д","т"))
+	message = replacetextEx_char(message,"Д",pick("Д","Т"))
+	message = replacetextEx_char(message,"д",pick("д","т"))
 
-	message = replacetextEx(message,"З",pick("Ж","З"))
-	message = replacetextEx(message,"з",pick("ж","з"))
+	message = replacetextEx_char(message,"З",pick("Ж","З"))
+	message = replacetextEx_char(message,"з",pick("ж","з"))
 
-	message = replacetextEx(message,"С",pick("ШЬ","ЩЬ","ЖЬ","С"))
-	message = replacetextEx(message,"с",pick("шь","щь","жь","с"))
+	message = replacetextEx_char(message,"С",pick("ШЬ","ЩЬ","ЖЬ","С"))
+	message = replacetextEx_char(message,"с",pick("шь","щь","жь","с"))
 
-	message = replacetextEx(message,"Ш",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx(message,"ш",pick("ш","щ","ж","с"))
+	message = replacetextEx_char(message,"Ш",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx_char(message,"ш",pick("ш","щ","ж","с"))
 
-	message = replacetextEx(message,"Щ",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx(message,"щ",pick("ш","щ","ж","с"))
+	message = replacetextEx_char(message,"Щ",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx_char(message,"щ",pick("ш","щ","ж","с"))
 
-	message = replacetextEx(message,"Ж",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx(message,"ж",pick("ш","щ","ж","с"))
+	message = replacetextEx_char(message,"Ж",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx_char(message,"ж",pick("ш","щ","ж","с"))
 
-	message = replacetextEx(message,"Ч",pick("Ш","Щ","Ч"))
-	message = replacetextEx(message,"ч",pick("ш","щ","ч"))
+	message = replacetextEx_char(message,"Ч",pick("Ш","Щ","Ч"))
+	message = replacetextEx_char(message,"ч",pick("ш","щ","ч"))
 
-	message = replacetextEx(message,"НН",pick("НН","НЬ","Н"))
-	message = replacetextEx(message,"нн",pick("нн","нь","н"))
+	message = replacetextEx_char(message,"НН",pick("НН","НЬ","Н"))
+	message = replacetextEx_char(message,"нн",pick("нн","нь","н"))
 
 	if(prob(10) && !M.is_muzzled())
 		message += " Борк[pick("",", борк",", борк, борк")]!"
