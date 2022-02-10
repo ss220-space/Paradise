@@ -152,20 +152,20 @@
 /datum/dna/gene/disability/speech/chav/New()
 	..()
 	block = GLOB.chavblock
-	
+
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
 	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
 	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/replace_speech)
 	return message
 /datum/dna/gene/disability/speech/chav/proc/replace_speech(matched)
 	return chavlinks[matched]
-	
+
 // WAS: /datum/bioEffect/swedish
 /datum/dna/gene/disability/speech/swedish
-	name = "Swedish"
-	desc = "Forces the language center of the subject's brain to construct sentences in a vaguely norse manner."
-	activation_message = "You feel Swedish, however that works."
-	deactivation_message = "The feeling of Swedishness passes."
+	name = "Шведский акцент"
+	desc = "Заставляет языковой центра мозга субъекта произносить слова в скандинавской манере."
+	activation_message = "Вы ощущаете внутреннюю шведскость. Кажется, сработало."
+	deactivation_message = "Внутреннее ощущение шведскости проходит."
 	mutation = SWEDISH
 
 /datum/dna/gene/disability/speech/swedish/New()
@@ -174,19 +174,53 @@
 
 /datum/dna/gene/disability/speech/swedish/OnSay(mob/M, message)
 	// svedish
-	message = replacetextEx(message,"W","V")
-	message = replacetextEx(message,"w","v")
-	message = replacetextEx(message,"J","Y")
-	message = replacetextEx(message,"j","y")
-	message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
-	message = replacetextEx(message,"a",pick("å","ä","æ","a"))
-	message = replacetextEx(message,"BO","BJO")
-	message = replacetextEx(message,"Bo","Bjo")
-	message = replacetextEx(message,"bo","bjo")
-	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
-	message = replacetextEx(message,"o",pick("ö","ø","o"))
-	if(prob(30) && !M.is_muzzled())
-		message += " Bork[pick("",", bork",", bork, bork")]!"
+	message = replacetextEx(message,"Я",pick("ЙА","Я"))
+	message = replacetextEx(message,"я",pick("йа","я"))
+
+	message = replacetextEx(message,"И",pick("ЙИ","ЬИ","И"))
+	message = replacetextEx(message,"и",pick("йи","ьи","и"))
+
+	message = replacetextEx(message,"Ю",pick("ЙУ","ЬЮ","ЙЮ","Ю"))
+	message = replacetextEx(message,"ю",pick("йу","ью",,"йю","ю"))
+
+	message = replacetextEx(message,"Е",pick("ЙЕ","ЙЭ","Е","Э"))
+	message = replacetextEx(message,"е",pick("йе","йэ","е","э"))
+
+	message = replacetextEx(message,"Э",pick("ЙЭ","Э"))
+	message = replacetextEx(message,"э",pick("йэ","э"))
+
+	message = replacetextEx(message,"В",pick("Ф","В"))
+	message = replacetextEx(message,"в",pick("ф","в"))
+
+	message = replacetextEx(message,"Т",pick("Д","Т"))
+	message = replacetextEx(message,"т",pick("д","т"))
+
+	message = replacetextEx(message,"Д",pick("Д","Т"))
+	message = replacetextEx(message,"д",pick("д","т"))
+
+	message = replacetextEx(message,"З",pick("Ж","З"))
+	message = replacetextEx(message,"з",pick("ж","з"))
+
+	message = replacetextEx(message,"С",pick("ШЬ","ЩЬ","ЖЬ","С"))
+	message = replacetextEx(message,"с",pick("шь","щь","жь","с"))
+
+	message = replacetextEx(message,"Ш",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx(message,"ш",pick("ш","щ","ж","с"))
+
+	message = replacetextEx(message,"Щ",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx(message,"щ",pick("ш","щ","ж","с"))
+
+	message = replacetextEx(message,"Ж",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx(message,"ж",pick("ш","щ","ж","с"))
+
+	message = replacetextEx(message,"Ч",pick("Ш","Щ","Ч"))
+	message = replacetextEx(message,"ч",pick("ш","щ","ч"))
+
+	message = replacetextEx(message,"НН",pick("НН","НЬ","Н"))
+	message = replacetextEx(message,"нн",pick("нн","нь","н"))
+
+	if(prob(10) && !M.is_muzzled())
+		message += " Борк[pick("",", борк",", борк, борк")]!"
 	return message
 
 // WAS: /datum/bioEffect/unintelligable
