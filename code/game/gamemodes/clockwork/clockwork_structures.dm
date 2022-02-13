@@ -1,5 +1,5 @@
 /obj/structure/clockwork
-	density = TRUE
+	density = 1
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/clockwork.dmi'
@@ -15,15 +15,11 @@
 	icon_state = "altar"
 	density = 0
 
-/obj/structure/clockwork/workshop
-	name = "ratvar's workshop"
-	desc = "A workshop of elder god. Has unique brass tools to manipulate both power and metal to make fine clockwork pieces."
-
 /obj/structure/clockwork/functional
 	max_integrity = 100
 	var/cooldowntime = 0
 	var/death_message = "<span class='danger'>The structure falls apart.</span>" //The message shown when the structure is destroyed
-	var/death_sound = 'sound/items/bikehorn.ogg'
+	var/death_sound = 'sound/effects/forge_destroy.ogg'
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
@@ -46,7 +42,7 @@
 	name = "herald's beacon"
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
-	max_integrity = 500 // A very important one
+	max_integrity = 750 // A very important one
 	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
 	var/heal_delay = 60
 	var/last_heal = 0
@@ -88,6 +84,10 @@
 
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1
+
+/obj/structure/clockwork/functional/obj_destruction()
+	playsound(src, 'sound/effects/creepyshriek.ogg', 50, TRUE)
+	..()
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
@@ -187,10 +187,10 @@
 			else
 				L.adjustBruteLoss(5)
 		if(get_turf(L) == get_turf(src) && src.anchored && has_clocker)
+			L.gib()
 			if((ishuman(L) || isbrain(L)) && L.mind)
 				var/obj/item/mmi/robotic_brain/clockwork/cube = new /obj/item/mmi/robotic_brain/clockwork(get_turf(src))
-				cube.transfer_personality(L)
-			L.gib()
+				cube.try_to_transfer(L)
 			adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 
 		if(src.anchored)
@@ -208,86 +208,3 @@
 		if(BEACON.areabeacon == get_area(src))
 			return BEACON
 
-
-
-// Walls, Gears, Windows
-
-
-// Wall gears
-//A massive gear, effectively a girder for clocks.
-/obj/structure/clockwork/wall_gear
-	name = "massive gear"
-	icon = 'icons/obj/clockwork_objects.dmi'
-	icon_state = "wall_gear"
-	climbable = TRUE
-	max_integrity = 100
-	anchored = TRUE
-	density = TRUE
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
-
-/obj/structure/clockwork/wall_gear/displaced
-	anchored = FALSE
-
-/obj/structure/clockwork/wall_gear/Initialize()
-	. = ..()
-	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
-
-/obj/structure/clockwork/wall_gear/emp_act(severity)
-	return
-
-/obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
-		return
-	if(!I.tool_use_check(user, 0))
-		return
-	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(TRUE)
-
-/obj/structure/clockwork/wall_gear/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_unfasten_wrench(user, I, 10)
-
-/obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/brass))
-		var/obj/item/stack/sheet/brass/W = I
-		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
-			return
-		var/turf/T = get_turf(src)
-		if(iswallturf(T))
-			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
-			return
-		if(!isfloorturf(T))
-			to_chat(user, "<span class='warning'>A floor must be present to build a [anchored ? "false ":""]wall!</span>")
-			return
-		if(locate(/obj/structure/falsewall) in T.contents)
-			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src))
-			var/brass_floor = FALSE
-			if(istype(T, /turf/simulated/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
-				brass_floor = TRUE
-			if(W.use(2 - brass_floor))
-				if(anchored)
-					T.ChangeTurf(/turf/simulated/wall/clockwork)
-				else
-					T.ChangeTurf(/turf/simulated/floor/clockwork)
-					new /obj/structure/falsewall/brass(T)
-				qdel(src)
-			else
-				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
-		return 1
-	return ..()
-
-/obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && disassembled)
-		new /obj/item/stack/sheet/brass(loc, 3)
-	return ..()

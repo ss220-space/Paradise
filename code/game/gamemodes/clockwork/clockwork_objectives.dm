@@ -98,6 +98,14 @@
 			to_chat(clock_mind.current, "<span class='clock'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
 			to_chat(clock_mind.current, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
 
+/datum/clockwork_objectives/proc/succesful_summon()
+	clock_status = RATVAR_HAS_RISEN
+	obj_summon.summoned = TRUE
+
+/datum/clockwork_objectives/proc/ratvar_death()
+	clock_status = RATVAR_HAS_FALLEN
+	obj_summon.killed = TRUE
+
 //Objectives
 
 /datum/objective/serveclock //Given to clockers on conversion/roundstart
@@ -144,7 +152,7 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Summon Ratvar by setting up the platform and power it.\
+	explanation_text = "Summon Ratvar by setting up the credence and power it.\
 	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
 
 /datum/objective/clockgod/check_completion()

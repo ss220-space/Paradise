@@ -70,7 +70,7 @@
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
 
-		if(do_after(owner, ES.time*10, target = owner))
+		if(do_after(owner, ES.time SECONDS, target = owner))
 			I.enchant_type = ES.enchantment
 			I.enchanted = TRUE
 			if(ES.spell_action)

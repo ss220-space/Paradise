@@ -60,7 +60,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon_state = "ratvarian_spear"
 	item_state = "ratvarian_spear"
-	force = 15 //Extra damage is dealt to targets in attack()
+	force = 12 //Extra damage is dealt to targets in attack()
 	throwforce = 25
 	armour_penetration = 10
 	sharp = TRUE
@@ -77,6 +77,20 @@
 /obj/item/clockwork/weapon/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 
+/*
+/obj/item/twohanded/clock_hammer
+	name = "hammer clock"
+	desc = "A heavy hammer of an elder god. Used to shine like in past times."
+	icon_state = "mjollnir0"
+	slot_flags = SLOT_BACK
+	force = 5
+	force_unwielded = 5
+	force_wielded = 25
+	throwforce = 30
+	throw_range = 7
+	w_class = WEIGHT_CLASS_HUGE
+*/
+//throw_at
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -273,28 +287,63 @@
 // Soul vessel (Posi Brain)
 /obj/item/mmi/robotic_brain/clockwork
 	name = "soul vessel"
+	desc = "A heavy brass cube, three inches to a side, with a single protruding cogwheel."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "soul_vessel"
 	blank_icon = "soul_vessel"
 	searching_icon = "soul_vessel_search"
 	occupied_icon = "soul_vessel_occupied"
-	desc = "A heavy brass cube, three inches to a side, with a single protruding cogwheel."
-	silenced = TRUE
 	requires_master = FALSE
 	ejected_flavor_text = "brass cube"
 	dead_icon = "soul_vessel"
 
+
+/obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/target)
+	var/mob/living/T = target
+	if(T.client && T.ghost_can_reenter())
+		transfer_personality(T)
+		to_chat(T, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+	else
+		icon_state = searching_icon
+		searching = TRUE
+		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
+		if(candidates.len)
+			transfer_personality(pick(candidates))
+		reset_search()
+
+
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
-	. = ..()
-	if(.)
-		if(SSticker.mode.add_clocker(brainmob.mind))
-			brainmob.create_log(CONVERSION_LOG, "[brainmob.mind] been converted by [src.name]")
+	searching = FALSE
+	brainmob.key = candidate.key
+	brainmob.name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
+	name = "[src] ([brainmob.name])"
+	brainmob.mind.assigned_role = "Soul Vessel Cube"
+	visible_message("<span class='notice'>[src] chimes quietly.</span>")
+	become_occupied(occupied_icon)
+	if(SSticker.mode.add_clocker(brainmob.mind))
+		brainmob.create_log(CONVERSION_LOG, "[brainmob.mind] been converted by [src.name]")
 
 /obj/item/mmi/robotic_brain/clockwork/attack_self(mob/living/user)
 	if(!isclocker(user))
 		to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
 		return FALSE
-	..()
+	if(brainmob && !brainmob.key && !searching)
+		//Start the process of searching for a new user.
+		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
+		icon_state = searching_icon
+		searching = TRUE
+		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
+		if(candidates.len)
+			transfer_personality(pick(candidates))
+		reset_search()
+
+/obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)
+	if(brainmob?.key)
+		return
+	if(check_observer(O) && (world.time >= next_ping_at))
+		next_ping_at = world.time + (20 SECONDS)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
+		visible_message("<span class='notice'>[src] pings softly.</span>")
 
 /obj/item/mmi/robotic_brain/clockwork/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
@@ -340,6 +389,58 @@
 	if(do_after(user, 40, target = src))
 		user.visible_message("<span class='warning'>[user] pressed [src] through [H]'s skull and extracted the brain!", \
 		"<span class='clock'>You extracted [H]'s consciousness, trapping it in the soul vessel.")
-		transfer_personality(H)
-		qdel()
-		add_attack_logs(user, H, "Soul vessel'd with [name]")
+		try_to_transfer(H)
+
+/obj/item/clockwork/cogscarab
+	name = "unactivated cogscarab"
+	desc = "A strange, drone-like machine. It looks lifeless."
+	icon_state = "cogscarab_shell"
+	var/searching = FALSE
+
+/obj/item/clockwork/cogscarab/attack_self(mob/user)
+	if(!isclocker(user))
+		to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
+		return FALSE
+	if(searching)
+		return
+	searching = TRUE
+	to_chat(user, "<span class='notice'>You're trying to boot up [src] as the gears inside start to hum.</span>")
+	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /mob/living/silicon/robot/cogscarab)
+	if(candidates.len)
+		var/mob/dead/observer/O = pick(candidates)
+		var/mob/living/silicon/robot/cogscarab/cog = new /mob/living/silicon/robot/cogscarab(get_turf(src))
+		cog.key = O.key
+		if(SSticker.mode.add_clocker(cog.mind))
+			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone by [user.name]")
+		user.unEquip()
+		qdel(src)
+	else
+		visible_message("<span class='notice'>[src] stops to hum. Perhaps you could try again?</span>")
+		searching = FALSE
+
+/obj/item/clockwork/marauder
+	name = "unactivated marauder"
+	desc = "The stalwart apparition of a soldier. It looks lifeless."
+	icon_state = "marauder_shell"
+	var/searching = FALSE
+
+/obj/item/clockwork/marauder/attack_self(mob/user)
+	if(!isclocker(user))
+		to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
+		return FALSE
+	if(searching)
+		return
+	searching = TRUE
+	to_chat(user, "<span class='notice'>You're trying to boot up [src] as the flames inside starts to heat.</span>")
+	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/clockwork/marauder)
+	if(candidates.len)
+		var/mob/dead/observer/O = pick(candidates)
+		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new /mob/living/simple_animal/hostile/clockwork/marauder(get_turf(src))
+		cog.key = O.key
+		if(SSticker.mode.add_clocker(cog.mind))
+			cog.create_log(CONVERSION_LOG, "[cog.mind] became marauder by [user.name]")
+		user.unEquip()
+		qdel(src)
+	else
+		visible_message("<span class='notice'>[src] stops heating. Perhaps you could try again?</span>")
+		searching = FALSE

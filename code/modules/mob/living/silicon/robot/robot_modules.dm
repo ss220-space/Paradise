@@ -90,6 +90,9 @@
 		else if(istype(S, /obj/item/stack/tile/wood/cyborg))
 			S.cost = 1
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
+		else if(istype(S, /obj/item/stack/sheet/brass/cyborg))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
 
 /obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
@@ -618,9 +621,42 @@
 	C.reagents.add_reagent("cleaner", 3)
 	..()
 
-
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/cogscarab
+	name = "drone module"
+	module_type = "Cogscarab"
+
+/obj/item/robot_module/cogscarab/New()
+	..()
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = null
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/cogscarab/add_default_robot_items()
+	return
+
+/obj/item/robot_module/cogscarab/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
@@ -671,6 +707,12 @@
 	max_energy = 50
 	recharge_rate = 2
 	name = "Wire Storage"
+
+/datum/robot_energy_storage/brass
+	max_energy = 10
+	recharge_rate = 0
+	energy = 1
+	name = "Brass Storage"
 
 /datum/robot_energy_storage/medical
 	max_energy = 12
