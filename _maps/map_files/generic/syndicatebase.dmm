@@ -227,7 +227,10 @@
 	lootcount = 3;
 	name = "3maintenance loot spawner"
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/obj/effect/spawner/random_spawners/syndicate/loot/level3{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/item/stack/tape_roll,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -264,7 +267,8 @@
 /turf/simulated/floor/plating/asteroid/airless/cave,
 /area/ruin/unpowered)
 "avh" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -276,11 +280,12 @@
 /turf/simulated/floor/plating,
 /area/space)
 "awy" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/structure/lattice,
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_y = -32;
 	use_power = 1
 	},
-/obj/structure/lattice,
 /turf/space,
 /area/syndicate/unpowered/syndicate_space_base/turrets)
 "awR" = (
@@ -796,7 +801,10 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aNK" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -1387,6 +1395,15 @@
 	icon_state = "darkblue"
 	},
 /area/syndicate/unpowered/syndicate_space_base/morgue)
+"beL" = (
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
+	pixel_y = 32;
+	use_power = 1
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/syndicate/unpowered/syndicate_space_base/turrets)
 "beU" = (
 /obj/machinery/light/small{
 	brightness_range = 2;
@@ -1409,7 +1426,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "bfb" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -1569,6 +1589,10 @@
 	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bmH" = (
@@ -1607,7 +1631,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "boY" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -4871,7 +4898,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4944,8 +4971,10 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "eAf" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
-/obj/structure/closet,
+/obj/effect/spawner/random_spawners/syndicate/loot/level3{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -6020,6 +6049,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6057,6 +6089,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -6240,7 +6276,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6297,6 +6333,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "fKy" = (
@@ -6808,6 +6848,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gih" = (
@@ -6838,7 +6882,10 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gjz" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate/syndicate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gjO" = (
@@ -6864,6 +6911,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"gmy" = (
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
+	pixel_x = -32;
+	use_power = 1
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/syndicate/unpowered/syndicate_space_base/turrets)
 "gmY" = (
 /obj/machinery/door_control{
 	id = "syndieRnDchem";
@@ -6889,7 +6945,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "gpB" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gpD" = (
@@ -7682,7 +7741,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gTT" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/obj/effect/spawner/random_spawners/syndicate/loot/level3{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "gUu" = (
@@ -7767,6 +7829,10 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7866,6 +7932,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
+"hgH" = (
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
+	pixel_y = -32;
+	use_power = 1
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/syndicate/unpowered/syndicate_space_base/turrets)
 "hhz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -10339,6 +10414,10 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/random/toolbox,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jkz" = (
@@ -10756,6 +10835,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd)
+"jCa" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "jCP" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -10864,6 +10952,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
+"jFr" = (
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/turrets)
 "jGq" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -11482,7 +11581,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "ksR" = (
-/obj/machinery/porta_turret/syndicate/grenade,
+/obj/effect/spawner/random_spawners/syndicate/turret/grenade,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/turrets)
 "kva" = (
@@ -12420,6 +12519,10 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
@@ -12544,7 +12647,8 @@
 /turf/simulated/floor/engine/plasma,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lnr" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_x = 32;
 	use_power = 1
 	},
@@ -14014,6 +14118,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15428,7 +15535,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/west)
 "nuA" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate/syndicate
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -15898,7 +16008,8 @@
 /area/space)
 "nGe" = (
 /obj/structure/lattice,
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -17135,7 +17246,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate/syndicate
+	},
 /obj/item/storage/box/syndie_kit/hardsuit,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -17496,6 +17610,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"oTI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oTR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -17990,7 +18112,7 @@
 	req_access_txt = "154"
 	},
 /obj/item/folder,
-/obj/item/stamp/syndicate,
+/obj/item/stamp/syndicate/taipan,
 /obj/item/phone{
 	pixel_x = -4;
 	pixel_y = 4
@@ -18073,6 +18195,10 @@
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -18725,7 +18851,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "pME" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -18900,7 +19027,10 @@
 	density = 0;
 	icon_state = "brokengrille"
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/obj/effect/spawner/random_spawners/syndicate/loot/level3{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "pUa" = (
@@ -19160,7 +19290,7 @@
 /turf/simulated/floor/redgrid,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qaB" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/syndie,
 /turf/simulated/floor/redgrid,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qcl" = (
@@ -19183,7 +19313,10 @@
 /turf/simulated/floor/redgrid,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qdn" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/structure/grille{
 	density = 0;
 	icon_state = "brokengrille"
@@ -19587,20 +19720,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/turrets{
-	dynamic_lighting = 1
-	})
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "qvC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -20356,7 +20480,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "qQp" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/obj/effect/spawner/random_spawners/syndicate/loot/level3{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/item/storage/box/syndie_kit/throwing_weapons,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -21576,8 +21703,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "rRZ" = (
-/obj/machinery/porta_turret/syndicate/grenade{
-	icon_state = "syndieturret01";
+/obj/effect/spawner/random_spawners/syndicate/turret/grenade{
+	active_power_usage = 1000;
+	idle_power_usage = 200;
 	use_power = 1
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -22091,6 +22219,10 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/item/storage/wallet/random,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "smz" = (
@@ -22464,6 +22596,21 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
+"sJO" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/cargo)
 "sLh" = (
 /obj/machinery/vending/hatdispenser{
 	req_access_txt = "150"
@@ -22480,6 +22627,10 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/structure/closet/crate,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "sLL" = (
@@ -23086,7 +23237,10 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tgX" = (
 /obj/effect/decal/cleanable/blood/innards,
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate/syndicate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ths" = (
@@ -23385,7 +23539,10 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "tuD" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "tuM" = (
@@ -24710,7 +24867,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uii" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate/syndicate
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -24763,7 +24923,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "ujw" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/obj/effect/spawner/random_spawners/syndicate/loot/level3{
+	color = "#c10020";
+	spawn_inside = /obj/structure/closet/crate
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
@@ -24777,6 +24940,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ujO" = (
@@ -24812,6 +24979,10 @@
 	dir = 4
 	},
 /obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ulz" = (
@@ -24880,6 +25051,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
+"umC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
+	},
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	color = "#c10020";
+	spawn_inside = null
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "umD" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25696,7 +25880,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "uKf" = (
-/obj/machinery/light/small,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26188,6 +26374,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
+"uWU" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/rnd/server{
+	name = "ERR#UNKWN Server Room"
+	})
 "uXK" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
@@ -26490,6 +26684,23 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
+"vgo" = (
+/obj/structure/grille{
+	layer = 2.8
+	},
+/obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Full_Lockdown";
+	name = "Station Lockdown"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/rnd/server{
+	name = "ERR#UNKWN Server Room"
+	})
 "vgQ" = (
 /obj/structure/chair{
 	dir = 4
@@ -26981,7 +27192,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27008,7 +27219,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen/edagger,
-/obj/item/stamp/syndicate,
+/obj/item/stamp/syndicate/taipan,
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 30
 	},
@@ -30333,7 +30544,8 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xHx" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x2";
 	use_power = 1
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -30345,11 +30557,12 @@
 /turf/simulated/shuttle/floor,
 /area/space)
 "xIq" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/structure/lattice,
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_x = -32;
 	use_power = 1
 	},
-/obj/structure/lattice,
 /turf/space,
 /area/syndicate/unpowered/syndicate_space_base/turrets)
 "xJH" = (
@@ -31087,7 +31300,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yhG" = (
-/obj/machinery/porta_turret/syndicate/exterior{
+/obj/effect/spawner/random_spawners/syndicate/turret/external{
+	icon_state = "x3";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -38506,7 +38720,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -39306,7 +39520,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 pdd
 pdd
 pdd
@@ -39836,7 +40050,7 @@ mEC
 mEC
 mEC
 aTW
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -40365,7 +40579,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 aTW
@@ -40641,7 +40855,7 @@ pdd
 pdd
 pdd
 aTW
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -40660,7 +40874,7 @@ pdd
 pdd
 pdd
 aTW
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -41105,7 +41319,7 @@ mEC
 pdd
 pdd
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -41191,7 +41405,7 @@ mEC
 jbN
 aTW
 aTW
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -41559,7 +41773,7 @@ mEC
 mEC
 mEC
 jbN
-jbN
+rRZ
 aTW
 jbN
 jbN
@@ -41871,7 +42085,7 @@ mEC
 mEC
 mEC
 mEC
-jbN
+rRZ
 pdd
 pdd
 pdd
@@ -42403,7 +42617,7 @@ pdd
 pdd
 pdd
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -42873,7 +43087,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 aTW
@@ -42889,7 +43103,7 @@ pdd
 pdd
 pdd
 aTW
-aTW
+rRZ
 mEC
 mEC
 mEC
@@ -43605,7 +43819,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -43616,7 +43830,7 @@ mEC
 mEC
 pdd
 aTW
-jbN
+rRZ
 jbN
 jbN
 aTW
@@ -43957,7 +44171,7 @@ mEC
 mEC
 mEC
 mEC
-jbN
+rRZ
 xiM
 xiM
 xiM
@@ -43989,7 +44203,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -44165,7 +44379,7 @@ pdd
 pdd
 jbN
 tJo
-jbN
+rRZ
 pdd
 pdd
 pdd
@@ -44735,7 +44949,7 @@ pdd
 pdd
 xiM
 xiM
-jbN
+rRZ
 mEC
 mEC
 mEC
@@ -45060,7 +45274,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 mEC
@@ -45169,7 +45383,7 @@ jbN
 aTW
 pdd
 aTW
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -45955,7 +46169,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 pdd
 pdd
@@ -45990,7 +46204,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 pdd
 pdd
 aTW
@@ -46415,7 +46629,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 aTW
@@ -46769,7 +46983,7 @@ aTW
 pdd
 pdd
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -46998,7 +47212,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 pdd
 pdd
 pdd
@@ -47248,7 +47462,7 @@ pdd
 pdd
 aTW
 aTW
-mEC
+xHx
 mEC
 mEC
 mEC
@@ -48042,7 +48256,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 aTW
 aTW
 mEC
@@ -49061,7 +49275,7 @@ mEC
 jbN
 jbN
 aTW
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -49558,7 +49772,7 @@ mEC
 mEC
 jbN
 jbN
-jbN
+rRZ
 pdd
 pdd
 mEC
@@ -49571,13 +49785,13 @@ mEC
 mEC
 mEC
 mEC
+aTW
+xHx
+aTW
+pdd
+pdd
 aTW
 jbN
-aTW
-pdd
-pdd
-aTW
-mEC
 mEC
 mEC
 mEC
@@ -49622,7 +49836,7 @@ cOj
 pdd
 pdd
 pdd
-jbN
+rRZ
 jbN
 jbN
 mEC
@@ -50055,7 +50269,7 @@ mEC
 mEC
 jbN
 jbN
-jbN
+rRZ
 aTW
 aTW
 jbN
@@ -50705,7 +50919,7 @@ aTW
 aTW
 aTW
 aTW
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -50927,7 +51141,7 @@ jbN
 jbN
 aTW
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -51095,6 +51309,7 @@ mEC
 mEC
 mEC
 mEC
+xHx
 mEC
 mEC
 mEC
@@ -51130,8 +51345,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
+xHx
 pdd
 pdd
 pdd
@@ -51574,8 +51788,8 @@ pdd
 pdd
 aTW
 aTW
+rRZ
 jbN
-jbN
 mEC
 mEC
 mEC
@@ -51594,7 +51808,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 jbN
 jbN
 jbN
@@ -51857,7 +52071,7 @@ jbN
 jbN
 jbN
 aTW
-jbN
+xHx
 jbN
 mEC
 mEC
@@ -52239,7 +52453,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 pdd
 pdd
 pdd
@@ -52421,7 +52635,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 pdd
 pdd
 xKl
@@ -52508,7 +52722,7 @@ jbN
 jbN
 jbN
 aTW
-jbN
+rRZ
 mEC
 mEC
 mEC
@@ -52582,7 +52796,7 @@ jbN
 aTW
 aTW
 aTW
-jbN
+rRZ
 aTW
 aTW
 aTW
@@ -53646,7 +53860,7 @@ aTW
 pdd
 pdd
 pdd
-mEC
+xHx
 mEC
 mEC
 mEC
@@ -53950,12 +54164,12 @@ mEC
 mEC
 mEC
 mEC
+lnr
 mEC
 mEC
+lnr
 mEC
-mEC
-mEC
-mEC
+lnr
 mEC
 mEC
 mEC
@@ -54399,7 +54613,7 @@ mEC
 mEC
 mEC
 jbN
-jbN
+rRZ
 aTW
 pdd
 pdd
@@ -54455,7 +54669,7 @@ lnr
 mEC
 xYq
 xYq
-mEC
+lnr
 qjx
 mEC
 mEC
@@ -54768,7 +54982,7 @@ jbN
 jbN
 jbN
 mEC
-mEC
+xHx
 pdd
 mEC
 mEC
@@ -54892,7 +55106,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 pdd
 pdd
 pdd
@@ -54989,7 +55203,7 @@ wwu
 xQZ
 mEC
 mEC
-mEC
+lnr
 mEC
 mEC
 mEC
@@ -55183,7 +55397,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 pdd
 pdd
 jbN
@@ -55701,7 +55915,7 @@ mEC
 aTW
 pdd
 aTW
-jbN
+xHx
 jbN
 jbN
 mEC
@@ -55927,7 +56141,7 @@ aTW
 pdd
 pdd
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -56322,7 +56536,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 aTW
 pdd
 aTW
@@ -58164,7 +58378,7 @@ mEC
 jbN
 aTW
 pdd
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -58533,7 +58747,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 aTW
 pdd
 pdd
@@ -59124,9 +59338,9 @@ xYq
 uaS
 xYq
 mEC
+oYE
 mEC
-mEC
-xYq
+lnr
 xYq
 mEC
 mEC
@@ -60129,7 +60343,7 @@ kLR
 wNJ
 oht
 xNO
-xeL
+oTI
 fZf
 rCm
 hww
@@ -60548,7 +60762,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 mEC
 jbN
@@ -61769,7 +61983,7 @@ mEC
 mEC
 mEC
 aTW
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -62192,7 +62406,7 @@ xwc
 yez
 iFd
 wTW
-kdp
+umC
 xeL
 kvg
 nkA
@@ -62916,7 +63130,7 @@ mEC
 mEC
 mEC
 mEC
-xYq
+hgH
 aAe
 aAe
 aSx
@@ -63125,7 +63339,7 @@ mEC
 aTW
 aTW
 aTW
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -63238,7 +63452,7 @@ mEC
 xYq
 xYq
 xYq
-xYq
+xIq
 xYq
 mEC
 mEC
@@ -63489,7 +63703,7 @@ wwc
 wwc
 wwc
 wwc
-mEC
+xYq
 mEC
 uaS
 uaS
@@ -63805,7 +64019,7 @@ pdd
 pdd
 aTW
 aTW
-jbN
+rRZ
 jbN
 jbN
 jbN
@@ -64521,7 +64735,7 @@ wwc
 wwc
 wwc
 wwc
-mEC
+yhG
 xYq
 xYq
 xYq
@@ -65037,7 +65251,7 @@ vur
 wwc
 wwc
 vps
-xYq
+beL
 uaS
 xYq
 xYq
@@ -65339,7 +65553,7 @@ mEC
 mEC
 mEC
 mEC
-jbN
+rRZ
 jbN
 aTW
 jbN
@@ -66221,7 +66435,7 @@ jbN
 abT
 jbN
 aTW
-jbN
+xHx
 jbN
 mEC
 mEC
@@ -68274,7 +68488,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 jbN
 jbN
 mEC
@@ -68379,7 +68593,7 @@ uzu
 jXe
 vps
 vps
-mEC
+beL
 mEC
 mEC
 mEC
@@ -68613,7 +68827,7 @@ wUA
 xEr
 wUA
 yeZ
-iSn
+sJO
 wUA
 wUA
 xTN
@@ -68635,7 +68849,7 @@ hCw
 uIk
 uIk
 axv
-uaS
+beL
 xYq
 iOd
 yhG
@@ -68891,9 +69105,9 @@ qBo
 yaC
 uIk
 led
+beL
 xYq
-xYq
-xYq
+qjx
 xYq
 jbN
 jbN
@@ -69150,7 +69364,7 @@ uIk
 xYq
 xYq
 xYq
-mEC
+tJC
 pdd
 pdd
 jbN
@@ -69304,7 +69518,7 @@ pdd
 pdd
 pdd
 pdd
-pdd
+xHx
 mEC
 mEC
 mEC
@@ -69403,9 +69617,9 @@ xnC
 fuv
 moO
 uKf
-uIk
-xYq
-mEC
+vgo
+jCa
+qjx
 xYq
 avh
 iOd
@@ -69659,12 +69873,12 @@ rEz
 uIk
 hPb
 kwW
-tSW
+uWU
 uIk
-xYq
+jFr
 qjx
 mEC
-mEC
+tJC
 mEC
 pdd
 pdd
@@ -69857,7 +70071,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+avh
 aJC
 aJC
 aJC
@@ -69918,8 +70132,8 @@ qZj
 chL
 qZj
 uIk
-xYq
-mEC
+qjx
+uaS
 xYq
 avh
 iOd
@@ -70178,7 +70392,7 @@ uIk
 mEC
 xYq
 xYq
-mEC
+tJC
 pdd
 pdd
 jbN
@@ -70586,7 +70800,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 pdd
 pdd
 jbN
@@ -70885,7 +71099,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+avh
 aJC
 aJC
 aJC
@@ -70949,7 +71163,7 @@ uIk
 xYq
 uaS
 uaS
-mEC
+tJC
 mEC
 mEC
 mEC
@@ -71185,7 +71399,7 @@ qjx
 xYq
 xYq
 xYq
-xYq
+gmy
 qjx
 xYq
 xYq
@@ -71243,7 +71457,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 aTW
 pdd
 pdd
@@ -72535,7 +72749,7 @@ ybu
 jbN
 jbN
 ybu
-jbN
+rRZ
 pdd
 pdd
 pdd
@@ -73199,7 +73413,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+pME
 aJC
 aJC
 aJC
@@ -73715,7 +73929,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+pME
 aJC
 aJC
 aJC
@@ -73742,7 +73956,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+pME
 mEC
 mEC
 mEC
@@ -73941,7 +74155,7 @@ aTW
 aTW
 pdd
 pdd
-jbN
+rRZ
 jbN
 mEC
 mEC
@@ -74237,11 +74451,11 @@ mEC
 mEC
 mEC
 mEC
+pME
 mEC
 mEC
 mEC
-mEC
-mEC
+pME
 mEC
 mEC
 mEC
@@ -75102,7 +75316,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 aTW
 aTW
 pdd
@@ -75336,13 +75550,13 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 pdd
 pdd
 pdd
 pdd
 aTW
-mEC
+xHx
 mEC
 mEC
 mEC
@@ -75491,7 +75705,7 @@ mEC
 mEC
 aTW
 aTW
-jbN
+xHx
 jbN
 mEC
 mEC
@@ -76262,7 +76476,7 @@ mEC
 mEC
 mEC
 jbN
-aTW
+xHx
 aTW
 mEC
 mEC
@@ -76616,7 +76830,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+xHx
 jbN
 jbN
 pdd
@@ -77254,7 +77468,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 jbN
 aTW
@@ -77263,7 +77477,7 @@ aTW
 jbN
 aTW
 aTW
-jbN
+afl
 jbN
 jbN
 jbN
@@ -78039,7 +78253,7 @@ aTW
 aTW
 aTW
 aTW
-jbN
+aiK
 jbN
 jbN
 jbN
@@ -78201,7 +78415,7 @@ pdd
 pdd
 pdd
 aTW
-jbN
+rRZ
 mEC
 mEC
 mEC
@@ -78283,7 +78497,7 @@ mEC
 mEC
 aTW
 aTW
-jbN
+aiK
 jbN
 aTW
 pdd
@@ -78428,7 +78642,7 @@ jbN
 aTW
 aTW
 aTW
-mEC
+xHx
 mEC
 aTW
 mEC
@@ -78546,7 +78760,7 @@ pdd
 pdd
 jbN
 afl
-jbN
+rRZ
 aTW
 pdd
 pdd
@@ -79240,7 +79454,7 @@ mEC
 mEC
 aTW
 aTW
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -79310,7 +79524,7 @@ mEC
 aTW
 aTW
 jbN
-jbN
+aiK
 jbN
 jbN
 pdd
@@ -79830,7 +80044,7 @@ jbN
 aTW
 pdd
 aTW
-jbN
+aiK
 jbN
 jbN
 aTW
@@ -79851,7 +80065,7 @@ aTW
 pdd
 pdd
 jbN
-jbN
+aiK
 jbN
 jbN
 pdd
@@ -80107,7 +80321,7 @@ jbN
 pdd
 pdd
 aTW
-jbN
+aiK
 jbN
 jbN
 jbN
@@ -80195,7 +80409,7 @@ jbN
 jbN
 aTW
 pdd
-mEC
+xHx
 mEC
 mEC
 mEC
@@ -80597,7 +80811,7 @@ aTW
 pdd
 aTW
 aTW
-jbN
+afl
 jbN
 aTW
 pdd
@@ -80615,7 +80829,7 @@ jbN
 jbN
 jbN
 jbN
-jbN
+afl
 aTW
 pdd
 aTW
@@ -80855,7 +81069,7 @@ abI
 pdd
 aTW
 jbN
-jbN
+aiK
 jbN
 jbN
 aTW
@@ -81262,7 +81476,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 pdd
@@ -81503,7 +81717,7 @@ pdd
 aTW
 aTW
 aTW
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -81635,15 +81849,15 @@ agd
 ajs
 agd
 agd
+rRZ
 jbN
-jbN
-jbN
+afl
 jbN
 aTW
 aTW
 aTW
 jbN
-jbN
+afl
 jbN
 jbN
 aiK
@@ -81924,7 +82138,7 @@ mEC
 mEC
 mEC
 jbN
-jbN
+rRZ
 pdd
 pdd
 pdd
@@ -82142,7 +82356,7 @@ pdd
 pdd
 aTW
 aTW
-jbN
+afl
 jbN
 pdd
 aTW
@@ -82152,7 +82366,7 @@ jbN
 jbN
 jbN
 jbN
-jbN
+afl
 jbN
 jbN
 jbN
@@ -82160,7 +82374,7 @@ aTW
 pdd
 aTW
 jbN
-jbN
+afl
 aTW
 pdd
 pdd
@@ -84103,7 +84317,7 @@ aak
 aak
 pdd
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -84189,7 +84403,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 jbN
@@ -84454,7 +84668,7 @@ jbN
 aTW
 pdd
 aTW
-jbN
+aiK
 jbN
 jbN
 jbN
@@ -85230,7 +85444,7 @@ aTW
 pdd
 aTW
 aTW
-jbN
+rRZ
 jbN
 jbN
 jbN
@@ -85290,7 +85504,7 @@ aTW
 jbN
 jbN
 jbN
-jbN
+rRZ
 aTW
 pdd
 pdd
@@ -85321,7 +85535,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 mEC
@@ -86111,7 +86325,7 @@ mEC
 jbN
 jbN
 jbN
-mEC
+rRZ
 jbN
 jbN
 mEC
@@ -87178,7 +87392,7 @@ jbN
 jbN
 pdd
 pdd
-mEC
+rRZ
 mEC
 mEC
 mEC
@@ -87613,7 +87827,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 pdd
 jbN
 jbN
@@ -88161,7 +88375,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 pdd
@@ -88371,7 +88585,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+rRZ
 aTW
 aTW
 mEC
