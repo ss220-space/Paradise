@@ -667,6 +667,8 @@
  * Creates a delayed explosion centered around the RCD.
  */
 /obj/item/rcd/proc/detonate_pulse()
+	if(is_taipan(z) || is_admin_level(z)) //Защищает тайпан и админские Z-lvla от взрыва RCD
+		return
 	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
