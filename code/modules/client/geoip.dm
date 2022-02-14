@@ -1,7 +1,3 @@
-var/global/geoip_query_counter = 0
-var/global/geoip_next_counter_reset = 0
-var/global/list/geoip_ckey_updated = list()
-
 /datum/geoip_data
 	var/holder = null
 	var/status = null
@@ -19,6 +15,7 @@ var/global/list/geoip_ckey_updated = list()
 /datum/geoip_data/New(client/C, addr)
 	INVOKE_ASYNC(src, .proc/get_geoip_data, C, addr)
 
+GLOBAL_REAL(geoip_ckey_updated, /list) = list()
 /datum/geoip_data/proc/get_geoip_data(client/C, addr)
 
 	if(!C || !addr)
@@ -105,6 +102,8 @@ var/global/list/geoip_ckey_updated = list()
 		status = "updated"
 	return TRUE
 
+GLOBAL_REAL_VAR(geoip_query_counter) = 0
+GLOBAL_REAL_VAR(geoip_next_counter_reset) = 0
 /proc/geoip_check(addr)
 	if(world.time > geoip_next_counter_reset)
 		geoip_next_counter_reset = world.time + 900
