@@ -48,7 +48,7 @@
 			if(clock_mind && clock_mind.current)
 				to_chat(clock_mind.current, "<span class='clocklarge'>RETRIBUTION!</span>")
 				to_chat(clock_mind.current, "<span class='clock'>Current goal: Slaughter the heretics!</span>")
-	..()
+	return ..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
 	var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new /mob/living/simple_animal/hostile/clockwork/marauder(get_turf(src))

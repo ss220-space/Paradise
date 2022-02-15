@@ -169,7 +169,7 @@
 		to_chat(user, "[src] doesn't have any panel to swipe [W] with.")
 		return
 
-	..()
+	return ..()
 
 /mob/living/silicon/robot/cogscarab/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
