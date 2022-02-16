@@ -112,6 +112,6 @@
 
 		M.AdjustEyeBlurry(force/7)
 		if(prob(20))
-			M.Paralyse(force / 12)
-			M.Weaken(force / 30)
+			M.Paralyse(1)
+			M.Weaken(1)
 		M.drop_item()
