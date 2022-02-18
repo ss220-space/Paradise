@@ -213,7 +213,7 @@
 		P.info += "<HR>"
 		P.info += "Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.<BR>"
 		P.info += "<U>Подпись вирусолога:</U> [signature]<BR>"
-		P.info += "Печать ответственного лица, разрешившего выпуск вируса лиц:"
+		P.info += "Печать ответственного лица, разрешившего выпуск вируса:"
 		P.populatefields()
 		P.updateinfolinks()
 		P.name = "Выпуск вируса «[D.name]»"
@@ -263,14 +263,14 @@
 								D = GLOB.archive_diseases[A.GetDiseaseID()]
 								if(D)
 									if(D.name == "Unknown")
-										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Название болезни</a></b><BR>"
+										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
 									else
 										dat += "<b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
 
 							if(!D)
 								CRASH("We weren't able to get the advance disease from the archive.")
 
-							dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] - <A href='?src=[UID()];create_virus_culture=[i]'>Создать бутылёк с вирусной культурой</A>":"нет"]<BR>"
+							dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_virus_culture=[i]'>Создать бутылёк с вирусной культурой</A>":"нет"]<BR>"
 							dat += "<b>Общепринятое название:</b> [(D.name||"нет")]<BR>"
 							dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
 							dat += "<b>Путь передачи:</b> [(D.spread_text||"нет")]<BR>"
