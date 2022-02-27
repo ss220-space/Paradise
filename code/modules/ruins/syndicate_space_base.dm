@@ -52,6 +52,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	allow_species_pick = TRUE
 	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn")
 	faction = list("syndicate")
+	min_hours = 10
+	exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/human/space_base_syndicate/Destroy()
     var/obj/machinery/cryopod/syndie/S = new(get_turf(src))
@@ -164,7 +166,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate/medic
 	assignedrole = TAIPAN_MEDIC
-
+	min_hours = 10
+	exp_type = EXP_TYPE_LIVING
 /datum/outfit/space_base_syndicate/medic
 	name = "Space Base Syndicate Medic"
 	r_hand = /obj/item/melee/energy/sword/saber
@@ -197,7 +200,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate/botanist
 	assignedrole = TAIPAN_BOTANIST
-
+	min_hours = 10
+	exp_type = EXP_TYPE_LIVING
 /datum/outfit/space_base_syndicate/botanist
 	name = "Space Base Syndicate Botanist"
 	r_hand = /obj/item/melee/energy/sword/saber
@@ -222,7 +226,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	flavour_text = "Вы Грузчик синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрэйзен, имеет собственную массивную научную базу в вашем секторе. Работайте с грузами, заказывайте всё что может потребоваться станции или вам и зарабатывайте реальные деньги, а не виртуальные очки!"
 	outfit = /datum/outfit/space_base_syndicate/cargotech
 	assignedrole = TAIPAN_CARGO
-
+	min_hours = 10
+	exp_type = EXP_TYPE_LIVING
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
@@ -242,6 +247,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	flavour_text = "Вы Повар синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрэйзен, имеет собственную массивную научную базу в вашем секторе. Готовьте еду и напитки экипажу и постарайтесь не высовываться!"
 	outfit = /datum/outfit/space_base_syndicate/chef
 	assignedrole = TAIPAN_CHEF
+	min_hours = 10
+	exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef/special(mob/living/carbon/human/H)
 	. = ..()
@@ -267,7 +274,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	flavour_text = "Вы Инженер атмосферник синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрэйзен, имеет собственную массивную научную базу в вашем секторе. Запустите двигатель, убедитесь, что на станцию подаётся достаточно электричества и воздуха, а так же чините отделы которые неприменно сломают."
 	outfit = /datum/outfit/space_base_syndicate/engineer
 	assignedrole = TAIPAN_ENGINEER
-
+	min_hours = 10
+	exp_type = EXP_TYPE_ENGINEERING
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
 	head = /obj/item/clothing/head/beret/eng
@@ -288,7 +296,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	Синдикат ясно дал вам понять, что не стоит подводить их доверие. Не разочаруйте их!"
 	outfit = /datum/outfit/space_base_syndicate/comms
 	assignedrole = TAIPAN_COMMS
-
+	min_hours = 50
+	exp_type = EXP_TYPE_COMMAND
 /datum/outfit/space_base_syndicate/comms
 	name = "Space Base Syndicate Comms Officer"
 	r_ear = /obj/item/radio/headset/syndicate/taipan/tcomms_agent // See del_types above
@@ -314,7 +323,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate/rd
 	assignedrole = TAIPAN_RD
-
+	min_hours = 50
+	exp_type = EXP_TYPE_SCIENCE
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"
 	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
