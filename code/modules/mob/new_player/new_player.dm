@@ -362,9 +362,12 @@
 		alert(msg)
 		return FALSE
 
-	SSjobs.AssignRole(src, rank, 1)
+	// SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	qdel(src)
+	return;
+
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
@@ -586,7 +589,14 @@
 	close_spawn_windows()
 
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc)
+	// TODO: Do it properly
+	var/training = TRUE;
+	var/mob/living/carbon/human/new_character
+	if(training)
+		new_character = new /mob/living/carbon/human/human_training (loc)
+	else
+		new_character = new(loc)
+
 	new_character.lastarea = get_area(loc)
 
 	if(SSticker.random_players || appearance_isbanned(new_character))
