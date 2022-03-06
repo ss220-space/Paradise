@@ -7,62 +7,98 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clock_slab"
 	w_class = WEIGHT_CLASS_SMALL
-	enchant_type = NO_SPELL
 
-/obj/item/clockwork/clockslab/New()
+/obj/item/clockwork/clockslab/Initialize(mapload)
+	. = ..()
 	enchants = GLOB.clockslab_spells
-	..()
 
 /obj/item/clockwork/clockslab/update_icon()
-	cut_overlays()
-	if(enchanted)
-		add_overlay("overlay_temp")
+	update_overlays()
+	//if(enchant_type)
+	//	add_overlay("overlay_temp")
 	..()
+
+/obj/item/clockwork/clockslab/proc/update_overlays()
+	cut_overlays()
+	if(enchant_type)
+		overlays += "clock_slab_overlay_[enchant_type]"
 
 /obj/item/clockwork/clockslab/attack_self(mob/user)
 	. = ..()
-	if(enchant_type == EMP_SPELL)
-		src.visible_message("<span class='warning'>[src] glows with shining blue!</span>")
-		empulse(src, 3, 1)
-		enchant_type = NO_SPELL
-		enchanted = FALSE
+	switch(enchant_type)
+		if(EMP_SPELL)
+			src.visible_message("<span class='warning'>[src] glows with shining blue!</span>")
+			empulse(src, 3, 1, cause="clock")
+			deplete_spell()
+		if(TIME_SPELL)
+			deplete_spell()
+			new/obj/effect/timestop/clockwork(get_turf(src))
 
-/obj/item/clockwork/clockslab/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
-	if(enchant_type == STUN_SPELL)
-		if(!isliving(target) || isclocker(target) || !proximity)
-			return
-		var/mob/living/L = target
-		var/atom/N = L.null_rod_check()
-		if(N)
-			src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
-		L.Weaken(5)
-		L.Stun(5)
-		if(issilicon(L))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Stuttering(10)
-			C.ClockSlur(10)
-		src.visible_message("<span class='warning'>[src] sparks as the [target] falls!</span>")
-		enchant_type = NO_SPELL
-		enchanted = FALSE
+	switch(enchant_type)
+		if(STUN_SPELL)
+			if(!isliving(target) || isclocker(target) || !proximity)
+				return
+			var/mob/living/L = target
+			var/atom/N = L.null_rod_check()
+			src.visible_message("<span class='warning'>[user]'s [src] sparks for a moment with bright light!</span>")
+			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
+			if(N)
+				src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
+			else
+				L.Weaken(5)
+				L.Stun(5)
+				if(issilicon(L))
+					var/mob/living/silicon/S = L
+					S.emp_act(EMP_HEAVY)
+				else if(iscarbon(target))
+					var/mob/living/carbon/C = L
+					C.Stuttering(10)
+					C.ClockSlur(10)
+			deplete_spell()
+		if(KNOCK_SPELL)
+			if(istype(target, /obj/machinery/door))
+				var/obj/machinery/door/door = target
+				if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
+					return
+				if(istype(door, /obj/machinery/door/airlock))
+					var/obj/machinery/door/airlock/A = door
+					A.unlock(TRUE)	//forced because it's magic!
+				door.open()
+				deplete_spell()
+			else if(istype(target, /obj/structure/closet))
+				var/obj/structure/closet/closet = target
+				if(istype(closet, /obj/structure/closet/secure_closet))
+					var/obj/structure/closet/secure_closet/SC = closet
+					SC.locked = FALSE
+				closet.open()
+				deplete_spell()
+			else
+				to_chat(user, "<span class='warning'>You can use only on doors and closets!</span>")
+		if(TELEPORT_SPELL)
+			if(!target.density && !proximity)
+				to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
+				if(do_after(user, 50, target = src))
+					//fade out anim
+					do_teleport(user, get_turf(target), asoundin = 'sound/effects/phasein.ogg')
+					//fade in anim
+					deplete_spell()
 
 /obj/item/clockwork
 	name = "Clockwork item name"
 	icon = 'icons/obj/clockwork.dmi'
-	var/prepared_spell = null
 
 //Ratvarian spear
-/obj/item/clockwork/weapon/ratvarian_spear
+/obj/item/twohanded/ratvarian_spear
 	name = "ratvarian spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
+	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear"
-	item_state = "ratvarian_spear"
-	force = 12 //Extra damage is dealt to targets in attack()
-	throwforce = 25
-	armour_penetration = 10
+	force_unwielded = 12
+	force_wielded = 20
+	throwforce = 40
+	armour_penetration = 30
 	sharp = TRUE
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -70,18 +106,40 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/clockwork/weapon/ratvarian_spear/New()
-	enchants = GLOB.spear_spells
-	..()
-
-/obj/item/clockwork/weapon/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/twohanded/ratvarian_spear/Initialize(mapload)
 	. = ..()
+	enchants = GLOB.spear_spells
 
-/*
+/obj/item/twohanded/ratvarian_spear/update_icon()
+	. = ..()
+	update_overlays()
+
+/obj/item/twohanded/ratvarian_spear/proc/update_overlays()
+	cut_overlays()
+	if(enchant_type)
+		overlays += "ratvarian_spear_overlay_[enchant_type]"
+
+/obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(wielded && istype(target, /mob/living))
+		var/mob/living/L = target
+		if(enchant_type == CONFUSE_SPELL)
+			L.SetConfused(4)
+			deplete_spell()
+		if(enchant_type == DISABLE_SPELL)
+			if(issilicon(L))
+				var/mob/living/silicon/S = L
+				S.emp_act(EMP_LIGHT)
+			else
+				L.emp_act(EMP_HEAVY)
+			deplete_spell()
+
+
 /obj/item/twohanded/clock_hammer
 	name = "hammer clock"
 	desc = "A heavy hammer of an elder god. Used to shine like in past times."
-	icon_state = "mjollnir0"
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clock_hammer"
 	slot_flags = SLOT_BACK
 	force = 5
 	force_unwielded = 5
@@ -89,8 +147,34 @@
 	throwforce = 30
 	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
-*/
-//throw_at
+
+/obj/item/twohanded/clock_hammer/Initialize(mapload)
+	. = ..()
+	enchants = GLOB.hammer_spells
+
+/obj/item/twohanded/clock_hammer/update_icon()
+	. = ..()
+	update_overlays()
+
+/obj/item/twohanded/clock_hammer/proc/update_overlays()
+	cut_overlays()
+	if(enchant_type)
+		overlays += "clock_hammer_overlay_[enchant_type]"
+
+/obj/item/twohanded/clock_hammer/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	var/atom/throw_target = get_edge_target_turf(M, user.dir)
+
+	if(!enchant_type == KNOCKOFF_SPELL)
+		M.throw_at(throw_target, rand(1, 2), 7, user)
+	else
+		M.throw_at(throw_target, 200, 20, user) // vroom
+		deplete_spell()
+	if(enchant_type == CRUSH_SPELL && istype(user,/mob/living/carbon/human))
+		user.apply_damage(25, BRUTE, def_zone)
+		var/obj/item/organ/external/BP = M.get_organ(def_zone)
+		BP.fracture()
+		deplete_spell()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -105,10 +189,21 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
+	var/hit_reflect_chance = 40
 
-/obj/item/clothing/suit/hooded/clockrobe/New()
+/obj/item/clothing/suit/hooded/clockrobe/Initialize(mapload)
+	. = ..()
 	enchants = GLOB.robe_spells
-	..()
+
+/obj/item/clothing/suit/hooded/clockrobe/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	if(enchant_type == WEAK_REFLECT_SPELL)
+		playsound(loc, "sparks", 100, TRUE)
+		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
+		if(!prob(hit_reflect_chance))
+			return FALSE
+		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src]'s sparks!</span>")
+		return TRUE
+
 
 /obj/item/clothing/head/hooded/clockhood
 	name = "clock hood"
@@ -131,13 +226,54 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 60, "bullet" = 50, "laser" = 40, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	flags_inv = HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork)
 
-/obj/item/clothing/suit/armor/clockwork/New()
+/obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
+	. = ..()
 	enchants = GLOB.armour_spells
-	..()
+
+/obj/item/clothing/suit/armor/clockwork/IsReflect()
+	var/mob/living/carbon/human/user = loc
+	if(enchant_type != REFLECT_SPELL)
+		return
+	if(user.wear_suit == src)
+		return TRUE
+
+/obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	if(enchant_type == REFLECT_SPELL)
+		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src]'s sparks!</span>")
+		playsound(loc, "sparks", 100, TRUE)
+		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
+		return TRUE
+
+/obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
+	. = ..()
+	if(enchant_type == ARMOR_SPELL && isclocker(user))
+		to_chat(user, "<span class='notice'>the [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
+		armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
+		enchant_type = CASTING_SPELL
+		addtimer(CALLBACK(src, .proc/reset_armor), 10)
+	if(enchant_type == FLASH_SPELL && isclocker(user))
+		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
+		set_light(2, 1, COLOR_WHITE)
+		addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+		usr.visible_message("<span class='disarm'>[usr]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
+		for(var/mob/living/carbon/M in oviewers(3, null))
+			if(isclocker(M))
+				return
+			if(M.flash_eyes(2, 1))
+				M.AdjustConfused(5)
+				M.Stun(2)
+		deplete_spell()
+
+/obj/item/clothing/suit/armor/clockwork/proc/reset_armor()
+	to_chat(usr, "<span class='notice>The [src] stops to shifting...</span>")
+	armor = initial(armor)
+	deplete_spell()
+
 
 /obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot)
 	..()
@@ -167,6 +303,64 @@
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	var/north_star = FALSE
+	var/fire_casting = FALSE
+
+/obj/item/clothing/gloves/clockwork/Initialize(mapload)
+	. = ..()
+	enchants = GLOB.gloves_spell
+
+/obj/item/clothing/gloves/clockwork/attack_self(mob/user)
+	. = ..()
+	if(enchant_type == FASTPUNCH_SPELL)
+		if(user.mind.martial_art)
+			to_chat(user, "<span class='warning'>You're too powerful to use it!</span>")
+			return
+		to_chat(user, "<span class='notice'>You fastening gloves making your moves agile!</span>")
+		enchant_type = CASTING_SPELL
+		north_star = TRUE
+		addtimer(CALLBACK(src, .proc/reset), 80)
+	if(enchant_type == FIRE_SPELL)
+		to_chat(user, "<span class='notice>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
+		enchant_type = CASTING_SPELL
+		fire_casting = TRUE
+		addtimer(CALLBACK(src, .proc/reset), 50)
+
+
+/obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
+	var/mob/living/M = loc
+	if(M.a_intent == INTENT_HARM)
+		if(enchant_type == STUNHAND_SPELL)
+			if(iscarbon(A))
+				var/mob/living/carbon/C = A
+				if(isclocker(C))
+					return
+				C.Weaken(5)
+				C.Stuttering(10)
+			else if(isrobot(A))
+				var/mob/living/silicon/robot/R = A
+				if(isclocker(R))
+					return
+				R.Weaken(5)
+			else
+				return
+			do_sparks(5, 0, loc)
+			playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+			deplete_spell()
+		if(north_star && !M.mind.martial_art)
+			M.changeNext_move(CLICK_CD_RAPID)
+		if(fire_casting && iscarbon(A))
+			var/mob/living/carbon/C = A
+			if(isclocker(C))
+				return
+			C.adjust_fire_stacks(0.3)
+			C.IgniteMob()
+
+/obj/item/clothing/gloves/clockwork/proc/reset()
+	north_star = FALSE
+	fire_casting = FALSE
+	to_chat(user, "<span class='notice'> [src] depletes last magic they had.</span>")
+	deplete_spell()
 
 /obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot)
 	..()
@@ -193,12 +387,8 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_treads"
 	item_state = "clockwork_treads"
-	strip_delay = 50
+	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/item/clothing/shoes/clockwork/New()
-	enchants = GLOB.shoes_spells
-	..()
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot)
 	..()
@@ -391,6 +581,7 @@
 		"<span class='clock'>You extracted [H]'s consciousness, trapping it in the soul vessel.")
 		try_to_transfer(H)
 
+// A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab
 	name = "unactivated cogscarab"
 	desc = "A strange, drone-like machine. It looks lifeless."
@@ -418,29 +609,21 @@
 		visible_message("<span class='notice'>[src] stops to hum. Perhaps you could try again?</span>")
 		searching = FALSE
 
+// A real fighter. Doesn't have any ability except passive range reflect chance but a good soldier with solid speed and attack.
 /obj/item/clockwork/marauder
 	name = "unactivated marauder"
 	desc = "The stalwart apparition of a soldier. It looks lifeless."
 	icon_state = "marauder_shell"
-	var/searching = FALSE
 
-/obj/item/clockwork/marauder/attack_self(mob/user)
-	if(!isclocker(user))
-		to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
-		return FALSE
-	if(searching)
-		return
-	searching = TRUE
-	to_chat(user, "<span class='notice'>You're trying to boot up [src] as the flames inside starts to heat.</span>")
-	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/clockwork/marauder)
-	if(candidates.len)
-		var/mob/dead/observer/O = pick(candidates)
+/obj/item/clockwork/marauder/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
+		var/obj/item/mmi/robotic_brain/clockwork/soul = I
+		if(!soul.brainmob.mind)
+			to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new /mob/living/simple_animal/hostile/clockwork/marauder(get_turf(src))
-		cog.key = O.key
-		if(SSticker.mode.add_clocker(cog.mind))
-			cog.create_log(CONVERSION_LOG, "[cog.mind] became marauder by [user.name]")
-		user.unEquip()
+		soul.brainmob.mind.transfer_to(cog)
+		playsound(cog, 'sound/effects/constructform.ogg', 50)
+		qdel(soul)
+		user.unEquip(soul)
 		qdel(src)
-	else
-		visible_message("<span class='notice'>[src] stops heating. Perhaps you could try again?</span>")
-		searching = FALSE

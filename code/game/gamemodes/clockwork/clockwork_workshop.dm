@@ -35,7 +35,8 @@
 	item_list = list()
 	item_list["Weapon"] = list(
 		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 0, 200, 10),
-		CLOCK_DESIGN("Ratvarian Spear", /obj/item/clockwork/weapon/ratvarian_spear, 200, 2500, 20),
+		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 200, 2500, 20),
+		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 200, 2500, 20),
 	)
 	item_list["Clothing"] = list(
 		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 250, 4000, 30),
@@ -44,7 +45,7 @@
 		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 150, 1000, 15),
 	)
 	item_list["Consumables"] = list(
-		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 50, 300, 5),
+		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 300, 0, 5),
 		CLOCK_DESIGN("Soul vessel", /obj/item/mmi/robotic_brain/clockwork, 300, 1000, 20),
 		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 200, 2000, 20),
 		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 300, 2500, 30),
@@ -64,14 +65,28 @@
 	SStgui.close_uis()
 	return ..()
 
-/obj/structure/clockwork/functional/workshop/interact(mob/user)
+/obj/structure/clockwork/functional/workshop/attack_hand(mob/user)
+	if(!isclocker(user))
+		to_chat(user,"<span class='warning'>You are trying to understand how this table works, but to no avail.</span>")
+		return
 	if(anchored)
 		ui_interact(user)
+
+/obj/structure/clockwork/functional/workshop/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/sheet/brass) && isclocker(user))
+		var/obj/item/stack/sheet/brass/B = O
+		if(user.unEquip(B))
+			to_chat(user, "<span class='notice'>You reconstruct [B] for workshop to work with.")
+			brass_amount += MINERAL_MATERIAL_AMOUNT*B.amount
+			qdel(B)
+			flick("workshop_b", src)
+			return
+	return ..()
 
 /obj/structure/clockwork/functional/workshop/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Workshop", name, 750, 700, master_ui, state)
+		ui = new(user, src, ui_key, "Workshop", name, 400, 500, master_ui, state)
 		ui.open()
 
 /obj/structure/clockwork/functional/workshop/ui_static_data(mob/user)
@@ -107,8 +122,6 @@
 	var/list/data = list()
 	data["brass_amount"] = brass_amount
 	data["power_amount"] = GLOB.clockwork_power
-	var/datum/clockwork_design/D = being_built
-	data["busyname"] =  istype(D) && D.design_name ? D.design_name : FALSE
 
 	// Current build
 	if(being_built)
@@ -142,6 +155,12 @@
 				to_chat(usr, "<span class='danger'>Your cult have insufficient power.</span>")
 				return
 			build_design(item)
+		if("dispense")
+			if(brass_amount < MINERAL_MATERIAL_AMOUNT)
+				to_chat(usr, "<span class='danger'>You have insufficient brass in workshop.</span>")
+			else
+				brass_amount -= MINERAL_MATERIAL_AMOUNT
+				new /obj/item/stack/sheet/brass(loc)
 		else
 			return FALSE
 
@@ -169,19 +188,19 @@
 
 	// Subtract the materials from the holder
 	brass_amount -= CD.brass_cost
-	adjust_clockwork_power(CD.power_cost)
+	adjust_clockwork_power(-CD.power_cost)
 
 	// Start building the design
 	being_built = CD
 	build_start = world.time
-	build_end = build_start + CD.build_time
+	build_end = build_start + CD.build_time SECONDS
 	desc = "It's creating \a [initial(CD.design_name)]."
-	addtimer(CALLBACK(src, .proc/build_design_timer_finish, CD), CD.build_time)
+	addtimer(CALLBACK(src, .proc/build_design_timer_finish, CD), CD.build_time SECONDS)
 
 	return TRUE
 
 /obj/structure/clockwork/functional/workshop/proc/build_design_timer_finish(datum/clockwork_design/CD)
-	new CD.design_path(src.loc)
+	new CD.design_path(loc)
 	// Clean up
 	being_built = null
 	build_start = 0

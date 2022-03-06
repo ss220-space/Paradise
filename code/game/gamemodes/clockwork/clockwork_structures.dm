@@ -50,14 +50,10 @@
 	var/areastring = null
 	color = "#FFFFFF"
 
-/obj/structure/clockwork/functional/beacon/New()
-	SSticker.mode.clocker_objs.beacon_check()
-	areabeacon = get_area(src)
-	GLOB.clockwork_beacons += src
-	..()
-
 /obj/structure/clockwork/functional/beacon/Initialize(mapload)
 	. = ..()
+	areabeacon = get_area(src)
+	GLOB.clockwork_beacons += src
 	START_PROCESSING(SSobj, src)
 	var/area/A = get_area(src)
 	//if area isn't specified use current

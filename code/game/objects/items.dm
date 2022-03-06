@@ -106,8 +106,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/tip_timer = 0
 
 	//Clockwork enchantment
-	var/enchanted = FALSE // Is it enchanted?
-	var/enchant_type = null // What's the type on enchantment on it?
+	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
 	var/enchants = list() // List(datum)
 
 
@@ -689,3 +688,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/obj/item/proc/deplete_spell()
+	enchant_type = NO_SPELL
+	update_icon()

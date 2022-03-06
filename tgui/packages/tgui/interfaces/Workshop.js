@@ -1,6 +1,7 @@
 import { createSearch, toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Collapsible, Dropdown, Flex, Input, LabeledList, ProgressBar, Countdown, Section } from '../components';
+import { Box, Button, Collapsible, Dropdown, Flex, Input, LabeledList, ProgressBar, Section } from '../components';
+import { Countdown } from '../components/Countdown';
 import { Window } from "../layouts";
 
 const canBeMade = (design, brsail, pwrail) => {
@@ -16,20 +17,11 @@ const canBeMade = (design, brsail, pwrail) => {
   return true;
 };
 
-
-const sortTypes = {
-  'Alphabetical': (a, b) => a - b,
-  'By availability': (a, b) => -(a.affordable - b.affordable),
-  'By Brass Needs': (a, b) => a.brass_amount - b.brass_amount,
-  'By Power Needs': (a, b) => a.power_amount - b.power_amount,
-};
-
 export const Workshop = (_properties, context) => {
   const { act, data } = useBackend(context);
   const {
     brass_amount,
     power_amount,
-    busyname,
     building,
     buildStart,
     buildEnd,
@@ -41,49 +33,56 @@ export const Workshop = (_properties, context) => {
 
   const styleLeftDiv = {
     float: 'left',
-    width: '68%',
+    width: '60%',
   };
   const styleRightDiv = {
     float: 'right',
-    width: '30%',
+    width: '39%',
   };
 
   return (
-    <Window theme="clockwork">
+    <Window theme="clockwork" resizable>
       <Window.Content className="Layout__content--flexColumn">
-        <div style={styleLeftDiv}>
-          <WorkshopSearch />
-          <WorkshopItems />
-        </div>
-        <div style={styleRightDiv}>
-          <Section title="Materials">
-            <LabeledList>
-              <LabeledList.Item label="Brass">
-                {brassReadable}
-              </LabeledList.Item>
-              <LabeledList.Item label="Power">
-                {powerReadable}
-              </LabeledList.Item>
-            </LabeledList>
-          </Section>
-          <Section title="Building">
-            <Box color={busyname ? "green" : ""}>
-              {busyname ? busyname : "Nothing"}
-            </Box>
-            <ProgressBar.Countdown
-              start={buildStart}
-              current={worldTime}
-              end={buildEnd}
-              bold>
-              Building {building}
-              &nbsp;(<Countdown
-                current={worldTime}
-                timeLeft={buildEnd - worldTime}
-                format={(v, f) => f.substr(3)}
+        <Box>
+        <WorkshopSearch />
+        <Section title="Materials">
+          <LabeledList>
+            <LabeledList.Item label="Brass">
+              {brassReadable}
+              <Button
+                icon={"arrow-down"}
+                height="19px"
+                tooltip={"Dispense Brass"}
+                tooltipPosition="bottom-left"
+                ml="0.5rem"
+                onClick={() => act("dispense")}
               />
-            </ProgressBar.Countdown>
-          </Section>
-        </div>
+            </LabeledList.Item>
+            <LabeledList.Item label="Power">
+              {powerReadable}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+        </Box>
+        <Section flexGrow="1">
+          <WorkshopItems />
+        </Section>
+        <Flex mb="0.5rem">
+          {building && (
+          <ProgressBar.Countdown
+            start={buildStart}
+            current={worldTime}
+            end={buildEnd}
+            bold>
+            Building {building}
+            &nbsp;(<Countdown
+              current={worldTime}
+              timeLeft={buildEnd - worldTime}
+              format={(v, f) => f.substr(3)}
+            />)
+          </ProgressBar.Countdown>
+          )}
+          </Flex>
       </Window.Content>
     </Window>
   );
@@ -111,14 +110,6 @@ const WorkshopSearch = (_properties, context) => {
             width="100%"
             onInput={(_e, value) => setSearchText(value)}
           />
-        </Flex.Item>
-        <Flex.Item basis="30%">
-          <Dropdown
-            selected="Alphabetical"
-            options={Object.keys(sortTypes)}
-            width="100%"
-            lineHeight="19px"
-            onSelected={v => setSortOrder(v)} />
         </Flex.Item>
         <Flex.Item>
           <Button
@@ -166,7 +157,6 @@ const WorkshopItems = (_properties, context) => {
         kv2[1].affordable = canBeMade(kv2[1], data.brass_amount, data.power_amount);
         return kv2[1];
       })
-      .sort(sortTypes[sortOrder]);
     if (items_in_cat.length === 0) {
       return;
     }
@@ -223,14 +213,14 @@ const WorkshopItemsCategory = (properties, context) => {
               cat: title,
               name: item.name,
             })}>
-            {toTitleCase(item.name)}
+            {toTitleCase(toTitleCase(item.name))}
           </Button>
           <Box
             display="inline-block"
             verticalAlign="middle"
             lineHeight="20px"
             style={{
-              float: 'left',
+              float: 'right',
             }}>
             {item.requirements && (
               Object

@@ -426,6 +426,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	new /datum/stack_recipe("herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 80, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
 	new /datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
 	null,
 	new /datum/stack_recipe_list("windows and furniture", list(
 		new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \

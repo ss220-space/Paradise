@@ -8,7 +8,7 @@
 // state for spell
 #define NO_SPELL 0
 #define A_SPELL 1
-#define CASTING_SPELL 2
+#define CASTING_SPELL -1
 
 // Clockslab enchant type
 #define STUN_SPELL 1
@@ -18,9 +18,11 @@
 #define REFORM_SPELL 5
 #define TELEPORT_SPELL 6
 // Ratvarian spear enchant type
-#define BLOOD_SPELL 1
-#define CRUSH_SPELL 2
-#define DISABLE_SPELL 3
+#define CONFUSE_SPELL 1
+#define DISABLE_SPELL 2
+// Clock hammer
+#define CRUSH_SPELL 1
+#define KNOCKOFF_SPELL 2
 // Clockwork robe
 #define WEAK_REFLECT_SPELL 1
 #define WEAK_ABSORB_SPELL 2
@@ -29,17 +31,13 @@
 #define REFLECT_SPELL 1
 #define FLASH_SPELL 2
 #define ABSORB_SPELL 3
-#define ARMOUR_SPELL 4
-// Clockwork treads.
-#define JUMP_SPELL 1
-#define NOSLIP_SPELL 2
-#define RUNNING_SPELL 3
+#define ARMOR_SPELL 4
 // Clockwork gloves
 #define FASTPUNCH_SPELL 1
-#define HARDHAND_SPELL 2
-#define QUICKHAND_SPELL 3
+#define STUNHAND_SPELL 2
+#define FIRE_SPELL 3
 
-
+// spell_enchant(name, type_SPELL, cost, time, action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Stun", STUN_SPELL, 125),
 	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 200),
@@ -49,30 +47,27 @@ GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 50)
 ))
 GLOBAL_LIST_INIT(spear_spells, list(
-	new /datum/spell_enchant("Bloodlust", BLOOD_SPELL, 125),
+	new /datum/spell_enchant("Confusion", CONFUSE_SPELL, 125),
+	new /datum/spell_enchant("Electrical touch", DISABLE_SPELL, 200)
+))
+GLOBAL_LIST_INIT(hammer_spells, list(
 	new /datum/spell_enchant("Crusher", CRUSH_SPELL, 125),
-	new /datum/spell_enchant("Disabling", DISABLE_SPELL, 200)
+	new /datum/spell_enchant("Knock off", KNOCKOFF_SPELL, 200)
 ))
 GLOBAL_LIST_INIT(robe_spells, list(
 	new /datum/spell_enchant("Weak Reflection", WEAK_REFLECT_SPELL, 75),
-	new /datum/spell_enchant("Weak Absorb", WEAK_ABSORB_SPELL, 75),
 	new /datum/spell_enchant("Invisibility", INVIS_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(armour_spells, list(
 	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 150, 15),
-	new /datum/spell_enchant("Flash", FLASH_SPELL, 25),
+	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, TRUE),
 	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 150, 15),
-	new /datum/spell_enchant("Harden plates", ARMOUR_SPELL, 150, 30)
-))
-GLOBAL_LIST_INIT(shoes_spells, list(
-	new /datum/spell_enchant("Jumper", JUMP_SPELL, 50),
-	new /datum/spell_enchant("No Slipping", NOSLIP_SPELL, 100),
-	new /datum/spell_enchant("Running", RUNNING_SPELL, 100)
+	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 150, 30, TRUE)
 ))
 GLOBAL_LIST_INIT(gloves_spell, list(
-	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 100),
-	new /datum/spell_enchant("Hard Punches", HARDHAND_SPELL, 100),
-	new /datum/spell_enchant("Quick Hands", QUICKHAND_SPELL, 75)
+	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 100, TRUE),
+	new /datum/spell_enchant("Stunning", STUNHAND_SPELL, 100),
+	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 75, TRUE)
 ))
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400

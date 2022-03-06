@@ -72,3 +72,10 @@
 /obj/effect/temp_visual/ratvar/grille/broken
 	icon_state = "ratvarbrokengrilleglow"
 
+/obj/effect/temp_visual/emp/clock
+	icon = 'icons/effects/clockwork_effects.dmi'
+	icon_state = "empdisable_clock"
+
+/obj/effect/temp_visual/emp/pulse/clock
+	icon = 'icons/effects/clockwork_effects.dmi'
+	icon_state = "emppulse_clock"
