@@ -27,7 +27,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null,1)
 	component_parts += new /obj/item/stack/cable_coil(null,1)
 	RefreshParts()
-	initialize_serv(); //Agouri // fuck you agouri
+	initialize_serv() //Agouri // fuck you agouri
 
 /obj/machinery/r_n_d/server/upgraded/New()
 	..()

@@ -405,6 +405,7 @@
 	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
 	var/is_cooldown = FALSE		//На кулдауне ли мы?
 	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
 	req_access = list(154)
@@ -474,25 +475,27 @@
 	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
 	if(usr == last_opener && world.time >= last_opened_time + timeout)
 		return FALSE
-	//возможно проверку на дистанцию сюда впихнуть(личная заметка, потом удалю)
 	return(L[desc])
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
-	if(portal_enabled && !myportal)
+	if(portal_enabled && !myportal &&!myportal2)
 		var/turf/tele_target = choosetarget()
+		log_debug("[last_opener] attempted to open a two-way portal using [src.name]")
 		if(!in_range(usr, src) || !tele_target || myportal || myportal2)
 			return
 		is_cooldown = FALSE
 		wait_time = 0
 		blocked = FALSE
 		var/turf/portal_turf = get_step(src, portaldir)
-		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, 0)
+		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, lifespan)
 		myportal = P
 		var/area/A = get_area(tele_target)
 		P.name = "[A] portal"
-		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, 0)
+		log_debug("First Portal: [P] opened at ([portal_turf.x],[portal_turf.y],[portal_turf.z])")
+		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, lifespan)
 		myportal2 = P2
-		P2.name = "mysterious portal"
+		P2.name = "Mysterious portal"
+		log_debug("Second Portal: [P2] opened at ([tele_target.x],[tele_target.y],[tele_target.z])")
 	else if(!portal_enabled)
 		if(myportal)
 			qdel(myportal)

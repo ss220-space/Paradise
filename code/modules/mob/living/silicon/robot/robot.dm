@@ -141,6 +141,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	init(alien, connect_to_AI, ai_to_sync_to)
 
+	if(is_taipan(z) || syndie) //Чтобы турели не били собранных на тайпане или из емагнутого корпуса боргов
+		faction += "syndicate"
+
 	if(has_camera && !camera && !syndie)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name

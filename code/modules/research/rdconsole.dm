@@ -171,6 +171,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(is_taipan(z))
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
+		id = 0027
 	if(!id)
 		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
 			S.initialize_serv()
@@ -269,6 +270,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
+		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
+			log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
+			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
 			server_processed = TRUE
@@ -804,6 +808,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message
 	data["src_ref"] = UID()
+	data["ui_theme"] = ui_theme
 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
