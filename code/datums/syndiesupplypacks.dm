@@ -915,18 +915,18 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "robotics assembly crate"
 	access = ACCESS_ROBOTICS
 
-/datum/syndie_supply_packs/science/borg_circuit
-	name = "Syndicate Cyborg Circuit Crate"
-	contains = list(/obj/item/mmi/robotic_brain/syndicate)
-	cost = 93750
+/datum/syndie_supply_packs/science/syndie_exosuit_fabricator_circuit
+	name = "Syndicate Exosuit Fabricator Crate"
+	contains = list(/obj/item/circuitboard/mechfab/syndicate)
+	cost = 250000
 	containertype = /obj/structure/closet/crate/secure/syndicate
-	containername = "Syndicate Cyborg Circuit crate"
+	containername = "Syndicate Exosuit Fabricator Crate"
 	access = ACCESS_SYNDICATE_RESEARCH_DIRECTOR
 
 /datum/syndie_supply_packs/science/syndicate_teleporter
 	name = "Syndicate Redspace Teleporter Circuit Crate"
 	contains = list(/obj/item/circuitboard/syndicate_teleporter)
-	cost = 50000
+	cost = 100000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "Syndicate Redspace Teleporter Circuit Crate"
 	access = ACCESS_SYNDICATE_RESEARCH_DIRECTOR

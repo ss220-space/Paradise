@@ -7919,14 +7919,12 @@
 /area/centcom/evac)
 "gCq" = (
 /obj/machinery/computer/syndicate_depot/teleporter{
-	name = "teleporter console";
-	req_access = null;
-	use_power = 0
+	lifespan = 0
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull"
 	},
-/area/syndicate_depot/core)
+/area/chrono_ship)
 "gCW" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -9131,7 +9129,9 @@
 /turf/space/transit,
 /area/space)
 "hvY" = (
-/obj/machinery/computer/syndicate_depot/teleporter/taipan,
+/obj/machinery/computer/syndicate_depot/teleporter{
+	lifespan = 0
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	tag = "icon-dark"
@@ -10341,17 +10341,17 @@
 	},
 /area/centcom/evac)
 "irV" = (
-/obj/machinery/computer/syndicate_depot/teleporter{
-	use_power = 0
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/computer/syndicate_depot/teleporter{
+	lifespan = 0
 	},
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
 	},
-/area/syndicate_depot/core)
+/area/event_zone)
 "ist" = (
 /turf/unsimulated/wall/abductor{
 	icon_state = "alien9"

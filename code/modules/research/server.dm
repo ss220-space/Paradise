@@ -2,6 +2,8 @@
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
+	icon_open = "server_o"
+	icon_closed = "server"
 	var/datum/research/files
 	var/health = 100
 	var/list/id_with_upload = list()		//List of R&D consoles with upload to server access.
@@ -21,6 +23,9 @@
 	if(is_taipan(z))
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+		icon_state = "syndie_server"
+		icon_open = "syndie_server_o"
+		icon_closed = "syndie_server"
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -141,7 +146,7 @@
 		shock(user,50)
 
 	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "server_o", "server", O)
+		default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
 		return 1
 
 	if(exchange_parts(user, O))

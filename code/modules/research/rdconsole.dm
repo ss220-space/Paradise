@@ -91,6 +91,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
 
+	var/ui_theme = "Nanotrasen" //Тема интерфейса
+
 /proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
 	for(var/T in subtypesof(/datum/tech))
 		var/datum/tech/tt = T
@@ -170,8 +172,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	matching_designs = list()
 	if(is_taipan(z))
 		syndicate = 1
+		ui_theme = "syndicate"
+		icon_screen = "syndie_rdcomp"
+		icon_keyboard = "syndie_key"
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
+		update_icon()
 	if(!id)
 		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
 			S.initialize_serv()
@@ -321,7 +327,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	linked_destroy.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-	flick("d_analyzer_process", linked_destroy)
+	flick("[linked_destroy.icon_closed]_process", linked_destroy)
 	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -362,10 +368,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_destroy.loaded_item = S
 			else
 				qdel(S)
-				linked_destroy.icon_state = "d_analyzer"
+				linked_destroy.icon_state = linked_destroy.icon_closed
 		else if(!(I in linked_destroy.component_parts))
 			qdel(I)
-			linked_destroy.icon_state = "d_analyzer"
+			linked_destroy.icon_state = linked_destroy.icon_closed
 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
@@ -422,10 +428,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(is_lathe)
 		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-		flick("protolathe_n", machine)
+		flick("[machine.icon_state]_n", machine)
 	else
 		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
-		flick("circuit_imprinter_ani", machine)
+		flick("[machine.icon_state]_ani", machine)
 
 	machine.busy = TRUE
 	use_power(power)
