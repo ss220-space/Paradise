@@ -73,7 +73,7 @@
 	RefreshParts()
 
 /obj/machinery/power/smes/on_construction()
-	src.connect_to_network()
+	connect_to_network()
 
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
