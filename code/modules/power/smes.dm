@@ -72,6 +72,9 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
+/obj/machinery/power/smes/on_construction()
+	src.connect_to_network()
+
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
 	var/C = 0
