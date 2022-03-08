@@ -75,6 +75,18 @@
 			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
+		// Coloring text for runechat
+		var/speaker_name = src.name
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			speaker_name = H.GetVoice()
+
+		if(isobserver(src))
+			if(speaker_name != src.real_name && src.real_name)
+				speaker_name = "[src.real_name] ([speaker_name])"
+
+		colorize_name(src, speaker_name)
+
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)
 			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
@@ -90,6 +102,8 @@
 						M.show_message(message, m_type)
 
 				O.show_message(message, m_type)
+				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					O.create_chat_message(src, input, FALSE, TRUE, TRUE)
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
@@ -105,6 +119,9 @@
 						M.show_message(message, m_type)
 
 				O.show_message(message, m_type)
+				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					O.create_chat_message(src, input, FALSE, TRUE, TRUE)
+		return 1
 
 /mob/proc/emote_dead(var/message)
 	if(client.prefs.muted & MUTE_DEADCHAT)
@@ -143,3 +160,75 @@
 
 			else if(M.stat == DEAD && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)
+
+/mob/proc/show_emote(var/m_type = EMOTE_VISUAL, var/input = null)
+	if(!input)
+		return
+
+	var/message = "<B>[src]</b> [input]"
+
+	log_emote(message, src)
+
+	// Coloring text for runechat
+	var/speaker_name = src.name
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		speaker_name = H.GetVoice()
+
+	if(isobserver(src))
+		if(speaker_name != src.real_name && src.real_name)
+			speaker_name = "[src.real_name] ([speaker_name])"
+
+	colorize_name(src, speaker_name)
+
+	for(var/mob/M in GLOB.dead_mob_list)
+		if(!M.client)
+			continue //skip monkeys and leavers
+
+		if(isnewplayer(M))
+			continue
+
+		if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			M.show_message(message)
+
+	switch(m_type)
+		if(EMOTE_VISUAL) //Visible
+			for(var/mob/M in get_mobs_in_view(7, src))
+				if(!M.client)
+					continue
+				if(M.see_invisible < invisibility)
+					continue
+				if(!M.has_vision(information_only=TRUE))
+					continue
+				to_chat(M, message)
+				if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					M.create_chat_message(src, input, FALSE, TRUE, TRUE)
+			return 1
+		if(EMOTE_SOUND) //Audible
+			for(var/mob/M in get_mobs_in_view(7, src))
+				if(!M.client)
+					continue
+				if(!M.can_hear())
+					continue
+				if(M.stat == UNCONSCIOUS || (M.sleeping > 0 && M.stat != DEAD))
+					to_chat(M, "<I>... You can almost hear something ...</I>")
+				else
+					to_chat(M, message)
+					if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+						M.create_chat_message(src, input, FALSE, TRUE, TRUE)
+
+			// Gives the ability to be heard by atoms(For example: recorder)
+			// based on say code
+			var/list/listening_obj = new
+			for(var/atom/movable/A in view(7, src))
+				if(istype(A, /mob))
+					var/mob/M = A
+					for(var/obj/O in M.contents)
+						listening_obj |= O
+				else if(istype(A, /obj))
+					var/obj/O = A
+					listening_obj |= O
+			for(var/obj/O in listening_obj)
+				O.hear_message(src, input)
+			return 1
+	return

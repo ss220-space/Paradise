@@ -52,6 +52,7 @@ var opts = {
 	'pongTime': 0, //Timestamp of when ping received
 	'noResponse': false, //Tracks the state of the previous ping request
 	'noResponseCount': 0, //How many failed pings?
+	'lastPingDuration': 0, // Last ping duration in ms
 
 	//Clicks
 	'mouseDownX': null,
@@ -413,7 +414,7 @@ function output(message, flag) {
 	}
 
 	//Stuff we can do after the message shows can go here, in the interests of responsiveness
-	if (opts.highlightTerms && opts.highlightTerms.length > 0) {
+	if ((opts.highlightTerms && opts.highlightTerms.length > 0) || (opts.codePhrases.length > 0 && opts.codeResponses.length > 0)) {
 		highlightTerms(entry);
 	}
 }
@@ -511,16 +512,18 @@ function ehjaxCallback(data) {
 		opts.pingTime = Date.now();
 		runByond('?_src_=chat&proc=ping');
 	} else if (data == 'pong') {
-		if (opts.pingDisabled) {return;}
+		// if (opts.pingDisabled) {return;}
 		opts.pongTime = Date.now();
 		var pingDuration = Math.ceil((opts.pongTime - opts.pingTime) / 2);
 		$('#pingMs').text(pingDuration+'ms');
 		pingDuration = Math.min(pingDuration, 255);
+		opts.lastPingDuration = pingDuration;
 		var red = pingDuration;
 		var green = 255 - pingDuration;
 		var blue = 0;
 		var hex = rgbToHex(red, green, blue);
 		$('#pingDot').css('color', '#'+hex);
+		runByond('?_src_=chat&proc=pingstat&param[lastPingDuration]='+opts.lastPingDuration);
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
 		internalOutput('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
@@ -684,7 +687,7 @@ $(function() {
 			if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
 				opts.noResponse = true;
 				opts.noResponseCount++;
-				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
+				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed. <a href="byond://winset?command=.reconnect">(Reconnect)</a></div>', 'internal');
 			}
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
 			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');

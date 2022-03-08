@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/item/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
 	var/custom_hologram = 0 //For our custom holograms
+	var/on_the_card = FALSE //If our ai is on the Intelicard, or not
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -1235,11 +1236,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		update_blind_effects()
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
-		loc = card//Throw AI into the card.
+		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
@@ -1273,7 +1275,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M, message_clean, TRUE, FALSE)
+		create_chat_message(M.runechat_msg_location, message_clean,TRUE, FALSE)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1387,3 +1389,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+
+/mob/living/silicon/ai/update_runechat_msg_location()
+	if(istype(loc, /obj/item/aicard) || ismecha(loc))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src
