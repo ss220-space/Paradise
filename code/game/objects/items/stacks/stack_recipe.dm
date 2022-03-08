@@ -24,7 +24,6 @@
 	src.time = time
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
-	src.on_lattice = on_lattice
 	src.window_checks = window_checks
 	src.no_cult_structure = no_cult_structure
 	src.on_lattice = on_lattice
