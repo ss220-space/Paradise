@@ -1,4 +1,4 @@
-#define UPGRADE_COOLDOWN  40
+#define UPGRADE_COOLDOWN  44
 #define UPGRADE_KILL_TIMER  100
 
 //times it takes for a mob to eat
@@ -170,7 +170,7 @@
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(5)  //It will hamper your voice, being choked and all.
+		affecting.Stun(2)  //It will hamper your voice, being choked and all.
 		if(isliving(affecting) && !breathing_tube)
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
@@ -191,7 +191,7 @@
 //Updating pixelshift, position and direction
 //Gets called on process, when the grab gets upgraded or the assailant moves
 /obj/item/grab/proc/adjust_position()
-	if(affecting.buckled)
+	if(!affecting || affecting.buckled)
 		return
 	if(affecting.lying && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)

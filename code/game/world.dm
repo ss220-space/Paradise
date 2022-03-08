@@ -1,6 +1,10 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
+/proc/enable_debugging(mode, port)
+	CRASH("auxtools not loaded")
+
 /world/New()
+	dmjit_hook_main_init()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
@@ -8,7 +12,13 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	load_configuration()
-	enable_debugger() // Enable the extools debugger
+
+	// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
+	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if(debug_server)
+		call(debug_server, "auxtools_init")()
+		enable_debugging()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -74,17 +84,18 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
-	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
+	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == config?.comms_password ? "*secret*" : key]")
 
 	// Handle spam prevention
-	if(!GLOB.world_topic_spam_prevention_handlers[addr])
-		GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler
+	if(!(addr in config?.topic_filtering_whitelist))
+		if(!GLOB.world_topic_spam_prevention_handlers[addr])
+			GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler(addr)
 
-	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[addr]
+		var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[addr]
 
-	// Lock the user out and cancel their topic if needed
-	if(sph.check_lockout())
-		return
+		// Lock the user out and cancel their topic if needed
+		if(sph.check_lockout())
+			return
 
 	var/list/input = params2list(T)
 
@@ -176,6 +187,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
+	GLOB.hublist = file2text("config/hublist.txt")
 
 /proc/load_configuration()
 	config = new /datum/configuration()
@@ -269,14 +281,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << GLOB.log_directory
 
-// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
-// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
-/world/proc/enable_debugger()
-    var/dll = world.GetConfig("env", "EXTOOLS_DLL")
-    if (dll)
-        call(dll, "debug_initialize")()
-
 
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_shutdown")()
 	..()

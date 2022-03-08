@@ -37,3 +37,4 @@ Bonus
 		var/obj/item/organ/internal/heart/heart = M.get_int_organ(/obj/item/organ/internal/heart)
 		heart?.receive_damage(1)
 	return
+
