@@ -530,20 +530,20 @@
 /turf/simulated/wall,
 /area/awaymission/academy/classrooms)
 "bF" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swallc2";
 	tag = "icon-swallc2"
 	},
 /area/awaymission/academy/classrooms)
 "bG" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 2;
 	icon_state = "swall12";
 	tag = "icon-swall12"
 	},
 /area/awaymission/academy/classrooms)
 "bH" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swallc1";
 	tag = "icon-swallc1"
 	},
@@ -680,7 +680,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "bW" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 2;
 	icon_state = "swall3";
 	tag = "icon-swall3"
@@ -875,7 +875,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "cs" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall1";
 	tag = "icon-swall1"
 	},

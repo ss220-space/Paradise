@@ -482,6 +482,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	nad_allowed = TRUE
 	ambientsounds = HIGHSEC_SOUNDS
 
+/area/syndicate_mothership/outside
+	name = "\improper Syndicate Controlled Territory"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	icon_state = "syndie-outside"
+
 /area/syndicate_mothership/control
 	name = "\improper Syndicate Control Room"
 	icon_state = "syndie-control"
@@ -492,10 +497,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/syndicate_mothership/infteam
 	name = "\improper Syndicate Infiltrators"
-	icon_state = "syndie-elite"
+	icon_state = "syndie-infiltrator"
 
 /area/syndicate_mothership/jail
 	name = "\improper Syndicate Jail"
+	icon_state = "syndie-jail"
+
+/area/syndicate_mothership/cargo
+	name = "\improper Syndicate Cargo"
+	icon_state = "syndie-cargo"
 
 // USSP
 

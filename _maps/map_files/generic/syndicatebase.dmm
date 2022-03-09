@@ -288,7 +288,7 @@
 /turf/space,
 /area/syndicate/unpowered/syndicate_space_base/turrets)
 "avx" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/space)
@@ -621,9 +621,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -3727,14 +3725,12 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfx" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_air_sensor"
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfV" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "syndie_base_air_in"
 	},
 /turf/simulated/floor/engine/air,
@@ -3806,14 +3802,12 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "diC" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "djW" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "syndie_base_o2_in"
 	},
 /turf/simulated/floor/engine/o2,
@@ -3837,7 +3831,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dlO" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -3874,7 +3867,6 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "dnE" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "syndie_base_n2_in"
 	},
 /turf/simulated/floor/engine/n2,
@@ -4757,10 +4749,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "edm" = (
 /obj/structure/chair/sofa/right,
@@ -4779,16 +4768,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "eeY" = (
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "efs" = (
 /obj/machinery/light/small,
@@ -4810,10 +4793,7 @@
 	color = "#d70000";
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "ehR" = (
 /obj/effect/spawner/lootdrop/maintenance{
@@ -4930,8 +4910,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "epc" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window,
-/turf/simulated/shuttle/plating,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "epK" = (
 /obj/machinery/porta_turret/syndicate{
@@ -5010,7 +4990,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "euH" = (
 /obj/effect/turf_decal/tile/purple,
@@ -5474,7 +5456,6 @@
 "eMV" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "syndie_base_mix_in"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
@@ -6025,10 +6006,7 @@
 	name = "Arrivals Post";
 	req_access_txt = "154"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "flY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6350,10 +6328,7 @@
 	syndicate = 1
 	},
 /obj/structure/filingcabinet/chestdrawer,
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "fFk" = (
 /obj/machinery/light{
@@ -6396,7 +6371,9 @@
 	color = "#2580f0";
 	icon_state = "x_white"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "fGx" = (
 /obj/structure/table/wood/fancy/black,
@@ -6455,9 +6432,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -6507,14 +6482,12 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "fLc" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_mix_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fLO" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
@@ -6562,9 +6535,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/conveyor/east{
 	id = "bruh"
 	},
@@ -6685,7 +6656,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTp" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_air_in";
 	name = "Mixed Air Supply Control";
 	output_tag = "syndie_base_air_out";
@@ -6734,7 +6704,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTB" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
@@ -6764,7 +6733,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTR" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
@@ -7406,7 +7374,9 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "gzR" = (
 /obj/effect/turf_decal/loading_area{
@@ -7772,10 +7742,7 @@
 /area/space)
 "gJf" = (
 /obj/machinery/vending/cigarette/free,
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "gJt" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -7797,7 +7764,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gKb" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "gLi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7877,7 +7844,6 @@
 /obj/machinery/atmospherics/trinary/mixer{
 	desc = null;
 	dir = 8;
-	name = "gas mixer";
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
@@ -8015,9 +7981,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -8035,9 +7999,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -8077,11 +8039,13 @@
 	dir = 4;
 	dwidth = 7;
 	height = 5;
-	id = "sst_taipan";
+	id = "sit_taipan";
 	name = "Taipan";
 	width = 11
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "hcJ" = (
 /obj/effect/turf_decal/tile/red{
@@ -8385,10 +8349,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -25
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "hqe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8810,7 +8771,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "hDF" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
@@ -8874,7 +8834,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "hLa" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -9263,7 +9222,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "idD" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "ieq" = (
 /obj/effect/turf_decal/tile/green{
@@ -9598,7 +9557,6 @@
 "ipX" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "tox_in"
 	},
 /obj/structure/lattice/catwalk,
@@ -9920,9 +9878,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "iFe" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -9934,7 +9890,6 @@
 "iFE" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "syndie_base_n2o_in"
 	},
 /turf/simulated/floor/engine/n20,
@@ -11498,7 +11453,7 @@
 	dir = 4
 	},
 /obj/machinery/light_construct,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "jZB" = (
 /obj/machinery/power/terminal{
@@ -12116,7 +12071,7 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 5000
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "kIh" = (
 /obj/effect/turf_decal/tile/red,
@@ -12600,9 +12555,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -12807,7 +12760,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lku" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
@@ -12821,7 +12773,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lkI" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -13819,7 +13770,6 @@
 "mag" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "syndie_base_tox_in"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -13850,7 +13800,6 @@
 "maC" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "syndie_base_mix_in"
 	},
 /obj/effect/decal/warning_stripes,
@@ -16207,8 +16156,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_e)
 "nFN" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12"
+/turf/simulated/wall/shuttle{
+	dir = 4;
+	icon_state = "white_walls_directions"
 	},
 /area/space)
 "nGe" = (
@@ -16511,7 +16461,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nSA" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
@@ -16525,7 +16474,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nSR" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -16708,6 +16656,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
+"obt" = (
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "obu" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
@@ -16729,9 +16682,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
@@ -16772,7 +16723,9 @@
 	color = "#2580f0";
 	icon_state = "x_white"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "odN" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -17200,7 +17153,6 @@
 "owu" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "syndie_base_co2_in"
 	},
 /turf/simulated/floor/engine/co2,
@@ -17408,8 +17360,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "oDx" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9"
+/turf/simulated/wall/shuttle{
+	dir = 8;
+	icon_state = "white_walls_directions"
 	},
 /area/space)
 "oEd" = (
@@ -18694,9 +18647,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "pxG" = (
-/obj/effect/decal/syndie_logo{
-	icon_state = "logo1"
-	},
+/obj/effect/decal/syndie_logo,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "pym" = (
@@ -19629,7 +19580,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qgk" = (
 /obj/structure/rack,
@@ -19654,7 +19607,9 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qgT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20569,7 +20524,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qIg" = (
 /obj/structure/table,
@@ -20649,7 +20606,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qKt" = (
 /obj/item/wirecutters,
@@ -21257,7 +21216,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "rqa" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "rqL" = (
 /turf/simulated/floor/carpet/black,
@@ -21498,11 +21457,13 @@
 	dir = 8;
 	dwidth = 3;
 	height = 5;
-	id = "sit_taipan";
+	id = "sst_taipan";
 	name = "Taipan";
 	width = 11
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "rDd" = (
 /obj/structure/chair/wheelchair,
@@ -22005,7 +21966,7 @@
 	dir = 8;
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "rVv" = (
 /obj/structure/table/wood,
@@ -22405,9 +22366,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/power/apc/syndicate{
 	pixel_y = -24
 	},
@@ -22606,7 +22565,9 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sxX" = (
 /obj/effect/turf_decal/tile/purple{
@@ -22632,7 +22593,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "syl" = (
 /obj/effect/turf_decal/stripes/line{
@@ -22650,7 +22613,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "syt" = (
 /obj/structure/rack{
@@ -22685,7 +22650,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sAB" = (
 /obj/structure/rack{
@@ -23356,7 +23323,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tbT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23371,7 +23340,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tcc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23380,7 +23351,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tcm" = (
 /obj/machinery/light,
@@ -23393,7 +23366,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tdY" = (
 /obj/machinery/porta_turret/syndicate{
@@ -23530,9 +23505,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "tiS" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "tjA" = (
 /obj/machinery/optable,
@@ -23908,9 +23883,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "txZ" = (
@@ -23923,9 +23897,8 @@
 	req_access_txt = "150"
 	},
 /obj/machinery/door/firedoor,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tyn" = (
@@ -24875,7 +24848,7 @@
 	density = 0;
 	icon_state = "brokengrille"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "tVJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25536,7 +25509,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "uwh" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
@@ -25642,7 +25617,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/full,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "uxY" = (
 /obj/machinery/door/firedoor,
@@ -25839,7 +25816,6 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "uBn" = (
 /mob/living/simple_animal/mouse/brown{
-	desc = "It's a small, disease-ridden rodent.";
 	faction = list("neutral", "syndicate");
 	name = "Борис"
 	},
@@ -26650,9 +26626,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27326,9 +27300,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/alarm/syndicate{
 	pixel_y = -32
 	},
@@ -27393,9 +27365,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vxu" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28210,9 +28180,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28531,9 +28499,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "woo" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/computer/syndie_supplycomp/public,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29550,9 +29516,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wSo" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -29574,9 +29538,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wSs" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -29598,11 +29560,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
+"wSK" = (
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
+/area/space)
 "wSM" = (
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -29671,9 +29636,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -29732,9 +29695,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -29798,9 +29759,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
@@ -29813,9 +29772,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wYz" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -29902,18 +29859,14 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "xaP" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -29938,9 +29891,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -29982,7 +29933,9 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xeV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -29996,7 +29949,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xfh" = (
 /obj/effect/decal/warning_stripes/west,
@@ -30031,7 +29986,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xgz" = (
 /obj/effect/decal/cleanable/dirt,
@@ -30120,9 +30077,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
@@ -30250,7 +30205,9 @@
 "xrd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xrv" = (
 /obj/structure/window/plasmareinforced{
@@ -30269,7 +30226,9 @@
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xrI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xrT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -30396,9 +30355,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -30483,9 +30440,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
@@ -30807,9 +30762,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/closet/secure_closet/syndicate/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30861,7 +30814,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "xIq" = (
 /obj/structure/lattice,
@@ -30892,7 +30845,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xKl" = (
 /turf/simulated/mineral/titanium,
@@ -31206,9 +31161,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -31239,9 +31192,8 @@
 /obj/item/toy/russian_revolver/trick_revolver,
 /obj/effect/turf_decal/stripes/red/full,
 /obj/item/clothing/head/crown/fancy,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
 	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xVp" = (
@@ -31620,9 +31572,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -57119,7 +57069,7 @@ bbZ
 tKc
 idD
 fjv
-nFN
+oDx
 mEC
 mEC
 mEC
@@ -57376,7 +57326,7 @@ dTx
 rqa
 idD
 jZn
-nFN
+wSK
 mEC
 mEC
 mEC
@@ -59171,7 +59121,7 @@ mEC
 mEC
 mEC
 mEC
-nFN
+oDx
 idD
 idD
 idD
@@ -59689,7 +59639,7 @@ oYE
 avx
 idD
 tiS
-oDx
+xPv
 mEC
 mEC
 mEC
@@ -72423,17 +72373,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 haz
-mEC
-mEC
-mEC
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -72680,17 +72630,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 avh
 aJC
@@ -72937,17 +72887,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 grh
@@ -73194,17 +73144,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 avh
 aJC
@@ -73451,17 +73401,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -73708,17 +73658,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -73965,17 +73915,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -74222,17 +74172,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -74479,17 +74429,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -74736,17 +74686,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 rCY
-mEC
-mEC
-mEC
+obt
+obt
+obt
 mEC
 mEC
 mEC
