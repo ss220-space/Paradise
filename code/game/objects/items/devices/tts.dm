@@ -20,8 +20,7 @@
 		visible_message("[user] stops typing on [src].", "You stop typing on [src].", "You hear the clicking noises stop.")
 		playsound(src, "terminal_type", 50, TRUE)
 		return
-	atom_say("[input]")
-	input = null
+	atom_say(input)
 
 /obj/item/ttsdevice/AltClick(mob/living/user)
 	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
@@ -37,6 +36,7 @@
 
 /obj/item/ttsdevice/CtrlClick(mob/living/user)
 	var/new_name = input(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")  as text|null
-	if(new_name)
-		new_name = reject_bad_name(new_name)
-		name = "[new_name]'s [initial(name)]"
+	if(!new_name)
+		return
+	new_name = reject_bad_name(new_name)
+	name = "[new_name]'s [initial(name)]"
