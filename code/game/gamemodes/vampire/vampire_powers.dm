@@ -157,7 +157,7 @@
 	user.SetStunned(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
-	U.adjustStaminaLoss(-75)
+	U.adjustStaminaLoss(-60)
 	to_chat(user, "<span class='notice'>Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
@@ -166,37 +166,36 @@
 				U.adjustOxyLoss(-5)
 				U.adjustToxLoss(-2)
 				U.adjustFireLoss(-2)
+				U.adjustStaminaLoss(-10)
 				sleep(35)
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise
-	name = "Гипноз (20)"
+	name = "Гипноз (25)"
 	desc= "Пронзающий взгляд, ошеломляющий жертву на довольно долгое время"
 	action_icon_state = "vampire_hypnotise"
-	required_blood = 20
+	required_blood = 25
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
-		if(do_mob(user, target, 50))
+		if(do_mob(user, target, 60))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог вырубить [target].</span>")
 				to_chat(target, "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
 			else
 				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд вырубает [target].</span>")
-				to_chat(target, "<span class='warning'>Вы чувствуете что не можете пошевельнуться и слова даются вам с большим трудом.</span>")
-				target.Weaken(10)
-				target.Stun(10)
-				target.stuttering = 10
+				to_chat(target, "<span class='warning'>Вы чувствуете сильную слабость.</span>")
+				target.SetSleeping(20)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>Вы смотрите в никуда.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
-	name = "Заражающее касание (100)"
+	name = "Заражающее касание (50)"
 	desc = "Ваше касание инфицирует кровь жертвы, заражая её могильной лихорадкой. Пока лихорадку не вылечат, жертва будет с трудом держаться на ногах, а её кровь будет наполняться токсинами."
-	gain_desc = "Вы получили способность «Заражающее касание (100)». Она позволит вам ослаблять тех, кого вы коснётесь до тех пор, пока их не вылечат."
+	gain_desc = "Вы получили способность «Заражающее касание». Она позволит вам ослаблять тех, кого вы коснётесь до тех пор, пока их не вылечат."
 	action_icon_state = "vampire_disease"
-	required_blood = 100
+	required_blood = 50
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
@@ -223,11 +222,13 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(5)
-		target.Weaken(5)
+		target.Stun(2)
+		target.Weaken(2)
 		target.stuttering = 20
+		target.adjustStaminaLoss(20)
 		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой [user].</span>")
 		add_attack_logs(user, target, "(Vampire) слепит")
+		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Оборотень (50)"
@@ -269,11 +270,12 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>")
-		C.Weaken(4)
+		C.Weaken(2)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(4)
+		C.Stun(2)
 		C.Jitter(150)
+		C.adjustStaminaLoss(60)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
@@ -387,12 +389,12 @@
 	to_chat(user, "<span class='notice'>Теперь вас будет <b>[V.iscloaking ? "не видно" : "видно"]</b> в темноте</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
-	name = "Дети ночи (75)"
+	name = "Дети ночи (50)"
 	desc = "Вы вызываете пару космолетучих мышей, которые будут биться насмерть со всеми вокруг"
 	gain_desc = "Вы получили способность призыва летучих мышей."
 	action_icon_state = "vampire_bats"
 	charge_max = 1200
-	required_blood = 75
+	required_blood = 50
 	var/num_bats = 2
 
 /obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
@@ -415,12 +417,12 @@
 		new /mob/living/simple_animal/hostile/scarybat(T, user)
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt
-	name = "Облик тумана (30)"
+	name = "Облик тумана (50)"
 	desc = "Вы на короткое время превращаетесь в облачко тумана"
 	gain_desc = "Вы получили способность Облик тумана, которая Позволит вам превращаться в облачко тумана и проходить сквозь любые препятствия."
 	action_icon_state = "jaunt"
 	charge_max = 600
-	required_blood = 30
+	required_blood = 50
 	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
@@ -467,12 +469,12 @@
 // Blink for vamps
 // Less smoke spam.
 /obj/effect/proc_holder/spell/vampire/shadowstep
-	name = "Шаг в тень (30)"
+	name = "Шаг в тень (20)"
 	desc = "Растворитесь в тенях"
 	gain_desc = "Вы получили способность шагать в тень, позволяющую вам, тратя кровь, исчезать в ближайшей тени."
 	action_icon_state = "blink"
 	charge_max = 20
-	required_blood = 30
+	required_blood = 20
 	centcom_cancast = 0
 
 	// Teleport radii
