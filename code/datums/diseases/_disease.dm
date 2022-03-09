@@ -39,10 +39,10 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/spread_flags = AIRBORNE
 
 	//Fluff
-	var/form = "Virus"
-	var/name = "No disease"
+	var/form = "Вирус"
+	var/name = "Без заболеваний"
 	var/desc = ""
-	var/agent = "some microbes"
+	var/agent = "некоторые микробы"
 	var/spread_text = ""
 	var/cure_text = ""
 

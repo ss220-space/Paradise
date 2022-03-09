@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/shivering
 
-	name = "Shivering"
+	name = "Озноб"
 	stealth = 0
 	resistance = 2
 	stage_speed = 2
@@ -29,7 +29,7 @@ Bonus
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/carbon/M = A.affected_mob
-		to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
+		to_chat(M, "<span class='warning'>[pick("Вы мёрзнете.", "Вас бьёт озноб.", "Вы начинаете дрожать.")]</span>")
 		if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)
 			Chill(M, A)
 	return

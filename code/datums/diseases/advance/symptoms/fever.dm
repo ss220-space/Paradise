@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/fever
 
-	name = "Fever"
+	name = "Жар"
 	stealth = 0
 	resistance = 3
 	stage_speed = 3
@@ -29,7 +29,7 @@ Bonus
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/carbon/M = A.affected_mob
-		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
+		to_chat(M, "<span class='warning'>[pick("Вы чувствуете жар.", "У вас жар.", "У вас явно поднялась температура.")]</span>")
 		if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT)
 			Heat(M, A)
 

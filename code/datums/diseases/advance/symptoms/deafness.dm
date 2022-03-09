@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/deafness
 
-	name = "Deafness"
+	name = "Глухота"
 	stealth = -1
 	resistance = -2
 	stage_speed = -1
@@ -31,13 +31,13 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3, 4)
-				to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
+				to_chat(M, "<span class='warning'>Вы слышите [pick("звон", "треск")] в ушах.</span>")
 			if(5)
 				if(!(DEAF in M.mutations))
-					to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
+					to_chat(M, "<span class='userdanger'>Вы слышите потрескивание и нарастающий гул!</span>")
 					M.BecomeDeaf()
 					spawn(200)
 						if(M)
-							to_chat(M, "<span class='warning'>The ringing in your ears fades...</span>")
+							to_chat(M, "<span class='warning'>Звон в ушах стихает…</span>")
 							M.CureDeaf()
 	return

@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/visionloss
 
-	name = "Hyphema"
+	name = "Гифема"
 	stealth = -1
 	resistance = -4
 	stage_speed = -4
@@ -34,17 +34,17 @@ Bonus
 			return
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, "<span class='warning'>Your eyes itch.</span>")
+				to_chat(M, "<span class='warning'>У вас чешутся глаза.</span>")
 			if(3, 4)
-				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
+				to_chat(M, "<span class='warning'><b>Ваши глаза жжёт!</b></span>")
 				M.EyeBlurry(20)
 				eyes.receive_damage(1)
 			else
-				to_chat(M, "<span class='userdanger'>Your eyes burn horrificly!</span>")
+				to_chat(M, "<span class='userdanger'>Ваши глаза невыносимо жжёт!</span>")
 				M.EyeBlurry(30)
 				eyes.receive_damage(5)
 				if(eyes.damage >= 10)
 					M.BecomeNearsighted()
 					if(prob(eyes.damage - 10 + 1))
 						if(M.BecomeBlind())
-							to_chat(M, "<span class='userdanger'>You go blind!</span>")
+							to_chat(M, "<span class='userdanger'>Вы ослепли!</span>")

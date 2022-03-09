@@ -16,7 +16,7 @@ Bonus
 
 /datum/symptom/painkiller
 
-	name = "Neural Blockade"
+	name = "Нейронная блокада"
 	stealth = -3
 	resistance = -2
 	stage_speed = -1
@@ -33,5 +33,5 @@ Bonus
 					M.reagents.add_reagent("hydrocodone", 10)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("Your body feels numb.", "You realize you feel nothing.", "You can't feel your body.")]</span>")
+					to_chat(M, "<span class='notice'>[pick("Ваше тело онемело.", "Вы понимаете что ничего не чувствуете.", "Вы больше не чувствуете своё тело.")]</span>")
 	return

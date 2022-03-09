@@ -1,13 +1,13 @@
 /datum/disease/appendicitis
 	form = "Condition"
-	name = "Appendicitis"
+	name = "Аппендицит"
 	max_stages = 3
-	cure_text = "Surgery"
-	agent = "Shitty Appendix"
+	cure_text = "Хирургия"
+	agent = "Раздутый аппендикс"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 1
-	desc = "If left untreated the subject will become very weak, and may vomit often."
-	severity = "Dangerous!"
+	desc = "Если не вылечить, то субъект будет слабеть и может начать постоянно блевать."
+	severity = DANGEROUS
 	disease_flags = CAN_CARRY|CAN_RESIST
 	spread_flags = NON_CONTAGIOUS
 	visibility_flags = HIDDEN_PANDEMIC
@@ -27,7 +27,7 @@
 				A.inflamed = 1
 				A.update_icon()
 			if(prob(3))
-				to_chat(affected_mob, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
+				to_chat(affected_mob, "<span class='warning'>Вы ощущаете колющую боль в животе!</span>")
 				affected_mob.Stun(rand(2,3))
 				affected_mob.adjustToxLoss(1)
 		if(3)

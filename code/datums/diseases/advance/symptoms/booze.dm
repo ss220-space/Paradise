@@ -16,7 +16,7 @@ Bonus
 
 /datum/symptom/booze
 
-	name = "Alco-chlorians"
+	name = "Алко-хлорианы"
 	stealth = -4
 	resistance = 4
 	stage_speed = 3
@@ -32,5 +32,5 @@ Bonus
 				M.reagents.add_reagent(pick("rum", "vodka", "whiskey", "ale", "cider", "mead", "tequila", "wine", "beer"), 5) //somewhat safe drinks
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("You feel warmth.", "You feel joyful.", "You relax for a moment")]</span>") //span class notice because this is a drunkeness. Epic mind games ensues
+					to_chat(M, "<span class='notice'>[pick("Вы ощущаете приятное тепло", "Вы веселеете", "Вы немного расслабляетесь")].</span>") //span class notice because this is a drunkeness. Epic mind games ensues
 	return

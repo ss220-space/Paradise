@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/confusion
 
-	name = "Confusion"
+	name = "Замешательство"
 	stealth = 1
 	resistance = -1
 	stage_speed = -3
@@ -32,9 +32,9 @@ Bonus
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>")
+				to_chat(M, "<span class='warning'>[pick("У вас болит голова.", "Вы на мгновение теряете сознание.")]</span>")
 			else
-				to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
+				to_chat(M, "<span class='userdanger'>Ваши мысли бесконтрольно разбегаются…</span>")
 				M.AdjustConfused(8, bound_lower = 0, bound_upper = 100)
 
 	return

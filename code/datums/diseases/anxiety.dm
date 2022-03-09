@@ -1,14 +1,14 @@
 /datum/disease/anxiety
-	name = "Severe Anxiety"
+	name = "Сильное беспокойство"
 	form = "Infection"
 	max_stages = 4
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL
-	cure_text = "Ethanol"
+	cure_text = "Этанол"
 	cures = list("ethanol")
-	agent = "Excess Lepidopticides"
+	agent = "Избыток лепидоптицидов"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
-	desc = "If left untreated subject will regurgitate butterflies."
+	desc = "Если не вылечить, то субъект будет откашливать бабочек."
 	severity = MEDIUM
 
 /datum/disease/anxiety/stage_act()
@@ -16,26 +16,26 @@
 	switch(stage)
 		if(2) //also changes say, see say.dm
 			if(prob(5))
-				to_chat(affected_mob, "<span class='notice'>You feel anxious.</span>")
+				to_chat(affected_mob, "<span class='notice'>Вы ощущаете беспокойство.</span>")
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='notice'>Your stomach flutters.</span>")
+				to_chat(affected_mob, "<span class='notice'>У вас сжимает живот.</span>")
 			if(prob(5))
-				to_chat(affected_mob, "<span class='notice'>You feel panicky.</span>")
+				to_chat(affected_mob, "<span class='notice'>Вы чувствуете панику.</span>")
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>You're overtaken with panic!</span>")
+				to_chat(affected_mob, "<span class='danger'>Вас охватывает паника!</span>")
 				affected_mob.AdjustConfused(rand(2,3))
 		if(4)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel butterflies in your stomach.</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы чувствуете, как у вас в животе порхают бабочек.</span>")
 			if(prob(5))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] stumbles around in a panic.</span>", \
-												"<span class='userdanger'>You have a panic attack!</span>")
+				affected_mob.visible_message("<span class='danger'>[affected_mob] в панике запинается.</span>", \
+												"<span class='userdanger'>У вас паническая атака!</span>")
 				affected_mob.AdjustConfused(rand(6,8))
 				affected_mob.AdjustJitter(rand(6,8))
 			if(prob(2))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up butterflies!</span>", \
-													"<span class='userdanger'>You cough up butterflies!</span>")
+				affected_mob.visible_message("<span class='danger'>[affected_mob] кашляет бабочками!</span>", \
+													"<span class='userdanger'>Вы кашляете бабочками!</span>")
 				new /mob/living/simple_animal/butterfly(affected_mob.loc)
 				new /mob/living/simple_animal/butterfly(affected_mob.loc)
 	return

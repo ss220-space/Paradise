@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/fire
 
-	name = "Spontaneous Combustion"
+	name = "Самовозгорание"
 	stealth = 1
 	resistance = -4
 	stage_speed = -4
@@ -31,16 +31,16 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3)
-				to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
+				to_chat(M, "<span class='warning'>[pick("Вы чувствуете жар.", "У вас жар.", "Вы слышите потрескивающие звуки.", "Вы чувствуете запах дыма.")]</span>")
 			if(4)
 				Firestacks_stage_4(M, A)
 				M.IgniteMob()
-				to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
+				to_chat(M, "<span class='userdanger'>Ваша кожа вспыхивает пламенем!</span>")
 				M.emote("scream")
 			if(5)
 				Firestacks_stage_5(M, A)
 				M.IgniteMob()
-				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+				to_chat(M, "<span class='userdanger'>Ваша кожа будто покрывается лавой!</span>")
 				M.emote("scream")
 	return
 

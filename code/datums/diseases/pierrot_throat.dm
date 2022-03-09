@@ -1,14 +1,14 @@
 /datum/disease/pierrot_throat
-	name = "Pierrot's Throat"
+	name = "Горло Пьеро"
 	max_stages = 4
 	spread_text = "Airborne"
-	cure_text = "Banana products, especially banana bread."
+	cure_text = "Банановые продукты, особенно банановый хлеб."
 	cures = list("banana")
 	cure_chance = 75
-	agent = "H0NI<42 Virus"
+	agent = "Вирус Х0Н1<42"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will probably drive others to insanity."
+	desc = "Если не лечить, субъект, вероятно, сведёт окружающих с ума."
 	severity = MEDIUM
 
 /datum/disease/pierrot_throat/stage_act()
@@ -16,28 +16,28 @@
 	switch(stage)
 		if(1)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel a little silly.</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы, кажется, слегка поглупели.</span>")
 		if(2)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You start seeing rainbows.</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы начинаете везде видеть радуги.</span>")
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
+				to_chat(affected_mob, "<span class='danger'>Ваши мысли прерываются громким <b>ХОНК!</b></span>")
 		if(4)
 			if(prob(5))
-				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
+				affected_mob.say( pick( list("ХОНК!", "Хонк!", "Хонк.", "Хонк?", "Хонк!!", "Хонк?!", "Хонк…") ) )
 
 
 /datum/disease/pierrot_throat/advanced
-	name = "Advanced Pierrot's Throat"
+	name = "Улучшенное Горло Пьеро"
 	spread_text = "Airborne"
-	cure_text = "Banana products, especially banana bread."
+	cure_text = "Банановые продукты, особенно банановый хлеб."
 	cures = list("banana")
 	cure_chance = 75
-	agent = "H0NI<42.B4n4 Virus"
+	agent = "Вирус Х0Н1<42.Б4н4н"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
+	desc = "Если не лечить, субъект, вероятно, сведёт окружающих с ума и свихнётся сам."
 	severity = DANGEROUS
 
 /datum/disease/pierrot_throat/advanced/stage_act()
@@ -45,19 +45,19 @@
 	switch(stage)
 		if(1)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel very silly.</span>")
+				to_chat(affected_mob, "<span class='danger'>Кажется, вы отупели.</span>")
 			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You feel like making a joke.</span>")
+				to_chat(affected_mob, "<span class='danger'>Вам очень хочется пошутить.</span>")
 		if(2)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You don't just start seeing rainbows... YOU ARE RAINBOWS!</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы не просто начинаете везде видеть радуги… ВЫ И ЕСТЬ РАДУГИ!</span>")
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
+				to_chat(affected_mob, "<span class='danger'>Ваши мысли прерываются громким <b>ХОНК!</b></span>")
 				affected_mob << 'sound/items/airhorn.ogg'
 		if(4)
 			if(prob(5))
-				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
+				affected_mob.say( pick( list("ХОНК!", "Хонк!", "Хонк.", "Хонк?", "Хонк!!!", "Хонк?!", "Хонк…") ) )
 
 			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
 				affected_mob.unEquip(affected_mob.wear_mask, TRUE)

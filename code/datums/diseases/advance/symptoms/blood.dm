@@ -15,7 +15,7 @@ Bonus
 
 /datum/symptom/blood
 
-	name = "Viral Hematopoiesis"
+	name = "Вирусное кроветворение"
 	stealth = -2
 	resistance = -2
 	stage_speed = -4
@@ -29,10 +29,10 @@ Bonus
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		switch(A.stage)
 			if(3,4)
-				to_chat(M, "<span class='notice'>You feel hungry</span>")
+				to_chat(M, "<span class='notice'>Вам хочется есть</span>")
 			if(5)
 				if(prob(10))
-					to_chat(M, "<span class='notice'>You can hear own heartbeat</span>")
+					to_chat(M, "<span class='notice'>Вы слышите стук собственного сердца</span>")
 				check = TRUE
 	if(check == TRUE && (M.blood_volume < BLOOD_VOLUME_NORMAL) && !(NO_BLOOD in M.dna.species.species_traits))
 		M.blood_volume += 0.4

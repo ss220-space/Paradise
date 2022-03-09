@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/oxygen
 
-	name = "Self-Respiration"
+	name = "Автодыхание"
 	stealth = 1
 	resistance = -3
 	stage_speed = -3
@@ -34,5 +34,5 @@ Bonus
 					M.reagents.add_reagent("salbutamol", 20)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]</span>")
+					to_chat(M, "<span class='notice'>[pick("Вам очень легко дышится.", "Вы понимаете, что вам больше не обязательно дышать.", "Вы больше не ощущаете потребности в дыхании.")]</span>")
 	return

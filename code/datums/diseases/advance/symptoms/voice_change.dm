@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/voice_change
 
-	name = "Voice Change"
+	name = "Изменение голоса"
 	stealth = -2
 	resistance = -3
 	stage_speed = -3
@@ -32,7 +32,7 @@ Bonus
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
+				to_chat(M, "<span class='warning'>[pick("У вас болит горло.", "Вы прокашливаетесь.")]</span>")
 			else
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M

@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/weakness
 
-	name = "Weakness"
+	name = "Слабость"
 	stealth = -1
 	resistance = -1
 	stage_speed = -2
@@ -31,14 +31,14 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, "<span class='warning'>[pick("You feel weak.", "You feel lazy.")]</span>")
+				to_chat(M, "<span class='warning'>[pick("Вы ощущаете слабость.", "Вы чувствуете леность.")]</span>")
 			if(3, 4)
-				to_chat(M, "<span class='warning'><b>[pick("You feel very frail.", "You think you might faint.")]</span>")
+				to_chat(M, "<span class='warning'><b>[pick("Вы очень ослабли.", "Кажется, вы сейчас упадёте в обморок.")]</span>")
 				M.adjustStaminaLoss(15)
 			else
-				to_chat(M, "<span class='userdanger'>[pick("You feel tremendously weak!", "Your body trembles as exhaustion creeps over you.")]</span>")
+				to_chat(M, "<span class='userdanger'>[pick("У вас заплетаются ноги!", "Ваше тело стонет от накатывающей усталости.")]</span>")
 				M.adjustStaminaLoss(30)
 				if(M.getStaminaLoss() > 60 && !M.stat)
-					M.visible_message("<span class='warning'>[M] faints!</span>", "<span class='userdanger'>You swoon and faint...</span>")
+					M.visible_message("<span class='warning'>[M] падает в обморок!</span>", "<span class='userdanger'>Вы падаете в обморок…</span>")
 					M.AdjustSleeping(5)
 	return

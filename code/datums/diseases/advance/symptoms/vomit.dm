@@ -21,7 +21,7 @@ Bonus
 
 /datum/symptom/vomit
 
-	name = "Vomiting"
+	name = "Рвота"
 	stealth = -2
 	resistance = -1
 	stage_speed = 0
@@ -35,7 +35,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+				to_chat(M, "<span class='warning'>[pick("Вас тошнит.", "Кажется, вас сейчас вырвет!")]</span>")
 			else
 				Vomit(M)
 
@@ -66,7 +66,7 @@ Bonus
 
 /datum/symptom/vomit/blood
 
-	name = "Blood Vomiting"
+	name = "Рвота кровью"
 	stealth = -2
 	resistance = -1
 	stage_speed = -1
@@ -98,7 +98,7 @@ Bonus
 
 /datum/symptom/vomit/projectile
 
-	name = "Projectile Vomiting"
+	name = "Метание рвоты"
 	stealth = -2
 	level = 4
 

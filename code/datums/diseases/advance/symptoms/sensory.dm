@@ -16,7 +16,7 @@ Bonus
 //////////////////////////////////////
 */
 /datum/symptom/mind_restoration
-	name = "Mind Restoration"
+	name = "Восстановление сознания"
 	stealth = -1
 	resistance = -4
 	stage_speed = -4
@@ -45,7 +45,7 @@ Bonus
 			RD.check_and_add("mannitol", 10, 10)
 
 /datum/symptom/sensory_restoration
-	name = "Sensory Restoration"
+	name = "Сенсорное восстановление"
 	stealth = -1
 	resistance = -3
 	stage_speed = -2
@@ -62,4 +62,4 @@ Bonus
 					M.reagents.add_reagent("oculine", 20)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your hearing feels more acute.")]</span>")
+					to_chat(M, "<span class='notice'>[pick("Вы всё очень хорошо видите.","Ваши глаза, кажется, теперь фокусируются легче и точнее обычного.", "Кажется, вам больше не нужно моргать.","Вы слышите всё очень чётко.","Ваш слух становится очень чутким.")]</span>")
