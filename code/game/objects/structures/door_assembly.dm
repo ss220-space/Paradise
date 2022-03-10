@@ -172,6 +172,7 @@
 		door = new glass_type(loc)
 	else
 		door = new airlock_type(loc)
+	door.on_construction()
 	door.setDir(dir)
 	door.electronics = electronics
 	door.unres_sides = electronics.unres_access_from
