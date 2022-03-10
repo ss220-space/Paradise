@@ -1,5 +1,5 @@
 /obj/item/gun/energy/kinetic_accelerator
-	name = "Протокинетический акселератор"
+	name = "Протокинетический ускоритель"
 	desc = "Самозарядный дальнобойный шахтерский инструмент, урон которого повышается при низком давлении. Можно устанавливать модификации."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
@@ -163,8 +163,8 @@
 
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
-	name = "Экспериментальный кинетический акселератор"
-	desc = "Модифицированная версия протокинетического акселератора, в которой вдвое больше места для модификаций."
+	name = "Экспериментальный кинетический ускоритель"
+	desc = "Модифицированная версия протокинетического ускорителя, в которой вдвое больше места для модификаций."
 	icon_state = "kineticgun_h"
 	item_state = "kineticgun_h"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
@@ -249,7 +249,7 @@
 
 //Modkits
 /obj/item/borg/upgrade/modkit
-	name = "Улучшение для кинетического акселератора"
+	name = "Улучшение для кинетического ускорителя"
 	desc = "An upgrade for kinetic accelerators."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
@@ -329,7 +329,7 @@
 //Range
 /obj/item/borg/upgrade/modkit/range
 	name = "Увеличение дальности"
-	desc = "Увеличивает дальность кинетического акселератора."
+	desc = "Увеличивает дальность кинетического ускорителя."
 	modifier = 1
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
@@ -340,7 +340,7 @@
 //Damage
 /obj/item/borg/upgrade/modkit/damage
 	name = "Увеличение урона"
-	desc = "Увеличивает урон кинетического акселератора."
+	desc = "Увеличивает урон кинетического ускорителя."
 	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/item/projectile/kinetic/K)
@@ -350,7 +350,7 @@
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
 	name = "Ускорение перезарядки"
-	desc = "Уменьшает время перезарядки кинетического акселератора. Не подходит для шахтботов."
+	desc = "Уменьшает время перезарядки кинетического ускорителя. Не подходит для шахтботов."
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown
 	maximum_of_type = 2
 	modifier = 3.2
@@ -367,7 +367,7 @@
 
 /obj/item/borg/upgrade/modkit/cooldown/minebot
 	name = "Ускорение перезарядки шахтбота"
-	desc = "Уменьшает время перезарядки кинетического акселератора. Подходит только для шахтботов."
+	desc = "Уменьшает время перезарядки кинетического ускорителя. Подходит только для шахтботов."
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
@@ -417,31 +417,31 @@
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "Шахтёрские взрывы"
-	desc = "Позволяет кинетическому акселератору разрушать скалы вокруг цели."
+	desc = "Позволяет кинетическому ускорителю разрушать скалы вокруг цели."
 	denied_type = /obj/item/borg/upgrade/modkit/aoe/turfs
 	turf_aoe = TRUE
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "Атакующие шахтёрские взрывы"
-	desc = "Позволяет кинетическому акселератору разрушать скалы и вредить монстрам вокруг цели."
+	desc = "Позволяет кинетическому ускорителю разрушать скалы и вредить монстрам вокруг цели."
 	maximum_of_type = 3
 	modifier = 0.25
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
 	name = "Атакующие взрывы"
-	desc = "Позволяет кинетическому акселератору вредить монстрам вокруг цели."
+	desc = "Позволяет кинетическому ускорителю вредить монстрам вокруг цели."
 	modifier = 0.2
 
 //Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
 	name = "Пронзание шахтботов"
-	desc = "Позволяет выстрелам кинетического акселератора пролетать сквозь шахтботов."
+	desc = "Позволяет выстрелам кинетического ускорителя пролетать сквозь шахтботов."
 	cost = 0
 
 //Tendril-unique modules
 /obj/item/borg/upgrade/modkit/cooldown/repeater
 	name = "Быстрый повторитель"
-	desc = "Учетверяет скорость перезарядки кинетического акселератора при стрельбе по живой цели, но сильно замедляет обычную перезарядку."
+	desc = "Учетверяет скорость перезарядки кинетического ускорителя при стрельбе по живой цели, но сильно замедляет обычную перезарядку."
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
 	cost = 50
@@ -460,7 +460,7 @@
 
 /obj/item/borg/upgrade/modkit/lifesteal
 	name = "Кристалл кражи жизни"
-	desc = "Позволяет выстрелам кинетического акселератора немного лечить стрелка при стрельбе по живой цели."
+	desc = "Позволяет выстрелам кинетического ускорителя немного лечить стрелка при стрельбе по живой цели."
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
 	cost = 20
@@ -475,8 +475,8 @@
 		L.heal_ordered_damage(modifier, damage_heal_order)
 
 /obj/item/borg/upgrade/modkit/resonator_blasts
-	name = "Резонаторный взрыв"
-	desc = "Позволяет выстрелам кинетического акселератора создавать и подрывать в месте попадания резонаторные взрывы."
+	name = "Резонирующий взрыв"
+	desc = "Позволяет выстрелам кинетического ускорителя создавать в месте попадания резонирующие взрывы."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
@@ -532,7 +532,7 @@
 //Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "Улучшение эффективности в атмосфере"
-	desc = "Модификация, разработанная Синдикатом для увеличения урона от выстрелов кинетического акселератора в среде с высоким давлением."
+	desc = "Модификация, разработанная Синдикатом для увеличения урона от выстрелов кинетического ускорителя в среде с высоким давлением."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2
@@ -588,7 +588,7 @@
 
 /obj/item/borg/upgrade/modkit/tracer
 	name = "Белые трассирующие снаряды"
-	desc = "Позволяет снарядам кинетического акселератора оставлять в полёте белые трассы и облака взрыва."
+	desc = "Позволяет снарядам кинетического ускорителя оставлять в полёте белые трассы и облака взрыва."
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/tracer
 	var/bolt_color = "#FFFFFF"
@@ -599,7 +599,7 @@
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable
 	name = "Настраиваемые трассирующие снаряды"
-	desc = "Позволяет снарядам кинетического акселератора оставлять в полёте трассы и облака взрыва заданного цвета. Для выбора цвета используйте модификацию в руках."
+	desc = "Позволяет снарядам кинетического ускорителя оставлять в полёте трассы и облака взрыва заданного цвета. Для выбора цвета используйте модификацию в руках."
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
 	bolt_color = input(user,"","Выберите цвет",bolt_color) as color|null
