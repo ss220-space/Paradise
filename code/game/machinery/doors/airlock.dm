@@ -1404,18 +1404,13 @@ About the new airlock wires panel:
 		if(user)
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
-		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
-			check_access()
-			if(req_access.len)
-				ae.selected_accesses = req_access
-			else if(req_one_access.len)
-				ae.selected_accesses = req_one_access
-				ae.one_access = 1
-		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+		ae = new/obj/item/airlock_electronics(loc)
+		check_access()
+		if(req_access.len)
+			ae.selected_accesses = req_access
+		else if(req_one_access.len)
+			ae.selected_accesses = req_one_access
+			ae.one_access = 1
 		if(emagged)
 			ae.icon_state = "door_electronics_smoked"
 			operating = 0
