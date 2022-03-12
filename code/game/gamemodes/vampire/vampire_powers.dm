@@ -558,7 +558,7 @@
 /obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, "<span class='warning'>Вы взываете по синему космосу, призывая больше вампирских духов себе на помощь!</span>")
+	to_chat(user, "<span class='warning'>Ваш зов расходится в блюспейсе, на помощь созывая других вампирских духов!</span>")
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time=30, maxdistance=7, beam_type=/obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
