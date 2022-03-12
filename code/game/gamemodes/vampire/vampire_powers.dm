@@ -542,7 +542,7 @@
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires
 	name = "Поднятие вампиров"
-	desc = "Призовите смертоносных вампиров из синего космоса."
+	desc = "Призовите смертоносных вампиров из блюспейса"
 	school = "transmutation"
 	charge_max = 100
 	clothes_req = 0
