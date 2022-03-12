@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/damage_converter
 
-	name = "Компенсация токсинов"
+	name = "Компенсация токсинами"
 	stealth = 1
 	resistance = -4
 	stage_speed = -4
