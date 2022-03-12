@@ -27,7 +27,7 @@
 				affected_mob.AdjustConfused(rand(2,3))
 		if(4)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Вы чувствуете, как у вас в животе порхают бабочек.</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы чувствуете, как у вас в животе порхают бабочки.</span>")
 			if(prob(5))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] в панике запинается.</span>", \
 												"<span class='userdanger'>У вас паническая атака!</span>")
