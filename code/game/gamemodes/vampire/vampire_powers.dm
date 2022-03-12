@@ -180,7 +180,7 @@
 		user.visible_message("<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
 		if(do_mob(user, target, 60))
 			if(!affects(target))
-				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог вырубить [target].</span>")
+				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target].</span>")
 				to_chat(target, "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
 			else
 				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
