@@ -183,7 +183,7 @@
 				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог вырубить [target].</span>")
 				to_chat(target, "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
 			else
-				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд вырубает [target].</span>")
+				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
 				to_chat(target, "<span class='warning'>Вы чувствуете сильную слабость.</span>")
 				target.SetSleeping(20)
 		else
