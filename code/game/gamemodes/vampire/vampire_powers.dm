@@ -231,7 +231,7 @@
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
-	name = "Оборотень (50)"
+	name = "Превращение (50)"
 	desc = "Изменяет ваше имя и внешность, тратя 50 крови, с откатом в 3 минуты."
 	gain_desc = "Вы получили способность навсегда обернуться другим обликом, тратя 50 крови."
 	action_icon_state = "genetic_poly"
