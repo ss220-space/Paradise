@@ -186,7 +186,10 @@
 	else
 		door.name = base_name
 	door.previous_airlock = previous_assembly
-	electronics.forceMove(door)
+	var/obj/item/airlock_electronics/ae
+	ae = electronics
+	electronics = null
+	ae.forceMove(door)
 	qdel(src)
 	update_icon()
 
