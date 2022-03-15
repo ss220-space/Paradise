@@ -45,7 +45,7 @@
 /datum/proc/declension_ru(num, single_name, double_name, multiple_name)
 	if(num >= 10 && ((num % 100) < 20))
 		return multiple_name
-	if(num < 10 || num >= 20)
+	if(num < 10 || (num % 100) >= 20)
 		switch(num % 10)
 			if(1)
 				return single_name
