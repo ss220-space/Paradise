@@ -42,6 +42,18 @@
 	if(.)
 		. = "e[.]"
 
+/datum/proc/declension_ru(num, single_name, double_name, multiple_name)
+	if(num >= 10 && ((num % 100) < 20))
+		return multiple_name
+	if(num < 10 || num >= 20)
+		switch(num % 10)
+			if(1)
+				return single_name
+			if(2,3,4)
+				return double_name
+			else
+				return multiple_name
+
 //like clients, which do have gender.
 /client/p_they(capitalized, temp_gender)
 	if(!temp_gender)
