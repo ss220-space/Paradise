@@ -53,6 +53,7 @@
 				return double_name
 			else
 				return multiple_name
+	return multiple_name
 
 //like clients, which do have gender.
 /client/p_they(capitalized, temp_gender)
