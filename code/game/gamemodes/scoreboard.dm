@@ -176,13 +176,13 @@
 
 	<U>Плохое</U><br>
 	<b>Трупов на станции:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] очков)<br>
-	<b>Неприбранная грязь:</b> [GLOB.score_mess] (-[GLOB.score_mess] очков)<br>
+	<b>Неприбранная грязь:</b> [GLOB.score_mess] (-[GLOB.score_mess] [declension_ru(GLOB.score_mess, "очко", "очка", "очков")])<br>
 	<b>Проблемы с питанием на станции:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] очков)<br>
 	<b>ИИ уничтожен:</b> [GLOB.score_deadaipenalty ? "Да" : "Нет"] (-[GLOB.score_deadaipenalty * 250] очков)<br><br>
 
 	<U>Странное</U><br>
-	<b>Съедено еды:</b> [GLOB.score_foodeaten] укусов/sips<br>
-	<b>Клоуна избили:</b> [GLOB.score_clownabuse] раз<br><br>
+	<b>Съедено еды:</b> [GLOB.score_foodeaten] [declension_ru(GLOB.score_foodeaten, "укус", "укуса", "укусов")]/sips<br>
+	<b>Клоуна избили:</b> [GLOB.score_clownabuse] [declension_ru(GLOB.score_clownabuse, "раз", "раза", "раз")]<br><br>
 	"}
 	if(GLOB.score_escapees)
 		dat += {"<b>Самый богатый из эвакуировавшихся:</b> [GLOB.score_richestname], [GLOB.score_richestjob]: $[num2text(GLOB.score_richestcash,50)] ([GLOB.score_richestkey])<br>
