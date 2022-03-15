@@ -181,7 +181,7 @@
 	message = replacetextEx_char(message,"и",pick("йи","ьи","и"))
 
 	message = replacetextEx_char(message,"Ю",pick("ЙУ","ЬЮ","ЙЮ","Ю"))
-	message = replacetextEx_char(message,"ю",pick("йу","ью",,"йю","ю"))
+	message = replacetextEx_char(message,"ю",pick("йу","ью","йю","ю"))
 
 	message = replacetextEx_char(message,"Е",pick("ЙЕ","ЙЭ","Е","Э"))
 	message = replacetextEx_char(message,"е",pick("йе","йэ","е","э"))
