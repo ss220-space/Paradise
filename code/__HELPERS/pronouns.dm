@@ -42,7 +42,7 @@
 	if(.)
 		. = "e[.]"
 
-/datum/proc/declension_ru(num, single_name, double_name, multiple_name)
+/proc/declension_ru(num, single_name, double_name, multiple_name)
 	if(num >= 10 && ((num % 100) < 20))
 		return multiple_name
 	if(num < 10 || (num % 100) >= 20)
