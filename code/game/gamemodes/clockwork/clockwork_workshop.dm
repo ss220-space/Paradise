@@ -19,7 +19,6 @@
 	icon_state = "workshop"
 	max_integrity = 400
 	death_message = "<span class='danger'>The workshop begins to crumble in pieces as the tools and the gears on table starts to dust!</span>"
-	var/busy = FALSE
 	var/temp_search
 	var/datum/clockwork_design/being_built = null
 	var/list/item_list
@@ -163,16 +162,6 @@
 				new /obj/item/stack/sheet/brass(loc)
 		else
 			return FALSE
-
-/obj/structure/clockwork/functional/workshop/attackby(obj/item/O, mob/user, params)
-	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return 1
-	if(!anchored)
-		to_chat(user, "<span class='alert'>The workshop isn\'t anchored!</span>")
-		return 1
-
-	return ..()
 
 /obj/structure/clockwork/functional/workshop/proc/build_design(datum/clockwork_design/CD)
 	. = FALSE

@@ -79,10 +79,8 @@
 		if(TELEPORT_SPELL)
 			if(!target.density && !proximity)
 				to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
-				if(do_after(user, 50, target = src))
-					//fade out anim
+				if(do_after(user, 50, target = user))
 					do_teleport(user, get_turf(target), asoundin = 'sound/effects/phasein.ogg')
-					//fade in anim
 					deplete_spell()
 
 /obj/item/clockwork
@@ -359,7 +357,7 @@
 /obj/item/clothing/gloves/clockwork/proc/reset()
 	north_star = FALSE
 	fire_casting = FALSE
-	to_chat(user, "<span class='notice'> [src] depletes last magic they had.</span>")
+	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
 	deplete_spell()
 
 /obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot)
