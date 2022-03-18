@@ -174,20 +174,14 @@
 
 /datum/dna/gene/disability/speech/swedish/OnSay(mob/M, message)
 	// svedish
-	message = replacetextEx_char(message,"Я",pick("ЙА","Я"))
-	message = replacetextEx_char(message,"я",pick("йа","я"))
+	message = replacetextEx_char(message,"Я",pick("А","Я"))
+	message = replacetextEx_char(message,"я",pick("а","я"))
 
-	message = replacetextEx_char(message,"И",pick("ЙИ","ЬИ","И"))
-	message = replacetextEx_char(message,"и",pick("йи","ьи","и"))
+	message = replacetextEx_char(message,"Ю",pick("У","Ю"))
+	message = replacetextEx_char(message,"ю",pick("у","ю"))
 
-	message = replacetextEx_char(message,"Ю",pick("ЙУ","ЬЮ","ЙЮ","Ю"))
-	message = replacetextEx_char(message,"ю",pick("йу","ью",,"йю","ю"))
-
-	message = replacetextEx_char(message,"Е",pick("ЙЕ","ЙЭ","Е","Э"))
-	message = replacetextEx_char(message,"е",pick("йе","йэ","е","э"))
-
-	message = replacetextEx_char(message,"Э",pick("ЙЭ","Э"))
-	message = replacetextEx_char(message,"э",pick("йэ","э"))
+	message = replacetextEx_char(message,"Е",pick("Е","Э"))
+	message = replacetextEx_char(message,"е",pick("е","э"))
 
 	message = replacetextEx_char(message,"В",pick("Ф","В"))
 	message = replacetextEx_char(message,"в",pick("ф","в"))
@@ -201,8 +195,8 @@
 	message = replacetextEx_char(message,"З",pick("Ж","З"))
 	message = replacetextEx_char(message,"з",pick("ж","з"))
 
-	message = replacetextEx_char(message,"С",pick("ШЬ","ЩЬ","ЖЬ","С"))
-	message = replacetextEx_char(message,"с",pick("шь","щь","жь","с"))
+	message = replacetextEx_char(message,"С",pick("Ш","Щ","Ж","С"))
+	message = replacetextEx_char(message,"с",pick("ш","щ","ж","с"))
 
 	message = replacetextEx_char(message,"Ш",pick("Ш","Щ","Ж","С"))
 	message = replacetextEx_char(message,"ш",pick("ш","щ","ж","с"))
@@ -215,9 +209,6 @@
 
 	message = replacetextEx_char(message,"Ч",pick("Ш","Щ","Ч"))
 	message = replacetextEx_char(message,"ч",pick("ш","щ","ч"))
-
-	message = replacetextEx_char(message,"НН",pick("НН","НЬ","Н"))
-	message = replacetextEx_char(message,"нн",pick("нн","нь","н"))
 
 	if(prob(10) && !M.is_muzzled())
 		message += " Борк[pick("",", борк",", борк, борк")]!"
