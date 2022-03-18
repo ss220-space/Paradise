@@ -278,6 +278,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
 	//tail
+	update_tail()
 	update_tail_layer()
 	update_int_organs()
 	//head accessory

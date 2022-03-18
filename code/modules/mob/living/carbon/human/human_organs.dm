@@ -170,3 +170,9 @@ I use this to standardize shadowling dethrall code
 	for(var/obj/item/organ/external/limb in bodyparts)
 		if(limb.status & ORGAN_SPLINTED)
 			splinted_limbs += limb
+
+/mob/living/carbon/human/proc/update_tail()
+	if(bodyparts_by_name["tail"])
+		bodypart_tail = bodyparts_by_name["tail"]
+	else
+		bodypart_tail = null
