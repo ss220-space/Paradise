@@ -43,16 +43,10 @@
 		. = "e[.]"
 
 /proc/declension_ru(num, single_name, double_name, multiple_name)
-	if(num >= 10 && ((num % 100) < 20))
-		return multiple_name
-	if(num < 10 || (num % 100) >= 20)
-		switch(num % 10)
-			if(1)
-				return single_name
-			if(2,3,4)
-				return double_name
-			else
-				return multiple_name
+	if(((num % 10) == 1) && ((num % 100) != 11))
+		return single_name
+	else if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14))
+		return double_name
 	return multiple_name
 
 //like clients, which do have gender.
