@@ -169,7 +169,7 @@
 	dat += {"
 	<b><u>Общая статистика</u></b><br>
 	<u>Хорошее</u><br>
-	<b>Добыто руды:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] очк[declension_ru(GLOB.score_oremined * 2, "о", "а", "ов")])<br>"}
+	<b>Добыто руды:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] [declension_ru(GLOB.score_oremined * 2, "очко", "очка", "очков")])<br>"}
 	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Эвакуировалось на шаттле:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] очков)<br>"
 	dat += {"
 	<b>Есть электропитание на всей станции:</b> [GLOB.score_powerbonus ? "Да" : "Нет"] ([GLOB.score_powerbonus * 2500] очков)<br><br>
