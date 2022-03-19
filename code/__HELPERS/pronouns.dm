@@ -45,7 +45,7 @@
 /proc/declension_ru(num, single_name, double_name, multiple_name)
 	if(((num % 10) == 1) && ((num % 100) != 11))
 		return single_name
-	else if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14))
+	else if(((num % 10) in 2 to 5) && !((num % 100) in 12 to 15))
 		return double_name
 	return multiple_name
 
