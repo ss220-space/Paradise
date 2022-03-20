@@ -31,7 +31,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, "<span class='warning'>[pick("Вам становится трудно дышать.", "Ваше начинаете тяжело дышать.")]</span>")
+				to_chat(M, "<span class='warning'>[pick("Вам становится трудно дышать.", "Ваше дыхание тяжелеет.")]</span>")
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>[pick("Кажется, воздух просто не успевает попадать вам в лёгкие.", "Вам становится очень трудно дышать.")]</span>")
 				Choke_stage_3_4(M, A)
