@@ -25,13 +25,18 @@ Bonus
 
 /datum/symptom/painkiller/Activate(datum/disease/advance/A)
 	..()
+	var/mob/living/M = A.affected_mob
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-		var/mob/living/M = A.affected_mob
 		switch(A.stage)
+			if(1)
+				M.Confused(20)
+			if(2, 3)
+				M.Slowed(20)
+				M.Confused(40)
+				to_chat(M, "<span class='danger'>[pick("Something feels very wrong about your body.", "You have hard time controlling own body", "You can't feel your body.")]</span>")
 			if(4, 5)
-				if(M.reagents.get_reagent_amount("hydrocodone") < 8 && M.getToxLoss() < 13)
-					M.reagents.add_reagent("hydrocodone", 2)
-			else
-				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, "<span class='notice'>[pick("Ваше тело онемело.", "Вы понимаете что ничего не чувствуете.", "Вы больше не чувствуете своё тело.")]</span>")
+				if(prob(10))
+					to_chat(M, "<span class='notice'>[pick("Ваше тело онемело.", "Вы понимаете что ничего не чувствуете.", "Вы больше не чувствуете собственное тело.")]</span>")
+	if(M.reagents.get_reagent_amount("hydrocodone") < 2 && M.getToxLoss() < 13 && A.stage > 4)
+		M.reagents.add_reagent("hydrocodone", 0.5)
 	return
