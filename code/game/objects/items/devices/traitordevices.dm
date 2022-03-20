@@ -49,13 +49,13 @@ effective or pretty fucking useless.
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
-			M.Slowed(10)
-			M.Confused(5)
+			M.Slowed(5)
+			M.Confused(3)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
 	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
-	addtimer(CALLBACK(src, .proc/recharge), 2 MINUTES)
+	addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
 
 /obj/item/batterer/proc/recharge()
 	charges++

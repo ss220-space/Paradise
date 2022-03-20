@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A device that has a chance of knocking down people around you for a long amount of time or slowing them down. The user is unaffected. Each charge takes 2 minutes to recharge."
 	reference = "BTR"
 	item = /obj/item/batterer
-	cost = 5
+	cost = 10
 	job = list("Chief Medical Officer", "Psychiatrist")
 
 /datum/uplink_item/jobspecific/genekit
