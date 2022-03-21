@@ -108,7 +108,7 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			icon_state = "griefsky1"
+			icon_state = "[base_icon][on]"
 			walk_to(src,0)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -146,7 +146,7 @@
 			start_patrol()
 
 		if(BOT_PATROL)
-			icon_state = "griefsky1"
+			icon_state = "[base_icon][on]"
 			look_for_perp()
 			bot_patrol()
 	return
@@ -171,7 +171,7 @@
 			speak("You are a bold one")
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
 			visible_message("[src] ignites his energy swords!")
-			icon_state = "griefsky-c"
+			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
@@ -248,6 +248,9 @@
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate
 	radio_channel = "SyndTaipan"
 	name = "Генерал Синди"
+	icon_state = "general_syndie0"
+	base_icon = "general_syndie"
+	spin_icon = "general_syndie-c"
 	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
 	faction = list("syndicate")
 	allow_pai = 1
@@ -306,7 +309,7 @@
 			speak("You are a bold one")
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
 			visible_message("[src] ignites his energy swords!")
-			icon_state = "griefsky-c"
+			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, .proc/handle_automated_action)

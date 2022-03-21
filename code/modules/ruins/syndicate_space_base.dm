@@ -6,8 +6,9 @@
 #define TAIPAN_ENGINEER		"Space Base Syndicate Engineer"
 #define TAIPAN_COMMS 		"Space Base Syndicate Comms Officer"
 #define TAIPAN_RD			"Space Base Syndicate Research Director"
+#define CYBORG				"Cyborg"
 
-var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD)
+var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD,CYBORG)
 
 #define TAIPAN_HUD_SCIENTIST	1
 #define TAIPAN_HUD_MEDIC 		2
@@ -17,6 +18,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 #define TAIPAN_HUD_ENGINEER		6
 #define TAIPAN_HUD_COMMS 		7
 #define TAIPAN_HUD_RD			8
+#define TAIPAN_HUD_CYBORG		9
 
 /obj/item/paper/syndicate/code_words
 	name = "Code Words"
@@ -280,7 +282,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	name = "Space Base Syndicate Engineer"
 	head = /obj/item/clothing/head/beret/eng
 	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
-	suit = -1
+	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/atmostech
 	id = /obj/item/card/id/syndicate/engineer
 	shoes = /obj/item/clothing/shoes/workboots
@@ -339,12 +341,15 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	)
 
 //Прок вызываемый для выдачи Тайпан Худа
-/mob/living/proc/give_taipan_hud(mob/living/carbon/human/H = src, role = null)
+/mob/living/proc/give_taipan_hud(mob/living/H = src, role = null)
+	if(!H.mind)
+		stack_trace("Error. \"give_taipan_hud\" called by/for a mob [H.name] with no mind! Mob location: [get_area(H)]. Proc execution aborted.")
+		return
 	if(!role)
 		role = H.find_taipan_hud_number_by_job()
 	if(role)
 		var/datum/atom_hud/antag/taipanhud = GLOB.huds[TAIPAN_HUD]
-		taipanhud.join_hud(H.mind.current)
+		taipanhud.join_hud(H)
 		H.mind.offstation_role = TRUE
 		switch(role)
 			if(TAIPAN_HUD_SCIENTIST)
@@ -363,6 +368,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 				set_antag_hud(H.mind.current, "hudsyndie_t_comms")
 			if(TAIPAN_HUD_RD)
 				set_antag_hud(H.mind.current, "hudsyndie_t_rd")
+			if(TAIPAN_HUD_CYBORG)
+				set_antag_hud(H.mind.current, "hudsyndie_t_borg")
 		H.regenerate_icons()
 
 //Прок ищущий номер роли, смотря на текст профессии
@@ -385,6 +392,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 			role = TAIPAN_HUD_COMMS
 		if(TAIPAN_RD)
 			role = TAIPAN_HUD_RD
+		if(CYBORG)
+			role = TAIPAN_HUD_CYBORG
 	return role
 
 //Прок вызываемый криоподом, для создания нового спавнера гост роли

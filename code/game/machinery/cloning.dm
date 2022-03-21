@@ -279,6 +279,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
 
+	if(is_taipan(z))
+		H.faction.Add("syndicate")	//Чтобы синдикатовцы после клонирования оставались синдикатовцами
+
 	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))

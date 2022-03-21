@@ -593,7 +593,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 					linked_destroy.loaded_item = null
-					linked_destroy.icon_state = "d_analyzer"
+					linked_destroy.icon_state = "[linked_destroy.icon_closed]"
 					menu = MENU_DESTROY
 
 		if("maxresearch")

@@ -103,6 +103,17 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
+"amD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "anK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -228,7 +239,8 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#c10020";
+	color = "#00856f";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/item/stack/tape_roll,
@@ -268,7 +280,8 @@
 /area/ruin/unpowered)
 "avh" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -282,7 +295,8 @@
 "awy" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -465,7 +479,12 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aCz" = (
-/obj/structure/falsewall/plastitanium,
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aCC" = (
@@ -519,6 +538,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd)
+"aDa" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/arrivals)
 "aDM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -802,7 +830,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aNK" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1225,6 +1254,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/bar)
+"aYF" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "aZa" = (
 /obj/structure/chair{
 	dir = 4
@@ -1324,6 +1362,14 @@
 	id_tag = "Full_Lockdown";
 	name = "Station Lockdown"
 	},
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	icon_state = "door_locked";
+	id_tag = "taipan_exit_outer";
+	locked = 1;
+	name = "Secret Enter";
+	req_access_txt = "150"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "bcw" = (
@@ -1397,7 +1443,8 @@
 /area/syndicate/unpowered/syndicate_space_base/morgue)
 "beL" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -1427,7 +1474,8 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "bfb" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1590,7 +1638,8 @@
 	throw_range = 2
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -1632,7 +1681,8 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "boY" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/machinery/light/small,
@@ -2535,7 +2585,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cfM" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cgh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3099,6 +3149,26 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	frequency = 1379;
+	id_tag = "taipan_exit_pump"
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	id_tag = "taipan_exit_airlock";
+	pixel_x = -25;
+	pixel_y = null;
+	req_access_txt = "150";
+	tag_airpump = "taipan_exit_pump";
+	tag_chamber_sensor = "taipan_exit_sensor";
+	tag_exterior_door = "taipan_exit_outer";
+	tag_interior_door = "taipan_exit_inner"
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "taipan_exit_sensor";
+	pixel_x = -24;
+	pixel_y = 9;
+	req_access_txt = "150"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cGj" = (
@@ -3795,12 +3865,24 @@
 /turf/simulated/floor/engine/n2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dnW" = (
-/obj/effect/spawner/airlock/s_to_n/long/square{
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/maintenance/east)
+"dol" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	icon_state = "door_locked";
+	id_tag = "taipan_exit_inner";
+	locked = 1;
+	name = "Secret Exit";
 	req_access_txt = "150"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"dol" = (
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dou" = (
@@ -4470,6 +4552,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"dTo" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "dTx" = (
 /obj/item/stack/sheet/metal{
 	amount = 10
@@ -4608,15 +4699,26 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ebj" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/firing_range)
+"ebx" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/falsewall/plastitanium,
-/turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/engineering)
-"ebx" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "taipan_exit_airlock";
+	name = "interior access button";
+	pixel_x = -24;
+	pixel_y = 24;
+	req_access_txt = "150"
 	},
 /obj/structure/falsewall/plastitanium,
 /turf/simulated/floor/plating,
@@ -4980,7 +5082,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "eAf" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#c10020";
+	color = "#00856f";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5954,6 +6057,15 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/virology)
+"foL" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "fpb" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -6071,7 +6183,12 @@
 	name = "ERR#UNKWN Server Room"
 	})
 "fvk" = (
-/obj/structure/falsewall/plastitanium,
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "fwP" = (
@@ -6103,7 +6220,8 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -6259,7 +6377,10 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "fGp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/syndicate/trap/mine,
+/obj/effect/spawner/random_spawners/syndicate/trap/mine{
+	color = "#2580f0";
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "fGx" = (
@@ -6346,8 +6467,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
+	},
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -6727,6 +6854,15 @@
 /obj/item/reagent_containers/syringe,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
+"fXY" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "fZf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6861,8 +6997,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
+	},
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -6895,7 +7037,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gjz" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#c10020";
+	color = "#f64a46";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /turf/simulated/floor/plating,
@@ -6925,7 +7068,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gmy" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -6958,7 +7102,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "gpB" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -7014,6 +7159,19 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/botany)
+"grh" = (
+/obj/structure/falsewall/plastitanium,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "taipan_exit_airlock";
+	name = "exterior access button";
+	pixel_x = -24;
+	pixel_y = -24;
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/engineering)
 "grA" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7029,7 +7187,12 @@
 /turf/simulated/floor/grass,
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "grR" = (
-/obj/structure/falsewall/plastitanium,
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "grW" = (
@@ -7754,7 +7917,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gTT" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#c10020";
+	color = "#00856f";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -7843,7 +8007,8 @@
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -7946,7 +8111,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "hgH" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -10434,7 +10600,8 @@
 	},
 /obj/random/toolbox,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -10986,6 +11153,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11364,6 +11532,11 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/structure/rack,
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "kdF" = (
@@ -12541,7 +12714,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -12669,7 +12843,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lnr" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_x = 32;
 	use_power = 1
 	},
@@ -13786,6 +13961,11 @@
 "mbY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14938,9 +15118,6 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	anchored = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -14960,9 +15137,6 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	anchored = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -14972,12 +15146,18 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ndo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 6
 	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15491,29 +15671,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/main/west)
-"ntM" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -25
 	},
@@ -15522,6 +15679,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/west)
+"ntM" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/rnd)
 "nuq" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -15557,7 +15723,8 @@
 /area/syndicate/unpowered/syndicate_space_base/main/west)
 "nuA" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#c10020";
+	color = "#f64a46";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /obj/machinery/light/small{
@@ -16030,7 +16197,8 @@
 "nGe" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -16583,7 +16751,10 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ocQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/syndicate/trap/mine,
+/obj/effect/spawner/random_spawners/syndicate/trap/mine{
+	color = "#2580f0";
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "odN" = (
@@ -17001,7 +17172,12 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ovD" = (
-/obj/structure/falsewall/plastitanium,
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "owu" = (
@@ -17019,6 +17195,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -17268,7 +17445,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#c10020";
+	color = "#f64a46";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /obj/item/storage/box/syndie_kit/hardsuit,
@@ -17634,7 +17812,8 @@
 "oTI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -18218,7 +18397,8 @@
 	name = "2maintenance loot spawner"
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -18849,6 +19029,15 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server{
 	name = "ERR#UNKWN Server Room"
 	})
+"pLA" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/torture_room)
 "pLX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -18879,7 +19068,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "pME" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -19055,7 +19245,8 @@
 	icon_state = "brokengrille"
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#c10020";
+	color = "#00856f";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -19341,7 +19532,8 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qdn" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/structure/grille{
@@ -19747,6 +19939,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -19844,6 +20041,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/hyper,
+/obj/item/paper/syndicate{
+	info = "Переписал себе инструкцию с ящика из-под ТЭГа, чтобы не забыть...<BR><BR>1. Прикрутите и открутите от коннектора горячего контура полную канистру с плазмой.<BR>2. Прикрутите эту же канистру уже к коннектору холодного контура.<BR>3. Запустите все установленные в системе насосы.<BR>4. Произведите настройку нагревателя и холодильника.<BR>4.1 Установите в нагревателе максимальную температуру и включите.<BR>4.2 Установите в холодильнике минимальную температуру и включите.<BR>5. После опустошения канистры, прикрученной к коннектору холодного контура, открутите её и установите новую.<BR>6. Произведите настройку SMES.";
+	name = "Заметки прошлого инженера"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -19860,6 +20061,7 @@
 	dir = 8
 	},
 /obj/item/areaeditor/permit/syndicate,
+/obj/item/stack/sheet/mineral/plasma/fifty,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20508,7 +20710,8 @@
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "qQp" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#c10020";
+	color = "#00856f";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/item/storage/box/syndie_kit/throwing_weapons,
@@ -21732,6 +21935,8 @@
 "rRZ" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/grenade{
 	active_power_usage = 1000;
+	color = "red";
+	icon_state = "x_white";
 	idle_power_usage = 200;
 	use_power = 1
 	},
@@ -22247,7 +22452,8 @@
 	},
 /obj/item/storage/wallet/random,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -22638,7 +22844,8 @@
 	name = "2maintenance loot spawner"
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -22663,7 +22870,8 @@
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -22933,6 +23141,11 @@
 	name = "3maintenance loot spawner"
 	},
 /obj/structure/rack,
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "sVq" = (
@@ -23273,7 +23486,8 @@
 "tgX" = (
 /obj/effect/decal/cleanable/blood/innards,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#c10020";
+	color = "#f64a46";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /turf/simulated/floor/plating,
@@ -23429,6 +23643,11 @@
 	lootcount = 3;
 	name = "3maintenance loot spawner"
 	},
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "tob" = (
@@ -23564,11 +23783,7 @@
 	name = "disposals blast door";
 	protected = 0
 	},
-/obj/effect/turf_decal{
-	icon = 'icons/obj/lavaland/survival_pod.dmi';
-	icon_state = "fan_tiny";
-	name = "tiny fan"
-	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "tuC" = (
@@ -23579,7 +23794,8 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "tuD" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#c10020";
+	color = "#08457e";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -24902,7 +25118,8 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uii" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#c10020";
+	color = "#f64a46";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -24958,7 +25175,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "ujw" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#c10020";
+	color = "#00856f";
+	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -24975,7 +25193,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -25014,7 +25233,8 @@
 	},
 /obj/structure/rack,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -25093,7 +25313,8 @@
 	},
 /obj/structure/rack,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#c10020";
+	color = "#755d9a";
+	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plating,
@@ -25513,7 +25734,12 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "uzu" = (
-/obj/structure/falsewall/plastitanium,
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server{
 	name = "ERR#UNKWN Server Room"
@@ -26357,7 +26583,11 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
-/obj/random/tool,
+/obj/random/tool{
+	color = "#c08081";
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x_white"
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "uVo" = (
@@ -26692,6 +26922,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
+"vdW" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/medbay)
 "vfD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -28900,6 +29139,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
+"wHe" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door{
+	color = "cyan";
+	icon_state = "x_white";
+	name = "50pc falsewall 50pc wall";
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	},
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "wHt" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/stack/sheet/mineral/plastitanium{
@@ -30587,7 +30835,8 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xHx" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x2";
+	color = "blue";
+	icon_state = "x_white";
 	use_power = 1
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -30601,7 +30850,8 @@
 "xIq" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -31343,7 +31593,8 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yhG" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	icon_state = "x3";
+	color = "green";
+	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -55733,7 +55984,7 @@ dpC
 jkZ
 gZs
 sqt
-jiG
+pLA
 kgg
 lnF
 maY
@@ -57527,7 +57778,7 @@ dqv
 dqv
 dpC
 eme
-dpC
+aDa
 ghb
 hcJ
 hVQ
@@ -59594,7 +59845,7 @@ luZ
 ftp
 mBn
 nqL
-odN
+aYF
 oGn
 ppt
 qfg
@@ -60641,7 +60892,7 @@ qPk
 umD
 vBJ
 umD
-xNO
+ebj
 qQp
 ibZ
 pYx
@@ -60878,8 +61129,8 @@ iPh
 lxf
 mfr
 mBn
-ntM
-odN
+nqL
+aYF
 oHq
 ppt
 qfg
@@ -60904,7 +61155,7 @@ wTW
 wTW
 wTW
 wTW
-wTW
+vdW
 wTW
 wTW
 kxP
@@ -61891,7 +62142,7 @@ avh
 aAe
 aCz
 aPP
-aAe
+aCz
 clW
 cLW
 dxX
@@ -63742,7 +63993,7 @@ wwc
 wwc
 wwc
 wwc
-wwc
+wHe
 wwc
 wwc
 xYq
@@ -64488,7 +64739,7 @@ rqL
 rqL
 mmK
 ams
-xBc
+dTo
 qGq
 vnp
 ciw
@@ -65773,7 +66024,7 @@ sLh
 tgr
 mmK
 ams
-niS
+foL
 bum
 bRu
 vPf
@@ -65783,9 +66034,9 @@ dDV
 eHD
 yez
 xDd
-wTW
+vdW
 gOR
-mfi
+ntM
 dgl
 rBy
 mfi
@@ -67558,7 +67809,7 @@ iZU
 jOC
 kSd
 lHU
-aJC
+fXY
 mPP
 nGf
 oni
@@ -68083,7 +68334,7 @@ aJC
 phR
 phR
 phR
-phR
+dnW
 phR
 phR
 uzQ
@@ -71671,7 +71922,7 @@ ljW
 ljW
 lXG
 owO
-hzP
+amD
 fdU
 dRV
 pfY
@@ -72168,12 +72419,12 @@ mEC
 mEC
 mEC
 mEC
-avh
+mEC
+mEC
 aJC
 aJC
 aJC
 aJC
-dnW
 aJC
 eXE
 fVO
@@ -72425,14 +72676,14 @@ mEC
 mEC
 mEC
 mEC
-mEC
-aLr
-bci
+avh
+aJC
+aJC
 cfM
 cfM
-dol
-ebj
-fhd
+aJC
+aJC
+fgj
 dRV
 gUI
 gMi
@@ -72683,7 +72934,7 @@ mEC
 mEC
 mEC
 mEC
-aLr
+grh
 bci
 cgh
 cEY
@@ -73202,7 +73453,7 @@ aJC
 aJC
 aJC
 aJC
-ebx
+ebI
 aLr
 aJC
 gEW
@@ -73460,7 +73711,7 @@ aJC
 aJC
 aJC
 ebW
-aJC
+aLr
 aJC
 gWp
 hLa
@@ -73713,10 +73964,10 @@ mEC
 mEC
 mEC
 mEC
-mEC
+pME
 aJC
 aJC
-aLr
+aJC
 fiY
 aJC
 gXh
@@ -73733,8 +73984,8 @@ neV
 phR
 phR
 phR
+pME
 mEC
-avh
 phR
 sXX
 tuo
@@ -73989,10 +74240,10 @@ nUT
 neV
 phR
 phR
+pME
 mEC
 mEC
-mEC
-mEC
+pME
 mEC
 mEC
 mEC
@@ -74229,7 +74480,7 @@ mEC
 mEC
 mEC
 mEC
-avh
+pME
 aJC
 aJC
 aJC
@@ -74245,7 +74496,7 @@ aJC
 aJC
 aJC
 phR
-yhG
+pME
 mEC
 mEC
 mEC
@@ -74487,7 +74738,7 @@ mEC
 mEC
 mEC
 mEC
-mEC
+pME
 mEC
 mEC
 mEC
@@ -74501,7 +74752,7 @@ pME
 mEC
 mEC
 mEC
-mEC
+pME
 mEC
 mEC
 mEC
