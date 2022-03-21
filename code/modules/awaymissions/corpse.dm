@@ -54,7 +54,7 @@
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
 	if(config.use_exp_restrictions && min_hours)
-		if(user.client.get_exp_type_num(exp_type) < min_hours * 60)
+		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
 			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
 			return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
