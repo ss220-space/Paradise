@@ -82,17 +82,16 @@
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
 
-			text += "<br>[vampire.key] был"
+			text += "<br>[vampire.key] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] ("
 			if(vampire.current)
-				text += "[genderize_ru(vampire.current.gender, "", "а", "о", "и")] [vampire.name] ("
 				if(vampire.current.stat == DEAD)
-					text += "умер[genderize_ru(vampire.current.gender, "", "ла", "ло", "ли")]"
+					text += "[genderize_ru(vampire.current.gender, "умер", "умерла", "умерло", "умерли")]"
 				else
-					text += "выжил[genderize_ru(vampire.current.gender, "", "а", "о", "и")]"
+					text += "[genderize_ru(vampire.current.gender, "выжил", "выжила", "выжило", "выжили")]"
 				if(vampire.current.real_name != vampire.name)
 					text += " как [vampire.current.real_name]"
 			else
-				text += " [vampire.name] (тело было уничтожено"
+				text += "[vampire.name] (тело было уничтожено"
 			text += ")"
 
 			if(vampire.objectives.len)//If the traitor had no objectives, don't need to process this.
@@ -127,17 +126,16 @@
 	if(vampire_enthralled.len)
 		var/text = "<FONT size = 2><B>Рабами вампиров были:</B></FONT>"
 		for(var/datum/mind/Mind in vampire_enthralled)
-			text += "<br>[Mind.key] был"
+			text += "<br>[Mind.key] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] ("
 			if(Mind.current)
-				text += "[genderize_ru(Mind.current.gender, "", "а", "о", "и")] [Mind.name] ("
 				if(Mind.current.stat == DEAD)
-					text += "умер[genderize_ru(Mind.current.gender, "", "ла", "ло", "ли")]"
+					text += "[genderize_ru(Mind.current.gender, "умер", "умерла", "умерло", "умерли")]"
 				else
-					text += "выжил[genderize_ru(Mind.current.gender, "", "а", "о", "и")]"
+					text += "[genderize_ru(Mind.current.gender, "выжил", "выжила", "выжило", "выжили")]"
 				if(Mind.current.real_name != Mind.name)
 					text += " как [Mind.current.real_name]"
 			else
-				text += " [Mind.name] (тело было уничтожено"
+				text += "[Mind.name] (тело было уничтожено"
 			text += ")"
 		to_chat(world, text)
 	return 1

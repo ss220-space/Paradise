@@ -265,9 +265,9 @@
 	/** Enthralled ***/
 	. += "<br><b><i>Раб вампира</i></b>: "
 	if(src in SSticker.mode.vampire_enthralled)
-		. += "<b><font color='red'>РАБ[genderize_ru(H.gender, "", "А", "", "Ы")]</font></b> | <a href='?src=[UID()];vampthrall=clear'>нет</a>"
+		. += "<b><font color='red'>[genderize_ru(H.gender, "РАБ", "РАБА", "РАБ", "РАБЫ")]</font></b> | <a href='?src=[UID()];vampthrall=clear'>нет</a>"
 	else
-		. += "раб[genderize_ru(H.gender, "", "а", "", "ы")] | <b>НЕТ</b>"
+		. += "[genderize_ru(H.gender, "раб", "раба", "раб", "рабы")] | <b>НЕТ</b>"
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
