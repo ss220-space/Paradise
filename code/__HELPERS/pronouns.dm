@@ -43,11 +43,13 @@
 		. = "e[.]"
 
 /proc/declension_ru(num, single_name, double_name, multiple_name)
-	if(((num % 10) == 1) && ((num % 100) != 11))
+	if(!isnum(num) || round(num) != num)
+		return double_name // fractional numbers
+	if(((num % 10) == 1) && ((num % 100) != 11)) // 1, not 11
 		return single_name
-	else if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14))
+	if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14)) // 2, 3, 4, not 12, 13, 14
 		return double_name
-	return multiple_name
+	return multiple_name // 5, 6, 7, 8, 9, 0
 
 /proc/genderize_ru(gender, male_word, female_word, neuter_word, multiple_word)
 	return gender == MALE ? male_word : (gender == FEMALE ? female_word : (gender == NEUTER ? neuter_word : multiple_word))

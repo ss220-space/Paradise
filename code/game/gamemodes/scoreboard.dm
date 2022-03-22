@@ -169,7 +169,7 @@
 	dat += {"
 	<b><u>Общая статистика</u></b><br>
 	<u>Хорошее</u><br>
-	<b>Добыто руды:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] очков)<br>"}
+	<b>Добыто руды:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] [declension_ru(GLOB.score_oremined * 2, "очко", "очка", "очков")])<br>"}
 	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Эвакуировалось на шаттле:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] очков)<br>"
 	dat += {"
 	<b>Есть электропитание на всей станции:</b> [GLOB.score_powerbonus ? "Да" : "Нет"] ([GLOB.score_powerbonus * 2500] очков)<br><br>
@@ -180,8 +180,8 @@
 	<b>Проблемы с питанием на станции:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] очков)<br>
 	<b>ИИ уничтожен:</b> [GLOB.score_deadaipenalty ? "Да" : "Нет"] (-[GLOB.score_deadaipenalty * 250] очков)<br><br>
 
-	<U>Странное</U><br>
-	<b>Съедено еды:</b> [GLOB.score_foodeaten] [declension_ru(GLOB.score_foodeaten, "укус", "укуса", "укусов")]/sips<br>
+	<U>Прочее</U><br>
+	<b>Съедено еды:</b> [GLOB.score_foodeaten] [declension_ru(GLOB.score_foodeaten, "укус", "укуса", "укусов")]/[declension_ru(GLOB.score_foodeaten, "глоток", "глотка", "глотков")]<br>
 	<b>Клоуна избили:</b> [GLOB.score_clownabuse] [declension_ru(GLOB.score_clownabuse, "раз", "раза", "раз")]<br><br>
 	"}
 	if(GLOB.score_escapees)
