@@ -76,8 +76,8 @@
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "drone"
-	health = 50
-	maxHealth = 50
+	health = 100
+	maxHealth = 100
 	speed = 0
 	speak_emote = list("clanks", "clinks", "clunks", "clangs")
 	speak_statement = list("clanks", "clinks", "clunks", "clangs")
@@ -158,15 +158,12 @@
 		return
 
 	if(istype(W, /obj/item/borg/upgrade/))
-		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
 
 	else if(istype(W, /obj/item/crowbar))
-		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))//It's just gears and brass not some kind of machine
-		to_chat(user, "[src] doesn't have any panel to swipe [W] with.")
+	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		return
 
 	return ..()
@@ -315,3 +312,45 @@
 
 	update_icons()
 
+/*MOUSE*/
+/mob/living/simple_animal/mouse/clockwork
+	name = "moaus"
+	real_name = "moaus"
+	desc = "A fancy clocked mouse. And it still squeeks!"
+	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon_state = "moaus"
+	icon_living = "moaus"
+	icon_dead = "moaus_dead"
+	icon_resting = "moaus" // Need to make rest
+	mouse_color = TRUE //Check mouse/New()
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	universal_speak = 1
+	gold_core_spawnable = NO_SPAWN
+	butcher_results = list(/obj/item/clockwork/alloy_shards/medium/gear_bit = 1)
+
+/mob/living/simple_animal/mouse/clockwork/handle_automated_action()
+	if(isturf(loc))
+		var/turf/simulated/floor/F = get_turf(src)
+		if(istype(F) && !F.intact)
+			var/obj/structure/cable/C = locate() in F
+			if(C && prob(30))
+				if(C.avail())
+					visible_message("<span class='warning'>[src] chews through [C]. [src] sparks for a moment!</span>")
+					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+				else
+					visible_message("<span class='warning'>[src] chews through [C].</span>")
+				investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+				C.deconstruct()
+
+/mob/living/simple_animal/mouse/clockwork/splat()
+	return
+
+/mob/living/simple_animal/mouse/clockwork/toast()
+	return
+
+/mob/living/simple_animal/mouse/clockwork/get_scooped(mob/living/carbon/grabber)
+	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
+	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+
+/mob/living/simple_animal/mouse/clockwork/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	return

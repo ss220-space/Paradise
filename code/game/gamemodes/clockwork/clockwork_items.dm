@@ -622,6 +622,14 @@
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new /mob/living/simple_animal/hostile/clockwork/marauder(get_turf(src))
 		soul.brainmob.mind.transfer_to(cog)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
-		qdel(soul)
 		user.unEquip(soul)
+		qdel(soul)
 		qdel(src)
+
+/obj/item/clockwork/shard
+	name = "A brass shard"
+	desc = "Unique crystal powered by some unknown magic."
+	icon_state = "shard"
+	sharp = TRUE //youch!!
+	force = 5
+	w_class = WEIGHT_CLASS_SMALL
