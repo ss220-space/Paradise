@@ -47,7 +47,8 @@ effective or pretty fucking useless.
 
 	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
-			M.Weaken(rand(4,7))
+			M.Weaken(rand(1,3))
+			M.adjustStaminaLoss(rand(25, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
@@ -273,20 +274,20 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
 	var/temp_direction = user.dir
 	switch(temp_direction)
-		if(NORTHEAST || SOUTHEAST)
+		if(NORTHEAST, SOUTHEAST)
 			user.dir = EAST
-		if(NORTHWEST || SOUTHWEST)
+		if(NORTHWEST, SOUTHWEST)
 			user.dir = WEST
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
 	var/saving_throw
 	switch(direction)
-		if(NORTH || SOUTH)
+		if(NORTH, SOUTH)
 			if(prob(50))
 				saving_throw = EAST
 			else
 				saving_throw = WEST
-		if(EAST || WEST)
+		if(EAST, WEST)
 			if(prob(50))
 				saving_throw = NORTH
 			else

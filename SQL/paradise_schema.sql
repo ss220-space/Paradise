@@ -602,3 +602,40 @@ CREATE TABLE `ckey_whitelist`
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ban_whitelist`
+--
+DROP TABLE IF EXISTS `ban_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ban_whitelist`
+(
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `ckey` VARCHAR(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ckey` (`ckey`),
+  KEY `computerid` (`computerid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `budget`
+--
+DROP TABLE IF EXISTS `budget`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `budget`
+(
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`date` DATETIME DEFAULT now() NOT NULL,
+	`ckey` VARCHAR(32) NOT NULL,
+	`amount` INT(10) UNSIGNED NOT NULL,
+	`source` VARCHAR(32) NOT NULL,
+	`date_start` DATETIME DEFAULT now() NOT NULL,
+	`date_end` DATETIME DEFAULT (now() + INTERVAL 1 MONTH),
+	`is_valid` BOOLEAN DEFAULT true NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;

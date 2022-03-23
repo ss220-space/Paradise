@@ -44,45 +44,46 @@ export const Workshop = (_properties, context) => {
     <Window theme="clockwork" resizable>
       <Window.Content className="Layout__content--flexColumn">
         <Box>
-        <WorkshopSearch />
-        <Section title="Materials">
-          <LabeledList>
-            <LabeledList.Item label="Brass">
-              {brassReadable}
-              <Button
-                icon={"arrow-down"}
-                height="19px"
-                tooltip={"Dispense Brass"}
-                tooltipPosition="bottom-left"
-                ml="0.5rem"
-                onClick={() => act("dispense")}
-              />
-            </LabeledList.Item>
-            <LabeledList.Item label="Power">
-              {powerReadable}
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
+          <WorkshopSearch />
+          <Section title="Materials">
+            <LabeledList>
+              <LabeledList.Item label="Brass">
+                {brassReadable}
+                <Button
+                  icon={"arrow-down"}
+                  height="19px"
+                  tooltip={"Dispense Brass"}
+                  tooltipPosition="bottom-left"
+                  ml="0.5rem"
+                  onClick={() => act("dispense")}
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Power">
+                {powerReadable}
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
         </Box>
         <Section flexGrow="1">
           <WorkshopItems />
         </Section>
         <Flex mb="0.5rem">
           {building && (
-          <ProgressBar.Countdown
-            start={buildStart}
-            current={worldTime}
-            end={buildEnd}
-            bold>
-            Building {building}
-            &nbsp;(<Countdown
+            <ProgressBar.Countdown
+              start={buildStart}
               current={worldTime}
-              timeLeft={buildEnd - worldTime}
-              format={(v, f) => f.substr(3)}
-            />)
-          </ProgressBar.Countdown>
+              end={buildEnd}
+              bold>
+              Building {building}
+            &nbsp;(
+              <Countdown
+                current={worldTime}
+                timeLeft={buildEnd - worldTime}
+                format={(v, f) => f.substr(3)}
+              />)
+            </ProgressBar.Countdown>
           )}
-          </Flex>
+        </Flex>
       </Window.Content>
     </Window>
   );
@@ -156,7 +157,7 @@ const WorkshopItems = (_properties, context) => {
       .map(kv2 => {
         kv2[1].affordable = canBeMade(kv2[1], data.brass_amount, data.power_amount);
         return kv2[1];
-      })
+      });
     if (items_in_cat.length === 0) {
       return;
     }
