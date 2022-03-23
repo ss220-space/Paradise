@@ -3165,6 +3165,15 @@
 	},
 /obj/item/circuitboard/ore_redemption,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betamincorridor)
 "Bu" = (

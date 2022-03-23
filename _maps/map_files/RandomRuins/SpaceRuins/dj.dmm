@@ -201,15 +201,6 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"aL" = (
-/obj/item/gps/ruin{
-	gpstag = "Russian DJ Post";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
 "aM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1660,7 +1651,7 @@ aX
 bR
 bR
 bL
-aL
+bR
 So
 bT
 aa
