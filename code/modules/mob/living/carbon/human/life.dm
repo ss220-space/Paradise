@@ -602,7 +602,7 @@
 				becomeFat()
 
 		// nutrition decrease
-		if(nutrition > 0 && stat != DEAD)
+		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = hunger_drain
@@ -832,8 +832,8 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				if(healthdoll.overlays.len)
 					healthdoll.overlays.Cut()
-				if(bodyparts_by_name["tail"] && bodyparts_by_name["tail"].dna.species.tail)
-					healthdoll.overlays += "[bodyparts_by_name["tail"].dna.species.tail]_DEAD"
+				if(bodypart_tail && bodypart_tail.dna.species.tail)
+					healthdoll.overlays += "[bodypart_tail.dna.species.tail]_DEAD"
 			else
 				var/list/new_overlays = list()
 				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
