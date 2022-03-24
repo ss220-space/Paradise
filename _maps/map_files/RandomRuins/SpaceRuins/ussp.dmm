@@ -183,10 +183,9 @@
 	},
 /area/shuttle/ussp)
 "ay" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 1;
-	name = "Broken Computer"
+/obj/structure/computerframe{
+	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
+	name = "decrepit computer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -194,15 +193,17 @@
 	},
 /area/derelict/bridge)
 "az" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	dir = 1;
+	name = "Broken Computer";
+	obj_integrity = 150
+	},
 /obj/item/paper/djstation{
 	info = "<b>Август 28, 2532</b><hr><small>Наш пост прослушивания передал несколько тревожных сообщений об активности TSF в секторе. Хотя перехваченные сообщения говорят о том, что это просто исследовательская работа, я не могу отделаться от ощущения, что эти упрямые ублюдки наконец-то нас догнали.<br><br> Капитан уверяет меня, что волноваться не о чем, но мне трудно воспринимать всерьез человека, параноидально относящегося к двери душа с электроприводом.<br><br><i>- Офицер Связи Восток</i></small>";
 	name = "личный журнал";
 	pixel_x = 26;
 	pixel_y = 4
-	},
-/obj/structure/computerframe{
-	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
-	name = "decrepit computer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -256,11 +257,11 @@
 "aG" = (
 /obj/structure/safe/floor,
 /obj/item/paper/djstation{
+	info = "<i>Я никогда не забуду те ночи, которые мы провели на Cygni, и все те времена, когда ты возил меня на своем 2452 Винсенте. По тому, как ты посмотрел на меня той ночью, я поняла, что мы с тобой родные души.<br><br>Я знаю, что они заставили тебя продать своего Винсента, когда тебя переназначили, но я не мог позволить что бы такая красивая вещь ржавела. Я договорилася, и он здесь, ждет тебя.<br><br>Ключи я приложила. Пожалуйста, пусть они всегда служат напоминанием о нашей любви и поводом вернуться. Я умоляю тебя, не позволяй нашей любви тихо уйти в ночь.</i>";
+	layer = 2.9;
 	name = "любовное письмо";
 	pixel_x = -5;
-	pixel_y = -3;
-	layer = 2.9;
-	info = "<i>Я никогда не забуду те ночи, которые мы провели на Cygni, и все те времена, когда ты возил меня на своем 2452 Винсенте. По тому, как ты посмотрел на меня той ночью, я поняла, что мы с тобой родные души.<br><br>Я знаю, что они заставили тебя продать своего Винсента, когда тебя переназначили, но я не мог позволить что бы такая красивая вещь ржавела. Я договорилася, и он здесь, ждет тебя.<br><br>Ключи я приложила. Пожалуйста, пусть они всегда служат напоминанием о нашей любви и поводом вернуться. Я умоляю тебя, не позволяй нашей любви тихо уйти в ночь.</i>"
+	pixel_y = -3
 	},
 /obj/item/key{
 	name = "Vincent '52 Key"
@@ -325,16 +326,17 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "aN" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
 /obj/item/shard{
 	icon_state = "small"
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

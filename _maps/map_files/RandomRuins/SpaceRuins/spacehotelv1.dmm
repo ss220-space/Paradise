@@ -811,7 +811,10 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/ruin/space/spacehotelv1/janitor)
 "ft" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1718,6 +1721,7 @@
 /area/ruin/space/spacehotelv1/decals)
 "lv" = (
 /mob/living/simple_animal/bot/medbot{
+	name = "\improper Accidents Happen";
 	stationary_mode = 1
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -3877,7 +3881,7 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "Ah" = (
 /mob/living/simple_animal/mouse/gray{
-	name = "Nicolas"
+	name = "Elliot"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -4782,7 +4786,10 @@
 /obj/vehicle/janicart{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/ruin/space/spacehotelv1/janitor)
 "Ge" = (
 /obj/machinery/camera{
@@ -7395,7 +7402,7 @@
 "WV" = (
 /obj/machinery/driver_button{
 	id_tag = "hotelstrash";
-	name = "Trash Ejector Button";
+	name = "Push me";
 	pixel_x = 26
 	},
 /turf/simulated/floor/plating,
@@ -7571,7 +7578,10 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/key/janitor,
 /obj/item/clothing/under/janimaid,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/ruin/space/spacehotelv1/janitor)
 "Yq" = (
 /obj/structure/sign/poster/random{
@@ -7679,14 +7689,23 @@
 	layer = 4;
 	pixel_y = 26
 	},
-/turf/simulated/floor/plating,
+/mob/living/simple_animal/mouse/gray{
+	name = "Nicolas"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/ruin/space/spacehotelv1/janitor)
 "YH" = (
 /obj/structure/closet/jcloset,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/ruin/space/spacehotelv1/janitor)
 "YM" = (
 /obj/structure/window/reinforced,

@@ -3,12 +3,7 @@
 /turf/template_noop,
 /area/awaycontent)
 "b" = (
-/obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/remains/human{
-	desc = "They look like human remains. You see two large holes in the skull. Seems the guy shot himself.";
-	name = "Human remains"
-	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/powered)
 "d" = (
@@ -16,6 +11,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/powered)
 "e" = (
+/obj/effect/decal/cleanable/blood/drip,
 /obj/item/toy/russian_revolver,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/powered)
@@ -64,6 +60,14 @@
 /obj/item/paper{
 	info = "So, you decided to not listen what dangerous men say to you Atmos Technician. Now you will stay here forever with your stupid toy you love so much! By the way, I left a present for you. See if you have same strenght as you had before to ignore our warnings. Have fun"
 	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/powered)
+"L" = (
+/obj/effect/decal/remains/human{
+	desc = "They look like human remains. You see two large holes in the skull. Seems the guy shot himself.";
+	name = "Human remains"
+	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/powered)
 "M" = (
@@ -198,7 +202,7 @@ v
 v
 v
 v
-l
+b
 l
 V
 v
@@ -217,7 +221,7 @@ v
 B
 J
 d
-l
+e
 i
 v
 v
@@ -234,7 +238,7 @@ v
 l
 p
 b
-l
+L
 l
 v
 v
@@ -251,7 +255,7 @@ v
 l
 F
 l
-e
+l
 l
 o
 M
