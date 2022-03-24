@@ -250,7 +250,7 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
-	
+
 //----------- EDITED
 /datum/map_template/ruin/space/ussp // edited for shuttle to dj post
 	id = "ussp"
@@ -259,7 +259,7 @@
 	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
 	allow_duplicates = FALSE // One of these has enough loot
 	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
-	
+
 /datum/map_template/ruin/space/dj // edited for shuttle to ussp station
 	id = "dj"
 	suffix = "dj.dmm"
@@ -292,8 +292,7 @@
 	description = "No questions asked. No shoes/foot protection, no service. \
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
-	allow_duplicates = FALSE // many space bars with the same name and same pods on it and etc. is bad idea from the start. if the build had radmozier for structures only then it wouldn't be a problem
-	cost = 2
+	allow_duplicates = FALSE // many space bars with the same name and same pods on it and etc. is bad idea from the start. if the build had radmozier only then it wouldn't be a problem
 
 /datum/map_template/ruin/space/punishment // new map, ideologically combined of one of asteroid on the other ss13 build and idea of kidnapping by syndicate
 	id = "punishment"
@@ -307,5 +306,5 @@
 	suffix = "vacation.dmm"
 	name = "Vacation"
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
-		Wait, where did I put a spray tan?.."
+		Wait, where did I put spray tan?.."
 //----------- EDITED_end

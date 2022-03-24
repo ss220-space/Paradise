@@ -488,13 +488,7 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "bE" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	id_tag = "dj_post";
-	locked = 1;
-	name = "DJ Post Docking Port"
-	},
+/obj/structure/coatrack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -762,7 +756,8 @@
 	},
 /area/djstation)
 "wS" = (
-/obj/structure/coatrack,
+/obj/structure/rack,
+/obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -887,8 +882,13 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "IK" = (
-/obj/structure/rack,
-/obj/item/extinguisher,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	glass = 1;
+	id_tag = "dj_post";
+	locked = 1;
+	name = "DJ Post Docking Port"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1432,8 +1432,8 @@ aa
 aa
 aa
 aa
-Wc
 aa
+Wc
 aa
 aa
 aa
@@ -1466,8 +1466,8 @@ ao
 ao
 ao
 aS
-bE
-ao
+aS
+IK
 ao
 ao
 aa
@@ -1503,9 +1503,9 @@ aS
 bc
 bn
 ao
+bE
 bR
 bR
-IK
 ao
 aa
 aa

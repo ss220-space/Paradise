@@ -34,10 +34,7 @@
 /area/ruin/powered)
 "ak" = (
 /obj/machinery/computer/shuttle/spacebarhotelpodv1,
-/turf/simulated/shuttle/floor{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
+/turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "am" = (
 /turf/simulated/wall,
@@ -475,14 +472,11 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee{
 	desc = "Its cold like the space outside, noo!";
-	pixel_x = 6;
+	pixel_x = -6;
 	pixel_y = 8;
 	volume = 10
 	},
-/turf/simulated/shuttle/floor{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
+/turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "bs" = (
 /obj/structure/chair,
