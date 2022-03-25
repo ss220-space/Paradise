@@ -1,8 +1,8 @@
 /datum/disease/anxiety
 	name = "Сильное беспокойство"
-	form = "Infection"
+	form = "Инфекция"
 	max_stages = 4
-	spread_text = "On contact"
+	spread_text = "Контактный"
 	spread_flags = CONTACT_GENERAL
 	cure_text = "Этанол"
 	cures = list("ethanol")

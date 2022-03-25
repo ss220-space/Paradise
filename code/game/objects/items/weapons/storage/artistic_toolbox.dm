@@ -144,12 +144,12 @@
 	return ..()
 
 /datum/disease/memetic_madness
-	name = "Memetic Kill Agent"
+	name = "Мемноубийственный агент"
 	max_stages = 4
 	stage_prob = 8
-	spread_text = "Non-Contagious"
+	spread_text = "Незаразно"
 	spread_flags = SPECIAL
-	cure_text = "Unknown"
+	cure_text = "Неизвестно"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = BIOHAZARD
 	disease_flags = CAN_CARRY
@@ -188,21 +188,21 @@
 			if(10 to 60)
 				if(progenitor.hunger_message_level < 1)
 					progenitor.hunger_message_level = 1
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Feed Me the unclean ones...They will be purified...</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Насыть Меня нечестивцами… Да придёт на них очищение…</font></b></i>")
 			if(61 to 120)
 				if(progenitor.hunger_message_level < 2)
 					progenitor.hunger_message_level = 2
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>I hunger for the flesh of the impure...</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Изголодался Я по плоти нечестивцев…</font></b></i>")
 			if(121 to 210)
 				if(prob(10) && progenitor.hunger_message_level < 3)
 					progenitor.hunger_message_level = 3
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>The hunger of your Master grows with every passing moment.  Feed Me at once.</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Множится голод Пастыря твоего. Немедля насыть Меня.</font></b></i>")
 			if(211 to 399)
 				if(progenitor.hunger_message_level < 4)
 					progenitor.hunger_message_level = 4
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>His Grace starves in your hands.  Feed Me the unclean or suffer.</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Его Милость голодает в руках твоих. Насыть же Меня нечестивцами или страдать ты будешь вечно.</font></b></i>")
 			if(400 to INFINITY)
-				affected_mob.visible_message("<span class='userdanger'>[progenitor] consumes [affected_mob] whole!</span>")
+				affected_mob.visible_message("<span class='userdanger'>[progenitor] поглощает [affected_mob] целиком!</span>")
 				progenitor.consume(affected_mob)
 				return
 
@@ -216,10 +216,10 @@
 			stage = 1
 			return
 		if(prob(4))
-			to_chat(affected_mob, "<span class='danger'>You are too far from His Grace...</span>")
+			to_chat(affected_mob, "<span class='danger'>Вы слишком далеко от Его Милости…</span>")
 			affected_mob.adjustToxLoss(5)
 		else if(prob(6))
-			to_chat(affected_mob, "<span class='danger'>You feel weak.</span>")
+			to_chat(affected_mob, "<span class='danger'>Вы чувствуете слабость.</span>")
 			affected_mob.adjustBruteLoss(5)
 
 		if(ismob(progenitor.loc))

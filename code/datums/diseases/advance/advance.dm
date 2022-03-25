@@ -24,12 +24,12 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 /datum/disease/advance
 
-	name = "Unknown" // We will always let our Virologist name our disease.
+	name = "Без названия" // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Улучшенная болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "advance microbes"
 	max_stages = 5
-	spread_text = "Unknown"
+	spread_text = "Неизвестно"
 	viable_mobtypes = list(/mob/living/carbon/human)
 
 	// NEW VARS
@@ -211,13 +211,13 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/proc/SetSpread(spread_id)
 	switch(spread_id)
 		if(NON_CONTAGIOUS)
-			spread_text = "None"
+			spread_text = "Нет"
 		if(SPECIAL)
-			spread_text = "None"
+			spread_text = "Особый"
 		if(CONTACT_GENERAL, CONTACT_HANDS, CONTACT_FEET)
-			spread_text = "On contact"
+			spread_text = "Контактный"
 		if(AIRBORNE)
-			spread_text = "Airborne"
+			spread_text = "Воздушно-капельный"
 		if(BLOOD)
 			spread_text = "Blood"
 
@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		if(5 to INFINITY)
 			severity = BIOHAZARD
 		else
-			severity = "Unknown"
+			severity = "Неизвестно"
 
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	return
 
 // Name the disease.
-/datum/disease/advance/proc/AssignName(name = "Unknown")
+/datum/disease/advance/proc/AssignName(name = "Без названия")
 	src.name = name
 	return
 

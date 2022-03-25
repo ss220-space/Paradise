@@ -1,13 +1,13 @@
 /datum/disease/dna_retrovirus
-	name = "Retrovirus"
+	name = "Ретровирус"
 	max_stages = 4
-	spread_text = "Contact"
+	spread_text = "Контактный"
 	spread_flags = CONTACT_GENERAL
-	cure_text = "Rest or an injection of mutadone"
+	cure_text = "Отдых, либо инъекция mutadone"
 	cure_chance = 6
 	agent = ""
 	viable_mobtypes = list(/mob/living/carbon/human)
-	desc = "A DNA-altering retrovirus that scrambles the structural and unique enzymes of a host constantly."
+	desc = "Изменяющий ДНК ретровирус, постоянно меняющий структурные и уникальные ферменты носителя."
 	severity = DANGEROUS
 	permeability_mod = 0.4
 	stage_prob = 2
@@ -18,7 +18,7 @@
 
 /datum/disease/dna_retrovirus/New()
 	..()
-	agent = "Virus class [pick("A","B","C","D","E","F")][pick("A","B","C","D","E","F")]-[rand(50,300)]"
+	agent = "Вирус класса [pick("А","Б","В","Г","Д","Е")][pick("А","Б","В","Г","Д","Е")]-[rand(50,300)]"
 	if(prob(40))
 		cures = list("mutadone")
 	else
@@ -31,38 +31,38 @@
 		if(1)
 			if(restcure)
 				if(affected_mob.lying && prob(30))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 			if(prob(8))
-				to_chat(affected_mob, "<span class='danger'>Your head hurts.</span>")
+				to_chat(affected_mob, "<span class='danger'>У вас болит голова.</span>")
 			if(prob(9))
-				to_chat(affected_mob, "You feel a tingling sensation in your chest.")
+				to_chat(affected_mob, "Вы чувствуете покалывание в груди.")
 			if(prob(9))
-				to_chat(affected_mob, "<span class='danger'>You feel angry.</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы чувствуете злость.</span>")
 		if(2)
 			if(restcure)
 				if(affected_mob.lying && prob(20))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 			if(prob(8))
-				to_chat(affected_mob, "<span class='danger'>Your skin feels loose.</span>")
+				to_chat(affected_mob, "<span class='danger'>Ваша кожа обвисает.</span>")
 			if(prob(10))
-				to_chat(affected_mob, "You feel very strange.")
+				to_chat(affected_mob, "Вы чувствуете себя очень странно.")
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head!</span>")
+				to_chat(affected_mob, "<span class='danger'>У вас раскалывается голова!</span>")
 				affected_mob.Paralyse(2)
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>Your stomach churns.</span>")
+				to_chat(affected_mob, "<span class='danger'>У вас бурчит в животе.</span>")
 		if(3)
 			if(restcure)
 				if(affected_mob.lying && prob(20))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Your entire body vibrates.</span>")
+				to_chat(affected_mob, "<span class='danger'>Всё ваше тело дрожит.</span>")
 
 			if(prob(35))
 				if(prob(50))
@@ -73,7 +73,7 @@
 		if(4)
 			if(restcure)
 				if(affected_mob.lying && prob(5))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 			if(prob(60))

@@ -2,11 +2,11 @@
 	name = "Берсерк"
 	max_stages = 2
 	stage_prob = 5
-	spread_text = "Non-Contagious"
+	spread_text = "Незаразно"
 	spread_flags = SPECIAL
-	cure_text = "Anti-Psychotics"
+	cure_text = "Антипсихотические препараты"
 	cures = list("haloperidol")
-	agent = "Jagged Crystals"
+	agent = "Зубчатые кристаллы"
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Брань, крики, неконтролируемое избиение окружающих."

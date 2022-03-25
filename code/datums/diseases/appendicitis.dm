@@ -1,5 +1,5 @@
 /datum/disease/appendicitis
-	form = "Condition"
+	form = "Состояние"
 	name = "Аппендицит"
 	max_stages = 3
 	cure_text = "Хирургия"

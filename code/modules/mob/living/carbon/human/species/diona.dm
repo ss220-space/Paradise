@@ -1,6 +1,8 @@
 /datum/species/diona
 	name = "Diona"
 	name_plural = "Dionaea"
+	name_adjective_male = "дионейский"
+	name_adjective_female = "дионейская"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	language = "Rootspeak"

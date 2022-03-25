@@ -1,6 +1,8 @@
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"
+	name_adjective_male = "скреллский"
+	name_adjective_female = "скреллская"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	language = "Skrellian"

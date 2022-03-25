@@ -1,6 +1,8 @@
 /datum/species/drask
 	name = "Drask"
 	name_plural = "Drask"
+	name_adjective_male = "драсковый"
+	name_adjective_female = "драсковая"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
 	language = "Orluum"

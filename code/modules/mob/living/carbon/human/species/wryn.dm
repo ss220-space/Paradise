@@ -1,6 +1,8 @@
 /datum/species/wryn
 	name = "Wryn"
 	name_plural = "Wryn"
+	name_adjective_male = "вринский"
+	name_adjective_female = "вринская"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE

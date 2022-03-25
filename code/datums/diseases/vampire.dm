@@ -1,12 +1,12 @@
 /datum/disease/vampire
-	name = "Grave Fever"
+	name = "Могильная лихорадка"
 	max_stages = 3
 	stage_prob = 5
-	spread_text = "Non-Contagious"
+	spread_text = "Незаразно"
 	spread_flags = SPECIAL
-	cure_text = "Antibiotics"
+	cure_text = "Антибиотики"
 	cures = list("spaceacillin")
-	agent = "Grave Dust"
+	agent = "Могильная пыль"
 	cure_chance = 20
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = DANGEROUS
@@ -24,11 +24,11 @@
 
 	if(prob(15))
 		if(prob(33))
-			to_chat(affected_mob, "<span class='danger'>You feel sickly and weak.</span>")
+			to_chat(affected_mob, "<span class='danger'>Вы чувствуете слабость и болезненность.</span>")
 			affected_mob.AdjustSlowed(3)
 		affected_mob.adjustToxLoss(toxdamage)
 
 	if(prob(5))
-		to_chat(affected_mob, "<span class='danger'>Your joints ache horribly!</span>")
+		to_chat(affected_mob, "<span class='danger'>У вас жутко ломит суставы!</span>")
 		affected_mob.Weaken(stuntime)
 		affected_mob.Stun(stuntime)

@@ -21,12 +21,12 @@
 
 
 //Severity Defines
-#define NONTHREAT	"No threat"
-#define MINOR		"Minor"
-#define MEDIUM		"Medium"
-#define HARMFUL		"Harmful"
-#define DANGEROUS 	"Dangerous!"
-#define BIOHAZARD	"BIOHAZARD THREAT!"
+#define NONTHREAT	"Не опасно"
+#define MINOR		"Мало опасно"
+#define MEDIUM		"Средне опасно"
+#define HARMFUL		"Опасно"
+#define DANGEROUS 	"Очень опасно!"
+#define BIOHAZARD	"БИОЛОГИЧЕСКАЯ УГРОЗА!!!"
 
 
 GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))

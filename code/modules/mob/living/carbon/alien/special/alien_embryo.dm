@@ -2,7 +2,7 @@
 // It functions almost identically (see code/datums/diseases/alien_embryo.dm)
 
 /obj/item/organ/internal/body_egg/alien_embryo
-	name = "alien embryo"
+	name = "Эмбрион чужого"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
 	var/stage = 0
@@ -11,9 +11,9 @@
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
 	if(stage < 4)
-		to_chat(finder, "It's small and weak, barely the size of a fetus.")
+		to_chat(finder, "Оно маленькое и слабое, размером чуть меньше эмбриона.")
 	else
-		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
+		to_chat(finder, "Оно выросло довольно крупным и слегка шевелится, когда выы на него смотрите.")
 		if(prob(10))
 			AttemptGrow(0)
 
@@ -30,24 +30,24 @@
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(2))
-				to_chat(owner, "<span class='danger'>Your throat feels sore.</span>")
+				to_chat(owner, "<span class='danger'>У вас першит в горле.</span>")
 			if(prob(2))
-				to_chat(owner, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+				to_chat(owner, "<span class='danger'>Вы чувствуете, как по задней стенке горла стекает мокрота.</span>")
 		if(4)
 			if(prob(2))
 				owner.emote("sneeze")
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your muscles ache.</span>")
+				to_chat(owner, "<span class='danger'>У вас ноют мышцы.</span>")
 				if(prob(20))
 					owner.take_organ_damage(1)
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your stomach hurts.</span>")
+				to_chat(owner, "<span class='danger'>У вас болит живот.</span>")
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
+			to_chat(owner, "<span class='danger'>Что-то прорывается наружу из вашего живота…</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
@@ -70,7 +70,7 @@
 		return
 	polling = 1
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите играть ксеноморфом?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
 		var/mob/C = null
 
 		// To stop clientless larva, we will check that our host has a client

@@ -1,6 +1,8 @@
 /datum/species/human
 	name = "Human"
 	name_plural = "Humans"
+	name_adjective_male = "человеческий"
+	name_adjective_female = "человеческая"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = /datum/species/monkey

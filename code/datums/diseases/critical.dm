@@ -19,9 +19,9 @@
 	return FALSE
 
 /datum/disease/critical/shock
-	name = "Shock"
-	form = "Medical Emergency"
-	spread_text = "The patient is in shock"
+	name = "Шок"
+	form = "Требуется неотложная помощь"
+	spread_text = "Пациент в шоке"
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Saline-Glucose Solution"
@@ -37,55 +37,55 @@
 /datum/disease/critical/shock/stage_act()
 	if(..())
 		if(affected_mob.health >= 25 && affected_mob.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
-			to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+			to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 			cure()
 			return
 		switch(stage)
 			if(1)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 				if(prob(8))
 					affected_mob.emote(pick("shiver", "pale", "moan"))
 				if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>You feel weak!</span>")
+					to_chat(affected_mob, "<span class='danger'>Вы чувствуете слабость!</span>")
 			if(2)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 				if(prob(8))
 					affected_mob.emote(pick("shiver", "pale", "moan", "shudder", "tremble"))
 				if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>You feel absolutely terrible!</span>")
+					to_chat(affected_mob, "<span class='danger'>Вам становится катастрофически плохо!</span>")
 				if(prob(5))
 					affected_mob.emote("faint", "collapse", "groan")
 			if(3)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 				if(prob(8))
 					affected_mob.emote(pick("shudder", "pale", "tremble", "groan", "bshake"))
 				if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>You feel horrible!</span>")
+					to_chat(affected_mob, "<span class='danger'>Вы чувствуете себя ужасно!</span>")
 				if(prob(5))
 					affected_mob.emote(pick("faint", "collapse", "groan"))
 				if(prob(7))
-					to_chat(affected_mob, "<span class='danger'>You can't breathe!</span>")
+					to_chat(affected_mob, "<span class='danger'>Вы не можете дышать!</span>")
 					affected_mob.AdjustLoseBreath(1)
 				if(prob(5))
 					var/datum/disease/D = new /datum/disease/critical/heart_failure
 					affected_mob.ForceContractDisease(D)
 
 /datum/disease/critical/heart_failure
-	name = "Cardiac Failure"
-	form = "Medical Emergency"
-	spread_text = "The patient is having a cardiac emergency"
+	name = "Сердечная недостаточность"
+	form = "Требуется неотложная помощь"
+	spread_text = "У пациента сердечная недостаточность"
 	max_stages = 3
 	spread_flags = SPECIAL
-	cure_text = "Atropine, Epinephrine, or Heparin"
+	cure_text = "Atropine, Epinephrine, или Heparin"
 	cures = list("atropine", "epinephrine", "heparin")
 	cure_chance = 10
 	needs_all_cures = FALSE
@@ -108,27 +108,27 @@
 		switch(stage)
 			if(1)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 				if(prob(8))
 					affected_mob.emote(pick("pale", "shudder"))
 				if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>Your arm hurts!</span>")
+					to_chat(affected_mob, "<span class='danger'>Ваши руки болят!</span>")
 				else if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>Your chest hurts!</span>")
+					to_chat(affected_mob, "<span class='danger'>Ваша грудь болит!</span>")
 			if(2)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, "<span class='notice'>Вам становится лучше.</span>")
 					cure()
 					return
 				if(prob(8))
 					affected_mob.emote(pick("pale", "groan"))
 				if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>Your heart lurches in your chest!</span>")
+					to_chat(affected_mob, "<span class='danger'>Ваше сердце колотится в груди!</span>")
 					affected_mob.AdjustLoseBreath(1)
 				if(prob(3))
-					to_chat(affected_mob, "<span class='danger'>Your heart stops beating!</span>")
+					to_chat(affected_mob, "<span class='danger'>Ваше сердце остановилось!</span>")
 					affected_mob.AdjustLoseBreath(3)
 				if(prob(5))
 					affected_mob.emote(pick("faint", "collapse", "groan"))
@@ -141,12 +141,12 @@
 					H.set_heartattack(TRUE)
 
 /datum/disease/critical/hypoglycemia
-	name = "Hypoglycemia"
-	form = "Medical Emergency"
+	name = "Гипогликемия"
+	form = "Требуется неотложная помощь"
 	max_stages = 3
 	spread_flags = SPECIAL
-	spread_text = "The patient has low blood sugar."
-	cure_text = "Eating or administration of vitamins or nutrients"
+	spread_text = "У пациента низкий уровень сахара в крови."
+	cure_text = "Прием пищи, витаминов или питательных веществ"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
 	severity = DANGEROUS
@@ -168,27 +168,27 @@
 		if(isLivingSSD(affected_mob)) // We don't want AFK people dying from this.
 			return
 		if(affected_mob.nutrition > NUTRITION_LEVEL_HYPOGLYCEMIA)
-			to_chat(affected_mob, "<span class='notice'>You feel a lot better!</span>")
+			to_chat(affected_mob, "<span class='notice'>Вам намного лучше!</span>")
 			cure()
 			return
 		switch(stage)
 			if(1)
 				if(prob(4))
-					to_chat(affected_mob, "<span class='warning'>You feel hungry!</span>")
+					to_chat(affected_mob, "<span class='warning'>Вам хочется есть!</span>")
 				if(prob(2))
-					to_chat(affected_mob, "<span class='warning'>You have a headache!</span>")
+					to_chat(affected_mob, "<span class='warning'>У вас болит голова!</span>")
 				if(prob(2))
-					to_chat(affected_mob, "<span class='warning'>You feel [pick("anxious", "depressed")]!</span>")
+					to_chat(affected_mob, "<span class='warning'>Вы чувствуете себя [pick("беспокойно", "подавлено")]!</span>")
 			if(2)
 				if(prob(4))
-					to_chat(affected_mob, "<span class='warning'>You feel like everything is wrong with your life!</span>")
+					to_chat(affected_mob, "<span class='warning'>Вы чувствуете, что в вашей жизни всё неправильно!</span>")
 				if(prob(5))
 					affected_mob.Slowed(rand(4, 16))
-					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
+					to_chat(affected_mob, "<span class='warning'>Вы чувствуете [pick("усталость", "истощение", "вялость")].</span>")
 				if(prob(5))
 					affected_mob.Weaken(6)
 					affected_mob.Stuttering(10)
-					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
+					to_chat(affected_mob, "<span class='warning'>Вы чувствуете [pick("онемение", "замешательство", "головокружение", "lightheaded")].</span>")
 					affected_mob.emote("collapse")
 			if(3)
 				if(prob(1))
@@ -197,8 +197,8 @@
 				if(prob(12))
 					affected_mob.Weaken(6)
 					affected_mob.Stuttering(10)
-					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
+					to_chat(affected_mob, "<span class='warning'>Вы чувствуете [pick("онемение", "замешательство", "головокружение", "lightheaded")].</span>")
 					affected_mob.emote("collapse")
 				if(prob(12))
-					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
+					to_chat(affected_mob, "<span class='warning'>Вы чувствуете [pick("усталость", "истощение", "вялость")].</span>")
 					affected_mob.Slowed(rand(4, 16))

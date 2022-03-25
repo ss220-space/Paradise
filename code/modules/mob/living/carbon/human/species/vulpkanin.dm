@@ -1,6 +1,8 @@
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
+	name_adjective_male = "вульпканинский"
+	name_adjective_female = "вульпканинская"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	language = "Canilunzt"

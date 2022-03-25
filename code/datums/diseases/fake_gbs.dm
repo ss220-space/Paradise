@@ -1,13 +1,13 @@
 /datum/disease/fake_gbs
-	name = "GBS"
+	name = "ГБС"
 	max_stages = 5
-	spread_text = "On contact"
+	spread_text = "Контактный"
 	spread_flags = CONTACT_GENERAL
 	cure_text = "Diphenhydramine & Sulfur"
 	cures = list("diphenhydramine","sulfur")
-	agent = "Gravitokinetic Bipotential SADS-"
+	agent = "Гравитокинетический бипотенциал SADS−"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
-	desc = "If left untreated death will occur."
+	desc = "Если не вылечить, то наступит смерть."
 	severity = BIOHAZARD
 
 /datum/disease/fake_gbs/stage_act()
@@ -22,7 +22,7 @@
 			else if(prob(5))
 				affected_mob.emote("gasp")
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You're starting to feel very weak...</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы чувствуете навалившуюся слабость…</span>")
 		if(4)
 			if(prob(10))
 				affected_mob.emote("cough")

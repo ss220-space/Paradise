@@ -1,6 +1,8 @@
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
+	name_adjective_male = "таяранский"
+	name_adjective_female = "таяранская"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	language = "Siik'tajr"

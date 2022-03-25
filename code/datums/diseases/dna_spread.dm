@@ -1,16 +1,17 @@
 /datum/disease/dnaspread
-	name = "Space Retrovirus"
+	name = "Космический ретровирус"
 	max_stages = 4
-	spread_text = "On contact"
+	spread_text = "Контактный"
 	spread_flags = CONTACT_GENERAL
 	cure_text = "Mutadone"
 	cures = list("mutadone")
 	disease_flags = CAN_CARRY|CAN_RESIST|CURABLE
-	agent = "S4E1 retrovirus"
+	agent = "Ретровирус S4E1"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	var/datum/dna/original_dna = null
 	var/transformed = 0
 	desc = "This disease transplants the genetic code of the initial vector into new hosts."
+	desc = "Это заболевание переносит генетический код начального вектора в новых носителей."
 	severity = MEDIUM
 
 
@@ -34,11 +35,11 @@
 			if(prob(8))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Your muscles ache.</span>")
+				to_chat(affected_mob, "<span class='danger'>У вас ноют мышцы.</span>")
 				if(prob(20))
 					affected_mob.take_organ_damage(1)
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
+				to_chat(affected_mob, "<span class='danger'>У вас болит живот.</span>")
 				if(prob(20))
 					affected_mob.adjustToxLoss(2)
 		if(4)
@@ -47,7 +48,7 @@
 				original_dna = new affected_mob.dna.type
 				affected_mob.dna.copy_dna(original_dna)
 
-				to_chat(affected_mob, "<span class='danger'>You don't feel like yourself..</span>")
+				to_chat(affected_mob, "<span class='danger'>Вы чувствуете себя кем-то другим…</span>")
 				var/datum/dna/transform_dna = strain_data["dna"]
 
 				transform_dna.transfer_identity(affected_mob, transfer_SE = 1)
@@ -67,5 +68,5 @@
 		affected_mob.updateappearance(mutcolor_update=1)
 		affected_mob.domutcheck()
 
-		to_chat(affected_mob, "<span class='notice'>You feel more like yourself.</span>")
+		to_chat(affected_mob, "<span class='notice'>Вы снова чувствуете себя собой.</span>")
 	return ..()

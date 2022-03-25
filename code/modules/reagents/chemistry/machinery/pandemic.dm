@@ -81,7 +81,7 @@
 				B.pixel_y = rand(-3, 3)
 				var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
 				var/vaccine_type = path
-				var/vaccine_name = "Unknown"
+				var/vaccine_name = "Без названия"
 
 				if(!ispath(vaccine_type))
 					if(GLOB.archive_diseases[path])
@@ -262,7 +262,7 @@
 								var/datum/disease/advance/A = D
 								D = GLOB.archive_diseases[A.GetDiseaseID()]
 								if(D)
-									if(D.name == "Unknown")
+									if(D.name == "Без названия")
 										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
 									else
 										dat += "<b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
@@ -297,7 +297,7 @@
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
-						var/disease_name = "Unknown"
+						var/disease_name = "Без названия"
 
 						if(!ispath(type))
 							var/datum/disease/advance/A = GLOB.archive_diseases[type]
