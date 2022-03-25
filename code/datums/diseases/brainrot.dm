@@ -1,5 +1,5 @@
 /datum/disease/brainrot
-	name = "Мозгогниль"
+	name = "Мозговая гниль"
 	max_stages = 4
 	spread_text = "Контактный"
 	spread_flags = CONTACT_GENERAL
