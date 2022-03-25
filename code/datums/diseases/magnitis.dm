@@ -1,7 +1,7 @@
 /datum/disease/magnitis
 	name = "Магнитис"
 	max_stages = 4
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Iron"
 	cures = list("iron")
 	agent = "Фуккос Миракос"

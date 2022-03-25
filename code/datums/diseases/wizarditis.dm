@@ -1,7 +1,7 @@
 /datum/disease/wizarditis
 	name = "Визардис"
 	max_stages = 4
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "The Manly Dorf"
 	cures = list("manlydorf")
 	cure_chance = 100

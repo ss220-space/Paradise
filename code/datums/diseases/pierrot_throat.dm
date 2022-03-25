@@ -1,7 +1,7 @@
 /datum/disease/pierrot_throat
 	name = "Горло Пьеро"
 	max_stages = 4
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Банановые продукты, особенно банановый хлеб."
 	cures = list("banana")
 	cure_chance = 75
@@ -30,7 +30,7 @@
 
 /datum/disease/pierrot_throat/advanced
 	name = "Улучшенное Горло Пьеро"
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Банановые продукты, особенно банановый хлеб."
 	cures = list("banana")
 	cure_chance = 75

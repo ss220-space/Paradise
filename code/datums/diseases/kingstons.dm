@@ -1,7 +1,7 @@
 /datum/disease/kingstons
 	name = "Синдром Кингстона"
 	max_stages = 4
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Milk"
 	cures = list("milk")
 	cure_chance = 50
@@ -49,7 +49,7 @@
 /datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
 	name = "Улучшенный синдром Кингстона"
 	max_stages = 4
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Plasma"
 	cures = list("plasma")
 	cure_chance = 50

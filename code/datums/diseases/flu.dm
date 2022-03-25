@@ -1,7 +1,7 @@
 /datum/disease/flu
 	name = "Грипп"
 	max_stages = 3
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Spaceacillin"
 	cures = list("spaceacillin")
 	cure_chance = 10

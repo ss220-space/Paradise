@@ -2,7 +2,7 @@
 	form = "Болезнь"
 	name = "Грибковый туберкулёз"
 	max_stages = 5
-	spread_text = "Воздушно-капельный"
+	spread_text = "Аэрогенный"
 	cure_text = "Spaceacillin & salbutamol"
 	cures = list("spaceacillin", "salbutamol")
 	agent = "Космическая грибковая туберкулезная бацилла"
