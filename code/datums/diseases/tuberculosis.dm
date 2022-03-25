@@ -1,6 +1,6 @@
 /datum/disease/tuberculosis
 	form = "Болезнь"
-	name = "Грибной туберкулёз"
+	name = "Грибковый туберкулёз"
 	max_stages = 5
 	spread_text = "Воздушно-капельный"
 	cure_text = "Spaceacillin & salbutamol"
