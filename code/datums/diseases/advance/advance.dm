@@ -217,9 +217,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		if(CONTACT_GENERAL, CONTACT_HANDS, CONTACT_FEET)
 			spread_text = "Контактный"
 		if(AIRBORNE)
-			spread_text = "Воздушно-капельный"
+			spread_text = "Аэрогенный"
 		if(BLOOD)
-			spread_text = "Blood"
+			spread_text = "Гемоконтактный"
 
 	spread_flags = spread_id
 
