@@ -1,6 +1,8 @@
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	var/name_adjective_female 	// Прилагательное множественного числа в женском роде
+	var/name_adjective_male 	// Прилагательное множественного числа в мужском роде
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 
