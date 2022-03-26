@@ -59,7 +59,6 @@
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	update_flags |= M.adjustStaminaLoss(-5, FALSE)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags
@@ -351,7 +350,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
-	addiction_chance = 3
+	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 5
 	harmless = FALSE
@@ -554,7 +553,7 @@
 	update_flags |= M.AdjustParalysis(-1, FALSE)
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
-	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-0.5, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
@@ -946,7 +945,7 @@
 	update_flags |= M.AdjustParalysis(-3, FALSE)
 	update_flags |= M.AdjustStunned(-3, FALSE)
 	update_flags |= M.AdjustWeakened(-3, FALSE)
-	update_flags |= M.adjustStaminaLoss(-7.5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-2.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -1242,7 +1241,7 @@
 	update_flags |= M.adjustToxLoss(-1.5, FALSE)
 	update_flags |= M.adjustBrainLoss(1, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	update_flags |= M.adjustCloneLoss(-0.5, FALSE)
-	update_flags |= M.adjustStaminaLoss(-4.5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-15, FALSE)
 	M.SetJitter(min(max(0, M.jitteriness + 3), 30))
 	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
 	return ..() | update_flags
