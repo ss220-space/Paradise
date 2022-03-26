@@ -116,8 +116,8 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
-								"<span class='userdanger'>[A] has weakened [D]!</span>")
+		D.visible_message("<span class='danger'>[A] ослабил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>", \
+								"<span class='userdanger'>[A] ослабил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>")
 		D.apply_effect(2, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
