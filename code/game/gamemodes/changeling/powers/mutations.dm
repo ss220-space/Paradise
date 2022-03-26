@@ -263,7 +263,7 @@
 	if(Adjacent(C))
 		var/obj/item/grab/G = C.grabbedby(src,1)
 		if(istype(G))
-			G.state = GRAB_PASSIVE
+			G.state = GRAB_AGGRESSIVE
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))
