@@ -97,7 +97,7 @@
 	M.AdjustDrowsy(-5)
 	if(current_cycle >= 90)
 		M.AdjustJitter(2)
-	if(prob(25))
+	if(prob(50))
 		update_flags |= M.AdjustParalysis(-1, FALSE)
 		update_flags |= M.AdjustStunned(-1, FALSE)
 		update_flags |= M.AdjustWeakened(-1, FALSE)

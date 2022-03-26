@@ -259,7 +259,7 @@
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			M.Weaken(3)
+			M.Weaken(4)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -640,7 +640,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(1)
+			target.Weaken(4)
 			..()
 		return
 	else
@@ -753,14 +753,14 @@
 		//charged = 0
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
-			M.Stun(2)
+			M.Stun(3)
 			shock(M)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(2)
+		L.Stun(3)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
