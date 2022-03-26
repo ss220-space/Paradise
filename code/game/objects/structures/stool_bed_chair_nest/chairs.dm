@@ -459,7 +459,7 @@
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Weaken(3)
+		T.Weaken(5)
 		return
 	..()
 
