@@ -11,8 +11,8 @@
 	if(CQC.restraining)
 		return MARTIAL_COMBO_FAIL
 	if(!target.stat)
-		target.visible_message("<span class='warning'>[user] locks [target] into a restraining position!</span>", \
-							"<span class='userdanger'>[user] locks you into a restraining position!</span>")
+		target.visible_message("<span class='warning'>[user] заламыва[pluralize_ru(user.gender,"ет","ют")] [target] в удерживающее положение!</span>", \
+							"<span class='userdanger'>[user] заламыва[pluralize_ru(user.gender,"ет","ют")] вас в удерживаемом положении!</span>")
 		target.adjustStaminaLoss(30)
 		target.Stun(2)
 		CQC.restraining = TRUE

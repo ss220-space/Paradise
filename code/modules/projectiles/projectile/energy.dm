@@ -13,9 +13,8 @@
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = 1
-	stun = 1
-	weaken = 1
-	stamina = 33
+	stun = 5
+	weaken = 5
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'
@@ -53,10 +52,9 @@
 /obj/item/projectile/energy/dart
 	name = "dart"
 	icon_state = "toxin"
-	damage = 1
+	damage = 5
 	damage_type = TOX
-	weaken = 2
-	stamina = 40
+	weaken = 5
 	range = 7
 	shockbull = TRUE
 
@@ -66,10 +64,9 @@
 	damage = 15
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
-	stamina = 40
 	nodamage = 0
-	weaken = 2
-	stutter = 1
+	weaken = 5
+	stutter = 5
 	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large

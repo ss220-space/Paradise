@@ -109,7 +109,7 @@
 	muzzle_flash_color = "#FFFF00"
 	select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
-	e_cost = 100
+	e_cost = 200
 	delay = 15
 	harmful = FALSE
 
@@ -118,7 +118,7 @@
 	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
+	e_cost = 200
 
 /obj/item/ammo_casing/energy/electrode/blueshield
 	e_cost = 150
@@ -180,7 +180,7 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
-	e_cost = 175
+	e_cost = 250
 
 /obj/item/ammo_casing/energy/disabler/blueshield
 	e_cost = 40
@@ -311,7 +311,7 @@
 	select_name = "stun"
 	alt_select_name = "taser"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
-	e_cost = 120
+	e_cost = 300
 	delay = 15
 	harmful = FALSE
 

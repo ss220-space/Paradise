@@ -86,8 +86,8 @@
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
 	var/obj/item/stock_parts/cell/cell = null
-	var/stun_strength = 1
-	var/stun_cost = 1500
+	var/stun_strength = 5
+	var/stun_cost = 2000
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
@@ -119,8 +119,7 @@
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Stun(stun_strength)
 				C.Weaken(stun_strength)
-				C.apply_effect(STUTTER, 5 SECONDS)
-				C.adjustStaminaLoss(20)
+				C.apply_effect(STUTTER, stun_strength)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE

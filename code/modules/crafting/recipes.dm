@@ -300,7 +300,7 @@
 	time = 15
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 5)
-	pathtools = list(/obj/item/shard) // Gotta carve the wood into handles
+	pathtools = list(/obj/item/kitchen/knife) // Gotta carve the wood into handles
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
