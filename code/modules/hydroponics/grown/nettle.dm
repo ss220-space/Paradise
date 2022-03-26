@@ -101,7 +101,7 @@
 		if(PIERCEIMMUNE in H.dna.species.species_traits)
 			return
 		if(!H.gloves && prob(50))
-			user.Paralyse(2)
+			user.Paralyse(5)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
@@ -112,6 +112,6 @@
 
 		M.AdjustEyeBlurry(force/7)
 		if(prob(20))
-			M.Paralyse(1)
-			M.Weaken(1)
+			M.Paralyse(force / 6)
+			M.Weaken(force / 15)
 		M.drop_item()

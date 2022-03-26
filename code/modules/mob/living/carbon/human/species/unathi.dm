@@ -115,7 +115,7 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(2)
+					user.Weaken(5)
 					user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
