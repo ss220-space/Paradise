@@ -744,6 +744,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				newletter="a'tyh"
 			if(5)
 				newletter="t,ybe"
+			else
+				pass()
 		newphrase+="[newletter]";counter-=1
 	return rot13(newphrase)
 
