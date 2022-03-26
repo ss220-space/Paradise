@@ -54,7 +54,7 @@
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
-		D.Weaken(1)
+		D.Weaken(3)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -62,8 +62,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
+		D.visible_message("<span class='danger'>[A] бер[pluralize_ru(A.gender,"ет","ут")] [D] в удушающий захват!</span>", \
+							"<span class='userdanger'>[A] взял[genderize_ru(A.gender,"","а","о","и")] вас в удушающий захват</span>")
 		D.SetSleeping(10)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
@@ -74,7 +74,7 @@
 
 	var/obj/item/I = null
 
-	if(prob(50))
+	if(prob(65))
 		if(!D.stat || !D.IsWeakened() || !restraining)
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
