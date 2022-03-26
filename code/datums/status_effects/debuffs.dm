@@ -116,7 +116,7 @@
 
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
-	duration = 130
+	duration = 100
 	alert_type = null
 
 /datum/status_effect/stamina_dot/tick()
