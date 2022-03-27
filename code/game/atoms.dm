@@ -859,7 +859,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			speech_bubble_hearers += M.client
 
 			if((M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
-				M.create_chat_message(src.runechat_msg_location, message, FALSE, TRUE)
+				if(runechat_msg_location)
+					M.create_chat_message(runechat_msg_location, message, FALSE, TRUE)
+				else
+					M.create_chat_message(src, message, FALSE, TRUE)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)

@@ -687,4 +687,4 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc) || isobj(loc))
 		runechat_msg_location = loc
 	else
-		runechat_msg_location = src
+		runechat_msg_location = null
