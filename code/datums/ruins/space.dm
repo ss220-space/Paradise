@@ -251,7 +251,6 @@
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
 
-//----------- EDITED
 /datum/map_template/ruin/space/ussp // edited for shuttle to dj post
 	id = "ussp"
 	suffix = "ussp.dmm"
@@ -307,7 +306,6 @@
 	name = "Vacation"
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
-//----------- EDITED_end
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
 	id = "syndicate_space_base"

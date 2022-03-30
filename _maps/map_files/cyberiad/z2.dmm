@@ -156,7 +156,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/machinery/light/small{
 	brightness_range = 10;
@@ -1526,6 +1526,19 @@
 /obj/structure/lattice,
 /turf/unsimulated/wall,
 /area/centcom/evac)
+"byO" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (EAST)"
+	},
+/obj/machinery/syndiepad/admin/loadpad{
+	target_id = "syndie_cargo_port1"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "bzH" = (
 /obj/structure/sign/poster/official/twelve_gauge,
 /turf/unsimulated/wall,
@@ -1588,6 +1601,19 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"bEx" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/syndiepad/admin/loadpad{
+	target_id = "syndie_cargo_port2"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "bED" = (
 /mob/living/simple_animal/pig,
 /turf/unsimulated/floor/grass,
@@ -2134,13 +2160,6 @@
 	icon_state = "darkgreynavybluecorner"
 	},
 /area/centcom/specops)
-"chS" = (
-/obj/machinery/syndiepad/admin/receivepad,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/syndicate_mothership)
 "chW" = (
 /obj/machinery/door/window{
 	panel_open = 1
@@ -3886,6 +3905,15 @@
 "dBD" = (
 /obj/structure/flora/tree/pine,
 /turf/unsimulated/floor/snow,
+/area/syndicate_mothership)
+"dBT" = (
+/obj/machinery/computer/syndicate_depot/teleporter{
+	lifespan = 0
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
 /area/syndicate_mothership)
 "dCf" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -6802,6 +6830,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"fDK" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "fEa" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
@@ -7895,6 +7932,14 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"gAJ" = (
+/obj/machinery/photocopier/syndie,
+/turf/unsimulated/floor{
+	dir = 8;
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
+	},
+/area/syndicate_mothership)
 "gAP" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/genericbush,
@@ -7919,12 +7964,14 @@
 /area/centcom/evac)
 "gCq" = (
 /obj/machinery/computer/syndicate_depot/teleporter{
-	lifespan = 0
+	name = "teleporter console";
+	req_access = null;
+	use_power = 0
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull"
 	},
-/area/chrono_ship)
+/area/syndicate_depot/core)
 "gCW" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -9128,15 +9175,6 @@
 	},
 /turf/space/transit,
 /area/space)
-"hvY" = (
-/obj/machinery/computer/syndicate_depot/teleporter{
-	lifespan = 0
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "hwQ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/hud/hydroponic,
@@ -10341,17 +10379,17 @@
 	},
 /area/centcom/evac)
 "irV" = (
+/obj/machinery/computer/syndicate_depot/teleporter{
+	use_power = 0
+	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/computer/syndicate_depot/teleporter{
-	lifespan = 0
 	},
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
 	},
-/area/event_zone)
+/area/syndicate_depot/core)
 "ist" = (
 /turf/unsimulated/wall/abductor{
 	icon_state = "alien9"
@@ -18164,23 +18202,6 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
-"nVA" = (
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	color = "#d70000";
-	dir = 2;
-	icon_state = "rightsecure";
-	name = "Riot Control";
-	req_access_txt = "156"
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "nXm" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/unsimulated/floor{
@@ -19007,21 +19028,6 @@
 	icon_state = "carpet"
 	},
 /area/wizard_station)
-"oMj" = (
-/obj/machinery/bluespace_beacon/syndicate,
-/obj/structure/window/plasmareinforced{
-	color = "#d70000";
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#d70000"
-	},
-/obj/effect/turf_decal/box/red,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "oMk" = (
 /obj/item/flag/nt,
 /obj/structure/sign/poster/official/random{
@@ -19206,19 +19212,6 @@
 	icon_state = "carpet"
 	},
 /area/centcom/bridge)
-"oWN" = (
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (EAST)"
-	},
-/obj/machinery/syndiepad/admin/loadpad{
-	target_id = "syndie_cargo_port1"
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "oWO" = (
 /obj/structure/chair/sofa{
 	dir = 5
@@ -21072,15 +21065,6 @@
 	icon_state = "darkfull"
 	},
 /area/chrono_ship)
-"pYS" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -32
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "pZv" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/combat,
@@ -21527,19 +21511,6 @@
 	icon_state = "vault"
 	},
 /area/ussp_ship)
-"qnb" = (
-/obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (WEST)"
-	},
-/obj/machinery/syndiepad/admin/loadpad{
-	target_id = "syndie_cargo_port2"
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "qny" = (
 /turf/simulated/floor/bluegrid,
 /area/tdome/arena)
@@ -21765,13 +21736,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/court)
-"qvT" = (
-/obj/machinery/syndiepad/admin/loadpad,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/syndicate_mothership)
 "qwb" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -23454,15 +23418,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ninja/holding)
-"rAi" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 32
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "rAz" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/unsimulated/floor{
@@ -23964,6 +23919,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"rSz" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	pixel_y = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "rSR" = (
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/smgm45,
@@ -25754,6 +25718,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"tkV" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "tlf" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -26056,17 +26029,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"tvh" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "commandcenter";
-	name = "Privacy Shutters"
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "tvm" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 3 Hallway 2";
@@ -26827,6 +26789,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"ubv" = (
+/obj/machinery/syndiepad/admin/receivepad,
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/syndicate_mothership)
 "ubS" = (
 /turf/unsimulated/floor{
 	dir = 9;
@@ -27748,6 +27717,13 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"uQw" = (
+/obj/machinery/syndiepad/admin/loadpad,
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/syndicate_mothership)
 "uRn" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -28713,6 +28689,17 @@
 	icon_state = "floor"
 	},
 /area/centcom/evac)
+"vDh" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "spacebarpodv1_transit";
+	name = "Regular Space Pod in transit";
+	width = 8
+	},
+/turf/space/transit,
+/area/space)
 "vDp" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
@@ -29417,14 +29404,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
-"vZQ" = (
-/obj/machinery/photocopier/syndie,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
-/area/syndicate_mothership)
 "waa" = (
 /obj/machinery/computer/shuttle/ert,
 /turf/unsimulated/floor{
@@ -29832,6 +29811,21 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"wpN" = (
+/obj/machinery/bluespace_beacon/syndicate,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#d70000"
+	},
+/obj/effect/turf_decal/box/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "wpX" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_away";
@@ -30045,6 +30039,23 @@
 	icon_state = "carpet"
 	},
 /area/centcom/court)
+"wxl" = (
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	color = "#d70000";
+	dir = 2;
+	icon_state = "rightsecure";
+	name = "Riot Control";
+	req_access_txt = "156"
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "wxo" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -30609,6 +30620,17 @@
 	icon_state = "solarpanel"
 	},
 /area/ussp_ship)
+"wSh" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "commandcenter";
+	name = "Privacy Shutters"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "wSE" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -31002,6 +31024,17 @@
 	icon_state = "swall_s6"
 	},
 /area/shuttle/gamma/space)
+"xjW" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "ussppod_transit";
+	name = "USSP Pod in transit";
+	width = 8
+	},
+/turf/space/transit,
+/area/space)
 "xkE" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall12";
@@ -31311,15 +31344,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tdome/arena)
-"xvk" = (
-/obj/effect/turf_decal/caution/stand_clear{
-	pixel_y = 8
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
-	},
-/area/syndicate_mothership)
 "xvn" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/machinery/floodlight,
@@ -32729,30 +32753,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -32986,30 +33010,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -33243,30 +33267,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -33500,30 +33524,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -33757,30 +33781,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -34014,30 +34038,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -34271,30 +34295,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -34528,30 +34552,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -34785,30 +34809,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -35042,30 +35066,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -35299,30 +35323,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -35556,30 +35580,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -35813,30 +35837,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+xjW
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -36070,30 +36094,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -36327,30 +36351,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -36584,30 +36608,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -36841,30 +36865,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -37098,30 +37122,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -37355,30 +37379,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -37612,30 +37636,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -37869,30 +37893,30 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 cxQ
 cxQ
@@ -42946,8 +42970,8 @@ mPL
 mPL
 mKI
 iMk
-oWN
-pYS
+byO
+tkV
 jga
 qaB
 gAu
@@ -43460,7 +43484,7 @@ mPL
 mPL
 axw
 snW
-xvk
+rSz
 njL
 pwO
 sFg
@@ -43472,7 +43496,7 @@ vaX
 iXv
 pwO
 jcp
-chS
+ubv
 slM
 njL
 njL
@@ -43719,7 +43743,7 @@ wIx
 uai
 njL
 njL
-tvh
+wSh
 njL
 njL
 njL
@@ -43744,7 +43768,7 @@ njL
 njL
 iCh
 pwO
-vZQ
+gAJ
 raO
 raO
 xnY
@@ -43973,10 +43997,10 @@ mPL
 mPL
 fAh
 jga
-hvY
+dBT
 njL
 njL
-tvh
+wSh
 njL
 njL
 njL
@@ -44230,10 +44254,10 @@ mPL
 fAh
 mPL
 pwO
-oMj
+wpN
 njL
 njL
-tvh
+wSh
 njL
 njL
 njL
@@ -44487,8 +44511,8 @@ mPL
 mPL
 wfJ
 axw
-nVA
-xvk
+wxl
+rSz
 njL
 wIx
 sFg
@@ -44500,7 +44524,7 @@ vaX
 ibA
 wIx
 xpe
-qvT
+uQw
 slM
 njL
 njL
@@ -45002,8 +45026,8 @@ mPL
 mPL
 mKI
 iMk
-qnb
-rAi
+bEx
+fDK
 jga
 xyg
 fso
@@ -48909,29 +48933,29 @@ wfJ
 mPL
 lcX
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -49166,29 +49190,29 @@ mPL
 mPL
 lcX
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -49423,29 +49447,29 @@ ohq
 mPL
 lcX
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -49680,29 +49704,29 @@ mPL
 mPL
 lcX
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -49937,29 +49961,29 @@ lcX
 lcX
 lcX
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -50194,29 +50218,29 @@ xoS
 xoS
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -50451,29 +50475,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -50708,29 +50732,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -50965,29 +50989,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -51222,29 +51246,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -51479,29 +51503,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -51736,29 +51760,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+vDh
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -51993,29 +52017,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -52250,29 +52274,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -52507,29 +52531,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -52764,29 +52788,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -53021,29 +53045,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -53278,29 +53302,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -53535,29 +53559,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
@@ -53792,29 +53816,29 @@ jyD
 jyD
 xoS
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 njW
