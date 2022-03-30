@@ -407,6 +407,8 @@
 		/obj/item/reagent_containers/food/pill,
 	))
 
+/obj/machinery/smartfridge/medbay/syndie
+	icon_state = "syndi_smartfridge"
 /**
   * # Slime Extract Storage
   *
@@ -451,6 +453,9 @@
 		/obj/item/reagent_containers/food/pill,
 	))
 
+/obj/machinery/smartfridge/secure/medbay/syndie
+	icon_state = "syndi_smartfridge"
+	req_one_access_txt = "150"
 /**
   * # Smart Chemical Storage
   *
@@ -505,6 +510,7 @@
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
 	req_access_txt = null
+	icon_state = "syndi_smartfridge"
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
@@ -581,6 +587,7 @@
   * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
+	icon_state = "syndi_smartfridge"
 	req_access_txt = null
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
