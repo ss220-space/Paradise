@@ -19,10 +19,10 @@
 	var/name = "Spell Item Enchanter"
 	var/enchantment = NO_SPELL
 	var/req_amount = 0
-	var/time = 10
+	var/time = 3
 	var/spell_action = FALSE // If we item needs an action button
 
-/datum/spell_enchant/New(name, enchantment, req_amount = 0, time = 10, spell_action = FALSE)
+/datum/spell_enchant/New(name, enchantment, req_amount = 0, time = 3, spell_action = FALSE)
 	src.name = name
 	src.enchantment = enchantment
 	src.req_amount = req_amount

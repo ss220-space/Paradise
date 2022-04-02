@@ -23,17 +23,6 @@
 	if(enchant_type)
 		overlays += "clock_slab_overlay_[enchant_type]"
 
-/obj/item/clockwork/clockslab/attack_self(mob/user)
-	. = ..()
-	switch(enchant_type)
-		if(EMP_SPELL)
-			src.visible_message("<span class='warning'>[src] glows with shining blue!</span>")
-			empulse(src, 3, 1, cause="clock")
-			deplete_spell()
-		if(TIME_SPELL)
-			deplete_spell()
-			new/obj/effect/timestop/clockwork(get_turf(src))
-
 /obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
 	switch(enchant_type)
@@ -163,14 +152,13 @@
 	. = ..()
 	var/atom/throw_target = get_edge_target_turf(M, user.dir)
 
-	if(!enchant_type == KNOCKOFF_SPELL)
+	if(!(enchant_type == KNOCKOFF_SPELL))
 		M.throw_at(throw_target, rand(1, 2), 7, user)
 	else
 		M.throw_at(throw_target, 200, 20, user) // vroom
 		deplete_spell()
 	if(enchant_type == CRUSH_SPELL && istype(user,/mob/living/carbon/human))
-		user.apply_damage(25, BRUTE, def_zone)
-		var/obj/item/organ/external/BP = M.get_organ(def_zone)
+		var/obj/item/organ/external/BP = pick(M.bodyparts_by_name)
 		BP.fracture()
 		deplete_spell()
 
@@ -200,6 +188,7 @@
 		if(!prob(hit_reflect_chance))
 			return FALSE
 		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src]'s sparks!</span>")
+		deplete_spell()
 		return TRUE
 
 
@@ -232,13 +221,6 @@
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.armour_spells
-
-/obj/item/clothing/suit/armor/clockwork/IsReflect()
-	var/mob/living/carbon/human/user = loc
-	if(enchant_type != REFLECT_SPELL)
-		return
-	if(user.wear_suit == src)
-		return TRUE
 
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == REFLECT_SPELL)
@@ -633,3 +615,23 @@
 	sharp = TRUE //youch!!
 	force = 5
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clockwork/shard/attack_self(mob/user)
+	if(!isclocker(user))
+		to_chat(user, "<span class='danger'>[src] pierces into your hand!</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+		else
+			user.adjustBruteLoss(rand(force/2, force))
+		return
+	if(!enchant_type)
+		to_chat(user, "<span class='warning'>There is no spell stored!</span>")
+	else
+		user.visible_message("<span class='warning'>[user] crushes [src] in his hands!</span>", "<span class='notice'>You crush [src] in your hand!</span>")
+		if(enchant_type == EMP_SPELL)
+			empulse(src, 4, 6, cause="clock")
+			deplete_spell()
+		if(TIME_SPELL)
+			deplete_spell()
+			new/obj/effect/timestop/clockwork(get_turf(src))

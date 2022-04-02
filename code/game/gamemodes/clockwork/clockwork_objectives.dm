@@ -125,7 +125,7 @@
 /datum/objective/clockgod
 	var/summoned = FALSE
 	var/killed = FALSE
-	var/list/summon_spots = list()
+	var/list/ritual_spots = list()
 
 /datum/objective/clockgod/New()
 	..()
@@ -133,10 +133,10 @@
 
 /datum/objective/clockgod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)
-		summon_spots = new()
+		ritual_spots = new()
 	var/sanity = 0
-	while(length(summon_spots) < SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon = pick(return_sorted_areas() - summon_spots)
+	while(length(ritual_spots) < RATVAR_SUMMON_POSSIBILITIES && sanity < 100)
+		var/area/summon = pick(return_sorted_areas() - ritual_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
 			for(var/turf/T in get_area_turfs(summon))
@@ -150,10 +150,10 @@
 						valid_spot = TRUE
 						break
 		if(valid_spot)
-			summon_spots += summon
+			ritual_spots += summon
 		sanity++
 	explanation_text = "Summon Ratvar by setting up the credence and power it.\
-	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
+	\nThe summoning can only be accomplished in [english_list(ritual_spots)] - where the veil is weak enough for the ritual to begin."
 
 /datum/objective/clockgod/check_completion()
 	if(killed)

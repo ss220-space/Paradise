@@ -100,7 +100,7 @@
 	..()
 
 /mob/living/simple_animal/mouse/ratvar_act()
-	var/mob/living/simple_animal/mouse/clockwork/M = new(loc)
+	new/mob/living/simple_animal/mouse/clockwork(loc)
 	gib()
 
 /mob/living/simple_animal/mouse/proc/toast()

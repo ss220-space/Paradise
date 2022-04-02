@@ -104,11 +104,12 @@
 	density = 0
 	var/convert_time = 80
 	var/glow_type = /obj/effect/temp_visual/ratvar/altar_convert
+	var/summoning = FALSE
 
 /obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM)
 	if(!src.anchored)
 		return
-	if(isliving(AM))
+	if(isliving(AM) && !summoning)
 		var/mob/living/L = AM
 		if(L.stat != DEAD && !isclocker(L) && !issilicon(L) && L.mind)
 			var/obj/item/I = L.null_rod_check()
@@ -196,6 +197,43 @@
 	if(glow)
 		qdel(glow)
 	visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
+
+/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/clockwork/shard))
+		if(!double_check(user, get_area(src)))
+			return
+		GLOB.command_announcement.Announce("A high anomalous power has been detected in [A.map_name], the origin of the power indicates an attempt to summon eldtrich god named Ratvar. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
+		begin_the_ritual()
+
+/obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
+	var/datum/game_mode/gamemode = SSticker.mode
+
+	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
+		to_chat(user, "<span class='clockitalic'><b>Ratvar</b> is not ready to be summoned yet!</span>")
+		return FALSE
+	if(gamemode.clocker_objs.cult_status == RATVAR_HAS_RISEN)
+		to_chat(user, "<span class='clocklarge'>\"My fellow. There is no need for it anymore.\"</span>")
+		return FALSE
+
+	var/list/summon_areas = gamemode.clocker_objs.obj_summon.ritual_spots
+	if(!(A in summon_areas))
+		to_chat(user, "<span class='cultlarge'>Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
+		return FALSE
+	var/confirm_final = alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
+	"The power comes...", "Let Ratvar shine ones more!", "No")
+	if(user)
+		if(confirm_final == "No" || confirm_final == null)
+			to_chat(user, "<span class='clockitalic'><b>You decide to prepare further before pincing the shard.</b></span>")
+			return FALSE
+		else
+			return TRUE
+
+/obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
+	summoning = TRUE
+	return
+	//do shit
 
 /// for area.get_beacon() returns BEACON if it exists
 /area/proc/get_beacon()
