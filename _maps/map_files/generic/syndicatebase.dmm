@@ -19011,12 +19011,12 @@
 "pKJ" = (
 /obj/machinery/r_n_d/server{
 	icon_state = "syndie_server";
-	id_with_download_string = "0027";
-	id_with_upload_string = "0027;1";
+	id_with_download_string = "27";
+	id_with_upload_string = "27;1";
 	name = "ERR#UNKWN";
 	req_access = null;
 	req_access_txt = "155";
-	server_id = 0027;
+	server_id = 404;
 	syndicate = 1
 	},
 /turf/simulated/floor/bluegrid{
@@ -19877,7 +19877,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 30
 	},
-/obj/machinery/computer/rdconsole/core,
+/obj/machinery/computer/rdconsole/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";

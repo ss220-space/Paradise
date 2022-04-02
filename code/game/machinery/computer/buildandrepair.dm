@@ -242,6 +242,7 @@
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
 	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
+	var/emag_types = list("R&D Core", "Syndicate") //For a Taipan.
 	id = 1
 /obj/item/circuitboard/rdconsole/robotics
 	name = "Circuit Board (RD Console - Robotics)"
@@ -259,6 +260,10 @@
 	name = "Circuit Board (RD Console - Public)"
 	build_path = /obj/machinery/computer/rdconsole/public
 	id = 5
+/obj/item/circuitboard/rdconsole/syndie
+	name = "Circuit Board (RD Console - Syndicate)"
+	build_path = /obj/machinery/computer/rdconsole/syndie	//For Taipan
+	id = 27
 
 
 /obj/item/circuitboard/mecha_control
@@ -409,6 +414,21 @@ obj/item/circuitboard/syndicatesupplycomp/public
 				to_chat(user, "DERP! BUG! Report this (And what you were doing to cause it) to Agouri")
 		return
 	return ..()
+
+/obj/item/circuitboard/rdconsole/emag_act(user as mob)
+	var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in emag_types
+	if(console_choice == null)
+		return
+	switch(console_choice)
+		if("R&D Core")
+			name = "Circuit Board (RD Console)"
+			build_path = /obj/machinery/computer/rdconsole/core
+			id = 1
+		if("Syndicate")
+			name = "Circuit Board (RD Console - Syndicate)"
+			build_path = /obj/machinery/computer/rdconsole/syndie	//This prevent traitors from emaging circuit and steal syndie stuff
+			id = 1
+	return
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))

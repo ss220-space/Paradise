@@ -172,11 +172,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	matching_designs = list()
 	if(is_taipan(z))
 		syndicate = 1
-		ui_theme = "syndicate"
-		icon_screen = "syndie_rdcomp"
-		icon_keyboard = "syndie_key"
+		id = 27
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
-		id = 0027
+		//Tajaran deleted ID, because he made a separate console for that. Need to emag normal circuit for that
 		update_icon()
 	if(!id)
 		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
@@ -226,6 +224,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		if(is_taipan(z))
+			id = 27		//so Taipan can build more consoles, that connected to server
+			//Its does not change icon of the console, only ID
+			//It is nulling access, but I think this is fair price for more consoles
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -276,9 +278,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
-		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
+		/*if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
 			log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
 			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
+		*/ // We need allow NT to share research with Syndicate -Taj
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
 			server_processed = TRUE
@@ -972,6 +975,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 5
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
+
+/obj/machinery/computer/rdconsole/syndie
+	name = "syndicate R&D console"
+	desc = "A console that makes weapon against NT. <span class='warning'> Death to NT!</span>"
+	id = 1 //Changes upon emaging. Yes, no free stuff for traitors
+	ui_theme = "syndicate"
+	icon_screen = "syndie_rdcomp"
+	icon_keyboard = "syndie_key"
+	req_access = list(ACCESS_SYNDICATE_SCIENTIST)
+	circuit = /obj/item/circuitboard/rdconsole/syndie //you need to emag circuit to build this
+	//So basically... Red RD console on the station(s)
 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
