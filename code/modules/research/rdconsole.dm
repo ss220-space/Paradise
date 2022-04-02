@@ -985,6 +985,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 	circuit = /obj/item/circuitboard/rdconsole/syndie //you need to emag circuit to build this
+	light_color = LIGHT_COLOR_RED
 	//So basically... Red RD console on the station(s)
 
 #undef TECH_UPDATE_DELAY
