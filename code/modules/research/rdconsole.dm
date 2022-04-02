@@ -225,6 +225,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 		if(is_taipan(z))
+			syndicate = 1
 			id = 27		//so Taipan can build more consoles, that connected to server
 			//Its does not change icon of the console, only ID
 			//It is nulling access, but I think this is fair price for more consoles
