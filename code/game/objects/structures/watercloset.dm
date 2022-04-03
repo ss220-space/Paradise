@@ -1,5 +1,6 @@
 //todo: toothbrushes, and some sort of "toilet-filthinator" for the hos
 
+
 /obj/structure/toilet
 	name = "toilet"
 	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean."
@@ -165,10 +166,10 @@
 /obj/structure/toilet/proc/stash_goods(obj/item/I, mob/user)
 	if(!I)
 		return
-	if(I.w_class > WEIGHT_CLASS_NORMAL)
+	if(I.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3
 		to_chat(user, "<span class='warning'>[I] does not fit!</span>")
 		return
-	if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
+	if(w_items + I.w_class > WEIGHT_CLASS_HUGE) // if item size > 5
 		to_chat(user, "<span class='warning'>The cistern is full!</span>")
 		return
 	if(!user.drop_item())
@@ -187,6 +188,21 @@
 		var/obj/item/secret = new secret_type(src)
 		secret.desc += " It's a secret!"
 		w_items += secret.w_class
+
+
+/obj/structure/toilet/cancollectmapitems
+
+/obj/structure/toilet/cancollectmapitems/Initialize(mapload)
+	. = ..()
+	for(var/obj/item/I in loc)
+		if(w_items > WEIGHT_CLASS_HUGE) //if items summary size >= 5
+			return
+		if(I.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3
+			continue
+		if(I.w_class + w_items <= WEIGHT_CLASS_HUGE) // if items summary size less/equal than 5
+			w_items += I.w_class
+			I.forceMove(src)
+
 
 /obj/structure/toilet/golden_toilet
 	name = "Золотой унитаз"
