@@ -1845,7 +1845,7 @@
 					/obj/item/clothing/head/beanie/christmas = 5,
 					/obj/item/clothing/head/beanie/striped = 5,
 					/obj/item/clothing/head/beanie/stripedred = 5,
-					/obj/item/clothing/head/beanie/stripedblue = 3,
+					/obj/item/clothing/head/beanie/stripedblue = 5,
 					/obj/item/clothing/head/beanie/stripedgreen = 5,
 					/obj/item/clothing/head/beanie/rasta = 5,
 					/obj/item/clothing/accessory/scarf/red = 5,
