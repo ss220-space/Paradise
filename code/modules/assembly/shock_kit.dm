@@ -34,11 +34,10 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!status)
-		status = !status
+	status = !status
+	if(status)
 		to_chat(user, "<span class='notice'>[src] is now ready to be attached to a chair!</span>")
 	else
-		status = !status
 		to_chat(user, "<span class='notice'>[src] is now ready!</span>")
 
 /obj/item/assembly/shock_kit/attack_self(mob/user as mob)
