@@ -67161,7 +67161,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	sensors = list("n2_sensor" = "Азот", "o2_sensor" = "Кислород", "co2_sensor" = "Углекислый газ", "tox_sensor" = "Токсины", "n2o_sensor" = "Закись азота", "waste_sensor" = "Цистерна газовой смеси")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -73042,7 +73042,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	sensors = list("n2_sensor" = "Азот", "o2_sensor" = "Кислород", "co2_sensor" = "Оксид углерода", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Цистерна газовой смеси")
 	},
 /obj/machinery/alarm{
 	pixel_y = 23
@@ -85960,7 +85960,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	frequency = 1441;
 	input_tag = "n2_in";
-	name = "Nitrogen Supply Control";
+	name = "Управление подачей азота";
 	output_tag = "n2_out";
 	sensors = list("n2_sensor" = "Tank")
 	},
@@ -85977,7 +85977,7 @@
 /area/atmos)
 "dhC" = (
 /obj/machinery/atmospherics/binary/valve/digital/open{
-	name = "Nitrogen Outlet Valve"
+	name = "Выпускной клапан азота"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -85988,7 +85988,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	frequency = 1441;
 	input_tag = "o2_in";
-	name = "Oxygen Supply Control";
+	name = "Управление подачей кислорода";
 	output_tag = "o2_out";
 	sensors = list("o2_sensor" = "Tank")
 	},
@@ -86006,7 +86006,7 @@
 /area/atmos)
 "dhF" = (
 /obj/machinery/atmospherics/binary/valve/digital/open{
-	name = "Oxygen Outlet Valve"
+	name = "Выпускной клапан кислорода"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -86017,7 +86017,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	frequency = 1443;
 	input_tag = "air_in";
-	name = "Mixed Air Supply Control";
+	name = "Управление подачей воздушной смеси";
 	output_tag = "air_out";
 	pressure_setting = 2000;
 	sensors = list("air_sensor" = "Tank")
@@ -86050,7 +86050,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/binary/valve/digital/open{
-	name = "Mixed Air Outlet Valve"
+	name = "Выпускной клапан воздушной смеси"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
