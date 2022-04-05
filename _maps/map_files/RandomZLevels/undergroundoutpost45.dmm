@@ -14083,7 +14083,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	frequency = 1441;
 	input_tag = "UO45_n2_in";
-	name = "Nitrogen Supply Control";
+	name = "Управление подачей азота";
 	output_tag = "UO45_n2_out";
 	sensors = list("UO45_n2_sensor" = "Tank")
 	},
@@ -14201,7 +14201,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("UO45_n2_sensor" = "Nitrogen", "UO45_o2_sensor" = "Oxygen", "UO45_waste_sensor" = "Gas Mix Tank")
+	sensors = list("UO45_n2_sensor" = "Азот", "UO45_o2_sensor" = "Кислород", "UO45_waste_sensor" = "Цистерна газовой смеси")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
