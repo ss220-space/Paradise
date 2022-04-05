@@ -32195,7 +32195,7 @@
 "cGs" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
-	name = "Nitrogen to Loop"
+	name = "Подача азота в контур"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -48805,7 +48805,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	frequency = 1441;
 	input_tag = "n2_in";
-	name = "Nitrogen Supply Control";
+	name = "Управление подачей азота";
 	output_tag = "n2_out";
 	sensors = list("n2_sensor" = "Tank")
 	},
