@@ -8,39 +8,39 @@
 #define MIN_TOOL_SOUND_DELAY 20
 
 //Crowbar messages
-#define CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE	user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", "<span class='notice'>You begin removing the circuit board from [src]...</span>", "<span class='warning'>You hear prying noises.</span>")
-#define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] pries out the circuit board from [src]!</span>", "<span class='notice'>You pry out the circuit board from [src]!</span>", "<span class='warning'>You hear prying noises.</span>")
+#define CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE	user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] выламывать печатную плату из [src]…</span>", "<span class='notice'>Вы начинаете вынимать печатную плату из [src]…</span>", "<span class='warning'>Вы слышите звуки выламывания.</span>")
+#define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] выламыва[pluralize_ru(user.gender,"ет","ют")] печатную плату из [src]!</span>", "<span class='notice'>Вы выламываете печатную плату из [src]!</span>", "<span class='warning'>Вы слышите звуки выламывания.</span>")
 
 //Screwdriver messages
-#define SCREWDRIVER_SCREW_MESSAGE			user.visible_message("<span class='notice'>[user] tightens the screws on [src]!</span>", "<span class='notice'>You tighten the screws on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
-#define SCREWDRIVER_UNSCREW_MESSAGE			user.visible_message("<span class='notice'>[user] loosens the screws on [src]!</span>", "<span class='notice'>You loosen the screws on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
-#define SCREWDRIVER_OPEN_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] opens the panel on [src]!</span>", "<span class='notice'>You open the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
-#define SCREWDRIVER_CLOSE_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] closes the panel on [src]!</span>", "<span class='notice'>You close the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
+#define SCREWDRIVER_SCREW_MESSAGE			user.visible_message("<span class='notice'>[user] затягива[pluralize_ru(user.gender,"ет","ют")] винты на [src]!</span>", "<span class='notice'>Вы затягиваете винты на [src]!</span>", "<span class='warning'>Вы слышите звуки отвёртки.</span>")
+#define SCREWDRIVER_UNSCREW_MESSAGE			user.visible_message("<span class='notice'>[user] ослабля[pluralize_ru(user.gender,"ет","ют")] винты на [src]!</span>", "<span class='notice'>Вы ослабляете винты на [src]!</span>", "<span class='warning'>Вы слышите звуки отвёртки.</span>")
+#define SCREWDRIVER_OPEN_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] отвинчива[pluralize_ru(user.gender,"ет","ют")] панель на [src]!</span>", "<span class='notice'>Вы отвинчиваете панель на [src]!</span>", "<span class='warning'>Вы слышите звуки отвёртки.</span>")
+#define SCREWDRIVER_CLOSE_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] завинчива[pluralize_ru(user.gender,"ет","ют")] панель на [src]!</span>", "<span class='notice'>Вы завинчиваете панель на [src]!</span>", "<span class='warning'>Вы слышите звуки отвёртки.</span>")
 
 //Wirecutter messages
-#define WIRECUTTER_SNIP_MESSAGE					user.visible_message("<span class='notice'>[user] cuts the wires from [src]!</span>", "<span class='notice'>You cut the wires from [src]!</span>", "<span class='warning'>You hear snipping.</span>")
-#define WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE	user.visible_message("<span class='notice'>[user] begins cutting [src] apart... </span>", "<span class='notice'>You begin cutting [src] apart...</span>", "<span class='warning'>You hear snipping.</span>")
-#define WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] cuts [src] apart!</span>", "<span class='notice'>You cut [src] apart!</span>", "<span class='warning'>You hear snipping.</span>")
+#define WIRECUTTER_SNIP_MESSAGE					user.visible_message("<span class='notice'>[user] среза[pluralize_ru(user.gender,"ет","ют")] провода с [src]!</span>", "<span class='notice'>Вы срезаете провода с [src]!</span>", "<span class='warning'>Вы слышите щелчки кусачек.</span>")
+#define WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE	user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] отрезать [src]… </span>", "<span class='notice'>Вы начинаете отрезать [src]…</span>", "<span class='warning'>Вы слышите щелчки кусачек.</span>")
+#define WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] отреза[pluralize_ru(user.gender,"ет","ют")] [src]!</span>", "<span class='notice'>Вы отрезаете [src]!</span>", "<span class='warning'>Вы слышите щелчки кусачек.</span>")
 
 //Welder messages and other stuff
 #define HEALPERWELD 15
-#define WELDER_ATTEMPT_WELD_MESSAGE			user.visible_message("<span class='notice'>[user] begins welding [src]...</span>", "<span class='notice'>You begin welding [src]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_WELD_SUCCESS_MESSAGE			to_chat(user, "<span class='notice'>You finish welding [src]!</span>")
-#define WELDER_ATTEMPT_REPAIR_MESSAGE		user.visible_message("<span class='notice'>[user] begins repairing the damage on [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_REPAIR_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>You repair the damage on [src]!</span>")
-#define WELDER_ATTEMPT_SLICING_MESSAGE		user.visible_message("<span class='notice'>[user] begins slicing through [src]...</span>", "<span class='notice'>You begin slicing through [src]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_SLICING_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>You slice clean through [src]!</span>")
-#define WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE	user.visible_message("<span class='notice'>[user] begins slicing [src] free from [get_turf(src)]...</span>", "<span class='notice'>You begin slicing [src] free from [get_turf(src)]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You slice [src] clear of [get_turf(src)]!</span>")
-#define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE	user.visible_message("<span class='notice'>[user] begins welding [src] to [get_turf(src)]...</span>", "<span class='notice'>You begin welding [src] to [get_turf(src)]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_FLOOR_WELD_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You weld [src] to [get_turf(src)]!</span>")
+#define WELDER_ATTEMPT_WELD_MESSAGE			user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] сварку [src]…</span>", "<span class='notice'>Вы начинаете сварку [src]…</span>", "<span class='warning'>Вы слышите звуки сварки.</span>")
+#define WELDER_WELD_SUCCESS_MESSAGE			to_chat(user, "<span class='notice'>Вы завершаете сварку [src]!</span>")
+#define WELDER_ATTEMPT_REPAIR_MESSAGE		user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] заваривать повреждения на [src]…</span>", "<span class='notice'>Вы начинаете заваривать повреждения на [src]…</span>", "<span class='warning'>Вы слышите звуки сварки.</span>")
+#define WELDER_REPAIR_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>Вы завариваете повреждения на [src]!</span>")
+#define WELDER_ATTEMPT_SLICING_MESSAGE		user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] разрезать [src]…</span>", "<span class='notice'>Вы начинаете разрезать [src]…</span>", "<span class='warning'>Вы слышите звуки сварки.</span>")
+#define WELDER_SLICING_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>Вы разрезаете [src]!</span>")
+#define WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE	user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] отваривать [src] от [get_turf(src)]…</span>", "<span class='notice'>Вы начинаете отваривать [src] от [get_turf(src)]…</span>", "<span class='warning'>Вы слышите звуки сварки.</span>")
+#define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>Вы очищаете [src] от [get_turf(src)]!</span>")
+#define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE	user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] приваривать [src] к [get_turf(src)]…</span>", "<span class='notice'>Вы начинаете приваривать [src] к [get_turf(src)]…</span>", "<span class='warning'>Вы слышите звуки сварки.</span>")
+#define WELDER_FLOOR_WELD_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>Вы привариваете [src] к [get_turf(src)]!</span>")
 
 //Wrench messages
-#define WRENCH_ANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_UNANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] loosens the bolts on [src]!</span>", "<span class='notice'>You loosen the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_UNANCHOR_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", "<span class='notice'>You unwrench [src] from the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_ANCHOR_TO_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] affixes [src] to the wall!</span>", "<span class='notice'>You affix [src] to the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] затягива[pluralize_ru(user.gender,"ет","ют")] болты на [src]!</span>", "<span class='notice'>Вы затягиваете болты на [src]!</span>", "<span class='warning'>Вы слышите звук трещотки.</span>")
+#define WRENCH_UNANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] ослабля[pluralize_ru(user.gender,"ет","ют")] болты на [src]!</span>", "<span class='notice'>Вы ослабляете болты на [src]!</span>", "<span class='warning'>Вы слышите звук трещотки.</span>")
+#define WRENCH_UNANCHOR_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] откручива[pluralize_ru(user.gender,"ет","ют")] [src] от стены!</span>", "<span class='notice'>Вы откручиваете [src] от стены!</span>", "<span class='warning'>Вы слышите звук трещотки.</span>")
+#define WRENCH_ANCHOR_TO_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] прикручива[pluralize_ru(user.gender,"ет","ют")] [src] на стену!</span>", "<span class='notice'>Вы прикручиваете [src] на стену!</span>", "<span class='warning'>Вы слышите звук трещотки.</span>")
 
 //Generic tool messages that don't correspond to any particular tool
-#define TOOL_ATTEMPT_DISMANTLE_MESSAGE	    user.visible_message("<span class='notice'>[user] begins to disassemble [src] with [I]...</span>", "<span class='notice'>You begin to disassemble [src] with [I]...</span>", "<span class='warning'>You hear someone using some kind of tool.</span>")
-#define TOOL_DISMANTLE_SUCCESS_MESSAGE  	user.visible_message("<span class='notice'>[user] dismantles [src]!</span>", "<span class='notice'>You dismantle [src]!</span>", "<span class='warning'>You hear someone using some kind of tool.</span>")
+#define TOOL_ATTEMPT_DISMANTLE_MESSAGE	    user.visible_message("<span class='notice'>Используя [I], [user], начина[pluralize_ru(user.gender,"ет","ют")] разбирать [src]…</span>", "<span class='notice'>Используя [I], вы начинаете разбирать [src]…</span>", "<span class='warning'>Вы слышите как кто-то использует какой-то инструмент.</span>")
+#define TOOL_DISMANTLE_SUCCESS_MESSAGE  	user.visible_message("<span class='notice'>[user] разбира[pluralize_ru(user.gender,"ет","ют")] [src]!</span>", "<span class='notice'>Вы разбираете [src]!</span>", "<span class='warning'>Вы слышите как кто-то использует какой-то инструмент.</span>")
