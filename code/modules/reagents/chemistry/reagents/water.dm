@@ -8,17 +8,17 @@
 
 
 /datum/reagent/water
-	name = "Water"
+	name = "Вода"
 	id = "water"
-	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
+	description = "Вездесущее химическое вещество. Состоит из водорода и кислорода."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
-	taste_description = "water"
+	taste_description = "воды"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
-	drink_name = "Glass of Water"
-	drink_desc = "The father of all refreshments."
+	drink_name = "Стакан воды"
+	drink_desc = "Отец всех освежающих напитков."
 	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -34,13 +34,13 @@
 	O.water_act(volume, water_temperature, src)
 
 /datum/reagent/lube
-	name = "Space Lube"
+	name = "Космическая смазка" // Space Lube
 	id = "lube"
-	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
+	description = "Смазка представляет собой вещество, вводимое между двумя движущимися поверхностями для уменьшения износа и трения между ними. Хи-хи-хи."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
 	harmless = TRUE
-	taste_description = "cherry"
+	taste_description = "вишни"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -48,13 +48,13 @@
 
 
 /datum/reagent/space_cleaner
-	name = "Space cleaner"
+	name = "Космический очиститель" // Space cleaner
 	id = "cleaner"
-	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
+	description = "Состав для чистки вещей. Теперь на 50 % больше гипохлорита натрия!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
 	harmless = TRUE
-	taste_description = "floor cleaner"
+	taste_description = "очистителя для пола"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(is_cleanable(O))
@@ -87,15 +87,15 @@
 
 /datum/reagent/blood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
-	name = "Blood"
+	name = "Кровь" // Blood
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#770000" // rgb: 40, 0, 0
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	drink_icon = "glass_red"
-	drink_name = "Glass of Tomato juice"
-	drink_desc = "Are you sure this is tomato juice?"
-	taste_description = "<span class='warning'>blood</span>"
+	drink_name = "Стакан томатного сока"
+	drink_desc = "Вы уверены что это томатный сок?"
+	taste_description = "<span class='warning'>крови</span>"
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -171,14 +171,14 @@
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
-			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
+			blood_prop.blood_DNA["НЕИЗВЕСТНАЯ СТРУКТУРА ДНК"] = "X*"
 
 /datum/reagent/vaccine
 	//data must contain virus type
-	name = "Vaccine"
+	name = "Вакцина" // Vaccine
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
-	taste_description = "antibodies"
+	taste_description = "антител"
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(islist(data) && (method == REAGENT_INGEST))
@@ -193,16 +193,16 @@
 		data |= data.Copy()
 
 /datum/reagent/fishwater
-	name = "Fish Water"
+	name = "Аквариумная вода" // Fish Water
 	id = "fishwater"
-	description = "Smelly water from a fish tank. Gross!"
+	description = "Вонючая вода из аквариума. Отвратительно!"
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_description = "puke"
+	taste_description = "рвоты"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		to_chat(M, "Oh god, why did you drink that?")
+		to_chat(M, "Боже, почему вы это выпили?")
 
 /datum/reagent/fishwater/on_mob_life(mob/living/M)
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
@@ -213,27 +213,27 @@
 	return ..()
 
 /datum/reagent/fishwater/toiletwater
-	name = "Toilet Water"
+	name = "Туалетная вода" // Toilet Water
 	id = "toiletwater"
-	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
+	description = "Вонючая вода, взятая из грязного унитаза. Абсолютно отвратительно."
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_description = "the inside of a toilet... or worse"
+	taste_description = "туалетного слива… или даже хуже"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
 	return
 
 /datum/reagent/holywater
-	name = "Water"
+	name = "Вода"
 	id = "holywater"
-	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
+	description = "Вездесущее химическое вещество. Состоит из водорода и кислорода."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
-	drink_name = "Glass of Water"
-	drink_desc = "The father of all refreshments."
-	taste_description = "water"
+	drink_name = "Стакан воды"
+	drink_desc = "Отец всех освежающих напитков."
+	taste_description = "воды"
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -244,7 +244,7 @@
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
-					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					to_chat(M, "<span class='cultlarge'>Святая вода очищает ваше тело, и ритуалы течения крови в нём нарушаются!</span>")
 					qdel(BS)
 			if(prob(5))
 				M.AdjustCultSlur(5)//5 seems like a good number...
@@ -289,10 +289,10 @@
 		else
 			switch(current_cycle)
 				if(1 to 4)
-					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+					to_chat(M, "<span class = 'warning'>В ваших венах что-то шипит !</span>")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				if(5 to 12)
-					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					to_chat(M, "<span class = 'danger'>Вы чувствуете внутри сильное жжение!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
 					M.Stuttering(1)
 					M.Jitter(20)
@@ -300,9 +300,9 @@
 						M.emote("scream")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				if(13 to INFINITY)
-					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+					to_chat(M, "<span class = 'danger'>Вы вдруг воспламеняетесь священным пламенем!</span>")
 					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
+						O.show_message(text("<span class = 'danger'>[] вдруг загорается!</span>", M), 1)
 					M.fire_stacks = min(5,M.fire_stacks + 3)
 					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
@@ -320,13 +320,13 @@
 		var/mob/living/carbon/human/H=M
 		if(method == REAGENT_TOUCH)
 			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+				to_chat(H, "<span class='warning'>Маска защищает вас от святой воды!</span>")
 				return
 			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+				to_chat(H, "<span class='warning'>Шлем защищает вас от святой воды!</span>")
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
+				to_chat(M, "<span class='warning'>Что-то святое мешает вашим силам!</span>")
 				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 
@@ -339,12 +339,12 @@
 	T.Bless()
 
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
-	name = "Unholy Water"
+	name = "Несвятая вода" // Unholy Water
 	id = "unholywater"
-	description = "Something that shouldn't exist on this plane of existance."
+	description = "То, чего не должно существовать на этом плане существования."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
-	taste_description = "sulfur"
+	taste_description = "серы"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -367,13 +367,13 @@
 	return ..() | update_flags
 
 /datum/reagent/hellwater
-	name = "Hell Water"
+	name = "Адская вода" // Hell Water
 	id = "hell_water"
-	description = "YOUR FLESH! IT BURNS!"
+	description = "ВАША ПЛОТЬ! ОНА ГОРИТ!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
 	can_synth = FALSE
-	taste_description = "burning"
+	taste_description = "горения"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -385,12 +385,12 @@
 	return ..() | update_flags
 
 /datum/reagent/liquidgibs
-	name = "Liquid gibs"
+	name = "Жидкие ошмётки" // Liquid gibs
 	id = "liquidgibs"
 	color = "#FF9966"
-	description = "You don't even want to think about what's in here."
+	description = "Не хочется даже думать о том, откуда они."
 	reagent_state = LIQUID
-	taste_description = "meat"
+	taste_description = "мяса"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
@@ -398,20 +398,20 @@
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
 /datum/reagent/lye
-	name = "Lye"
+	name = "Щелочь" // Lye
 	id = "lye"
-	description = "Also known as sodium hydroxide."
+	description = "Также известна как гидроксид натрия."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_description = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
+	taste_description = "<span class='userdanger'>КИСЛОТЫ</span>"//don't drink lye, kids
 
 /datum/reagent/drying_agent
-	name = "Drying agent"
+	name = "Осушающий агент" // Drying agent
 	id = "drying_agent"
-	description = "Can be used to dry things."
+	description = "Можно использовать для сушки вещей."
 	reagent_state = LIQUID
 	color = "#A70FFF"
-	taste_description = "dry mouth"
+	taste_description = "сухости во рту"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T) && T.wet)
