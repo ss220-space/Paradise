@@ -155,7 +155,7 @@
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name]'s ID Card ([src.assignment])"
+	name = "ID-карта [src.registered_name] ([src.assignment])"
 
 /obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -223,10 +223,10 @@
 
 /obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
+		name = "[(!newname)	? "identification card"	: "ID-карта [newname]"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[(!registered_name)	? "identification card"	: "ID-карта [registered_name]"][(!assignment) ? "" : " ([assignment])"]"
 
 /obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
@@ -374,7 +374,7 @@
 			src.registered_name = ""
 			return
 		src.assignment = u
-		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
+		src.name = "ID-карта [src.registered_name] ([src.assignment])"
 		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 		registered_user = user
 	else if(!registered_user || registered_user == user)

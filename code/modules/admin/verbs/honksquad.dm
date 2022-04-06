@@ -131,7 +131,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 
 
 	var/obj/item/card/id/W = new(src)
-	W.name = "[real_name]'s ID Card"
+	W.name = "ID-карта [real_name]"
 	W.icon_state = "centcom_old"
 	W.access = list(ACCESS_CLOWN)//They get full station access.
 	W.assignment = "HONKsquad"

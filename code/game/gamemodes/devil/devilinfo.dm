@@ -549,7 +549,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 		// Having hell create an ID for you causes its risks
 		name_to_use = H.mind.devilinfo.truename
 
-	W.name = "[name_to_use]'s ID Card (Lawyer)"
+	W.name = "ID-карта [name_to_use] (Lawyer)"
 	W.registered_name = name_to_use
 	W.assignment = "Lawyer"
 	W.rank = W.assignment

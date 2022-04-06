@@ -200,7 +200,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	L.implant(src)
 
 	var/obj/item/card/id/W = new(src)
-	W.name = "[real_name]'s ID Card"
+	W.name = "ID-карта [real_name]"
 	W.icon_state = "deathsquad"
 	W.assignment = "Death Commando"
 	W.access = get_centcom_access(W.assignment)

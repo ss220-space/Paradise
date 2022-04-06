@@ -161,7 +161,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
 	D.implant(src)
 	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
-	W.name = "[real_name]'s ID Card"
+	W.name = "ID-карта [real_name]"
 	W.icon_state = "syndie"
 	W.assignment = "Syndicate Commando"
 	W.access += get_syndicate_access(W.assignment)

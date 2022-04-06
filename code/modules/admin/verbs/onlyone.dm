@@ -42,7 +42,7 @@
 		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), slot_l_store)
 
 		var/obj/item/card/id/W = new(H)
-		W.name = "[H.real_name]'s ID Card"
+		W.name = "ID-карта [H.real_name]"
 		W.icon_state = "centcom"
 		W.access = get_all_accesses()
 		W.access += get_all_centcom_access()

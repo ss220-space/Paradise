@@ -40,7 +40,7 @@
 			var/obj/item/card/id/I = Item
 			for(var/obj/item/card/id/C in M)
 				//default settings
-				I.name = "[M.real_name]'s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+				I.name = "ID-карта [M.real_name] ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
 				I.registered_name = M.real_name
 				I.access = C.access
 				I.assignment = C.assignment
