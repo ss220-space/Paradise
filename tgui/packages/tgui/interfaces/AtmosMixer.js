@@ -17,15 +17,15 @@ export const AtmosMixer = (props, context) => {
       <Window.Content>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="Power">
+            <LabeledList.Item label="Питание">
               <Button
                 icon={on ? "power-off" : "power-off"}
-                content={on ? "On" : "Off"}
+                content={on ? "Вкл" : "Выкл"}
                 color={on ? null : "red"}
                 selected={on}
                 onClick={() => act('power')} />
             </LabeledList.Item>
-            <LabeledList.Item label="Rate">
+            <LabeledList.Item label="Давление">
               <Button
                 icon="fast-backward"
                 textAlign="center"
@@ -34,7 +34,7 @@ export const AtmosMixer = (props, context) => {
                 onClick={() => act('min_pressure')} />
               <NumberInput
                 animated
-                unit="kPa"
+                unit="кПа"
                 width={6.1}
                 lineHeight={1.5}
                 step={10}
@@ -52,10 +52,10 @@ export const AtmosMixer = (props, context) => {
                 onClick={() => act('max_pressure')} />
             </LabeledList.Item>
             <NodeControls
-              node_name="Node 1"
+              node_name="Вход № 1"
               node_ref={node1_concentration} />
             <NodeControls
-              node_name="Node 2"
+              node_name="Вход № 2"
               node_ref={node2_concentration} />
           </LabeledList>
         </Section>
