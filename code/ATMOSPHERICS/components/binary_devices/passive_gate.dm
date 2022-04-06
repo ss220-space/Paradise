@@ -4,8 +4,8 @@
 	icon = 'icons/atmos/passive_gate.dmi'
 	icon_state = "map"
 
-	name = "passive gate"
-	desc = "A one-way air valve that does not require power"
+	name = "пассивный клапан"
+	desc = "Однонаправленный воздушный клапан, не требующий питания"
 
 	can_unwrench = 1
 
@@ -124,7 +124,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, "<span class='alert'>Доступ запрещён</span>")
 		return
 
 	add_fingerprint(user)
@@ -144,7 +144,7 @@
 		"on" = on,
 		"rate" = round(target_pressure),
 		"max_rate" = MAX_OUTPUT_PRESSURE,
-		"gas_unit" = "kPa",
+		"gas_unit" = "кПа",
 		"step" = 10 // This is for the TGUI <NumberInput> step. It's here since multiple pumps share the same UI, but need different values.
 	)
 	return data
@@ -182,6 +182,6 @@
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
+		to_chat(user, "<span class='alert'>Чтобы открутить, [src] нужно сначала отключить.</span>")
 		return 1
 	return ..()
