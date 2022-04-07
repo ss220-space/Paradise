@@ -252,9 +252,6 @@
 		/obj/item/spacepod_key,
 		/obj/item/nullrod,
 		/obj/item/key
-		/obj/item/nullrod,
-		/obj/item/key
-		/obj/item/clothing/gloves/color/black/forensics
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
