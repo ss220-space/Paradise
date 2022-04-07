@@ -248,7 +248,10 @@
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
+		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/spacepod_key,
+		/obj/item/nullrod,
+		/obj/item/key
 		/obj/item/nullrod,
 		/obj/item/key
 		/obj/item/clothing/gloves/color/black/forensics
