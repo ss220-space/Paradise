@@ -8,7 +8,7 @@ z2 = centcomm
 z3 = space (empty)
 z4 = lavaland
 
-Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidza & Bolmorr for SS220.
+Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidza, Bolmorr & Dikers for SS220.
 */
 
 #if !defined(USING_MAP_DATUM)
