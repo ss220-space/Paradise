@@ -48,22 +48,22 @@ const SupermatterMonitorListView = (props, context) => {
   return (
     <Window>
       <Window.Content scrollable>
-        <Section title="Detected Supermatter Shards" buttons={
+        <Section title="Обнаруженные осколки Суперматерии" buttons={
           <Button
             icon="sync"
-            content="Refresh"
+            content="Обновить"
             onClick={() => act("refresh")}
           />
         }>
           <Box m={1}>
             {data.supermatters.length === 0 ? (
-              <h3>No shards detected</h3>
+              <h3>Осколки не обнаружены</h3>
             ) : (
               <Table>
                 <Table.Row header>
-                  <TableCell>Area</TableCell>
-                  <TableCell>Integrity</TableCell>
-                  <TableCell>Details</TableCell>
+                  <TableCell>Область</TableCell>
+                  <TableCell>Целостность</TableCell>
+                  <TableCell>Детали</TableCell>
                 </Table.Row>
                 {data.supermatters.map(sm => (
                   <TableRow key={sm}>
@@ -72,7 +72,7 @@ const SupermatterMonitorListView = (props, context) => {
                     <TableCell>
                       <Button
                         icon="sign-in-alt"
-                        content="View"
+                        content="Вид"
                         onClick={() => act('view', {
                           view: sm.uid,
                         })}
@@ -94,15 +94,15 @@ const SupermatterMonitorDataView = (props, context) => {
   return (
     <Window>
       <Window.Content>
-        <Section title="Crystal Status" buttons={
+        <Section title="Статус кристалла" buttons={
           <Button
             icon="caret-square-left"
-            content="Back"
+            content="Назад"
             onClick={() => act("back")}
           />
         }>
           <LabeledList>
-            <LabeledList.Item label="Core Integrity">
+            <LabeledList.Item label="Целостность ядра">
               <ProgressBar
                 ranges={{
                   good: [95, Infinity],
@@ -115,38 +115,38 @@ const SupermatterMonitorDataView = (props, context) => {
                 {data.SM_integrity}%
               </ProgressBar>
             </LabeledList.Item>
-            <LabeledList.Item label="Relative EER">
+            <LabeledList.Item label="Относительный КЭЭ">
               <Box color={powerToColor(data.SM_power)}>
-                {data.SM_power} MeV/cm3
+                {data.SM_power} <abbr title="Мегаэлектронвольт на кубический сантиметр">МэВ/см³</abbr>
               </Box>
             </LabeledList.Item>
-            <LabeledList.Item label="Temperature">
+            <LabeledList.Item label="Температура">
               <Box color={temperatureToColor(data.SM_ambienttemp)}>
-                {data.SM_ambienttemp} K
+                {data.SM_ambienttemp} °K
               </Box>
             </LabeledList.Item>
-            <LabeledList.Item label="Pressure">
+            <LabeledList.Item label="Давление">
               <Box color={pressureToColor(data.SM_ambientpressure)}>
-                {data.SM_ambientpressure} kPa
+                {data.SM_ambientpressure} кПа
               </Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title="Gas Composition">
+        <Section title="Газовый состав">
           <LabeledList>
-            <LabeledList.Item label="Oxygen">
+            <LabeledList.Item label="Кислород">
               {data.SM_gas_O2}%
             </LabeledList.Item>
-            <LabeledList.Item label="Carbon Dioxide">
+            <LabeledList.Item label="Оксид углерода">
               {data.SM_gas_CO2}%
             </LabeledList.Item>
-            <LabeledList.Item label="Nitrogen">
+            <LabeledList.Item label="Азот">
               {data.SM_gas_N2}%
             </LabeledList.Item>
-            <LabeledList.Item label="Plasma">
+            <LabeledList.Item label="Плазма">
               {data.SM_gas_PL}%
             </LabeledList.Item>
-            <LabeledList.Item label="Other">
+            <LabeledList.Item label="Прочее">
               {data.SM_gas_OTHER}%
             </LabeledList.Item>
           </LabeledList>

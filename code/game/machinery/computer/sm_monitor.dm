@@ -1,6 +1,6 @@
 /obj/machinery/computer/sm_monitor
-	name = "supermatter monitoring console"
-	desc = "Used to monitor supermatter shards."
+	name = "консоль мониторинга Суперматерии"
+	desc = "Используется для мониторинга осколков Суперматерии."
 	icon_keyboard = "power_key"
 	icon_screen = "smmon_0"
 	circuit = /obj/item/circuitboard/sm_monitor
