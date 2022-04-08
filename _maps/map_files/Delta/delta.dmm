@@ -23617,7 +23617,7 @@
 "cko" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
-/area/crew_quarters/serviceyard)
+/area/crew_quarters/bar)
 "ckp" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31103,7 +31103,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/crew_quarters/serviceyard)
+/area/maintenance/fpmaint)
 "cOh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
@@ -47149,20 +47149,6 @@
 /obj/item/paper_bin,
 /turf/simulated/floor/wood,
 /area/library)
-"dVF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/mrchangs)
 "dVH" = (
 /obj/structure/chair{
 	dir = 4
@@ -63444,7 +63430,7 @@
 	req_access_txt = "31"
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/storage)
+/area/maintenance/bar)
 "hDv" = (
 /obj/structure/table/wood/poker,
 /obj/effect/decal/cleanable/dirt,
@@ -103754,7 +103740,7 @@
 	req_access_txt = "31"
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/storage)
+/area/maintenance/bar)
 "rsE" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -164149,7 +164135,7 @@ cFU
 lnB
 lnB
 lnB
-dVF
+mTB
 lnB
 lnB
 baF
