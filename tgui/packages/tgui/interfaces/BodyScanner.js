@@ -5,29 +5,29 @@ import { AnimatedNumber, Box, Button, Flex, Icon, LabeledList, ProgressBar, Sect
 import { Window } from "../layouts";
 
 const stats = [
-  ['good', 'Alive'],
-  ['average', 'Critical'],
-  ['bad', 'DEAD'],
+  ['good', 'Жив'],
+  ['average', 'Критическое состояние'],
+  ['bad', 'МЁРТВ'],
 ];
 
 const abnormalities = [
-  ['hasBorer', 'bad', 'Large growth detected in frontal lobe,'
-    + ' possibly cancerous. Surgical removal is recommended.'],
-  ['hasVirus', 'bad', 'Viral pathogen detected in blood stream.'],
-  ['blind', 'average', 'Cataracts detected.'],
-  ['colourblind', 'average', 'Photoreceptor abnormalities detected.'],
-  ['nearsighted', 'average', 'Retinal misalignment detected.'],
+  ['hasBorer', 'bad', 'Во фронтальной коре обнаружен крупный нарост. Потенциальная онкология. '
+    + 'Рекомендуется хирургическое вмешательство.'],
+  ['hasVirus', 'bad', 'В крови обнаружен вирусный патоген.'],
+  ['blind', 'average', 'Обнаружена катаракта.'],
+  ['colourblind', 'average', 'Обнаружена аномалия фоторецепторов.'],
+  ['nearsighted', 'average', 'Обнаружено смещение сетчатки.'],
 ];
 
 const damages = [
-  ['Respiratory', 'oxyLoss'],
-  ['Brain', 'brainLoss'],
-  ['Toxin', 'toxLoss'],
-  ['Radioactive', 'radLoss'],
-  ['Brute', 'bruteLoss'],
-  ['Genetic', 'cloneLoss'],
-  ['Burn', 'fireLoss'],
-  ['Paralysis', 'paralysis'],
+  ['Асфиксия', 'oxyLoss'],
+  ['Мозг', 'brainLoss'],
+  ['Интоксикация', 'toxLoss'],
+  ['Радиационные', 'radLoss'],
+  ['Раны', 'bruteLoss'],
+  ['Генетические', 'cloneLoss'],
+  ['Ожоги', 'fireLoss'],
+  ['Паралич', 'paralysis'],
 ];
 
 const damageRange = {
@@ -60,13 +60,13 @@ const reduceOrganStatus = A => {
 
 const germStatus = i => {
   if (i > 100) {
-    if (i < 300) { return "mild infection"; }
-    if (i < 400) { return "mild infection+"; }
-    if (i < 500) { return "mild infection++"; }
-    if (i < 700) { return "acute infection"; }
-    if (i < 800) { return "acute infection+"; }
-    if (i < 900) { return "acute infection++"; }
-    if (i >= 900) { return "septic"; }
+    if (i < 300) { return "лёгкое заражение"; }
+    if (i < 400) { return "лёгкое заражение+"; }
+    if (i < 500) { return "лёгкое заражение++"; }
+    if (i < 700) { return "острая инфекция"; }
+    if (i < 800) { return "острая инфекция+"; }
+    if (i < 900) { return "острая инфекция++"; }
+    if (i >= 900) { return "сепсис"; }
   }
 
   return "";
@@ -114,26 +114,26 @@ const BodyScannerMainOccupant = (props, context) => {
   } = data;
   return (
     <Section
-      title="Occupant"
+      title="Пациент"
       buttons={(
         <Fragment>
           <Button
             icon="print"
             onClick={() => act('print_p')}>
-            Print Report
+            Напечатать отчёт
           </Button>
           <Button
             icon="user-slash"
             onClick={() => act('ejectify')}>
-            Eject
+            Извлечь
           </Button>
         </Fragment>
       )}>
       <LabeledList>
-        <LabeledList.Item label="Name">
+        <LabeledList.Item label="Имя">
           {occupant.name}
         </LabeledList.Item>
-        <LabeledList.Item label="Health">
+        <LabeledList.Item label="Здоровье">
           <ProgressBar
             min="0"
             max={occupant.maxHealth}
@@ -145,25 +145,20 @@ const BodyScannerMainOccupant = (props, context) => {
             }}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Status" color={stats[occupant.stat][0]}>
+        <LabeledList.Item label="Статус" color={stats[occupant.stat][0]}>
           {stats[occupant.stat][1]}
         </LabeledList.Item>
-        <LabeledList.Item label="Temperature">
-          <AnimatedNumber
-            value={round(occupant.bodyTempC, 0)}
-          />&deg;C,&nbsp;
-          <AnimatedNumber
-            value={round(occupant.bodyTempF, 0)}
-          />&deg;F
+        <LabeledList.Item label="Температура">
+          <AnimatedNumber value={round(occupant.bodyTempC, 0)} /> °C
         </LabeledList.Item>
-        <LabeledList.Item label="Implants">
+        <LabeledList.Item label="Импланты">
           {occupant.implant_len ? (
             <Box>
               {occupant.implant.map(im => im.name).join(', ')}
             </Box>
           ) : (
             <Box color="label">
-              None
+              Нет
             </Box>
           )}
         </LabeledList.Item>
@@ -180,16 +175,16 @@ const BodyScannerMainAbnormalities = props => {
         || occupant.colourblind || occupant.nearsighted
         || occupant.hasVirus)) {
     return (
-      <Section title="Abnormalities">
+      <Section title="Патологии">
         <Box color="label">
-          No abnormalities found.
+          Патологий не найдено.
         </Box>
       </Section>
     );
   }
 
   return (
-    <Section title="Abnormalities">
+    <Section title="Патологии">
       {abnormalities.map((a, i) => {
         if (occupant[a[0]]) {
           return (
@@ -208,7 +203,7 @@ const BodyScannerMainDamage = props => {
     occupant,
   } = props;
   return (
-    <Section title="Damage">
+    <Section title="Повреждения">
       <Table>
         {mapTwoByTwo(damages, (d1, d2, i) => (
           <Fragment>
@@ -257,26 +252,26 @@ const BodyScannerMainDamageBar = props => {
 const BodyScannerMainOrgansExternal = props => {
   if (props.organs.length === 0) {
     return (
-      <Section title="External Organs">
+      <Section title="Конечности">
         <Box color="label">
-          N/A
+          Не обнаружены
         </Box>
       </Section>
     );
   }
 
   return (
-    <Section title="External Organs">
+    <Section title="Конечности">
       <Table>
         <Table.Row header>
           <Table.Cell>
-            Name
+            Название
           </Table.Cell>
           <Table.Cell textAlign="center">
-            Damage
+            Повреждения
           </Table.Cell>
           <Table.Cell textAlign="right">
-            Injuries
+            Травмы
           </Table.Cell>
         </Table.Row>
         {props.organs.map((o, i) => (
@@ -304,7 +299,7 @@ const BodyScannerMainOrgansExternal = props => {
                       {round(o.bruteLoss, 0)}&nbsp;
                       <Tooltip
                         position="top"
-                        content="Brute damage"
+                        content="Раны"
                       />
                     </Box>)}
                   {!!o.fireLoss && (
@@ -313,7 +308,7 @@ const BodyScannerMainOrgansExternal = props => {
                       {round(o.fireLoss, 0)}
                       <Tooltip
                         position="top"
-                        content="Burn damage"
+                        content="Ожоги"
                       />
                     </Box>)}
                 </Box>
@@ -329,23 +324,23 @@ const BodyScannerMainOrgansExternal = props => {
               pt={i > 0 && "calc(0.5rem + 2px)"}>
               <Box color="average" display="inline">
                 {reduceOrganStatus([
-                  !!o.internalBleeding && "Internal bleeding",
-                  !!o.lungRuptured && "Ruptured lung",
+                  !!o.internalBleeding && "Внутреннее кровотечение",
+                  !!o.lungRuptured && "Разорванное лёгкое",
                   !!o.status.broken && o.status.broken,
                   germStatus(o.germ_level),
-                  !!o.open && "Open incision",
+                  !!o.open && "Открытый разрез",
                 ])}
               </Box>
               <Box display="inline">
                 {reduceOrganStatus([
-                  !!o.status.splinted && <Box color="good">Splinted</Box>,
-                  !!o.status.robotic && <Box color="label">Robotic</Box>,
-                  !!o.status.dead && <Box color="bad" bold>DEAD</Box>,
+                  !!o.status.splinted && <Box color="good">Наложена шина</Box>,
+                  !!o.status.robotic && <Box color="label">Робопротез</Box>,
+                  !!o.status.dead && <Box color="bad" bold>МЁРТВ</Box>,
                 ])}
                 {reduceOrganStatus(o.shrapnel.map(
                   s => s.known
                     ? s.name
-                    : "Unknown object"
+                    : "Неизвестный объект"
                 ))}
               </Box>
             </Table.Cell>
@@ -359,26 +354,26 @@ const BodyScannerMainOrgansExternal = props => {
 const BodyScannerMainOrgansInternal = props => {
   if (props.organs.length === 0) {
     return (
-      <Section title="Internal Organs">
+      <Section title="Внутренние органы">
         <Box color="label">
-          N/A
+          Нет
         </Box>
       </Section>
     );
   }
 
   return (
-    <Section title="Internal Organs">
+    <Section title="Внутренние органы">
       <Table>
         <Table.Row header>
           <Table.Cell>
-            Name
+            Название
           </Table.Cell>
           <Table.Cell textAlign="center">
-            Damage
+            Повреждения
           </Table.Cell>
           <Table.Cell textAlign="right">
-            Injuries
+            Травмы
           </Table.Cell>
         </Table.Row>
         {props.organs.map((o, i) => (
@@ -414,9 +409,9 @@ const BodyScannerMainOrgansInternal = props => {
               </Box>
               <Box display="inline">
                 {reduceOrganStatus([
-                  (o.robotic === 1) && <Box color="label">Robotic</Box>,
+                  (o.robotic === 1) && <Box color="label">Робопротез</Box>,
                   (o.robotic === 2) && <Box color="label">Assisted</Box>,
-                  !!o.dead && <Box color="bad" bold>DEAD</Box>,
+                  !!o.dead && <Box color="bad" bold>МЁРТВ</Box>,
                 ])}
               </Box>
             </Table.Cell>
@@ -437,7 +432,7 @@ const BodyScannerEmpty = () => {
             mb="0.5rem"
             size="5"
           /><br />
-          No occupant detected.
+          Пациент не обнаружен.
         </Flex.Item>
       </Flex>
     </Section>
