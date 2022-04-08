@@ -2060,6 +2060,15 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
+"ajg" = (
+/obj/effect/landmark/start{
+	name = "shaft_miner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "ajj" = (
 /obj/structure/table,
 /obj/item/ashtray/glass,
@@ -9142,7 +9151,9 @@
 /obj/structure/table,
 /obj/item/gps/mining,
 /obj/item/gps/mining,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "aUG" = (
 /obj/effect/landmark/start{
@@ -9563,6 +9574,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"aXj" = (
+/obj/effect/landmark/start{
+	name = "shaft_miner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
+/area/quartermaster/miningdock)
 "aXk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -9929,7 +9949,9 @@
 /obj/structure/table,
 /obj/item/gps/mining,
 /obj/item/gps/mining,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "aZk" = (
 /obj/machinery/firealarm{
@@ -9966,7 +9988,9 @@
 	})
 "aZp" = (
 /obj/machinery/computer/shuttle/mining,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "aZq" = (
 /obj/effect/spawner/window/reinforced,
@@ -10200,7 +10224,9 @@
 /area/quartermaster/miningdock)
 "bbb" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bbe" = (
 /obj/structure/chair/office/dark{
@@ -11386,7 +11412,9 @@
 	c_tag = "Mining Port";
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bib" = (
 /obj/machinery/disposal,
@@ -11395,16 +11423,17 @@
 	},
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bid" = (
 /obj/structure/closet/wardrobe/miner,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bie" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
 	pixel_x = 3;
@@ -11415,7 +11444,9 @@
 /obj/item/shovel,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bif" = (
 /obj/machinery/power/terminal,
@@ -12184,7 +12215,9 @@
 /obj/item/radio/intercom{
 	pixel_y = -29
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "blK" = (
 /obj/effect/decal/warning_stripes/northwest,
@@ -19428,7 +19461,9 @@
 "bSH" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bSI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20058,7 +20093,9 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "bVr" = (
 /obj/structure/cable{
@@ -22409,7 +22446,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "ceI" = (
 /obj/structure/closet/emcloset,
@@ -43786,7 +43825,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
 "dJn" = (
@@ -44801,7 +44841,9 @@
 /obj/machinery/computer/security/mining{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "dNy" = (
 /obj/structure/table,
@@ -46883,7 +46925,8 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "purple"
 	},
 /area/quartermaster/miningdock)
 "dUO" = (
@@ -47732,7 +47775,7 @@
 "dXp" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
 "dXr" = (
@@ -61349,7 +61392,9 @@
 	dir = 8;
 	pixel_x = -25
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "hdh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -61387,7 +61432,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "hdu" = (
 /obj/machinery/door/firedoor,
@@ -61438,7 +61485,9 @@
 /area/engine/engineering)
 "hec" = (
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "heg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -61641,7 +61690,9 @@
 "hgQ" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "hgR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -61655,7 +61706,9 @@
 "hgZ" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "hhe" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -64480,7 +64533,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 9;
+	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
 "hQH" = (
@@ -64612,7 +64666,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 5;
+	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
 "hRC" = (
@@ -64969,6 +65024,15 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
+"hWl" = (
+/obj/effect/landmark/start{
+	name = "shaft_miner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "hWA" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
@@ -66824,7 +66888,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "purple"
 	},
 /area/quartermaster/miningdock)
 "iuA" = (
@@ -66847,7 +66912,8 @@
 	name = "shaft_miner"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "purple"
 	},
 /area/quartermaster/miningdock)
 "iuQ" = (
@@ -75939,7 +76005,10 @@
 	},
 /area/medical/chemistry)
 "kMn" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purple"
+	},
 /area/quartermaster/miningdock)
 "kMz" = (
 /obj/machinery/hologram/holopad,
@@ -79288,7 +79357,9 @@
 /obj/structure/table,
 /obj/item/gps/mining,
 /obj/item/gps/mining,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/quartermaster/miningdock)
 "lJK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -98673,6 +98744,11 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat_interior)
+"qjh" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
+	},
+/area/quartermaster/miningdock)
 "qji" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -99890,6 +99966,11 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/ne)
+"qwC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "qwG" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -114166,6 +114247,18 @@
 	icon_state = "red"
 	},
 /area/crew_quarters/courtroom)
+"tXJ" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purple"
+	},
+/area/quartermaster/miningdock)
 "tXP" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
@@ -120312,6 +120405,12 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
+"vvZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "vwj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -129952,6 +130051,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ai_monitored/storage/eva)
+"xAO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/miningdock)
 "xAV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -131948,7 +132055,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
 "xXu" = (
@@ -175614,10 +175722,10 @@ gem
 cqB
 hcZ
 bbb
-dOf
-kMn
+xAO
+dXe
 ceA
-kMn
+dXe
 aZj
 cqB
 hHa
@@ -175874,7 +175982,7 @@ hQz
 iuy
 xXs
 dUN
-iuG
+ajg
 lJF
 cqB
 abj
@@ -176127,11 +176235,11 @@ cSf
 aWt
 cqB
 hec
-dXe
+kMn
 bYB
 dXe
 jKl
-dXe
+qjh
 aUE
 cqB
 abj
@@ -176388,7 +176496,7 @@ dJl
 dXe
 dXe
 jKl
-dXe
+qwC
 blJ
 cqB
 abj
@@ -176641,11 +176749,11 @@ duq
 dzs
 aXV
 bSH
-dJl
+tXJ
 dXe
 bed
 bfx
-dXe
+qjh
 bia
 cqB
 abj
@@ -177159,8 +177267,8 @@ iuG
 dXe
 dXe
 djR
+qjh
 dXe
-kMn
 cqB
 abj
 btL
@@ -177413,10 +177521,10 @@ ggf
 dDb
 hgQ
 hRx
-iuG
-dXe
-dXe
-iuG
+aXj
+vvZ
+bea
+hWl
 bid
 cqB
 abj
@@ -177671,9 +177779,9 @@ dDb
 hgZ
 bVq
 dNw
-kMn
-kMn
-kMn
+dXe
+dXe
+dXe
 bie
 cqB
 abj
