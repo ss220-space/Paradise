@@ -133,7 +133,7 @@ export const SampleInterface = (props, context) => {
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>
-            <LabeledList.Item label="Health">
+            <LabeledList.Item label="Здоровье">
               {health}
             </LabeledList.Item>
             <LabeledList.Item label="Color">
@@ -275,7 +275,7 @@ const HealthStatus = (props, context) => {
   return (
     <Section title={"Health status of: " + user}>
       <LabeledList>
-        <LabeledList.Item label="Health">
+        <LabeledList.Item label="Здоровье">
           {health}
         </LabeledList.Item>
         <LabeledList.Item label="Color">
@@ -336,7 +336,7 @@ export const SampleInterface = (props, context) => {
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>
-            <LabeledList.Item label="Health">
+            <LabeledList.Item label="Здоровье">
               {health}
             </LabeledList.Item>
             <LabeledList.Item label="Color">
