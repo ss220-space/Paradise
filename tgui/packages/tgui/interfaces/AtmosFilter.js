@@ -17,15 +17,15 @@ export const AtmosFilter = (props, context) => {
       <Window.Content>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="Power">
+            <LabeledList.Item label="Питание">
               <Button
                 icon={on ? "power-off" : "power-off"}
-                content={on ? "On" : "Off"}
+                content={on ? "Вкл" : "Выкл"}
                 color={on ? null : "red"}
                 selected={on}
                 onClick={() => act('power')} />
             </LabeledList.Item>
-            <LabeledList.Item label="Rate">
+            <LabeledList.Item label="Давление">
               <Button
                 icon="fast-backward"
                 textAlign="center"
@@ -34,7 +34,7 @@ export const AtmosFilter = (props, context) => {
                 onClick={() => act('min_pressure')} />
               <NumberInput
                 animated
-                unit="kPa"
+                unit="кПа"
                 width={6.1}
                 lineHeight={1.5}
                 step={10}
@@ -51,7 +51,7 @@ export const AtmosFilter = (props, context) => {
                 width={2.2}
                 onClick={() => act('max_pressure')} />
             </LabeledList.Item>
-            <LabeledList.Item label="Filter">
+            <LabeledList.Item label="Фильтрация">
               {filter_type_list.map(filter => (
                 <Button
                   key={filter.label}

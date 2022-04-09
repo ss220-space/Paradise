@@ -13,7 +13,7 @@
 #define FILTER_N2O 4
 
 /obj/machinery/atmospherics/trinary/filter
-	name = "gas filter"
+	name = "газовый фильтр"
 	icon = 'icons/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
@@ -23,17 +23,17 @@
 	var/filter_type = FILTER_TOXINS
 	/// A list of available filter options. Used with `ui_data`.
 	var/list/filter_list = list(
-		"Nothing" = FILTER_NOTHING,
-		"Plasma" = FILTER_TOXINS,
-		"O2" = FILTER_OXYGEN,
-		"N2" = FILTER_NITROGEN,
-		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O
+		"Ничего" = FILTER_NOTHING,
+		"Плазма" = FILTER_TOXINS,
+		"O₂" = FILTER_OXYGEN,
+		"N₂" = FILTER_NITROGEN,
+		"CO₂" = FILTER_CO2,
+		"N₂O" = FILTER_N2O
 	)
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, "<span class='warning'>Сейчас вы не можете этого сделать!</span>")
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -48,7 +48,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, "<span class='warning'>Сейчас вы не можете этого сделать!</span>")
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -198,7 +198,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, "<span class='alert'>Доступ запрещён.</span>")
 		return
 
 	add_fingerprint(user)
