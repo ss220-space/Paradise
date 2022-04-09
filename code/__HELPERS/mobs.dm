@@ -10,7 +10,7 @@
 		if(SOUTHEAST) return NORTHWEST
 	return 0
 
-/proc/random_underwear(gender, species = "Human")
+/proc/random_underwear(gender, species = "Человек")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.underwear_m
@@ -18,7 +18,7 @@
 		else		pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-/proc/random_undershirt(gender, species = "Human")
+/proc/random_undershirt(gender, species = "Человек")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.undershirt_m
@@ -26,7 +26,7 @@
 		else		pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-/proc/random_socks(gender, species = "Human")
+/proc/random_socks(gender, species = "Человек")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.socks_m
@@ -46,7 +46,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = "Человек", var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -57,13 +57,13 @@
 			continue
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
-		if(species == "Machine") //If the user is a species who can have a robotic head...
+		if(species == "КПБ") //If the user is a species who can have a robotic head...
 			if(!robohead)
-				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
+				robohead = GLOB.all_robolimbs["«Морфей Кибернетикс»"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && ("Человек" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 					valid_hairstyles += hairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -75,24 +75,24 @@
 
 	return h_style
 
-/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
-	var/f_style = "Shaved"
+/proc/random_facial_hair_style(var/gender, species = "Человек", var/datum/robolimb/robohead)
+	var/f_style = "Выбритость"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
 		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
 
-		if(facialhairstyle == "Shaved") //Just in case.
+		if(facialhairstyle == "Выбритость") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
-		if(species == "Machine") //If the user is a species who can have a robotic head...
+		if(species == "КПБ") //If the user is a species who can have a robotic head...
 			if(!robohead)
-				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
+				robohead = GLOB.all_robolimbs["«Морфей Кибернетикс»"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && ("Человек" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
 					valid_facial_hairstyles += facialhairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -104,7 +104,7 @@
 
 	return f_style
 
-/proc/random_head_accessory(species = "Human")
+/proc/random_head_accessory(species = "Человек")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
@@ -119,7 +119,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(var/location = "body", species = "Человек", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -140,9 +140,9 @@
 					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
-			if(species == "Machine")//If the user is a species that can have a robotic head...
+			if(species == "КПБ")//If the user is a species that can have a robotic head...
 				if(!robohead)
-					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
+					robohead = GLOB.all_robolimbs["«Морфей Кибернетикс»"]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(alt_head && alt_head != "None") //If the user's got an alt head, validate markings for that head.
@@ -158,7 +158,7 @@
 
 	return m_style
 
-/proc/random_body_accessory(species = "Vulpkanin")
+/proc/random_body_accessory(species = "Вульпканин")
 	var/body_accessory = null
 	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
@@ -174,13 +174,13 @@
 
 	return body_accessory
 
-/proc/random_name(gender, species = "Human")
+/proc/random_name(gender, species = "Человек")
 
 	var/datum/species/current_species
 	if(species)
 		current_species = GLOB.all_species[species]
 
-	if(!current_species || current_species.name == "Human")
+	if(!current_species || current_species.name == "Человек")
 		if(gender==FEMALE)
 			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
 		else
@@ -188,8 +188,8 @@
 	else
 		return current_species.get_random_name(gender)
 
-/proc/random_skin_tone(species = "Human")
-	if(species == "Human" || species == "Drask")
+/proc/random_skin_tone(species = "Человек")
+	if(species == "Человек" || species == "Drask")
 		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
 			if("caucasian")		. = -10
 			if("afroamerican")	. = -115
@@ -198,12 +198,12 @@
 			if("albino")		. = 34
 			else				. = rand(-185, 34)
 		return min(max(. + rand(-25, 25), -185), 34)
-	else if(species == "Vox")
+	else if(species == "Вокс")
 		. = rand(1, 6)
 		return .
 
-/proc/skintone2racedescription(tone, species = "Human")
-	if(species == "Human")
+/proc/skintone2racedescription(tone, species = "Человек")
+	if(species == "Человек")
 		switch(tone)
 			if(30 to INFINITY)		return "albino"
 			if(20 to 30)			return "pale"
@@ -214,7 +214,7 @@
 			if(-65 to -45)			return "brown"
 			if(-INFINITY to -65)	return "black"
 			else					return "unknown"
-	else if(species == "Vox")
+	else if(species == "Вокс")
 		switch(tone)
 			if(2)					return "dark green"
 			if(3)					return "brown"
@@ -522,7 +522,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 			if(CONSCIOUS)
 				status = "Alive"
 			if(UNCONSCIOUS)
-				status = "<font color='orange'><b>Unconscious</b></font>"
+				status = "<font color='orange'><b>Без сознания</b></font>"
 			if(DEAD)
 				status = "<font color='red'><b>Dead</b></font>"
 		health_description = "Status = [status]"

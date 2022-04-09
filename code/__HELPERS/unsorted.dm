@@ -275,7 +275,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(unknown_concentration>0.01)
 			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
 		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
-		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
+		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] °C</span>", 1)
 	else
 		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
 	return

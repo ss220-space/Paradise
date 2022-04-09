@@ -7,20 +7,20 @@ export const BlueSpaceArtilleryControl = (props, context) => {
   let alertStatus;
   if (data.ready) {
     alertStatus = (
-      <LabeledList.Item label="Status" color="green">
-        Ready
+      <LabeledList.Item label="Статус" color="green">
+        Готово
       </LabeledList.Item>
     );
   } else if (data.reloadtime_text) {
     alertStatus = (
-      <LabeledList.Item label="Reloading In" color="red">
+      <LabeledList.Item label="Перезарядится через" color="red">
         {data.reloadtime_text}
       </LabeledList.Item>
     );
   } else {
     alertStatus = (
-      <LabeledList.Item label="Status" color="red">
-        No cannon connected!
+      <LabeledList.Item label="Статус" color="red">
+        Нет подключенных орудий!
       </LabeledList.Item>
     );
   }
@@ -30,31 +30,31 @@ export const BlueSpaceArtilleryControl = (props, context) => {
         <Section>
           <LabeledList>
             {data.notice && (
-              <LabeledList.Item label="Alert" color="red">
+              <LabeledList.Item label="Тревога" color="red">
                 {data.notice}
               </LabeledList.Item>
             )}
             {alertStatus}
-            <LabeledList.Item label="Target">
+            <LabeledList.Item label="Цель">
               <Button
                 icon="crosshairs"
-                content={data.target ? data.target : "None"}
+                content={data.target ? data.target : "Нет"}
                 onClick={() => act("recalibrate")} />
             </LabeledList.Item>
             {data.ready === 1 && !!data.target && (
-              <LabeledList.Item label="Firing">
+              <LabeledList.Item label="Стрельба">
                 <Button
                   icon="skull"
-                  content="FIRE!"
+                  content="ЗАЛП!"
                   color="red"
                   onClick={() => act("fire")} />
               </LabeledList.Item>
             )}
             {!data.connected && (
-              <LabeledList.Item label="Maintenance">
+              <LabeledList.Item label="Обслуживание">
                 <Button
                   icon="wrench"
-                  content="Complete Deployment"
+                  content="Завершить установку"
                   onClick={() => act("build")} />
               </LabeledList.Item>
             )}
