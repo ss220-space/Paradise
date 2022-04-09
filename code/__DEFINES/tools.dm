@@ -8,8 +8,8 @@
 #define MIN_TOOL_SOUND_DELAY 20
 
 //Crowbar messages
-#define CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE	user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] выламывать печатную плату из [src]…</span>", "<span class='notice'>Вы начинаете вынимать печатную плату из [src]…</span>", "<span class='warning'>Вы слышите звуки выламывания.</span>")
-#define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] выламыва[pluralize_ru(user.gender,"ет","ют")] печатную плату из [src]!</span>", "<span class='notice'>Вы выламываете печатную плату из [src]!</span>", "<span class='warning'>Вы слышите звуки выламывания.</span>")
+#define CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE	user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] выламывать печатную плату из [src]…</span>", "<span class='notice'>Вы начинаете выламывать печатную плату из [src]…</span>", "<span class='warning'>Вы слышите скрипящие звуки.</span>")
+#define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] выламыва[pluralize_ru(user.gender,"ет","ют")] печатную плату из [src]!</span>", "<span class='notice'>Вы выламываете печатную плату из [src]!</span>", "<span class='warning'>Вы слышите скрипящие звуки.</span>")
 
 //Screwdriver messages
 #define SCREWDRIVER_SCREW_MESSAGE			user.visible_message("<span class='notice'>[user] затягива[pluralize_ru(user.gender,"ет","ют")] винты на [src]!</span>", "<span class='notice'>Вы затягиваете винты на [src]!</span>", "<span class='warning'>Вы слышите звуки отвёртки.</span>")
