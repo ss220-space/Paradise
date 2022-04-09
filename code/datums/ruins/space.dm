@@ -120,6 +120,7 @@
 	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. \
 		Will require renewed supplies of 'carpet' before the end of the \
 		quarter."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
@@ -306,6 +307,7 @@
 	name = "Vacation"
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
+
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
 	id = "syndicate_space_base"
