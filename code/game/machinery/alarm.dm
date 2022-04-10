@@ -1098,7 +1098,7 @@ AIR ALARM CIRCUIT
 Just an object used in constructing air alarms
 */
 /obj/item/airalarm_electronics
-	name = "печатная плата атмосферной сигнализации" // air alarm electronics
+	name = "печатная плата атмосферной панели" // air alarm electronics
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "Выглядит как печатная плата. Может быть, это она и есть."
