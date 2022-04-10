@@ -190,16 +190,18 @@
 		w_items += secret.w_class
 
 
-/obj/structure/toilet/cancollectmapitems
+/obj/structure/toilet/cancollectmapitems // this toilet made specially for map editor, collects objects on same turf at map loading
+	// as well as closets do. regular toilet can't do this. has the same restrictions for objects like regular toilet has.
+	// собирает в себя предметы на своём атоме при загрузки карты, сделано специально для редактора карт, обычный так не может.
 
 /obj/structure/toilet/cancollectmapitems/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/I in loc)
-		if(w_items > WEIGHT_CLASS_HUGE) //if items summary size >= 5
-			return
-		if(I.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3
+		if(w_items > WEIGHT_CLASS_HUGE) //if items summary size >= 5 , stop collecting
+			break
+		if(I.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3 , skip the item, get the next
 			continue
-		if(I.w_class + w_items <= WEIGHT_CLASS_HUGE) // if items summary size less/equal than 5
+		if(I.w_class + w_items <= WEIGHT_CLASS_HUGE) // if items summary size <= than 5 , add item in contents
 			w_items += I.w_class
 			I.forceMove(src)
 
