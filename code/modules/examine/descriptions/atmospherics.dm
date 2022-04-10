@@ -1,16 +1,16 @@
 
 /obj/machinery/atmospherics/pipe
-	description_info = "This pipe, and all other pipes, can be connected or disconnected by a wrench.  The internal pressure of the pipe must \
-	be below 300 kPa to do this.  More pipes can be obtained from the pipe dispenser."
+	description_info = "Эту и все прочие трубы можно прикручивать или откручивать гаечным ключом. Внутреннее давление трубы должно \
+	быть ниже 300 кПа. Новые трубы можно построить трубораздатчиком."
 
 /obj/machinery/atmospherics/pipe/New() //This is needed or else 20+ lines of copypasta to dance around inheritence.
 	..()
-	description_info += "<br>Most pipes and atmospheric devices can be connected or disconnected with a wrench.  The pipe's pressure must not be too high, \
-	or if it is a device, it must be turned off first."
+	description_info += "<br>Большинство труб и атмосферных устройств можно прикручивать или откручивать гаечным ключом. \
+	Для этого давление в трубе не должно быть слишком большим, а устройство должно быть выключено."
 
 //HE pipes
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging
-	description_info = "This radiates heat from the pipe's gas to space, cooling it down."
+	description_info = "Охлаждает газ в трубе, отводя его тепло в космос."
 
 //Supply/Scrubber pipes
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
