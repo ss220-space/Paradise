@@ -1,5 +1,5 @@
 /datum/reagent/medicine
-	name = "Медицина" // Medicine
+	name = "Лекарство" // Medicine
 	id = "medicine"
 	taste_description = "горечи"
 	harmless = TRUE
