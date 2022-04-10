@@ -63,7 +63,7 @@ const SupermatterMonitorListView = (props, context) => {
                 <Table.Row header>
                   <TableCell>Область</TableCell>
                   <TableCell>Целостность</TableCell>
-                  <TableCell>Детали</TableCell>
+                  <TableCell>Подробности</TableCell>
                 </Table.Row>
                 {data.supermatters.map(sm => (
                   <TableRow key={sm}>
@@ -72,7 +72,7 @@ const SupermatterMonitorListView = (props, context) => {
                     <TableCell>
                       <Button
                         icon="sign-in-alt"
-                        content="Вид"
+                        content="Посмотреть"
                         onClick={() => act('view', {
                           view: sm.uid,
                         })}
@@ -115,7 +115,7 @@ const SupermatterMonitorDataView = (props, context) => {
                 {data.SM_integrity}%
               </ProgressBar>
             </LabeledList.Item>
-            <LabeledList.Item label="Относительный КЭЭ">
+            <LabeledList.Item label="Энергоэффективность">
               <Box color={powerToColor(data.SM_power)}>
                 {data.SM_power} <abbr title="Мегаэлектронвольт на кубический сантиметр">МэВ/см³</abbr>
               </Box>
