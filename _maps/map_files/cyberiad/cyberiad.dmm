@@ -689,6 +689,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
+/obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -972,6 +973,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "dark"
 	},
 /area/security/main)
@@ -1563,6 +1565,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "dark"
 	},
 /area/security/main)
@@ -6292,6 +6295,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "dark"
 	},
 /area/security/main)
@@ -36495,6 +36499,12 @@
 /obj/machinery/camera{
 	c_tag = "Brig Firing Range North"
 	},
+/obj/structure/table,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/wirecutters,
+/obj/item/multitool,
+/obj/item/screwdriver,
+/obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -37914,15 +37924,15 @@
 /area/crew_quarters/bar)
 "bwm" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/screwdriver,
-/obj/item/wirecutters,
-/obj/item/multitool,
 /obj/machinery/light_switch{
 	pixel_x = 34;
 	pixel_y = -1
 	},
 /obj/effect/decal/warning_stripes/red,
+/obj/item/clothing/ears/earmuffs{
+	pixel_y = 6
+	},
+/obj/item/clothing/ears/earmuffs,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -38280,10 +38290,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/decal/warning_stripes/southeastcorner,
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -40634,10 +40641,7 @@
 "bBK" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/warning_stripes/northeastcorner,
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -41346,10 +41350,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/warning_stripes/northeastcorner,
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -91787,10 +91788,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"hzE" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel,
-/area/security/range)
 "hzW" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze{
@@ -92216,12 +92213,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "krd" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/gun/energy/laser/practice,
-/obj/item/gun/energy/laser/practice,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -92232,6 +92223,8 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/red,
+/obj/structure/closet/wardrobe/red,
+/obj/item/clothing/suit/tracksuit/red,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "redfull";
@@ -92790,8 +92783,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/gun/energy/laser/practice,
-/obj/item/gun/energy/laser/practice,
 /obj/machinery/light{
 	dir = 8;
 	icon_state = "tube1"
@@ -92800,6 +92791,8 @@
 	pixel_x = -31
 	},
 /obj/effect/decal/warning_stripes/red,
+/obj/item/gun/energy/laser/practice,
+/obj/item/gun/energy/laser/practice,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "redfull";
@@ -92834,10 +92827,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"nPv" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel,
-/area/security/range)
 "nRP" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -93204,8 +93193,6 @@
 	icon_state = "alarm0";
 	pixel_x = 24
 	},
-/obj/structure/closet/wardrobe/red,
-/obj/item/clothing/suit/tracksuit/red,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -93713,11 +93700,7 @@
 	pixel_y = 6
 	},
 /obj/effect/decal/warning_stripes/red,
-/obj/structure/table,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/ears/earmuffs,
+/obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "redfull";
@@ -93792,7 +93775,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
+	dir = 8;
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
@@ -94054,6 +94037,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/item/flag/sec,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94091,7 +94075,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
+	dir = 8;
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
@@ -94104,7 +94088,7 @@
 	},
 /area/security/main)
 "wfe" = (
-/obj/machinery/recharge_station,
+/obj/machinery/vending/security/training,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -94154,7 +94138,6 @@
 	},
 /area/shuttle/administration)
 "wvx" = (
-/obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -127972,9 +127955,9 @@ aab
 aaa
 brH
 rDX
-hzE
+jZS
 rBq
-nPv
+jZS
 jZS
 wQN
 xBi
