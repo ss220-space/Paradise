@@ -60,7 +60,7 @@ const CryoContent = (props, context) => {
             icon="user-slash"
             onClick={() => act('ejectOccupant')}
             disabled={!hasOccupant}>
-            Eject
+            Извлечь
           </Button>
         )}>
         {hasOccupant ? (
@@ -183,7 +183,7 @@ const CryoBeaker = (props, context) => {
           ? beakerLabel
           : (
             <Box color="average">
-              No label
+              Мензурка не подписана
             </Box>
           )}
         <Box color={!beakerVolume && "bad"}>
