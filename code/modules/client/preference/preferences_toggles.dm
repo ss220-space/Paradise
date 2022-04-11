@@ -18,7 +18,7 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle GhostSight") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ghost_radio()
-	set name = "Вкл/Выкл радио для призраков"
+	set name = "Enable/Disable GhostRadio"
 	set category = "Preferences"
 	set desc = ".Toggle between hearing all radio chatter, or only from nearby speakers"
 	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
