@@ -135,7 +135,7 @@
 				if(Mind.current.real_name != Mind.name)
 					text += " как [Mind.current.real_name]"
 			else
-				text += "[Mind.name] (тело было уничтожено"
+				text += "тело было уничтожено"
 			text += ")"
 		to_chat(world, text)
 	return 1
