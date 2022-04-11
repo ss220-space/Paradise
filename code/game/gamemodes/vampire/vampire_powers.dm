@@ -13,7 +13,7 @@
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
 	if(!gain_desc)
-		gain_desc = "Вы получили способность [src]."
+		gain_desc = "Вы получили способность «[src]»."
 
 /obj/effect/proc_holder/spell/vampire/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!user.mind)
@@ -139,7 +139,7 @@
 /datum/vampire_passive/New()
 	..()
 	if(!gain_desc)
-		gain_desc = "Вы получили способность [src]."
+		gain_desc = "Вы получили способность «[src]»."
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
