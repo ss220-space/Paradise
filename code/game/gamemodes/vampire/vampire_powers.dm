@@ -202,7 +202,7 @@
 		to_chat(user, "<span class='warning'>Вы незаметно инфицируете [target] заражающим касанием.</span>")
 		target.help_shake_act(user)
 		if(!affects(target))
-			to_chat(user, "<span class='warning'>Вам кажется, что могильная лихорадка не подействовала на [target].</span>")
+			to_chat(user, "<span class='warning'>Вам кажется, что заражающее касание не подействовало на [target].</span>")
 			continue
 		var/datum/disease/D = new /datum/disease/vampire
 		target.ForceContractDisease(D)
