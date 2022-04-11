@@ -58,7 +58,7 @@ const AirStatus = (props, context) => {
   } else if (air.danger.overall === 1) {
     areaStatus = "Внимание";
   } else {
-    areaStatus = "ОПАСНОСТЬ: Internals Required";
+    areaStatus = "ОПАСНОСТЬ: Непригодно для дыхания";
   }
 
   return (
@@ -127,19 +127,16 @@ const AirStatus = (props, context) => {
                 } />
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Местный статус">
+          <LabeledList.Item label="Статус">
             <Box color={Danger2Colour(air.danger.overall)}>
-              {areaStatus}
+              {`${areaStatus} `}
               {!locked && (
-                <Fragment>
-                  &nbsp;
-                  <Button
-                    content={alarmActivated ? "Отменить тревогу" : "Активировать тревогу"}
-                    selected={alarmActivated}
-                    onClick={
-                      () => act(alarmActivated ? 'atmos_reset' : 'atmos_alarm')
-                    } />
-                </Fragment>
+                <Button
+                  content={alarmActivated ? "Сбросить тревогу" : "Активировать тревогу"}
+                  selected={alarmActivated}
+                  onClick={
+                    () => act(alarmActivated ? 'atmos_reset' : 'atmos_alarm')
+                  } />
               )}
             </Box>
           </LabeledList.Item>
