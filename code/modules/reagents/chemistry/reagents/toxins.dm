@@ -1,11 +1,11 @@
 /datum/reagent/toxin
-	name = "Toxin"
+	name = "Токсин"
 	id = "toxin"
-	description = "A Toxic chemical."
+	description = "Токсичный химикат."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_mult = 1.2
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -13,12 +13,12 @@
 	return ..() | update_flags
 
 /datum/reagent/spider_venom
-	name = "Spider venom"
+	name = "Паучий яд" // Spider venom
 	id = "spidertoxin"
-	description = "A toxic venom injected by spacefaring arachnids."
+	description = "Токсичный яд, вводимый обитающими в космосе арахнидами."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/spider_venom/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -26,12 +26,12 @@
 	return ..() | update_flags
 
 /datum/reagent/minttoxin
-	name = "Mint Toxin"
+	name = "Мятный токсин" // Mint Toxin
 	id = "minttoxin"
-	description = "Useful for dealing with undesirable customers."
+	description = "Полезно для работы с нежелательными клиентами."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
-	taste_description = "mint"
+	taste_description = "мяты"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
 	if(FAT in M.mutations)
@@ -39,18 +39,18 @@
 	return ..()
 
 /datum/reagent/slimejelly
-	name = "Slime Jelly"
+	name = "Слаймовое желе" // Slime Jelly
 	id = "slimejelly"
-	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
+	description = "Липкая полужидкая субстанция, производимая одной из самых смертоносных из существующих форм жизни. ТАК ПРАВДОПОДОБНО."
 	reagent_state = LIQUID
 	color = "#0b8f70" // rgb: 11, 143, 112
-	taste_description = "slimes"
+	taste_description = "слизи"
 	taste_mult = 1.3
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		to_chat(M, "<span class='danger'>Вы будто горите изнутри!</span>")
 		update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
 	else if(prob(40))
 		update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -69,33 +69,33 @@
 
 
 /datum/reagent/slimetoxin
-	name = "Mutation Toxin"
+	name = "Мутационный токсин" // Mutation Toxin
 	id = "mutationtoxin"
-	description = "A corruptive toxin produced by slimes."
+	description = "Едкий токсин, производимый слаймами."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
-	taste_description = "shadows"
+	taste_description = "теней"
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(!isshadowperson(human))
-			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
-			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
-			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
-			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
+			to_chat(M, "<span class='danger'>Ваша плоть быстро мутирует!</span>")
+			to_chat(M, "<span class='danger'>Вы стали тенелюдом, представителем изменившейся расы гуманоидов, обитающих во тьме.</span>")
+			to_chat(M, "<span class='danger'>Ваше тело бурно реагирует на свет.</span> <span class='notice'>При этом оно само по себе исцеляется в темноте.</span>")
+			to_chat(M, "<span class='danger'>Помимо новых особенностей, вы не изменились ментально и сохранили свои прежние обязательства.</span>")
 			human.set_species(/datum/species/shadow)
 	return ..()
 
 /datum/reagent/aslimetoxin
-	name = "Advanced Mutation Toxin"
+	name = "Улучшенный мутационный токсин" // Advanced Mutation Toxin
 	id = "amutationtoxin"
-	description = "An advanced corruptive toxin produced by slimes."
+	description = "Улучшенный едкий токсин, производимый слаймами."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
-	taste_description = "slime"
+	taste_description = "слизи"
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
@@ -103,9 +103,9 @@
 
 
 /datum/reagent/mercury
-	name = "Mercury"
+	name = "Ртуть" // Mercury
 	id = "mercury"
-	description = "A chemical element."
+	description = "Химический элемент."
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
 	metabolization_rate = 0.2
@@ -119,14 +119,14 @@
 	return ..() | update_flags
 
 /datum/reagent/chlorine
-	name = "Chlorine"
+	name = "Хлор" // Chlorine
 	id = "chlorine"
-	description = "A chemical element."
+	description = "Химический элемент."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "fire"
+	taste_description = "огня"
 
 /datum/reagent/chlorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -134,14 +134,14 @@
 	return ..() | update_flags
 
 /datum/reagent/fluorine
-	name = "Fluorine"
+	name = "Фтор" // Fluorine
 	id = "fluorine"
-	description = "A highly-reactive chemical element."
+	description = "Высокореактивный химический элемент."
 	reagent_state = GAS
 	color = "#6A6054"
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "acid"
+	taste_description = "кислоты"
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -150,13 +150,13 @@
 	return ..() | update_flags
 
 /datum/reagent/radium
-	name = "Radium"
+	name = "Радий" // Radium
 	id = "radium"
-	description = "Radium is an alkaline earth metal. It is extremely radioactive."
+	description = "Радий — щелочноземельный металл. Чрезвычайно радиоактивен."
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
-	taste_description = "the colour blue and regret"
+	taste_description = "синего цвета и сожалений"
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
@@ -168,14 +168,14 @@
 		new /obj/effect/decal/cleanable/greenglow(T)
 
 /datum/reagent/mutagen
-	name = "Unstable mutagen"
+	name = "Нестабильный мутаген" // Unstable mutagen
 	id = "mutagen"
-	description = "Might cause unpredictable mutations. Keep away from children."
+	description = "Может вызывать непредсказуемые мутации. Держать подальше от детей."
 	reagent_state = LIQUID
 	color = "#04DF27"
 	metabolization_rate = 0.3
 	taste_mult = 0.9
-	taste_description = "slime"
+	taste_description = "слизи"
 
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(!..())
@@ -197,12 +197,12 @@
 
 
 /datum/reagent/stable_mutagen
-	name = "Stable mutagen"
+	name = "Стабильный мутаген" // Stable mutagen
 	id = "stable_mutagen"
-	description = "Just the regular, boring sort of mutagenic compound.  Works in a completely predictable manner."
+	description = "Совершенно обычный скучный мутагенный препарат. Работает абсолютно предсказуемо."
 	reagent_state = LIQUID
 	color = "#7DFF00"
-	taste_description = "slime"
+	taste_description = "слизи"
 
 /datum/reagent/stable_mutagen/on_new(data)
 	..()
@@ -232,13 +232,13 @@
 			data = B.data.Copy()
 
 /datum/reagent/uranium
-	name ="Uranium"
+	name ="Уран" // Uranium
 	id = "uranium"
-	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
+	description = "Серебристо-белый металлический химический элемент из ряда актинидов, слаборадиоактивный."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	taste_mult = 0
-	taste_description = "the inside of a reactor"
+	taste_description = "ядерного реактора"
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
@@ -250,13 +250,13 @@
 
 
 /datum/reagent/lexorin
-	name = "Lexorin"
+	name = "Лексорин" // Lexorin
 	id = "lexorin"
-	description = "Lexorin temporarily stops respiration. Causes tissue damage."
+	description = "Лексорин вызывает временное удушье. Вызывает повреждение тканей."
 	reagent_state = LIQUID
 	color = "#52685D"
 	metabolization_rate = 0.2
-	taste_description = "sweetness"
+	taste_description = "сладости"
 
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -265,13 +265,13 @@
 
 
 /datum/reagent/acid
-	name = "Sulphuric acid"
+	name = "Серная кислота" // Sulphuric acid
 	id = "sacid"
-	description = "A strong mineral acid with the molecular formula H2SO4."
+	description = "Сильная минеральная кислота с молекулярной формулой H₂SO₄."
 	reagent_state = LIQUID
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<span class='userdanger'>ACID</span>"
+	taste_description = "<span class='userdanger'>КИСЛОТЫ</span>"
 	var/acidpwr = 10 //the amount of protection removed from the armour
 
 /datum/reagent/acid/on_mob_life(mob/living/M)
@@ -285,11 +285,11 @@
 		if(method == REAGENT_TOUCH)
 			if(volume > 25)
 				if(H.wear_mask)
-					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+					to_chat(H, "<span class='danger'>[H.wear_mask] защищает вас от кислоты!</span>")
 					return
 
 				if(H.head)
-					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+					to_chat(H, "<span class='danger'>[H.head] защищает вас от кислоты!</span>")
 					return
 
 				if(prob(75))
@@ -303,7 +303,7 @@
 			else
 				H.take_organ_damage(5, 10)
 		else
-			to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, "<span class='warning'>Кислотно-зелёная субстанция жжётся[volume < 10 ? ", но она недостаочно концентрирована, чтобы вам навредить" : null]!</span>")
 			if(volume >= 10)
 				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 				H.emote("scream")
@@ -321,9 +321,9 @@
 	T.acid_act(acidpwr, volume)
 
 /datum/reagent/acid/facid
-	name = "Fluorosulfuric Acid"
+	name = "Фторсерная кислота" // Fluorosulfuric Acid
 	id = "facid"
-	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
+	description = "Это фторсерная кислота — экстремально едкая сверхкислота."
 	color = "#5050FF"
 	acidpwr = 42
 
@@ -349,13 +349,15 @@
 					if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
 						qdel(H.wear_mask)
 						H.update_inv_wear_mask()
-						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
+						// TODO: Переписать через “genderize_ru” после простановки пола всем головным уборам
+						to_chat(H, "<span class='danger'>Ваш [H.wear_mask] разъедается!</span>")
 						melted_something = TRUE
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 						qdel(H.head)
 						H.update_inv_head()
-						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
+						// TODO: Переписать через “genderize_ru” после простановки пола всем головным уборам
+						to_chat(H, "<span class='danger'>Ваш [H.head] разъедается!</span>")
 						melted_something = TRUE
 					if(melted_something)
 						return
@@ -363,15 +365,15 @@
 		if(volume >= 5)
 			H.emote("scream")
 			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		to_chat(H, "<span class='warning'>Кислотно-синяя субстанция жжётся[volume < 5 ? ", но она недостаочно концентрирована, чтобы вам навредить" : null]!</span>")
 
 /datum/reagent/acetic_acid
-	name = "acetic acid"
+	name = "уксусная кислота" // acetic acid
 	id = "acetic_acid"
-	description = "A weak acid that is the main component of vinegar and bad hangovers."
+	description = "Слабая кислота. Основной компонент уксуса и тяжёлого похмелья."
 	color = "#0080ff"
 	reagent_state = LIQUID
-	taste_description = "vinegar"
+	taste_description = "уксуса"
 
 /datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
 	if(ishuman(M))
@@ -389,19 +391,19 @@
 			else
 				H.adjustBruteLoss(min(5, volume * 0.25))
 		else
-			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, "<span class='warning'>Прозрачная кислотная субстанция жжётся[volume < 25 ? ", но она недостаочно концентрирована, чтобы вам навредить" : null]!</span>")
 			if(volume >= 25)
 				H.adjustBruteLoss(2)
 				H.emote("scream")
 
 
 /datum/reagent/carpotoxin
-	name = "Carpotoxin"
+	name = "Карпотоксин" // Carpotoxin
 	id = "carpotoxin"
-	description = "A deadly neurotoxin produced by the dreaded spess carp."
+	description = "Смертельный нейротоксин, вырабатываемый жуткими космическими карпами."
 	reagent_state = LIQUID
 	color = "#003333" // rgb: 0, 51, 51
-	taste_description = "fish"
+	taste_description = "рыбы"
 
 /datum/reagent/carpotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -409,13 +411,13 @@
 	return ..() | update_flags
 
 /datum/reagent/staminatoxin
-	name = "Tirizene"
+	name = "Тиризин" // Tirizene
 	id = "tirizene"
-	description = "A toxin that affects the stamina of a person when injected into the bloodstream."
+	description = "Токсин. Влияет на выносливость при попадании в кровоток."
 	reagent_state = LIQUID
 	color = "#6E2828"
 	data = 13
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -425,11 +427,11 @@
 
 
 /datum/reagent/spore
-	name = "Spore Toxin"
+	name = "Споровый токсин" // Spore Toxin
 	id = "spore"
-	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
+	description = "Природный токсин, вырабатываемый спорами блоба. При проглатывании подавляет зрение."
 	color = "#9ACD32"
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/spore/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -439,16 +441,15 @@
 	return ..() | update_flags
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
-	name = "Beer"
+	name = "Пиво" // Beer
 	id = "beer2"
-	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
+	description = "Алкогольный напиток из солодовых зёрен, хмеля, дрожжей и воды."
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	drink_icon ="beerglass"
-	drink_name = "Beer glass"
-	drink_desc = "A freezing pint of beer"
-	taste_description = "beer"
-	taste_description = "piss water"
+	drink_name = "Стакан пива"
+	drink_desc = "Ледяная пинта пива"
+	taste_description = "пива"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -461,9 +462,9 @@
 	return ..() | update_flags
 
 /datum/reagent/polonium
-	name = "Polonium"
+	name = "Полоний" // Polonium
 	id = "polonium"
-	description = "Cause significant Radiation damage over time."
+	description = "Постепенно наносит значительный урон радиацией."
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
@@ -476,9 +477,9 @@
 	return ..()
 
 /datum/reagent/histamine
-	name = "Histamine"
+	name = "Гистамин" // Histamine
 	id = "histamine"
-	description = "Immune-system neurotransmitter. If detected in blood, the subject is likely undergoing an allergic reaction."
+	description = "Нейротрансмиттер иммунной системы. Если обнаруживается в крови, то субъект, вероятно, страдает от аллергической реакции."
 	reagent_state = LIQUID
 	color = "#E7C4C4"
 	metabolization_rate = 0.2
@@ -490,7 +491,7 @@
 		if(method == REAGENT_TOUCH)
 			M.reagents.add_reagent("histamine",10)
 		else
-			to_chat(M, "<span class='danger'>You feel a burning sensation in your throat...</span>")
+			to_chat(M, "<span class='danger'>Вы чувствуете жжение в горле…</span>")
 			M.emote("drool")
 
 /datum/reagent/histamine/on_mob_life(mob/living/M)
@@ -498,15 +499,15 @@
 	if(prob(20))
 		M.emote(pick("twitch", "grumble", "sneeze", "cough"))
 	if(prob(10))
-		to_chat(M, "<span class='notice'>Your eyes itch.</span>")
+		to_chat(M, "<span class='notice'>У вас чешутся глаза.</span>")
 		M.emote(pick("blink", "sneeze"))
 		update_flags |= M.AdjustEyeBlurry(3, FALSE)
 	if(prob(10))
-		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
+		M.visible_message("<span class='danger'>[M] чешется от зуда.</span>")
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		M.emote("grumble")
 	if(prob(5))
-		to_chat(M, "<span class='danger'>You're getting a rash!</span>")
+		to_chat(M, "<span class='danger'>У вас начинается сыпь!</span>")
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	return ..() | update_flags
 
@@ -516,7 +517,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			to_chat(M, "<span class='warning'>You feel mucus running down the back of your throat.</span>")
+			to_chat(M, "<span class='warning'>Вы чувствуете, как по задней стенке горла стекает мокрота.</span>")
 			update_flags |= M.adjustToxLoss(1, FALSE)
 			M.Jitter(4)
 			M.emote(pick("sneeze", "cough"))
@@ -526,15 +527,15 @@
 				M.emote(pick("choke","gasp"))
 				update_flags |= M.adjustOxyLoss(5, FALSE)
 		else if(effect <= 7)
-			to_chat(M, "<span class='warning'>Your chest hurts!</span>")
+			to_chat(M, "<span class='warning'>Вы чувствуете боль в груди!</span>")
 			M.emote(pick("cough","gasp"))
 			update_flags |= M.adjustOxyLoss(3, FALSE)
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] breaks out in hives!</span>")
+			M.visible_message("<span class='warning'>[M] покрывается волдырями!</span>")
 			update_flags |= M.adjustBruteLoss(6, FALSE)
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] has a horrible coughing fit!</span>")
+			M.visible_message("<span class='warning'>[M] заходится в жутком кашле!</span>")
 			M.Jitter(10)
 			M.AdjustStuttering(rand(0,5))
 			M.emote("cough")
@@ -543,14 +544,14 @@
 				update_flags |= M.adjustOxyLoss(6, FALSE)
 			update_flags |= M.Weaken(8, FALSE)
 		else if(effect <= 7)
-			to_chat(M, "<span class='warning'>Your heartbeat is pounding inside your head!</span>")
+			to_chat(M, "<span class='warning'>Пульс молотом бьёт в голову и стучит в ушах!</span>")
 			M << 'sound/effects/singlebeat.ogg'
 			M.emote("collapse")
 			update_flags |= M.adjustOxyLoss(8, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.Weaken(3, FALSE)
 			M.emote(pick("choke", "gasp"))
-			to_chat(M, "<span class='warning'>You feel like you're dying!</span>")
+			to_chat(M, "<span class='warning'>Вы, кажется, скоро умрёте!</span>")
 	return list(effect, update_flags)
 
 /datum/reagent/formaldehyde
@@ -773,7 +774,7 @@
 			if(prob(9))
 				to_chat(M, "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>")
 			if(prob(7))
-				to_chat(M, "<span class='danger'>You can't breathe!</span>")
+				to_chat(M, "<span class='danger'>Вы не можете дышать!</span>")
 				M.AdjustLoseBreath(3)
 	return ..() | update_flags
 
@@ -994,7 +995,7 @@
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
 				M.SetJitter(1000)
 			if(prob(5))
-				to_chat(M, "<span class='warning'>You can't breathe!</span>")
+				to_chat(M, "<span class='warning'>Вы не можете дышать!</span>")
 				M.emote(pick("gasp", "choke", "cough"))
 				M.AdjustLoseBreath(1)
 		if(61 to INFINITY)
@@ -1018,7 +1019,7 @@
 	reagent_state = LIQUID
 	color = "#d3cf50"
 	var/lethality = 0 //Glyphosate is non-toxic to people
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/glyphosate/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1071,7 +1072,7 @@
 	id = "pestkiller"
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/pestkiller/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1100,7 +1101,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
-	taste_description = "sweetness"
+	taste_description = "сладости"
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1131,7 +1132,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
-	taste_description = "sweetness"
+	taste_description = "сладости"
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
@@ -1152,7 +1153,7 @@
 	description = "A filthy, carcinogenic sludge produced by the Slurrypod plant."
 	reagent_state = LIQUID
 	color = "#00C81E"
-	taste_description = "slime"
+	taste_description = "слизи"
 
 /datum/reagent/toxic_slurry/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1171,7 +1172,7 @@
 	description = "This is probably not good for you."
 	reagent_state = LIQUID
 	color = "#00FD00"
-	taste_description = "slime"
+	taste_description = "слизи"
 
 /datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //same as mutagen
 	if(!..())
