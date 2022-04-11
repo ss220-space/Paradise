@@ -209,7 +209,7 @@
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare
 	name = "Вспышка"
-	desc = "Жуткая вспышка, ненадолго ошеломляющая всех людей вокруг"
+	desc = "Вы сверкаете глазами, ненадолго ошеломляя всех людей вокруг"
 	action_icon_state = "vampire_glare"
 	charge_max = 300
 	stat_allowed = 1
@@ -217,7 +217,7 @@
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>Глаза [user] ослепительно вспыхивают!</span>")
 	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(user, "<span class='warning'>Вас ослепляет!</span>")
+		to_chat(user, "<span class='warning'>У вас на глазах повязка!</span>")
 		return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
@@ -226,7 +226,7 @@
 		target.Weaken(2)
 		target.stuttering = 20
 		target.adjustStaminaLoss(20)
-		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой [user].</span>")
+		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>")
 		add_attack_logs(user, target, "(Vampire) слепит")
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
@@ -293,7 +293,7 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user] кусает [target] в шею!</span>", "<span class='warning'>Вы кусаете в шею [target]и начинаете выкачивать силу.</span>")
+		user.visible_message("<span class='warning'>[user] куса[pluralize_ru(user.gender,"ет","ют")] [target] в шею!</span>", "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
 		to_chat(target, "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
 		if(!ishuman(target))
 			to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов.</span>")
