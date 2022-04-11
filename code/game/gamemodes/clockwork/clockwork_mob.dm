@@ -124,9 +124,10 @@
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/cogscarab(src)
 
-	for(var/V in components) if(V != "power cell")
-		var/datum/robot_component/C = components[V]
-		C.max_damage = 20
+	for(var/V in components)
+		if(V != "power cell")
+			var/datum/robot_component/C = components[V]
+			C.max_damage = 20
 
 	update_icons()
 

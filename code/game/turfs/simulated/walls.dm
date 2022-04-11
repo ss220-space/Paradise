@@ -470,6 +470,11 @@
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
+/turf/simulated/wall/ratvar_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/wall/clockwork)
+
+
 /turf/simulated/wall/acid_act(acidpwr, acid_volume)
 	if(explosion_block >= 2)
 		acidpwr = min(acidpwr, 50) //we reduce the power so strong walls never get melted.

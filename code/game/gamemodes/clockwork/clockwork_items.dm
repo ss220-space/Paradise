@@ -110,16 +110,17 @@
 	. = ..()
 	if(wielded && istype(target, /mob/living))
 		var/mob/living/L = target
-		if(enchant_type == CONFUSE_SPELL)
-			L.SetConfused(4)
-			deplete_spell()
-		if(enchant_type == DISABLE_SPELL)
-			if(issilicon(L))
-				var/mob/living/silicon/S = L
-				S.emp_act(EMP_LIGHT)
-			else
-				L.emp_act(EMP_HEAVY)
-			deplete_spell()
+		switch(enchant_type)
+			if(CONFUSE_SPELL)
+				L.SetConfused(4)
+				deplete_spell()
+			if(DISABLE_SPELL)
+				if(issilicon(L))
+					var/mob/living/silicon/S = L
+					S.emp_act(EMP_LIGHT)
+				else
+					L.emp_act(EMP_HEAVY)
+				deplete_spell()
 
 
 /obj/item/twohanded/clock_hammer
@@ -152,13 +153,14 @@
 	. = ..()
 	var/atom/throw_target = get_edge_target_turf(M, user.dir)
 
-	if(!(enchant_type == KNOCKOFF_SPELL))
+	if(enchant_type != KNOCKOFF_SPELL)
 		M.throw_at(throw_target, rand(1, 2), 7, user)
 	else
 		M.throw_at(throw_target, 200, 20, user) // vroom
 		deplete_spell()
-	if(enchant_type == CRUSH_SPELL && istype(user,/mob/living/carbon/human))
-		var/obj/item/organ/external/BP = pick(M.bodyparts_by_name)
+	if(enchant_type == CRUSH_SPELL && ishuman(user))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/BP = pick(H.bodyparts_by_name)
 		BP.fracture()
 		deplete_spell()
 
@@ -190,6 +192,7 @@
 		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src]'s sparks!</span>")
 		deplete_spell()
 		return TRUE
+	return FALSE
 
 
 /obj/item/clothing/head/hooded/clockhood
@@ -228,26 +231,32 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		return TRUE
+	return FALSE
 
 /obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
 	. = ..()
-	if(enchant_type == ARMOR_SPELL && isclocker(user))
-		to_chat(user, "<span class='notice'>the [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
-		armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
-		enchant_type = CASTING_SPELL
-		addtimer(CALLBACK(src, .proc/reset_armor), 10)
-	if(enchant_type == FLASH_SPELL && isclocker(user))
-		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
-		set_light(2, 1, COLOR_WHITE)
-		addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
-		usr.visible_message("<span class='disarm'>[usr]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
-		for(var/mob/living/carbon/M in oviewers(3, null))
-			if(isclocker(M))
-				return
-			if(M.flash_eyes(2, 1))
-				M.AdjustConfused(5)
-				M.Stun(2)
-		deplete_spell()
+	if(!isclocker(user))
+		user.unEquip(src)
+		user.emote("scream")
+		to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
+	switch(enchant_type)
+		if(ARMOR_SPELL)
+			to_chat(user, "<span class='notice'>the [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
+			armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
+			enchant_type = CASTING_SPELL
+			addtimer(CALLBACK(src, .proc/reset_armor), 10)
+		if(FLASH_SPELL)
+			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
+			set_light(2, 1, COLOR_WHITE)
+			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+			usr.visible_message("<span class='disarm'>[usr]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
+			for(var/mob/living/carbon/M in oviewers(3, null))
+				if(isclocker(M))
+					return
+				if(M.flash_eyes(2, 1))
+					M.AdjustConfused(5)
+					M.Stun(2)
+			deplete_spell()
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor()
 	to_chat(usr, "<span class='notice>The [src] stops to shifting...</span>")
@@ -292,19 +301,20 @@
 
 /obj/item/clothing/gloves/clockwork/attack_self(mob/user)
 	. = ..()
-	if(enchant_type == FASTPUNCH_SPELL)
-		if(user.mind.martial_art)
-			to_chat(user, "<span class='warning'>You're too powerful to use it!</span>")
-			return
-		to_chat(user, "<span class='notice'>You fastening gloves making your moves agile!</span>")
-		enchant_type = CASTING_SPELL
-		north_star = TRUE
-		addtimer(CALLBACK(src, .proc/reset), 80)
-	if(enchant_type == FIRE_SPELL)
-		to_chat(user, "<span class='notice>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
-		enchant_type = CASTING_SPELL
-		fire_casting = TRUE
-		addtimer(CALLBACK(src, .proc/reset), 50)
+	switch(enchant_type)
+		if(FASTPUNCH_SPELL)
+			if(user.mind.martial_art)
+				to_chat(user, "<span class='warning'>You're too powerful to use it!</span>")
+				return
+			to_chat(user, "<span class='notice'>You fastening gloves making your moves agile!</span>")
+			enchant_type = CASTING_SPELL
+			north_star = TRUE
+			addtimer(CALLBACK(src, .proc/reset), 80)
+		if(FIRE_SPELL)
+			to_chat(user, "<span class='notice>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
+			enchant_type = CASTING_SPELL
+			fire_casting = TRUE
+			addtimer(CALLBACK(src, .proc/reset), 50)
 
 
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
@@ -617,21 +627,23 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clockwork/shard/attack_self(mob/user)
-	if(!isclocker(user))
-		to_chat(user, "<span class='danger'>[src] pierces into your hand!</span>")
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
+	if(!isclocker(user) && isliving(user))
+		var/mob/living/L = user
+		to_chat(L, "<span class='danger'>[src] pierces into your hand!</span>")
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
 		else
-			user.adjustBruteLoss(rand(force/2, force))
+			L.adjustBruteLoss(rand(force/2, force))
 		return
 	if(!enchant_type)
 		to_chat(user, "<span class='warning'>There is no spell stored!</span>")
 	else
 		user.visible_message("<span class='warning'>[user] crushes [src] in his hands!</span>", "<span class='notice'>You crush [src] in your hand!</span>")
-		if(enchant_type == EMP_SPELL)
-			empulse(src, 4, 6, cause="clock")
-			deplete_spell()
-		if(TIME_SPELL)
-			deplete_spell()
-			new/obj/effect/timestop/clockwork(get_turf(src))
+		switch(enchant_type)
+			if(EMP_SPELL)
+				empulse(src, 4, 6, cause="clock")
+				deplete_spell()
+			if(TIME_SPELL)
+				deplete_spell()
+				new/obj/effect/timestop/clockwork(get_turf(src))

@@ -315,7 +315,7 @@
 	UpdateButtonIcon()
 
 /datum/action/item_action/activate/once/Trigger(attack_self)
-	..()
+	. = ..()
 	qdel(src)
 
 /datum/action/item_action/halt

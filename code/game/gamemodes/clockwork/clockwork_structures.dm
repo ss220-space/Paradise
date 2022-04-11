@@ -59,6 +59,7 @@
 	//if area isn't specified use current
 	if(isarea(A))
 		areabeacon = A
+	SSticker.mode.clocker_objs.beacon_check()
 
 /obj/structure/clockwork/functional/beacon/process()
 	adjust_clockwork_power(CLOCK_POWER_BEACON)
@@ -200,8 +201,9 @@
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	. = ..()
+	var/area/A = get_area(src)
 	if(istype(I, /obj/item/clockwork/shard))
-		if(!double_check(user, get_area(src)))
+		if(!double_check(user, A))
 			return
 		GLOB.command_announcement.Announce("A high anomalous power has been detected in [A.map_name], the origin of the power indicates an attempt to summon eldtrich god named Ratvar. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
@@ -213,7 +215,7 @@
 	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
 		to_chat(user, "<span class='clockitalic'><b>Ratvar</b> is not ready to be summoned yet!</span>")
 		return FALSE
-	if(gamemode.clocker_objs.cult_status == RATVAR_HAS_RISEN)
+	if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
 		to_chat(user, "<span class='clocklarge'>\"My fellow. There is no need for it anymore.\"</span>")
 		return FALSE
 

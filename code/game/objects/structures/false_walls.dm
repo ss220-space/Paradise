@@ -361,7 +361,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
 		playsound(src, 'sound/weapons/genhit.ogg', 25, 1) //sneaky
-		return
+		return 0
 	..()
 
 /obj/structure/falsewall/clockwork/welder_act(mob/user, obj/item/I)

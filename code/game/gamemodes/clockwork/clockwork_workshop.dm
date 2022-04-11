@@ -34,20 +34,20 @@
 	item_list = list()
 	item_list["Weapon"] = list(
 		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 0, 200, 10),
-		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 200, 2500, 20),
-		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 200, 2500, 20),
+		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 2000, 500, 20),
+		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 500, 20),
 	)
 	item_list["Clothing"] = list(
-		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 250, 4000, 30),
-		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 50, 500, 10),
-		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 50, 500, 10),
-		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 150, 1000, 15),
+		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 250, 30),
+		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 500, 50, 10),
+		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 500, 50, 10),
+		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 1000, 150, 15),
 	)
 	item_list["Consumables"] = list(
 		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 300, 0, 5),
-		CLOCK_DESIGN("Soul vessel", /obj/item/mmi/robotic_brain/clockwork, 300, 1000, 20),
-		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 200, 2000, 20),
-		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 300, 2500, 30),
+		CLOCK_DESIGN("Soul vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 500, 20),
+		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 2000, 400, 20),
+		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 4500, 500, 30),
 	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()
@@ -100,12 +100,14 @@
 			var/datum/clockwork_design/design = item_list[cat][item_name]
 			var/list/matreq = list()
 			var/obj/item/I = design.design_path
-			if(!design.brass_cost || !design.power_cost)
-				continue
 			if(design.brass_cost)
 				matreq["brass"] = design.brass_cost
+			else
+				matreq["brass"] = 0
 			if(design.power_cost)
 				matreq["power"] = design.power_cost
+			else
+				matreq["power"] = 0
 			cat_items[item_name] = list(
 				"name" = item_name,
 				"brass" = design.brass_cost,
