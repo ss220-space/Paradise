@@ -231,7 +231,7 @@
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
 	if(name == "alarm")
-		name = "[alarm_area.name] Атмосферная панель"
+		name = "Атмосферная панель «[alarm_area.name]»"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 

@@ -53,7 +53,7 @@ const AirStatus = (props, context) => {
     if (atmos_alarm === 0) {
       areaStatus = "Оптимум";
     } else {
-      areaStatus = "Внимание: Атмосферная тревога в области";
+      areaStatus = "Внимание: Атмосферная тревога";
     }
   } else if (air.danger.overall === 1) {
     areaStatus = "Внимание";
@@ -143,7 +143,7 @@ const AirStatus = (props, context) => {
               )}
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Настройка удалённого управления">
+          <LabeledList.Item label="Удалённое управление">
             <Button
               content="Выкл"
               selected={rcon === 1}
@@ -413,16 +413,16 @@ const AirAlarmThresholdsView = (props, context) => {
             Значение
           </Table.Cell>
           <Table.Cell color="red" width="20%">
-            Опасность, мин.
+            Опасность,<br />если ниже
           </Table.Cell>
           <Table.Cell color="orange" width="20%">
-            Угроза, мин.
+            Угроза,<br />если ниже
           </Table.Cell>
           <Table.Cell color="orange" width="20%">
-            Угроза, макс.
+            Угроза,<br />если выше
           </Table.Cell>
           <Table.Cell color="red" width="20%">
-            Опасность, макс.
+            Опасность,<br />если выше
           </Table.Cell>
         </Table.Row>
         {thresholds.map(t => (
