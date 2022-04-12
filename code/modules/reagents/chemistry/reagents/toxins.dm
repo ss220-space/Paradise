@@ -561,7 +561,7 @@
 	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -745,9 +745,9 @@
 	return ..() | update_flags
 
 /datum/reagent/pancuronium
-	name = "Pancuronium"
+	name = "Панкуроний" // Pancuronium
 	id = "pancuronium"
-	description = "Pancuronium bromide is a powerful skeletal muscle relaxant."
+	description = "Бромид панкурония — мощный релаксант скелетной мускулатуры."
 	reagent_state = LIQUID
 	color = "#1E4664"
 	metabolization_rate = 0.2
@@ -761,7 +761,7 @@
 				M.emote(pick("drool", "tremble"))
 		if(6 to 10)
 			if(prob(8))
-				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
+				to_chat(M, "<span class='danger'>Вы чувствуете [pick("слабость", "ужасную слабость", "онемение", "что едва можете пошевелиться", "покалывание")].</span>")
 				update_flags |= M.Stun(1, FALSE)
 			else if(prob(8))
 				M.emote(pick("drool", "tremble"))
@@ -772,16 +772,16 @@
 				M.emote(pick("drool", "tremble", "gasp"))
 				M.AdjustLoseBreath(1)
 			if(prob(9))
-				to_chat(M, "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>")
+				to_chat(M, "<span class='danger'>Вы не [pick("можете двигаться", "чувствуете ног", "чувствуете лица", "чувствуете вообще ничего")]!</span>")
 			if(prob(7))
 				to_chat(M, "<span class='danger'>Вы не можете дышать!</span>")
 				M.AdjustLoseBreath(3)
 	return ..() | update_flags
 
 /datum/reagent/sodium_thiopental
-	name = "Sodium Thiopental"
+	name = "Тиопентал натрия" // Sodium Thiopental
 	id = "sodium_thiopental"
-	description = "An rapidly-acting barbituate tranquilizer."
+	description = "Быстродействующий барбитуитовый транквилизатор.."
 	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
@@ -808,9 +808,9 @@
 	return ..() | update_flags
 
 /datum/reagent/ketamine
-	name = "Ketamine"
+	name = "Кетамин" // Ketamine
 	id = "ketamine"
-	description = "A potent veterinary tranquilizer."
+	description = "Мощный ветеринарный транквилизатор."
 	reagent_state = LIQUID
 	color = "#646EA0"
 	metabolization_rate = 0.8
@@ -836,9 +836,9 @@
 	return ..() | update_flags
 
 /datum/reagent/sulfonal
-	name = "Sulfonal"
+	name = "Сульфонал" // Sulfonal
 	id = "sulfonal"
-	description = "Deals some toxin damage, and puts you to sleep after 66 seconds."
+	description = "Наносит небольшой урон токсинами и усыпляет через 66 секунд."
 	reagent_state = LIQUID
 	color = "#6BA688"
 	metabolization_rate = 0.1
@@ -864,9 +864,9 @@
 	return ..() | update_flags
 
 /datum/reagent/amanitin
-	name = "Amanitin"
+	name = "Аманитин" // Amanitin
 	id = "amanitin"
-	description = "A toxin produced by certain mushrooms. Very deadly."
+	description = "Токсин, вырабатываемый некоторыми грибами. Смертельно опасен."
 	reagent_state = LIQUID
 	color = "#D9D9D9"
 	taste_mult = 0
@@ -876,23 +876,23 @@
 	..()
 
 /datum/reagent/lipolicide
-	name = "Lipolicide"
+	name = "Липолицид" // Lipolicide
 	id = "lipolicide"
-	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
+	description = "Продаётся в довольно сомнительных местах как напиток для похудения."
 	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
-	taste_description = "battery acid"
+	taste_description = "кислоты из батареек"
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
 		switch(rand(1,3))
 			if(1)
-				to_chat(M, "<span class='warning'>You feel hungry...</span>")
+				to_chat(M, "<span class='warning'>Вы проголодались…</span>")
 			if(2)
 				update_flags |= M.adjustToxLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+				to_chat(M, "<span class='warning'>Ваш желудок болезненно урчит!</span>")
 			else
 				pass()
 	else
@@ -903,9 +903,9 @@
 	return ..() | update_flags
 
 /datum/reagent/coniine
-	name = "Coniine"
+	name = "Кониин" // Coniine
 	id = "coniine"
-	description = "A neurotoxin that rapidly causes respiratory failure."
+	description = "Нейротоксин, быстро вызывающий дыхательную недостаточность."
 	reagent_state = LIQUID
 	color = "#C2D8CD"
 	metabolization_rate = 0.05
@@ -919,9 +919,9 @@
 	return ..() | update_flags
 
 /datum/reagent/curare
-	name = "Curare"
+	name = "Кураре" // Curare
 	id = "curare"
-	description = "A highly dangerous paralytic poison."
+	description = "Очень опасный паралитический яд."
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
@@ -940,7 +940,7 @@
 		if(6 to 10)
 			update_flags |= M.AdjustEyeBlurry(5, FALSE)
 			if(prob(8))
-				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
+				to_chat(M, "<span class='danger'>Вы чувствуете [pick("слабость", "ужасную слабость", "онемение", "что едва можете пошевелиться", "покалывание")].</span>")
 				update_flags |= M.Stun(1, FALSE)
 			else if(prob(8))
 				M.emote(pick("drool", "pale", "gasp"))
@@ -950,14 +950,14 @@
 			if(prob(20))
 				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
 			else if(prob(8))
-				to_chat(M, "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>")
+				to_chat(M, "<span class='danger'>Вы не [pick("можете дышать", "можете двигаться", "чувствуете ног", "чувствуете лица", "чувствуете вообще ничего")]!</span>")
 				M.AdjustLoseBreath(1)
 	return ..() | update_flags
 
 /datum/reagent/sarin
-	name = "Sarin"
+	name = "Зарин" // Sarin
 	id = "sarin"
-	description = "An extremely deadly neurotoxin."
+	description = "Чрезвычайно смертельный нейротоксин."
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
@@ -992,7 +992,7 @@
 				M.emote("collapse")
 			if(prob(5))
 				update_flags |= M.Weaken(3, FALSE)
-				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
+				M.visible_message("<span class='warning'>У [M] начинается припадок!</span>")
 				M.SetJitter(1000)
 			if(prob(5))
 				to_chat(M, "<span class='warning'>Вы не можете дышать!</span>")
@@ -1013,9 +1013,9 @@
 	return ..() | update_flags
 
 /datum/reagent/glyphosate
-	name = "Glyphosate"
+	name = "Глифосат" // Glyphosate
 	id = "glyphosate"
-	description = "A broad-spectrum herbicide that is highly effective at killing all plants."
+	description = "Гербицид широкого спектра действия. Эффективно уничтожает любые растения."
 	reagent_state = LIQUID
 	color = "#d3cf50"
 	var/lethality = 0 //Glyphosate is non-toxic to people
@@ -1031,7 +1031,7 @@
 		for(var/obj/effect/overlay/wall_rot/WR in W)
 			qdel(WR)
 		W.rotting = 0
-		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
+		W.visible_message("<span class='warning'>Соединение полностью растворяет грибы!</span>")
 
 /datum/reagent/glyphosate/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/structure/alien/weeds))
@@ -1059,18 +1059,18 @@
 		..()
 
 /datum/reagent/glyphosate/atrazine
-	name = "Atrazine"
+	name = "Атразин" // Atrazine
 	id = "atrazine"
-	description = "A herbicidal compound used for destroying unwanted plants."
+	description = "Гербицид, используемый для уничтожения нежелательных растений."
 	reagent_state = LIQUID
 	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 
 
 /datum/reagent/pestkiller // To-Do; make this more realistic.
-	name = "Pest Killer"
+	name = "Дихлофос" // Pest Killer
 	id = "pestkiller"
-	description = "A harmful toxic mixture to kill pests. Do not ingest!"
+	description = "Губительный яд для уничтожения вредителей. Не глотать!"
 	color = "#4B004B" // rgb: 75, 0, 75
 	taste_description = "горечи"
 
@@ -1081,7 +1081,7 @@
 
 /datum/reagent/pestkiller/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/effect/decal/ants))
-		O.visible_message("<span class='warning'>The ants die.</span>")
+		O.visible_message("<span class='warning'>Муравьи погибли.</span>")
 		qdel(O)
 
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -1095,9 +1095,9 @@
 				H.adjustToxLoss(20)
 
 /datum/reagent/capulettium
-	name = "Capulettium"
+	name = "Капулеттий" // Capulettium
 	id = "capulettium"
-	description = "A rare drug that causes the user to appear dead for some time."
+	description = "Редкий наркотик. Временно погружает субъект в неотличимое от смерти состояние."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
@@ -1126,9 +1126,9 @@
 	..()
 
 /datum/reagent/capulettium_plus
-	name = "Capulettium Plus"
+	name = "Капулеттий Плюс" // Capulettium Plus
 	id = "capulettium_plus"
-	description = "A rare and expensive drug that will silence the user and let him appear dead as long as it's in the body. Rest to play dead, stand up to wake up."
+	description = "Редкий дорогой наркотик. Пока он находится в организме, субъект не может говорить и может прикидываться мёртвым, просто ложась отдохнуть. Если субъекта встанет, эффект ложной смерти прекратится."
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
@@ -1148,9 +1148,9 @@
 	..()
 
 /datum/reagent/toxic_slurry
-	name = "Toxic Slurry"
+	name = "Токсичное желе" // Toxic Slurry
 	id = "toxic_slurry"
-	description = "A filthy, carcinogenic sludge produced by the Slurrypod plant."
+	description = "Грязная канцерогенная жижа, производимая заводом Slurrypod."
 	reagent_state = LIQUID
 	color = "#00C81E"
 	taste_description = "слизи"
@@ -1160,16 +1160,16 @@
 	if(prob(10))
 		update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
 	if(prob(7))
-		to_chat(M, "<span class='danger'>A horrible migraine overpowers you.</span>")
+		to_chat(M, "<span class='danger'>Вас одолевает ужасная мигрень.</span>")
 		update_flags |= M.Stun(rand(2,5), FALSE)
 	if(prob(7))
 		M.fakevomit(1)
 	return ..() | update_flags
 
 /datum/reagent/glowing_slurry
-	name = "Glowing Slurry"
+	name = "Светящееся желе" // Glowing Slurry
 	id = "glowing_slurry"
-	description = "This is probably not good for you."
+	description = "Вероятно, это для вас не особенно полезно."
 	reagent_state = LIQUID
 	color = "#00FD00"
 	taste_description = "слизи"
@@ -1201,13 +1201,13 @@
 	return ..()
 
 /datum/reagent/ants
-	name = "Ants"
+	name = "Муравьи" // Ants
 	id = "ants"
-	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
+	description = "Представитель исчезнувшей породы космических муравьев Formicidae Bastardium Tyrannus. Известны тем что выгрызают любую органическую фигню практически откуда угодно."
 	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<span class='warning'>ANTS OH GOD</span>"
+	taste_description = "<span class='warning'>МУРАВЬЁВ БОЖЕ МОЙ</span>"
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1217,66 +1217,66 @@
 /datum/reagent/ants/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH || method==REAGENT_INGEST)
-			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
+			to_chat(M, "<span class='warning'>МУРАВЬИ БЛЯДЬ!!!!</span>")
 			M.emote("scream")
 			M.adjustBruteLoss(4)
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
-	name = "Teslium"
+	name = "Теслий" // Teslium
 	id = "teslium"
-	description = "An unstable, electrically-charged metallic slurry. Increases the conductance of living things."
+	description = "Нестабильная заряженная электричеством металлическая суспензия. Увеличивает проводимость живых существ."
 	reagent_state = LIQUID
 	color = "#20324D" //RGB: 32, 50, 77
 	metabolization_rate = 0.2
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "electricity"
+	taste_description = "электричества"
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5, 20), "теслием изнутри организма", 1, TRUE) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	return ..()
 
 /datum/reagent/gluttonytoxin
-	name = "Gluttony's Blessing"
+	name = "Благословение Чревоугодия" // Gluttony's Blessing
 	id = "gluttonytoxin"
-	description = "An advanced corruptive toxin produced by something terrible."
+	description = "Усовершенствованный разлагающий токсин, созданный чем-то ужасным."
 	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	can_synth = FALSE
-	taste_description = "decay"
+	taste_description = "разложения"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())
 
 /datum/reagent/bungotoxin
-	name = "Bungotoxin"
+	name = "Бунготоксин" // Bungotoxin
 	id = "bungotoxin"
-	description = "A horrible cardiotoxin that protects the humble bungo pit."
+	description = "Ужасный кардиотоксин, который защищает скромную яму бунго"
 	reagent_state = LIQUID
 	color = "#EBFF8E"
 	metabolization_rate = 0.5
-	taste_description = "tannin"
+	taste_description = "танина"
 
 /datum/reagent/bungotoxin/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 20)
 		if(prob(25))
 			M.Dizzy(10)
-			to_chat(M, "<span class='danger'>You feel your heart spasm in your chest.</span>")
+			to_chat(M, "<span class='danger'>Ваше сердце болезненно сжимается.</span>")
 	if(current_cycle >= 30)
 		if(prob(25))
 			M.Confused(10)
-			to_chat(M, "<span class='danger'>You feel you need to catch your breath.</span>")
+			to_chat(M, "<span class='danger'>У вас начинается одышка.</span>")
 	if(current_cycle >= 40)
 		if(prob(10))
-			to_chat(M, "<span class='danger'>You feel horribly weak.</span>")
+			to_chat(M, "<span class='danger'>Вы чувствуете ужасную слабость.</span>")
 			update_flags |= M.Stun(2, FALSE)
 	if(current_cycle == 50)
-		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
+		to_chat(M, "<span class='danger'>Ваша грудь пылает от боли!</span>")
 		update_flags |= M.adjustOxyLoss(10, FALSE)
 		M.AdjustLoseBreath(1)
 		update_flags |= M.Stun(3, FALSE)
