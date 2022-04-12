@@ -1,14 +1,14 @@
 /datum/chemical_reaction/formaldehyde
-	name = "formaldehyde"
+	name = "формальдегид" // formaldehyde
 	id = "formaldehyde"
 	result = "formaldehyde"
 	required_reagents = list("ethanol" = 1, "oxygen" = 1, "silver" = 1)
 	result_amount = 3
 	min_temp = T0C + 150
-	mix_message = "Ugh, it smells like the morgue in here."
+	mix_message = "Фe, теперь здесь пахнет моргом."
 
 /datum/chemical_reaction/neurotoxin2
-	name = "neurotoxin2"
+	name = "Нейротоксин № 2"
 	id = "neurotoxin2"
 	result = "neurotoxin2"
 	required_reagents = list("space_drugs" = 1)
@@ -147,20 +147,20 @@
 	do_sparks(6, 1, location)
 
 /datum/chemical_reaction/mutagen
-	name = "Unstable mutagen"
+	name = "Нестабильный мутаген"
 	id = "mutagen"
 	result = "mutagen"
 	required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 	result_amount = 3
-	mix_message = "The substance turns neon green and bubbles unnervingly."
+	mix_message = "Вещество становится неоново-зелёным и тревожно пузырится."
 
 /datum/chemical_reaction/stable_mustagen
-	name = "Stable mutagen"
+	name = "Стабильный мутаген"
 	id = "stable_mutagen"
 	result = "stable_mutagen"
 	required_reagents = list("mutagen" = 1, "lithium" = 1, "acetone" = 1, "bromine" = 1)
 	result_amount = 3
-	mix_message = "The substance turns a drab green and begins to bubble."
+	mix_message = "Вещество становится тускло-зелёным и начинает побулькивать."
 
 /datum/chemical_reaction/stable_mustagen/stable_mustagen2
 	id = "stable_mutagen2"
