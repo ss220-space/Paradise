@@ -10,7 +10,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=1;magnets=4"
-	var/can_use = TRUE
+	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_item = /obj/item/cigbutt
 	var/saved_icon = 'icons/obj/clothing/masks.dmi'
@@ -19,6 +19,7 @@
 	var/saved_underlays = null
 
 /obj/item/chameleon/dropped()
+	..()
 	disrupt()
 
 /obj/item/chameleon/equipped()
@@ -28,14 +29,7 @@
 	toggle()
 
 /obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
-	if(!proximity)
-		return
-	if(!check_sprite(target))
-		return
-	if(target.alpha < 255)
-		return
-	if(target.invisibility)
-		return
+	if(!proximity) return
 	if(!active_dummy)
 		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
@@ -46,14 +40,8 @@
 			saved_overlays = target.overlays
 			saved_underlays = target.underlays
 
-/obj/item/chameleon/proc/check_sprite(atom/target)
-	if(target.icon_state in icon_states(target.icon))
-		return TRUE
-	return FALSE
-
 /obj/item/chameleon/proc/toggle()
-	if(!can_use || !saved_item)
-		return
+	if(!can_use || !saved_item) return
 	if(active_dummy)
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
@@ -85,8 +73,8 @@
 		if(delete_dummy)
 			qdel(active_dummy)
 		active_dummy = null
-		can_use = FALSE
-		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
+		can_use = 0
+		spawn(50) can_use = 1
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
@@ -98,9 +86,9 @@
 /obj/effect/dummy/chameleon
 	name = ""
 	desc = ""
-	density = FALSE
-	anchored = TRUE
-	var/can_move = TRUE
+	density = 0
+	anchored = 1
+	var/can_move = 1
 	var/obj/item/chameleon/master = null
 
 /obj/effect/dummy/chameleon/proc/activate(obj/O, mob/M, new_icon, new_iconstate, new_overlays, new_underlays, obj/item/chameleon/C)
@@ -148,22 +136,22 @@
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/relaymove(mob/user, direction)
-	if(!isturf(loc) || istype(loc, /turf/space) || !direction)
+	if(istype(loc, /turf/space) || !direction)
 		return // No magical movement!
 
 	if(can_move)
-		can_move = FALSE
+		can_move = 0
 		switch(user.bodytemperature)
 			if(300 to INFINITY)
-				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1 SECONDS)
+				spawn(10) can_move = 1
 			if(295 to 300)
-				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.3 SECONDS)
+				spawn(13) can_move = 1
 			if(280 to 295)
-				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.6 SECONDS)
+				spawn(16) can_move = 1
 			if(260 to 280)
-				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2 SECONDS)
+				spawn(20) can_move = 1
 			else
-				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2.5 SECONDS)
+				spawn(25) can_move = 1
 		step(src, direction)
 	return
 
