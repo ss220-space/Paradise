@@ -22,7 +22,7 @@ jobs:
         git fetch origin
         git branch -f nanomap-render
         git checkout nanomap-render
-        git reset --hard origin/master220
+        git reset --hard origin/gitactionstest
 
     - name: 'Generate Maps'
       run: './tools/github-actions/nanomap-renderer-invoker.sh'
@@ -31,7 +31,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "NanoMap Generation"
-        git pull origin master220
+        git pull origin gitactionstest
         git commit -m "NanoMap Auto-Update (`date`)" -a || true
         git push -f -u origin nanomap-render
 
@@ -39,7 +39,7 @@ jobs:
       uses: repo-sync/pull-request@v2
       with:
         source_branch: "nanomap-render"
-        destination_branch: "master220"
+        destination_branch: "gitactionstest"
         pr_title: "Automatic NanoMap Update"
         pr_body: "This pull request updates the server NanoMaps. Please review the diff images before merging."
         pr_label: "NanoMaps"
