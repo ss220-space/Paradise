@@ -112,7 +112,6 @@ jobs:
           echo "MANPATH=/home/runner/BYOND/byond/man:$MANPATH" >> $GITHUB_ENV
           cd $GITHUB_WORKSPACE
           tools/travis/install_rust_g.sh
-          #tools/travis/install_extools.sh
           mysql -u root -h 127.0.0.1 -e 'CREATE DATABASE paradise_travis;'
           mysql -u root -h 127.0.0.1 paradise_travis < SQL/paradise_schema.sql
           mysql -u root -h 127.0.0.1 -e 'CREATE DATABASE paradise_travis_prefixed;'
