@@ -555,9 +555,9 @@
 	return list(effect, update_flags)
 
 /datum/reagent/formaldehyde
-	name = "Formaldehyde"
+	name = "Формальдегид" // Formaldehyde
 	id = "formaldehyde"
-	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
+	description = "Формальдегид — обычный промышленный химикат. Используется для консервации трупов и медицинских образцов. Очень токсичен и неприятен."
 	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
@@ -571,13 +571,13 @@
 	return ..() | update_flags
 
 /datum/reagent/acetaldehyde
-	name = "Acetaldehyde"
+	name = "Ацетальдегид" // Acetaldehyde
 	id = "acetaldehyde"
-	description = "Acetaldehyde is a common industrial chemical. It is a severe irritant."
+	description = "Ацетальдегид — обычный промышленный химикат. Довольно неприятный."
 	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
-	taste_description = "apples"
+	taste_description = "яблок"
 
 /datum/reagent/acetaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -585,9 +585,9 @@
 	return ..() | update_flags
 
 /datum/reagent/venom
-	name = "Venom"
+	name = "Яд" // Venom
 	id = "venom"
-	description = "An incredibly potent poison. Origin unknown."
+	description = "Невероятно сильный яд. Происхождение неизвестно."
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.2
@@ -613,9 +613,9 @@
 	return ..() | update_flags
 
 /datum/reagent/neurotoxin2
-	name = "Neurotoxin"
+	name = "Нейротоксин"
 	id = "neurotoxin2"
-	description = "A dangerous toxin that attacks the nervous system."
+	description = "Опасный токсин, поражающий нервную систему."
 	reagent_state = LIQUID
 	color = "#60A584"
 	metabolization_rate = 1
@@ -652,14 +652,14 @@
 	return ..() | update_flags
 
 /datum/reagent/cyanide
-	name = "Cyanide"
+	name = "Цианид" // Cyanide
 	id = "cyanide"
-	description = "A highly toxic chemical with some uses as a building block for other things."
+	description = "Высокотоксичный химикат. Иногда используется как реагент для получения других химикатов."
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
-	taste_description = "almonds"
+	taste_description = "миндаля"
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -667,55 +667,55 @@
 	if(prob(5))
 		M.emote("drool")
 	if(prob(10))
-		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
+		to_chat(M, "<span class='danger'>Вы не можете дышать!</span>")
 		M.AdjustLoseBreath(1)
 		M.emote("gasp")
 	if(prob(8))
-		to_chat(M, "<span class='danger'>You feel horrendously weak!</span>")
+		to_chat(M, "<span class='danger'>Вы чувствуете ужасную слабость!</span>")
 		update_flags |= M.Stun(2, FALSE)
 		update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/itching_powder
-	name = "Itching Powder"
+	name = "Зудящий порошок" // Itching Powder
 	id = "itching_powder"
-	description = "An abrasive powder beloved by cruel pranksters."
+	description = "Абразивный порошок, любимый жестокими пранкерами."
 	reagent_state = LIQUID
 	color = "#B0B0B0"
 	metabolization_rate = 0.3
 	penetrates_skin = TRUE
-	taste_description = "prickliness"
+	taste_description = "прикола"
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_STAT
 	if(prob(25))
 		M.emote(pick("twitch", "laugh", "sneeze", "cry"))
 	if(prob(20))
-		to_chat(M, "<span class='notice'>Something tickles!</span>")
+		to_chat(M, "<span class='notice'>Немного щекотно!</span>")
 		M.emote(pick("laugh", "giggle"))
 	if(prob(15))
-		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
+		M.visible_message("<span class='danger'>[M] старательно чешется.</span>")
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		update_flags |= M.Stun(rand(0,1), FALSE)
 		M.emote("grumble")
 	if(prob(10))
-		to_chat(M, "<span class='danger'>So itchy!</span>")
+		to_chat(M, "<span class='danger'>Сильно чешется!</span>")
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	if(prob(6))
 		M.reagents.add_reagent("histamine", rand(1,3))
 	if(prob(2))
-		to_chat(M, "<span class='danger'>AHHHHHH!</span>")
+		to_chat(M, "<span class='danger'>АХ-Х-Х-Х-Х!</span>")
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 		update_flags |= M.Weaken(5, FALSE)
 		M.AdjustJitter(6)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
+		M.visible_message("<span class='danger'>[M] падает наземь, чешась изо всех сил!</span>")
 		M.emote("scream")
 	return ..() | update_flags
 
 /datum/reagent/initropidril
-	name = "Initropidril"
+	name = "Инитропидрил" // Initropidril
 	id = "initropidril"
-	description = "A highly potent cardiac poison - can kill within minutes."
+	description = "Сильнодействующий сердечный яд — убивает за пару минут."
 	reagent_state = LIQUID
 	color = "#7F10C0"
 	can_synth = FALSE
@@ -726,14 +726,14 @@
 	if(prob(33))
 		update_flags |= M.adjustToxLoss(rand(5,25), FALSE)
 	if(prob(33))
-		to_chat(M, "<span class='danger'>You feel horribly weak.</span>")
+		to_chat(M, "<span class='danger'>Вы чувствуете ужасную слабость.</span>")
 		update_flags |= M.Stun(2, FALSE)
 	if(prob(10))
-		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
+		to_chat(M, "<span class='danger'>Вы не можете дышать!</span>")
 		update_flags |= M.adjustOxyLoss(10, FALSE)
 		M.AdjustLoseBreath(1)
 	if(prob(10))
-		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
+		to_chat(M, "<span class='danger'>Вы чувствуете обжигающую боль в груди!</span>")
 		update_flags |= M.adjustOxyLoss(10, FALSE)
 		M.AdjustLoseBreath(1)
 		update_flags |= M.Stun(3, FALSE)
@@ -781,7 +781,7 @@
 /datum/reagent/sodium_thiopental
 	name = "Тиопентал натрия" // Sodium Thiopental
 	id = "sodium_thiopental"
-	description = "Быстродействующий барбитуитовый транквилизатор.."
+	description = "Быстродействующий барбитуитовый транквилизатор."
 	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
