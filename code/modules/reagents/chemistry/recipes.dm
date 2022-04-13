@@ -14,7 +14,7 @@
 	var/list/secondary_results = list()		//additional reagents produced by the reaction
 	var/min_temp = 0		//Minimum temperature required for the reaction to occur (heat to/above this). min_temp = 0 means no requirement
 	var/max_temp = 9999		//Maximum temperature allowed for the reaction to occur (cool to/below this).
-	var/mix_message = "The solution begins to bubble."
+	var/mix_message = "Смесь начинает бурлить."
 	var/mix_sound = 'sound/effects/bubbles.ogg'
 
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
