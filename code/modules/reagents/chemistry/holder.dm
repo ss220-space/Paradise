@@ -318,7 +318,7 @@
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
-				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(M, "<span class='notice'>Вы больше не чувствуете зависимости от [R.name]!</span>")
 				addiction_list.Remove(R)
 				qdel(R)
 
@@ -458,9 +458,9 @@
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, "<span class='notice'>[bicon(my_atom)] The [my_atom]'s power is consumed in the reaction.</span>")
-								ME2.name = "used slime extract"
-								ME2.desc = "This extract has been used up."
+								to_chat(M, "<span class='notice'>[bicon(my_atom)] Сила [my_atom] поглощается реакцией.</span>")
+								ME2.name = "Отработанный экстракт слайма"
+								ME2.desc = "Этот экстракт уже израсходован."
 
 					if(C.mix_sound)
 						playsound(get_turf(my_atom), C.mix_sound, 80, TRUE)
@@ -549,24 +549,24 @@
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
 					if(H.reagent_safety_check())
-						to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
+						to_chat(H, "<span class='danger'>Вас обжигает горячими химикатами!</span>")
 						affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
 						H.emote("scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
 					if(H.reagent_safety_check(FALSE))
-						to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
+						to_chat(H, "<span class='danger'>Вас обмораживает ледяными химикатами!</span>")
 						affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
 						H.emote("scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
 		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
-				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
+				to_chat(H, "<span class='danger'>Вы обжигаетесь, пытаясь употребить эту кипящую субстанцию!</span>")
 				H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
-				to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
+				to_chat(H, "<span class='danger'>Вы обмораживаетесь, пытаясь употребить эту ледяную субстанцию!</span>")
 				H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 
@@ -782,7 +782,7 @@
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
-	var/no_taste_text = "something indescribable"
+	var/no_taste_text = "чего-то неразличимого"
 	if(minimum_percent > 100)
 		return no_taste_text
 	for(var/A in reagent_list)
@@ -815,9 +815,9 @@
 		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
 		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
 			continue
-		var/intensity_desc = "a hint of"
+		var/intensity_desc = "нотки"
 		if(percent > minimum_percent * 3 && percent != 100)
-			intensity_desc = "a strong flavor of"
+			intensity_desc = "сильный вкус"
 		else if(percent > minimum_percent * 2 || percent == 100)
 			intensity_desc = ""
 
