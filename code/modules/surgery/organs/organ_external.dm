@@ -166,8 +166,11 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.receive_damage(brute * 0.5)
-			brute -= brute * 0.5
+			//Pass full damage if an internal organ is dead
+			var/internal_damage = min(I.max_damage - I.damage, brute * 0.5)
+			if(internal_damage)
+				I.receive_damage(internal_damage)
+				brute -= internal_damage
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
@@ -211,16 +214,23 @@
 			var/list/obj/item/organ/external/possible_points = list()
 			if(parent)
 				possible_points += parent
+				if(parent.max_damage - parent.damage)
+					forbidden_limbs += parent
 			if(children)
 				for(var/organ in children)
 					if(organ)
 						possible_points += organ
+			else
+				forbidden_limbs += src
 			if(forbidden_limbs.len)
 				possible_points -= forbidden_limbs
+			//Return damage to upper body if nothing is available
+			if(!possible_points.len && parent)
+				possible_points += parent
 			if(possible_points.len)
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
-				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
+				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
 
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
