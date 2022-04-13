@@ -133,3 +133,44 @@
 	for(var/mob/living/carbon/M in viewers(3, null))
 		memorize_carbon(M, null, 10, TRUE)
 	burn_out()
+
+/obj/item/memorizer/syndicate
+	name = "Нейрализатор"
+	desc = "Если перед вами сработает это устройство, скорее всего вы не сможете об этом вспомнить!"
+	origin_tech = "alien=3;syndicate=2"
+
+/obj/item/memorizer/syndicate/memorize_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
+	if(user)
+		add_attack_logs(user, M, "[user] стёр память [M] с помощью [src]а")
+		if(targeted)
+			if(!M.mind)
+				to_chat(user, "<span class='danger'>[M] кататоник! Стирание памяти бесполезно против тех, кто не осознаёт ничего вокруг себя!</span>")
+				return
+			if(M.weakeyes)
+				M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+			if(M.flash_eyes(1, 1))
+				M.AdjustConfused(power)
+				M.Stun(1)
+				visible_message("<span class='disarm'>[user] стирает память [M] с помощью Нейрализатора!</span>")
+				to_chat(user, "<span class='danger'>Вы стёрли память [M] с помощью Нейрализатора!</span>")
+				to_chat(M, "<span class='danger'><span class='reallybig'>Ваша память о последних недавних событиях была стёрта!</span>")
+				if(is_taipan(M.z) && !M.mind.lost_memory)
+					var/objective = "Вы не помните ничего о последних событиях, так как ваша память была стёрта. \
+					В частности вы не помните о базе синдиката \"Тайпан\", о том как туда добраться и обо всём так или иначе с ней связанным!"
+					var/datum/objective/custom_objective = new(objective)
+					custom_objective.owner = M.mind
+					M.mind.objectives += custom_objective
+					M.mind.lost_memory = TRUE
+					M.mind.announce_objectives()
+				last_used = world.time
+				if(M.weakeyes)
+					M.Stun(2)
+					M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
+			else
+				visible_message("<span class='disarm'>[user] fails to erase [M] memory with the memorizer!</span>")
+				to_chat(user, "<span class='warning'>You fail to erase [M] memory with the memorizer!</span>")
+				to_chat(M, "<span class='danger'>[user] fails to erase your memory with the memorizer!</span>")
+			return
+
+	if(M.flash_eyes())
+		M.AdjustConfused(power)
