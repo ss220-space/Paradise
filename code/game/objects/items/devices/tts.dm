@@ -11,6 +11,8 @@
 	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker. \n<span class='notice'>Alt-click the device to make it beep.</span> \n<span class='notice'>Ctrl-click to name the device."
 
 /obj/item/ttsdevice/attack_self(mob/user)
+	if(user.mind?.miming)
+		to_chat(user, "<span class='warning'>It would be cheating to use this device!</span>")
 	visible_message("[user] starts typing on [src].", "You begin typing on [src].", "You hear faint, continuous mechanical clicking noises.")
 	playsound(src, "terminal_type", 50, TRUE)
 	var/input = stripped_input(user,"What would you like the device to say?", ,"", 500)

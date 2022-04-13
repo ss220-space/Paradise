@@ -279,7 +279,6 @@
 			onTransitZ(old_z, dest_z)
 
 	Moved(old_loc, NONE)
-	update_runechat_msg_location()
 
 	return 1
 
