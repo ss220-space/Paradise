@@ -1,10 +1,10 @@
 /datum/reagent/lithium
-	name = "Lithium"
+	name = "Литий" // Lithium
 	id = "lithium"
-	description = "A chemical element."
+	description = "Химический элемент."
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_description = "metal"
+	taste_description = "металла"
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
@@ -15,12 +15,12 @@
 	return ..()
 
 /datum/reagent/lsd
-	name = "Lysergic acid diethylamide"
+	name = "Диэтиламид лизергиновой кислоты" // Lysergic acid diethylamide
 	id = "lsd"
-	description = "A highly potent hallucinogenic substance. Far out, maaaan."
+	description = "Сильнодействующее галлюциногенное вещество. Просто отпад, чу-ва-а-а-ак."
 	reagent_state = LIQUID
 	color = "#0000D8"
-	taste_description = "a magical journey"
+	taste_description = "волшебного путешествия"
 
 /datum/reagent/lsd/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -29,16 +29,16 @@
 	return ..() | update_flags
 
 /datum/reagent/space_drugs
-	name = "Space drugs"
+	name = "Космодурь" // Space drugs
 	id = "space_drugs"
-	description = "An illegal chemical compound used as drug."
+	description = "Незаконное химическое соединение. Используется как наркотик."
 	reagent_state = LIQUID
 	color = "#9087A2"
 	metabolization_rate = 0.2
 	addiction_chance = 15
 	addiction_threshold = 10
 	heart_rate_decrease = 1
-	taste_description = "a synthetic high"
+	taste_description = "синтетического улёта"
 
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -51,11 +51,11 @@
 	return ..() | update_flags
 
 /datum/reagent/psilocybin
-	name = "Psilocybin"
+	name = "Псилоцибин" // Psilocybin
 	id = "psilocybin"
-	description = "A strong psycotropic derived from certain species of mushroom."
+	description = "Сильное психотропное средство, получаемое из определённых видов грибов."
 	color = "#E700E7" // rgb: 231, 0, 231
-	taste_description = "visions"
+	taste_description = "видений"
 
 /datum/reagent/psilocybin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -83,9 +83,9 @@
 	return ..() | update_flags
 
 /datum/reagent/nicotine
-	name = "Nicotine"
+	name = "Никотин" // Nicotine
 	id = "nicotine"
-	description = "Slightly reduces stun times. If overdosed it will deal toxin and oxygen damage."
+	description = "Немного уменьшает время оглушения. При передозировке вызывает отравление и удушье."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
@@ -93,11 +93,11 @@
 	addiction_threshold = 80
 	minor_addiction = TRUE
 	heart_rate_increase = 1
-	taste_description = "calm"
+	taste_description = "спокойствия"
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
+	var/smoke_message = pick("Вы чувствуете себя отдохнувш[genderize_ru(M.gender,"им","ей","им","ими")].", "Вы ощущаете спокойствие.", "Вы чувствуете как стресс отступает.", "Вы чувствуете безмятежность.", "Вы чувствуете себя более цельн[genderize_ru(M.gender,"ым","ой","ым","ыми")].")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
 	if(prob(25))
@@ -113,13 +113,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks nervous!</span>")
+			M.visible_message("<span class='warning'>[M] выгляд[pluralize_ru(M.gender,"ит","ят")] нервно!</span>")
 			M.AdjustConfused(15)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(10)
 			M.emote("twitch_s")
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.visible_message("<span class='warning'>[M] обильно поте[pluralize_ru(M.gender,"ет","ют")]!</span>")
 			M.bodytemperature += rand(15,30)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
@@ -129,12 +129,12 @@
 	else if(severity == 2)
 		if(effect <= 2)
 			M.emote("gasp")
-			to_chat(M, "<span class='warning'>You can't breathe!</span>")
+			to_chat(M, "<span class='warning'>Вы не можете дышать!</span>")
 			update_flags |= M.adjustOxyLoss(15, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.Stun(1, FALSE)
 		else if(effect <= 4)
-			to_chat(M, "<span class='warning'>You feel terrible!</span>")
+			to_chat(M, "<span class='warning'>Вам очень плохо!</span>")
 			M.emote("drool")
 			M.Jitter(10)
 			update_flags |= M.adjustToxLoss(5, FALSE)
@@ -142,7 +142,7 @@
 			M.AdjustConfused(33)
 		else if(effect <= 7)
 			M.emote("collapse")
-			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
+			to_chat(M, "<span class='warning'>Сердце бешено колотится!</span>")
 			M << 'sound/effects/singlebeat.ogg'
 			update_flags |= M.Paralyse(5, FALSE)
 			M.Jitter(30)
@@ -151,15 +151,15 @@
 	return list(effect, update_flags)
 
 /datum/reagent/crank
-	name = "Crank"
+	name = "Крэнк" // Crank
 	id = "crank"
-	description = "Reduces stun times by about 200%. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
+	description = "Сокращает время оглушения примерно на 200%. Возникновение зависимости или передозировка приведёт к обширной интоксикации, травмам или повреждениям мозга."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -169,11 +169,11 @@
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
-		to_chat(M, "<span class='notice'>You feel great!</span>")
+		to_chat(M, "<span class='notice'>Вы прекрасно себя чувствуете!</span>")
 		M.reagents.add_reagent("methamphetamine", rand(1,2))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(6))
-		to_chat(M, "<span class='notice'>You feel warm.</span>")
+		to_chat(M, "<span class='notice'>Вам становится жарко.</span>")
 		M.bodytemperature += rand(1,10)
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
@@ -188,12 +188,12 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks confused!</span>")
+			M.visible_message("<span class='warning'>[M] выглядит смущённ[genderize_ru(M.gender,"ым","ой","ым","ыми")]!</span>")
 			M.AdjustConfused(20)
 			M.Jitter(20)
 			M.emote("scream")
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.visible_message("<span class='warning'>[M] обильно поте[pluralize_ru(M.gender,"ет","ют")]!</span>")
 			M.bodytemperature += rand(5,30)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.adjustToxLoss(1, FALSE)
@@ -203,12 +203,12 @@
 			M.emote("grumble")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] is sweating like a pig!</span>")
+			M.visible_message("<span class='warning'>[M] поте[genderize_ru(M.gender,"ет","ет","ет","ют")] как лошадь!</span>")
 			M.bodytemperature += rand(20,100)
 			update_flags |= M.adjustToxLoss(5, FALSE)
 			update_flags |= M.Stun(3, FALSE)
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] starts tweaking the hell out!</span>")
+			M.visible_message("<span class='warning'>[M] начинает жутко трястись!</span>")
 			M.Jitter(100)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(8, FALSE)
@@ -218,22 +218,22 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message("<span class='warning'>[M] nervously scratches at [M.p_their()] skin!</span>")
+			M.visible_message("<span class='warning'>[M] нервно расцарапыва[genderize_ru(M.gender,"ет","ет","ет","ют")] себе кожу!</span>")
 			M.Jitter(10)
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			M.emote("twitch_s")
 	return list(effect, update_flags)
 
 /datum/reagent/krokodil
-	name = "Krokodil"
+	name = "Крокодил" // Krokodil
 	id = "krokodil"
-	description = "A sketchy homemade opiate, often used by disgruntled Cosmonauts."
+	description = "Грубый самодельный опиат. Часто употребляется раздражёнными космонавтами."
 	reagent_state = LIQUID
 	color = "#0264B4"
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 10
-	taste_description = "very poor life choices"
+	taste_description = "очень неудачных жизненных выборов"
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
@@ -244,18 +244,18 @@
 	if(prob(15))
 		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
 	if(prob(10))
-		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
+		to_chat(M, "<span class='notice'>Вам становится холодно.</span>")
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
-		to_chat(M, "<span class='notice'>You feel too chill!</span>")
+		to_chat(M, "<span class='notice'>Вы замерзаете!</span>")
 		M.emote(pick("yawn", "drool"))
 		update_flags |= M.Stun(1, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 		M.bodytemperature -= 20
 	if(prob(2))
-		to_chat(M, "<span class='warning'>Your skin feels all rough and dry.</span>")
+		to_chat(M, "<span class='warning'>Ваша кожа кажется сухой и грубой.</span>")
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	return ..() | update_flags
 
@@ -265,21 +265,21 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] looks dazed!</span>")
+			M.visible_message("<span class='warning'>[M] выгляд[genderize_ru(M.gender,"ит","ит","ит","ят")] ошеломлённ[genderize_ru(M.gender,"ым","ой","ым","ыми")]!</span>")
 			update_flags |= M.Stun(3, FALSE)
 			M.emote("drool")
 		else if(effect <= 4)
 			M.emote("shiver")
 			M.bodytemperature -= 40
 		else if(effect <= 7)
-			to_chat(M, "<span class='warning'>Your skin is cracking and bleeding!</span>")
+			to_chat(M, "<span class='warning'>Ваша кожа трескается и кровоточит!</span>")
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]</b> sways and falls over!</span>")
+			M.visible_message("<span class='warning'>Кожа [M]</b> черствеет и отваливается!</span>")
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			update_flags |= M.Weaken(8, FALSE)
@@ -287,7 +287,7 @@
 		else if(effect <= 4)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
+				H.visible_message("<span class='warning'>Кожа [M] гниёт на [genderize_ru(M.gender,"нём","ней","нём","них")] заживо!</span>")
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
 				H.ChangeToHusk()
@@ -298,9 +298,9 @@
 	return list(effect, update_flags)
 
 /datum/reagent/methamphetamine
-	name = "Methamphetamine"
+	name = "Метамфетамин" // Methamphetamine
 	id = "methamphetamine"
-	description = "Reduces stun times by about 300%, speeds the user up, and allows the user to quickly recover stamina while dealing a small amount of Brain damage. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage."
+	description = "Сокращает время оглушения примерно на 300% и ускоряет субъекта. Метамфетамин позволяет быстро восстанавливать выносливость, незначительно повреждая мозг. При передозировке субъект получит повреждения мозга и интоксикацию, начнёт беспорядочно двигаться, беспорядочно смеяться и ронять предметы. Зависимость приводит сначала к дрожи, неконтролируемому слюноотделению, головокружению, потере контроля над движениями и в конечном итоге к тяжёлой интоксикации."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
@@ -308,7 +308,7 @@
 	addiction_threshold = 5
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
-	taste_description = "speed"
+	taste_description = "скорости"
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -337,22 +337,22 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
+			M.visible_message("<span class='warning'>[M], кажется, не контролирует собственные ноги!</span>")
 			M.AdjustConfused(20)
 			update_flags |= M.Weaken(4, FALSE)
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.visible_message("<span class='warning'>[M] странно размахива[pluralize_ru(M.gender,"ет","ют")] руками во все стороны!</span>")
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 7)
 			M.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.visible_message("<span class='warning'>[M] странно размахива[pluralize_ru(M.gender,"ет","ют")] руками во все стороны!</span>")
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.visible_message("<span class='warning'>[M] пада[pluralize_ru(M.gender,"ет","ют")] и неконтролируемо тряс[pluralize_ru(M.gender,"ё","у")]тся!</span>")
 			M.Jitter(10)
 			update_flags |= M.Weaken(10, FALSE)
 		else if(effect <= 7)
@@ -360,16 +360,17 @@
 	return list(effect, update_flags)
 
 /datum/reagent/bath_salts
-	name = "Bath Salts"
+	name = "Соль для ванн" // Bath Salts
 	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
+	description = "Эти кристаллы упакованы как освежающая добавку для ванн. Они определённо не предназначены для употребления внутрь."
 	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
 	addiction_threshold = 5
 	metabolization_rate = 0.6
-	taste_description = "WAAAAGH"
+	taste_description = "ВААААГХА"
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -377,12 +378,12 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(check < 8 && head_organ.h_style != "Very Long Beard")
-			head_organ.h_style = "Very Long Hair"
-			head_organ.f_style = "Very Long Beard"
+		if(check < 8 && head_organ.h_style != "Очень длинная борода")
+			head_organ.h_style = "Очень длинные волосы"
+			head_organ.f_style = "Очень длинная борода"
 			H.update_hair()
 			H.update_fhair()
-			H.visible_message("<span class='warning'>[H] has a wild look in [H.p_their()] eyes!</span>")
+			H.visible_message("<span class='warning'>Взгляд [H] становится совершенно диким!</span>")
 	if(check < 60)
 		update_flags |= M.SetParalysis(0, FALSE)
 		update_flags |= M.SetStunned(0, FALSE)
@@ -394,26 +395,26 @@
 		M.AdjustConfused(10)
 	if(check < 8)
 		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
-		M.visible_message("<span class='warning'>[M] scratches at something under [M.p_their()] skin!</span>")
+		M.visible_message("<span class='warning'>[M] нервно расцарапыва[pluralize_ru(M.gender,"ет","ют")] себе кожу!</span>")
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 	else if(check < 16)
 		M.AdjustHallucinate(30)
 	else if(check < 24)
-		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
+		to_chat(M, "<span class='userdanger'>Они идут за тобой!</span>")
 	else if(check < 28)
-		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
+		to_chat(M, "<span class='userdanger'>ОНИ ПОЧТИ СХВАТИЛИ ТЕБЯ!</span>")
 	return ..() | update_flags
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
+		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>ТЕБЕ КОНЕЦ!!!!!!</font></span>")
 		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
 		M.apply_effect(5, IRRADIATE, negate_armor = 1)
 		M.adjustToxLoss(5)
 		M.adjustBrainLoss(10)
 	else
-		to_chat(M, "<span class='notice'>You feel a bit more salty than usual.</span>")
+		to_chat(M, "<span class='notice'>Вы чувствуете солоноватый привкус во рту.</span>")
 
 /datum/reagent/bath_salts/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -421,13 +422,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='danger'>[M] flails around like a lunatic!</span>")
+			M.visible_message("<span class='danger'>[M] [pluralize_ru(M.gender,"мечется","мечутся")] как [genderize_ru(M.gender,"сумасшедший","сумасшедшая","сумасшедшее","сумасшедшие")]!</span>")
 			M.AdjustConfused(25)
 			M.Jitter(10)
 			M.emote("scream")
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 4)
-			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.visible_message("<span class='danger'>Глаза [M] расширяются!</span>")
 			M.emote("twitch_s")
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -439,7 +440,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
+			M.visible_message("<span class='danger'>Глаза [M] расширяются!</span>")
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.Stun(3, FALSE)
@@ -485,7 +486,7 @@
 	description = "An illegal performance enhancing drug. Side effects might include chest pain, seizures, swelling, headache, fever... ... ..."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	taste_description = "bitterness"
+	taste_description = "горечи"
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -517,7 +518,7 @@
 	if(prob(5))
 		M.emote(pick("laugh","giggle","smile"))
 	if(prob(5))
-		to_chat(M, "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]")
+		to_chat(M, "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","Вам становится жарко.")]")
 	if(prob(4))
 		M.Confused(10)
 	if(volume >= 50 && prob(25))
