@@ -137,7 +137,7 @@
 /obj/item/memorizer/syndicate
 	name = "Нейрализатор"
 	desc = "Если перед вами сработает это устройство, скорее всего вы не сможете об этом вспомнить!"
-	origin_tech = "alien=3;syndicate=2"
+	origin_tech = "abductor=3;syndicate=2"
 
 /obj/item/memorizer/syndicate/memorize_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
 	if(user)
