@@ -1,5 +1,5 @@
 /datum/reagent
-	var/name = "Reagent"
+	var/name = "Реагент"
 	var/id = "reagent"
 	var/description = ""
 	var/datum/reagents/holder = null
@@ -28,10 +28,10 @@
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 	var/drink_icon = null
-	var/drink_name = "Glass of ..what?"
-	var/drink_desc = "You can't really tell what this is."
+	var/drink_name = "Стакан… чего?"
+	var/drink_desc = "Вам сложно сказать что в нём."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
-	var/taste_description = "metaphorical salt"
+	var/taste_description = "метафорический соли"
 
 /datum/reagent/Destroy()
 	. = ..()
@@ -56,7 +56,7 @@
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
 				if(is_type_in_list(src, M.reagents.addiction_list))
-					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
+					to_chat(M, "<span class='notice'>Вам становится намного лучше, но надолго ли?</span>") //sate_addiction handles this now, but kept this for the feed back.
 		return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
@@ -81,7 +81,7 @@
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+			to_chat(M, "<span class='danger'>Вы ощущаете бодрость, сдобренную чувством вины…</span>")
 			var/datum/reagent/new_reagent = new type()
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
@@ -163,67 +163,67 @@
 /datum/reagent/proc/addiction_act_stage2(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You briefly think about getting some more [name].</span>")
+			to_chat(M, "<span class='notice'>У вас мелькает мысль получить бы ещё [name].</span>")
 	else
 		if(prob(8))
 			M.emote("shiver")
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
+			to_chat(M, "<span class='notice'>Вы чувствуете тупую головную боль.</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, "<span class='notice'>Вам хочется заполучить [name] прямо сейчас.</span>")
 	else
 		if(prob(8))
 			M.emote("twitch_s")
 		if(prob(8))
 			M.emote("shiver")
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head hurts.</span>")
+			to_chat(M, "<span class='warning'>У вас болит голова.</span>")
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
+			to_chat(M, "<span class='warning'>Вы очень хотите [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, "<span class='notice'>Вам хочется заполучить [name] прямо сейчас.</span>")
 	else
 		if(prob(8))
 			M.emote("twitch")
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
+			to_chat(M, "<span class='warning'>У вас стучит в висках и болит голова.</span>")
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+			to_chat(M, "<span class='warning'>У вас есть сильное желание получить [name]!</span>")
 		else if(prob(4))
-			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+			to_chat(M, "<span class='warning'>Вы ОЧЕНЬ СИЛЬНО хотите [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+			to_chat(M, "<span class='notice'>Вы не можете перестать думать о [name]…</span>")
 		if(prob(4))
 			M.emote(pick("twitch"))
 	else
 		if(prob(6))
-			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
-			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			to_chat(M, "<span class='warning'>У вас болезненно сжимается желудок!</span>")
+			M.visible_message("<span class='warning'>[M] давится и блюёт!</span>")
 			update_flags |= M.Stun(rand(2,4), FALSE)
 			update_flags |= M.Weaken(rand(2,4), FALSE)
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
+			to_chat(M, "<span class='warning'>Ваша голова просто раскалывается!</span>")
 		if(prob(5))
-			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+			to_chat(M, "<span class='warning'>Вы не можете жить без [name]!</span>")
 		else if(prob(5))
-			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+			to_chat(M, "<span class='warning'>Вы готовы УМЕРЕТЬ, лишь бы получить немного [name] прямо сейчас!</span>")
 	return update_flags
 
 /datum/reagent/proc/fakedeath(mob/living/M)
