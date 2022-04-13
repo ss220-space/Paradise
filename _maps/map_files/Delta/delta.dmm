@@ -10194,11 +10194,6 @@
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "bbh" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10206,6 +10201,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16793,11 +16793,6 @@
 	},
 /area/hallway/primary/port/west)
 "bGv" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -17136,6 +17131,11 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
 /obj/item/stamp/qm,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -37835,6 +37835,11 @@
 "dmI" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -47511,10 +47516,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/power/apc{
-	name = "north bump";
-	pixel_y = 26
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -47554,6 +47555,15 @@
 	},
 /area/quartermaster/miningdock)
 "dWS" = (
+/obj/machinery/power/apc{
+	name = "north bump";
+	pixel_y = 26
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -49186,8 +49196,8 @@
 	},
 /area/medical/virology)
 "ehi" = (
-/obj/structure/falsewall,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
 /area/maintenance/disposal)
 "ehl" = (
 /obj/machinery/light{
@@ -58572,6 +58582,9 @@
 	icon_state = "darkred"
 	},
 /area/security/execution)
+"gyE" = (
+/turf/simulated/wall/rust,
+/area/maintenance/bar)
 "gyW" = (
 /obj/machinery/ai_status_display{
 	pixel_x = 32
@@ -95217,7 +95230,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "puN" = (
-/obj/structure/falsewall,
 /turf/simulated/wall/rust,
 /area/maintenance/disposal)
 "pvm" = (
@@ -174456,7 +174468,7 @@ rvG
 sjs
 sjs
 aqu
-aww
+gyE
 aww
 tkr
 cal
@@ -174713,7 +174725,7 @@ anu
 blq
 bFK
 bru
-aww
+gyE
 rbN
 bFK
 cae
@@ -175223,7 +175235,7 @@ dCY
 bph
 bbl
 kri
-aww
+gyE
 aNv
 bFH
 nUw
@@ -175480,7 +175492,7 @@ dDu
 bpn
 gzz
 mxH
-aww
+gyE
 rRs
 bBK
 ljv
@@ -175740,8 +175752,8 @@ aww
 aww
 aww
 lzH
-aww
-aww
+gyE
+gyE
 huC
 bBK
 uki
@@ -175998,7 +176010,7 @@ rCP
 uul
 arR
 uRi
-aww
+gyE
 aPx
 bBK
 xsl
@@ -176255,7 +176267,7 @@ bFH
 bBK
 sjs
 bFU
-aww
+gyE
 uCO
 bUq
 cbt
@@ -177541,8 +177553,8 @@ uNA
 nuY
 rEt
 bdq
-snP
-snP
+ehi
+ehi
 cbD
 bGJ
 snP
@@ -177798,7 +177810,7 @@ aww
 pHw
 xlP
 bKf
-snP
+ehi
 lJP
 bCc
 bHl
@@ -178059,7 +178071,7 @@ rcP
 bzh
 bCf
 bHl
-snP
+puN
 abj
 abj
 aaa
@@ -178316,7 +178328,7 @@ buq
 bUR
 goc
 aUm
-snP
+puN
 aaa
 bvh
 aaa
@@ -178567,7 +178579,7 @@ abj
 aaa
 aaa
 abj
-snP
+puN
 bKF
 jyC
 jyC
@@ -178824,7 +178836,7 @@ abj
 aaa
 aaa
 abj
-snP
+puN
 bKK
 snP
 snP
@@ -180114,7 +180126,7 @@ cDx
 snP
 bBS
 bBS
-snP
+puN
 snP
 abj
 aaa
