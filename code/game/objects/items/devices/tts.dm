@@ -44,4 +44,3 @@
 		return
 	new_name = reject_bad_name(new_name)
 	name = "[new_name]'s [initial(name)]"
-
