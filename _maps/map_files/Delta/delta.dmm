@@ -11842,8 +11842,14 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "bjT" = (
-/turf/simulated/shuttle/plating,
-/area/shuttle/arrival/station)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore)
 "bjU" = (
 /obj/machinery/power/rad_collector,
 /obj/machinery/camera{
@@ -22182,12 +22188,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 1;
-	icon_state = "pipe-j2s";
-	name = "Kitchen Junction";
-	sortType = 20
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -90674,12 +90675,21 @@
 	},
 /area/atmos)
 "orI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	icon_state = "pipe-j2s";
+	name = "Kitchen Junction";
+	sortType = 20
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/fore)
 "orN" = (
@@ -170367,8 +170377,8 @@ aGz
 xPP
 xPP
 xPP
-orI
 xPP
+bjT
 oJN
 bcn
 mbE
@@ -170625,7 +170635,7 @@ dqq
 dqq
 kLZ
 cdO
-kLZ
+orI
 kLZ
 mhX
 bll
@@ -171603,7 +171613,7 @@ oqI
 oqI
 aMt
 aws
-bjT
+aMt
 bqf
 aaa
 aaa
