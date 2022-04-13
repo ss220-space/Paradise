@@ -256,12 +256,12 @@
 		M.emote("scream")
 
 /datum/reagent/sorium
-	name = "Sorium"
+	name = "Сорий" // Sorium
 	id = "sorium"
-	description = "Sends everything flying from the detonation point."
+	description = "Раскидывает всё от эпицентра взрыва."
 	reagent_state = LIQUID
 	color = "#FFA500"
-	taste_description = "air and bitterness"
+	taste_description = "воздуха и горечи"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
 	if(prob(75))
