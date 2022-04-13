@@ -6532,14 +6532,15 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "aIl" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
+/obj/structure/sign/directions/engineering{
+	pixel_y = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/obj/structure/sign/directions/evac{
+	pixel_y = -8
 	},
-/area/hallway/secondary/entry)
+/obj/structure/sign/directions/science,
+/turf/simulated/wall,
+/area/bridge/checkpoint/north)
 "aIo" = (
 /obj/structure/particle_accelerator/fuel_chamber{
 	dir = 8
@@ -9513,7 +9514,6 @@
 /area/atmos)
 "aXj" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -11409,10 +11409,9 @@
 	},
 /area/shuttle/trade/sol)
 "biq" = (
-/obj/structure/flora/ausbushes,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bix" = (
 /obj/structure/cable{
@@ -12662,8 +12661,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
-/obj/structure/barricade/wooden,
+/obj/effect/spawner/random_barrier/possibly_welded_airlock{
+	layer = 2.9
+	},
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore{
 	name = "Hangar Maintenance"
@@ -16918,6 +16921,10 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/storage/tech)
+"bGX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/maintenance/fpmaint)
 "bGY" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -18190,15 +18197,8 @@
 	},
 /area/maintenance/bar)
 "bNK" = (
-/obj/structure/flora/ausbushes/fernybush,
-/mob/living/simple_animal/hostile/carp{
-	desc = "Неопасный,  но очень гордый представитель рода космокарпов.";
-	faction = list("neutral");
-	name = "Фукурава"
-	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bNL" = (
 /obj/effect/spawner/window/reinforced,
@@ -20147,11 +20147,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bVN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
+/obj/structure/sign/directions/evac{
+	pixel_y = -8
+	},
+/obj/structure/sign/directions/medical,
+/obj/structure/sign/directions/security{
+	pixel_y = 8
+	},
+/turf/simulated/wall,
+/area/security/checkpoint)
 "bVO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -30338,13 +30342,13 @@
 	},
 /area/hallway/primary/central/nw)
 "cKz" = (
-/obj/machinery/light/small{
-	dir = 1
+/obj/item/reagent_containers/glass/bottle/ether{
+	layer = 1.9;
+	volume = 5
 	},
-/obj/structure/flora/ausbushes/stalkybush,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "cKC" = (
 /obj/structure/chair/comfy/red{
@@ -47581,9 +47585,7 @@
 	pixel_y = 26
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -55431,6 +55433,10 @@
 	icon_state = "caution"
 	},
 /area/atmos)
+"fKu" = (
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "fKE" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -65559,10 +65565,8 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/maintenance/bar)
 "ieh" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -73796,12 +73800,13 @@
 	},
 /area/maintenance/gambling_den)
 "khM" = (
-/obj/machinery/power/apc{
-	name = "east bump";
-	pixel_x = 26
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/black,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -88875,10 +88880,10 @@
 	},
 /area/atmos)
 "nSx" = (
-/obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "nSA" = (
 /obj/structure/table,
@@ -92003,6 +92008,10 @@
 /area/shuttle/escape{
 	parallax_movedir = 2
 	})
+"oGQ" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "oGV" = (
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway East 3";
@@ -129243,10 +129252,9 @@
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
 "xqJ" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "xqW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -130922,7 +130930,6 @@
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -131008,6 +131015,23 @@
 "xJj" = (
 /turf/simulated/wall/r_wall,
 /area/security/customs)
+"xJp" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/entry/lounge)
 "xJv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -165185,9 +165209,9 @@ aoo
 aoo
 aoo
 moG
-gbI
-gbI
-bBC
+moG
+moG
+cbs
 bxp
 ceP
 iOH
@@ -165443,8 +165467,8 @@ bxk
 aoo
 xqJ
 nSx
-gbI
-bVN
+moG
+bvR
 cdp
 aVS
 bWL
@@ -165700,7 +165724,7 @@ bDi
 aoo
 cKz
 bNK
-gbI
+fKu
 bVS
 auo
 che
@@ -165956,10 +165980,10 @@ bsq
 bDi
 aoo
 biq
-nSx
-gbI
-aVS
-cbs
+xqJ
+moG
+bGX
+fKu
 moG
 gbI
 cbs
@@ -166212,9 +166236,9 @@ bxy
 bsq
 qVc
 aoo
-gbI
-gbI
-gbI
+moG
+oGQ
+moG
 bVU
 cbs
 gbI
@@ -169547,7 +169571,7 @@ acC
 cfb
 czi
 aIO
-lZy
+aIl
 lZy
 oBd
 atv
@@ -171604,7 +171628,7 @@ chg
 drK
 bni
 buK
-bAF
+xJp
 anQ
 bAF
 aYP
@@ -172116,8 +172140,8 @@ abj
 acC
 cdk
 dww
-aIl
-sme
+aIO
+bVN
 sme
 oUT
 dSR
@@ -175464,7 +175488,7 @@ aBI
 aNv
 bFH
 nUw
-bBK
+anu
 rcm
 wkk
 cal
