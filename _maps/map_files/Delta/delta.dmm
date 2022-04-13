@@ -3147,7 +3147,7 @@
 	pixel_y = -2
 	},
 /obj/machinery/computer/security{
-	dir = 8
+	network = list("SS13","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -11364,10 +11364,7 @@
 	},
 /area/quartermaster/miningdock)
 "bib" = (
-/obj/structure/closet/secure_closet/personal{
-	anchored = 1
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -84649,6 +84646,16 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/south)
+"mRM" = (
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/decal/warning_stripes/arrow,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "mSc" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -117390,6 +117397,16 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"uIe" = (
+/obj/effect/landmark/start{
+	name = "Shaft Miner"
+	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/decal/warning_stripes/arrow,
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
+	},
+/area/quartermaster/miningdock)
 "uIx" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -177280,7 +177297,7 @@ dJl
 krB
 dXe
 jMn
-qwC
+mRM
 bib
 cqB
 abj
@@ -177537,7 +177554,7 @@ kMn
 dXe
 dXe
 djR
-qjh
+uIe
 bib
 cqB
 abj
