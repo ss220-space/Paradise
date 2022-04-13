@@ -418,8 +418,8 @@
 
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(prob(8))
-		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
-		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
+		var/lovely_phrase = pick("довольн[genderize_ru(M.gender,"ым","ой","ым","ыми")]", "любим[genderize_ru(M.gender,"ым","ой","ым","ыми")]", "славно", "очень хорошо", "довольн[genderize_ru(M.gender,"ым","ой","ым","ыми")] собой, хоть и не всегда всё получается так хорошо, как могло бы быть")
+		to_chat(M, "<span class='notice'>Вы чувствуете себя [lovely_phrase].</span>")
 
 	else if(!M.restrained())
 		for(var/mob/living/carbon/C in orange(1, M))
@@ -427,7 +427,7 @@
 				if(C == M)
 					continue
 				if(!C.stat)
-					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
+					M.visible_message("<span class='notice'>[M] [pick("тепло обнимает","дар[pluralize_ru(M.gender,"ит","ят")] тёплые объятья")] [C].</span>")
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					break
 	return ..()
@@ -437,14 +437,14 @@
 	..()
 
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	to_chat(M, "<span class='notice'>You feel loved!</span>")
+	to_chat(M, "<span class='notice'>Вы чувствуете себя любим[genderize_ru(M.gender,"ым","ой","ым","ыми")]!</span>")
 
 /datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
-	name = "Jestosterone"
+	name = "Шутостерон" // Jestosterone
 	id = "jestosterone"
-	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
+	description = "Шутостерон — странный химикат, вызывающий у обычных людей множество раздражающих побочных эффектов и лёгкое отравление. Токсичен для мимов."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
-	taste_description = "a funny flavour"
+	taste_description = "забавного вкуса"
 
 /datum/reagent/jestosterone/on_new()
 	..()
@@ -453,12 +453,12 @@
 		return
 	if(C.mind)
 		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+			to_chat(C, "<span class='notice'>Что бы это ни было, оно офигенное!</span>")
 		else if(C.mind.assigned_role == "Mime")
-			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			to_chat(C, "<span class='warning'>Вас тошнит.</span>")
 			C.AdjustDizzy(volume)
 		else
-			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			to_chat(C, "<span class='warning'>Что-то не так…</span>")
 			C.AdjustDizzy(volume)
 	ADD_TRAIT(C, TRAIT_JESTER, id)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
@@ -478,17 +478,17 @@
 		if(prob(10))
 			M.EyeBlurry(5)
 		if(prob(6))
-			var/list/clown_message = list("You feel light-headed.",
-			"You can't see straight.",
-			"You feel about as funny as the station clown.",
-			"Bright colours and rainbows cloud your vision.",
-			"Your funny bone aches.",
-			"What was that?!",
-			"You can hear bike horns in the distance.",
-			"You feel like <em>SHOUTING</em>!",
-			"Sinister laughter echoes in your ears.",
-			"Your legs feel like jelly.",
-			"You feel like telling a pun.")
+			var/list/clown_message = list("У вас кружится голова.",
+			"Вам сложно сосредоточиться.",
+			"Вы чувствуете себя забавн[genderize_ru(M?.gender,"ым","ой","ым","ыми")], будто вы — штатный клоун.",
+			"Ваше зрение застилают яркие цвета и радуги.",
+			"У вас смешно ноют кости.",
+			"Что это было?!",
+			"Вы слышите неподалёку звуки гудков.",
+			"Вам хочется <em>ОРАТЬ</em>!",
+			"Зловещий смех эхом отзывается в ваших ушах.",
+			"Ваши ноги будто сделаны из желе.",
+			"Вам хочется отпустить шуточку.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M?.mind.assigned_role == "Mime")
 			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
@@ -501,24 +501,24 @@
 	M.RemoveElement(/datum/element/waddling)
 
 /datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
+	name = "маточное молочко" // royal bee jelly
 	id = "royal_bee_jelly"
-	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
+	description = "Маточное пчелиное молочко. Если его ввести матке космических пчёл, она разделится на две."
 	color = "#00ff80"
 	taste_description = "сладости"
 
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
 	if(prob(2))
-		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
+		M.say(pick("Б-з-з-з…","Б-З-З Б-З-З","Б-з-з-з-з-з-з-з-з-з-з-з…"))
 	return ..()
 
 /datum/reagent/growthserum
-	name = "Growth serum"
+	name = "Сыворотка роста" // Growth serum
 	id = "growthserum"
-	description = "A commercial chemical designed to help older men in the bedroom." //not really it just makes you a giant
+	description = "Коммерческое средство. Помогает пожилым мужчинам в постели." //not really it just makes you a giant
 	color = "#ff0000"//strong red. rgb 255, 0, 0
 	var/current_size = 1
-	taste_description = "enhancement"
+	taste_description = "увеличения"
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size
@@ -544,12 +544,13 @@
 	M.update_transform()
 	..()
 
+// Вообще «Pax» — это латинское, а не английское слово. Не уверен здесь насчёт перевода названия
 /datum/reagent/pax
-	name = "Pax"
+	name = "Мир" // Pax
 	id = "pax"
-	description = "A colorless liquid that suppresses violence in its subjects."
+	description = "Бесцветная жидкость, подавляющая у субъектов тягу к насилию."
 	color = "#AAAAAA55"
-	taste_description = "water"
+	taste_description = "воды"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/pax/on_mob_add(mob/living/M)
@@ -561,30 +562,30 @@
 	..()
 
 /datum/reagent/toxin/coffeepowder
-	name = "Coffee Grounds"
+	name = "Кофейная гуща" // Coffee Grounds
 	id = "coffeepowder"
-	description = "Finely ground Coffee beans, used to make coffee."
+	description = "Кофейные зерна мелкого помола, из которых уже сварили кофе."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	taste_description = "waste"
+	taste_description = "отходов"
 
 /datum/reagent/toxin/teapowder
-	name = "Ground Tea Leaves"
+	name = "Чайная заварка" // Ground Tea Leaves
 	id = "teapowder"
-	description = "Finely shredded Tea leaves, used for making tea."
+	description = "Мелко нарезанные чайные листья, из которых уже заваривали чай."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
-	taste_description = "the future"
+	taste_description = "будущего"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
 /datum/reagent/plantnutriment
-	name = "Generic nutriment"
+	name = "Обычные удобрения" // Generic nutriment
 	id = "plantnutriment"
-	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
+	description = "Какое-то удобрение. Сложно точно сказать — какое. Вы, вероятно, должны сообщить об этом и описать как вы это получили."
 	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
-	taste_description = "puke"
+	taste_description = "рвоты"
 
 /datum/reagent/plantnutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -593,78 +594,79 @@
 	return ..() | update_flags
 
 /datum/reagent/plantnutriment/eznutriment
-	name = "E-Z-Nutrient"
+	name = "Удобрение E-Z" // E-Z-Nutrient
 	id = "eznutriment"
-	description = "Cheap and extremely common type of plant nutriment."
+	description = "Дешевые и чрезвычайно распространенные удобрения."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
-	taste_description = "obscurity and toil"
+	taste_description = "труда и безвестности"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
 	id = "left4zednutriment"
-	description = "Unstable nutriment that makes plants mutate more often than usual."
+	description = "Нестабильное удобрение, из-за которого растения мутируют чаще, чем обычно."
 	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
-	taste_description = "evolution"
+	taste_description = "эволюции"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
-	name = "Robust Harvest"
+	name = "Робастный урожай" // Robust Harvest
 	id = "robustharvestnutriment"
-	description = "Very potent nutriment that prevents plants from mutating."
+	description = "Очень мощное удобрение, предотвращающее мутации растений."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
-	taste_description = "bountifulness"
+	taste_description = "изобилия"
 
 ///Alchemical Reagents
 
 /datum/reagent/eyenewt
-	name = "Eye of newt"
+	name = "Глаз тритона" // Eye of newt
 	id = "eyenewt"
-	description = "A potent alchemic ingredient."
+	description = "Мощный алхимический ингредиент."
 	reagent_state = LIQUID
 	color = "#050519"
+	taste_description = "алхимии"
 
 /datum/reagent/toefrog
-	name = "Toe of frog"
+	name = "Лягушачья лапка" // Toe of frog
 	id = "toefrog"
-	description = "A potent alchemic ingredient."
+	description = "Мощный алхимический ингредиент."
 	reagent_state = LIQUID
 	color = "#092D09"
-	taste_description = "alchemy"
+	taste_description = "алхимии"
 
 /datum/reagent/woolbat
-	name = "Wool of bat"
+	name = "Шерсть летучей мыши" // Wool of bat
 	id = "woolbat"
-	description = "A potent alchemic ingredient."
+	description = "Мощный алхимический ингредиент."
 	reagent_state = LIQUID
 	color = "#080808"
-	taste_description = "alchemy"
+	taste_description = "алхимии"
 
 /datum/reagent/tonguedog
-	name = "Tongue of dog"
+	name = "Собачий язык" // Tongue of dog
 	id = "tonguedog"
-	description = "A potent alchemic ingredient."
+	description = "Мощный алхимический ингредиент."
 	reagent_state = LIQUID
 	color = "#2D0909"
-	taste_description = "alchemy"
+	taste_description = "алхимии"
 
 /datum/reagent/triplepiss
-	name = "Triplepiss"
+	name = "Тройная моча" // Triplepiss
 	id = "triplepiss"
-	description = "Ewwwwwwwww."
+	description = "Фу-у-у-у-у-у-у."
 	reagent_state = LIQUID
 	color = "#857400"
-	taste_description = "alchemy"
+	taste_description = "алхимии"
 
 /datum/reagent/spraytan
-	name = "Spray Tan"
+	name = "Спрей для загара" // Spray Tan
 	id = "spraytan"
-	description = "A substance applied to the skin to darken the skin."
+	description = "Вещество, используемое для потемнения кожи."
 	color = "#FFC080" // rgb: 255, 196, 128  Bright orange
 	metabolization_rate = 10 * REAGENTS_METABOLISM // very fast, so it can be applied rapidly.  But this changes on an overdose
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
-	taste_description = "sour oranges"
+	taste_description = "кислых апельсинов"
 
 /datum/reagent/spraytan/reaction_mob(mob/living/M, method=REAGENT_TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M))
@@ -674,7 +676,7 @@
 
 		if(method == REAGENT_INGEST)
 			if(show_message)
-				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+				to_chat(M, "<span class='notice'>На вкус совершенно ужасно.</span>")
 	..()
 
 /datum/reagent/spraytan/overdose_process(mob/living/M)
