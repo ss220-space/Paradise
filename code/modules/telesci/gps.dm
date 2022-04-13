@@ -169,9 +169,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/syndiecyborg
 	icon_state = "gps-b"
+	local = TRUE
 	gpstag = "SBORG0"
 	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
-	local = TRUE
 	flags = NODROP
 
 /obj/item/gps/internal
