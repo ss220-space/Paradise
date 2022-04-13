@@ -54,6 +54,8 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
+	/// The location our runechat message should appear. Should be src by default.
+	var/atom/runechat_msg_location
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -1036,3 +1038,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	. = density
 	density = new_value
+
+/**
+ * Updates the atom's runechat maptext display location.
+ */
+/atom/proc/update_runechat_msg_location()
+	return
