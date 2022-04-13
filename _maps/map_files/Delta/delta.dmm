@@ -102,7 +102,6 @@
 "aar" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
-/obj/item/target/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -4714,7 +4713,7 @@
 /area/hallway/secondary/entry/additional)
 "aym" = (
 /obj/effect/landmark/start{
-	name = "janitor"
+	name = "Janitor"
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -4840,7 +4839,7 @@
 /area/janitor)
 "azk" = (
 /obj/effect/landmark/start{
-	name = "janitor"
+	name = "Janitor"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5640,7 +5639,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
@@ -5658,6 +5657,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/computer/supplycomp{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aDN" = (
@@ -6281,9 +6283,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/transport)
 "aGE" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
@@ -7359,7 +7358,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
@@ -8035,10 +8034,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"aPc" = (
-/obj/item/mounted/frame/newscaster_frame,
-/turf/simulated/floor/plating,
-/area/maintenance/bar)
 "aPd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9401,7 +9396,7 @@
 /area/quartermaster/qm)
 "aWB" = (
 /obj/effect/landmark/start{
-	name = "mechanic"
+	name = "Mechanic"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop)
@@ -13286,7 +13281,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -15792,8 +15787,7 @@
 	dir = 8;
 	id = "garbage"
 	},
-/obj/structure/plasticflaps,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -16043,6 +16037,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics/abandoned_garden)
 "bDh" = (
+/obj/item/target/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -24431,9 +24426,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -25049,7 +25041,7 @@
 /area/engine/engineering)
 "cqT" = (
 /obj/effect/landmark/start{
-	name = "janitor"
+	name = "Janitor"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -33783,9 +33775,6 @@
 /area/hallway/primary/fore)
 "cXU" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -39015,13 +39004,6 @@
 	},
 /area/medical/medbay2)
 "dqv" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/window{
-	dir = 2
-	},
 /obj/machinery/conveyor/northeast/ccw{
 	id = "cargodelivery"
 	},
@@ -62774,6 +62756,7 @@
 /area/crew_quarters/serviceyard)
 "huC" = (
 /obj/structure/chair/stool,
+/obj/item/mounted/frame/newscaster_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -66809,7 +66792,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -66977,6 +66960,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -75103,6 +75090,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "kzc" = (
@@ -75930,6 +75918,13 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "kKi" = (
@@ -78848,7 +78843,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -86464,7 +86459,7 @@
 /obj/structure/chair/sofa,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -91037,10 +91032,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"oui" = (
-/obj/effect/spawner/random_barrier,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "oum" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -92145,7 +92136,7 @@
 "oIk" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -102277,10 +102268,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
-"qZe" = (
-/obj/effect/spawner/random_barrier,
-/turf/simulated/floor/plating,
-/area/maintenance/bar)
 "qZm" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -113862,7 +113849,7 @@
 "tPj" = (
 /obj/structure/chair/sofa,
 /obj/effect/landmark/start{
-	name = "assistant"
+	name = "Civilian"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -166724,7 +166711,7 @@ bsq
 aOY
 cbs
 cbs
-oui
+cbs
 cbs
 cbs
 aVS
@@ -175460,7 +175447,7 @@ aBI
 aNv
 bFH
 nUw
-qZe
+bBK
 rcm
 wkk
 cal
@@ -175717,7 +175704,7 @@ aBI
 rRs
 bBK
 ljv
-aPc
+bBK
 aPJ
 sjs
 caK
@@ -189584,7 +189571,7 @@ acK
 aat
 aat
 acE
-skw
+aaa
 aaa
 aaa
 aaa
@@ -189841,7 +189828,7 @@ abr
 lRC
 afi
 afZ
-skw
+aaa
 aaa
 aaa
 aaa
@@ -190098,7 +190085,7 @@ abr
 ndK
 afi
 afZ
-skw
+aaa
 aaa
 aaa
 aaa
@@ -190355,7 +190342,7 @@ abr
 ofJ
 aaf
 acg
-skw
+aaa
 aaa
 aaa
 aaa
@@ -190611,8 +190598,8 @@ adS
 aec
 qTG
 aaf
-skw
-skw
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -190868,7 +190855,7 @@ adT
 aef
 aes
 aaf
-skw
+aaa
 aaa
 aaa
 aaa
@@ -192924,7 +192911,7 @@ adW
 abr
 run
 aaf
-skw
+aaa
 aaa
 aaa
 aaa
@@ -193181,8 +193168,8 @@ adX
 abr
 abr
 aaf
-skw
-skw
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -193439,7 +193426,7 @@ aem
 vlh
 aaf
 acE
-skw
+aaa
 aaa
 aaa
 aaa
@@ -193696,7 +193683,7 @@ abr
 aec
 afi
 afZ
-skw
+aaa
 aaa
 aaa
 aaa
@@ -193953,7 +193940,7 @@ abr
 lRC
 afX
 afZ
-skw
+aaa
 aaa
 aaa
 aaa
@@ -194210,7 +194197,7 @@ adr
 aat
 aat
 acg
-skw
+aaa
 aaa
 aaa
 aaa
