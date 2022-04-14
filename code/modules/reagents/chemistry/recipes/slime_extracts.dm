@@ -43,7 +43,7 @@
 
 //Green
 /datum/chemical_reaction/slimemutate
-	name = "Mutation Toxin"
+	name = "Мутационный токсин"
 	id = "mutationtoxin"
 	result = "mutationtoxin"
 	required_reagents = list("plasma_dust" = 1)
@@ -468,7 +468,7 @@
 
 //Black
 /datum/chemical_reaction/slimemutate2
-	name = "Advanced Mutation Toxin"
+	name = "Улучшенный мутационный токсин" // Advanced Mutation Toxin
 	id = "mutationtoxin2"
 	result = "amutationtoxin"
 	required_reagents = list("plasma_dust" = 1)
