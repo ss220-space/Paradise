@@ -225,7 +225,7 @@
 	taste_description = "надёжной стабильности"
 
 /datum/reagent/clf3
-	name = "Трифторид хлора" // Chlorine Trifluoride
+	name = "Трёхфтористый хлор" // Chlorine Trifluoride
 	id = "clf3"
 	description = "Чрезвычайно летучее вещество, обращаться с особой осторожностью."
 	reagent_state = LIQUID
