@@ -311,7 +311,7 @@
 	taste_description = "долгого, болезненного горения"
 
 /datum/reagent/consumable/ethanol/threemileisland
-	name = "Шорт айленд айс ти" // THree Mile Island Iced Tea
+	name = "Three Mile Island Iced Tea" // THree Mile Island Iced Tea
 	id = "threemileisland"
 	description = "Сделан для женщин, крепок как мужчина."
 	reagent_state = LIQUID
@@ -584,14 +584,14 @@
 	taste_description = "prohibition"
 
 /datum/reagent/consumable/ethanol/b52
-	name = "B-52"
+	name = "Б-52" // B-52
 	id = "b52"
 	description = "Кофе, ирландские сливки и коньяк. Вас разбомбит."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "b52glass"
-	drink_name = "B-52"
+	drink_name = "Б-52" // B-52
 	drink_desc = "Калуа, ирландские сливки и коньяк. Вас разбомбит."
 	taste_description = "разрушения"
 
@@ -687,7 +687,7 @@
 // Непереводимая игра слов с названием вина «Barefoot» и отсылкой к американской пословице о месте женщины «Barefoot and pregnant»
 // Поменял на отсылку к Мойдодыру. Так хотя бы смысл отсылки к вину «Barefoot» останется и будет связь с русскоязычной поговоркой, хоть и совсем иной.
 /datum/reagent/consumable/ethanol/barefoot
-	name = "Босоногий"
+	name = "Босоногий" // Barefoot
 	id = "barefoot"
 	description = "Босоногий и хромой"
 	reagent_state = LIQUID
@@ -1031,7 +1031,7 @@
 	taste_description = "разочарования"
 
 /datum/reagent/consumable/ethanol/driestmartini
-	name = "Сухой Мартини" // Driest Martini
+	name = "Сухой мартини" // Driest Martini
 	id = "driestmartini"
 	description = "Только для опытных. Кажется, в стакане плавает песок."
 	nutriment_factor = 1 * REAGENTS_METABOLISM
