@@ -15244,7 +15244,9 @@
 /area/medical/virology/lab)
 "bAl" = (
 /obj/machinery/vending/sustenance{
-	desc = "Какого чёрта эти автоматы здесь оказались?!"
+	contraband = list(/obj/item/kitchen/knife = 2);
+	desc = "Какого этот автомат тут оказался?!";
+	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12, /obj/item/reagent_containers/food/drinks/ice = 6, /obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69659,9 +69661,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 25
 	},
-/obj/machinery/vending/sustenance{
-	desc = "Какого чёрта эти автоматы здесь оказались?!"
-	},
+/obj/machinery/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -178272,7 +178272,7 @@ aaa
 aaa
 aaa
 aaa
-aae
+aaa
 aaa
 aaa
 aaa
