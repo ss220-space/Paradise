@@ -9805,7 +9805,7 @@
 	dir = 10;
 	icon_state = "neutral"
 	},
-/area/hallway/secondary/entry/lounge)
+/area/hallway/secondary/entry)
 "aYZ" = (
 /turf/simulated/wall,
 /area/crew_quarters/kitchen)
@@ -11352,9 +11352,7 @@
 	c_tag = "Mining Port";
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/personal{
-	anchored = 1
-	},
+/obj/structure/closet/wardrobe/miner,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/vending/wallmed{
 	pixel_y = -30
@@ -11365,13 +11363,6 @@
 /area/quartermaster/miningdock)
 "bib" = (
 /obj/structure/closet/secure_closet/miner,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/miningdock)
-"bid" = (
-/obj/structure/closet/wardrobe/miner,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12155,9 +12146,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -29
 	},
-/obj/structure/closet/secure_closet/personal{
-	anchored = 1
-	},
+/obj/structure/closet/secure_closet/miner,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -13802,7 +13791,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/hallway/secondary/entry/lounge)
+/area/hallway/secondary/entry)
 "buJ" = (
 /obj/structure/table/reinforced,
 /obj/item/mmi,
@@ -15254,7 +15243,9 @@
 	},
 /area/medical/virology/lab)
 "bAl" = (
-/obj/machinery/vending/artvend,
+/obj/machinery/vending/sustenance{
+	desc = "Какого чёрта эти автоматы здесь оказались?!"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -25807,8 +25798,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -25824,6 +25813,7 @@
 /area/quartermaster/storage)
 "cuz" = (
 /obj/structure/table/reinforced,
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -28000,9 +27990,8 @@
 	},
 /area/construction/hallway)
 "cCE" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plating,
-/area/space)
+/turf/simulated/wall/rust,
+/area/space/nearstation)
 "cCF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -45344,11 +45333,14 @@
 	},
 /area/bridge/vip)
 "dPS" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
+/obj/machinery/light{
+	dir = 4
 	},
-/area/hallway/secondary/entry)
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/entry/lounge)
 "dPT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -45548,14 +45540,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dQP" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
-	icon_state = "arrival"
+	icon_state = "neutralfull"
 	},
-/area/hallway/secondary/entry)
+/area/quartermaster/miningdock)
 "dQQ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -57076,7 +57065,7 @@
 	dir = 6;
 	icon_state = "neutral"
 	},
-/area/hallway/secondary/entry/lounge)
+/area/hallway/secondary/entry)
 "gdw" = (
 /obj/machinery/light{
 	dir = 1;
@@ -57104,17 +57093,16 @@
 	},
 /area/maintenance/electrical)
 "gdQ" = (
-/obj/machinery/ai_status_display{
-	pixel_y = -32
+/obj/structure/closet/secure_closet/miner,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/secure_closet/cargotech,
-/obj/item/stamp/granted,
-/obj/item/stamp/denied,
 /turf/simulated/floor/plasteel{
-	icon_state = "brown"
+	icon_state = "neutralfull"
 	},
-/area/quartermaster/storage)
+/area/quartermaster/miningdock)
 "gdV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -59782,8 +59770,13 @@
 	},
 /area/security/permabrig)
 "gKd" = (
-/turf/simulated/floor/plating,
-/area/space)
+/obj/structure/table,
+/obj/item/storage/toolbox/emergency/old,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/space/nearstation)
 "gKm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -60009,8 +60002,11 @@
 	},
 /area/hallway/primary/central/west)
 "gMv" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
 /area/space/nearstation)
 "gMw" = (
 /obj/effect/landmark{
@@ -69663,9 +69659,8 @@
 /obj/machinery/firealarm{
 	pixel_y = 25
 	},
-/obj/machinery/vending/cart{
-	pixel_x = -1;
-	pixel_y = 1
+/obj/machinery/vending/sustenance{
+	desc = "Какого чёрта эти автоматы здесь оказались?!"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -72592,12 +72587,9 @@
 	},
 /area/bridge/vip)
 "jPC" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/space)
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "jPK" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -72781,9 +72773,11 @@
 	},
 /area/medical/virology)
 "jSk" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
-/area/space)
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/space/nearstation)
 "jSs" = (
 /obj/machinery/camera{
 	c_tag = "Teleporter";
@@ -75711,8 +75705,8 @@
 	},
 /area/crew_quarters/kitchen)
 "kGY" = (
-/obj/structure/lattice,
-/turf/simulated/wall/rust,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
 /area/space/nearstation)
 "kHa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -79470,17 +79464,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "lJF" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency{
-	pixel_x = 3;
-	pixel_y = -4
-	},
-/obj/item/storage/toolbox/emergency,
-/obj/item/shovel,
-/obj/item/shovel,
-/obj/item/pickaxe,
-/obj/item/pickaxe,
 /obj/machinery/light,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -83163,15 +83148,6 @@
 "mAF" = (
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
-"mAH" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/hallway/secondary/entry/lounge)
 "mAN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -98707,11 +98683,9 @@
 	},
 /area/security/brig)
 "qgX" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/space)
+/obj/structure/lattice,
+/turf/simulated/wall/rust,
+/area/space/nearstation)
 "qgZ" = (
 /obj/machinery/light/small,
 /obj/structure/sign/poster/contraband/communist_state{
@@ -104552,9 +104526,7 @@
 	},
 /area/medical/virology)
 "rzA" = (
-/obj/structure/lattice,
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/space/nearstation)
 "rzM" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -111885,9 +111857,6 @@
 	icon_state = "swall_f9"
 	},
 /area/shuttle/siberia)
-"tpV" = (
-/turf/simulated/wall/rust,
-/area/space/nearstation)
 "tqc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -116003,14 +115972,6 @@
 	icon_state = "diagonalWall3"
 	},
 /area/shuttle/syndicate_sit)
-"uqh" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/emergency/old,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkredfull"
-	},
-/area/space)
 "uqq" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/alarm{
@@ -170356,7 +170317,7 @@ aaa
 acC
 bhN
 dfr
-dPS
+dQb
 bOS
 bOR
 byE
@@ -171384,7 +171345,7 @@ aaa
 acC
 bhN
 dfU
-dQP
+dQu
 aPt
 bOR
 aMz
@@ -171906,8 +171867,8 @@ bKc
 bKc
 bKc
 bKc
-mAH
-bEO
+bKc
+dPS
 bZN
 bEO
 chC
@@ -175787,7 +175748,7 @@ eZs
 eZs
 eZs
 aUT
-gdQ
+aWr
 cqB
 cqB
 dXb
@@ -176559,7 +176520,7 @@ cSf
 fbH
 cSf
 aWt
-cqB
+dCQ
 hec
 kMn
 bYB
@@ -177073,8 +177034,8 @@ aZt
 fbO
 duq
 dzs
-aXV
-bSH
+dDb
+gdQ
 tXJ
 dXe
 bed
@@ -177594,7 +177555,7 @@ dXe
 dXe
 djR
 uIe
-bib
+dQP
 cqB
 abj
 btL
@@ -177851,7 +177812,7 @@ bea
 vvZ
 bea
 hWl
-bid
+lJF
 cqB
 abj
 btL
@@ -178101,7 +178062,7 @@ dmI
 bId
 bLH
 gkw
-dDb
+aXV
 hgZ
 bVq
 dNw
@@ -180902,11 +180863,11 @@ abj
 abj
 aaa
 abj
-aaa
-aaa
-bqc
-bqc
-bqc
+abj
+bvh
+bvh
+abj
+abj
 aaa
 aaa
 aaa
@@ -185531,8 +185492,8 @@ aaa
 aaa
 aaa
 aaa
-abj
-abj
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -185785,11 +185746,11 @@ aaa
 aaa
 aaa
 aaa
-abj
-abj
-gMv
-rzA
-kGY
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -186042,12 +186003,12 @@ aaa
 aaa
 aaa
 aaa
-abj
-gMv
-jPC
-jSk
-gKd
-abj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -186298,13 +186259,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-gMv
-uqh
-jSk
-qgX
-gMv
 abj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -186551,17 +186512,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-tpV
-tpV
+abj
+abj
 cCE
-gMv
-tpV
+abj
+qgX
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -186808,18 +186769,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-gMv
-coE
-gMv
 abj
+cCE
+gMv
+jPC
+rzA
+abj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -187065,18 +187026,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cCE
+gKd
+jPC
+jSk
+cCE
 abj
-abj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -187323,11 +187284,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cCE
+cCE
+kGY
+cCE
+cCE
 aaa
 aaa
 aaa
@@ -187582,10 +187543,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+cCE
+coE
+cCE
+abj
 aaa
 aaa
 aaa
@@ -187841,8 +187802,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+abj
+abj
 aaa
 aaa
 aaa
