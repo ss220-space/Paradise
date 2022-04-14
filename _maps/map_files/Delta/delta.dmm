@@ -3953,8 +3953,9 @@
 /area/bridge/checkpoint/north)
 "atF" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/space)
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "atL" = (
 /obj/structure/chair{
 	dir = 8
@@ -176206,8 +176207,8 @@ aaa
 aaa
 abj
 abj
-aaa
-aaa
+abj
+abj
 vsN
 asH
 rqF
