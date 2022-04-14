@@ -16921,10 +16921,6 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/storage/tech)
-"bGX" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fpmaint)
 "bGY" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -18087,7 +18083,11 @@
 	},
 /area/hallway/primary/central/ne)
 "bNd" = (
-/obj/structure/bookcase/random,
+/obj/structure/bookcase,
+/obj/item/book/random,
+/obj/item/book/random,
+/obj/item/book/random,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bNk" = (
@@ -39796,6 +39796,13 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/starboard)
+"dtE" = (
+/obj/structure/bookcase,
+/obj/item/book/random,
+/obj/item/book/random,
+/obj/item/book/random,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "dtF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -55039,6 +55046,10 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
+"fFl" = (
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "fFm" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -55433,10 +55444,6 @@
 	icon_state = "caution"
 	},
 /area/atmos)
-"fKu" = (
-/obj/effect/spawner/random_barrier/obstruction,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "fKE" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -70891,6 +70898,10 @@
 	tag = "icon-cult"
 	},
 /area/lawoffice)
+"juy" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "juR" = (
 /obj/structure/table/wood,
 /obj/item/storage/bible,
@@ -91094,6 +91105,23 @@
 /obj/machinery/shieldgen,
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
+"ovx" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/entry/lounge)
 "ovJ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -92008,10 +92036,6 @@
 /area/shuttle/escape{
 	parallax_movedir = 2
 	})
-"oGQ" = (
-/obj/structure/falsewall,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "oGV" = (
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway East 3";
@@ -108983,6 +109007,10 @@
 /area/medical/research{
 	name = "Research Division"
 	})
+"sDI" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "sDU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -124529,6 +124557,10 @@
 	icon_state = "vault"
 	},
 /area/security/warden)
+"woa" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/maintenance/fpmaint)
 "wob" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -131015,23 +131047,6 @@
 "xJj" = (
 /turf/simulated/wall/r_wall,
 /area/security/customs)
-"xJp" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/hallway/secondary/entry/lounge)
 "xJv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -164952,7 +164967,7 @@ uGH
 aar
 bhM
 moG
-bNd
+dtE
 cbs
 aVS
 amh
@@ -165724,7 +165739,7 @@ bDi
 aoo
 cKz
 bNK
-fKu
+fFl
 bVS
 auo
 che
@@ -165982,8 +165997,8 @@ aoo
 biq
 xqJ
 moG
-bGX
-fKu
+woa
+sDI
 moG
 gbI
 cbs
@@ -166237,7 +166252,7 @@ bsq
 qVc
 aoo
 moG
-oGQ
+juy
 moG
 bVU
 cbs
@@ -171628,7 +171643,7 @@ chg
 drK
 bni
 buK
-xJp
+ovx
 anQ
 bAF
 aYP
