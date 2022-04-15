@@ -2,8 +2,8 @@
 /// Pills.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/food/pill
-	name = "pill"
-	desc = "a pill."
+	name = "таблетка"
+	desc = "какая-то таблетка."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
 	item_state = "pill"
@@ -52,53 +52,54 @@
 
 //Pills
 /obj/item/reagent_containers/food/pill/tox
-	name = "Toxins pill"
-	desc = "Highly toxic."
+	name = "Таблетка с токсинами"
+	desc = "Очень токсичная."
 	icon_state = "pill21"
 	list_reagents = list("toxin" = 50)
 
 /obj/item/reagent_containers/food/pill/initropidril
-	name = "initropidril pill"
-	desc = "Don't swallow this."
+	name = "Таблетка инитропидрила"
+	desc = "Не глотать."
 	icon_state = "pill21"
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/reagent_containers/food/pill/fakedeath
-	name = "fake death pill"
-	desc = "Swallow then rest to appear dead, stand up to wake up. Also mutes the user's voice."
+	name = "Таблетка ложной смерти"
+	desc = "Проглотите, затем прилягте, чтобы прикинуться мёртвым. Встаньте, чтобы прекратить. Немота прилагается."
 	icon_state = "pill4"
 	list_reagents = list("capulettium_plus" = 50)
 
 /obj/item/reagent_containers/food/pill/adminordrazine
-	name = "Adminordrazine pill"
-	desc = "It's magic. We don't have to explain it."
+	name = "Таблетка админодразина"
+	desc = "Это магия. Мы не собираемся это объяснять."
 	icon_state = "pill16"
 	list_reagents = list("adminordrazine" = 50)
 
 /obj/item/reagent_containers/food/pill/morphine
-	name = "Morphine pill"
-	desc = "Commonly used to treat insomnia."
+	name = "Таблетка морфина"
+	desc = "Обычно используется для лечения бессонницы."
 	icon_state = "pill8"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/reagent_containers/food/pill/methamphetamine
-	name = "Methamphetamine pill"
-	desc = "Helps improve the ability to concentrate."
+	name = "Таблетка метамфетамина"
+	desc = "Улучшает концентрацию."
 	icon_state = "pill8"
 	list_reagents = list("methamphetamine" = 5)
 
 /obj/item/reagent_containers/food/pill/haloperidol
-	name = "Haloperidol pill"
+	name = "Таблетка галоперидола"
 	desc = "Haloperidol is an anti-psychotic use to treat psychiatric problems."
 	icon_state = "pill8"
 	list_reagents = list("haloperidol" = 15)
 
 /obj/item/reagent_containers/food/pill/happy
-	name = "Happy pill"
+	name = "Таблетка счастья"
 	desc = "Happy happy joy joy!"
 	icon_state = "pill18"
 	list_reagents = list("space_drugs" = 15, "sugar" = 15)
 
+// TODO: l10n
 /obj/item/reagent_containers/food/pill/zoom
 	name = "Zoom pill"
 	desc = "Zoooom!"
@@ -106,49 +107,49 @@
 	list_reagents = list("synaptizine" = 5, "methamphetamine" = 5)
 
 /obj/item/reagent_containers/food/pill/charcoal
-	name = "Charcoal pill"
-	desc = "Neutralizes many common toxins."
+	name = "Таблетка активированного угля"
+	desc = "Нейтрализует большинство распространённых токсинов."
 	icon_state = "pill17"
 	list_reagents = list("charcoal" = 50)
 
 /obj/item/reagent_containers/food/pill/epinephrine
-	name = "Epinephrine pill"
+	name = "Таблетка эпинефрина"
 	desc = "Used to provide shots of adrenaline."
 	icon_state = "pill6"
 	list_reagents = list("epinephrine" = 50)
 
 /obj/item/reagent_containers/food/pill/salicylic
-	name = "Salicylic Acid pill"
+	name = "Таблетка салициловой кислота"
 	desc = "Commonly used to treat moderate pain and fevers."
 	icon_state = "pill4"
 	list_reagents = list("sal_acid" = 20)
 
 /obj/item/reagent_containers/food/pill/salbutamol
-	name = "Salbutamol pill"
+	name = "Таблетка сальбутамола"
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
 	list_reagents = list("salbutamol" = 20)
 
 /obj/item/reagent_containers/food/pill/hydrocodone
-	name = "Hydrocodone pill"
+	name = "Таблетка гидрокодона"
 	desc = "Used to treat extreme pain."
 	icon_state = "pill6"
 	list_reagents = list("hydrocodone" = 15)
 
 /obj/item/reagent_containers/food/pill/calomel
-	name = "calomel pill"
+	name = "Таблетка каломели"
 	desc = "Can be used to purge impurities, but is highly toxic itself."
 	icon_state = "pill3"
 	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/food/pill/mutadone
-	name = "mutadone pill"
+	name = "Таблетка мутадона"
 	desc = "Used to cure genetic abnormalities."
 	icon_state = "pill18"
 	list_reagents = list("mutadone" = 20)
 
 /obj/item/reagent_containers/food/pill/mannitol
-	name = "mannitol pill"
+	name = "Таблетка маннитола"
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
 	list_reagents = list("mannitol" = 20)
