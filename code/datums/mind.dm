@@ -253,21 +253,21 @@
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
-	. = _memory_edit_header("Вампир", list("traitorvamp"))
+	. = _memory_edit_header("vampire", list("traitorvamp"))
 	if(src in SSticker.mode.vampires)
-		. += "<b><font color='red'>ВАМПИР</font></b> | <a href='?src=[UID()];vampire=clear'>нет</a>"
+		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		if(objectives.len==0)
-			. += "<br>Заданий нет! <a href='?src=[UID()];vampire=autoobjectives'>Выдать случайные задания!</a>"
+			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='?src=[UID()];vampire=vampire'>ВАМПИР</a> | <b>НЕТ</b>"
+		. += "<a href='?src=[UID()];vampire=vampire'>vampire</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
-	. += "<br><b><i>Раб вампира</i></b>: "
+	. += "<br><b><i>enthralled</i></b>: "
 	if(src in SSticker.mode.vampire_enthralled)
-		. += "<b><font color='red'>[genderize_ru(H.gender, "РАБ", "РАБА", "РАБ", "РАБЫ")]</font></b> | <a href='?src=[UID()];vampthrall=clear'>нет</a>"
+		. += "<b><font color='red'>THRALL</font></b>|<a href='?src=[UID()];vampthrall=clear'>no</a>"
 	else
-		. += "[genderize_ru(H.gender, "раб", "раба", "раб", "рабы")] | <b>НЕТ</b>"
+		. += "thrall|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
