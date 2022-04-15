@@ -1,6 +1,6 @@
 /obj/item/reagent_containers
-	name = "Container"
-	desc = "..."
+	name = "Контейнер"
+	desc = "…"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
 	w_class = WEIGHT_CLASS_TINY
@@ -15,7 +15,7 @@
 	var/temperature_max = 10000
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
-	set name = "Set transfer amount"
+	set name = "Задать количество выводимой жидкости"
 	set category = "Object"
 	set src in range(0)
 
@@ -24,7 +24,7 @@
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
-	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	var/N = input("Выводить жидкость порциями по: ", "[src]", default) as null|anything in possible_transfer_amounts
 	if(N)
 		amount_per_transfer_from_this = N
 
@@ -64,10 +64,10 @@
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)
 		if(is_open_container())
-			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+			to_chat(usr, "<span class='notice'>Вы закрываете [src] крышкой.</span>")
 			add_lid()
 		else
-			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+			to_chat(usr, "<span class='notice'>Вы снимаете крышку с [src].</span>")
 			remove_lid()
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
@@ -77,10 +77,11 @@
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)
+			// TODO: l10n
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
+			to_chat(user, "<span class='notice'>Вы наполняете [src] из [source].</span>")
 			return
 	..()
