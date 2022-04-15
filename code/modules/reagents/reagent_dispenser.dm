@@ -1,6 +1,6 @@
 /obj/structure/reagent_dispensers
-	name = "Dispenser"
-	desc = "..."
+	name = "Раздатчик" // Dispenser
+	desc = "…"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
 	density = 1
@@ -36,7 +36,7 @@
 				reagents.temperature_reagents(exposed_temperature)
 
 /obj/structure/reagent_dispensers/proc/boom()
-	visible_message("<span class='danger'>[src] ruptures!</span>")
+	visible_message("<span class='danger'>[src] лопается!</span>")
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
@@ -49,26 +49,26 @@
 
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
-	name = "water tank"
-	desc = "A water tank."
+	name = "водяной бак" // water tank
+	desc = "Это бак с водой."
 	icon_state = "water"
 
 /obj/structure/reagent_dispensers/watertank/high
-	name = "high-capacity water tank"
+	name = "Очень вместительная водяной бак"
 	desc = "A highly-pressurized water tank made to hold gargantuan amounts of water.."
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
 
 
 /obj/structure/reagent_dispensers/oil
-	name = "oil tank"
+	name = "масляный бак" // oil tank
 	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
 	icon_state = "oil"
 	reagent_id = "oil"
 	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
-	name = "fuel tank"
+	name = "топливный бак" // fuel tank
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
 	reagent_id = "fuel"
@@ -222,7 +222,7 @@
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "There are [paper_cups ? paper_cups : "no"] paper cups left."
+		. += paper_cups ? declension_ru(paper_cups,"Остался [paper_cups] бумажный стаканчик.","Осталось [paper_cups] бумажных стаканчика.","Осталось [paper_cups] бумажных стаканчиков.") : "Бумажных стаканчиков не осталось."
 
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/living/user)
 	if(!paper_cups)
@@ -240,7 +240,7 @@
 	default_unfasten_wrench(user, I, 40)
 
 /obj/structure/reagent_dispensers/beerkeg
-	name = "beer keg"
+	name = "пивная кега" // beer keg
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
 	reagent_id = "beer"
