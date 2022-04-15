@@ -293,7 +293,7 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user] куса[pluralize_ru(user.gender,"ет","ют")] [target] в шею!</span>", "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
+		user.visible_message("<span class='warning'>[user] кусает [target] в шею!</span>", "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
 		to_chat(target, "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
 		if(!ishuman(target))
 			to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов.</span>")
