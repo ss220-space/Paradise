@@ -1,6 +1,6 @@
 /obj/item/reagent_containers/spray
-	name = "spray bottle"
-	desc = "A spray bottle, with an unscrewable top."
+	name = "пульверизатор"
+	desc = "пульверизатор, с несъёмным разбрызгивателем."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
@@ -27,19 +27,19 @@
 
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
 		if(!A.reagents.total_volume && A.reagents)
-			to_chat(user, "<span class='notice'>[A] is empty.</span>")
+			to_chat(user, "<span class='notice'>[A] пуст.</span>")
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
+			to_chat(user, "<span class='notice'>[src] полон.</span>")
 			return
 
 		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [A].</span>")
+		to_chat(user, "<span class='notice'>Вы вливаете в [src] [trans] единиц[declension_ru(trans,"у","ы","")] содержимого из [A].</span>")
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, "<span class='notice'>[src] пуст!</span>")
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
@@ -85,30 +85,31 @@
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, "<span class='notice'>Вы [amount_per_transfer_from_this == 10 ? "снимаете" : "поправляете"] сопло. Теперь будет выбрызгиваться по [amount_per_transfer_from_this] единиц.</span>")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) && user == loc)
-		. += "[round(reagents.total_volume)] units left."
+		var/units_left = round(reagents.total_volume)
+		. += "остал[declension_ru(units_left,"а","о","о")]сь [units_left] единиц[declension_ru(units_left,"а","ы","")]."
 
 /obj/item/reagent_containers/spray/verb/empty()
 
-	set name = "Empty Spray Bottle"
+	set name = "Опорожнить пульверизатор" // Empty Spray Bottle
 	set category = "Object"
 	set src in usr
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(usr, "Вы уверены, что хотите его опорожнить?", "Опорожнить бутылку:", "Да", "Нет") != "Да")
 		return
 	if(isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
+		to_chat(usr, "<span class='notice'>Вы выливаете содержимое [src] на пол.</span>")
 		reagents.reaction(usr.loc)
 		reagents.clear_reagents()
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
-	name = "space cleaner"
+	name = "Космический очиститель" // space cleaner
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
 
