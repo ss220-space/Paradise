@@ -174,6 +174,18 @@
 
 /datum/dna/gene/disability/speech/swedish/OnSay(mob/M, message)
 	// svedish
+	message = replacetextEx(message,"W","V")
+	message = replacetextEx(message,"w","v")
+	message = replacetextEx(message,"J","Y")
+	message = replacetextEx(message,"j","y")
+	message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
+	message = replacetextEx(message,"a",pick("å","ä","æ","a"))
+	message = replacetextEx(message,"BO","BJO")
+	message = replacetextEx(message,"Bo","Bjo")
+	message = replacetextEx(message,"bo","bjo")
+	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
+	message = replacetextEx(message,"o",pick("ö","ø","o"))
+
 	message = replacetextEx_char(message,"А",pick("Å","Ä","А"))
 	message = replacetextEx_char(message,"а",pick("å","ä","а"))
 
@@ -196,7 +208,7 @@
 	message = replacetextEx_char(message,"оо","ꝏ")
 
 	if(prob(30) && !M.is_muzzled())
-		message += " Борк[pick("",", борк",", борк, борк")]!"
+		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 
 // WAS: /datum/bioEffect/unintelligable
