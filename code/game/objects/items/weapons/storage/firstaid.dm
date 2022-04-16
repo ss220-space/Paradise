@@ -228,7 +228,7 @@
 	if(empty)
 		return
 	new /obj/item/reagent_containers/hypospray/combat(src)
-	new /obj/item/healthanalyzer/advanced(src)(src)
+	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/reagent_containers/applicator/dual/syndi(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 
