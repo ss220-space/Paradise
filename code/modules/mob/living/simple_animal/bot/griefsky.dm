@@ -287,9 +287,8 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/proc/check_for_mug(var/obj/item/slot_item)
 	if(slot_item && istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
-
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/look_for_perp()
 	anchored = 0

@@ -639,11 +639,13 @@
 		matter -= amount
 		SStgui.update_uis(src)
 		return TRUE
-	else if(!isrobot(user))
-		return FALSE
-	else
-		var/mob/living/silicon/robot/R = user
-		return R.cell.use(amount * power_use_multiplier)
+
+	if(!isrobot(user))
+   		return FALSE
+
+	var/mob/living/silicon/robot/R = user
+	return R.cell.use(amount * power_use_multiplier)
+
 /**
  * Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.
  *
@@ -653,11 +655,12 @@
 /obj/item/rcd/proc/checkResource(amount, mob/user)
 	if(!borg_rcd)
 		return matter >= amount
-	else if(!isrobot(user))
+
+	if(!isrobot(user))
 		return FALSE
-	else
-		var/mob/living/silicon/robot/R = user
-		return R.cell.charge >= (amount * power_use_multiplier)
+
+	var/mob/living/silicon/robot/R = user
+	return R.cell.charge >= (amount * power_use_multiplier)
 
 /obj/item/rcd/borg
 	canRwall = TRUE

@@ -165,11 +165,11 @@
 				last_used = world.time
 				if(M.weakeyes)
 					M.Stun(2)
-					M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
+					M.visible_message("<span class='disarm'>[M] моргает, тем самым защищая свои глаза!!</span>", "<span class='userdanger'>Вы моргнули и защитили свои глаза!</span>")
 			else
-				visible_message("<span class='disarm'>[user] fails to erase [M] memory with the memorizer!</span>")
-				to_chat(user, "<span class='warning'>You fail to erase [M] memory with the memorizer!</span>")
-				to_chat(M, "<span class='danger'>[user] fails to erase your memory with the memorizer!</span>")
+				visible_message("<span class='disarm'>У [user] не получилось стереть память [M] с помощью \"Нейрализатора\"!</span>")
+				to_chat(user, "<span class='warning'>Вы не смогли стереть память [M] с помощью \"Нейрализатора\"!</span>")
+				to_chat(M, "<span class='danger'>У [user] не получилось стереть вашу память с помощью \"Нейрализатора\"!</span>")
 			return
 
 	if(M.flash_eyes())
