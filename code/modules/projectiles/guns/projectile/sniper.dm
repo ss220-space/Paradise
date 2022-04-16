@@ -127,7 +127,7 @@
 
 	return ..()
 
-//hemorrhage ammo
+//explosive ammo
 /obj/item/ammo_box/magazine/sniper_rounds/explosive
 	name = "sniper rounds (boom)"
 	desc = "What did you mean by saying warcrimes? There wasn't any millitary"
