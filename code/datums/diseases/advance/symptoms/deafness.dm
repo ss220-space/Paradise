@@ -34,7 +34,7 @@ Bonus
 				to_chat(M, "<span class='warning'>Вы слышите [pick("звон", "треск")] в ушах.</span>")
 			if(5)
 				if(!(DEAF in M.mutations))
-					to_chat(M, "<span class='userdanger'>Вы слышите потрескивание и нарастающий гул!</span>")
+					to_chat(M, "<span class='userdanger'>Вы слышите нарастающие гул и треск, от которых закладывает уши!</span>")
 					M.BecomeDeaf()
 					spawn(200)
 						if(M)
