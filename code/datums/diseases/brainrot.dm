@@ -8,7 +8,7 @@
 	agent = "Криптококк космозис"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	cure_chance = 15 // higher chance to cure, since two reagents are required
-	desc = "Эта болезнь разрушает клетки мозга, провоцируя воспаление мозга, его некроз и общую интоксикацию организма."
+	desc = "Эта болезнь разрушает клетки мозга, провоцируя его воспаление и последующий некроз."
 	required_organs = list(/obj/item/organ/internal/brain)
 	severity = DANGEROUS
 
