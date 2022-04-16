@@ -125,6 +125,13 @@
 /obj/machinery/suit_storage_unit/cmo/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/rd
+	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
+	mask_type = /obj/item/clothing/mask/gas
+
+/obj/machinery/suit_storage_unit/rd/secure
+	secure = TRUE
+
 //version of the SSU for medbay secondary storage. Includes magboots.
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage
 	name = "medical suit storage unit"
