@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/uzi
 	name = "Type U3 Uzi"
 	reference = "UZ"
-	desc = "A fully-loaded lightweight blowback-operated submachine gun that uses 30-rounds 9mm magazines."
+	desc = "A fully-loaded lightweight blowback-operated submachine gun that uses 32-rounds 9mm magazines."
 	item = /obj/item/gun/projectile/automatic/mini_uzi
 	cost = 12
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
