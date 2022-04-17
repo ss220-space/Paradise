@@ -513,8 +513,8 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
     desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
 
-/obj/item/storage/backpack/duffel/syndie/ammo/uzi/New()
-	..()
+/obj/item/storage/backpack/duffel/syndie/ammo/uzi/Initialize()
+	. = ..()
 	for(var/i in 1 to 10)
 		new /obj/item/ammo_box/magazine/uzim9mm(src)
 
