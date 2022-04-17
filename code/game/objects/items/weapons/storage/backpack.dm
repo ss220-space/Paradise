@@ -496,8 +496,8 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg
     desc = "A large duffel bag containing 5 LMG box magazines"
 
-/obj/item/storage/backpack/duffel/syndie/ammo/lmg/New()
-	..()
+/obj/item/storage/backpack/duffel/syndie/ammo/lmg/Initialize()
+	. = ..()
 	for(var/i in 1 to 5)
 		new /obj/item/ammo_box/magazine/mm556x45(src)
 
