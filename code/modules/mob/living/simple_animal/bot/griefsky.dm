@@ -285,8 +285,8 @@
 			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
-/mob/living/simple_animal/bot/secbot/griefsky/syndicate/proc/check_for_mug(var/obj/item/slot_item)
-	if(slot_item && istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/proc/check_for_mug(obj/item/slot_item)
+	if(istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
 		return TRUE
 	return FALSE
 

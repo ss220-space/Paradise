@@ -641,7 +641,7 @@
 		return TRUE
 
 	if(!isrobot(user))
-   		return FALSE
+		return FALSE
 
 	var/mob/living/silicon/robot/R = user
 	return R.cell.use(amount * power_use_multiplier)

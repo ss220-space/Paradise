@@ -445,12 +445,12 @@
 	if(..())
 		return
 
-	var/obj/item/rcd/borg/T = locate() in R.module.modules
-	if(!T)
+	var/obj/item/rcd/borg/borg_rcd = locate() in R.module.modules
+	if(!borg_rcd)
 		to_chat(usr, "<span class='notice'>There's no RCD in this unit!</span>")
 		return 0
-	for(T in R.module.modules)
-		qdel(T)
+	for(borg_rcd in R.module.modules)
+		qdel(borg_rcd)
 	R.module.modules += new /obj/item/rcd/syndicate/borg(R.module)
 	R.module.rebuild()
 	return TRUE
