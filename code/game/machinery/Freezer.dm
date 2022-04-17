@@ -181,7 +181,7 @@
 	initialize_directions = dir
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "печатная плата (Нагреватель)"
+	H.name = "circuit board (Нагреватель)"
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
@@ -196,7 +196,7 @@
 	..()
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "печатная плата (Нагреватель)"
+	H.name = "circuit board (Нагреватель)"
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
