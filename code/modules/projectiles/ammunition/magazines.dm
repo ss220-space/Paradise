@@ -389,7 +389,7 @@
 
 /obj/item/ammo_box/magazine/m12g/buckshot
 	name = "shotgun magazine (12g buckshot slugs)"
-	icon_state = "m12gb"
+	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/magazine/m12g/stun
@@ -408,16 +408,16 @@
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
 
-/obj/item/ammo_box/magazine/m12g/breach
-	name = "shotgun magazine (12g breacher slugs)"
-	icon_state = "m12gbc"
+/obj/item/ammo_box/magazine/m12g/meteor
+	name = "shotgun magazine (12g meteor slugs)"
+	icon_state = "m12gmt"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
