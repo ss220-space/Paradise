@@ -223,8 +223,8 @@
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
 
-/obj/item/storage/firstaid/syndie/New()
-	..()
+/obj/item/storage/firstaid/syndie/Initialize()
+	. = ..()
 	if(empty)
 		return
 	new /obj/item/reagent_containers/hypospray/combat(src)
