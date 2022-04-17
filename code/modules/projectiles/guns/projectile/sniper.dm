@@ -149,7 +149,7 @@
 	weaken = 3
 	breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
+/obj/item/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
 		explosion(target, -1, 1, 3, 5, cause = "[type] fired by [key_name(firer)]")
 
