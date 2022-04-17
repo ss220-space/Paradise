@@ -504,10 +504,9 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine
     desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
 
-/obj/item/storage/backpack/duffel/syndie/ammo/carbine/New()
-	..()
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine/Initialize()
+	. = ..()
 	new /obj/item/ammo_box/a40mm(src)
-	..()
 	for(var/i in 1 to 9)
 		new /obj/item/ammo_box/magazine/m556(src)
 
