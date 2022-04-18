@@ -229,13 +229,12 @@
 			var/obj/item/organ/external/head = src.get_organ("head")
 			var/M = handle_emote_param(param)
 			mineral_scan_pulse(get_turf(src), range = world.view)
+			m_type = 2
 			if(head)
 				message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
 				playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
-				m_type = 2
 			else
 				message = "отчаянно дёргается."
-				m_type = 2
 
 		if("click", "clicks")
 			var/obj/item/organ/external/head = src.get_organ("head")
