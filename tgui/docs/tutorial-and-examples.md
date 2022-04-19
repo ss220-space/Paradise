@@ -133,7 +133,7 @@ export const SampleInterface = (props, context) => {
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>
-            <LabeledList.Item label="Здоровье">
+            <LabeledList.Item label="Health">
               {health}
             </LabeledList.Item>
             <LabeledList.Item label="Color">
