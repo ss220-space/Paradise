@@ -371,8 +371,19 @@
 			M.ghostize()
 			qdel(M)
 
-		for(var/obj/O in contents) //obj instead of obj/item so that bodybags and ashes get destroyed. We dont want tons and tons of ash piling up
-			qdel(O)
+		// Удаляет все предметы внутри себя
+		for(var/obj/item/item in search_contents_for(/obj/item))
+			if(QDELETED(item))
+				continue
+			qdel(item)
+
+		// Потому что мешок - это, блядь, структура. Ящики и шкафы всё равно туда не впихнуть.
+		for(var/obj/structure/structure in search_contents_for(/obj/structure))
+			if(QDELETED(structure))
+				continue
+			qdel(structure)
+
+		//obj instead of obj/item so that bodybags and ashes get destroyed. We dont want tons and tons of ash piling up
 
 		new /obj/effect/decal/cleanable/ash(src)
 		sleep(30)
