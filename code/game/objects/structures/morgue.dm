@@ -371,8 +371,11 @@
 			M.ghostize()
 			qdel(M)
 
-		for(var/obj/O in contents) //obj instead of obj/item so that bodybags and ashes get destroyed. We dont want tons and tons of ash piling up
-			qdel(O)
+		// При contents пепел всё равно не удаляется
+		for(var/obj/obj in search_contents_for(/obj)) //obj instead of obj/item so that bodybags and ashes get destroyed. We dont want tons and tons of ash piling up
+			if(QDELETED(obj))
+				continue
+			qdel(obj)
 
 		new /obj/effect/decal/cleanable/ash(src)
 		sleep(30)
