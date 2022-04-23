@@ -7,6 +7,7 @@ import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 
 // __DEFINES/construction.dm, L73
+
 const MINERAL_MATERIAL_AMOUNT = 2000;
 
 const iconNameOverrides = {
@@ -345,6 +346,7 @@ const Design = (properties, context) => {
           id: design.id,
         })}
       />
+
       <Box className="Exofab__design--cost">
         {Object.entries(design.cost).map(kv => (
           <Box key={kv[0]}>
@@ -356,6 +358,7 @@ const Design = (properties, context) => {
           </Box>
         ))}
       </Box>
+
       <Box className="Exofab__design--time">
         <Icon name="clock" />
         {design.time > 0 ? (

@@ -1,0 +1,87 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss'with ($primary: #e8aa0e,
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+);
+@use '../base.scss'with ($color-bg: #151719,
+  $color-bg-grad-spread: 6%,
+  $border-radius: 2px,
+);
+
+.theme-syndicateblack {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css('../components/Button.scss', $with: ('color-default': #870115,
+      'color-disabled': #2c3136,
+      'color-selected': #ba021e,
+      'color-caution': #be6209,
+      'color-danger': #9a9d00,
+      'border-radius': 10px,
+    ));
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': #e8aa0e,
+    ));
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('color-background': #2c3136,
+    ));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #fc2847,
+    ));
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-default': #717d8a,
+      'color-background': rgba(0, 0, 0, 0.5),
+    ));
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css('../components/Tooltip.scss', $with: ('color-background': #2c3136,
+    ));
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('color-background': #151719,
+    ));
+
+  .Exofab__material {
+    &:not(.Exofab__material--line) {
+      margin-bottom: 0.25rem;
+
+      .Button {
+        width: 28px;
+        margin-right: 0.5rem;
+
+        img {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    &--line {
+      .Button {
+        background-color: transparent;
+        width: 14px;
+
+        img {
+          width: 16px;
+        }
+      }
+    }
+
+    &--name {
+      color: colors.$label;
+      text-transform: capitalize;
+    }
+
+    .Button {
+      margin-bottom: 0;
+      padding: 0;
+      vertical-align: middle;
+
+      img {
+        margin-left: -2px;
+      }
+    }
+  }
+  .Layout__content {
+    background-image: url('../../assets/bg-syndicate.svg');
+  }
+}

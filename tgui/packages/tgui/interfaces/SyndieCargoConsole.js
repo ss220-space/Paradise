@@ -7,10 +7,12 @@ import { Window } from "../layouts";
 import { LabeledListItem } from "../components/LabeledList";
 import { createSearch, toTitleCase } from 'common/string';
 
-export const SyndieCargoConsole = (props, context) => {
+export const SyndieCargoConsole = (_properties, context) => {
+  const { data } = useBackend(context);
   return (
-    <Window theme="syndicate">
+    <Window theme={data.ui_theme}>
       <Window.Content>
+        <PagePane />
         <ContentsModal />
         <StatusPane />
         <CataloguePane />
@@ -62,6 +64,37 @@ const ContentsModal = (_properties, context) => {
   }
 };
 
+const PagePane = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    page,
+  } = data;
+
+  let ButtonText = "";
+  if (page === 0) {
+    ButtonText = "Открыть меню контрактов";
+  } else if (page === 1) {
+    ButtonText = "Закрыть меню контрактов";
+  }
+
+  return (
+    <Section title="">
+      <Table m="0.5rem">
+        <Table.Row>
+          <Table.Cell textAlign="center" pr={1}>
+            <Button
+              width="200px"
+              textAlign="center"
+              content={ButtonText}
+              tooltip="Открывает меню доступных контрактов. Выполняя заказы для чёрного рынка вы сможете заработать деньги для своих нужд!"
+              onClick={() => act("openContracts")}
+            />
+          </Table.Cell>
+        </Table.Row>
+      </Table>
+    </Section>
+  );
+};
 const StatusPane = (_properties, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -76,20 +109,20 @@ const StatusPane = (_properties, context) => {
 
   // Shuttle status text
   let statusText = telepads_status;
-  let dynamicTooltip ="";
+  let dynamicTooltip = "";
   let block = 0;
   let teleportButtonText = "";
   if (telepads_status === "Pads not linked!") {
     block = 0;
-    dynamicTooltip="Attempts to link telepads to the console.";
+    dynamicTooltip = "Attempts to link telepads to the console.";
     teleportButtonText = "Link pads";
   } else if (!is_cooldown) {
     block = 0;
-    dynamicTooltip="Teleports your crates to the market. A reminder, some of the crates are directly stolen from NT trading routes. That means they can be locked. We are NOT sorry for the inconvenience";
+    dynamicTooltip = "Teleports your crates to the market. A reminder, some of the crates are directly stolen from NT trading routes. That means they can be locked. We are NOT sorry for the inconvenience";
     teleportButtonText = "Teleport";
   } else if (is_cooldown) {
     teleportButtonText = "Cooldown...";
-    dynamicTooltip="Pads are cooling off...";
+    dynamicTooltip = "Pads are cooling off...";
     block = 1;
     if (wait_time !== 1) {
       statusText = "" + telepads_status + " (ETA: " + wait_time + " seconds)";
@@ -101,37 +134,66 @@ const StatusPane = (_properties, context) => {
   return (
     <Section title="Status">
       <LabeledList>
-        {is_public === 0 &&(
+        {is_public === 0 && (
           <LabeledList.Item label="Money Available">
-            {cash}
-            <Button
-              tooltip="Withdraw money from the console"
-              content="Withdraw"
-              onClick={() => act("withdraw", cash)}
-            />
-            <Button
-              content={adminAddCash}
-              tooltip="Bless the players with da money!"
-              onClick={() => act("add_money", cash)}
-            />
+            <Table m="0.5rem">
+              <Table.Row>
+                <Table.Cell textAlign="left" pr={1}>
+                  <Button
+                    icon="credit-card"
+                    tooltip="Withdraw money from the console"
+                    content={cash}
+                    onClick={() => act("withdraw", cash)}
+                  />
+                </Table.Cell>
+                <Table.Cell textAlign="right" pr={1}>
+                  <Button
+                    textAlign="center"
+                    width="150px"
+                    icon="lock"
+                    content={adminAddCash}
+                    tooltip="Bless the players with da money!"
+                    onClick={() => act("add_money", cash)}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            </Table>
 
           </LabeledList.Item>
         )}
         <LabeledList.Item label="Telepads Status">
-          {statusText}
+          <Table m="0.5rem">
+            <Table.Row>
+              <Table.Cell textAlign="left" pr={1}>
+                {statusText}
+              </Table.Cell>
+            </Table.Row>
+          </Table>
         </LabeledList.Item>
         {is_public === 0 && (
           <LabeledList.Item label="Controls">
-            <Button
-              content={teleportButtonText}
-              tooltip={dynamicTooltip}
-              disabled={block}
-              onClick={() => act("teleport")}
-            />
-            <Button
-              content="View Syndicate Black Market Log"
-              onClick={() => act("showMessages")}
-            />
+            <Table m="0.5rem">
+              <Table.Row>
+                <Table.Cell textAlign="left" pr={1}>
+                  <Button
+                    content={teleportButtonText}
+                    tooltip={dynamicTooltip}
+                    disabled={block}
+                    onClick={() => act("teleport")}
+                  />
+                </Table.Cell>
+                <Table.Cell textAlign="right" pr={1}>
+                  <Button
+                    icon="server"
+                    textAlign="center"
+                    width="150px"
+                    content="Black Market Log"
+                    tooltip="View your syndicate cargo account activity log."
+                    onClick={() => act("showMessages")}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            </Table>
           </LabeledList.Item>
         )}
 
@@ -188,7 +250,8 @@ const CataloguePane = (_properties, context) => {
       title={titleText}
       buttons={
         <Dropdown
-          width="190px"
+          textAlign="center"
+          width="150px"
           options={categories.map(r => r.name)}
           selected={category}
           onSelected={val => setCategory(val)} />

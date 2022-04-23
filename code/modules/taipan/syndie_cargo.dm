@@ -134,6 +134,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	invisibility = INVISIBILITY_ABSTRACT
 	desc = "This shit has the data for the syndie cargo consoles, so it can be synchronized between them, they don't function normally without it"
 ***************************/
+	var/datum/quests_storage
 
 	/// Available money amount
 	var/area/cargoarea
@@ -234,6 +235,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			continue
 		syndie_supply_packs["[typepath ]"] = new SP
 	sync()
+	quests_storage = new /datum/cargo_quests_storage
 	orderNum = rand(1,9000)
 
 /datum/syndie_data_storage/Destroy(force)
@@ -262,6 +264,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/is_public = FALSE
 	/// Time of last request
 	var/reqtime = 0
+	var/ui_theme = "syndicateblack"
+	var/page = 0 //Нынешняя страница интерфейса. 0 - Обычное карго 1 - Контракты
 	var/datum/syndie_data_storage/data_storage = null
 
 /obj/machinery/computer/syndie_supplycomp/Initialize(mapload)
@@ -543,8 +547,9 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/list/orders_list = list()
 	for(var/datum/syndie_supply_order/SO as anything in data_storage.shoppinglist)
 		orders_list += list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment))
+	data["page"] = page
 	data["orders"] = orders_list
-
+	data["ui_theme"] = ui_theme
 	data["is_public"] = is_public
 	data["canapprove"] = !is_public // возможно стоит тут позже ужесточить проверки и смотреть на активность телепадов
 	data["cash"] = data_storage.cash
@@ -616,7 +621,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 				data_storage.last_teleport = world.time
 				data_storage.is_cooldown = TRUE
 				buy()
-
 		if("order")
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
@@ -691,7 +695,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 					else
 						data_storage.requestlist.Cut(i,i+1)
 						break
-
 		// Popup to show CC message logs. Its easier this way to avoid box-spam in TGUI
 		if("showMessages")
 			// Public consoles cant view messages
@@ -710,10 +713,14 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 				data_storage.blackmarket_message += "<span class='good'>+[money2add]</span>: We are pleased with your work. Here's your reward.<br>"
 			else if(money2add < 0)
 				data_storage.blackmarket_message += "<span class='bad'>[money2add]</span>: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
-
+		if("test")
+			var/datum/browser/bmmsg_browser = new(usr, "ccmsg", "Black Market Cargo Message Log", 800, 600)
+			bmmsg_browser.set_content(data_storage.blackmarket_message)
+			bmmsg_browser.open()
+		if("openContracts")
+			page = !page
 
 	add_fingerprint(usr)
-
 
 /obj/machinery/computer/syndie_supplycomp/proc/withdraw_cash(cash_sum, mob/user)
 	if(cash_sum <= data_storage.cash)

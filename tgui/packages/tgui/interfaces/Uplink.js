@@ -31,7 +31,7 @@ export const Uplink = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, "tabIndex", 0);
 
   return (
-    <Window theme="syndicate">
+    <Window theme={data.ui_theme}>
       <ComplexModal />
       <Window.Content scrollable>
         <Tabs>

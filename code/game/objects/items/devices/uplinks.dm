@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink
 	var/uses 				// Numbers of crystals
+	var/ui_theme = "syndicate"
 	var/hidden_crystals = 0
 	/// List of categories with items inside
 	var/list/uplink_cats
@@ -174,6 +175,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	data["crystals"] = uses
 	data["modal"] = ui_modal_data(src)
+	data["ui_theme"] = ui_theme
 
 	if(contractor)
 		var/list/contractor_data = list(

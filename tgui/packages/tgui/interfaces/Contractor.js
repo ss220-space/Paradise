@@ -80,7 +80,7 @@ export const Contractor = (properties, context) => {
   }
   const [viewingPhoto, _setViewingPhoto] = useLocalState(context, "viewingPhoto", "");
   return (
-    <Window theme="syndicate">
+    <Window theme="syndicateblack">
       {viewingPhoto && (
         <PhotoZoom />
       )}

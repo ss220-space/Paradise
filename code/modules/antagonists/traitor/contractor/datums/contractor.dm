@@ -62,6 +62,7 @@
 		to_chat(M, "<span class='warning'>You can no longer become a contractor as [reason].</span>")
 		return
 
+	U.ui_theme = "syndicateblack"
 	// Give the kit
 	var/obj/item/storage/box/syndie_kit/contractor/B = new(M)
 	M.put_in_hands(B)
