@@ -457,6 +457,62 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
 
+	//Research Director hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/rd
+	name = "Research Director Hardsuit Helmet"
+	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
+	icon_state = "hardsuit0-rd"
+	item_state = "rd"
+	item_color = "rd"
+	flash_protect = 0
+	scan_reagents = TRUE
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80)
+	var/hud_active = TRUE
+	var/explosion_detection_dist = 30
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot)
+	..()
+	if(slot == slot_head)
+		GLOB.doppler_arrays += src //Needed to sense the kabooms
+		if(ishuman(user))
+			var/mob/living/carbon/human/U = user
+			if(istype(U.glasses, /obj/item/clothing/glasses/hud/diagnostic)) // If they are for some reason wearing a diagnostic hud when they put the helmet on
+				return // already have a hud
+			hud_active = TRUE
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
+	..()
+	if((user.head == src) && hud_active)
+		GLOB.doppler_arrays -= src
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	var/turf/T = get_turf(src)
+	var/dx = abs(x0 - T.x)
+	var/dy = abs(y0 - T.y)
+	var/distance
+	if(T.z != z0)
+		return
+	if(dx > dy)
+		distance = dx
+	else
+		distance = dy
+	if(distance > explosion_detection_dist)
+		return
+	display_visor_message("Explosion detected! Epicenter radius: [devastation_range], Outer radius: [heavy_impact_range], Shockwave radius: [light_impact_range]")
+
+/obj/item/clothing/suit/space/hardsuit/rd
+	name = "Research Director Hardsuit"
+	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
+	icon_state = "hardsuit-rd"
+	item_state = "hardsuit-rd"
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/gun/energy/wormhole_projector,
+	/obj/item/hand_tele, /obj/item/aicard)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
+	jetpack = /obj/item/tank/jetpack/suit
+
 	//Security
 /obj/item/clothing/head/helmet/space/hardsuit/security
 	name = "security hardsuit helmet"
