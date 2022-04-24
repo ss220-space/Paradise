@@ -48,7 +48,7 @@
 			var/mob/living/entity = locate() in contents
 
 			var/obj/structure/closet/body_bag/item = locate() in contents
-			if(entity == null)
+			if(!entity)
 				entity = locate() in item
 
 			if(entity)
@@ -218,7 +218,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		user.visible_message(span_warning("[user] stuffs [O] into [src]!"))
+		user.visible_message(SPAN_WARNING("[user] stuffs [O] into [src]!"))
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -302,7 +302,7 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
-		to_chat(usr, span_warning("It's locked."))
+		to_chat(usr, SPAN_WARNING("It's locked."))
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A in connected.loc)
@@ -359,16 +359,16 @@
 	var/list/crema_content = get_all_contents() - src - connected
 
 	if(!length(crema_content))
-		audible_message(span_warning("Вы слышите глухой треск."))
+		audible_message(SPAN_WARNING("Вы слышите глухой треск."))
 		return
 
 	// Ash piles are not crematable
 	if(locate(/obj/effect/decal/cleanable/ash) in crema_content)
-		audible_message(span_warning("Крематорий разгорается на несколько секунд и затухает."))
+		audible_message(SPAN_WARNING("Крематорий разгорается на несколько секунд и затухает."))
 		return
 
 	else
-		audible_message(span_warning("Запустив крематорий, вы слышите рёв."))
+		audible_message(SPAN_WARNING("Запустив крематорий, вы слышите рёв."))
 
 		cremating = TRUE
 		locked = TRUE
@@ -420,7 +420,7 @@
 	if(CM.stat || CM.restrained())
 		return
 
-	to_chat(CM, span_alert("You attempt to slide yourself out of \the [src]..."))
+	to_chat(CM, SPAN_ALERT("You attempt to slide yourself out of \the [src]..."))
 	src.attack_hand(CM)
 
 /obj/structure/crematorium/get_remote_view_fullscreens(mob/user)
@@ -463,7 +463,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
+		user.visible_message(SPAN_WARNING("[user] stuffs [O] into [src]!"))
 			//Foreach goto(99)
 	return
 
@@ -497,16 +497,16 @@
 				if(!C.cremating)
 					C.cremate(user)
 	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied."))
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)
 		var/obj/structure/morgue/morgue
-		var/mob/living/C = src
+		var/mob/living/creature = src
 		var/mob/dead/observer/ghost = src
 		if(istype(ghost) && ghost.can_reenter_corpse && ghost.mind) //We're a ghost, let's find our corpse
-			C = ghost.mind.current
-		if(istype(C)) //We found our corpse, is it inside a morgue?
-			morgue = get(C.loc, /obj/structure/morgue)
+			creature = ghost.mind.current
+		if(istype(creature)) //We found our corpse, is it inside a morgue?
+			morgue = get(creature.loc, /obj/structure/morgue)
 			if(morgue)
 				morgue.update()
