@@ -966,10 +966,6 @@
 	dir = 8;
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -5419,10 +5415,6 @@
 	id = "hos"
 	},
 /obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
 	dir = 1;
 	id = "hos"
 	},
@@ -6010,10 +6002,6 @@
 	},
 /obj/structure/window/reinforced/polarized{
 	dir = 8;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
 	id = "hos"
 	},
 /obj/structure/grille,
@@ -7423,10 +7411,6 @@
 	id = "hos"
 	},
 /obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
 	dir = 8;
 	id = "hos"
 	},
@@ -7959,10 +7943,6 @@
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
 	},
 /obj/structure/window/reinforced/polarized{
 	dir = 8;
@@ -8505,10 +8485,6 @@
 /area/security/warden)
 "apQ" = (
 /obj/structure/cable,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
 /obj/structure/window/reinforced/polarized{
 	dir = 8;
 	id = "hos"
@@ -17507,7 +17483,19 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/dorms)
 "aFK" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "aFL" = (
@@ -21222,9 +21210,16 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aOh" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
@@ -26079,6 +26074,9 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/structure/closet/wardrobe/coroner,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26096,9 +26094,7 @@
 	},
 /area/crew_quarters/sleep)
 "aYq" = (
-/obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
+/obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26107,6 +26103,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26851,7 +26848,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/filingcabinet/chestdrawer/autopsy,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41804,6 +41802,10 @@
 	name = "Coroner";
 	req_one_access_txt = "5;4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43309,15 +43311,7 @@
 	},
 /area/engine/gravitygenerator)
 "bHE" = (
-/obj/structure/table,
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/storage/box/gloves{
-	pixel_y = 8
-	},
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43335,7 +43329,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bHG" = (
-/obj/machinery/bodyscanner,
+/obj/structure/filingcabinet/chestdrawer/autopsy,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43389,6 +43383,11 @@
 	dir = 1;
 	pixel_y = -25
 	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43397,7 +43396,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44658,10 +44656,14 @@
 "bKe" = (
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_y = 5
+/obj/item/storage/box/gloves{
+	pixel_y = 8
 	},
-/obj/item/pen/multi,
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46230,22 +46232,12 @@
 	},
 /area/medical/biostorage)
 "bMZ" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/medical/morgue)
-"bNa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "bNb" = (
@@ -46291,14 +46283,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"bNd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/medical/morgue)
 "bNe" = (
 /obj/structure/sign/redcross{
 	desc = "The Star of Life, a symbol of Medical Aid.";
@@ -91126,9 +91110,16 @@
 	},
 /area/security/main)
 "dVs" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
@@ -91287,17 +91278,59 @@
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"eYG" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "eYR" = (
 /obj/machinery/light,
 /obj/structure/closet,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"eZr" = (
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
+"eZu" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
+"eZP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "fan" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -91468,6 +91501,23 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"fEW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "fGD" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -91541,6 +91591,21 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"fVD" = (
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "fZO" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/machinery/light/spot{
@@ -91693,6 +91758,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
+	id = "holodeck";
 	name = "Holodeck Door"
 	},
 /turf/simulated/floor/plasteel,
@@ -92034,6 +92100,19 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"ibg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "ibO" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -92206,6 +92285,23 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/toxins/launch)
+"iOx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "iPr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92234,8 +92330,20 @@
 /turf/simulated/wall/r_wall,
 /area/server)
 "iZs" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "jat" = (
@@ -92462,6 +92570,24 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
+"kjf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "kjI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -92592,6 +92718,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
+	id = "holodeck";
 	name = "Holodeck Door"
 	},
 /turf/simulated/floor/plasteel,
@@ -93077,6 +93204,11 @@
 	dir = 8;
 	on = 1
 	},
+/obj/machinery/button/windowtint{
+	id = "holodeck";
+	pixel_y = -24;
+	range = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "mzX" = (
@@ -93396,6 +93528,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"nYU" = (
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "obG" = (
 /obj/machinery/mech_bay_recharge_port,
 /turf/simulated/floor/plasteel{
@@ -93438,6 +93582,19 @@
 	icon_state = "cafeteria"
 	},
 /area/toxins/xenobiology)
+"ooN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "oqQ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -93925,12 +94082,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"qLK" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/medical/morgue)
 "qOb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -94089,6 +94240,21 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"rmc" = (
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "roO" = (
 /obj/machinery/door/window/southright{
 	name = "Containment Pen";
@@ -94820,6 +94986,22 @@
 	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
+"uND" = (
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "uQb" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall13"
@@ -95747,6 +95929,22 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
+"yjM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	id = "holodeck"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "holodeck"
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "ylx" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -133626,16 +133824,16 @@ awH
 ayg
 awF
 eJA
-iZs
-iZs
-iZs
+fEW
+ooN
+eZP
 kLF
-aFK
-aFK
+eZu
+eZr
 gFG
-eYG
-eYG
-eYG
+iOx
+ibg
+ibg
 dVs
 aPk
 aTb
@@ -134407,7 +134605,7 @@ pwU
 sHt
 sHt
 sHt
-aOh
+kjf
 aPn
 aTb
 aNL
@@ -135169,11 +135367,11 @@ avp
 auq
 nhb
 iZs
-iZs
+yjM
 eTE
 kjI
-aFK
-aFK
+uND
+fVD
 xyo
 rIF
 rIF
@@ -135471,7 +135669,7 @@ aYq
 aZT
 bHK
 bKe
-bMZ
+bFX
 bOW
 bFX
 bWd
@@ -135728,7 +135926,7 @@ aZU
 bEE
 bHM
 bKg
-bNd
+pXp
 pXp
 pXp
 bWd
@@ -135943,8 +136141,8 @@ aaa
 aaa
 aOI
 aFK
-aFK
-aFK
+nYU
+rmc
 aOI
 aOI
 aIF
@@ -135982,10 +136180,10 @@ bHy
 bAk
 bEu
 qzo
-aZT
-qLK
-qLK
-bNa
+bMZ
+bOX
+bOX
+bOX
 bOX
 bQF
 bWd
