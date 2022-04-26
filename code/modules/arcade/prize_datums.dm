@@ -305,6 +305,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/stack/tile/arcade_carpet/loaded
 	cost = 150
 
+/datum/prize_item/headpat
+	name = "Gloves of Headpats"
+	desc = "Gloves that fill you with an irresistable urge to give headpats."
+	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
+	cost = 150
+
 /datum/prize_item/tommygun
 	name = "Tommy Gun"
 	desc = "A replica tommy gun that fires foam darts."
@@ -323,11 +329,11 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/twohanded/toy/chainsaw
 	cost = 200
 
-/datum/prize_item/headpat
-	name = "Gloves of Headpats"
-	desc = "Gloves that fill you with an irresistable urge to give headpats."
-	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
-	cost = 150
+/datum/prize_item/pdaclear
+	name = "PDA"
+	desc = "A personal digital assistent that looks exactly like SolGov's. Does not contain any useful information for the USSP."
+	typepath = /obj/item/pda/clear
+	cost = 1000
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"

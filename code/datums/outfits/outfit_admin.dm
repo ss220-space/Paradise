@@ -621,7 +621,7 @@
 	id = /obj/item/card/id/silver
 	r_pocket = /obj/item/lighter/zippo/blue
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
-	pda = /obj/item/pda
+	pda = /obj/item/pda/clear
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/implanter/dust = 1,
@@ -653,7 +653,7 @@
 	id = /obj/item/card/id
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	r_pocket = /obj/item/flashlight/seclite
-	pda = /obj/item/pda
+	pda = /obj/item/pda/clear
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/ammo_box/magazine/m556 = 3,
@@ -706,7 +706,7 @@
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
-	pda = /obj/item/pda
+	pda = /obj/item/pda/clear
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,

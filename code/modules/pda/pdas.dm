@@ -168,7 +168,7 @@
 		M.notify_silent = 1 //Quiet in the library!
 
 /obj/item/pda/clear
-	icon_state = "pda-transp"
+	icon_state = "pda-clear"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition with a transparent case."
 	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 

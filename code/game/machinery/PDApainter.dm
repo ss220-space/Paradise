@@ -33,8 +33,16 @@
 
 /obj/machinery/pdapainter/New()
 	..()
-	var/blocked = list(/obj/item/pda/silicon, /obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
-						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
+	var/blocked = list(
+		/obj/item/pda/clear,
+		/obj/item/pda/silicon,
+		/obj/item/pda/silicon/ai,
+		/obj/item/pda/silicon/robot,
+		/obj/item/pda/silicon/pai,
+		/obj/item/pda/heads,
+		/obj/item/pda/syndicate,
+		/obj/item/pda/chameleon,
+		/obj/item/pda/chameleon/broken)
 
 	for(var/thing in typesof(/obj/item/pda) - blocked)
 		var/obj/item/pda/P = thing
