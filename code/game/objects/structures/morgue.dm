@@ -12,13 +12,13 @@
 
  // TODO:
  // Crematorium requires plasma tank to operate
- // Morgue new icons + crematorium and morgue directional icons
+ // Morgue new icons + morgue directional icons
 
 /obj/structure/morgue
 	name = "morgue"
 	desc = "Used to keep bodies in until someone fetches them."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "morgue1"
+	icon_state = "morgue_empty"
 	density = 1
 	max_integrity = 400
 	dir = EAST
@@ -39,44 +39,42 @@
 	update()
 
 /obj/structure/morgue/proc/update()
+	var/list/morgue_content     = get_all_contents() - src - connected
+	var/list/morgue_mob         = get_all_contents_type(/mob/living)
+
 	if(connected)
-		icon_state = "morgue0"
+		icon_state = "morgue_connected"
 		desc = initial(desc) + "\n[status_descriptors[1]]"
-	else
-		if(contents.len)
+		return
 
-			var/mob/living/entity = locate() in contents
+	if(!length(morgue_content))
+		icon_state = "morgue_empty"
+		desc = initial(desc) + "\n[status_descriptors[2]]"
+		return
 
-			var/obj/structure/closet/body_bag/item = locate() in contents
-			if(!entity)
-				entity = locate() in item
+	// If no mobs inside
+	if(!length(morgue_mob))
+		icon_state = "morgue_no_mobs"
+		desc = initial(desc) + "\n[status_descriptors[5]]"
+		return
 
-			if(entity)
-				var/mob/dead/observer/ghost = entity.get_ghost()
+	// If player is online and didn't suicide
+	if(morgue_mob)
+		var/mob/living/entity       = locate() in morgue_content
+		var/mob/dead/observer/ghost = entity.get_ghost()
+		// Clone-ready entity
+		if(entity.client)
+			icon_state = "morgue_clone_ready"
+			desc = initial(desc) + "\n[status_descriptors[4]]"
 
-				if(entity.mind && entity.mind.is_revivable() && !entity.mind.suicided)
-					if(entity.client)
-						icon_state = "morgue3"
-						desc = initial(desc) + "\n[status_descriptors[4]]"
-					else if(ghost && ghost.client) //There is a ghost and it is connected to the server
-						icon_state = "morgue5"
-						desc = initial(desc) + "\n[status_descriptors[6]]"
-					else
-						icon_state = "morgue2"
-						desc = initial(desc) + "\n[status_descriptors[3]]"
-				else
-					icon_state = "morgue2"
-					desc = initial(desc) + "\n[status_descriptors[3]]"
+		//There is a ghost and it is connected to the server
+		else if(ghost && ghost.client)
+			icon_state = "morgue_soul_away"
+			desc = initial(desc) + "\n[status_descriptors[6]]"
 
-
-			else
-				icon_state = "morgue4"
-				desc = initial(desc) + "\n[status_descriptors[5]]"
 		else
-			icon_state = "morgue1"
-			desc = initial(desc) + "\n[status_descriptors[2]]"
-	return
-
+			icon_state = "morgue_unclonable"
+			desc = initial(desc) + "\n[status_descriptors[3]]"
 
 /obj/structure/morgue/ex_act(severity)
 	switch(severity)
@@ -117,7 +115,7 @@
 		var/turf/T = get_step(src, dir)
 		if(T.contents.Find(connected))
 			connected.connected = src
-			icon_state = "morgue0"
+			icon_state = "morgue_connected"
 			for(var/atom/movable/A in src)
 				A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
@@ -149,7 +147,7 @@
 	var/turf/T = get_step(src, dir)
 	if(T.contents.Find(connected))
 		connected.connected = src
-		icon_state = "morgue0"
+		icon_state = "morgue_connected"
 		for(var/atom/movable/A in src)
 			A.forceMove(connected.loc)
 		connected.icon_state = "morguet"
@@ -173,7 +171,7 @@
 	if(CM.stat || CM.restrained())
 		return
 
-	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
+	to_chat(CM, SPAN_ALERT("You attempt to slide yourself out of \the [src]..."))
 	src.attack_hand(CM)
 
 
@@ -265,16 +263,12 @@
 /obj/structure/crematorium/proc/update_icon_state()
 	if(connected)
 		icon_state = "crema_connected"
-		return
 	else if(cremating)
 		icon_state = "crema_cremating"
-		return
 	else if(length(contents))
 		icon_state = "crema_active"
-		return
 	else
 		icon_state = "crema_default"
-		return
 
 /obj/structure/crematorium/ex_act(severity)
 	switch(severity)
