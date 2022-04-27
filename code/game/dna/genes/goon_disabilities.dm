@@ -116,7 +116,7 @@
 
 		// Добавлять «ъ» в конце слов на согласный
 		message = consonant_regexp.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/add_er)
-		message = consonant_big_regexp.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/add_er_big)
+		message = consonant_big_regexp.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/add_er)
 
 		// Прилагательные на -ый, -ій, в родительном падеже оканчиваются на -аго, -яго.
 		message = replacetextEx_char(message,"ого ","аго ")
@@ -177,8 +177,6 @@
 	return "[matched]-съ"
 /datum/dna/gene/disability/speech/auld_imperial/proc/add_er(matched)
 	return "[matched]ъ"
-/datum/dna/gene/disability/speech/auld_imperial/proc/add_er_big(matched)
-	return "[matched]Ъ"
 /datum/dna/gene/disability/speech/auld_imperial/proc/replace_speech(matched, first, second)
 	return "[first][low_cultural_words[second]]"
 
