@@ -122,7 +122,7 @@ const CryoContent = (props, context) => {
             icon="eject"
             onClick={() => act('ejectBeaker')}
             disabled={!isBeakerLoaded}>
-            Извлечь мензурку
+            Извлечь ёмкость
           </Button>
         )}>
         <LabeledList>
@@ -135,9 +135,9 @@ const CryoContent = (props, context) => {
             </Button>
           </LabeledList.Item>
           <LabeledList.Item label="Температура" color={cellTemperatureStatus}>
-            <AnimatedNumber value={cellTemperature} /> K
+            <AnimatedNumber value={cellTemperature} /> °K
           </LabeledList.Item>
-          <LabeledList.Item label="Мензурка">
+          <LabeledList.Item label="Ёмкость">
             <CryoBeaker />
           </LabeledList.Item>
           <LabeledList.Divider />
@@ -180,26 +180,26 @@ const CryoBeaker = (props, context) => {
     return (
       <Fragment>
         {beakerLabel
-          ? beakerLabel
+          ? `«${beakerLabel}»`
           : (
             <Box color="average">
-              Мензурка не подписана
+              Ёмкость не подписана
             </Box>
           )}
         <Box color={!beakerVolume && "bad"}>
           {beakerVolume ? (
             <AnimatedNumber
               value={beakerVolume}
-              format={v => Math.round(v) + " единиц осталось"}
+              format={v => `Содержит ${Math.round(v)} сл`}
             />
-          ) : "Мензурка пуста"}
+          ) : "Ёмкость пуста"}
         </Box>
       </Fragment>
     );
   } else {
     return (
       <Box color="average">
-        Мензурка не установлена
+        Ёмкость не установлена
       </Box>
     );
   }
