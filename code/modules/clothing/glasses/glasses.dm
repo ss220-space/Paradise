@@ -288,6 +288,15 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/thermal_fake
+	desc = "Cheap plastic sunglasses. Wear thoze if yu are kool."
+	name = "Phirmel Soonglesas"
+	icon_state = "sunthermal"
+	item_state = "sunthermal"
+	see_in_dark = 0
+	flash_protect = 0
+	tint = 0
+
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
