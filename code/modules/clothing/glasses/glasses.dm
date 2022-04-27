@@ -62,6 +62,14 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/meson/sunglasses
+	name = "Meson Sunglasses"
+	desc = "An Optical Meson Scanner that protects your eyes"
+	icon_state = "sunmeson"
+	item_state = "sunmeson"
+	flash_protect = 1
+	tint = 1
+
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
@@ -416,6 +424,14 @@
 				spawn(100)
 					M.CureNearsighted()
 	..()
+
+/obj/item/clothing/glasses/thermal/sunglasses
+	name = "Thermal Sunglasses"
+	desc = "How does it even works?.."
+	icon_state = "sunthermal"
+	item_state = "sunthermal"
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"
