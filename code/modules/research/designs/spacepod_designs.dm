@@ -134,7 +134,7 @@
 	id = "podgun_solaris"
 	build_type = PODFAB
 	req_tech = list("combat" = 4, "magnets" = 4, "engineering" = 4)
-	puild_path = /obj/item/spacepod_equipment/weaponry/solaris
+	build_path = /obj/item/spacepod_equipment/weaponry/solaris
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_GOLD=2000,MAT_SILVER=4000)
 	locked = 1
