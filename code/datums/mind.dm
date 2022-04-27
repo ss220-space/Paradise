@@ -66,6 +66,8 @@
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
+	var/lost_memory = FALSE // for the memorizers
+
 	var/suicided = FALSE
 
 	//put this here for easier tracking ingame
@@ -2048,6 +2050,8 @@
 /mob/living/silicon/robot/mind_initialize()
 	..()
 	mind.assigned_role = "Cyborg"
+	if(is_taipan(z))
+		give_taipan_hud()
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
