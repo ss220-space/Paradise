@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(nightshift)
 		if(night_time)
 			announcing = FALSE
 			if(!emergency)
-				announce("Восстановление конфигурации ночного освещения к нормальной работе.")
+				announce("Система ночного освещения снова работает в штатном режиме.")
 			else
 				announce("Отключение ночного освещения: Станция находится в чрезвычайном положении.")
 	if(emergency)
