@@ -91,7 +91,7 @@
 				if(vampire.current.real_name != vampire.name)
 					text += " как [vampire.current.real_name]"
 			else
-				text += "[vampire.name] (тело было уничтожено"
+				text += "тело было уничтожено"
 			text += ")"
 
 			if(vampire.objectives.len)//If the traitor had no objectives, don't need to process this.
@@ -135,7 +135,7 @@
 				if(Mind.current.real_name != Mind.name)
 					text += " как [Mind.current.real_name]"
 			else
-				text += "[Mind.name] (тело было уничтожено"
+				text += "тело было уничтожено"
 			text += ")"
 		to_chat(world, text)
 	return 1

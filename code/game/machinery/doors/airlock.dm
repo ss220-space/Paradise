@@ -722,6 +722,7 @@ About the new airlock wires panel:
 		shock(user, 100)
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
+	. = ..()
 	if(istype(user, /mob/living/simple_animal/hulk))
 		var/mob/living/simple_animal/hulk/H = user
 		H.attack_hulk(src)
@@ -1405,7 +1406,10 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
 		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
+			if(istype(src, /obj/machinery/door/airlock/syndicate))
+				ae = new/obj/item/airlock_electronics/syndicate(loc)
+			else
+				ae = new/obj/item/airlock_electronics(loc)
 			check_access()
 			if(req_access.len)
 				ae.selected_accesses = req_access
