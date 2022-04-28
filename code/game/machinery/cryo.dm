@@ -446,7 +446,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
-		to_chat(usr, "<span class='danger'>Подобную форму жизни в криокапсулу не удаётся поместить!</span>")
+		to_chat(usr, "<span class='danger'>Подобную форму жизни не удастся поместить в криокапсулу!</span>")
 		return
 	if(occupant)
 		to_chat(usr, "<span class='danger'>Криокапсула уже занята!</span>")
