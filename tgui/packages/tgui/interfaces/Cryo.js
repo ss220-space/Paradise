@@ -193,7 +193,7 @@ const CryoBeaker = (props, context) => {
                 const num = Math.round(v);
                 const leftText = declensionRu(num, 'Осталась', 'Остались', 'Осталось');
                 const unitText = declensionRu(num, 'единица', 'единицы', 'единиц');
-                return `${leftText} ${num}&nbsp;${unitText}`;
+                return `${leftText} ${num} ${unitText}`;
               }}
             />
           ) : "Ёмкость пуста"}
