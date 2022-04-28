@@ -9,7 +9,7 @@ export const declensionRu = (num, single_name, double_name, multiple_name) => {
 
   if (lastDigit === 1) {
     return single_name;
-  } else if (lastDigit >= 2 && shorten <= 4) {
+  } else if (lastDigit >= 2 && lastDigit <= 4) {
     return double_name;
   } else {
     return multiple_name;
