@@ -293,7 +293,7 @@
 		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в [src]!", "Вы загружаете [B] в [src]!")
+		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")
 		SStgui.update_uis(src)
 		return
 
