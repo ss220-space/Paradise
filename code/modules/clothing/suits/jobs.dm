@@ -118,12 +118,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
-
-	//Chef
-/obj/item/clothing/suit/toggle/chef
-  	name = "chef's apron"
-
-
 //Chef
 /obj/item/clothing/suit/chef
 	name = "chef's apron"

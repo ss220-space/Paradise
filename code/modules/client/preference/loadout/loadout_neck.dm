@@ -60,6 +60,7 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/neck/cloak/job/healer
+	display_name = "cloak, healer"
 	path = /obj/item/clothing/neck/cloak/healer
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
 
@@ -73,7 +74,7 @@
 	path = /obj/item/clothing/neck/cloak/chief_engineer
 	allowed_roles = list("Chief Engineer")
 
-/datum/gear/neck/cloak/job/chief_engineer
+/datum/gear/neck/cloak/job/chief_engineer/white
 	display_name = "cloak, chief engineer, white"
 	path = /obj/item/clothing/neck/cloak/chief_engineer/white
 	allowed_roles = list("Chief Engineer")
@@ -102,3 +103,16 @@
 	display_name = "cloak, quartermaster"
 	path = /obj/item/clothing/neck/cloak/quartermaster
 	allowed_roles = list("Quartermaster")
+
+//Ponchos
+/datum/gear/neck/poncho
+	display_name = "poncho, classic"
+	path = /obj/item/clothing/neck/poncho
+
+/datum/gear/neck/grponcho
+	display_name = "poncho, green"
+	path = /obj/item/clothing/neck/poncho/green
+
+/datum/gear/neck/rdponcho
+	display_name = "poncho, red"
+	path = /obj/item/clothing/neck/poncho/red

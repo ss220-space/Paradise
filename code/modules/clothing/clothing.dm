@@ -821,4 +821,3 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = SLOT_NECK
-	strip_delay = 4 SECONDS
