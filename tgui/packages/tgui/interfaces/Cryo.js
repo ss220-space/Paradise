@@ -1,4 +1,5 @@
 import { Fragment } from 'inferno';
+import { declensionRu } from 'common/l10n';
 import { useBackend } from "../backend";
 import { AnimatedNumber, Box, Button, Flex, Icon, LabeledList, ProgressBar, Section } from "../components";
 import { Window } from "../layouts";
@@ -188,7 +189,12 @@ const CryoBeaker = (props, context) => {
           {beakerVolume ? (
             <AnimatedNumber
               value={beakerVolume}
-              format={v => `Содержит ${Math.round(v)} сл`}
+              format={v => {
+                const num = Math.round(v);
+                const leftText = declensionRu(num, 'Осталась', 'Остались', 'Осталось');
+                const unitText = declensionRu(num, 'единица', 'единицы', 'единиц');
+                return `${leftText} ${num}&nbsp;${unitText}`;
+              }}
             />
           ) : "Ёмкость пуста"}
         </Box>
