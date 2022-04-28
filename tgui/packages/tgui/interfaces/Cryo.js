@@ -66,7 +66,7 @@ const CryoContent = (props, context) => {
         {hasOccupant ? (
           <LabeledList>
             <LabeledList.Item label="Пациент">
-              {occupant.name || "Неизвестное"}
+              {occupant.name || "Имя неизвестно"}
             </LabeledList.Item>
             <LabeledList.Item label="Здоровье">
               <ProgressBar
