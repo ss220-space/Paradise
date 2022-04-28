@@ -285,7 +285,7 @@
 	if(istype(G, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
-			to_chat(user, "<span class='warning'>В криокамеру уже загружена мензурка.</span>")
+			to_chat(user, "<span class='warning'>В криокапсулу уже загружена другая ёмкость.</span>")
 			return
 		if(!user.drop_item())
 			to_chat(user, "Вы не можете бросить [B]!")
