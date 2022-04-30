@@ -967,6 +967,10 @@
 	id = "hos"
 	},
 /obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "hos"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "adj" = (
@@ -5419,6 +5423,10 @@
 	id = "hos"
 	},
 /obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "hos"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "akK" = (
@@ -6005,6 +6013,10 @@
 	id = "hos"
 	},
 /obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "hos"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "alD" = (
@@ -7415,6 +7427,10 @@
 	id = "hos"
 	},
 /obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "hos"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "aog" = (
@@ -7949,6 +7965,10 @@
 	id = "hos"
 	},
 /obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "hos"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "aoR" = (
@@ -8493,6 +8513,10 @@
 	id = "hos"
 	},
 /obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "hos"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "apR" = (
