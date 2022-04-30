@@ -69,14 +69,14 @@
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
 
-/obj/item/clothing/neck/toggle/attack_self()
+/obj/item/clothing/neck/toggle/attack_self(mob/user)
 	if(icon_state == initial(icon_state))
 		icon_state = icon_state + "_t"
 		item_state = icon_state + "_t"
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-	usr.update_inv_neck()
+	user.update_inv_neck()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
