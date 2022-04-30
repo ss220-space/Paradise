@@ -304,9 +304,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
 		for(var/i in 1 to length(recievingPads))
-			recievingPads[i].use_power(10000 / recievingPads[i].power_efficiency)
-			flick("sqpad-beam", recievingPads[i])
-			playsound(get_turf(recievingPads[i]), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			var/obj/machinery/syndiepad/P = recievingPads[i]
+			P.use_power(10000 / P.power_efficiency)
+			flick("sqpad-beam", P)
+			playsound(get_turf(P), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
@@ -610,7 +611,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 				investigate_log("[key_name(usr)] has sold '[data_storage.sold_atoms]' using syndicate cargo. Remaining credits: [data_storage.cash]", "syndicate cargo")
 				data_storage.sold_atoms = null
 				for(var/i in 1 to length(DSLP))
-					DSLP[i].checks(usr)
+					var/obj/machinery/syndiepad/P = DSLP[i]
+					P.checks(usr)
 				data_storage.last_teleport = world.time
 				data_storage.is_cooldown = TRUE
 				buy()
