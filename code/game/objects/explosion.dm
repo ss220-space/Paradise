@@ -151,8 +151,8 @@
 				var/obj/machinery/doppler_array/Array = array
 				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
 			if(istype(array, /obj/item/clothing/head/helmet/space/hardsuit/rd))
-				var/obj/item/clothing/head/helmet/space/hardsuit/rd/Helm_Array = array
-				Helm_Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
+				var/obj/item/clothing/head/helmet/space/hardsuit/rd/helm_array = array
+				helm_array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
 	return 1
 
 
