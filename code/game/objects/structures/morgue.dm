@@ -190,7 +190,6 @@
 	anchored = 1.0
 	pass_flags = LETPASSTHROW
 	max_integrity = 350
-	var/close_sound = 'sound/items/deconstruct.ogg'
 
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
@@ -201,7 +200,7 @@
 		connected.connected = null
 		connected.update()
 		add_fingerprint(user)
-		playsound(loc, close_sound, 50, 1)
+		playsound(loc, connected.open_sound, 50, 1)
 		qdel(src)
 		return
 	return
