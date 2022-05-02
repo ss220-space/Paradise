@@ -28242,11 +28242,6 @@
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Подаёт азот из атмосферки в систему охлаждения реактора, таким образом запитывая её хладагентом";
-	dir = 1;
-	name = "Труба подачи азота в реактор"
-	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cDh" = (
