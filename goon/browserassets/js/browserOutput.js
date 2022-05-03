@@ -768,23 +768,25 @@ $(function() {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
+
+	$("head").append("<link>");
+	var css = $("head").children(":last");
+	css.attr({
+		rel:  "stylesheet",
+		type: "text/css",
+		href: "./browserOutput.css"
+	});
+
 	if (savedConfig.darkChat == "on") {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput-dark.css"
-		  });
-	} else {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput.css"
-		  });
+		$("head").append("<link>");
+		var $css_dark = $("head").children(":last");
+		$css_dark.attr({
+			rel:  "stylesheet",
+			type: "text/css",
+			href: "./browserOutput-dark.css"
+		});
 	}
+
 	if(localStorage){
 		var backlog = localStorage.getItem('backlog')
 		$messages.html(backlog)
