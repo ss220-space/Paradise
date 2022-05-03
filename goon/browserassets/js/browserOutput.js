@@ -1155,7 +1155,7 @@ $(function() {
 			'<div class="highlightPopup" id="highlightPopup">' +
 				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
 		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
-		    		'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+		    		'<br><a href="" onclick="window.open(\'https://wiki.ss220.space/index.php/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%80%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%BC_%D0%B2%D1%8B%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%D0%BC_(Regex)\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
