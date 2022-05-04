@@ -339,13 +339,7 @@
 	if(shade.mind)
 		shade.mind.transfer_to(src)
 	if(SS.purified)
-		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
-		name = "Holy [name]"
-		real_name = "Holy [real_name]"
-
-		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+		make_holy()
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new

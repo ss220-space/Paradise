@@ -7,6 +7,7 @@
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"
+	icon = 'icons/mob/mob.dmi'
 	icon_dead = "shade_dead"
 	speed = 0
 	a_intent = INTENT_HARM
@@ -25,6 +26,7 @@
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
+	var/holy = FALSE
 	var/list/construct_spells = list()
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
@@ -59,6 +61,19 @@
 		else
 			. += "<span class='warning'>It looks severely dented!</span>"
 
+/mob/living/simple_animal/hostile/construct/proc/make_holy()
+	if(holy)
+		return
+	holy = TRUE
+	set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+	name = "Holy [name]"
+	real_name = "Holy [real_name]"
+	faction.Remove("cult")
+	// Gives purified soulstones to every construct
+	/*icon_state = [icon_state]_holy*/ //to do thing
+	RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
 		if(health < maxHealth)
@@ -92,7 +107,6 @@
 	name = "Juggernaut"
 	real_name = "Juggernaut"
 	desc = "A possessed suit of armour driven by the will of the restless dead"
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 250
@@ -143,7 +157,6 @@
 	name = "Wraith"
 	real_name = "Wraith"
 	desc = "A wicked bladed shell contraption piloted by a bound spirit"
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "floating"
 	icon_living = "floating"
 	maxHealth = 75
@@ -169,7 +182,6 @@
 	name = "Artificer"
 	real_name = "Artificer"
 	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
 	maxHealth = 50
@@ -249,7 +261,6 @@
 	name = "Behemoth"
 	real_name = "Behemoth"
 	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult's arsenal."
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 750
@@ -283,7 +294,6 @@
 	name = "Harvester"
 	real_name = "Harvester"
 	desc = "A harbinger of enlightenment. It'll be all over soon."
-	icon = 'icons/mob/mob.dmi'
 	icon_state = "harvester"
 	icon_living = "harvester"
 	maxHealth = 60
