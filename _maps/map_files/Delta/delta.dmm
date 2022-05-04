@@ -56619,17 +56619,6 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/kitchen)
-"fXv" = (
-/obj/machinery/camera{
-	c_tag = "Detective's Office";
-	dir = 1;
-	network = list("SS13","Security")
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "fXx" = (
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -110731,9 +110720,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "tcb" = (
-/obj/structure/morgue{
-	dir = 8;
-	tag = "icon-morgue1 (WEST)"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -128398,6 +128386,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/camera{
+	c_tag = "Detective's Office";
+	dir = 1;
+	network = list("SS13","Security")
+	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "xgP" = (
@@ -129511,6 +129504,7 @@
 	name = "\improper AI Satellite Service"
 	})
 "xtO" = (
+/obj/structure/morgue,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -179844,7 +179838,7 @@ mLI
 mLI
 bXi
 daU
-fXv
+vsT
 nzz
 vUF
 qln
