@@ -69,8 +69,8 @@
 	name = "Holy [name]"
 	real_name = "Holy [real_name]"
 	faction.Remove("cult")
-	// Gives purified soulstones to every construct
 	/*icon_state = [icon_state]_holy*/ //to do thing
+	// Gives purified soulstones to every construct
 	RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
 

@@ -63,7 +63,6 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy
 	action_icon_state = "summonsoulstone_holy"
-
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
