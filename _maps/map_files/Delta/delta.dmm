@@ -119695,6 +119695,11 @@
 /area/bridge/vip)
 "vjQ" = (
 /obj/structure/filingcabinet/employment,
+/obj/machinery/camera{
+	c_tag = "Internal Affairs Office South";
+	dir = 1;
+	network = list("SS13","Security")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -128698,10 +128703,6 @@
 /obj/item/storage/secure/briefcase{
 	pixel_x = 5;
 	pixel_y = -5
-	},
-/obj/machinery/camera{
-	c_tag = "Internal Affairs Office North";
-	network = list("SS13","Security")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
