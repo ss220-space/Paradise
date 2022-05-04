@@ -3630,8 +3630,8 @@
 	c_tag = "Primary Security Hallway"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
 "arA" = (
@@ -39314,7 +39314,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	icon_state = "redcorner"
 	},
 /area/security/lobby)
 "drT" = (
@@ -54692,8 +54692,8 @@
 /area/hallway/primary/central/west)
 "fBi" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/east)
 "fBl" = (
@@ -59809,8 +59809,7 @@
 "gKP" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	dir = 1
 	},
 /area/hallway/primary/starboard/east)
 "gLd" = (
@@ -65567,8 +65566,7 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	dir = 1
 	},
 /area/hallway/primary/starboard/east)
 "ief" = (
@@ -76527,7 +76525,7 @@
 	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "redcorner"
 	},
 /area/security/lobby)
 "kSr" = (
@@ -79753,7 +79751,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "redcorner"
 	},
 /area/security/lobby)
 "lMn" = (
@@ -84177,6 +84175,23 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research/nhallway)
+"mLi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/security/lobby)
 "mLo" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/sink{
@@ -89537,7 +89552,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "cautioncorner"
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
 "obu" = (
@@ -94644,7 +94659,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "redcorner"
 	},
 /area/security/lobby)
 "plG" = (
@@ -98641,7 +98656,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
@@ -109293,7 +109308,7 @@
 	tag = "icon-pipe-j1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "redcorner"
 	},
 /area/security/lobby)
 "sGp" = (
@@ -111364,7 +111379,7 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 9;
 	icon_state = "red"
 	},
 /area/security/lobby)
@@ -115015,8 +115030,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/east)
 "udZ" = (
@@ -131439,8 +131454,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/east)
 "xNt" = (
@@ -176243,7 +176258,7 @@ vUq
 wwg
 uIm
 eeP
-udT
+xPg
 vIi
 pOC
 ydS
@@ -176500,7 +176515,7 @@ jun
 kWT
 uUy
 vJY
-udT
+xPg
 vIi
 pOC
 xiA
@@ -177785,7 +177800,7 @@ jun
 xfv
 wkK
 fBi
-xPg
+udT
 vVv
 tno
 ydS
@@ -181898,7 +181913,7 @@ wAe
 jXH
 xTp
 tle
-vTk
+mLi
 lMk
 gDB
 yhz
