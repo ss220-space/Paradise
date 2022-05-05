@@ -101,20 +101,13 @@ const ItemsPage = (_properties, context) => {
     return flow([
       filter(item => item?.name),
       searchText && filter(EquipmentSearch),
-      sortBy(item => item.name),
+      sortBy(item => item?.name),
     ])(cat);
   };
 
   const handleSearch = value => {
     setSearchText(value);
-    setUplinkCat(
-      SelectEquipment(
-        cats
-          .map(item => item.items.map(item => item))
-          .reduce((x, y) => x.concat(y)),
-        value
-      )
-    );
+    setUplinkCat(SelectEquipment(cats.map(item => item.items).flat(), value));
   };
   return (
     <Section
@@ -136,7 +129,7 @@ const ItemsPage = (_properties, context) => {
       <Input
         fluid
         mb={1}
-        placeholder="Search equipment"
+        placeholder="Search Equipment"
         onInput={(e, value) => {
           handleSearch(value);
         }}
