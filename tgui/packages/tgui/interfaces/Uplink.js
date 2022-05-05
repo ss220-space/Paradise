@@ -148,7 +148,7 @@ const ItemsPage = (_properties, context) => {
             {cats.map(c => (
               <Tabs.Tab
                 key={c}
-                selected={searchText ? null : c === uplinkCat}
+                selected={searchText ? null : c.items === uplinkCat}
                 onClick={() => {
                   setUplinkCat(c.items);
                   setSearchText("");
