@@ -1229,13 +1229,16 @@ $(function() {
 	});
 
 	$('#toggleDarkChat').click(function(e) {
-		internalOutput('<span class="internal boldnshit">Включена тёмная тема чата. Переподключение к чату…</span>', 'internal');
 		var backlog = $messages.html()
+		var toggleText;
 		if(getCookie('darkChat') == "on"){
+			toggleText = 'Включена';
 			setCookie('darkChat', "off", 365)
 		} else {
+			toggleText = 'Отключена';
 			setCookie('darkChat', "on", 365)
 		}
+		internalOutput('<span class="internal boldnshit">'+toggleText+' тёмная тема чата. Переподключение к чату…</span>', 'internal');
 		localStorage.setItem('backlog', backlog)
 		location.reload();
 	});
