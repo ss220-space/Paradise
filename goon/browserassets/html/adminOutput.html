@@ -23,7 +23,7 @@ function toggleFilter(type) {
 			});
 			$('#messages .entry *:nth-child(1):not(.internal)').parent('.entry').addClass('hidden').attr('data-filter', 'All');
 			opts.filterHideAll = true;
-			internalOutput('<span class="internal boldnshit">Теперь скрываются <strong>ВСЕ</strong> сообщения. А… вы точно именно <i>этого</i> хотели??</span>');
+			internalOutput('<span class="internal boldnshit">Теперь скрываются <strong>ВСЕ</strong> сообщения. А… вы точно именно <i>этого</i> хотели?</span>');
 		} else {
 			$.each(opts.showMessagesFilters, function (key) {
 				opts.showMessagesFilters[key].show = true;
