@@ -59809,7 +59809,8 @@
 "gKP" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
 "gLd" = (
@@ -65566,7 +65567,8 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
 "ief" = (
