@@ -204,7 +204,8 @@
 	if(is_admin(user) && !owner.is_slaved())
 		return TRUE
 	if(isAI(owner))
-		return is_special_character(owner)
+		var/mob/living/silicon/ai/malf = owner
+		return malf.malf_picker
 	else
 		var/mob/living/silicon/robot/silic = owner
 		return silic.module.module_type == "Malf" || silic.emagged
