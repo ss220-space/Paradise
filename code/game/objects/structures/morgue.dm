@@ -39,8 +39,8 @@
 	update()
 
 /obj/structure/morgue/proc/update()
-	var/list/morgue_content     = get_all_contents() - src - connected
-	var/list/morgue_mob         = get_all_contents_type(/mob/living)
+	var/list/morgue_content = get_all_contents() - src - connected
+	var/list/morgue_mob = get_all_contents_type(/mob/living)
 
 	if(connected)
 		icon_state = "morgue_connected"
