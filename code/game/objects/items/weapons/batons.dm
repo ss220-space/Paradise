@@ -86,12 +86,11 @@
 	add_attack_logs(user, target, "Stunned with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
+	target.adjustStaminaloss(staminaforce)
 	if(prob(75))
 		target.Weaken(stun_time)
-		target.adjustStaminaloss(staminaforce)
 	else
 		target.Weaken(stun_time + 1)
-		target.adjustStaminaLoss(staminaforce)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
 	return TRUE
