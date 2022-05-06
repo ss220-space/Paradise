@@ -18,6 +18,8 @@
 	var/affect_silicon = FALSE
 	/// The stun time (in life cycles) for non-silicons
 	var/stun_time = 2 SECONDS_TO_LIFE_CYCLES
+	/// Stamina damage
+	var=staminaforce = 15
 	/// The stun time (in life cycles) for silicons
 	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
 	/// Cooldown in deciseconds between two knockdowns
@@ -86,8 +88,10 @@
 	target.LAssailant = iscarbon(user) ? user : null
 	if(prob(75))
 		target.Weaken(stun_time)
+		target.adjustStaminaloss(staminaforce)
 	else
 		target.Weaken(stun_time + 1)
+		target.adjustStaminaLoss(staminaforce)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
 	return TRUE
