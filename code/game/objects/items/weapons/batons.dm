@@ -19,7 +19,7 @@
 	/// The stun time (in life cycles) for non-silicons
 	var/stun_time = 2 SECONDS_TO_LIFE_CYCLES
 	/// Stamina damage
-	var=staminaforce = 15
+	var/staminaforce = 15
 	/// The stun time (in life cycles) for silicons
 	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
 	/// Cooldown in deciseconds between two knockdowns
