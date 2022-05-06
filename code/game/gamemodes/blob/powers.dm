@@ -328,7 +328,9 @@
 		to_chat(src, "There is no blob adjacent to you.")
 		return
 
-	if(!can_buy(5))
+	var/mob/living/H = locate() in T
+	if(H) // If target living - cost 0
+	else if(!can_buy(5))
 		return
 	last_attack = world.time
 	OB.expand(T, 0, blob_reagent_datum.color)
