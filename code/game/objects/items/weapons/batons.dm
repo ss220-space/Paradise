@@ -12,6 +12,7 @@
 	item_state = "classic_baton"
 	slot_flags = SLOT_BELT
 	force = 12 //9 hit crit
+	staminaforce = 15
 	w_class = WEIGHT_CLASS_NORMAL
 	// Settings
 	/// Whether the baton can stun silicon mobs
@@ -128,6 +129,7 @@
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
 	needs_permit = FALSE
+	staminaforce = 15
 
 /obj/item/melee/classic_baton/ntcane/is_crutch()
 	return TRUE
@@ -147,6 +149,7 @@
 	var/force_off = 0
 	/// Force when extended
 	var/force_on = 10
+	var/staminaforce_on = 15
 	/// Item state when extended
 	var/item_state_on = "nullrod"
 	/// Icon state when concealed
