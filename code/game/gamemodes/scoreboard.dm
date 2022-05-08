@@ -162,7 +162,113 @@
 	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
 
 	// Generate the score panel
-	var/dat = {"<meta charset="UTF-8"><b>Итоги смены</b><br><hr>"}
+	var/dat = ""
+	var/crew_alive = ""
+	var/other_alive = ""
+
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/Person = thing
+		var/icon/newphoto = get_id_photo(Person, Person.job)
+		var/photo_front = "'data:image/png;base64,[icon2base64(icon(newphoto, dir = SOUTH))]'"
+		var/person_item = {"
+			<div class='EndTitles_item'>
+				<div class='EndTitles_mainInfo'>
+					<img class='EndTitles_photo' src=[photo_front]/>
+					<div class='EndTitles_info'>
+						[Person?.key ? "<div class='EndTitles_key'>[Person.key]</div><div class='EndTitles_asRole'>в роли</div>" : ""]
+						<div class='EndTitles_realName'>[Person.real_name]</div>
+						[Person?.job ? "<div class='EndTitles_job'>([Person.job])</div>" : ""]
+					</div>
+				</div>
+				[Person.flavor_text ? "<p class='EndTitles_flavorText'>[Person.flavor_text]</p>" : ""]
+			</div>
+		"}
+		if(Person?.ckey)
+			crew_alive += person_item
+		else
+			other_alive += person_item
+
+
+	dat += {"
+		<style type="text/css">
+			.EndTitles_crewList {
+				display: block;
+				padding-left: 0;
+			}
+			.EndTitles_item {
+				display: inline-block;
+				width: 15em;
+				margin: .5em;
+				list-style-type: none;
+				vertical-align: top;
+				background-color: #999999;
+				min-height: 64px;
+			}
+			.EndTitles_crew-NT .EndTitles_item {
+				background-color: #195AFF;
+			}
+			.EndTitles_crew-other .EndTitles_item {
+				min-height: 32px;
+			}
+			.EndTitles_mainInfo {
+				position: relative;
+				padding-left: 64px;
+			}
+			.EndTitles_crew-other .EndTitles_mainInfo {
+				padding-left: 32px;
+			}
+			.EndTitles_photo {
+				position: absolute;
+				width: 64px;
+				height: 64px;
+				top: 0;
+				left: 0;
+			}
+			.EndTitles_crew-other .EndTitles_photo {
+				width: 32px;
+				height: 32px;
+			}
+			.EndTitles_info {
+				padding: .5em;
+				text-align: center;
+			}
+			.EndTitles_key {
+				font-family: Consolas, 'Courier New', monospace;
+			}
+			.EndTitles_realName {
+				font-weight: 700;
+			}
+			.EndTitles_flavorText {
+				padding: .5em;
+				font-style: italic;
+				text-align: center;
+			}
+			.EndTitles_job {
+				position: relative;
+			}
+		</style>
+		<div class="EndTitles">
+			<h1 class="EndTitles_header">Смена №[GLOB.round_id ? GLOB.round_id : "NULL"] на [station_name()]</h1>
+	"}
+	dat += crew_alive ? {"
+			<div class="EndTitles_crew EndTitles_crew-NT">
+				<h2 class="EndTitles_crewHeader">Спасшийся экипаж</h2>
+				<div class="EndTitles_crewList">[crew_alive]</div>
+			</div>
+	"} : ""
+	dat += other_alive ? {"
+			<div class="EndTitles_crew EndTitles_crew-other">
+				<h2 class="EndTitles_crewHeader">Прочие персонажи</h2>
+				<div class="EndTitles_crewList">[other_alive]</div>
+			</div>
+		</div>
+	"} : ""
+
+
+
+
+
+	dat += {"<meta charset="UTF-8"><b>Итоги смены</b><br><hr>"}
 	if(mode)
 		dat += mode.get_scoreboard_stats()
 
@@ -219,11 +325,11 @@
 		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Лучшие кадры НаноТрейзен"
 
 	dat += "<b><u>РЕЙТИНГ:</u></b> [score_rating]"
-	src << browse(dat, "window=roundstats;size=700x900")
+	src << browse(dat, "window=roundstats;size=700x900;can_resize=1;")
 
 	for(var/mob/E in GLOB.player_list)
 		if(E.client && !E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
-			E << browse(dat, "window=roundstats;size=700x900")
+			E << browse(dat, "window=roundstats;size=700x900;can_resize=1")
 
 // A recursive function to properly determine the wealthiest escapee
 /datum/controller/subsystem/ticker/proc/get_score_container_worth(atom/C, level=0)
