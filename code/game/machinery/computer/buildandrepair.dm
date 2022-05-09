@@ -292,7 +292,7 @@
 	build_path = /obj/machinery/computer/syndie_supplycomp
 	origin_tech = "programming=3;syndicate=3"
 
-obj/item/circuitboard/syndicatesupplycomp/public
+/obj/item/circuitboard/syndicatesupplycomp/public
 	name = "Circuit board (Syndicate Public Supply Pad Console)"
 	build_path = /obj/machinery/computer/syndie_supplycomp/public
 	origin_tech = "programming=3;syndicate=3"
@@ -300,7 +300,7 @@ obj/item/circuitboard/syndicatesupplycomp/public
 /obj/item/circuitboard/syndicate_teleporter
 	name = "Circuit board (Syndicate Redspace Teleporter)"
 	icon_state = "syndicate_circuit"
-	build_path = /obj/machinery/computer/syndicate_depot/teleporter
+	build_path = /obj/machinery/computer/syndicate_depot/teleporter/taipan
 	origin_tech = "programming=6;bluespace=5;syndicate=8"
 
 /obj/item/circuitboard/operating
@@ -329,12 +329,12 @@ obj/item/circuitboard/syndicatesupplycomp/public
 /obj/item/circuitboard/mining_shuttle
 	name = "circuit Board (Mining Shuttle)"
 	build_path = /obj/machinery/computer/shuttle/mining
-/obj/item/circuitboard/ussp_pod
-	name = "circuit Board (USSP Shuttle)"
-	build_path = /obj/machinery/computer/shuttle/ussp_pod
-/obj/item/circuitboard/spacebarhotelpodv1
-	name = "circuit Board (Regular Space Shuttle)"
-	build_path = /obj/machinery/computer/shuttle/spacebarhotelpodv1
+/obj/item/circuitboard/ruins_transport_shuttle
+	name = "circuit Board (Transport Shuttle)"
+	build_path = /obj/machinery/computer/shuttle/ruins_transport_shuttle
+/obj/item/circuitboard/ruins_civil_shuttle
+	name = "circuit Board (Regular Civilian Shuttle)"
+	build_path = /obj/machinery/computer/shuttle/ruins_civil_shuttle
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship

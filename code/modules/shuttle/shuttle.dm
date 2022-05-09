@@ -862,22 +862,25 @@
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
-		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
-/obj/machinery/computer/shuttle/ussp_pod // this shuttle made for station and listening post of ussp since they have lore connection between eachother, btw the shuttle existed before the change but was deleted for some reason.
-	name = "USSP Shuttle Console"
-	desc = "Used to control the USSP Shuttle."
-	circuit = /obj/item/circuitboard/ussp_pod
-	shuttleId = "ussppod"
-	possible_destinations = "ussp_dock;dj_post"
 
-/obj/machinery/computer/shuttle/spacebarhotelpodv1 // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
-	name = "Regular Space Shuttle Console"
-	desc = "Used to control the Regular Shuttle."
-	circuit = /obj/item/circuitboard/spacebarhotelpodv1
-	shuttleId = "spacebarpodv1"
-	possible_destinations = "spacebarv1;spacehotelv1" // v1 for the mark that they connected and for ensure that no space hotels or bars will interference with these docks
+/obj/machinery/computer/shuttle/ruins_transport_shuttle // this shuttle made for station and listening post of ussp since they have lore connection between eachother, btw the shuttle existed before the change but was deleted for some reason.
+	name = "Transport Shuttle Console"
+	desc = "Used to control the Transport Shuttle."
+	circuit = /obj/item/circuitboard/ruins_transport_shuttle
+	shuttleId = "ruins_transport_shuttle"
+	possible_destinations = "ussp_dock;dj_post;sindiecake_dock"
+
+
+/obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
+	name = "Regular Civilian Shuttle Console"
+	desc = "Used to control the Regular Civilian Shuttle."
+	circuit = /obj/item/circuitboard/ruins_civil_shuttle
+	shuttleId = "ruins_civil_shuttle"
+	possible_destinations = "spacebar;spacehotelv1"
+
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
