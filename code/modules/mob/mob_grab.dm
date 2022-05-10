@@ -402,7 +402,7 @@
 				to_chat(user, "<span class='warning'>[affecting] пристегнут!</span>")
 				return
 
-			user.visible_message("<span class='danger'>[user] поглощает \the [affecting]!</span>")
+			user.visible_message("<span class='danger'>[user] поглощает [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
 
