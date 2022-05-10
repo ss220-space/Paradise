@@ -329,7 +329,7 @@
 
 		else
 			if(HAS_TRAIT(L, TRAIT_PACIFISM))
-				to_chat(L, "<span class='warning'>Вы больше не хотите никому навредить!</span>")
+				to_chat(L, "<span class='warning'>Вы не хотите никому навредить!</span>")
 				return
 
 			L.do_attack_animation(src)
