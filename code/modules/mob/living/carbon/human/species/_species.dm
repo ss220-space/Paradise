@@ -505,7 +505,7 @@
 			if(istype(target.r_hand, /obj/item/grab))
 				var/obj/item/grab/rgrab = target.r_hand
 				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал [target] хватку [rgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user] разорвал хватку [target] на [rgrab.affecting]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(rgrab)
