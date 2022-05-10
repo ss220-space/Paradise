@@ -1,7 +1,7 @@
 /datum/martial_combo/plasma_fist/tornado_sweep
 	name = "Кручение Торнадо"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM)
-	explaination_text = "Отталкивает цель и все что рядом рядом."
+	explaination_text = "Отталкивает цель и все что рядом."
 
 /datum/martial_combo/plasma_fist/tornado_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.say("КРУЧЕНИЕ ТОРНАДО!")
