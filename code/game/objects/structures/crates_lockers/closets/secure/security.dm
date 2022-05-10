@@ -382,7 +382,7 @@
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
 	req_access = list(ACCESS_BRIG)
-	anchored = 1
+	anchored = TRUE
 	var/id = null
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
@@ -393,6 +393,7 @@
 
 /obj/structure/closet/secure_closet/brig/evidence
 	name = "evidence locker"
+	req_access = list(ACCESS_SECURITY)
 
 /obj/structure/closet/secure_closet/brig/evidence/populate_contents()
 	new /obj/item/stack/sheet/cardboard(src)
