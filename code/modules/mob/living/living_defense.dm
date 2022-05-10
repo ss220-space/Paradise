@@ -280,7 +280,7 @@
 			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
-		visible_message("<span class='warning'>[user] слегка схватил [src]!</span>")
+		visible_message("<span class='warning'>[user] схватил [src]!</span>")
 
 	return G
 
