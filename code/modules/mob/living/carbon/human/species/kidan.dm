@@ -35,12 +35,12 @@
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
 	suicide_messages = list(
-		"is attempting to bite their antenna off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is cracking their exoskeleton!",
-		"is stabbing themselves with their mandibles!",
-		"is holding their breath!")
+		"пытается откусить свою антенну!",
+		"вонзает когти в свои глазницы!",
+		"сворачивает себе шею!",
+		"трескается экзоскелетом!",
+		"протыкает себя челюстями!",
+		"задерживает дыхание!")
 
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)

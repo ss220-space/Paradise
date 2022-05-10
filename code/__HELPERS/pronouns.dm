@@ -1,4 +1,4 @@
-//pronoun procs, for getting pronouns without using the text macros that only work in certain positions
+//pronoun procs, for getting  without using the text macros that only work in certain positions
 //datums don't have gender, but most of their subtypes do!
 
 /proc/declension_ru(num, single_name, double_name, multiple_name)

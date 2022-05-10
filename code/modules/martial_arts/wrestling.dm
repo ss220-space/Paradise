@@ -1,5 +1,5 @@
 /datum/martial_art/wrestling
-	name = "Wrestling"
+	name = "Борьба"
 	help_verb = /mob/living/carbon/human/proc/wrestling_help
 
 //	combo refence since wrestling uses a different format to sleeping carp and plasma fist.
@@ -12,18 +12,18 @@
 	var/obj/item/grab/G = A.get_active_hand()
 	if(G && prob(50))
 		G.state = GRAB_AGGRESSIVE
-		D.visible_message("<span class='danger'>[A] has [D] in a clinch!</span>", \
-								"<span class='userdanger'>[A] has [D] in a clinch!</span>")
+		D.visible_message("<span class='danger'>[A] берет [D] в клинч!</span>", \
+								"<span class='userdanger'>[A] попал в клинч [D]!</span>")
 	else
-		D.visible_message("<span class='danger'>[A] fails to get [D] in a clinch!</span>", \
-								"<span class='userdanger'>[A] fails to get [D] in a clinch!</span>")
+		D.visible_message("<span class='danger'>[A] не смог взять [D] в клинч!</span>", \
+								"<span class='userdanger'>[A] не смог взять [D] в клинч!</span>")
 	return 1
 
 
 /datum/martial_art/wrestling/proc/Suplex(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 
-	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
-								"<span class='userdanger'>[A] suplexes [D]!</span>")
+	D.visible_message("<span class='danger'>[A] берет в суплекс [D]!</span>", \
+								"<span class='userdanger'>[A] берет в суплекс [D]!</span>")
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, "melee")
 	D.apply_damage(30, BRUTE, null, armor_block)
@@ -49,19 +49,19 @@
 
 /datum/martial_art/wrestling/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	D.grabbedby(A,1)
-	D.visible_message("<span class='danger'>[A] holds [D] down!</span>", \
-								"<span class='userdanger'>[A] holds [D] down!</span>")
+	D.visible_message("<span class='danger'>[A] захватывает [D]!</span>", \
+								"<span class='userdanger'>[A] удерживает [D]!</span>")
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 	D.apply_damage(10, STAMINA, affecting, armor_block)
 	return 1
 
 /mob/living/carbon/human/proc/wrestling_help()
-	set name = "Recall Teachings"
-	set desc = "Remember how to wrestle."
-	set category = "Wrestling"
+	set name = "Вспомнить Уроки"
+	set desc = "Вспомнить как бороться."
+	set category = "Борьба"
 
-	to_chat(usr, "<b><i>You flex your muscles and have a revelation...</i></b>")
-	to_chat(usr, "<span class='notice'>Clinch</span>: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
-	to_chat(usr, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-	to_chat(usr, "<span class='notice'>Advanced grab</span>: Grab. Passively causes stamina damage when grabbing someone.")
+	to_chat(usr, "<b><i>Вы напрягаете мышцы и осознаете...</i></b>")
+	to_chat(usr, "<span class='notice'>Клинч</span>: Схватить. Дает пассивный шанс немедленно взять в агрессивный захват. Не всегда успешно.")
+	to_chat(usr, "<span class='notice'>Суплекс</span>: Обезоружьте того, кого захватываете, захватывая в суплекс на полу. Сильно ранит вашу цель, оставляя её и вас на полу.")
+	to_chat(usr, "<span class='notice'>Продвинутый захват</span>: Захват. Пассивно наносит урон выносливосте сопернику при попытках захвата.")

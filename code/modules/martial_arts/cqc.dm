@@ -36,22 +36,22 @@
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
-	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
+	var/picked_hit_type = pick("ударил техникой CQC", "пробил рубящим ударом по шее", "пнул", "ударил в колено", "пробил", "ударил в нутро", "доминировал как большой босс над")
 	var/bonus_damage = 13
 	if(D.IsWeakened() || D.resting || D.lying)
 		bonus_damage += 5
-		picked_hit_type = "stomps on"
+		picked_hit_type = "пробил рубящим ударом по шее"
 	D.apply_damage(bonus_damage, BRUTE)
-	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
+	if(picked_hit_type == "пнул" || picked_hit_type == "пробил"|| picked_hit_type == "пробил рубящим ударом по шее"|| picked_hit_type == "ударил в колено")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  "<span class='userdanger'>[A] [picked_hit_type] вас!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && !D.IsWeakened())
-		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							"<span class='userdanger'>[A] leg sweeps you!</span>")
+		D.visible_message("<span class='warning'>[A] выбил ногу [D]!", \
+							"<span class='userdanger'>[A] выбил вам ногу!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		D.Weaken(1)
@@ -62,8 +62,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
+		D.visible_message("<span class='danger'>[A] берет [D] в удушающий захват!</span>", \
+							"<span class='userdanger'>[A] взял вас в удушающий захват</span>")
 		D.SetSleeping(10)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
@@ -77,22 +77,22 @@
 	if(prob(50))
 		if(!D.stat || !D.IsWeakened() || !restraining)
 			I = D.get_active_hand()
-			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
-								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+			D.visible_message("<span class='warning'>[A] ударяет кулаком по челюсти [D]!</span>", \
+								"<span class='userdanger'>[A] ударил в челюсть, дезоориентируя вас!</span>")
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			if(I && D.drop_item())
 				A.put_in_hands(I)
 			D.Jitter(2)
 			D.apply_damage(5, BRUTE)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message("<span class='danger'>[A] попытался обезоружить [D]!</span>", "<span class='userdanger'>[A] попытался обезоружить [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/explaination_header(user)
-	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
+	to_chat(user, "<b><i>Вы пытаетесь вспомнить основы CQC.</i></b>")
 
 /datum/martial_art/cqc/explaination_footer(user)
-	to_chat(user, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+	to_chat(user, "<b><i>В режиме броска, когда вас атакуют, вы переходите в режим активной защиты, имея шанс заблокировать и контратаковать направленные на вас удары.</i></b>")

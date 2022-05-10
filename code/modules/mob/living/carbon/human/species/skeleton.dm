@@ -33,9 +33,10 @@
 	heat_level_3 = INFINITY
 
 	suicide_messages = list(
-		"is snapping their own bones!",
-		"is collapsing into a pile!",
-		"is twisting their skull off!")
+		"ломает свои кости!",
+		"сваливается в кучу!",
+		"разваливается!",
+		"откручивает себе череп!")
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.

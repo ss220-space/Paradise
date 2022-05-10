@@ -1,5 +1,5 @@
 /datum/martial_art/adminfu
-	name = "Way of the Dancing Admin"
+	name = "Путь Танцующего Админа"
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
 
@@ -7,8 +7,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
-		D.visible_message("<span class='warning'>[A] manifests a large glowing toolbox and shoves it in [D]'s chest!</span>", \
-							"<spac class='userdanger'>[A] shoves a mystical toolbox in your chest!</span>")
+		D.visible_message("<span class='warning'>[A] демонстрирует большой светящийся ящик с инструментами и пихает его в [D] грудь!</span>", \
+							"<spac class='userdanger'>[A] пихает мистический ящик с инструментами в вашу грудь!</span>")
 		D.death()
 
 		return TRUE
@@ -34,8 +34,8 @@
 	to_chat(user, "<span class='notice'>Harm</span>: Death.")
 
 /obj/item/adminfu_scroll
-	name = "frayed scroll"
-	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
+	name = "потертый свиток"
+	desc = "Старый и потертый клочок бумаги, исписанный меняющимися рунами. Есть рисованные иллюстрации кулачного боя."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	var/used = 0
@@ -47,8 +47,8 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of the Admins.</span>")
+		to_chat(H, "<span class='boldannounce'>Вы изучили древнее боевое искусство Админов.</span>")
 		used = 1
-		desc = "It's completely blank."
-		name = "empty scroll"
+		desc = "Он совершенно пустой."
+		name = "пустой свиток"
 		icon_state = "blankscroll"

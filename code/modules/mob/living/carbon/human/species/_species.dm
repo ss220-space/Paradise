@@ -101,10 +101,10 @@
 	//Death vars.
 	var/death_message = "цепенеет и расслабляется, взгляд становится пустым и безжизненным..."
 	var/list/suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their thumbs into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"выдавливает свои глазницы большими пальцами!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
@@ -386,7 +386,7 @@
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
+		target.visible_message("<span class='warning'>[target] заблокировал попытку захвата [user]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
@@ -396,18 +396,18 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		to_chat(user, "<span class='warning'>Вы не хотите навредить [target]!</span>")
 		return FALSE
 	//Vampire code
 	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
-			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
-			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			to_chat(user, "<span class='warning'>Твои клыки не могут пронзить холодную плоть [target.name].</span>")
 			return
 		if(SKELETON in target.mutations)
-			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
 			return
 		//we're good to suck the blood, blaah
 		user.mind.vampire.handle_bloodsucking(target)
@@ -415,7 +415,7 @@
 		return
 		//end vampire codes
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		target.visible_message("<span class='warning'>[target] заблокировал атаку [user]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
@@ -425,7 +425,7 @@
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)] [target]!</span>")
 			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
@@ -441,7 +441,7 @@
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
+			target.visible_message("<span class='danger'>[user] попытался, но не [pick(attack.attack_verb)] по [target]!</span>")
 			return FALSE
 
 
@@ -450,11 +450,11 @@
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
-		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)] [target]!</span>")
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
-							"<span class='userdanger'>[user] has weakened [target]!</span>")
+			target.visible_message("<span class='danger'>[user] ослабил [target]!</span>", \
+							"<span class='userdanger'>[user] ослабил [target]!</span>")
 			target.apply_effect(2, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
@@ -463,7 +463,7 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		target.visible_message("<span class='warning'>[target] заблокировал попытку обезоруживания [user]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
@@ -477,7 +477,7 @@
 		if(randn <= 10)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
+			target.visible_message("<span class='danger'>[user] толкнул [target]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -490,7 +490,7 @@
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
+				target.visible_message("<span class='danger'>[user] разорвал [target] хватку [target.pulling]!</span>")
 				talked = 1
 				target.stop_pulling()
 
@@ -498,14 +498,14 @@
 			if(istype(target.l_hand, /obj/item/grab))
 				var/obj/item/grab/lgrab = target.l_hand
 				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [lgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user] разорвал [target] хватку [lgrab.affecting]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(lgrab)
 			if(istype(target.r_hand, /obj/item/grab))
 				var/obj/item/grab/rgrab = target.r_hand
 				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [rgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user] разорвал [target] хватку [rgrab.affecting]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(rgrab)
@@ -513,13 +513,13 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] has disarmed [target]!</span>")
+					target.visible_message("<span class='danger'>[user] обезоружил [target]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
 
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
+	target.visible_message("<span class='danger'>[user] попытался обезоружить [target]!</span>")
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -530,7 +530,7 @@
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
-			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
+			to_chat(M, "<span class='warning'>Ты не можешь пользоваться своей рукой.</span>")
 			return
 
 	if(M.mind)
@@ -538,7 +538,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
+		H.visible_message("<span class='warning'>[M] попытался коснуться [H]!</span>")
 		return FALSE
 
 	switch(M.a_intent)
@@ -573,7 +573,7 @@
 //Species unarmed attacks
 
 /datum/unarmed_attack
-	var/attack_verb = list("punch")	// Empty hand hurt intent verb.
+	var/attack_verb = list("ударил кулаком", "вмазал кулаком", "стукнул кулаком", "вдарил кулаком", "влепил кулаком")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
@@ -582,10 +582,10 @@
 	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 
 /datum/unarmed_attack/diona
-	attack_verb = list("lash", "bludgeon")
+	attack_verb = list("охлестали", "тыжело стукнули", "хлестанули лозой", "щелкнули ветвью по")
 
 /datum/unarmed_attack/claws
-	attack_verb = list("scratch", "claw")
+	attack_verb = list("царапнул", "разорвал", "искромсал", "надорвал", "порвал", "полоснул", "полоснул когтями", "искромсал когтями", "царапнул когтями", "разорвал когтями", "надорвал когтями", "порвал когтями")
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
@@ -599,7 +599,7 @@
 	animation_type = ATTACK_EFFECT_BITE
 
 /datum/unarmed_attack/claws/armalis
-	attack_verb = list("slash", "claw")
+	attack_verb = list("хлестает", "хлестанул", "искромсал", "разорвал")
 	damage = 6
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
@@ -634,7 +634,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_BELT))
 				return
@@ -656,7 +656,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_ID))
 				return FALSE
@@ -668,7 +668,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_PDA))
 				return FALSE
@@ -682,7 +682,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return
@@ -697,7 +697,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return FALSE
@@ -711,15 +711,15 @@
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a suit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен костюм перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
-					to_chat(H, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
+					to_chat(H, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
 				return FALSE
 			if(I.w_class > WEIGHT_CLASS_BULKY)
 				if(!disable_warning)
-					to_chat(H, "The [name] is too big to attach.")
+					to_chat(H, "[name] слишком большой, чтобы прикрепить.")
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
@@ -737,12 +737,12 @@
 		if(slot_tie)
 			if(!H.w_uniform)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='warning'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
+					to_chat(H, "<span class='warning'>У вас уже есть аксессуар этого типа на [uniform].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_TIE))
 				return FALSE
