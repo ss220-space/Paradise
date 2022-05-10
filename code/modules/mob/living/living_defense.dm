@@ -354,7 +354,7 @@
 			return FALSE
 		if(INTENT_HARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='warning'>Вы больше не хотите никому навредить!</span>")
+				to_chat(M, "<span class='warning'>Вы не хотите никому навредить!</span>")
 				return FALSE
 			M.do_attack_animation(src)
 			return TRUE
