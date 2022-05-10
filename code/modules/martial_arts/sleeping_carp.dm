@@ -23,7 +23,7 @@
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	var/atk_verb = pick("провел удары руками по", "ударил кулаком", "ударил локтем", "бьет ногой", "пнул", "пинает", "провел рубящий удар по", "проводит серию ударов по", "разносит ударами")
+	var/atk_verb = pick("ударил кулаком", "ударил локтем", "бьет ногой", "пнул", "пинает", "разносит ударами")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
 					  "<span class='userdanger'>[A] [atk_verb] тебя!</span>")
 	D.apply_damage(rand(10,15), BRUTE)
