@@ -310,7 +310,7 @@
 		M.custom_emote(1, "[M.friendly] [src].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>Вы больше не хотите никому навредить!</span>")
+		to_chat(M, "<span class='warning'>Вы не хотите никому навредить!</span>")
 		return FALSE
 
 	if(M.attack_sound)
