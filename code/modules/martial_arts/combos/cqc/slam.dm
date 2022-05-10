@@ -1,7 +1,7 @@
 /datum/martial_combo/cqc/slam
 	name = "Слэм"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Бросьте противника на землю, сбивая его с ног."
+	explaination_text = "Бросает оппонента на землю, сбивая его с ног."
 	combo_text_override = "Grab, Сменить руки, Harm"
 
 /datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
