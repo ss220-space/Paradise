@@ -490,7 +490,7 @@
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] разорвал [target] хватку [target.pulling]!</span>")
+				target.visible_message("<span class='danger'>[user] разорвал хватку [target] на [target.pulling]!</span>")
 				talked = 1
 				target.stop_pulling()
 
