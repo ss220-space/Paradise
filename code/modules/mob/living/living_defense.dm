@@ -295,7 +295,7 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>Вы больше не хотите никому навредить!</span>")
+		to_chat(M, "<span class='warning'>Вы не хотите никому навредить!</span>")
 		return FALSE
 
 	if(stat != DEAD)
