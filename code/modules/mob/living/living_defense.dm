@@ -25,7 +25,7 @@
 		if(absorb_text)
 			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
 		else
-			to_chat(src, "<span class='userdanger'>Ваша броня выдерживает удар!</span>")
+			to_chat(src, "<span class='userdanger'>Ваша броня поглощает удар!</span>")
 	else if(armor > 0)
 		if(soften_text)
 			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
