@@ -14,7 +14,7 @@
 
 /obj/item/mimejutsu_scroll
 	name = "Берет мастера Мимдзюцу"
-	desc =	"К берету прикреплена степлером старая записка..."
+	desc =	"Берет, к которому степлером прикреплена старая записка..."
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret"
 	var/used = 0
