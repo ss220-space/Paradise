@@ -126,7 +126,7 @@
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src.name] слишком тяжелый чтобы тащить!</span>")
+			to_chat(user, "<span class='warning'>[src.name] слишком тяжелый!</span>")
 		return FALSE
 	return TRUE
 
