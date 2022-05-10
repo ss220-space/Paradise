@@ -391,6 +391,11 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/brig/evidence
+	name = "evidence locker"
+
+/obj/structure/closet/secure_closet/brig/evidence/populate_contents()
+	new /obj/item/stack/sheet/cardboard(src)
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"
