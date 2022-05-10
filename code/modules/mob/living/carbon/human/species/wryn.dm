@@ -163,7 +163,7 @@
 /datum/species/wryn/handle_death(gibbed, mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			to_chat(C, "<span class='danger'><B>Ваша антенна покалывает, когда вас одолевает боль...</B></span>")
+			to_chat(C, "<span class='danger'><B>Ваши усики дрожат, когда вас одолевает боль...</B></span>")
 			to_chat(C, "<span class='danger'>Такое ощущение, что часть вас умерла.</span>") // This is bullshit -- Да, согласен.
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
