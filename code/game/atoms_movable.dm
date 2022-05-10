@@ -83,7 +83,7 @@
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] слегка схватил [M]!</span>")
+			visible_message("<span class='warning'>[src] схватил [M]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
