@@ -171,7 +171,7 @@
 	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [H.p_their()] потерянной [limb_select]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [limb_select]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
 	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текузем состоянии</span>")
+			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текущем состоянии</span>")
 			return
 
 		if(H.nutrition < SLIMEPERSON_MINHUNGER)
