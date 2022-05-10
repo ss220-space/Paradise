@@ -37,4 +37,4 @@
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
-	to_chat(usr, "<b><i>Вы погружаете свое сознание в себя и вспоминаете учения Свящего Карпа...</i></b>")
+	to_chat(usr, "<b><i>Вы погружаетесь в свое сознание и вспоминаете учения Спящего Карпа...</i></b>")
