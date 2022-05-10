@@ -129,7 +129,7 @@
 		UpdateButtonIcon()
 		return
 	else			//Get ready, aim, fire!
-		user.visible_message("<span class='warning'> [user] готовится использовать жала Врина!</span>")
+		user.visible_message("<span class='warning'> [user] готовится использовать жало Врина!</span>")
 		sting_target(user, target)
 	return
 
