@@ -582,7 +582,7 @@
 	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 
 /datum/unarmed_attack/diona
-	attack_verb = list("охлестали", "тыжело стукнули", "хлестанули лозой", "щелкнули ветвью по")
+	attack_verb = list("охлестали", "тяжело стукнули", "хлестанули лозой", "щелкнули ветвью по")
 
 /datum/unarmed_attack/claws
 	attack_verb = list("царапнул", "разорвал", "искромсал", "надорвал", "порвал", "полоснул", "полоснул когтями", "искромсал когтями", "царапнул когтями", "разорвал когтями", "надорвал когтями", "порвал когтями")
