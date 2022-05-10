@@ -351,7 +351,7 @@
 			if(H.staminaloss && !H.sleeping)
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
-					H.visible_message("<span class='warning'>[user] наносит сильный удар по [H] голове, выбивая [H.p_them()] из строя!</span>", \
+					H.visible_message("<span class='warning'>[user] наносит сильный удар по голове [H], выбивая [H.p_them()] из строя!</span>", \
 										   "<span class='userdanger'>[user] сбивает тебя с ног!</span>")
 					H.SetSleeping(30)
 					H.adjustBrainLoss(25)
