@@ -137,7 +137,7 @@
 /datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
-		to_chat(user, "<span class='warning'>Вы далеко от цели [target]. Вы убираете свое жало.</span>")
+		to_chat(user, "<span class='warning'>Вы далеко от [target]. Вы убираете свое жало.</span>")
 		user.visible_message("<span class='warning'[user] убирает свое жало.</span>")
 		UpdateButtonIcon()
 		return
