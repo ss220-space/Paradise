@@ -13725,13 +13725,6 @@
 	name = "Detective Requests Console";
 	pixel_y = -30
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
@@ -14066,7 +14059,7 @@
 /area/security/prison/cell_block/A)
 "ayV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -16727,6 +16720,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/hologram/holopad{
+	pixel_x = -16
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -17807,6 +17806,12 @@
 	icon_state = "4-8";
 	tag = ""
 	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -17845,7 +17850,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "aGB" = (
@@ -17855,6 +17861,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -18463,7 +18470,6 @@
 	},
 /area/security/detectives_office)
 "aHX" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -18472,7 +18478,7 @@
 	req_access_txt = "4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
@@ -29936,22 +29942,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/crew_quarters/kitchen)
-"bfF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/hydroponics)
 "bfG" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
@@ -47553,6 +47543,8 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/item/defibrillator/loaded,
+/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner";
@@ -47839,12 +47831,18 @@
 	},
 /area/toxins/lab)
 "bPE" = (
-/obj/structure/table/glass,
 /obj/item/pen/multi,
 /obj/item/book/manual/sop_science{
 	pixel_y = -14
 	},
 /obj/item/paper_bin/nanotrasen,
+/obj/machinery/door_control{
+	id = "rdprivacy";
+	name = "Privacy Shutters";
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
@@ -48625,6 +48623,8 @@
 	pixel_x = -5;
 	pixel_y = -5
 	},
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue";
@@ -52891,6 +52891,14 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "shutter0";
+	id_tag = "rdprivacy";
+	name = "Research Director Office Shutters";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
 "bYi" = (
@@ -52905,6 +52913,14 @@
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "shutter0";
+	id_tag = "rdprivacy";
+	name = "Research Director Office Shutters";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
@@ -54058,6 +54074,14 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "shutter0";
+	id_tag = "rdprivacy";
+	name = "Research Director Office Shutters";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
 "bZV" = (
@@ -54393,6 +54417,14 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "shutter0";
+	id_tag = "rdprivacy";
+	name = "Research Director Office Shutters";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
@@ -56091,6 +56123,14 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "shutter0";
+	id_tag = "rdprivacy";
+	name = "Research Director Office Shutters";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
@@ -92618,6 +92658,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
+	id = "holodeck";
 	name = "Holodeck Door"
 	},
 /turf/simulated/floor/plasteel,
@@ -93656,6 +93697,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
+"oAh" = (
+/obj/structure/bed/dogbed{
+	name = "kitty basket"
+	},
+/mob/living/simple_animal/pet/cat/floppa,
+/turf/simulated/floor/wood,
+/area/blueshield)
 "oBl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -95821,6 +95869,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
+	id = "holodeck";
 	name = "Holodeck Door"
 	},
 /turf/simulated/floor/plasteel,
@@ -121572,7 +121621,7 @@ cfm
 cfl
 cgS
 ciA
-clR
+oAh
 col
 clR
 coY
@@ -136443,7 +136492,7 @@ aGX
 bcg
 bfQ
 beb
-bfF
+bif
 bjW
 beb
 bkU
