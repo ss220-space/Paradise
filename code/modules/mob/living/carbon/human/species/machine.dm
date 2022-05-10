@@ -123,7 +123,7 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Куда делась голова? Не могу сменить монитор/display без неё.</span>")
+		to_chat(H, "<span class='warning'>Куда делась голова? Невозможно сменить дисплей без неё.</span>")
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
