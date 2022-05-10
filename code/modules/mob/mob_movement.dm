@@ -110,7 +110,7 @@
 		for(var/mob/M in orange(1, mob))
 			if(M.pulling == mob)
 				if(!M.incapacitated() && mob.Adjacent(M))
-					to_chat(src, "<span class='warning'>Вы задержаны и не можете пошевелиться!</span>")
+					to_chat(src, "<span class='warning'>Вы скованы и не можете пошевелиться!</span>")
 					move_delay = world.time + 10
 					return 0
 				else
