@@ -221,7 +221,6 @@
 		"задерживает дыхание!",
 		"пыхтит кислородом!")
 
-
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE
 
