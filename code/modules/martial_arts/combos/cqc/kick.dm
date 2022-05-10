@@ -1,7 +1,7 @@
 /datum/martial_combo/cqc/kick
 	name = "CQC Пинок"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Пинает оппонента. Отключает сознание у лежачего оппонента, отшвыривая его."
+	explaination_text = "Сбивает с ног оппонента. Нокаутирует лежачего оппонента, отшвыривая его."
 
 /datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL
