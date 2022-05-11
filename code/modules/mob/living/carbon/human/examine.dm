@@ -110,6 +110,8 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(gloves)] \a [gloves] on [p_their()] hands.\n"
 	else if(blood_DNA)
 		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+	else if(isclocker(src) && HAS_TRAIT(src, CLOCK_HANDS))
+		msg += "<span class='clockitalic'>[p_their(TRUE)] hands are sparkling with an unnatural amber!</span>\n"
 
 	//handcuffed?
 	if(handcuffed)
@@ -153,8 +155,6 @@
 				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
 		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
-		else if(isclocker(src) && HAS_TRAIT(src, CLOCK_EYES))
-			msg += "<span class='clockitalic'><br>[p_their(TRUE)] eyes are sparkling with an unnatural amber!</br></span>\n"
 
 	//left ear
 	if(l_ear && !skipears)

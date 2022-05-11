@@ -252,12 +252,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
-		if(!H.original_eye_color)
-			H.original_eye_color = H.get_eye_color()
-		H.change_eye_color(CLOCKCULT_EYE, FALSE)
-		H.update_eyes()
-		ADD_TRAIT(H, CLOCK_EYES, CLOCK_TRAIT)
-		H.update_body()
+		H.update_inv_gloves()
+		ADD_TRAIT(H, CLOCK_HANDS, CLOCK_TRAIT)
 
 /datum/game_mode/proc/clocked(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
@@ -278,7 +274,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		if(ishuman(clocker))
 			var/mob/living/carbon/human/H = clocker
-			REMOVE_TRAIT(H, CLOCK_EYES, null)
+			REMOVE_TRAIT(H, CLOCK_HANDS, null)
 			H.change_eye_color(H.original_eye_color, FALSE)
 			H.update_eyes()
 			// H.remove_overlay(HALO_LAYER)

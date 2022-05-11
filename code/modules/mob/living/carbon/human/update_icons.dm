@@ -656,6 +656,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
 			bloodsies.color = hand_blood_color
 			overlays_standing[GLOVES_LAYER]	= bloodsies
+		else if(HAS_TRAIT(src, CLOCK_HANDS))
+			var/mutable_appearance/flashies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
+			flashies.color = CLOCK_COLOR
+			overlays_standing[GLOVES_LAYER]	= flashies
 	apply_overlay(GLOVES_LAYER)
 
 
@@ -1305,7 +1309,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
 		overlays_standing[HALO_LAYER] = new_halo_overlay
 
-	// add isclocker clock_halos
+	// ДОДЕЛАТЬ add isclocker clock_halos
 
 	apply_overlay(HALO_LAYER)
 

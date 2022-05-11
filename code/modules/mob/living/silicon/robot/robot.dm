@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
 
-	var/list/force_modules = list()
+	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
@@ -310,12 +310,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(self_diagnosis)
 	return ..()
 
-/mob/living/silicon/robot/proc/pick_module()
+/mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
 	if(module)
 		return
 	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
-	if(islist(force_modules) && force_modules.len)
-		modules = force_modules.Copy()
+	if(islist(limited_modules) && limited_modules.len)
+		modules = limited_modules.Copy()
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -1430,7 +1430,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	force_modules = list("Engineering", "Medical", "Security")
+	limited_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
@@ -1469,7 +1469,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	force_modules = list("Combat", "Engineering", "Medical")
+	limited_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1

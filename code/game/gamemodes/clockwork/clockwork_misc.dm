@@ -170,14 +170,14 @@
 /obj/effect/decal/cleanable/blood/gibs/clock/dry()
 	return
 
-/obj/effect/decal/cleanable/blood/gibs/robot/streak(var/list/directions)
+/obj/effect/decal/cleanable/blood/gibs/clock/streak(var/list/directions)
 	set waitfor = FALSE
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 		sleep(3)
 		if(i > 0)
 			if(prob(40))
-				var/obj/effect/decal/cleanable/blood/oil/streak = new(src.loc)
+				var/obj/effect/decal/cleanable/blood/clock/streak = new(src.loc)
 				streak.update_icon()
 			else if(prob(10))
 				do_sparks(3, 1, src)

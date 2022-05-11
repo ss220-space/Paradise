@@ -122,6 +122,16 @@
 					L.emp_act(EMP_HEAVY)
 				deplete_spell()
 
+/obj/item/clock_borg_spear
+	name = "ratvarian spear"
+	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "ratvarian_spear"
+	force = 20
+	armour_penetration = 30
+	sharp = TRUE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
 
 /obj/item/twohanded/clock_hammer
 	name = "hammer clock"
@@ -571,6 +581,25 @@
 		"<span class='clock'>You extracted [H]'s consciousness, trapping it in the soul vessel.")
 		try_to_transfer(H)
 
+/obj/item/borg/upgrade/clockwork
+	name = "Clockwork Module"
+	desc = "An unique brass board, used by cyborg warriors."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clock_mod"
+	require_module = FALSE
+
+/obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+	R.disconnect_from_ai()
+	R.reset_module()
+	R.module = new /obj/item/robot_module/clockwork(src)
+	R.icon = 'icons/mob/clockwork_mobs.dmi'
+	R.icon_state = "cyborg"
+	R.emagged = TRUE
+
+	return TRUE
+
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab
 	name = "unactivated cogscarab"
@@ -629,12 +658,13 @@
 /obj/item/clockwork/shard/attack_self(mob/user)
 	if(!isclocker(user) && isliving(user))
 		var/mob/living/L = user
-		to_chat(L, "<span class='danger'>[src] pierces into your hand!</span>")
 		if(ishuman(L))
+			to_chat(L, "<span class='danger'>[src] pierces into your hand!</span>")
 			var/mob/living/carbon/human/H = L
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+			H.apply_damage(force, BRUTE, "[H.hand ? "l" : "r" ]_hand")
 		else
-			L.adjustBruteLoss(rand(force/2, force))
+			to_chat(L, "<span class='danger'>[src] pierces into you!</span>")
+			L.adjustBruteLoss(force)
 		return
 	if(!enchant_type)
 		to_chat(user, "<span class='warning'>There is no spell stored!</span>")

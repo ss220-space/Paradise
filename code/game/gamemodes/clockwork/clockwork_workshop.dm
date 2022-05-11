@@ -27,13 +27,13 @@
 	var/build_end = 0
 
 
-// CLOCK_DESIGN("Name", path, brass, pppppower),
+// CLOCK_DESIGN(NAME, PATH, BRASS_AMOUNT, POWER_AMOUNT, TIME),
 // and remember brass is in 2000x not 1x
 /obj/structure/clockwork/functional/workshop/Initialize(mapload)
 	. = ..()
 	item_list = list()
 	item_list["Weapon"] = list(
-		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 0, 200, 10),
+		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 100, 0, 10),
 		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 2000, 500, 20),
 		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 500, 20),
 	)
@@ -46,6 +46,7 @@
 	item_list["Consumables"] = list(
 		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 300, 0, 5),
 		CLOCK_DESIGN("Soul vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 500, 20),
+		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 4000, 500, 10),
 		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 2000, 400, 20),
 		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 4500, 500, 30),
 	)

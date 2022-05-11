@@ -111,8 +111,7 @@ GLOBAL_LIST_INIT(shard_spells, list(
 			"Steve repeatedly touched a lightbulb until his hands fell off.")
 
 // Misc
-#define CLOCKCULT_EYE "#ffb700"
-#define CLOCK_COLOER "#ffb700"
+#define CLOCK_COLOR "#ffb700"
 // #define SUMMON_POSSIBILITIES 3
 
 // Clockwork objective status

@@ -639,10 +639,7 @@
 	modules += new /obj/item/wirecutters/brass(src)
 	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/gripper/cogscarab(src)
-	modules += new /obj/item/t_scanner(src)
-	modules += new /obj/item/rpd(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
-	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/extinguisher(src)
 	emag = null
 
@@ -656,6 +653,40 @@
 	return
 
 /obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/clockwork
+	name = "Ratvar module"
+	module_type = "Cogscarab"
+
+/obj/item/robot_module/clockwork/New()
+	..()
+	modules += new /obj/item/clockwork/clockslab(src)
+	modules += new /obj/item/clock_borg_spear(src)
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = null
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/clockwork/add_default_robot_items()
+	return
+
+/obj/item/robot_module/clockwork/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)

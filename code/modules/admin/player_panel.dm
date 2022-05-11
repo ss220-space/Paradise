@@ -254,6 +254,8 @@
 						M_job = "AI"
 					else if(ispAI(M))
 						M_job = "pAI"
+					else if(iscogscarab(M))
+						M_job = "Cogscarab"
 					else if(isrobot(M))
 						M_job = "Cyborg"
 					else

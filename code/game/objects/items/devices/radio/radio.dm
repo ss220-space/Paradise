@@ -406,8 +406,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		jobname = "Cyborg"
 
 	// --- Personal AI (pAI) ---
-	else if(istype(M, /mob/living/silicon/pai))
+	else if(ispAI(M))
 		jobname = "Personal AI"
+
+	// --- Cogscarab ---
+	else if(iscogscarab(M))
+		jobname = "Unknown"
 
 	// --- Unidentifiable mob ---
 	else

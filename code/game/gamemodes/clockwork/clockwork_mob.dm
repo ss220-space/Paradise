@@ -76,8 +76,8 @@
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "drone"
-	health = 100
-	maxHealth = 100
+	health = 50
+	maxHealth = 50
 	speed = 0
 	speak_emote = list("clanks", "clinks", "clunks", "clangs")
 	speak_statement = list("clanks", "clinks", "clunks", "clangs")
@@ -91,6 +91,7 @@
 	has_camera = FALSE
 	lamp_max = 5
 	req_one_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 	ventcrawler = 2
 	magpulse = 1
 	emagged = TRUE
@@ -124,10 +125,8 @@
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/cogscarab(src)
 
-	for(var/V in components)
-		if(V != "power cell")
-			var/datum/robot_component/C = components[V]
-			C.max_damage = 20
+	if(!isclocker(src))
+		message_admins("[src]([ADMIN_QUE(src, "?")]) ([ADMIN_FLW(src,"FLW")]) has been created, but isn't a clocker! Possible adminspawn.")
 
 	update_icons()
 
@@ -140,7 +139,7 @@
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
-/mob/living/silicon/robot/drone/rename_character(oldname, newname)
+/mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
 	// force it to not actually change most things
 	return ..(newname, newname)
 
@@ -182,6 +181,9 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/emag_act()
+	return
+
+/mob/living/silicon/robot/emp_act(severity)
 	return
 
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
@@ -233,37 +235,32 @@
 /mob/living/silicon/robot/cogscarab/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
+/mob/living/silicon/robot/cogscarab/toggle_sensor_mode()
+	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Medical","Diagnostic", "Multisensor","Disable")
+	remove_med_sec_hud()
+	switch(sensor_type)
+		if("Medical")
+			add_med_hud()
+			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+		if("Diagnostic")
+			add_diag_hud()
+			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+		if("Multisensor")
+			add_med_hud()
+			add_diag_hud()
+			to_chat(src, "<span class='notice'>Multisensor overlay enabled.</span>")
+		if("Disable")
+			to_chat(src, "Sensor augmentations disabled.")
+
+
+/mob/living/silicon/robot/cogscarab/get_access()
+	return list() //none cause from gears.
+
 /mob/living/silicon/robot/cogscarab/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
 	return
 
 /mob/living/silicon/robot/cogscarab/use_power() //it's made of gears...
 	return
-
-/mob/living/silicon/robot/cogscarab/gib()
-	if(!death(TRUE) && stat != DEAD)
-		return FALSE
-	//robots don't die when gibbed. instead they drop their MMI'd brain
-	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
-
-	animation = new(loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-
-	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
-
-	flick("gibbed-r", animation)
-	clockgibs(loc)
-
-	GLOB.alive_mob_list -= src
-	GLOB.dead_mob_list -= src
-	QDEL_IN(animation, 15)
-	QDEL_IN(src, 15)
-	return TRUE
 
 /mob/living/silicon/robot/cogscarab/verb/hide()
 	set name = "Hide"
