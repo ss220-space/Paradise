@@ -7,7 +7,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
-		D.visible_message("<span class='warning'>[A] демонстрирует большой светящийся ящик с инструментами и пихает его в грудь [D]!</span>", \
+		D.visible_message("<span class='warning'>[A] проявля[pluralize_ru(A.gender,"ет","ют")] большой светящийся тулбокс и запихива[pluralize_ru(A.gender,"ет","ют")] его прямо в грудь [D]!</span>", \
 							"<spac class='userdanger'>[A] запихивает мистический тулбокс в вашу грудь!</span>")
 		D.death()
 

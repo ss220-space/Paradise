@@ -6,8 +6,8 @@
 /datum/martial_combo/sleeping_carp/wrist_wrench/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.stunned && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-		target.visible_message("<span class='warning'>[user] схватил запястье [target] и выворачивает его в неправильную сторону изгиба!</span>", \
-						  "<span class='userdanger'>[user] схватил тебя за запястье и яростно вывернул его в неправильную сторону изгиба!</span>")
+		target.visible_message("<span class='warning'>[user] схватил[genderize_ru(user.gender,"","а","о","и")] запястье [target] и выворачива[pluralize_ru(user.gender,"ет","ют")] его в неправильную сторону изгиба!</span>", \
+						  "<span class='userdanger'>[user] схватил[genderize_ru(user.gender,"","а","о","и")] тебя за запястье и яростно вывернул[genderize_ru(user.gender,"","а","о","и")] его в неправильную сторону изгиба!</span>")
 		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Wrist Wrench", ATKLOG_ALL)
 		if(prob(60))

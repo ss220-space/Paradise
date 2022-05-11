@@ -4,7 +4,7 @@
 	explaination_text = "Бросить пантомимовую дымовую шашку."
 
 /datum/martial_combo/mimejutsu/smokebomb/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='danger'>[user] бросает невидимую дымовую шашку!</span>")
+	target.visible_message("<span class='danger'>[user] броса[pluralize_ru(user.gender,"ет","ют")] невидимую дымовую шашку!</span>")
 
 	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, target.loc)

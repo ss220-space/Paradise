@@ -50,8 +50,8 @@
 					  "<span class='userdanger'>[A] [picked_hit_type] вас!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && !D.IsWeakened())
-		D.visible_message("<span class='warning'>[A] выбил ногу [D]!", \
-							"<span class='userdanger'>[A] выбил вам ногу!</span>")
+		D.visible_message("<span class='warning'>[A] выбил[genderize_ru(A.gender,"","а","о","и")] ногу [D]!", \
+							"<span class='userdanger'>[A] выбил[genderize_ru(A.gender,"","а","о","и")] вам ногу!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		D.Weaken(1)
@@ -62,8 +62,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
-		D.visible_message("<span class='danger'>[A] берет [D] в удушающий захват!</span>", \
-							"<span class='userdanger'>[A] взял вас в удушающий захват</span>")
+		D.visible_message("<span class='danger'>[A] бер[pluralize_ru(A.gender,"ет","ют")] [D] в удушающий захват!</span>", \
+							"<span class='userdanger'>[A] взял[genderize_ru(A.gender,"","а","о","и")] вас в удушающий захват</span>")
 		D.SetSleeping(10)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
@@ -77,15 +77,15 @@
 	if(prob(50))
 		if(!D.stat || !D.IsWeakened() || !restraining)
 			I = D.get_active_hand()
-			D.visible_message("<span class='warning'>[A] ударяет кулаком по челюсти [D]!</span>", \
-								"<span class='userdanger'>[A] ударил в челюсть, дезоориентируя вас!</span>")
+			D.visible_message("<span class='warning'>[A] ударя[pluralize_ru(A.gender,"ет","ют")] кулаком по челюсти [D]!</span>", \
+								"<span class='userdanger'>[A] ударил[genderize_ru(A.gender,"","а","о","и")] в челюсть, дезоориентируя вас!</span>")
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			if(I && D.drop_item())
 				A.put_in_hands(I)
 			D.Jitter(2)
 			D.apply_damage(5, BRUTE)
 	else
-		D.visible_message("<span class='danger'>[A] попытался обезоружить [D]!</span>", "<span class='userdanger'>[A] попытался обезоружить [D]!</span>")
+		D.visible_message("<span class='danger'>[A] попытал[genderize_ru(A.gender,"ся","ась","ось","ись")] обезоружить [D]!</span>", "<span class='userdanger'>[A] попытал[genderize_ru(A.gender,"ся","ась","ось","ись")] обезоружить [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)

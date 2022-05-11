@@ -83,7 +83,7 @@
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] схватил [M]!</span>")
+			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [M]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -119,7 +119,7 @@
 	if(src == user || !isturf(loc))
 		return FALSE
 	if(anchored || move_resist == INFINITY)
-		if(show_message)
+		if(show_message)  //Это разве не проверка таскания прикрученных объектов? Оно точно может получить пол ящика?
 			to_chat(user, "<span class='warning'>Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!</span>")
 		return FALSE
 	if(throwing)

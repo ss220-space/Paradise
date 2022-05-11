@@ -13,7 +13,7 @@
 		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав Мага пока выведены из строя.</span>")
 		return
 	to_chat(owner, "<b><i>Ваша следующая атака будет Ударом в Горло.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] принимает стойку для удара в горло!</span>")
+	owner.visible_message("<span class='danger'>[owner] принима[pluralize_ru(owner.gender,"ет","ют")] стойку для удара в горло!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
@@ -28,7 +28,7 @@
 		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав Мага пока выведены из строя.</span>")
 		return
 	to_chat(owner, "<b><i>Ваша следующая атаку будет Подножкой.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] принимает стойку для выбивания ноги!</span>")
+	owner.visible_message("<span class='danger'>[owner] принима[pluralize_ru(owner.gender,"ет","ют")] стойку для выбивания ноги!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
@@ -43,7 +43,7 @@
 		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав Мага пока выведены из строя.</span>")
 		return
 	to_chat(owner, "<b><i>Ваша следующая атака будет Ударом под дых.</i></b>")
-	owner.visible_message("<span class='danger'>[owner] принимает стойку для удара по солнечному сплетению!</span>")
+	owner.visible_message("<span class='danger'>[owner] принима[pluralize_ru(owner.gender,"ет","ют")] стойку для удара по солнечному сплетению!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
@@ -96,12 +96,12 @@
 				var/obj/item/I = D.r_hand
 				if(D.drop_item())
 					A.put_in_hands(I)
-		D.visible_message("<span class='danger'>[A] обезоружил [D]!</span>", \
-							"<span class='userdanger'>[A] обезоружил [D]!</span>")
+		D.visible_message("<span class='danger'>[A] обезоружил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>", \
+							"<span class='userdanger'>[A] обезоружил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>")
 		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
-		D.visible_message("<span class='danger'>[A] попытался обезоружить [D]!</span>", \
-							"<span class='userdanger'>[A] попытался обезоружить [D]!</span>")
+		D.visible_message("<span class='danger'>[A] попытал[genderize_ru(A.gender,"ся","ась","ось","ись")] обезоружить [D]!</span>", \
+							"<span class='userdanger'>[A] попытал[genderize_ru(A.gender,"ся","ась","ось","ись")] обезоружить [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	return TRUE
 

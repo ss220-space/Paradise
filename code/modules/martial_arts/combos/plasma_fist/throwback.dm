@@ -4,8 +4,8 @@
 	explaination_text = "Отбрасывает цель далеко вперед"
 
 /datum/martial_combo/plasma_fist/throwback/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='danger'>[user] попал в [target] Плазменным Ударом!</span>", \
-								"<span class='userdanger'>[user] попал в [target] Плазменным Ударом!</span>")
+	target.visible_message("<span class='danger'>[user] попал[genderize_ru(user.gender,"","а","о","и")] в [target] Плазменным Ударом!</span>", \
+								"<span class='userdanger'>[user] попал[genderize_ru(user.gender,"","а","о","и")] в [target] Плазменным Ударом!</span>")
 	playsound(target.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(target, user)))
 	target.throw_at(throw_target, 10, 4, user)

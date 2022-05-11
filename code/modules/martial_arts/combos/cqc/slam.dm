@@ -6,8 +6,8 @@
 
 /datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.IsWeakened() && !target.resting && !target.lying)
-		target.visible_message("<span class='warning'>[user] бросает [target] на землю!</span>", \
-						  	"<span class='userdanger'>[user] бросил вас на землю!</span>")
+		target.visible_message("<span class='warning'>[user] броса[pluralize_ru(user.gender,"ет","ют")] [target] на землю!</span>", \
+						  	"<span class='userdanger'>[user] бросил[pluralize_ru(user.gender,"","и")] вас на землю!</span>")
 		playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, 1, -1)
 		target.apply_damage(10, BRUTE)
 		target.Weaken(2)

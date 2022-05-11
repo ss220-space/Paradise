@@ -6,7 +6,7 @@
 /datum/martial_combo/sleeping_carp/back_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.dir == target.dir && !target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-		var/hit_name = pick("пинает", "ударяет", "толкает")
+		var/hit_name = pick("пина[pluralize_ru(user.gender,"ет","ют")]", "ударя[pluralize_ru(user.gender,"ет","ют")]", "толка[pluralize_ru(user.gender,"ет","ют")]")
 		target.visible_message("<span class='warning'>[user] [hit_name] [target] в спину!</span>", \
 						  "<span class='userdanger'>[user] [hit_name] вас в спину, заставив вас споткнуться и упасть!</span>")
 		step_to(target,get_step(target,target.dir),1)

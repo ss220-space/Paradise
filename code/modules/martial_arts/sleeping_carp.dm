@@ -23,7 +23,7 @@
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	var/atk_verb = pick("ударил кулаком", "ударил локтем", "бьет ногой", "пнул", "пинает", "разносит ударами")
+	var/atk_verb = pick("ударил[genderize_ru(A.gender,"","а","о","и")] кулаком", "ударил[genderize_ru(A.gender,"","а","о","и")] локтем", "бь[pluralize_ru(A.gender,"ет","ют")] ногой", "пнул[genderize_ru(A.gender,"","а","о","и")]", "пина[pluralize_ru(A.gender,"ет","ют")]", "разнос[pluralize_ru(A.gender,"ит","ят")] ударами")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
 					  "<span class='userdanger'>[A] [atk_verb] тебя!</span>")
 	D.apply_damage(rand(10,15), BRUTE)
@@ -31,7 +31,7 @@
 	if(prob(50))
 		A.say(pick("ХА!", "ХЬЯ!", "КУА!", "ВУА!", "НЫА!", "НА!", "ЧУОО!", "ЧУУ!", "ВУО!", "КЙА!", "ХУУ!", "ХУОХ!", "ХИЙООХ!", "УДАР КАРПА!", "УКУС КАРПА!", "ВЫПАД КАРПА!"))
 	if(prob(D.getBruteLoss()) && !D.lying)
-		D.visible_message("<span class='warning'>[D] оступается и падает!</span>", "<span class='userdanger'>Удар [A] опрокидывает тебя на землю!</span>")
+		D.visible_message("<span class='warning'>[D] оступа[pluralize_ru(D.gender,"ет","ют")]ся и пада[pluralize_ru(D.gender,"ет","ют")]!</span>", "<span class='userdanger'>Удар [A] опрокидывает тебя на землю!</span>")
 		D.Weaken(3)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE

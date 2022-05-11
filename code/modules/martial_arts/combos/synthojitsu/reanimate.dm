@@ -8,13 +8,13 @@
 		to_chat(user, "<span class='danger'>[target] никак не реагирует!</span>")
 		return MARTIAL_COMBO_FAIL
 	if(target.undergoing_cardiac_arrest())
-		to_chat(user, "<span class='notice'>[target] глубоко вдохнул!</span>")
+		to_chat(user, "<span class='notice'>[target] глубоко вдохнул[genderize_ru(user.gender,"","а","о","и")]!</span>")
 		target.adjustOxyLoss(-100)
 		target.set_heartattack(FALSE)
 		user.adjust_nutrition(-75)
 		target.shock_internal_organs(100)
-		target.visible_message("<span class='warning'>[user] ударил током [target]!</span>", \
-				"<span class='userdanger'>[user] ударил вас током!</span>")
+		target.visible_message("<span class='warning'>[user] ударил[genderize_ru(user.gender,"","а","о","и")] током [target]!</span>", \
+				"<span class='userdanger'>[user] ударил[genderize_ru(user.gender,"","а","о","и")] вас током!</span>")
 		playsound(get_turf(user), 'sound/weapons/egloves.ogg', 50, 1, -1)
 		target.apply_damage(10, BURN)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : defib", ATKLOG_ALL)

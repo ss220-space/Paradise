@@ -4,7 +4,7 @@
 	explaination_text = "Наносит удар по выносливости сжимая горло цели."
 
 /datum/martial_combo/cqc/pressure/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] сжимает горло [target]!</span>")
+	target.visible_message("<span class='warning'>[user] сжима[pluralize_ru(user.gender,"ет","ют")] горло [target]!</span>")
 	target.adjustStaminaLoss(60)
 	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)

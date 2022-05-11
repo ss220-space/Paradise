@@ -4,7 +4,7 @@
 	explaination_text = "Отталкивает цель и все что рядом."
 
 /datum/martial_combo/plasma_fist/tornado_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	user.say("КРУЧЕНИЕ ТОРНАДО!")
+	user.say("КРУЧЕНОЕ ТОРНАДО!")
 	INVOKE_ASYNC(src, .proc/do_tornado_effect, user)
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
 	var/list/turfs = list()

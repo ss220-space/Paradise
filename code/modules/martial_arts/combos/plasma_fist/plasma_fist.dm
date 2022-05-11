@@ -7,7 +7,7 @@
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	playsound(target.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	user.say("ПЛАЗМЕННЫЙ КУЛАК!")
-	target.visible_message("<span class='danger'>[user] поразил [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>", \
-								"<span class='userdanger'>[user] поразил [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>")
+	target.visible_message("<span class='danger'>[user] поразил[genderize_ru(user.gender,"","а","о","и")] [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>", \
+								"<span class='userdanger'>[user] поразил[genderize_ru(user.gender,"","а","о","и")] [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>")
 	target.gib()
 	return MARTIAL_COMBO_DONE

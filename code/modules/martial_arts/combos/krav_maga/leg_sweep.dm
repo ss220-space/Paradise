@@ -5,8 +5,8 @@
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat || target.IsWeakened())
 		return FALSE
-	target.visible_message("<span class='warning'>[user] выбивает ногу [target]!</span>", \
-					  	"<span class='userdanger'>[user] выбил вам ногу!</span>")
+	target.visible_message("<span class='warning'>[user] выбива[pluralize_ru(user.gender,"ет","ют")] ногу [target]!</span>", \
+					  	"<span class='userdanger'>[user] выбил[pluralize_ru(user.gender,"","и")] вам ногу!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)
 	target.Weaken(2)

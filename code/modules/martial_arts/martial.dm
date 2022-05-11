@@ -95,12 +95,14 @@
 	switch(atk_verb)
 		if("пнуть")
 			A.do_attack_animation(D, ATTACK_EFFECT_KICK)
+			if(damage)
+				atk_verb = "пнул"
 		else
 			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
 		playsound(D.loc, attack.miss_sound, 25, 1, -1)
-		D.visible_message("<span class='warning'>[A] попытался [atk_verb] [D]!</span>")
+		D.visible_message("<span class='warning'>[A] попытал[genderize_ru(A.gender,"ся","ась","ось","ись")] [atk_verb] [D]!</span>")
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
@@ -115,8 +117,8 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message("<span class='danger'>[A] ослаб [D]!!</span>", \
-								"<span class='userdanger'>[A] ослаб [D]!</span>")
+		D.visible_message("<span class='danger'>[A] ослабил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>", \
+								"<span class='userdanger'>[A] ослабил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>")
 		D.apply_effect(2, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
@@ -253,7 +255,7 @@
 		return
 	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
 		if(user.mind && user.mind.changeling) //Changelings
-			to_chat(user, "<span class ='warning'>Вы неоднократно попытались, но так и не смогли понять содержимое свитка!</span>")
+			to_chat(user, "<span class ='warning'>Вы неоднократно пытались, но так и не смогли понять содержимое свитка!</span>")
 			return
 		else //Vampires
 			to_chat(user, "<span class ='warning'>Ваша жажда крови слишком отвлекает ваши мысли от сосредоточенного чтения свитка!</span>")
@@ -325,7 +327,7 @@
 		return ..()
 	var/mob/living/carbon/C = target
 	if(C.stat)
-		to_chat(user, "<span class='warning'>Бесчестно нападать на врага, пока [C.p_they()] не может ответить.</span>")
+		to_chat(user, "<span class='warning'>Бесчестно нападать на врага, пока он[genderize_ru(C.gender,"","а","о","и")] не мо[pluralize_ru(C.gender,"жет","гут")] ответить.</span>")
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
@@ -334,25 +336,25 @@
 			if(!ishuman(target))
 				return ..()
 			var/mob/living/carbon/human/H = target
-			var/list/fluffmessages = list("[user] бьет [H] используя [src.name]!", \
-										  "[user] хлещет [H] прикладом [src.name]!", \
-										  "[user] широко хлещет [H] используя [src.name]!", \
-										  "[user] разбивает [H] голову об [src.name]!", \
-										  "[user] бьет [H] передом [src.name]!", \
-										  "[user] вертит и хлещет по [H] используя [src.name]!")
+			var/list/fluffmessages = list("[user] бь[pluralize_ru(user.gender,"ет","ют")] [H] используя [src.name]!", \
+										  "[user] хлещ[pluralize_ru(user.gender,"ет","ут")] [H] прикладом [src.name]!", \
+										  "[user] широко хлещ[pluralize_ru(user.gender,"ет","ут")] [H] используя [src.name]!", \
+										  "[user] разбива[pluralize_ru(user.gender,"ет","ют")] [H] голову об [src.name]!", \
+										  "[user] бь[pluralize_ru(user.gender,"ет","ют")] [H] передом [src.name]!", \
+										  "[user] верт[pluralize_ru(user.gender,"ит","ят")] и хлещ[pluralize_ru(user.gender,"ет","ут")] по [H] используя [src.name]!")
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 			H.adjustStaminaLoss(rand(13,20))
 			if(prob(10))
-				H.visible_message("<span class='warning'>[H] рухнул!</span>", \
-									   "<span class='userdanger'>У тебя отказывают ноги!</span>")
+				H.visible_message("<span class='warning'>[H] рухнул[genderize_ru(H.gender,"","а","о","и")]!</span>", \
+									   "<span class='userdanger'>У вас отказывают ноги!</span>")
 				H.Weaken(4)
 			if(H.staminaloss && !H.sleeping)
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
-					H.visible_message("<span class='warning'>[user] наносит сильный удар по голове [H], выбивая [H.p_them()] из строя!</span>", \
-										   "<span class='userdanger'>[user] сбивает тебя с ног!</span>")
+					H.visible_message("<span class='warning'>[user] нанос[pluralize_ru(user.gender,"ит","ят")] сильный удар по голове [H], выбивая [H.p_them()] из строя!</span>", \
+										   "<span class='userdanger'>[user] сбива[pluralize_ru(user.gender,"ет","ют")] тебя с ног!</span>")
 					H.SetSleeping(30)
 					H.adjustBrainLoss(25)
 			return

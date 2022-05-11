@@ -5,8 +5,8 @@
 
 /datum/martial_combo/synthojitsu/overload/perform_combo(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL
-	target.visible_message("<span class='warning'>[user] ударил током [target]!</span>", \
-						"<span class='userdanger'>[user] ударил вас током!</span>")
+	target.visible_message("<span class='warning'>[user] ударил[genderize_ru(user.gender,"","а","о","и")] током [target]!</span>", \
+						"<span class='userdanger'>[user] ударил[genderize_ru(user.gender,"","а","о","и")] вас током!</span>")
 	target.apply_damage(10, BRUTE)
 	target.Weaken(1)
 	target.apply_damage(20, BURN)

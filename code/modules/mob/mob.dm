@@ -92,7 +92,7 @@
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
-		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
+		to_chat(src, "<I>... Вы почти можете слышите чей-то разговор ...</I>")
 	else
 		to_chat(src, msg)
 	return

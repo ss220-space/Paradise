@@ -7,7 +7,7 @@
 	if(target.IsWeakened() || target.resting || target.stat)
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		target.visible_message("<span class='warning'>[user] падением сверху наносит решающий удар локтем по [target]!</span>", \
-						  "<span class='userdanger'>[user] добивает вас решающим ударом локтем сверху!</span>") //[user.p_their()]
+						  "<span class='userdanger'>[user] добива[pluralize_ru(user.gender,"ет","ют")] вас решающим ударом локтем сверху!</span>") //[user.p_their()]
 		if(target.health <= HEALTH_THRESHOLD_CRIT)
 			target.death() //FINISH HIM!
 		target.apply_damage(50, BRUTE, "chest")

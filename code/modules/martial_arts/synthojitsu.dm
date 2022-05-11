@@ -17,8 +17,8 @@
 	D.apply_damage(5, BRUTE)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-	D.visible_message("<span class='danger'>[A] ударил током [D]!</span>", \
-					  "<span class='userdanger'>[A] ударил вас током!</span>")
+	D.visible_message("<span class='danger'>[A] ударил[genderize_ru(A.gender,"","а","о","и")] током [D]!</span>", \
+					  "<span class='userdanger'>[A] ударил[genderize_ru(A.gender,"","а","о","и")] вас током!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
 
@@ -29,8 +29,8 @@
 	D.apply_damage(30, STAMINA)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, 1, -1)
-	D.visible_message("<span class='danger'>[A] коснулся [D]!</span>", \
-				  "<span class='userdanger'>[A] коснулся вас!</span>")
+	D.visible_message("<span class='danger'>[A] коснул[genderize_ru(A.gender,"ся","ась","ось","ись")] [D]!</span>", \
+				  "<span class='userdanger'>[A] коснул[genderize_ru(A.gender,"ся","ась","ось","ись")] вас!</span>")
 	return TRUE
 
 /obj/item/ipc_combat_upgrade

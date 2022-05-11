@@ -8,15 +8,15 @@
 		var/damage = rand(5, 8) + user.dna.species.punchdamagelow
 		if(!damage)
 			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-			target.visible_message("<span class='warning'>[user] размахивает невидимыми нунчаками по [target]..и промахивается?</span>")
+			target.visible_message("<span class='warning'>[user] размахива[pluralize_ru(user.gender,"ет","ют")] невидимыми нунчаками по [target]..и промахивается?</span>")
 			return MARTIAL_COMBO_DONE
 
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
 
-		target.visible_message("<span class='danger'>[user] попал в [target] невидимыми нунчаками!</span>", \
-								"<span class='userdanger'>[user] попал в [target] невидимыми нунчаками!</span>")
+		target.visible_message("<span class='danger'>[user] попа[genderize_ru(user.gender,"","а","о","и")] в [target] невидимыми нунчаками!</span>", \
+								"<span class='userdanger'>[user] попал[genderize_ru(user.gender,"","а","о","и")] в [target] невидимыми нунчаками!</span>")
 		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		target.apply_damage(damage, STAMINA, affecting, armor_block)

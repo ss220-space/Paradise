@@ -386,7 +386,7 @@
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал попытку захвата [user]!</span>")
+		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] попытку захвата [user]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
@@ -404,7 +404,7 @@
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
-			to_chat(user, "<span class='warning'>Твои клыки не могут пронзить холодную плоть [target.name].</span>")
+			to_chat(user, "<span class='warning'>Ваши клыки не могут пронзить холодную плоть [target.name].</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
@@ -415,7 +415,7 @@
 		return
 		//end vampire codes
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал атаку [user]!</span>")
+		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] атаку [user]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
@@ -441,7 +441,7 @@
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] попытался, но не [pick(attack.attack_verb)] по [target]!</span>")
+			target.visible_message("<span class='danger'>[user] попытал[genderize_ru(user.gender,"ся","ась","ось","ись")], но не [pick(attack.attack_verb)] по [target]!</span>")
 			return FALSE
 
 
@@ -453,8 +453,8 @@
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)] [target]!</span>")
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] ослабил [target]!</span>", \
-							"<span class='userdanger'>[user] ослабил [target]!</span>")
+			target.visible_message("<span class='danger'>[user] ослабил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>", \
+							"<span class='userdanger'>[user] ослабил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
 			target.apply_effect(2, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
@@ -463,7 +463,7 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал попытку обезоруживания [user]!</span>")
+		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] попытку обезоруживания [user]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
@@ -477,7 +477,7 @@
 		if(randn <= 10)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] толкнул [target]!</span>")
+			target.visible_message("<span class='danger'>[user] толкнул[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -490,7 +490,7 @@
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] разорвал хватку [target] на [target.pulling]!</span>")
+				target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [target.pulling]!</span>")
 				talked = 1
 				target.stop_pulling()
 
@@ -498,14 +498,14 @@
 			if(istype(target.l_hand, /obj/item/grab))
 				var/obj/item/grab/lgrab = target.l_hand
 				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал хватку [target] на [lgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [lgrab.affecting]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(lgrab)
 			if(istype(target.r_hand, /obj/item/grab))
 				var/obj/item/grab/rgrab = target.r_hand
 				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал хватку [target] на [rgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [rgrab.affecting]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(rgrab)
@@ -513,13 +513,13 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] обезоружил [target]!</span>")
+					target.visible_message("<span class='danger'>[user] обезоружил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
 
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] попытался обезоружить [target]!</span>")
+	target.visible_message("<span class='danger'>[user] попытал[genderize_ru(user.gender,"ся","ась","ось","ись")] обезоружить [target]!</span>")
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -538,7 +538,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message("<span class='warning'>[M] попытался коснуться [H]!</span>")
+		H.visible_message("<span class='warning'>[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] коснуться [H]!</span>")
 		return FALSE
 
 	switch(M.a_intent)
@@ -593,7 +593,7 @@
 	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
-	attack_verb = list("chomp")
+	attack_verb = list("грызет")
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE

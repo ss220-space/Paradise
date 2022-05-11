@@ -7,8 +7,8 @@
 /datum/martial_combo/sleeping_carp/stomach_knee/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-		target.visible_message("<span class='warning'>[user] ударяет коленом в живот [target]!</span>", \
-						  "<span class='userdanger'>[user] ударяет тебя коленом в живот!</span>")
+		target.visible_message("<span class='warning'>[user] ударя[pluralize_ru(user.gender,"ет","ют")] коленом в живот [target]!</span>", \
+						  "<span class='userdanger'>[user] ударя[pluralize_ru(user.gender,"ет","ют")] вас коленом в живот!</span>")
 		target.audible_message("<b>[target]</b> gags!")
 		target.AdjustLoseBreath(10)
 		target.Weaken(3)
