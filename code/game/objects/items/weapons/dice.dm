@@ -27,7 +27,7 @@
 		new /obj/item/dice/d100(src)
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] Играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!</span>")
+	user.visible_message("<span class='suicide'>[user] Игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!</span>")
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
@@ -56,19 +56,19 @@
 
 /obj/item/dice/d1
 	name = "d1"
-	desc = "Куб с одной гранью. Детерминированный!"
+	desc = "Кость с одной гранью. Очень детерминировано!"
 	icon_state = "d1"
 	sides = 1
 
 /obj/item/dice/d2
 	name = "d2"
-	desc = "Кубик с двумя гранями. Монеты не достойны!"
+	desc = "Кость с двумя гранями. Если монеты вас не достойны."
 	icon_state = "d2"
 	sides = 2
 
 /obj/item/dice/d4
 	name = "d4"
-	desc = "Купик с четырьмя гранями. Игрушка зануд."
+	desc = "Кость с четырьмя гранями. По-нердски — «чеснок»."
 	icon_state = "d4"
 	sides = 4
 
@@ -80,45 +80,45 @@
 	name = "d6"
 
 /obj/item/dice/fudge
-	name = "куб обмана"
-	desc = "Кубик с шестью гранями, но только с тремя результатами. Это плюс или минус? Твой разум не понимает..."
+	name = "фудж-кость"
+	desc = "Кость с шестью гранями, но только с тремя результатами. Это плюс или минус? Вы залипаете на «пусто»…"
 	sides = 3 //shhh --- Мы никому не скажем
 	icon_state = "fudge"
 	special_faces = list("minus","blank","plus")
 
 /obj/item/dice/d8
 	name = "d8"
-	desc = "Куб с восемью гранями. Кажется... удачливым."
+	desc = "Кость с восемью гранями. Кажется… везучей."
 	icon_state = "d8"
 	sides = 8
 
 /obj/item/dice/d10
 	name = "d10"
-	desc = "Куб с десятью гранями. Полезно для процентов."
+	desc = "Кость с десятью гранями. Полезно для процентов."
 	icon_state = "d10"
 	sides = 10
 
 /obj/item/dice/d00
 	name = "d00"
-	desc = "Куб с десятью гранями. Лучше подходит для рола d100, чем мяч для гольфа."
+	desc = "Кость с десятью гранями. Подходит для броска d100 лучше мяча для гольфа."
 	icon_state = "d00"
 	sides = 10
 
 /obj/item/dice/d12
 	name = "d12"
-	desc = "Куб с двенадцатью гранями. Ощущается пренебрежение. Похоже им никогда не пользовались..."
+	desc = "Кость с двенадцатью гранями. В воздухе вокруг неё ощущается стойкое пренебрежение."
 	icon_state = "d12"
 	sides = 12
 
 /obj/item/dice/d20
 	name = "d20"
-	desc = "Куб с двадцатью гранями. Настоящий выбор Игрового Мастера."
+	desc = "Кость с двадцатью гранями. Именно такими чаще всего бросаются в игровых мастеров."
 	icon_state = "d20"
 	sides = 20
 
 /obj/item/dice/d100
 	name = "d100"
-	desc = "Игральная кость с сотней граней! Наверное неправильно взвешана..."
+	desc = "Игральная кость с сотней граней! Вряд ли развесовка выверена…"
 	icon_state = "d100"
 	sides = 100
 
@@ -157,8 +157,8 @@
 	if(length(special_faces) == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("[user] бросил [src.name]. Приземлившись выдав результат [result]. [comment]",
-							 "<span class='notice'>Вы бросили [src.name]. Приземлившись выдав результат [result]. [comment]</span>",
+		user.visible_message("[user] броса[pluralize_ru(user.gender,"ет","ют")] [src.name]. На [src.name] выпадает [result]. [comment]",
+							 "<span class='notice'>Вы бросили [src.name] и выпало [result]. [comment]</span>",
 							 "<span class='italics'>Вы слышите как катится [src.name], звучит как [fake_result].</span>")
 	else if(!throwing) //Dice was thrown and is coming to rest
 		visible_message("<span class='notice'>[src.name] прекращает катиться, останавливаясь на [result]. [comment]</span>")
@@ -170,7 +170,7 @@
 	. = ..()
 
 	if(result == 1)
-		to_chat(user, "<span class='danger'>Твоя линия судьбы обрывается, и ты умираешь.</span>")
+		to_chat(user, "<span class='danger'>На вас упали камни и вы умерли.</span>")
 		user.gib()
 		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else
@@ -200,7 +200,7 @@
 
 /obj/item/storage/box/dice
 	name = "Коробка игральных костей"
-	desc = "ЕЩЕ ОДИН!? ДА БЛЯТЬ!"
+	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
 	icon_state = "box"
 
 /obj/item/storage/box/dice/New()

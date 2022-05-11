@@ -1,5 +1,5 @@
 /datum/martial_art/adminfu
-	name = "Путь Танцующего Админа"
+	name = "Путь танцующего админа"
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
 
@@ -8,7 +8,7 @@
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
 		D.visible_message("<span class='warning'>[A] демонстрирует большой светящийся ящик с инструментами и пихает его в грудь [D]!</span>", \
-							"<spac class='userdanger'>[A] пихает мистический ящик с инструментами в вашу грудь!</span>")
+							"<spac class='userdanger'>[A] запихивает мистический тулбокс в вашу грудь!</span>")
 		D.death()
 
 		return TRUE
@@ -34,8 +34,8 @@
 	to_chat(user, "<span class='notice'>Harm</span>: Death.")
 
 /obj/item/adminfu_scroll
-	name = "потертый свиток"
-	desc = "Старый и потертый клочок бумаги, исписанный меняющимися рунами. Есть рисованные иллюстрации кулачного боя."
+	name = "потёртый свиток"
+	desc = "Старый потёртый клочок бумаги, исписанный меняющимися рунами. Есть рисованные иллюстрации кулачного боя."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	var/used = 0
@@ -49,6 +49,6 @@
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>Вы изучили древнее боевое искусство Админов.</span>")
 		used = 1
-		desc = "Он совершенно пустой."
+		desc = "Он совершенно пуст."
 		name = "пустой свиток"
 		icon_state = "blankscroll"

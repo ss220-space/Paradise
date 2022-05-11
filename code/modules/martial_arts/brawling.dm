@@ -2,11 +2,11 @@
 	name = "Бокс"
 
 /datum/martial_art/boxing/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	to_chat(A, "<span class='warning'>Не могу обеззоруживать пока боксирую!</span>")
+	to_chat(A, "<span class='warning'>При боксировании не получается обезоруживать!</span>")
 	return 1
 
 /datum/martial_art/boxing/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	to_chat(A, "<span class='warning'>Не могу схватить пока боксирую!</span>")
+	to_chat(A, "<span class='warning'>При боксировании не получается хватать!</span>")
 	return 1
 
 /datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -18,7 +18,7 @@
 	var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 	if(!damage)
 		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-		D.visible_message("<span class='warning'>[A] попытался ударить [D] [atk_verb]!</span>")
+		D.visible_message("<span class='warning'>[A] пыта[pluralize_ru(A.gender,"ется","ются")] ударить [D] [atk_verb]!</span>")
 		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)", ATKLOG_ALL)
 		return 0
 

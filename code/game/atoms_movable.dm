@@ -120,7 +120,7 @@
 		return FALSE
 	if(anchored || move_resist == INFINITY)
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src.name] похоже прикреплен к полу!</span>")
+			to_chat(user, "<span class='warning'>Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!</span>")
 		return FALSE
 	if(throwing)
 		return FALSE
@@ -463,12 +463,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='warning'>[src] сильно толкает [AM]!</span>", "<span class='warning'>Вы сильно толкаете [AM]!</span>")
+		visible_message("<span class='warning'>[src] сильно толка[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='warning'>Вы сильно толкаете [AM]!</span>")
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='danger'>[src] сокрушил [AM]!</span>", "<span class='danger'>Вы сокрушили [AM]!</span>")
+		visible_message("<span class='danger'>[src] сокруша[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='danger'>Вы сокрушили [AM]!</span>")
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
