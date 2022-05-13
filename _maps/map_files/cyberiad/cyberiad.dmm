@@ -1004,6 +1004,7 @@
 	on = 1
 	},
 /obj/item/toy/figure/hos,
+/obj/item/lighter/zippo/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -26072,6 +26073,7 @@
 	},
 /obj/item/paper_bin/nanotrasen,
 /obj/item/paper/tcommskey,
+/obj/item/lighter/zippo/ce,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -49858,10 +49860,10 @@
 	},
 /obj/item/gun/projectile/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
-/obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/lighter/zippo/cap,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
 "bTk" = (
@@ -55609,6 +55611,7 @@
 /obj/structure/table/glass,
 /obj/item/stamp/cmo,
 /obj/item/toy/figure/cmo,
+/obj/item/lighter/zippo/cmo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -56178,6 +56181,7 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
+/obj/item/lighter/zippo,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "cdE" = (
@@ -59117,6 +59121,7 @@
 /area/ntrep)
 "cjf" = (
 /obj/structure/table/wood,
+/obj/item/lighter/zippo/nt_rep,
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cjg" = (
@@ -91081,6 +91086,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"dWf" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/mime,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "dWZ" = (
 /obj/structure/chair/comfy/red,
 /obj/structure/sign/mech{
@@ -91356,11 +91367,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"eZg" = (
-/obj/structure/closet,
-/obj/item/toy/figure/roboticist,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "eZh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -91766,12 +91772,6 @@
 /obj/machinery/vending/security,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
-"gcE" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/toy/figure/botanist,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "gdm" = (
 /obj/machinery/clonepod/upgraded,
 /obj/machinery/light/spot{
@@ -91905,10 +91905,6 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
-"gBy" = (
-/obj/item/toy/figure/atmos,
-/turf/simulated/floor/plating,
-/area/maintenance/storage)
 "gBG" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -92146,11 +92142,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
-"hke" = (
-/obj/structure/table,
-/obj/item/toy/figure/librarian,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "hkT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -92324,6 +92315,12 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
+"hTS" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/janitor,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "hTU" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)"
@@ -92495,6 +92492,12 @@
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
+"iGE" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/figure/engineer,
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "iHY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -92668,11 +92671,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar)
-"jut" = (
-/obj/structure/chair/stool,
-/obj/item/toy/figure/chemist,
-/turf/simulated/floor/plating,
-/area/maintenance/genetics)
 "jyd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92936,11 +92934,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
-"kjp" = (
-/obj/structure/table,
-/obj/item/toy/figure/assistant,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/locker)
 "kqe" = (
 /obj/machinery/door_control{
 	id = "ArmorySecAccess";
@@ -93320,12 +93313,6 @@
 	icon_state = "barber"
 	},
 /area/crew_quarters/locker)
-"lJN" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/toy/figure/janitor,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -93623,6 +93610,11 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"mxU" = (
+/obj/structure/table,
+/obj/item/toy/figure/assistant,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "mzq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -93784,6 +93776,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/medbay)
+"nhg" = (
+/obj/structure/table,
+/obj/item/toy/figure/librarian,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "nhj" = (
 /obj/structure/closet/bombclosetsecurity,
 /obj/item/clothing/ears/earmuffs,
@@ -94699,6 +94696,11 @@
 	icon_state = "cafeteria"
 	},
 /area/toxins/xenobiology)
+"qsp" = (
+/obj/structure/chair/stool,
+/obj/item/toy/figure/chemist,
+/turf/simulated/floor/plating,
+/area/maintenance/genetics)
 "qsT" = (
 /obj/structure/closet/wardrobe/red,
 /obj/item/clothing/suit/tracksuit/red,
@@ -94720,6 +94722,10 @@
 	icon_state = "cafeteria"
 	},
 /area/toxins/xenobiology)
+"qwt" = (
+/obj/item/toy/figure/atmos,
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "qwN" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -95338,12 +95344,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"swX" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/toy/figure/mime,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "sxQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95477,12 +95477,12 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
-"sUb" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/toy/figure/engineer,
-/turf/simulated/floor/plasteel,
-/area/assembly/assembly_line)
+"sSw" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/botanist,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "sUp" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/machinery/camera{
@@ -96401,6 +96401,10 @@
 	icon_state = "cafeteria"
 	},
 /area/toxins/xenobiology)
+"wfo" = (
+/obj/item/toy/figure/dsquad,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "whv" = (
 /obj/machinery/computer/HolodeckControl,
 /turf/simulated/floor/plasteel,
@@ -96659,6 +96663,11 @@
 	icon_state = "neutralfull"
 	},
 /area/security/customs)
+"wRG" = (
+/obj/structure/closet,
+/obj/item/toy/figure/roboticist,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -97038,10 +97047,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"yax" = (
-/obj/item/toy/figure/dsquad,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "yev" = (
 /obj/structure/closet/secure_closet/brigdoc,
 /obj/machinery/camera{
@@ -115228,7 +115233,7 @@ bkg
 bkx
 bnD
 bnD
-kjp
+mxU
 bsg
 bvW
 bnD
@@ -122728,7 +122733,7 @@ cFk
 cGi
 cnA
 cKf
-sUb
+iGE
 cMw
 cME
 cMx
@@ -128625,7 +128630,7 @@ chd
 cnC
 cqV
 chf
-lJN
+hTS
 cmH
 cvI
 cxk
@@ -128910,7 +128915,7 @@ cTj
 cUx
 cZS
 dcq
-gBy
+qwt
 dcq
 dcq
 dex
@@ -136793,7 +136798,7 @@ nqX
 vFZ
 aOI
 aUW
-swX
+dWf
 aGX
 aHP
 aRv
@@ -137830,7 +137835,7 @@ aQC
 aGY
 aGY
 aGX
-gcE
+sSw
 aGY
 bhp
 bjX
@@ -141167,7 +141172,7 @@ aGY
 aGY
 aGY
 aMz
-hke
+nhg
 aGY
 aIE
 aGY
@@ -141501,7 +141506,7 @@ cJK
 cJK
 cIb
 cIt
-jut
+qsp
 bQX
 bQX
 bQX
@@ -145588,7 +145593,7 @@ cqa
 crz
 csJ
 cgs
-yax
+wfo
 cuQ
 cxZ
 cyR
@@ -147422,7 +147427,7 @@ dbg
 bGH
 cJQ
 cJQ
-eZg
+wRG
 cuQ
 dia
 djC
