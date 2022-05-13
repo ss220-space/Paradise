@@ -1003,6 +1003,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/toy/figure/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -7998,6 +7999,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
+/obj/item/toy/figure/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -13316,7 +13318,6 @@
 /area/maintenance/fsmaint)
 "ayf" = (
 /obj/structure/table,
-/obj/item/toy/figure/hos,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ayg" = (
@@ -16491,6 +16492,7 @@
 "aEa" = (
 /obj/structure/table/wood,
 /obj/item/trash/can,
+/obj/item/toy/figure/bartender,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -17385,6 +17387,7 @@
 "aFO" = (
 /obj/item/toy/crayon/spraycan,
 /obj/structure/table,
+/obj/item/toy/figure/syndie,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aFP" = (
@@ -17581,6 +17584,7 @@
 "aGo" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
+/obj/item/toy/figure/lawyer,
 /turf/simulated/floor/carpet,
 /area/maintenance/fpmaint)
 "aGp" = (
@@ -19648,6 +19652,7 @@
 "aLc" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/ninja,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aLd" = (
@@ -21115,6 +21120,7 @@
 /area/crew_quarters/dorms)
 "aOi" = (
 /obj/item/clothing/head/naziofficer,
+/obj/item/toy/figure/clown,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aOj" = (
@@ -21177,6 +21183,7 @@
 "aOp" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
+/obj/item/toy/figure/chef,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aOq" = (
@@ -21433,6 +21440,7 @@
 "aOX" = (
 /obj/structure/lattice,
 /obj/structure/closet,
+/obj/item/toy/figure/wizard,
 /turf/space,
 /area/space/nearstation)
 "aOY" = (
@@ -22785,6 +22793,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/toy/figure/chaplain,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aRL" = (
@@ -23029,6 +23038,7 @@
 "aSp" = (
 /obj/structure/table/glass,
 /obj/item/hemostat,
+/obj/item/toy/figure/md,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aSq" = (
@@ -40346,6 +40356,7 @@
 /area/crew_quarters/captain)
 "bBD" = (
 /obj/structure/table/wood,
+/obj/item/toy/figure/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bBE" = (
@@ -46875,6 +46886,7 @@
 /area/quartermaster/storage)
 "bOl" = (
 /obj/structure/closet/wardrobe/black,
+/obj/item/toy/figure/ian,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bOm" = (
@@ -47671,6 +47683,7 @@
 	pixel_y = -25
 	},
 /obj/structure/closet,
+/obj/item/toy/figure/cargotech,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bPD" = (
@@ -53139,6 +53152,7 @@
 	dir = 1
 	},
 /obj/item/pen/multi/fountain,
+/obj/item/toy/figure/hop,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "bYV" = (
@@ -54760,9 +54774,8 @@
 /area/hallway/primary/central/se)
 "cbp" = (
 /obj/structure/table/glass,
-/obj/item/folder/blue,
-/obj/item/folder/red,
 /obj/item/flashlight/lamp,
+/obj/item/toy/figure/rd,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/hor)
 "cbq" = (
@@ -55595,6 +55608,7 @@
 "ccF" = (
 /obj/structure/table/glass,
 /obj/item/stamp/cmo,
+/obj/item/toy/figure/cmo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -58295,6 +58309,7 @@
 /obj/structure/table/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/toy/figure/geneticist,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitered"
@@ -58679,6 +58694,7 @@
 "cix" = (
 /obj/structure/table,
 /obj/item/coin/silver,
+/obj/item/toy/figure/qm,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "ciy" = (
@@ -62243,6 +62259,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/toy/figure/miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -77457,6 +77474,7 @@
 /area/toxins/test_chamber)
 "cQw" = (
 /obj/structure/closet,
+/obj/item/toy/figure/scientist,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cQx" = (
@@ -78795,6 +78813,7 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Engineer's Office"
 	},
+/obj/item/toy/figure/ce,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -84692,6 +84711,7 @@
 /area/medical/reception)
 "der" = (
 /obj/structure/table,
+/obj/item/toy/figure/virologist,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "des" = (
@@ -89873,6 +89893,7 @@
 	layer = 4;
 	pixel_y = -32
 	},
+/obj/item/toy/figure/borg,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -91335,6 +91356,11 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"eZg" = (
+/obj/structure/closet,
+/obj/item/toy/figure/roboticist,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "eZh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -91740,6 +91766,12 @@
 /obj/machinery/vending/security,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
+"gcE" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/botanist,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "gdm" = (
 /obj/machinery/clonepod/upgraded,
 /obj/machinery/light/spot{
@@ -91873,6 +91905,10 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"gBy" = (
+/obj/item/toy/figure/atmos,
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "gBG" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -92110,6 +92146,11 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
+"hke" = (
+/obj/structure/table,
+/obj/item/toy/figure/librarian,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "hkT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -92627,6 +92668,11 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar)
+"jut" = (
+/obj/structure/chair/stool,
+/obj/item/toy/figure/chemist,
+/turf/simulated/floor/plating,
+/area/maintenance/genetics)
 "jyd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92890,6 +92936,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"kjp" = (
+/obj/structure/table,
+/obj/item/toy/figure/assistant,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "kqe" = (
 /obj/machinery/door_control{
 	id = "ArmorySecAccess";
@@ -93269,6 +93320,12 @@
 	icon_state = "barber"
 	},
 /area/crew_quarters/locker)
+"lJN" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/janitor,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -93405,6 +93462,7 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
+/obj/item/toy/figure/secofficer,
 /turf/simulated/floor/plating/airless,
 /area/security/prisonershuttle)
 "mcq" = (
@@ -95280,6 +95338,12 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
+"swX" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/mime,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "sxQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95413,6 +95477,12 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"sUb" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/figure/engineer,
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "sUp" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/machinery/camera{
@@ -96968,6 +97038,10 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
+"yax" = (
+/obj/item/toy/figure/dsquad,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "yev" = (
 /obj/structure/closet/secure_closet/brigdoc,
 /obj/machinery/camera{
@@ -115154,7 +115228,7 @@ bkg
 bkx
 bnD
 bnD
-bqx
+kjp
 bsg
 bvW
 bnD
@@ -122654,7 +122728,7 @@ cFk
 cGi
 cnA
 cKf
-cLD
+sUb
 cMw
 cME
 cMx
@@ -128551,7 +128625,7 @@ chd
 cnC
 cqV
 chf
-csK
+lJN
 cmH
 cvI
 cxk
@@ -128836,7 +128910,7 @@ cTj
 cUx
 cZS
 dcq
-ddr
+gBy
 dcq
 dcq
 dex
@@ -136719,7 +136793,7 @@ nqX
 vFZ
 aOI
 aUW
-aLc
+swX
 aGX
 aHP
 aRv
@@ -137756,7 +137830,7 @@ aQC
 aGY
 aGY
 aGX
-aLc
+gcE
 aGY
 bhp
 bjX
@@ -141093,7 +141167,7 @@ aGY
 aGY
 aGY
 aMz
-aGY
+hke
 aGY
 aIE
 aGY
@@ -141427,7 +141501,7 @@ cJK
 cJK
 cIb
 cIt
-cIr
+jut
 bQX
 bQX
 bQX
@@ -145514,7 +145588,7 @@ cqa
 crz
 csJ
 cgs
-bGG
+yax
 cuQ
 cxZ
 cyR
@@ -147348,7 +147422,7 @@ dbg
 bGH
 cJQ
 cJQ
-cQw
+eZg
 cuQ
 dia
 djC
