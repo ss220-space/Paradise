@@ -61,9 +61,10 @@
 		)
 
 	suicide_messages = list(
-		"is losing branches!",
-		"pulls out a secret stash of herbicide and takes a hearty swig!",
-		"is pulling themselves apart!")
+		"теряет ветви!",
+		"вытаскивает из тайника бутыль с гербицидом и делает большой глоток!",
+		"растаскивается на части!",
+		"разваливается на части!")
 
 /datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
