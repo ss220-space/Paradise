@@ -32,15 +32,29 @@
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest),
+		"groin" =  list("path" = /obj/item/organ/external/groin),
+		"head" =   list("path" = /obj/item/organ/external/head/kidan),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
+		"l_hand" = list("path" = /obj/item/organ/external/hand),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
+		"l_foot" = list("path" = /obj/item/organ/external/foot),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
+		)
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
 	suicide_messages = list(
-		"пытается откусить свои усики!",
-		"вонзает когти в свои глазницы!",
-		"сворачивает себе шею!",
-		"трескается экзоскелетом!",
-		"протыкает себя челюстями!",
-		"задерживает дыхание!")
+		"is attempting to bite their antenna off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is stabbing themselves with their mandibles!",
+		"is holding their breath!")
 
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)

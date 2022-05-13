@@ -40,11 +40,11 @@
 		)
 
 	suicide_messages = list(
-		"пытается откусить свой язык!",
-		"выдавливает большими пальцами свои глазницы!",
-		"сворачивает себе шею!",
-		"задыхается словно рыба!",
-		"душит себя собственными усиками!")
+		"is attempting to bite their tongue off!",
+		"is jamming their thumbs into their eye sockets!",
+		"is twisting their own neck!",
+		"makes like a fish and suffocates!",
+		"is strangling themselves with their own tendrils!")
 
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()

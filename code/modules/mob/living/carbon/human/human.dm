@@ -1620,7 +1620,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		for(var/obj/item/hand in handlist)
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
 				step_towards(hand, src)
-				to_chat(src, "<span class='warning'>[S] вырыва[pluralize_ru(src.gender,"ет","ют")] [hand] из вашего захвата!</span>")
+				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
 
 /mob/living/carbon/human/narsie_act()
@@ -1630,27 +1630,27 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
-		to_chat(src, "<span class='warning'>Вы не можете провести себе сердечно легочную реанимацию!</span>")
+		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
 	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
-		to_chat(src, "<span class='warning'>[H.name] мертв[genderize_ru(H.gender,"","а","о","ы")]!</span>")
+		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(!check_has_mouth())
-		to_chat(src, "<span class='danger'>У вас нет рта, вы не можете провести сердечно легочную реанимацию!</span>")
+		to_chat(src, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
 		return
 	if(!H.check_has_mouth())
-		to_chat(src, "<span class='danger'>У [genderize_ru(H.gender,"него","неё","этого","них")] нет рта, вы не можете провести сердечно легочную реанимацию!</span>")
+		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
 		return
 	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Сначала снимите маску!</span>")
+		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
 		return
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Сначала снимите [genderize_ru(H.gender,"его","её","у этого","их")] маску!</span>")
+		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
 		return
 	if(H.receiving_cpr) // To prevent spam stacking
-		to_chat(src, "<span class='warning'>[genderize_ru(H.gender,"Ему","Ей","Этому","Им")] уже проводят сердечно легочную реанимацию!</span>")
+		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
-	visible_message("<span class='danger'>[src] пыта[pluralize_ru(src.gender,"ет","ют")]ся провести сердечно легочную реанимацию [H.name]!</span>", "<span class='danger'>Вы пытаетесь провести сердечно легочную реанимацию [H.name]!</span>")
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
 	H.receiving_cpr = TRUE
 	if(do_mob(src, H, 40))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
@@ -1658,15 +1658,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-1)
 			H.updatehealth("cpr")
-			visible_message("<span class='danger'>[src] провод[pluralize_ru(src.gender,"ит","ят")] сердечно легочную реанимацию [H.name]!</span>", "<span class='notice'>Вы проводите сердечно легочную реанимацию [H.name].</span>")
+			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
-			to_chat(H, "<span class='notice'>Вы чувствуете как свежее дыхание проникает в ваши лёгкие. Приятно.</span>")
+			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return TRUE
 	else
 		H.receiving_cpr = FALSE
-		to_chat(src, "<span class='danger'>Вам нужно стоять на месте для проведения сердечно легочной реанимации!</span>")
+		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)

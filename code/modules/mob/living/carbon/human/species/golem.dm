@@ -63,8 +63,8 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
 
 	suicide_messages = list(
-		"рассыпается в прах!",
-		"разбивает свое тело на части!")
+		"is crumbling into dust!",
+		"is smashing their body apart!")
 
 	var/golem_colour = rgb(170, 170, 170)
 	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."
