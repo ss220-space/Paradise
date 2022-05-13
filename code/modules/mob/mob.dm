@@ -30,6 +30,8 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
+	runechat_msg_location = src
+	update_runechat_msg_location()
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -248,6 +250,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_w_uniform,\
 		slot_wear_suit,\
 		slot_wear_mask,\
+		slot_neck,\
 		slot_head,\
 		slot_shoes,\
 		slot_gloves,\
@@ -328,6 +331,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(slot_neck)
+				if(!(slot_flags & SLOT_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -594,13 +606,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 //note: ghosts can point, this is intended
 //visible_message will handle invisibility properly
 //overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
+/mob/verb/pointed(atom/A as mob|obj|turf)
 	set name = "Point To"
 	set category = "Object"
 
 	if(next_move >= world.time)
 		return
 	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+		return FALSE
+	if(!(A in view(src)))
 		return FALSE
 
 	var/tile = get_turf(A)
@@ -1013,6 +1027,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[Master.formatcpu()]")
+			stat("Map CPU:", "[Master.format_mapcpu()]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())
@@ -1174,6 +1189,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/obj/vent_found = pick(found_vents)
 		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 		host.ckey = src.ckey
+		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
+			host.faction += "syndicate"
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
@@ -1353,6 +1370,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
 	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Give Taipan Hud"] = "?_src_=vars;give_taipan_hud=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 
@@ -1365,6 +1383,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
 	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
 	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
 	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
 
@@ -1483,3 +1502,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
+
+/**
+ * Updates the mob's runechat maptext display location.
+ */
+/mob/proc/update_runechat_msg_location()
+	return

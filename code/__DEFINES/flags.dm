@@ -102,6 +102,7 @@
 #define PASSBLOB		8
 #define PASSMOB			16
 #define LETPASSTHROW	32
+#define PASSFENCE 64
 
 //turf-only flags
 #define NOJAUNT		1
@@ -125,6 +126,7 @@
 #define SLOT_TWOEARS 8192
 #define SLOT_PDA 16384
 #define SLOT_TIE 32768
+#define SLOT_NECK 65536
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

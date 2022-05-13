@@ -233,7 +233,9 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola)
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/forensics/sample_kit/powder,
+		/obj/item/forensics/sample_kit)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
@@ -506,7 +508,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/revolver/detective
+		/obj/item/gun/projectile/revolver/detective,
+		/obj/item/gun/projectile/automatic/toy/pistol
 		)
 
 /obj/item/storage/belt/wands

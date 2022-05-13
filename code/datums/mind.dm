@@ -66,6 +66,8 @@
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
+	var/lost_memory = FALSE // for the memorizers
+
 	var/suicided = FALSE
 
 	//put this here for easier tracking ingame
@@ -591,7 +593,7 @@
 				var/new_target
 				if(length(possible_targets) > 0)
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						possible_targets += "Free Objective."
+						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
 						new_target = pick(possible_targets)
@@ -600,14 +602,14 @@
 						return
 				else
 					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
-					new_target = "Free Objective."
+					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
-				if(new_target == "Free Objective.")
+				if(new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective.owner = src
 					new_objective:target = null
-					new_objective.explanation_text = "Free Objective."
+					new_objective.explanation_text = "Free objective"
 				else
 					new_objective = new objective_path
 					new_objective.owner = src
@@ -681,7 +683,7 @@
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
+						new_objective.explanation_text = "Накопить не менее [target_number] единиц крови."
 				new_objective.owner = src
 				new_objective.target_amount = target_number
 
@@ -691,7 +693,7 @@
 					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
 				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free Objective."
+				possible_targets += "Free objective"
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return
@@ -1025,7 +1027,7 @@
 						qdel(vampire)
 						vampire = null
 					SSticker.mode.update_vampire_icons_removed(src)
-					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>")
+					to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
 			if("vampire")
@@ -1038,13 +1040,13 @@
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
 					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
-					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
+					to_chat(current, "<B><font color='red'>Ваши силы пробудились. Жажда крови нарастает… Вы — вампир!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
 
 			if("autoobjectives")
 				SSticker.mode.forge_vampire_objectives(src)
-				to_chat(usr, "<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, "<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -2048,6 +2050,8 @@
 /mob/living/silicon/robot/mind_initialize()
 	..()
 	mind.assigned_role = "Cyborg"
+	if(is_taipan(z))
+		give_taipan_hud()
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

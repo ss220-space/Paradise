@@ -875,7 +875,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
 
@@ -2041,7 +2041,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("UIalpha")
 					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
-					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
+					if(!UI_style_alpha_new || !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
@@ -2284,9 +2284,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.dna.SetSEState(GLOB.swedeblock, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLOB.swedeblock)
 
-	if(disabilities & DISABILITY_FLAG_CHAV)
-		character.dna.SetSEState(GLOB.chavblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.chavblock)
+	if(disabilities & DISABILITY_FLAG_AULD_IMPERIAL)
+		character.dna.SetSEState(GLOB.auld_imperial_block, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.auld_imperial_block)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
 		character.dna.SetSEState(GLOB.lispblock, TRUE, TRUE)

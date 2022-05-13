@@ -6,8 +6,8 @@
 	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Hulk"
 	icon_living = "Hulk"
-	maxHealth = 400
-	health = 400
+	maxHealth = 280
+	health = 280
 	speed = 1.25
 	harm_intent_damage = 20
 	melee_damage_lower = 20
@@ -43,8 +43,8 @@
 	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Champion of Honk"
 	icon_living = "Champion of Honk"
-	maxHealth = 250
-	health = 250
+	maxHealth = 175
+	health = 175
 	speed = 1
 	harm_intent_damage = 5
 	melee_damage_lower = 5
@@ -66,8 +66,8 @@
 	icon = 'icons/mob/zilla.dmi'
 	icon_state = "zilla"
 	icon_living = "zilla"
-	maxHealth = 450
-	health = 450
+	maxHealth = 315
+	health = 315
 	speed = 1.5
 	harm_intent_damage = 30
 	melee_damage_lower = 30
@@ -162,7 +162,7 @@
 	original_body.update_mutations()		//update our mutation overlays
 	qdel(src)
 
-/mob/living/proc/hulk_scream(obj/target, chance)
+/mob/living/proc/hulk_scream(obj/target, chance = 75)
 	if(prob(chance))
 		visible_message("<span class='userdanger'>[src] has punched \the [target]!</span>",\
 		"<span class='userdanger'>You punch the [target]!</span>",\
@@ -183,15 +183,15 @@
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
-			if(hulk_scream(A, 75))
-				A.deconstruct(src)
+			hulk_scream(A)
+			A.deconstruct()
 			return
 	if(istype(D,/obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = D
-		if(FD_CLOSED)
-			if(hulk_scream(F))
-				qdel(F)
-				return
+		if(F.density)
+			hulk_scream(F)
+			F.deconstruct()
+			return
 	if(D.density)
 		to_chat(src, "<span class='userdanger'>You force your fingers between \
 		 the doors and begin to pry them open...</span>")

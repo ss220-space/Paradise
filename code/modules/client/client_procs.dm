@@ -6,10 +6,10 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION	514		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -118,7 +118,6 @@
 			return
 		cmd_admin_discord_pm()
 		return
-
 
 
 	//Logs all hrefs
@@ -373,11 +372,15 @@
 	if(!geoip)
 		geoip = new(src, address)
 
+	url = winget(src, null, "url")
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
 	Master.UpdateTickRate()
+
+	SSqueue?.send_status()
 
 	// Check total playercount
 	var/playercount = 0
@@ -421,6 +424,7 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
+	SSqueue?.send_status()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -439,23 +443,30 @@
 		return
 
 	//Donator stuff.
-	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey=:ckey", list(
-		"ckey" = ckey
-	))
+	var/datum/db_query/query_donor_select = SSdbcore.NewQuery({"
+		SELECT CAST(SUM(amount) as UNSIGNED INTEGER) FROM [sqlfdbkdbutil].[format_table_name("budget")]
+		WHERE ckey=:ckey
+			AND is_valid=true
+			AND date_start <= NOW()
+			AND (NOW() < date_end OR date_end IS NULL)
+		GROUP BY ckey
+	"}, list("ckey" = ckey))
 
 	if(!query_donor_select.warn_execute())
 		qdel(query_donor_select)
 		return
 
-	while(query_donor_select.NextRow())
-		if(!text2num(query_donor_select.item[3]))
-			// Inactive donator.
-			donator_level = 0
-			qdel(query_donor_select)
-			return
-		donator_level = text2num(query_donor_select.item[2])
+	if(query_donor_select.NextRow())
+		var/total = query_donor_select.item[1]
+		if(total >= 100)
+			donator_level = 1
+		if(total >= 300)
+			donator_level = 2
+		if(total >= 500)
+			donator_level = 3
+		if(total >= 1000)
+			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
-		break
 	qdel(query_donor_select)
 
 /client/proc/donor_loadout_points()
@@ -528,7 +539,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
@@ -1048,7 +1059,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> на Discord-сервере.</span>")
+		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1059,7 +1070,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> на Discord-сервере!</span>")
+		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
 		if(prefs)
 			prefs.load_preferences(usr)
 

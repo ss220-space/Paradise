@@ -176,8 +176,8 @@
 	spawn(20)
 		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(3)
-			Weaken(3)
+			Stun(2)
+			Weaken(2)
 	if(shock_damage > 200)
 		src.visible_message(
 			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
@@ -242,6 +242,7 @@
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
+				adjustStaminaLoss(-10)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -499,7 +500,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					if(failed)
 						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 						return
-
+			if(isswarmer(src))
+				var/mob/living/simple_animal/hostile/swarmer/S = src
+				if(S.light_range)
+					S.ToggleLight()
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
 			src.loc = vent_found
 			add_ventcrawl(vent_found)
@@ -794,7 +798,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return 0
 
 /mob/living/carbon/fall(forced)
-    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+    loc?.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))

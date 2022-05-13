@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
-/proc/get_uplink_items(var/job = null)
+/proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
@@ -12,9 +12,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
-			if(I.gamemodes.len && SSticker && !(SSticker.mode.type in I.gamemodes))
+			if(I.uplinktypes.len && SSticker && !(U.uplink_type in I.uplinktypes))
 				continue
-			if(I.excludefrom.len && SSticker && (SSticker.mode.type in I.excludefrom))
+			if(I.excludefrom.len && SSticker && (U.uplink_type in I.excludefrom))
 				continue
 			if(I.last)
 				last += I
@@ -71,8 +71,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/cost = 0
 	var/last = 0 // Appear last
 	var/abstract = 0
-	var/list/gamemodes = list() // Empty list means it is in all the gamemodes. Otherwise place the gamemode name here.
-	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
+	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
+	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
 	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
-	cost = 10
+	cost = 5
 	job = list("Mime")
 
 /datum/uplink_item/jobspecific/mimery
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
 	reference = "AM"
 	item = /obj/item/storage/box/syndie_kit/mimery
-	cost = 10
+	cost = 6
 	job = list("Mime")
 
 /datum/uplink_item/jobspecific/pressure_mod
@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
-	cost = 5 //you need two for full damage, so total of 10 for maximum damage
+	cost = 4 //you need two for full damage, so total of 8 for maximum damage
 	job = list("Shaft Miner")
 
 //Chef
@@ -273,7 +273,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
 	reference = "PM"
 	item = /obj/item/caution/proximity_sign
-	cost = 4
+	cost = 3
+	job = list("Janitor")
+	surplus = 0
+
+/datum/uplink_item/jobspecific/holomine
+	name = "Holomine Projector"
+	desc = "Projector that can set up to 5 stun mines with additional EMP effect."
+	reference = "HM"
+	item = /obj/item/holosign_creator/syndie
+	cost = 8
 	job = list("Janitor")
 	surplus = 0
 
@@ -286,6 +295,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/rad_laser
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+
+/datum/uplink_item/jobspecific/batterer
+	name = "Mind Batterer"
+	desc = "A device that has a chance of knocking down people around you for a long amount of time or slowing them down. The user is unaffected. Each charge takes 2 minutes to recharge."
+	reference = "BTR"
+	item = /obj/item/batterer
+	cost = 10
+	job = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/uplink_item/jobspecific/genekit
+	name = "Genetic Superiority Bundle"
+	desc = "A set of injectors containing extremely powerful mutations brought to you by recently established Syndicate research station. This set is designed for teamwork"
+	reference = "GS"
+	item = /obj/item/storage/box/syndie_kit/genes
+	cost = 15
+	job = list("Chief Medical Officer", "Geneticist")
+	surplus = 0
 
 //Virology
 
@@ -314,6 +340,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
 	job = list("Civilian")
+
+/datum/uplink_item/jobspecific/stungloves
+	name = "Stungloves"
+	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
+	reference = "SG"
+	item = /obj/item/storage/box/syndie_kit/stungloves
+	cost = 2
+	job = list("Civilian", "Mechanic", "Station Engineer", "Chief Engineer")
 
 //Bartender
 
@@ -352,7 +386,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
-	cost = 10
+	cost = 8
 	job = list("Station Engineer", "Chief Engineer")
 
 //RD
@@ -438,7 +472,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PP"
 	item = /obj/item/pen/poison
 	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
 
@@ -460,7 +494,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers."
 	item = /obj/item/gun/projectile/revolver
 	cost = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
+
+/datum/uplink_item/dangerous/deagle
+	name = "Desert Eagle"
+	reference = "DEA"
+	desc = "A legendary high power pistol that uses 7 rounds .50AE magazines."
+	item = /obj/item/gun/projectile/automatic/pistol/deagle
+	cost = 10
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/dangerous/uzi
+	name = "Type U3 Uzi"
+	reference = "UZ"
+	desc = "A fully-loaded lightweight blowback-operated submachine gun that uses 30-rounds 9mm magazines."
+	item = /obj/item/gun/projectile/automatic/mini_uzi
+	cost = 12
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
 	name = "C-20r Submachine Gun"
@@ -468,7 +519,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/c20r
 	cost = 14
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
 /datum/uplink_item/dangerous/carbine
@@ -476,8 +527,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
 	reference = "AR"
 	item = /obj/item/gun/projectile/automatic/m90
-	cost = 18
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 16
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
 /datum/uplink_item/dangerous/machinegun
@@ -485,8 +536,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
 	reference = "LMG"
 	item = /obj/item/gun/projectile/automatic/l6_saw
-	cost = 40
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 35
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/dangerous/rapid
@@ -501,9 +552,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Ranged fury, Syndicate style. guaranteed to cause shock and awe or your TC back!"
 	reference = "SSR"
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	cost = 16
+	cost = 20
 	surplus = 25
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
 	name = "Compact Sniper Rifle"
@@ -513,15 +564,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	surplus = 0
 	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
 	reference = "EC"
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
-	cost = 12
-	excludefrom = list(/datum/game_mode/nuclear)
+	cost = 9
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
 /datum/uplink_item/dangerous/flamethrower
@@ -529,8 +580,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
 	reference = "FT"
 	item = /obj/item/flamethrower/full/tank
-	cost = 8
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
 /datum/uplink_item/dangerous/sword
@@ -557,19 +608,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 12
 
-/datum/uplink_item/dangerous/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
-	reference = "BTR"
-	item = /obj/item/batterer
-	cost = 5
 
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support
 	category = "Support and Mechanized Exosuits"
 	surplus = 0
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
@@ -577,7 +622,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	This model lacks a method of space propulsion, and therefore it is advised to repair the mothership's teleporter if you wish to make use of it."
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
-	cost = 90
+	cost = 80
+
+/datum/uplink_item/support/rover
+	name = "Rover Exosuit"
+	desc = "A syndicate version of durand designed for teamwork. Has an abillity to create a forcewalls that only syndicate members can pass through."
+	reference = "RV"
+	item = /obj/mecha/combat/durand/rover/loaded
+	cost = 100
 
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"
@@ -593,7 +645,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "REINF"
 	item = /obj/item/antag_spawner/nuke_ops
 	refund_path = /obj/item/antag_spawner/nuke_ops
-	cost = 25
+	cost = 20
 	refundable = TRUE
 	cant_discount = TRUE
 
@@ -630,7 +682,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FSMG"
 	item = /obj/item/gun/projectile/automatic/c20r/toy
 	cost = 5
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/dangerous/foammachinegun
@@ -639,7 +691,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FLMG"
 	item = /obj/item/gun/projectile/automatic/l6_saw/toy
 	cost = 10
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/dangerous/guardian
@@ -648,7 +700,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
 	item = /obj/item/storage/box/syndie_kit/guardian
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 12
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
@@ -672,21 +724,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
 	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/ammo/pistolfire
 	name = "Stechkin - 10mm Incendiary Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Stechkin - 10mm Hollow Point Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 3
+	cost = 1
 
 /datum/uplink_item/ammo/bullslug
 	name = "Bulldog - 12g Slug Magazine"
@@ -694,7 +746,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "12BSG"
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullbuck
 	name = "Bulldog - 12g Buckshot Magazine"
@@ -702,15 +754,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "12BS"
 	item = /obj/item/ammo_box/magazine/m12g/buckshot
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullstun
 	name = "Bulldog - 12g Stun Slug Magazine"
 	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
 	reference = "12SS"
 	item = /obj/item/ammo_box/magazine/m12g/stun
-	cost = 3
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 1
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
 	name = "Bulldog - 12g Dragon's Breath Magazine"
@@ -718,7 +770,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "12DB"
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/bullterror
+	name = "Bulldog - 12g Bioterror Magazine"
+	desc = "An alternative 8-round bioterror magazine for use in the Bulldog shotgun. Extremely toxic!"
+	reference = "12BT"
+	item = /obj/item/ammo_box/magazine/m12g/bioterror
+	cost = 3
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/bullmeteor
+	name = "Bulldog - 12g Meteor Magazine"
+	desc = "An alternative 8-round breaching magazine for use in the Bulldog shotgun. This ammo should be illegal.!"
+	reference = "12BRE"
+	item = /obj/item/ammo_box/magazine/m12g/breach
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_ammobag
 	name = "Bulldog - 12g Ammo Duffel Bag"
@@ -726,15 +794,31 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	cost = 12 // normally 18
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
 	name = "Bulldog - 12g XL Magazine Duffel Bag"
 	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
 	reference = "12XLDB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
-	cost = 12 // normally 18
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 9 // normally 18
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/uzi
+	name = "Type U3 Uzi - 9mm Magazine"
+	desc = "An additional 30 round 9mm magazine for use in Type-U3 Uzi."
+	reference = "UZA"
+	item = /obj/item/ammo_box/magazine/uzim9mm
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/uzi_ammobag
+	name = "Type U3 Uzi - 9mm Ammo Duffel Bag"
+	desc = "A duffel bag filled with enough 9mm ammo to supply an entire gang. Groove street forever."
+	reference = "UZADB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/uzi
+	cost = 14 // normally 20
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
 	name = "C-20r - .45 Magazine"
@@ -742,7 +826,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "45"
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg_ammobag
 	name = "C-20r - .45 Ammo Duffel Bag"
@@ -750,7 +834,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "45ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/smg
 	cost = 14 // normally 20
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/carbine
 	name = "Carbine - 5.56 Toploader Magazine"
@@ -758,7 +842,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "556"
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/a40mm
 	name = "Carbine - 40mm Grenade Ammo Box"
@@ -766,26 +850,43 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "40MM"
 	item = /obj/item/ammo_box/a40mm
 	cost = 4
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/carbine_ammobag
+	name = "Carbine - 5.56 Ammo Duffel Bag"
+	desc = "A duffel bag filled with 9 5.56 Toploader magazines, and a 40 mm Grenade Ammo Box. Pew pew."
+	reference = "556ADB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/carbine
+	cost = 18 // normally 24
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/machinegun
 	name = "L6 SAW - 5.56x45mm Box Magazine"
 	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
 	item = /obj/item/ammo_box/magazine/mm556x45
-	cost = 12
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 10
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/ammo/LMG_ammobag
+	name = "L6 SAW - 5.56x45m Ammo Duffel Bag"
+	desc = "A Duffel Bag filled with 5 mm556x45 box magazines. Remember, no Russian."
+	reference = "762ADB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/lmg
+	cost = 40 // normally 50
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/sniper
-	cost = 4
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/sniper/basic
 	name = "Sniper - .50 Magazine"
-	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
+	desc = "An additional standard 5-round magazine for use with .50 sniper rifles."
 	reference = "50M"
 	item = /obj/item/ammo_box/magazine/sniper_rounds
+	cost = 5
 
 /datum/uplink_item/ammo/sniper/soporific
 	name = "Sniper - .50 Soporific Magazine"
@@ -794,12 +895,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
 	cost = 3
 
-/datum/uplink_item/ammo/sniper/haemorrhage
-	name = "Sniper - .50 Haemorrhage Magazine"
-	desc = "A 5-round magazine of haemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
-			in the target."
-	reference = "50B"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
+/datum/uplink_item/ammo/sniper/explosive
+	name = "Sniper - .50 Explosive Magazine"
+	desc = "A 5-round magazine of explosive ammo designed for use with .50 sniper rifles. Human rights? What?"
+	reference = "50HE"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/explosive
+	cost = 6
 
 /datum/uplink_item/ammo/sniper/penetrator
 	name = "Sniper - .50 Penetrator Magazine"
@@ -815,7 +916,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BTS"
 	item = /obj/item/storage/box/syndie_kit/bioterror
 	cost = 5
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
@@ -823,7 +924,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FOAM"
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/ammo/revolver
@@ -832,6 +933,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 1
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/deagle
+	name = ".50AE handgun magazine"
+	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
+	reference = ".50AE"
+	item = /obj/item/ammo_box/magazine/m50
+	cost = 1
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // STEALTHY WEAPONS
 
@@ -844,7 +954,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	reference = "GAR"
 	item = /obj/item/twohanded/garrote
-	cost = 8
+	cost = 6
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -853,8 +963,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Unable to be understood by vampire and changeling agents."
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
-	cost = 17
-	excludefrom = list(/datum/game_mode/nuclear)
+	cost = 16
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 	refundable = TRUE
 	cant_discount = TRUE
 
@@ -863,7 +974,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	cost = 12
+	cost = 10
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -895,7 +1007,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SP"
 	item = /obj/item/pen/sleepy
 	cost = 8
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/foampistol
 	name = "Toy Gun (with Stun Darts)"
@@ -927,7 +1039,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 4
 	surplus = 50
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/RSG
 	name = "Rapid Syringe Gun"
@@ -935,7 +1047,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RSG"
 	item = /obj/item/gun/syringe/rapidsyringe
 	cost = 4
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
@@ -978,7 +1090,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/c4
 	cost = 8 //20% discount!
 	cant_discount = TRUE
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"
@@ -986,7 +1098,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "X4"
 	item = /obj/item/grenade/plastic/x4
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/x4bag
 	name = "Bag of X-4 explosives"
@@ -997,7 +1109,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/x4
 	cost = 4
 	cant_discount = TRUE
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
@@ -1045,9 +1157,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
 	item = /obj/item/storage/belt/grenade/full
-	cost = 30
+	cost = 25
 	surplus = 0
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/manhacks
 	name = "Viscerator Delivery Grenade"
@@ -1055,7 +1167,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "VDG"
 	item = /obj/item/grenade/spawnergrenade/manhacks
 	cost = 6
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 35
 
 /datum/uplink_item/explosives/atmosn2ogrenades
@@ -1117,7 +1229,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "These glasses are thermals with Syndicate chameleon technology built into them. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
 	item = /obj/item/clothing/glasses/chameleon/thermal
-	cost = 6
+	cost = 4
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
@@ -1125,7 +1237,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SBM"
 	item = /obj/item/storage/belt/military/traitor
 	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
@@ -1151,13 +1263,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 4
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/stealthy_tools/chameleon/nuke
-	reference = "NCHAM"
-	cost = 6
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "No-Slip Chameleon Shoes"
@@ -1166,13 +1271,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "NSSS"
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	reference = "NNSSS"
 	cost = 4
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
@@ -1219,14 +1323,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "NOCS"
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	reference = "NOCSN"
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 4
 	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
@@ -1250,7 +1354,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HBIK"
 	item = /obj/item/storage/backpack/clown/syndie
 	cost = 6
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 // DEVICE AND TOOLS
@@ -1279,6 +1383,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FLTB"
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 1
+
+/datum/uplink_item/device_tools/holster
+	name = "Shoulder Holster"
+	desc = "For holding your favourite gun close and always being ready for a cowboy duel with clown."
+	reference = "SHL"
+	item = /obj/item/clothing/accessory/holster
+	cost = 2
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
@@ -1310,7 +1421,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DRL"
 	item = /obj/item/thermal_drill
 	cost = 3
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/diamond_drill
 	name = "Diamond Tipped Thermal Safe Drill"
@@ -1318,16 +1429,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DDRL"
 	item = /obj/item/thermal_drill/diamond_drill
 	cost = 1
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
 	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical HUD for quick identification of injured comrades, \
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
-	item = /obj/item/storage/firstaid/tactical
+	item = /obj/item/storage/firstaid/syndie
 	cost = 7
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/vtec
 	name = "Syndicate Cyborg Upgrade Module (VTEC)"
@@ -1335,7 +1446,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "VTEC"
 	item = /obj/item/borg/upgrade/vtec
 	cost = 6
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -1361,16 +1472,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
 	cost = 6
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
 	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
 	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	cost = 8
+	cost = 10
 	reference = "ESHS"
 	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/hardsuit/shielded
 	name = "Shielded Hardsuit"
@@ -1379,7 +1490,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 30
 	reference = "SHS"
 	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
@@ -1411,14 +1522,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
 	item = /obj/item/powersink
-	cost = 10
+	cost = 8
 
 /datum/uplink_item/device_tools/singularity_beacon
 	name = "Power Beacon"
@@ -1428,7 +1539,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 10
+	cost = 5
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
@@ -1440,7 +1551,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SD"
 	item = /obj/item/syndicatedetonator
 	cost = 3
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -1469,7 +1580,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/circuitboard/teleporter
 	reference = "TP"
 	cost = 20
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/device_tools/assault_pod
@@ -1478,7 +1589,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/assault_pod
 	reference = "APT"
 	cost = 25
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/device_tools/shield
@@ -1486,8 +1597,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles, but it cannot block other attacks. Pair with an Energy Sword for a killer combination."
 	item = /obj/item/shield/energy
 	reference = "ESD"
-	cost = 16
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 12
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 20
 
 /datum/uplink_item/device_tools/medgun
@@ -1496,7 +1607,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/medbeam
 	reference = "MBG"
 	cost = 15
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 
 // IMPLANTS
@@ -1509,7 +1620,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
-	cost = 5
+	cost = 4
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
@@ -1517,6 +1628,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 12
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1548,13 +1660,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MBI"
 	item = /obj/item/implanter/explosive
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // Cybernetics
 /datum/uplink_item/cyber_implants
 	category = "Cybernetic Implants"
 	surplus = 0
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
 	if(item)
@@ -1615,7 +1727,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SPC"
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
 /datum/uplink_item/badass/syndiecash
@@ -1624,7 +1736,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	The briefcase also feels a little heavier to hold; it has been manufactured to pack a little bit more of a punch if your client needs some convincing."
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 1
+	cost = 5 
 
 /datum/uplink_item/badass/plasticbag
 	name = "Plastic Bag"
@@ -1632,7 +1744,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PBAG"
 	item = /obj/item/storage/bag/plasticbag
 	cost = 1
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"
@@ -1648,7 +1760,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HAB"
 	item = /obj/item/implanter/explosive_macro
 	cost = 20
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
@@ -1662,7 +1774,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BULB"
 	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	cost = 9 // normally 12
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "C-20r Bundle"
@@ -1670,7 +1782,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "C20B"
 	item = /obj/item/storage/backpack/duffel/syndie/c20rbundle
 	cost = 18 // normally 21
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/cyber_implants
 	name = "Cybernetic Implants Bundle"
@@ -1679,16 +1791,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CIB"
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 40
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical Bundle"
-	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
-			a medical beam gun and a pair of syndicate magboots."
+	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, additional mender and hypospray, \
+			a medical beam gun implant, a surgery implant, a handheld defibrillator, autoimplanter, health analyzers, and a medical hardsuit."
 	reference = "MEDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	cost = 20 // normally 24
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 35 // normally 40
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/sniper
 	name = "Sniper bundle"
@@ -1697,8 +1809,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			We'll throw in a free red tie if you order NOW."
 	reference = "SNPB"
 	item = /obj/item/storage/briefcase/sniperbundle
-	cost = 18 // normally 23
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 22 // normally 27
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
@@ -1706,7 +1818,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SYB"
 	item = /obj/item/storage/box/syndicate
 	cost = 20
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/surplus_crate
 	name = "Syndicate Surplus Crate"
@@ -1714,7 +1826,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SYSC"
 	cost = 20
 	item = /obj/item/storage/box/syndicate
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 50
 
 /datum/uplink_item/bundles_TC/surplus_crate/super
@@ -1726,7 +1838,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
-	var/list/temp_uplink_list = get_uplink_items()
+	var/list/temp_uplink_list = get_uplink_items(U)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
@@ -1782,4 +1894,4 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RTCB"
 	item = /obj/item/stack/telecrystal/fifty
 	cost = 50
-	gamemodes = list(/datum/game_mode/nuclear)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

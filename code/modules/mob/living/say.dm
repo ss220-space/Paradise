@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
 	  ":t" = "Syndicate",	"#t" = "Syndicate",		".t" = "Syndicate",
+	  ":," = "SyndTaipan",	"#," ="SyndTaipan",		".," = "SyndTaipan",
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
@@ -48,6 +49,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":ы" = "Security",	"№ы" = "Security",		".ы" = "Security",
 	  ":ц" = "whisper",		"№ц" = "whisper",		".ц" = "whisper",
 	  ":е" = "Syndicate",	"№е" = "Syndicate",		".е" = "Syndicate",
+	  ":б" = "SyndTaipan",	"#б" ="SyndTaipan",		".б" = "SyndTaipan",
 	  ":г" = "Supply",		"№г" = "Supply",		".г" = "Supply",
 	  ":я" = "Service",		"№я" = "Service",		".я" = "Service",
 	  ":з" = "AI Private",	"№з" = "AI Private",	".з" = "AI Private",
@@ -64,6 +66,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Ы" = "Security",	"№Ы" = "Security",		".Ы" = "Security",
 	  ":Ц" = "whisper",		"№Ц" = "whisper",		".Ц" = "whisper",
 	  ":Е" = "Syndicate",	"№Е" = "Syndicate",		".Е" = "Syndicate",
+	  ":Б" = "SyndTaipan",	"#Б" ="SyndTaipan",		".Б" = "SyndTaipan",
 	  ":Г" = "Supply",		"№Г" = "Supply",		".Г" = "Supply",
 	  ":Я" = "Service",		"№Я" = "Service",		".Я" = "Service",
 	  ":З" = "AI Private",	"№З" = "AI Private",	".З" = "AI Private",
@@ -341,25 +344,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return 1
 
 	if(act && type && message) //parent call
-		log_emote(message, src)
-
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client)
-				continue //skip monkeys and leavers
-
-			if(isnewplayer(M))
-				continue
-
-			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
-				M.show_message(message)
-
-		switch(type)
-			if(1) //Visible
-				visible_message(message)
-				return 1
-			if(2) //Audible
-				audible_message(message)
-				return 1
+		show_emote(type, message)
 
 	else //everything else failed, emote is probably invalid
 		if(act == "help")

@@ -85,7 +85,7 @@
 
 /proc/cannotPossess(A)
 	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(G.has_enabled_antagHUD && config.antag_hud_restricted)
 		return 1
 	return 0
 
@@ -219,9 +219,9 @@
 			if(lowertext(newletter)=="ц")	newletter="к"
 			if(lowertext(newletter)=="э")	newletter="о"
 			if(lowertext(newletter)=="г")	newletter="х"
-		switch(rand(1,15))
+		switch(rand(1,8))
 			if(1,3,5,8)	newletter="[lowertext(newletter)]"
-			if(2,4,6,15)	newletter="[uppertext(newletter)]"
+			if(2,4,6)	newletter="[uppertext(newletter)]"
 			if(7)	newletter+=pick(slurletters)
 			//if(9,10)	newletter="<b>[newletter]</b>"
 			//if(11,12)	newletter="<big>[newletter]</big>"
@@ -525,6 +525,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
+/**
+  * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
+  *
+  * Returns FALSE if there is a ghost, and it can't reenter the body. Returns TRUE otherwise.
+  */
+/mob/proc/ghost_can_reenter()
+	var/mob/dead/observer/ghost = get_ghost(TRUE)
+	if(ghost && !ghost.can_reenter_corpse)
+		return FALSE
+	return TRUE
+
 /mob/proc/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
 		return FALSE
@@ -669,6 +680,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				newletter="nglu"
 			if(5)
 				newletter="glor"
+			else
+				pass()
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 

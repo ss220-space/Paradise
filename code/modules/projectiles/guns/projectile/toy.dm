@@ -21,6 +21,7 @@
 	desc = "A small, easily concealable toy handgun. Ages 8 and up."
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
+	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	can_suppress = 0
@@ -42,7 +43,7 @@
 	..()
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
-	name = "Foam Enforcer"
+	name = "foam enforcer"
 	desc = "A foam shooting version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer

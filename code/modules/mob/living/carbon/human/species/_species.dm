@@ -205,6 +205,8 @@
 	for(var/name in H.bodyparts_by_name)
 		H.bodyparts |= H.bodyparts_by_name[name]
 
+	H.update_tail()
+
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 
@@ -458,7 +460,7 @@
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
-			target.apply_effect(4, WEAKEN, armor_block)
+			target.apply_effect(2, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
@@ -628,6 +630,8 @@
 			return !H.gloves && (I.slot_flags & SLOT_GLOVES)
 		if(slot_shoes)
 			return !H.shoes && (I.slot_flags & SLOT_FEET)
+		if(slot_neck)
+			return !H.neck && (I.slot_flags & SLOT_NECK)
 		if(slot_belt)
 			if(H.belt)
 				return FALSE
