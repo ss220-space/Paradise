@@ -22,10 +22,10 @@
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is staring into the closest light source!")
+		"пытается откусить себе язык!",
+		"выдавливает свои глазницы большими пальцами!",
+		"сворачивает себе шею!",
+		"пялится на ближайший источник света!")
 
 	var/grant_vision_toggle = TRUE
 	var/datum/action/innate/shadow/darkvision/vision_toggle
@@ -40,10 +40,10 @@
 	var/mob/living/carbon/human/H = owner
 	if(!H.vision_type)
 		H.set_sight(/datum/vision_override/nightvision)
-		to_chat(H, "<span class='notice'>You adjust your vision to pierce the darkness.</span>")
+		to_chat(H, "<span class='notice'>Вы расширяете свой взор, чтобы видеть сквозь тьму.</span>")
 	else
 		H.set_sight(null)
-		to_chat(H, "<span class='notice'>You adjust your vision to recognize the shadows.</span>")
+		to_chat(H, "<span class='notice'>Вы расширяете свой взор, чтобы распознавать тени.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/H)
 	..()
