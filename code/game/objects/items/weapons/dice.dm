@@ -32,7 +32,7 @@
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
 	name = "игральная кость"
-	desc = "Кость с шестью гранями. Непримечательный и лёгкий в обращении."
+	desc = "Кость с шестью гранями. Непримечательна и лёгка в обращении."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
