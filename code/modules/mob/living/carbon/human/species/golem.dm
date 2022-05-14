@@ -83,7 +83,22 @@
 	else if(special_names && special_names.len && prob(special_name_chance))
 		golem_surname = pick(special_names)
 
-	var/golem_name = "[prefix] [golem_surname]"
+	var/golem_gender = pick(MALE,FEMALE,NEUTER)
+
+	var/name_dict = list[]
+	name_dict[MALE] = list("мощный","ловкий")
+	name_dict[FEMALE] = list("кривая","страшная")
+	name_dict[NEUTER] = list("сильное","независимое")
+
+	var/surname_dict = list[]
+	surname_dict[MALE] = list("конь","огонь")
+	surname_dict[FEMALE] = list("каша","малаша")
+	surname_dict[NEUTER] = list("огниво","молоко")
+
+	var/golem_fullname = "[pick(name_dict[golem_gender])] [pick(surname_dict[golem_gender])]"
+
+	var/golem_name = "[golem_fullname]"
+	//var/golem_name = "[prefix] [golem_surname]"
 	return golem_name
 
 /datum/species/golem/on_species_gain(mob/living/carbon/human/H)
