@@ -71,7 +71,7 @@
 	var/random_eligible = TRUE
 	var/prefix = "Железн[genderize_ru(gender_name,"ый","ая","ое","ые")]"
 
-	var/surname_dict[8]
+	var/surname_dict[3]
 	surname_dict[MALE] = pick(GLOB.golem_male)
 	surname_dict[FEMALE] = pick(GLOB.golem_female)
 	surname_dict[NEUTER] = pick(GLOB.golem_neuter)
@@ -86,6 +86,12 @@
 	var/owner //dobby is a free golem
 
 	var/gender_name = pick(MALE, prob(40)FEMALE, prob(5)NEUTER) //Случайный пол имени для голема. Не его изначальный пол, т.к. он по дефолту мужской. Его пол всё так же gender
+
+/datum/species/golem
+	name = "Random Golem"
+	blacklisted = FALSE
+	dangerous_existence = FALSE
+	var/static/list/random_golem_types
 
 /datum/species/golem/get_random_name()
 	var/golem_surname = "[pick(surname_dict[gender_name])]"
