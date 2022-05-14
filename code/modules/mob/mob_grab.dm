@@ -334,7 +334,7 @@
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(affecting.lying)
 							return
-						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ет","ют")] [assailant.p_their()] головой о череп [affecting]!</span>") //A visible message for what is going on.
+						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ет","ют")] [genderize_ru(assailant.gender,"его","её","своей","их")]  головой о череп [affecting]!</span>") //A visible message for what is going on.
 						var/damage = 5
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
