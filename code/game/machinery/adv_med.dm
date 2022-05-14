@@ -398,7 +398,10 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tПовреждение мозга, %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Общий паралич, %: [occupant.paralysis] ([round(occupant.paralysis / 4)] seconds left!)<br>" // TODO: l10n
+		var/prlz_left = round(occupant.paralysis / 4)
+		var/prlz_left_pretext = "остал" + declension_ru(prlz_left,"а","о","о") + "сь"
+		var/prlz_left_posttext = "секунд" + declension_ru(prlz_left,"а","ы","")
+		dat += "Общий паралич, %: [occupant.paralysis] ([prlz_left_pretext] [prlz_left] [prlz_left_posttext]!)<br>"
 		dat += "Температура тела: [occupant.bodytemperature-T0C] °C<br>"
 
 		dat += "<hr>"
