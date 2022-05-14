@@ -39,3 +39,10 @@
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 3) // Create a small explosion burst upon death
 	qdel(H)
+
+/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "radium")
+		H.heal_overall_damage(1,1)
+		H.adjustToxLoss(-2)
+		return TRUE
+	return ..()
