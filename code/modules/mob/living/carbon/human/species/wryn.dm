@@ -153,8 +153,8 @@
 		if(target.restrained())			//Apply tiny BURN damage if target is restrained
 			if(prob(50))
 				user.apply_damage(2, BURN, target)
-				to_chat(target, "<span class='danger'>You feel a little burnt! Yowch!</span>")
-				user.visible_message("<span class='danger'>[user] is looking a little burnt!</span>")
+				to_chat(target, "<span class='danger'>Вы ощущаете небольшое жжение! Ауч!</span>")
+				user.visible_message("<span class='danger'>[user] выглядит ужаленным!</span>")
 		UpdateButtonIcon()
 		return
 
@@ -169,15 +169,15 @@
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.handcuffed && target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 
-		user.visible_message("<span class='notice'>[user] начинает яростно отрывать усики [target].</span>")
-		to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тянет их!<B></span>")
+		user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
+		to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
 		if(do_mob(user, target, 250))
 			var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 			target.remove_language("Wryn Hivemind")
 			node.remove(target)
 			node.forceMove(user.loc)
 			to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
-			to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырывает усики из вашей головы.</span>")
+			to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
 			to_chat(target, "<span class='danger'><B>Стало так тихо...</B></span>")
 			var/obj/item/organ/external/head/head_organ = target.get_organ("head")
 			head_organ.h_style = "Bald"

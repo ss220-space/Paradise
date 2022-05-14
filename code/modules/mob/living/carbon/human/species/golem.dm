@@ -64,13 +64,13 @@
 
 	suicide_messages = list(
 		"рассыпается в прах!",
-		"разбивает своё тело на части!")
+		"разбивает его тело на части!")
 
 	var/golem_colour = rgb(170, 170, 170)
-	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."
+	var/info_text = "Как <span class='danger'>Железный Голем</span>, у вас нет отличительных особенностей."
 	var/random_eligible = TRUE
-	var/prefix = "Iron"
-	var/list/special_names = list("Tarkus")
+	var/prefix = "Железный"
+	var/list/special_names = list("Человек", "Ржавчик", "Утюг", "Металлист",  "Мужик", "Сплав", "Брусок", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 	var/human_surname_chance = 3
 	var/special_name_chance = 5
 	var/owner //dobby is a free golem
@@ -130,9 +130,9 @@
 		"vocal_cords" = /obj/item/organ/internal/vocal_cords/adamantine
 		)
 	golem_colour = rgb(68, 238, 221)
-	info_text = "As an <span class='danger'>Adamantine Golem</span>, you possess special vocal cords allowing you to \"resonate\" messages to all golems."
-	prefix = "Adamantine"
-	special_names = null
+	info_text = "Как <span class='danger'>Адамантиновый Голем</span>, вы обладаете особенным голосовыми связками, позволяющие вас \"резонировать\" послания всем големам."
+	prefix = "Адамантиновый"
+	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 
 //The suicide bombers of golemkind
 /datum/species/golem/plasma
@@ -142,21 +142,21 @@
 	heat_level_1 = 360
 	heat_level_2 = 400
 	heat_level_3 = 460
-	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
+	info_text = "Как <span class='danger'>Плазма Голем</span>, вы легко сгораете. Будьте отсторожны, если вы сильно нагреетесь - вы взорветесь!"
 	heatmod = 0 //fine until they blow up
-	prefix = "Plasma"
-	special_names = list("Flood", "Fire", "Bar", "Man")
+	prefix = "Плазма"
+	special_names = list("Потоп", "Прилив", "Разлив", "Залив", "Мужик", "Наводнение", "Поток", "Ливень", "Пожар", "Стержень", "Минерал", "Мужик", "Горец", "Сгоратель")
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
-			to_chat(H, "<span class='userdanger'>You feel like you could blow up at any moment!</span>")
+			to_chat(H, "<span class='userdanger'>Вы чувствуете что можете взорваться в любой момент!</span>")
 			boom_warning = TRUE
 	else
 		if(boom_warning)
-			to_chat(H, "<span class='notice'>You feel more stable.</span>")
+			to_chat(H, "<span class='notice'>Вы чувствуете себя стабильней.</span>")
 			boom_warning = FALSE
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
@@ -182,7 +182,7 @@
 
 /datum/action/innate/ignite
 	name = "Ignite"
-	desc = "Set yourself aflame, bringing yourself closer to exploding!"
+	desc = "Подожгите себя и достигните взрыва!"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "sacredflame"
 
@@ -190,9 +190,9 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
-			to_chat(owner, "<span class='notice'>You ignite yourself!</span>")
+			to_chat(owner, "<span class='notice'>Вы подожгли себя!</span>")
 		else
-			to_chat(owner, "<span class='warning'>You try to ignite yourself, but fail!</span>")
+			to_chat(owner, "<span class='warning'>Вы попытались поджечь себя, но провалились!</span>")
 		H.IgniteMob() //firestacks are already there passively
 
 //Harder to hurt
@@ -206,9 +206,10 @@
 	brain_mod = 0.3
 	stamina_mod = 0.3
 	skinned_type = /obj/item/stack/ore/diamond
-	info_text = "As a <span class='danger'>Diamond Golem</span>, you are more resistant than the average golem."
-	prefix = "Diamond"
+	info_text = "Как <span class='danger'>Алмазный Голем</span>, вы более устойчивы, чем обычный голем."
+	prefix = "Алмазный"
 	special_names = list("Back")
+	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 
 //Faster but softer and less armoured
 /datum/species/golem/gold
@@ -222,9 +223,9 @@
 	brain_mod = 0.75
 	stamina_mod = 0.75
 	skinned_type = /obj/item/stack/ore/gold
-	info_text = "As a <span class='danger'>Gold Golem</span>, you are faster but less resistant than the average golem."
-	prefix = "Golden"
-	special_names = list("Boy")
+	info_text = "Как <span class='danger'>Золотой Голем</span>, вы быстрее, но менее устойчивы, чем обычный голем."
+	prefix = "Золотой"
+	special_names = list("Мальчик", "Мужик", "Человек", "Ручник", "Молодежник", "Понтовщик", "Мост", "Яблочник", "Ювелир", "Дорогуша", "Дурак", "Брусок", "Закат", "Дым", "Шелк", "Сплав", "Ремесленник", "Мёд")
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
@@ -232,9 +233,9 @@
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
-	info_text = "As a <span class='danger'>Silver Golem</span>, your attacks have a higher chance of stunning."
-	prefix = "Silver"
-	special_names = list("Surfer", "Chariot", "Lining")
+	info_text = "Как <span class='danger'>Серебрянный Голем</span>, ваши атаки имеют более высокий шанс оглушения."
+	prefix = "Серебряный"
+	special_names = list("Серфер", "Чарриот", "Мужик", "Глушитель", "Тихон", "Анестетик", "Ювелир")
 
 //Harder to stun, deals more damage, but it's even slower
 /datum/species/golem/plasteel
@@ -246,9 +247,9 @@
 	punchstunthreshold = 18 //still 40% stun chance
 	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
-	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching."
+	info_text = "Как <span class='danger'>Пласталиевый Голем</span>, вы медленнее, но вас сложнее оглушить и вы наносите сильные удары кулаком."
 	prefix = "Plasteel"
-	special_names = null
+	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
 
 /datum/unarmed_attack/golem/plasteel
@@ -260,10 +261,10 @@
 	name = "Titanium Golem"
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage and immune to ash storms."
+	info_text = "Как <span class='danger'>Титаниевый Голем</span>, вы устойчивы к урону от ожогов и невосприимчивы к пепельным бурям."
 	burn_mod = 0.405
-	prefix = "Titanium"
-	special_names = list("Dioxide")
+	prefix = "Титаниевый"
+	special_names = list("Диоксид", "Сплав", "Брусок", "Мужик", "Минерал", "Кусок", "Кирпич", "Буреходец", "Пожарник", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 
 /datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
@@ -278,10 +279,10 @@
 	name = "Plastitanium Golem"
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage and immune to both ash storms and lava."
+	info_text = "Как <span class='danger'>Пластитаниумный Голем</span>, вы очень устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
 	burn_mod = 0.36
-	prefix = "Plastitanium"
-	special_names = null
+	prefix = "Пластаниумный"
+	special_names = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 
 /datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
@@ -301,9 +302,9 @@
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
 	speed_mod = 1 //faster
-	info_text = "As an <span class='danger'>Alloy Golem</span>, you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to speak telepathically to other alloy golems."
-	prefix = "Alien"
-	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
+	info_text = "Как <span class='danger'>Голем из инопланетных сплавов</span>, вы сделаны из передовых инопланетных материалов: вы быстрее и со временем регенерируете. Однако, вы можете разговаривать только с другими големами из сплава."
+	prefix = "Инопланетный"
+	special_names = list("Инопришеленец", "Технологичный Голем", "Наблюдатель", "Незнакомец", "Странник", "Чужак", "Посланник", "Минерал", "Мужик", "Пришеленец") //ominous and unknown
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
@@ -341,11 +342,11 @@
 	heat_level_2 = 340
 	heat_level_3 = 400
 
-	dietflags = DIET_HERB		// Plants eat...plants?
+	dietflags = DIET_HERB		// Plants eat...plants? -- естественное развитие растений в природе
 
-	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
-	prefix = "Wooden"
-	special_names = list("Bark", "Willow", "Catalpa", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
+	info_text = "Как <span class='danger'>Деревянный Голем</span>, вы обладаете особенностями растений: вы получаете урон от экстремальных температур, способный вас поджечь, и у вас меньше брони, чем у обычного голема. Вы регенерируете при свете и увадяете во тьме."
+	prefix = "" // Убран префикс "деревяный", ибо выходит масло масляное вида "Деревяная Ветка", "Деревяный Дуб". Что не логично и мешает давать имена.
+	special_names = list("Короед", "Грут", "Пень", "Дубень", "Дуболом", "Ива", "Катальпа", "Дуб", "Сок", "Ветка", "Ветка", "Клен", "Береза", "Вяз", "Липа", "Тополь ", "Лиственница", "Осина", "Ясень", "Бук", "Каштан", "Кедр", "Каштан", "Кипарис", "Пихта", "Боярышник", "Лещина", "Гикори", "Айронвуд", "Можжевельник", "Лист", "Мангровый лес", "Пальма", "Азимина", "Сосна", "Тополь", "Красное дерево", "Редбад", "Сассафрас", "Ель", "Сумак", "Ствол", "Орех", "Тис")
 	human_surname_chance = 0
 	special_name_chance = 100
 
@@ -384,9 +385,9 @@
 	name = "Uranium Golem"
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
-	info_text = "As an <span class='danger'>Uranium Golem</span>, you emit radiation. It won't harm fellow golems, but organic lifeforms will be affected."
-	prefix = "Uranium"
-	special_names = list("Oxide", "Rod", "Meltdown")
+	info_text = "Как <span class='danger'>Урановый Голем</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
+	prefix = "Урановый"
+	special_names = list("Оксид", "Стержень", "Мужик", "Сплав", "Расплав", "Светоч", "Сиятель", "Свет", "Блеск", "Лучезарец", "Блестатель")
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
 	for(var/mob/living/L in range(2, H))
@@ -395,18 +396,18 @@
 			if(!(RADIMMUNE in I.dna.species.species_traits))
 				L.apply_effect(10, IRRADIATE)
 				if(prob(25)) //reduce spam
-					to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
+					to_chat(L, "<span class='danger'>Вас окутывает мягкое зеленое свечение, исходящее от [H].</span>")
 	..()
 
 //Ventcrawler
 /datum/species/golem/plastic
 	name = "Plastic Golem"
-	prefix = "Plastic"
+	prefix = "Пластиковый"
 	special_names = null
 	ventcrawler = VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
-	info_text = "As a <span class='danger'>Plastic Golem</span>, you are capable of ventcrawling if you're naked."
+	info_text = "Как <span class='danger'>Пластиковый Голем</span>, вы способны ползать по вентиляции, если вы раздеты."
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
@@ -419,13 +420,13 @@
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "As a <span class='danger'>Sand Golem</span>, you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
+	info_text = "Как <span class='danger'>Песчаный Голем</span>, вы невосприимчивы к физическим пулям и получаете очень мало грубого урона, но чрезвычайно уязвимы к урону от горения и энергетического оружя. Вы также превратитесь в песок после смерти, что предотвратит любую форму восстановления."
 	unarmed_type = /datum/unarmed_attack/golem/sand
-	prefix = "Sand"
-	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
+	prefix = "Песчаный"
+	special_names = list("Замок", "Вихрь", "Мужик", "Ураган", "Смерч", "Волчок", "Бархан", "Червь", "Шторм")
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message("<span class='danger'>[H] turns into a pile of sand!</span>")
+	H.visible_message("<span class='danger'>[H] рассыпался в кучу песка!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -436,8 +437,8 @@
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>", \
-			"<span class='userdanger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>")
+			H.visible_message("<span class='danger'>[P.name] безвредно тонет в песчаном теле [H]!</span>", \
+			"<span class='userdanger'>[P.name] безвредно тонет в песчаном теле  [H]!</span>")
 			return FALSE
 	return TRUE
 
@@ -455,14 +456,15 @@
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "As a <span class='danger'>Glass Golem</span>, you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
+	info_text = "Как <span class='danger'>Стеклянный Голем</span>, вы отражаете лазеры и энергетическое оружие и очень устойчивы к урону от горения. Однако вы чрезвычайно уязвимы к грубому урону. После смерти вы разобьется без всякой надежды на восстановление."
 	unarmed_type = /datum/unarmed_attack/golem/glass
-	prefix = "Glass"
-	special_names = list("Lens", "Prism", "Fiber", "Bead")
+	prefix = "Стеклянная"
+	special_names = list("Линза", "Призма", "Бусинка", "Жемчужина")
+	//special_names = list("Волокно", "Преломление", "Отражение")
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
-	H.visible_message("<span class='danger'>[H] shatters!</span>")
+	H.visible_message("<span class='danger'>[H] разбился в дребезги!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -472,8 +474,8 @@
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable)
-			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
-			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
+			H.visible_message("<span class='danger'>[P.name] отразился от стеклянной кожи [H]!</span>", \
+			"<span class='userdanger'>The [P.name] отразился от стеклянной кожи [H]!</span>")
 
 			P.reflect_back(H)
 
@@ -488,9 +490,9 @@
 	name = "Bluespace Golem"
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
-	info_text = "As a <span class='danger'>Bluespace Golem</span>, you are spatially unstable: You will teleport when hit, and you can teleport manually at a long distance."
-	prefix = "Bluespace"
-	special_names = list("Crystal", "Polycrystal")
+	info_text = "Как <span class='danger'>Блюспейс Голем</span>, вы пространственно нестабильны: Вы будете телепортироваться при ударе, и вы можете телепортироваться вручную на большое расстояние.."
+	prefix = "Блюспейс"
+	special_names = list("Кристалл", "Поликристалл", "Прыгун", "Скакун", "Транзит", "Прыжок", "Скачок", "Разрыв", "Мужик", "Попрыгун")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
 
 	var/datum/action/innate/unstable_teleport/unstable_teleport
@@ -499,7 +501,7 @@
 	var/tele_range = 6
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You destabilize and teleport!</span>")
+	H.visible_message("<span class='warning'>[H] телепортировался!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -575,13 +577,13 @@
 /datum/action/innate/unstable_teleport/Activate()
 	activated = TRUE
 	var/mob/living/carbon/human/H = owner
-	H.visible_message("<span class='warning'>[H] starts vibrating!</span>", "<span class='danger'>You start charging your bluespace core...</span>")
+	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать свое блюспейс ядро...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
+	H.visible_message("<span class='warning'>[H] телепортировался!</span>", "<span class='danger'>Вы телепортировались!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(istype(T, /turf/space))
@@ -618,8 +620,8 @@
 	punchdamagehigh = 1
 	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and punching people will just harmlessly honk them. Your skin also bleeds banana peels when damaged."
-	prefix = "Bananium"
+	info_text = "As a <span class='danger'>Бананиумовый Голем</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Ваша кожа также истекает бананами, когда она повреждена."
+	prefix = "Bananium" //требуется перевед имен клоуна
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
 
@@ -644,7 +646,7 @@
 
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
-	var/golem_name = "[prefix] [clown_name]"
+	var/golem_name = "[prefix] [clown_name]" //Без перевода, так как требуется переводы имен роли
 	return golem_name
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
@@ -698,16 +700,16 @@
 //...
 /datum/species/golem/tranquillite
 	name = "Tranquillite Golem"
-	prefix = "Tranquillite"
+	prefix = "Tranquillite" //требуется перевод имен Мима
 	special_names = null
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
-	info_text = "As a <span class='danger'>Tranquillite Golem</span>, you are capable of creating invisible walls, and can regenerate by drinking your bottle of Nothing."
+	info_text = "As a <span class='danger'>Транквиллитовый Голем</span>, вы можете создавать невидимые стены и регенерировать выпивая бутылки с ничем."
 	unarmed_type = /datum/unarmed_attack/golem/tranquillite
 
 /datum/species/golem/tranquillite/get_random_name()
 	var/mime_name = pick(GLOB.mime_names)
-	var/golem_name = "[prefix] [mime_name]"
+	var/golem_name = "[prefix] [mime_name]" //Без перевода, так как требуется переводы имен роли
 	return golem_name
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
