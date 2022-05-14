@@ -11,7 +11,7 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	var/staminaforce = 35
+	var/staminaforce = 30
 	var/stunforce = 1
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/cell = null
@@ -232,8 +232,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	staminaforce = 25
-	stunforce = 1
+	staminaforce = 35
+	stunforce = 0
 	hitcost = 500
 	throw_hit_chance = 50
 	slot_flags = SLOT_BACK
