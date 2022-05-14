@@ -67,7 +67,7 @@
 		if(!illusion)
 			adjustFireLoss(shock_damage)
 		visible_message(
-			"<span class='danger'>[src.name] шокирован током [source]!</span>",
+			"<span class='danger'>[src.name] поражён током [source]!</span>",
 			"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через всё ваше тело!</span>",
 			"<span class='italics'>Вы слышите сильный электрический треск.</span>")
 		return shock_damage
