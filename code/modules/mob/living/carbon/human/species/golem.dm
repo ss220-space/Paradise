@@ -458,8 +458,9 @@
 	stamina_mod = 1
 	info_text = "Как <span class='danger'>Стеклянный Голем</span>, вы отражаете лазеры и энергетическое оружие и очень устойчивы к урону от горения. Однако вы чрезвычайно уязвимы к грубому урону. После смерти вы разобьется без всякой надежды на восстановление."
 	unarmed_type = /datum/unarmed_attack/golem/glass
-	prefix = "null" //prefix = "Стеклянная"
-	special_names = list("Линза", "Призма", "Бусинка", "Жемчужина", "Стекловолокно", "Оптика", "Преломлятор", "Преломление", "Отражение")
+	prefix = "Стеклянная"
+	special_names = list("Линза", "Призма", "Бусинка", "Жемчужина")
+	//special_names = list("Волокно", "Преломление", "Отражение")
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
