@@ -11,12 +11,12 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	var/staminaforce = 20
-	var/stunforce = 2
+	var/staminaforce = 35
+	var/stunforce = 1
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/hitcost = 500
-	var/throw_hit_chance = 50
+	var/throw_hit_chance = 75
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
