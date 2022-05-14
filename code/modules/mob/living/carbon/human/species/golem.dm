@@ -234,8 +234,8 @@
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
 	info_text = "Как <span class='danger'>Серебрянный Голем</span>, ваши атаки имеют более высокий шанс оглушения."
-	prefix = "Серебряный"
-	special_names = list("Серфер", "Чарриот", "Мужик", "Глушитель", "Тихон", "Анестетик", "Ювелир")
+	prefix = "Silver"
+	special_names = list("Surfer", "Chariot", "Lining")
 
 //Harder to stun, deals more damage, but it's even slower
 /datum/species/golem/plasteel
@@ -249,7 +249,7 @@
 	skinned_type = /obj/item/stack/ore/iron
 	info_text = "Как <span class='danger'>Пласталиевый Голем</span>, вы медленнее, но вас сложнее оглушить и вы наносите сильные удары кулаком."
 	prefix = "Plasteel"
-	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
+	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
 
 /datum/unarmed_attack/golem/plasteel
@@ -263,8 +263,8 @@
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "Как <span class='danger'>Титаниевый Голем</span>, вы устойчивы к урону от ожогов и невосприимчивы к пепельным бурям."
 	burn_mod = 0.405
-	prefix = "Титаниевый"
-	special_names = list("Диоксид", "Сплав", "Брусок", "Мужик", "Минерал", "Кусок", "Кирпич", "Буреходец", "Пожарник", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
+	prefix = "Titanium"
+	special_names = list("Dioxide")
 
 /datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
@@ -281,8 +281,8 @@
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "Как <span class='danger'>Пластитаниумный Голем</span>, вы очень устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
 	burn_mod = 0.36
-	prefix = "Пластаниумный"
-	special_names = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
+	prefix = "Plastitanium"
+	special_names = null
 
 /datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
@@ -303,8 +303,8 @@
 	default_language = "Golem Mindlink"
 	speed_mod = 1 //faster
 	info_text = "Как <span class='danger'>Голем из инопланетных сплавов</span>, вы сделаны из передовых инопланетных материалов: вы быстрее и со временем регенерируете. Однако, вы можете разговаривать только с другими големами из сплава."
-	prefix = "Инопланетный"
-	special_names = list("Инопришеленец", "Технологичный Голем", "Наблюдатель", "Незнакомец", "Странник", "Чужак", "Посланник", "Минерал", "Мужик", "Пришеленец") //ominous and unknown
+	prefix = "Alien"
+	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
@@ -345,8 +345,8 @@
 	dietflags = DIET_HERB		// Plants eat...plants? -- естественное развитие растений в природе
 
 	info_text = "Как <span class='danger'>Деревянный Голем</span>, вы обладаете особенностями растений: вы получаете урон от экстремальных температур, способный вас поджечь, и у вас меньше брони, чем у обычного голема. Вы регенерируете при свете и увадяете во тьме."
-	prefix = "" // Убран префикс "деревяный", ибо выходит масло масляное вида "Деревяная Ветка", "Деревяный Дуб". Что не логично и мешает давать имена.
-	special_names = list("Короед", "Грут", "Пень", "Дубень", "Дуболом", "Ива", "Катальпа", "Дуб", "Сок", "Ветка", "Ветка", "Клен", "Береза", "Вяз", "Липа", "Тополь ", "Лиственница", "Осина", "Ясень", "Бук", "Каштан", "Кедр", "Каштан", "Кипарис", "Пихта", "Боярышник", "Лещина", "Гикори", "Айронвуд", "Можжевельник", "Лист", "Мангровый лес", "Пальма", "Азимина", "Сосна", "Тополь", "Красное дерево", "Редбад", "Сассафрас", "Ель", "Сумак", "Ствол", "Орех", "Тис")
+	prefix = "Wooden"
+	special_names = list("Bark", "Willow", "Catalpa", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
 	human_surname_chance = 0
 	special_name_chance = 100
 
@@ -386,8 +386,8 @@
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
 	info_text = "Как <span class='danger'>Урановый Голем</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
-	prefix = "Урановый"
-	special_names = list("Оксид", "Стержень", "Мужик", "Сплав", "Расплав", "Светоч", "Сиятель", "Свет", "Блеск", "Лучезарец", "Блестатель")
+	prefix = "Uranium"
+	special_names = list("Oxide", "Rod", "Meltdown")
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
 	for(var/mob/living/L in range(2, H))
@@ -402,7 +402,7 @@
 //Ventcrawler
 /datum/species/golem/plastic
 	name = "Plastic Golem"
-	prefix = "Пластиковый"
+	prefix = "Plastic"
 	special_names = null
 	ventcrawler = VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
@@ -422,8 +422,8 @@
 	stamina_mod = 1
 	info_text = "Как <span class='danger'>Песчаный Голем</span>, вы невосприимчивы к физическим пулям и получаете очень мало грубого урона, но чрезвычайно уязвимы к урону от горения и энергетического оружя. Вы также превратитесь в песок после смерти, что предотвратит любую форму восстановления."
 	unarmed_type = /datum/unarmed_attack/golem/sand
-	prefix = "Песчаный"
-	special_names = list("Замок", "Вихрь", "Мужик", "Ураган", "Смерч", "Волчок", "Бархан", "Червь", "Шторм")
+	prefix = "Sand"
+	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] рассыпался в кучу песка!</span>")
@@ -458,9 +458,8 @@
 	stamina_mod = 1
 	info_text = "Как <span class='danger'>Стеклянный Голем</span>, вы отражаете лазеры и энергетическое оружие и очень устойчивы к урону от горения. Однако вы чрезвычайно уязвимы к грубому урону. После смерти вы разобьется без всякой надежды на восстановление."
 	unarmed_type = /datum/unarmed_attack/golem/glass
-	prefix = "Стеклянная"
-	special_names = list("Линза", "Призма", "Бусинка", "Жемчужина")
-	//special_names = list("Волокно", "Преломление", "Отражение")
+	prefix = "Glass"
+	special_names = list("Lens", "Prism", "Fiber", "Bead")
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
@@ -491,8 +490,8 @@
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
 	info_text = "Как <span class='danger'>Блюспейс Голем</span>, вы пространственно нестабильны: Вы будете телепортироваться при ударе, и вы можете телепортироваться вручную на большое расстояние.."
-	prefix = "Блюспейс"
-	special_names = list("Кристалл", "Поликристалл", "Прыгун", "Скакун", "Транзит", "Прыжок", "Скачок", "Разрыв", "Мужик", "Попрыгун")
+	prefix = "Bluespace"
+	special_names = list("Crystal", "Polycrystal")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
 
 	var/datum/action/innate/unstable_teleport/unstable_teleport
