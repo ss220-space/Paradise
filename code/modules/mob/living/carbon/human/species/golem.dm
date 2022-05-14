@@ -64,7 +64,7 @@
 
 	suicide_messages = list(
 		"рассыпается в прах!",
-		"разбивает свое тело на части!")
+		"разбивает своё тело на части!")
 
 	var/golem_colour = rgb(170, 170, 170)
 	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."

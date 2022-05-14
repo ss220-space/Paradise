@@ -23,7 +23,7 @@
 	reagent_tag = PROCESS_ORG
 	suicide_messages = list(
 		"пытается откусить себе язык!",
-		"выдавливает свои глазницы большими пальцами!",
+		"выдавливает большими пальцами себе глазницы!",
 		"сворачивает себе шею!",
 		"пялится на ближайший источник света!")
 
@@ -40,10 +40,10 @@
 	var/mob/living/carbon/human/H = owner
 	if(!H.vision_type)
 		H.set_sight(/datum/vision_override/nightvision)
-		to_chat(H, "<span class='notice'>Вы расширяете свой взор, чтобы видеть сквозь тьму.</span>")
+		to_chat(H, "<span class='notice'>Вы изменяете свой взор, чтобы видеть сквозь тьму.</span>")
 	else
 		H.set_sight(null)
-		to_chat(H, "<span class='notice'>Вы расширяете свой взор, чтобы распознавать тени.</span>")
+		to_chat(H, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/H)
 	..()

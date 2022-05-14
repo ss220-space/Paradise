@@ -130,10 +130,10 @@
 	var/datum/species/slime/S = H.dna.species
 	if(S.reagent_skin_coloring)
 		S.reagent_skin_coloring = FALSE
-		to_chat(H, "Вы настраиваете свою внутреннюю химию, чтобы отфильтровывать пигменты из продуктов, которые вы потребляете.")
+		to_chat(H, "Вы настраиваете свою внутреннюю химию, чтобы отфильтровывать пигменты из употребляемых продуктов.")
 	else
 		S.reagent_skin_coloring = TRUE
-		to_chat(H, "Вы настраиваете свою внутреннюю химию, чтобы позволить употребленным пигментам в химических веществах, окрасить вас.")
+		to_chat(H, "Вы настраиваете свою внутреннюю химию, позволяя окрашивать себя пигментами употребляемых веществ.")
 
 /datum/action/innate/regrow
 	name = "Regrow limbs"
@@ -183,7 +183,7 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			to_chat(H, "<span class='warning'>Вы распределяете поврежденную ткань по всему телу, освобождая место, для ложноножки!</span>")
+			to_chat(H, "<span class='warning'>Вы распределяете поврежденную ткань по всему телу, освобождая место для ложноножки!</span>")
 			var/obj/item/organ/external/doomedStump = O
 			stored_brute = doomedStump.brute_dam
 			stored_burn = doomedStump.burn_dam
@@ -194,7 +194,7 @@
 		// Parent check
 		var/obj/item/organ/external/potential_parent = H.bodyparts_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent))
-			to_chat(H, "<span class='danger'>Вы потеряли орган, на котором выращивали вашу новую часть!</span>")
+			to_chat(H, "<span class='danger'>Вы потеряли орган, на котором выращивали новую конечность!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
@@ -208,7 +208,7 @@
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
 		H.visible_message("<span class='notice'>[H] завершает отращивание [H.p_their()] потерянной [new_limb]!</span>", "<span class='notice'>Вы завершили отращивание [limb_select]</span>")
 	else
-		to_chat(H, "<span class='warning'>Вам нужно подождать в спокойствии чтобы отрастить конечность!</span>")
+		to_chat(H, "<span class='warning'>Для отращивания конечности вам нужно стоять на месте!</span>")
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
