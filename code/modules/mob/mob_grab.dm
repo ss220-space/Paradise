@@ -399,7 +399,7 @@
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
 
 			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристегнут[genderize_ru(affecting.gender,"","а","о","и")]!</span>")
+				to_chat(user, "<span class='warning'>[affecting] пристегнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
 				return
 
 			user.visible_message("<span class='danger'>[user] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting]!</span>")
