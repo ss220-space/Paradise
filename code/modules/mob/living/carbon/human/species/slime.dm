@@ -168,7 +168,20 @@
 		return
 	var/chosen_limb = missing_limbs[limb_select]
 
-	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [limb_select]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [limb_select]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
+	//перевод конечности со склонением
+	var/chosen_limb_rus = chosen_limb
+	switch (chosen_limb_rus)
+		if ("l_leg", 	"left leg", 	"the left leg") 	chosen_limb_rus = "левой ноги"
+		if ("r_leg", 	"right leg", 	"the right leg") 	chosen_limb_rus = "правой ноги"
+		if ("l_foot", 	"left foot", 	"the left foot") 	chosen_limb_rus = "левой ступни"
+		if ("r_foot", 	"right foot", 	"the right foot") 	chosen_limb_rus = "правой ступни"
+		if ("groin", 	"lower body", 	"the lower body") 	chosen_limb_rus = "нижней части тела"
+		if ("l_arm", 	"left arm", 	"the left arm") 	chosen_limb_rus = "левой руки"
+		if ("r_arm", 	"right arm", 	"the right arm") 	chosen_limb_rus = "правой руки"
+		if ("l_hand", 	"left hand", 	"the left hand") 	chosen_limb_rus = "левой кисти"
+		if ("r_hand", 	"right hand", 	"the right hand") 	chosen_limb_rus = "правой кисти"
+
+	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [chosen_limb_rus]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [chosen_limb_rus]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
 	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текущем состоянии</span>")
@@ -206,7 +219,21 @@
 		H.updatehealth()
 		H.UpdateDamageIcon()
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
-		H.visible_message("<span class='notice'>[H] завершает отращивание [genderize_ru(H.gender,"его","её","своей","их")] потерянной [new_limb]!</span>", "<span class='notice'>Вы завершили отращивание [limb_select]</span>")
+
+		//перевод конечности со склонением
+		var/new_limb_rus = new_limb.name
+		switch (new_limb_rus)
+			if ("l_leg", 	"left leg", 	"the left leg") 	new_limb_rus = "левую ногу"
+			if ("r_leg", 	"right leg", 	"the right leg") 	new_limb_rus = "правую ногу"
+			if ("l_foot", 	"left foot", 	"the left foot") 	new_limb_rus = "левую ступню"
+			if ("r_foot", 	"right foot", 	"the right foot") 	new_limb_rus = "правую ступню"
+			if ("groin", 	"lower body", 	"the lower body") 	new_limb_rus = "нижнюю часть тела"
+			if ("l_arm", 	"left arm", 	"the left arm") 	new_limb_rus = "левую руку"
+			if ("r_arm", 	"right arm", 	"the right arm") 	new_limb_rus = "правую руку"
+			if ("l_hand", 	"left hand", 	"the left hand") 	new_limb_rus = "левую кисть"
+			if ("r_hand", 	"right hand", 	"the right hand") 	new_limb_rus = "правую кисть"
+
+		H.visible_message("<span class='notice'>[H] отращивает [genderize_ru(H.gender,"его","её","своей","их")] потерянную [new_limb_rus]!</span>", "<span class='notice'>Вы отрастили [new_limb_rus]</span>")
 	else
 		to_chat(H, "<span class='warning'>Для отращивания конечности вам нужно стоять на месте!</span>")
 

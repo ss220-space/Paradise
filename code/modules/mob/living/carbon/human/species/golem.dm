@@ -69,8 +69,8 @@
 	var/golem_colour = rgb(170, 170, 170)
 	var/info_text = "Будучи <span class='danger'>железным големом</span>, вы не обладаете отличительными особенностями."
 	var/random_eligible = TRUE
-	var/prefix = "Железный"
-	var/list/special_names = list("Человек", "Ржавчик", "Утюг", "Металлист",  "Мужик", "Сплав", "Брусок", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
+	var/prefix = "Iron"
+	var/list/special_names = list("Tarkus", "Man")
 	var/human_surname_chance = 3
 	var/special_name_chance = 5
 	var/owner //dobby is a free golem
@@ -130,9 +130,9 @@
 		"vocal_cords" = /obj/item/organ/internal/vocal_cords/adamantine
 		)
 	golem_colour = rgb(68, 238, 221)
-	info_text = "Как <span class='danger'>Адамантиновый Голем</span>, вы обладаете особенным голосовыми связками, позволяющие вас \"резонировать\" послания всем големам."
-	prefix = "Адамантиновый"
-	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
+	info_text = "Будучи <span class='danger'>адамантиновым големом</span>, вы обладаете особыми голосовыми связками, позволяющие вам «\"резонировать\"» послания всем големам."
+	prefix = "Adamantine"
+	special_names = null
 
 //The suicide bombers of golemkind
 /datum/species/golem/plasma
@@ -142,10 +142,10 @@
 	heat_level_1 = 360
 	heat_level_2 = 400
 	heat_level_3 = 460
-	info_text = "Как <span class='danger'>Плазма Голем</span>, вы легко сгораете. Будьте отсторожны, если вы сильно нагреетесь - вы взорветесь!"
+	info_text = "Будучи <span class='danger'>плазменным големом</span>, вы легко сгораете. Будьте осторожны, если вы сильно нагреетесь &mdash; взорвётесь!"
 	heatmod = 0 //fine until they blow up
-	prefix = "Плазма"
-	special_names = list("Потоп", "Прилив", "Разлив", "Залив", "Мужик", "Наводнение", "Поток", "Ливень", "Пожар", "Стержень", "Минерал", "Мужик", "Горец", "Сгоратель")
+	prefix = "Plasma"
+	special_names = list("Flood", "Fire", "Bar", "Man")
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
@@ -207,9 +207,8 @@
 	stamina_mod = 0.3
 	skinned_type = /obj/item/stack/ore/diamond
 	info_text = "Будучи <span class='danger'>алмазным големом</span>, вы прочнее обычных големов."
-	prefix = "Алмазный"
+	prefix = "Diamond"
 	special_names = list("Back")
-	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
 
 //Faster but softer and less armoured
 /datum/species/golem/gold
@@ -224,8 +223,8 @@
 	stamina_mod = 0.75
 	skinned_type = /obj/item/stack/ore/gold
 	info_text = "Будучи <span class='danger'>золотым големом</span>, вы более быстры, но менее прочны, нежели обычный голем."
-	prefix = "Золотой"
-	special_names = list("Мальчик", "Мужик", "Человек", "Ручник", "Молодежник", "Понтовщик", "Мост", "Яблочник", "Ювелир", "Дорогуша", "Дурак", "Брусок", "Закат", "Дым", "Шелк", "Сплав", "Ремесленник", "Мёд")
+	prefix = "Gold"
+	special_names = list("Boy", "Hand")
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
@@ -473,8 +472,8 @@
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable)
-			H.visible_message("<span class='danger'>[P.name] отразился от стеклянной кожи [H]!</span>", \
-			"<span class='userdanger'>The [P.name] отразился от стеклянной кожи [H]!</span>")
+			H.visible_message("<span class='danger'>[P.name] отражается от стеклянной кожи [H]!</span>", \
+			"<span class='userdanger'>The [P.name] отражается от стеклянной кожи [H]!</span>")
 
 			P.reflect_back(H)
 
