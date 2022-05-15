@@ -1,6 +1,8 @@
-// _DAMAGE = any rvalue, _PART = lvalue (DO NOT CALCULATE DYNAMICALLY), _RES = any lvalue
-// this macro tries to apply DAMAGE damage to the PART internal organ and
-// then subtracts RES by the damage actually taken
+/**
+* _DAMAGE = any rvalue, _PART = lvalue (DO NOT CALCULATE DYNAMICALLY), _RES = any lvalue
+* this macro tries to apply DAMAGE damage to the PART internal organ and
+* then subtracts RES by the damage actually taken
+*/
 #define APPLY_DAMAGE(_damage, _part, _res) \
 do {\
 	var/can_be_absorbed = _part.max_damage - _part.damage;\
