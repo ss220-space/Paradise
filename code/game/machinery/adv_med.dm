@@ -105,7 +105,7 @@
 	if(!ishuman(user) && !isrobot(user))
 		return FALSE //not a borg or human
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(user, "<span class='notice'>Сначала закройте панель технического обслуживания.</span>")
 		return FALSE //panel open
 	if(occupant)
 		to_chat(user, "<span class='notice'>[src] уже занят.</span>")
