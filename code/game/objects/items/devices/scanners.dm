@@ -779,8 +779,8 @@ REAGENT SCANNER
 	cell_type = /obj/item/stock_parts/cell/upgraded/plus
 
 /obj/item/bodyanalyzer/borg
-	name = "cyborg body analyzer"
-	desc = "Scan an entire body to prepare for field surgery. Consumes power for each scan."
+	name = "кибернетический сканер тела" // cyborg body analyzer
+	desc = "Сканирует тело целиком для надобностей полевой хирургии. Тратит заряд на каждое сканирование."
 
 /obj/item/bodyanalyzer/borg/syndicate
 	scan_time = 5 SECONDS
