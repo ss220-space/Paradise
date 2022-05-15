@@ -87674,7 +87674,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
+/area/maintenance/asmaint2)
 "nFA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
