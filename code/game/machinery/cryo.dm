@@ -129,7 +129,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Субъект не должен держать в руках абиотические предметы.</span>")
+		to_chat(user, "<span class='danger'>Субъект не должен держать в руках посторонние предметы.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
@@ -452,7 +452,7 @@
 		to_chat(usr, "<span class='danger'>Криокапсула уже занята!</span>")
 		return
 	if(M.abiotic())
-		to_chat(usr, "<span class='warning'>Субъект не должен держать в руках абиотические предметы.</span>")
+		to_chat(usr, "<span class='warning'>Субъект не должен держать в руках посторонние предметы.</span>")
 		return
 	if(!node)
 		to_chat(usr, "<span class='warning'>Криокапсула не подключена к трубам!</span>")
