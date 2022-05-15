@@ -215,7 +215,7 @@
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
-		"пытается откусить свой язык!",
+		"пытается откусить себе язык!",
 		"вонзает когти в глазницы!",
 		"сворачивает себе шею!",
 		"задерживает дыхание!",
