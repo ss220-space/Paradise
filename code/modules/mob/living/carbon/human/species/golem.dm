@@ -130,7 +130,7 @@
 		"vocal_cords" = /obj/item/organ/internal/vocal_cords/adamantine
 		)
 	golem_colour = rgb(68, 238, 221)
-	info_text = "Будучи <span class='danger'>адамантиновым големом</span>, вы обладаете особыми голосовыми связками, позволяющие вам «\"резонировать\"» послания всем големам."
+	info_text = "Будучи <span class='danger'>адамантиновым големом</span>, вы обладаете особыми голосовыми связками, позволяющие вам «резонировать» послания всем големам."
 	prefix = "Adamantine"
 	special_names = null
 
