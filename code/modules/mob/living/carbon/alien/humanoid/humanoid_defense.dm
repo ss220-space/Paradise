@@ -11,7 +11,7 @@
 						Paralyse(2)
 						visible_message("<span class='danger'>[M] ослабил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
 								"<span class='userdanger'>[M] ослабил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
-								"<span class='danger'>Вы услышали как кто-то упал.</span>")
+								"<span class='danger'>Вы слышите, как кто-то упал.</span>")
 					adjustBruteLoss(damage)
 					add_attack_logs(M, src, "Melee attacked with fists")
 				else

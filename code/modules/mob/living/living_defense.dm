@@ -67,8 +67,8 @@
 		if(!illusion)
 			adjustFireLoss(shock_damage)
 		visible_message(
-			"<span class='danger'>[src.name] поражён током [source]!</span>",
-			"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через всё ваше тело!</span>",
+			"<span class='danger'>[src.name] получил разряд током [source]!</span>",
+			"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
 			"<span class='italics'>Вы слышите сильный электрический треск.</span>")
 		return shock_damage
 
@@ -108,12 +108,12 @@
 		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
 			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
 		if(!blocked)
-			visible_message("<span class='danger'>[src] был ударен [I].</span>",
-							"<span class='userdanger'>[src] был ударен [I].</span>")
+			visible_message("<span class='danger'>[src] получил удар [I].</span>",
+							"<span class='userdanger'>[src] получил удар [I].</span>")
 			var/armor = run_armor_check(zone, "melee", "Броня защитила [parse_zone(zone)].", "Ваша броня смягчила удар по [parse_zone(zone)].", I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
 			if(I.thrownby)
-				add_attack_logs(I.thrownby, src, "был ударен брошенным [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+				add_attack_logs(I.thrownby, src, "получил удар брошенным [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		else
 			return 1
 	else

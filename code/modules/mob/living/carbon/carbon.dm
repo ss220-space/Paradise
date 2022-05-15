@@ -59,7 +59,7 @@
 			last_stomach_attack = world.time
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("<span class='warning'>Вы слышите как что-то журчит в животе [src.name]...</span>"), 2)
+					M.show_message(text("<span class='warning'>Вы слышите как что-то урчит в животе [src.name]...</span>"), 2)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -79,7 +79,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] атаку[pluralize_ru(user.gender,"ет","ют")] стенку желудка [src.name] используя [I.name]!</span>"), 2)
+						M.show_message(text("<span class='warning'><B>[user] атаку[pluralize_ru(user.gender,"ет","ют")] стенку желудка [src.name], используя [I.name]!</span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -96,7 +96,7 @@
 		return FALSE
 	if(is_muzzled())
 		if(message)
-			to_chat(src, "<span class='warning'>Намордник задерживает вашу рвоту в себе!</span>")
+			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
 		return FALSE
 	if(stun)
 		Stun(4)
@@ -165,8 +165,8 @@
 		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
 		shock_internal_organs(shock_damage)
 	visible_message(
-		"<span class='danger'>[src.name] шокирован[genderize_ru(src.gender,"","а","о","и")] током [source]!</span>",
-		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через всё ваше тело!</span>",
+		"<span class='danger'>[src.name] получил[genderize_ru(src.gender,"","а","о","и")] разряд током [source]!</span>",
+		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
 		"<span class='italics'>Вы слышите сильный электрический треск.</span>")
 	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
@@ -370,7 +370,7 @@
 
 		switch(damage)
 			if(1)
-				to_chat(src, "<span class='warning'>Ваши глаза щиплят.</span>")
+				to_chat(src, "<span class='warning'>Ваши глаза немного щиплет.</span>")
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
 				E.receive_damage(minor_damage, 1)
@@ -379,7 +379,7 @@
 				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
-				to_chat(src, "Глаза сильно щиплят и пылают!</span>")
+				to_chat(src, "Глаза сильно чешутся и пылают!</span>")
 				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
@@ -403,7 +403,7 @@
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
-			to_chat(src, "<span class='notice'>Что-то яркое промелькнуло в уголке вашего зрения!</span>")
+			to_chat(src, "<span class='notice'>Что-то яркое вспыхнуло на периферии вашего зрения!</span>")
 			if(mind && has_bane(BANE_LIGHT))
 				mind.disrupt_spells(0)
 
@@ -498,13 +498,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 						failed++
 
 					if(failed)
-						to_chat(src, "<span class='warning'>Нельзя ползать по вентиляции с предметами</span>")
+						to_chat(src, "<span class='warning'>Вы не можете ползать по вентиляции с предметами</span>")
 						return
 			if(isswarmer(src))
 				var/mob/living/simple_animal/hostile/swarmer/S = src
 				if(S.light_range)
 					S.ToggleLight()
-			visible_message("<b>[src.name] лез[pluralize_ru(src.gender,"ет","ют")] в вентиляционные системы!</b>", "Вы залезли в вентиляционные системы.")
+			visible_message("<b>[src.name] лез[pluralize_ru(src.gender,"ет","ют")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
 			src.loc = vent_found
 			add_ventcrawl(vent_found)
 
@@ -613,7 +613,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(throwable_mob)
 			thrown_thing = throwable_mob
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>Вы осторожно опускаете [throwable_mob].</span>")
+				to_chat(src, "<span class='notice'>Вы осторожно отпускаете [throwable_mob].</span>")
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
@@ -818,7 +818,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			buckled.user_unbuckle_mob(src,src)
 		else
 			if(src && buckled)
-				to_chat(src, "<span class='warning'>Вы не можете себя отстегнуть!</span>")
+				to_chat(src, "<span class='warning'>Вам не удалось себя отстегнуть!</span>")
 	else
 		buckled.user_unbuckle_mob(src,src)
 
@@ -828,7 +828,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src.name] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
-		"<span class='notice'>Вы остановились, упали и катитесь!</span>")
+		"<span class='notice'>Вы остановились, упали и катаетесь!</span>")
 	sleep(30)
 	if(fire_stacks <= 0)
 		visible_message("<span class='danger'>[src.name] успешно потушился!</span>", \
@@ -856,7 +856,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "[I] слишком хорошо зафиксирован, для него вам понадобятся руки!")
 	else
 		visible_message("<span class='warning'>[src.name] грыз[pluralize_ru(src.gender,"ет","ут")] [I], пытаясь избавиться от него!</span>")
-		to_chat(src, "<span class='notice'>Вы пытаетесь избываться от [I]... (Это займет около [time/10] секунд и вам не нужно двигаться.)</span>")
+		to_chat(src, "<span class='notice'>Вы пытаетесь избавиться от [I]... (Это займет около [time/10] секунд и вам не нужно двигаться.)</span>")
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src.name] избавил[genderize_ru(src.gender,"ся","ась","ось","ись")] от [I]!</span>")
 			to_chat(src, "<span class='notice'>Вы избавились от [I]!</span>")
