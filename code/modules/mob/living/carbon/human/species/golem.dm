@@ -64,10 +64,10 @@
 
 	suicide_messages = list(
 		"рассыпается в прах!",
-		"разбивает его тело на части!")
+		"разбивает своё тело на части!")
 
 	var/golem_colour = rgb(170, 170, 170)
-	var/info_text = "Как <span class='danger'>Железный Голем</span>, у вас нет отличительных особенностей."
+	var/info_text = "Будучи <span class='danger'>железным големом</span>, вы не обладаете отличительными особенностями."
 	var/random_eligible = TRUE
 	var/prefix = "Железный"
 	var/list/special_names = list("Человек", "Ржавчик", "Утюг", "Металлист",  "Мужик", "Сплав", "Брусок", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
@@ -152,7 +152,7 @@
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
-			to_chat(H, "<span class='userdanger'>Вы чувствуете что можете взорваться в любой момент!</span>")
+			to_chat(H, "<span class='userdanger'>Вы чувствуете, что можете взорваться в любой момент!</span>")
 			boom_warning = TRUE
 	else
 		if(boom_warning)
@@ -192,7 +192,7 @@
 		if(H.fire_stacks)
 			to_chat(owner, "<span class='notice'>Вы подожгли себя!</span>")
 		else
-			to_chat(owner, "<span class='warning'>Вы попытались поджечь себя, но провалились!</span>")
+			to_chat(owner, "<span class='warning'>Вы попытались поджечь себя, но неудачно!</span>")
 		H.IgniteMob() //firestacks are already there passively
 
 //Harder to hurt
@@ -206,7 +206,7 @@
 	brain_mod = 0.3
 	stamina_mod = 0.3
 	skinned_type = /obj/item/stack/ore/diamond
-	info_text = "Как <span class='danger'>Алмазный Голем</span>, вы более устойчивы, чем обычный голем."
+	info_text = "Будучи <span class='danger'>алмазным големом</span>, вы прочнее обычных големов."
 	prefix = "Алмазный"
 	special_names = list("Back")
 	special_names = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай")
@@ -223,7 +223,7 @@
 	brain_mod = 0.75
 	stamina_mod = 0.75
 	skinned_type = /obj/item/stack/ore/gold
-	info_text = "Как <span class='danger'>Золотой Голем</span>, вы быстрее, но менее устойчивы, чем обычный голем."
+	info_text = "Будучи <span class='danger'>золотым големом</span>, вы более быстры, но менее прочны, нежели обычный голем."
 	prefix = "Золотой"
 	special_names = list("Мальчик", "Мужик", "Человек", "Ручник", "Молодежник", "Понтовщик", "Мост", "Яблочник", "Ювелир", "Дорогуша", "Дурак", "Брусок", "Закат", "Дым", "Шелк", "Сплав", "Ремесленник", "Мёд")
 
@@ -233,7 +233,7 @@
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
-	info_text = "Как <span class='danger'>Серебрянный Голем</span>, ваши атаки имеют более высокий шанс оглушения."
+	info_text = "Будучи <span class='danger'>серебряный големом</span>, вы имеете больший шанс оглушения для своих атак."
 	prefix = "Silver"
 	special_names = list("Surfer", "Chariot", "Lining")
 
@@ -247,7 +247,7 @@
 	punchstunthreshold = 18 //still 40% stun chance
 	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
-	info_text = "Как <span class='danger'>Пласталиевый Голем</span>, вы медленнее, но вас сложнее оглушить и вы наносите сильные удары кулаком."
+	info_text = "Будучи <span class='danger'>пласталиевым големом</span>, вы более медлительные, но вас сложнее оглушить и ваши кулаки причиняют серьёзные повреждения."
 	prefix = "Plasteel"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
@@ -261,7 +261,7 @@
 	name = "Titanium Golem"
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "Как <span class='danger'>Титаниевый Голем</span>, вы устойчивы к урону от ожогов и невосприимчивы к пепельным бурям."
+	info_text = "Будучи <span class='danger'>титановым големом</span>, вы частично устойчивы к урону от ожогов и невосприимчивы к пепельным бурям."
 	burn_mod = 0.405
 	prefix = "Titanium"
 	special_names = list("Dioxide")
@@ -279,7 +279,7 @@
 	name = "Plastitanium Golem"
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "Как <span class='danger'>Пластитаниумный Голем</span>, вы очень устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
+	info_text = "Будучи <span class='danger'>пластитановым големом</span>, вы крайне устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
 	burn_mod = 0.36
 	prefix = "Plastitanium"
 	special_names = null
@@ -302,7 +302,7 @@
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
 	speed_mod = 1 //faster
-	info_text = "Как <span class='danger'>Голем из инопланетных сплавов</span>, вы сделаны из передовых инопланетных материалов: вы быстрее и со временем регенерируете. Однако, вы можете разговаривать только с другими големами из сплава."
+	info_text = "Будучи <span class='danger'>големом из инопланетных сплавов</span>, вы быстрее и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
 
@@ -342,9 +342,9 @@
 	heat_level_2 = 340
 	heat_level_3 = 400
 
-	dietflags = DIET_HERB		// Plants eat...plants? -- естественное развитие растений в природе
+	dietflags = DIET_HERB		// Plants eat...plants?
 
-	info_text = "Как <span class='danger'>Деревянный Голем</span>, вы обладаете особенностями растений: вы получаете урон от экстремальных температур, способный вас поджечь, и у вас меньше брони, чем у обычного голема. Вы регенерируете при свете и увадяете во тьме."
+	info_text = "Будучи <span class='danger'>деревянным големом</span>, вы обладаете некоторыми особенностями растений: вы получаете урон от экстремальных температур, вас можно поджечь и у вас меньше брони, чем у обычного голема. Вы регенерируете на свету и увядаете во тьме."
 	prefix = "Wooden"
 	special_names = list("Bark", "Willow", "Catalpa", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
 	human_surname_chance = 0
@@ -385,7 +385,7 @@
 	name = "Uranium Golem"
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
-	info_text = "Как <span class='danger'>Урановый Голем</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
+	info_text = "Будучи <span class='danger'>урановым големом</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown")
 
@@ -407,7 +407,7 @@
 	ventcrawler = VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
-	info_text = "Как <span class='danger'>Пластиковый Голем</span>, вы способны ползать по вентиляции, если вы раздеты."
+	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
@@ -420,7 +420,7 @@
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "Как <span class='danger'>Песчаный Голем</span>, вы невосприимчивы к физическим пулям и получаете очень мало грубого урона, но чрезвычайно уязвимы к урону от горения и энергетического оружя. Вы также превратитесь в песок после смерти, что предотвратит любую форму восстановления."
+	info_text = "Будучи <span class='danger'>песчаным големом</span>, вы невосприимчивы к физическим боеприпасам и получаете очень мало грубого урона. Однако вы чрезвычайно уязвимы к лучам лазерного и энергетического оружия, а также к ожогам. К тому же, вы превратитесь в песок после смерти, что предотвратит любую форму восстановления."
 	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
@@ -437,8 +437,8 @@
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>[P.name] безвредно тонет в песчаном теле [H]!</span>", \
-			"<span class='userdanger'>[P.name] безвредно тонет в песчаном теле  [H]!</span>")
+			H.visible_message("<span class='danger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>", \
+			"<span class='userdanger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>")
 			return FALSE
 	return TRUE
 
@@ -456,14 +456,14 @@
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "Как <span class='danger'>Стеклянный Голем</span>, вы отражаете лазеры и энергетическое оружие и очень устойчивы к урону от горения. Однако вы чрезвычайно уязвимы к грубому урону. После смерти вы разобьется без всякой надежды на восстановление."
+	info_text = "Будучи <span class='danger'>стеклянным големом</span>, вы отражаете лучи лазерного и энергетического оружия, а также крайне устойчивы к урону от ожогов. Однако вы чрезвычайно уязвимы к грубому урону и физическим боеприпасам. К тому же, после смерти вы разобьётесь без всякой надежды на восстановление."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
-	H.visible_message("<span class='danger'>[H] разбился в дребезги!</span>")
+	H.visible_message("<span class='danger'>[H] разбился вдребезги!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -489,7 +489,7 @@
 	name = "Bluespace Golem"
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
-	info_text = "Как <span class='danger'>Блюспейс Голем</span>, вы пространственно нестабильны: Вы будете телепортироваться при ударе, и вы можете телепортироваться вручную на большое расстояние.."
+	info_text = "Будучи <span class='danger'>блюспейс-големом</span>, вы пространственно нестабильны: вы будете телепортироваться при получении ударов. Также вы можете телепортироваться вручную на большое расстояние."
 	prefix = "Bluespace"
 	special_names = list("Crystal", "Polycrystal")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
@@ -576,7 +576,7 @@
 /datum/action/innate/unstable_teleport/Activate()
 	activated = TRUE
 	var/mob/living/carbon/human/H = owner
-	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать свое блюспейс ядро...</span>")
+	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
@@ -703,7 +703,7 @@
 	special_names = null
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
-	info_text = "As a <span class='danger'>Транквиллитовый Голем</span>, вы можете создавать невидимые стены и регенерировать выпивая бутылки с ничем."
+	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
 	unarmed_type = /datum/unarmed_attack/golem/tranquillite
 
 /datum/species/golem/tranquillite/get_random_name()
