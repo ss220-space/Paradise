@@ -1,3 +1,36 @@
+#define TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER 2
+
+// This function applies damage to internal organs in case the mob died having toxin damage
+// This feature increases amount of effort it takes to revive a victim of poisoning
+/mob/living/carbon/proc/process_toxin_damage_on_death(mob/living/carbon/target)
+	var/internal_damage = target.getToxLoss()*TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER // getting toxin damage, converting into internal organ damage
+	if (internal_damage < 10) // don't wanna be bothering with random 1-2 toxin dmg
+		return
+	// first the liver takes the hit
+	internal_damage -= __apply_damage(internal_damage, target.get_int_organ(/obj/item/organ/internal/liver))
+
+	// now we either took all damage and wanna quit, or need another organ to be damaged. It's gonna be heart+1
+	if (internal_damage <= 0)
+		return
+	// heart takes at least 50% of the damage that is left after liver failure (unless it dies earlier)
+	internal_damage -= __apply_damage(internal_damage/2, target.get_int_organ(/obj/item/organ/internal/heart))
+
+	// now the rest of the damage is going to be distributed among other organs
+	var/list/to_be_picked_from = target.internal_organs.Copy()
+	while (internal_damage > 0 && to_be_picked_from.len > 0)
+		var/obj/item/organ/internal/organ_picked = pick(to_be_picked_from)
+		internal_damage -= __apply_damage(min(rand(7,19), internal_damage), organ_picked)
+		if (organ_picked.damage >= organ_picked.max_damage) // you can't check if the organ is dead because of immortality of the brain
+			to_be_picked_from.Remove(organ_picked)
+
+
+/mob/living/carbon/proc/__apply_damage(var/dmg, var/obj/item/organ/targeted_organ) // only ment to be used in function above
+	var/can_be_absorbed = targeted_organ.max_damage - targeted_organ.damage
+	var/damage_to_be_applied = min(can_be_absorbed, dmg)
+	targeted_organ.receive_damage(damage_to_be_applied)
+	return damage_to_be_applied // returns damage wich was actually applied
+
+
 /mob/living/carbon/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -6,6 +39,8 @@
 
 	if(reagents)
 		reagents.death_metabolize(src)
+
+	process_toxin_damage_on_death(src) // applies TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER times toxin damage to internal organs
 
 	for(var/obj/item/organ/internal/I in internal_organs)
 		I.on_owner_death()
