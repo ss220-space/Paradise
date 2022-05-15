@@ -609,7 +609,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			else
 				newname = clean_input("Вы [role]. Не хотите поменять свое имя на другое? (У вас есть 3 минуты для выбора нового имени)", "Name Change", oldname, src)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "К сожалению, для выбора имени 3 минуты прошло. Если вы робот, используйте Namepick verb; иначе, Adminhelp.", "Name Change")
+				alert(src, "К сожалению, время для выбора имени кончилось. Если вы робот, используйте Namepick verb; иначе, Adminhelp.", "Name Change")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 

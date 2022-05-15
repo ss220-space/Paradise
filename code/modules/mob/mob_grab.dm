@@ -271,7 +271,7 @@
 			to_chat(assailant, "<span class='notice'>Вы давите на [affecting], но ничего интересного не происходит.</span>")
 			return
 
-		assailant.visible_message("<span class='warning'>[assailant] усиленно хвата[pluralize_ru(assailant.gender,"ет","ют")] [affecting] (за шею)!</span>") // [assailant.p_their()]
+		assailant.visible_message("<span class='warning'>[assailant] крепко хвата[pluralize_ru(assailant.gender,"ет","ют")] [affecting] (за шею)!</span>") // [assailant.p_their()]
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
 
@@ -284,11 +284,11 @@
 		hud.name = "kill"
 		affecting.Stun(10) //10 ticks of ensured grab
 	else if(state < GRAB_UPGRADING)
-		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] крепко сдавливать шею [affecting]!</span>") //[assailant.p_their()]
+		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting]!</span>") //[assailant.p_their()]
 		hud.icon_state = "kill1"
 
 		state = GRAB_KILL
-		assailant.visible_message("<span class='danger'>[assailant] крепко сжал[genderize_ru(assailant.gender,"","а","о","и")] шею [affecting]!</span>") //[assailant.p_their()]
+		assailant.visible_message("<span class='danger'>[assailant] сдавил[genderize_ru(assailant.gender,"","а","о","и")] шею [affecting]!</span>") //[assailant.p_their()]
 		add_attack_logs(assailant, affecting, "Strangled")
 
 		assailant.next_move = world.time + 10
@@ -391,7 +391,7 @@
 			var/mob/living/carbon/attacker = user
 
 			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристегнут[genderize_ru(affecting.gender,"","а","о","и")]!</span>")
+				to_chat(user, "<span class='warning'>[affecting] пристегнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
 				return
 
 			user.visible_message("<span class='danger'>[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting]!</span>")
