@@ -19941,7 +19941,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/security/permabrig)
+/area/maintenance/storage{
+	name = "Perma Maintenance"
+	})
 "bUH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -34935,7 +34937,7 @@
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/plating,
-/area/medical/ward)
+/area/maintenance/fsmaint)
 "dcE" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -37301,7 +37303,9 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/security/range)
+/area/maintenance/port{
+	name = "Brig Maintenance"
+	})
 "dkM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -61962,7 +61966,7 @@
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/maintenance/fsmaint)
 "hkr" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -86993,7 +86997,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
+/area/maintenance/port{
+	name = "Brig Maintenance"
+	})
 "nvg" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -106056,7 +106062,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/locker)
+/area/maintenance/port{
+	name = "Brig Maintenance"
+	})
 "rRV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
