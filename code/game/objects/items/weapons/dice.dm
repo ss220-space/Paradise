@@ -31,8 +31,8 @@
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
-	name = "игральная кость"
-	desc = "Кость с шестью гранями. Непримечательна и лёгка в обращении."
+	name = "Игральная кость"
+	desc = "Кость с шестью гранями. Непримечательна и проста в обращении."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
@@ -80,9 +80,9 @@
 	name = "d6"
 
 /obj/item/dice/fudge
-	name = "фудж-кость"
-	desc = "Кость с шестью гранями, но только с тремя результатами. Это плюс или минус? Вы залипаете на «пусто»…"
-	sides = 3 //shhh --- Мы никому не скажем
+	name = "Fudge-кость"
+	desc = "Кость с шестью гранями, но только с тремя результатами. Это плюс или минус? Ваш разум опустел..."
+	sides = 3
 	icon_state = "fudge"
 	special_faces = list("minus","blank","plus")
 
@@ -100,7 +100,7 @@
 
 /obj/item/dice/d00
 	name = "d00"
-	desc = "Кость с десятью гранями. Подходит для броска d100 лучше мяча для гольфа."
+	desc = "Кость с десятью гранями. Подходит для бросков d100 лучше мяча для гольфа."
 	icon_state = "d00"
 	sides = 10
 
@@ -150,7 +150,7 @@
 	if(sides == 20 && result == 20)
 		comment = "ДВАДЦАТКА!"
 	else if(sides == 20 && result == 1)
-		comment = "Ауч, невезуха."
+		comment = "М-да, невезуха."
 	update_icon()
 	if(initial(icon_state) == "d00")
 		result = (result - 1) * 10
@@ -161,7 +161,7 @@
 							 "<span class='notice'>Вы бросили [src.name] и выпало [result]. [comment]</span>",
 							 "<span class='italics'>Вы слышите как катится [src.name], звучит как [fake_result].</span>")
 	else if(!throwing) //Dice was thrown and is coming to rest
-		visible_message("<span class='notice'>[src.name] прекращает катиться, останавливаясь на [result]. [comment]</span>")
+		visible_message("<span class='notice'>[src.name] прекращает катиться, остановившись на [result]. [comment]</span>")
 
 /obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
