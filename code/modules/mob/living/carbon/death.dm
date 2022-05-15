@@ -9,8 +9,10 @@ do {\
 	_res-=damage_to_be_applied;\
 } while(FALSE)
 
-// This function applies damage to internal organs in case the mob died having toxin damage
-// This feature increases amount of effort it takes to revive a victim of poisoning
+/**
+* This function applies damage to internal organs in case the mob died having toxin damage
+* This feature increases amount of effort it takes to revive a victim of poisoning
+*/
 /mob/living/carbon/proc/process_toxin_damage_on_death(mob/living/carbon/target)
 	var/internal_damage = target.getToxLoss()*TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER // getting toxin damage, converting into internal organ damage
 	if (internal_damage < 10) // don't wanna be bothering with random 1-2 toxin dmg
