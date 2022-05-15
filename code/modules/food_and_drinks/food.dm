@@ -13,7 +13,7 @@
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/can_taste = TRUE//whether you can taste eating from this
-	var/antable = FALSE // Will ants come near it?
+	var/antable = TRUE // Will ants come near it?
 	var/ant_location = null
 	var/ant_timer = null
 	resistance_flags = FLAMMABLE
@@ -41,7 +41,7 @@
 	if(!antable)
 		return
 	var/turf/T = get_turf(src)
-	if(isturf(loc) && !locate(/obj/structure/table) in T)
+	if(isturf(loc) && (T.temperature in 280 to 325) && !locate(/obj/structure/table) in T)
 		if(ant_location == T)
 			if(prob(15))
 				if(!locate(/obj/effect/decal/ants) in T)

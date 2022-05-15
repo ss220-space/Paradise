@@ -10,6 +10,7 @@
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
+	var/syndicate = 0 //Used to replace standart modules with the syndicate modules in module pick proc
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -47,8 +48,8 @@
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.forceMove(src)
 			brainmob.container = src
+			brainmob.forceMove(src)
 			brainmob.stat = CONSCIOUS
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
@@ -284,3 +285,8 @@
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
+
+
+/obj/item/mmi/forceMove(atom/destination)
+	. = ..()
+	brainmob?.update_runechat_msg_location()

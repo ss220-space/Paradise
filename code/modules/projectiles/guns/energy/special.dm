@@ -530,7 +530,7 @@
 	force = 10
 	flags =  CONDUCT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	origin_tech = "combat=6;magnets=5"
+	origin_tech = "combat=4;magnets=4"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator, /obj/item/ammo_casing/energy/dominator/slaughter)
 	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
@@ -581,7 +581,7 @@
 				for(var/i = 1, i <= ratio, i++)
 					if(!ismob(loc))
 						break
-					icon_state = "[ammo_type[select].alt_select_name][i]"
+					icon_state = "[shot_name][i]"
 					sleep(1)
 		else if(is_equipped && is_equipped != ismob(loc))
 			spawn(2)
@@ -589,7 +589,7 @@
 					if(ismob(loc))
 						break
 					if(i)
-						icon_state = "[ammo_type[select].alt_select_name][i]"
+						icon_state = "[shot_name][i]"
 					else
 						set_drop_icon()
 					sleep(1)

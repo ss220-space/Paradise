@@ -8,22 +8,22 @@ z2 = centcomm
 z3 = space (empty)
 z4 = lavaland
 
-Original design by Okand37 of TG Station
-Lovingly ported by Purpose2 to Paradise
-And remapped by ThaumicNik as per SS220 community requests
+Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidza, Bolmorr & Dikers for SS220.
 */
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\delta\delta.dmm"
 	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\delta\Lavaland.dmm"
+	#include "map_files\delta\lavaland.dmm"
+	#include "map_files\generic\syndicatebase.dmm"
 
 	#define MAP_FILE "delta.dmm"
 	#define MAP_NAME "Kerberos"
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
-DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)))
+DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)),\
+DECLARE_LEVEL(RAMSS_TAIPAN, CROSSLINKED, list(REACHABLE, TAIPAN)))
 
 	#define USING_MAP_DATUM /datum/map/delta
 

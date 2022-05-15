@@ -179,6 +179,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/sender_name = "Error"
 	/// What job are they
 	var/sender_job = "Error"
+	/// What rank are they
+	var/sender_rank = "Error"
 	/// Pieces of the message
 	var/list/message_pieces = list()
 	/// Source Z-level
@@ -309,11 +311,11 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
 				radios += R
 
-		// Add syndie radios for intercepts if its a regular department frequency
+	// Add syndie radios for intercepts if its a regular department frequency
 		for(var/antag_freq in SSradio.ANTAG_FREQS)
 			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
 			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
-				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
+				if(R.receive_range(display_freq, tcm.zlevels) > -1)
 					// Only add if it wasnt there already
 					radios |= R
 

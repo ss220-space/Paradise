@@ -30,6 +30,8 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
+	runechat_msg_location = src
+	update_runechat_msg_location()
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -248,6 +250,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_w_uniform,\
 		slot_wear_suit,\
 		slot_wear_mask,\
+		slot_neck,\
 		slot_head,\
 		slot_shoes,\
 		slot_gloves,\
@@ -328,6 +331,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(slot_neck)
+				if(!(slot_flags & SLOT_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -1177,6 +1189,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/obj/vent_found = pick(found_vents)
 		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 		host.ckey = src.ckey
+		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
+			host.faction += "syndicate"
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
@@ -1356,6 +1370,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
 	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Give Taipan Hud"] = "?_src_=vars;give_taipan_hud=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 
@@ -1487,3 +1502,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
+
+/**
+ * Updates the mob's runechat maptext display location.
+ */
+/mob/proc/update_runechat_msg_location()
+	return
