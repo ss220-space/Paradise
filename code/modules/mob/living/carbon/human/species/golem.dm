@@ -552,7 +552,7 @@
 	special_name_chance = 30
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message("<span class='danger'>[H] рассыпался в кучу песка!</span>")
+	H.visible_message("<span class='danger'>[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -597,7 +597,7 @@
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
-	H.visible_message("<span class='danger'>[H] разбился в дребезги!</span>")
+	H.visible_message("<span class='danger'>[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -642,7 +642,7 @@
 	var/tele_range = 6
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message("<span class='warning'>[H] телепортировался!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
+	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -724,7 +724,7 @@
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message("<span class='warning'>[H] телепортировался!</span>", "<span class='danger'>Вы телепортировались!</span>")
+	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы телепортировались!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(istype(T, /turf/space))
