@@ -1,5 +1,5 @@
 /datum/species/golem
-	name = "Golem"
+	name = "Голем"
 	name_plural = "Golems"
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
@@ -156,7 +156,7 @@
 //Random Golem
 
 /datum/species/golem/random
-	name = "Random Golem"
+	name = "Случайный Голем"
 	blacklisted = FALSE
 	dangerous_existence = FALSE
 	var/static/list/random_golem_types
