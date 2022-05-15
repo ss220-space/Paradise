@@ -60,7 +60,7 @@
 		else
 			H.take_organ_damage(5, 10)
 	else
-		to_chat(H, "<span class='warning'>Вади жжет вас[volume < 10 ? ", но она недостаточно сконцентрирована, чтобы вам навредить" : null]!</span>")
+		to_chat(H, "<span class='warning'>Вода жжет вас[volume < 10 ? ", но она недостаточно сконцентрирована, чтобы вам навредить" : null]!</span>")
 		if(volume >= 10)
 			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 			H.emote("scream")
