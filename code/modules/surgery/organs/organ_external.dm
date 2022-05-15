@@ -621,7 +621,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	broken_description = pick("broken","fracture","hairline fracture")
+	if(prob(50))
+		broken_description = "трещина в кости"
+	else
+		var/frac_damage = pick("открытый","закрытый","сложный")
+		var/frac_type = pick("оскольчатый","спиральный","косой","поперечный")
+		broken_description = "[frac_damage] [frac_type] перелом"
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
