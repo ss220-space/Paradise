@@ -753,7 +753,7 @@ REAGENT SCANNER
 	to_chat(user, "========================")
 
 /obj/item/bodyanalyzer
-	name = "handheld body analyzer"
+	name = "карманный сканер тела" // handheld body analyzer
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
