@@ -333,7 +333,7 @@ const BodyScannerMainOrgansExternal = props => {
               <Box display="inline">
                 {reduceOrganStatus([
                   !!o.status.splinted && <Box color="good">Наложена шина</Box>,
-                  !!o.status.robotic && <Box color="label">Киберпротез</Box>,
+                  !!o.status.robotic && <Box color="label">Робопротез</Box>,
                   !!o.status.dead && <Box color="bad" bold>МЁРТВ</Box>,
                 ])}
                 {reduceOrganStatus(o.shrapnel.map(
@@ -408,7 +408,7 @@ const BodyScannerMainOrgansInternal = props => {
               </Box>
               <Box display="inline">
                 {reduceOrganStatus([
-                  (o.robotic === 1) && <Box color="label">Киберпротез</Box>,
+                  (o.robotic === 1) && <Box color="label">Робопротез</Box>,
                   (o.robotic === 2) && <Box color="label">Assisted</Box>,
                   !!o.dead && <Box color="bad" bold>МЁРТВ</Box>,
                 ])}
