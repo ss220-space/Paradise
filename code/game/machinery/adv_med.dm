@@ -46,7 +46,7 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
 		if(panel_open)
-			to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+			to_chat(user, "<span class='notice'>Сначала закройте панель технического обслуживания.</span>")
 			return
 		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
 			return
