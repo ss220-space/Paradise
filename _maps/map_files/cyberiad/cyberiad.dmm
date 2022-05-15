@@ -377,13 +377,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"act" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/simulated/wall/r_wall,
-/area/security/securearmoury)
 "acu" = (
 /obj/structure/rack{
 	dir = 8;
@@ -7489,6 +7482,9 @@
 /area/security/customs2)
 "apB" = (
 /obj/machinery/autolathe/security,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
@@ -17966,7 +17962,7 @@
 /area/maintenance/fsmaint2)
 "aKQ" = (
 /obj/machinery/camera{
-	c_tag = "Clown's Office";
+	c_tag = "Holodeck Entry";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -48276,6 +48272,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "bXd" = (
@@ -48409,6 +48408,14 @@
 /area/medical/genetics)
 "bXt" = (
 /obj/structure/filingcabinet,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "bXu" = (
@@ -49260,6 +49267,10 @@
 	},
 /obj/item/pen/multi/fountain,
 /obj/item/toy/figure/hop,
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -28
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "bYV" = (
@@ -49309,6 +49320,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bYZ" = (
@@ -49318,6 +49332,9 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
@@ -49345,6 +49362,9 @@
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
@@ -50712,6 +50732,9 @@
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
 /obj/item/toy/figure/rd,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/hor)
 "cbq" = (
@@ -87000,10 +87023,6 @@
 /obj/structure/closet/bombclosetsecurity,
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/ears/earmuffs,
-/obj/machinery/camera{
-	c_tag = "Starboard Primary Hallway 3";
-	dir = 1
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -87019,6 +87038,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -87791,6 +87813,9 @@
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Brig Kitchen"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -117768,7 +117793,7 @@ aaa
 aab
 aaa
 aiv
-act
+aiv
 aiv
 aiv
 aiv
