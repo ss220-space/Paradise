@@ -177,7 +177,7 @@
 
 //Leader golems, can resonate to communicate with all other golems
 /datum/species/golem/adamantine
-	name = "Adamantine Golem"
+	name = "Адамантиновый Голем"
 	skinned_type = /obj/item/stack/sheet/mineral/adamantine
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
@@ -195,7 +195,7 @@
 
 //The suicide bombers of golemkind
 /datum/species/golem/plasma
-	name = "Plasma Golem"
+	name = "Плазменный Голем"
 	skinned_type = /obj/item/stack/ore/plasma
 	golem_colour = rgb(170, 51, 221)
 	heat_level_1 = 360
@@ -260,7 +260,7 @@
 
 //Harder to hurt
 /datum/species/golem/diamond
-	name = "Diamond Golem"
+	name = "Алмазный Голем"
 	golem_colour = rgb(0, 255, 255)
 	brute_mod = 0.3 //70% damage reduction up from 55%
 	burn_mod = 0.3
@@ -283,7 +283,7 @@
 
 //Faster but softer and less armoured
 /datum/species/golem/gold
-	name = "Gold Golem"
+	name = "Золотой Голем"
 	golem_colour = rgb(204, 204, 0)
 	speed_mod = 1
 	brute_mod = 0.75 //25% damage reduction down from 55%
@@ -305,7 +305,7 @@
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
-	name = "Silver Golem"
+	name = "Серебрянный Голем"
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
@@ -323,7 +323,7 @@
 
 //Harder to stun, deals more damage, but it's even slower
 /datum/species/golem/plasteel
-	name = "Plasteel Golem"
+	name = "Пласталиевый Голем"
 	golem_colour = rgb(187, 187, 187)
 	stun_mod = 0.4
 	punchdamagelow = 12
@@ -346,7 +346,7 @@
 
 //More resistant to burn damage and immune to ashstorm
 /datum/species/golem/titanium
-	name = "Titanium Golem"
+	name = "Титаниевый Голем"
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "Как <span class='danger'>Титаниевый Голем</span>, вы устойчивы к урону от ожогов и невосприимчивы к пепельным бурям."
@@ -368,7 +368,7 @@
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
-	name = "Plastitanium Golem"
+	name = "Пластитаниумный Голем"
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "Как <span class='danger'>Пластитаниумный Голем</span>, вы очень устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
@@ -392,7 +392,7 @@
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
-	name = "Alien Alloy Golem"
+	name = "Голем из инопланетных сплавов"
 	golem_colour = rgb(51, 51, 51)
 	skinned_type = /obj/item/stack/sheet/mineral/abductor
 	language = "Golem Mindlink"
@@ -428,7 +428,7 @@
 
 //Regenerates like dionas, less resistant
 /datum/species/golem/wood
-	name = "Wood Golem"
+	name = "Деревянный Голем"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
 	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
@@ -491,7 +491,7 @@
 
 //Radioactive
 /datum/species/golem/uranium
-	name = "Uranium Golem"
+	name = "Урановый Голем"
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
 	info_text = "Как <span class='danger'>Урановый Голем</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
@@ -518,7 +518,7 @@
 
 //Ventcrawler
 /datum/species/golem/plastic
-	name = "Plastic Golem"
+	name = "Пластиковый Голем"
 	prefix = "Пластиков" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Стаканчик", "Сервиз"),
@@ -532,7 +532,7 @@
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
-	name = "Sand Golem"
+	name = "Песчаный Голем"
 	golem_colour = rgb(255, 220, 143)
 	skinned_type = /obj/item/stack/ore/glass //this is sand
 	brute_mod = 0.25
@@ -573,7 +573,7 @@
 
 //Reflects lasers and resistant to burn damage, but very vulnerable to brute damage. Shatters on death.
 /datum/species/golem/glass
-	name = "Glass Golem"
+	name = "Стеклянный Голем"
 	golem_colour = rgb(90, 150, 180)
 	skinned_type = /obj/item/shard
 	brute_mod = 3 //very fragile
@@ -620,7 +620,7 @@
 
 //Teleports when hit or when it wants to
 /datum/species/golem/bluespace
-	name = "Bluespace Golem"
+	name = "Блюспейс Голем"
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
 	info_text = "Как <span class='danger'>Блюспейс Голем</span>, вы пространственно нестабильны: Вы будете телепортироваться при ударе, и вы можете телепортироваться вручную на большое расстояние.."
@@ -755,13 +755,13 @@
 
 //honk
 /datum/species/golem/bananium
-	name = "Bananium Golem"
+	name = "Бананиумный Голем"
 	golem_colour = rgb(255, 255, 0)
 	punchdamagelow = 0
 	punchdamagehigh = 1
 	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "As a <span class='danger'>Бананиумовый Голем</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Ваша кожа также истекает бананами, когда она повреждена."
+	info_text = "As a <span class='danger'>Бананиумный Голем</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Ваша кожа также истекает бананами, когда она повреждена."
 	prefix = "Бананиумн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = null,
@@ -844,8 +844,8 @@
 
 //...
 /datum/species/golem/tranquillite
-	name = "Tranquillite Golem"
-	prefix = "Транквиллитов" //требуется перевод имен Мима
+	name = "Транквилитовый Голем"
+	prefix = "Транквилитов" //требуется перевод имен Мима
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
@@ -853,7 +853,7 @@
 		)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
-	info_text = "As a <span class='danger'>Транквиллитовый Голем</span>, вы можете создавать невидимые стены и регенерировать выпивая бутылки с ничем."
+	info_text = "As a <span class='danger'>Транквилитовый Голем</span>, вы можете создавать невидимые стены и регенерировать выпивая бутылки с ничем."
 	unarmed_type = /datum/unarmed_attack/golem/tranquillite
 
 /datum/species/golem/tranquillite/get_random_name()
