@@ -86,7 +86,7 @@
 		to_chat(user, "<span class='notice'>Сканер уже занят.</span>")
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(user, "<span class='notice'>Сначала закройте панель технического обслуживания.</span>")
 		return
 	if(dir == EAST)
 		setDir(WEST)
