@@ -868,7 +868,7 @@ REAGENT SCANNER
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
 
 	else if(iscorgi(M) && M.stat == DEAD)
-		to_chat(user, "<span class='notice'>Вы спрашивали, хороший ли он[genderize_ru(M.gender,"","а","о","и")] пёсик. <b>[src] показывает что [genderize_ru(M.gender,"он был","она была","оно было","они были")] самым лучшим пёсиком</b>.</span>") // :'(
+		to_chat(user, "<span class='notice'>Вы спрашивали, хороший ли он[genderize_ru(M.gender,"","а","о","и")] пёсик… <b>[src.name] показывает что [genderize_ru(M.gender,"он был","она была","оно было","они были")] самым лучшим пёсиком</b>.</span>") // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
 		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
