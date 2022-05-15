@@ -54,7 +54,7 @@
 			to_chat(user, "<span class='notice'>Сканер уже занят!</span>")
 			return
 		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] не влез[pluralize_ru(TYPECAST_YOUR_SHIT.affecting.gender,"ет","ут")] в [src], потому что к [genderize_ru(TYPECAST_YOUR_SHIT.affecting.gender,"его","её","его","их")] голове прилеплен хренов слайм.</span>")
+			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] не влез[pluralize_ru(TYPECAST_YOUR_SHIT.affecting.gender,"ет","ут")] в [src], потому что к [genderize_ru(TYPECAST_YOUR_SHIT.affecting.gender,"его","её","его","их")] голове прилип чёртов слайм.</span>")
 			return
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
