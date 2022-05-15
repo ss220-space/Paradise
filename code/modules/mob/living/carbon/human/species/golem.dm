@@ -309,7 +309,7 @@
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
-	info_text = "Будучи <span class='danger'>серебряный големом</span>, вы имеете больший шанс оглушения для своих атак."
+	info_text = "Будучи <span class='danger'>серебряным големом</span>, вы с большей вероятностью можете оглушить противников атаками."
 	prefix = "Серебрян" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Серфер", "Чарриот", "Мужик", "Глушитель", "Тихон", "Анестетик", "Ювелир", "Пупс"),
@@ -331,7 +331,7 @@
 	punchstunthreshold = 18 //still 40% stun chance
 	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
-	info_text = "Будучи <span class='danger'>пласталиевым големом</span>, вы более медлительные, но вас сложнее оглушить и ваши кулаки причиняют серьёзные повреждения."
+	info_text = "Будучи <span class='danger'>пласталиевым големом</span>, вы медлительны, но вас сложнее оглушить, а ваши кулаки причиняют серьёзные повреждения."
 	prefix = "Пласталиев" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
@@ -346,12 +346,12 @@
 
 //More resistant to burn damage and immune to ashstorm
 /datum/species/golem/titanium
-	name = "Титаниевый Голем"
+	name = "Титановый Голем"
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "Будучи <span class='danger'>титановым големом</span>, вы частично устойчивы к урону от ожогов и невосприимчивы к пепельным бурям."
+	info_text = "Будучи <span class='danger'>титановым големом</span>, вы частично устойчивы к ожогам и невосприимчивы к пепельным бурям."
 	burn_mod = 0.405
-	prefix = "Титаниев" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
+	prefix = "Титанов" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Диоксид", "Сплав", "Брусок", "Мужик", "Минерал", "Кусок", "Кирпич", "Буреходец", "Пожарник", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
 		FEMALE = list("Дева"),
@@ -368,12 +368,12 @@
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
-	name = "Пластитаниумовый Голем"
+	name = "Пластитановый Голем"
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "Будучи <span class='danger'>пластитаниумовым големом</span>, вы крайне устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
+	info_text = "Будучи <span class='danger'>пластитановым големом</span>, вы крайне устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
 	burn_mod = 0.36
-	prefix = "Пластаниумн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
+	prefix = "Пластитанов" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
 		FEMALE = list("Дева"),
@@ -398,7 +398,7 @@
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
 	speed_mod = 1 //faster
-	info_text = "Будучи <span class='danger'>големом из инопланетных сплавов</span>, вы быстрее и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
+	info_text = "Будучи <span class='danger'>големом из инопланетных сплавов</span>, вы быстрее двигаетесь и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
 	prefix = "Инопланетн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Инопришеленец", "Технологичный Голем", "Наблюдатель", "Незнакомец", "Странник", "Чужак", "Посланник", "Минерал", "Мужик", "Пришеленец", "Пупс"),
@@ -582,7 +582,7 @@
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "Будучи <span class='danger'>стеклянным големом</span>, вы отражаете лучи лазерного и энергетического оружия, а также крайне устойчивы к урону от ожогов. Однако вы чрезвычайно уязвимы к грубому урону и физическим боеприпасам. К тому же, после смерти вы разобьётесь без всякой надежды на восстановление."
+	info_text = "Будучи <span class='danger'>стеклянным големом</span>, вы отражаете лучи лазерного и энергетического оружия, а также крайне устойчивы к ожогам. Однако вы чрезвычайно уязвимы к грубому урону и баллистическому оружию. К тому же, после смерти вы разобьётесь без всякой надежды на восстановление."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Стеклянн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
@@ -608,7 +608,7 @@
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable)
 			H.visible_message("<span class='danger'>[P.name] отражается от стеклянной кожи [H]!</span>", \
-			"<span class='userdanger'>The [P.name] отражается от стеклянной кожи [H]!</span>")
+			"<span class='userdanger'>[P.name] отражается от стеклянной кожи [H]!</span>")
 
 			P.reflect_back(H)
 
@@ -620,7 +620,7 @@
 
 //Teleports when hit or when it wants to
 /datum/species/golem/bluespace
-	name = "Блюспейс Голем"
+	name = "Блюспейс-Голем"
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
 	info_text = "Будучи <span class='danger'>блюспейс-големом</span>, вы пространственно нестабильны: вы будете телепортироваться при получении ударов. Также вы можете телепортироваться вручную на большое расстояние."
@@ -718,7 +718,7 @@
 /datum/action/innate/unstable_teleport/Activate()
 	activated = TRUE
 	var/mob/living/carbon/human/H = owner
-	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать свое блюспейс-ядро...</span>")
+	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро…</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
@@ -755,14 +755,14 @@
 
 //honk
 /datum/species/golem/bananium
-	name = "Бананиумный Голем"
+	name = "Бананиевый Голем"
 	golem_colour = rgb(255, 255, 0)
 	punchdamagelow = 0
 	punchdamagehigh = 1
 	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "Будучи <span class='danger'>бананиумным големом</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Ваша кожа также истекает бананами, когда она повреждена."
-	prefix = "Бананиумн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
+	info_text = "Будучи <span class='danger'>бананиевым големом</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Если вас ранить, вы будете бананоточить."
+	prefix = "Бананиев" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
