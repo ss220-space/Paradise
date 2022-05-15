@@ -438,7 +438,7 @@
 		dat += "<th>Орган</th>"
 		dat += "<th>Ожоги</th>"
 		dat += "<th>Раны</th>"
-		dat += "<th>Прочие раны</th>"
+		dat += "<th>Прочие повреждения</th>"
 		dat += "</tr>"
 
 		for(var/obj/item/organ/external/e in occupant.bodyparts)
