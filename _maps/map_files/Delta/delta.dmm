@@ -73114,11 +73114,6 @@
 /area/security/processing)
 "jXd" = (
 /obj/structure/chair,
-/obj/structure/sign/goldenplaque{
-	desc = "ЦК награждает клоуна Шляпку как первого заключённого брига после перестройки. Он был задержан по статьям 100 104 и 309. Так держать.";
-	name = "Награда за первое нарушение в новом бриге";
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -87049,6 +87044,16 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/north)
+"nwx" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/clown{
+	name = "Награда за первое нарушение в новом бриге.";
+	desc = "ЦК награждает клоуна Шляпку как первого заключённого брига после перестройки. Он был задержан по статьям 100 104 и 309. Так держать."
+	},
+/turf/simulated/wall/r_wall,
+/area/security/evidence)
 "nwz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -185195,7 +185200,7 @@ dDE
 fRj
 qoN
 dNG
-uOt
+nwx
 jXd
 xpz
 lMr

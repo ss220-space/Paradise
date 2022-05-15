@@ -324,3 +324,8 @@
 	name = "\improper HIGH EXPLOSIVES"
 	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
 	icon_state = "explosives2"
+
+/obj/structure/sign/clown
+	name = "\improper Golden clown sign"
+	desc = "A clown sign.. Was asigned to a clown."
+	icon_state = "shlyapka"
