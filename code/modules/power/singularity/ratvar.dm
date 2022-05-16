@@ -53,7 +53,7 @@
 	return ..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
-	var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new /mob/living/simple_animal/hostile/clockwork/marauder(get_turf(src))
+	var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 	cog.key = user.key
 	SSticker.mode.add_clocker(cog.mind)
 

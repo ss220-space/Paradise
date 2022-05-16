@@ -171,8 +171,8 @@
 /mob/living/silicon/robot/cogscarab/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
-	else
-		..()
+		return TRUE
+	return ..()
 
 /mob/living/silicon/robot/cogscarab/choose_icon()
 	return
@@ -351,4 +351,7 @@
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
 
 /mob/living/simple_animal/mouse/clockwork/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	return
+
+/mob/living/simple_animal/mouse/clockwork/ratvar_act()
 	return

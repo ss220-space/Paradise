@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
 				continue
-			to_chat(M.current, "<span class='cultlarge'>The army of my servants have grown. Now it will be easier...</span>")
+			to_chat(M.current, "<span class='clocklarge'>The army of my servants have grown. Now it will be easier...</span>")
 			if(!clocker_objs.obj_demand.check_completion())
 				to_chat(M.current, "<span class='clock'>But there's still more tasks to do.</span>")
 			else

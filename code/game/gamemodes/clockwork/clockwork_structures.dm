@@ -18,7 +18,7 @@
 /obj/structure/clockwork/functional
 	max_integrity = 100
 	var/cooldowntime = 0
-	var/death_message = "<span class='danger'>The structure falls apart.</span>" //The message shown when the structure is destroyed
+	var/death_message = "<span class='danger'>The structure falls apart.</span>"
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
@@ -36,7 +36,7 @@
 /obj/structure/clockwork/functional/obj_destruction()
 	visible_message(death_message)
 	playsound(src, death_sound, 50, TRUE)
-	..()
+	. = ..()
 
 /obj/structure/clockwork/functional/beacon
 	name = "herald's beacon"
@@ -44,6 +44,7 @@
 	icon_state = "beacon"
 	max_integrity = 750 // A very important one
 	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
+	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 60
 	var/last_heal = 0
 	var/area/areabeacon
@@ -82,10 +83,6 @@
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1
 
-/obj/structure/clockwork/functional/obj_destruction()
-	playsound(src, 'sound/effects/creepyshriek.ogg', 50, TRUE)
-	..()
-
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	for(var/datum/mind/M in SSticker.mode.clockwork_cult)
@@ -103,6 +100,7 @@
 	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods..."
 	icon_state = "altar"
 	density = 0
+	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
 	var/convert_time = 80
 	var/glow_type = /obj/effect/temp_visual/ratvar/altar_convert
 	var/summoning = FALSE
@@ -202,11 +200,13 @@
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	var/area/A = get_area(src)
-	if(istype(I, /obj/item/clockwork/shard))
+	if(istype(I, /obj/item/clockwork/shard) && !I.enchant_type)
 		if(!double_check(user, A))
 			return
 		GLOB.command_announcement.Announce("A high anomalous power has been detected in [A.map_name], the origin of the power indicates an attempt to summon eldtrich god named Ratvar. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
+		user.unEquip(I)
+		qdel(I)
 		begin_the_ritual()
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
@@ -234,8 +234,10 @@
 
 /obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
 	summoning = TRUE
+	visible_message("<span class='danger'>The [src] expands itself revealing into the great Ark!</span>")
+	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+	qdel(src)
 	return
-	//do shit
 
 /// for area.get_beacon() returns BEACON if it exists
 /area/proc/get_beacon()

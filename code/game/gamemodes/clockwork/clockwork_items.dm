@@ -259,8 +259,8 @@
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
 			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
-			usr.visible_message("<span class='disarm'>[usr]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
-			for(var/mob/living/carbon/M in oviewers(3, null))
+			usr.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
+			for(var/mob/living/carbon/M in oviewers(3, src))
 				if(isclocker(M))
 					return
 				if(M.flash_eyes(2, 1))
@@ -544,8 +544,7 @@
 		return
 
 	if(!ishuman(M))
-		..()
-		return
+		return ..()
 
 	if(brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
@@ -635,12 +634,12 @@
 	icon_state = "marauder_shell"
 
 /obj/item/clockwork/marauder/attackby(obj/item/I, mob/user, params)
-	..()
+	. = ..()
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		var/obj/item/mmi/robotic_brain/clockwork/soul = I
 		if(!soul.brainmob.mind)
 			to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
-		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new /mob/living/simple_animal/hostile/clockwork/marauder(get_turf(src))
+		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 		soul.brainmob.mind.transfer_to(cog)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
 		user.unEquip(soul)
@@ -673,7 +672,7 @@
 		switch(enchant_type)
 			if(EMP_SPELL)
 				empulse(src, 4, 6, cause="clock")
-				deplete_spell()
+				qdel(src)
 			if(TIME_SPELL)
-				deplete_spell()
-				new/obj/effect/timestop/clockwork(get_turf(src))
+				new /obj/effect/timestop/clockwork(get_turf(src))
+				qdel(src)

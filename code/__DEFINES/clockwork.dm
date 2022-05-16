@@ -122,3 +122,9 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define RATVAR_HAS_FALLEN -1
 
 #define RATVAR_SUMMON_POSSIBILITIES 3
+
+//the time amount the Gateway to the Celestial Derelict gets each process tick;
+#define GATEWAY_SUMMON_RATE 1
+#define GATEWAY_REEBE_FOUND 60 // First stage
+#define GATEWAY_RATVAR_COMING 120 // Second stage
+#define GATEWAY_RATVAR_ARRIVAL 180 // Third Stage
