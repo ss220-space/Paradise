@@ -13,7 +13,7 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
@@ -42,7 +42,7 @@
 
 /datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "radium")
-		H.heal_overall_damage(1,1)
+		H.heal_overall_damage(2,2)
 		H.adjustToxLoss(-2)
 		return TRUE
 	return ..()
