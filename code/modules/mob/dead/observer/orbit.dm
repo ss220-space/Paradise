@@ -106,6 +106,12 @@
 							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
 							"Abductor" = (mind in SSticker.mode.abductors),
 							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
+							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries),
+							"Abductees" = (mind in SSticker.mode.abductees),
+							"Devils" = (mind in SSticker.mode.devils),
+							"Event Roles" = (mind in SSticker.mode.eventmiscs),
+							"Vampire Thralls" = (mind in SSticker.mode.vampire_enthralled),
+							"Xenomorphs" = (mind in SSticker.mode.xenos),
 						)
 
 					for(var/antag_name in other_antags)
