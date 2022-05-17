@@ -7962,13 +7962,11 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
+/obj/structure/cable,
 /obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 8;
-	name = "west bump Important Area";
+	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"
@@ -48031,8 +48029,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24;
-	shock_proof = 0
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
@@ -80870,6 +80867,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
@@ -81135,16 +81133,16 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "daZ" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Escape Podbay APC";
-	pixel_x = -25
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/escapepodbay)
 "dba" = (
@@ -95320,8 +95318,7 @@
 	},
 /obj/machinery/power/apc{
 	cell_type = 5000;
-	dir = 8;
-	name = "west bump Important Area";
+	name = "south bump Important Area";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
