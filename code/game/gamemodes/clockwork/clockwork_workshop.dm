@@ -49,6 +49,7 @@
 		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 4000, 500, 10),
 		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 2000, 400, 20),
 		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 4500, 500, 30),
+		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 20)
 	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()

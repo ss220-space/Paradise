@@ -180,6 +180,18 @@
 	button_icon_state = "stun"
 	magic_path = /obj/item/melee/clock_magic/stun
 
+/datum/action/innate/clockwork/hand_spell/equipment
+	name = "Summon Equipment"
+	desc = "Allows you to empower your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
+	button_icon_state = "equip"
+	magic_path = /obj/item/melee/clock_magic/armor
+
+/datum/action/innate/clockwork/hand_spell/construction
+	name = "Twisted Construction"
+	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
+	button_icon_state = "transmute"
+	magic_path = /obj/item/melee/blood_magic/construction"
+
 // The "magic hand" items
 /obj/item/melee/clock_magic
 	name = "\improper magical aura"
@@ -283,3 +295,79 @@
 			C.Jitter(8)
 	uses--
 	return ..()
+
+/obj/item/melee/clock_magic/armor
+	name = "Arming Aura"
+	desc = "Will equip simplish robe on a clocker."
+	color = "#33cc33" // green
+
+/obj/item/melee/clock_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(iscarbon(target) && proximity)
+		uses--
+		var/mob/living/carbon/C = target
+		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/clockrobe(user), slot_wear_suit)
+		if(C == user)
+			qdel(src) //Clears the hands
+		C.visible_message("<span class='warning'>Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [C]!</span>")
+
+/obj/item/melee/blood_magic/construction
+	name = "Twisting Aura"
+	desc = "Corrupts certain metalic objects on contact."
+	invocation = "Ethra p'ni dedol!"
+	color = "#000000" // black
+	var/channeling = FALSE
+
+/obj/item/melee/blood_magic/construction/examine(mob/user)
+	. = ..()
+	. += {"<u>A sinister spell used to convert:</u>\n
+	Plasteel into runed metal\n
+	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
+	Airlocks into brittle runed airlocks after a delay (harm intent)"}
+
+/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		if(channeling)
+			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
+			return
+		var/turf/T = get_turf(target)
+
+		//Metal to construct shell
+		if(istype(target, /obj/item/stack/sheet/metal))
+			var/obj/item/stack/sheet/candidate = target
+			if(candidate.use(METAL_TO_CONSTRUCT_SHELL_CONVERSION))
+				uses--
+				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!</span>")
+				new /obj/structure/constructshell(T)
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+			else
+				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
+				return
+
+		//Plasteel to runed metal
+		else if(istype(target, /obj/item/stack/sheet/plasteel))
+			var/obj/item/stack/sheet/plasteel/candidate = target
+			var/quantity = candidate.amount
+			if(candidate.use(quantity))
+				uses--
+				new /obj/item/stack/sheet/runed_metal(T, quantity)
+				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+
+		//Airlock to cult airlock
+		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
+			channeling = TRUE
+			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
+			do_sparks(5, TRUE, target)
+			if(do_after(user, 50, target = target))
+				target.narsie_act(TRUE)
+				uses--
+				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+				channeling = FALSE
+			else
+				channeling = FALSE
+				return
+		else
+			to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
+			return
+		..()
