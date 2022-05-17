@@ -40,6 +40,7 @@
 
 	var/list/alive = list()
 	var/list/antagonists = list()
+	var/list/other_antags = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
@@ -76,6 +77,12 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+
+				if(GLOB.ts_spiderlist.len && M.ckey)
+					other_antags += list(
+						"Terror Spiders" = GLOB.ts_spiderlist.Find(mind.current),
+					)
+
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -90,7 +97,7 @@
 
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					var/other_antags = list(
+					other_antags += list(
 						"Changeling" = (mind.changeling != null),
 						"Vampire" = (mind.vampire != null),
 					)
@@ -114,13 +121,13 @@
 							"Xenomorphs" = (mind in SSticker.mode.xenos),
 						)
 
-					for(var/antag_name in other_antags)
-						var/is_antag = other_antags[antag_name]
-						if(!is_antag)
-							continue
-						var/antag_serialized = serialized.Copy()
-						antag_serialized["antag"] = antag_name
-						antagonists += list(antag_serialized)
+				for(var/antag_name in other_antags)
+					var/is_antag = other_antags[antag_name]
+					if(!is_antag)
+						continue
+					var/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = antag_name
+					antagonists += list(antag_serialized)
 
 		else
 			misc += list(serialized)
