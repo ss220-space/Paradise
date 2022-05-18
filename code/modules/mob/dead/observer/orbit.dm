@@ -80,7 +80,7 @@
 
 				if(GLOB.ts_spiderlist.len && M.ckey)
 					other_antags += list(
-						"Terror Spiders" = GLOB.ts_spiderlist.Find(mind.current),
+						"Terror Spiders" = (mind.current in GLOB.ts_spiderlist)
 					)
 
 				if(user.antagHUD)
