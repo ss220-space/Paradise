@@ -380,8 +380,6 @@
 
 	Master.UpdateTickRate()
 
-	SSqueue?.send_status()
-
 	// Check total playercount
 	var/playercount = 0
 	for(var/mob/M in GLOB.player_list)
@@ -424,7 +422,6 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
-	SSqueue?.send_status()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -539,7 +536,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 

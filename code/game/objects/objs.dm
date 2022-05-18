@@ -49,8 +49,6 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	runechat_msg_location = src
-	update_runechat_msg_location()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -365,4 +363,13 @@ a {
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
+
+/proc/get_obj_in_atom_without_warning(atom/A)
+	if(!istype(A))
+		return null
+	if(isobj(A))
+		return A
+
+	return locate(/obj) in A
+
 

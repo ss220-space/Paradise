@@ -13,12 +13,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
-			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.atklog == ATKLOG_NONE)
-					continue
-				var/msg = rendered
-				if(C.prefs.atklog <= loglevel)
-					to_chat(C, msg)
+			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
+				to_chat(C, rendered)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -816,9 +812,15 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	if(GLOB.gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.unlock(TRUE)
+		GLOB.event_announcement.Announce("Центральное Командование отправило оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.lock(TRUE)
+		GLOB.event_announcement.Announce("Центральное Командование отозвало оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)

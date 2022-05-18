@@ -1241,7 +1241,12 @@
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
+	icon_state = "syndi-big-med"
+	icon_deny = "syndi-big-med-deny"
 	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/vending/medical/syndicate_access/beamgun
+	premium = list(/obj/item/gun/medbeam = 1)
 
 /obj/machinery/vending/medical/Initialize(mapload)
 	component_parts = list()
@@ -1294,7 +1299,7 @@
 /obj/machinery/vending/security
 	name = "\improper SecTech"
 	desc = "A security equipment vendor."
-	ads_list = list("Crack capitalist skulls!","Beat some heads in!","Don't forget - harm is good!","Your weapons are right here.","Handcuffs!","Freeze, scumbag!","Don't tase me bro!","Tase them, bro.","Why not have a donut?")
+	ads_list = list("Круши черепа капиталистов!","Отбей несколько голов!","Не забывай, вредительство - полезно!","Твое оружие здесь.","Наручники!","Стоять, подонок!","Не бей меня, брат!","Убей их, брат.","Почему бы не съесть пончик?")
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
@@ -1305,6 +1310,27 @@
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/security(null)
+	RefreshParts()
+	return ..()
+
+/obj/machinery/vending/security/training
+	name = "\improper SecTech Training"
+	desc = "A security training equipment vendor."
+	ads_list = list("Соблюдай чистоту на стрельбище!","Даже я стреляю лучше тебя!","Почему так косо, бухой что ли?!","Техника безопасности нам не писана, да?","1 из 10 попаданий... А ты хорош!","Инструктор это твой папочка!","Эй, ты куда целишься?!")
+	icon_state = "sectraining"
+	icon_deny = "sectraining-deny"
+	req_access_txt = "1"
+	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
+				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
+	contraband = list(/obj/item/toy/figure/secofficer = 1)
+	refill_canister = /obj/item/vending_refill/security
+
+/obj/machinery/vending/security/training/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -1448,10 +1474,10 @@
 					/obj/item/clothing/shoes/jackboots = 1,
 					/obj/item/clothing/under/schoolgirl = 1,
 					/obj/item/clothing/under/blackskirt = 1,
-					/obj/item/clothing/suit/toggle/owlwings = 1,
+					/obj/item/clothing/neck/cloak/toggle/owlwings = 1,
 					/obj/item/clothing/under/owl = 1,
 					/obj/item/clothing/mask/gas/owl_mask = 1,
-					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 1,
+					/obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings = 1,
 					/obj/item/clothing/under/griffin = 1,
 					/obj/item/clothing/shoes/griffin = 1,
 					/obj/item/clothing/head/griffin = 1,
@@ -1509,9 +1535,9 @@
 					/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1,
 					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/suit/poncho = 1,
-					/obj/item/clothing/suit/poncho/green = 1,
-					/obj/item/clothing/suit/poncho/red = 1,
+					/obj/item/clothing/neck/poncho = 1,
+					/obj/item/clothing/neck/poncho/green = 1,
+					/obj/item/clothing/neck/poncho/red = 1,
 					/obj/item/clothing/accessory/blue = 1,
 					/obj/item/clothing/accessory/red = 1,
 					/obj/item/clothing/accessory/black = 1,
@@ -1551,7 +1577,8 @@
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
 					  /obj/item/gun/magic/wand = 1,
-					  /obj/item/clothing/mask/balaclava=1,
+					  /obj/item/clothing/mask/balaclava =1,
+					  /obj/item/clothing/glasses/thermal_fake = 1,
 					  /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
 				   /obj/item/clothing/head/hgpiratecap = 1,
@@ -1805,6 +1832,27 @@
 	products = list(/obj/item/reagent_containers/food/snacks/chips =6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
 
+/obj/machinery/vending/syndierobotics
+	name = "Синди Робо-ДеЛюкс!"
+	desc = "Всё что нужно, чтобы сделать личного железного друга из ваших врагов!"
+	ads_list = list("Make them beep-boop like a robot should!","Robotisation is NOT a crime!","Nyoom!")
+	icon_state = "robotics"
+	icon_deny = "robotics-deny"
+	req_access_txt = "150"
+	products = list(/obj/item/robot_parts/robot_suit = 2,
+					/obj/item/robot_parts/chest = 2,
+					/obj/item/robot_parts/head = 2,
+					/obj/item/robot_parts/l_arm = 2,
+					/obj/item/robot_parts/r_arm = 2,
+					/obj/item/robot_parts/l_leg = 2,
+					/obj/item/robot_parts/r_leg = 2,
+					/obj/item/stock_parts/cell/high = 6,
+					/obj/item/crowbar = 2,
+					/obj/item/flash = 4,
+					/obj/item/stack/cable_coil = 4,
+					/obj/item/mmi/syndie = 2,
+					/obj/item/robotanalyzer = 2)
+
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
 	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
@@ -1873,7 +1921,7 @@
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/sunglasses_fake = 2,
 					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/suit/poncho = 1,
+					/obj/item/clothing/neck/poncho = 1,
 					/obj/item/clothing/suit/ianshirt = 1,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 4,
@@ -1882,9 +1930,10 @@
 					/obj/item/storage/belt/fannypack = 1,
 					/obj/item/storage/belt/fannypack/blue = 1,
 					/obj/item/storage/belt/fannypack/red = 1,
-					/obj/item/clothing/suit/mantle = 2,
-					/obj/item/clothing/suit/mantle/old = 1,
-					/obj/item/clothing/suit/mantle/regal = 2)
+					/obj/item/clothing/neck/mantle = 2,
+					/obj/item/clothing/neck/mantle/old = 1,
+					/obj/item/clothing/neck/mantle/regal = 2,
+					/obj/item/clothing/neck/cloak = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					  /obj/item/clothing/mask/balaclava = 1,

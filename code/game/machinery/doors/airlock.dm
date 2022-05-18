@@ -722,6 +722,7 @@ About the new airlock wires panel:
 		shock(user, 100)
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
+	. = ..()
 	if(istype(user, /mob/living/simple_animal/hulk))
 		var/mob/living/simple_animal/hulk/H = user
 		H.attack_hulk(src)
@@ -895,10 +896,16 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
 		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
-	else if(lock())
-		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-	else if(unlock())
+		return
+
+	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
+		return
+
+	if(lock()) // Trying to bolt
+		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
+		user.create_log(MISC_LOG, "Bolted", src)
+		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
 	emergency = !emergency
@@ -1405,7 +1412,10 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
 		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
+			if(istype(src, /obj/machinery/door/airlock/syndicate))
+				ae = new/obj/item/airlock_electronics/syndicate(loc)
+			else
+				ae = new/obj/item/airlock_electronics(loc)
 			check_access()
 			if(req_access.len)
 				ae.selected_accesses = req_access

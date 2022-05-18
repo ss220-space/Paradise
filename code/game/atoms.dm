@@ -28,7 +28,7 @@
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
-
+	
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
@@ -54,8 +54,6 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -764,6 +762,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
+	if(neck)
+		if(neck.clean_blood())
+			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -859,7 +860,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			speech_bubble_hearers += M.client
 
 			if((M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
-				M.create_chat_message(src.runechat_msg_location, message, FALSE, TRUE)
+				M.create_chat_message(src, message, FALSE, TRUE)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -1023,8 +1024,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			name = "[prefix][t]"
 	return t
 
-/**
- * Updates the atom's runechat maptext display location.
- */
-/atom/proc/update_runechat_msg_location()
-	return
+/*
+	Setter for the `density` variable.
+	Arguments:
+	* new_value - the new density you would want it to set.
+	Returns: Either null if identical to existing density, or the new density if different.
+*/
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value

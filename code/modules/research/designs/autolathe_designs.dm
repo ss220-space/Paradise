@@ -147,6 +147,14 @@
 	build_path = /obj/item/airlock_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/syndie_airlock_board
+	name = "Suspicious Airlock Electronics"
+	id = "syndie_airlock_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/airlock_electronics/syndicate
+	category = list("hacked", "Electronics")
+
 /datum/design/firelock_board
 	name = "Firelock Electronics"
 	id = "firelock_board"
@@ -156,7 +164,7 @@
 	category = list("initial", "Electronics")
 
 /datum/design/airalarm_electronics
-	name = "Air Alarm Electronics"
+	name = "Электроника воздушной сигнализации (Air Alarm)" // Air Alarm Electronics
 	id = "airalarm_electronics"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)

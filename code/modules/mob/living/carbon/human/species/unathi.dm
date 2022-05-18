@@ -110,7 +110,7 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(5)
+					user.Weaken(2)
 					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
@@ -135,8 +135,8 @@
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
 
-	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
-	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
+	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
+	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
 	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"

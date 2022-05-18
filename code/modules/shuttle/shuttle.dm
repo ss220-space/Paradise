@@ -162,9 +162,9 @@
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
+	dwidth = 8
+	height = 31
+	width = 17
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -862,8 +862,24 @@
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
-		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
+
+
+/obj/machinery/computer/shuttle/ruins_transport_shuttle // this shuttle made for station and listening post of ussp since they have lore connection between eachother, btw the shuttle existed before the change but was deleted for some reason.
+	name = "Transport Shuttle Console"
+	desc = "Used to control the Transport Shuttle."
+	circuit = /obj/item/circuitboard/ruins_transport_shuttle
+	shuttleId = "ruins_transport_shuttle"
+	possible_destinations = "ussp_dock;dj_post;sindiecake_dock"
+
+
+/obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
+	name = "Regular Civilian Shuttle Console"
+	desc = "Used to control the Regular Civilian Shuttle."
+	circuit = /obj/item/circuitboard/ruins_civil_shuttle
+	shuttleId = "ruins_civil_shuttle"
+	possible_destinations = "spacebar;spacehotelv1"
 
 
 /obj/machinery/computer/shuttle/white_ship
