@@ -31,7 +31,7 @@
 
 /obj/structure/clockwork/functional/celestial_gateway/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
-	if(gamemode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
+	if(SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
 				to_chat(clock_mind.current, "<span class='clocklarge'>The Ark has fallen!</span>")

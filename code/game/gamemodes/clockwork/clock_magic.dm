@@ -190,7 +190,7 @@
 	name = "Twisted Construction"
 	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
 	button_icon_state = "transmute"
-	magic_path = /obj/item/melee/blood_magic/construction"
+	magic_path = /obj/item/melee/clock_magic/construction
 
 // The "magic hand" items
 /obj/item/melee/clock_magic
@@ -310,7 +310,7 @@
 			qdel(src) //Clears the hands
 		C.visible_message("<span class='warning'>Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [C]!</span>")
 
-/obj/item/melee/blood_magic/construction
+/obj/item/melee/clock_magic/construction
 	name = "Twisting Aura"
 	desc = "Corrupts certain metalic objects on contact."
 	invocation = "Ethra p'ni dedol!"
