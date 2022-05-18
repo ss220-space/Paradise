@@ -78,7 +78,7 @@
 
 				var/datum/mind/mind = M.mind
 
-				if(GLOB.ts_spiderlist.len && M.ckey)
+				if (length(GLOB.ts_spiderlist) && M.ckey)
 					other_antags += list(
 						"Terror Spiders" = (mind.current in GLOB.ts_spiderlist)
 					)
