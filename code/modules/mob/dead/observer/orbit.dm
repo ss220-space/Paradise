@@ -65,6 +65,8 @@
 		serialized["ref"] = "\ref[M]"
 
 		if(istype(M))
+			var/datum/mind/mind = M.mind
+
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue
 			if(isobserver(M))
@@ -75,8 +77,6 @@
 				dead += list(serialized)
 			else
 				alive += list(serialized)
-
-				var/datum/mind/mind = M.mind
 
 				if(GLOB.ts_spiderlist.len && M.ckey)
 					other_antags += list(
@@ -121,16 +121,22 @@
 							"Xenomorphs" = (mind in SSticker.mode.xenos),
 						)
 
-				for(var/antag_name in other_antags)
-					var/is_antag = other_antags[antag_name]
-					if(!is_antag)
-						continue
-					var/antag_serialized = serialized.Copy()
-					antag_serialized["antag"] = antag_name
-					antagonists += list(antag_serialized)
-
+		else if (istype(M, /obj/structure/blob/core))
+			var/obj/structure/blob/core/core = M
+			if(core.overmind?.mind && core.overmind?.key) // Почему-то срабатывает даже при core.overmind = null
+				other_antags += list("Blob Cores" = (core.overmind?.mind in SSticker.mode.blob_overminds))
+			else
+				misc += list(serialized)
 		else
 			misc += list(serialized)
+
+		for(var/antag_name in other_antags)
+			var/is_antag = other_antags[antag_name]
+			if(!is_antag)
+				continue
+			var/antag_serialized = serialized.Copy()
+			antag_serialized["antag"] = antag_name
+			antagonists += list(antag_serialized)
 
 	data["alive"] = alive
 	data["antagonists"] = antagonists
