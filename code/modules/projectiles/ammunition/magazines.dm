@@ -410,7 +410,7 @@
 
 /obj/item/ammo_box/magazine/m12g/breach
 	name = "shotgun magazine (12g breacher slugs)"
-	icon_state = "m12gbc"
+	icon_state = "m12gmt"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -458,7 +458,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer
-	name = "Enforcer Foam magazine"
+	name = "foam enforcer magazine"
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1

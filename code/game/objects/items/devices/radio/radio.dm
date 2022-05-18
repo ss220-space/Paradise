@@ -287,6 +287,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
 	tcm.sender_job = "Automated Announcement"
+	tcm.sender_rank = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
@@ -384,6 +385,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
 	var/voicemask = 0 // the speaker is wearing a voice mask
 	var/jobname // the mob's "job"
+	var/rank // the mob's "rank"
 
 	if(jammed)
 		Gibberish_all(message_pieces, 100)
@@ -392,22 +394,27 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		jobname = H.get_assignment()
+		rank = H.get_authentification_rank()
 
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
 		jobname = "No id"
+		rank = "No id"
 
 	// --- AI ---
 	else if(isAI(M))
 		jobname = "AI"
+		rank = "AI"
 
 	// --- Cyborg ---
 	else if(isrobot(M))
 		jobname = "Cyborg"
+		rank = "Cyborg"
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
 		jobname = "Personal AI"
+		rank = "Personal AI"
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))
@@ -416,7 +423,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// --- Unidentifiable mob ---
 	else
 		jobname = "Unknown"
-
+		rank = "Unknown"
 
 	// --- Modifications to the mob's identity ---
 
@@ -441,6 +448,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
+	tcm.sender_rank = rank
 	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
@@ -518,9 +526,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
+		if(freq == SYND_TAIPAN_FREQ && !istype(syndiekey, /obj/item/encryptionkey/syndicate/taipan)) //Чтобы тайпановскую частоту, слышали только тайпановцы
+			return -1
+
 	if(!freq) //recieved on main frequency
 		if(!listening)
 			return -1
+	else if(syndiekey)
+		return canhear_range
 	else
 		var/accept = (freq==frequency && listening)
 		if(!accept)
@@ -631,6 +644,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
+
+/obj/item/radio/borg/syndicate/taipan
+	keyslot = new /obj/item/encryptionkey/syndicate/taipan/borg
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()

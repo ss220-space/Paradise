@@ -188,6 +188,7 @@
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
@@ -261,6 +262,7 @@
 		var/obj/item/grab/G = C.grabbedby(src,1)
 		if(istype(G))
 			G.state = GRAB_PASSIVE //Instant aggressive grab
+			C.Weaken(2)
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))

@@ -17,6 +17,7 @@
 	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -31,7 +32,8 @@
 		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	if(prob(D.getBruteLoss()) && !D.lying)
 		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
-		D.Weaken(2)
+		D.Weaken(3)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
