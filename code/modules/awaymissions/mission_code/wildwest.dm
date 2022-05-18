@@ -162,16 +162,17 @@
 	set name = "Resurrection"
 
 	var/mob/living/carbon/C = usr
-	if(!C.stat)
-		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
-		return
-	to_chat(C, "<span class='notice'>Death is not your end!</span>")
+	if(C.stat == DEAD)
+		to_chat(C, "<span class='notice'>Death is not your end!</span>")
 
-	spawn(rand(800,1200))
-		C.revive()
-		to_chat(C, "<span class='notice'>You have regenerated.</span>")
-		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
-	return 1
+		spawn(rand(800,1200))
+			C.revive()
+			to_chat(C, "<span class='notice'>You have regenerated.</span>")
+			C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
+		return 1
+
+	to_chat(C, "<span class='notice'>You're not dead yet!</span>")
+	return
 
 /obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"
