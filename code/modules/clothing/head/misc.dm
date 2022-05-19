@@ -274,6 +274,17 @@
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
+/obj/item/clothing/head/ratge
+	name = "ratge head"
+	desc = "Ну ты и крыса!"
+	icon_state = "ratgehead"
+	item_state = "chickensuit"
+	flags = BLOCKHAIR
+
+	sprite_sheets = list(
+	"Grey" = 'icons/mob/species/grey/head.dmi'
+	)
+
 /obj/item/clothing/head/corgi
 	name = "corgi suit head"
 	desc = "Woof!"
