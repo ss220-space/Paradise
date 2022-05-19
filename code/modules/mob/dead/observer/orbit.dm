@@ -78,11 +78,6 @@
 			else
 				alive += list(serialized)
 
-				if (length(GLOB.ts_spiderlist) && M.ckey)
-					other_antags += list(
-						"Terror Spiders" = (mind.current in GLOB.ts_spiderlist)
-					)
-
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
