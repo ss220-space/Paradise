@@ -261,7 +261,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
-	charge_max = 360
+	charge_max = 150
 	range = 4
 	stun = 10
 	reveal = 40
@@ -352,10 +352,11 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/animation
 	name = "Animation"
-	charge_max = 100
+	charge_max = 650
 	range = 1
-	cast_amount = 45
-	unlock_amount = 10
+	reveal = 40
+	cast_amount = 100
+	unlock_amount = 150
 	action_icon_state = "boo"
 	var/spawn_max = 10
 
@@ -363,6 +364,3 @@
 	for (var/obj/O in view(range, user))
 		if(istype(O, /obj/item))
 			new /mob/living/simple_animal/hostile/mimic/copy/revenant(O.loc, O, user)
-
-	user.stun(20)
-	user.reveal(30)
