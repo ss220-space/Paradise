@@ -199,8 +199,8 @@
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	icon_state = "clocked_hand"
+	item_state = "clocked_hand"
 	flags = ABSTRACT | DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
@@ -256,7 +256,7 @@
 
 //The spell effects
 
-//stun
+//stun ДОДЕЛАТЬ
 /obj/item/melee/clock_magic/stun
 	name = "Stunning Aura"
 	desc = "Will stun and mute a victim on contact."
@@ -291,7 +291,7 @@
 			var/mob/living/carbon/C = L
 			C.Silence(3)
 			C.Stuttering(8)
-			//C.CultSlur(10)
+			C.ClockSlur(10)
 			C.Jitter(8)
 	uses--
 	return ..()

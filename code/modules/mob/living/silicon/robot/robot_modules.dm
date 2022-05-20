@@ -643,7 +643,7 @@
 		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/cogscarab
-	name = "drone module"
+	name = "cogscarab module"
 	module_type = "Cogscarab"
 
 /obj/item/robot_module/cogscarab/New()
@@ -675,7 +675,7 @@
 
 /obj/item/robot_module/clockwork
 	name = "Ratvar module"
-	module_type = "Cogscarab"
+	module_type = "Cogscarab" //icon_state
 
 /obj/item/robot_module/clockwork/New()
 	..()

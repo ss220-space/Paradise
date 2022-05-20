@@ -592,10 +592,12 @@
 		return
 	R.disconnect_from_ai()
 	R.reset_module()
-	R.module = new /obj/item/robot_module/clockwork(src)
-	R.icon = 'icons/mob/clockwork_mobs.dmi'
-	R.icon_state = "cyborg"
+	R.pick_module("Clockwork")
 	R.emagged = TRUE
+	R.scrambledcodes = TRUE
+	R.opened = FALSE
+	R.locked = TRUE
+	R.update_icons()
 
 	return TRUE
 

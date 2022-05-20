@@ -49,11 +49,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/wires/robot/wires = null
 
-	var/opened = 0
+	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Cricket","Standard")
-	var/emagged = 0
+	var/emagged = FALSE
+	var/clocked = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
@@ -77,9 +78,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//var/list/laws = list()
 	var/viewalerts = 0
 	var/modtype = "Default"
-	var/lower_mod = 0
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
@@ -323,7 +322,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		modules = list("Hunter")
 	if(mmi?.syndicate)
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
-	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	if(!forced_module)
+		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	else
+		modtype = forced_module
 	if(!modtype)
 		return
 	designation = modtype
@@ -458,6 +460,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
 			qdel(src)
 			return
+		if("Clockwork")
+			module = new /obj/item/robot_module/clockwork(src)
+			icon = 'icons/mob/clockwork_mobs.dmi'
+			icon_state = "cyborg"
+			status_flags &= ~CANPUSH
 
 	//languages
 	module.add_languages(src)
@@ -1028,6 +1035,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 			update_icons()
 		return
+
+/mob/living/silicon/robot/ratvar_act()
+	if(clocked)
+		return
+	SSticker.mode.add_clocker(src)
+	var/obj/item/borg/upgrade/clockwork/U = new (src)
+	U.action(src)
+	clocked = TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
