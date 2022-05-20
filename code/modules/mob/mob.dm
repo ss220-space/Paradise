@@ -206,7 +206,7 @@
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "<span class='warning'>Вы не можете это экипировать.</span>")//Only print if del_on_fail is false
+				to_chat(src, "<span class='warning'>Вы не можете это надеть.</span>")//Only print if del_on_fail is false
 
 		return 0
 
@@ -1221,7 +1221,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(istype(location, /turf/simulated))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] вырвало зеленой липкой массой!</span>","<span class='warning'>Вас вырвало зеленой липкой массой!</span>")
+				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)

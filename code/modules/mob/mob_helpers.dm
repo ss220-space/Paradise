@@ -429,7 +429,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		to_chat(src, "<span class='notice'>Вы отдыхаете.</span>")
 		StartResting()
 	else if(resting)
-		to_chat(src, "<span class='notice'>Вы встали.</span>")
+		to_chat(src, "<span class='notice'>Вы встаёте.</span>")
 		StopResting()
 
 /proc/get_multitool(mob/user as mob)
@@ -605,11 +605,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
+				newname = clean_input("Выберите новое имя.", "Смена имени", oldname, src)
 			else
-				newname = clean_input("Вы [role]. Не хотите поменять свое имя на другое? (У вас есть 3 минуты для выбора нового имени)", "Name Change", oldname, src)
+				newname = clean_input("Вы [role]. Не хотите поменять своё имя на другое? У вас есть 3 минуты для выбора нового имени.", "Смена имени", oldname, src)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "К сожалению, время для выбора имени кончилось. Если вы робот, используйте Namepick verb; иначе, Adminhelp.", "Name Change")
+				alert(src, "К сожалению, время для выбора имени кончилось. Если вы киборг, используйте команду «Namepick»; иначе — «Adminhelp».", "Смена имени")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					break
 			if(newname)
 				break	//That's a suitable name!
-			to_chat(src, "Извини, но имя для роли [role] не подходит. Возможно оно слишком длинное или короткое, содержит плохие наименования или уже занято.")
+			to_chat(src, "Извините, но это имя не подходит для роли «[role]». Возможно, оно слишком длинное или короткое, содержит неподходящие символы, либо уже занято.")
 
 		if(!newname)	//we'll stick with the oldname then
 			return

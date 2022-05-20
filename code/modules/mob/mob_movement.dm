@@ -224,14 +224,14 @@
 					move_delay = world.time + 10
 					if(!prob(25))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] вырвал[genderize_ru(mob.gender,"ся","ась","ось","ись")] из хватки [G.assailant]!</span>")
+					mob.visible_message("<span class='danger'>[mob] вырыва[pluralize_ru(mob.gender,"ется","ются")] из хватки [G.assailant]!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] вырвал[genderize_ru(mob.gender,"ся","ась","ось","ись")] из захвата головы [G.assailant]!</span>")
+					mob.visible_message("<span class='danger'>[mob] вырыва[pluralize_ru(mob.gender,"ется","ются")] из захвата головы [G.assailant]!</span>")
 					qdel(G)
 	return FALSE
 
