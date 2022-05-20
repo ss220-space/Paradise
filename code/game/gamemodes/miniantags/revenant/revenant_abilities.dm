@@ -354,13 +354,14 @@
 	name = "Animation"
 	charge_max = 650
 	range = 1
-	reveal = 40
+	reveal = 90
 	cast_amount = 100
 	unlock_amount = 150
 	action_icon_state = "boo"
 	var/spawn_max = 10
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/animation/cast(mob/living/simple_animal/revenant/user = usr)
-	for (var/obj/O in view(range, user))
-		if(istype(O, /obj/item))
-			new /mob/living/simple_animal/hostile/mimic/copy/revenant(O.loc, O, user)
+	if(attempt_cast(user))
+		for (var/obj/O in view(range, user))
+			if(istype(O, /obj/item))
+				new /mob/living/simple_animal/hostile/mimic/copy/revenant(O.loc, O, user)
