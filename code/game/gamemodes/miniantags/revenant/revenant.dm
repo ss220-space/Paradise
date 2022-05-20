@@ -15,7 +15,6 @@
 	var/icon_reveal = "revenant_revealed"
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
-	var/icon_haunt = "horror"
 	incorporeal_move = 3
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
