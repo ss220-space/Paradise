@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
@@ -47,7 +47,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
@@ -86,7 +86,7 @@
 	total_positions = 3
 	spawn_positions = 2
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
@@ -120,7 +120,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -151,7 +151,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_supply = 1
-	supervisors = "the quartermaster"
+	supervisors = "квартирмейстером"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -177,7 +177,7 @@
 	total_positions = 6
 	spawn_positions = 8
 	is_supply = 1
-	supervisors = "the quartermaster"
+	supervisors = "квартирмейстером"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -247,7 +247,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
@@ -316,7 +316,7 @@
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
-	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
+	to_chat(H, "<span class='notice'>Вы намеренно начинаете двигаться очень неуклюже для отвода подозрений. Для использования оружия вам стоит снова сконцентрироваться.</span>")
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
@@ -324,7 +324,7 @@
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()
-	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
+	to_chat(H, "<span class='notice'>Вы сконцентрировались и теперь можете нормально пользоваться оружием.</span>")
 
 /datum/job/mime
 	title = "Mime"
@@ -333,7 +333,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
@@ -386,7 +386,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
@@ -412,7 +412,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_LIBRARY)
@@ -441,7 +441,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	alt_titles = list("Hair Stylist","Beautician")
@@ -467,7 +467,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0
 	spawn_positions = 0
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)

@@ -5,7 +5,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials"
+	supervisors = "руководством НаноТрейзен"
 	department_head = list("Nanotrasen Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
@@ -24,7 +24,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	GLOB.captain_announcement.Announce("Смирно! Капитан [H.real_name] на борту!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -63,7 +63,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -112,7 +112,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the command staff"
+	supervisors = "руководством НаноТрейзен"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -160,7 +160,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen representative"
+	supervisors = "представителем НаноТрейзен"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -207,7 +207,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen Supreme Court"
+	supervisors = "Верховным судом НаноТрейзен"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -257,7 +257,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
-	supervisors = "the magistrate"
+	supervisors = "магистратом"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)

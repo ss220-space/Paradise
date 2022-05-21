@@ -6,7 +6,7 @@
 	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "админами"
 	selection_color = "#ffdddd"
 	access = list()
 	minimal_access = list()
@@ -55,7 +55,7 @@
 	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "админами"
 	selection_color = "#ffdddd"
 	access = list()
 	minimal_access = list()

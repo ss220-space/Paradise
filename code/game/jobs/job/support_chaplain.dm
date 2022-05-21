@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = TRUE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
@@ -43,39 +43,65 @@
 	B.customisable = TRUE // Only the initial bible is customisable
 	user.put_in_l_hand(B)
 
-	var/religion_name = "Christianity"
-	var/new_religion = copytext_char(clean_input("You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, user), 1, MAX_NAME_LEN)
+	var/deity_name = "Космический Иисус"
+	var/religion_name = "Христианство"
+	var/new_religion = copytext_char(clean_input("Вы — священник. Как называется ваша вера? Название по-умолчанию: «Христианство».", "Название веры", religion_name, user), 1, MAX_NAME_LEN)
 
 	if(!new_religion)
 		new_religion = religion_name
 
 	switch(lowertext(new_religion))
-		if("christianity")
-			B.name = "The Holy Bible"
-		if("satanism")
-			B.name = "The Unholy Bible"
-		if("cthulu")
-			B.name = "The Necronomicon"
-		if("islam")
-			B.name = "Quran"
-		if("scientology")
-			B.name = pick("The Biography of L. Ron Hubbard", "Dianetics")
-		if("chaos")
-			B.name = "The Book of Lorgar"
-		if("imperium")
-			B.name = "Uplifting Primer"
-		if("toolboxia")
-			B.name = "Toolbox Manifesto Robusto"
-		if("science")
-			B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
+		if("христианство")
+			B.name = "Святая Библия"
+			B.gender = FEMALE
+			deity_name = "Космический Иисус"
+		if("сатанизм")
+			B.name = "Нечистая Библия"
+			B.gender = FEMALE
+			deity_name = "Космический Сатана"
+		if("ктулху")
+			B.name = "Некрономикон"
+			B.gender = MALE
+			deity_name = "Великий Ктулху"
+		if("ислам")
+			B.name = "Коран"
+			B.gender = MALE
+			deity_name = "Аллах"
+		if("сайентология")
+			B.name = pick("Биография Рона Хаббарда", "Дианетика")
+			B.gender = FEMALE
+			deity_name = "Рон Хаббард"
+		if("хаос")
+			B.name = "Книга Лоргара"
+			B.gender = FEMALE
+			deity_name = "Тёмные боги"
+		if("империум" || "империй" || "империя")
+			B.name = "Молитвенник имперского гвардейца"
+			B.gender = MALE
+			deity_name = "Император"
+		if("тулбоксия")
+			B.name = "Тулбоксовый манифест робаста"
+			B.gender = MALE
+			deity_name = "Робаст"
+		if("наука")
+			switch(pick(50;MALE, 50;FEMALE))
+				if(PLURAL)
+					B.name = pick("Принципы относительности", "Очумелые ручки: Построй собственный варп-двигатель", "Тайны Блюспейса", "Игра в бога: коллекционное издание")
+					B.gender = PLURAL
+				if(FEMALE)
+					B.name = pick("Квантовая загадка: Физика против Сознания", "Квантовая физика и теология", "Теория струн для чайников", "Игра в бога: коллекционное издание")
+					B.gender = FEMALE
+				else
+					B.name = "Программирование Вселенной"
+			deity_name = "Разум"
 		else
-			B.name = "The Holy Book of [new_religion]"
+			B.name = "Святое писание: [new_religion]"
+			B.gender = NEUTER
 	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
-	var/deity_name = "Space Jesus"
-	var/new_deity = copytext_char(clean_input("Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, user), 1, MAX_NAME_LEN)
+	var/new_deity = copytext_char(clean_input("Кому или чему вы поклоняетесь? По-умолчанию это Космический Иисус.", "Название религии", deity_name, user), 1, MAX_NAME_LEN)
 
-	if(!length(new_deity) || (new_deity == "Space Jesus"))
+	if(!length(new_deity) || (new_deity == "Космический Иисус"))
 		new_deity = deity_name
 	B.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)

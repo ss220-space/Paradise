@@ -5,7 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list("Captain")
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
@@ -60,7 +60,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "директором исследований"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
@@ -106,7 +106,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
@@ -166,7 +166,7 @@
 	total_positions = 7
 	spawn_positions = 7
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
@@ -207,7 +207,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
@@ -241,7 +241,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)

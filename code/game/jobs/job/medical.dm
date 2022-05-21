@@ -5,7 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list("Captain")
 	selection_color = "#ffddf0"
 	req_admin_notify = 1
@@ -49,7 +49,7 @@
 	total_positions = 5
 	spawn_positions = 3
 	is_medical = 1
-	supervisors = "the chief medical officer"
+	supervisors = "главным врачом"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
@@ -84,7 +84,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
-	supervisors = "the chief medical officer"
+	supervisors = "главным врачом"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
@@ -146,7 +146,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_medical = 1
-	supervisors = "the chief medical officer"
+	supervisors = "главным врачом"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
@@ -180,7 +180,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_medical = 1
-	supervisors = "the chief medical officer and the research director"
+	supervisors = "главным врачом и директором исследований"
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
@@ -214,7 +214,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
-	supervisors = "the chief medical officer"
+	supervisors = "главным врачом"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
@@ -249,7 +249,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
-	supervisors = "the chief medical officer"
+	supervisors = "главным врачом"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
@@ -287,7 +287,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
-	supervisors = "the chief medical officer"
+	supervisors = "главным врачом"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
