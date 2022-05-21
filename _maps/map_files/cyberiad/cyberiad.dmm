@@ -416,7 +416,6 @@
 "acx" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
@@ -88987,7 +88986,6 @@
 	req_access_txt = "1"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
@@ -91026,7 +91024,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
@@ -92765,7 +92762,6 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/effect/decal/warning_stripes/red/partial,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
