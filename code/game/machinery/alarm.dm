@@ -559,7 +559,7 @@
 	alert_signal.source = src
 	alert_signal.transmission_method = 1
 	alert_signal.data["zone"] = get_area_name(src, TRUE)
-	alert_signal.data["type"] = "Атмосфера"
+	alert_signal.data["type"] = "Atmospheric"
 
 	if(alert_level == ATMOS_ALARM_DANGER)
 		alert_signal.data["alert"] = "severe"
