@@ -1,6 +1,6 @@
 // Main Menu //
 /datum/pai_software/main_menu
-	name = "Main Menu"
+	name = "Главное меню"
 	id = "mainmenu"
 	default = TRUE
 	template_file = "pai_main_menu"
@@ -67,7 +67,7 @@
 
 // Directives //
 /datum/pai_software/directives
-	name = "Directives"
+	name = "Директивы"
 	id = "directives"
 	default = TRUE
 	template_file = "pai_directives"
@@ -96,21 +96,22 @@
 				return
 
 			// Check the carrier
-			var/answer = alert(M, "[pai_holder] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[pai_holder] Check DNA", "Yes", "No")
-			if(answer == "Yes")
-				M.visible_message("<span class='notice'>[M] presses [M.p_their()] thumb against [pai_holder].</span>", "<span class='notice'>You press your thumb against [pai_holder].</span>")
+			var/answer = alert(M, "[pai_holder] запрашивает у вас образец ДНК. Вы позволите подтвердить Вашу личность?", "[pai_holder] Check DNA", "Да", "Нет")
+			if(answer == "Да")
+				M.visible_message("<span class='notice'>[M] прикладыва[pluralize_ru(M.gender,"ет","ют")] большой палец к [pai_holder].</span>", "<span class='notice'>Вы прикладываете большой палец к [pai_holder].</span>")
 				var/datum/dna/dna = M.dna
-				to_chat(usr, "<span class='notice'>[M]'s UE string: [dna.unique_enzymes]</span>")
+				to_chat(usr, "<span class='notice'>UE строка [M]: <code>[dna.unique_enzymes]</code></span>")
 				if(dna.unique_enzymes == pai_holder.master_dna)
-					to_chat(usr, "<span class='notice'>DNA is a match to stored Master DNA.</span>")
+					to_chat(usr, "<span class='notice'>ДНК совпадает с сохранённой ДНК хозяина.</span>")
 				else
-					to_chat(usr, "<span class='warning'>DNA does not match stored Master DNA.</span>")
+					to_chat(usr, "<span class='warning'>ДНК не совпадает с сохранённой ДНК хозяина.</span>")
 			else
 				to_chat(usr, "<span class='warning'>[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.</span>")
+				to_chat(usr, "<span class='warning'>Кажется, [M] не собира[pluralize_ru(M.gender,"ет","ют")]ся добровольно предоставлять вам образец ДНК.</span>")
 
 // Crew Manifest //
 /datum/pai_software/crew_manifest
-	name = "Crew Manifest"
+	name = "Список экипажа"
 	ram_cost = 5
 	id = "manifest"
 	template_file = "pai_manifest"
@@ -126,7 +127,7 @@
 
 // Med Records //
 /datum/pai_software/med_records
-	name = "Medical Records"
+	name = "Медицинские записи"
 	ram_cost = 15
 	id = "med_records"
 	template_file = "pai_medrecords"
@@ -148,7 +149,7 @@
 
 // Sec Records //
 /datum/pai_software/sec_records
-	name = "Security Records"
+	name = "Охранные записи"
 	ram_cost = 15
 	id = "sec_records"
 	template_file = "pai_secrecords"
@@ -170,7 +171,7 @@
 
 // Atmos Scan //
 /datum/pai_software/atmosphere_sensor
-	name = "Atmosphere Sensor"
+	name = "Атмосферный датчик"
 	ram_cost = 5
 	id = "atmos_sense"
 	template_file = "pai_atmosphere"
@@ -186,7 +187,7 @@
 
 // Messenger //
 /datum/pai_software/messenger
-	name = "Digital Messenger"
+	name = "Цифровой мессенджер"
 	ram_cost = 5
 	id = "messenger"
 	template_file = "pai_messenger"
@@ -219,7 +220,7 @@
 
 // Radio
 /datum/pai_software/radio_config
-	name = "Radio Configuration"
+	name = "Настройка радио"
 	id = "radio"
 	default = TRUE
 	template_file = "pai_radio"
@@ -248,7 +249,7 @@
 
 // Signaler //
 /datum/pai_software/signaler
-	name = "Remote Signaler"
+	name = "Передатчик"
 	ram_cost = 5
 	id = "signaler"
 	template_file = "pai_signaler"
@@ -281,7 +282,7 @@
 
 // Door Jack //
 /datum/pai_software/door_jack
-	name = "Door Jack"
+	name = "Взлом дверей"
 	ram_cost = 30
 	id = "door_jack"
 	template_file = "pai_doorjack"
@@ -314,7 +315,7 @@
 			if(cable && cable.machine)
 				hackdoor = cable.machine
 				if(hacking)
-					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
+					to_chat(usr, "<span class='warning'>Вы уже взламывали эту дверь!</span>")
 				else
 					hacking = TRUE
 					INVOKE_ASYNC(src, /datum/pai_software/door_jack/.proc/hackloop)
@@ -322,11 +323,11 @@
 			hackdoor = null
 		if("cable")
 			if(cable)
-				to_chat(usr, "<span class='warning'>You already have a cable deployed!</span>")
+				to_chat(usr, "<span class='warning'>Вы уже выгрузили кабель!</span>")
 				return
 			var/turf/T = get_turf(pai_holder)
 			cable = new /obj/item/pai_cable(T)
-			pai_holder.visible_message("<span class='warning'>A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor.</span>")
+			pai_holder.visible_message("<span class='warning'>На [pai_holder] открывается разъём, из него выдвигается [cable], и выпадает на пол.</span>")
 
 /**
   * Door jack hack loop
@@ -365,7 +366,7 @@
 
 // Host Bioscan //
 /datum/pai_software/host_scan
-	name = "Host Bioscan"
+	name = "Биосканирование носителя"
 	ram_cost = 5
 	id = "bioscan"
 	template_file = "pai_bioscan"

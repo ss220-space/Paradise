@@ -56,7 +56,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(!O)
 			return
 		if(!(O in GLOB.respawnable_list))
-			to_chat(O, "You've given up your ability to respawn!")
+			to_chat(O, "У вас нет возможности вернуться в раунд!")
 			return
 		if(!check_recruit(O))
 			return
@@ -75,19 +75,19 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 		switch(option)
 			if("name")
-				t = input("Enter a name for your pAI", "pAI Name", candidate.name) as text
+				t = input("Введите имя вашего ПИИ", "Имя ПИИ", candidate.name) as text
 				if(t)
 					candidate.name = sanitize(copytext_char(t,1,MAX_NAME_LEN))
 			if("desc")
-				t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
+				t = input("Введите описание вашего ПИИ", "Описание ПИИ", candidate.description) as message
 				if(t)
 					candidate.description = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
 			if("role")
-				t = input("Enter a role for your pAI", "pAI Role", candidate.role) as text
+				t = input("Введите роль вашего ПИИ", "Роль ПИИ", candidate.role) as text
 				if(t)
 					candidate.role = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
 			if("ooc")
-				t = input("Enter any OOC comments", "pAI OOC Comments", candidate.comments) as message
+				t = input("Введите любые OOC-комментарии", "OOC-комментарии ПИИ", candidate.comments) as message
 				if(t)
 					candidate.comments = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
 			if("save")
@@ -182,60 +182,62 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				a.button {
 					color:white;
 					text-decoration: none;
+					padding: .1em .5em;
 				}
 			</style>
 			"}
 
 	dat += {"
 	<body>
-		<b><font size="3px">pAI Personality Configuration</font></b>
-		<p class="top">Please configure your pAI personality's options. Remember, what you enter here could determine whether or not the user requesting a personality chooses you!</p>
+		<b><font size="3px">Настройка личности ПИИ</font></b>
+		<p class="top">Пожалуйста, настройте параметры своей личности ПИИ.</p>
+		<p>Помните: от того, что вы здесь укажете, зависит, выберет ли вас пользователь, запрашивающий личность ПИИ!</p>
 
 		<table>
 			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=name;new=1;candidate=[candidate.UID()]'>Name</a>:</th>
+				<th rowspan="2"><a href='byond://?src=[UID()];option=name;new=1;candidate=[candidate.UID()]'>Имя</a>:</th>
 				<td class="desc">[candidate.name]&nbsp;</td>
 			</tr>
 			<tr class="d1">
-				<td>What you plan to call yourself. Suggestions: Any character name you would choose for a station character OR an AI.</td>
+				<td>Как вы хотите себя называть. Предложение: любое имя, которое вы бы выбрали для персонажа экипажа станции ИЛИ ИИ.</td>
 			</tr>
 			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=desc;new=1;candidate=[candidate.UID()]'>Description</a>:</th>
+				<th rowspan="2"><a href='byond://?src=[UID()];option=desc;new=1;candidate=[candidate.UID()]'>Описание</a>:</th>
 				<td class="desc">[candidate.description]&nbsp;</td>
 			</tr>
 			<tr class="d1">
-				<td>What sort of pAI you typically play; your mannerisms, your quirks, etc. This can be as sparse or as detailed as you like.</td>
+				<td>Каким ПИИ Вы обычно играете? Ваши манеры, особенности и прочее. Можете описать кратко или подробно, как вам нравится.</td>
 			</tr>
 			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=role;new=1;candidate=[candidate.UID()]'>Preferred Role</a>:</th>
+				<th rowspan="2"><a href='byond://?src=[UID()];option=role;new=1;candidate=[candidate.UID()]'>Предпочитаемая роль</a>:</th>
 				<td class="desc">[candidate.role]&nbsp;</td>
 			</tr>
 			<tr class="d1">
-				<td>Do you like to partner with sneaky social ninjas? Like to help security hunt down thugs? Enjoy watching an engineer's back while he saves the station yet again? This doesn't have to be limited to just station jobs. Pretty much any general descriptor for what you'd like to be doing works here.</td>
+				<td>Вам нравится сотрудничать с подлыми социальными ниндзя? Нравится помогать службе безопасности выслеживать преступников? Нравится сидеть на плечах инженера, пока он в очередной спасает станцию? Ваша роль не ограничивается только должностями экипажа станции. Сюда уместно написать практически любое общее описание того, что вы хотели бы делать.</td>
 			</tr>
 			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=ooc;new=1;candidate=[candidate.UID()]'>OOC Comments</a>:</th>
+				<th rowspan="2"><a href='byond://?src=[UID()];option=ooc;new=1;candidate=[candidate.UID()]'>OOC-комментарии</a>:</th>
 				<td class="desc">[candidate.comments]&nbsp;</td>
 			</tr>
 			<tr class="d1">
-				<td>Anything you'd like to address specifically to the player reading this in an OOC manner. \"I prefer more serious RP.\", \"I'm still learning the interface!\", etc. Feel free to leave this blank if you want.</td>
+				<td>Всё, что вы хотели бы OOC адресовать именно игроку, ищущему себе ПИИ. <i>«Я предпочитаю более серьёзное РП»</i>, <i>«Я всё ещё путаюсь в интерфейсе!»</i> и тому подобное. Не стесняйтесь оставлять это поле пустым, если хотите.</td>
 			</tr>
 		</table>
 		<br>
 		<table>
 			<tr>
 				<td class="button">
-					<a href='byond://?src=[UID()];option=save;new=1;candidate=[candidate.UID()]' class="button">Save Personality</a>
+					<a href='byond://?src=[UID()];option=save;new=1;candidate=[candidate.UID()]' class="button">Сохранить личность</a>
 				</td>
 			</tr>
 			<tr>
 				<td class="button">
-					<a href='byond://?src=[UID()];option=load;new=1;candidate=[candidate.UID()]' class="button">Load Personality</a>
+					<a href='byond://?src=[UID()];option=load;new=1;candidate=[candidate.UID()]' class="button">Загрузить личность</a>
 				</td>
 			</tr>
 		</table><br>
 		<table>
-			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">Submit Personality</font></b></a></td>
+			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">Отправить личность</font></b></a></td>
 		</table><br>
 
 	</body>
@@ -257,7 +259,8 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	var/dat = ""
 
 	dat += {"
-		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
+		<!DOCTYPE HTML>
+		<title>Персональный ИИ</title>
 		<html>
 			<meta charset="UTF-8">
 			<head>
@@ -322,32 +325,32 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				</style>
 			</head>
 			<body>
-				<b><font size='3px'>pAI Availability List</font></b><br><br>
+				<b><font size='3px'>Список доступных ПИИ</font></b><br><br>
 	"}
-	dat += "<p>Displaying available AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>"
+	dat += "<p>Отображение доступных личностей ПИИ из центральной базы данных…</p><p>Если личности не будут обнаружены, либо если не будет найдена подходящая личность, попробуйте выполнить повторный поиск позже, когда могут быть загружены новые личности ПИИ.</p><p>Поиск личностей… Пожалуйста, ожидайте….</p>"
 
 	for(var/datum/paiCandidate/c in available)
 		dat += {"
 				<table class="desc">
 					<tr class="d0">
-						<th>Name:</th>
+						<th>Имя:</th>
 						<td>[c.name]</td>
 					</tr>
 					<tr class="d1">
-						<th>Description:</th>
+						<th>Описание:</th>
 						<td>[c.description]</td>
 					</tr>
 					<tr class="d0">
-						<th>Preferred Role:</th>
+						<th>Предпочитаемая роль:</th>
 						<td>[c.role]</td>
 					</tr>
 					<tr class="d1">
-						<th>OOC Comments:</th>
+						<th>OOC-комментарии:</th>
 						<td>[c.comments]</td>
 					</tr>
 				</table>
 				<table class="download">
-					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Download [c.name]</b></a>
+					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Скачать [c.name]</b></a>
 					</td>
 				</table>
 				<br>
@@ -358,14 +361,14 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		</html>
 	"}
 
-	user << browse(dat, "window=findPai")
+	user << browse(dat, "window=findPai;size=800x700")
 
 /datum/paiController/proc/requestRecruits(var/obj/item/paicard/P, mob/user)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
-					to_chat(O, "<span class='boldnotice'>A pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+					to_chat(O, "<span class='boldnotice'>[user.real_name] активировал[genderize_ru(user.gender,"","а","о","и")] поиск личностей ПИИ. (<a href='?src=[O.UID()];jump=\ref[P]'>Прыгнуть</a> | <a href='?src=[UID()];signup=\ref[O]'>Записаться</a>)</span>")
 					//question(O.client)
 
 /datum/paiController/proc/check_recruit(var/mob/dead/observer/O)
@@ -384,13 +387,13 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(!C)	return
 		asked.Add(C.key)
 		asked[C.key] = world.time
-		var/response = alert(C, "Someone is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
+		var/response = alert(C, "Кто-то ищет личность ПИИ. Вы хотите занять роль персонального ИИ?", "Запрос ПИИ", "Да", "Нет", "Никогда в этом раунде")
 		if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
-		if(response == "Yes")
+		if(response == "Да")
 			recruitWindow(C.mob)
-		else if(response == "Never for this round")
-			var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
-			if(warning == "Yes")
+		else if(response == "Никогда в этом раунде")
+			var/warning = alert(C, "Вы уверены? Это действие будет невозможно отменить, и вам нужно будет ждать следующего раунда.", "Вы уверены?", "Да", "Нет")
+			if(warning == "Да")
 				asked[C.key] = INFINITY
 			else
 				question(C)

@@ -23,40 +23,40 @@ export const pai_main_menu = (props, context) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Available RAM">
+        <LabeledList.Item label="Доступная ОЗУ">
           {available_ram}
         </LabeledList.Item>
-        <LabeledList.Item label="Available Software">
+        <LabeledList.Item label="Доступные приложения">
           {available_software.filter(s => !installedSoftwareKeys[s.key]).map(s => (
             <Button key={s.key} content={s.name + " (" + s.cost + ")"} icon={s.icon} disabled={s.cost > available_ram} onClick={
               () => act('purchaseSoftware', { key: s.key })
             } />
           ))}
           {available_software.filter(s => !installedSoftwareKeys[s.key]).length === 0 && (
-            "No software available!"
+            "Доступных приложений не обнаружено!"
           )}
         </LabeledList.Item>
-        <LabeledList.Item label="Installed Software">
+        <LabeledList.Item label="Установленные приложения">
           {installed_software.filter(s => s.key !== "mainmenu").map(s => (
             <Button key={s.key} content={s.name} icon={s.icon} onClick={
               () => act('startSoftware', { software_key: s.key })
             } />
           ))}
           {installed_software.length === 0 && (
-            "No software installed!"
+            "Приложения не установлены!"
           )}
         </LabeledList.Item>
-        <LabeledList.Item label="Installed Toggles">
+        <LabeledList.Item label="Переключаемые модули">
           {installed_toggles.map(t => (
             <Button key={t.key} content={t.name} icon={t.icon} selected={t.active} onClick={
               () => act('setToggle', { toggle_key: t.key })
             } />
           ))}
           {installed_toggles.length === 0 && (
-            "No toggles installed!"
+            "Переключаемые модули не установлены!"
           )}
         </LabeledList.Item>
-        <LabeledList.Item label="Select Emotion">
+        <LabeledList.Item label="Выберите эмоции">
           {emotions.map(e => (
             <Button key={e.id} content={e.name} selected={e.id === current_emotion} onClick={
               () => act('setEmotion', { emotion: e.id })

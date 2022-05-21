@@ -3,9 +3,9 @@
 		if(!cleanWipe)
 			force_fold_out()
 
-		visible_message("<span class=warning>[src] emits a dull beep before it loses power and collapses.</span>", "<span class=warning>You hear a dull beep followed by the sound of glass crunching.</span>")
+		visible_message("<span class=warning>[src] изда[pluralize_ru(src.gender,"ёт","ют")] глухой бип, после чего отключа[pluralize_ru(src.gender,"ется","ются")] и пада[pluralize_ru(src.gender,"ет","ют")].</span>", "<span class=warning>Вы слышите глухой бип, а после него — звук бьющегося стекла.</span>")
 		name = "pAI debris"
-		desc = "The unfortunate remains of some poor personal AI device."
+		desc = "Печальные обломки некоего бедного ПИИ."
 		icon_state = "[chassis]_dead"
 
 	// Only execute the below if we successfully died

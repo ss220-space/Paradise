@@ -1,20 +1,20 @@
 GLOBAL_LIST_INIT(pai_emotions, list(
-		"Happy" = 1,
-		"Cat" = 2,
-		"Extremely Happy" = 3,
-		"Face" = 4,
-		"Laugh" = 5,
-		"Off" = 6,
-		"Sad" = 7,
-		"Angry" = 8,
-		"What" = 9
+		"Счастье" = 1,
+		"Кот" = 2,
+		"Невероятное счастье" = 3,
+		"Лицо" = 4,
+		"Смех" = 5,
+		"Выкл" = 6,
+		"Грусть" = 7,
+		"Злость" = 8,
+		"Что?" = 9
 ))
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 
 /mob/living/silicon/pai/verb/paiInterface()
-	set category = "pAI Commands"
-	set name = "Software Interface"
+	set category = "Команды ПИИ"
+	set name = "Программный интерфейс"
 
 	ui_interact(src)
 

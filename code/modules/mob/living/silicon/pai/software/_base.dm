@@ -9,7 +9,7 @@
   */
 /datum/pai_software
 	/// Name for the software. This is used as the button text when buying or opening/toggling the software
-	var/name = "pAI software module"
+	var/name = "Программный модуль ПИИ"
 	/// RAM cost; pAIs start with 100 RAM, spending it on programs
 	var/ram_cost = 0
 	/// ID for the software. This must be unique
@@ -93,7 +93,7 @@
 		if(!M || !M.loc || count > 6)
 			//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
 			if(inform)
-				to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
+				to_chat(usr, "<span class='warning'>Вас никто не держит!</span>")
 			return null
 		M = M.loc
 		count++

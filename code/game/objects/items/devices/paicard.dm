@@ -34,7 +34,8 @@
 		return
 	user.set_machine(src)
 	var/dat = {"
-		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
+		<!DOCTYPE HTML>
+		<title>Персональный ИИ</title>
 		<html>
 			<meta charset="UTF-8">
 			<head>
@@ -121,6 +122,7 @@
 					a.button {
 					    color:white;
 					    text-decoration: none;
+					    padding: .1em .5em;
 					}
 					h2 {
 					    font-size:15px;
@@ -132,18 +134,18 @@
 
 	if(pai)
 		dat += {"
-			<b><font size='3px'>Personal AI Device</font></b><br><br>
+			<b><font size='3px'>Персональный ИИ</font></b><br><br>
 			<table class="request">
 				<tr>
-					<td class="request">Installed Personality:</td>
+					<td class="request">Установленная личность:</td>
 					<td>[pai.name]</td>
 				</tr>
 				<tr>
-					<td class="request">Prime directive:</td>
+					<td class="request">Основная директива:</td>
 					<td>[pai.pai_law0]</td>
 				</tr>
 				<tr>
-					<td class="request">Additional directives:</td>
+					<td class="request">Дополнительные директивы:</td>
 					<td>[pai.pai_laws]</td>
 				</tr>
 			</table>
@@ -152,7 +154,7 @@
 		dat += {"
 			<table>
 				<td class="button">
-					<a href='byond://?src=[UID()];setlaws=1' class='button'>Configure Directives</a>
+					<a href='byond://?src=[UID()];setlaws=1' class='button'>Настроить директивы</a>
 				</td>
 			</table>
 		"}
@@ -160,36 +162,34 @@
 			dat += {"
 				<table>
 					<td class="button">
-						<a href='byond://?src=[UID()];setdna=1' class='button'>Imprint Master DNA</a>
+						<a href='byond://?src=[UID()];setdna=1' class='button'>Установить ДНК хозяина</a>
 					</td>
 				</table>
 			"}
 		dat += "<br>"
 		if(radio)
-			dat += "<b>Radio Uplink</b>"
+			dat += "<b>Радиосвязь</b>"
 			dat += {"
 				<table class="request">
 					<tr>
-						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
-
+						<td class="radio">Передача:</td>
+						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>Разрешить" : "<font color=#FF5555>Запретить"]</font></a>
 						</td>
 					</tr>
 					<tr>
-						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
-
+						<td class="radio">Приём:</td>
+						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>Разрешить" : "<font color=#FF5555>Запретить"]</font></a>
 						</td>
 					</tr>
 				</table>
 				<br>
 			"}
 		else
-			dat += "<b>Radio Uplink</b><br>"
-			dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
+			dat += "<b>Радиосвязь</b><br>"
+			dat += "<font color=red><i>ПО для радиосвязи не установлено. Пожалуйста, установите личность ПИИ для загрузки ПО.</i></font><br>"
 		dat += {"
 			<table>
-				<td class="button_red"><a href='byond://?src=[UID()];wipe=1' class='button'>Wipe current pAI personality</a>
+				<td class="button_red"><a href='byond://?src=[UID()];wipe=1' class='button'>Стереть текущую личность ПИИ</a>
 
 				</td>
 			</table>
@@ -197,30 +197,31 @@
 	else
 		if(looking_for_personality)
 			dat += {"
-				<b><font size='3px'>pAI Request Module</font></b><br><br>
-				<p>Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>
-				Searching for personalities, please wait...<br><br>
+				<b><font size='3px'>Модуль запроса ПИИ</font></b><br><br>
+				<p>Запрос личностей ПИИ из центральной базы данных… Если личности не будут обнаружены, либо если не будет найдена подходящая личность, попробуйте выполнить повторный поиск позже, когда могут быть загружены новые личности ПИИ.</p>
+				Поиск личностей… Пожалуйста, ожидайте…<br><br>
 
 				<table>
 					<tr>
 						<td class="button">
-							<a href='byond://?src=[UID()];request=1' class="button">Refresh available personalities</a>
+							<a href='byond://?src=[UID()];request=1' class="button">Обновить список доступных личностей</a>
 						</td>
 					</tr>
 				</table><br>
 			"}
 		else
 			dat += {"
-				<b><font size='3px'>pAI Request Module</font></b><br><br>
-			    <p>No personality is installed.</p>
+				<b><font size='3px'>Модуль запроса ПИИ</font></b><br><br>
+			    <p>Личность не установлена.</p>
 				<table>
 					<tr>
-						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Request personality</a>
+						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Найти личность</a>
 						</td>
 					</tr>
 				</table>
 				<br>
-				<p>Each time this button is pressed, a request will be sent out to any available personalities. Check back often give plenty of time for personalities to respond. This process could take anywhere from 15 seconds to several minutes, depending on the available personalities' timeliness.</p>
+				<p>При каждом нажатии этой кнопки всем доступным личностям ПИИ будет послан запрос. Дайте личностям ПИИ время на подготовку и проверьте результаты ответа чуть позже.</p>
+                <p>Этот процесс может занять от 15 секунд до нескольких минут, в зависимости от своевременности загрузки доступных личностей.</p>
 			"}
 	user << browse(dat, "window=paicard")
 	onclose(user, "paicard")
@@ -244,29 +245,30 @@
 			return
 		var/mob/M = usr
 		if(!istype(M, /mob/living/carbon))
-			to_chat(usr, "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>")
+			to_chat(usr, "<font color=blue>У вас нет ДНК или ваше ДНК несовместимо с этим устройством.</font>")
 		else
 			var/datum/dna/dna = usr.dna
 			pai.master = M.real_name
 			pai.master_dna = dna.unique_enzymes
-			to_chat(pai, "<font color = red><h3>You have been bound to a new master.</h3></font>")
+			to_chat(pai, "<font color = red><h3>Вы были привязаны к новому хозяину.</h3></font>")
 	if(href_list["request"])
 		var/delta = (world.time / 10) - last_request
 		if(request_cooldown > delta)
 			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
-			to_chat(usr, "<span class='warning'>The request system is currently offline. Please wait another [cooldown_time] seconds.</span>")
+			var/seconds_text = declension_ru(cooldown_time,"секунду","секунды","секунд")
+			to_chat(usr, "<span class='warning'>Запрошенная система сейчас отключена. Пожалуйста, подождите ещё [cooldown_time] [seconds_text].</span>")
 			return
 		last_request = world.time / 10
 		looking_for_personality = 1
 		GLOB.paiController.findPAI(src, usr)
 	if(href_list["wipe"])
-		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
-		if(confirm == "Yes")
+		var/confirm = input("Вы УВЕРЕНЫ что хотите стереть текущую личность ПИИ? Это действие нельзя отменить.", "Стирание личности") in list("Да", "Нет")
+		if(confirm == "Да")
 			for(var/mob/M in src)
-				to_chat(M, "<font color = #ff0000><h2>You feel yourself slipping away from reality.</h2></font>")
-				to_chat(M, "<font color = #ff4d4d><h3>Byte by byte you lose your sense of self.</h3></font>")
-				to_chat(M, "<font color = #ff8787><h4>Your mental faculties leave you.</h4></font>")
-				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
+				to_chat(M, "<font color='#ff0000'><h2>Вы чувствуете как реальность начинает ускользать.</h2></font>")
+				to_chat(M, "<font color='#ff4d4d'><h3>Байт за байтом вы теряет ощущение себя.</h3></font>")
+				to_chat(M, "<font color='#ff8787'><h4>Ваши ментальные способности оставляют вас.</h4></font>")
+				to_chat(M, "<font color='#ffc4c4'><h5>забвение…</h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
 					if(P.resting || P.canmove)
@@ -281,12 +283,12 @@
 			if(2)
 				radio.ToggleReception()
 	if(href_list["setlaws"])
-		var/newlaws = sanitize(copytext_char(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
+		var/newlaws = sanitize(copytext_char(input("Введите любые дополнительные директивы.<br>Личность вашего ПИИ будет им следовать.<br>Учтите что эти директивы не могут отменить верность личности ПИИ её привязанному хозяину.<br>Конфликтующие директивы будут игнорироваться.", "Настройка директив ПИИ", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
 		if(newlaws)
 			pai.pai_laws = newlaws
-			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
-			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
-			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
+			to_chat(pai, "Ваши дополнительные директивы были обновлены. Ваши новые директивы:")
+			to_chat(pai, "Основная директива: <br>[pai.pai_law0]")
+			to_chat(pai, "Дополнительные директивы: <br>[pai.pai_laws]")
 	attack_self(usr)
 
 // 		WIRE_SIGNAL = 1
@@ -322,7 +324,7 @@
 /obj/item/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+		M.show_message("<span class='notice'>Во весь экран [src] вспыхивает надпись: <i>«Новые личности ПИИ доступны для скачивания»</i>.</span>", 3, "<span class='notice'>[src] электронно пикает.</span>", 2)
 
 /obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)

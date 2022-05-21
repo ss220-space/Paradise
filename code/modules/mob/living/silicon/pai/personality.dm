@@ -50,7 +50,7 @@
 	if(isnull(version) || version != 1)
 		fdel(path)
 		if(!silent)
-			alert(user, "Your savefile was incompatible with this version and was deleted.")
+			alert(user, "Ваш профиль ПИИ несовместим с этой версией и будет удалён.")
 		return 0
 
 	F["name"] >> src.name

@@ -1,6 +1,6 @@
 // Security Hud //
 /datum/pai_software/sec_hud
-	name = "Security HUD"
+	name = "Охранный ИЛС"
 	ram_cost = 20
 	id = "sec_hud"
 	ui_icon = "exclamation-triangle"
@@ -17,7 +17,7 @@
 
 // Medical Hud //
 /datum/pai_software/med_hud
-	name = "Medical HUD"
+	name = "Медицинский ИЛС"
 	ram_cost = 20
 	id = "med_hud"
 	ui_icon = "first-aid"
@@ -34,7 +34,7 @@
 
 // Universal Translator //
 /datum/pai_software/translator
-	name = "Universal Translator"
+	name = "Универсальный переводчик"
 	ram_cost = 35
 	id = "translator"
 	ui_icon = "language"
@@ -73,7 +73,7 @@
 
 // FLashlight //
 /datum/pai_software/flashlight
-	name = "Flashlight"
+	name = "Фонарик"
 	ram_cost = 5
 	id = "flashlight"
 	ui_icon = "lightbulb"

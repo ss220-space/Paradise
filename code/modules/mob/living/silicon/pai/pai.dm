@@ -1,5 +1,5 @@
 /mob/living/silicon/pai
-	name = "pAI"
+	name = "ПИИ"
 	icon = 'icons/mob/pai.dmi'//
 	icon_state = "repairbot"
 
@@ -17,32 +17,32 @@
 
 	var/chassis = "repairbot"   // A record of your chosen chassis.
 	var/global/list/possible_chassis = list(
-		"Drone" = "repairbot",
-		"Cat" = "cat",
-		"Mouse" = "mouse",
-		"Monkey" = "monkey",
-		"Corgi" = "borgi",
-		"Fox" = "fox",
-		"Parrot" = "parrot",
-		"Box Bot" = "boxbot",
-		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Дрон" = "repairbot",
+		"Кот" = "cat",
+		"Мышь" = "mouse",
+		"Макака" = "monkey",
+		"Корги" = "borgi",
+		"Лиса" = "fox",
+		"Попугая" = "parrot",
+		"Коробкобот" = "boxbot",
+		"Спайдербот" = "spiderbot",
+		"Фея" = "fairy"
 		)
 
 	var/global/list/possible_say_verbs = list(
-		"Robotic" = list("states","declares","queries"),
-		"Natural" = list("says","yells","asks"),
-		"Beep" = list("beeps","beeps loudly","boops"),
-		"Chirp" = list("chirps","chirrups","cheeps"),
-		"Feline" = list("purrs","yowls","meows"),
-		"Canine" = list("yaps","barks","growls")
+		"Робот" = list("утверждает","объявляет","запрашивает"),
+		"Нормальный" = list("говорит","кричит","спрашивает"),
+		"Бипбуп" = list("бипает","громко бипает","бупает"),
+		"Чирики" = list("чирикает","щебечет","пищит"),
+		"Кошачий" = list("мурлычет","вопит","мяучит"),
+		"Собачий" = list("тявкает","лает","рычит")
 		)
 
 
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
 							// Keeping this separate from the laws var, it should be much more difficult to modify
-	var/pai_law0 = "Serve your master."
+	var/pai_law0 = "Служите своему хозяину."
 	var/pai_laws				// String for additional operating instructions our master might give us
 
 	var/silence_time			// Timestamp when we were silenced (normally via EMP burst), set to null after silence has faded
@@ -97,7 +97,7 @@
 
 	//PDA
 	pda = new(src)
-	pda.ownjob = "Personal Assistant"
+	pda.ownjob = "Личный помощник"
 	pda.owner = "[src]"
 	pda.name = "[pda.owner] ([pda.ownjob])"
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
@@ -225,7 +225,7 @@
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
 /mob/living/silicon/pai/verb/fold_out()
-	set category = "pAI Commands"
+	set category = "Команды ПИИ"
 	set name = "Unfold Chassis"
 
 	if(stat || sleeping || paralysis || IsWeakened())
@@ -260,7 +260,7 @@
 	card.screen_loc = null
 
 /mob/living/silicon/pai/verb/fold_up()
-	set category = "pAI Commands"
+	set category = "Команды ПИИ"
 	set name = "Collapse Chassis"
 
 	if(stat || sleeping || paralysis || IsWeakened())
@@ -277,12 +277,12 @@
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
-	set category = "pAI Commands"
-	set name = "Choose Chassis"
+	set category = "Команды ПИИ"
+	set name = "Выбрать шасси"
 
 	var/list/my_choices = list()
 	var/choice
-	var/finalized = "No"
+	var/finalized = "Нет"
 
 	//check for custom_sprite
 	if(!custom_sprite)
@@ -307,27 +307,27 @@
 		my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
+		to_chat(src, "<span class='warning'>Для переконфигурации шасси вы должны быть в мобильной форме.</span>")
 		return
 
-	while(finalized == "No" && client)
-		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in my_choices
+	while(finalized == "Нет" && client)
+		choice = input(usr,"Какой вы хотите выбрать образ в мобильной форме? Выбор может быть сделан только один раз.") as null|anything in my_choices
 		if(!choice) return
 		if(choice == "Custom")
 			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		else
 			icon = 'icons/mob/pai.dmi'
 		icon_state = my_choices[choice]
-		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
+		finalized = alert("Взгляните на свой спрайт. Вы именно такой хотели выбрать?",,"Нет","Да")
 
 	chassis = my_choices[choice]
 	verbs -= /mob/living/silicon/pai/proc/choose_chassis
 
 /mob/living/silicon/pai/proc/choose_verbs()
-	set category = "pAI Commands"
-	set name = "Choose Speech Verbs"
+	set category = "Команды ПИИ"
+	set name = "Выбор голосовых глаголов"
 
-	var/choice = input(usr,"What theme would you like to use for your speech verbs? This decision can only be made once.") as null|anything in possible_say_verbs
+	var/choice = input(usr,"Какое вы хотите выбрать звучание голосовых глаголов? Выбор может быть сделан только один раз.") as null|anything in possible_say_verbs
 	if(!choice) return
 
 	var/list/sayverbs = possible_say_verbs[choice]
@@ -347,7 +347,7 @@
 		resting = 0
 	else
 		resting = !resting
-		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+		to_chat(src, "<span class='notice'>Теперь вы [resting ? "отдыхаете" : "встали"].</span>")
 
 	update_icons()
 	update_canmove()
@@ -357,21 +357,21 @@
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
-			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
+			to_chat(user, "<span class='danger'>Сейчас [src] уже не помочь.</span>")
 		else if(getBruteLoss() || getFireLoss())
 			heal_overall_damage(15, 15)
 			N.use(1)
-			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
+			user.visible_message("<span class='notice'>[user.name] применя[pluralize_ru(user.gender,"ет","ют")] немного [W] на повреждённые области [src].</span>",\
+				"<span class='notice'>Вы применяете немного [W] на повреждённые области [name].</span>")
 		else
-			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
+			to_chat(user, "<span class='notice'>Все системы [name] в порядке.</span>")
 
 		return
 	else if(W.force)
-		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
+		visible_message("<span class='danger'>[user.name] атаку[pluralize_ru(user.gender,"ет","ют")] [src] с помощью [W]!</span>")
 		adjustBruteLoss(W.force)
 	else
-		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
+		visible_message("<span class='warning'>[user.name] безвредно бонка[pluralize_ru(user.gender,"ет","ют")] [src] с помощью [W].</span>")
 	spawn(1)
 		if(stat != 2)
 			close_up()
@@ -384,10 +384,10 @@
 	if(stat == DEAD)
 		return
 	if(user.a_intent == INTENT_HELP)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>")
+		user.visible_message("<span class='notice'>[user] глад[pluralize_ru(user.gender,"ит","ят")] [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
-		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		visible_message("<span class='danger'>[user.name] бупа[pluralize_ru(user.gender,"ет","ют")] [src] в голову.</span>")
 		spawn(1)
 			close_up()
 
@@ -399,7 +399,7 @@
 	if(loc == card)
 		return
 
-	visible_message("<span class='notice'>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class='notice'>You neatly fold inwards, compacting down to a rectangular card.</span>")
+	visible_message("<span class='notice'>[src] аккуратно складывается в себя, ужимаясь в прямоугольник.</span>", "<span class='notice'>Вы аккуратно складываетесь в себя, ужимаясь в прямоугольник.</span>")
 
 	stop_pulling()
 	reset_perspective(card)
@@ -442,11 +442,11 @@
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
-				msg += "\nIt appears to be in stand-by mode." //afk
+				msg += "Кажется, этот ПИИ сейчас в режиме ожидания." //afk
 		if(UNCONSCIOUS)
-			msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+			msg += "\n<span class='warning'>Кажется, этот ПИИ не отвечает.</span>"
 		if(DEAD)
-			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
+			msg += "\n<span class='deadsay'>Этот ПИИ выглядит полностью неисправным.</span>"
 
 	if(print_flavor_text())
 		msg += "\n[print_flavor_text()]"
@@ -454,7 +454,7 @@
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\nIt is [pose]"
+		msg += "Он[genderize_ru(src.gender,"","а","о","и")] [pose]"
 	msg += "\n*---------*</span>"
 
 	. += msg
@@ -504,14 +504,14 @@
 	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
 	if(!istype(H) || !Adjacent(H))  return ..()
 	if(usr == src)
-		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
-			if("Yes")
+		switch(alert(H, "[src] хочет чтобы вы [genderize_ru(src.gender,"его","её","его","их")] подняли. Поднять?",,"Да","Нет"))
+			if("Да")
 				if(Adjacent(H))
 					get_scooped(H)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
-			if("No")
-				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+					to_chat(src, "<span class='warning'>Вам нужно оставаться рядом, чтобы вас подняли.</span>")
+			if("Нет")
+				to_chat(src, "<span class='warning'>[H] реша[pluralize_ru(H.gender,"ет","ют")] не поднимать вас.</span>")
 	else
 		if(Adjacent(H))
 			get_scooped(H)

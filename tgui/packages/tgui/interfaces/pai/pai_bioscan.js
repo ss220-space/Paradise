@@ -17,7 +17,7 @@ export const pai_bioscan = (props, context) => {
   if (!holder) {
     return (
       <Box color="red">
-        Error: No biological host found.
+        Ошибка: Не обнаружен биологический носитель.
       </Box>
     );
   }
@@ -26,15 +26,15 @@ export const pai_bioscan = (props, context) => {
       <LabeledList.Item label="Status">
         {dead ? (
           <Box bold color="red">
-            Dead
+            Мёртв
           </Box>
         ) : (
           <Box bold color="green">
-            Alive
+            Жив
           </Box>
         )}
       </LabeledList.Item>
-      <LabeledList.Item label="Health">
+      <LabeledList.Item label="Здоровье">
         <ProgressBar
           min={0}
           max={1}
@@ -46,22 +46,22 @@ export const pai_bioscan = (props, context) => {
           }}
         />
       </LabeledList.Item>
-      <LabeledList.Item label="Oxygen Damage">
+      <LabeledList.Item label="Асфиксия">
         <Box color="blue">
           {oxy}
         </Box>
       </LabeledList.Item>
-      <LabeledList.Item label="Toxin Damage">
+      <LabeledList.Item label="Интоксикация">
         <Box color="green">
           {tox}
         </Box>
       </LabeledList.Item>
-      <LabeledList.Item label="Burn Damage">
+      <LabeledList.Item label="Ожоги">
         <Box color="orange">
           {burn}
         </Box>
       </LabeledList.Item>
-      <LabeledList.Item label="Brute Damage">
+      <LabeledList.Item label="Раны">
         <Box color="red">
           {brute}
         </Box>
