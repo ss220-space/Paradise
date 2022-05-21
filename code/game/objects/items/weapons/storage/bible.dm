@@ -115,11 +115,11 @@
 			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			chaplain.adjustFireLoss(65)
 			chaplain.Weaken(5)
-			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей своего бога и за что были наказаны!</span>")
+			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
 		if(H == chaplain)
 			god_punishment++
 			if(god_punishment == 5)
-				to_chat(chaplain, "<span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span>")
+				to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
 
 	else
 		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
