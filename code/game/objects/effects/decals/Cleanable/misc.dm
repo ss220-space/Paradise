@@ -35,6 +35,17 @@
 	. = ..()
 	icon_state = ""
 
+/obj/effect/decal/cleanable/dust
+	name = "dust"
+	desc = "It's a little dusty. Someone should clean that up."
+	gender = PLURAL
+	density = FALSE
+	anchored = TRUE
+	layer = TURF_LAYER
+	icon = 'icons/effects/dirt.dmi'
+	icon_state = "dust"
+	mouse_opacity = FALSE
+
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
 	mouse_opacity = TRUE
