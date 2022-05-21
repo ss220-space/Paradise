@@ -3,15 +3,16 @@
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
 	real_name = "morph"
-	desc = "A revolting, pulsating pile of flesh."
-	speak_emote = list("gurgles")
-	emote_hear = list("gurgles")
+	desc = "Отвратительная, пульсирующая масса плоти."
+	speak_emote = list("булькает")
+	emote_hear = list("булькает")
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 2
 	a_intent = INTENT_HARM
+	gender = MALE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
@@ -30,7 +31,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = 0
-	attacktext = "glomps"
+	attacktext = "обгладывает"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
@@ -40,17 +41,12 @@
 
 	var/list/examine_text_list
 
-	var/playstyle_string = "<b><font size=3 color='red'>You are a morph.</font><br> As an abomination created primarily with changeling cells, \
-							you may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
-							observers, and can only be performed once every five seconds.<br> While morphed, you move faster, but do \
-							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
-							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
-							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
+	var/playstyle_string = {"<b><font size=3 color='red'>Вы — морф.</font><br>Вы — мерзость, созданная в основном из генокрадских клеток. Вы можете принять форму чего угодно поблизости, кликнув по нему <kbd>Shift</kbd> + <kbd>ЛКМ</kbd>. Это можно делать не чаще одного раза в 5 секунд. При этом те, кто вас видит, заметят этот процесс.<br>Будучи превращённым, вы двигаетесь быстрее, но наносите меньше урона. Кроме того, любой в пределах трёх плиток от вас заметит странную неправильность, если осмотрит вас. Вы можете восстановить свою первоначальную форму во время трансформирования, кликнув по себе <kbd>Shift</kbd> + <kbd>ЛКМ</kbd>.<br>Кроме этого, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его. Поглощённое существо восстановят ⅓ вашего максимального здоровья.</b>"}
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
 	real_name = "magical morph"
-	desc = "A revolting, pulsating pile of flesh. This one looks somewhat.. magical."
+	desc = "Отвратительная, пульсирующая масса плоти. Выглядит как-то очень… по-магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
@@ -61,7 +57,7 @@
 	if(morphed)
 		. = examine_text_list.Copy()
 		if(get_dist(user, src) <= 3)
-			. += "<span class='warning'>It doesn't look quite right...</span>"
+			. += "<span class='warning'>Во внешнем виде вы замечаете что-то очень неправильное…</span>"
 	else
 		. = ..()
 
@@ -76,7 +72,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(A && A.loc != src)
-		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
+		visible_message("<span class='warning'>[src] поглощает [A] целиком!</span>")
 		A.forceMove(src)
 		return 1
 	return 0
@@ -89,14 +85,14 @@
 		if(istype(A) && allowed(A))
 			assume(A)
 	else
-		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
+		to_chat(src, "<span class='warning'>Ваша маскировочная кожа всё ещё восстанавливается!</span>")
 		..()
 
 /mob/living/simple_animal/hostile/morph/proc/assume(atom/movable/target)
 	morphed = 1
 	form = target
-	visible_message("<span class='warning'>[src] suddenly twists and changes shape, becoming a copy of [target]!</span>", \
-					"<span class='notice'>You twist your body and assume the form of [target].</span>")
+	visible_message("<span class='warning'>[src] резко начинает искривляться и менять форму, становясь копией [target]!</span>", \
+					"<span class='notice'>Вы перекручиваете своё тело и принимаете форму [target].</span>")
 
 	appearance = target.appearance
 	transform = initial(transform)
@@ -116,8 +112,8 @@
 	morphed = 0
 	form = null
 	examine_text_list = null // Free that memory
-	visible_message("<span class='warning'>[src] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>", \
-					"<span class='notice'>You reform to your normal body.</span>")
+	visible_message("<span class='warning'>[src] резко проваливается сам в себя, расползаясь массой зелёной плоти!</span>", \
+					"<span class='notice'>Вы возвращаетесь в своё нормальное тело.</span>")
 	name = initial(name)
 	icon = initial(icon)
 	icon_state = initial(icon_state)
@@ -141,8 +137,8 @@
 	if(!.)
 		return FALSE
 	if(morphed)
-		visible_message("<span class='warning'>[src] twists and dissolves into a pile of green flesh!</span>", \
-						"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>")
+		visible_message("<span class='warning'>[src] искривляется и расползается массой зелёной плоти!</span>", \
+						"<span class='userdanger'>Ваша кожа рвётся! Ваша плоть распадается! Никакая маскировка не сможет защитить ва…</span>")
 		restore()
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only
