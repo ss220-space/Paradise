@@ -692,8 +692,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dust,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "acX" = (
@@ -997,8 +997,8 @@
 	},
 /area/security/securearmoury)
 "adu" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "adv" = (
@@ -2010,7 +2010,7 @@
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "aeZ" = (
-/obj/structure/closet/emcloset,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "afa" = (
@@ -90347,7 +90347,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating/airless,
 /area/security/prisonershuttle)
 "hZf" = (
@@ -137813,7 +137813,7 @@ aRD
 aMz
 aGX
 hQC
-aGY
+aGX
 aMz
 aGX
 aGX
