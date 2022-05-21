@@ -70,9 +70,8 @@
 	return
 
 /obj/item/storage/bible/proc/god_forgive()
-	god_punishment -= round((world.time - last_used) / 300) //forgive 1 sin every 30 seconds
+	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
 	last_used = world.time
-	god_punishment = max(0, god_punishment)
 
 /obj/item/storage/bible/attack(mob/living/M, mob/living/user)
 	add_attack_logs(user, M, "Hit with [src]")
@@ -110,16 +109,17 @@
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
-		if(god_punishment > 5) //lets apply punishment AFTER heal
+		if(H == chaplain)
+			god_punishment++
+
+		if(god_punishment == 5)
+			to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
+		else if(god_punishment > 5) //lets apply punishment AFTER heal
 			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			chaplain.adjustFireLoss(65)
 			chaplain.Weaken(5)
 			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
-		if(H == chaplain)
-			god_punishment++
-			if(god_punishment == 5)
-				to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
 
 	else
 		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
