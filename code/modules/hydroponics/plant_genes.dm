@@ -1,5 +1,6 @@
 /datum/plant_gene
 	var/name
+	var/price // "Цена" трейта, для определения выдаваемой за него награды в кредитах
 	/// Used to determine if the trait should be logged when the holder is used
 	var/dangerous = FALSE
 

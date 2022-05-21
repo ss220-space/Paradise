@@ -5,6 +5,7 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 /datum/symptom
 	// Buffs/Debuffs the symptom has to the overall engineered disease.
 	var/name = ""
+	var/price = null // "Цена" симптома, для определения выдаваемой за него награды в кредитах
 	var/stealth = 0
 	var/resistance = 0
 	var/stage_speed = 0

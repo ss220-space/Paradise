@@ -1,18 +1,45 @@
+/*
+Система квестов или "Контрактов" для карго на тайпане.
+Работает следующим образом. У карго есть хранилище квестов,
+в нём есть три слота под квесты. Квесты могут быть:
+	* ограничены временем
+	* скрыты пока ты не выберешь сам квест(За выбор скрытого квеста идёт доп награда при выполнении)
+	* уникальны (Пресеты заданые в коде)
+В начале производится генерация квестов с выбором рандомного типа квеста для каждого из слотов.
+Потом на основе выбранного типа, создаётся сам квест. После этого игроки должны выбрать активный квест.
+Пока есть активный квест, другие квесты недоступны. Невыполнение квеста вовремя или отказ от квеста
+приведёт к пенальти (снятие денег) зависящего от сложности квеста и замене активного квеста.
+За выполнение квеста в награду даются кредиты и возможно другие безделушки.
+*/
+
+//GLOBAL_LIST_INIT(all_syndie_quest_presets, list(/datum/cargo_quest/grenade/death_kiss,,,,,,,,,))
+
+//У сложностей такие значения потому, что она будет учитываться при подсчёте награды за квест
+#define QUEST_DIFFICULTY_EASY 	5000
+#define QUEST_DIFFICULTY_NORMAL 15000
+#define QUEST_DIFFICULTY_HARD 	30000
+
 /datum/cargo_quests_storage
 	//Активный квест выбранный в консоли
 	var/datum/cargo_quest/current_quest
+	//Сгенерированные квесты. Одновременно может существовать только 3 Квеста
+	var/datum/cargo_quest/quest_one
+	var/datum/cargo_quest/quest_two
+	var/datum/cargo_quest/quest_three
 	//Возможные виды квестов для генерации
-	var/list/quest_types = list(
+	var/list/possible_quest_types = list(
 		"virus",
 		"mecha",
 		"grenade",
 		"plants",
+/*
 		"weapons_and_implants",
 		"genes",
 		"bots",
 		"minerals",
 		"tech",
 		"organs_and_bodyparts",
+*/
 	)
 	//Список используемых в генерации симптомов для вирусов
 	//Цифры для "Веса" симптомов, определялись по их level-у, но инвертировано. Ака 6 = 1, 5 = 2 и т.д.
@@ -53,250 +80,473 @@
 	/datum/symptom/oxygen = 1,
 	/datum/symptom/voice_change = 1,
 	)
-	/*
-	var/list/clear_chems = list(
-	/datum/reagent/nitrogen = 10,
-	/datum/reagent/water = 10,
-	/datum/reagent/aluminum = 10,
-	/datum/reagent/bromine = 10,
-	/datum/reagent/iron = 10,
-	/datum/reagent/hydrogen = 10,
-	/datum/reagent/iodine = 10,
-	/datum/reagent/potassium = 10,
-	/datum/reagent/oxygen = 10,
-	/datum/reagent/silicon = 10,
-	/datum/reagent/lithium = 10,
-	/datum/reagent/copper = 10,
-	/datum/reagent/sodium = 10,
-	/datum/reagent/plasma = 10,
-	/datum/reagent/radium = 10,
-	/datum/reagent/mercury = 10,
-	/datum/reagent/consumable/sugar = 10,
-	/datum/reagent/sulfur = 10,
-	/datum/reagent/silver = 10,
-	/datum/reagent/toxin = 10,
-	/datum/reagent/carbon = 10,
-	/datum/reagent/uranium = 10,
-	/datum/reagent/phosphorus = 10,
-	/datum/reagent/fluorine = 10,
-	/datum/reagent/chlorine = 10,
-	/datum/reagent/ethanol = 10,
-	)
-	*/
-	/*
-	var/list/simple_chems = list(
-	/datum/reagent/acetone = 10,
-	/datum/reagent/ammonia = 10,
-	/datum/reagent/ash = 10,
-	/datum/reagent/carpet = 10,
-	/datum/reagent/diethylamine = 10,
-	/datum/reagent/oil = 10,
-	/datum/reagent/phenol = 10,
-	/datum/reagent/saltpetre = 10,
-	/datum/reagent/acid = 10,				//Sulphuric acid
-	/datum/reagent/fuel = 10,				//Welding fuel
-	)
-	*/
 	//Химикаты - Медицинские
 	var/list/medical_chems = list(
 	//Простые
-	/datum/reagent/medicine/charcoal = 10,
-	/datum/reagent/medicine/cryoxadone = 10,
-	/datum/reagent/medicine/mannitol = 10,
-	/datum/reagent/medicine/salbutamol = 10,
-	/datum/reagent/medicine/salglu_solution = 10,
-	/datum/reagent/medicine/silver_sulfadiazine = 10,
-	/datum/reagent/medicine/styptic_powder = 10,
-	/datum/reagent/medicine/synthflesh = 10,
+	"charcoal" = 95,
+	"cryoxadone" = 80,
+	"mannitol" = 90,
+	"salbutamol" = 95,
+	"salglu_solution" = 95,
+	"silver_sulfadiazine" = 90,
+	"styptic_powder" = 90,
+	"synthflesh" = 80,
 	//Продвинутые
-	/datum/reagent/medicine/atropine = 10,
-	/datum/reagent/medicine/calomel = 10,
-	/datum/reagent/medicine/mutadone = 10,
-	/datum/reagent/medicine/omnizine = 10,
-	/datum/reagent/medicine/pen_acid = 10,
-	/datum/reagent/medicine/perfluorodecalin = 10,
-	/datum/reagent/medicine/sal_acid = 10,
+	"atropine" = 75,
+	"calomel" = 75,
+	"mutadone" = 75,
+	"omnizine" = 60,
+	"pen_acid" = 70,
+	"perfluorodecalin" = 85,
+	"sal_acid" = 80,
 	//Уникальные
-	/datum/reagent/medicine/sterilizine = 10,
-	/datum/reagent/medicine/antihol = 10,
-	/datum/reagent/medicine/degreaser = 10,
-	/datum/reagent/medicine/diphenhydramine = 10,
-	/datum/reagent/medicine/ephedrine = 10,
-	/datum/reagent/medicine/epinephrine = 10,
-	/datum/reagent/medicine/ether = 10,
-	/datum/reagent/medicine/haloperidol = 10,
-	/datum/reagent/medicine/hydrocodone = 10,
-	/datum/reagent/medicine/insulin = 10,
-	/datum/reagent/medicine/liquid_solder = 10,
-	/datum/reagent/medicine/mitocholide = 10,
-	/datum/reagent/medicine/morphine = 10,
-	/datum/reagent/medicine/earthsblood = 10,
-	/datum/reagent/medicine/nanocalcium = 10,
-	/datum/reagent/medicine/oculine = 10,
-	/datum/reagent/medicine/potass_iodide = 10,
-	/datum/reagent/medicine/rezadone = 10,
-	/datum/reagent/medicine/spaceacillin = 10,
-	/datum/reagent/medicine/stimulants = 10,
-	/datum/reagent/medicine/strange_reagent = 10,
-	/datum/reagent/medicine/teporone = 10,
-	/datum/reagent/medicine/lavaland_extract = 10,
+	"sterilizine" = 80,
+	"antihol" = 75,
+	"degreaser" = 60,
+	"diphenhydramine" = 60,
+	"ephedrine" = 70,
+	"epinephrine" = 80,
+	"ether" = 80,
+	"haloperidol" = 70,
+	"hydrocodone" = 70,
+	"insulin" = 50,
+	"liquid_solder" = 85,
+	"mitocholide" = 60,
+	"morphine" = 60,
+	"earthsblood" = 60,
+	"nanocalcium" = 40,
+	"oculine" = 70,
+	"potass_iodide" = 90,
+	"rezadone" = 60,
+	"spaceacillin" = 85,
+	"stimulants" = 50,
+	"strange_reagent" = 40,
+	"teporone" = 70,
+	"lavaland_extract" = 40,
 	)
 	//Химикаты - Наркотики
 	var/list/drug_chems = list(
-	/datum/reagent/aranesp = 10,
-	/datum/reagent/bath_salts = 10,
-	/datum/reagent/crank = 10,
-	/datum/reagent/jenkem = 10,
-	/datum/reagent/krokodil = 10,
-	/datum/reagent/lsd = 10,
-	/datum/reagent/methamphetamine = 10,
-	/datum/reagent/nicotine = 10,
-	/datum/reagent/space_drugs = 10,
-	/datum/reagent/surge = 10,
-	/datum/reagent/thc = 10,				//Tetrahydrocannabinol
-	/datum/reagent/lube/ultra = 10,
+	"aranesp" = 80,
+	"bath_salts" = 60,
+	"crank" = 60,
+	"jenkem" = 90,
+	"krokodil" = 50,
+	"lsd" = 70,
+	"methamphetamine" = 80,
+	"nicotine" = 70,
+	"space_drugs" = 90,
+	"surge" = 90,
+	"thc" = 50,							//Tetrahydrocannabinol
+	"ultralube" = 70,
 	)
 	//Химикаты - Пиротехнические
 	var/list/pyrotech_chems = list(
-	/datum/reagent/blackpowder = 10,
-	/datum/reagent/clf3 = 10,				//Chlorine Trifluoride
-	/datum/reagent/cryostylane = 10,
-	/datum/reagent/firefighting_foam = 10,
-	/datum/reagent/flash_powder = 10,
-	/datum/reagent/liquid_dark_matter = 10,
-	/datum/reagent/napalm = 10,
-	/datum/reagent/phlogiston = 10,
-	/datum/reagent/pyrosium = 10,
-	/datum/reagent/sonic_powder = 10,
-	/datum/reagent/sorium = 10,
-	/datum/reagent/stabilizing_agent = 10,
-	/datum/reagent/teslium = 10,
+	"blackpowder" = 50,
+	"clf3" = 70,						//Chlorine Trifluoride
+	"cryostylane" = 90,
+	"firefighting_foam" = 90,
+	"flash_powder" = 90,
+	"liquid_dark_matter" = 90,
+	"napalm" = 80,
+	"phlogiston" = 70,
+	"pyrosium" = 90,
+	"sonic_powder" = 90,
+	"sorium" = 90,
+//	"stabilizing_agent" = 90,
+	"teslium" = 50,
 	)
 	//Химикаты - Яды/Токсины
 	var/list/toxin_chems = list(
-	/datum/reagent/questionmark = 10,
-	/datum/reagent/amanitin = 10,
-	/datum/reagent/glyphosate/atrazine = 10,
-	/datum/reagent/capulettium = 10,
-	/datum/reagent/capulettium_plus = 10,
-	/datum/reagent/carpotoxin = 10,
-	/datum/reagent/jestosterone = 10,
-	/datum/reagent/coniine = 10,
-//	/datum/reagent/curare = 10,						//Не достать без аплинка...
-	/datum/reagent/cyanide = 10,
-	/datum/reagent/formaldehyde = 10,
-	/datum/reagent/glyphosate = 10,
-	/datum/reagent/heparin = 10,
-	/datum/reagent/histamine = 10,
-	/datum/reagent/initropidril = 10,
-	/datum/reagent/itching_powder = 10,
-	/datum/reagent/ketamine = 10,
-	/datum/reagent/lipolicide = 10,
-	/datum/reagent/consumable/ethanol/neurotoxin = 10,
-	/datum/reagent/pancuronium = 10,
-	/datum/reagent/pestkiller = 10,
-//	/datum/reagent/polonium = 10,					//Не достать без аплинка...
-	/datum/reagent/rotatium = 10,
-	/datum/reagent/sarin = 10,
-//	/datum/reagent/sodium_thiopental = 10,			//Не достать без аплинка...
-	/datum/reagent/sulfonal = 10,
-//	/datum/reagent/venom = 10,						//Не достать без аплинка...
+	"????" = 90,
+	"amanitin" = 70,
+	"atrazine" = 90,
+	"capulettium" = 80,
+	"capulettium_plus" = 60,
+	"carpotoxin" = 60,
+	"jestosterone" = 50,
+	"coniine" = 50,
+//	"curare" = 90,						//Не достать без аплинка...
+	"cyanide" = 70,
+	"formaldehyde" = 90,
+	"glyphosate" = 70,
+	"heparin" = 50,
+	"histamine" = 40,
+	"initropidril" = 1,
+	"itching_powder" = 70,
+	"ketamine" = 60,
+	"lipolicide" = 50,
+	"neurotoxin" = 80,
+	"pancuronium" = 80,
+	"pestkiller" = 90,
+//	"polonium" = 90,					//Не достать без аплинка...
+	"rotatium" = 10,
+	"sarin" = 60,
+//	"sodium_thiopental" = 90,			//Не достать без аплинка...
+	"sulfonal" = 70,
+//	"venom" = 90,						//Не достать без аплинка...
 	)
 	//Химикаты - Разные
 	var/list/misc_chems = list(
-	/datum/reagent/colorful_reagent = 10,
-	/datum/reagent/drying_agent = 10,				//Chlorine Trifluoride
-	/datum/reagent/fliptonium = 10,
-	/datum/reagent/acid/facid = 10,						//FluoroSulfuric Acid
-	/datum/reagent/hairgrownium = 10,
-	/datum/reagent/holywater = 10,
-	/datum/reagent/jestosterone = 10,
-	/datum/reagent/lye = 10,
-	/datum/reagent/hair_dye = 10,
-	/datum/reagent/consumable/sodiumchloride = 10,
-	/datum/reagent/space_cleaner = 10,
-	/datum/reagent/lube = 10,
-	/datum/reagent/super_hairgrownium = 10,
-	/datum/reagent/consumable/ethanol/synthanol = 10,
-	/datum/reagent/thermite = 10,
-	/datum/reagent/mutagen = 10,					//Unstable mutagen
-	/datum/reagent/stable_mutagen = 10,
+	"colorful_reagent" = 70,
+	"drying_agent" = 90,				//Chlorine Trifluoride
+	"fliptonium" = 40,
+	"facid" = 70,						//FluoroSulfuric Acid
+	"hairgrownium" = 60,
+	"holywater" = 80,
+	"jestosterone" = 60,
+	"lye" = 90,
+	"hair_dye" = 30,
+	"sodiumchloride" = 80,
+	"cleaner" = 80,
+	"lube" = 90,
+	"super_hairgrownium" = 40,
+	"synthanol" = 80,
+	"thermite" = 70,
+	"mutagen" = 90,						//Unstable mutagen
+	"stable_mutagen" = 70,
 	)
 
-	var/list/plants_chems = list(
-	/obj/item/bodybag = 10,
+	var/list/plants = list(
+	/obj/item/reagent_containers/food/snacks/grown/shell/eggy = 90,
+	/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/ambrosia = 100,
+	/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris = 100,
+	/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus = 60,
+	/obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia = 70,
+//	/obj/item/reagent_containers/food/snacks/grown/ambrosia/cruciatus = 100, 	//Есть только в аплинке
+	/obj/item/reagent_containers/food/snacks/grown/apple = 100,
+	/obj/item/reagent_containers/food/snacks/grown/apple/poisoned = 1,
+	/obj/item/reagent_containers/food/snacks/grown/apple/gold = 60,
+	/obj/item/reagent_containers/food/snacks/grown/banana = 100,
+	/obj/item/reagent_containers/food/snacks/grown/banana/mime = 85,
+	/obj/item/reagent_containers/food/snacks/grown/banana/bluespace = 70,
+	/obj/item/reagent_containers/food/snacks/grown/soybeans = 100,
+	/obj/item/reagent_containers/food/snacks/grown/koibeans = 80,
+	/obj/item/reagent_containers/food/snacks/grown/berries = 100,
+	/obj/item/reagent_containers/food/snacks/grown/berries/poison = 90,
+	/obj/item/reagent_containers/food/snacks/grown/berries/death = 70,
+	/obj/item/reagent_containers/food/snacks/grown/berries/glow = 80,
+	/obj/item/reagent_containers/food/snacks/grown/cherries = 100,
+	/obj/item/reagent_containers/food/snacks/grown/bluecherries = 90,
+	/obj/item/reagent_containers/food/snacks/grown/grapes = 100,
+	/obj/item/reagent_containers/food/snacks/grown/grapes/green = 100,
+	/obj/item/reagent_containers/food/snacks/grown/cannabis = 100,
+	/obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow = 60,
+	/obj/item/reagent_containers/food/snacks/grown/cannabis/death = 60,
+	/obj/item/reagent_containers/food/snacks/grown/cannabis/white = 60,
+	/obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate = 31,
+	/obj/item/reagent_containers/food/snacks/grown/wheat = 100,
+	/obj/item/reagent_containers/food/snacks/grown/oat = 100,
+	/obj/item/reagent_containers/food/snacks/grown/rice = 100,
+	/obj/item/reagent_containers/food/snacks/grown/meatwheat = 90,
+	/obj/item/reagent_containers/food/snacks/grown/chili = 100,
+	/obj/item/reagent_containers/food/snacks/grown/icepepper = 80,
+	/obj/item/reagent_containers/food/snacks/grown/ghost_chili = 80,
+//	/obj/item/reagent_containers/food/snacks/grown/citrus = 100,
+	/obj/item/reagent_containers/food/snacks/grown/citrus/lime = 100,
+	/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 100,
+	/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = 100,
+	/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d = 90,
+	/obj/item/reagent_containers/food/snacks/grown/firelemon = 90,
+	/obj/item/reagent_containers/food/snacks/grown/cocoapod = 100,
+	/obj/item/reagent_containers/food/snacks/grown/vanillapod = 90,
+	/obj/item/reagent_containers/food/snacks/grown/bungofruit = 85,
+	/obj/item/reagent_containers/food/snacks/grown/bungopit = 85,
+	/obj/item/reagent_containers/food/snacks/grown/corn = 100,
+	/obj/item/reagent_containers/food/snacks/grown/eggplant = 100,
+	/obj/item/reagent_containers/food/snacks/grown/poppy = 100,
+	/obj/item/reagent_containers/food/snacks/grown/poppy/lily = 100,
+	/obj/item/reagent_containers/food/snacks/grown/poppy/geranium = 100,
+	/obj/item/reagent_containers/food/snacks/grown/harebell = 100,
+	/obj/item/reagent_containers/food/snacks/grown/moonflower = 85,
+	/obj/item/reagent_containers/food/snacks/grown/garlic = 100,
+	/obj/item/reagent_containers/food/snacks/grown/grass = 100,
+//	/obj/item/reagent_containers/food/snacks/grown/grass/carpet = 1,
+	/obj/item/reagent_containers/food/snacks/grown/comfrey = 100,
+	/obj/item/reagent_containers/food/snacks/grown/aloe = 100,
+	/obj/item/reagent_containers/food/snacks/grown/kudzupod = 70,
+	/obj/item/reagent_containers/food/snacks/grown/watermelon = 100,
+	/obj/item/reagent_containers/food/snacks/grown/holymelon = 80,
+	/obj/item/reagent_containers/food/snacks/grown/cabbage = 100,
+	/obj/item/reagent_containers/food/snacks/grown/sugarcane = 100,
+	/obj/item/reagent_containers/food/snacks/grown/cherry_bomb = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/mushroom = 100,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi = 100,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita = 100,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/angel = 70,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap = 100,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet = 100,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom = 70,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle = 100,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom = 80,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap = 70,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom = 70,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/fungus = 100,
+	/obj/item/reagent_containers/food/snacks/grown/nymph_pod = 100,
+	/obj/item/reagent_containers/food/snacks/grown/onion = 100,
+	/obj/item/reagent_containers/food/snacks/grown/onion/red = 90,
+	/obj/item/reagent_containers/food/snacks/grown/peanuts = 100,
+	/obj/item/reagent_containers/food/snacks/grown/pineapple = 100,
+	/obj/item/reagent_containers/food/snacks/grown/potato = 100,
+	/obj/item/reagent_containers/food/snacks/grown/potato/wedges = 100,
+	/obj/item/reagent_containers/food/snacks/grown/potato/sweet = 90,
+	/obj/item/reagent_containers/food/snacks/grown/pumpkin = 100,
+	/obj/item/reagent_containers/food/snacks/grown/blumpkin = 80,
+//	/obj/item/reagent_containers/food/snacks/grown/random = 1,
+	/obj/item/reagent_containers/food/snacks/grown/carrot = 100,
+	/obj/item/reagent_containers/food/snacks/grown/carrot/wedges = 100,
+	/obj/item/reagent_containers/food/snacks/grown/parsnip = 100,
+	/obj/item/reagent_containers/food/snacks/grown/whitebeet = 100,
+	/obj/item/reagent_containers/food/snacks/grown/redbeet = 100,
+	/obj/item/reagent_containers/food/snacks/grown/tea = 100,
+	/obj/item/reagent_containers/food/snacks/grown/tea/astra = 80,
+	/obj/item/reagent_containers/food/snacks/grown/coffee = 100,
+	/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = 80,
+	/obj/item/reagent_containers/food/snacks/grown/tobacco = 100,
+	/obj/item/reagent_containers/food/snacks/grown/tobacco/space = 80,
+	/obj/item/reagent_containers/food/snacks/grown/tomato = 100,
+	/obj/item/reagent_containers/food/snacks/grown/tomato/blood = 80,
+	/obj/item/reagent_containers/food/snacks/grown/tomato/blue = 80,
+	/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace = 50,
+	/obj/item/reagent_containers/food/snacks/grown/tomato/killer = 70,
+//	/obj/item/reagent_containers/food/snacks/grown/ash_flora = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem = 1,
+//	/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 1,
+//	/obj/item/seeds/sample/alienweed = 1,
+	/obj/item/seeds/ambrosia = 100,
+	/obj/item/seeds/ambrosia/deus = 60,
+	/obj/item/seeds/ambrosia/gaia = 70,
+//	/obj/item/seeds/ambrosia/cruciatus = 100,		//Есть только в аплинке
+	/obj/item/seeds/apple = 100,
+	/obj/item/seeds/apple/poisoned = 1,
+	/obj/item/seeds/apple/gold = 60,
+	/obj/item/seeds/banana = 100,
+	/obj/item/seeds/banana/mime = 85,
+	/obj/item/seeds/banana/bluespace = 70,
+	/obj/item/seeds/soya = 100,
+	/obj/item/seeds/soya/koi = 80,
+	/obj/item/seeds/berry = 100,
+	/obj/item/seeds/berry/poison = 90,
+	/obj/item/seeds/berry/death = 70,
+	/obj/item/seeds/berry/glow = 80,
+	/obj/item/seeds/cherry = 100,
+	/obj/item/seeds/cherry/blue = 90,
+	/obj/item/seeds/cherry/bomb = 1,
+	/obj/item/seeds/grape = 100,
+	/obj/item/seeds/grape/green = 100,
+	/obj/item/seeds/cannabis = 100,
+	/obj/item/seeds/cannabis/rainbow = 60,
+	/obj/item/seeds/cannabis/death = 60,
+	/obj/item/seeds/cannabis/white = 60,
+	/obj/item/seeds/cannabis/ultimate = 31,
+	/obj/item/seeds/wheat = 100,
+	/obj/item/seeds/wheat/oat = 100,
+	/obj/item/seeds/wheat/rice = 100,
+	/obj/item/seeds/wheat/meat = 100,
+	/obj/item/seeds/chili = 100,
+	/obj/item/seeds/chili/ice = 80,
+	/obj/item/seeds/chili/ghost = 80,
+	/obj/item/seeds/lime = 100,
+	/obj/item/seeds/orange = 100,
+	/obj/item/seeds/lemon = 100,
+	/obj/item/seeds/firelemon = 90,
+	/obj/item/seeds/orange_3d = 90,
+	/obj/item/seeds/cocoapod = 100,
+	/obj/item/seeds/cocoapod/vanillapod = 90,
+	/obj/item/seeds/cocoapod/bungotree = 85,
+	/obj/item/seeds/corn = 100,
+	/obj/item/seeds/corn/snapcorn = 90,
+	/obj/item/seeds/cotton = 100,
+	/obj/item/seeds/cotton/durathread = 90,
+	/obj/item/seeds/eggplant = 100,
+	/obj/item/seeds/eggplant/eggy = 90,
+	/obj/item/seeds/poppy = 100,
+	/obj/item/seeds/poppy/lily = 100,
+	/obj/item/seeds/poppy/geranium = 100,
+	/obj/item/seeds/harebell = 100,
+	/obj/item/seeds/sunflower = 100,
+	/obj/item/seeds/sunflower/moonflower = 85,
+	/obj/item/seeds/sunflower/novaflower = 80,
+	/obj/item/seeds/garlic = 100,
+	/obj/item/seeds/grass = 100,
+//	/obj/item/seeds/grass/carpet = 1,
+	/obj/item/seeds/comfrey = 100,
+	/obj/item/seeds/aloe = 100,
+	/obj/item/seeds/kudzu = 70,
+	/obj/item/seeds/watermelon = 100,
+	/obj/item/seeds/watermelon/holy = 80,
+	/obj/item/seeds/starthistle = 100,
+	/obj/item/seeds/cabbage = 100,
+	/obj/item/seeds/sugarcane = 100,
+	/obj/item/seeds/gatfruit = 1,
+	/obj/item/seeds/reishi = 100,
+	/obj/item/seeds/amanita = 100,
+	/obj/item/seeds/angel = 100,
+	/obj/item/seeds/liberty = 100,
+	/obj/item/seeds/plump = 100,
+	/obj/item/seeds/plump/walkingmushroom = 70,
+	/obj/item/seeds/chanter = 100,
+	/obj/item/seeds/glowshroom = 80,
+	/obj/item/seeds/glowshroom/glowcap = 70,
+	/obj/item/seeds/glowshroom/shadowshroom = 70,
+	/obj/item/seeds/fungus = 100,
+	/obj/item/seeds/nettle = 100,
+	/obj/item/seeds/nettle/death = 80,
+	/obj/item/seeds/nymph = 100,
+	/obj/item/seeds/onion = 100,
+	/obj/item/seeds/onion/red = 90,
+	/obj/item/seeds/peanuts = 100,
+	/obj/item/seeds/pineapple = 100,
+	/obj/item/seeds/potato = 100,
+	/obj/item/seeds/potato/sweet = 90,
+	/obj/item/seeds/pumpkin = 100,
+	/obj/item/seeds/pumpkin/blumpkin = 80,
+//	/obj/item/seeds/random = 1,
+//	/obj/item/seeds/random/labelled = 1,
+//	/obj/item/seeds/replicapod = 1,
+	/obj/item/seeds/carrot = 100,
+	/obj/item/seeds/carrot/parsnip = 100,
+	/obj/item/seeds/whitebeet = 100,
+	/obj/item/seeds/redbeet = 100,
+	/obj/item/seeds/tea = 100,
+	/obj/item/seeds/tea/astra = 80,
+	/obj/item/seeds/coffee = 100,
+	/obj/item/seeds/coffee/robusta = 80,
+	/obj/item/seeds/tobacco = 100,
+	/obj/item/seeds/tobacco/space = 80,
+	/obj/item/seeds/tomato = 100,
+	/obj/item/seeds/tomato/blood = 80,
+	/obj/item/seeds/tomato/blue = 80,
+	/obj/item/seeds/tomato/blue/bluespace = 50,
+	/obj/item/seeds/tomato/killer = 70,
+	/obj/item/seeds/tower = 100,
+	/obj/item/seeds/tower/steel = 80,
+	/obj/item/seeds/bamboo = 100,
+//	/obj/item/seeds/lavaland = 1,
+//	/obj/item/seeds/lavaland/cactus = 1,
+//	/obj/item/seeds/lavaland/polypore = 1,
+//	/obj/item/seeds/lavaland/porcini = 1,
+//	/obj/item/seeds/lavaland/inocybe = 1,
+//	/obj/item/seeds/lavaland/ember = 1,
+//	/obj/item/grown = 1,
+	/obj/item/grown/bananapeel = 100,
+//	/obj/item/grown/bananapeel/traitorpeel = 1,				// Из аплинка
+//	/obj/item/grown/bananapeel/clownfish = 1,
+	/obj/item/grown/bananapeel/mimanapeel = 85,
+	/obj/item/grown/bananapeel/bluespace = 70,
+//	/obj/item/grown/bananapeel/specialpeel = 1,
+	/obj/item/grown/corncob = 100,
+	/obj/item/grown/snapcorn = 90,
+	/obj/item/grown/cotton = 100,
+	/obj/item/grown/cotton/durathread = 90,
+	/obj/item/grown/sunflower = 100,
+	/obj/item/grown/novaflower = 80,
+//	/obj/item/grown/nettle = 1,
+	/obj/item/grown/nettle/basic = 100,
+	/obj/item/grown/nettle/death = 80,
+	/obj/item/grown/log = 100,
+//	/obj/item/grown/log/tree = 1,
+	/obj/item/grown/log/steel = 80,
+	/obj/item/grown/log/bamboo = 100,
 	)
+
+	var/list/plants_traits = list(
+//	/datum/plant_gene/trait/plant_type/alien_properties
+//	/datum/plant_gene/trait/plant_type/fungal_metabolism
+//	/datum/plant_gene/trait/plant_type/weed_hardy
+	/datum/plant_gene/trait/fire_resistance = 1,
+	/datum/plant_gene/trait/smoke = 2,
+	/datum/plant_gene/trait/stinging = 1,
+	/datum/plant_gene/trait/battery = 1,
+	/datum/plant_gene/trait/repeated_harvest = 3,
+	/datum/plant_gene/trait/maxchem = 2,
+	/datum/plant_gene/trait/noreact = 2,
+	/datum/plant_gene/trait/teleport = 1,
+	/datum/plant_gene/trait/glow/berry = 3,
+	/datum/plant_gene/trait/glow/red = 3,
+	/datum/plant_gene/trait/glow/shadow = 2,
+	/datum/plant_gene/trait/glow = 3,
+	/datum/plant_gene/trait/cell_charge = 2,
+	/datum/plant_gene/trait/slip = 1,
+	/datum/plant_gene/trait/squash = 2,
+	)
+
 	var/list/weapons_and_implants = list(
 	/obj/item/bodybag = 10,
 	)
 	//Список мехов для генерации
 	var/list/mechs = list(
-	/obj/mecha/combat/durand/rover = 5,
-	/obj/mecha/combat/gygax/dark = 5,
-	/obj/mecha/medical/odysseus = 10,
-	/obj/mecha/working/ripley = 10,
-	/obj/mecha/working/ripley/firefighter = 15,
+	/obj/mecha/makeshift = 50,
 	/obj/mecha/combat/durand = 20,
 	/obj/mecha/combat/gygax = 20,
-	/obj/mecha/working/clarke = 20,
+	/obj/mecha/working/ripley/firefighter = 15,
+	/obj/mecha/working/clarke = 15,
+	/obj/mecha/medical/odysseus = 10,
+	/obj/mecha/working/ripley = 10,
 	/obj/mecha/combat/honker = 10,
 	/obj/mecha/combat/reticence = 10,
-	/obj/mecha/makeshift = 50,
+	/obj/mecha/combat/durand/rover = 5,
+	/obj/mecha/combat/gygax/dark = 5,
 	)
 	//Эквип подходящий каждому меху за парой исключений
+	//Эта пара исключений должна оставаться вверху списка для правильной работы кода
 	var/list/mechs_equipment_all = list(
-	/obj/item/mecha_parts/mecha_equipment/drill = 10,					//Все кроме одиссея и локермеха
-	/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 10,		//Все кроме одиссея и локермеха
-	/obj/item/mecha_parts/mecha_equipment/mining_scanner = 10,			//Все
-	/obj/item/mecha_parts/mecha_equipment/teleporter = 10,				//Все
-	/obj/item/mecha_parts/mecha_equipment/wormhole_generator = 10,		//Все
-	/obj/item/mecha_parts/mecha_equipment/gravcatapult = 10,			//Все
-	/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 10,	//Все
-	/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 10,	//Все
-	/obj/item/mecha_parts/mecha_equipment/repair_droid = 10,			//Все
-	/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 10,		//Все
-	/obj/item/mecha_parts/mecha_equipment/generator = 10,				//Все
-	/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 10,		//Все
-	/obj/item/mecha_parts/mecha_equipment/rcd = 10,						//Все
+	/obj/item/mecha_parts/mecha_equipment/drill = 100,					//Все кроме одиссея и локермеха
+	/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 91,		//Все кроме одиссея и локермеха
+	/obj/item/mecha_parts/mecha_equipment/mining_scanner = 100,
+	/obj/item/mecha_parts/mecha_equipment/generator = 100,
+	/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 91,
+	/obj/item/mecha_parts/mecha_equipment/wormhole_generator = 89,
+	/obj/item/mecha_parts/mecha_equipment/gravcatapult = 89,
+	/obj/item/mecha_parts/mecha_equipment/repair_droid = 89,
+	/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 88,
+	/obj/item/mecha_parts/mecha_equipment/teleporter = 87,
+	/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 87,
+	/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 87,
+	/obj/item/mecha_parts/mecha_equipment/rcd = 79,
 	)
 	//Эквип подходящий только Хонк Меху
 	var/list/mechs_equipment_honk = list(
-	/obj/item/mecha_parts/mecha_equipment/weapon/honker = 20,									//Только Хонк
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar = 20,		//Только Хонк
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar = 20,	//Только Хонк
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar = 100,
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar = 100,
+	/obj/item/mecha_parts/mecha_equipment/weapon/honker = 95,
 	)
 	//Эквип подходящий только Молчуну
 	var/list/mechs_equipment_reticence = list(
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced = 20,				//Только Молчун
-	/obj/item/mecha_parts/mecha_equipment/mimercd = 10,											//Только Молчун
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced = 100,
+	/obj/item/mecha_parts/mecha_equipment/mimercd = 100,
 	)
-	//Эквип подходящий только кларку, рипли и огнеборец
+	//Эквип подходящий только кларку, рипли и огнеборцу
 	var/list/mechs_equipment_working = list(
-	/obj/item/mecha_parts/mecha_equipment/cable_layer = 10,										//Кларк, рипли, огнеборец
-	/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp = 10,									//Кларк, рипли, огнеборец
-	/obj/item/mecha_parts/mecha_equipment/extinguisher = 10,									//Кларк, рипли, огнеборец
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma = 20,							//Кларк, рипли, огнеборец
+	/obj/item/mecha_parts/mecha_equipment/cable_layer = 100,
+	/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp = 100,
+	/obj/item/mecha_parts/mecha_equipment/extinguisher = 100,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma = 87,
 	)
 	//Эквип подходящий только одиссею с одним исключением
 	var/list/mechs_equipment_medical = list(
-	/obj/item/mecha_parts/mecha_equipment/medical/sleeper = 10,									//Только одиссей
-	/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun = 10,								//Только одиссей
-	/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw = 10,								//Только одиссей и огнеборец
+	/obj/item/mecha_parts/mecha_equipment/medical/sleeper = 92,
+	/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun = 75,
+	/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw = 74,								//Только одиссей и огнеборец
 	)
-	//Эквип подходящий только боевым мехам Хонку, Молчуну и емагнутому рипли/огнеборцу
+	//Эквип подходящий только боевым мехам, Хонку, Молчуну и емагнутому рипли/огнеборцу
+	//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
 	var/list/mechs_equipment_weapons = list(
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser = 20,								//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler = 20,					//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy = 20,						//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 20,								//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla = 20,								//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator = 20,							//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser = 20,								//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine = 20,						//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 20,					//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 20,							//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = 20,					//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
-	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang = 20,			//Нельзя Локермеху, Кларку, рипли, огнеборцу, одиссею
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler = 97,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser = 97,
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 96,
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 96,
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang = 92,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser = 91,
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine = 91,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy = 88,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 84,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla = 84,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator = 84,
+	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = 84,
 	)
 	var/list/rare_misc_from_nt = list(
 	/obj/item/bodybag = 10,
@@ -313,15 +563,15 @@
 	var/list/organs_and_bodyparts = list(
 	/obj/item/bodybag = 10,
 	)
-	//Сгенерированные квесты. Одновременно может существовать только 3 Квеста
-	var/datum/cargo_quest/quest_one
-	var/datum/cargo_quest/quest_two
-	var/datum/cargo_quest/quest_three
+
+/datum/cargo_quests_storage/proc/QuestStorageInitialize() //Вызывать сразу после создания хранилища квестов
+	for(var/i in 1 to 3)
+		generate_quest()
 
 ////////////////////////////
 //Основной прок генерирующий 1 квест с посланным в него типом.
 ////////////////////////////
-/datum/cargo_quests_storage/proc/generate_quest(var/quest_type = "mecha")
+/datum/cargo_quests_storage/proc/generate_quest(var/quest_type = null)
 	var/datum/cargo_quest/quest
 	if(!quest_one)
 		quest_one = new /datum/cargo_quest
@@ -335,14 +585,12 @@
 	else
 		return
 
-	////////////////////////////
-	//Прописать тут генерацию типа квеста при отсутствии аргумента quest_type
-	////////////////////////////
+	if(!quest_type)
+		quest_type = pick(possible_quest_types)
 
 	switch(quest_type)
 		if("virus")
 			quest.quest_type = "virus"
-			quest.req_item = /datum/disease/advance
 			generate_virus_info(quest)
 		if("mecha")
 			quest.quest_type = "mecha"
@@ -350,115 +598,237 @@
 		if("grenade")
 			quest.quest_type = "grenade"
 			generate_grenade_info(quest)
+		if("plants")
+			quest.quest_type = "plants"
+			generate_plants_info(quest)
 
 ////////////////////////////
 //Прок генерирующий квест на вирус и необходимые симптомы для него
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_virus_info(var/datum/cargo_quest/quest)
 	var/symptom_count = pick(4,5,6)
+	var/difficulty_points = null
+	quest.req_item = /datum/disease/advance
 	quest.current_list += (virus_simptoms)
+	var/total_simptoms_weight = summ_list_weight(quest.current_list)
+	//вписать выбор нужной иконки
+	log_debug("Generating quest of type \"Virus\"")
 	for(var/i in 1 to symptom_count)
 		var/current_simptom = pickweight(quest.current_list)
+		difficulty_points += quest.current_list[current_simptom]
+		log_debug("Chosen simptoms: [current_simptom]")
 		quest.req_else += (current_simptom)
 		quest.current_list -= current_simptom
+//	quest.generate_difficulty(total_simptoms_weight, difficulty_points)
+	log_debug("Generation end")
 
 ////////////////////////////
 //Прок генерирующий квест на Меха и необходимый эквип для него
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_mecha_info(var/datum/cargo_quest/quest)
 	quest.req_item = pickweight(mechs)
+	var/difficulty_points = null
+	var/total_equipment_weight = null
 	var/req_mech = quest.req_item
 	var/list/mech_equipment_all_cut = list()
 	mech_equipment_all_cut.Add(mechs_equipment_all)
 	mech_equipment_all_cut.Cut(1,3)
 	var/max_equip
-	log_debug("begin")
+	//вписать выбор нужной иконки
+	log_debug("Generating quest of type \"Mecha\"")
 	if(req_mech == /obj/mecha/combat/honker)
+		total_equipment_weight = 10
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_honk)
 		quest.current_list += (mechs_equipment_weapons)
 		max_equip = 3
-		log_debug("honker")
+		log_debug("Chosen mech: Honker")
 	else if(req_mech == /obj/mecha/combat/reticence)
+		total_equipment_weight = 10
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_reticence)
 		quest.current_list += (mechs_equipment_weapons)
 		max_equip = 3
-		log_debug("reticence")
+		log_debug("Chosen mech: Reticence")
 	else if(req_mech == /obj/mecha/working/ripley || req_mech == /obj/mecha/working/ripley/firefighter)
+		total_equipment_weight = 20
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_working)
 		quest.current_list += (mechs_equipment_weapons)
 		max_equip = 6
-		log_debug("ripley or firefighter")
+		log_debug("Chosen mech: Ripley or Firefighter")
 	else if(req_mech == /obj/mecha/working/clarke)
+		total_equipment_weight = 30
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_working)
 		max_equip = 4
-		log_debug("clarke")
+		log_debug("Chosen mech: Clarke")
 	else if(req_mech == /obj/mecha/medical/odysseus)
+		total_equipment_weight = 10
 		quest.current_list += (mechs_equipment_medical)
 		max_equip = 3
-		log_debug("medical")
+		log_debug("Chosen mech: Medical")
 	else if(req_mech == /obj/mecha/makeshift)
+		total_equipment_weight = 50
 		quest.current_list += (mech_equipment_all_cut)
 		max_equip = 2
-		log_debug("makeshift")
+		log_debug("Chosen mech: Makeshift")
 	else
+		total_equipment_weight = 20
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_weapons)
 		max_equip = 3
-		log_debug("else")
+		log_debug("Chosen mech: Some Battle Mech")
+	total_equipment_weight += summ_list_weight(quest.current_list)
 	for(var/i in 1 to max_equip)
 		var/current_equipment = pickweight(quest.current_list)
 		quest.req_else += (current_equipment)
+		difficulty_points += quest.current_list[current_equipment]
 		quest.current_list -= (current_equipment)
-		log_debug("end")
+//	quest.generate_difficulty(total_equipment_weight, difficulty_points)
+	log_debug("Generation end")
 
 ////////////////////////////
 //Прок генерирующий квест на гранаты и необходимые в гранатах химикаты
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_grenade_info(var/datum/cargo_quest/quest)
 	var/grenade_type = pick("explosive", "smoke", "foam", "unique")
+	var/chem_type = pick("drugs","medical","toxin","misc")
+	var/difficulty_points = null
+	var/total_chem_weight = null
 	quest.req_item = /obj/item/grenade/chem_grenade
+	log_debug("Generating quest of type \"Grenade\"")
 	switch(grenade_type)
 		if("explosive")
+			log_debug("Chosen grenade type: Explosive")
 			quest.req_item = /obj/item/grenade/chem_grenade/pyro
+			total_chem_weight = 10
+			//вписать выбор нужной иконки
 			quest.current_list += (pyrotech_chems)
 		if("smoke")
-			quest.current_list += (drug_chems)
-			quest.current_list += (medical_chems)
-			quest.current_list += (toxin_chems)
-			quest.current_list += (misc_chems)
-			quest.req_else = list(/datum/reagent/smoke_powder, 30)
+			log_debug("Chosen grenade type: Smoke")
+			if(chem_type == "drugs")
+				quest.current_list += (drug_chems)
+				total_chem_weight = 20
+				//вписать выбор нужной иконки
+			else if(chem_type == "medical")
+				quest.current_list += (medical_chems)
+				total_chem_weight = 20
+				//вписать выбор нужной иконки
+			else if(chem_type == "toxin")
+				quest.current_list += (toxin_chems)
+				total_chem_weight = 30
+				//вписать выбор нужной иконки
+			else if(chem_type == "misc")
+				quest.current_list += (misc_chems)
+				total_chem_weight = 50
+				//вписать выбор нужной иконки
+			quest.req_else = list("smoke_powder" = 30)
 		if("foam")
-			quest.current_list += (drug_chems)
-			quest.current_list += (medical_chems)
-			quest.current_list += (toxin_chems)
-			quest.current_list += (misc_chems)
-			quest.req_else = list(/datum/reagent/fluorosurfactant,  30)
+			log_debug("Chosen grenade type: Foam")
+			if(chem_type == "drugs")
+				quest.current_list += (drug_chems)
+				total_chem_weight = 20
+				//вписать выбор нужной иконки
+			else if(chem_type == "medical")
+				quest.current_list += (medical_chems)
+				total_chem_weight = 20
+				//вписать выбор нужной иконки
+			else if(chem_type == "toxin")
+				quest.current_list += (toxin_chems)
+				total_chem_weight = 30
+				//вписать выбор нужной иконки
+			else if(chem_type == "misc")
+				quest.current_list += (misc_chems)
+				total_chem_weight = 50
+				//вписать выбор нужной иконки
+			quest.req_else = list("fluorosurfactant" = 30)
 		if("unique")
-			//Написать пару пресетов и тут вписать код который будет копировать с пресетов ебучие данные.
+			log_debug("Chosen grenade type: Unique")
+			//Написать пару пресетов и тут вписать код который будет копировать с пресетов ебучие данные. и return, чтобы остальной код не выполнился
 			quest.current_list += (misc_chems)	//placeholder. Удалить после создания логики с коммента выше.
+			total_chem_weight = 0
 
-
-	var/max_chems = pick(6, 7, 8, 9, 10)
+	var/max_chems = pick(3, 4, 5, 6, 7, 8, 9, 10)
+	total_chem_weight += summ_list_weight(quest.current_list)
 	for(var/i in 1 to max_chems)
 		var/current_chem = pickweight(quest.current_list)
 		var/current_value = (pick(10, 20, 30, 40, 50))
-		quest.req_else += list(current_chem, current_value)
-		quest.current_list -= current_chem
+		quest.req_else += list(trim(current_chem) = current_value) 	// trim() тут скорее для обхода логики листа по которой,
+		difficulty_points += quest.current_list[current_chem]		// вместо того текста, что хранит current_chem он просто писал current_chem
+		quest.current_list -= current_chem							// Если знаете вариант лучше, сообщите. Спасибо.
+//	quest.generate_difficulty(total_chem_weight, difficulty_points)
+	log_debug("Generation end")
+
+////////////////////////////
+//Прок генерирующий квест на растение и необходимые трейты для него
+////////////////////////////
+/datum/cargo_quests_storage/proc/generate_plants_info(var/datum/cargo_quest/quest)
+	var/traits_count = pick(2,3,4,5)
+	var/difficulty_points = null
+	var/total_traits_weight = null
+	quest.req_item = pickweight(plants)
+	quest.current_list += (plants_traits)
+	total_traits_weight += summ_list_weight(quest.current_list)
+	//вписать выбор нужной иконки
+	log_debug("Generating quest of type \"Plants\"")
+	for(var/i in 1 to traits_count)
+		var/current_trait = pickweight(quest.current_list)
+		log_debug("Chosen traits: [current_trait]")
+		quest.req_else += (current_trait)
+		difficulty_points += quest.current_list[current_trait]
+		quest.current_list -= current_trait
+//	quest.generate_difficulty(total_traits_weight, difficulty_points)
+	log_debug("Generation end")
 
 /datum/cargo_quests_storage/proc/populate_quest_window()
 
 /datum/cargo_quests_storage/proc/check_quest_completion()
 
 /datum/cargo_quest
-	var/quest_type = "mecha"
-	var/quest_desc = ""
-	var/list/current_list = list()
-	var/req_item = null
-	var/list/req_else = list()
-	var/quest_icon = null
+	var/active = FALSE 								// Выбран ли квест игроками или нет?
+	var/quest_type = "mecha"						// Тип Квеста. Список типов есть выше.
+	var/quest_name = ""								// Название квеста
+	var/quest_desc = ""								// Описание квеста
+	var/quest_icon = null							// Иконка для этого квеста которая будет показана в интерфейсе
+	var/quest_difficulty = QUEST_DIFFICULTY_EASY	// EASY, NORMAL, HARD.
+	var/quest_reward = 0 							// Кредиты выдаваемые в награду за квест
+	var/stealth = FALSE								// Скрыто ли содержимое нашего квеста до его активации?
+	var/list/quest_reward_else = list() 			// Лист предметов выдающихся в дополнение, за выполнение квеста.
+	var/quest_time_minutes = -1						// Время в МИНУТАХ за которое надо успеть сделать квест или автопровал. Если время < 0, значит ограничения по времени нет.
+	var/list/current_list = list()					// Временный лист для дебага. Удалю когда квест система официально будет закончена и заменю все места где он применяется временными листами
 
+	var/req_item = null								// Тип предмета который нам надо произвести
+	var/list/req_else = list()						// Дополнительные штуки которые будут проверяться в зависимости от типа квеста
+	var/req_quantity = 0							// Требуемое количество предметов
 
+/*
+// Генерирует сложность квеста используя:
+// * Общий вес всех возможных обьектов из листа доп. требований
+// * Вес выбранных для квеста доп требований + наценка за основной требуемый предмет(если нужна)
+/datum/cargo_quest/proc/generate_difficulty(var/total_weight, var/else_weight)
+	if(!total_weight || !else_weight)
+		return
+	var/hard_difficulty_checker = total_weight/10
+	var/normal_difficulty_checker = hard_difficulty_checker*5
+	if(else_weight > normal_difficulty_checker)
+		quest_difficulty = QUEST_DIFFICULTY_EASY
+	else if(else_weight > hard_difficulty_checker && else_weight <= normal_difficulty_checker)
+		quest_difficulty = QUEST_DIFFICULTY_NORMAL
+	else if(else_weight <= hard_difficulty_checker)
+		quest_difficulty = QUEST_DIFFICULTY_HARD
+*/
+/datum/cargo_quest/grenade
+	quest_type = "grenade"
+	req_item = /obj/item/grenade/chem_grenade
+
+/datum/cargo_quest/grenade/death_kiss
+	quest_name = "Поцелуй смерти"
+	quest_desc = "Порой на поле боя нужны радикальные меры... Клиент запросил пару смертельно опасных, дымовых гранат с инитропидрилом."
+	quest_icon = null
+	quest_difficulty = QUEST_DIFFICULTY_NORMAL
+	quest_time_minutes = 10
+	req_else = list("smoke_powder" = 30, "initropidril" = 50)
+	req_quantity = 3
+	quest_reward = 50000
+	quest_reward_else = list(/obj/item/stack/sheet/mineral/diamond = 10)

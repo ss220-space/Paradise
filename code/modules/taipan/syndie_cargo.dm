@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	"Pads on cooldown"
 	"Pads ready"
 **************************/
-	var/telepads_status = "Pads not linked!" // позже впиши изменения статуса и интегрируй с интерфейсом
+	var/telepads_status = "Pads not linked!"
 	var/linked_pads = list() // the pads that will be used to sell our goods
 	var/receiving_pads = list() // the pad that will receive our bought goods
 	var/last_teleport //to handle the cooldown, but for all the pads, and cooldown will be higher
@@ -250,6 +250,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	techLevels = null
 	researchDesigns = null
 	return ..()
+
 /***************************
     Консоль заказов синдикарго
  **************************/

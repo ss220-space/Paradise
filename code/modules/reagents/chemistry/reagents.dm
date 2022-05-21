@@ -1,6 +1,7 @@
 /datum/reagent
 	var/name = "Reagent"
 	var/id = "reagent"
+	var/price = null	// "Цена" реагента, для определения выдаваемой за него награды в кредитах
 	var/description = ""
 	var/datum/reagents/holder = null
 	var/reagent_state = SOLID

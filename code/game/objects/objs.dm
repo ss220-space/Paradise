@@ -19,6 +19,8 @@
 
 	var/acid_level = 0 //how much acid is on that obj
 
+	var/price = null //Теперь каждому предмету можно задать его "цену" Пока что используется только в карго тайпана для высчитывания награды за квесты.
+
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/being_shocked = FALSE

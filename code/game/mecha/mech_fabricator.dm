@@ -526,7 +526,7 @@
 	name = "Syndicate exosuit fabricator"
 	desc = "Nothing is being built."
 	req_access = list(ACCESS_SYNDICATE)
-	ui_theme = "nologo"
+	ui_theme = "syndicateblack"
 
 /obj/machinery/mecha_part_fabricator/syndicate/New()
 	..()

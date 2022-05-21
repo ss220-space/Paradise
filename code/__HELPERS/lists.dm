@@ -243,6 +243,16 @@
 
 	return null
 
+//Summs up the weight of every element in the list
+/proc/summ_list_weight(list/L)
+	var/total = 0
+	var/item
+	for(item in L)
+		if(!L[item])
+			L[item] = 1
+		total += L[item]
+	return total
+
 //Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/listfrom)
 	if(listfrom.len > 0)

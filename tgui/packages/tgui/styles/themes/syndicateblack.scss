@@ -1,11 +1,11 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-@use '../colors.scss'with ($primary: #e8aa0e,
+@use '../colors.scss' with ($primary: #e8aa0e,
   $fg-map-keys: (),
   $bg-map-keys: (),
 );
-@use '../base.scss'with ($color-bg: #151719,
+@use '../base.scss' with ($color-bg: #151719,
   $color-bg-grad-spread: 6%,
   $border-radius: 2px,
 );
@@ -40,6 +40,12 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css('../layouts/TitleBar.scss', $with: ('color-background': #151719,
     ));
+
+  .SyndieCargoConsole--flex {
+    .Flex.Item {
+      width: 33%;
+    }
+  }
 
   .Exofab__material {
     &:not(.Exofab__material--line) {
@@ -81,6 +87,7 @@
       }
     }
   }
+
   .Layout__content {
     background-image: url('../../assets/bg-syndicate.svg');
   }

@@ -1,28 +1,72 @@
 import { flow } from 'common/fp';
-import { Fragment } from 'inferno';
+import { Component, Fragment } from 'inferno';
+import { classes } from '../../common/react';
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useSharedState, useLocalState } from "../backend";
-import { Button, LabeledList, Box, AnimatedNumber, Section, Dropdown, Input, Table, Modal } from "../components";
+import { Button, Flex, LabeledList, Box, NoticeBox, AnimatedNumber, Section, Dropdown, Input, Table, Modal, Tabs } from "../components";
 import { Window } from "../layouts";
 import { LabeledListItem } from "../components/LabeledList";
 import { createSearch, toTitleCase } from 'common/string';
-
-export const SyndieCargoConsole = (_properties, context) => {
+/*
+export const SyndieCargoConsole = (properties, context) => {
   const { data } = useBackend(context);
   return (
     <Window theme={data.ui_theme}>
-      <Window.Content>
-        <PagePane />
-        <ContentsModal />
-        <StatusPane />
-        <CataloguePane />
-        <DetailsPane />
+      <Window.Content className="Menu">
+        <Flex direction="column" height="100%">
+          {body}
+        </Flex>
+      </Window.Content>
+    </Window>
+  );
+};
+*/
+export const SyndieCargoConsole = (properties, context) => {
+  const { act, data } = useBackend(context);
+  let body;
+  if (data.page === 0) {
+    body = (
+      <Flex
+        direction="column"
+        spacing={1}>
+        <Flex.Item basis="content" >
+          <PagePane />
+        </Flex.Item>
+        <Flex.Item mt={1}>
+          <ContentsModal />
+          <StatusPane />
+          <CataloguePane />
+          <DetailsPane />
+        </Flex.Item>
+      </Flex>
+    );
+  } else if (data.page === 1) {
+    body = (
+      <Flex
+        direction="column"
+        spacing={1}>
+        <Flex.Item basis="content">
+          <PagePane />
+        </Flex.Item>
+        <Flex.Item mt={1}>
+          <ContentsModal />
+          <QuestStatusPane />
+        </Flex.Item>
+      </Flex>
+    );
+  }
+  return (
+    <Window theme={data.ui_theme}>
+      <Window.Content className="SyndieCargoConsole">
+        <Flex direction="column" height="100%">
+          {body}
+        </Flex>
       </Window.Content>
     </Window>
   );
 };
 
-const ContentsModal = (_properties, context) => {
+const ContentsModal = (properties, context) => {
   const [
     contentsModal,
     setContentsModal,
@@ -64,7 +108,7 @@ const ContentsModal = (_properties, context) => {
   }
 };
 
-const PagePane = (_properties, context) => {
+const PagePane = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     page,
@@ -95,7 +139,9 @@ const PagePane = (_properties, context) => {
     </Section>
   );
 };
-const StatusPane = (_properties, context) => {
+
+// Cargo
+const StatusPane = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     is_public = 0,
@@ -142,6 +188,7 @@ const StatusPane = (_properties, context) => {
                   <Button
                     icon="credit-card"
                     tooltip="Withdraw money from the console"
+                    tooltipPosition="right"
                     content={cash}
                     onClick={() => act("withdraw", cash)}
                   />
@@ -153,6 +200,7 @@ const StatusPane = (_properties, context) => {
                     icon="lock"
                     content={adminAddCash}
                     tooltip="Bless the players with da money!"
+                    tooltipPosition="left"
                     onClick={() => act("add_money", cash)}
                   />
                 </Table.Cell>
@@ -178,6 +226,7 @@ const StatusPane = (_properties, context) => {
                   <Button
                     content={teleportButtonText}
                     tooltip={dynamicTooltip}
+                    tooltipPosition="right"
                     disabled={block}
                     onClick={() => act("teleport")}
                   />
@@ -189,6 +238,7 @@ const StatusPane = (_properties, context) => {
                     width="150px"
                     content="Black Market Log"
                     tooltip="View your syndicate cargo account activity log."
+                    tooltipPosition="left"
                     onClick={() => act("showMessages")}
                   />
                 </Table.Cell>
@@ -203,7 +253,7 @@ const StatusPane = (_properties, context) => {
 };
 
 
-const CataloguePane = (_properties, context) => {
+const CataloguePane = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     categories,
@@ -302,7 +352,7 @@ const CataloguePane = (_properties, context) => {
   );
 };
 
-const DetailsPane = (_properties, context) => {
+const DetailsPane = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     requests,
@@ -361,6 +411,103 @@ const DetailsPane = (_properties, context) => {
         </Table>
       </Box>
     </Section>
+  );
+};
+
+// Quests
+const QuestStatusPane = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    telepads_status,
+  } = data;
+
+  return (
+    <Flex
+      direction="row"
+      alignContent="center"
+      spacing={1}>
+      <Flex.Item
+        width="33%"
+        shrink={1}
+        className="SyndieCargoConsole--flex">
+        <Box align="center" fontSize={1.25}>
+          <NoticeBox success={0} danger={0} align="center">
+            <Box align="center" fontSize={1.25}>
+              <Button
+                fluid={1}
+                height="20px"
+                textAlign="center"
+                content="Взять контракт"
+                tooltip="Взять контракт?"
+                onClick={() => act("openContracts")}
+              />
+            </Box>
+            <marquee>
+              {"Название контракта писать тут"}
+            </marquee>
+          </NoticeBox>
+        </Box>
+        <Section>
+          <Box bold align="center" textAlign="left" maxHeight={30}>
+            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+          </Box>
+        </Section>
+      </Flex.Item>
+      <Flex.Item
+        width="33%"
+        shrink={1}
+        className="SyndieCargoConsole--flex">
+        <Box align="center" fontSize={1.25}>
+          <NoticeBox success={0} danger={0} align="center">
+            <Box align="center" fontSize={1.25}>
+              <Button
+                fluid={1}
+                height="20px"
+                textAlign="center"
+                content="Взять контракт"
+                tooltip="Взять контракт?"
+                onClick={() => act("openContracts")}
+              />
+            </Box>
+            <marquee>
+              {"Название контракта писать тут"}
+            </marquee>
+          </NoticeBox>
+        </Box>
+        <Section>
+          <Box bold align="center" textAlign="left" maxHeight={30}>
+            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+          </Box>
+        </Section>
+      </Flex.Item>
+      <Flex.Item
+        width="33%"
+        shrink={1}
+        className="SyndieCargoConsole--flex">
+        <Box align="center" fontSize={1.25}>
+          <NoticeBox success={0} danger={0} align="center">
+            <Box align="center" fontSize={1.25}>
+              <Button
+                fluid={1}
+                height="20px"
+                textAlign="center"
+                content="Взять контракт"
+                tooltip="Взять контракт?"
+                onClick={() => act("openContracts")}
+              />
+            </Box>
+            <marquee>
+              {"Название контракта писать тут"}
+            </marquee>
+          </NoticeBox>
+        </Box>
+        <Section>
+          <Box bold align="center" textAlign="left" maxHeight={30}>
+            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+          </Box>
+        </Section>
+      </Flex.Item>
+    </Flex>
   );
 };
 
