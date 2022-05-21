@@ -2,9 +2,6 @@
 /// REMINDER: The clockwork_power(var) and clockwork_beacons(list) have been moved at _glovalvars/game_modes
 
 //Clockwork Magic
-/// How many on-hand spells
-#define CLOCK_MAX_HANDSPELLS 2
-
 // state for spell
 #define NO_SPELL 0
 #define A_SPELL 1
@@ -82,6 +79,8 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define CLOCK_POWER_GENERATOR 10
 #define CLOCK_POWER_COG 1
 #define COG_MAX_SIPHON_THRESHOLD 0.25 //The cog will not siphon power if the APC's cell is at this % of power
+// amount of metal per brass
+#define CLOCK_METAL_TO_BRASS 10
 
 // Clockwork Status
 /// At what population does it switch to highpop values
@@ -94,9 +93,6 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define CLOCK_POWER_REVEAL_HIGH 0.3
 /// Percent clockers to reveal (Highpop)
 #define CLOCK_CREW_REVEAL_HIGH 0.15
-
-// Screen locations
-#define DEFAULT_CLOCKSPELLS "6:-29,4:-2"
 
 // Text
 #define CLOCK_GREETING "<span class='clocklarge'>You catch a glimpse of the Realm of Ratvar, the Clockwork Justiciar. \

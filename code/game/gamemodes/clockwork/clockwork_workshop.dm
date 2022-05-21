@@ -38,6 +38,7 @@
 		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 500, 20),
 	)
 	item_list["Clothing"] = list(
+		CLOCK_DESIGN("Clock Robe", /obj/item/clothing/suit/hooded/clockrobe, 0, 100, 5),
 		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 250, 30),
 		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 500, 50, 10),
 		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 500, 50, 10),
@@ -49,7 +50,7 @@
 		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 4000, 500, 10),
 		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 2000, 400, 20),
 		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 4500, 500, 30),
-		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 20)
+		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 20),
 	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()

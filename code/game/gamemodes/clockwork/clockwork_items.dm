@@ -30,17 +30,18 @@
 			if(!isliving(target) || isclocker(target) || !proximity)
 				return
 			var/mob/living/L = target
-			var/atom/N = L.null_rod_check()
 			src.visible_message("<span class='warning'>[user]'s [src] sparks for a moment with bright light!</span>")
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
-			if(N)
+			if(L.null_rod_check())
 				src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
 			else
 				L.Weaken(5)
 				L.Stun(5)
-				if(issilicon(L))
-					var/mob/living/silicon/S = L
-					S.emp_act(EMP_HEAVY)
+				if(isrobot(L))
+					var/mob/living/silicon/robot/R = L
+					R.visible_message("<span class='danger'>[R]'s cover lock snaps!</span>")
+					R.emp_act(EMP_HEAVY)
+					R.locked = FALSE
 				else if(iscarbon(target))
 					var/mob/living/carbon/C = L
 					C.Stuttering(10)

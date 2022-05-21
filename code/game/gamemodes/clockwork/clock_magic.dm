@@ -2,16 +2,16 @@
 	name = "Prepare Clockwork Magic"
 	button_icon_state = "carve"
 	desc = "Prepare clockwork magic powering yourself from Ratvar's pool of power. The magic you will cast depends on what's in your hand."
-	//The spells on his hands!
-	var/list/spells = list()
+	var/datum/action/innate/clockwork/hand_spell/construction/midas_spell = null
 	var/channeling = FALSE
 
 //get_active_hand it gets the thing in active one
 //put_in_hands it PUTS but i think it won't be needed
 
 /datum/action/innate/clockwork/clock_magic/Remove()
-	for(var/X in spells)
-		qdel(X)
+	if(midas_spell)
+		qdel(midas_spell)
+		midas_spell = null
 	..()
 
 // Datum for enchanting item. The name, amount of power, time needed, spell action itself from item.
@@ -31,6 +31,7 @@
 
 // The list clockwork_items you can find in defines/clockwork
 
+/// Main proc on enchanting items/ making spell on hands
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
 	var/obj/item/I = owner.get_active_hand()
@@ -82,27 +83,10 @@
 		channeling = FALSE
 	// If it's empty or not an item we can enchant. Making a spell on hand.
 	else
-		var/max_spells = CLOCK_MAX_HANDSPELLS
-		if(length(spells) >= max_spells)
-			to_chat(owner, "<span class='clockitalic'>You cannot store more than [max_spells] spell\s. <b>Pick a spell to remove.</b></span>")
-			remove_spell("You cannot store more than [max_spells] spell\s, pick a spell to remove.")
+		if(midas_spell)
+			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
 			return
-		var/entered_spell_name
-		var/datum/action/innate/clockwork/hand_spell/BS
-		var/list/possible_spells = list()
-
-		for(var/S in subtypesof(/datum/action/innate/clockwork/hand_spell))
-			var/datum/action/innate/clockwork/hand_spell/J = S
-			var/clock_name = initial(J.name)
-			possible_spells[clock_name] = J
-		if(length(spells))
-			possible_spells += "(REMOVE SPELL)"
-		entered_spell_name = input(owner, "Pick a clock spell to prepare...", "Spell Choices") as null|anything in possible_spells
-		if(entered_spell_name == "(REMOVE SPELL)")
-			remove_spell()
-			return
-		BS = possible_spells[entered_spell_name]
-		if(QDELETED(src) || owner.incapacitated() || !BS || (length(spells) >= max_spells))
+		if(QDELETED(src) || owner.incapacitated())
 			return
 
 		if(!channeling)
@@ -113,16 +97,10 @@
 			return
 
 		if(do_after(owner, 50, target = owner))
-			var/datum/action/innate/clockwork/hand_spell/new_spell = new BS(owner)
-			spells += new_spell
-			new_spell.Grant(owner, src)
-			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [new_spell.name] invocation!</span>")
+			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
+			midas_spell.Grant(owner, src)
+			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
 		channeling = FALSE
-
-/datum/action/innate/clockwork/clock_magic/proc/remove_spell(message = "Pick a spell to remove.")
-	var/nullify_spell = input(owner, message, "Current Spells") as null|anything in spells
-	if(nullify_spell)
-		qdel(nullify_spell)
 
 
 // This is spells for hands only.
@@ -130,65 +108,48 @@
 	name = "Clockwork Magic"
 	button_icon_state = "telerune"
 	desc = "Let the Gears Power."
-	var/charges = 1
 	var/magic_path = null
 	var/obj/item/melee/clock_magic/hand_magic
-	var/datum/action/innate/clockwork/clock_magic/all_magic
-	var/base_desc //To allow for updating tooltips
-	var/invocation = "Hoi there something's wrong!"
+	var/datum/action/innate/clockwork/clock_magic/source_magic
+	var/used = FALSE
 
-/datum/action/innate/clockwork/hand_spell/Grant(mob/living/owner, datum/action/innate/clockwork/hand_spell/BM)
-	base_desc = desc
-	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	all_magic = BM
-	button.ordered = FALSE
+/datum/action/innate/clockwork/hand_spell/Grant(mob/living/owner, datum/action/innate/clockwork/hand_spell/SM)
+	source_magic = SM
 	..()
 
 /datum/action/innate/clockwork/hand_spell/Remove()
-	if(all_magic)
-		all_magic.spells -= src
+	if(source_magic)
+		source_magic.midas_spell = null
 	if(hand_magic)
 		qdel(hand_magic)
 		hand_magic = null
 	..()
 
 /datum/action/innate/clockwork/hand_spell/IsAvailable()
-	if(!isclocker(owner) || owner.incapacitated() || !charges)
+	if(!isclocker(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
 /datum/action/innate/clockwork/hand_spell/Activate()
-	if(magic_path) // If this spell flows from the hand
-		if(!hand_magic) // If you don't already have the spell active
-			hand_magic = new magic_path(owner, src)
-			if(!owner.put_in_hands(hand_magic))
-				qdel(hand_magic)
-				hand_magic = null
-				to_chat(owner, "<span class='warning'>You have no empty hand for invoking blood magic!</span>")
-				return
-			to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
-
-		else // If the spell is active, and you clicked on the button for it
+	if(!magic_path) // If this spell flows from the hand
+		return
+	if(!hand_magic) // If you don't already have the spell active
+		hand_magic = new magic_path(owner, src)
+		if(!owner.put_in_hands(hand_magic))
 			qdel(hand_magic)
 			hand_magic = null
+			to_chat(owner, "<span class='warning'>You have no empty hand for invoking clockwork magic!</span>")
+			return
+		to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
+	else // If the spell is active, and you clicked on the button for it
+		qdel(hand_magic)
+		hand_magic = null
 
 //the spell list
 
-/datum/action/innate/clockwork/hand_spell/stun
-	name = "Stun"
-	desc = "Empowers your hand to stun and mute a victim on contact."
-	button_icon_state = "stun"
-	magic_path = /obj/item/melee/clock_magic/stun
-
-/datum/action/innate/clockwork/hand_spell/equipment
-	name = "Summon Equipment"
-	desc = "Allows you to empower your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
-	button_icon_state = "equip"
-	magic_path = /obj/item/melee/clock_magic/armor
-
 /datum/action/innate/clockwork/hand_spell/construction
-	name = "Twisted Construction"
-	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
+	name = "Midas Touch"
+	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Airlocks into brightish airlocks after a delay (harm intent)"
 	button_icon_state = "transmute"
 	magic_path = /obj/item/melee/clock_magic/construction
 
@@ -208,160 +169,86 @@
 	throw_range = 0
 	throw_speed = 0
 
-	var/invocation
-	var/uses = 1
 	var/datum/action/innate/clockwork/hand_spell/source
 
 /obj/item/melee/clock_magic/New(loc, spell)
 	source = spell
-	uses = source.charges
 	..()
 
 /obj/item/melee/clock_magic/Destroy()
 	if(!QDELETED(source))
-		if(uses <= 0)
-			source.hand_magic = null
+		source.hand_magic = null
+		if(source.used)
 			qdel(source)
 			source = null
 		else
-			source.hand_magic = null
-			source.charges = uses
-			source.desc = source.base_desc
-			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-			source.UpdateButtonIcon()
 	return ..()
-
-/obj/item/melee/clock_magic/attack_self(mob/living/user)
-	afterattack(user, user, TRUE)
-
-/obj/item/melee/clock_magic/attack(mob/living/M, mob/living/carbon/user)
-	if(!iscarbon(user) || !isclocker(user))
-		uses = 0
-		qdel(src)
-		return
-	add_attack_logs(user, M, "used a clock cult spell ([src]) on")
-	M.lastattacker = user.real_name
-
-/obj/item/melee/clock_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
-	. = ..()
-	if(invocation)
-		user.whisper(invocation)
-	if(uses <= 0)
-		qdel(src)
-	else if(source)
-		source.desc = source.base_desc
-		source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-		source.UpdateButtonIcon()
-
 
 //The spell effects
 
-//stun ДОДЕЛАТЬ
-/obj/item/melee/clock_magic/stun
-	name = "Stunning Aura"
-	desc = "Will stun and mute a victim on contact."
-	color = RUNE_COLOR_RED
-	invocation = "Fuu ma'jin!"
-
-/obj/item/melee/clock_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!isliving(target) || !proximity)
-		return
-	var/mob/living/L = target
-	if(isclocker(target))
-		return
-	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
-							"<span class='clockitalic'>You attempt to stun [L] with the spell!</span>")
-
-	user.mob_light(LIGHT_COLOR_ORANGE, 3, _duration = 2)
-
-	var/obj/item/N = L.null_rod_check()
-	if(N)
-		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
-	else
-		to_chat(user, "<span class='clockitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
-		// These are in life cycles, so double the time that's stated.
-		L.Weaken(5)
-		L.Stun(5)
-		L.flash_eyes(1, TRUE)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Silence(3)
-			C.Stuttering(8)
-			C.ClockSlur(10)
-			C.Jitter(8)
-	uses--
-	return ..()
-
-/obj/item/melee/clock_magic/armor
-	name = "Arming Aura"
-	desc = "Will equip simplish robe on a clocker."
-	color = "#33cc33" // green
-
-/obj/item/melee/clock_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(iscarbon(target) && proximity)
-		uses--
-		var/mob/living/carbon/C = target
-		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/clockrobe(user), slot_wear_suit)
-		if(C == user)
-			qdel(src) //Clears the hands
-		C.visible_message("<span class='warning'>Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [C]!</span>")
-
 /obj/item/melee/clock_magic/construction
-	name = "Twisting Aura"
-	desc = "Corrupts certain metalic objects on contact."
-	invocation = "Ethra p'ni dedol!"
-	color = "#000000" // black
+	name = "Midas Aura"
+	desc = "A dripping brass from hand charged to twist metal."
+	color = "#FFDF00"
 	var/channeling = FALSE
 
-/obj/item/melee/blood_magic/construction/examine(mob/user)
+/obj/item/melee/clock_magic/construction/examine(mob/user)
 	. = ..()
 	. += {"<u>A sinister spell used to convert:</u>\n
 	Plasteel into runed metal\n
 	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
-/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
 		if(channeling)
 			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
 			return
 		var/turf/T = get_turf(target)
 
-		//Metal to construct shell
+		//Metal to brass metal
 		if(istype(target, /obj/item/stack/sheet/metal))
 			var/obj/item/stack/sheet/candidate = target
-			if(candidate.use(METAL_TO_CONSTRUCT_SHELL_CONVERSION))
-				uses--
-				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!</span>")
-				new /obj/structure/constructshell(T)
+			var/quantity = candidate.amount
+			if(candidate.use(quantity*CLOCK_METAL_TO_BRASS))
+				new /obj/item/stack/sheet/brass(T, quantity*CLOCK_METAL_TO_BRASS)
+				to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			else
 				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
 				return
 
-		//Plasteel to runed metal
+		//Plasteel to brass metal
 		else if(istype(target, /obj/item/stack/sheet/plasteel))
 			var/obj/item/stack/sheet/plasteel/candidate = target
 			var/quantity = candidate.amount
 			if(candidate.use(quantity))
-				uses--
-				new /obj/item/stack/sheet/runed_metal(T, quantity)
-				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
+				new /obj/item/stack/sheet/brass(T, quantity)
+				to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
+		else if(istype(target, /obj/item/stack/sheet/brass))
+			var/obj/item/stack/sheet/brass/candidate = target
+			var/list/choosable_items = list("Clock Slab" = /obj/item/clockwork/clockslab, "Integration Cog" = /obj/item/clockwork/integration_cog)
+			var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
+			var/picked_type = choosable_items[choice]
+			if(QDELETED(src) || !picked_type || !target.Adjacent(user) || user.incapacitated())
+				return
+			var/obj/O = new picked_type
+			if(!user.put_in_hands(O))
+				O.forceMove(get_turf(src))
+			candidate.use(1)
+			to_chat(user, "<span class='warning'>With you magic hand you re-materialize brass into [O.name]!</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+
 		//Airlock to cult airlock
-		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
+		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/clockwork))
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 50, target = target))
-				target.narsie_act(TRUE)
-				uses--
-				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
+				target.ratvar_act(TRUE)
+				user.visible_message("<span class='warning'>As the [user] lays his hand on airlock, a pure liquid brass starts leak from every hole covering it!</span>")
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 				channeling = FALSE
 			else
@@ -370,4 +257,6 @@
 		else
 			to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
 			return
-		..()
+		user.whisper("Rqu-en qy'qby!")
+		source.used = TRUE
+		qdel(src)
