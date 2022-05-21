@@ -254,6 +254,25 @@
 			else
 				channeling = FALSE
 				return
+		else if(istype(target, /mob/living/silicon/robot))
+			var/mob/living/silicon/robot/candidate = target
+			if(candidate.mmi)
+				channeling = TRUE
+				user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
+				playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
+				do_sparks(5, TRUE, target)
+				if(do_after(user, 90, target = candidate))
+					candidate.emp_act(EMP_HEAVY)
+					candidate.ratvar_act()
+					channeling = FALSE
+				else
+					channeling = FALSE
+					return
+			else
+				to_chat(user, "<span class='warning'>Your hand finalizes [candidate] - twisting it into a marauder!</span>")
+				new /obj/item/clockwork/marauder(get_turf(src))
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+				qdel(candidate)
 		else
 			to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
 			return

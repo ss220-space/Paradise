@@ -39,9 +39,7 @@
 				L.Stun(5)
 				if(isrobot(L))
 					var/mob/living/silicon/robot/R = L
-					R.visible_message("<span class='danger'>[R]'s cover lock snaps!</span>")
 					R.emp_act(EMP_HEAVY)
-					R.locked = FALSE
 				else if(iscarbon(target))
 					var/mob/living/carbon/C = L
 					C.Stuttering(10)
