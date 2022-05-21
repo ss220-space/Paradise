@@ -94,7 +94,7 @@
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall
-	name = "emberfall"
+	name = "пеплопад"
 	desc = "Проходящая пепельная буря покрывает эту область слоем безвредного пепла."
 
 	weather_message = "<span class='notice'>Мягкое облако потухшего пепла окружает вас, словно гротескный снег. Кажется, буря прошла стороной…</span>"
