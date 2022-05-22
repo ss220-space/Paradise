@@ -282,7 +282,7 @@ const AirAlarmScrubbersView = (props, context) => {
     scrubbers.map(s => (
       <Section title={s.name} key={s.name}>
         <LabeledList>
-          <LabeledList.Item label="Статус">
+          <LabeledList.Item label="Режим">
             <Button
               content={s.power ? "Вкл" : "Выкл"}
               selected={s.power}
@@ -291,7 +291,7 @@ const AirAlarmScrubbersView = (props, context) => {
                 () => act('command', { cmd: 'power', val: (s.power === 1 ? 0 : 1), id_tag: s.id_tag })
               } />
             <Button
-              content={s.scrubbing === 0 ? "Откачка" : "Вытяжка"}
+              content={s.scrubbing === 0 ? "Откачка" : "Фильтрация"}
               icon={s.scrubbing === 0 ? "sign-in-alt" : "filter"}
               onClick={
                 () => act('command', { cmd: 'scrubbing', val: (s.scrubbing === 0 ? 1 : 0), id_tag: s.id_tag })
