@@ -134,7 +134,7 @@
 			var/is_antag = other_antags[antag_name]
 			if(!is_antag)
 				continue
-			var/antag_serialized = serialized.Copy()
+			var/list/antag_serialized = serialized.Copy()
 			antag_serialized["antag"] = antag_name
 			antagonists += list(antag_serialized)
 
