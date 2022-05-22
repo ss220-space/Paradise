@@ -688,15 +688,15 @@
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		AALARM_MODE_SCRUBBING   = list("name"="Фильтрация",         "desc"="Выфильтровать загрязнения", "id" = AALARM_MODE_SCRUBBING),\
-		AALARM_MODE_VENTING		= list("name"="Продув",             "desc"="Откачивать воздух, одновременно закачивая новый", "id" = AALARM_MODE_VENTING),\
-		AALARM_MODE_PANIC       = list("name"="Экстренная откачка", "desc"="Быстро откачать воздух из помещения", "id" = AALARM_MODE_PANIC),\
-		AALARM_MODE_REPLACEMENT = list("name"="Замена",             "desc"="Откачать весь воздух, а потом закачать новый", "id" = AALARM_MODE_REPLACEMENT),\
-		AALARM_MODE_SIPHON	    = list("name"="Выкачка",            "desc"="Откачать воздух из помещения", "id" = AALARM_MODE_SIPHON),\
-		AALARM_MODE_CONTAMINATED= list("name"="Очистка",            "desc"="Быстро выфильтровать загрязнения", "id" = AALARM_MODE_CONTAMINATED),\
-		AALARM_MODE_REFILL      = list("name"="Наполнение",         "desc"="Утроить скорость подачи воздуха в помещение", "id" = AALARM_MODE_REFILL),\
-		AALARM_MODE_OFF         = list("name"="Выкл",               "desc"="Отключить вытяжки и вентиляции", "id" = AALARM_MODE_OFF),\
-		AALARM_MODE_FLOOD 		= list("name"="Потоп",              "desc"="Отключить вытяжки и открыть вентиляции", "emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
+		AALARM_MODE_SCRUBBING   = list("name"="Фильтрация",         "desc"="Фильтрует загрязнения", "id" = AALARM_MODE_SCRUBBING),\
+		AALARM_MODE_VENTING		= list("name"="Продув",             "desc"="Откачивает воздух, одновременно закачивая новый", "id" = AALARM_MODE_VENTING),\
+		AALARM_MODE_PANIC       = list("name"="Экстренная откачка", "desc"="Быстро откачивает воздух из помещения", "id" = AALARM_MODE_PANIC),\
+		AALARM_MODE_REPLACEMENT = list("name"="Замена",             "desc"="Откачивает весь воздух, а потом закачивает новый", "id" = AALARM_MODE_REPLACEMENT),\
+		AALARM_MODE_SIPHON	    = list("name"="Выкачка",            "desc"="Откачивает воздух из помещения", "id" = AALARM_MODE_SIPHON),\
+		AALARM_MODE_CONTAMINATED= list("name"="Очистка",            "desc"="Быстро фильтрует загрязнения", "id" = AALARM_MODE_CONTAMINATED),\
+		AALARM_MODE_REFILL      = list("name"="Наполнение",         "desc"="Утраивает скорость подачи воздуха в помещение", "id" = AALARM_MODE_REFILL),\
+		AALARM_MODE_OFF         = list("name"="Выкл",               "desc"="Отключает вытяжки и вентиляции", "id" = AALARM_MODE_OFF),\
+		AALARM_MODE_FLOOD 		= list("name"="Потоп",              "desc"="Отключает вытяжки и открывает вентиляции", "emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
