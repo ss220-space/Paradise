@@ -36943,7 +36943,9 @@
 	in_use = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner";
@@ -43305,9 +43307,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "bJP" = (
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue";
@@ -45391,6 +45391,9 @@
 	},
 /area/medical/reception)
 "bNz" = (
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue";
@@ -47371,12 +47374,6 @@
 	tag = "icon-whiteblue (WEST)"
 	},
 /area/medical/reception)
-"bQT" = (
-/obj/structure/sign/nosmoking_2{
-	pixel_x = -4
-	},
-/turf/simulated/wall,
-/area/medical/chemistry)
 "bQU" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers{
@@ -132448,7 +132445,7 @@ bJP
 bEo
 bEo
 bEo
-bQT
+bOU
 bOU
 bSS
 bZJ
