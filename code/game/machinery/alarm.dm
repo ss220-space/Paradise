@@ -700,8 +700,8 @@
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Люди",     	 "desc"="Проверять содержания кислорода и азота", "id" = AALARM_PRESET_HUMAN),\
-		AALARM_PRESET_VOX 		= list("name"="Воксы",       "desc"="Проверять содержание азота", "id" = AALARM_PRESET_VOX),\
+		AALARM_PRESET_HUMAN		= list("name"="Люди",     	 "desc"="Проверяет содержания кислорода и азота", "id" = AALARM_PRESET_HUMAN),\
+		AALARM_PRESET_VOX 		= list("name"="Воксы",       "desc"="Проверяет содержание азота", "id" = AALARM_PRESET_VOX),\
 		AALARM_PRESET_COLDROOM 	= list("name"="Холодильник", "desc"="Для холодильников", "id" = AALARM_PRESET_COLDROOM),\
 		AALARM_PRESET_SERVER 	= list("name"="Серверная",   "desc"="Для серверных", "id" = AALARM_PRESET_SERVER)
 	)
