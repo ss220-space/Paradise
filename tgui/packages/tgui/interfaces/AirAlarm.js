@@ -178,7 +178,7 @@ const AirAlarmTabs = (props, context) => {
         key="Vents"
         selected={0 === tabIndex}
         onClick={() => setTabIndex(0)}>
-        <Icon name="sign-out-alt" /> Вентиляция
+        <Icon name="sign-out-alt" /> Вентиляции
       </Tabs.Tab>
       <Tabs.Tab
         key="Scrubbers"
@@ -225,7 +225,7 @@ const AirAlarmVentsView = (props, context) => {
     vents.map(v => (
       <Section title={v.name} key={v.name}>
         <LabeledList>
-          <LabeledList.Item label="Статус">
+          <LabeledList.Item label="Режим">
             <Button
               content={v.power ? "Вкл" : "Выкл"}
               selected={v.power}
@@ -297,9 +297,9 @@ const AirAlarmScrubbersView = (props, context) => {
                 () => act('command', { cmd: 'scrubbing', val: (s.scrubbing === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
           </LabeledList.Item>
-          <LabeledList.Item label="Диапазон">
+          <LabeledList.Item label="Дальность">
             <Button
-              content={s.widenet ? "Расширенный" : "Нормальный"}
+              content={s.widenet ? "Расширенная" : "Нормальная"}
               selected={s.widenet}
               icon="expand-arrows-alt"
               onClick={
@@ -375,7 +375,7 @@ const AirAlarmModesView = (props, context) => {
       </Section>
       <Section title="Предустановки системы">
         <Box italic>
-          После смены предустановки система автоматически начнёт цикл удаления загрязнений.
+          После смены предустановки система автоматически начнёт цикл замены воздуха и фильтрации загрязнений.
         </Box>
         <Table mt={1}>
           {presets.map(p => (
