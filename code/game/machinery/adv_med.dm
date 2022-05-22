@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='notice'>Субъект не должен держать в руках посторонние предметы.</span>")
 		return FALSE
 	if(H.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[H] не влез[pluralize_ru(H.gender,"ет","ут")] в [src], потому что к [genderize_ru(H.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
+		to_chat(user, "<span class='warning'>[H] не влез[pluralize_ru(H.gender,"ет","ут")] в [src], потому что к [genderize_ru(H.gender,"его","её","его","их")] голове прилип слайм.</span>")
 		return
 
 	if(H == user)
