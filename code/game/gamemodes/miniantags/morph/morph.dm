@@ -31,7 +31,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = 0
-	attacktext = "обгладывает"
+	attacktext = "кусает"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
@@ -57,7 +57,7 @@
 	if(morphed)
 		. = examine_text_list.Copy()
 		if(get_dist(user, src) <= 3)
-			. += "<span class='warning'>Во внешнем виде вы замечаете что-то очень неправильное…</span>"
+			. += "<span class='warning'>Во внешнем виде [src] вы замечаете что-то очень неправильное…</span>"
 	else
 		. = ..()
 
@@ -72,7 +72,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(A && A.loc != src)
-		visible_message("<span class='warning'>[src] поглощает [A] целиком!</span>")
+		visible_message("<span class='warning'>[src] целиком поглоща[pluralize_ru(src.gender,"ет","ют")] [A]!</span>")
 		A.forceMove(src)
 		return 1
 	return 0
@@ -91,7 +91,7 @@
 /mob/living/simple_animal/hostile/morph/proc/assume(atom/movable/target)
 	morphed = 1
 	form = target
-	visible_message("<span class='warning'>[src] резко начинает искривляться и менять форму, становясь копией [target]!</span>", \
+	visible_message("<span class='warning'>[src] резко начина[pluralize_ru(src.gender,"ет","ют")] искривляться и менять форму, становясь копией [target]!</span>", \
 					"<span class='notice'>Вы перекручиваете своё тело и принимаете форму [target].</span>")
 
 	appearance = target.appearance
@@ -112,7 +112,7 @@
 	morphed = 0
 	form = null
 	examine_text_list = null // Free that memory
-	visible_message("<span class='warning'>[src] резко проваливается сам в себя, расползаясь массой зелёной плоти!</span>", \
+	visible_message("<span class='warning'>[src] резко провалива[pluralize_ru(src.gender,"ется","ются")] сам[genderize_ru(src.gender,"","а","о","и")] в себя, расползаясь массой зелёной плоти!</span>", \
 					"<span class='notice'>Вы возвращаетесь в своё нормальное тело.</span>")
 	name = initial(name)
 	icon = initial(icon)
@@ -137,7 +137,7 @@
 	if(!.)
 		return FALSE
 	if(morphed)
-		visible_message("<span class='warning'>[src] искривляется и расползается массой зелёной плоти!</span>", \
+		visible_message("<span class='warning'>[src] искривля[pluralize_ru(src.gender,"ется","ются")] и располза[pluralize_ru(src.gender,"ется","ются")] массой зелёной плоти!</span>", \
 						"<span class='userdanger'>Ваша кожа рвётся! Ваша плоть распадается! Никакая маскировка не сможет защитить ва…</span>")
 		restore()
 
