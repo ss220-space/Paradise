@@ -13183,7 +13183,6 @@
 	name = "Detective Requests Console";
 	pixel_y = -30
 	},
-/obj/machinery/photocopier,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
