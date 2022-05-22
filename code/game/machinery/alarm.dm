@@ -692,7 +692,7 @@
 		AALARM_MODE_VENTING		= list("name"="Продув",             "desc"="Откачивает воздух, одновременно закачивая новый", "id" = AALARM_MODE_VENTING),\
 		AALARM_MODE_PANIC       = list("name"="Экстренная откачка", "desc"="Быстро откачивает воздух из помещения", "id" = AALARM_MODE_PANIC),\
 		AALARM_MODE_REPLACEMENT = list("name"="Замена",             "desc"="Откачивает весь воздух, а потом закачивает новый", "id" = AALARM_MODE_REPLACEMENT),\
-		AALARM_MODE_SIPHON	    = list("name"="Выкачка",            "desc"="Откачивает воздух из помещения", "id" = AALARM_MODE_SIPHON),\
+		AALARM_MODE_SIPHON	    = list("name"="Откачка",            "desc"="Откачивает воздух из помещения", "id" = AALARM_MODE_SIPHON),\
 		AALARM_MODE_CONTAMINATED= list("name"="Очистка",            "desc"="Быстро фильтрует загрязнения", "id" = AALARM_MODE_CONTAMINATED),\
 		AALARM_MODE_REFILL      = list("name"="Наполнение",         "desc"="Утраивает скорость подачи воздуха в помещение", "id" = AALARM_MODE_REFILL),\
 		AALARM_MODE_OFF         = list("name"="Выкл",               "desc"="Отключает вытяжки и вентиляции", "id" = AALARM_MODE_OFF),\
