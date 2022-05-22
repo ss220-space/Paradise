@@ -311,7 +311,7 @@
 		return
 
 	while(finalized == "Нет" && client)
-		choice = input(usr,"Какой вы хотите выбрать образ в мобильной форме? Выбор может быть сделан только один раз.") as null|anything in my_choices
+		choice = input(usr,"Какой вы хотите выбрать образ в мобильной форме? Выбор может быть сделан только один раз.","Выбор мобильной формы") as null|anything in my_choices
 		if(!choice) return
 		if(choice == "Custom")
 			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
