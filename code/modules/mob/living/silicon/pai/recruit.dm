@@ -127,8 +127,10 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		pai_candidates.Add(candidate)
 
 
-	var/dat = {"<meta charset="UTF-8">"}
-	dat += {"
+	var/dat = {"<!DOCTYPE html"><html>
+		<meta charset="UTF-8">
+		<title>Настройка личности ПИИ</title>
+		<head>
 			<style type="text/css">
 				body {
 					margin-top:5px;
@@ -162,7 +164,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					color: #4477E0;
 					text-align:right;
 					vertical-align:top;
-					width:120px;
+					width:180px;
 					border:0px;
 				}
 				tr.d1 td {
@@ -185,65 +187,61 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					padding: .1em .5em;
 				}
 			</style>
-			"}
+		</head>
+		<body>
+			<p class="top">Пожалуйста, укажите параметры своей личности ПИИ.</p>
+			<p>Помните: от того, что вы здесь укажете, зависит, выберет ли вас пользователь, запрашивающий личность ПИИ!</p>
 
-	dat += {"
-	<body>
-		<b><font size="3px">Настройка личности ПИИ</font></b>
-		<p class="top">Пожалуйста, настройте параметры своей личности ПИИ.</p>
-		<p>Помните: от того, что вы здесь укажете, зависит, выберет ли вас пользователь, запрашивающий личность ПИИ!</p>
-
-		<table>
-			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=name;new=1;candidate=[candidate.UID()]'>Имя</a>:</th>
-				<td class="desc">[candidate.name]&nbsp;</td>
-			</tr>
-			<tr class="d1">
-				<td>Как вы хотите себя называть. Предложение: любое имя, которое вы бы выбрали для персонажа экипажа станции ИЛИ ИИ.</td>
-			</tr>
-			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=desc;new=1;candidate=[candidate.UID()]'>Описание</a>:</th>
-				<td class="desc">[candidate.description]&nbsp;</td>
-			</tr>
-			<tr class="d1">
-				<td>Каким ПИИ Вы обычно играете? Ваши манеры, особенности и прочее. Можете описать кратко или подробно, как вам нравится.</td>
-			</tr>
-			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=role;new=1;candidate=[candidate.UID()]'>Предпочитаемая роль</a>:</th>
-				<td class="desc">[candidate.role]&nbsp;</td>
-			</tr>
-			<tr class="d1">
-				<td>Вам нравится сотрудничать с подлыми социальными ниндзя? Нравится помогать службе безопасности выслеживать преступников? Нравится сидеть на плечах инженера, пока он в очередной спасает станцию? Ваша роль не ограничивается только должностями экипажа станции. Сюда уместно написать практически любое общее описание того, что вы хотели бы делать.</td>
-			</tr>
-			<tr class="d0">
-				<th rowspan="2"><a href='byond://?src=[UID()];option=ooc;new=1;candidate=[candidate.UID()]'>OOC-комментарии</a>:</th>
-				<td class="desc">[candidate.comments]&nbsp;</td>
-			</tr>
-			<tr class="d1">
-				<td>Всё, что вы хотели бы OOC адресовать именно игроку, ищущему себе ПИИ. <i>«Я предпочитаю более серьёзное РП»</i>, <i>«Я всё ещё путаюсь в интерфейсе!»</i> и тому подобное. Не стесняйтесь оставлять это поле пустым, если хотите.</td>
-			</tr>
-		</table>
-		<br>
-		<table>
-			<tr>
-				<td class="button">
-					<a href='byond://?src=[UID()];option=save;new=1;candidate=[candidate.UID()]' class="button">Сохранить личность</a>
-				</td>
-			</tr>
-			<tr>
-				<td class="button">
-					<a href='byond://?src=[UID()];option=load;new=1;candidate=[candidate.UID()]' class="button">Загрузить личность</a>
-				</td>
-			</tr>
-		</table><br>
-		<table>
-			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">Отправить личность</font></b></a></td>
-		</table><br>
-
-	</body>
+			<table>
+				<tr class="d0">
+					<th rowspan="2"><a href='byond://?src=[UID()];option=name;new=1;candidate=[candidate.UID()]'>Имя</a>:</th>
+					<td class="desc">[candidate.name]&nbsp;</td>
+				</tr>
+				<tr class="d1">
+					<td>Как вы хотите себя называть.<br>Предложение: любое имя, которое вы бы выбрали для персонажа экипажа станции или ИИ.</td>
+				</tr>
+				<tr class="d0">
+					<th rowspan="2"><a href='byond://?src=[UID()];option=desc;new=1;candidate=[candidate.UID()]'>Описание</a>:</th>
+					<td class="desc">[candidate.description]&nbsp;</td>
+				</tr>
+				<tr class="d1">
+					<td>Каким ПИИ Вы обычно играете?<br>Ваши манеры, особенности и прочее.<br>Можете описать кратко или подробно, как вам нравится.</td>
+				</tr>
+				<tr class="d0">
+					<th rowspan="2"><a href='byond://?src=[UID()];option=role;new=1;candidate=[candidate.UID()]'>Предпочитаемая роль</a>:</th>
+					<td class="desc">[candidate.role]&nbsp;</td>
+				</tr>
+				<tr class="d1">
+					<td>Вам нравится сотрудничать с подлыми социальными ниндзя?<br>Нравится помогать службе безопасности выслеживать преступников?<br>Нравится сидеть на плечах инженера, пока он в очередной спасает станцию?<br>Ваша роль не ограничивается только должностями экипажа станции. Сюда уместно написать любое общее описание того, чем вы бы хотели заниматься.</td>
+				</tr>
+				<tr class="d0">
+					<th rowspan="2"><a href='byond://?src=[UID()];option=ooc;new=1;candidate=[candidate.UID()]'>OOC-комментарии</a>:</th>
+					<td class="desc">[candidate.comments]&nbsp;</td>
+				</tr>
+				<tr class="d1">
+					<td>Всё, что вы хотели бы OOC адресовать игроку, ищущему себе ПИИ.<br><i>«Я предпочитаю более серьёзное РП»</i>, <i>«Я всё ещё путаюсь в интерфейсе!»</i> и тому подобное.<br>Не стесняйтесь оставлять это поле пустым, если хотите.</td>
+				</tr>
+			</table>
+			<br>
+			<table>
+				<tr>
+					<td class="button">
+						<a href='byond://?src=[UID()];option=save;new=1;candidate=[candidate.UID()]' class="button">Сохранить личность</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="button">
+						<a href='byond://?src=[UID()];option=load;new=1;candidate=[candidate.UID()]' class="button">Загрузить личность</a>
+					</td>
+				</tr>
+			</table><br>
+			<table>
+				<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">Отправить личность</font></b></a></td>
+			</table>
+		</body></html>
 	"}
 
-	M << browse(dat, "window=paiRecruit;size=580x580;")
+	M << browse(dat, "window=paiRecruit;size=800x600")
 
 /datum/paiController/proc/findPAI(var/obj/item/paicard/p, var/mob/user)
 	requestRecruits(p, user)
@@ -260,7 +258,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 	dat += {"
 		<!DOCTYPE HTML>
-		<title>Персональный ИИ</title>
+		<title>Список доступных ПИИ</title>
 		<html>
 			<meta charset="UTF-8">
 			<head>
@@ -282,6 +280,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 						border-collapse:collapse;
 						font-size:13px;
 						border: 1px solid #161616;
+						margin-bottom: 1em;
 						width:100%;
 					}
 					table.download {
@@ -315,7 +314,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					}
 					th {
 						text-align:left;
-						width:125px;
+						width:180px;
 						vertical-align:top;
 					}
 					a.button {
@@ -325,35 +324,33 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				</style>
 			</head>
 			<body>
-				<b><font size='3px'>Список доступных ПИИ</font></b><br><br>
 	"}
-	dat += "<p>Отображение доступных личностей ПИИ из центральной базы данных…</p><p>Если личности не будут обнаружены, либо если не будет найдена подходящая личность, попробуйте выполнить повторный поиск позже, когда могут быть загружены новые личности ПИИ.</p><p>Поиск личностей… Пожалуйста, ожидайте….</p>"
+	dat += "<p>Отображение доступных личностей ПИИ из центральной базы данных…</p><p>Если личности не будут обнаружены, либо если не будет найдена подходящая личность, попробуйте выполнить повторный поиск позже, когда могут быть загружены новые личности ПИИ.</p><p>Поиск личностей начат, вы можете закрыть это окно до получения уведомления о появлении доступных личностей. Обычно это занимает от 15 секунд до нескольких минут.</p>"
 
 	for(var/datum/paiCandidate/c in available)
 		dat += {"
-				<table class="desc">
-					<tr class="d0">
-						<th>Имя:</th>
-						<td>[c.name]</td>
-					</tr>
-					<tr class="d1">
-						<th>Описание:</th>
-						<td>[c.description]</td>
-					</tr>
-					<tr class="d0">
-						<th>Предпочитаемая роль:</th>
-						<td>[c.role]</td>
-					</tr>
-					<tr class="d1">
-						<th>OOC-комментарии:</th>
-						<td>[c.comments]</td>
-					</tr>
-				</table>
-				<table class="download">
-					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Скачать [c.name]</b></a>
-					</td>
-				</table>
-				<br>
+			<table class="desc">
+				<tr class="d0">
+					<th>Имя:</th>
+					<td>[c.name]</td>
+				</tr>
+				<tr class="d1">
+					<th>Описание:</th>
+					<td>[c.description]</td>
+				</tr>
+				<tr class="d0">
+					<th>Предпочитаемая роль:</th>
+					<td>[c.role]</td>
+				</tr>
+				<tr class="d1">
+					<th>OOC-комментарии:</th>
+					<td>[c.comments]</td>
+				</tr>
+			</table>
+			<table class="download">
+				<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Скачать [c.name]</b></a>
+				</td>
+			</table>
 		"}
 
 	dat += {"
@@ -361,14 +358,14 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		</html>
 	"}
 
-	user << browse(dat, "window=findPai;size=800x700")
+	user << browse(dat, "window=findPai;size=600x[300 + (length(available) * 140)]")
 
 /datum/paiController/proc/requestRecruits(var/obj/item/paicard/P, mob/user)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
-					to_chat(O, "<span class='boldnotice'>[user.real_name] активировал[genderize_ru(user.gender,"","а","о","и")] поиск личностей ПИИ. (<a href='?src=[O.UID()];jump=\ref[P]'>Прыгнуть</a> | <a href='?src=[UID()];signup=\ref[O]'>Записаться</a>)</span>")
+					to_chat(O, "<span class='boldnotice'>[user.real_name] активировал[genderize_ru(user.gender,"","а","о","и")] поиск личностей ПИИ. (<a href='?src=[O.UID()];jump=\ref[P]'>Телепорт</a> | <a href='?src=[UID()];signup=\ref[O]'>Записаться</a>)</span>")
 					//question(O.client)
 
 /datum/paiController/proc/check_recruit(var/mob/dead/observer/O)

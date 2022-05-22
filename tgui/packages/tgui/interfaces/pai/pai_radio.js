@@ -14,7 +14,7 @@ export const pai_radio = (props, context) => {
 
   return (
     <LabeledList>
-      <LabeledList.Item label="Frequency">
+      <LabeledList.Item label="Частота">
         <NumberInput
           animate
           step={0.2}
@@ -27,16 +27,16 @@ export const pai_radio = (props, context) => {
             freq: value,
           })} />
         <Button
-          tooltip="Reset"
+          tooltip="Сброс на частоту по-умолчанию"
           icon="undo"
           onClick={() => act('freq', { freq: "145.9" })}
         />
       </LabeledList.Item>
-      <LabeledList.Item label="Broadcast Nearby Speech">
+      <LabeledList.Item label="Передавать речь вокруг себя">
         <Button
           onClick={() => act('toggleBroadcast')}
           selected={broadcasting}
-          content={broadcasting ? "Enabled" : "Disabled"}
+          content={broadcasting ? "Включено" : "Отключено"}
         />
       </LabeledList.Item>
     </LabeledList>

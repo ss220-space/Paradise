@@ -23,7 +23,7 @@ export const pai_main_menu = (props, context) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Доступная ОЗУ">
+        <LabeledList.Item label="Доступная память">
           {available_ram}
         </LabeledList.Item>
         <LabeledList.Item label="Доступные приложения">

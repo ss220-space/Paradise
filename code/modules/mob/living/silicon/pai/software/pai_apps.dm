@@ -96,7 +96,7 @@
 				return
 
 			// Check the carrier
-			var/answer = alert(M, "[pai_holder] запрашивает у вас образец ДНК. Вы позволите подтвердить Вашу личность?", "[pai_holder] Check DNA", "Да", "Нет")
+			var/answer = alert(M, "[pai_holder] запрашивает у вас образец ДНК. Вы позволите подтвердить Вашу личность?", "[pai_holder]: проверка ДНК", "Да", "Нет")
 			if(answer == "Да")
 				M.visible_message("<span class='notice'>[M] прикладыва[pluralize_ru(M.gender,"ет","ют")] большой палец к [pai_holder].</span>", "<span class='notice'>Вы прикладываете большой палец к [pai_holder].</span>")
 				var/datum/dna/dna = M.dna
@@ -106,7 +106,6 @@
 				else
 					to_chat(usr, "<span class='warning'>ДНК не совпадает с сохранённой ДНК хозяина.</span>")
 			else
-				to_chat(usr, "<span class='warning'>[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.</span>")
 				to_chat(usr, "<span class='warning'>Кажется, [M] не собира[pluralize_ru(M.gender,"ет","ют")]ся добровольно предоставлять вам образец ДНК.</span>")
 
 // Crew Manifest //

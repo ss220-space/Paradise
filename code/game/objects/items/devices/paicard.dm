@@ -105,8 +105,11 @@
 					    text-align:left;
 					    width:125px;
 					}
+					th.request {
+					    width:240px;
+					}
+					th.request,
 					td.request {
-					    width:140px;
 					    vertical-align:top;
 					}
 					td.radio {
@@ -134,18 +137,17 @@
 
 	if(pai)
 		dat += {"
-			<b><font size='3px'>Персональный ИИ</font></b><br><br>
 			<table class="request">
 				<tr>
-					<td class="request">Установленная личность:</td>
+					<th class="request">Установленная личность:</th>
 					<td>[pai.name]</td>
 				</tr>
 				<tr>
-					<td class="request">Основная директива:</td>
+					<th class="request">Основная директива:</th>
 					<td>[pai.pai_law0]</td>
 				</tr>
 				<tr>
-					<td class="request">Дополнительные директивы:</td>
+					<th class="request">Дополнительные директивы:</th>
 					<td>[pai.pai_laws]</td>
 				</tr>
 			</table>
@@ -173,12 +175,12 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Передача:</td>
-						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>Разрешить" : "<font color=#FF5555>Запретить"]</font></a>
+						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>Разрешена" : "<font color=#FF5555>Запрещена"]</font></a>
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Приём:</td>
-						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>Разрешить" : "<font color=#FF5555>Запретить"]</font></a>
+						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>Разрешена" : "<font color=#FF5555>Запрещена"]</font></a>
 						</td>
 					</tr>
 				</table>
@@ -189,8 +191,8 @@
 			dat += "<font color=red><i>ПО для радиосвязи не установлено. Пожалуйста, установите личность ПИИ для загрузки ПО.</i></font><br>"
 		dat += {"
 			<table>
-				<td class="button_red"><a href='byond://?src=[UID()];wipe=1' class='button'>Стереть текущую личность ПИИ</a>
-
+				<td class="button_red">
+					<a href='byond://?src=[UID()];wipe=1' class='button'>Стереть текущую личность ПИИ: [pai.name]</a>
 				</td>
 			</table>
 		"}
@@ -215,7 +217,7 @@
 			    <p>Личность не установлена.</p>
 				<table>
 					<tr>
-						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Найти личность</a>
+						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Найти личность ПИИ</a>
 						</td>
 					</tr>
 				</table>
@@ -223,7 +225,7 @@
 				<p>При каждом нажатии этой кнопки всем доступным личностям ПИИ будет послан запрос. Дайте личностям ПИИ время на подготовку и проверьте результаты ответа чуть позже.</p>
                 <p>Этот процесс может занять от 15 секунд до нескольких минут, в зависимости от своевременности загрузки доступных личностей.</p>
 			"}
-	user << browse(dat, "window=paicard")
+	user << browse(dat, "window=paicard;size=500x350")
 	onclose(user, "paicard")
 	return
 
@@ -283,7 +285,7 @@
 			if(2)
 				radio.ToggleReception()
 	if(href_list["setlaws"])
-		var/newlaws = sanitize(copytext_char(input("Введите любые дополнительные директивы.<br>Личность вашего ПИИ будет им следовать.<br>Учтите что эти директивы не могут отменить верность личности ПИИ её привязанному хозяину.<br>Конфликтующие директивы будут игнорироваться.", "Настройка директив ПИИ", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
+		var/newlaws = sanitize(copytext_char(input("Введите любые дополнительные директивы.\nЛичность вашего ПИИ будет им следовать.\nУчтите что эти директивы не могут отменить верность личности ПИИ её привязанному хозяину.\nКонфликтующие директивы будут игнорироваться.", "Настройка директив ПИИ", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
 		if(newlaws)
 			pai.pai_laws = newlaws
 			to_chat(pai, "Ваши дополнительные директивы были обновлены. Ваши новые директивы:")

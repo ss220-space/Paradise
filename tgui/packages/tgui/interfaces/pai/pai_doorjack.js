@@ -15,16 +15,16 @@ export const pai_doorjack = (props, context) => {
 
   if (machine) {
     cableContent = (
-      <Button selected content="Connected" />
+      <Button selected content="Подключён" />
     );
   } else if (cable) {
     cableContent = (
-      <Button color={"orange"} content="Extended" />
+      <Button color={"orange"} content="Извлечён" />
     );
   } else {
     cableContent = (
       <Button
-        content="Retracted"
+        content="Выдвинуть"
         onClick={() => act('cable')}
       />
     );
@@ -33,7 +33,7 @@ export const pai_doorjack = (props, context) => {
   let hackContent;
   if (machine) {
     hackContent = (
-      <LabeledList.Item label="Hack">
+      <LabeledList.Item label="Взлом">
         <ProgressBar
           ranges={{
             good: [67, Infinity],
@@ -46,13 +46,13 @@ export const pai_doorjack = (props, context) => {
           <Button
             mt={1}
             color="red"
-            content="Abort"
+            content="Отмена"
             onClick={() => act('cancel')}
           />
         ) : (
           <Button
             mt={1}
-            content="Start"
+            content="Начать"
             onClick={() => act('jack')}
           />
         )}
@@ -62,7 +62,7 @@ export const pai_doorjack = (props, context) => {
 
   return (
     <LabeledList>
-      <LabeledList.Item label="Cable">
+      <LabeledList.Item label="Дата-кабель">
         {cableContent}
       </LabeledList.Item>
       {hackContent}

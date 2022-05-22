@@ -23,7 +23,7 @@ export const pai_bioscan = (props, context) => {
   }
   return (
     <LabeledList>
-      <LabeledList.Item label="Status">
+      <LabeledList.Item label="Статус">
         {dead ? (
           <Box bold color="red">
             Мёртв

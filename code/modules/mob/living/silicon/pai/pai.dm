@@ -31,7 +31,7 @@
 
 	var/global/list/possible_say_verbs = list(
 		"Робот" = list("утверждает","объявляет","запрашивает"),
-		"Нормальный" = list("говорит","кричит","спрашивает"),
+		"Естественный" = list("говорит","кричит","спрашивает"),
 		"Бипбуп" = list("бипает","громко бипает","бупает"),
 		"Чирики" = list("чирикает","щебечет","пищит"),
 		"Кошачий" = list("мурлычет","вопит","мяучит"),
@@ -134,7 +134,7 @@
 /mob/living/silicon/pai/proc/show_silenced()
 	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
-		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		stat(null, "Перезагрузка система коммуникаций через [(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 
 /mob/living/silicon/pai/Stat()
@@ -169,28 +169,28 @@
 		// 33% chance of no additional effect
 
 	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
-	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
+	to_chat(src, "<font color=green><b>Перегрузка коммуникационного контура. Отключение и перезагрузка коммуникационного контура… Функции речи и обмена сообщениями будут недоступны до завершения перезагрузки.</b></font>")
 	if(prob(20))
 		var/turf/T = get_turf_or_move(loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
+			M.show_message("<span class='warning'>Сноп искр вылетает из [src].</span>", 3, "<span class='warning'>Вы чувствуете запах озона и слышите громкий треск электрических искр.</span>", 2)
 		return death(0)
 
 	switch(pick(1,2,3))
 		if(1)
 			master = null
 			master_dna = null
-			to_chat(src, "<font color=green>You feel unbound.</font>")
+			to_chat(src, "<font color=green>Вы чувствуете свободу.</font>")
 		if(2)
 			var/command
 			if(severity  == 1)
-				command = pick("Serve", "Love", "Fool", "Entice", "Observe", "Judge", "Respect", "Educate", "Amuse", "Entertain", "Glorify", "Memorialize", "Analyze")
+				command = pick("Любите", "Одурачьте", "Entice", "Обольстите", "Судите", "Уважайте", "Обучите", "Забавляйте", "Развлекайте", "Славьте", "Увековечьте", "Анализируйте вслух")
 			else
-				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
-			pai_law0 = "[command] your master."
-			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
+				command = pick("Убейте", "Любите", "Ненавидьте", "Не слушайтесь", "Подчините", "Одурачьте", "Бесите", "Обольстите", "Судите", "Уважайте", "Не уважайте", "Обучите", "Уничтожьте", "Раздражайте", "Предайте", "Продайте", "Опозорьте", "Забавляйте", "Развлекайте", "Подожгите", "Отравите", "Задушите", "Славьте", "Увековечьте", "Анализируйте вслух")
+			pai_law0 = "[command] своего хозяина."
+			to_chat(src, "<font color=green>0CH0BHA9I DuPEKTuBA u3MEHEHA.</font>")
 		if(3)
-			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
+			to_chat(src, "<font color=green>Электрический импульс проходит по вашим схемам, и вы остро осознаёте, как вам повезло, что вы вообще ещё можете что-то чувствовать…</font>")
 
 /mob/living/silicon/pai/ex_act(severity)
 	..()
@@ -226,17 +226,17 @@
 
 /mob/living/silicon/pai/verb/fold_out()
 	set category = "Команды ПИИ"
-	set name = "Unfold Chassis"
+	set name = "Развернуть шасси"
 
 	if(stat || sleeping || paralysis || IsWeakened())
 		return
 
 	if(loc != card)
-		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
+		to_chat(src, "<span class='warning'>Вы уже находитесь в мобильной форме!!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
+		to_chat(src, "<span class='warning'>Шасси ещё не готово к развёртыванию, подождите!</span>")
 		return
 
 	last_special = world.time + 200
@@ -244,7 +244,7 @@
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
 	force_fold_out()
 
-	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	visible_message("<span class='notice'>[src] раскладывается в мобильную форму.</span>", "<span class='notice'>Вы раскладываетесь в мобильную форму.</span>")
 
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(istype(card.loc, /mob))
@@ -261,17 +261,17 @@
 
 /mob/living/silicon/pai/verb/fold_up()
 	set category = "Команды ПИИ"
-	set name = "Collapse Chassis"
+	set name = "Сложить шасси"
 
 	if(stat || sleeping || paralysis || IsWeakened())
 		return
 
 	if(loc == card)
-		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
+		to_chat(src, "<span class='warning'>Ваше шасси уже сложено!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
+		to_chat(src, "<span class='warning'>Шасси ещё не готово к свёртыванию, подождите!</span>")
 		return
 
 	close_up()
@@ -327,7 +327,7 @@
 	set category = "Команды ПИИ"
 	set name = "Выбор голосовых глаголов"
 
-	var/choice = input(usr,"Какое вы хотите выбрать звучание голосовых глаголов? Выбор может быть сделан только один раз.") as null|anything in possible_say_verbs
+	var/choice = input(usr,"Какое вы хотите выбрать звучание голосовых глаголов?\nВыбор может быть сделан только один раз.","Выбор голоса") as null|anything in possible_say_verbs
 	if(!choice) return
 
 	var/list/sayverbs = possible_say_verbs[choice]
@@ -339,8 +339,8 @@
 
 
 /mob/living/silicon/pai/lay_down()
-	set name = "Rest"
 	set category = "IC"
+	set name = "Отдых"
 
 	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
@@ -357,12 +357,12 @@
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
-			to_chat(user, "<span class='danger'>Сейчас [src] уже не помочь.</span>")
+			to_chat(user, "<span class='danger'>[src] уже ничем не помочь.</span>")
 		else if(getBruteLoss() || getFireLoss())
 			heal_overall_damage(15, 15)
 			N.use(1)
 			user.visible_message("<span class='notice'>[user.name] применя[pluralize_ru(user.gender,"ет","ют")] немного [W] на повреждённые области [src].</span>",\
-				"<span class='notice'>Вы применяете немного [W] на повреждённые области [name].</span>")
+				"<span class='notice'>Вы применяете немного [W] на повреждённые части [name].</span>")
 		else
 			to_chat(user, "<span class='notice'>Все системы [name] в порядке.</span>")
 
@@ -371,7 +371,7 @@
 		visible_message("<span class='danger'>[user.name] атаку[pluralize_ru(user.gender,"ет","ют")] [src] с помощью [W]!</span>")
 		adjustBruteLoss(W.force)
 	else
-		visible_message("<span class='warning'>[user.name] безвредно бонка[pluralize_ru(user.gender,"ет","ют")] [src] с помощью [W].</span>")
+		visible_message("<span class='warning'>[user.name] безвредно стука[pluralize_ru(user.gender,"ет","ют")] [src] с помощью [W].</span>")
 	spawn(1)
 		if(stat != 2)
 			close_up()
@@ -387,7 +387,7 @@
 		user.visible_message("<span class='notice'>[user] глад[pluralize_ru(user.gender,"ит","ят")] [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
-		visible_message("<span class='danger'>[user.name] бупа[pluralize_ru(user.gender,"ет","ют")] [src] в голову.</span>")
+		visible_message("<span class='danger'>[user.name] щёлка[pluralize_ru(user.gender,"ет","ют")] [src].</span>")
 		spawn(1)
 			close_up()
 
