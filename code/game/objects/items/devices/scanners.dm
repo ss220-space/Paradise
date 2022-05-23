@@ -844,7 +844,7 @@ REAGENT SCANNER
 	if(user.cell.charge >= usecharge)
 		mobScan(M, user)
 	else
-		to_chat(user, "<span class='notice'>Нужно перезарядить [src] перед использованием</span>")
+		to_chat(user, "<span class='notice'>Недостаточно заряда для использования [src].</span>")
 
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
 	if(ishuman(M))
@@ -868,7 +868,7 @@ REAGENT SCANNER
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
 
 	else if(iscorgi(M) && M.stat == DEAD)
-		to_chat(user, "<span class='notice'>Вы интересуетесь, [genderize_ru(M.gender,"хорошим ли он был пёсиком","хорошей ли она была собачкой","хорошим ли оно было пёсиком","хорошими ли они были пёсиками")]... <b>[src.name] показывает что [genderize_ru(M.gender,"он был самым лучшим пёсиком","она была самой лучшей собачкой","оно было самым лучшим пёсиком","они были самыми лучшими пёсиками")]</b>.</span>") // :'(
+		to_chat(user, "<span class='notice'>Вы интересуетесь, [genderize_ru(M.gender,"хорошим ли он был пёсиком","хорошей ли она была собачкой","хорошим ли оно было пёсиком","хорошими ли они были пёсиками")]… <b>Сканер показывает что [genderize_ru(M.gender,"он был самым лучшим пёсиком","она была самой лучшей собачкой","оно было самым лучшим пёсиком","они были самыми лучшими пёсиками")]</b>.</span>") // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
 		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
