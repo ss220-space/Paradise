@@ -927,7 +927,7 @@ REAGENT SCANNER
 	var/prlz_left = round(target.paralysis / 4)
 	var/prlz_left_pretext = "остал" + declension_ru(prlz_left,"а","о","о") + "сь"
 	var/prlz_left_posttext = "секунд" + declension_ru(prlz_left,"а","ы","")
-	dat += "Общий паралич, %: [target.paralysis] ([prlz_left_pretext] [prlz_left] [prlz_left_posttext]!)<br>"
+	dat += "Паралич, %: [target.paralysis] ([prlz_left_pretext] [prlz_left] [prlz_left_posttext]!)<br>"
 	dat += "Температура тела: [target.bodytemperature-T0C] °C<br>"
 
 	dat += "<hr>"
