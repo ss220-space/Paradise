@@ -22,7 +22,7 @@ const damages = [
   ['Асфиксия', 'oxyLoss'],
   ['Мозг', 'brainLoss'],
   ['Интоксикация', 'toxLoss'],
-  ['Радиационные', 'radLoss'],
+  ['Уровень радиации', 'radLoss'],
   ['Раны', 'bruteLoss'],
   ['Генетические', 'cloneLoss'],
   ['Ожоги', 'fireLoss'],
