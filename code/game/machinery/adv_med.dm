@@ -157,7 +157,7 @@
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
 	set category = "Object"
-	set name = "Вылезти из сканера тела"
+	set name = "Извлечь пациента из сканера тела"
 
 	if(usr.incapacitated())
 		return
