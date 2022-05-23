@@ -387,7 +387,7 @@
 		dat += "[extra_font]\t-Интоксикация, %: [occupant.getToxLoss()]</font><br>"
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Тяжесть ожогов, %: [occupant.getFireLoss()]</font><br>"
+		dat += "[extra_font]\t-Ожоги, %: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tУровень радиации, %: [occupant.radiation]</font><br>"
