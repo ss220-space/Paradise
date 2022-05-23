@@ -396,7 +396,7 @@
 		dat += "[extra_font]\tГенетические повреждения тканей, %: [occupant.getCloneLoss()]<br>"
 
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tПовреждение мозга, %: [occupant.getBrainLoss()]<br>"
+		dat += "[extra_font]\tПовреждения мозга, %: [occupant.getBrainLoss()]<br>"
 
 		var/prlz_left = round(occupant.paralysis / 4)
 		var/prlz_left_pretext = "остал" + declension_ru(prlz_left,"а","о","о") + "сь"
