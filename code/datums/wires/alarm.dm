@@ -4,7 +4,7 @@
 	wire_count = 5
 	window_x = 385
 	window_y = 90
-	proper_name = "Воздушная сигнализация"
+	proper_name = "Атмосферная панель"
 
 /datum/wires/alarm/New(atom/_holder)
 	wires = list(
@@ -22,8 +22,8 @@
 /datum/wires/alarm/get_status()
 	. = ..()
 	var/obj/machinery/alarm/A = holder
-	. += "Воздушная сигнализация [A.locked ? "за" : "раз"]блокирована."
-	. += "Воздушная сигнализация [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "отключена." : "отлично работает!"]"
+	. += "Атмосферная панель [A.locked ? "за" : "раз"]блокирована."
+	. += "Атмосферная панель [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "отключена." : "отлично работает!"]"
 	. += "Лампочка «Доступ ИИ» [A.aidisabled ? "погасла" : "зажглась"]."
 
 /datum/wires/alarm/on_cut(wire, mend)

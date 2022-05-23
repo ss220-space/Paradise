@@ -231,7 +231,7 @@
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
 	if(name == "alarm")
-		name = "Воздушная сигнализация «[alarm_area.name]»"
+		name = "Атмосферная панель «[alarm_area.name]»"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
@@ -957,7 +957,7 @@
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 						locked = !locked
-						to_chat(user, "<span class='notice'>Вы [ locked ? "запираете" : "отпираете"] интерфейс воздушной сигнализации.</span>")
+						to_chat(user, "<span class='notice'>Вы [ locked ? "запираете" : "отпираете"] интерфейс атмосферной панели.</span>")
 						SStgui.update_uis(src)
 					else
 						to_chat(user, "<span class='warning'>Доступ запрещён.</span>")
@@ -1090,8 +1090,8 @@
 		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
-	name = "публичная воздушная сигнализация" // all-access air alarm
-	desc = "Эта воздушная сигнализация, кажется, не имеет ограничений доступа."
+	name = "публичная атмосферная панель" // all-access air alarm
+	desc = "Эта атмосферная панель, кажется, не имеет ограничений доступа."
 	locked = FALSE
 	req_access = null
 	req_one_access = null
@@ -1101,7 +1101,7 @@ AIR ALARM CIRCUIT
 Just an object used in constructing air alarms
 */
 /obj/item/airalarm_electronics
-	name = "печатная плата воздушной сигнализации" // air alarm electronics
+	name = "печатная плата атмосферной панели" // air alarm electronics
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "Выглядит как печатная плата. Может быть, это она и есть."
