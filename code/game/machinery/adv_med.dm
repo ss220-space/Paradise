@@ -431,7 +431,7 @@
 			dat += "[extra_font]\tКровоостанавливающая пудра: [styptic_powder_amount] единиц[declension_ru(styptic_powder_amount,"а","ы","")]<BR>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tСальбутамол: [salbutamol_powder_amount] единиц[declension_ru(salbutamol_powder_amount,"а","ы","")]<BR>"
+			dat += "[extra_font]\tСальбутамол: [salbutamol_amount] единиц[declension_ru(salbutamol_powder_amount,"а","ы","")]<BR>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"
