@@ -18,13 +18,13 @@
 	var/chassis = "repairbot"   // A record of your chosen chassis.
 	var/global/list/possible_chassis = list(
 		"Дрон" = "repairbot",
-		"Кот" = "cat",
-		"Мышь" = "mouse",
-		"Макака" = "monkey",
 		"Корги" = "borgi",
-		"Лиса" = "fox",
-		"Попугая" = "parrot",
 		"Коробкобот" = "boxbot",
+		"Кот" = "cat",
+		"Лиса" = "fox",
+		"Макака" = "monkey",
+		"Мышь" = "mouse",
+		"Попугай" = "parrot",
 		"Спайдербот" = "spiderbot",
 		"Фея" = "fairy"
 		)
