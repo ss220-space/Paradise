@@ -1046,7 +1046,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 /mob/living/silicon/robot/ratvar_act(weak = FALSE)
-	if(clocked && weak)
+	if(clocked && module.type == /obj/item/robot_module/clockwork)
 		return
 	if(!weak)
 		if(module)
