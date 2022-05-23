@@ -922,7 +922,7 @@ REAGENT SCANNER
 	dat += "[extra_font]\tГенетические повреждения тканей, %: [target.getCloneLoss()]<br>"
 
 	extra_font = (target.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-	dat += "[extra_font]\tПовреждение мозга, %: [target.getBrainLoss()]<br>"
+	dat += "[extra_font]\tПовреждения мозга, %: [target.getBrainLoss()]<br>"
 
 	var/prlz_left = round(target.paralysis / 4)
 	var/prlz_left_pretext = "остал" + declension_ru(prlz_left,"а","о","о") + "сь"
