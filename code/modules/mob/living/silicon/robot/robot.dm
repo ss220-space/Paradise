@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Cricket","Standard")
+	var/list/custom_eye_names = list("Robot","Cricket","Noble","Standard")
 	var/emagged = FALSE
 	var/clocked = FALSE
 	var/is_emaggable = TRUE
@@ -318,14 +318,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(limited_modules) && limited_modules.len)
 		modules = limited_modules.Copy()
-	if(mmi != null && mmi.alien)
-		modules = list("Hunter")
+	if(mmi?.alien)
+		forced_module = "Hunter"
 	if(mmi?.syndicate)
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
-	if(!forced_module)
-		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
-	else
+	if(mmi?.clock || clocked)
+		forced_module = "Clockwork"
+	if(forced_module)
 		modtype = forced_module
+	else
+		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
 	designation = modtype
@@ -338,7 +340,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
 			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
-			module_sprites["Basic"] = "robot_old"
+			module_sprites["Basic"] = "Robot-STD"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
@@ -346,11 +348,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Service"
+			module_sprites["Waitress"] = "Robot-LDY"
 			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Brobot"
+			module_sprites["Bro"] = "Robot-RLX"
 			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Service2"
+			module_sprites["Default"] = "Robot-MAN"
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
@@ -361,7 +363,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Miner_old"
+			module_sprites["Basic"] = "Robot-MNR"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "Standard-Mine"
@@ -374,10 +376,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Medbot"
+			module_sprites["Basic"] = "Robot-MED"
 			module_sprites["Surgeon"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "medicalrobot"
+			module_sprites["Needles"] = "Robot-SRG"
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
@@ -398,7 +400,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "secborg"
+			module_sprites["Basic"] = "Robot-SEC"
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
@@ -412,8 +414,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Engineering"
-			module_sprites["Antique"] = "engineerrobot"
+			module_sprites["Basic"] = "Robot-ENG"
+			module_sprites["Antique"] = "Robot-ENG2"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
@@ -423,8 +425,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "JanBot2"
-			module_sprites["Mopbot"]  = "janitorrobot"
+			module_sprites["Basic"] = "Robot-JAN"
+			module_sprites["Mopbot"]  = "Robot-JAN2"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
@@ -460,6 +462,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
 			qdel(src)
 			return
+
 		if("Clockwork")
 			module = new /obj/item/robot_module/clockwork(src)
 			icon = 'icons/mob/clockwork_mobs.dmi'
@@ -860,6 +863,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
+	else if(istype(W, /obj/item/clockwork/clockslab) && clocked)
+		locked = !locked
+		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
+		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
+		update_icons()
 	else
 		return ..()
 
@@ -985,7 +993,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	if(opened)//Cover is open
-		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
+		if(emagged)
+			return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "You must close the panel first")
 			return
@@ -1036,12 +1045,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			update_icons()
 		return
 
-/mob/living/silicon/robot/ratvar_act()
-	if(clocked)
+/mob/living/silicon/robot/ratvar_act(weak = FALSE)
+	if(clocked && weak)
 		return
-	SSticker.mode.add_clocker(src)
-	var/obj/item/borg/upgrade/clockwork/U = new (src)
-	U.action(src)
+	if(!weak)
+		if(module)
+			reset_module()
+		pick_module("Clockwork")
+	SSticker.mode.add_clocker(mind)
+	UnlinkSelf()
+	laws = new /datum/ai_laws/ratvar
 	clocked = TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
@@ -1085,9 +1098,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
-			overlays += "eyes-[custom_panel]"
+			if(!clocked)
+				overlays += "eyes-[custom_panel]"
+			else
+				overlays += "eyes-[custom_panel]-clocked"
 		else
-			overlays += "eyes-[icon_state]"
+			if(!clocked)
+				overlays += "eyes-[icon_state]"
+			else
+				overlays += "eyes-[icon_state]-clocked"
 	else
 		overlays -= "eyes"
 	if(opened)

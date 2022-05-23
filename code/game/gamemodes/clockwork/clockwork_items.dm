@@ -97,8 +97,9 @@
 	enchants = GLOB.spear_spells
 
 /obj/item/twohanded/ratvarian_spear/update_icon()
-	. = ..()
+	icon_state = "ratvarian_spear[wielded]"
 	update_overlays()
+	return ..()
 
 /obj/item/twohanded/ratvarian_spear/proc/update_overlays()
 	cut_overlays()
@@ -125,7 +126,7 @@
 	name = "ratvarian spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
-	icon_state = "ratvarian_spear"
+	icon_state = "ratvarian_spear0"
 	force = 20
 	armour_penetration = 30
 	sharp = TRUE
@@ -150,8 +151,9 @@
 	enchants = GLOB.hammer_spells
 
 /obj/item/twohanded/clock_hammer/update_icon()
-	. = ..()
+	icon_state = "clock_hammer[wielded]"
 	update_overlays()
+	return ..()
 
 /obj/item/twohanded/clock_hammer/proc/update_overlays()
 	cut_overlays()
@@ -485,6 +487,7 @@
 	requires_master = FALSE
 	ejected_flavor_text = "brass cube"
 	dead_icon = "soul_vessel"
+	clock = TRUE
 
 
 /obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/target)
@@ -589,15 +592,9 @@
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-	R.disconnect_from_ai()
-	R.reset_module()
-	R.pick_module("Clockwork")
-	R.emagged = TRUE
-	R.scrambledcodes = TRUE
+	R.ratvar_act() // weak false
 	R.opened = FALSE
 	R.locked = TRUE
-	R.update_icons()
-
 	return TRUE
 
 // A drone shell. Just click on it and it will boot up itself!

@@ -57,11 +57,12 @@
 		if(QDELETED(src) || owner.incapacitated() || !ES || I != owner.get_active_hand())
 			return
 
+		/*
 		if(GLOB.clockwork_power < ES.req_amount)
 			to_chat(owner, "<span class='warning'>There's no power left to use! Make some you fool!</span>")
 			return
-
 		adjust_clockwork_power(-ES.req_amount)
+		*/
 
 		if(!channeling)
 			channeling = TRUE
@@ -77,8 +78,8 @@
 				owner.update_action_buttons()
 			I.update_icon()
 			to_chat(owner, "<span class='clock'>You sealed the power in [I], you have prepared a [ES.name] invocation!</span>")
-		else
-			adjust_clockwork_power(ES.req_amount)
+		//else
+		//	adjust_clockwork_power(ES.req_amount)
 
 		channeling = FALSE
 	// If it's empty or not an item we can enchant. Making a spell on hand.
@@ -241,29 +242,16 @@
 			to_chat(user, "<span class='warning'>With you magic hand you re-materialize brass into [O.name]!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
-		//Airlock to cult airlock
-		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/clockwork))
-			channeling = TRUE
-			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
-			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = target))
-				target.ratvar_act(TRUE)
-				user.visible_message("<span class='warning'>As the [user] lays his hand on airlock, a pure liquid brass starts leak from every hole covering it!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
-				channeling = FALSE
-			else
-				channeling = FALSE
-				return
 		else if(istype(target, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
-			if(candidate.mmi)
+			if(candidate.mmi || candidate.ghost_can_reenter() || !candidate.clocked)
 				channeling = TRUE
 				user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
 				playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 				do_sparks(5, TRUE, target)
 				if(do_after(user, 90, target = candidate))
 					candidate.emp_act(EMP_HEAVY)
-					candidate.ratvar_act()
+					candidate.ratvar_act(weak = TRUE)
 					channeling = FALSE
 				else
 					channeling = FALSE

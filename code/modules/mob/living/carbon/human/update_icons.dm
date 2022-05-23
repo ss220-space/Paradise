@@ -1329,8 +1329,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
 		overlays_standing[HALO_LAYER] = new_halo_overlay
-
-	// ДОДЕЛАТЬ add isclocker clock_halos
+	//else if(isclocker(src) && SSticker.mode.crew_reveal)
+	//	var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "servitude", -HALO_LAYER)
+	//	overlays_standing[HALO_LAYER] = new_halo_overlay
 
 	apply_overlay(HALO_LAYER)
 

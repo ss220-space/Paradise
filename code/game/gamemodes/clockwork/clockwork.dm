@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			if(!M.current || !ishuman(M.current))
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
-			to_chat(M.current, "<span class='clocklarge'>The veil begins to stutter in fear as the power of Ratvar grows, your eyes begin to glow...</span>")
+			to_chat(M.current, "<span class='clocklarge'>The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/powered, M.current), 20 SECONDS)
 
 /datum/game_mode/proc/check_clock_reveal()

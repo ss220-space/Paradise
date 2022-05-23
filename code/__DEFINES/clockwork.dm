@@ -36,7 +36,7 @@
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
-	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 15),
+	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 8),
 	new /datum/spell_enchant("Force Passage", KNOCK_SPELL, 100),
 	new /datum/spell_enchant("Terraform", REFORM_SPELL, 40),
 	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25) // has do_after 5 seconds
