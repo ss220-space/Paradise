@@ -913,7 +913,7 @@ REAGENT SCANNER
 	dat += "[extra_font]\t-Интоксикация, %: [target.getToxLoss()]</font><br>"
 
 	extra_font = (target.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-	dat += "[extra_font]\t-Тяжесть ожогов, %: [target.getFireLoss()]</font><br>"
+	dat += "[extra_font]\t-Ожоги, %: [target.getFireLoss()]</font><br>"
 
 	extra_font = (target.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tУровень радиации, %: [target.radiation]</font><br>"
