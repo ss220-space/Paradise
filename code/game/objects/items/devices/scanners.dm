@@ -945,7 +945,7 @@ REAGENT SCANNER
 		var/epinephrine_amount = target.reagents.get_reagent_amount("Epinephrine")
 		var/ether_amount = target.reagents.get_reagent_amount("ether")
 		var/styptic_powder_amount = target.reagents.get_reagent_amount("styptic_powder")
-		var/salbutamol_powder_amount = target.reagents.get_reagent_amount("salbutamol")
+		var/salbutamol_amount = target.reagents.get_reagent_amount("salbutamol")
 
 		dat += "Эпинефрин: [epinephrine_amount] единиц[declension_ru(epinephrine_amount,"а","ы","")]<BR>"
 		dat += "Эфир: [ether_amount] единиц[declension_ru(ether_amount,"а","ы","")]<BR>"
