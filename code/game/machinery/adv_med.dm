@@ -462,7 +462,7 @@
 			if(e.status & ORGAN_BROKEN)
 				AN = "[e.broken_description]:"
 			if(e.status & ORGAN_DEAD)
-				dead = "МЁРТВ:"
+				dead = "ТРУП:"
 			if(e.is_robotic())
 				robot = "Робопротез:"
 			if(e.open)
@@ -498,7 +498,7 @@
 			var/infection = "Нет"
 			var/dead = ""
 			if(i.status & ORGAN_DEAD)
-				dead = "МЁРТВ:"
+				dead = "ТРУП:"
 			switch(i.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
 					infection = "Лёгкое заражение:"
