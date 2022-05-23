@@ -134,6 +134,13 @@
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
+/obj/effect/proc_holder/spell/targeted/click/command/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(charge_counter < charge_max)
+		return 0
+	if(user.essence <= cast_amount)
+		return 0
+	return 1
+
 /obj/effect/proc_holder/spell/targeted/click/command
 	name = "Command"
 	panel = "Revenant Abilities"
@@ -142,13 +149,14 @@
 	range = 8
 	action_icon_state = "boo"
 	action_background_icon_state = "bg_revenant"
+	var/cast_amount = 30
 
 /obj/effect/proc_holder/spell/targeted/click/command/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		for (var/obj/O in view(1, user))
 			if (!O.anchored)
 				O.throw_at(M, 32, 2)
-
+	user.essence -= cast_amount
 	user.reveal(20)
 
 /obj/effect/proc_holder/spell/targeted/blood_writing
@@ -306,7 +314,7 @@
 					floor.broken = 0
 					floor.burnt = 0
 					floor.make_plating(1)
-				for(var/obj/machinery/light/light in view_or_range(8, user, selection_type))
+				for(var/obj/machinery/light/light in range(8, user))
 					light.flicker(10) //spooky
 
 //Malfunction: Makes bad stuff happen to robots and machines.
@@ -358,10 +366,11 @@
 	cast_amount = 100
 	unlock_amount = 150
 	action_icon_state = "boo"
-	var/spawn_max = 10
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/animation/cast(mob/living/simple_animal/revenant/user = usr)
+	var/spawn_max = 5
 	if(attempt_cast(user))
 		for (var/obj/O in view(range, user))
-			if(istype(O, /obj/item))
+			if(istype(O, /obj/item) && (spawn_max != 0))
+				spawn_max -= 1
 				new /mob/living/simple_animal/hostile/mimic/copy/revenant(O.loc, O, user)
