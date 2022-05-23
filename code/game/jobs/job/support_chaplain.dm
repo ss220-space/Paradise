@@ -99,7 +99,7 @@
 			B.gender = NEUTER
 	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
-	var/new_deity = copytext_char(clean_input("Кому или чему вы поклоняетесь? По-умолчанию это Космический Иисус.", "Название религии", deity_name, user), 1, MAX_NAME_LEN)
+	var/new_deity = copytext_char(clean_input("Кому или чему вы поклоняетесь? По-умолчанию это Космический Иисус.", "Объект поклонения", deity_name, user), 1, MAX_NAME_LEN)
 
 	if(!length(new_deity) || (new_deity == "Космический Иисус"))
 		new_deity = deity_name
