@@ -7,7 +7,7 @@
 	telegraph_duration = 300
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>Вас окутывает жгучее облако раскалённого пепла! Скорее в укрытие!</i></span>"
+	weather_message = "<span class='userdanger'><i>Жгучее облако раскалённого пепла опускается на вас! Скорее в укрытие!</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "ash_storm"
