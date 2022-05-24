@@ -48,9 +48,9 @@
 		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 300, 0, 5),
 		CLOCK_DESIGN("Soul vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 500, 20),
 		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 4000, 500, 10),
-		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 2000, 400, 20),
-		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 4500, 500, 30),
-		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 20),
+		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 2000, 500, 20),
+		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 3000, 500, 30),
+		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 5000, 1000, 20),
 	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()

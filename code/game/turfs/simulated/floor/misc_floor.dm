@@ -201,10 +201,3 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/turf/simulated/floor/clockwork/reebe
-	name = "cogplate"
-	desc = "Warm brass plating. You can feel it gently vibrating, as if machinery is on the other side."
-	icon_state = "reebe"
-	baseturf = /turf/simulated/floor/clockwork/reebe
-	uses_overlay = FALSE

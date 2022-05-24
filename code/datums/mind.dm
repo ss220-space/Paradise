@@ -239,14 +239,27 @@
 
 	. += _memory_edit_role_enabled(ROLE_CLOCKER)
 
-/* ДОДЕЛАТЬ
+
 /datum/mind/proc/memory_edit_clockwork_silicon()
 	. = _memory_edit_header("clockwork")
-	if(src = in SSticker.mode.clockwork_cult)
-		. += "<a href='?src=[UID()];siliclock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+	var/mob/living/silicon/robot/robot = current
+	if(istype(robot))
+		if(src in SSticker.mode.clockwork_cult)
+			. += "<a href='?src=[UID()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+		else
+			. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clockrobot'>clocker</a>"
+	var/mob/living/silicon/ai/ai = current
+	if(istype(ai))
+		if(src in SSticker.mode.clockwork_cult)
+			. += "no|<b><font color='red'>CLOCKER</font></b>"
+		else
+			. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clockai'>clocker</a>"
+			. += "<b>By making AI clocker, all his slave cyborg will also become clockers! <font color='red'>The process cannot be undone!</font></b>"
+
+/*
+. += "<a href='?src=[UID()];siliclock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clocker'>clocker</a>"
-
 */
 
 /datum/mind/proc/memory_edit_wizard(mob/living/carbon/human/H)
@@ -981,28 +994,29 @@
 				if(!SSticker.mode.clock_give_item(/obj/item/stack/sheet/brass/ten, H))
 					to_chat(usr, "<span class='warning'>Spawning brass metal failed!</span>")
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 brass metal sheets")
-/* ДОДЕЛАТЬ
 	else if(href_list["siliclock"])
 		switch(href_list["siliclock"])
-			if("clear")
-				var/mob/living/silicon/S = current
-				if(src in SSticker.mode.clockwork_cult && istype(S))
+			if("clearrobot")
+				var/mob/living/silicon/robot/robot = current
+				if(src in SSticker.mode.clockwork_cult)
 					SSticker.mode.remove_clocker(src)
-					S.clear_supplied_laws()
-					S.laws = new /datum/ai_laws/crewsimov
-					special_role = null
+					robot.clear_supplied_laws()
+					robot.laws = new /datum/ai_laws/crewsimov
 					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
-			if("clocker")
+			if("clockrobot")
+				var/mob/living/silicon/robot/robot = current
 				if(!(src in SSticker.mode.clockwork_cult))
-					to_chat(current, CLOCK_GREETING)
-					SSticker.mode.add_clocker(src)
-					S.disconnect_from_ai()
-					S.clear_supplied_laws()
-					S.laws = new /datum/ai_laws/ratvar
-					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					robot.ratvar_act(TRUE)
+					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their brass dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
 					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
-*/
+			if("clockai")
+				var/mob/living/silicon/ai/ai = current
+				if(!(src in SSticker.mode.clockwork_cult))
+					ai.ratvar_act(TRUE)
+					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their brass dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
+
 
 	else if(href_list["wizard"])
 

@@ -9,11 +9,9 @@
 
 // Clockslab enchant type
 #define STUN_SPELL 1
-#define EMP_SPELL 2
-#define KNOCK_SPELL 3
-#define TIME_SPELL 4
-#define REFORM_SPELL 5
-#define TELEPORT_SPELL 6
+#define KNOCK_SPELL 2
+#define REFORM_SPELL 3
+#define TELEPORT_SPELL 4
 // Ratvarian spear enchant type
 #define CONFUSE_SPELL 1
 #define DISABLE_SPELL 2
@@ -33,6 +31,10 @@
 #define FASTPUNCH_SPELL 1
 #define STUNHAND_SPELL 2
 #define FIRE_SPELL 3
+//Shard
+#define EMP_SPELL 1
+#define TIME_SPELL 2
+#define RECONSTRUCT_SPELL 3
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
@@ -65,8 +67,9 @@ GLOBAL_LIST_INIT(gloves_spell, list(
 	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shard_spells, list(
-	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 300, 40),
-	new /datum/spell_enchant("Stop the time", TIME_SPELL, 300, 40)
+	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 60),
+	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 60),
+	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 60)
 ))
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400

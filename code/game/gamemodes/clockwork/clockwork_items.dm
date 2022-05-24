@@ -67,9 +67,11 @@
 		if(TELEPORT_SPELL)
 			if(!target.density && !proximity)
 				to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
+				animate(user, color = COLOR_PURPLE, time = 50)
 				if(do_after(user, 50, target = user))
 					do_teleport(user, get_turf(target), asoundin = 'sound/effects/phasein.ogg')
 					deplete_spell()
+				user.color = null
 
 /obj/item/clockwork
 	name = "Clockwork item name"
@@ -247,7 +249,7 @@
 /obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
 	. = ..()
 	if(!isclocker(user))
-		user.unEquip(src)
+		user.unEquip(src, 1)
 		user.emote("scream")
 		to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
 	switch(enchant_type)
@@ -284,7 +286,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
-				C.Stuttering(5)
+				C.Weaken(5)
 		else
 			to_chat(user, "<span class='heavy_brass'>\"I think this armor is too hot for you to handle.\"</span>")
 			to_chat(user, "<span class='userdanger'>The curiass emits a burst of flame as you scramble to get it off!</span>")
@@ -292,7 +294,7 @@
 			user.apply_damage(15, BURN, "chest")
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
-		user.unEquip(src)
+		user.unEquip(src, 1)
 
 // Gloves
 /obj/item/clothing/gloves/clockwork
@@ -372,14 +374,14 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
-				C.Stuttering(5)
+				C.Weaken(5)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Did you like having arms?\"</span>")
 			to_chat(user, "<span class='userdanger'>The gauntlets suddenly squeeze tight, crushing your arms before you manage to get them off!</span>")
 			user.emote("scream")
 			user.apply_damage(7, BRUTE, "l_arm")
 			user.apply_damage(7, BRUTE, "r_arm")
-		user.unEquip(src)
+		user.unEquip(src, 1)
 
 // Shoes
 /obj/item/clothing/shoes/clockwork
@@ -400,14 +402,14 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
-				C.Stuttering(5)
+				C.Weaken(5)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Let's see if you can dance with these.\"</span>")
 			to_chat(user, "<span class='userdanger'>The treads turn searing hot as you scramble to get them off!</span>")
 			user.emote("scream")
 			user.apply_damage(7, BURN, "l_leg")
 			user.apply_damage(7, BURN, "r_leg")
-		user.unEquip(src)
+		user.unEquip(src, 1)
 
 // Helmet
 /obj/item/clothing/head/helmet/clockwork
@@ -430,14 +432,14 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
-				C.Stuttering(5)
+				C.Weaken(5)
 		else
 			to_chat(user, "<span class='heavy_brass'>\"Do you have a hole in your head? You're about to.\"</span>")
 			to_chat(user, "<span class='userdanger'>The helmet tries to drive a spike through your head as you scramble to remove it!</span>")
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, "head")
 			user.adjustBrainLoss(30)
-		user.unEquip(src)
+		user.unEquip(src, 1)
 
 /*
  * Consumables.
@@ -652,6 +654,10 @@
 	force = 5
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/clockwork/shard/Initialize(mapload)
+	. = ..()
+	enchants = GLOB.shard_spells
+
 /obj/item/clockwork/shard/attack_self(mob/user)
 	if(!isclocker(user) && isliving(user))
 		var/mob/living/L = user
@@ -667,6 +673,7 @@
 		to_chat(user, "<span class='warning'>There is no spell stored!</span>")
 	else
 		user.visible_message("<span class='warning'>[user] crushes [src] in his hands!</span>", "<span class='notice'>You crush [src] in your hand!</span>")
+		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
 				empulse(src, 4, 6, cause="clock")
@@ -674,3 +681,28 @@
 			if(TIME_SPELL)
 				new /obj/effect/timestop/clockwork(get_turf(src))
 				qdel(src)
+			if(RECONSTRUCT_SPELL)
+				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(src))
+				qdel(src)
+
+/obj/effect/temp_visual/ratvar/reconstruct
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "clockwork_gateway_active"
+	layer = BELOW_OBJ_LAYER
+	alpha = 128
+	duration = 30
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/temp_visual/ratvar/reconstruct/Initialize(mapload)
+	. = ..()
+	transform = matrix() * 0.1
+	reconstruct()
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
+	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
+	animate(src, transform = matrix() * 1, time = 15)
+	sleep(15)
+	for(var/atom/T in range(3, get_turf(src)))
+		T.ratvar_act()
+	animate(src, transform = matrix() * 0.1, time = 15)

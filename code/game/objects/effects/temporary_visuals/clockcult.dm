@@ -63,11 +63,11 @@
 
 /obj/effect/temp_visual/ratvar/gear
 	icon_state = "ratvargearglow"
-	layer = BELOW_OBJ_LAYER
+	layer = ABOVE_OBJ_LAYER
 
 /obj/effect/temp_visual/ratvar/grille
 	icon_state = "ratvargrilleglow"
-	layer = BELOW_OBJ_LAYER
+	layer = ABOVE_OBJ_LAYER
 
 /obj/effect/temp_visual/ratvar/grille/broken
 	icon_state = "ratvarbrokengrilleglow"
@@ -79,3 +79,4 @@
 /obj/effect/temp_visual/emp/pulse/clock
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "emppulse_clock"
+

@@ -580,7 +580,8 @@
 	return
 
 /obj/machinery/door/airlock/cult/ratvar_act()
-	return
+	new /obj/machinery/door/airlock/clockwork(get_turf(src))
+	qdel(src)
 /obj/machinery/door/airlock/cult/friendly
 	friendly = TRUE
 
@@ -667,7 +668,8 @@
 		return FALSE
 
 /obj/machinery/door/airlock/clockwork/narsie_act()
-	return
+	new /obj/machinery/door/airlock/cult(get_turf(src))
+	qdel(src)
 
 /obj/machinery/door/airlock/clockwork/ratvar_act()
 	return
@@ -839,6 +841,9 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
+	return
+
+/obj/machinery/door/airlock/multi_tile/ratvar_act()
 	return
 
 /obj/machinery/door/airlock/multi_tile/glass

@@ -632,13 +632,13 @@
 	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
 
 /obj/structure/table/tray/flip()
-	return 0
+	return
 
 /obj/structure/table/tray/narsie_act()
-	return 0
+	return
 
 /obj/structure/table/tray/ratvar_act()
-	return 0
+	return
 
 /*
  * Racks

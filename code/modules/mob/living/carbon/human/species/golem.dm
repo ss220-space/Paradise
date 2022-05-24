@@ -732,6 +732,11 @@
 	golem_colour = rgb(176, 136, 32)
 	info_text = "As a <span class='danger'>Brass Golem</span>, you possess some abilities from your master Ratvar."
 
+/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	if(!isclocker(H))
+		SSticker.mode.add_clocker(H.mind)
+
 /datum/species/golem/clockwork/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] crumbles into cogs and gears! Then leftovers suddenly dusts!</span>")
 	for(var/obj/item/W in H)

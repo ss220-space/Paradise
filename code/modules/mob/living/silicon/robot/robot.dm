@@ -54,7 +54,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Robot","Cricket","Noble","Standard")
 	var/emagged = FALSE
-	var/clocked = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
@@ -322,7 +321,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = "Hunter"
 	if(mmi?.syndicate)
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
-	if(mmi?.clock || clocked)
+	if(mmi?.clock || isclocker(src))
 		forced_module = "Clockwork"
 	if(forced_module)
 		modtype = forced_module
@@ -863,7 +862,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
-	else if(istype(W, /obj/item/clockwork/clockslab) && clocked)
+	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src))
 		locked = !locked
 		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
@@ -1046,7 +1045,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 /mob/living/silicon/robot/ratvar_act(weak = FALSE)
-	if(clocked && module.type == /obj/item/robot_module/clockwork)
+	if(isclocker(src) && module.type == /obj/item/robot_module/clockwork)
 		return
 	if(!weak)
 		if(module)
@@ -1055,7 +1054,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
-	clocked = TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
@@ -1098,12 +1096,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
-			if(!clocked)
+			if(!isclocker(src))
 				overlays += "eyes-[custom_panel]"
 			else
 				overlays += "eyes-[custom_panel]-clocked"
 		else
-			if(!clocked)
+			if(!isclocker(src))
 				overlays += "eyes-[icon_state]"
 			else
 				overlays += "eyes-[icon_state]-clocked"

@@ -225,6 +225,14 @@
 /obj/structure/clockwork/wall_gear/emp_act(severity)
 	return
 
+/obj/structure/clockwork/wall_gear/narsie_act()
+	if(prob(25))
+		new /obj/structure/girder/cult(loc)
+		qdel(src)
+
+/obj/structure/clockwork/wall_gear/ratvar_act()
+	return
+
 /obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)

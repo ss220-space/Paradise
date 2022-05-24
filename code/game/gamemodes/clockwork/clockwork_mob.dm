@@ -33,6 +33,11 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/hostile
 	AIStatus = AI_ON
 
+/mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
+	. = ..()
+	if(!isclocker(src))
+		SSticker.mode.add_clocker(mind)
+
 /mob/living/simple_animal/hostile/clockwork/marauder/FindTarget(list/possible_targets, HasTargetsList)
 	. = list()
 	if(!HasTargetsList)
@@ -114,4 +119,4 @@
 	return
 
 /mob/living/simple_animal/mouse/clockwork/ratvar_act()
-	return
+	adjustBruteLoss(-maxHealth)

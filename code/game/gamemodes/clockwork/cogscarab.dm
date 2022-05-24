@@ -24,7 +24,6 @@
 	has_camera = FALSE
 	viewalerts = FALSE
 	emagged = TRUE
-	clocked = TRUE
 	modules_break = FALSE
 
 	req_one_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
@@ -60,7 +59,7 @@
 	module = new /obj/item/robot_module/cogscarab(src)
 
 	if(!isclocker(src))
-		message_admins("[src]([ADMIN_QUE(src, "?")]) ([ADMIN_FLW(src,"FLW")]) has been created, but isn't a clocker! Possible adminspawn.")
+		SSticker.mode.add_clocker(mind)
 
 	update_icons()
 

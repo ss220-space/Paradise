@@ -13,11 +13,10 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 
 	var/seconds_until_activation = 0
-	var/purpose_fulfilled = FALSE
 	var/first_sound_played = FALSE
 	var/second_sound_played = FALSE
 	var/third_sound_played = FALSE
-	var/fourth_sound_played = FALSE
+	var/purpose_fulfilled = FALSE
 	var/obj/effect/countdown/clockworkgate/countdown
 
 /obj/structure/clockwork/functional/celestial_gateway/Initialize(mapload)
@@ -39,6 +38,8 @@
 		qdel(countdown)
 		countdown = null
 	GLOB.poi_list.Remove(src)
+	for(var/mob/M in GLOB.mob_list)
+		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
 	. = ..()
 
 /obj/structure/clockwork/functional/celestial_gateway/deconstruct(disassembled)
@@ -57,15 +58,6 @@
 /obj/structure/clockwork/functional/celestial_gateway/ex_act(severity)
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
 	take_damage(damage, BRUTE, "bomb", 0)
-
-/obj/structure/clockwork/functional/celestial_gateway/proc/get_arrival_text(s_on_time)
-	if(seconds_until_activation)
-		return "[seconds_until_activation][s_on_time ? "S" : ""]"
-	. = "IMMINENT"
-	if(!obj_integrity)
-		. = "DETONATING"
-	else if(GATEWAY_RATVAR_ARRIVAL - seconds_until_activation > 0)
-		. = "[round(max((GATEWAY_RATVAR_ARRIVAL - seconds_until_activation) / (GATEWAY_SUMMON_RATE), 0), 1)][s_on_time ? "S":""]"
 
 /obj/structure/clockwork/functional/celestial_gateway/examine(mob/user)
 	..()
@@ -88,13 +80,6 @@
 
 /obj/structure/clockwork/functional/celestial_gateway/process()
 	adjust_clockwork_power(10)
-	if(!first_sound_played || prob(7))
-		for(var/mob/M in GLOB.player_list)
-			if(M && !isnewplayer(M))
-				if(M.z == z)
-					to_chat(M, "<span class='warning'><b>You hear otherworldly sounds from the [dir2text(get_dir(get_turf(M), get_turf(src)))]...</span>")
-				else
-					to_chat(M, "<span class='boldwarning'>You hear otherworldly sounds from all around you...</span>")
 	if(!obj_integrity)
 		return
 	for(var/turf/simulated/wall/W in RANGE_TURFS(2, src))
@@ -107,20 +92,20 @@
 	seconds_until_activation += GATEWAY_SUMMON_RATE
 	switch(seconds_until_activation)
 		if(-INFINITY to GATEWAY_REEBE_FOUND)
-			if(!second_sound_played)
+			if(!first_sound_played)
 				sound_to_playing_players('sound/magic/clockwork/invoke_general.ogg', 30, FALSE)
-				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
-				second_sound_played = TRUE
+				sound_to_playing_players(volume = 20, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
+				first_sound_played = TRUE
 				icon_state = "clockwork_gateway_charging"
 		if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
-			if(!third_sound_played)
-				sound_to_playing_players(volume = 35, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
-				third_sound_played = TRUE
+			if(!second_sound_played)
+				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
+				second_sound_played = TRUE
 				icon_state = "clockwork_gateway_active"
 		if(GATEWAY_RATVAR_COMING to GATEWAY_RATVAR_ARRIVAL)
-			if(!fourth_sound_played)
+			if(!third_sound_played)
 				sound_to_playing_players(volume = 40, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_closing.ogg', TRUE))
-				fourth_sound_played = TRUE
+				third_sound_played = TRUE
 				icon_state = "clockwork_gateway_closing"
 		if(GATEWAY_RATVAR_ARRIVAL to INFINITY)
 			if(!purpose_fulfilled)

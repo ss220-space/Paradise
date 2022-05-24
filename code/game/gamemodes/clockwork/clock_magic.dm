@@ -244,7 +244,7 @@
 
 		else if(istype(target, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
-			if(candidate.mmi || candidate.ghost_can_reenter() || !candidate.clocked)
+			if(candidate.mmi || candidate.ghost_can_reenter() || !isclocker(candidate))
 				channeling = TRUE
 				user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
 				playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
