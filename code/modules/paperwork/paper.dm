@@ -268,28 +268,28 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
-/obj/item/paper/proc/topic_href_write(var/id, var/t)
-	var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
+/obj/item/paper/proc/topic_href_write(var/id, var/input_element)
+	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-	if(!istype(i, /obj/item/pen))
-		if(!istype(i, /obj/item/toy/crayon))
+	if(!istype(item_write, /obj/item/pen))
+		if(!istype(item_write, /obj/item/toy/crayon))
 			return
 
 	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
 		return
 
-	t = parsepencode(t, i, usr) // Encode everything from pencode to html
+	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 
 	if(id!="end")
-		addtofield(text2num(id), t) // He wants to edit a field, let him.
+		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
 	else
-		info += t // Oh, he wants to edit to the end of the file, let him.
+		info += input_element // Oh, he wants to edit to the end of the file, let him.
 
 	populatefields()
 	updateinfolinks()
 
-	i.on_write(src,usr)
+	item_write.on_write(src,usr)
 
 	show_content(usr, forceshow = 1, infolinks = 1)
 
@@ -311,16 +311,16 @@
 		var/const/station_text = "\[Написать название станции\]"
 
 		//пункты текста в меню
-		var/list/L = list()
-		L.Add(usr.real_name) //настоящее имя персонажа, даже если оно спрятано
+		var/list/menu_list = list()
+		menu_list.Add(usr.real_name) //настоящее имя персонажа, даже если оно спрятано
 
 		//если игрок маскируется или имя отличается, добавляется новый вариант ответа
-		if (usr.real_name != (usr.name || "unknown"))
-			L.Add("[usr.name]")
+		if (usr.real_name != usr.name || usr.name != "unknown")
+			menu_list.Add("[usr.name]")
 		//if (usr.real_name != (usr.voice_name || "unknown")) //voice_name - всегда выдает unknown
-		//	L.Add("[usr.voice_name]")
+		//	menu_list.Add("[usr.voice_name]")
 
-		L.Add(usr.job,		//текущая работа
+		menu_list.Add(usr.job,		//текущая работа
 			num_text,		//номер аккаунта
 			pin_text,		//номер пин-кода
 			sign_text,  	//подпись
@@ -331,31 +331,31 @@
 			usr.dna.species	//раса
 		)
 
-		var/t = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in L
+		var/input_element = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in menu_list
 
 		//форматируем выбранные пункты меню в pencode и внутренние данные
-		switch(t)
+		switch(input_element)
 			if (sign_text)
-				t = "\[sign\]"
+				input_element = "\[sign\]"
 			if (time_text)
-				t = "\[time\]"
+				input_element = "\[time\]"
 			if (date_text)
-				t = "\[date\]"
+				input_element = "\[date\]"
 			if (station_text)
-				t = "\[station\]"
+				input_element = "\[station\]"
 			if (num_text)
-				t = usr.mind.initial_account.account_number
+				input_element = usr.mind.initial_account.account_number
 			if (pin_text)
-				t = usr.mind.initial_account.remote_access_pin
+				input_element = usr.mind.initial_account.remote_access_pin
 
-		topic_href_write(id, t)
+		topic_href_write(id, input_element)
 
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
+		var/input_element =  input("Enter what you want to write:", "Write", null, null)  as message
 
-		topic_href_write(id, t)
+		topic_href_write(id, input_element)
 
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
