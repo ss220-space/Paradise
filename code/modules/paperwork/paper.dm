@@ -288,12 +288,12 @@
 
 		L.Add(usr.job)	//текущая работа
 
-		var/const/sign_text = "Поставить подпись"
-		var/const/time_text = "Написать текущее время"
-		var/const/date_text = "Написать текущую дату"
-		var/const/num_text = "Написать номер аккаунта"
-		var/const/pin_text = "Написать Пин-Код"
-		var/const/station_text = "Написать название станции"
+		var/const/sign_text = "\[Поставить подпись\]"
+		var/const/time_text = "\[Написать текущее время\]"
+		var/const/date_text = "\[Написать текущую дату\]"
+		var/const/num_text = "\[Написать номер аккаунта\]"
+		var/const/pin_text = "\[Написать пин-код\]"
+		var/const/station_text = "\[Написать название станции\]"
 		L.Add(num_text)   	//номер аккаунта
 		L.Add(pin_text)		//номер пин-кода
 		L.Add(sign_text)  	//подпись
@@ -314,7 +314,6 @@
 				t = "\[date\]"
 			if (station_text)
 				t = "\[station\]"
-
 			if (num_text)
 				t = usr.mind.initial_account.account_number
 			if (pin_text)
