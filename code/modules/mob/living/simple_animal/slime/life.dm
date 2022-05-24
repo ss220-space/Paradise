@@ -415,7 +415,7 @@
 	if(speech_buffer.len)
 		var/who = speech_buffer[1] // Who said it?
 		var/phrase = speech_buffer[2] // What did they say?
-		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes") || findtext(phrase, "слаймы") || findtext(phrase, "слайм"))) // Talking to us
+		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes") || findtext_char(phrase, "слайм"))) // Talking to us
 			if(findtext(phrase, "hello") || findtext(phrase, "hi") || findtext_char(phrase, "привет") || findtext_char(phrase, "здравствуй"))
 				to_say = pick("Здравствуй…", "Привет…")
 			else if(findtext(phrase, "follow") || findtext_char(phrase, "пойдём") || findtext_char(phrase, "за мной") || findtext_char(phrase, "идём") || findtext_char(phrase, "пошли") || findtext_char(phrase, "ко мне"))
