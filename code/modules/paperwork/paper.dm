@@ -268,6 +268,33 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+/obj/item/paper/proc/topic_href_write(var/id, var/t)
+	var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
+	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
+	if(!istype(i, /obj/item/pen))
+		if(!istype(i, /obj/item/toy/crayon))
+			return
+
+	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+		return
+
+	t = parsepencode(t, i, usr) // Encode everything from pencode to html
+
+	if(id!="end")
+		addtofield(text2num(id), t) // He wants to edit a field, let him.
+	else
+		info += t // Oh, he wants to edit to the end of the file, let him.
+
+	populatefields()
+	updateinfolinks()
+
+	i.on_write(src,usr)
+
+	show_content(usr, forceshow = 1, infolinks = 1)
+
+	update_icon()
+
 /obj/item/paper/Topic(href, href_list)
 	..()
 	if(!usr || (usr.stat || usr.restrained()))
@@ -275,6 +302,13 @@
 
 	if(href_list["auto_write"])
 		var/id = href_list["auto_write"]
+
+		var/const/sign_text = "\[Поставить подпись\]"
+		var/const/time_text = "\[Написать текущее время\]"
+		var/const/date_text = "\[Написать текущую дату\]"
+		var/const/num_text = "\[Написать номер аккаунта\]"
+		var/const/pin_text = "\[Написать пин-код\]"
+		var/const/station_text = "\[Написать название станции\]"
 
 		//пункты текста в меню
 		var/list/L = list()
@@ -286,25 +320,20 @@
 		//if (usr.real_name != (usr.voice_name || "unknown")) //voice_name - всегда выдает unknown
 		//	L.Add("[usr.voice_name]")
 
-		L.Add(usr.job)	//текущая работа
-
-		var/const/sign_text = "\[Поставить подпись\]"
-		var/const/time_text = "\[Написать текущее время\]"
-		var/const/date_text = "\[Написать текущую дату\]"
-		var/const/num_text = "\[Написать номер аккаунта\]"
-		var/const/pin_text = "\[Написать пин-код\]"
-		var/const/station_text = "\[Написать название станции\]"
-		L.Add(num_text)   	//номер аккаунта
-		L.Add(pin_text)		//номер пин-кода
-		L.Add(sign_text)  	//подпись
-		L.Add(time_text)  	//время
-		L.Add(date_text)  	//дата
-		L.Add(station_text) //название станции
-		L.Add(usr.gender)	//пол
-		L.Add(usr.dna.species)	//раса
+		L.Add(usr.job,		//текущая работа
+			num_text,		//номер аккаунта
+			pin_text,		//номер пин-кода
+			sign_text,  	//подпись
+			time_text,  	//время
+			date_text,  	//дата
+			station_text, 	//название станции
+			usr.gender,		//пол
+			usr.dna.species	//раса
+		)
 
 		var/t = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in L
 
+		//форматируем выбранные пункты меню в pencode и внутренние данные
 		switch(t)
 			if (sign_text)
 				t = "\[sign\]"
@@ -319,66 +348,14 @@
 			if (pin_text)
 				t = usr.mind.initial_account.remote_access_pin
 
-		//повтор кода
-		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-		if(!istype(i, /obj/item/pen))
-			if(!istype(i, /obj/item/toy/crayon))
-				return
-
-
-		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
-		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
-			return
-
-		t = parsepencode(t, i, usr) // Encode everything from pencode to html
-
-		if(id!="end")
-			addtofield(text2num(id), t) // He wants to edit a field, let him.
-		else
-			info += t // Oh, he wants to edit to the end of the file, let him.
-
-		populatefields()
-		updateinfolinks()
-
-		i.on_write(src,usr)
-
-		show_content(usr, forceshow = 1, infolinks = 1)
-
-		update_icon()
+		topic_href_write(id, t)
 
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
 		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 
-
-		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-		if(!istype(i, /obj/item/pen))
-			if(!istype(i, /obj/item/toy/crayon))
-				return
-
-
-		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
-		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
-			return
-
-		t = parsepencode(t, i, usr) // Encode everything from pencode to html
-
-		if(id!="end")
-			addtofield(text2num(id), t) // He wants to edit a field, let him.
-		else
-			info += t // Oh, he wants to edit to the end of the file, let him.
-
-		populatefields()
-		updateinfolinks()
-
-		i.on_write(src,usr)
-
-		show_content(usr, forceshow = 1, infolinks = 1)
-
-		update_icon()
+		topic_href_write(id, t)
 
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
