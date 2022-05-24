@@ -965,7 +965,7 @@
 /area/mine/living_quarters)
 "cK" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -1502,10 +1502,6 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "eX" = (
-/obj/machinery/camera{
-	c_tag = "Mining Storage";
-	network = list("Mining Outpost")
-	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1696,6 +1692,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "fz" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -3477,6 +3474,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
+	dir = 1;
 	name = "Mining EVA APC";
 	pixel_x = 1;
 	pixel_y = 24
@@ -3502,7 +3500,7 @@
 	},
 /area/mine/living_quarters)
 "og" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3632,6 +3630,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "qk" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "qt" = (
@@ -3788,7 +3789,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "rP" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -4052,7 +4053,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ur" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
@@ -4296,9 +4297,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wR" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "wX" = (
@@ -4373,6 +4371,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
+"xH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
@@ -4533,7 +4538,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ze" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4823,6 +4828,13 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"CX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "Db" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4925,7 +4937,7 @@
 /area/mine/living_quarters)
 "DU" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -4967,6 +4979,11 @@
 "EJ" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Storage";
+	dir = 8;
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5898,6 +5915,12 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"PW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "Qo" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/extinguisher_cabinet{
@@ -6383,6 +6406,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"UX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/mine/living_quarters)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -6627,7 +6657,7 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "YQ" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
@@ -6751,6 +6781,12 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/mine/production)
+"ZU" = (
+/obj/machinery/light_switch{
+	pixel_y = -25
+	},
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 
 (1,1,1) = {"
 aa
@@ -16745,8 +16781,8 @@ ad
 WO
 DU
 YQ
-IK
-IK
+xH
+xH
 gL
 mT
 Qo
@@ -17002,12 +17038,12 @@ ai
 Zf
 Jk
 ZL
-Lc
-Lc
+ZL
+ZL
 KV
 ML
 FK
-rZ
+PW
 fo
 Fe
 BD
@@ -17264,7 +17300,7 @@ Ad
 PQ
 vZ
 TO
-rZ
+PW
 fp
 Fe
 gh
@@ -17517,11 +17553,11 @@ WO
 Jk
 ZL
 ZL
-HH
+UX
 QM
 TS
 FK
-rZ
+PW
 fr
 Fe
 dX
@@ -17776,7 +17812,7 @@ ur
 ze
 eX
 FY
-td
+CX
 EJ
 fz
 fI
@@ -19057,7 +19093,7 @@ ab
 La
 qk
 bQ
-qk
+ZU
 La
 ee
 GZ
