@@ -418,7 +418,7 @@
 		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes") || findtext(phrase, "слаймы") || findtext(phrase, "слайм"))) // Talking to us
 			if(findtext(phrase, "hello") || findtext(phrase, "hi") || findtext_char(phrase, "привет") || findtext_char(phrase, "здравствуй"))
 				to_say = pick("Здравствуй…", "Привет…")
-			else if(findtext(phrase, "follow") || findtext_char(phrase, "пойдём") || findtext_char(phrase, "за мной") || findtext_char(phrase, "идём") || findtext_char(phrase, "пошли") || findtext_char(phrase, "иди") || findtext_char(phrase, "ко мне") || findtext_char(phrase, "сюда"))
+			else if(findtext(phrase, "follow") || findtext_char(phrase, "пойдём") || findtext_char(phrase, "за мной") || findtext_char(phrase, "идём") || findtext_char(phrase, "пошли") || findtext_char(phrase, "ко мне"))
 				if(Leader)
 					if(Leader == who) // Already following him
 						to_say = pick("Да…", "Вести…", "Идти…", "Следовать…", "Ползти…")
