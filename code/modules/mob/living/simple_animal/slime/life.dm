@@ -416,7 +416,7 @@
 		var/who = speech_buffer[1] // Who said it?
 		var/phrase = speech_buffer[2] // What did they say?
 		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes") || findtext(phrase, "слаймы") || findtext(phrase, "слайм"))) // Talking to us
-			if(findtext(phrase, "hello") || findtext(phrase, "hi") || findtext_char(phrase, "привет") || findtext_char(phrase, "здравствуй") || findtext_char(phrase, "здорова") || findtext_char(phrase, "добрый день") || findtext_char(phrase, "почтение"))
+			if(findtext(phrase, "hello") || findtext(phrase, "hi") || findtext_char(phrase, "привет") || findtext_char(phrase, "здравствуй"))
 				to_say = pick("Здравствуй…", "Привет…")
 			else if(findtext(phrase, "follow") || findtext_char(phrase, "пойдём") || findtext_char(phrase, "за мной") || findtext_char(phrase, "идём") || findtext_char(phrase, "пошли") || findtext_char(phrase, "иди") || findtext_char(phrase, "ко мне") || findtext_char(phrase, "сюда"))
 				if(Leader)
@@ -433,7 +433,7 @@
 						to_say = "Я " + pick("идти…", "следовать…", "ползти…")
 					else // Not friendly enough
 						to_say = pick("Нет…", "Я не идти")
-			else if(findtext(phrase, "stop") || findtext_char(phrase, "остановитесь") || findtext_char(phrase, "остановись") || findtext_char(phrase, "прекрати") || findtext_char(phrase, "стоп") || findtext_char(phrase, "стой") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоять"))
+			else if(findtext(phrase, "stop") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоп") || findtext_char(phrase, "стой"))
 				if(buckled) // We are asked to stop feeding
 					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
 						Feedstop()
@@ -461,7 +461,7 @@
 							to_say = "Да… Я [pick("стоп", "стоять")]…"
 						else
 							to_say = "Нет… [pick("Всё равно", "Буду")] идти…"
-			else if(findtext(phrase, "stay") || findtext_char(phrase, "ждать") || findtext_char(phrase, "жди"))
+			else if(findtext(phrase, "stay") || findtext_char(phrase, "сидеть") || findtext_char(phrase, "ждать") || findtext_char(phrase, "жди"))
 				if(Leader)
 					if (Leader == who)
 						holding_still = Friends[who] * 10
@@ -477,7 +477,7 @@
 						to_say = "Да… Я [pick("ждать", "стоять")]…"
 					else
 						to_say = "Нет… Не [pick("ждать", "стоять")]…"
-			else if(findtext(phrase, "attack") || findtext_char(phrase, "атакуй") || findtext_char(phrase, "бей") || findtext_char(phrase, "напади") || findtext_char(phrase, "ешь") || findtext_char(phrase, "кушай") || findtext_char(phrase, "убей"))
+			else if(findtext(phrase, "attack") || findtext_char(phrase, "фас") || findtext_char(phrase, "бей") || findtext_char(phrase, "ешь"))
 				if(rabid && prob(20))
 					Target = who
 					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
