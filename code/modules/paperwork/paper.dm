@@ -213,7 +213,9 @@
 	info_links = info
 	var/i = 0
 	for(i=1,i<=fields,i++)
-		addtofield(i, "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>", 1)
+		var/write_1 = "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>"
+		var/write_2 = "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
+		addtofield(i, "[write_1][write_2]", 1)
 	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>"
 
 
@@ -266,16 +268,55 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+
+/proc/text_list_to_add(mob/living/carbon/human/user)
+	//создаем список пунктов текстов возможных для добавления
+	//var/mob/living/carbon/human/user2
+	//if (user == user2)
+	var/list/L = list()
+	L.Add(user.real_name)
+	if (user.real_name != user.name || user.name != "unknown") //если игрок маскируется или имя отличается, добавляется новый вариант ответа
+		L.Add("[user.name]")
+	L.Add(user.gender)
+
+
+	//не работает
+	L.Add(user.job)
+	L.Add(user.age)
+	L.Add(user.type)
+	//L.Add(user.get_assignment)
+	L.Add("\[sign\]")  //проставление подписи
+	L.Add("\[time\]")  //проставление времени
+	L.Add(user.account_number)
+	L.Add(user.remote_access_pin)
+	//L.Add(user.account_number) //нужно получить специи расы, номер аккаунт, подпись sign, возраст age
+	//L.Add(user.sign) тут еще подпись должна быть //$name, $rank, $species, $gender, $age"
+	//меню выбора пункта
+	var/text = input(user, "Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in L
+	//добавление самого текста
+	return text
+
+
 /obj/item/paper/Topic(href, href_list)
 	..()
 	if(!usr || (usr.stat || usr.restrained()))
 		return
 
-	if(href_list["write"])
-		var/id = href_list["write"]
-		//var/t = strip_html_simple(input(usr, "What text do you wish to add to " + (id=="end" ? "the end of the paper" : "field "+id) + "?", "[name]", null),8192) as message
-		//var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
-		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
+	if(href_list["auto_write"])
+		var/id = href_list["auto_write"]
+
+		//оригинал метода
+		var/list/L = list()
+		L.Add(usr.real_name)
+		if (usr.real_name != usr.name)		//если игрок маскируется или имя отличается, добавляется новый вариант ответа
+			L.Add("[usr.name] Тест 1") //(user.name)
+		if (usr.real_name != usr.voice_name)  //если игрок маскируется или имя отличается, добавляется новый вариант ответа
+			L.Add("[usr.voice_name] Тест 1") //(user.voice_name)
+		L.Add(usr.job)
+		L.Add(usr.gender)
+		var/t = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in L
+
+		//повтор кода
 		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 		if(!istype(i, /obj/item/pen))
@@ -286,17 +327,40 @@
 		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
 			return
-/*
-		t = checkhtml(t)
 
-		// check for exploits
-		for(var/bad in paper_blacklist)
-			if(findtext(t,bad))
-				to_chat(usr, "<span class='notice'>You think to yourself, \</span>"Hm.. this is only paper...\"")
-				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
-				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
+		t = parsepencode(t, i, usr) // Encode everything from pencode to html
+
+		if(id!="end")
+			addtofield(text2num(id), t) // He wants to edit a field, let him.
+		else
+			info += t // Oh, he wants to edit to the end of the file, let him.
+
+		populatefields()
+		updateinfolinks()
+
+		i.on_write(src,usr)
+
+		show_content(usr, forceshow = 1, infolinks = 1)
+
+		update_icon()
+
+
+	if(href_list["write"] )
+		var/id = href_list["write"]
+		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
+
+
+		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
+		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
+		if(!istype(i, /obj/item/pen))
+			if(!istype(i, /obj/item/toy/crayon))
 				return
-*/
+
+
+		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+			return
+
 		t = parsepencode(t, i, usr) // Encode everything from pencode to html
 
 		if(id!="end")
@@ -791,6 +855,15 @@
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><B><font size=\"4\">[altername]</font></B></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><BR><HR><BR></font>"
 	populatefields()
 	return ..()
+
+/obj/item/paper/form/NT_TEST_DOC
+	name = "Форма TEST TEST"
+	id = "NT-TEST-TEST"
+	altername = "Тестируемое заявление"
+	category = "А ТЕСТ ОДЕЛ" 		//ТЕСТОВАЯ ФУНКЦИЯ
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Тестовое Заявление</B></font></center><BR><table></td> <tr><td>Тестовая функция заявителя:<BR>  Я, тестер <span class=\"paper_field\"></span>,    <tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td>       </tr></table></font>"
+	//info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Заявление</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Запрашиваемая должность:<BR><font size = \"1\">Требует наличия квалификации</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Список компетенций:<BR><span class=\"paper_field\"></span><BR><BR></td></tr></table></font><font face=\"Verdana\" color=black><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись будущего Глава:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
 
 //Главы станции
 /obj/item/paper/form/NT_COM_ST
