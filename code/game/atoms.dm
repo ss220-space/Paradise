@@ -63,8 +63,8 @@
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
 	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
-	/// name_ru = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
-	var/list/name_ru
+	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	var/list/ru_names
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -1047,10 +1047,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = density
 	density = new_value
 
-// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «name_ru», примерно такой:
-// name_ru = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
-/atom/proc/declent_ru(case_id, list/names_override)
-	var/list/list_to_use = names_override || name_ru
+// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
+// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+/atom/proc/declent_ru(case_id, list/ru_names_override)
+	var/list/list_to_use = ru_names_override || ru_names
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
