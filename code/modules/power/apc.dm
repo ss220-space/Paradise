@@ -605,7 +605,6 @@
 			W.forceMove(src)
 			cog = W
 			START_PROCESSING(SSfastprocess, W)
-			playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 50, FALSE)
 			opened = FALSE
 			locked = FALSE
 			update_icon()
