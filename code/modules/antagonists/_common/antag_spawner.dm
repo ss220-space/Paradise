@@ -241,7 +241,7 @@
 	var/veil_msg = "<span class='warning'>The sludge is awake and seeps \
 		away...</span>"
 	var/objective_verb = "Eat"
-	var/mob/living/morph_type = /mob/living/simple_animal/hostile/morph
+	var/mob/living/morph_type = /mob/living/simple_animal/hostile/old_morph
 
 /obj/item/antag_spawner/morph/attack_self(mob/user)
 	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a morph from the Den..
@@ -268,7 +268,7 @@
 		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
+	var/mob/living/simple_animal/hostile/old_morph/wizard/M = new /mob/living/simple_animal/hostile/old_morph/wizard(pick(GLOB.xeno_spawn))
 	M.key = C.key
 	M.mind.assigned_role = SPECIAL_ROLE_MORPH
 	M.mind.special_role = SPECIAL_ROLE_MORPH
