@@ -139,6 +139,7 @@
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
 	. = ..(gibbed)
+	SSticker.mode.remove_clocker(mind, FALSE)
 	adjustBruteLoss(health)
 
 /mob/living/silicon/robot/cogscarab/Bump(atom/movable/AM, yes)

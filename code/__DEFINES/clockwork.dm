@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(shard_spells, list(
 
 // Misc
 #define CLOCK_COLOR "#ffb700"
-// #define SUMMON_POSSIBILITIES 3
+#define CLOCK_CLOTHING list(/obj/item/clothing/suit/hooded/clockrobe, /obj/item/clothing/suit/armor/clockwork, /obj/item/clothing/gloves/clockwork, /obj/item/clothing/shoes/clockwork, /obj/item/clothing/head/helmet/clockwork)
 
 // Clockwork objective status
 #define RATVAR_IS_ASLEEP 0

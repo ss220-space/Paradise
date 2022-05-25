@@ -391,7 +391,15 @@
 /obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
-		return
+		return 0
+
+	if(density)
+		var/turf/T = get_turf(src)
+		if(T.density)
+			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
+			return 0
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user, TRUE)
+		return 0
+	return 1

@@ -38,6 +38,10 @@
 	if(!isclocker(src))
 		SSticker.mode.add_clocker(mind)
 
+/mob/living/simple_animal/hostile/clockwork/marauder/death(gibbed)
+	. = ..()
+	SSticker.mode.remove_clocker(mind, FALSE)
+
 /mob/living/simple_animal/hostile/clockwork/marauder/FindTarget(list/possible_targets, HasTargetsList)
 	. = list()
 	if(!HasTargetsList)

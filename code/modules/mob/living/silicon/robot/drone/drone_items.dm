@@ -74,6 +74,7 @@
 	//Has a list of items that it can hold.
 	can_hold += list(
 		/obj/item/clockwork/integration_cog,
+		/obj/item/clockwork/shard,
 		/obj/item/stack/sheet
 	)
 	..()

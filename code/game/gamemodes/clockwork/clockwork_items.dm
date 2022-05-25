@@ -29,21 +29,22 @@
 		if(STUN_SPELL)
 			if(!isliving(target) || isclocker(target) || !proximity)
 				return
-			var/mob/living/L = target
+			var/mob/living/living = target
 			src.visible_message("<span class='warning'>[user]'s [src] sparks for a moment with bright light!</span>")
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
-			if(L.null_rod_check())
+			if(living.null_rod_check())
 				src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
-			else
-				L.Weaken(5)
-				L.Stun(5)
-				if(isrobot(L))
-					var/mob/living/silicon/robot/R = L
-					R.emp_act(EMP_HEAVY)
-				else if(iscarbon(target))
-					var/mob/living/carbon/C = L
-					C.Stuttering(10)
-					C.ClockSlur(10)
+				deplete_spell()
+				return
+			living.Weaken(5)
+			living.Stun(5)
+			if(isrobot(living))
+				var/mob/living/silicon/robot/robot = living
+				robot.emp_act(EMP_HEAVY)
+			else if(iscarbon(target))
+				var/mob/living/carbon/carbon = living
+				carbon.Stuttering(10)
+				carbon.ClockSlur(10)
 			deplete_spell()
 		if(KNOCK_SPELL)
 			if(istype(target, /obj/machinery/door))
@@ -53,6 +54,7 @@
 				if(istype(door, /obj/machinery/door/airlock))
 					var/obj/machinery/door/airlock/A = door
 					A.unlock(TRUE)	//forced because it's magic!
+				playsound(get_turf(usr), 'sound/magic/knock.ogg', 10, TRUE)
 				door.open()
 				deplete_spell()
 			else if(istype(target, /obj/structure/closet))
@@ -60,18 +62,24 @@
 				if(istype(closet, /obj/structure/closet/secure_closet))
 					var/obj/structure/closet/secure_closet/SC = closet
 					SC.locked = FALSE
+				playsound(get_turf(usr), 'sound/magic/knock.ogg', 10, TRUE)
 				closet.open()
 				deplete_spell()
 			else
 				to_chat(user, "<span class='warning'>You can use only on doors and closets!</span>")
 		if(TELEPORT_SPELL)
-			if(!target.density && !proximity)
-				to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
-				animate(user, color = COLOR_PURPLE, time = 50)
-				if(do_after(user, 50, target = user))
-					do_teleport(user, get_turf(target), asoundin = 'sound/effects/phasein.ogg')
-					deplete_spell()
-				user.color = null
+			if(target.density && !proximity)
+				to_chat(user, "<span class='warning'>The path is blocked!</span>")
+				return
+			if(proximity)
+				to_chat(user, "<span class='warning'>You too close to the path point!</span>")
+				return
+			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
+			animate(user, color = COLOR_PURPLE, time = 50)
+			if(do_after(user, 50, target = user))
+				do_teleport(user, get_turf(target), asoundin = 'sound/effects/phasein.ogg')
+				deplete_spell()
+			user.color = null
 
 /obj/item/clockwork
 	name = "Clockwork item name"
@@ -110,19 +118,22 @@
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(wielded && istype(target, /mob/living))
-		var/mob/living/L = target
-		switch(enchant_type)
-			if(CONFUSE_SPELL)
-				L.SetConfused(4)
-				deplete_spell()
-			if(DISABLE_SPELL)
-				if(issilicon(L))
-					var/mob/living/silicon/S = L
-					S.emp_act(EMP_LIGHT)
-				else
-					L.emp_act(EMP_HEAVY)
-				deplete_spell()
+	if(!wielded || !isliving(target))
+		return
+	var/mob/living/living = target
+	switch(enchant_type)
+		if(CONFUSE_SPELL)
+			living.SetConfused(4)
+			to_chat(living, "<span class='danger'>Your mind blanks a moment!</span>")
+			deplete_spell()
+		if(DISABLE_SPELL)
+			new /obj/effect/temp_visual/emp/clock(get_turf(src))
+			if(issilicon(living))
+				var/mob/living/silicon/S = living
+				S.emp_act(EMP_LIGHT)
+			else
+				living.emp_act(EMP_HEAVY)
+			deplete_spell()
 
 /obj/item/clock_borg_spear
 	name = "ratvarian spear"
@@ -240,7 +251,7 @@
 
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == REFLECT_SPELL)
-		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src]'s sparks!</span>")
+		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src] sparks!</span>")
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		return TRUE
@@ -254,10 +265,12 @@
 		to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
 	switch(enchant_type)
 		if(ARMOR_SPELL)
-			to_chat(user, "<span class='notice'>the [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
+			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
+			"<span class='notice'>The [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
 			armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
+			flags |= NODROP
 			enchant_type = CASTING_SPELL
-			addtimer(CALLBACK(src, .proc/reset_armor), 10)
+			addtimer(CALLBACK(src, .proc/reset_armor), 4)
 		if(FLASH_SPELL)
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
@@ -267,13 +280,13 @@
 				if(isclocker(M))
 					return
 				if(M.flash_eyes(2, 1))
-					M.AdjustConfused(5)
-					M.Stun(2)
+					M.AdjustConfused(2)
 			deplete_spell()
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor()
-	to_chat(usr, "<span class='notice>The [src] stops to shifting...</span>")
+	to_chat(usr, "<span class='notice>The [src] stops shifting...</span>")
 	armor = initial(armor)
+	flags &= ~NODROP
 	deplete_spell()
 
 
@@ -333,20 +346,17 @@
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
 	var/mob/living/M = loc
 	if(M.a_intent == INTENT_HARM)
-		if(enchant_type == STUNHAND_SPELL)
-			if(iscarbon(A))
-				var/mob/living/carbon/C = A
-				if(isclocker(C))
-					return
-				C.Weaken(5)
-				C.Stuttering(10)
-			else if(isrobot(A))
-				var/mob/living/silicon/robot/R = A
-				if(isclocker(R))
-					return
-				R.Weaken(5)
-			else
+		if(enchant_type == STUNHAND_SPELL && isliving(A))
+			var/mob/living/living = A
+			if(isclocker(living))
 				return
+			if(iscarbon(living))
+				var/mob/living/carbon/carbon = living
+				carbon.Weaken(5)
+				carbon.Stuttering(10)
+			if(isrobot(living))
+				var/mob/living/silicon/robot/robot = living
+				robot.Weaken(5)
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 			deplete_spell()
@@ -520,24 +530,20 @@
 /obj/item/mmi/robotic_brain/clockwork/attack_self(mob/living/user)
 	if(!isclocker(user))
 		to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
-		return FALSE
-	if(brainmob && !brainmob.key && !searching)
-		//Start the process of searching for a new user.
-		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
-		icon_state = searching_icon
-		searching = TRUE
-		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
-		if(candidates.len)
-			transfer_personality(pick(candidates))
-		reset_search()
-
-/obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)
-	if(brainmob?.key)
 		return
-	if(check_observer(O) && (world.time >= next_ping_at))
-		next_ping_at = world.time + (20 SECONDS)
-		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
-		visible_message("<span class='notice'>[src] pings softly.</span>")
+	to_chat(user, "<span class='warning'>You have to find a dead body to fill a vessel.</span>")
+
+/obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
+		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
+		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
+		if(do_after(user, 40, target = src))
+			var/obj/item/mmi/robotic_brain/purified = new(get_turf(src))
+			if(brainmob.key)
+				SSticker.mode.remove_clocker(brainmob.mind)
+				purified.transfer_identity(brainmob)
+			qdel(src)
+
 
 /obj/item/mmi/robotic_brain/clockwork/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))

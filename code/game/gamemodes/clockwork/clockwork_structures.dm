@@ -184,9 +184,8 @@
 				L.adjustBruteLoss(5)
 		if(get_turf(L) == get_turf(src) && src.anchored && has_clocker)
 			L.gib()
-			if((ishuman(L) || isbrain(L)) && L.mind)
-				var/obj/item/mmi/robotic_brain/clockwork/cube = new /obj/item/mmi/robotic_brain/clockwork(get_turf(src))
-				cube.try_to_transfer(L)
+			var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+			cube.try_to_transfer(L)
 			adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 
 		if(src.anchored)

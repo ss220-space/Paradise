@@ -263,25 +263,26 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
-	if(clock_mind in clockwork_cult)
-		var/mob/clocker = clock_mind.current
-		clockwork_cult -= clock_mind
-		clocker.faction -= "clockwork_cult"
-		clock_mind.special_role = null
-		for(var/datum/action/innate/clockwork/C in clocker.actions)
-			qdel(C)
-		update_cult_icons_removed(clock_mind)
+	if(!(clock_mind in clockwork_cult))
+		return
+	var/mob/clocker = clock_mind.current
+	clockwork_cult -= clock_mind
+	clocker.faction -= "clockwork_cult"
+	clock_mind.special_role = null
+	for(var/datum/action/innate/clockwork/C in clocker.actions)
+		qdel(C)
+	update_cult_icons_removed(clock_mind)
 
-		if(ishuman(clocker))
-			var/mob/living/carbon/human/H = clocker
-			REMOVE_TRAIT(H, CLOCK_HANDS, null)
-			H.change_eye_color(H.original_eye_color, FALSE)
-			H.update_eyes()
-			// H.remove_overlay(HALO_LAYER)
-			H.update_body()
-		if(show_message)
-			clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it.</span>")
+	if(ishuman(clocker))
+		var/mob/living/carbon/human/H = clocker
+		REMOVE_TRAIT(H, CLOCK_HANDS, null)
+		H.change_eye_color(H.original_eye_color, FALSE)
+		H.update_eyes()
+		// H.remove_overlay(HALO_LAYER)
+		H.update_body()
+	if(show_message)
+		clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
+		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/proc/update_clock_icons_added(datum/mind/clock_mind)
 	var/datum/atom_hud/antag/clockhud = GLOB.huds[ANTAG_HUD_CLOCK]
