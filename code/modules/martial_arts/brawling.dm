@@ -37,8 +37,8 @@
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 
 		if((D.stat != DEAD) && prob(knockout_prob))
-			D.visible_message("<span class='danger'>[A] нокаутировал[genderize_ru(A.gender,"","а","о","и")]  [D] мощным ударом в челюсть!</span>", \
-								"<span class='userdanger'>[D] нокаутирован[genderize_ru(D.gender,"","а","о","ы")]  [A] мощным ударом в челюсть!</span>")
+			D.visible_message("<span class='danger'>[A] нокаутировал[genderize_ru(A.gender,"","а","о","и")] [D] мощным ударом в челюсть!</span>", \
+								"<span class='userdanger'>[A] нокаутировал[genderize_ru(A.gender,"","а","о","и")] [D] мощным ударом в челюсть!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.Weaken(3)
 			D.forcesay(GLOB.hit_appends)
@@ -47,18 +47,18 @@
 	return 1
 
 /datum/martial_art/drunk_brawling
-	name = "Пьяная Драка"
+	name = "Пьяная драка"
 
 /datum/martial_art/drunk_brawling/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(prob(70))
 		A.visible_message("<span class='warning'>[A] пыта[genderize_ru(A.gender,"лся","лась","лось","лись")]  ухватиться за [D], но не смог[genderize_ru(A.gender,"","ла", "ло","ли")]!</span>", \
-							"<span class='warning'>Тебе не удалось ухватиться за [D]!</span>")
+							"<span class='warning'>Вам не удалось ухватиться за [D]!</span>")
 		return 1
 	var/obj/item/grab/G = D.grabbedby(A,1)
 	var/hit_name = pick ("уши", "волосы", "нос", "голову", "плечи", "руки", "бедра", "кисти", "ляхи", "шею")
 	if(G)
-		D.visible_message("<span class='danger'>[A] пьяно хвата[pluralize_ru(A.gender,"ет","ют")] [hit_name] [D]!</span>", \
-								"<span class='userdanger'>[D] попал[genderize_ru(D.gender,"","а","о","и")]  в пьяный захват [A]! Он[genderize_ru(A.gender,"","а", "о","и")] схватил[genderize_ru(A.gender,"","а", "о","и")] [genderize_ru(D.gender,"его","её", "у этого","их")] [hit_name]!</span>")
+		D.visible_message("<span class='danger'>[A] пьяно хвата[pluralize_ru(A.gender,"ет","ют")] [D] за [hit_name]!</span>", \
+								"<span class='userdanger'>[D] попал[genderize_ru(D.gender,"","а","о","и")]  в пьяный захват [A]! Он[genderize_ru(A.gender,"","а", "о","и")] схватил[genderize_ru(A.gender,"","а", "о","и")] [genderize_ru(D.gender,"его","её", "у этого","их")] за [hit_name]!</span>")
 	return 1
 
 /datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -174,7 +174,7 @@
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] нокаутировал[genderize_ru(A.gender,"","а","о","и")] [D] мощным пьяным ударом!</span>", \
-								"<span class='userdanger'>[D] нокаутирован[genderize_ru(D.gender,"","а","о","ы")] [A] мощным пьяным ударом!</span>")
+								"<span class='userdanger'>[A] нокаутировал[genderize_ru(A.gender,"","а","о","и")] [D] мощным пьяным ударом!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.Paralyse(5)
 			D.forcesay(GLOB.hit_appends)

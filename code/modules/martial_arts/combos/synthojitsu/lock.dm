@@ -1,7 +1,7 @@
 /datum/martial_combo/synthojitsu/lock
-	name = "Заблокировать"
+	name = "Зажим"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Позволяет пользователю быстро захватить противника."
+	explaination_text = "Позволяет быстро захватить оппонента."
 
 /datum/martial_combo/synthojitsu/lock/perform_combo(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/MA)
 	var/obj/item/grab/G = target.grabbedby(user, 1)

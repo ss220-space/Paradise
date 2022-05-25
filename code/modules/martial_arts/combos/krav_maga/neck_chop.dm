@@ -1,10 +1,10 @@
 /datum/martial_combo/krav_maga/neck_chop
-	name = "Удар по горлу"
+	name = "Удар в горло"
 	explaination_text = "Повреждает шею, временно лишая жертву возможности говорить."
 
 /datum/martial_combo/krav_maga/neck_chop/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] бь[pluralize_ru(user.gender,"ет","ют")] ударом каратэ в горло [target]!</span>", \
-		"<span class='userdanger'>[user] бь[pluralize_ru(user.gender,"ет","ют")] ударом каратэ в горло, временно лишая вас возможности говорить!</span>")
+	target.visible_message("<span class='warning'>[user] бь[pluralize_ru(user.gender,"ёт","ют")] ударом каратэ в горло [target]!</span>", \
+		"<span class='userdanger'>[user] бь[pluralize_ru(user.gender,"ёт","ют")] ударом каратэ в горло, временно лишая вас возможности говорить!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)
 	target.AdjustSilence(10)

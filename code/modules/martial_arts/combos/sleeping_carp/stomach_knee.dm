@@ -2,7 +2,7 @@
 	name = "Коленом в живот"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Роняет оппонента на землю и оглушает его."
-	combo_text_override = "Grab, Сменить руки, Harm"
+	combo_text_override = "Захват, смена рук, захват"
 
 /datum/martial_combo/sleeping_carp/stomach_knee/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsWeakened())

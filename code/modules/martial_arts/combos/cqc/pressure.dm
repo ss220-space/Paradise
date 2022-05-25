@@ -1,7 +1,7 @@
 /datum/martial_combo/cqc/pressure
 	name = "Прессинг"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Наносит удар по выносливости сжимая горло цели."
+	explaination_text = "Выдавливает из оппонента всю выносливость."
 
 /datum/martial_combo/cqc/pressure/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	target.visible_message("<span class='warning'>[user] сжима[pluralize_ru(user.gender,"ет","ют")] горло [target]!</span>")

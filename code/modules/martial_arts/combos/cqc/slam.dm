@@ -2,7 +2,7 @@
 	name = "Слэм"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Бросает оппонента на землю, сбивая его с ног."
-	combo_text_override = "Grab, Сменить руки, Harm"
+	combo_text_override = "Захват, смена рук, вред"
 
 /datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.IsWeakened() && !target.resting && !target.lying)

@@ -1,5 +1,5 @@
 /datum/martial_combo/sleeping_carp/head_kick
-	name = "Удар ногой в голову!"
+	name = "Пинок в голову!"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Приличный урон вынуждающий противника бросить предмет в руке."
 
@@ -7,7 +7,7 @@
 	if(!target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		var/hit_name = pick ("у челюсть", " затылок", " висок", "у голову", "у переносицу")
-		target.visible_message("<span class='warning'>[user] с разворота ударил[genderize_ru(user.gender,"","а","о","и")] [target] ногой в голову!</span>", \
+		target.visible_message("<span class='warning'>[user] с разворота пина[pluralize_ru(user.gender,"ет","ют")] [target] в голову!</span>", \
 						  "<span class='userdanger'>[user] с разворота попал[genderize_ru(user.gender,"","а","о","и")] ногой в ваш[hit_name]!</span>")
 		target.apply_damage(20, BRUTE, "head")
 		target.drop_item()

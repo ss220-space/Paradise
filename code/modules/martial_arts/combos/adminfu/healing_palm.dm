@@ -1,8 +1,8 @@
 /datum/martial_combo/adminfu/healing_palm
-	name = "Исцеляющая Ладонь"
+	name = "Исцеляющая ладонь"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
 	explaination_text = "Исцелить или возродить существо."
-	combo_text_override = "Захватить, сменить руки, Помочь"
+	combo_text_override = "Захват, смена рук, помощь"
 
 /datum/martial_combo/adminfu/healing_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target)
@@ -33,6 +33,6 @@
 		if(old_stat != DEAD)
 			to_chat(target, "<span class='notice'>Вы чувствуете себя изумительно!</span>")
 		else
-			to_chat(target, "<span class='notice'>Ты восстал, ты живой!!!</span>")
+			to_chat(target, "<span class='notice'>Вы восстали, вы живы!!!</span>")
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

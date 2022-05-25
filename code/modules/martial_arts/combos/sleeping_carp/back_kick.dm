@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/back_kick
 	name = "Удар в спину"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Оппонент должен быть отвернут. Сбивает его с ног."
+	explaination_text = "Используется только сзади. Сбивает оппонента с ног."
 
 /datum/martial_combo/sleeping_carp/back_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.dir == target.dir && !target.stat && !target.IsWeakened())
@@ -14,6 +14,6 @@
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Back Kick", ATKLOG_ALL)
 		if(prob(80))
-			user.say(pick("СУРПРАЙЗО!","УДАР В СПИНУ!","ВУОПХАА!", "ВУАТАА", "ЗУОТАА!", "ОБЕРНИСЬ!", "СЛЕДИ ЗА ТЫЛОМ!", "ПОДЗАТЫЛЬНИК!", "Никогда не показывай спину!", "Не поворачивайся спиной к врагу!", "Тебе передали привет!", "Я передаю привет!"))
+			user.say(pick("СУРПРАЙЗО!","УДАР В СПИНУ!","УДАР В ПСИНУ!","ВУОПХАА!", "ВУАТАА", "ЗУОТАА!", "ОБЕРНИСЬ!", "СЗАДИ!", "СЛЕДИ ЗА ТЫЛОМ!", "ПОДЗАТЫЛЬНИК!", "ПЕНДЕЛЬ!", "Никогда не показывай спину!", "Не поворачивайся спиной к врагу!", "Тебе передали привет!", "Я передаю привет!"))
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT
