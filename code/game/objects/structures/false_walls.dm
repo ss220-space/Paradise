@@ -388,18 +388,18 @@
 	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
 		dismantle(user, TRUE)
 
-/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/clockwork/attackby(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
-		return 0
+		return FALSE
 
 	if(density)
 		var/turf/T = get_turf(src)
 		if(T.density)
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
-			return 0
+			return FALSE
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user, TRUE)
-		return 0
-	return 1
+		return TRUE
+	return TRUE
