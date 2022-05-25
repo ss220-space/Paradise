@@ -62,7 +62,8 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
-	/// Список склонений названия атома
+	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
+	/// name_ru = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/list/name_ru
 
 /atom/New(loc, ...)
