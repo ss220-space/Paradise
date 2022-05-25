@@ -138,7 +138,11 @@
 			end_pr = ""
 
 	//гендеризируем прилагательное-префикс и приписываем наше половое имя
-	var/golem_name = "[prefix][end_pr] [golem_surname]"
+	var/golem_name
+	if(prefix_type == 3)
+		golem_name = "[prefix][end_pr]-[golem_surname]"
+	else
+		golem_name = "[prefix][end_pr] [golem_surname]"
 	return golem_name
 
 /datum/species/golem/on_species_gain(mob/living/carbon/human/H)
