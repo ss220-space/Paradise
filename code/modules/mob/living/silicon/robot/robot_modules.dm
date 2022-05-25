@@ -646,8 +646,8 @@
 	name = "cogscarab module"
 	module_type = "Cogscarab"
 
-/obj/item/robot_module/cogscarab/New()
-	..()
+/obj/item/robot_module/cogscarab/Initialize()
+	. = ..()
 	modules += new /obj/item/weldingtool/experimental/brass(src)
 	modules += new /obj/item/screwdriver/brass(src)
 	modules += new /obj/item/wrench/brass(src)
@@ -670,15 +670,14 @@
 
 /obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
+	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/clockwork
 	name = "Ratvar module"
 	module_type = "Cogscarab" //icon_state
 
-/obj/item/robot_module/clockwork/New()
-	..()
+/obj/item/robot_module/clockwork/Initialize()
+	. = ..()
 	modules += new /obj/item/clockwork/clockslab(src)
 	modules += new /obj/item/clock_borg_spear(src)
 	modules += new /obj/item/weldingtool/experimental/brass(src)
@@ -704,8 +703,7 @@
 
 /obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
+	G?.drop_gripped_item(silent = TRUE)
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()

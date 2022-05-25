@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 	//Clockwork enchantment
 	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
-	var/enchants = list() // List(datum)
+	var/list/enchants = null // List(datum)
 
 
 /obj/item/New()

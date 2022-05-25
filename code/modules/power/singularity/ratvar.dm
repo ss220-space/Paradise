@@ -104,6 +104,6 @@
 	dir = SOUTH
 	move_self = FALSE
 	flick("ratvar", src)
-	sleep(11)
+	sleep(1.1 SECONDS)
 	move_self = TRUE
 	icon = initial(icon)

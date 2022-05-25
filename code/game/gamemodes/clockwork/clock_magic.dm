@@ -9,10 +9,8 @@
 //put_in_hands it PUTS but i think it won't be needed
 
 /datum/action/innate/clockwork/clock_magic/Remove()
-	if(midas_spell)
-		qdel(midas_spell)
-		midas_spell = null
-	..()
+	QDEL_NULL(midas_spell)
+	. = ..()
 
 // Datum for enchanting item. The name, amount of power, time needed, spell action itself from item.
 /datum/spell_enchant
@@ -137,14 +135,12 @@
 	if(!hand_magic) // If you don't already have the spell active
 		hand_magic = new magic_path(owner, src)
 		if(!owner.put_in_hands(hand_magic))
-			qdel(hand_magic)
-			hand_magic = null
+			QDEL_NULL(hand_magic)
 			to_chat(owner, "<span class='warning'>You have no empty hand for invoking clockwork magic!</span>")
 			return
 		to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
 	else // If the spell is active, and you clicked on the button for it
-		qdel(hand_magic)
-		hand_magic = null
+		QDEL_NULL(hand_magic)
 
 //the spell list
 

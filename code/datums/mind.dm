@@ -242,14 +242,14 @@
 
 /datum/mind/proc/memory_edit_clockwork_silicon()
 	. = _memory_edit_header("clockwork")
-	var/mob/living/silicon/robot/robot = current
-	if(istype(robot))
+	if(istype(current, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/robot = current
 		if(src in SSticker.mode.clockwork_cult)
 			. += "<a href='?src=[UID()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
 		else
 			. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clockrobot'>clocker</a>"
-	var/mob/living/silicon/ai/ai = current
-	if(istype(ai))
+	else if(istype(current, /mob/living/silicon/ai))
+		var/mob/living/silicon/ai/ai = current
 		if(src in SSticker.mode.clockwork_cult)
 			. += "no|<b><font color='red'>CLOCKER</font></b>"
 		else

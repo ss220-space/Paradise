@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		restricted_jobs += protected_jobs
 
 	var/list/clockers_possible = get_players_for_role(ROLE_CLOCKER)
-	for(var/clockers_number = 1 to max_clockers_to_start)
+	for(var/clockers_number in 1 to max_clockers_to_start)
 		if(!length(clockers_possible))
 			break
 		var/datum/mind/clocker = pick(clockers_possible)
@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clocker_objs.study(clockwork_mind.current)
 	clockwork_threshold_check()
 	addtimer(CALLBACK(src, .proc/clockwork_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
-	..()
+	. = ..()
 
 /**
   * Decides at the start of the round how many conversions are needed to reveal or how many power supplied to reveal.
@@ -332,4 +332,4 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			endtext += "<font color='green'><B>Success!</B></font>"
 
 	to_chat(world, endtext)
-	..()
+	. = ..()

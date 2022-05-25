@@ -472,7 +472,7 @@
 			dat += "<br><a href='?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
 
-		if(SSticker.mode.clockwork_cult.len)
+		if(length(SSticker.mode.clockwork_cult))
 			var/datum/game_mode/gamemode = SSticker.mode
 			var/datum/objective/cur_demand_obj = gamemode.clocker_objs.obj_demand
 			dat += check_role_table("Clockers", SSticker.mode.clockwork_cult)

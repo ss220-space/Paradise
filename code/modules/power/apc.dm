@@ -582,17 +582,17 @@
 			playsound(src, 'sound/items/crowbar.ogg', 50, TRUE)
 			user.visible_message("[user] starts slicing [src]'s cover lock.", \
 			"<span class='notice'>You start slicing [src]'s cover lock apart with [W].</span>")
-			if(!do_after(user, 40, target = src))
+			if(!do_after(user, 4 SECONDS, target = src))
 				return
 			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
 			"<span class='clock'>You slice [src]'s cover lock apart with [W], and the cover swings open.</span>")
-			opened = 1
+			opened = TRUE
 			update_icon()
 		else
 			user.visible_message("<span class='warning'>[user] presses [W] into [src]!</span>", \
 			"<span class='clock'>You hold [W] in place within [src], and it slowly begins to warm up...</span>")
 			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-			if(!do_after(user, 70, target = src))
+			if(!do_after(user, 7 SECONDS, target = src))
 				return
 			user.visible_message("<span class='warning'>[user] installs [W] in [src]!</span>", \
 			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
@@ -603,7 +603,7 @@
 			cog = W
 			START_PROCESSING(SSfastprocess, W)
 			playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 50, FALSE)
-			opened = 0
+			opened = FALSE
 			locked = FALSE
 			update_icon()
 		return
@@ -653,7 +653,7 @@
 		else if(cog)
 			user.visible_message("[user] starts prying [cog] from [src].", \
 			"<span class='notice'>You painstakingly start tearing [cog] out of [src]'s guts...</span>")
-			if(I.use_tool(src, user, 80, volume = I.tool_volume))
+			if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 				user.visible_message("[user] destroys [cog] in [src]!", \
 				"<span class='notice'>[cog] comes free with a clank and snaps in two as the machinery returns to normal!</span>")
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
