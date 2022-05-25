@@ -1051,5 +1051,4 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/declent_ru(case_id)
 	if(length(name_ru))
 		return name_ru[case_id] || name
-	else
-		return name
+	return name
