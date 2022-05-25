@@ -153,6 +153,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
 
+	if(mmi.clock)
+		ratvar_act(TRUE)
+
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new default_cell_type(src)
 

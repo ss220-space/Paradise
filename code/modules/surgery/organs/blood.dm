@@ -347,16 +347,16 @@
 	if(!T)
 		T = get_turf(src)
 
-	var/obj/effect/decal/cleanable/blood/clock/streak/O = locate() in T
-	var/list/oils = get_atoms_of_type(T, O, TRUE, 0, 0)
+	var/obj/effect/decal/cleanable/blood/clock/streak/oil = locate() in T
+	var/list/oils = get_atoms_of_type(T, oil, TRUE, 0, 0)
 	if(shift_x || shift_y)
-		oils = get_atoms_of_type(T, O, TRUE, shift_x, shift_y)
-		O = locate() in oils
-	if(!O)
-		O = new(T)
+		oils = get_atoms_of_type(T, oil, TRUE, shift_x, shift_y)
+		oil = locate() in oils
+	if(!oil)
+		oil = new(T)
 
-	O.pixel_x = (shift_x)
-	O.pixel_y = (shift_y)
+	oil.pixel_x = (shift_x)
+	oil.pixel_y = (shift_y)
 	if(shift_x || shift_y)
-		O.off_floor = TRUE
-		O.layer = BELOW_MOB_LAYER
+		oil.off_floor = TRUE
+		oil.layer = BELOW_MOB_LAYER
