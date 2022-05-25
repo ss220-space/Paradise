@@ -147,9 +147,9 @@
 	// We doing some converting here
 	while(timer < time_until_convert)
 		if(get_turf(target) != get_turf(src))
-			return
+			break
 		if(!anchored)
-			return
+			break
 		if(!in_range(src, has_clocker))
 			for(var/mob/living/M in range(1, src))
 				if(!isclocker(M))
