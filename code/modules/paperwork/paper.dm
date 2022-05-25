@@ -317,8 +317,6 @@
 		//если игрок маскируется или имя отличается, добавляется новый вариант ответа
 		if (usr.real_name != usr.name || usr.name != "unknown")
 			menu_list.Add("[usr.name]")
-		//if (usr.real_name != (usr.voice_name || "unknown")) //voice_name - всегда выдает unknown
-		//	menu_list.Add("[usr.voice_name]")
 
 		menu_list.Add(usr.job,		//текущая работа
 			num_text,		//номер аккаунта
