@@ -1049,7 +1049,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «name_ru», примерно такой:
 // name_ru = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id)
-	if(name_ru != null && length(name_ru))
+	if(length(name_ru))
 		return name_ru[case_id] || name
 	else
 		return name
