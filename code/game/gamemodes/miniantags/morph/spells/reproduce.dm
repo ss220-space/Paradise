@@ -3,8 +3,7 @@
 	desc = "Split yourself in half making a new morph. Can only be used while on a floor. Makes you temporarily unable to vent crawl."
 	hunger_cost = 150 // 5 humans
 	charge_max = 30 SECONDS
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_revenant"
+	action_icon_state = "morph_reproduce"
 	self_only = TRUE
 
 /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
@@ -17,7 +16,6 @@
 		return FALSE
 
 /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	sleep(4 SECONDS)
 	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
 	user.ventcrawler = FALSE // Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)

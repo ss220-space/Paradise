@@ -9,7 +9,7 @@
 	if(hunger_cost)
 		name = "[name] ([hunger_cost])"
 
-/obj/effect/proc_holder/spell/targeted/morph_spell/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message = TRUE)
+/obj/effect/proc_holder/spell/targeted/morph_spell/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
 	if(!.)
 		return
@@ -29,7 +29,7 @@
 	if(hunger_cost)
 		name = "[name] ([hunger_cost])"
 
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message = TRUE)
+/obj/effect/proc_holder/spell/targeted/click/morph_spell/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
 	if(!.)
 		return

@@ -2,22 +2,13 @@
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock
 	name = "Pass Airlock"
 	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_revenant"
+	action_icon_state = "morph_airlock"
 	clothes_req = FALSE
 	charge_max = 10 SECONDS
 	click_radius = -1
 	allowed_type = /obj/machinery/door/airlock
 	range = 1
-	// selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
-
-// /obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/create_new_targeting()
-// 	var/datum/spell_targeting/click/T = new
-// 	T.range = 1
-// 	T.allowed_type = /obj/machinery/door/airlock
-// 	T.click_radius = -1
-// 	return T
-
+	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
 
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
@@ -25,8 +16,7 @@
 		return
 
 	if(user.morphed)
-		if(show_message)
-			to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
+		to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
 		return FALSE
 
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)

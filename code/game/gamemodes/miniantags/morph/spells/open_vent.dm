@@ -1,8 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent
 	name = "Open Vents"
 	desc = "Spit out acidic puke on nearby vents or scrubbers. Will take a little while for the acid to take effect. Not usable from inside a vent."
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_revenant"
+	action_icon_state = "acid_vent"
 	charge_max = 10 SECONDS
 	hunger_cost = 10
 	range = 1

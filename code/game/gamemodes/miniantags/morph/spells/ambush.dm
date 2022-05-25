@@ -4,11 +4,11 @@
 	name = "Prepare Ambush"
 	desc = "Prepare an ambush. Dealing significantly more damage on the first hit and you will weaken the target. Only works while morphed. If the target tries to use you with their hands then you will do even more damage. \
 	 		Keeping still for another 15 seconds will perfect your disguise."
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_revenant"
+	action_icon_state = "morph_ambush"
 	charge_max = 8 SECONDS
+	self_only = TRUE
 
-/obj/effect/proc_holder/spell/targeted/morph_spell/ambush/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message = TRUE)
+/obj/effect/proc_holder/spell/targeted/morph_spell/ambush/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
 	if(!.)
 		return

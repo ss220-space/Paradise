@@ -3,8 +3,7 @@
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
 	charge_max = 3 SECONDS
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_revenant"
+	action_icon_state = "morph_mimic"
 
 	allowed_type = /atom/movable
 	auto_target_single = FALSE
