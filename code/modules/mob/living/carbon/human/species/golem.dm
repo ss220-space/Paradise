@@ -513,7 +513,7 @@
 			if(!(RADIMMUNE in I.dna.species.species_traits))
 				L.apply_effect(10, IRRADIATE)
 				if(prob(25)) //reduce spam
-					to_chat(L, "<span class='danger'>Вас окутывает мягкое зеленое свечение, исходящее от [H].</span>")
+					to_chat(L, "<span class='danger'>Вас окутывает мягкое зелёное свечение, исходящее от [H].</span>")
 	..()
 
 //Ventcrawler
@@ -853,7 +853,7 @@
 		)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
-	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать выпивая бутылки с ничем."
+	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
 	unarmed_type = /datum/unarmed_attack/golem/tranquillite
 
 /datum/species/golem/tranquillite/get_random_name()
