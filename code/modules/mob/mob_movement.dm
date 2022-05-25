@@ -24,7 +24,7 @@
 		var/mob/living/carbon/C = mob
 		C.toggle_throw_mode()
 	else
-		to_chat(usr, "<span class='danger'>Этот тип моба не может бросать предметы.</span>")
+		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
 
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)

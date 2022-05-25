@@ -591,7 +591,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Что-то здесь есть, но вы не можете разглядеть.</span>")
+		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
 		return 1
 
 	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
@@ -1225,7 +1225,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
