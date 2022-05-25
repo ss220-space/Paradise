@@ -245,4 +245,4 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You're ravenous.</span>")
 	stage5	= list("<span class='danger'>You have become a morph.</span>")
-	new_form = /mob/living/simple_animal/hostile/old_morph
+	new_form = /mob/living/simple_animal/hostile/morph

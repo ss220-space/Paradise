@@ -266,7 +266,7 @@
 		return 0
 	if(istype(A,/obj/singularity))
 		return 0
-	if(istype(A,/mob/living/simple_animal/hostile/old_morph))
+	if(istype(A,/mob/living/simple_animal/hostile/morph))
 		return 0
 	return 1
 
