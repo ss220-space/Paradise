@@ -261,7 +261,6 @@
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override
 
-
 			if(!aisync)
 				lawsync = FALSE
 
@@ -298,7 +297,6 @@
 				O.make_laws()
 
 			M.brainmob.mind.transfer_to(O)
-
 
 			if(O.mind && O.mind.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")

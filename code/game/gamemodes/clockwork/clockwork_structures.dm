@@ -30,7 +30,7 @@
 		else
 			icon_state = "[initial(icon_state)]"
 		update_icon()
-		return
+		return TRUE
 	return ..()
 
 /obj/structure/clockwork/functional/obj_destruction()
@@ -68,20 +68,22 @@
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(isclocker(L))
-				if(L.health != L.maxHealth)
-					new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
+			if(!isclocker(L))
+				continue
+			if(!(L.health < L.maxHealth))
+				continue
+			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
-					if(ishuman(L))
-						L.heal_overall_damage(2, 2, TRUE, FALSE, TRUE)
+			if(ishuman(L))
+				L.heal_overall_damage(2, 2, TRUE, FALSE, TRUE)
 
-					else if(isshade(L) || isconstruct(L))
-						var/mob/living/simple_animal/M = L
-						if(M.health < M.maxHealth)
-							M.adjustHealth(-2)
+			else if(isshade(L) || isconstruct(L))
+				var/mob/living/simple_animal/M = L
+				if(M.health < M.maxHealth)
+					M.adjustHealth(-2)
 
-				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1
+			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+				L.blood_volume += 1
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
@@ -92,7 +94,7 @@
 /obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		to_chat(user, "<span class='danger'>You try to unsecure [src], but it's secures himself back tightly!</span>")
-		return
+		return TRUE
 	return ..()
 
 /obj/structure/clockwork/functional/altar
@@ -101,24 +103,34 @@
 	icon_state = "altar"
 	density = 0
 	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
-	var/convert_time = 80
+	var/time_until_convert = 8 SECONDS
 	var/glow_type = /obj/effect/temp_visual/ratvar/altar_convert
 	var/summoning = FALSE
 
 /obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM)
-	if(!src.anchored)
+	if(!anchored)
 		return
-	if(isliving(AM) && !summoning)
-		var/mob/living/L = AM
-		if(L.stat != DEAD && !isclocker(L) && !issilicon(L) && L.mind)
-			var/obj/item/I = L.null_rod_check()
-			if(I)
-				L.visible_message("<span class='warning'>[L]'s [I.name] glows, protecting them from [src]'s effects!</span>", \
-				"<span class='userdanger'>Your [I.name] glows, protecting you!</span>")
-				return
-			try_convert(L)
+	if(!ishuman(AM))
+		return
+	var/mob/living/carbon/human/target = AM
+	if(isclocker(target))
+		return
+	if(summoning)
+		if(target.pulledby)
+			to_chat(pulledby, "<span class='clockitalic'There is another body on [src]!</span>")
+		return
+	if(!target.mind)
+		if(target.pulledby)
+			to_chat(pulledby, "<span class='clockitalic'This body is mindless! It doesn't even worth anything!</span>")
+		return
+	var/obj/item/rod = target.null_rod_check()
+	if(rod)
+		target.visible_message("<span class='warning'>[target]'s [rod.name] glows, protecting them from [src]'s effects!</span>", \
+		"<span class='userdanger'>Your [rod.name] glows, protecting you!</span>")
+		return
+	try_convert(target)
 
-/obj/structure/clockwork/functional/altar/proc/try_convert(mob/living/L)
+/obj/structure/clockwork/functional/altar/proc/try_convert(mob/living/carbon/human/target)
 	var/has_clocker = null
 	for(var/mob/living/M in range(1, src))
 		if(isclocker(M) && !M.stat)
@@ -127,79 +139,89 @@
 	if(!has_clocker)
 		visible_message("<span class='warning'>[src] strains into a gentle yellow color, but quietly fades...</span>")
 		return
-	L.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
-	var/obj/effect/temp_visual/ratvar/altar_convert/glow
-	glow = new glow_type(get_turf(src))
-	animate(glow, alpha = 255, time = convert_time)
+	target.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
+	var/obj/effect/temp_visual/ratvar/altar_convert/glow = new glow_type(get_turf(src))
+	animate(glow, alpha = 255, time = time_until_convert)
 	icon_state = "[initial(icon_state)]-fast"
-	var/I = 0
+	var/timer = 0
 	// We doing some converting here
-	while(I < convert_time && get_turf(L) == get_turf(src) && src.anchored)
+	while(timer < time_until_convert)
+		if(get_turf(target) != get_turf(src))
+			return
+		if(!anchored)
+			return
 		if(!in_range(src, has_clocker))
 			for(var/mob/living/M in range(1, src))
-				if(isclocker(M) && !M.stat)
+				if(!isclocker(M))
+					continue
+				if(M.stat)
 					has_clocker = M
 					break
 			has_clocker = null
 			break
-		I++
+		timer++
 		sleep(1)
-	if(get_turf(L) != get_turf(src) || !src.anchored || !has_clocker)
-		if(glow)
-			qdel(glow)
-		if(src.anchored)
+	if(get_turf(target) != get_turf(src) || !anchored || !has_clocker)
+		QDEL_NULL(glow)
+		if(anchored)
 			icon_state = "[initial(icon_state)]"
 		else
 			icon_state = "[initial(icon_state)]-off"
 		visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
 		return
-	if(is_convertable_to_clocker(L.mind))
-		to_chat(L, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+	if(target.stat != DEAD && is_convertable_to_clocker(target.mind))
+		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
 		// Brass golem now and the master Ratvar. One way only: Serve or die perma.
-		if(isgolem(L))
-			L.mind.wipe_memory()
-			var/mob/living/carbon/human/H = L
-			H.set_species(/datum/species/golem/clockwork)
-		if(SSticker.mode.add_clocker(L.mind))
-			L.create_log(CONVERSION_LOG, "[L] been converted by [src.name]")
-		L.Weaken(5) //Accept new power... and new information
-		L.EyeBlind(5)
+		if(isgolem(target))
+			target.mind.wipe_memory()
+			target.set_species(/datum/species/golem/clockwork)
+		if(SSticker.mode.add_clocker(target.mind))
+			target.create_log(CONVERSION_LOG, "[target] been converted into clockwork cult by altar.")
+		target.Weaken(5) //Accept new power... and new information
+		target.EyeBlind(5)
 	else // Start tearing him apart until GIB
-		I = 0
-		L.visible_message("<span class='warning'>[src] in glowing manner starts rupturing [L]!</span>", \
+		timer = 0
+		target.visible_message("<span class='warning'>[src] in glowing manner starts rupturing [target]!</span>", \
 		"<span class='danger'>[src] underneath you starts to tear you to pieces!</span>")
-		while(I < convert_time && get_turf(L) == get_turf(src) && src.anchored)
+		while(timer < time_until_convert)
+			if(get_turf(target) != get_turf(src))
+				break
+			if(!anchored)
+				break
 			if(!in_range(src, has_clocker))
 				for(var/mob/living/M in range(1, src))
-					if(isclocker(M) && !M.stat)
+					if(!isclocker(M))
+						continue
+					if(M.stat)
 						has_clocker = M
 						break
 				has_clocker = null
 				break
-			I++
+			timer++
 			sleep(1)
-			if(I > convert_time*0.8)
-				L.adjustBruteLoss(30)
+			if(timer > time_until_convert*0.8)
+				target.adjustBruteLoss(30)
 			else
-				L.adjustBruteLoss(5)
-		if(get_turf(L) == get_turf(src) && src.anchored && has_clocker)
-			L.gib()
+				target.adjustBruteLoss(5)
+		if(get_turf(target) == get_turf(src) && src.anchored && has_clocker)
+			target.gib()
 			var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-			cube.try_to_transfer(L)
+			cube.try_to_transfer(target)
 			adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 
 		if(src.anchored)
 			icon_state = "[initial(icon_state)]"
 		else
 			icon_state = "[initial(icon_state)]-off"
-	if(glow)
-		qdel(glow)
+	QDEL_NULL(glow)
 	visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	var/area/A = get_area(src)
-	if(istype(I, /obj/item/clockwork/shard) && !I.enchant_type)
+	if(istype(I, /obj/item/clockwork/shard))
+		var/area/A = get_area(src)
+		if(!anchored)
+			to_chat(user, "<span class='warning'>It has to be anchored before you can start!</span>")
 		if(!double_check(user, A))
 			return
 		GLOB.command_announcement.Announce("A high anomalous power has been detected in [A.map_name], the origin of the power indicates an attempt to summon eldtrich god named Ratvar. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
@@ -228,8 +250,7 @@
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='clockitalic'><b>You decide to prepare further before pincing the shard.</b></span>")
 			return FALSE
-		else
-			return TRUE
+		return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
 	summoning = TRUE

@@ -157,14 +157,14 @@
 /datum/action/innate/clockwork/hand_spell/construction
 	name = "Midas Touch"
 	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Airlocks into brightish airlocks after a delay (harm intent)"
-	button_icon_state = "transmute"
+	button_icon_state = "midas_touch"
 	magic_path = /obj/item/melee/clock_magic/construction
 
 // The "magic hand" items
 /obj/item/melee/clock_magic
 	name = "\improper magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clocked_hand"

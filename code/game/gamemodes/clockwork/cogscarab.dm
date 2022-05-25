@@ -46,8 +46,8 @@
 	)
 
 
-/mob/living/silicon/robot/cogscarab/New()
-	..()
+/mob/living/silicon/robot/cogscarab/Initialize()
+	. = ..()
 	remove_language("Robot Talk")
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
@@ -90,7 +90,7 @@
 	if(user.a_intent != INTENT_HELP)
 		return
 
-	if(istype(W, /obj/item/borg/upgrade/))
+	if(istype(W, /obj/item/borg/upgrade))
 		return
 
 	else if(istype(W, /obj/item/crowbar))

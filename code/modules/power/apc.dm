@@ -574,7 +574,10 @@
 			if(opened==2)
 				opened = 1
 			update_icon()
-	else if(istype(W, /obj/item/clockwork/integration_cog) && isclocker(user))
+	else if(istype(W, /obj/item/clockwork/integration_cog))
+		if(!isclocker(user))
+			to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
+			return
 		if(cog)
 			to_chat(user, "<span class='warning'>This APC already has a cog!</span>")
 			return

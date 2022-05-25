@@ -78,6 +78,7 @@
 		else
 			playsound(src, "ricochet", 50, TRUE)
 		return TRUE
+	return FALSE
 
 /*MOUSE*/
 /mob/living/simple_animal/mouse/clockwork
@@ -85,29 +86,27 @@
 	real_name = "moaus"
 	desc = "A fancy clocked mouse. And it still squeeks!"
 	icon = 'icons/mob/clockwork_mobs.dmi'
-	icon_state = "moaus"
-	icon_living = "moaus"
-	icon_dead = "moaus_dead"
-	icon_resting = "moaus" // Need to make rest
-	mouse_color = TRUE //Check mouse/New()
+	mouse_color = "clock" // Check mouse/New()
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	universal_speak = 1
 	gold_core_spawnable = NO_SPAWN
 	butcher_results = list(/obj/item/clockwork/alloy_shards/medium/gear_bit = 1)
 
 /mob/living/simple_animal/mouse/clockwork/handle_automated_action()
-	if(isturf(loc))
-		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
-			var/obj/structure/cable/C = locate() in F
-			if(C && prob(30))
-				if(C.avail())
-					visible_message("<span class='warning'>[src] chews through [C]. [src] sparks for a moment!</span>")
-					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
-				else
-					visible_message("<span class='warning'>[src] chews through [C].</span>")
-				investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
-				C.deconstruct()
+	if(!isturf(loc))
+		return
+	var/turf/simulated/floor/F = get_turf(src)
+	if(!istype(F) || F?.intact)
+		return
+	var/obj/structure/cable/C = locate() in F
+	if(C && prob(30))
+		if(C.avail())
+			visible_message("<span class='warning'>[src] chews through [C]. [src] sparks for a moment!</span>")
+			playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+		else
+			visible_message("<span class='warning'>[src] chews through [C].</span>")
+		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+		C.deconstruct()
 
 /mob/living/simple_animal/mouse/clockwork/splat()
 	return

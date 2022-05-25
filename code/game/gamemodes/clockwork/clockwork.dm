@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(H), H.dir)
-		// H.update_halo_layer()
+		H.update_halo_layer()
 
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
@@ -278,7 +278,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		REMOVE_TRAIT(H, CLOCK_HANDS, null)
 		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()
-		// H.remove_overlay(HALO_LAYER)
+		H.remove_overlay(HALO_LAYER)
 		H.update_body()
 	if(show_message)
 		clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
@@ -302,11 +302,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		var/datum/action/innate/clockwork/check_progress/D = new
 		C.Grant(clock_mind.current)
 		D.Grant(clock_mind.current)
-		if(ishuman(clock_mind.current))
+		if(ishuman(clock_mind.current) || issilicon(clock_mind.current))
 			var/datum/action/innate/clockwork/clock_magic/magic = new
 			magic.Grant(clock_mind.current)
-			//var/datum/action/innate/clockwork/use_slab/clockslab = new
-			//clockslab.Grant(clock_mind.current)
 		clock_mind.current.update_action_buttons(TRUE)
 
 /datum/game_mode/cult/declare_completion()

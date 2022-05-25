@@ -33,16 +33,16 @@
 	. = ..()
 	item_list = list()
 	item_list["Weapon"] = list(
-		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 100, 0, 10),
-		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 2000, 500, 20),
-		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 500, 20),
+		CLOCK_DESIGN("Clockwork Slab", /obj/item/clockwork/clockslab, 100, 0, 3),
+		CLOCK_DESIGN("Ratvarian Spear", /obj/item/twohanded/ratvarian_spear, 2000, 500, 10),
+		CLOCK_DESIGN("Clock Hammer", /obj/item/twohanded/clock_hammer, 2000, 500, 10),
 	)
 	item_list["Clothing"] = list(
-		CLOCK_DESIGN("Clock Robe", /obj/item/clothing/suit/hooded/clockrobe, 0, 100, 5),
-		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 250, 30),
-		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 500, 50, 10),
-		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 500, 50, 10),
-		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 1000, 150, 15),
+		CLOCK_DESIGN("Clock Robe", /obj/item/clothing/suit/hooded/clockrobe, 0, 50, 3),
+		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 400, 25),
+		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 500, 100, 5),
+		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 500, 100, 5),
+		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 1000, 100, 5),
 	)
 	item_list["Consumables"] = list(
 		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 300, 0, 5),
