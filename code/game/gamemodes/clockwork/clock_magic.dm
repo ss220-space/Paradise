@@ -194,13 +194,17 @@
 	if(channeling)
 		to_chat(user, "<span class='clockitalic'>You are already invoking midas touch!</span>")
 		return
+	var/turf/turf_target = get_turf(target)
 
 	//Metal to brass metal
 	if(istype(target, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/candidate = target
-		var/quantity = candidate.amount
-		if(candidate.use(quantity*CLOCK_METAL_TO_BRASS))
-			new /obj/item/stack/sheet/brass(get_turf(target), quantity*CLOCK_METAL_TO_BRASS)
+		if(candidate.amount < CLOCK_METAL_TO_BRASS)
+			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			return
+		var/quantity = (candidate.amount - (candidate.amount % CLOCK_METAL_TO_BRASS)) / CLOCK_METAL_TO_BRASS
+		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
+			new /obj/item/stack/sheet/brass(turf_target, quantity)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
@@ -210,9 +214,8 @@
 	//Plasteel to brass metal
 	else if(istype(target, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/candidate = target
-		var/quantity = candidate.amount
-		if(candidate.use(quantity))
-			new /obj/item/stack/sheet/brass(get_turf(target), quantity)
+		if(candidate.use(candidate.amount))
+			new /obj/item/stack/sheet/brass(turf_target, candidate.amount)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 

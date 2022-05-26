@@ -213,6 +213,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		msg += "*--------*"
 		. += msg
 
+	if(isclocker(user) && enchant_type)
+		for(var/datum/spell_enchant/S in enchants)
+			if(S.enchantment == enchant_type)
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				break
+
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)

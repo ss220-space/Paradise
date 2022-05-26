@@ -235,6 +235,17 @@
 	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
 
+/mob/living/silicon/robot/drone/ratvar_act(weak)
+	if(client)
+		var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+		if(mind)
+			SSticker.mode.add_clocker(mind)
+			mind.transfer_to(cog)
+		else
+			cog.key = client.key
+	spawn_dust()
+	gib()
+
 //DRONE LIFE/DEATH
 
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.

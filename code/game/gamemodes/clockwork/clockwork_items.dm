@@ -25,6 +25,15 @@
 
 /obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
+	if(!isclocker(user))
+		user.unEquip(src, 1)
+		user.emote("scream")
+		to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			carbon.Weaken(5)
+			carbon.Stuttering(10)
+		return
 	switch(enchant_type)
 		if(STUN_SPELL)
 			if(!isliving(target) || isclocker(target) || !proximity)
@@ -38,13 +47,14 @@
 				return
 			living.Weaken(5)
 			living.Stun(5)
+			living.Silence(8)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
 				robot.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/carbon = living
-				carbon.Stuttering(10)
-				carbon.ClockSlur(10)
+				carbon.Stuttering(16)
+				carbon.ClockSlur(16)
 			deplete_spell()
 		if(KNOCK_SPELL)
 			if(istype(target, /obj/machinery/door))
@@ -73,6 +83,8 @@
 				return
 			if(proximity)
 				to_chat(user, "<span class='warning'>You too close to the path point!</span>")
+				return
+			if(target in view(user))
 				return
 			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 			animate(user, color = COLOR_PURPLE, time = 50)

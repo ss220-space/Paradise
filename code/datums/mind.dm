@@ -1005,9 +1005,8 @@
 					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
 			if("clockrobot")
-				var/mob/living/silicon/robot/robot = current
 				if(!(src in SSticker.mode.clockwork_cult))
-					robot.ratvar_act(TRUE)
+					current.ratvar_act(TRUE)
 					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their brass dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
 					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
 			if("clockai")
