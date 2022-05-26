@@ -78267,12 +78267,6 @@
 	},
 /area/toxins/xenobiology)
 "cVg" = (
-/obj/machinery/camera{
-	c_tag = "Xenobiology Module East";
-	dir = 8;
-	network = list("Research","SS13");
-	pixel_y = -22
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
@@ -90340,7 +90334,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "hZf" = (
 /turf/simulated/floor/plasteel{
@@ -91590,7 +91584,7 @@
 	name = "2maintenance loot spawner"
 	},
 /obj/item/toy/figure/secofficer,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "mbG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -94070,6 +94064,15 @@
 	icon_state = "darkred"
 	},
 /area/security/brig)
+"tip" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module East";
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology)
 "tju" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -94881,6 +94884,11 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/camera{
+	c_tag = "Xenobiology Heavy Containment Zone";
+	dir = 4;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -142761,7 +142769,7 @@ cOS
 cSH
 cQu
 cxN
-cEH
+tip
 xZm
 cVf
 cZz
