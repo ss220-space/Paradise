@@ -375,7 +375,7 @@
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
 				E.receive_damage(minor_damage, 1)
 			if(2)
-				to_chat(src, "<span class='warning'>Вашы глаза пылают.</span>")
+				to_chat(src, "<span class='warning'>Ваши глаза пылают.</span>")
 				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
