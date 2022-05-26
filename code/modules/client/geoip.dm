@@ -1,6 +1,6 @@
-var/global/geoip_query_counter = 0
-var/global/geoip_next_counter_reset = 0
-var/global/list/geoip_ckey_updated = list()
+GLOBAL_VAR_INIT(geoip_query_counter, 0)
+GLOBAL_VAR_INIT(geoip_next_counter_reset, 0)
+GLOBAL_LIST_EMPTY(geoip_ckey_updated)
 
 /datum/geoip_data
 	var/holder = null

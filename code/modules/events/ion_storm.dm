@@ -2,7 +2,7 @@
 #define ION_RANDOM 0
 #define ION_ANNOUNCE 1
 
-var/iondepartment = pick_list("ion_laws.json", "отделы")
+GLOBAL_LIST_INIT(iondepartment, pick_list("ion_laws.json", "отделы"))
 /datum/event/ion_storm
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
