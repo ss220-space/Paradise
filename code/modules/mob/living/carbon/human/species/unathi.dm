@@ -123,7 +123,7 @@
 					user.visible_message("<span class='danger'>[user] теря[pluralize_ru(user.gender,"ет","ют")] [genderize_ru(user.gender,"его","её","свое","их")] равновесие!</span>", "<span class='danger'>Вы теряете равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
-				to_chat(user, "<span class='warning'>Вы вышли из инерции!</span>")
+				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
 				return
 
 /datum/action/innate/tail_lash/IsAvailable()

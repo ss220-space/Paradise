@@ -61,7 +61,6 @@
 		"выдавливает когтями свои глазницы!",
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
-		
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

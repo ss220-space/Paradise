@@ -160,7 +160,7 @@
 			missing_limbs[initial(limb.name)] = l
 
 	if(!missing_limbs.len)
-		to_chat(H, "<span class='warning'>Вы не потеряли ни одной конечности!</span>")
+		to_chat(H, "<span class='warning'>Ваши конечности на месте!</span>")
 		return
 
 	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
