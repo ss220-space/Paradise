@@ -67,9 +67,9 @@ GLOBAL_LIST_INIT(gloves_spell, list(
 	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shard_spells, list(
-	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 60),
-	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 60),
-	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 60)
+	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 30),
+	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 30),
+	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 30)
 ))
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400

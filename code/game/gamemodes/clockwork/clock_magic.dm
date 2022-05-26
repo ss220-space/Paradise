@@ -5,9 +5,6 @@
 	var/datum/action/innate/clockwork/hand_spell/construction/midas_spell = null
 	var/channeling = FALSE
 
-//get_active_hand it gets the thing in active one
-//put_in_hands it PUTS but i think it won't be needed
-
 /datum/action/innate/clockwork/clock_magic/Remove()
 	QDEL_NULL(midas_spell)
 	. = ..()
@@ -37,8 +34,7 @@
 		var/obj/item/gripper/G = item
 		item = G.gripped_item
 	// If we having something in hand. Check if it can be enchanted. Else skip.
-	var/can_enchanted = length(item?.enchants)
-	if(can_enchanted) // it just works
+	if(length(item?.enchants)) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
 			return
@@ -62,12 +58,6 @@
 		else
 			if(item != owner.get_active_hand())
 				return
-		/*
-		if(GLOB.clockwork_power < spell_enchant.req_amount)
-			to_chat(owner, "<span class='warning'>There's no power left to use! Make some you fool!</span>")
-			return
-		adjust_clockwork_power(-spell_enchant.req_amount)
-		*/
 
 		if(!channeling)
 			channeling = TRUE
@@ -83,8 +73,6 @@
 				owner.update_action_buttons()
 			item.update_icon()
 			to_chat(owner, "<span class='clock'>You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!</span>")
-		//else
-		//	adjust_clockwork_power(spell_enchant.req_amount)
 
 		channeling = FALSE
 	// If it's empty or not an item we can enchant. Making a spell on hand.
@@ -111,8 +99,6 @@
 			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
 		channeling = FALSE
 
-
-// This is spells for hands only.
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Clockwork Magic"
 	button_icon_state = "telerune"
@@ -152,8 +138,6 @@
 	else // If the spell is active, and you clicked on the button for it
 		QDEL_NULL(hand_magic)
 
-//the spell list
-
 /datum/action/innate/clockwork/hand_spell/construction
 	name = "Midas Touch"
 	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Airlocks into brightish airlocks after a delay (harm intent)"
@@ -191,8 +175,6 @@
 		else
 	return ..()
 
-//The spell effects
-
 /obj/item/melee/clock_magic/construction
 	name = "Midas Aura"
 	desc = "A dripping brass from hand charged to twist metal."
@@ -202,7 +184,7 @@
 /obj/item/melee/clock_magic/construction/examine(mob/user)
 	. = ..()
 	. += {"<u>A sinister spell used to convert:</u>\n
-	Plasteel into runed metal\n
+	Plasteel into brass metal\n
 	[CLOCK_METAL_TO_BRASS] metal into a brass\n
 	Robots into cult"}
 
@@ -250,7 +232,7 @@
 
 	else if(istype(target, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/candidate = target
-		if(candidate.mmi || candidate.ghost_can_reenter() || !isclocker(candidate))
+		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE
 			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
@@ -258,6 +240,19 @@
 			if(do_after(user, 90, target = candidate))
 				candidate.emp_act(EMP_HEAVY)
 				candidate.ratvar_act(weak = TRUE)
+				channeling = FALSE
+			else
+				channeling = FALSE
+				return
+	else if(istype(target, /mob/living/silicon/ai))
+		var/mob/living/silicon/ai/candidate = target
+		if(candidate.stat != DEAD || !isclocker(candidate))
+			channeling = TRUE
+			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] as he starts to manipulate every piece of technology inside!</span>")
+			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
+			do_sparks(5, TRUE, target)
+			if(do_after(user, 90, target = candidate))
+				candidate.ratvar_act()
 				channeling = FALSE
 			else
 				channeling = FALSE

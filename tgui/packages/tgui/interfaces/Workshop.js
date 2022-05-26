@@ -28,8 +28,8 @@ export const Workshop = (_properties, context) => {
     worldTime,
   } = data;
 
-  let brassReadable = brass_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
-  let powerReadable = power_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  const brassReadable = brass_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
+  const powerReadable = power_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   const styleLeftDiv = {
     float: 'left',
@@ -151,7 +151,7 @@ const WorkshopItems = (_properties, context) => {
   });
 
   let has_contents = false;
-  let contents = Object.entries(items).map((kv, _i) => {
+  const contents = Object.entries(items).map((kv, _i) => {
     let items_in_cat = Object.entries(kv[1])
       .filter(searcher)
       .map(kv2 => {

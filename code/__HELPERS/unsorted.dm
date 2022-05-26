@@ -306,6 +306,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			continue
 		if(A.control_disabled == 1)
 			continue
+		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
+			continue
 		. += A
 	return .
 

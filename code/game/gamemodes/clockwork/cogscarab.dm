@@ -116,7 +116,10 @@
 /mob/living/silicon/robot/cogscarab/emag_act()
 	return
 
-/mob/living/silicon/robot/emp_act(severity)
+/mob/living/silicon/robot/cogscarab/emp_act(severity)
+	return
+
+/mob/living/silicon/robot/cogscarab/ratvar_act(weak)
 	return
 
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
@@ -199,7 +202,7 @@
 /mob/living/silicon/robot/cogscarab/verb/hide()
 	set name = "Hide"
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
-	set category = "Drone"
+	set category = "Cogscarab"
 
 	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
@@ -211,7 +214,7 @@
 /mob/living/silicon/robot/cogscarab/verb/light()
 	set name = "Light On/Off"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = "Drone"
+	set category = "Cogscarab"
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
