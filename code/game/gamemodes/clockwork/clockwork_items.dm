@@ -28,7 +28,7 @@
 	if(!isclocker(user))
 		user.unEquip(src, 1)
 		user.emote("scream")
-		to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
+		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon = user
 			carbon.Weaken(5)
@@ -130,6 +130,17 @@
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
+	if(!isclocker(user))
+		if(ishuman(user))
+			var/mob/living/carbon/human/human = user
+			human.embed_item_inside(src)
+			user.emote("scream")
+			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
+		else
+			user.remove_from_mob(src)
+			user.emote("scream")
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		return
 	if(!wielded || !isliving(target))
 		return
 	var/mob/living/living = target
@@ -191,6 +202,11 @@
 
 /obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, def_zone)
 	. = ..()
+	if(!isclocker(user))
+		target = user
+		to_chat(user, "<span class='clocklarge'>\"Don't hit yourself.\"</span>")
+		target.adjustBruteLoss(25)
+		user.remove_from_mob(src)
 	if(!wielded)
 		return
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
@@ -208,8 +224,7 @@
 				deplete_spell()
 				return
 			var/obj/item/organ/external/BP = pick(human.bodyparts_by_name)
-			if(BP.is_robotic())
-				BP.emp_act(EMP_HEAVY)
+			BP.emp_act(EMP_HEAVY)
 			BP.fracture()
 		if(isrobot(target))
 			var/mob/living/silicon/robot/robot = target
@@ -237,7 +252,7 @@
 	enchants = GLOB.robe_spells
 
 /obj/item/clothing/suit/hooded/clockrobe/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(enchant_type == WEAK_REFLECT_SPELL)
+	if(enchant_type == WEAK_REFLECT_SPELL && isclocker(owner))
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(!prob(hit_reflect_chance))
@@ -279,7 +294,7 @@
 	enchants = GLOB.armour_spells
 
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(enchant_type == REFLECT_SPELL)
+	if(enchant_type == REFLECT_SPELL && isclocker(owner))
 		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src] sparks!</span>")
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
@@ -289,9 +304,9 @@
 /obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
 	. = ..()
 	if(!isclocker(user))
-		user.unEquip(src, 1)
+		user.remove_from_mob(src)
 		user.emote("scream")
-		to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
+		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 	switch(enchant_type)
 		if(ARMOR_SPELL)
 			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
@@ -323,20 +338,19 @@
 	. = ..()
 	if(slot == slot_wear_suit && !isclocker(user))
 		if(!iscultist(user))
-			to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their body!</span>", "<span class='warning'>The curiass flickers off your body, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
 				C.Weaken(5)
 		else
-			to_chat(user, "<span class='heavy_brass'>\"I think this armor is too hot for you to handle.\"</span>")
-			to_chat(user, "<span class='userdanger'>The curiass emits a burst of flame as you scramble to get it off!</span>")
+			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
 			user.apply_damage(15, BURN, "chest")
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
-		user.unEquip(src, 1)
+		user.remove_from_mob(src)
 
 // Gloves
 /obj/item/clothing/gloves/clockwork
@@ -356,6 +370,8 @@
 
 /obj/item/clothing/gloves/clockwork/attack_self(mob/user)
 	. = ..()
+	if(!isclocker(user))
+		return
 	switch(enchant_type)
 		if(FASTPUNCH_SPELL)
 			if(user.mind.martial_art)
@@ -424,7 +440,7 @@
 			user.emote("scream")
 			user.apply_damage(7, BRUTE, "l_arm")
 			user.apply_damage(7, BRUTE, "r_arm")
-		user.unEquip(src, 1)
+		user.remove_from_mob(src)
 
 // Shoes
 /obj/item/clothing/shoes/clockwork
@@ -452,7 +468,7 @@
 			user.emote("scream")
 			user.apply_damage(7, BURN, "l_leg")
 			user.apply_damage(7, BURN, "r_leg")
-		user.unEquip(src, 1)
+		user.remove_from_mob(src)
 
 // Helmet
 /obj/item/clothing/head/helmet/clockwork
@@ -470,7 +486,7 @@
 	. = ..()
 	if(slot == slot_head && !isclocker(user))
 		if(!iscultist(user))
-			to_chat(user, "<span class='heavy_brass'>\"Now now, this is for my servants, not you.\"</span>")
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their head!</span>", "<span class='warning'>The helmet flickers off your head, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
@@ -482,7 +498,7 @@
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, "head")
 			user.adjustBrainLoss(30)
-		user.unEquip(src, 1)
+		user.remove_from_mob(src)
 
 /*
  * Consumables.
@@ -714,7 +730,7 @@
 		if(ishuman(L))
 			to_chat(L, "<span class='danger'>[src] pierces into your hand!</span>")
 			var/mob/living/carbon/human/H = L
-			H.apply_damage(force, BRUTE, "[H.hand ? "l" : "r" ]_hand")
+			H.embed_item_inside(src)
 		else
 			to_chat(L, "<span class='danger'>[src] pierces into you!</span>")
 			L.adjustBruteLoss(force)
