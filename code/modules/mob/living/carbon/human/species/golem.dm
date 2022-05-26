@@ -618,7 +618,7 @@
 	punchdamagehigh = 1
 	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "As a <span class='danger'>Бананиумовый Голем</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Ваша кожа также истекает бананами, когда она повреждена."
+	info_text = "Будучи <span class='danger'>бананиумовым голем</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Ваша кожа также истекает бананами, когда она повреждена."
 	prefix = "Bananium" //требуется перевед имен клоуна
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
