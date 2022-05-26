@@ -522,6 +522,8 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
+		/** CLOCKWORK SILICON **/
+		sections["siliclock"] = memory_edit_clockwork_silicon()
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.

@@ -556,7 +556,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.remove_subsystems_and_actions(src)
 	QDEL_NULL(module)
 
-	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
@@ -1051,7 +1051,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 /mob/living/silicon/robot/ratvar_act(weak = FALSE)
-	if(isclocker(src) && module.type == /obj/item/robot_module/clockwork)
+	if(isclocker(src) && module?.type == /obj/item/robot_module/clockwork)
 		return
 	if(!weak)
 		if(module)

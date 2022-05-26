@@ -27,16 +27,21 @@
 	if(!user || !message)
 		return
 
+	var/prefix = ""
 	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
 		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
 		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
 		sleep(10)
-	else
+	else if(!issilicon(user))
 		user.whisper("N`i th`e le-ing roc-cus!") // Otherwise book club sayings.
 		sleep(10)
 		user.whisper(message) // And whisper the actual message
+		prefix = "Workmate"
+	else
+		prefix = "Automaton"
 
-	var/my_message = "<span class='clockspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Workmate")] [user.real_name]:</b> [message]</span>"
+
+	var/my_message = "<span class='clockspeech'><b>[prefix] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(isclocker(M))
 			to_chat(M, my_message)

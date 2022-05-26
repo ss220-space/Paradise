@@ -302,7 +302,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		var/datum/action/innate/clockwork/check_progress/D = new
 		C.Grant(clock_mind.current)
 		D.Grant(clock_mind.current)
-		if(ishuman(clock_mind.current) || issilicon(clock_mind.current))
+		if(ishuman(clock_mind.current) || issilicon(clock_mind.current) && !isAI(clock_mind.current))
 			var/datum/action/innate/clockwork/clock_magic/magic = new
 			magic.Grant(clock_mind.current)
 		clock_mind.current.update_action_buttons(TRUE)
