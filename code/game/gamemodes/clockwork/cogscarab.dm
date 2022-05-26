@@ -23,7 +23,6 @@
 	scrambledcodes = TRUE
 	has_camera = FALSE
 	viewalerts = FALSE
-	emagged = TRUE
 	modules_break = FALSE
 
 	req_one_access = list(ACCESS_CENT_COMMANDER) //I dare you to try

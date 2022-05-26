@@ -983,6 +983,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/emag_act(user as mob)
 	if(!ishuman(user) && !issilicon(user))
 		return
+	if(isclocker(src))
+		to_chat(user, "<span class='danger'>As you try to emag, a magic force keeps the cover locked!</span>")
+		return
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)

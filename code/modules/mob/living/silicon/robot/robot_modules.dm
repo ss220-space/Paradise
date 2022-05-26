@@ -690,7 +690,7 @@
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/extinguisher(src)
-	emag = null
+	emag = new /obj/item/toy/carpplushie/gold(src)
 
 	fix_modules()
 	handle_storages()
