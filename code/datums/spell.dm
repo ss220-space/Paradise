@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if(!phase_allowed && istype(user.loc, /obj/effect/dummy) || istype(user.loc, /obj/effect/immovablerod/wizard))
 			if(show_message)
 				to_chat(user, "<span class='notice'>[name] cannot be cast unless you are completely manifested in the material plane!</span>")
-			return 0
+			return FALSE
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			if(show_message)
 				to_chat(user, "Mmmf mrrfff!")
