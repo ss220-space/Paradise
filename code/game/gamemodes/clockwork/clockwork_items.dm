@@ -255,7 +255,10 @@
 	. = ..()
 	if(!isclocker(user))
 		return
-	if(enchant_type == INVIS_SPELL)
+	if(enchant_type == INVIS_SPELL && iscarbon(user))
+		var/mob/living/carbon/carbon = user
+		if(carbon.wear_suit != src)
+			return
 		playsound(get_turf(user), 'sound/magic/smoke.ogg', 30, TRUE)
 		enchant_type = CASTING_SPELL
 		animate(user, alpha = 40, time = 1 SECONDS)
@@ -328,6 +331,11 @@
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 	switch(enchant_type)
 		if(ARMOR_SPELL)
+			if(!iscarbon(user))
+				return
+			var/mob/living/carbon/carbon = user
+			if(carbon.wear_suit != src)
+				return
 			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
 			"<span class='notice'>The [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
 			armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
