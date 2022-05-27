@@ -470,7 +470,7 @@
 						holding_still = (Friends[who] - Friends[Leader]) * 10
 						to_say = "Да… Я [pick("ждать", "стоять")]…"
 					else
-						to_say = "Нет… [pick("Всё равно", "Буду")] [pick("идти", "ходить")]…"
+						to_say = "Нет… [pick("всё равно", "буду")] [pick("идти", "ходить")]…"
 				else
 					if(Friends[who] >= SLIME_FRIENDSHIP_STAY)
 						holding_still = Friends[who] * 10
