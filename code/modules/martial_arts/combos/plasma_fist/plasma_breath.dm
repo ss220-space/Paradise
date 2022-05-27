@@ -13,7 +13,7 @@
 	var/turf/simulated/target_turf = get_turf(target)
 	if(istype(target_turf))
 		var/spawn_contents = LINDA_SPAWN_TOXINS //| LINDA_SPAWN_HEAT
-		var/spawn_amount = 25
+		var/spawn_amount = rand(15,30)
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
 		target_turf.air_update_turf()
 

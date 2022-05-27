@@ -231,10 +231,10 @@
 	return
 
 /obj/item/plasma_fist_scroll
-	name = "frayed scroll"
-	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
+	name = "истлевший свиток"
+	desc = "Старый истлевший пергамент, исписаный выжжеными рунами с иллюстрациями приемов рукопашного боя."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state ="scroll2"
+	icon_state ="scroll_frayed"
 	var/used = 0
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
@@ -245,11 +245,11 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, "<span class='boldannounce'>Вы изучили древнее искусство Плазменного Кулака</span>")
 		used = 1
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+		desc = "Совершенно пустой рассыпающийся свиток."
+		name = "истлевший свиток"
+		icon_state = "blankscroll_frayed"
 
 /obj/item/sleeping_carp_scroll
 	name = "mysterious scroll"

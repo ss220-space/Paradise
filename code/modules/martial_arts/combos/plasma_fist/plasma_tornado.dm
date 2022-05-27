@@ -9,16 +9,18 @@
 
 	var/list/turfs = list()
 	var/list/thrownatoms = list()
+	var/spawn_contents = LINDA_SPAWN_TOXINS //| LINDA_SPAWN_HEAT
+	var/spawn_amount = rand(10,20)
+	var/count_spawn = 0		//избегаем абуза получаемого при получении слишком большого числа объектов + ослабевание торнадо
 	for(var/turf/T in range(1,user))
 		turfs.Add(T)
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
 		//создаем плазму
 		var/turf/simulated/target_turf = T
-		if(istype(target_turf))
-			var/spawn_contents = LINDA_SPAWN_TOXINS //| LINDA_SPAWN_HEAT
-			var/spawn_amount = 10
-			target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
+		if(istype(target_turf) && count_spawn <= spawn_amount)
+			count_spawn++
+			target_turf.atmos_spawn_air(spawn_contents, (spawn_amount - count_spawn))
 			target_turf.air_update_turf()
 
 	for(var/am in thrownatoms)
