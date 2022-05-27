@@ -845,8 +845,8 @@
 	spawn_dust()
 	gib()
 
-/mob/living/ratvar_act()
-	if(client)
+/mob/living/ratvar_act(weak = FALSE)
+	if(client && !weak)
 		switch(rand(1,3))
 			if(1)
 				var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))

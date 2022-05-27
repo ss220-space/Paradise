@@ -241,6 +241,9 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
+		if(isclocker(M) && prob(5))
+			M.AdjustClockSlur(5)
+			M.say(pick("Via Ra'var!", "P'res Ni", "Nu'nce te Ren'", "Et Def'Fre", "RELO'JE AR SAGE", "Ric'gui'nea", "Uy'a Rad kos", "Uo Rom'tis!", "Rup'ru ge"))
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)

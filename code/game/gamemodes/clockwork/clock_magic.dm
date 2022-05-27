@@ -214,8 +214,9 @@
 	//Plasteel to brass metal
 	else if(istype(target, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/candidate = target
-		if(candidate.use(candidate.amount))
-			new /obj/item/stack/sheet/brass(turf_target, candidate.amount)
+		var/quantity = candidate.amount
+		if(candidate.use(quantity))
+			new /obj/item/stack/sheet/brass(turf_target, quantity)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 

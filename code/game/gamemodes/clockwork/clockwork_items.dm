@@ -84,7 +84,7 @@
 			if(proximity)
 				to_chat(user, "<span class='warning'>You too close to the path point!</span>")
 				return
-			if(target in view(user))
+			if(!(target in view(user)))
 				return
 			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 			animate(user, color = COLOR_PURPLE, time = 50)
@@ -223,7 +223,7 @@
 				human.visible_message("<span class='danger'>[human]'s [rod] shines as it deflects magic from [user]!</span>")
 				deplete_spell()
 				return
-			var/obj/item/organ/external/BP = pick(human.bodyparts_by_name)
+			var/obj/item/organ/external/BP = pick(human.bodyparts)
 			BP.emp_act(EMP_HEAVY)
 			BP.fracture()
 		if(isrobot(target))
@@ -250,6 +250,25 @@
 /obj/item/clothing/suit/hooded/clockrobe/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.robe_spells
+
+/obj/item/clothing/suit/hooded/clockrobe/attack_self(mob/user)
+	. = ..()
+	if(!isclocker(user))
+		return
+	if(enchant_type == INVIS_SPELL)
+		playsound(get_turf(user), 'sound/magic/smoke.ogg', 30, TRUE)
+		enchant_type = CASTING_SPELL
+		animate(user, alpha = 40, time = 1 SECONDS)
+		flags |= NODROP
+		sleep(10)
+		user.alpha = 40
+		addtimer(CALLBACK(src, .proc/uncloak, user), 6 SECONDS)
+
+/obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
+	animate(user, alpha = 255, time = 1 SECONDS)
+	flags &= ~NODROP
+	sleep(10)
+	user.alpha = 255
 
 /obj/item/clothing/suit/hooded/clockrobe/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == WEAK_REFLECT_SPELL && isclocker(owner))
@@ -390,33 +409,34 @@
 
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
 	var/mob/living/user = loc
-	if(user.a_intent == INTENT_HARM)
-		if(enchant_type == STUNHAND_SPELL && isliving(A))
-			var/mob/living/living = A
-			if(living.null_rod_check())
-				src.visible_message("<span class='warning'>[living]'s holy weapon absorbs the light!</span>")
-				deplete_spell()
-				return
-			if(isclocker(living))
-				return
-			if(iscarbon(living))
-				var/mob/living/carbon/carbon = living
-				carbon.Weaken(5)
-				carbon.Stuttering(10)
-			if(isrobot(living))
-				var/mob/living/silicon/robot/robot = living
-				robot.Weaken(5)
-			do_sparks(5, 0, loc)
-			playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	if(!(user.a_intent == INTENT_HARM) || !enchant_type)
+		return
+	if(enchant_type == STUNHAND_SPELL && isliving(A))
+		var/mob/living/living = A
+		if(living.null_rod_check())
+			src.visible_message("<span class='warning'>[living]'s holy weapon absorbs the light!</span>")
 			deplete_spell()
-		if(north_star && !user.mind.martial_art)
-			user.changeNext_move(CLICK_CD_RAPID)
-		if(fire_casting && iscarbon(A))
-			var/mob/living/carbon/C = A
-			if(isclocker(C))
-				return
-			C.adjust_fire_stacks(0.3)
-			C.IgniteMob()
+			return
+		if(isclocker(living))
+			return
+		if(iscarbon(living))
+			var/mob/living/carbon/carbon = living
+			carbon.Weaken(5)
+			carbon.Stuttering(10)
+		if(isrobot(living))
+			var/mob/living/silicon/robot/robot = living
+			robot.Weaken(5)
+		do_sparks(5, 0, loc)
+		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+		deplete_spell()
+	if(north_star && !user.mind.martial_art)
+		user.changeNext_move(CLICK_CD_RAPID)
+	if(fire_casting && iscarbon(A))
+		var/mob/living/carbon/C = A
+		if(isclocker(C))
+			return
+		C.adjust_fire_stacks(0.3)
+		C.IgniteMob()
 
 /obj/item/clothing/gloves/clockwork/proc/reset()
 	north_star = FALSE
@@ -696,6 +716,7 @@
 		var/obj/item/mmi/robotic_brain/clockwork/soul = I
 		if(!soul.brainmob.mind)
 			to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
+			return
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 		soul.brainmob.mind.transfer_to(cog)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
@@ -746,8 +767,8 @@
 				empulse(src, 4, 6, cause="clock")
 				qdel(src)
 			if(TIME_SPELL)
-				new /obj/effect/timestop/clockwork(get_turf(src))
 				qdel(src)
+				new /obj/effect/timestop/clockwork(get_turf(user))
 			if(RECONSTRUCT_SPELL)
 				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(src))
 				qdel(src)
@@ -771,6 +792,9 @@
 	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
 	animate(src, transform = matrix() * 1, time = 1.5 SECONDS)
 	sleep(15)
-	for(var/atom/T in range(3, get_turf(src)))
-		T.ratvar_act()
+	for(var/atom/affected in range(3, get_turf(src)))
+		if(isliving(affected))
+			var/mob/living/living = affected
+			living.ratvar_act(TRUE)
+		affected.ratvar_act()
 	animate(src, transform = matrix() * 0.1, time = 1.5 SECONDS)

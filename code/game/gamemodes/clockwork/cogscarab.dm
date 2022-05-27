@@ -119,6 +119,8 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/ratvar_act(weak)
+	if(!isclocker(src))
+		SSticker.mode.add_clocker(mind)
 	return
 
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")

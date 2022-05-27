@@ -865,7 +865,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
-	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src))
+	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user))
 		locked = !locked
 		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
