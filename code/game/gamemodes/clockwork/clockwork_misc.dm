@@ -174,7 +174,7 @@
 	set waitfor = FALSE
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
-		sleep(3)
+		sleep(0.3 SECONDS)
 		if(i > 0)
 			if(prob(40))
 				var/obj/effect/decal/cleanable/blood/clock/streak = new(src.loc)
@@ -268,7 +268,7 @@
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src))
 			var/brass_floor = FALSE
 			if(istype(T, /turf/simulated/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
 				brass_floor = TRUE
@@ -281,7 +281,7 @@
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
-		return 1
+		return TRUE
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)

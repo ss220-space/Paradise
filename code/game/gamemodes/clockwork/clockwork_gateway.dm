@@ -38,7 +38,7 @@
 		qdel(countdown)
 		countdown = null
 	GLOB.poi_list.Remove(src)
-	for(var/mob/M in GLOB.mob_list)
+	for(var/mob/M as anything in GLOB.mob_list)
 		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
 	. = ..()
 
@@ -50,7 +50,7 @@
 		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_disrupted.ogg'))
 		icon_state = "clockwork_gateway_disrupted"
 		resistance_flags |= INDESTRUCTIBLE
-		sleep(27)
+		sleep(2.7 SECONDS)
 		explosion(src, 1, 3, 8, 8)
 		sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
 	qdel(src)
@@ -60,7 +60,7 @@
 	take_damage(damage, BRUTE, "bomb", 0)
 
 /obj/structure/clockwork/functional/celestial_gateway/examine(mob/user)
-	..()
+	. = ..()
 	if(isclocker(user) || isobserver(user))
 		switch(seconds_until_activation)
 			if(-INFINITY to GATEWAY_REEBE_FOUND)
@@ -112,10 +112,10 @@
 				countdown.stop()
 				resistance_flags |= INDESTRUCTIBLE
 				purpose_fulfilled = TRUE
-				animate(src, transform = matrix() * 1.5, alpha = 255, time = 125)
+				animate(src, transform = matrix() * 1.5, alpha = 255, time = 12.5 SECONDS)
 				sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
-				sleep(125)
-				animate(src, transform = matrix() * 3, alpha = 0, time = 5)
-				QDEL_IN(src, 3)
-				sleep(3)
+				sleep(12.5 SECONDS)
+				animate(src, transform = matrix() * 3, alpha = 0, time = 0.5 SECONDS)
+				QDEL_IN(src, 0.3 SECONDS)
+				sleep(0.3 SECONDS)
 				new /obj/singularity/ratvar(get_turf(src))
