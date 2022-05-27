@@ -8,7 +8,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		//playsound(target.loc, 'sound/weapons/blastcannon.ogg', 20, 1, -1, 15) //звук взрыва при вышибании
 		playsound(target.loc, 'sound/weapons/resonator_blast.ogg', 50, 1, -1, 35)
-		user.say("ПЛАЗМЕННЫЙ КУЛАК!")
+		user.say(pick("ПЛАЗМЕННЫЙ КУЛАК!", "ДЫХАНИЕ ПЛАЗМЫ!", "АННИГИЛЯТОРНАЯ ПЛАЗМА!", "И ТОЛЬКО ПЛАЗМА ПО СТЕНАМ!"))
 		target.visible_message("<span class='danger'>[user] аннигилиру[pluralize_ru(user.gender,"ет","ют")] [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА, разрывая на части!</span>", \
 								"<span class='userdanger'>[user] аннигилиру[pluralize_ru(user.gender,"ет","ют")] вас ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА, разрывая на части!</span>")
 		target.gib()
@@ -16,9 +16,11 @@
 	else
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		playsound(target.loc, 'sound/weapons/sear.ogg', 50, 1, -1, 5)
-		user.say("ПЫЛАЙ ЯРКО!")
+		user.say(pick("ПЫЛАЙ ЯРКО!", "ЯРЧЕ ПЛАМЕНИ!", "ПОЧУВСТВУЙ ДЫХАНИЕ ПЛАЗМЫ!", "ПОЧУВСТВУЙ ДЫХАНИЕ ПЛАЗМЫ!"))
 		target.visible_message("<span class='danger'>[user] поджига[pluralize_ru(user.gender,"ет","ют")] [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>", \
 								"<span class='userdanger'>[user] поджига[pluralize_ru(user.gender,"ет","ют")] вас ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>")
+		target.LoseBreath(5)	//потеря дыхания
+		target.Jitter(30)		//дрожь
 		target.adjust_fire_stacks(20)
 		target.IgniteMob()
 

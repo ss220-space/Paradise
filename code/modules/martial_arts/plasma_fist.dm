@@ -1,6 +1,6 @@
 /datum/martial_art/plasma_fist
 	name = "Плазменный Кулак"
-	combos = list(/datum/martial_combo/plasma_fist/tornado_sweep, /datum/martial_combo/plasma_fist/throwback, /datum/martial_combo/plasma_fist/plasma_fist)
+	combos = list(/datum/martial_combo/plasma_fist/tornado_sweep, /datum/martial_combo/plasma_fist/plasma_tornado, /datum/martial_combo/plasma_fist/plasma_breath, /datum/martial_combo/plasma_fist/throwback, /datum/martial_combo/plasma_fist/plasma_fist)
 	has_explaination_verb = TRUE
 	no_guns = TRUE
 	no_guns_message = "Клан Плазменного Кулака разачарован попыткой использования дальнобойное орудие."

@@ -137,7 +137,7 @@
 	else
 		base = src
 	//сопротивление к огню
-	if (fire_resistance) //техника позволяет бегать в огне и бурю.
+	if (fire_resistance) //боевое искусство позволяет бегать в огне и буре.
 		H.weather_immunities += "ash"
 		H.mutations.Add(HEATRES)
 	H.mind.martial_art = src

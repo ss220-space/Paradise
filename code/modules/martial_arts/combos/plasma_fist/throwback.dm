@@ -8,9 +8,11 @@
 								"<span class='userdanger'>[user] отбрасыва[pluralize_ru(user.gender,"ет","ют")] вас плазменным толчком, приводя в замешательство!</span>")
 	//playsound(target.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	playsound(target.loc, 'sound/weapons/plasma_cutter.ogg', 50, 1, -1)
+	if (prob(50)) //с 50% шансом выдаст фразу
+		user.say(pick("ПЛАЗМЕННЫЙ ТОЛЧОК!", "СДУВАНИЕ ПЛАЗМЫ!", "ПОЛЁТ ПЛАЗМЫ!"))
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(target, user)))
 	target.throw_at(throw_target, 10, 4, user) //отбрасывание на 10 тайлов
 	target.LoseBreath(2)	//потеря дыхания
-	target.Jitter(15)		//замешательство
+	target.Jitter(15)		//дрожь
 	user.say("ХЬЙА!")
 	return MARTIAL_COMBO_DONE
