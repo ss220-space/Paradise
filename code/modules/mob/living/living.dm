@@ -846,7 +846,9 @@
 	gib()
 
 /mob/living/ratvar_act(weak = FALSE)
-	if(client && !weak)
+	if(weak)
+		return //It's too weak to break a flesh!
+	if(client)
 		switch(rand(1,3))
 			if(1)
 				var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
