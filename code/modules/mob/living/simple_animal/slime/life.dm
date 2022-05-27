@@ -433,7 +433,7 @@
 						to_say = "Я " + pick("идти…", "следовать…", "ползти…")
 					else // Not friendly enough
 						to_say = pick("Нет…", "Я не идти")
-			else if(findtext(phrase, "stop") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоп"))
+			else if(findtext(phrase, "stop") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоп") || findtext_char(phrase, "стой") || findtext_char(phrase, "стоять"))
 				if(buckled) // We are asked to stop feeding
 					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
 						Feedstop()
