@@ -460,7 +460,7 @@
 							Leader = null
 							to_say = "Да… Я [pick("стоп", "стоять")]…"
 						else
-							to_say = "Нет… [pick("Всё равно", "Буду")] идти…"
+							to_say = "Нет… [pick("всё равно", "буду")] идти…"
 			else if(findtext(phrase, "stay") || findtext_char(phrase, "сидеть") || findtext_char(phrase, "ждать") || findtext_char(phrase, "жди"))
 				if(Leader)
 					if (Leader == who)
