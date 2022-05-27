@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(clockslab_spells, list(
 ))
 GLOBAL_LIST_INIT(spear_spells, list(
 	new /datum/spell_enchant("Confusion", CONFUSE_SPELL, 80),
-	new /datum/spell_enchant("Electrical touch", DISABLE_SPELL, 80) //literal emp
+	new /datum/spell_enchant("Electrical touch", DISABLE_SPELL, 80)
 ))
 GLOBAL_LIST_INIT(hammer_spells, list(
 	new /datum/spell_enchant("Crusher", CRUSH_SPELL, 100),
@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(hammer_spells, list(
 ))
 GLOBAL_LIST_INIT(robe_spells, list(
 	new /datum/spell_enchant("Weak Reflection", WEAK_REFLECT_SPELL, 30),
-	new /datum/spell_enchant("Invisibility", INVIS_SPELL, 60) //WHERE??!?!?!?!
+	new /datum/spell_enchant("Invisibility", INVIS_SPELL, 60, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(armour_spells, list(
 	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 10),

@@ -804,5 +804,6 @@
 		if(isliving(affected))
 			var/mob/living/living = affected
 			living.ratvar_act(TRUE)
-		affected.ratvar_act()
+		else
+			affected.ratvar_act()
 	animate(src, transform = matrix() * 0.1, time = 1.5 SECONDS)
