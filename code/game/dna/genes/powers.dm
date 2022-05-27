@@ -62,7 +62,11 @@
 	block = GLOB.coldblock
 
 /datum/dna/gene/basic/heat_resist/OnDrawUnderlays(mob/M, g)
-	return "cold_s"
+	//скрытая аура сопротивления к огню
+	if (M.mind?.martial_art?.fire_resistance)
+		return ""//null
+	else
+		return "cold_s"
 
 /datum/dna/gene/basic/cold_resist
 	name = "Cold Resistance"

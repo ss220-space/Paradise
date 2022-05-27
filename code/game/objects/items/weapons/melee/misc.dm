@@ -2,7 +2,7 @@
 	needs_permit = 1
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
-	if(target.check_block())
+	if(target.check_block() || prob(target.mind?.martial_art?.deflection_energy_chance)) //теперь при проверке боевых искусств, также проверяется их шанс на отражение энергооружия при стане
 		target.visible_message("<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>",
 					"<span class='userdanger'>You block the attack!</span>")
 		user.Stun(2)
