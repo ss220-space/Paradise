@@ -477,7 +477,7 @@
 						to_say = "Да… Я [pick("ждать", "стоять")]…"
 					else
 						to_say = "Нет… Не [pick("ждать", "стоять")]…"
-			else if(findtext(phrase, "attack") || findtext_char(phrase, "фас") || findtext_char(phrase, "бей") || findtext_char(phrase, "ешь"))
+			else if(findtext(phrase, "attack") || findtext_char(phrase, "фас") || findtext_char(phrase, "бей") || findtext_char(phrase, "ешь") || findtext_char(phrase, "атакуй"))
 				if(rabid && prob(20))
 					Target = who
 					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
