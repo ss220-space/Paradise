@@ -453,30 +453,30 @@
 							to_say = "Хорошо…"
 				else if(Leader) // We are asked to stop following
 					if(Leader == who)
-						to_say = "Да… Я [pick("ждать", "стоять")]…"
+						to_say = "Да… я [pick("ждать", "стоять")]…"
 						Leader = null
 					else
 						if(Friends[who] > Friends[Leader])
 							Leader = null
-							to_say = "Да… Я [pick("стоп", "стоять")]…"
+							to_say = "Да… я [pick("стоп", "стоять")]…"
 						else
 							to_say = "Нет… [pick("всё равно", "буду")] идти…"
 			else if(findtext(phrase, "stay") || findtext_char(phrase, "сидеть") || findtext_char(phrase, "ждать") || findtext_char(phrase, "жди"))
 				if(Leader)
 					if (Leader == who)
 						holding_still = Friends[who] * 10
-						to_say = "Да… Я [pick("ждать", "стоять")]…"
+						to_say = "Да… я [pick("ждать", "стоять")]…"
 					else if(Friends[who] > Friends[Leader])
 						holding_still = (Friends[who] - Friends[Leader]) * 10
-						to_say = "Да… Я [pick("ждать", "стоять")]…"
+						to_say = "Да… я [pick("ждать", "стоять")]…"
 					else
 						to_say = "Нет… [pick("всё равно", "буду")] [pick("идти", "ходить")]…"
 				else
 					if(Friends[who] >= SLIME_FRIENDSHIP_STAY)
 						holding_still = Friends[who] * 10
-						to_say = "Да… Я [pick("ждать", "стоять")]…"
+						to_say = "Да… я [pick("ждать", "стоять")]…"
 					else
-						to_say = "Нет… Не [pick("ждать", "стоять")]…"
+						to_say = "Нет… не [pick("ждать", "стоять")]…"
 			else if(findtext(phrase, "attack") || findtext_char(phrase, "фас") || findtext_char(phrase, "бей") || findtext_char(phrase, "ешь") || findtext_char(phrase, "атакуй"))
 				if(rabid && prob(20))
 					Target = who
@@ -491,13 +491,13 @@
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
 								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
-								to_say = "Ладно… Я [pick("нападать", "атаковать", "кусать")] [Target]"
+								to_say = "Ладно… я [pick("нападать", "атаковать", "кусать")] [Target]"
 							else
 								to_say = "Нет… [pick("нравится", "любить")] [L]…"
 								--Friends[who] //Don't ask a slime to attack its friend
 							break
 				else
-					to_say = "Нет… Не [pick("слушаться", "слушать", "делать", "выполнять")]"
+					to_say = "Нет… не [pick("слушаться", "слушать", "делать", "выполнять")]"
 
 		speech_buffer = list()
 
