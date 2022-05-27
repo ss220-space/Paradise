@@ -57,7 +57,7 @@
 	stamina = 40
 	range = 7
 	shockbull = TRUE
-
+/*
 /obj/item/projectile/energy/shuriken
 	name = "shuriken"
 	icon_state = "toxin"
@@ -65,7 +65,7 @@
 	damage_type = TOX
 	weaken = 1
 	stutter = 1
-
+*/
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"

@@ -1,8 +1,12 @@
+@use 'sass:color';
+@use '../colors.scss';
 @use '../base.scss';
 @use '../functions.scss' as *;
 
 $color-background: #000000 !default;
 $border-radius: base.$border-radius !default;
+$color-title: #ffffff !default;
+$color-separator: colors.$primary  !default;
 
 .Tooltip {
   position: absolute;
@@ -16,7 +20,6 @@ $border-radius: base.$border-radius !default;
   &::after {
     position: absolute;
     display: block;
-    white-space: nowrap;
     z-index: 2;
     padding: 6px 10px;
     transform: translateX(-50%);
@@ -24,7 +27,9 @@ $border-radius: base.$border-radius !default;
     visibility: hidden;
     opacity: 0;
     text-align: left;
+    white-space: pre;
     content: attr(data-tooltip);
+
     transition: all 150ms;
     background-color: $color-background;
     box-shadow: 1px 1px 15px -1px rgba(0, 0, 0, 0.5);
@@ -42,7 +47,7 @@ $border-radius: base.$border-radius !default;
 .Tooltip--long {
   &::after {
     width: 250px;
-    white-space: normal;
+    white-space: pre-line;
   }
 }
 

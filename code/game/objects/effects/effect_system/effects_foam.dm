@@ -215,7 +215,10 @@
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
-	return !density
+	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+		return TRUE
+	else
+		return !density
 
 /obj/structure/foamedmetal/CanAtmosPass()
 	return !density

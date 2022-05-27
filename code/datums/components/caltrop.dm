@@ -34,7 +34,7 @@
 		var/obj/item/organ/external/O = H.get_organ(picked_def_zone)
 		if(!istype(O))
 			return
-		if(O.is_robotic())
+		if(!(flags & CALTROP_BYPASS_ROBOTIC_LEGS) && (O.is_robotic()))
 			return
 
 		var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))

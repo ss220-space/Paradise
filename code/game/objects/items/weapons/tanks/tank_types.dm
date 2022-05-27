@@ -34,6 +34,77 @@
 
 /obj/item/tank/internals/oxygen/empty/populate_gas()
 	return
+/obj/item/tank/internals/oxygen/ninja
+	desc = "A tank of oxygen, this one looks kinda cool!."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "oxygen_ninja"
+	dog_fashion = null
+	actions_types = list(/datum/action/item_action/set_internals_ninja)
+
+/obj/item/tank/emergency_oxygen
+	name = "emergency oxygen tank"
+	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
+	icon_state = "emergency"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	force = 4.0
+	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
+
+
+/obj/item/tank/emergency_oxygen/New()
+	..()
+	air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
+/obj/item/tank/emergency_oxygen/examine(mob/user)
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.oxygen < 0.2)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
+		playsound(user, 'sound/effects/alert.ogg', 50, 1)
+
+/obj/item/tank/emergency_oxygen/empty/New()
+	..()
+	air_contents.oxygen = null
+
+/obj/item/tank/emergency_oxygen/engi
+	name = "extended-capacity emergency oxygen tank"
+	icon_state = "emergency_engi"
+	volume = 6
+
+/obj/item/tank/emergency_oxygen/engi/full/New()
+	..()
+	air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
+
+/obj/item/tank/emergency_oxygen/engi/empty/New()
+	..()
+	air_contents.oxygen = null
+
+/obj/item/tank/emergency_oxygen/syndi
+	name = "suspicious emergency oxygen tank"
+	icon_state = "emergency_syndi"
+	desc = "A dark emergency oxygen tank. The label on the back reads \"Original Oxygen Tank Design, Do Not Steal.\""
+	volume = 6
+
+/obj/item/tank/emergency_oxygen/double
+	name = "double emergency oxygen tank"
+	icon_state = "emergency_double"
+	volume = 10
+
+/obj/item/tank/emergency_oxygen/double/empty/New()
+	..()
+	air_contents.oxygen = null
+
+/obj/item/tank/emergency_oxygen/double/full
+	name = "pressurized double emergency oxygen tank"
+	desc = "Used for \"emergencies,\" it actually contains a fair amount of oxygen."
+
+/obj/item/tank/emergency_oxygen/double/full/New()
+	..()
+	air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
 /*
  * Anesthetic
  */
@@ -148,6 +219,18 @@
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
 	return
 
+/obj/item/tank/internals/emergency_oxygen/ninja
+	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it. Looks kinda cool!"
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "oxygen_ninja_emergency"
+	dog_fashion = null
+	actions_types = list(/datum/action/item_action/set_internals_ninja)
+
+/obj/item/tank/internals/emergency_oxygen/ninja/empty/populate_gas()
+	return
+
 /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	name = "suspicious emergency oxygen tank"
 	icon_state = "emergency_syndi"
@@ -159,6 +242,18 @@
 	volume = 12 //If it's double of the above, shouldn't it be double the volume??
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
+	return
+
+/obj/item/tank/internals/emergency_oxygen/double/ninja
+	desc = "Used for \"emergencies,\" it actually contains a fair amount of oxygen. Looks kinda cool!"
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "oxygen_ninja_emergency_double"
+	dog_fashion = null
+	actions_types = list(/datum/action/item_action/set_internals_ninja)
+
+/obj/item/tank/internals/emergency_oxygen/double/ninja/empty/populate_gas()
 	return
 
 /*
