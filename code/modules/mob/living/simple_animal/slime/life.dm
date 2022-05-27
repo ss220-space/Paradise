@@ -493,7 +493,7 @@
 								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
 								to_say = "Ладно… Я [pick("нападать", "атаковать", "кусать")] [Target]"
 							else
-								to_say = "Нет… [pick("Нравиться", "Любить")] [L]…"
+								to_say = "Нет… [pick("нравится", "любить")] [L]…"
 								--Friends[who] //Don't ask a slime to attack its friend
 							break
 				else
