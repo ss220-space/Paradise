@@ -15,8 +15,7 @@
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
 
-	for(var/am in thrownatoms)
-		var/atom/movable/AM = am
+	for(var/atom/movable/AM as anything in thrownatoms)
 		if(isliving(AM))
 			var/mob/living/M = AM
 			if (M != user)	//мы же не хотим тоже получить дебафы
