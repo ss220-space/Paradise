@@ -63,10 +63,9 @@
 
 /datum/dna/gene/basic/heat_resist/OnDrawUnderlays(mob/M, g)
 	//скрытая аура сопротивления к огню
-	if (M.mind?.martial_art?.fire_resistance)
-		return ""//null
-	else
+	if (!M.mind?.martial_art?.fire_resistance)
 		return "cold_s"
+	return ""
 
 /datum/dna/gene/basic/cold_resist
 	name = "Cold Resistance"
