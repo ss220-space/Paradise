@@ -1,3 +1,4 @@
+//TODO: ПЕРЕНЕСТИ КАК АБИЛКУ
 /datum/martial_combo/plasma_fist/plasma_breath
 	name = "Плазмо-дыхание"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HELP)
@@ -18,7 +19,8 @@
 		target_turf.air_update_turf()
 
 	target.LoseBreath(5)	 //потеря дыхания
-	target.adjustToxLoss(35) //получение токсинов. Плазмаменам повезло.
 	target.Jitter(5)		 //дрожь
+	target.adjustToxLoss(60) //получение токсинов. Плазмаменам повезло.
+	target.apply_damage(60, OXY)
 	user.say("ХЬЙА!")
 	return MARTIAL_COMBO_DONE

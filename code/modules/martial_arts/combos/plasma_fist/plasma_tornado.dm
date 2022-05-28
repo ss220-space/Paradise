@@ -1,3 +1,4 @@
+//TODO: ПЕРЕНЕСТИ КАК АБИЛКУ
 /datum/martial_combo/plasma_fist/plasma_tornado
 	name = "Плазма-торнадо"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM)

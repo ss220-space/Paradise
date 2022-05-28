@@ -1,6 +1,6 @@
 /datum/martial_art/plasma_fist
 	name = "Плазменный Кулак"
-	combos = list(/datum/martial_combo/plasma_fist/tornado_sweep, /datum/martial_combo/plasma_fist/plasma_tornado, /datum/martial_combo/plasma_fist/plasma_breath, /datum/martial_combo/plasma_fist/throwback, /datum/martial_combo/plasma_fist/plasma_fist)
+	combos = list(/datum/martial_combo/plasma_fist/tornado_sweep, /datum/martial_combo/plasma_fist/plasma_tornado, /datum/martial_combo/plasma_fist/plasma_breath, /datum/martial_combo/plasma_fist/throwback, /datum/martial_combo/plasma_fist/plasma_blink, /datum/martial_combo/plasma_fist/plasma_fist)
 	has_explaination_verb = TRUE
 	no_guns = TRUE
 	no_guns_message = "Клан Плазменного Кулака разачарован попыткой использования дальнобойное орудие."
@@ -64,15 +64,6 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
-	return TRUE
-
-/datum/martial_art/plasma_fist/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A, 1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Сразу берем в агрессивный граб как и во всех боевых искусствах
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
-
 	return TRUE
 
 /datum/martial_art/plasma_fist/explaination_header(user)
