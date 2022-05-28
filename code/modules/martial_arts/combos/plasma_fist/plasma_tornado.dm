@@ -25,12 +25,12 @@
 
 	for(var/atom/movable/AM as anything in thrownatoms)
 		if(isliving(AM))
-			var/mob/living/target = AM
-			if (target != user)	//мы же не хотим тоже получить дебафы
-				target.adjustToxLoss(30) //получение немного токсинов
-				target.Jitter(30)		//дрожь
-				target.adjust_fire_stacks(20)
-				target.IgniteMob()		//поджег
+			var/mob/living/target_live = AM
+			if (target_live != user)	//мы же не хотим тоже получить дебафы
+				target_live.adjustToxLoss(30) //получение немного токсинов
+				target_live.Jitter(30)		//дрожь
+				target_live.adjust_fire_stacks(20)
+				target_live.IgniteMob()		//поджег
 
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
 	R.cast(turfs)

@@ -17,10 +17,10 @@
 
 	for(var/atom/movable/AM as anything in thrownatoms)
 		if(isliving(AM))
-			var/mob/living/target = AM
-			if (target != user)	//мы же не хотим тоже получить дебафы
-				target.LoseBreath(3)	//временная потеря дыхания
-				target.Jitter(10)	//дрожь
+			var/mob/living/target_live = AM
+			if (target_live != user)	//мы же не хотим тоже получить дебафы
+				target_live.LoseBreath(3)	//временная потеря дыхания
+				target_live.Jitter(10)	//дрожь
 
 	R.cast(turfs)
 	return MARTIAL_COMBO_DONE
