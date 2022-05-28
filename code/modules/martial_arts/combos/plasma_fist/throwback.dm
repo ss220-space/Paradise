@@ -14,5 +14,6 @@
 	target.throw_at(throw_target, 10, 4, user) //отбрасывание на 10 тайлов
 	target.LoseBreath(2)	//потеря дыхания
 	target.Jitter(15)		//дрожь
+	D.apply_damage(40, OXY)
 	user.say("ХЬЙА!")
 	return MARTIAL_COMBO_DONE

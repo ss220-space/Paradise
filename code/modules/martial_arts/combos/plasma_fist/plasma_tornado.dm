@@ -26,7 +26,7 @@
 	for(var/atom/movable/AM as anything in thrownatoms)
 		if(isliving(AM))
 			var/mob/living/target_live = AM
-			if (target_live != user)	//мы же не хотим тоже получить дебафы
+			if (target_live != user && !target.mind?.martial_art?.fire_resistance)	//мы же не хотим тоже получить дебафы
 				target_live.adjustToxLoss(30) //получение немного токсинов
 				target_live.Jitter(30)		//дрожь
 				target_live.adjust_fire_stacks(20)

@@ -23,14 +23,17 @@
 	//если условия комбинации не были достигнуты, nо поджигает цель
 	else
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-		playsound(target.loc, 'sound/weapons/sear.ogg', 50, 1, -1, 5)
-		user.say(pick("ПЫЛАЙ ЯРКО!", "ВСПЫШКА!", "ЯРЧЕ ПЛАМЕНИ!", "ПОЧУВСТВУЙ ДЫХАНИЕ ПЛАЗМЫ!", "ПОЧУВСТВУЙ ДЫХАНИЕ ПЛАЗМЫ!"))
-		target.visible_message("<span class='danger'>[user] поджига[pluralize_ru(user.gender,"ет","ют")] [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>", \
-								"<span class='userdanger'>[user] поджига[pluralize_ru(user.gender,"ет","ют")] вас ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА!</span>")
+		playsound(user.loc, 'sound/weapons/resonator_blast.ogg', 50, 1, -1, 35)
+		user.say(pick("ГОЛОВНАЯ БОЛЬ!", "ПЛАЗМЕННЫЙ ВНУТРЕННИЙ ВЗРЫВ!", "ВЗРЫВ ИЗНУТРИ!", "ВСПЫШКА В ЧЕРЕПУШКЕ!", "ВНУТРЕННЕЕ ДАВЛЕНИЕ!"))
+		target.visible_message("<span class='danger'>[user] нанос[pluralize_ru(user.gender,"ит","ят")] сокрушительный удар в голову [target] ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА! Его голову перекосило...</span>", \
+								"<span class='userdanger'>[user] нанос[pluralize_ru(user.gender,"ит","ят")] вам сокрушительный удар в голову ТЕХНИКОЙ ПЛАЗМЕННОГО КУЛАКА! Ваша голова только что чуть не взорвалась!</span>")
 		target.LoseBreath(4)		//потеря дыхания
-		target.AdjustEyeBlind(10) 	//незначительная потеря зрения
-		target.Jitter(30)			//дрожь
-		target.adjust_fire_stacks(20)
-		target.IgniteMob()
+		target.AdjustEyeBlind(3) 	//потеря зрения
+		target.AdjustEyeBlurry(16)	//блюр зрения
+		target.Jitter(25)			//дрожь
+		target.AdjustSlowed(12)		//замедление
+		target.AdjustConfused(8)	//потерянность (ходьба в разные стороны)
+		target.adjust_fire_stacks(20)	//стаки для поджигания
+		target.IgniteMob()				//поджигаем
 
 	return MARTIAL_COMBO_DONE
