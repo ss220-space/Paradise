@@ -113,6 +113,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
+	//Clockwork enchantment
+	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
+	var/list/enchants = null // List(datum)
+
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -218,6 +223,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
 		. += msg
+
+	if(isclocker(user) && enchant_type)
+		for(var/datum/spell_enchant/S in enchants)
+			if(S.enchantment == enchant_type)
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				break
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -746,3 +757,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/obj/item/proc/deplete_spell()
+	enchant_type = NO_SPELL
+	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
+	if(enchant_action)
+		qdel(enchant_action)
+	update_icon()
