@@ -69,7 +69,6 @@
 /datum/clockwork_objectives/proc/power_check()
 	if(GLOB.clockwork_power >= power_goal && !obj_demand.power_get)
 		obj_demand.power_get = TRUE
-		adjust_clockwork_power(-0.6*power_goal)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
 				to_chat(clock_mind.current, "<span class='clocklarge'>Yes! That's enough power i need! Well done...</span>")
@@ -77,6 +76,7 @@
 					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
 				else
 					ratvar_is_ready()
+		adjust_clockwork_power(-0.6*power_goal)
 
 /datum/clockwork_objectives/proc/beacon_check()
 	if(length(GLOB.clockwork_beacons) >= beacon_goal && !obj_demand.beacon_get)
