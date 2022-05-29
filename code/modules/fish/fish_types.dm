@@ -21,7 +21,7 @@
 /datum/fish/clownfish
 	fish_name = "clownfish"
 	egg_item = /obj/item/fish_eggs/clownfish
-	fish_item = /obj/item/grown/bananapeel/clownfish
+	fish_item = /obj/item/fish/clownfish
 
 /datum/fish/shark
 	fish_name = "shark"
