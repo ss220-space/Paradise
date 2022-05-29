@@ -13,8 +13,8 @@
 	return TRUE
 
 /obj/item/mimejutsu_scroll
-	name = "Берет мастера Мимдзюцу"
-	desc =	"Берет, к которому степлером прикреплена старая записка..."
+	name = "Берет мастера мимдзюцу"
+	desc =	"Берет, к которому степлером прикреплена старая записка…"
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret"
 	var/used = 0
@@ -26,9 +26,9 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/mimejutsu/F = new/datum/martial_art/mimejutsu(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>Вы изучили древнее боевое искусство пантомимы...</span>")
+		to_chat(H, "<span class='boldannounce'>Вы изучили древнее боевое искусство пантомимы…</span>")
 		used = 1
-		desc = "Похоже к нему что-то было прикреплено скобой степлера..."
+		desc = "Похоже, к нему что-то было приколото степплером…"
 		name = "берет со скобой"
 		icon_state = "beret"
 //не работает Grab. Будет пофикшено в следующих коммитах

@@ -34,8 +34,8 @@
 	return TRUE
 
 /obj/item/ipc_combat_upgrade
-	name = "боевое улучшение IPC"
-	desc = "Продвинутая база данных совместимая с позитронными системами. Хранит в себе алгоритмы ближнего боя и протоколы переписывания безопасности микробатарей."
+	name = "боевое улучшение КПБ
+	desc = "Продвинутая база данных, совместимая с позитронными системами. Содержит алгоритмы ближнего боя и процедуры перезаписи протоколов безопасности микробатарей."
 	icon = 'icons/obj/ipc_module.dmi'
 	icon_state ="viable"
 	var/is_used = FALSE
@@ -43,16 +43,16 @@
 /obj/item/ipc_combat_upgrade/attack_self(mob/user as mob)
 	if(!ismachineperson(user) || is_used == TRUE)
 		return
-	to_chat(user, "<span class='notice'>Инициализирована установка. Ожидание завершения работы...</span>")
+	to_chat(user, "<span class='notice'>Начата установка. Ожидание завершения работы…</span>")
 	if(do_after(user, 100))
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
 		F.teach(H)
 		H.adjustBrainLoss(50)
 		H.Weaken(5)
-		to_chat(H, "<span class='boldannounce'>Алгоритмы ближнего боя установлены. Безопасность отключена.</span>")
+		to_chat(H, "<span class='boldannounce'>Алгоритмы ближнего боя установлены. Протоколы безопасности отключены.</span>")
 		is_used = TRUE
-		desc = "Продвинутая база данных совместимая с позитронными системами. Хранит в себе алгоритмы ближнего боя и протоколы переписывания безопасности микробатарей. Жестко заблокировано."
+		desc = "Продвинутая база данных, совместимая с позитронными системами. Содержит алгоритмы ближнего боя и процедуры перезаписи протоколов безопасности микробатарей. Стоит блокировка."
 		name = "боевое улучшение IPC"
 		icon_state = "unviable"
 

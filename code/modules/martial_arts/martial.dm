@@ -4,7 +4,7 @@
 //Перевод боевых искусств - Пупс PhantomRU#1289
 
 /datum/martial_art
-	var/name = "Боевые Искусства"
+	var/name = "Боевые искусства"
 	var/streak = ""
 	var/max_streak_length = 6
 	var/temporary = FALSE
@@ -151,9 +151,9 @@
 		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
-	set name = "Показать Информацию"
-	set desc = "Получить информациб о изученых тобой боевых искусствах"
-	set category = "Боевые Искусства"
+	set name = "Показать информацию"
+	set desc = "Получить информацию о изученных тобой боевых искусствах"
+	set category = "Боевые искусства"
 	var/mob/living/carbon/human/H = usr
 	if(!istype(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
@@ -202,7 +202,7 @@
 	return
 
 /obj/item/storage/belt/champion/wrestling
-	name = "Борцовский Пояс"
+	name = "Борцовский пояс"
 	var/datum/martial_art/wrestling/style = new
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
@@ -211,7 +211,7 @@
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
-		to_chat(user, "<span class='sciradio'>Ваши мышцы напряглись и желают драки. Вы заигрываете вашими мускулами! Вам известны знания тысячи предшествующих бойцов до вас. Вы можете запомнить больше используя Recall во вкладке Wrestling.</span>")
+		to_chat(user, "<span class='sciradio'>Вы поигрываете мускулами! Они напряжены и желают драки. Вам известны знания тысяч предшествующих вам бойцов. Подробности можно вспомнить, используя <kbd>Recall</kbd> во вкладке <kbd>Wrestling</kbd>.</span>")
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
@@ -225,7 +225,7 @@
 
 /obj/item/plasma_fist_scroll
 	name = "Потертый свиток"
-	desc = "Старый и потертый клочок бумаги, исписанный изменчивыми рунами. С рисованные иллюстрации кулачного боя."
+	desc = "Старый потёртый клочок бумаги, исписанный меняющимися рунами. На нём изображены рисованные иллюстрации кулачного боя."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	var/used = 0
@@ -238,14 +238,14 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>Вы изучили древнее искусство Плазменного Кулака</span>")
+		to_chat(H, "<span class='boldannounce'>Вы изучили древнее искусство Плазменного кулака</span>")
 		used = 1
 		desc = "Совершенно пустой бланк."
 		name = "пустой свиток"
 		icon_state = "blankscroll"
 
 /obj/item/sleeping_carp_scroll
-	name = "Загадочный свиток"
+	name = "загадочный свиток"
 	desc = "Свиток с загадочными маркировками. Похоже это рисунки забытого боевого искусства."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
@@ -261,22 +261,22 @@
 			to_chat(user, "<span class ='warning'>Ваша жажда крови слишком отвлекает ваши мысли от сосредоточенного чтения свитка!</span>")
 			return
 
-	to_chat(user, "<span class='sciradio'>Вы изучили древнее искусство Спящего Карпа! \
-					Ваши рукопашные навыки стали более эффективными, способные отразить любой пущеный в вас снаряд. \
+	to_chat(user, "<span class='sciradio'>Вы изучили древнее искусство Спящего карпа! \
+					Ваши рукопашные навыки стали эффективнее, вы теперь способны отражать любые пущенные в вас снаряды. \
 					Однако, вы больше не можете использовать оружие дальнего боя. \
-					Вы можете узнать больше о древнем искусстве нажав Recall во вкладке Sleeping Carp</span>")
+					Вы можете узнать больше об этом древнем искусстве, нажав <kbd>Recall</kbd> во вкладке <kbd>Sleeping Carp</kbd>.</span>")
 
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.drop_item()
-	visible_message("<span class='warning'>[src.name] вспыхнул пламенем и сгорел до тла.</span>")
+	visible_message("<span class='warning'>[src.name] вспыхивает пламенем и сгорает дотла.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/CQC_manual
-	name = "Старый мануал"
-	desc = "Небольшой черный мануал. В нём нарисованы инструкции тактического рукопашного боя."
+	name = "старый мануал"
+	desc = "Небольшой чёрный мануал. Он полон рисованных инструкций по тактике рукопашного боя."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
@@ -293,7 +293,7 @@
 	qdel(src)
 
 /obj/item/twohanded/bostaff
-	name = "бо посох"
+	name = "бо"
 	desc = "Длинный высокий посох из полированного дерева. Традиционно используется в боевых искусствах старой Земли. Используется как для вывода из строя, так и убийств."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
@@ -313,7 +313,7 @@
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if((CLUMSY in user.mutations) && prob(50))
-		to_chat(user, "<span class ='warning'>Вы бьете себя по голове [src.name].</span>")
+		to_chat(user, "<span class ='warning'>Вы бьёте себя по голове [src.name].</span>")
 		user.Weaken(3)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user

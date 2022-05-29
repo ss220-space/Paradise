@@ -5,14 +5,14 @@
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
 
 /datum/action/neck_chop
-	name = "Удар по горлу - Повреждает шею, временно лишая жертву возможности говорить."
+	name = "Удар в горло — повреждает шею, временно лишая жертву возможности говорить."
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав Мага пока выведены из строя.</span>")
+		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав-мага пока выведены из строя.</span>")
 		return
-	to_chat(owner, "<b><i>Ваша следующая атака будет Ударом в Горло.</i></b>")
+	to_chat(owner, "<b><i>Ваша следующая атака будет Ударом в горло.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] принима[pluralize_ru(owner.gender,"ет","ют")] стойку для удара в горло!</span>")
 	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
@@ -25,7 +25,7 @@
 
 /datum/action/leg_sweep/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав Мага пока выведены из строя.</span>")
+		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав-мага, пока вы выведены из строя.</span>")
 		return
 	to_chat(owner, "<b><i>Ваша следующая атаку будет Подножкой.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] принима[pluralize_ru(owner.gender,"ет","ют")] стойку для выбивания ноги!</span>")
@@ -35,12 +35,12 @@
 	H.mind.martial_art.reset_combos()
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
-	name = "Удар под дых - наносит сильный удар под дых, сдавливая лёгкие, отчего жертва временно не может дышать."
+	name = "Удар под дых — наносит сильный удар под дых, сдавливая лёгкие, отчего оппонент временно не может дышать."
 	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав Мага пока выведены из строя.</span>")
+		to_chat(owner, "<span class='warning'>Вы не можете использовать Крав-мага, пока вы выведены из строя.</span>")
 		return
 	to_chat(owner, "<b><i>Ваша следующая атака будет Ударом под дых.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] принима[pluralize_ru(owner.gender,"ет","ют")] стойку для удара по солнечному сплетению!</span>")
@@ -51,7 +51,7 @@
 
 /datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()
-	to_chat(H, "<span class = 'userdanger'>Вами изучено искусство Крав Мага!</span>")
+	to_chat(H, "<span class = 'userdanger'>Вами изучено искусство Крав-мага!</span>")
 	to_chat(H, "<span class = 'danger'>Наведите курсор на способность в верхней части экрана, чтобы увидеть, что она делает.</span>")
 	neckchop.Grant(H)
 	legsweep.Grant(H)
@@ -59,7 +59,7 @@
 
 /datum/martial_art/krav_maga/remove(var/mob/living/carbon/human/H)
 	..()
-	to_chat(H, "<span class = 'userdanger'>Вы забываете искусство Крав Мага...</span>")
+	to_chat(H, "<span class = 'userdanger'>Вы забываете искусство Крав-мага…</span>")
 	neckchop.Remove(H)
 	legsweep.Remove(H)
 	lungpunch.Remove(H)
@@ -128,7 +128,7 @@
 		style.remove(H)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
-	name = "Перчатки Крав Мага"
-	desc = "Наночипы печаток позволят вам овладеть искусством Крав Мага."
+	name = "Перчатки крав-маги"
+	desc = "Наночипы печаток позволят вам овладеть искусством Крав-мага."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"

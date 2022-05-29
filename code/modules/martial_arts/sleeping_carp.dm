@@ -1,6 +1,6 @@
 //Used by the gang of the same name. Uses combos. Basic attacks bypass armor and never miss
 /datum/martial_art/the_sleeping_carp
-	name = "Спящий Карп"
+	name = "Спящий карп"
 	deflection_chance = 100
 	no_guns = TRUE
 	no_guns_message = "Использование оружия дальнего боя опозорит твой клан."
@@ -37,4 +37,4 @@
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
-	to_chat(usr, "<b><i>Вы погружаетесь в свое сознание и вспоминаете учения Спящего Карпа...</i></b>")
+	to_chat(usr, "<b><i>Вы погружаетесь в глубины своей памяти и вспоминаете учение Спящего карпа…</i></b>")

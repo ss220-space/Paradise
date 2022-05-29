@@ -12,7 +12,7 @@
 	var/obj/item/grab/G = A.get_active_hand()
 	if(G && prob(50))
 		G.state = GRAB_AGGRESSIVE
-		D.visible_message("<span class='danger'>[A] бер[pluralize_ru(A.gender,"ет","ут")] [D] в клинч!</span>", \
+		D.visible_message("<span class='danger'>[A] бер[pluralize_ru(A.gender,"ёт","ут")] [D] в клинч!</span>", \
 								"<span class='userdanger'>[A] попал[genderize_ru(A.gender,"","а","о","и")] в клинч [D]!</span>")
 	else
 		D.visible_message("<span class='danger'>[A] не смог[genderize_ru(A.gender,"","ла","ло","ли")] взять [D] в клинч!</span>", \
@@ -22,7 +22,7 @@
 
 /datum/martial_art/wrestling/proc/Suplex(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 
-	D.visible_message("<span class='danger'>[A] бер[pluralize_ru(A.gender,"ет","ут")] в суплекс [D]!</span>", \
+	D.visible_message("<span class='danger'>[A] бер[pluralize_ru(A.gender,"ёт","ут")] в суплекс [D]!</span>", \
 								"<span class='userdanger'>[A] бер[pluralize_ru(A.gender,"ет","ут")] в суплекс [D]!</span>")
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, "melee")
@@ -49,7 +49,7 @@
 
 /datum/martial_art/wrestling/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	D.grabbedby(A,1)
-	D.visible_message("<span class='danger'>[A] захватыва[pluralize_ru(A.gender,"ет","ют")] [D]!</span>", \
+	D.visible_message("<span class='danger'>[A] хвата[pluralize_ru(A.gender,"ет","ют")] [D]!</span>", \
 								"<span class='userdanger'>[A] удержива[pluralize_ru(A.gender,"ет","ют")] [D]!</span>")
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
@@ -57,11 +57,11 @@
 	return 1
 
 /mob/living/carbon/human/proc/wrestling_help()
-	set name = "Вспомнить Уроки"
+	set name = "Вспомнить уроки"
 	set desc = "Вспомнить как бороться."
 	set category = "Борьба"
 
-	to_chat(usr, "<b><i>Вы напрягаете мускулы и испытываете озарение...</i></b>")
-	to_chat(usr, "<span class='notice'>Клинч</span>: Схватить. Дает пассивный шанс немедленно взять в агрессивный захват. Не всегда успешно.")
-	to_chat(usr, "<span class='notice'>Суплекс</span>: Обезоружьте того, кого захватываете, захватывая в суплекс на полу. Сильно ранит вашу цель, оставляя её и вас на полу.")
-	to_chat(usr, "<span class='notice'>Продвинутый захват</span>: Захват. Пассивно наносит урон выносливосте сопернику при попытках захвата.")
+	to_chat(usr, "<b><i>Вы напрягаете мускулы и испытываете озарение…</i></b>")
+	to_chat(usr, "<span class='notice'>Клинч</span>: Схватить. Даёт пассивный шанс немедленно взять в агрессивный захват. Не всегда успешно.")
+	to_chat(usr, "<span class='notice'>Суплекс</span>: Обезоружьте того, кого хватаете, захватывая в суплекс на полу. Сильно ранит вашу цель, оставляя её и вас на полу.")
+	to_chat(usr, "<span class='notice'>Продвинутый захват</span>: Захват. Пассивно наносит урон выносливости оппонента при попытках захвата.")
