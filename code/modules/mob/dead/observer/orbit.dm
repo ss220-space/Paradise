@@ -123,8 +123,8 @@
 
 		else if (istype(M, /obj/structure/blob/core))
 			var/obj/structure/blob/core/core = M
-			if(core.overmind?.mind && core.overmind?.key) // Почему-то срабатывает даже при core.overmind = null
-				other_antags += list("Blob Cores" = (core.overmind?.mind in SSticker.mode.blob_overminds))
+			if(core.overmind && core.overmind.mind && core.overmind.key)
+				other_antags += list("Blob Cores" = (core.overmind.mind in SSticker.mode.blob_overminds))
 			else
 				misc += list(serialized)
 		else
