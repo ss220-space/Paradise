@@ -93,6 +93,7 @@
 					B.gender = FEMALE
 				else
 					B.name = "Программирование Вселенной"
+					B.gender = NEUTER
 			deity_name = "Разум"
 		else
 			B.name = "Святое писание: [new_religion]"
