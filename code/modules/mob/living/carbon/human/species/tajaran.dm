@@ -27,7 +27,6 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
-	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
@@ -68,6 +67,9 @@
 		"вонзает когти себе в глазницы!",
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
+
+	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
+	liked_food = MEAT | RAW | DAIRY | EGG
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
