@@ -67,23 +67,23 @@
 
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
-		for(var/mob/living/L in range(5, src))
-			if(!isclocker(L))
+		for(var/mob/living/living in range(5, src))
+			if(!isclocker(living))
 				continue
-			if(!(L.health < L.maxHealth))
+			if(!(living.health < living.maxHealth))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
-			if(ishuman(L))
-				L.heal_overall_damage(2, 2, TRUE, FALSE, TRUE)
+			if(ishuman(living))
+				living.heal_overall_damage(2, 2, TRUE, FALSE, TRUE)
 
-			else if(isshade(L) || isconstruct(L))
-				var/mob/living/simple_animal/M = L
-				if(M.health < M.maxHealth)
-					M.adjustHealth(-2)
+			else if(isanimal(living))
+				var/mob/living/simple_animal/simple = living
+				if(simple.health < simple.maxHealth)
+					simple.adjustHealth(-2)
 
-			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-				L.blood_volume += 1
+			if(ishuman(living) && living.blood_volume < BLOOD_VOLUME_NORMAL)
+				living.blood_volume += 1
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
@@ -204,9 +204,9 @@
 			else
 				target.adjustBruteLoss(5)
 		if(get_turf(target) == get_turf(src) && src.anchored && has_clocker)
-			target.gib()
 			var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
 			cube.try_to_transfer(target)
+			target.gib()
 			adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 
 		if(src.anchored)
@@ -219,6 +219,9 @@
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/clockwork/shard))
+		if(!ishuman(user))
+			to_chat(user, "span class='warning'>You are too weak to push the shard inside!</span>")
+			return
 		var/area/A = get_area(src)
 		if(!anchored)
 			to_chat(user, "<span class='warning'>It has to be anchored before you can start!</span>")

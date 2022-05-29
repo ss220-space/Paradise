@@ -241,7 +241,7 @@
 	item_state = "clockwork_robe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood
-	allowed = list(/obj/item/clockwork)
+	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
@@ -309,7 +309,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags_inv = HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/clockwork)
+	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer)
 
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
@@ -664,6 +664,7 @@
 	if(do_after(user, 40, target = src))
 		user.visible_message("<span class='warning'>[user] pressed [src] through [H]'s skull and extracted the brain!", \
 		"<span class='clock'>You extracted [H]'s consciousness, trapping it in the soul vessel.")
+		searching = TRUE
 		try_to_transfer(H)
 		return TRUE
 	return
