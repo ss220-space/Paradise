@@ -488,7 +488,7 @@
 				dat += "<br>Current clock cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
 			dat += "<br>Power needed: [GLOB.clockwork_power]/[gamemode.clocker_objs.power_goal]"
 			dat += "<br>Beacons needed: [length(GLOB.clockwork_beacons)]/[gamemode.clocker_objs.beacon_goal]"
-			dat += "<br>Clockers needed: [SSticker.mode.get_clockers()]/[gamemode.clocker_objs.clocker_goal] Reveal:[SSticker.mode.crew_reveal_number]"
+			dat += "<br>Clockers needed: [SSticker.mode.get_clockers()]/[gamemode.clocker_objs.clocker_goal]"
 			dat += "<br>Summoning locations: [english_list(gamemode.clocker_objs.obj_summon.ritual_spots)]"
 			dat += "<br><a href='?src=[UID()];clock_mindspeak=[UID()]'>Clock Cult Mindspeak</a>"
 

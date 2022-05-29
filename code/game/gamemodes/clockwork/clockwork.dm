@@ -271,7 +271,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	clock_mind.special_role = null
 	for(var/datum/action/innate/clockwork/C in clocker.actions)
 		qdel(C)
-	update_clock_icons_removed(clock_mind)
+	update_cult_icons_removed(clock_mind)
 
 	if(ishuman(clocker))
 		var/mob/living/carbon/human/H = clocker

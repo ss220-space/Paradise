@@ -1060,7 +1060,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
-	speed = -0.5
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"

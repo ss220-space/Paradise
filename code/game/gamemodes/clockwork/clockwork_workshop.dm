@@ -40,9 +40,9 @@
 	item_list["Clothing"] = list(
 		CLOCK_DESIGN("Clock Robe", /obj/item/clothing/suit/hooded/clockrobe, 0, 50, 3),
 		CLOCK_DESIGN("Cuirass", /obj/item/clothing/suit/armor/clockwork, 4000, 400, 25),
-		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 1000, 200, 10),
-		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 500, 50, 5),
-		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 1000, 50, 5),
+		CLOCK_DESIGN("Gauntlets", /obj/item/clothing/gloves/clockwork, 500, 100, 5),
+		CLOCK_DESIGN("Treads", /obj/item/clothing/shoes/clockwork, 500, 100, 5),
+		CLOCK_DESIGN("Helmet", /obj/item/clothing/head/helmet/clockwork, 1000, 100, 5),
 	)
 	item_list["Consumables"] = list(
 		CLOCK_DESIGN("Integration cog", /obj/item/clockwork/integration_cog, 300, 0, 5),

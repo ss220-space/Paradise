@@ -23,7 +23,6 @@
 	flying = TRUE
 	pass_flags = PASSTABLE
 	AIStatus = AI_OFF // Usually someone WILL play for him but i don't know about this on chief.
-	universal_speak = TRUE
 	loot = list(/obj/item/clockwork/component/geis_capacitor/fallen_armor)
 	del_on_death = TRUE
 	deathmessage = "shatters as the flames goes out."
