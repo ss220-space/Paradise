@@ -10,8 +10,6 @@
 	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
-	zoomable = TRUE
-	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	flight_x_offset = 17
@@ -26,7 +24,6 @@
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
-	zoomable = FALSE
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11

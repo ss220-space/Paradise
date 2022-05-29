@@ -58,7 +58,6 @@
 	desc = "What is in this anyways?"
 	icon_state = "chinese1"
 	junkiness = 25
-	antable = FALSE
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("noodle" = 1, "vegetables" = 1)
 
@@ -76,7 +75,6 @@
 	desc = "Tastes like chicken."
 	icon_state = "chinese2"
 	junkiness = 25
-	antable = FALSE
 	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 4)
 	tastes = list("chicken" = 1)
 
@@ -85,7 +83,6 @@
 	desc = "Made fresh, weekly!"
 	icon_state = "chinese3"
 	junkiness = 25
-	antable = FALSE
 	list_reagents = list("nutriment" = 1, "msg" = 4, "sugar" = 3)
 	tastes = list("noodles" = 1)
 
@@ -95,7 +92,6 @@
 	icon_state = "chinese4"
 	item_state = "chinese2"
 	junkiness = 20
-	antable = FALSE
 	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("rice" = 1)
 

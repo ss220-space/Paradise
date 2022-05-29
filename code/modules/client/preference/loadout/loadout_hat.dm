@@ -148,12 +148,12 @@
 /datum/gear/hat/beret_job/sci
 	display_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list("Research Director", "Scientist", "Roboticist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist")
 
 /datum/gear/hat/beret_job/med
 	display_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner", "Paramedic", "Chemist", "Geneticist", "Psychiatrist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "engineering beret"

@@ -12,7 +12,11 @@
 
 	var/twitch_censor = FALSE
 	var/list/twich_censor_list = list()
+	var/hublist_url = null
 	var/list/topic_filtering_whitelist = list()
+
+	var/queue_engine_enabled = FALSE
+	var/queue_engine_webhook = null
 
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout
@@ -557,6 +561,9 @@
 				if("repositoryurl")
 					config.repositoryurl = value
 
+				if("hublist_url")
+					config.hublist_url = value
+
 				if("guest_jobban")
 					config.guest_jobban = 1
 
@@ -849,6 +856,11 @@
 
 				if("topic_filtering_whitelist")
 					config.topic_filtering_whitelist = splittext(value, " ")
+
+				if("queue_engine_enabled")
+					config.queue_engine_enabled = TRUE
+				if("queue_engine_webhook")
+					config.queue_engine_webhook = value
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")
