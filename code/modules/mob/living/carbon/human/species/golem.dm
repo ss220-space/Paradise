@@ -21,7 +21,6 @@
 	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
 	nojumpsuit = TRUE
 
-	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 
 	warning_low_pressure = -INFINITY
@@ -448,8 +447,6 @@
 	heat_level_1 = 300
 	heat_level_2 = 340
 	heat_level_3 = 400
-
-	dietflags = DIET_HERB		// Plants eat...plants? -- естественное развитие растений в природе
 
 	info_text = "Будучи <span class='danger'>деревянным големом</span>, вы обладаете некоторыми особенностями растений: Вы получаете урон от экстремальных температур, вас можно поджечь и у вас меньше брони, чем у обычного голема. Вы регенерируете на свету и увядаете во тьме."
 	prefix = "Деревянн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
