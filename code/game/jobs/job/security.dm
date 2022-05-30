@@ -116,13 +116,13 @@
 	l_pocket = /obj/item/signmaker
 	r_pocket = /obj/item/bikehorn
 	suit_store = /obj/item/gun/energy/dominator
-	belt = /obj/item/gun/energy/clown
+	belt = /obj/item/gun/energy/clown/warden
 	pda = /obj/item/pda/clown/security
 	id = /obj/item/card/id/security/clown
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1,
+		/obj/item/restraints/handcuffs/pinkcuffs = 1,
 		/obj/item/cartridge/security = 1,
 		/obj/item/flash = 1,
 		/obj/item/reagent_containers/food/snacks/grown/banana = 1,

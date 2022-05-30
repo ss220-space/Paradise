@@ -287,11 +287,18 @@
 /obj/item/gun/energy/clown
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
 	selfcharge = 1
 	ammo_x_offset = 3
+
+/obj/item/gun/energy/clown/warden
+	name = "Личное ХОНК-ружье смотрителя"
+	desc = "Личное смертоносное оружие клоуна-смотрителя, выданное за заслуги перед НТ и \[ДАННЫЕ ХОНКНУТЫ\]. Ходят слухи что это один из первых экземпляров произведенных во время войны мимов и клоунов на родной планете клоунов.";
+	icon_state = "honkrifle_warden"
+	item_state = null
 
 /obj/item/gun/energy/toxgun
 	name = "plasma pistol"
