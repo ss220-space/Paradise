@@ -11,33 +11,40 @@ emp_act
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
+		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
 	if(P.is_reflectable)
 		var/can_reflect = check_reflect(def_zone)
-		if(can_reflect == 1) // proper reflection
+		var/reflected = FALSE
+
+		switch(can_reflect)
+			if(1) // proper reflection
+				reflected = TRUE
+			if(2) //If target is holding a toy sword
+				var/static/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+				reflected = is_type_in_list(P, safe_list) //And it's safe
+
+		if(reflected)
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-						"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-			P.reflect_back(src)
-			return -1 // complete projectile permutation
-
-		else if(can_reflect == 2) //If target is holding a toy sword
-			var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
-			if(is_type_in_list(P, safe_list)) //And it's safe
-				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-				P.reflect_back(src)
-				return -1 // complete projectile permutation
-
+			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
+			P.reflect_back(src)
+			return -1
 
 	//Shields
 	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
 		P.on_hit(src, 100, def_zone)
 		return 2
 
+	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
+		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_chance)) //But only if they're not lying down, and hulks can't do it
+			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
+			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+			return FALSE
+
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
-		. = bullet_act(P, "chest") //act on chest instead
-		return
+		return bullet_act(P, "chest") //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
@@ -136,7 +143,7 @@ emp_act
 /mob/living/carbon/human/proc/getarmor_organ(var/obj/item/organ/external/def_zone, var/type)
 	if(!type || !def_zone)	return 0
 	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)	continue
 		if(bp && istype(bp ,/obj/item/clothing))
@@ -207,6 +214,10 @@ emp_act
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return 1
+	if(neck)
+		var/final_block_chance = neck.block_chance - (clamp((armour_penetration-neck.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(neck.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier

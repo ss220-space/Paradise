@@ -110,6 +110,30 @@
 	. = ..()
 	set_frequency(SYND_FREQ)
 
+/obj/item/radio/headset/syndicate/admin_officer
+	name = "syndicate officer's headset"
+	icon_state = "taipan_headset"
+	item_state = "taipan_headset"
+	ks1type = /obj/item/encryptionkey/syndteam
+	ks2type = /obj/item/encryptionkey/syndicate/taipan
+	freerange = TRUE
+	freqlock = FALSE
+
+/obj/item/radio/headset/syndicate/taipan
+	name = "syndicate taipan headset"
+	icon_state = "taipan_headset"
+	item_state = "taipan_headset"
+	ks1type = /obj/item/encryptionkey/syndicate/taipan
+
+/obj/item/radio/headset/syndicate/taipan/New()
+	. = ..()
+	set_frequency(SYND_TAIPAN_FREQ)
+
+/obj/item/radio/headset/syndicate/taipan/tcomms_agent
+	ks1type = /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
+	freerange = TRUE
+	freqlock = FALSE
+
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary
@@ -127,6 +151,14 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_brigphys
+	name = "brig physician's bowman headset"
+	desc = "This is used by your elite security's medical personnel. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/encryptionkey/headset_medsec
 
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs bowman headset"

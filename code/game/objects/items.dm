@@ -69,6 +69,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
+	var/datum/muhtar_fashion/muhtar_fashion = null
+	var/datum/snake_fashion/snake_fashion = null
 
 	var/mob/thrownby = null
 
@@ -670,6 +672,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		owner.update_inv_ears()
 	if(flags & SLOT_MASK)
 		owner.update_inv_wear_mask()
+	if(flags & SLOT_NECK)
+		owner.update_inv_neck()
 	if(flags & SLOT_HEAD)
 		owner.update_inv_head()
 	if(flags & SLOT_FEET)

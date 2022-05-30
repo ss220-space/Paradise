@@ -1018,7 +1018,8 @@
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
-		remove_note(note_id)
+		if(alert("Do you really want to delete this note?", "Note deletion confirmation", "Yes", "No") == "Yes")
+			remove_note(note_id)
 
 	else if(href_list["editnote"])
 		var/note_id = href_list["editnote"]
@@ -3396,6 +3397,12 @@
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
+					
+			if("gammashuttle")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
+				message_admins("[key_name_admin(usr)] moved the gamma armory")
+				log_admin("[key_name(usr)] moved the gamma armory")
+				move_gamma_ship()
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")

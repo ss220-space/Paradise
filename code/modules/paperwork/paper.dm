@@ -213,7 +213,9 @@
 	info_links = info
 	var/i = 0
 	for(i=1,i<=fields,i++)
-		addtofield(i, "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>", 1)
+		var/write_1 = "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>"
+		var/write_2 = "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
+		addtofield(i, "[write_1][write_2]", 1)
 	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>"
 
 
@@ -266,52 +268,92 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+/obj/item/paper/proc/topic_href_write(var/id, var/input_element)
+	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
+	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
+	if(!istype(item_write, /obj/item/pen))
+		if(!istype(item_write, /obj/item/toy/crayon))
+			return
+
+	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+		return
+
+	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
+
+	if(id!="end")
+		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
+	else
+		info += input_element // Oh, he wants to edit to the end of the file, let him.
+
+	populatefields()
+	updateinfolinks()
+
+	item_write.on_write(src,usr)
+
+	show_content(usr, forceshow = 1, infolinks = 1)
+
+	update_icon()
+
 /obj/item/paper/Topic(href, href_list)
 	..()
 	if(!usr || (usr.stat || usr.restrained()))
 		return
 
-	if(href_list["write"])
+	if(href_list["auto_write"])
+		var/id = href_list["auto_write"]
+
+		var/const/sign_text = "\[Поставить подпись\]"
+		var/const/time_text = "\[Написать текущее время\]"
+		var/const/date_text = "\[Написать текущую дату\]"
+		var/const/num_text = "\[Написать номер аккаунта\]"
+		var/const/pin_text = "\[Написать пин-код\]"
+		var/const/station_text = "\[Написать название станции\]"
+
+		//пункты текста в меню
+		var/list/menu_list = list()
+		menu_list.Add(usr.real_name) //настоящее имя персонажа, даже если оно спрятано
+
+		//если игрок маскируется или имя отличается, добавляется новый вариант ответа
+		if (usr.real_name != usr.name || usr.name != "unknown")
+			menu_list.Add("[usr.name]")
+
+		menu_list.Add(usr.job,		//текущая работа
+			num_text,		//номер аккаунта
+			pin_text,		//номер пин-кода
+			sign_text,  	//подпись
+			time_text,  	//время
+			date_text,  	//дата
+			station_text, 	//название станции
+			usr.gender,		//пол
+			usr.dna.species	//раса
+		)
+
+		var/input_element = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in menu_list
+
+		//форматируем выбранные пункты меню в pencode и внутренние данные
+		switch(input_element)
+			if (sign_text)
+				input_element = "\[sign\]"
+			if (time_text)
+				input_element = "\[time\]"
+			if (date_text)
+				input_element = "\[date\]"
+			if (station_text)
+				input_element = "\[station\]"
+			if (num_text)
+				input_element = usr.mind.initial_account.account_number
+			if (pin_text)
+				input_element = usr.mind.initial_account.remote_access_pin
+
+		topic_href_write(id, input_element)
+
+
+	if(href_list["write"] )
 		var/id = href_list["write"]
-		//var/t = strip_html_simple(input(usr, "What text do you wish to add to " + (id=="end" ? "the end of the paper" : "field "+id) + "?", "[name]", null),8192) as message
-		//var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
-		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
-		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-		if(!istype(i, /obj/item/pen))
-			if(!istype(i, /obj/item/toy/crayon))
-				return
+		var/input_element =  input("Enter what you want to write:", "Write", null, null)  as message
 
-
-		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
-		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
-			return
-/*
-		t = checkhtml(t)
-
-		// check for exploits
-		for(var/bad in paper_blacklist)
-			if(findtext(t,bad))
-				to_chat(usr, "<span class='notice'>You think to yourself, \</span>"Hm.. this is only paper...\"")
-				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
-				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
-				return
-*/
-		t = parsepencode(t, i, usr) // Encode everything from pencode to html
-
-		if(id!="end")
-			addtofield(text2num(id), t) // He wants to edit a field, let him.
-		else
-			info += t // Oh, he wants to edit to the end of the file, let him.
-
-		populatefields()
-		updateinfolinks()
-
-		i.on_write(src,usr)
-
-		show_content(usr, forceshow = 1, infolinks = 1)
-
-		update_icon()
+		topic_href_write(id, input_element)
 
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
@@ -1268,6 +1310,150 @@
 	access = ACCESS_CENT_GENERAL
 	info = ""
 	footer = footer_confidential
+
+//Синдикатские формы
+
+/obj/item/paper/form/syndieform
+	name = "ALERT A CODER SYND FORM"
+	altername = "ALERT A CODER FORM"
+	access = ACCESS_SYNDICATE_COMMAND
+	confidential = TRUE
+	category = null
+	var/const/footer_to_taipan =   "<I><font face=\"Verdana\" color=black size = \"1\">\
+									<HR>\
+									*Несоблюдение и/или нарушение указаний, содержащихся в данном письме, карается смертью.\
+									<BR>*Копирование, распространение и использование содержащейся информации карается смертью, за исключением случаев, описанных в письме.\
+									<BR>*Письмо подлежит уничтожению после ознакомления.\
+									</font></I>"
+	var/const/footer_from_taipan = "<I><font face=\"Verdana\" color=black size = \"1\">\
+									<HR>\
+									*Целевым получателем запроса является Синдикат\
+									<BR>*Копирование, распространение и использование документа и представленной информации \
+									за пределами целевого получателя запроса и экипажа станции запрещено.\
+									<BR>*Оригинал документа после отправки целевому получателю подлежит хранению в защищённом месте, \
+									либо уничтожению с соответствующим указанием.\
+									<BR>*В случае проникновения на объект посторонних лиц или угрозы проникновения документ подлежит уничтожению до или после отправки.\
+									</font></I>"
+	footer = footer_to_taipan
+
+/obj/item/paper/form/syndieform/New()
+	. = ..()
+	if(is_header_needed)
+		header = "	<font face=\"Verdana\" color=black>\
+					<table cellspacing=0 cellpadding=3  align=\"right\">\
+					<tr><td><img src= syndielogo.png></td></tr>\
+					</table><br>\
+					<table border=10 cellspacing=0 cellpadding=3 width =\"250\" height=\"100\"  align=\"center\" bgcolor=\"#B50F1D\">\
+					<td><center><B>[confidential ? "СОВЕРШЕННО СЕКРЕТНО<BR>" : ""]</B><B>[id]</B></center></td>\
+					</table>\
+					<br><HR></font>"
+	populatefields()
+
+/obj/item/paper/form/syndieform/SYND_COM_TC
+	name = "Форма SYND-COM-TC"
+	id = "SYND-COM-TC"
+	altername = "Официальное письмо"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE_COMMAND
+	footer = footer_to_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<center><H2><U>Официальное письмо объекту</U><BR>&#34;ННКСС Тайпан&#34;</H2></center><HR>\
+			<span class=\"paper_field\"></span><BR>\
+			<font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_COM_SUP
+	name = "Форма SYND-COM-SUP"
+	id = "SYND-COM-SUP"
+	altername = "Запрос особой доставки"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<center><H2>Запрос особой доставки на станцию<BR>Синдиката</H2></center><HR>\
+			<center><table>\
+			<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>\
+			<td><center><font size=\"4\">Данные<BR>для<BR>доставки</font></center><td>\
+			<center><B><U><font size=\"4\">Получатель</font></U></B></center>\
+			<U>Наименование станции</U>: &#34;ННКСС <B>Тайпан</B>&#34;\
+			<BR><U>Наименование сектора</U>: Эпсилон Эридана\
+			</td></tr></table>\
+			</center><BR>В связи с отсутствием в стандартном перечени заказов прошу доставить следующее:\
+			<BR><ul><li><U><span class=\"paper_field\"></span></U></ul>\
+			<BR>Причина запроса: <B><span class=\"paper_field\"></span></B>\
+			<BR><font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_TAI_NO00
+	name = "Форма SYND-TAI-№00"
+	id = "SYND-TAI-№00"
+	altername = "Экстренное письмо"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<center><H2><U>Экстренное письмо</U><BR>ННКСС &#34;Тайпан&#34;</H2></center><HR>\
+			<span class=\"paper_field\"></span>\
+			<BR><font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_TAI_NO01
+	name = "Форма SYND-TAI-№01"
+	id = "SYND-TAI-№01"
+	altername = "Отчёт о ситуации на станции"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<H3>Отчёт о ситуации на станции</H3><HR>\
+			<U>Наименование станции</U>: ННКСС &#34;Тайпан&#34;<BR>\
+			<BR>Общее состояние станции: <span class=\"paper_field\"></span>\
+			<BR>Численность персонала станции: <span class=\"paper_field\"></span>\
+			<BR>Общее состояние персонала станции: <span class=\"paper_field\"></span>\
+			<BR>Непосредственные внешние угрозы: <B><span class=\"paper_field\"></span></B>\
+			<BR>Подробности: <span class=\"paper_field\"></span>\
+			<BR>Дополнительная информация: <span class=\"paper_field\"></span><BR>\
+			<BR><font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_TAI_NO02
+	name = "Форма SYND-TAI-№02"
+	id = "SYND-TAI-№02"
+	altername = "Отчёт о разработке вируса"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<H3>Отчёт о разработке вируса</H3>\
+			<HR><U>Наименование вируса</U>: <B><span class=\"paper_field\"></span></B><BR>\
+			<BR>Тип вируса: <span class=\"paper_field\"></span>\
+			<BR>Способ распространения: <span class=\"paper_field\"></span>\
+			<BR>Перечень симптомов: <span class=\"paper_field\"></span>\
+			<BR>Описание: <span class=\"paper_field\"></span><BR>\
+			<BR><U>Наличие вакцины</U>: <B><span class=\"paper_field\"></span></B>\
+			<BR><U>Наименование вакцины</U>: <span class=\"paper_field\"></span><BR>\
+			<BR>Дополнительная информация***: <span class=\"paper_field\"></span>\
+			<BR>Указания к хранению вируса***: <span class=\"paper_field\"></span><BR>\
+			<BR><font size = \"1\">Подпись разработчика: <span class=\"paper_field\"></span>, в должности <B><span class=\"paper_field\"></span></B>\
+			<BR>Подпись Директора Исследований**: <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<HR><I><font size = \"1\">**Отчёт недействителен без подписи Директора Исследований. \
+			В случае его отсутствия требуется подпись Офицера Телекоммуникаций или заменяющего его лица с указанием должности.\
+			<BR>***Заполняется Директором Исследований. В случае его отсутствия, заполняется Офицером Телекоммуникаций или заменяющим его лицом</font>"
+
 //======
 /obj/item/paper/deltainfo
 	name = "Информационный буклет НСС Керберос"
