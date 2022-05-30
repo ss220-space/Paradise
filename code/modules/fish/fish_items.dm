@@ -237,7 +237,7 @@
 
 /obj/item/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
-		to_chat(user, "You carefully clean and gut \the [src.name].")
+	to_chat(user, "You carefully clean and gut \the [src.name].")
 		for(var/i = 1 to sizemod)
 			new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 		qdel(src)
