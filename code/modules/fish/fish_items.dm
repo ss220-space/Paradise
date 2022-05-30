@@ -199,7 +199,7 @@
 	force = 3
 
 /obj/item/fish/shark/attackby(var/obj/item/weapon, var/mob/user)
-	if(istype(O, /obj/item/wirecutters))
+	if(iswirecutter(weapon))
 		to_chat(user, "You butcher \the [src.name]!")
 		new /obj/item/shard/shark_teeth(get_turf(src))
 		if(sizemod >= 5)
