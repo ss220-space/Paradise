@@ -39,7 +39,6 @@ if (!target)
 		if (organ_picked.damage >= organ_picked.max_damage) // you can't check if the organ is dead because of immortality of the brain
 			to_be_picked_from.Remove(organ_picked)
 
-
 #undef APPLY_DAMAGE
 
 /mob/living/carbon/death(gibbed)
