@@ -279,7 +279,9 @@
 	desc = "Ну ты и крыса!"
 	icon_state = "ratgehead"
 	item_state = "chickensuit"
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | BLOCKHEADHAIR
+	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
