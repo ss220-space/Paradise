@@ -249,7 +249,7 @@
 	..()
 
 /obj/item/fish/catfish/throw_impact(atom/hit_atom)
-	..()
+	. = ..()
 	if(size != 100)
 		return
 	playsound(src, 'sound/effects/meteorimpact.ogg', 50, 15)
