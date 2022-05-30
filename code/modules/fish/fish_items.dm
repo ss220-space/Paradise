@@ -283,7 +283,6 @@
 			new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 		qdel(src)
 		return
-	..()
 
 /obj/item/fish/babycarp
 	noun = "baby space carp"
