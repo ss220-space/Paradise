@@ -84,7 +84,7 @@
 			O = new /datum/outfit/plasmaman/detective
 
 		if("Warden")
-			O = new /datum/outfit/plasmaman/warden
+			O = new /datum/outfit/plasmaman/warden/clown
 
 		if("Head of Security")
 			O = new /datum/outfit/plasmaman/hos

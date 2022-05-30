@@ -61,6 +61,12 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	uniform = /obj/item/clothing/under/plasmaman/security/warden
 
+/datum/outfit/plasmaman/warden/clown
+	name = "Clown-Warden Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden/clown
+	uniform = /obj/item/clothing/under/plasmaman/security/warden/clown
+
 /datum/outfit/plasmaman/hos
 	name = "Head of Security Plasmaman"
 

@@ -152,6 +152,7 @@
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/head/beret/sec/warden(src)
 	new /obj/item/clothing/under/rank/warden(src)
+	new /obj/item/clothing/under/rank/warden/clown(src)
 	new /obj/item/clothing/under/rank/warden/formal(src)
 	new /obj/item/clothing/under/rank/warden/corp(src)
 	new /obj/item/clothing/under/rank/warden/skirt(src)
@@ -166,6 +167,16 @@
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
+	new /obj/item/clothing/shoes/clown_shoes(src)
+	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
+	new /obj/item/stamp/clown(src)
+	new /obj/item/toy/crayon/rainbow(src)
+	new /obj/item/storage/fancy/crayons(src)
+	new /obj/item/reagent_containers/spray/waterflower(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+	new /obj/item/instrument/bikehorn(src)
+	new /obj/item/bikehorn(src)
+	new /obj/item/coin/clown(src)
 
 
 /obj/structure/closet/secure_closet/security

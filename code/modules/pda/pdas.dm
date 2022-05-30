@@ -22,6 +22,12 @@
 	default_cartridge = /obj/item/cartridge/security
 	icon_state = "pda-warden"
 
+/obj/item/pda/clown/security
+	default_cartridge = /obj/item/cartridge/clown
+	icon_state = "pda-security-clown"
+	desc = "Переносной микрокомпьютер от Синктроник Системс, LTD. ПДА разработаный по заказу тайного покупателя, пожелавший хонкнуться нераскрытым. Поверхность покрыта политетрафторэтиленом и банановым налетом."
+	ttone = "honk"
+
 /obj/item/pda/janitor
 	default_cartridge = /obj/item/cartridge/janitor
 	icon_state = "pda-janitor"
@@ -35,7 +41,7 @@
 /obj/item/pda/clown
 	default_cartridge = /obj/item/cartridge/clown
 	icon_state = "pda-clown"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
+	desc = "Переносной микрокомпьютер от Синктроник Системс, LTD. Поверхность покрыта политетрафторэтиленом и банановым налетом."
 	ttone = "honk"
 
 /obj/item/pda/clown/ComponentInitialize()

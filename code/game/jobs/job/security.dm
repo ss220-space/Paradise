@@ -63,14 +63,16 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	alt_titles = list("Clown-Warden", "Brig Clown","Clown Keeper","Clown In Law", "Clown Securitytaker", "Clown Guard", "Security Clown")
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_CLOWN, ACCESS_THEATRE)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_CLOWN, ACCESS_THEATRE)
 	minimal_player_age = 21
 	min_age_allowed = 30
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
-	outfit = /datum/outfit/job/warden
+	outfit = /datum/outfit/job/warden/clown
 
+//старый аутфит, оставляем для возможности смены через а-кнопки
 /datum/outfit/job/warden
 	name = "Warden"
 	jobtype = /datum/job/warden
@@ -87,8 +89,9 @@
 	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
+
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield)
@@ -97,6 +100,45 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+//новый аутфит
+/datum/outfit/job/warden/clown
+	name = "Clown-Warden"
+	jobtype = /datum/job/warden
+
+	uniform = /obj/item/clothing/under/rank/warden/clown
+	suit = /obj/item/clothing/suit/armor/vest/warden
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	head = /obj/item/clothing/head/warden
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_ear = /obj/item/radio/headset/headset_sec/clown
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	l_pocket = /obj/item/signmaker
+	r_pocket = /obj/item/bikehorn
+	suit_store = /obj/item/gun/energy/dominator
+	belt = /obj/item/gun/energy/clown
+	pda = /obj/item/pda/clown/security
+	id = /obj/item/card/id/security/clown
+	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
+
+	backpack_contents = list(
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/cartridge/security = 1,
+		/obj/item/flash = 1,
+		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/stamp/clown = 1,
+		/obj/item/toy/crayon/rainbow = 1,
+		/obj/item/storage/fancy/crayons = 1,
+		/obj/item/reagent_containers/spray/waterflower = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/instrument/bikehorn = 1
+	)
+
+	implants = list(/obj/item/implant/mindshield)
+
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
 /datum/job/detective
@@ -112,7 +154,6 @@
 	alt_titles = list("Forensic Technician")
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
-	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW

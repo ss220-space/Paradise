@@ -784,6 +784,13 @@
 	icon_state = "security"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
+/obj/item/card/id/security/clown
+	name = "Security-Clown ID"
+	registered_name = "Officer-Clown"
+	icon_state = "security_clown"
+	desc = "Смотря на эту карту, вы понимаете что центральное командование обладает специфичным чувством юмора."
+	access = list(ACCESS_SECURITY, ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
 /obj/item/card/id/research
 	name = "Research ID"
 	registered_name = "Scientist"

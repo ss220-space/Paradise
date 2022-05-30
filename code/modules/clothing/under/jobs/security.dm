@@ -18,6 +18,13 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	strip_delay = 50
 
+/obj/item/clothing/under/rank/warden/clown
+	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Warden\" written on the shoulders. HONK!"
+	name = "clown-warden's jumpsuit"
+	icon_state = "warden_clown"
+	item_state = "r_suit"
+	item_color = "warden_clown"
+
 /obj/item/clothing/under/rank/warden/skirt
 	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
 	name = "warden's jumpskirt"

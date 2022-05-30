@@ -13,6 +13,13 @@
 	item_state = "warden_envirosuit"
 	item_color = "warden_envirosuit"
 
+/obj/item/clothing/under/plasmaman/security/warden/clown
+	name = "clown-warden plasma envirosuit"
+	desc = "A plasmaman containment suit designed for the warden, white stripes being added to differentiate them from other members of security. HONK!"
+	icon_state = "warden_clown_envirosuit"
+	item_state = "warden_clown_envirosuit"
+	item_color = "warden_clown_envirosuit"
+
 /obj/item/clothing/under/plasmaman/security/hos
 	name = "head of security plasma envirosuit"
 	desc = "A plasmaman containment suit designed for the head of security."

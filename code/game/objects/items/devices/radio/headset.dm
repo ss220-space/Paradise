@@ -144,6 +144,13 @@
 	icon_state = "sec_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_sec
+/obj/item/radio/headset/headset_sec/clown
+	name = "clown-security radio headset"
+	desc = "This is used by your elite security force. HONK!"
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks1type = /obj/item/encryptionkey/headset_sec
+	ks2type = /obj/item/encryptionkey/headset_service
 
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"

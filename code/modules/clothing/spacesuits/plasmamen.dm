@@ -104,6 +104,12 @@
 	icon_state = "warden_envirohelm"
 	item_state = "warden_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/security/warden/clown
+	name = "clown-warden's plasma envirosuit helmet"
+	desc = "A plasmaman containment helmet designed for the warden, a pair of white stripes being added to differentiate them from other members of security. HONK!"
+	icon_state = "warden_clown_envirohelm"
+	item_state = "warden_clown_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the head of security."
@@ -239,7 +245,6 @@
 	name = "clown envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. <i>'HONK!'</i>"
 	icon_state = "clown_envirohelm"
-	item_state = "clown_envirohelm"
 	visor_icon = "clown_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
