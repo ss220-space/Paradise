@@ -238,7 +238,9 @@
 	icon_state = "catfish"
 
 /obj/item/fish/catfish/attackby(var/obj/item/weapon, var/mob/user)
-	if(is_sharp(O))
+	if(!is_sharp(weapon))
+		return ..()
+		
 	to_chat(user, "You carefully clean and gut \the [src.name].")
 		for(var/i = 1 to sizemod)
 			new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
