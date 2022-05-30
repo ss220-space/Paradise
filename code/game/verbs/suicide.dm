@@ -175,20 +175,20 @@
 
 /mob/living/silicon/pai/verb/suicide()
 	set category = "Команды ПИИ"
-	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt)"
-	set name = "pAI Suicide"
-	var/answer = input("REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
-	if(answer == "Yes")
+	set desc = "Убить себя и стать призраком (потребуется подтверждение)"
+	set name = "Суицид ПИИ"
+	var/answer = input("ТОЧНО убить себя? Это действие нельзя отменить.", "Суицид", "Нет") in list ("Да", "Нет")
+	if(answer == "Да")
 		if(canmove || resting)
 			close_up()
 		var/obj/item/paicard/card = loc
 		card.removePersonality()
 		var/turf/T = get_turf_or_move(card.loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+			M.show_message("<span class='notice'>Во весь экран [src.declent_ru(GENITIVE)] вспыхивает надпись: <i>«Удаление файлов ядра… Пожалуйста, загрузите другую личность ПИИ для продолжения использования функций устройства»</i>.</span>", 3, "<span class='notice'>[src.declent_ru(NOMINATIVE)] электронно бипа[pluralize_ru(src.gender,"ет","ют")].</span>", 2)
 		death(0, 1)
 	else
-		to_chat(src, "Aborting suicide attempt.")
+		to_chat(src, "Попытка суицида отменена.")
 
 /mob/living/carbon/alien/humanoid/verb/suicide()
 	set hidden = 1

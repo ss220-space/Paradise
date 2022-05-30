@@ -13,10 +13,13 @@
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	gender = MALE
+	ru_names = list(NOMINATIVE = "персональный ИИ", GENITIVE = "персонального ИИ", DATIVE = "персональному ИИ", ACCUSATIVE = "персональный ИИ", INSTRUMENTAL = "персональным ИИ", PREPOSITIONAL = "персональном ИИ")
 
 /obj/item/paicard/syndicate
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
+	ru_names = list(NOMINATIVE = "персональный ИИ Синдиката", GENITIVE = "персонального ИИ Синдиката", DATIVE = "персональному ИИ Синдиката", ACCUSATIVE = "персональный ИИ Синдиката", INSTRUMENTAL = "персональным ИИ Синдиката", PREPOSITIONAL = "персональном ИИ Синдиката")
 
 /obj/item/paicard/New()
 	..()
@@ -268,9 +271,9 @@
 		if(confirm == "Да")
 			for(var/mob/M in src)
 				to_chat(M, "<font color='#ff0000'><h2>Вы чувствуете как реальность начинает ускользать.</h2></font>")
-				to_chat(M, "<font color='#ff4d4d'><h3>Байт за байтом вы теряет ощущение себя.</h3></font>")
-				to_chat(M, "<font color='#ff8787'><h4>Ваши ментальные способности оставляют вас.</h4></font>")
-				to_chat(M, "<font color='#ffc4c4'><h5>забвение…</h5></font>")
+				to_chat(M, "<font color='#ff4d4d'><h3>Байт за байтом вы теряете ощущение себя.</h3></font>")
+				to_chat(M, "<font color='#ff8787'><h4>Ментальные способности оставляют вас.</h4></font>")
+				to_chat(M, "<font color='#ffc4c4'><h5>…забвение…</h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
 					if(P.resting || P.canmove)
@@ -326,7 +329,7 @@
 /obj/item/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>Во весь экран [src] вспыхивает надпись: <i>«Новые личности ПИИ доступны для скачивания»</i>.</span>", 3, "<span class='notice'>[src] электронно пикает.</span>", 2)
+		M.show_message("<span class='notice'>Во весь экран [src.declent_ru(GENITIVE)] вспыхивает надпись: <i>«Новые личности ПИИ доступны для скачивания»</i>.</span>", 3, "<span class='notice'>[src.declent_ru(NOMINATIVE)] электронно бипа[pluralize_ru(src.gender,"ет","ют")].</span>", 2)
 
 /obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)
