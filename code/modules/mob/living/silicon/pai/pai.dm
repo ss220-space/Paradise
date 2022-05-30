@@ -34,7 +34,7 @@
 		"Человеческий" = list("говорит","кричит","спрашивает"),
 		"Кошачий" = list("мурлычет","вопит","мяучит"),
 		"Роботизированный" = list("утверждает","объявляет","запрашивает"),
-		"Собачий" = list("тявкает","лает","рычит")
+		"Собачий" = list("тявкает","лает","рычит"),
 		"Чириканье" = list("чирикает","щебечет","пищит"),
 		)
 
@@ -340,7 +340,7 @@
 
 /mob/living/silicon/pai/lay_down()
 	set category = "IC"
-	set name = "Отдых"
+	set name = "Rest"
 
 	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
