@@ -223,7 +223,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
@@ -252,6 +252,7 @@
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/head/beret/centcom/officer(src)
 	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
+	new /obj/item/clothing/neck/cloak/blueshield(src)
 	new /obj/item/clothing/suit/armor/vest/blueshield(src)
 	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/shoes/centcom(src)
@@ -281,6 +282,7 @@
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
+	new /obj/item/clothing/neck/cloak/nanotrasen_representative(src)
 	new /obj/item/clothing/under/lawyer/oldman(src)
 	new /obj/item/clothing/under/lawyer/black(src)
 	new /obj/item/clothing/under/lawyer/female(src)
