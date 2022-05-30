@@ -882,7 +882,10 @@
 	prefix = "Brass"
 	special_names = null
 	golem_colour = rgb(176, 136, 32)
-	info_text = "As a <span class='danger'>Brass Golem</span>, you possess some abilities from your master Ratvar."
+	skinned_type = /obj/item/stack/sheet/brass
+	brute_mod = 2.5
+	burn_mod = 2.5
+	info_text = "As a <span class='danger'>Brass Golem</span>, your body is very fragile, but instead you have powers of Ratvar."
 
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

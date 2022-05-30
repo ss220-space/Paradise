@@ -23,6 +23,47 @@
 	if(enchant_type)
 		overlays += "clock_slab_overlay_[enchant_type]"
 
+/obj/item/clockwork/clockslab/attack_self(mob/user)
+	. = ..()
+	if(enchant_type == TELEPORT_SPELL)
+		var/list/possible_altars = list()
+		var/list/altars = list()
+		var/list/duplicates = list()
+		for(var/obj/structure/clockwork/functional/altar/altar in GLOB.clockwork_altars)
+			if(!altar.anchored)
+				continue
+			var/result_name = altar.locname
+			if(result_name in altars)
+				duplicates[result_name]++
+				result_name = "[result_name] ([duplicates[result_name]])"
+			else
+				altars.Add(result_name)
+				duplicates[result_name] = 1
+			if(is_mining_level(altar.z))
+				result_name += ", Lava"
+			else if(!is_station_level(altar.z))
+				result_name += ", [altar.z] [dir2text(get_dir(user,get_turf(altar)))] sector"
+			possible_altars[result_name] = altar
+		if(!length(possible_altars))
+			to_chat(user, "<span class='warning'>You have no altars teleport to!</span>")
+			log_game("Teleport spell failed - no other teleport runes")
+			return
+		if(!is_level_reachable(user.z))
+			to_chat(user, "<span class='warning'>You are not in the right dimension!</span>")
+			log_game("Teleport spell failed - user in away mission")
+			return
+
+		var/selected_altar = input(user, "Pick a credence teleport to...", "Teleporation") as null|anything in possible_altars
+		if(!selected_altar)
+			return
+		var/turf/destination = get_turf(selected_altar)
+		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
+		animate(user, color = COLOR_PURPLE, time = 50)
+		if(do_after(user, 50, target = user))
+			do_teleport(user, destination, asoundin = 'sound/effects/phasein.ogg')
+			deplete_spell()
+		user.color = null
+
 /obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
 	if(!isclocker(user))
@@ -210,27 +251,30 @@
 	if(!wielded)
 		return
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	if(enchant_type != KNOCKOFF_SPELL)
-		target.throw_at(throw_target, rand(1, 2), 7, user)
-	else
-		target.throw_at(throw_target, 200, 20, user) // vroom
-		deplete_spell()
-	if(enchant_type == CRUSH_SPELL)
-		if(ishuman(target))
-			var/mob/living/carbon/human/human = target
-			var/obj/item/rod = human.null_rod_check()
-			if(rod)
-				human.visible_message("<span class='danger'>[human]'s [rod] shines as it deflects magic from [user]!</span>")
-				deplete_spell()
+	switch(enchant_type)
+		if(KNOCKOFF_SPELL)
+			if(isclocker(target))
 				return
-			var/obj/item/organ/external/BP = pick(human.bodyparts)
-			BP.emp_act(EMP_HEAVY)
-			BP.fracture()
-		if(isrobot(target))
-			var/mob/living/silicon/robot/robot = target
-			var/datum/robot_component/RC = pick(robot.components)
-			RC.destroy()
-		deplete_spell()
+			target.throw_at(throw_target, 200, 20, user) // vroom
+			deplete_spell()
+		if(CRUSH_SPELL)
+			if(isclocker(target))
+				return
+			if(ishuman(target))
+				var/mob/living/carbon/human/human = target
+				var/obj/item/rod = human.null_rod_check()
+				if(rod)
+					human.visible_message("<span class='danger'>[human]'s [rod] shines as it deflects magic from [user]!</span>")
+					deplete_spell()
+					return
+				var/obj/item/organ/external/BP = pick(human.bodyparts)
+				BP.emp_act(EMP_HEAVY)
+				BP.fracture()
+			if(isrobot(target))
+				var/mob/living/silicon/robot/robot = target
+				var/datum/robot_component/RC = pick(robot.components)
+				RC.destroy()
+			deplete_spell()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -245,45 +289,6 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
-	var/hit_reflect_chance = 40
-
-/obj/item/clothing/suit/hooded/clockrobe/Initialize(mapload)
-	. = ..()
-	enchants = GLOB.robe_spells
-
-/obj/item/clothing/suit/hooded/clockrobe/attack_self(mob/user)
-	. = ..()
-	if(!isclocker(user))
-		return
-	if(enchant_type == INVIS_SPELL && iscarbon(user))
-		var/mob/living/carbon/carbon = user
-		if(carbon.wear_suit != src)
-			return
-		playsound(get_turf(user), 'sound/magic/smoke.ogg', 30, TRUE)
-		enchant_type = CASTING_SPELL
-		animate(user, alpha = 40, time = 1 SECONDS)
-		flags |= NODROP
-		sleep(10)
-		user.alpha = 40
-		addtimer(CALLBACK(src, .proc/uncloak, user), 6 SECONDS)
-
-/obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
-	animate(user, alpha = 255, time = 1 SECONDS)
-	flags &= ~NODROP
-	sleep(10)
-	user.alpha = 255
-
-/obj/item/clothing/suit/hooded/clockrobe/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(enchant_type == WEAK_REFLECT_SPELL && isclocker(owner))
-		playsound(loc, "sparks", 100, TRUE)
-		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
-		if(!prob(hit_reflect_chance))
-			return FALSE
-		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src]'s sparks!</span>")
-		deplete_spell()
-		return TRUE
-	return FALSE
-
 
 /obj/item/clothing/head/hooded/clockhood
 	name = "clock hood"
@@ -592,6 +597,9 @@
 		if(candidates.len)
 			transfer_personality(pick(candidates))
 		reset_search()
+	for(var/obj/item/I in target)
+		target.unEquip(I)
+	target.dust() // In any way we still make some power from him
 
 
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)

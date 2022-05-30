@@ -307,7 +307,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			magic.Grant(clock_mind.current)
 		clock_mind.current.update_action_buttons(TRUE)
 
-/datum/game_mode/cult/declare_completion()
+/datum/game_mode/clockwork/declare_completion()
 	if(clocker_objs.clock_status == RATVAR_HAS_RISEN)
 		SSticker.mode_result = "clockwork cult win - cult win"
 	else if(clocker_objs.clock_status == RATVAR_HAS_FALLEN)

@@ -13,8 +13,8 @@
 	pass_flags = PASSTABLE
 
 	speak_emote = list("clanks", "clinks", "clunks", "clangs")
-	speak_statement = list("clanks", "clinks", "clunks", "clangs")
-	speak_exclamation = list("proclaims","harangues")
+	speak_statement = "clinks"
+	speak_exclamation = "proclaims"
 	speak_query = "requests"
 	bubble_icon = "clock"
 	braintype = "Clockwork"

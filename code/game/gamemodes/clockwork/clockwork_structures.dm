@@ -75,7 +75,7 @@
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 			if(ishuman(L))
-				L.heal_overall_damage(2, 2, TRUE, FALSE, TRUE)
+				L.heal_overall_damage(2, 2, TRUE)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
@@ -87,6 +87,7 @@
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
+	STOP_PROCESSING(SSobj, src)
 	for(var/datum/mind/M in SSticker.mode.clockwork_cult)
 		to_chat(M.current, "<span class='danger'>You get the feeling that one of the beacons have been destroyed! The source comes from [areabeacon.name]</span>")
 	return ..()
@@ -103,117 +104,165 @@
 	icon_state = "altar"
 	density = 0
 	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
-	var/time_until_convert = 8 SECONDS
-	var/glow_type = /obj/effect/temp_visual/ratvar/altar_convert
-	var/summoning = FALSE
+	var/locname = null
+	var/obj/effect/temp_visual/ratvar/altar_convert/glow
+	var/list/mob/living/carbon/human/bodies = list() // Stops the SPAM
 
-/obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM)
-	if(!anchored)
-		return
-	if(!ishuman(AM))
-		return
-	var/mob/living/carbon/human/target = AM
-	if(isclocker(target))
-		return
-	if(summoning)
-		if(target.pulledby)
-			to_chat(pulledby, "<span class='clockitalic'There is another body on [src]!</span>")
-		return
+	var/mob/living/carbon/human/converting = null // Who is getting converted
+	var/mob/living/has_clocker = null // A clocker who checks the converting
+
+	var/first_stage = FALSE // Did convert started?
+	var/second_stage = FALSE // Did we started to gib someone?
+	var/convert_timer = 0
+
+/obj/structure/clockwork/functional/altar/Initialize(mapload)
+	. = ..()
+	var/area/A = get_area(src)
+	locname = initial(A.name)
+	GLOB.clockwork_altars += src
+	START_PROCESSING(SSprocessing, src)
+
+/obj/structure/clockwork/functional/altar/Destroy()
+	. = ..()
+	GLOB.clockwork_altars -= src
+	if(converting)
+		stop_convert()
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		anchored = !anchored
+		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		if(!anchored)
+			icon_state = "[initial(icon_state)]-off"
+			STOP_PROCESSING(SSprocessing, src)
+		else
+			icon_state = "[initial(icon_state)]"
+			START_PROCESSING(SSprocessing, src)
+		update_icon()
+		return TRUE
+	return ..()
+
+/obj/structure/clockwork/functional/altar/Uncrossed(atom/movable/AM)
+	. = ..()
+	if(AM == converting)
+		if(first_stage)
+			stop_convert()
+		converting = null
+	if(AM in bodies)
+		bodies -= AM
+
+/obj/structure/clockwork/functional/altar/proc/is_convertable(mob/living/carbon/human/target)
 	if(!target.mind)
-		if(target.pulledby)
-			to_chat(pulledby, "<span class='clockitalic'This body is mindless! It doesn't even worth anything!</span>")
-		return
+		if(!(target in bodies))
+			for(var/mob/living/L in range(1, src))
+				if(isclocker(L))
+					to_chat(L, "<span class='clockitalic'This body is mindless! It doesn't even worth anything!</span>")
+			bodies += target
+		return FALSE
+	if(isclocker(target) && target.stat != DEAD)
+		return FALSE
 	var/obj/item/rod = target.null_rod_check()
 	if(rod)
-		target.visible_message("<span class='warning'>[target]'s [rod.name] glows, protecting them from [src]'s effects!</span>", \
-		"<span class='userdanger'>Your [rod.name] glows, protecting you!</span>")
-		return
-	try_convert(target)
+		if(!(target in bodies))
+			target.visible_message("<span class='warning'>[target]'s [rod.name] glows, protecting them from [src]'s effects!</span>", \
+			"<span class='userdanger'>Your [rod.name] glows, protecting you!</span>")
+			bodies += target
+		return FALSE
+	return TRUE
 
-/obj/structure/clockwork/functional/altar/proc/try_convert(mob/living/carbon/human/target)
-	var/has_clocker = null
-	for(var/mob/living/M in range(1, src))
-		if(isclocker(M) && !M.stat)
-			has_clocker = M
-			break
-	if(!has_clocker)
-		visible_message("<span class='warning'>[src] strains into a gentle yellow color, but quietly fades...</span>")
-		return
-	target.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
-	var/obj/effect/temp_visual/ratvar/altar_convert/glow = new glow_type(get_turf(src))
-	animate(glow, alpha = 255, time = time_until_convert)
-	icon_state = "[initial(icon_state)]-fast"
-	var/timer = 0
-	// We doing some converting here
-	while(timer < time_until_convert)
-		if(get_turf(target) != get_turf(src))
-			break
+/obj/structure/clockwork/functional/altar/process()
+	if(!converting)
+		for(var/mob/living/carbon/human/H in range(0, src))
+			if(is_convertable(H))
+				converting = H
+				convert_timer = 0
+				break
+	else if(!has_clocker)
+		for(var/mob/living/M in range(1, src))
+			if(isclocker(M) && M.stat != DEAD)
+				has_clocker = M
+				break
+	else
+		convert_timer++
+		has_clocker = null
+		for(var/mob/living/M in range(1, src))
+			if(isclocker(M) && M.stat != DEAD)
+				has_clocker = M
+				break
+		if(!has_clocker)
+			stop_convert()
 		if(!anchored)
-			break
-		if(!in_range(src, has_clocker))
-			for(var/mob/living/M in range(1, src))
-				if(!isclocker(M))
-					continue
-				if(M.stat)
-					has_clocker = M
-					break
-			has_clocker = null
-			break
-		timer++
-		sleep(1)
-	if(get_turf(target) != get_turf(src) || !anchored || !has_clocker)
-		QDEL_NULL(glow)
-		if(anchored)
-			icon_state = "[initial(icon_state)]"
-		else
-			icon_state = "[initial(icon_state)]-off"
-		visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
-		return
-	if(target.stat != DEAD && is_convertable_to_clocker(target.mind))
-		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
-		// Brass golem now and the master Ratvar. One way only: Serve or die perma.
-		if(isgolem(target))
-			target.mind.wipe_memory()
-			target.set_species(/datum/species/golem/clockwork)
-		if(SSticker.mode.add_clocker(target.mind))
-			target.create_log(CONVERSION_LOG, "[target] been converted into clockwork cult by altar.")
-		target.Weaken(5) //Accept new power... and new information
-		target.EyeBlind(5)
-	else // Start tearing him apart until GIB
-		timer = 0
-		target.visible_message("<span class='warning'>[src] in glowing manner starts rupturing [target]!</span>", \
-		"<span class='danger'>[src] underneath you starts to tear you to pieces!</span>")
-		while(timer < time_until_convert)
-			if(get_turf(target) != get_turf(src))
-				break
-			if(!anchored)
-				break
-			if(!in_range(src, has_clocker))
-				for(var/mob/living/M in range(1, src))
-					if(!isclocker(M))
-						continue
-					if(M.stat)
-						has_clocker = M
-						break
-				has_clocker = null
-				break
-			timer++
-			sleep(1)
-			if(timer > time_until_convert*0.8)
-				target.adjustBruteLoss(30)
-			else
-				target.adjustBruteLoss(5)
-		if(get_turf(target) == get_turf(src) && src.anchored && has_clocker)
-			var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-			cube.try_to_transfer(target)
-			target.gib()
-			adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+			stop_convert()
+		switch(convert_timer)
+			if(-INFINITY to 8)
+				if(!first_stage)
+					if(!is_convertable(converting))
+						stop_convert()
+					if(isclocker(converting) && converting.stat == DEAD)
+						var/mob/dead/observer/ghost = converting.get_ghost()
+						if(ghost?.client && converting.ghost_can_reenter())
+							to_chat(ghost, "<span class='ghostalert'>Your flesh try to bring back to life. Return to your body if you want to feel alive again!</span> (Verbs -> Ghost -> Re-enter corpse)")
+							window_flash(ghost.client)
+							ghost << sound('sound/effects/genetics.ogg')
+					converting.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
+					glow = new (get_turf(src))
+					animate(glow, alpha = 255, time = 8 SECONDS)
+					icon_state = "[initial(icon_state)]-fast"
+					convert_timer = 0
+					first_stage = TRUE
+			if(8 to 16)
+				if(!second_stage)
+					if(converting.stat != DEAD && is_convertable_to_clocker(converting.mind))
+						to_chat(converting, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+						// Brass golem now and the master Ratvar. One way only: Serve or die perma.
+						converting.heal_overall_damage(50, 50, TRUE)
+						if(isgolem(converting))
+							converting.mind.wipe_memory()
+							converting.set_species(/datum/species/golem/clockwork)
+						if(SSticker.mode.add_clocker(converting.mind))
+							converting.create_log(CONVERSION_LOG, "[converting] been converted into clockwork cult by altar.")
+						converting.Weaken(5) //Accept new power... and new information
+						converting.EyeBlind(5)
+						stop_convert()
+					else if(converting.stat == DEAD && isclocker(converting))
+						if(!converting.client || converting.client.is_afk())
+							set waitfor = FALSE
+							var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 20 SECONDS, source = /obj/item/clockwork/clockslab)
+							if(length(candidates))
+								var/mob/dead/observer/C = pick(candidates)
+								to_chat(converting.mind, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
+								message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(converting)]) to replace an AFK player.")
+								converting.ghostize(FALSE)
+								converting.key = C.key
+							else
+								converting.visible_message("<span class='warning'>[converting] twitches, as [src] declines [converting.p_their()] body!</span>")
+								converting = null
+						converting.revive()
+						converting.set_species(/datum/species/golem/clockwork)
+						stop_convert()
+					else
+						converting.visible_message("<span class='warning'>[src] in glowing manner starts rupturing [converting]!</span>", \
+						"<span class='danger'>[src] underneath you starts to tear you to pieces!</span>")
+					second_stage = TRUE
+				converting.AdjustWeakened(2)
+				converting.adjustBruteLoss(10 + convert_timer)
+			if(16 to INFINITY)
+				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+				cube.try_to_transfer(converting)
+				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+				stop_convert()
 
-		if(src.anchored)
-			icon_state = "[initial(icon_state)]"
-		else
-			icon_state = "[initial(icon_state)]-off"
+/obj/structure/clockwork/functional/altar/proc/stop_convert()
 	QDEL_NULL(glow)
+	first_stage = FALSE
+	second_stage = FALSE
+	convert_timer = 0
+	converting = null
+	if(anchored)
+		icon_state = "[initial(icon_state)]"
+	else
+		icon_state = "[initial(icon_state)]-off"
 	visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
@@ -256,7 +305,6 @@
 		return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
-	summoning = TRUE
 	visible_message("<span class='danger'>The [src] expands itself revealing into the great Ark!</span>")
 	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
 	qdel(src)

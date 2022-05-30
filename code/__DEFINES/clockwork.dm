@@ -51,10 +51,6 @@ GLOBAL_LIST_INIT(hammer_spells, list(
 	new /datum/spell_enchant("Crusher", CRUSH_SPELL, 100),
 	new /datum/spell_enchant("Knock off", KNOCKOFF_SPELL, 100)
 ))
-GLOBAL_LIST_INIT(robe_spells, list(
-	new /datum/spell_enchant("Weak Reflection", WEAK_REFLECT_SPELL, 30),
-	new /datum/spell_enchant("Invisibility", INVIS_SPELL, 60, spell_action = TRUE)
-))
 GLOBAL_LIST_INIT(armour_spells, list(
 	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 10),
 	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, spell_action = TRUE),
