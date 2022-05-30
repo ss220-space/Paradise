@@ -198,7 +198,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/shark/attackby(var/obj/item/weapon, var/mob/user)
 	if(istype(O, /obj/item/wirecutters))
 		to_chat(user, "You butcher \the [src.name]!")
 		new /obj/item/shard/shark_teeth(get_turf(src))
