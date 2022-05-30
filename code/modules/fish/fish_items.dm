@@ -143,8 +143,10 @@
 	if(sizemod == 8)	adj = "enormous"
 	if(sizemod == 9)	adj = "gigantic"
 	if(sizemod == 10)	adj ="colossal"
-	if(size >= 80)	w_class = WEIGHT_CLASS_BULKY
-	if(size >= 40)	w_class = WEIGHT_CLASS_NORMAL
+	switch (size)
+		if(1 to 40) w_class = WEIGHT_CLASS_NORMAL
+		if(41 to 100) w_class = WEIGHT_CLASS_BULKY
+		
 	if(size == 100)
 		sizemod = 20
 		adj = ""
