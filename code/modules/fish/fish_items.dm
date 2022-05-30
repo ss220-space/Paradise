@@ -278,7 +278,9 @@
 	icon_state = "salmon"
 
 /obj/item/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
-	if(is_sharp(O))
+	if(!is_sharp(weapon))
+		return ..()
+		
 	for(var/i = 1 to (sizemod*3))
 		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 	qdel(src)
