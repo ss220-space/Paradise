@@ -282,10 +282,8 @@
 	flags = BLOCKHAIR | BLOCKHEADHAIR
 	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
-	)
+	sprite_sheets = list("Grey" = 'icons/mob/species/grey/head.dmi')
+	ru_names = list(NOMINATIVE = "шлем ратге", GENITIVE = "шлема ратге", DATIVE = "шлему ратге", ACCUSATIVE = "шлем ратге", INSTRUMENTAL = "шлемом ратге", PREPOSITIONAL = "шлеме ратге")
 
 /obj/item/clothing/head/corgi
 	name = "corgi suit head"
