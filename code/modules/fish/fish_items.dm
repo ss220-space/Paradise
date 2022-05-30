@@ -246,7 +246,6 @@
 			new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 		qdel(src)
 		return
-	..()
 
 /obj/item/fish/catfish/throw_impact(atom/hit_atom)
 	. = ..()
