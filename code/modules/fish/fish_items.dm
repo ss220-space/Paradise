@@ -237,7 +237,7 @@
 	unique_desc = "You quiver a bit as this creature gently flops around."
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/catfish/attackby(var/obj/item/weapon, var/mob/user)
 	if(is_sharp(O))
 	to_chat(user, "You carefully clean and gut \the [src.name].")
 		for(var/i = 1 to sizemod)
