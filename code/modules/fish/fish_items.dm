@@ -242,10 +242,9 @@
 		return ..()
 		
 	to_chat(user, "You carefully clean and gut \the [src.name].")
-		for(var/i = 1 to sizemod)
-			new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
-		qdel(src)
-		return
+	for(var/i = 1 to sizemod)
+		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
+	qdel(src)
 
 /obj/item/fish/catfish/throw_impact(atom/hit_atom)
 	. = ..()
