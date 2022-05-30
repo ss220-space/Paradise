@@ -245,6 +245,7 @@
 	name = "clown envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. <i>'HONK!'</i>"
 	icon_state = "clown_envirohelm"
+	item_state = "clown_envirohelm"
 	visor_icon = "clown_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
