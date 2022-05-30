@@ -874,3 +874,27 @@
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
+
+
+//FOR RATVAR!!!!!
+/datum/species/golem/clockwork
+	name = "Brass Golem"
+	prefix = "Brass"
+	special_names = null
+	golem_colour = rgb(176, 136, 32)
+	skinned_type = /obj/item/stack/sheet/brass
+	brute_mod = 2.5
+	burn_mod = 2.5
+	info_text = "As a <span class='danger'>Brass Golem</span>, your body is very fragile, but instead you have powers of Ratvar."
+
+/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	if(!isclocker(H))
+		SSticker.mode.add_clocker(H.mind)
+
+/datum/species/golem/clockwork/handle_death(gibbed, mob/living/carbon/human/H)
+	H.visible_message("<span class='danger'>[H] crumbles into cogs and gears! Then leftovers suddenly dusts!</span>")
+	for(var/obj/item/W in H)
+		H.unEquip(W)
+	new /obj/item/clockwork/clockgolem_remains(get_turf(H))
+	qdel(H) // One-try only
