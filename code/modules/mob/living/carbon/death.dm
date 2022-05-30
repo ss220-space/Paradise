@@ -30,7 +30,7 @@ do {\
 
 	// now the rest of the damage is going to be distributed among other organs
 	var/list/to_be_picked_from = target.internal_organs.Copy()
-	while (internal_damage > 0 && to_be_picked_from.len > 0)
+	while (internal_damage > 0 && length(to_be_picked_from) > 0)
 		var/obj/item/organ/internal/organ_picked = pick(to_be_picked_from)
 		APPLY_DAMAGE(min(rand(5,19), internal_damage), organ_picked, internal_damage)
 		if (organ_picked.damage >= organ_picked.max_damage) // you can't check if the organ is dead because of immortality of the brain
