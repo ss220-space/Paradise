@@ -279,7 +279,7 @@
 	unique_desc = "You can feed an entire fortress for year with it. Too bad you are in space"
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/salmon/attackby(var/obj/item/weapon, var/mob/user as mob)
 	if(!is_sharp(weapon))
 		return ..()
 		
