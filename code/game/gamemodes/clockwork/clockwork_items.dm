@@ -56,11 +56,11 @@
 		var/selected_altar = input(user, "Pick a credence teleport to...", "Teleporation") as null|anything in possible_altars
 		if(!selected_altar)
 			return
-		var/turf/destination = get_turf(selected_altar)
+		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 		animate(user, color = COLOR_PURPLE, time = 50)
 		if(do_after(user, 50, target = user))
-			do_teleport(user, destination, asoundin = 'sound/effects/phasein.ogg')
+			do_teleport(user, get_turf(destination), asoundin = 'sound/effects/phasein.ogg')
 			deplete_spell()
 		user.color = null
 
