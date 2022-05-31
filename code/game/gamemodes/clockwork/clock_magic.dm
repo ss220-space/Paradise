@@ -30,10 +30,36 @@
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
 	var/obj/item/item = owner.get_active_hand()
-	if(istype(item, /obj/item/gripper))
-		var/obj/item/gripper/G = item
-		item = G.gripped_item
 	// If we having something in hand. Check if it can be enchanted. Else skip.
+	if(!item) // Maybe we want to enchant our armor
+		var/list/items = list()
+		var/list/duplicates = list()
+		var/list/possible_items = list()
+		for(var/obj/item/I in owner.contents)
+			if(istype(I, /obj/item/gripper)) // cogs gripper
+				var/obj/item/gripper/G = I
+				I = G.gripped_item
+			if(!I.enchants)
+				continue
+			if(I.name in items) // in case there are doubles clockslabs
+				duplicates[I.name]++
+				possible_items["[I.name] ([duplicates[I.name]])"] = I
+			else
+				items.Add(I.name)
+				duplicates[I.name] = 1
+				possible_items[I.name] = I
+		if(possible_items.len)
+			possible_items += "(NO ITEM)"
+		var/item_to_enchant = input(owner, "Pick a clock spell to prepare...", "Spell Choices") as null|anything in possible_items
+		if(!item_to_enchant)
+			if(possible_items.len) // we had a choice but declined
+				return
+			item_to_enchant = null
+		if(item_to_enchant == "(NO ITEM)")
+			item_to_enchant = null
+		else
+			item = possible_items[item_to_enchant]
+
 	if(length(item?.enchants)) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
@@ -51,13 +77,11 @@
 		var/datum/spell_enchant/spell_enchant = possible_enchants[entered_spell_name]
 		if(QDELETED(src) || owner.incapacitated() || !spell_enchant)
 			return
-		if(istype(item, /obj/item/gripper))
-			var/obj/item/gripper/G = item
-			if(item != G.gripped_item)
+		if(!(item in owner.contents))
+			var/obj/item/gripper/G = locate() in owner
+			if(item != G?.gripped_item)
 				return
-		else
-			if(item != owner.get_active_hand())
-				return
+			return
 
 		if(!channeling)
 			channeling = TRUE
@@ -66,11 +90,18 @@
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
 
-		if(do_after(owner, spell_enchant.time SECONDS, target = owner))
+		var/clock_structur_inrange = locate(/obj/structure/clockwork/functional) in range(1, src)
+		var/time_cast = spell_enchant.time SECONDS
+		if(clock_structur_inrange)
+			time_cast /= 2
+
+		if(do_after(owner, time_cast, target = owner))
 			item.enchant_type = spell_enchant.enchantment
 			if(spell_enchant.spell_action)
-				new /datum/action/item_action/activate/once(item)
-				owner.update_action_buttons()
+				var/datum/action/item_action/activate/enchant/E = new (item)
+				E.owner = owner
+				owner.actions += E
+				owner.update_action_buttons(TRUE)
 			item.update_icon()
 			to_chat(owner, "<span class='clock'>You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!</span>")
 

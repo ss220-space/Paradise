@@ -315,6 +315,7 @@
 	flags_inv = HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer)
+	var/reflect_uses = 2
 
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
@@ -325,6 +326,11 @@
 		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src] sparks!</span>")
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
+		if(reflect_uses <= 0)
+			reflect_uses = 2
+			deplete_spell()
+		else
+			reflect_uses--
 		return TRUE
 	return FALSE
 
@@ -346,7 +352,7 @@
 			armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
 			flags |= NODROP
 			enchant_type = CASTING_SPELL
-			addtimer(CALLBACK(src, .proc/reset_armor), 4)
+			addtimer(CALLBACK(src, .proc/reset_armor), 6 SECONDS)
 		if(FLASH_SPELL)
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
@@ -360,8 +366,8 @@
 			deplete_spell()
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor()
-	to_chat(usr, "<span class='notice>The [src] stops shifting...</span>")
-	armor = initial(armor)
+	to_chat(usr, "<span class='notice'>The [src] stops shifting...</span>")
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags &= ~NODROP
 	deplete_spell()
 
@@ -781,6 +787,9 @@
 		to_chat(user, "<span class='warning'>There is no spell stored!</span>")
 		return
 	else
+		if(!ishuman(user))
+			to_chat(user,"<span class='warning'>You are too weak to crush this massive shard!</span>")
+			return
 		user.visible_message("<span class='warning'>[user] crushes [src] in his hands!</span>", "<span class='notice'>You crush [src] in your hand!</span>")
 		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)

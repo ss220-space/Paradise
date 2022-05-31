@@ -308,16 +308,11 @@
 	name = "Activate [target.name]"
 	button.name = name
 
-/datum/action/item_action/activate/once
+/datum/action/item_action/activate/enchant
 
-/datum/action/item_action/activate/once/New(Target)
+/datum/action/item_action/activate/enchant/New(Target)
 	..()
 	UpdateButtonIcon()
-
-/datum/action/item_action/activate/once/Trigger(attack_self)
-	. = ..()
-	qdel(src)
-
 /datum/action/item_action/halt
 	name = "HALT!"
 

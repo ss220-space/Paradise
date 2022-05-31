@@ -700,4 +700,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /obj/item/proc/deplete_spell()
 	enchant_type = NO_SPELL
+	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
+	if(enchant_action)
+		qdel(enchant_action)
 	update_icon()
