@@ -141,6 +141,29 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
+///datum/outfit/job/warden/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+//	. = ..()
+//	if(H.mind && H.mind.role_alt_title)
+//		switch(H.mind.role_alt_title)
+//			if("Warden")
+//				H.mind.outfit = /datum/outfit/job/warden
+
+/datum/outfit/job/warden/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	if(ismachineperson(H))
+		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
+		implant.insert(H)
+
+	if(!ismachineperson(H))
+		H.dna.SetSEState(GLOB.comicblock, TRUE)
+		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
+		H.dna.default_blocks.Add(GLOB.comicblock)
+	H.check_mutations = TRUE
+	H.add_language("Clownish")
+
 /datum/job/detective
 	title = "Detective"
 	flag = JOB_DETECTIVE
