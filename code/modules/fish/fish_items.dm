@@ -2,6 +2,17 @@
 //////////////////////////////////////////////
 //			Aquarium Supplies				//
 //////////////////////////////////////////////
+#define SIZEMOD_TINY 1
+#define SIZEMOD_SMALL 2
+#define SIZEMOD_AVERAGE 3
+#define SIZEMOD_OVERWEIGHT 4
+#define SIZEMOD_OBESE 5
+#define SIZEMOD_CHONKY 6
+#define SIZEMOD_HUGE 7
+#define SIZEMOD_ENORMOUS 8
+#define SIZEMOD_GIGANTIC 9
+#define SIZEMOD_COLOSSAL 10
+#define SIZEMOD_UNIQUE 20
 
 /obj/item/egg_scoop
 	name = "fish egg scoop"
@@ -117,7 +128,6 @@
 	var/noun
 	var/unique_noun
 	var/unique_desc
-	var/icon/unique_underlay
 
 /obj/item/fish/New()
 	..()
@@ -133,28 +143,28 @@
 		size = 100
 	transform *= TRANSFORM_USING_VARIABLE(size, 100) + 0.8
 	sizemod = (round(size, 10)/10)
-	if(sizemod == 1)	adj = "tiny"
-	if(sizemod == 2)	adj = "small"
-	if(sizemod == 3)	adj = "average"
-	if(sizemod == 4)	adj = "overweight"
-	if(sizemod == 5)	adj = "chonky"
-	if(sizemod == 6)	adj = "obese"
-	if(sizemod == 7)	adj = "huge"
-	if(sizemod == 8)	adj = "enormous"
-	if(sizemod == 9)	adj = "gigantic"
-	if(sizemod == 10)	adj ="colossal"
+	switch(sizemod)
+		if(SIZEMOD_TINY)	adj = "tiny"
+		if(SIZEMOD_SMALL)	adj = "small"
+		if(SIZEMOD_AVERAGE)	adj = "average"
+		if(SIZEMOD_OVERWEIGHT)	adj = "overweight"
+		if(SIZEMOD_OBESE)	adj = "obese"
+		if(SIZEMOD_CHONKY)	adj = "chunky"
+		if(SIZEMOD_HUGE)	adj = "huge"
+		if(SIZEMOD_ENORMOUS)	adj = "enormous"
+		if(SIZEMOD_GIGANTIC)	adj = "giant"
+		if(SIZEMOD_COLOSSAL)	adj = "colossal"
 	switch (size)
 		if(1 to 40) w_class = WEIGHT_CLASS_NORMAL
 		if(41 to 100) w_class = WEIGHT_CLASS_BULKY
-		
+
 	if(size == 100)
-		sizemod = 20
+		sizemod = SIZEMOD_UNIQUE
 		adj = ""
-		alpha = 180
 		noun = unique_noun
 		desc = unique_desc
-		unique_underlay = icon('icons/obj/rune.dmi', pick("main2", "main3", "main4", "main5", "shade1", "shade5", "shade6", "shade4"))
-		unique_underlay.SwapColor("#000000", pick("#1dd82d15", "#2c18df13", "#ff06f313", "#0ddfe610"))
+		var/image/unique_underlay = new('icons/obj/rune.dmi', pick("main2", "main3", "main4", "main5", "shade1", "shade5", "shade6", "shade4"))
+		unique_underlay.alpha = 40
 		underlays += unique_underlay
 	name = "[adj] [noun]"
 
@@ -199,7 +209,7 @@
 	force = 3
 
 /obj/item/fish/shark/attackby(var/obj/item/weapon, var/mob/user)
-	if(iswirecutter(weapon))
+	if(is_sharp(weapon))
 		to_chat(user, "You butcher \the [src.name]!")
 		new /obj/item/shard/shark_teeth(get_turf(src))
 		if(sizemod >= 5)
@@ -240,7 +250,7 @@
 /obj/item/fish/catfish/attackby(var/obj/item/weapon, var/mob/user)
 	if(!is_sharp(weapon))
 		return ..()
-		
+
 	to_chat(user, "You carefully clean and gut \the [src.name].")
 	for(var/i = 1 to sizemod)
 		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
@@ -282,7 +292,7 @@
 /obj/item/fish/salmon/attackby(var/obj/item/weapon, var/mob/user as mob)
 	if(!is_sharp(weapon))
 		return ..()
-		
+
 	for(var/i = 1 to (sizemod*3))
 		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 	qdel(src)
