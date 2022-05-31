@@ -12,7 +12,6 @@
 
 	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
 	create_logs = FALSE
-	// create_attack_logs = FALSE
 	/// Which form is currently selected
 	var/datum/mimic_form/selected_form
 	/// Which forms the user can become
