@@ -63,6 +63,10 @@
 		return TRUE
 	var/obj/item/radio/spy_spider/spy_spider = I
 
+	if(!spy_spider.broadcasting)
+		to_chat(user, "<span class='warning'>Жучок выключен!</span>")
+		return TRUE
+
 	user.unEquip(spy_spider)
 	spy_spider.forceMove(src)
 	spy_spider_attached = spy_spider
