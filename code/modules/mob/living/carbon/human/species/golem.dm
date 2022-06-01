@@ -878,14 +878,23 @@
 
 //FOR RATVAR!!!!!
 /datum/species/golem/clockwork
-	name = "Brass Golem"
-	prefix = "Brass"
+	name = "Латунный Голем"
+	prefix = "Латунн"
 	special_names = null
 	golem_colour = rgb(176, 136, 32)
 	skinned_type = /obj/item/stack/sheet/brass
-	brute_mod = 2.5
-	burn_mod = 2.5
-	info_text = "As a <span class='danger'>Brass Golem</span>, your body is very fragile, but instead you have powers of Ratvar."
+	brute_mod = 2
+	burn_mod = 2
+	info_text = "Будучи <span class='danger'>латунный големом</span>, вы очень хрупкие, но взамен имеете силу Ратвара."
+	special_names = list(
+        MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
+        FEMALE = list("Дева"),
+        NEUTER = null
+        )
+	chance_name_male = 70
+	chance_name_female = 60
+	chance_name_neuter = 10
+	special_name_chance = 40
 
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -897,4 +906,4 @@
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	new /obj/item/clockwork/clockgolem_remains(get_turf(H))
-	qdel(H) // One-try only
+	H.dust() // One-try only

@@ -113,6 +113,7 @@
 
 	var/first_stage = FALSE // Did convert started?
 	var/second_stage = FALSE // Did we started to gib someone?
+	var/third_stage = FALSE // Did we already made a cube?
 	var/convert_timer = 0
 
 /obj/structure/clockwork/functional/altar/Initialize(mapload)
@@ -194,64 +195,79 @@
 			stop_convert()
 		if(!anchored)
 			stop_convert()
+		if(!is_convertable(converting))
+			stop_convert()
 		switch(convert_timer)
 			if(-INFINITY to 8)
 				if(!first_stage)
-					if(!is_convertable(converting))
-						stop_convert()
-					if(isclocker(converting) && converting.stat == DEAD)
-						var/mob/dead/observer/ghost = converting.get_ghost()
-						if(ghost?.client && converting.ghost_can_reenter())
-							to_chat(ghost, "<span class='ghostalert'>Your flesh try to bring back to life. Return to your body if you want to feel alive again!</span> (Verbs -> Ghost -> Re-enter corpse)")
-							window_flash(ghost.client)
-							ghost << sound('sound/effects/genetics.ogg')
-					converting.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
-					glow = new (get_turf(src))
-					animate(glow, alpha = 255, time = 8 SECONDS)
-					icon_state = "[initial(icon_state)]-fast"
-					convert_timer = 0
-					first_stage = TRUE
+					first_stage_check()
 			if(8 to 16)
 				if(!second_stage)
-					if(converting.stat != DEAD && is_convertable_to_clocker(converting.mind))
-						to_chat(converting, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
-						// Brass golem now and the master Ratvar. One way only: Serve or die perma.
-						converting.heal_overall_damage(50, 50, TRUE)
-						if(isgolem(converting))
-							converting.mind.wipe_memory()
-							converting.set_species(/datum/species/golem/clockwork)
-						if(SSticker.mode.add_clocker(converting.mind))
-							converting.create_log(CONVERSION_LOG, "[converting] been converted into clockwork cult by altar.")
-						converting.Weaken(5) //Accept new power... and new information
-						converting.EyeBlind(5)
-						stop_convert()
-					else if(converting.stat == DEAD && isclocker(converting))
-						if(!converting.client || converting.client.is_afk())
-							set waitfor = FALSE
-							var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 20 SECONDS, source = /obj/item/clockwork/clockslab)
-							if(length(candidates))
-								var/mob/dead/observer/C = pick(candidates)
-								to_chat(converting.mind, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
-								message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(converting)]) to replace an AFK player.")
-								converting.ghostize(FALSE)
-								converting.key = C.key
-							else
-								converting.visible_message("<span class='warning'>[converting] twitches, as [src] declines [converting.p_their()] body!</span>")
-								converting = null
-						converting.revive()
-						converting.set_species(/datum/species/golem/clockwork)
-						stop_convert()
-					else
-						converting.visible_message("<span class='warning'>[src] in glowing manner starts rupturing [converting]!</span>", \
-						"<span class='danger'>[src] underneath you starts to tear you to pieces!</span>")
-					second_stage = TRUE
-				converting.AdjustWeakened(2)
-				converting.adjustBruteLoss(10 + convert_timer)
+					second_stage_check()
+				converting.Weaken(2)
+				converting.adjustBruteLoss(10 + convert_timer * 2)
 			if(16 to INFINITY)
-				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-				cube.try_to_transfer(converting)
-				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+				if(!third_stage)
+					third_stage_check()
 				stop_convert()
+
+/obj/structure/clockwork/functional/altar/proc/first_stage_check()
+	if(isclocker(converting) && converting.stat == DEAD)
+		var/mob/dead/observer/ghost = converting.get_ghost()
+		if(ghost?.client && converting.ghost_can_reenter())
+			to_chat(ghost, "<span class='ghostalert'>Your flesh try to bring back to life. Return to your body if you want to feel alive again!</span> (Verbs -> Ghost -> Re-enter corpse)")
+			window_flash(ghost.client)
+			ghost << sound('sound/effects/genetics.ogg')
+	converting.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
+	glow = new (get_turf(src))
+	animate(glow, alpha = 255, time = 8 SECONDS)
+	icon_state = "[initial(icon_state)]-fast"
+	convert_timer = 0
+	first_stage = TRUE
+
+/obj/structure/clockwork/functional/altar/proc/second_stage_check()
+	if(converting.stat != DEAD && is_convertable_to_clocker(converting.mind))
+		to_chat(converting, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+		// Brass golem now and the master Ratvar. One way only: Serve or die perma.
+		converting.heal_overall_damage(50, 50, TRUE)
+		if(isgolem(converting))
+			converting.mind.wipe_memory()
+			converting.set_species(/datum/species/golem/clockwork)
+		if(SSticker.mode.add_clocker(converting.mind))
+			converting.create_log(CONVERSION_LOG, "[converting] been converted into clockwork cult by altar.")
+		converting.Weaken(5) //Accept new power... and new information
+		converting.EyeBlind(5)
+		stop_convert()
+	else if(converting.stat == DEAD && isclocker(converting))
+		converting.revive()
+		converting.set_species(/datum/species/golem/clockwork)
+		if(!converting.client)
+			give_ghost(converting)
+		else
+			to_chat(converting, "<span class='clocklarge'><b>\"You are back once again.\"</b></span>")
+		stop_convert()
+	else
+		converting.visible_message("<span class='warning'>[src] in glowing manner starts rupturing [converting]!</span>", \
+		"<span class='danger'>[src] underneath you starts to tear you to pieces!</span>")
+		converting.Weaken(10)
+	second_stage = TRUE
+
+/obj/structure/clockwork/functional/altar/proc/third_stage_check()
+	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+	cube.try_to_transfer(converting)
+	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+	third_stage = TRUE
+
+/obj/structure/clockwork/functional/altar/proc/give_ghost(var/mob/living/carbon/human/golem)
+	set waitfor = FALSE
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
+	if(length(candidates))
+		var/mob/dead/observer/C = pick(candidates)
+		golem.ghostize(FALSE)
+		golem.key = C.key
+		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
+	else
+		golem.visible_message("<span class='warning'>[golem] twitches as there was no soul after a revival!</span>")
 
 /obj/structure/clockwork/functional/altar/proc/stop_convert()
 	QDEL_NULL(glow)

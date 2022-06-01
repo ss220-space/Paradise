@@ -96,6 +96,7 @@
 			time_cast /= 2
 
 		if(do_after(owner, time_cast, target = owner))
+			item.deplete_spell() // to clear up actions if have
 			item.enchant_type = spell_enchant.enchantment
 			if(spell_enchant.spell_action)
 				var/datum/action/item_action/activate/enchant/E = new (item)

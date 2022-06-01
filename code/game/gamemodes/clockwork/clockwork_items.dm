@@ -61,6 +61,7 @@
 		animate(user, color = COLOR_PURPLE, time = 5 SECONDS)
 		if(do_after(user, 5 SECONDS, target = user))
 			do_teleport(user, get_turf(destination), asoundin = 'sound/effects/phasein.ogg')
+			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
 			deplete_spell()
 		user.color = null
 
@@ -96,6 +97,7 @@
 				var/mob/living/carbon/carbon = living
 				carbon.Stuttering(16)
 				carbon.ClockSlur(16)
+			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)
 			if(istype(target, /obj/machinery/door))
@@ -131,6 +133,7 @@
 			animate(user, color = COLOR_PURPLE, time = 50)
 			if(do_after(user, 50, target = user))
 				do_teleport(user, get_turf(target), asoundin = 'sound/effects/phasein.ogg')
+				add_attack_logs(user, target, "Teleported to by [src]", ATKLOG_ALL)
 				deplete_spell()
 			user.color = null
 
@@ -193,6 +196,7 @@
 				return
 			living.SetConfused(10)
 			to_chat(living, "<span class='danger'>Your mind blanks for a moment!</span>")
+			add_attack_logs(user, living, "Inflicted confusion with [src]")
 			deplete_spell()
 		if(DISABLE_SPELL)
 			new /obj/effect/temp_visual/emp/clock(get_turf(src))
@@ -201,6 +205,7 @@
 				S.emp_act(EMP_LIGHT)
 			else
 				living.emp_act(EMP_HEAVY)
+			add_attack_logs(user, living, "Point-EMP with [src]")
 			deplete_spell()
 
 /obj/item/clock_borg_spear
@@ -256,6 +261,7 @@
 			if(isclocker(target))
 				return
 			target.throw_at(throw_target, 200, 20, user) // vroom
+			add_attack_logs(user, target, "Knocked-off with [src]")
 			deplete_spell()
 		if(CRUSH_SPELL)
 			if(isclocker(target))
@@ -274,6 +280,7 @@
 				var/mob/living/silicon/robot/robot = target
 				var/datum/robot_component/RC = pick(robot.components)
 				RC.destroy()
+			add_attack_logs(user, target, "Crushed with [src]")
 			deplete_spell()
 
 // Clockwork robe. Basic robe from clockwork slab.
@@ -352,7 +359,8 @@
 			armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 90, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 100)
 			flags |= NODROP
 			enchant_type = CASTING_SPELL
-			addtimer(CALLBACK(src, .proc/reset_armor), 6 SECONDS)
+			add_attack_logs(user, user, "Hardened [src]", ATKLOG_ALL)
+			addtimer(CALLBACK(src, .proc/reset_armor, user), 6 SECONDS)
 		if(FLASH_SPELL)
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
@@ -363,10 +371,11 @@
 					return
 				if(M.flash_eyes(2, 1))
 					M.AdjustConfused(2)
+					add_attack_logs(user, M, "Flashed with [src]")
 			deplete_spell()
 
-/obj/item/clothing/suit/armor/clockwork/proc/reset_armor()
-	to_chat(usr, "<span class='notice'>The [src] stops shifting...</span>")
+/obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
+	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags &= ~NODROP
 	deplete_spell()
@@ -418,11 +427,13 @@
 			to_chat(user, "<span class='notice'>You fastening gloves making your moves agile!</span>")
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
+			add_attack_logs(user, user, "North-starred [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, .proc/reset), 8 SECONDS)
 		if(FIRE_SPELL)
 			user.visible_message("<span class='danger'>[user]'s gloves starts to burn!</span>", "<span class='notice>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
+			add_attack_logs(user, user, "Fire-casted [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, .proc/reset), 5 SECONDS)
 
 
@@ -447,6 +458,7 @@
 			robot.Weaken(5)
 		do_sparks(5, 0, loc)
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
 	if(north_star && !user.mind.martial_art)
 		user.changeNext_move(CLICK_CD_RAPID)
@@ -593,19 +605,22 @@
 
 
 /obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target)
+	for(var/obj/item/I in target)
+		target.unEquip(I)
 	if(target.client && target.ghost_can_reenter())
 		transfer_personality(target)
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+		target.dust()
 	else
+		target.dust()
 		icon_state = searching_icon
 		searching = TRUE
 		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
 		if(candidates.len)
 			transfer_personality(pick(candidates))
 		reset_search()
-	for(var/obj/item/I in target)
-		target.unEquip(I)
-	target.dust() // In any way we still make some power from him
+
+	 // In any way we still make some power from him
 
 
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
@@ -798,8 +813,10 @@
 				qdel(src)
 			if(TIME_SPELL)
 				qdel(src)
+				add_attack_logs(user, user, "Time stopped with [src]")
 				new /obj/effect/timestop/clockwork(get_turf(user))
 			if(RECONSTRUCT_SPELL)
+				add_attack_logs(user, user, "Reconstructed with [src]")
 				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(src))
 				qdel(src)
 	return
