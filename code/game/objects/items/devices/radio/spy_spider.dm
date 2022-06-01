@@ -51,6 +51,10 @@
 	QDEL_NULL(spy_spider_attached)
 	return ..()
 
+/obj/item/clothing/emp_act(severity)
+	. = ..()
+	spy_spider_attached?.emp_act(severity)
+
 /obj/item/clothing/hear_talk(mob/M, list/message_pieces)
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
