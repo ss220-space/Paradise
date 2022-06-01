@@ -29,7 +29,7 @@
 		var/list/possible_altars = list()
 		var/list/altars = list()
 		var/list/duplicates = list()
-		for(var/obj/structure/clockwork/functional/altar/altar in GLOB.clockwork_altars)
+		for(var/obj/structure/clockwork/functional/altar/altar as anything in GLOB.clockwork_altars)
 			if(!altar.anchored)
 				continue
 			var/result_name = altar.locname
@@ -58,8 +58,8 @@
 			return
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
-		animate(user, color = COLOR_PURPLE, time = 50)
-		if(do_after(user, 50, target = user))
+		animate(user, color = COLOR_PURPLE, time = 5 SECONDS)
+		if(do_after(user, 5 SECONDS, target = user))
 			do_teleport(user, get_turf(destination), asoundin = 'sound/effects/phasein.ogg')
 			deplete_spell()
 		user.color = null

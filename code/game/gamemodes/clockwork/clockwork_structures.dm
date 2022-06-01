@@ -123,11 +123,11 @@
 	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/clockwork/functional/altar/Destroy()
-	. = ..()
 	GLOB.clockwork_altars -= src
 	if(converting)
 		stop_convert()
 	STOP_PROCESSING(SSprocessing, src)
+	return ..()
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
