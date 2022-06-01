@@ -302,7 +302,7 @@
 	..()
 	if((CLUMSY in user.mutations) && (wielded) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
-		if(force == 0)//so toy swords cannot kill clowns
+		if(!force)//so toy swords cannot kill clowns
 			return
 		user.take_organ_damage(20, 25)
 		return
