@@ -70,7 +70,7 @@
 	user.unEquip(spy_spider)
 	spy_spider.forceMove(src)
 	spy_spider_attached = spy_spider
-	to_chat(user, "<span class='info'>Ты незаметно прикрепил жучка к [src].</span>")
+	to_chat(user, "<span class='info'>Ты незаметно прикрепил жучок к [src].</span>")
 	return TRUE
 
 /obj/item/clothing/proc/remove_spy_spider()
@@ -100,7 +100,7 @@
 		return ..()
 
 	if(!(w_uniform || wear_suit))
-		to_chat(user, "<span class='warning'>У тебя нет желания лезть к [genderize_ru(gender, "нему", "ней", "ним", "ним")] в трусы. Жучок надо крепить на одежду!</span>")
+		to_chat(user, "<span class='warning'>У тебя нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок надо крепить на одежду!</span>")
 		return TRUE
 
 	var/obj/item/radio/spy_spider/spy_spider = I
@@ -120,7 +120,7 @@
 	user.unEquip(spy_spider)
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
-	to_chat(user, "<span class='info'>Ты незаметно прикрепил жучка к одежде [src].</span>")
+	to_chat(user, "<span class='info'>Ты незаметно прикрепил жучок к одежде [src].</span>")
 	return TRUE
 
 
