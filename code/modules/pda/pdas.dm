@@ -39,7 +39,7 @@
 	ttone = "honk"
 
 /obj/item/pda/clown/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 8, 5, 100)
+	AddComponent(/datum/component/slippery, src, 5, 5, 100)
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime
@@ -122,6 +122,17 @@
 	icon_state = "pda-syndi"
 	name = "Military PDA"
 	owner = "John Doe"
+
+/obj/item/pda/syndicate/no_cartridge
+	default_cartridge = null
+	name = "NoName PDA"
+	owner = "Серый Джо" //Не знаю почему Серый Джо, мне так просто захотелось
+
+/obj/item/pda/syndicate/no_cartridge/comms
+	icon_state = "pda-syndie-tc"
+
+/obj/item/pda/syndicate/no_cartridge/rd
+	icon_state = "pda-syndie-rd"
 
 /obj/item/pda/syndicate/New()
 	..()

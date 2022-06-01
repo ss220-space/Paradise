@@ -175,11 +175,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
-/obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(!can_be_reached(user))
-		return 1
-	. = ..()
-
 /obj/structure/window/attack_hand(mob/user)
 	if(!can_be_reached(user))
 		return
@@ -277,6 +272,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
 				return
 			anchored = !anchored
+			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -525,10 +521,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "electrochromic window"
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	var/id
+	var/original_color
+	var/ispolzovano
 
 /obj/structure/window/reinforced/polarized/proc/toggle()
+	if(!ispolzovano)
+		ispolzovano++
+		original_color = color
 	if(opacity)
-		animate(src, color="#FFFFFF", time=5)
+		animate(src, color="[original_color]", time=5)
 		set_opacity(0)
 	else
 		animate(src, color="#222222", time=5)
@@ -559,6 +560,21 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(W.id == src.id || !W.id)
 			spawn(0)
 				W.toggle()
+				return
+	for(var/obj/machinery/door/airlock/G in range(src,range))
+		if(G.id == src.id)
+			spawn(0)
+				if(G.glass)
+					G.airlock_material = null
+					G.glass = FALSE
+					G.update_icon()
+					if(G.density)
+						G.opacity = 1
+				else
+					G.airlock_material = "glass"
+					G.glass = TRUE
+					G.update_icon()
+					G.opacity = 0
 				return
 
 /obj/machinery/button/windowtint/power_change()

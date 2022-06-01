@@ -164,6 +164,36 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
+/datum/design/box_oldsmg
+	name = "WT-550 Auto Gun Ammo box (4.6x30mm)"
+	desc = "A 40 round ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg"
+	req_tech = list("combat" = 2, "materials" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000)
+	build_path = /obj/item/ammo_box/c46x30mm
+	category = list("Weapons")
+/datum/design/box_oldsmg/ap_box
+	name = "WT-550 Auto Gun Armour Piercing Ammo box (4.6x30mm AP)"
+	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_ap"
+	materials = list(MAT_METAL = 12000, MAT_SILVER = 1200)
+	build_path = /obj/item/ammo_box/ap46x30mm
+
+/datum/design/box_oldsmg/ic_box
+	name = "WT-550 Auto Gun Incendiary Ammo box (4.6x30mm IC)"
+	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_ic"
+	materials = list(MAT_METAL = 12000, MAT_SILVER = 1200, MAT_GLASS = 2000)
+	build_path = /obj/item/ammo_box/inc46x30mm
+
+/datum/design/box_oldsmg/tx_box
+	name = "WT-550 Auto Gun Uranium Ammo box (4.6x30mm TX)"
+	desc = "A 20 round uranium tipped ammo box for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_tx"
+	materials = list(MAT_METAL = 12000, MAT_SILVER = 1200, MAT_URANIUM = 4000)
+	build_path = /obj/item/ammo_box/tox46x30mm
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."
@@ -234,6 +264,17 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
 	build_path = /obj/item/gun/energy/immolator
+	locked = 1
+	category = list("Weapons")
+
+/datum/design/ipc_combat_upgrade
+	name = "IPC combat upgrade"
+	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
+	materials = list(MAT_METAL=800, MAT_GLASS=1000, MAT_GOLD=2800, MAT_DIAMOND=1650)
+	id = "ipccombatupgrade"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 6, "magnets" = 5, "powerstorage" = 5, "engineering" = 4,"programming" = 5)
+	build_path = /obj/item/ipc_combat_upgrade
 	locked = 1
 	category = list("Weapons")
 
@@ -383,4 +424,37 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_SILVER = 500)
 	build_path = /obj/item/jammer
 	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/syndie_rcd
+	name = "Syndicate RCD"
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks. This one is made by syndicate"
+	id = "syndie_rcd"
+	req_tech = list("materials" = 2, "engineering" = 4, "syndicate" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 20000, MAT_GLASS=8000, MAT_PLASMA = 10000, MAT_TITANIUM = 10000)
+	build_path = /obj/item/rcd/syndicate
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/syndie_rcd_ammo
+	name = "suspicious matter cartridge"
+	desc = "Highly compressed matter for the RCD."
+	id = "syndie_rcd_ammo"
+	req_tech = list("materials" = 3, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/rcd_ammo/syndicate
+	locked = 0
+	category = list("ILLEGAL")
+
+/datum/design/syndie_rcd_ammo_large
+	name = "large suspicious matter cartridge"
+	desc = "Highly compressed matter for the RCD."
+	id = "syndie_rcd_ammo_large"
+	req_tech = list("materials" = 3, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 40000, MAT_GLASS = 20000, MAT_TITANIUM = 20000, MAT_PLASMA = 20000)
+	build_path = /obj/item/rcd_ammo/syndicate/large
+	locked = 0
 	category = list("ILLEGAL")

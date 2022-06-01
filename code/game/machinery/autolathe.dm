@@ -85,7 +85,7 @@
 /obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Autolathe", name, 750, 700, master_ui, state)
+		ui = new(user, src, ui_key, "Autolathe", name, 780, 700, master_ui, state)
 		ui.open()
 
 
@@ -491,3 +491,15 @@
 /obj/machinery/autolathe/proc/check_disabled_callback()
 	if(!wires.is_cut(WIRE_AUTOLATHE_DISABLE))
 		disabled = FALSE
+
+/obj/machinery/autolathe/security
+	name = "Security Autolathe"
+	desc = "Autolathe with preloaded open recipes"
+	icon = 'icons/obj/sec_autolathe.dmi'
+
+/obj/machinery/autolathe/security/New()
+	. = ..()
+	for (wires)
+		wires.cut(WIRE_AUTOLATHE_HACK)
+	adjust_hacked(TRUE)
+

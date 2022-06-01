@@ -287,6 +287,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
 	tcm.sender_job = "Automated Announcement"
+	tcm.sender_rank = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
@@ -384,6 +385,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
 	var/voicemask = 0 // the speaker is wearing a voice mask
 	var/jobname // the mob's "job"
+	var/rank // the mob's "rank"
 
 	if(jammed)
 		Gibberish_all(message_pieces, 100)
@@ -392,27 +394,32 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		jobname = H.get_assignment()
+		rank = H.get_authentification_rank()
 
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
 		jobname = "No id"
+		rank = "No id"
 
 	// --- AI ---
 	else if(isAI(M))
 		jobname = "AI"
+		rank = "AI"
 
 	// --- Cyborg ---
 	else if(isrobot(M))
 		jobname = "Cyborg"
+		rank = "Cyborg"
 
 	// --- Personal AI (pAI) ---
 	else if(istype(M, /mob/living/silicon/pai))
 		jobname = "Personal AI"
+		rank = "Personal AI"
 
 	// --- Unidentifiable mob ---
 	else
 		jobname = "Unknown"
-
+		rank = "Unknown"
 
 	// --- Modifications to the mob's identity ---
 
@@ -437,6 +444,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
+	tcm.sender_rank = rank
 	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
@@ -462,8 +470,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
-			QDEL_IN(tcm, 20)
+			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
@@ -480,6 +487,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, message_pieces, null, verb)
 
+// To the person who asks "Why is this in a callback?"
+// You see, if you use QDEL_IN on the tcm and on broadcast_message()
+// The timer SS races itself and the message can be deleted before its sent
+// Having both in this callback removes that risk
+/obj/item/radio/proc/broadcast_callback(datum/tcomms_message/tcm)
+	broadcast_message(tcm)
+	qdel(tcm) // Delete the message datum
 
 /*
 /obj/item/radio/proc/accept_rad(obj/item/radio/R as obj, message)
@@ -508,9 +522,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
+		if(freq == SYND_TAIPAN_FREQ && !istype(syndiekey, /obj/item/encryptionkey/syndicate/taipan)) //Чтобы тайпановскую частоту, слышали только тайпановцы
+			return -1
+
 	if(!freq) //recieved on main frequency
 		if(!listening)
 			return -1
+	else if(syndiekey)
+		return canhear_range
 	else
 		var/accept = (freq==frequency && listening)
 		if(!accept)
@@ -621,6 +640,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
+
+/obj/item/radio/borg/syndicate/taipan
+	keyslot = new /obj/item/encryptionkey/syndicate/taipan/borg
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()

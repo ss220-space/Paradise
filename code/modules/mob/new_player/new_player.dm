@@ -42,6 +42,7 @@
 
 
 /mob/new_player/proc/new_player_panel_proc()
+	set waitfor = FALSE
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
@@ -98,8 +99,8 @@
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
-			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready:", "[totalPlayersReady]")
+			//if(check_rights(R_ADMIN, 0, src))
+			stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
@@ -147,6 +148,15 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
+		if(!is_used_species_available(client.prefs.species))
+			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -165,6 +175,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
@@ -192,8 +208,6 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
-				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
 			QDEL_NULL(mind)
 			if (config.respawn_observer) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
@@ -210,8 +224,17 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+			return
+		if(!is_used_species_available(client.prefs.species))
+			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
 		if(client.prefs.species in GLOB.whitelisted_species)
 
@@ -232,6 +255,10 @@
 
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
+
+		if(!is_used_species_available(client.prefs.species))
+			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			return
 
 		if(client.prefs.species in GLOB.whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -284,6 +311,14 @@
 		return 1
 	else
 		return 0
+
+/mob/new_player/proc/is_used_species_available(species)
+	var/list/available_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+	available_species += GLOB.whitelisted_species
+	if(species in available_species)
+		return TRUE
+	else
+		return FALSE
 
 /mob/new_player/proc/IsERTSpawnJob(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
@@ -456,15 +491,16 @@
 	var/hours = mills / 36000
 
 	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
-	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
+	dat += "Продолжительность раунда: [round(hours)]h [round(mins)]m<br>"
+	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
+		dat += "<font color='red'><b>Станция была эвакуирована.</b></font><br>"
 	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
-		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
+		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
+		dat += "<font color='lime'>Станция отметила эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -514,7 +550,7 @@
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
 	if(num_jobs_available)
-		dat += "Choose from the following open positions:<br><br>"
+		dat += "Выберите из следующих открытых позиций:<br><br>"
 		dat += "<table><tr><td valign='top'>"
 		for(var/jobcat in categorizedJobs)
 			if(categorizedJobs[jobcat]["colBreak"])
@@ -593,11 +629,7 @@
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	var/dat = {"<html><meta charset="UTF-8"><body>"}
-	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = 1)
-
-	src << browse(dat, "window=manifest;size=370x420;can_close=1")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
 
 /mob/new_player/Move()
 	return 0

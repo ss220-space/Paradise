@@ -85,6 +85,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
+	var/id //ID for tint controlle
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -147,6 +148,12 @@ About the new airlock wires panel:
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 	update_icon()
+
+// Remove shielding to prevent metal/plasteel duplication
+/obj/machinery/door/airlock/proc/remove_shielding()
+	security_level = AIRLOCK_SECURITY_NONE
+	modify_max_integrity(normal_integrity)
+	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -714,6 +721,12 @@ About the new airlock wires panel:
 	if(isElectrified())
 		shock(user, 100)
 
+/obj/machinery/door/airlock/attack_animal(mob/user)
+	. = ..()
+	if(istype(user, /mob/living/simple_animal/hulk))
+		var/mob/living/simple_animal/hulk/H = user
+		H.attack_hulk(src)
+
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
 		return
@@ -883,10 +896,16 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
 		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
-	else if(lock())
-		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-	else if(unlock())
+		return
+
+	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
+		return
+
+	if(lock()) // Trying to bolt
+		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
+		user.create_log(MISC_LOG, "Bolted", src)
+		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
 	emergency = !emergency
@@ -1393,7 +1412,10 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
 		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
+			if(istype(src, /obj/machinery/door/airlock/syndicate))
+				ae = new/obj/item/airlock_electronics/syndicate(loc)
+			else
+				ae = new/obj/item/airlock_electronics(loc)
 			check_access()
 			if(req_access.len)
 				ae.selected_accesses = req_access

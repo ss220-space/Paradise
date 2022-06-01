@@ -379,8 +379,12 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	resistance_flags = NONE
 
-/obj/item/clothing/under/gladiator/ash_walker
-	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+/obj/item/clothing/under/ash_walker
+	name = "ash-walker uniform"
+	desc = ""
+	icon_state = "ash"
+	item_state = "ash"
+	item_color = "ash"
 	has_sensor = FALSE
 
 //dress
@@ -723,9 +727,10 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	if(!user.ventcrawler)
-		user.ventcrawler = 2
 	..()
+	if(slot == slot_w_uniform)
+		if(!user.ventcrawler)
+			user.ventcrawler = 2
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))

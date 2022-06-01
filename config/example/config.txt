@@ -248,6 +248,15 @@ CHECK_RANDOMIZER
 ## the whitelist
 #USEWHITELIST
 
+## Use DB to load and store whitelist instead of text file.
+#USEWHITELIST_DATABASE
+
+## Prevent jobbanned to pass through whitelist
+#USEWHITELIST_NOJOBBANNED
+
+## Minimum age of byond account that allowed to play withoud discord verification
+#MINIMUM_BYONDACC_AGE 0
+
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 
@@ -517,3 +526,15 @@ RESPAWN_DELAY_DRONE 10
 
 ## Disable splitting logs by Round_ID.
 #FULL_DAY_LOGS
+
+# Allow head to departments to assign civilian to his departament around Head of Personal
+#ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
+
+# Do not write world logs to DreamDaemon log window/stdout on Unix
+#DISABLE_ROOT_LOG
+
+# Log all timers on timer auto reset
+LOG_TIMERS_ON_BUCKET_RESET
+
+## List of IP addresses (separated with space) to be ignored by the world/Topic rate limiting. Useful if you have other services
+TOPIC_FILTERING_WHITELIST 127.0.0.1

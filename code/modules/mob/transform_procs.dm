@@ -1,7 +1,18 @@
 /mob/living/carbon/human/proc/monkeyize()
-	var/mob/H = src
-	H.dna.SetSEState(GLOB.monkeyblock,1)
-	genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
+	if (!dna.GetSEState(GLOB.monkeyblock)) // Monkey block NOT present.
+		dna.SetSEState(GLOB.monkeyblock,1)
+		genemutcheck(src,GLOB.monkeyblock,null,MUTCHK_FORCED)
+
+/mob/living/carbon/human/proc/is_monkeyized()
+	return dna.GetSEState(GLOB.monkeyblock)
+
+/mob/living/carbon/human/proc/humanize()
+	if (dna.GetSEState(GLOB.monkeyblock)) // Monkey block present.
+		dna.SetSEState(GLOB.monkeyblock,0)
+		genemutcheck(src,GLOB.monkeyblock,null,MUTCHK_FORCED)
+
+/mob/living/carbon/human/proc/is_humanized()
+	return !dna.GetSEState(GLOB.monkeyblock)
 
 /mob/new_player/AIize()
 	spawning = 1
@@ -269,6 +280,10 @@
 			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/detective))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/security))
+		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
@@ -297,6 +312,8 @@
 	if(ispath(MP, /mob/living/simple_animal/pet/sloth))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pig))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge))
 		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))

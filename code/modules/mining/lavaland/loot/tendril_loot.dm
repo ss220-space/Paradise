@@ -146,7 +146,7 @@
 	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_admin_level(i) || is_away_level(i))
+		if(is_admin_level(i) || is_away_level(i) || is_taipan(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -382,7 +382,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(!L.anchored)
+		if(!L.anchored && L.loc)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
 			var/old_density = L.density
 			L.density = FALSE // Ensures the hook does not hit the target multiple times

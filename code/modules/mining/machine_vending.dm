@@ -45,6 +45,8 @@
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
 		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
+		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									600),
+		EQUIPMENT("Whetstone",						/obj/item/whetstone,												400),
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1000),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										750),
 		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
@@ -85,6 +87,7 @@
 		EQUIPMENT("Alien Toy", 						/obj/item/clothing/mask/facehugger/toy, 							300),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
 		EQUIPMENT("GAR Meson Scanners", 			/obj/item/clothing/glasses/meson/gar, 								500),
+		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1000),
 		EQUIPMENT("Laser Pointer", 					/obj/item/laser_pointer, 											300),
 		EQUIPMENT("Luxury Shelter Capsule", 		/obj/item/survivalcapsule/luxury, 									3000),
 		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											200),

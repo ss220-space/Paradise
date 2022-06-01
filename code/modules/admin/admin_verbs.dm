@@ -111,7 +111,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/force_hijack
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -130,6 +131,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/client/proc/toggle_log_hrefs,
+	/client/proc/toggle_twitch_censor,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
@@ -170,7 +172,12 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
-	/client/proc/reestablish_db_connection
+	/client/proc/reestablish_db_connection,
+	/client/proc/dmjit_debug_toggle_call_counts,
+	/client/proc/dmjit_debug_dump_call_count,
+	/client/proc/dmjit_debug_dump_opcode_count,
+	/client/proc/dmjit_debug_toggle_hooks,
+	/client/proc/dmjit_debug_dump_deopts
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -265,6 +272,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights == R_HOST)
+			verbs += /client/proc/view_pingstat
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
@@ -283,6 +292,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.admin_verbs_possess,
 		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
+		/client/proc/view_pingstat,
 		GLOB.admin_verbs_rejuv,
 		GLOB.admin_verbs_sounds,
 		GLOB.admin_verbs_spawn,
@@ -357,17 +367,20 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(!check_rights(R_ADMIN))
 		return
+	if(!isliving(mob))
+		return
 
-	if(mob)
-		if(mob.invisibility == INVISIBILITY_OBSERVER)
-			mob.invisibility = initial(mob.invisibility)
-			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
-			mob.add_to_all_human_data_huds()
-			//TODO: Make some kind of indication for the badmin that they are currently invisible
-		else
-			mob.invisibility = INVISIBILITY_OBSERVER
-			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
-			mob.remove_from_all_data_huds()
+	if(mob.invisibility == INVISIBILITY_OBSERVER)
+		mob.invisibility = initial(mob.invisibility)
+		mob.add_to_all_human_data_huds()
+		to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin OFF")
+	else
+		mob.invisibility = INVISIBILITY_OBSERVER
+		mob.remove_from_all_data_huds()
+		to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin ON")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Invisimin")
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"
@@ -654,6 +667,23 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/force_hijack()
+	set category = "Event"
+	set name = "Toggle Shuttle Force Hijack"
+	set desc = "Force shuttle fly to syndicate base."
+
+	if(!check_rights(R_EVENT))
+		return
+
+	var/obj/docking_port/mobile/emergency/S = locate()
+	if(!S)
+		return
+	S.forceHijacked = !S.forceHijacked
+	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
+	log_admin("[key_name(usr)] [admin_verb] forced shuttle hijack.")
+	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.", 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "[admin_verb] forced shuttle hijack")
+
 /client/proc/deadmin_self()
 	set name = "De-admin self"
 	set category = "Admin"
@@ -777,6 +807,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		else
 			config.log_hrefs = 1
 			to_chat(src, "<b>Started logging hrefs</b>")
+
+/client/proc/toggle_twitch_censor()
+	set name = "Toggle Twitch censor"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	if(config)
+		config.twitch_censor = !config.twitch_censor
+		to_chat(src, "<b>Twitch censor is [config.twitch_censor ? "enabled" : "disabled"]</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"

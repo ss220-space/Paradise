@@ -34,7 +34,8 @@
 	head = /obj/item/clothing/head/hardhat/white
 	l_ear = /obj/item/radio/headset/heads/ce
 	id = /obj/item/card/id/ce
-	l_pocket = /obj/item/t_scanner
+	l_pocket = /obj/item/lighter/zippo/ce
+	r_pocket = /obj/item/t_scanner
 	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -58,7 +59,7 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
+	alt_titles = list("Trainee Engineer","Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW

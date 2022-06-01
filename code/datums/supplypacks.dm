@@ -180,6 +180,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "plasmaman life support supplies crate"
 	access = ACCESS_EVA
 
+/datum/supply_packs/emergency/plasmamanextinguisher
+	name = "Plasmaman Extinguisher Cartridges"
+	contains = list(/obj/item/extinguisher_refill,
+					/obj/item/extinguisher_refill,
+					/obj/item/extinguisher_refill,
+					/obj/item/extinguisher_refill)
+	cost = 20
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "plasmaman extinguisher cartridges crate"
+	access = ACCESS_CARGO
+
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
 	contains = list(/obj/item/storage/box/emps,
@@ -390,7 +401,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ablative armor crate"
 
-/datum/supply_packs/security/armory/laserarmor
+/datum/supply_packs/security/armory/sibyl
 	name = "Sibyl Attachments Crate"
 	contains = list(/obj/item/sibyl_system_mod,
 					/obj/item/sibyl_system_mod,
@@ -487,9 +498,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,)
+					/obj/item/ammo_box/magazine/wt550m9)
 	cost = 30
 	containername = "auto rifle ammo crate"
+
+/datum/supply_packs/security/armory/wt550ammobox
+	name = "WT-550 Rifle Ammobox Crate"
+	contains = list(/obj/item/ammo_box/c46x30mm,
+					/obj/item/ammo_box/c46x30mm,
+					/obj/item/ammo_box/c46x30mm,
+					/obj/item/ammo_box/c46x30mm)
+	cost = 60
+	containername = "auto rifle ammobox crate"
 
 /////// Implants & etc
 
@@ -868,7 +888,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/firstaid/o2)
 	cost = 10
 	containername = "oxygen first aid kits crate"
-
+	
+/datum/supply_packs/medical/straightjacket	
+	name = "Straight Jacket Crate"
+	contains = list(/obj/item/clothing/suit/straight_jacket)
+	cost = 40
+	containername = "straight jacket crate"
+	
 /datum/supply_packs/medical/virus
 	name = "Virus Crate"
 	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
@@ -1342,7 +1368,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "50 Plasteel Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plasteel/lowplasma)
 	amount = 50
-	cost = 50
+	cost = 60
 	containername = "plasteel sheets crate"
 
 /datum/supply_packs/materials/glass50
@@ -1873,6 +1899,31 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/computer/sat_control
 					)
 	containername = "shield control board crate"
+
+/datum/supply_packs/misc/station_goal/bfl
+	name = "BFL assembly crate"
+	cost = 150
+	contains = list(
+					/obj/item/circuitboard/machine/bfl_emitter,
+					/obj/item/circuitboard/machine/bfl_receiver
+					)
+	containername = "BFL assembly crate"
+
+/datum/supply_packs/misc/station_goal/bfl_lens
+	name = "BFL High-precision lens"
+	cost = 200
+	contains = list(
+					/obj/machinery/bfl_lens
+					)
+	containername = "BFL High-precision lens"
+
+/datum/supply_packs/misc/station_goal/bfl_goal
+	name = "BFL Mission goal"
+	cost = 12500
+	contains = list(
+					/obj/structure/toilet/golden_toilet/bfl_goal
+					)
+	containername = "Goal crate"
 
 ///////////// Bathroom Fixtures
 

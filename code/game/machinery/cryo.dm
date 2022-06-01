@@ -2,8 +2,8 @@
 #define AUTO_EJECT_HEALTHY	(1<<1)
 
 /obj/machinery/atmospherics/unary/cryo_cell
-	name = "cryo cell"
-	desc = "Lowers the body temperature so certain medications may take effect."
+	name = "криокапсула"
+	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
 	density = 1
@@ -23,6 +23,7 @@
 	var/next_trans = 0
 	var/current_heat_capacity = 50
 	var/efficiency
+	var/conduction_coefficient = 1
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
@@ -122,22 +123,22 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
+		to_chat(user, "<span class='boldnotice'>Криокапсула уже занята!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='danger'>Субъект не должен держать в руках абиотические предметы.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, "<span class='warning'>[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
 		return
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] climbs into the cryo cell.")
+			visible_message("[user] залеза[pluralize_ru(user.gender,"ет","ют")] в криокапсулу.")
 		else
-			visible_message("[user] puts [L.name] into the cryo cell.")
+			visible_message("[user] помеща[pluralize_ru(user.gender,"ет","ют")] [L.name] в криокапсулу.")
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
@@ -193,7 +194,7 @@
 		return
 
 	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+		to_chat(usr, "<span class='boldnotice'>Сначала закройте панель техобслуживания.</span>")
 		return
 
 	ui_interact(user)
@@ -201,7 +202,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 490)
+		ui = new(user, src, ui_key, "Cryo", "Криокапсула", 520, 490)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user)
@@ -284,15 +285,15 @@
 	if(istype(G, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, "<span class='warning'>В криокапсулу уже загружена другая ёмкость.</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "[B] is stuck to you!")
+			to_chat(user, "Вы не можете бросить [B]!")
 			return
 		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
+		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")
 		SStgui.update_uis(src)
 		return
 
@@ -302,12 +303,12 @@
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(user, "<span class='boldnotice'>Сначала закройте панель техобслуживания.</span>")
 			return
 		if(!ismob(GG.affecting))
 			return
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
+			to_chat(user, "<span class='warning'>[GG.affecting] не влеза[pluralize_ru(GG.affecting.gender,"ет","ют")] в [src] потому что к [genderize_ru(GG.affecting.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
 			return
 		var/mob/M = GG.affecting
 		if(put_mob(M))
@@ -321,7 +322,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
 	if(occupant || on)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, "<span class='notice'>Панель техобслуживания закрыта.</span>")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
@@ -380,11 +381,6 @@
 	if(air_contents.total_moles() < 10)
 		return
 	if(occupant)
-		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
-			occupant.bodytemperature = T0C
-			return
-		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
-		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
 			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
 			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
@@ -404,13 +400,23 @@
 		next_trans = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
-	if(air_contents.total_moles() < 1)
+	if(!occupant)
 		return
-	var/air_heat_capacity = air_contents.heat_capacity()
-	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
-	if(combined_heat_capacity > 0)
-		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+	var/cold_protection = 0
+	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+
+	if(ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		cold_protection = H.get_cold_protection(air_contents.temperature)
+
+	if(abs(temperature_delta) > 1)
+		var/air_heat_capacity = air_contents.heat_capacity()
+
+		var/heat = (1 - cold_protection) * conduction_coefficient * temperature_delta * \
+			(air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
+
+		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
+		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
@@ -440,21 +446,21 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
-		to_chat(usr, "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>")
+		to_chat(usr, "<span class='danger'>Подобную форму жизни не удастся поместить в криокапсулу!</span>")
 		return
 	if(occupant)
-		to_chat(usr, "<span class='danger'>The cryo cell is already occupied!</span>")
+		to_chat(usr, "<span class='danger'>Криокапсула уже занята!</span>")
 		return
 	if(M.abiotic())
-		to_chat(usr, "<span class='warning'>Subject may not have abiotic items on.</span>")
+		to_chat(usr, "<span class='warning'>Субъект не должен держать в руках абиотические предметы.</span>")
 		return
 	if(!node)
-		to_chat(usr, "<span class='warning'>The cell is not correctly connected to its pipe network!</span>")
+		to_chat(usr, "<span class='warning'>Криокапсула не подключена к трубам!</span>")
 		return
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
+		to_chat(M, "<span class='boldnotice'>Вас окружает холодная жидкость. Кожа начинает замерзать.</span>")
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
@@ -463,14 +469,14 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Eject occupant"
+	set name = "Извлечь пациента"
 	set category = "Object"
 	set src in oview(1)
 
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
+		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: две минуты.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
@@ -490,12 +496,12 @@
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Move Inside"
+	set name = "Залезть внутрь"
 	set category = "Object"
 	set src in oview(1)
 
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, "<span class='warning'>[usr] не влез[pluralize_ru(usr.gender,"ет","ут")] в [src], потому что к [genderize_ru(usr.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
 		return
 
 	if(stat & (NOPOWER|BROKEN))

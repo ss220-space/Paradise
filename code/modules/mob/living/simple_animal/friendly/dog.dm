@@ -55,15 +55,15 @@
 
 	switch(act)
 		if("bark")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
+			message = "[pick(src.speak_emote)]!"
 			m_type = 2 //audible
 			playsound(src, pick(src.bark_sound), 50, TRUE)
 		if("yelp")
-			message = "<B>[src]</B> yelps!"
+			message = "yelps!"
 			m_type = 2 //audible
 			playsound(src, yelp_sound, 75, TRUE)
 		if("growl")
-			message = "<B>[src]</B> growls!"
+			message = "growls!"
 			m_type = 2 //audible
 		if("help")
 			to_chat(src, "scream, bark, growl")
@@ -90,6 +90,14 @@
 
 //Corgis and pugs are now under one dog subtype
 
+/mob/living/simple_animal/pet/dog/detective
+	name = "Гав-Гавыч"
+	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
+	icon_state = "blackdog"
+	icon_living = "blackdog"
+	icon_dead = "blackdog_dead"
+	icon_resting = "blackdog_rest"
+
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
@@ -97,7 +105,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/clothing/head/corgipelt = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"

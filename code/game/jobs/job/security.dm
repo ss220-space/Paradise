@@ -36,6 +36,7 @@
 	l_ear = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/hos
+	l_pocket = /obj/item/lighter/zippo/hos
 	suit_store = /obj/item/gun/energy/gun
 	pda = /obj/item/pda/heads/hos
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
@@ -83,7 +84,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
@@ -124,10 +125,10 @@
 	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/sunglasses/noir/thermal
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/lighter/zippo
@@ -137,6 +138,7 @@
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
+	satchel = /obj/item/storage/backpack/satchel_detective
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -169,6 +171,7 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	alt_titles = list("Security Cadet")
 	minimal_player_age = 14
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
@@ -185,7 +188,7 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1
@@ -209,6 +212,8 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
+	exp_requirements = 1800
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 
 /datum/outfit/job/brigdoc
@@ -217,7 +222,7 @@
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_brigphys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen
@@ -256,7 +261,7 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1

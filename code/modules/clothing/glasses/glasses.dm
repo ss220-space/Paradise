@@ -62,6 +62,14 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/meson/sunglasses
+	name = "Meson Sunglasses"
+	desc = "An Optical Meson Scanner that protects your eyes"
+	icon_state = "sunmeson"
+	item_state = "sunmeson"
+	flash_protect = 1
+	tint = 1
+
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
@@ -280,6 +288,15 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/thermal_fake
+	desc = "Cheap plastic sunglasses. Wear thoze if yu are kool."
+	name = "Phirmel Soonglesas"
+	icon_state = "sunthermal"
+	item_state = "sunthermal"
+	see_in_dark = 0
+	flash_protect = 0
+	tint = 0
+
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
@@ -295,40 +312,6 @@
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
 	user.update_client_colour()
-
-/obj/item/clothing/glasses/sunglasses/noir/thermal
-	name = "thermal noir sunglasses"
-	desc = "Somehow these seem even more out-of-date than normal sunglasses. BUT equipped with thermal sensors!"
-	icon_state = "sunhud"
-	origin_tech = "magnets=3"
-
-/obj/item/clothing/glasses/sunglasses/noir/thermal/toggle_noir(mob/user)
-	..()
-
-	if(color_view)
-		vision_flags = SEE_MOBS
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-		flash_protect = -1
-		spawn(10)
-			user.update_sight()
-	else
-		vision_flags = initial(vision_flags)
-		lighting_alpha = initial(lighting_alpha)
-		flash_protect = initial(flash_protect)
-		user.update_sight()
-
-/obj/item/clothing/glasses/sunglasses/noir/thermal/emp_act(severity)
-	if(istype(src.loc, /mob/living/carbon/human) && color_view)
-		var/mob/living/carbon/human/M = src.loc
-		to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
-		if(M.glasses == src)
-			M.EyeBlind(3)
-			M.EyeBlurry(5)
-			if(!(NEARSIGHTED in M.mutations))
-				M.BecomeNearsighted()
-				spawn(100)
-					M.CureNearsighted()
-	..()
 
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
@@ -450,6 +433,14 @@
 				spawn(100)
 					M.CureNearsighted()
 	..()
+
+/obj/item/clothing/glasses/thermal/sunglasses
+	name = "Thermal Sunglasses"
+	desc = "How does it even works?.."
+	icon_state = "sunthermal"
+	item_state = "sunthermal"
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"

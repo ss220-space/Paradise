@@ -40,7 +40,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
-	dispensable_reagents = sortList(dispensable_reagents)
+	dispensable_reagents = sortAssoc(dispensable_reagents)
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
@@ -85,7 +85,7 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
-	upgrade_reagents = null
+	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/New()
 	..()
@@ -111,6 +111,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
 			dispensable_reagents |= upgrade_reagents
+			dispensable_reagents = sortAssoc(dispensable_reagents)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -160,7 +161,7 @@
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 390, 655)
+		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 477, 655)
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -204,8 +205,9 @@
 
 	. = TRUE
 	switch(actions)
+		//Chem dispenser dispense amount
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) //Round to nearest 1 and clamp to 0 - 100
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return

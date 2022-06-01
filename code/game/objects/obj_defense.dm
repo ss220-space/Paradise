@@ -70,27 +70,10 @@
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
-///Called to get the damage that hulks will deal to the obj.
-/obj/proc/hulk_damage()
-	return 150 //the damage hulks do on punches to this object, is affected by melee armor
-
-/obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		..(user, TRUE)
-		visible_message("<span class='danger'>[user] smashes [src]!</span>")
-		if(density)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else
-			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, "melee", 0, get_dir(src, user))
-		return TRUE
-	return FALSE
-
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
-		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
+		if((T.intact && level == 1) || T.transparent_floor) //the blob doesn't destroy thing below the floor
 			return
 	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
@@ -199,7 +182,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
-		if(T.intact && level == 1) //fire can't damage things hidden below the floor.
+		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
 			return
 	..()
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))

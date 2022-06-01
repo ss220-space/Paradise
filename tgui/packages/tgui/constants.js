@@ -9,6 +9,7 @@ export const COLORS = {
   // Department colors
   department: {
     command: '#526aff',
+    procedure: '#e3027a',
     security: '#CF0000',
     medical: '#009190',
     science: '#993399',
@@ -59,6 +60,11 @@ export const RADIO_CHANNELS = [
     name: 'SyndTeam',
     freq: 1244,
     color: '#a52a2a',
+  },
+  {
+    name: 'SyndTaipan',
+    freq: 1227,
+    color: '#ffec8b',
   },
   {
     name: 'Red Team',

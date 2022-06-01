@@ -71,11 +71,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		integrity = 3
 		register()
 		check_unknown_names()
-		set_limit(SIBYL_NONLETHAL)
+		sync_limit()
 		W.update_icon()
-		add_log_entity("Модуль установлен в [W]. Сброс доступных режимов до только нелетальных.")
+		add_log_entity("Модуль установлен в [W]. Установка доступных режимов в соответствии с уровнем опасности ([get_security_level_ru()]).")
 		if(!isnull(U))
-			to_chat(U, "<span class='notice'>Вы установили [src] в [W]. Сброс доступных режимов до только нелетальных.</span>")
+			to_chat(U, "<span class='notice'>Вы установили [src] в [W]. Установка доступных режимов в соответствии с уровнем опасности ([get_security_level_ru()]).</span>")
 			if(isnull(user))
 				to_chat(U, "<span class='notice'>Требуется авторизация! Приложите ID-карту.</span>")
 	else
@@ -169,8 +169,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/proc/check_select()
 	if(isnull(weapon))
 		return FALSE
-	var/select_name = weapon.ammo_type[weapon.select].select_name
-	if(lowertext(select_name) in available)
+	var/obj/item/ammo_casing/energy/ammo = weapon.ammo_type[weapon.select]
+	if(lowertext(ammo.select_name) in available)
 		return TRUE
 	else
 		check_unknown_names()
@@ -207,6 +207,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		if(istype(C, /obj/item/pda))
 			var/obj/item/pda/pda = C
 			C = pda.id
+		if(istype(C, /obj/item/storage/wallet))
+			var/obj/item/storage/wallet/wallet = C
+			C = wallet.front_id
 		if(istype(C) && C.registered_name == card.registered_name)
 			return TRUE
 
@@ -214,8 +217,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/sibyl_system_mod/proc/process_fire()
 	if(!isnull(weapon))
-		var/select_name = weapon.ammo_type[weapon.select].select_name
-		add_log_entity("Выполнен выстрел из [weapon] в режиме [select_name].")
+		var/obj/item/ammo_casing/energy/ammo = weapon.ammo_type[weapon.select]
+		add_log_entity("Выполнен выстрел из [weapon] в режиме [ammo.select_name].")
 
 /obj/item/sibyl_system_mod/proc/set_limit(mode)
 	if(isnull(weapon))
@@ -238,6 +241,21 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(ismob(weapon.loc))
 		to_chat(weapon.loc, "<span class='notice'>[message]</span>")
 	return TRUE
+
+/obj/item/sibyl_system_mod/proc/sync_limit()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			set_limit(SIBYL_NONLETHAL)
+		if(SEC_LEVEL_BLUE)
+			set_limit(SIBYL_LETHAL)
+		if(SEC_LEVEL_RED)
+			set_limit(SIBYL_LETHAL)
+		if(SEC_LEVEL_GAMMA)
+			set_limit(SIBYL_DESTRUCTIVE)
+		if(SEC_LEVEL_EPSILON)
+			set_limit(SIBYL_DESTRUCTIVE)
+		if(SEC_LEVEL_DELTA)
+			set_limit(SIBYL_DESTRUCTIVE)
 
 /obj/item/sibyl_system_mod/proc/check_unknown_names()
 	if(isnull(weapon))

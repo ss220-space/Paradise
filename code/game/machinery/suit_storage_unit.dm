@@ -139,6 +139,14 @@
 /obj/machinery/suit_storage_unit/clown/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/blueshield
+	name = "blueshield suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/blueshield
+	req_access = list(ACCESS_BLUESHIELD)
+
+/obj/machinery/suit_storage_unit/blueshield
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/mime
 	name = "mime suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/mime
@@ -157,6 +165,15 @@
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
 /obj/machinery/suit_storage_unit/syndicate/secure
+	secure = TRUE
+
+/obj/machinery/suit_storage_unit/syndicate/secure/comms
+	name = "syndicate suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite/comms
+	mask_type = /obj/item/clothing/mask/gas/syndicate
+	magboots_type = /obj/item/clothing/shoes/magboots/syndie/advance
+	storage_type = /obj/item/tank/jetpack/oxygen/harness
+	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/ert
@@ -256,11 +273,6 @@
 
 /obj/machinery/suit_storage_unit/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(suit)
-	QDEL_NULL(helmet)
-	QDEL_NULL(mask)
-	QDEL_NULL(magboots)
-	QDEL_NULL(storage)
 	QDEL_NULL(wires)
 	return ..()
 

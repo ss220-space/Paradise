@@ -15,6 +15,7 @@
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
+	new /obj/item/storage/backpack/cargo(src)
 //		new /obj/item/cartridge/quartermaster(src)
 
 
@@ -29,11 +30,13 @@
 	icon_off = "secureqmoff"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
+	new /obj/item/storage/backpack/cargo(src)
 	new /obj/item/clothing/under/rank/cargo(src)
 	new /obj/item/clothing/under/rank/cargo/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/neck/cloak/quartermaster(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/tank/emergency_oxygen(src)
 	new /obj/item/clothing/mask/gas(src)

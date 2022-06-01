@@ -76,7 +76,7 @@
 			user.client.register_map_obj(plane)
 		user.client.register_map_obj(cam_background)
 		// Open UI
-		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
+		ui = new(user, src, ui_key, "CameraConsole", name, 1200, 600, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/security/ui_data()
@@ -88,20 +88,23 @@
 			name = active_camera.c_tag,
 			status = active_camera.status,
 		)
-	return data
-
-/obj/machinery/computer/security/ui_static_data()
-	var/list/data = list()
-	data["mapRef"] = map_name
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
 		var/obj/machinery/camera/C = cameras[i]
 		data["cameras"] += list(list(
 			name = C.c_tag,
+			x = C.x,
+			y = C.y,
+			z = C.z,
+			status = C.status
 		))
 	return data
 
+/obj/machinery/computer/security/ui_static_data()
+	var/list/data = list()
+	data["mapRef"] = map_name
+	return data
 
 /obj/machinery/computer/security/ui_act(action, params)
 	if(..())

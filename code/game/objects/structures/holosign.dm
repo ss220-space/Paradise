@@ -41,6 +41,21 @@
 	desc = "The words flicker as if they mean nothing."
 	icon_state = "holosign"
 
+/obj/structure/holosign/wetsign/mine
+	desc = "The words flicker as if they mean something."
+
+/obj/structure/holosign/wetsign/mine/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!isliving(AM))
+		return
+	triggermine(AM)
+
+/obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
+	empulse(src, 1, 1)
+	if(ishuman(victim))
+		victim.adjustStaminaLoss(100)
+	qdel(src)
+
 /obj/structure/holosign/barrier
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
@@ -58,6 +73,10 @@
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
 		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
+			return TRUE
+	else if(issilicon(mover))
+		var/mob/living/silicon/S = mover
+		if(allow_walk && (S.m_intent == MOVE_INTENT_WALK || (S.pulledby && S.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering

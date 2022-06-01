@@ -190,8 +190,8 @@
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 
 			if(mind.vampire)
-				stat("Total Blood", "[mind.vampire.bloodtotal]")
-				stat("Usable Blood", "[mind.vampire.bloodusable]")
+				stat("Всего крови", "[mind.vampire.bloodtotal]")
+				stat("Доступная кровь", "[mind.vampire.bloodusable]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
@@ -295,15 +295,6 @@
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
-/mob/living/carbon/human/bullet_act()
-	if(mind && mind.martial_art && mind.martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!prob(mind.martial_art.deflection_chance))
-			return ..()
-		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
-			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
-			return 0
-	..()
-
 /mob/living/carbon/human/get_restraining_item()
 	. = ..()
 	if(!. && istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
@@ -350,6 +341,11 @@
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
 			if(M.security_lock)
 				dat += "&nbsp;<A href='?src=[M.UID()];locked=\ref[src]'>[M.locked ? "Disable Lock" : "Set Lock"]</A>"
+
+	if(slot_neck in obscured)
+		dat += "<tr><td><font color=grey><B>Neck:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+	else
+		dat += "<tr><td><B>Neck:</B></td><td><A href='?src=[UID()];item=[slot_neck]'>[(neck && !(neck.flags&ABSTRACT))	? html_encode(neck) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
@@ -452,19 +448,23 @@
 	if(istype(pda))
 		if(pda.id)
 			return pda.id.rank
-		else
-			return pda.ownrank
+		return pda.ownrank
+	var/obj/item/storage/wallet/wallet = get_idcard()
+	if(istype(wallet))
+		if(wallet.front_id)
+			return wallet.front_id.rank ? wallet.front_id.rank : if_no_job
+		return if_no_id
 	else
 		var/obj/item/card/id/id = get_idcard()
 		if(id)
 			return id.rank ? id.rank : if_no_job
-		else
-			return if_no_id
+		return if_no_id
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
 		if(pda.id && istype(pda.id, /obj/item/card/id))
@@ -473,6 +473,9 @@
 			. = pda.ownjob
 	else if(istype(id))
 		. = id.assignment
+	else if(istype(wallet))
+		if(istype(wallet.front_id, /obj/item/card/id))
+			. = wallet.front_id.assignment
 	else
 		return if_no_id
 	if(!.)
@@ -484,6 +487,7 @@
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	if(istype(pda))
 		if(pda.id)
 			. = pda.id.registered_name
@@ -491,6 +495,9 @@
 			. = pda.owner
 	else if(istype(id))
 		. = id.registered_name
+	else if(istype(wallet))
+		if(istype(wallet.front_id, /obj/item/card/id))
+			. = wallet.front_id.registered_name
 	else
 		return if_no_id
 	return
@@ -521,8 +528,10 @@
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	if(istype(pda))		. = pda.owner
 	else if(istype(id))	. = id.registered_name
+	else if(istype(wallet)) . = wallet.front_id ? wallet.front_id.registered_name : if_no_id
 	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 
@@ -530,15 +539,17 @@
 /mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/pda/pda = wear_id
+	var/obj/item/storage/wallet/wallet = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
-
+	if(istype(wallet))
+		if(istype(wallet.front_id, /obj/item/card/id))
+			id = wallet.front_id
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
 			id = get_active_hand()
 		else if(istype(get_inactive_hand(), /obj/item/card/id))
 			id = get_inactive_hand()
-
 	if(istype(id))
 		return id
 
@@ -1286,7 +1297,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
+	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand, slot_neck)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1708,9 +1719,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(C.scan_reagents)
 			return 1
 
-/mob/living/carbon/human/can_eat(flags = 255)
-	return dna.species && (dna.species.dietflags & flags)
-
 /mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
@@ -1776,9 +1784,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(HULK in mutations)
-			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return FALSE
 		if(NOGUNS in dna.species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return FALSE
@@ -1992,3 +1997,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   */
 /mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
+
+/mob/living/carbon/human/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

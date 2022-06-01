@@ -115,7 +115,7 @@
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
-		D.apply_effect(4, WEAKEN, armor_block)
+		D.apply_effect(2, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
@@ -144,6 +144,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	if(base)
 		base.teach(H)
+		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"

@@ -96,6 +96,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	var/wall_type = /obj/effect/forcefield/mecha //energywall icon_state
+	var/wall_ready = 1
+	var/wall_cooldown = 200
+	var/large_wall = FALSE
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
@@ -569,15 +573,6 @@
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
-/obj/mecha/hulk_damage()
-	return 15
-
-/obj/mecha/attack_hulk(mob/living/carbon/human/user)
-	. = ..()
-	if(.)
-		log_message("Attack by hulk. Attacker - [user].", 1)
-		add_attack_logs(user, OCCUPANT_LOGGING, "Hulk punched mech [src]")
-
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
 	take_damage(30, BRUTE, "melee", 0, get_dir(src, B))
@@ -786,7 +781,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != 2 && state != 3 && !(state == 4 && pilot_is_mmi()))
+	if(state != 2 && state != 3 && !(state == 4 && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -797,6 +792,12 @@
 	else if(state == 3)
 		state = 2
 		to_chat(user, "You close the hatch to the power unit")
+	else if(ishuman(occupant))
+		user.visible_message("[user] begins levering out the driver from the [src].", "You begin to lever out the driver from the [src].")
+		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+		if(I.use_tool(src, user, 80, volume = I.tool_volume))
+			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
+			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
@@ -932,7 +933,7 @@
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = 1
 			AI.aiRadio.disabledAi = 1
-			AI.loc = card
+			AI.forceMove(card)
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
@@ -968,7 +969,7 @@
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
 	AI.aiRestorePowerRoutine = 0
-	AI.loc = src
+	AI.forceMove(src)
 	occupant = AI
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
@@ -1177,7 +1178,7 @@
 		if(!user.unEquip(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
-		var/mob/brainmob = mmi_as_oc.brainmob
+		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
@@ -1262,7 +1263,7 @@
 		if(istype(mob_container, /obj/item/mmi))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
-				L.loc = mmi
+				L.forceMove(mmi)
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()

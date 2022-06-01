@@ -88,11 +88,11 @@
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 0, 2, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4, 2, tilesSlipped = 0, walkSafely = 0))
+					if(M.slip("the icy floor", 2, 2, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
 						if(prob(5))
 							var/obj/item/organ/external/affected = M.get_organ("head")
@@ -103,10 +103,43 @@
 
 				if(TURF_WET_PERMAFROST) // Permafrost
 					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+	var/mob/living/simple_animal/hulk/Hulk = A
+	if(istype(A, /mob/living/simple_animal/hulk))
+		if(!Hulk.lying)
+			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
+	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
+		if(!Hulk.lying)
+			playsound(src, pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), CHANNEL_BUZZ)
+
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
-	. = ..()
+	if(air && !defer_change && !ignore_air)
+		var/aoxy = air.oxygen
+		var/anitro = air.nitrogen
+		var/aco = air.carbon_dioxide
+		var/atox = air.toxins
+		var/asleep = air.sleeping_agent
+		var/ab = air.agent_b
+		var/atemp = air.temperature
+		. = ..()
+		var/turf/simulated/T = .
+		if(istype(T) && T.air)
+			T.air.oxygen = aoxy
+			T.air.nitrogen = anitro
+			T.air.carbon_dioxide = aco
+			T.air.toxins = atox
+			T.air.sleeping_agent = asleep
+			T.air.agent_b = ab
+			T.air.temperature = atemp
+	else
+		. = ..()
 	queue_smooth_neighbors(src)
+
+/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
+	..()
+	RemoveLattice()
+	if(!ignore_air && air && SSair)
+		SSair.add_to_active(src)
 
 /turf/simulated/proc/is_shielded()
 

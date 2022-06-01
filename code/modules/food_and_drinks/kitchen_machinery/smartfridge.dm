@@ -145,7 +145,7 @@
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SStgui.update_uis(src)
 		update_icon()
-	else if(istype(O, /obj/item/storage/bag))
+	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/bag/P = O
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
@@ -255,6 +255,9 @@
 			item_quants[K] = max(count - amount, 0)
 
 			var/i = amount
+			if(i <= 0)
+				message_admins("[usr] tried to dupe items from the fridge")
+				return
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				for(var/obj/O in contents)
 					if(O.name == K)
@@ -343,6 +346,12 @@
 	return is_type_in_typecache(O, accepted_items_typecache)
 
 /**
+  * # Syndie Fridge
+  */
+/obj/machinery/smartfridge/syndie
+	name = "\improper Suspicious SmartFridge"
+	icon_state = "syndi_smartfridge"
+/**
   * # Secure Fridge
   *
   * Secure variant of the [Smart Fridge][/obj/machinery/smartfridge].
@@ -398,6 +407,8 @@
 		/obj/item/reagent_containers/food/pill,
 	))
 
+/obj/machinery/smartfridge/medbay/syndie
+	icon_state = "syndi_smartfridge"
 /**
   * # Slime Extract Storage
   *
@@ -407,9 +418,16 @@
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
 
+/obj/machinery/smartfridge/secure/extract/syndie
+	name = "\improper Suspicious Slime Extract Storage"
+	desc = "A refrigerated storage unit for slime extracts"
+	icon_state = "syndi_smartfridge"
+
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_RESEARCH]"
+	req_one_access = list(ACCESS_RESEARCH)
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_one_access = list(ACCESS_SYNDICATE)
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -435,6 +453,9 @@
 		/obj/item/reagent_containers/food/pill,
 	))
 
+/obj/machinery/smartfridge/secure/medbay/syndie
+	icon_state = "syndi_smartfridge"
+	req_one_access_txt = "150"
 /**
   * # Smart Chemical Storage
   *
@@ -489,6 +510,7 @@
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
 	req_access_txt = null
+	icon_state = "syndi_smartfridge"
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
@@ -565,6 +587,7 @@
   * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
+	icon_state = "syndi_smartfridge"
 	req_access_txt = null
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
@@ -586,6 +609,24 @@
 		/obj/item/reagent_containers/glass,
 		/obj/item/reagent_containers/food/drinks,
 		/obj/item/reagent_containers/food/condiment,
+	))
+
+/**
+  * # Dish Showcase
+  *
+  * Dish variant of the [Smart Fridge][/obj/machinery/smartfridge].
+  */
+/obj/machinery/smartfridge/dish
+	name = "\improper Dish Showcase"
+	desc = "A refrigerated storage unit for some delicious food."
+
+/obj/machinery/smartfridge/dish/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/reagent_containers/food/condiment,
+		/obj/item/kitchen,
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/food,
 	))
 
 /**

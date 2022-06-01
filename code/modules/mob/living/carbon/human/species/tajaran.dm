@@ -27,10 +27,6 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
-	dietflags = DIET_OMNI
-	hunger_drain = 0.15
-	speed_mod = -0.4
-	burn_mod = 1.8
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
@@ -67,10 +63,13 @@
 								 /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
+
+	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
+	liked_food = MEAT | RAW | DAIRY | EGG
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

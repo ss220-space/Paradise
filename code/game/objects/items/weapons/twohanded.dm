@@ -180,6 +180,8 @@
 	force = 5
 	throwforce = 15
 	sharp = TRUE
+	embed_chance = 25
+	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
@@ -246,7 +248,7 @@
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			M.Weaken(4)
+			M.Weaken(3)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -297,10 +299,6 @@
 	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	if(HULK in user.mutations)
-		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
-		unwield()
-		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
@@ -320,11 +318,6 @@
 	if(wielded)
 		return ..()
 	return FALSE
-
-/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
-	if(wielded)
-		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
-		return TRUE
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"
@@ -388,6 +381,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = TRUE
+	embed_chance = 50
+	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
 	max_integrity = 200
@@ -530,6 +525,8 @@
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
 	sharp = TRUE
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 
@@ -597,6 +594,8 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/twohanded/chainsaw/update_icon()
 	if(wielded)
@@ -614,7 +613,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(4)
+			target.Weaken(1)
 			..()
 		return
 	else
@@ -727,14 +726,14 @@
 		//charged = 0
 		playsound(loc, "sparks", 50, 1)
 		if(isliving(M))
-			M.Stun(3)
+			M.Stun(2)
 			shock(M)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(3)
+		L.Stun(2)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -892,6 +891,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharp = TRUE
+	embed_chance = 50
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"

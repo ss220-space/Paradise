@@ -119,8 +119,17 @@ GLOBAL_PROTECT(log_end)
 /proc/log_misc(text)
 	rustg_log_write(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
+/proc/log_antag_objectives(datum/mind/Mind)
+	rustg_log_write(GLOB.world_game_log, "GAME: Start objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
+	var/count = 1
+	for(var/datum/objective/objective in Mind.objectives)
+		rustg_log_write(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
+		count++
+	rustg_log_write(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
+
 /proc/log_world(text)
-	SEND_TEXT(world.log, text)
+	if(config && !config.disable_root_log)
+		SEND_TEXT(world.log, text)
 	if(config && config.log_world_output)
 		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 

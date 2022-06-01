@@ -48,11 +48,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
 			continue
-
-		possible_targets += possible_target
+		possible_targets[possible_target.assigned_role] += list(possible_target)
 
 	if(possible_targets.len > 0)
-		target = pick(possible_targets)
+		var/target_role = pick(possible_targets)
+		target = pick(possible_targets[target_role])
 
 /**
   * Called when the objective's target goes to cryo.
@@ -587,7 +587,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = "Accumulate at least [target_amount] total units of blood."
+	explanation_text = "Накопить не менее [target_amount] единиц крови."
 	return target_amount
 
 /datum/objective/blood/check_completion()

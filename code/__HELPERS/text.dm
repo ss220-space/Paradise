@@ -34,6 +34,8 @@
 
 //Removes a few problematic characters
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
+	if(config && config.twitch_censor)
+		repl_chars += config.twich_censor_list
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
@@ -505,6 +507,10 @@
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[slogo\]", 	"")
+		text = replacetext(text, "\[time\]", 	"")
+		text = replacetext(text, "\[date\]", 	"")
+		text = replacetext(text, "\[station\]", "")
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -521,7 +527,10 @@
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[slogo\]",	"&ZeroWidthSpace;<img src = syndielogo.png>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
+		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
+		text = replacetext(text, "\[station\]", "[station_name()]")
 		if(!no_font)
 			if(P)
 				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
@@ -601,6 +610,7 @@
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src = syndielogo.png>",	"\[slogo\]")
 	return text
 
 /datum/html/split_holder

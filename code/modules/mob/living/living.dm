@@ -240,7 +240,7 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf in view())
+/mob/living/pointed(atom/A as mob|obj|turf)
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 	if(status_flags & FAKEDEATH)
@@ -443,6 +443,7 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
+	SetDisgust(0)
 	SetParalysis(0, 1, 1)
 	SetStunned(0, 1, 1)
 	SetWeakened(0, 1, 1)

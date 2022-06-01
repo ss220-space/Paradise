@@ -125,6 +125,7 @@
 		return 1 //It hit the grenade, not them
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	if(istype(I,/obj/item/hand_labeler))
 		var/obj/item/hand_labeler/HL = I
 		if(length(HL.label))
@@ -158,7 +159,7 @@
 					else
 						contained = "\[ [contained]\]"
 				var/turf/bombturf = get_turf(loc)
-				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
+				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_FEW)
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
@@ -222,6 +223,8 @@
 			nadeassembly.master = null
 			nadeassembly = null
 			qdel(GetComponent(/datum/component/proximity_monitor))
+		else
+			new /obj/item/stack/cable_coil(get_turf(src), 1)
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.loc = get_turf(src)
