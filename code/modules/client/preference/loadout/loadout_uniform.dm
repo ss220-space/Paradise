@@ -101,6 +101,10 @@
 	display_name = "a kilt"
 	path = /obj/item/clothing/under/kilt
 
+/datum/gear/uniform/suit/executive
+	display_name = "executive suit"
+	path = /obj/item/clothing/under/suit_jacket/really_black
+
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 
@@ -192,7 +196,7 @@
 /datum/gear/uniform/skirt/job/security
 	display_name = "skirt, security"
 	path = /obj/item/clothing/under/rank/security/skirt
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "skirt, hos"

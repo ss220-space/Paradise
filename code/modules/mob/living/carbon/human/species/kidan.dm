@@ -13,7 +13,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
-	dietflags = DIET_HERB
 	flesh_color = "#ba7814"
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
@@ -32,15 +31,29 @@
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest),
+		"groin" =  list("path" = /obj/item/organ/external/groin),
+		"head" =   list("path" = /obj/item/organ/external/head/kidan),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
+		"l_hand" = list("path" = /obj/item/organ/external/hand),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
+		"l_foot" = list("path" = /obj/item/organ/external/foot),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
+		)
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
 	suicide_messages = list(
-		"is attempting to bite their antenna off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is cracking their exoskeleton!",
-		"is stabbing themselves with their mandibles!",
-		"is holding their breath!")
+		"пытается откусить себе усики!",
+		"вонзает когти в свои глазницы!",
+		"сворачивает себе шею!",
+		"разбивает себе панцирь",
+		"протыкает себя челюстями!",
+		"задерживает дыхание!")
 
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
@@ -56,3 +69,6 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_click
 	H.verbs -= /mob/living/carbon/human/proc/emote_clack
+
+	disliked_food = FRIED | DAIRY
+	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT

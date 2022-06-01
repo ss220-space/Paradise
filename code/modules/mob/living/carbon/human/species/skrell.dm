@@ -16,7 +16,6 @@
 	species_traits = list(LIPS, NO_OBESITY)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
-	dietflags = DIET_HERB
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
@@ -27,6 +26,9 @@
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
+
+	disliked_food = MEAT | RAW | EGG
+	liked_food = VEGETABLES | FRUIT
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,
@@ -40,11 +42,11 @@
 		)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their thumbs into their eye sockets!",
-		"is twisting their own neck!",
-		"makes like a fish and suffocates!",
-		"is strangling themselves with their own tendrils!")
+		"пытается откусить себе язык!",
+		"выдавливает большими пальцами свои глазницы!",
+		"сворачивает себе шею!",
+		"задыхается словно рыба!",
+		"душит себя собственными усиками!")
 
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()

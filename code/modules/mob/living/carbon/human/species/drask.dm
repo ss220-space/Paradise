@@ -27,16 +27,15 @@
 	is of breathable density."
 
 	suicide_messages = list(
-		"is self-warming with friction!",
-		"is jamming fingers through their big eyes!",
-		"is sucking in warm air!",
-		"is holding their breath!")
+		"трёт себя до возгорания!",
+		"давит пальцами на свои большие глаза!",
+		"втягивает теплый воздух!",
+		"задерживает дыхание!")
 
 	species_traits = list(LIPS, IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
-	dietflags = DIET_OMNI
 
 	cold_level_1 = -1 //Default 260 - Lower is better
 	cold_level_2 = -1 //Default 200
@@ -73,3 +72,6 @@
 /datum/species/drask/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_hum
+
+	disliked_food = SUGAR | GROSS
+	liked_food = DAIRY
