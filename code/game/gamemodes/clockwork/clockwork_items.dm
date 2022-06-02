@@ -761,6 +761,7 @@
 			return
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 		soul.brainmob.mind.transfer_to(cog)
+		SSticker.mode.add_clock_actions(cog.mind)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
 		user.unEquip(soul)
 		qdel(soul)

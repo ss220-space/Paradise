@@ -470,6 +470,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			icon = 'icons/mob/clockwork_mobs.dmi'
 			icon_state = "cyborg"
 			status_flags &= ~CANPUSH
+			QDEL_NULL(mmi)
+			mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
 
 	//languages
 	module.add_languages(src)
@@ -865,7 +867,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
-	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user))
+	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user) && src != user)
 		locked = !locked
 		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
@@ -1262,6 +1264,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
+	if((modtype != "Clockwork" || !mmi.clock) && isclocker(src))
+		to_chat(src, "<span class='warning'>With body torn into pieces, your mind got free from evil cult!</span>")
+		SSticker.mode.remove_clocker(mind, FALSE)
 	if(robot_suit)
 		robot_suit.forceMove(T)
 		robot_suit.l_leg.forceMove(T)
