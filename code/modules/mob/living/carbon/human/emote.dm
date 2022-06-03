@@ -155,21 +155,21 @@
 		if("howl", "howls")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "делает вид что воет[M ? " на [M]" : ""]!"
+				message = "делает вид что воет[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "воет[M ? " на [M]" : ""]!"
+					message = "воет[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]!"
 					playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "издает очень громкий шум[M ? " на [M]" : ""]."
+					message = "издает очень громкий шум[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 					playsound(loc, 'sound/goonstation/voice/howl.ogg', 25, 1, 10, frequency = get_age_pitch())
 					m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
-			message = "рычит[M ? " на [M]" : ""]."
+			message = "рычит[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, "growls", !muzzled ? 80:25, 1, frequency = get_age_pitch())
 			m_type = 2
 
@@ -186,42 +186,42 @@
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
 
-			message = "звенит[M ? " на [M]" : ""]."
+			message = "звенит[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz2")
 			var/M = handle_emote_param(param)
 
-			message = "издает раздраженный жужжащий звук[M ? " на [M]" : ""]."
+			message = "издает раздраженный жужжащий звук[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = handle_emote_param(param)
 
-			message = "жужжит[M ? " на [M]" : ""]."
+			message = "жужжит[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("beep", "beeps")
 			var/M = handle_emote_param(param)
 
-			message = "пищит[M ? " на [M]" : ""]."
+			message = "пищит[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
 			var/M = handle_emote_param(param)
 
-			message = "[M ? "грохочет на [M]" : "грохочет"]."
+			message = "[M ? "грохочет на [M.declent_ru(ACCUSATIVE)]" : "грохочет"]."
 			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("squish", "squishes")
 			var/M = handle_emote_param(param)
 
-			message = "хлюпает[M ? " на [M]" : ""]."
+			message = "хлюпает[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
@@ -231,7 +231,7 @@
 			mineral_scan_pulse(get_turf(src), range = world.view)
 			m_type = 2
 			if(head)
-				message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
+				message = "трещит своей нижней челюстью[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 				playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			else
 				message = "отчаянно дёргается."
@@ -241,7 +241,7 @@
 			var/M = handle_emote_param(param)
 			mineral_scan_pulse(get_turf(src), range = world.view)
 			if(head)
-				message = "щелкает своей нижней челюстью[M ? " на [M]" : ""]."
+				message = "щелкает своей нижней челюстью[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 				playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 				m_type = 2
 			else
@@ -259,7 +259,7 @@
 			var/M = handle_emote_param(param)
 
 			if(!muzzled)
-				message = "шипит[M ? " на [M]" : ""]."
+				message = "шипит[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
 				m_type = 2
 			else
@@ -269,28 +269,28 @@
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
 
-			message = "шуршит своими перьями[M ? " на [M]" : ""]."
+			message = "шуршит своими перьями[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
 		if("warble", "warbles")
 			var/M = handle_emote_param(param)
 
-			message = "издает трель[M ? " на [M]" : ""]."
+			message = "издает трель[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
 			var/M = handle_emote_param(param)
 
-			message = "испускает утвердительный сигнал[M ? " для [M]" : ""]."
+			message = "испускает утвердительный сигнал[M ? " для [M.declent_ru(GENITIVE)]" : ""]."
 			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("no")
 			var/M = handle_emote_param(param)
 
-			message = "испускает отрицательный сигнал[M ? " для [M]" : ""]."
+			message = "испускает отрицательный сигнал[M ? " для [M.declent_ru(GENITIVE)]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
@@ -668,11 +668,11 @@
 		if("laugh", "laughs")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "бесшумно сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M]" : ""]."
+				message = "бесшумно сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M.declent_ru(INSTRUMENTAL)]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M]" : ""]."
+					message = "сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M.declent_ru(INSTRUMENTAL)]" : ""]."
 					if(gender == FEMALE)
 						playsound(src, pick('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 					else
@@ -691,10 +691,10 @@
 		if("grumble", "grumbles")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "бесшумно ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
+				message = "бесшумно ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]!"
 				m_type = 1
 			if(!muzzled)
-				message = "ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
+				message = "ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]!"
 				m_type = 2
 			else
 				message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -732,10 +732,10 @@
 				param = null
 			else
 				if(miming)
-					message = "затягива[pluralize_ru(src.gender,"ет","ют")]ся сигаретой \"[M]\" и выдыха[pluralize_ru(src.gender,"ет","ют")] дым."
+					message = "затягива[pluralize_ru(src.gender,"ет","ют")]ся сигаретой \"[M.declent_ru(GENITIVE)]\" и выдыха[pluralize_ru(src.gender,"ет","ют")] дым."
 					m_type = 1
 				else
-					message = "говор[pluralize_ru(src.gender,"ит","ят")], \"[M], пожалуйста. У них была семья.\" [name] затягива[pluralize_ru(src.gender,"ет","ют")] сигаретой и выдыха[pluralize_ru(src.gender,"ет","ют")] свое имя в дыму."
+					message = "говор[pluralize_ru(src.gender,"ит","ят")], \"[M.declent_ru(NOMINATIVE)], пожалуйста. У них была семья.\" [name] затягива[pluralize_ru(src.gender,"ет","ют")] сигаретой и выдыха[pluralize_ru(src.gender,"ет","ют")] свое имя в дыму."
 					m_type = 2
 
 		if("point", "points")
@@ -761,7 +761,7 @@
 		if("shake", "shakes")
 			var/M = handle_emote_param(param, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves.
 
-			message = "тряс[pluralize_ru(src.gender,"ет","ут")] головой[M ? " на [M]" : ""]."
+			message = "тряс[pluralize_ru(src.gender,"ет","ут")] головой[M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]."
 			m_type = 1
 
 		if("shrug", "shrugs")
@@ -785,7 +785,7 @@
 		if("smile", "smiles")
 			var/M = handle_emote_param(param, 1)
 
-			message = "улыба[pluralize_ru(src.gender,"ет","ют")]ся[M ? " [M]" : ""]."
+			message = "улыба[pluralize_ru(src.gender,"ет","ют")]ся[M ? " [M.declent_ru(DATIVE)]" : ""]."
 			m_type = 1
 
 		if("shiver", "shivers")
@@ -829,7 +829,7 @@
 		if("sniff", "sniffs")
 			var/M = handle_emote_param(param, 1)
 
-			message = "нюха[pluralize_ru(src.gender,"ет","ют")][M ? " [M]" : ""]."
+			message = "нюха[pluralize_ru(src.gender,"ет","ют")][M ? " [M.declent_ru(ACCUSATIVE)]" : ""]."
 			m_type = 2
 			if(miming)
 				m_type = 1
@@ -869,7 +869,7 @@
 		if("wink", "winks")
 			var/M = handle_emote_param(param, 1)
 
-			message = "подмигива[pluralize_ru(src.gender,"ет","ют")][M ? " [M]" : ""]."
+			message = "подмигива[pluralize_ru(src.gender,"ет","ют")][M ? " [M.declent_ru(DATIVE)]" : ""]."
 			m_type = 1
 
 		if("yawn", "yawns")
@@ -900,7 +900,7 @@
 				var/M = handle_emote_param(param, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves and only check mobs in our immediate vicinity (1 tile distance).
 
 				if(M)
-					message = "обнима[pluralize_ru(src.gender,"ет","ют")] [M]."
+					message = "обнима[pluralize_ru(src.gender,"ет","ют")] [M.declent_ru(ACCUSATIVE)]."
 				else
 					message = "обнима[pluralize_ru(src.gender,"ет","ют")] сам[genderize_ru(src.gender,"","а","о","и")] себя."
 
@@ -911,9 +911,9 @@
 
 				if(M)
 					if(M.canmove && !M.r_hand && !M.restrained())
-						message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+						message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M.declent_ru(DATIVE)]."
 					else
-						message = "протягива[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+						message = "протягива[pluralize_ru(src.gender,"ет","ют")] руку [M.declent_ru(DATIVE)]."
 
 		if("dap", "daps")
 			m_type = 1
@@ -921,9 +921,9 @@
 				var/M = handle_emote_param(param, null, 1)
 
 				if(M)
-					message = "да[pluralize_ru(src.gender,"ет","ют")] пять [M]."
+					message = "да[pluralize_ru(src.gender,"ёт","ют")] пять [M.declent_ru(DATIVE)]."
 				else
-					message = "не смог[genderize_ru(src.gender,"","ла","ло","ли")] найти кому дать пять, и да[pluralize_ru(src.gender,"ет","ют")] пять сам[genderize_ru(src.gender,"","а","о","и")] себе. Позорище."
+					message = "не смог[genderize_ru(src.gender,"","ла","ло","ли")] найти кому дать пять, и да[pluralize_ru(src.gender,"ёт","ют")] пять сам[genderize_ru(src.gender,"","а","о","и")] себе. Позорище."
 
 		if("slap", "slaps")
 			m_type = 1
@@ -933,7 +933,7 @@
 				if(M)
 					for(var/mob/living/carbon/human/A in view(1, null))
 						if(lowertext(M) == lowertext(A.name))
-							message = "<span class='danger'>шлепа[pluralize_ru(src.gender,"ет","ют")] [M]. Оу!</span>"
+							message = "<span class='danger'>шлепа[pluralize_ru(src.gender,"ет","ют")] [M.declent_ru(ACCUSATIVE)]. Оу!</span>"
 							playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 							var/obj/item/organ/external/O = A.get_organ(src.zone_selected)
 							if(O.brute_dam < 5)
@@ -948,11 +948,11 @@
 		if("scream", "screams")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "дела[pluralize_ru(src.gender,"ет","ют")] вид что крич[pluralize_ru(src.gender,"ит","ат")][M ? " на [M]" : ""]!"
+				message = "дела[pluralize_ru(src.gender,"ет","ют")] вид что крич[pluralize_ru(src.gender,"ит","ат")][M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "[pluralize_ru(src.gender,"[dna.species.scream_verb]","кричат")][M ? " на [M]" : ""]!"
+					message = "[pluralize_ru(src.gender,"[dna.species.scream_verb]","кричат")][M ? " на [M.declent_ru(ACCUSATIVE)]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
 						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
@@ -960,7 +960,7 @@
 						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
-					message = "изда[pluralize_ru(src.gender,"ет","ют")] очень громкий шум[M ? " в сторону [M]" : ""]."
+					message = "изда[pluralize_ru(src.gender,"ёт","ют")] очень громкий шум[M ? " в сторону [M.declent_ru(GENITIVE)]" : ""]."
 					m_type = 2
 
 		if("whistle", "whistles")
@@ -973,7 +973,7 @@
 					playsound(src, 'sound/voice/whistle.ogg', 70)
 					m_type = 2
 				else
-					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
+					message = "изда[pluralize_ru(src.gender,"ёт","ют")] шум."
 					m_type = 2
 
 		if("snap", "snaps")
@@ -995,7 +995,7 @@
 
 				var/M = handle_emote_param(param)
 
-				message = "щелка[pluralize_ru(src.gender,"ет","ют")] пальцами[M ? " в сторону [M]" : ""]."
+				message = "щелка[pluralize_ru(src.gender,"ет","ют")] пальцами[M ? " в сторону [M.declent_ru(GENITIVE)]" : ""]."
 				playsound(loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
 			else
 				message = "<span class='danger'>лома[pluralize_ru(src.gender,"ет","ют")] себе палец!</span>"
