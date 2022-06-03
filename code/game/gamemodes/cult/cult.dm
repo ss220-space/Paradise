@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
-		cult_objs.study(cult_mind.current)
+		cult_objs.cult_study(cult_mind.current)
 	cult_threshold_check()
 	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(cult_ascendant)
 				ascend(cult_mind.current)
 		check_cult_size()
-		cult_objs.study(cult_mind.current)
+		cult_objs.cult_study(cult_mind.current)
 		return TRUE
 
 

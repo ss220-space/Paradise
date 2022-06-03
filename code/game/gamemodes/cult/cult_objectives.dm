@@ -15,7 +15,7 @@
 	else
 		ready_to_summon()
 
-/datum/cult_objectives/proc/study(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
+/datum/cult_objectives/proc/cult_study(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
 	if(!M)
 		return FALSE
 

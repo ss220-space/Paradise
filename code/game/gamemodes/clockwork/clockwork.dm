@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
-		clocker_objs.study(clockwork_mind.current)
+		clocker_objs.clock_study(clockwork_mind.current)
 	clockwork_threshold_check()
 	addtimer(CALLBACK(src, .proc/clockwork_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	. = ..()
@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		if(crew_reveal)
 			clocked(clock_mind.current)
 		check_clock_reveal()
-		clocker_objs.study(clock_mind.current)
+		clocker_objs.clock_study(clock_mind.current)
 		return TRUE
 
 /datum/game_mode/proc/check_power_reveal()
