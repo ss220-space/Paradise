@@ -633,7 +633,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] бросил[genderize_ru(src.gender,"","а","о","и")] [thrown_thing].</span>")
+		visible_message("<span class='danger'>[src] бросил[genderize_ru(src.gender,"","а","о","и")] [thrown_thing.name].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 

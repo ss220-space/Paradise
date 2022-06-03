@@ -24,7 +24,7 @@
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				custom_pain("Вы чувствуете как в вашей [E.name] двигаются сломанные кости!")
+				custom_pain("Вы чувствуете как в вашей [E.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 				I.receive_damage(rand(3,5))
 
 	//handle_stance()
@@ -81,20 +81,24 @@
 		if(!E || !E.can_grasp || (E.status & ORGAN_SPLINTED))
 			continue
 
+		var hand_name = "руке"
+
 		if(E.is_broken())
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
 				if(!unEquip(l_hand))
 					continue
+				hand_name = "левой руке"
 			else
 				if(!r_hand)
 					continue
 				if(!unEquip(r_hand))
 					continue
+				hand_name = "правой руке"
 
-			var/emote_scream = pick("кричит от боли и ", "издает резкий крик и ", "вскрикивает и ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]бросает [p_they()] [p_were()] держали [p_their()] [E.name]!")
+			var/emote_scream = pick("крич[pluralize_ru(E.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(E.gender,"ет","ют")] резкий крик и ", "вскрикива[pluralize_ru(E.gender,"ет","ют")] и ")
+			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]бросает[pluralize_ru(E.gender,"ет","ют")] предмет, который [genderize_ru(E.gender,"он","она","оно","они")] держал[genderize_ru(E.gender,"","а","о","и")] в [hand_name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -109,7 +113,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "бросает [p_they()] [p_were()] держали, [p_their()] [E.name] выходя из строя!")
+			custom_emote(1, "броса[pluralize_ru(E.gender,"ет","ют")] предмет который [genderize_ru(E.gender,"он","она","оно","они")] держал[genderize_ru(E.gender,"","а","о","и")] в вышедшей из строя [hand_name]!")
 
 			do_sparks(5, 0, src)
 
