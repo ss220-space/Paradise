@@ -23,7 +23,7 @@
   *
   * * display_members set FALSE - additionally how many cult members.
   */
-/datum/clockwork_objectives/proc/clock_study(mob/living/M, display_members = FALSE)
+/datum/clockwork_objectives/proc/study(mob/living/M, display_members = FALSE)
 	if(!M)
 		return FALSE
 
