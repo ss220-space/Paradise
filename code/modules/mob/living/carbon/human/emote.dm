@@ -604,7 +604,7 @@
 		if("glare", "glares")
 			var/M = handle_emote_param(param)
 
-			message = "недовольно смотр[pluralize_ru(src.gender,"ит","ют")][M ? " на [M]" : ""]."
+			message = "недовольно смотр[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("stare", "stares")
@@ -948,11 +948,11 @@
 		if("scream", "screams")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "дела[pluralize_ru(src.gender,"ет","ют")] вид что кричит[M ? " на [M]" : ""]!"
+				message = "дела[pluralize_ru(src.gender,"ет","ют")] вид что крич[pluralize_ru(src.gender,"ит","ат")][M ? " на [M]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "[dna.species.scream_verb][M ? " на [M]" : ""]!"
+					message = "[pluralize_ru(src.gender,"[dna.species.scream_verb]","кричат")][M ? " на [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
 						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())

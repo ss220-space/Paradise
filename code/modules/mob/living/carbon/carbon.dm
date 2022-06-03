@@ -613,7 +613,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(throwable_mob)
 			thrown_thing = throwable_mob
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>Вы осторожно отпускаете [throwable_mob].</span>")
+				to_chat(src, "<span class='notice'>Вы осторожно отпускаете [throwable_mob.name].</span>")
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
@@ -629,7 +629,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		unEquip(I)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			to_chat(src, "<span class='notice'>Вы осторожно опускаете [I] на землю.</span>")
+			to_chat(src, "<span class='notice'>Вы осторожно опускаете [I.name] на землю.</span>")
 			return
 
 	if(thrown_thing)
