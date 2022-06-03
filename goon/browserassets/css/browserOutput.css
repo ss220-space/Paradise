@@ -266,6 +266,7 @@ em						{font-style: normal;	font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
 .radio					{color: #408010;}
+.spyradio				{color: #1b790e;}
 .deptradio				{color: #993399;}
 .comradio				{color: #204090;}
 .syndradio				{color: #6D3F40;}
@@ -357,6 +358,11 @@ h1.alert, h2.alert			{color: #000000;}
 .cultlarge				{color: #960000; font-weight: bold; font-size: 120%;}
 .narsie					{color: #960000; font-weight: bold; font-size: 300%;}
 .narsiesmall			{color: #960000; font-weight: bold; font-size: 200%;}
+.clock					{color: #bd8700; font-weight: bold; font-style: italic;}
+.clockspeech			{color: #996e00; font-style: italic;}
+.clockitalic			{color: #bd8700; font-style: italic;}
+.clocklarge				{color: #bd8700; font-weight: bold; font-size: 120%;}
+.ratvar					{color: #bd8700; font-weight: bold; font-size: 300%;}
 .interface				{color: #330033;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}
