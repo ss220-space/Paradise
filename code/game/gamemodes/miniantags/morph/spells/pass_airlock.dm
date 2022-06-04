@@ -20,25 +20,25 @@
 		return FALSE
 
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	var/obj/machinery/door/airlock/A = targets[1]
-	if(A.locked)
-		to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
+	var/obj/machinery/door/airlock/airlock = targets[1]
+	if(airlock.locked)
+		to_chat(user, "<span class='warning'>[airlock] is bolted shut! You're unable to create a crack to pass through!</span>")
 		revert_cast(user)
 		return
-	user.visible_message("<span class='warning'>[user] starts pushing itself against [A]!</span>", "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
-	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/pass_check, user, A)), FALSE))
+	user.visible_message("<span class='warning'>[user] starts pushing itself against [airlock]!</span>", "<span class='sinister'>You try to pry [airlock] open enough to get through.</span>")
+	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/pass_check, user, airlock)), FALSE))
 		if(user.morphed)
-			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [A]!</span>")
-		else if(A.locked)
-			to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
+			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [airlock]!</span>")
+		else if(airlock.locked)
+			to_chat(user, "<span class='warning'>[airlock] is bolted shut! You're unable to create a crack to pass through!</span>")
 		else
-			to_chat(user, "<span class='warning'>You need to stay still to pass through [A]!</span>")
+			to_chat(user, "<span class='warning'>You need to stay still to pass through [airlock]!</span>")
 		revert_cast(user)
 		return
 
-	user.visible_message("<span class='warning'>[user] briefly opens [A] slightly and passes through!</span>", "<span class='sinister'>You slide through the open crack in [A].</span>")
-	user.forceMove(A.loc) // Move into the turf of the airlock
+	user.visible_message("<span class='warning'>[user] briefly opens [airlock] slightly and passes through!</span>", "<span class='sinister'>You slide through the open crack in [airlock].</span>")
+	user.forceMove(airlock.loc) // Move into the turf of the airlock
 
 
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/A)
-	return user.morphed || A.locked
+/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/airlock)
+	return user.morphed || airlock.locked

@@ -42,8 +42,8 @@
 
 /datum/status_effect/morph_ambush/tick()
 	STOP_PROCESSING(SSfastprocess, src)
-	var/mob/living/simple_animal/hostile/morph/M = owner
-	M.perfect_ambush()
+	var/mob/living/simple_animal/hostile/morph/morph = owner
+	morph.perfect_ambush()
 	linked_alert.name = "Perfect Ambush!"
 	linked_alert.desc = "You have prepared an ambush! Your disguise is flawless!"
 

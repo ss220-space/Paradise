@@ -89,42 +89,42 @@
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
 
 
-/mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/A)
-	var/food_value = calc_food_gained(A)
+/mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
+	var/food_value = calc_food_gained(item)
 	if(food_value + gathered_food < 0)
 		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = "<span class='warning'>You start eating [A]... disgusting....</span>"
+		eat_self_message = "<span class='warning'>You start eating [item]... disgusting....</span>"
 	else
-		eat_self_message = "<span class='notice'>You start eating [A].</span>"
+		eat_self_message = "<span class='notice'>You start eating [item].</span>"
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 3 SECONDS, target = A))
+	if(do_after(src, 3 SECONDS, target = item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 			return
-		eat(A)
+		eat(item)
 
-/mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
-	if(A && A.loc != src)
-		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
+/mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/item)
+	if(item && item.loc != src)
+		visible_message("<span class='warning'>[src] swallows [item] whole!</span>")
 
-		A.extinguish_light()
-		A.forceMove(src)
-		var/food_value = calc_food_gained(A)
+		item.extinguish_light()
+		item.forceMove(src)
+		var/food_value = calc_food_gained(item)
 		add_food(food_value)
 		if(food_value > 0)
 			adjustHealth(-food_value)
-		add_attack_logs(src, A, "morph ate")
+		add_attack_logs(src, item, "morph ate")
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/morph/proc/calc_food_gained(mob/living/L)
-	if(!istype(L))
+/mob/living/simple_animal/hostile/morph/proc/calc_food_gained(mob/living/living)
+	if(!istype(living))
 		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
-	var/gained_food = max(5, 10 * L.mob_size) // Tiny things are worth less
-	if(ishuman(L) && !ismonkeybasic(L))
+	var/gained_food = max(5, 10 * living.mob_size) // Tiny things are worth less
+	if(ishuman(living) && !ismonkeybasic(living))
 		gained_food += 10 // Humans are extra tasty
 
 	return gained_food
@@ -196,18 +196,18 @@
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
 	if(stat == DEAD && gibbed)
-		for(var/atom/movable/AM in src)
-			AM.forceMove(loc)
+		for(var/atom/movable/eaten_thing in src)
+			eaten_thing.forceMove(loc)
 			if(prob(90))
-				step(AM, pick(GLOB.alldirs))
+				step(eaten_thing, pick(GLOB.alldirs))
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
 
-/mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
+/mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
 	if(ambush_prepared)
-		to_chat(M, "<span class='warning'>[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!</span>")
-		ambush_attack(M, TRUE)
+		to_chat(attacker, "<span class='warning'>[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!</span>")
+		ambush_attack(attacker, TRUE)
 	else
 		return ..()
 
@@ -215,17 +215,18 @@
 	if (morphed)
 		return mimic_spell.restore_form(src);
 
-/mob/living/simple_animal/hostile/morph/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/hostile/morph/attackby(obj/item/item, mob/living/user)
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
+		to_chat(user, "<span class='warning'>You try to use [item] on [src]... it seems different than no-</span>")
 		ambush_attack(user, TRUE)
 		return TRUE
 	restore_form()
+	return ..()
 
-/mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/M)
-	if(M.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(M, "<span class='notice'>You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!</span>")
-		ambush_attack(M, TRUE)
+/mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/animal)
+	if(animal.a_intent == INTENT_HELP && ambush_prepared)
+		to_chat(animal, "<span class='notice'>You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!</span>")
+		ambush_attack(animal, TRUE)
 		return TRUE
 	restore_form()
 
@@ -242,7 +243,7 @@
 	restore_form()
 
 
-/mob/living/simple_animal/hostile/morph/proc/ambush_attack(mob/living/L, touched)
+/mob/living/simple_animal/hostile/morph/proc/ambush_attack(mob/living/dumbass, touched)
 	ambush_prepared = FALSE
 	var/total_weaken = ambush_weaken
 	var/total_damage = ambush_damage
@@ -250,50 +251,45 @@
 		total_weaken *= 2
 		total_damage *= 2
 
-	L.Weaken(total_weaken)
-	L.apply_damage(total_damage, BRUTE)
-	add_attack_logs(src, L, "morph ambush attacked")
-	do_attack_animation(L, ATTACK_EFFECT_BITE)
-	visible_message("<span class='danger'>[src] suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>", "You hear a horrible crunch!")
+	dumbass.Weaken(total_weaken)
+	dumbass.apply_damage(total_damage, BRUTE)
+	add_attack_logs(src, dumbass, "morph ambush attacked")
+	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
+	visible_message("<span class='danger'>[src] suddenly leaps towards [dumbass]!</span>", "<span class='warning'>You strike [dumbass] when [dumbass.p_they()] least expected it!</span>", "You hear a horrible crunch!")
 
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/LoseAggro()
 	vision_range = initial(vision_range)
 
-/mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A)
-	if(istype(A,/obj/screen))
-		return FALSE
-	if(istype(A,/obj/singularity))
-		return FALSE
-	if(istype(A,/mob/living/simple_animal/hostile/morph))
-		return FALSE
-	return TRUE
+/mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
+	var/list/not_allowed = list(/obj/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
+	return !!is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
-		for(var/atom/movable/A in view(src))
-			if(allowed(A))
-				things += A
-		var/atom/movable/T = pick(things)
-		mimic_spell.take_form(new /datum/mimic_form(T, src), src)
+		for(var/atom/movable/item_in_view in view(src))
+			if(allowed(item_in_view))
+				things += item_in_view
+		var/atom/movable/picked_thing = pick(things)
+		mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
 		prepare_ambush() // They cheat okay
 
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
 	if(isliving(target)) // Eat Corpses to regen health
-		var/mob/living/L = target
-		if(L.stat == DEAD)
-			try_eat(L)
+		var/mob/living/living = target
+		if(living.stat == DEAD)
+			try_eat(living)
 			return TRUE
 		if(ambush_prepared)
-			ambush_attack(L)
+			ambush_attack(living)
 			return TRUE // No double attack
 	else if(istype(target,/obj/item)) // Eat items just to be annoying
-		var/obj/item/I = target
-		if(!I.anchored)
-			try_eat(I)
+		var/obj/item/item = target
+		if(!item.anchored)
+			try_eat(item)
 			return TRUE
 	. = ..()
 	if(. && morphed)

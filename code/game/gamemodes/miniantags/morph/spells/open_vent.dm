@@ -29,17 +29,17 @@
 
 	user.use_food(hunger_cost)
 	for(var/thing in targets)
-		var/obj/machinery/atmospherics/unary/U = thing
-		U.add_overlay(GLOB.acid_overlay, TRUE)
-		addtimer(CALLBACK(src, .proc/unweld_vent, U), 2 SECONDS)
-		playsound(U, 'sound/items/welder.ogg', 100, TRUE)
+		var/obj/machinery/atmospherics/unary/unary = thing
+		unary.add_overlay(GLOB.acid_overlay, TRUE)
+		addtimer(CALLBACK(src, .proc/unweld_vent, unary), 2 SECONDS)
+		playsound(unary, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/U)
-	if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/S = U
-		S.welded = FALSE
-	else if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/V = U
-		V.welded = FALSE
-	U.update_icon()
-	U.cut_overlay(GLOB.acid_overlay, TRUE)
+/obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/unary)
+	if(istype(unary, /obj/machinery/atmospherics/unary/vent_scrubber))
+		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = unary
+		scrubber.welded = FALSE
+	else if(istype(unary, /obj/machinery/atmospherics/unary/vent_pump))
+		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = unary
+		vent.welded = FALSE
+	unary.update_icon()
+	unary.cut_overlay(GLOB.acid_overlay, TRUE)

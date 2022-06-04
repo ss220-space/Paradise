@@ -8,9 +8,8 @@
 			key_of_morph = null
 			kill()
 			return
-		var/mob/C = pick(candidates)
-		key_of_morph = C.key
 
+		key_of_morph = pick(candidates).key
 		if(!key_of_morph)
 			kill()
 			return
@@ -20,9 +19,10 @@
 		if(!GLOB.xeno_spawn)
 			kill()
 			return
-		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
-		player_mind.transfer_to(S)
-		S.make_morph_antag()
+
+		var/mob/living/simple_animal/hostile/morph/morph = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
+		player_mind.transfer_to(morph)
+		morph.make_morph_antag()
 		message_admins("[key_of_morph] has been made into morph by an event.")
 		log_game("[key_of_morph] was spawned as a morph by an event.")
 
