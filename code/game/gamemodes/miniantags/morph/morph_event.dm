@@ -10,8 +10,8 @@
 			return
 
 
-		var/mob/C = pick(candidates)
-		key_of_morph = C.key
+		var/mob/picked = pick(candidates)
+		key_of_morph = picked.key
 		if(!key_of_morph)
 			kill()
 			return
