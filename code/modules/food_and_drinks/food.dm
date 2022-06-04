@@ -82,7 +82,7 @@
 				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
 				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
 
-				H.AdjustDisgust(-11 + -8 * fraction)
+				H.AdjustDisgust(-12 + -8 * fraction)
 			last_check_time = world.time
 
 /obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
