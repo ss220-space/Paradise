@@ -26,8 +26,8 @@
 	health = 150
 	environment_smash = 1
 	obj_damage = 50
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 10
+	melee_damage_upper = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
@@ -208,8 +208,15 @@
 	if(ambush_prepared)
 		to_chat(attacker, "<span class='warning'>[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!</span>")
 		ambush_attack(attacker, TRUE)
-	else
-		return ..()
+		return TRUE
+	else if (!morphed)
+		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
+		var/obj/item/organ/external/affecting = attacker.get_organ("[attacker.hand ? "l" : "r" ]_hand")
+		affecting.receive_damage(20)
+		add_food(5)
+
+	restore_form()
+	return ..()
 
 /mob/living/simple_animal/hostile/morph/proc/restore_form()
 	if (morphed)
@@ -220,6 +227,16 @@
 		to_chat(user, "<span class='warning'>You try to use [item] on [src]... it seems different than no-</span>")
 		ambush_attack(user, TRUE)
 		return TRUE
+
+	if (!morphed && prob(25)) {
+		var/food_value = calc_food_gained(item)
+		if(food_value + gathered_food > 0)
+			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
+			user.unEquip(item)
+			eat(item)
+			return TRUE
+	}
+
 	restore_form()
 	return ..()
 
