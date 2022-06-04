@@ -263,12 +263,12 @@
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A)
 	if(istype(A,/obj/screen))
-		return 0
+		return FALSE
 	if(istype(A,/obj/singularity))
-		return 0
+		return FALSE
 	if(istype(A,/mob/living/simple_animal/hostile/morph))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
