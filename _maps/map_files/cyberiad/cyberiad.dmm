@@ -75589,7 +75589,7 @@
 /area/toxins/test_chamber)
 "cQw" = (
 /obj/structure/closet,
-/obj/item/toy/figure/scientist,
+/obj/item/toy/figure/roboticist,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cQx" = (
@@ -94153,6 +94153,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/item/toy/figure/scientist,
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
 "rSv" = (
@@ -95929,7 +95930,6 @@
 /area/toxins/xenobiology)
 "wPi" = (
 /obj/structure/closet,
-/obj/item/toy/figure/roboticist,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wQu" = (
