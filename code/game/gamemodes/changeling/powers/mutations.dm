@@ -132,6 +132,8 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	gender = FEMALE
+	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -261,7 +263,7 @@
 	if(Adjacent(C))
 		var/obj/item/grab/G = C.grabbedby(src,1)
 		if(istype(G))
-			G.state = GRAB_PASSIVE //Instant aggressive grab
+			G.state = GRAB_PASSIVE
 			C.Weaken(2)
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
