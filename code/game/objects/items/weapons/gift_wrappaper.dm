@@ -99,6 +99,7 @@
 		/obj/item/id_decal/prisoner,
 		/obj/item/id_decal/centcom,
 		/obj/item/id_decal/emag,
+		/obj/item/id_decal/space,
 		/obj/item/spellbook/oneuse/fake_gib,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/flash,

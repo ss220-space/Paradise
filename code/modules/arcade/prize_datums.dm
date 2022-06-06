@@ -125,6 +125,11 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A sticker that can make any ID look like something suspicious..."
 	typepath = /obj/item/id_decal/emag
 
+/datum/prize_item/id_sticker/space
+	name = "Space ID Sticker"
+	desc = "A sticker that can make any ID look like SPACE."
+	typepath = /obj/item/id_decal/space
+
 /datum/prize_item/flash
 	name = "Toy Flash"
 	desc = "AUGH! MY EYES!"

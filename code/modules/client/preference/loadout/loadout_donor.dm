@@ -93,6 +93,12 @@
 	donator_tier = 3
 	cost = 2
 
+/datum/gear/donor/id_decal_space
+	display_name = "Space ID decal"
+	path = /obj/item/id_decal/space
+	donator_tier = 3
+	cost = 2
+
 /datum/gear/donor/id_decal_gold
 	display_name = "Gold ID Decal"
 	path = /obj/item/id_decal/gold

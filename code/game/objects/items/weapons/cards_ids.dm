@@ -908,6 +908,12 @@
 	icon_state = "rainbow"
 	item_state = "clown-id"
 
+/obj/item/card/id/space
+	name = "Space ID"
+	desc = "Whoah.."
+	icon_state = "exploration"
+	item_state = "exploration-id"
+
 /obj/item/card/id/thunderdome/red
 	name = "Thunderdome Red ID"
 	registered_name = "Red Team Fighter"
@@ -1003,6 +1009,13 @@
 	desc = "All the prestige without the responsibility or the access. Applies to any ID."
 	decal_desc = "An ID straight from Cent. Com."
 	decal_icon_state = "centcom"
+
+/obj/item/id_decal/space
+	name = "exploration ID card decal"
+	icon_state = "id_decal_exploration"
+	desc = "It looks amazing."
+	decal_icon_state = "exploration"
+	decal_item_state = "exploration-id"
 
 /obj/item/id_decal/emag
 	name = "cryptographic sequencer ID card decal"
