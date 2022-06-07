@@ -350,5 +350,5 @@
 			new /obj/item/reagent_containers/food/pill/patch/jestosterone(get_turf(src))
 			new /obj/item/stack/ore/bananium(get_turf(src))
 		qdel(src)
-		return
+		return TRUE
 	. = ..()
