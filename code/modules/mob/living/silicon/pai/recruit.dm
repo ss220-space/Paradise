@@ -384,7 +384,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(!C)	return
 		asked.Add(C.key)
 		asked[C.key] = world.time
-		var/response = alert(C, "Кто-то ищет личность ПИИ. Вы хотите занять роль персонального ИИ?", "Запрос ПИИ", "Да", "Нет", "Никогда в этом раунде")
+		var/response = alert(C, "Кто-то ищет личность ПИИ. Вы хотите сыграть за персонального ИИ?", "Запрос ПИИ", "Да", "Нет", "Никогда в этом раунде")
 		if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 		if(response == "Да")
 			recruitWindow(C.mob)
