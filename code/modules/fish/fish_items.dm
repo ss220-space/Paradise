@@ -351,4 +351,4 @@
 			new /obj/item/stack/ore/bananium(get_turf(src))
 		qdel(src)
 		return
-	..()
+	. = ..()
