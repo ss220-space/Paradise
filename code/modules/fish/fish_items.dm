@@ -252,7 +252,7 @@
 		return ..()
 
 	to_chat(user, "You carefully clean and gut \the [src.name].")
-	for(var/i = 1 to sizemod)
+	for(var/i in 1 to sizemod)
 		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 	qdel(src)
 
