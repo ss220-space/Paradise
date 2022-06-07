@@ -340,7 +340,7 @@
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 
 /obj/item/fish/clownfish/ComponentInitialize()
-	..()
+	. = ..()
 	AddComponent(/datum/component/slippery, src, 2, 2, 100, 0, FALSE)
 
 /obj/item/fish/clownfish/attackby(var/obj/item/O, var/mob/user as mob)
