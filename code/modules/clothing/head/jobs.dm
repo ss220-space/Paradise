@@ -66,6 +66,14 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
+//Chaplain
+/obj/item/clothing/head/hooded/techpriest
+	name = "techpriest's hood"
+	desc = "For those who REALLY love their toasters."
+	icon_state = "techpriesthood"
+	flags = BLOCKHAIR
+	flags_inv = HIDEEARS
+
 /obj/item/clothing/head/witchhunter_hat
 	name = "witchhunter hat"
 	desc = "This hat saw much use back in the day."

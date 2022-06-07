@@ -117,6 +117,16 @@
 	hoodtype = /obj/item/clothing/head/hooded/monk_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
+//Chaplain
+/obj/item/clothing/suit/hooded/techpriest
+	name = "techpriest robes"
+	desc = "For those who REALLY love their toasters."
+	icon_state = "techpriest"
+	item_state = "techpriest"
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	hoodtype = /obj/item/clothing/head/hooded/techpriest
+
 /obj/item/clothing/suit/witchhunter
 	name = "witchhunter garb"
 	desc = "Dosen't weigh the same a a duck."
