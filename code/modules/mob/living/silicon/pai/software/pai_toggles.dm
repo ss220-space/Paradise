@@ -17,7 +17,7 @@
 
 // Medical Hud //
 /datum/pai_software/med_hud
-	name = "Медицинский ИЛС"
+	name = "Медицинский ИЛС(HUD)"
 	ram_cost = 20
 	id = "med_hud"
 	ui_icon = "first-aid"
