@@ -190,7 +190,7 @@
 	icon_state = "electric_eel"
 
 /obj/item/fish/electric_eel/attack(mob/living/target, mob/living/user)
-	..()
+	. = ..()
 	target.apply_damage(sizemod, BURN)
 	if(ishuman(target))
 		target.adjustStaminaLoss(sizemod*2.5)
