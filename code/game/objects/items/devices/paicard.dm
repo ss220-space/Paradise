@@ -272,7 +272,7 @@
 			for(var/mob/M in src)
 				to_chat(M, "<font color='#ff0000'><h2>Вы чувствуете как разрывается ваша связь с реальностью.</h2></font>")
 				to_chat(M, "<font color='#ff4d4d'><h3>Байт за байтом ускользает ваше чувство собственного "я".</h3></font>")
-				to_chat(M, "<font color='#ff8787'><h4>Ментальные способности оставляют вас.</h4></font>")
+				to_chat(M, "<font color='#ff8787'><h4>Вычислительные способности покидают вас.</h4></font>")
 				to_chat(M, "<font color='#ffc4c4'><h5>…забвение…</h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
