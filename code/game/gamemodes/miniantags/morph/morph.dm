@@ -138,7 +138,7 @@
 		return FALSE
 	if(morphed)
 		visible_message("<span class='warning'>[src] искривля[pluralize_ru(src.gender,"ется","ются")] и располза[pluralize_ru(src.gender,"ется","ются")] массой зелёной плоти!</span>", \
-						"<span class='userdanger'>Ваша кожа рвётся! Ваша плоть распадается! Никакая маскировка не сможет защитить ва…</span>")
+						"<span class='userdanger'>Ваша кожа рвётся! Ваша плоть распадается! Никакая маскировка не предотвратит сме…</span>")
 		restore()
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only
