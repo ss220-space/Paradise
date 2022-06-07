@@ -1,6 +1,6 @@
 // Security Hud //
 /datum/pai_software/sec_hud
-	name = "Охранный ИЛС"
+	name = "Охранный ИЛС(HUD)"
 	ram_cost = 20
 	id = "sec_hud"
 	ui_icon = "exclamation-triangle"
