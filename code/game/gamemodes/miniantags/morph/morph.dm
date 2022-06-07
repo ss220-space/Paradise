@@ -85,7 +85,7 @@
 		if(istype(A) && allowed(A))
 			assume(A)
 	else
-		to_chat(src, "<span class='warning'>Ваша маскировочная кожа всё ещё восстанавливается!</span>")
+		to_chat(src, "<span class='warning'>Ваши клетки всё ещё восстанавливаются!</span>")
 		..()
 
 /mob/living/simple_animal/hostile/morph/proc/assume(atom/movable/target)
