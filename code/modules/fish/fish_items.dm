@@ -321,7 +321,7 @@
 		visible_message("[src] bites [C]!" )
 		C.apply_damage(sizemod*2, BRUTE)
 		playsound(src, 'sound/weapons/bite.ogg', 50, 15)
-	if(istype(AM, /obj/item/fish))
+	else if(istype(AM, /obj/item/fish))
 		visible_message("[AM] is eaten by [src]!" )
 		if(src.sizemod < 12)
 			src.sizemod++
