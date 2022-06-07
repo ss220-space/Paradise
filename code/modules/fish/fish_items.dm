@@ -129,8 +129,8 @@
 	var/unique_noun
 	var/unique_desc
 
-/obj/item/fish/New()
-	..()
+/obj/item/fish/Initialize()
+	. = ..()
 	if(prob(75))
 		size = rand(1, 30)
 	if(prob(25))
