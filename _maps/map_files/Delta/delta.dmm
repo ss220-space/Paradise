@@ -115077,7 +115077,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/item/tank/jetpack/oxygen,
+/obj/item/tank/jetpack/oxygen/security,
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/shoes/magboots,
 /obj/effect/decal/warning_stripes/red/hollow,
