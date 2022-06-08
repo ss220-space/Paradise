@@ -691,7 +691,7 @@
 	else if(istype(O, /obj/item/fish_net))
 		harvest_fish(user)
 	//Tank brush
-	else if(istype(O, /obj/item/tank_brush))
+	else if(istype(O, /obj/item/tank/internals_brush))
 		if(filth_level == 0)
 			to_chat(user, "<span class='warning'>[src] is already spotless!</span>")
 		else

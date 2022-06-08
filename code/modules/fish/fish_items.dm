@@ -39,7 +39,7 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/tank_brush
+/obj/item/tank/internals_brush
 	name = "aquarium brush"
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
@@ -51,7 +51,7 @@
 	throw_range = 7
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
-/obj/item/tank_brush/suicide_act(mob/user)
+/obj/item/tank/internals_brush/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 

@@ -27,7 +27,7 @@
 		/obj/item/mounted/frame/light_switch,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
-		/obj/item/tank,
+		/obj/item/tank/internals,
 		/obj/item/circuitboard,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal

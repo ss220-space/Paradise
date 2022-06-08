@@ -84,7 +84,7 @@
 	var/obj/item/l_hand = null //Living
 	var/obj/item/r_hand = null //Living
 	var/obj/item/back = null //Human
-	var/obj/item/tank/internal = null //Human
+	var/obj/item/tank/internals/internal = null //Human
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 

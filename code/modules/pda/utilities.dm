@@ -46,7 +46,7 @@
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
 	user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>", "<span class='notice'>You analyze [M]'s vitals.</span>")
-	
+
 	healthscan(user, M, 1)
 
 /datum/data/pda/utility/scanmode/dna
@@ -114,8 +114,8 @@
 	icon = "tachometer-alt"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
-	if(istype(A, /obj/item/tank))
-		var/obj/item/tank/T = A
+	if(istype(A, /obj/item/tank/internals))
+		var/obj/item/tank/internals/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 	else if(istype(A, /obj/machinery/portable_atmospherics))
 		var/obj/machinery/portable_atmospherics/T = A

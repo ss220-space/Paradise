@@ -362,7 +362,7 @@
 			if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 				continue
 			for(var/obj/item/O in I.contents)
-				if(istype(O, /obj/item/tank)) //Stop eating pockets, you fuck!
+				if(istype(O, /obj/item/tank/internals)) //Stop eating pockets, you fuck!
 					continue
 				O.forceMove(src)
 

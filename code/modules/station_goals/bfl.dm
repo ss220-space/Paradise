@@ -445,7 +445,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	//space for gps tracker
-	var/obj/item/tank/internal
+	var/obj/item/tank/internals/internal
 	var/internal_type = /obj/item/gps/internal/bfl_crack
 
 /obj/bfl_crack/Initialize(mapload)

@@ -337,7 +337,7 @@
 		overlays += "[icon_state]_empty"
 
 /*
- * cigcase 
+ * cigcase
  */
 
 /obj/item/storage/fancy/cigcase
@@ -358,7 +358,7 @@
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/clothing/mask/cigarette/cigar(src)
 	return
-	
+
 
 /*
  * Vial Box
@@ -430,6 +430,6 @@
 	..()
 	new /obj/item/egg_scoop(src)
 	new /obj/item/fish_net(src)
-	new /obj/item/tank_brush(src)
+	new /obj/item/tank/internals_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)

@@ -1776,7 +1776,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/stock_parts = "STOCK_PARTS",
 			/obj/item/storage/firstaid = "FIRSTAID",
 			/obj/item/storage = "STORAGE",
-			/obj/item/tank = "GAS_TANK",
+			/obj/item/tank/internals = "GAS_TANK",
 			/obj/item/toy/crayon = "CRAYON",
 			/obj/item/toy = "TOY",
 			/obj/item = "ITEM",

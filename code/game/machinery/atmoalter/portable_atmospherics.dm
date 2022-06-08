@@ -6,7 +6,7 @@
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
-	var/obj/item/tank/holding
+	var/obj/item/tank/internals/holding
 
 	var/volume = 0
 	var/destroyed = 0
@@ -113,11 +113,11 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
+	if(istype(W, /obj/item/tank/internals))
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
 				return
-			var/obj/item/tank/T = W
+			var/obj/item/tank/internals/T = W
 			user.drop_item()
 			if(src.holding)
 				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")

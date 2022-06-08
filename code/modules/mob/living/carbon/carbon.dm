@@ -684,7 +684,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	<tr><td>&nbsp;</td></tr>"}
 
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
-	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
+	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank/internals))
 		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
@@ -720,7 +720,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(href_list["internal"])
 			var/slot = text2num(href_list["internal"])
 			var/obj/item/ITEM = get_item_by_slot(slot)
-			if(ITEM && istype(ITEM, /obj/item/tank))
+			if(ITEM && istype(ITEM, /obj/item/tank/internals))
 				visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
@@ -1123,6 +1123,11 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
+	//Так можно отключить вдыхание дымов синтетиками (киборгами, ИИ, машинами)
+	//Но так как голосовалка закрыта, я не могу так просто добавить это в код и это остается на будущее когда я это распечатаю через месяц.
+	//if((BREATHLESS in mutations) || NO_BREATHE in dna.species.species_traits)
+	//	return FALSE
+
 	if(!wear_mask)
 		return TRUE
 

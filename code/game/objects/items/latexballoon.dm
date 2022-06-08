@@ -57,8 +57,8 @@
 		burst()
 
 /obj/item/latexballon/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
-		var/obj/item/tank/T = W
+	if(istype(W, /obj/item/tank/internals))
+		var/obj/item/tank/internals/T = W
 		blow(T, user)
 		return
 	if(is_sharp(W) || is_hot(W) || is_pointed(W))
