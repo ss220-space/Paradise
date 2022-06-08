@@ -421,6 +421,7 @@
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
+	r_pocket = /obj/item/gun/energy/clown
 	back = /obj/item/storage/backpack/clown
 	head = /obj/item/clothing/head/stalhelm
 
@@ -432,6 +433,7 @@
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
+	r_pocket = /obj/item/gun/energy/clown
 	back = /obj/item/storage/backpack/clown
 	head = /obj/item/clothing/head/naziofficer
 
