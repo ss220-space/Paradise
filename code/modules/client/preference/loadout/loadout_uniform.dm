@@ -324,3 +324,7 @@
 	display_name = "tacticool turtleneck"
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
+
+/datum/gear/uniform/suit/soviet_casual
+	display_name = "soviet casual uniform"
+	path = /obj/item/clothing/under/fluff/soviet_casual_uniform
