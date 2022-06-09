@@ -51316,9 +51316,7 @@
 	},
 /area/medical/genetics)
 "bXR" = (
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner";
 	tag = "icon-whitebluecorner"
@@ -91403,9 +91401,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30
-	},
+/obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -91587,9 +91583,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = 30
-	},
+/obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -93168,9 +93162,7 @@
 	},
 /area/library/abandoned)
 "pGQ" = (
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = 30
-	},
+/obj/structure/closet/walllocker/emerglocker/east,
 /obj/item/flag/med,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -93794,9 +93786,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "rgI" = (
