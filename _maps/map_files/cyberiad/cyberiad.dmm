@@ -12999,11 +12999,6 @@
 /area/shuttle/siberia)
 "ayn" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door_timer/cell_5{
-	dir = 4;
-	layer = 4;
-	pixel_x = 32
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
@@ -13525,6 +13520,11 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
+	},
+/obj/machinery/door_timer/cell_5{
+	dir = 4;
+	layer = 4;
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27111,6 +27111,7 @@
 "bbS" = (
 /obj/structure/closet/emcloset{
 	icon_state = "emergencyopen";
+	initialized = 1;
 	opened = 1
 	},
 /turf/simulated/floor/plating,
@@ -88798,6 +88799,19 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
+"dGK" = (
+/obj/structure/mirror{
+	icon_state = "mirror_broke";
+	pixel_y = -30
+	},
+/obj/structure/sink{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/library/abandoned)
 "dHM" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)"
@@ -93145,7 +93159,9 @@
 	},
 /area/security/range)
 "pFU" = (
-/obj/structure/door_assembly,
+/obj/structure/door_assembly{
+	anchored = 1
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -145162,7 +145178,7 @@ aLc
 wxz
 kTK
 nSi
-fYw
+dGK
 wxz
 nag
 qTN
