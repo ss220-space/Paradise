@@ -51,6 +51,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/opened = 0
 	var/custom_panel = null
+	var/mouse_skin = 0 //so cyborgs can have mouse/rat icons
 	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Cricket","Standard")
 	var/emagged = 0
@@ -427,6 +428,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
+			if(mouse_skin)
+				module_sprites["Ratge"] = "Ratge-Jani"
 
 		if("Destroyer") // Rolling Borg
 			module = new /obj/item/robot_module/destroyer(src)
@@ -853,6 +856,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
+	else if(istype(W, /obj/item/holder/mouse)
+		if(mouse_skin)
+			to_chat(user, "<span class='notice'>There is already a mouse companion in there!</span>")
+			return
+		else
+			if(var/mob/M in W.contents)
+				if(M.ckey)
+					to_chat(user, "<span class='notify'>You fill guilty putting this mouse in thoose wires. Try diffrent mouse, more wild one.</span>")
+					return
+				mouse_skin = 1 //i mean, no one mentions mouse to be alive for icon
+				to_chat(user, "You place a mouse into machine.")
+				qdel(w)
+			return
 	else
 		return ..()
 
@@ -1262,6 +1278,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	if(mouse_skin)
+		new /obj/item/reagent_containers/food/snacks/meat(T)
 	qdel(src)
 
 #define BORG_CAMERA_BUFFER 30
