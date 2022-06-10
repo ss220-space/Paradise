@@ -35898,10 +35898,7 @@
 /area/library)
 "bux" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -41055,8 +41052,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bFy" = (
@@ -41078,8 +41074,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bFA" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bFB" = (
@@ -49475,10 +49470,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -64097,10 +64089,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -73268,9 +73257,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cLz" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cLA" = (
@@ -74692,10 +74680,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cOB" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -74719,10 +74704,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
