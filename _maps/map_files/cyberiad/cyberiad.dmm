@@ -75466,7 +75466,7 @@
 /area/atmos/distribution)
 "cQi" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 100
+	dir = 10
 	},
 /obj/machinery/alarm{
 	pixel_y = 22
@@ -75973,7 +75973,7 @@
 	opacity = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 100
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
@@ -83233,7 +83233,7 @@
 /area/atmos)
 "dfK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 100
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
