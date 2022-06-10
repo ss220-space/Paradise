@@ -860,15 +860,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(mouse_skin)
 			to_chat(user, "<span class='notice'>There is already a mouse companion in there!</span>")
 			return
-		else
-			for(var/mob/mouse in W.contents)
-				if(mouse.ckey)
-					to_chat(user, "<span class='notify'>You fell guilty putting this mouse in those wires. Try diffrent mouse, more wild one.</span>")
-					return
-				mouse_skin = 1 //i mean, no one mentions mouse to be alive for icon
-				to_chat(user, "You place a mouse into machine.")
-				qdel(W)
-			return
+		for(var/mob/mouse in W.contents)
+			if(mouse.ckey)
+				to_chat(user, "<span class='notify'>You fell guilty putting this mouse in those wires. Try diffrent mouse, more wild one.</span>")
+				return
+			mouse_skin = TRUE //i mean, no one mentions mouse to be alive for icon
+			to_chat(user, "You put mouse into machine.")
+			user.unEquip(W)
+			qdel(W)
 	else
 		return ..()
 
