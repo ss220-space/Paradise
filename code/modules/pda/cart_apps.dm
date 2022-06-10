@@ -114,6 +114,44 @@
 	// Observe
 	pm.ui_act(action, params, ui, state)
 
+/datum/data/pda/app/Atmos_Alert
+	name = "Atmos Alert Monitor"
+	icon = "bolt"
+	template = "pda_power"
+	category = "Atmos"
+	update = PDA_APP_UPDATE_SLOW
+
+	var/datum/ui_module/atmos_alert/monitor/digital/AtmAlMon = new
+
+/datum/data/pda/app/Atmos_Alert/receive_signal(datum/signal/signal)
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
+		var/obj/item/integrated_radio/atmosia/A = pda.cartridge.radio
+			data["zone"] = A.zone
+			data["alert"] = A.alert
+
+		if(!a.zone || !a.alert)
+		return
+
+			minor_alarms -= a.zone
+			priority_alarms -= a.zone
+			if(severity == "severe")
+				priority_alarms += a.zone
+			else if(severity == "minor")
+				minor_alarms += a.zone
+
+/datum/data/pda/app/Atmos_Alert/update_ui(mob/user as mob, list/data)
+
+	data.Add(AtmAlMon.ui_data())
+
+// All 4 args are important here because proxying matters
+/datum/data/pda/app/Atmos_Alert/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	. = TRUE
+	// Observe
+	AtmAlMon.ui_act(action, params, ui, state)
+
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null
 

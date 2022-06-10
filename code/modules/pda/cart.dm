@@ -178,9 +178,15 @@
 		new/datum/data/pda/app/power,
 		new/datum/data/pda/utility/scanmode/halogen,
 
+		new/datum/data/pda/app/Atmos_Alert,
+
 		new/datum/data/pda/utility/scanmode/gas,
 
 		new/datum/data/pda/app/status_display)
+
+/obj/item/cartridge/ce/Initialize(mapload)
+	. = ..()
+	radio = new /obj/item/integrated_radio/signal(src)
 
 /obj/item/cartridge/cmo
 	name = "Med-U DELUXE"
@@ -207,7 +213,7 @@
 
 /obj/item/cartridge/rd/Initialize(mapload)
 	. = ..()
-	radio = new /obj/item/integrated_radio/signal(src)
+	radio = new /obj/item/integrated_radio/atmosia(src)
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"

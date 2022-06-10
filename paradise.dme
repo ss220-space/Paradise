@@ -2514,6 +2514,7 @@
 #include "code\modules\tgui\tgui.dm"
 #include "code\modules\tgui\modules\_base.dm"
 #include "code\modules\tgui\modules\appearance_changer.dm"
+#include "code\modules\tgui\modules\atmos_alert.dm"
 #include "code\modules\tgui\modules\atmos_control.dm"
 #include "code\modules\tgui\modules\crew_monitor.dm"
 #include "code\modules\tgui\modules\ert_manager.dm"
