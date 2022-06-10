@@ -89893,9 +89893,6 @@
 "gvj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/xeno,
-/obj/effect/landmark{
-	name = "blobstart"
-	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
 "gwN" = (
@@ -93145,7 +93142,6 @@
 /area/library/abandoned)
 "pGQ" = (
 /obj/structure/closet/walllocker/emerglocker/east,
-/obj/item/flag/med,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -96309,7 +96305,9 @@
 	},
 /area/library/abandoned)
 "xKt" = (
-/mob/living/simple_animal/hostile/hivebot,
+/obj/effect/landmark{
+	name = "blobstart"
+	},
 /turf/simulated/floor/greengrid,
 /area/maintenance/xenozoo)
 "xPv" = (
