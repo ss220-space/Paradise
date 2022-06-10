@@ -856,18 +856,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
-	else if(istype(W, /obj/item/holder/mouse)
+	else if(istype(W, /obj/item/holder/mouse))
 		if(mouse_skin)
 			to_chat(user, "<span class='notice'>There is already a mouse companion in there!</span>")
 			return
 		else
-			if(var/mob/M in W.contents)
-				if(M.ckey)
-					to_chat(user, "<span class='notify'>You fill guilty putting this mouse in thoose wires. Try diffrent mouse, more wild one.</span>")
+			for(var/mob/mouse in W.contents)
+				if(mouse.ckey)
+					to_chat(user, "<span class='notify'>You fell guilty putting this mouse in those wires. Try diffrent mouse, more wild one.</span>")
 					return
 				mouse_skin = 1 //i mean, no one mentions mouse to be alive for icon
 				to_chat(user, "You place a mouse into machine.")
-				qdel(w)
+				qdel(W)
 			return
 	else
 		return ..()
