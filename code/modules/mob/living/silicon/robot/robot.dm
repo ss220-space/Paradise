@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/opened = 0
 	var/custom_panel = null
-	var/mouse_skin = 0 //so cyborgs can have mouse/rat icons
+	var/mouse_skin = FALSE //if cyborg have mouse/rat inside
 	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Cricket","Standard")
 	var/emagged = 0
