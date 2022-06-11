@@ -324,6 +324,14 @@
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) ? "now see" : "no longer see"] floating chat messages.")
 
+/client/verb/toggle_russian()
+	set name = "Enable/Disable Russian"
+	set category = "Preferences"
+	set desc = "Toggle Russian messages"
+	prefs.toggles2 ^= PREFTOGGLE_2_RUSSIAN
+	prefs.save_preferences(src)
+	to_chat(src, "Вы теперь [(prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "видите" : "не видите"] перевод на русский язык.")
+
 /client/verb/toggle_death_messages()
 	set name = "Show/Hide Death Notifications"
 	set category = "Preferences"
