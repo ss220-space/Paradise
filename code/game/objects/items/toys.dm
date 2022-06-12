@@ -1520,8 +1520,10 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += "Has [fake_bullets] round\s remaining."
-	. += "[fake_bullets] of those are live rounds."
+	. += pick_translation("Has [fake_bullets] round\s remaining.",
+		"Боезапаса внутри: [fake_bullets]")
+	. += pick_translation("[fake_bullets] of those are live rounds.",
+		"Из них заряжено: [fake_bullets]")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")

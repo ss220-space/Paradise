@@ -85,7 +85,8 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += "[get_ammo(0,0)] of those are live rounds."
+	. += pick_translation("[get_ammo(0,0)] of those are live rounds.",
+		"Из них заряжено: [get_ammo(0,0)]")
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
@@ -193,6 +194,9 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
+	ru_gender = MALE
+	ru_desc = "Сильный ретро авторевольвер, который обычно используется офицерами Новорусской армии. Использует патроны калибра .357"
+	ru_names = list(NOMINATIVE = "авто-револьвер Уника 6", GENITIVE = "авто-револьвера Уника 6", DATIVE = "авто-револьверу Уника 6", ACCUSATIVE = "авто-револьвер Уника 6", INSTRUMENTAL = "авто-револьвером Уника 6", PREPOSITIONAL = "авто-револьвере Уника 6")
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
