@@ -962,8 +962,8 @@
 	category = list("initial", "Construction")
 
 /datum/design/golem_shell
-	name = "Golem Shell Construction"
-	desc = "Allows for the construction of a Golem Shell."
+	name = "Сбор Оболочки Голема"
+	desc = "Позволяем собрать оболочку голема."
 	id = "golem"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 40000)
