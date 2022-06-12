@@ -5,15 +5,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
+	var/ru_explanation_text = null
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
-/datum/objective/New(text)
+/datum/objective/New(text, ru_text)
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
+	if(ru_text)
+		ru_explanation_text = ru_text
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
@@ -587,8 +590,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = pick_translation("Accumulate at least [target_amount] total units of blood.",
-		"Накопить не менее [target_amount] единиц крови.")
+	explanation_text = "Accumulate at least [target_amount] total units of blood."
+	ru_explanation_text = "Накопить не менее [target_amount] единиц крови."
 	return target_amount
 
 /datum/objective/blood/check_completion()
