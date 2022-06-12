@@ -188,8 +188,13 @@
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 
 			if(mind.vampire)
-				stat(pick_translation("Total Blood", "Всего крови"), "[mind.vampire.bloodtotal]")
-				stat(pick_translation("Usable Blood", "Доступная кровь"), "[mind.vampire.bloodusable]")
+				var/totalbloodstat = "Total Blood"
+				var/usablebloodstat = "Usable Blood"
+				if(mind.current.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+					totalbloodstat = "Всего крови"
+					usablebloodstat = "Доступная кровь"
+				stat(totalbloodstat, "[mind.vampire.bloodtotal]")
+				stat(usablebloodstat, "[mind.vampire.bloodusable]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc

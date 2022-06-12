@@ -21,8 +21,8 @@
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
-		to_chat(user, pick_translation("<span class='warning'>You are in too weak of a form to do this!</span>",
-			"<span class='warning'>Ваша форма для этого недостаточно сильна!</span>"))
+		to_chat(user, "<span class='warning'>You are in too weak of a form to do this!</span>",
+			ru_message = "<span class='warning'>Ваша форма для этого недостаточно сильна!</span>")
 		return 0
 
 	var/datum/vampire/vampire = user.mind.vampire
@@ -33,22 +33,22 @@
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 	if(user.stat >= DEAD)
-		to_chat(user, pick_translation("<span class='warning'>Not when you're dead!</span>",
-			"<span class='warning'>Но вы же мертвы!</span>"))
+		to_chat(user, "<span class='warning'>Not when you're dead!</span>",
+			ru_message = "<span class='warning'>Но вы же мертвы!</span>")
 		return 0
 
 	if(vampire.nullified && !fullpower)
-		to_chat(user, pick_translation("<span class='warning'>Something is blocking your powers!</span>",
-			"<span class='warning'>Что-то блокирует ваши силы!</span>"))
+		to_chat(user, "<span class='warning'>Something is blocking your powers!</span>",
+			ru_message = "<span class='warning'>Что-то блокирует ваши силы!</span>")
 		return 0
 	if(vampire.bloodusable < required_blood)
-		to_chat(user, pick_translation("<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>",
-			"<span class='warning'>Для этого вам потребуется не менее [required_blood] единиц крови!</span>"))
+		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>",
+			ru_message = "<span class='warning'>Для этого вам потребуется не менее [required_blood] единиц крови!</span>")
 		return 0
 	//chapel check
 	if(istype(loc.loc, /area/chapel) && !fullpower)
-		to_chat(user, pick_translation("<span class='warning'>Your powers are useless on this holy ground.</span>",
-			"<span class='warning'>Ваши силы не действуют на этой святой земле.</span>"))
+		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>",
+			ru_message = "<span class='warning'>Ваши силы не действуют на этой святой земле.</span>")
 		return 0
 	return ..()
 
@@ -112,15 +112,14 @@
 		targets.Cut()
 
 	if(targets.len)
-		to_chat(usr, pick_translation("<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>",
-			"<span class='notice'><b>У вас осталось [vampire.bloodusable] единиц крови.</b></span>"))
+		to_chat(usr, "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>",
+			ru_message = "<span class='notice'><b>У вас осталось [vampire.bloodusable] единиц крови.</b></span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/choose_targets(mob/user = usr)
 	var/list/possible_targets[0]
 	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
 		possible_targets += C
-	var/mob/living/carbon/T = input(user, pick_translation("Choose your victim.",
-		"Выберите жертву."), name) as null|mob in possible_targets
+	var/mob/living/carbon/T = input(user, (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Choose your victim." : "Выберите жертву."), name) as null|mob in possible_targets
 
 	if(!T || !can_reach(T))
 		revert_cast(user)
@@ -171,8 +170,8 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-60)
-	to_chat(user, pick_translation("<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>",
-		"<span class='notice'>Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты.</span>"))
+	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>",
+		ru_message = "<span class='notice'>Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
@@ -197,20 +196,20 @@
 			ru_message = "<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
 		if(do_mob(user, target, 60))
 			if(!affects(target))
-				to_chat(user, pick_translation("<span class='warning'>Your piercing gaze fails to knock out [target].</span>",
-					"<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target].</span>"))
-				to_chat(target, pick_translation("<span class='notice'>[user]'s feeble gaze is ineffective.</span>",
-					"<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>", target = target.client))
+				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>",
+					ru_message = "<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target].</span>")
+				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>",
+					ru_message = "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
 			else
-				to_chat(user, pick_translation("<span class='warning'>Your piercing gaze knocks out [target].</span>",
-					"<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>"))
-				to_chat(target, pick_translation("<span class='warning'>You suddenly feel very weak.</span>",
-					"<span class='warning'>Вы чувствуете сильную слабость.</span>", target = target.client))
+				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>",
+					ru_message = "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
+				to_chat(target, "<span class='warning'>You suddenly feel very weak.</span>",
+					ru_message = "<span class='warning'>Вы чувствуете сильную слабость.</span>")
 				target.SetSleeping(20)
 		else
 			revert_cast(usr)
-			to_chat(usr, pick_translation("<span class='warning'>You broke your gaze.</span>",
-				"<span class='warning'>Вы смотрите в никуда.</span>"))
+			to_chat(usr, "<span class='warning'>You broke your gaze.</span>",
+				ru_message = "<span class='warning'>Вы смотрите в никуда.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
 	name = "Diseased Touch (50)"
@@ -224,12 +223,12 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
-		to_chat(user, pick_translation("<span class='warning'>You stealthily infect [target] with your diseased touch.</span>",
-			"<span class='warning'>Вы незаметно инфицируете [target] заражающим касанием.</span>"))
+		to_chat(user, "<span class='warning'>You stealthily infect [target] with your diseased touch.</span>",
+			ru_message = "<span class='warning'>Вы незаметно инфицируете [target] заражающим касанием.</span>")
 		target.help_shake_act(user)
 		if(!affects(target))
-			to_chat(user, pick_translation("<span class='warning'>They seem to be unaffected.</span>",
-				"<span class='warning'>Вам кажется, что заражающее касание не подействовало на [target].</span>"))
+			to_chat(user, "<span class='warning'>They seem to be unaffected.</span>",
+				ru_message = "<span class='warning'>Вам кажется, что заражающее касание не подействовало на [target].</span>")
 			continue
 		var/datum/disease/D = new /datum/disease/vampire
 		target.ForceContractDisease(D)
@@ -247,8 +246,8 @@
 	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>",
 		ru_message = "<span class='warning'>Глаза [user] ослепительно вспыхивают!</span>")
 	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(user, pick_translation("<span class='warning'>You're blindfolded!</span>",
-			"<span class='warning'>У вас на глазах повязка!</span>"))
+		to_chat(user, "<span class='warning'>You're blindfolded!</span>",
+			ru_message = "<span class='warning'>У вас на глазах повязка!</span>")
 		return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
@@ -257,10 +256,9 @@
 		target.Weaken(2)
 		target.stuttering = 20
 		target.adjustStaminaLoss(20)
-		to_chat(target, pick_translation("<span class='warning'>You are blinded by [user]'s glare.</span>",
-			"<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>", target = target.client))
-		add_attack_logs(user, target, pick_translation("(Vampire) Glared at",
-			"(Vampire) слепит"))
+		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>",
+			ru_message = "<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>", target = target.client)
+		add_attack_logs(user, target, "(Vampire) Glared at")
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
@@ -314,8 +312,8 @@
 				continue
 		if(!affects(C))
 			continue
-		to_chat(C, pick_translation("<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>",
-			"<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>", target = C.client))
+		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>",
+			ru_message = "<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>", target = C.client)
 		C.Weaken(2)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
@@ -346,19 +344,19 @@
 			"<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>",
 				ru_message = "<span class='warning'>[user] кусает [target] в шею!</span>",
 					ru_self_message = "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
-		to_chat(target, pick_translation("<span class='warning'>You feel the tendrils of evil invade your mind.</span>",
-			"<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>", target = target.client))
+		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>",
+			ru_message = "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
 		if(!ishuman(target))
-			to_chat(user, pick_translation("<span class='warning'>You can only enthrall humans.</span>",
-				"<span class='warning'>Вы можете порабощать только гуманоидов.</span>"))
+			to_chat(user, "<span class='warning'>You can only enthrall humans.</span>",
+				ru_message = "<span class='warning'>Вы можете порабощать только гуманоидов.</span>")
 			break
 		if(do_mob(user, target, 50))
 			if(can_enthrall(user, target))
 				handle_enthrall(user, target)
 			else
 				revert_cast(user)
-				to_chat(user, pick_translation("<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>",
-					"<span class='warning'>Вы или цель сдвинулись, или вам не хватило запаса крови.</span>"))
+				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>",
+					ru_message = "<span class='warning'>Вы или цель сдвинулись, или вам не хватило запаса крови.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
@@ -374,8 +372,8 @@
 		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
 		return 0
 	if(!C.mind)
-		to_chat(user, pick_translation("<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>",
-			"<span class='warning'>Разум [C.name] сейчас не здесь, поэтому порабощение не удастся.</span>"))
+		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>",
+			ru_message = "<span class='warning'>Разум [C.name] сейчас не здесь, поэтому порабощение не удастся.</span>")
 		return 0
 	if(enthrall_safe || ( C.mind in SSticker.mode.vampires )||( C.mind.vampire )||( C.mind in SSticker.mode.vampire_enthralled ))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>",
@@ -390,8 +388,8 @@
 					ru_self_message = "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
 		return 0
 	if(!ishuman(C))
-		to_chat(user, pick_translation("<span class='warning'>You can only enthrall humans!</span>",
-			"<span class='warning'>Вы можете порабощать только гуманоидов!</span>"))
+		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>",
+			ru_message = "<span class='warning'>Вы можете порабощать только гуманоидов!</span>")
 		return 0
 	return 1
 
@@ -419,14 +417,14 @@
 	var/datum/objective/protect/serve_objective = new
 	serve_objective.owner = user.mind
 	serve_objective.target = H.mind
-	serve_objective.explanation_text = pick_translation("You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.",
-		"Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы.", target = H.client)
+	serve_objective.explanation_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
+	serve_objective.ru_explanation_text = "Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы."
 	H.mind.objectives += serve_objective
 
-	to_chat(H, pick_translation("<span class='biggerdanger'>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</span>",
-		"<span class='biggerdanger'>Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы.</span>", target = H.client))
-	to_chat(user, pick_translation("<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>",
-		"<span class='warning'>Вы успешно поработили [H]. <i>Если [genderize_ru(H.gender, "он", "она", "оно", "они")] откажется вас слушаться, используйте adminhelp.</i></span>"))
+	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</span>",
+		ru_message = "<span class='biggerdanger'>Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы.</span>")
+	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>",
+		ru_message = "<span class='warning'>Вы успешно поработили [H]. <i>Если [genderize_ru(H.gender, "он", "она", "оно", "они")] откажется вас слушаться, используйте adminhelp.</i></span>")
 	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")
 
@@ -449,14 +447,14 @@
 	var/mob/living/user = loc
 	if(!ishuman(user) || !user.mind || !user.mind.vampire)
 		return
-	name = "[initial(name)] ([user.mind.vampire.iscloaking ? pick_translation("Deactivate", "Выключить") : pick_translation("Activate", "Включить")]"
+	name = "[initial(name)] ([user.mind.vampire.iscloaking ? (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Deactivate" : "Выключить") : (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Activate" : "Включить")]"
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/vampire/V = user.mind.vampire
 	V.iscloaking = !V.iscloaking
 	update_name()
-	to_chat(user, pick_translation("<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>",
-		"<span class='notice'>Теперь вас будет <b>[V.iscloaking ? "не видно" : "видно"]</b> в темноте</span>"))
+	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>",
+		ru_message = "<span class='notice'>Теперь вас будет <b>[V.iscloaking ? "не видно" : "видно"]</b> в темноте</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
 	name = "Summon Bats (50)"
@@ -585,8 +583,8 @@
 
 	if(!turfs.len)
 		revert_cast(user)
-		to_chat(user, pick_translation("<span class='warning'>You cannot find darkness to step to.</span>",
-			"<span class='warning'>Поблизости нет теней, куда можно было бы шагнуть.</span>"))
+		to_chat(user, "<span class='warning'>You cannot find darkness to step to.</span>",
+			ru_message = "<span class='warning'>Поблизости нет теней, куда можно было бы шагнуть.</span>")
 		return
 
 	turfs = list(pick(turfs)) // Pick a single turf for the vampire to jump to.
@@ -643,8 +641,8 @@
 /obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, pick_translation("<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>",
-		"<span class='warning'>Ваш зов расходится в блюспейсе, на помощь созывая других вампирских духов!</span>"))
+	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>",
+		ru_message = "<span class='warning'>Ваш зов расходится в блюспейсе, на помощь созывая других вампирских духов!</span>")
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time=30, maxdistance=7, beam_type=/obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
@@ -694,8 +692,8 @@
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = mind
 	protect_objective.target = M.mind
-	protect_objective.explanation_text = pick_translation("Protect [M.real_name].",
-		"Защитите [M.real_name].")
+	protect_objective.explanation_text = "Protect [M.real_name]."
+	protect_objective.ru_explanation_text = "Защитите [M.real_name]."
 	mind.objectives += protect_objective
 	add_attack_logs(M, src, "Vampire-sired")
 	mind.make_Vampire()

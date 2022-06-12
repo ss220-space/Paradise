@@ -35,10 +35,10 @@
 	var/vampire_amount = 4
 
 /datum/game_mode/vampire/announce()
-	to_chat(world, pick_translation("<B>The current game mode is - Vampires!</B>",
-		"<B>Текущий игровой режим — Вампиры!</B>"))
-	to_chat(world, pick_translation("<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>",
-		"<B>На станции есть вампиры из Космотрансильвании. Берегите свои шеи и кровь!</B>"))
+	to_chat(world, "<B>The current game mode is - Vampires!</B>",
+		ru_message = "<B>Текущий игровой режим — Вампиры!</B>")
+	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>",
+		ru_message = "<B>На станции есть вампиры из Космотрансильвании. Берегите свои шеи и кровь!</B>")
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -65,6 +65,7 @@
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGT want to mindslave someone
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
+			vampire.ru_special_role = SPECIAL_ROLE_VAMPIRE
 		..()
 		return 1
 	else
@@ -80,79 +81,86 @@
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
 	if(vampires.len)
-		var/text = pick_translation("<FONT size = 2><B>The vampires were:</B></FONT>",
-			"<FONT size = 2><B>Вампирами были:</B></FONT>")
+		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
+		var/ru_text = "<FONT size = 2><B>Вампирами были:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
 
-			text += pick_translation("<br>[vampire.key] was [vampire.name] (",
-				"<br>[vampire.key] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] (")
+			text += "<br>[vampire.key] was [vampire.name] ("
+			ru_text += "<br>[vampire.key] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] ("
 			if(vampire.current)
 				if(vampire.current.stat == DEAD)
-					text += pick_translation("died",
-						"[genderize_ru(vampire.current.gender, "умер", "умерла", "умерло", "умерли")]")
+					text += "died"
+					ru_text += "[genderize_ru(vampire.current.gender, "умер", "умерла", "умерло", "умерли")]"
 				else
-					text += pick_translation("survived",
-						"[genderize_ru(vampire.current.gender, "выжил", "выжила", "выжило", "выжили")]")
+					text += "survived"
+					ru_text += "[genderize_ru(vampire.current.gender, "выжил", "выжила", "выжило", "выжили")]"
 				if(vampire.current.real_name != vampire.name)
-					text += pick_translation(" as [vampire.current.real_name]",
-						" как [vampire.current.real_name]")
+					text += " as [vampire.current.real_name]"
+					ru_text += " как [vampire.current.real_name]"
 			else
-				text += pick_translation("body destroyed",
-					"тело было уничтожено")
+				text += "body destroyed"
+				ru_text += "тело было уничтожено"
 			text += ")"
+			ru_text += ")"
 
 			if(vampire.objectives.len)//If the traitor had no objectives, don't need to process this.
 				var/count = 1
 				for(var/datum/objective/objective in vampire.objectives)
 					if(objective.check_completion())
-						text += pick_translation("<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>",
-							"<br><B>Задание №[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>")
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						ru_text += "<br><B>Задание №[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += pick_translation("<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>",
-							"<br><B>Задание №[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>")
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						ru_text += "<br><B>Задание №[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = 0
 					count++
 
 			var/special_role_text
+			var/ru_special_role_text
 			if(vampire.special_role)
 				special_role_text = lowertext(vampire.special_role)
+				ru_special_role_text = lowertext((vampire.ru_special_role ? vampire.ru_special_role : vampire.special_role))
 			else
 				special_role_text = "antagonist"
+				ru_special_role_text = "antagonist"
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
+				ru_text += "<br><font color='green'><B>The [ru_special_role_text] was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
+				ru_text += "<br><font color='green'><B>The [ru_special_role_text] was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
-		to_chat(world, text)
+		to_chat(world, text, ru_message = ru_text)
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
 	if(vampire_enthralled.len)
-		var/text = pick_translation("<FONT size = 2><B>The Enthralled were:</B></FONT>",
-			"<FONT size = 2><B>Рабами вампиров были:</B></FONT>")
+		var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
+		var/ru_text = "<FONT size = 2><B>Рабами вампиров были:</B></FONT>"
 		for(var/datum/mind/Mind in vampire_enthralled)
-			text += pick_translation("<br>[Mind.key] was [Mind.name] (",
-				"<br>[Mind.key] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] (")
+			text += "<br>[Mind.key] was [Mind.name] ("
+			ru_text += "<br>[Mind.key] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] ("
 			if(Mind.current)
 				if(Mind.current.stat == DEAD)
-					text += pick_translation("died",
-						"[genderize_ru(Mind.current.gender, "умер", "умерла", "умерло", "умерли")]")
+					text += "died"
+					ru_text += "[genderize_ru(Mind.current.gender, "умер", "умерла", "умерло", "умерли")]"
 				else
-					text += pick_translation("survived",
-						"[genderize_ru(Mind.current.gender, "выжил", "выжила", "выжило", "выжили")]")
+					text += "survived"
+					ru_text += "[genderize_ru(Mind.current.gender, "выжил", "выжила", "выжило", "выжили")]"
 				if(Mind.current.real_name != Mind.name)
-					text += pick_translation(" as [Mind.current.real_name]",
-						" как [Mind.current.real_name]")
+					text += " as [Mind.current.real_name]"
+					ru_text += " как [Mind.current.real_name]"
 			else
-				text += pick_translation("body destroyed",
-					"тело было уничтожено")
+				text += "body destroyed"
+				ru_text += "тело было уничтожено"
 			text += ")"
-		to_chat(world, text)
+			ru_text += ")"
+		to_chat(world, text, ru_message = ru_text)
 	return 1
 
 /datum/game_mode/proc/forge_vampire_objectives(var/datum/mind/vampire)
@@ -194,29 +202,30 @@
 
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
+	var/ru_dat
 	if(you_are)
 		SEND_SOUND(vampire.current, 'sound/ambience/antag/vampalert.ogg')
-		dat = pick_translation("<span class='danger'>You are a Vampire!</span><br>",
-			"<span class='danger'>Вы — вампир!</span><br>")
-	dat += pick_translation({"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."},
-	{"Чтобы укусить кого-то, нацельтесь в голову, выберите намерение вреда (4) и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы.
-Вы уязвимы перед святостью и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды."})
-	to_chat(vampire.current, dat)
-	to_chat(vampire.current, pick_translation("<B>You must complete the following tasks:</B>",
-		"<B>Вы должны выполнить следующие задания:</B>"))
+		dat = "<span class='danger'>You are a Vampire!</span><br>"
+		ru_dat = "<span class='danger'>Вы — вампир!</span><br>"
+	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
+You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+	ru_dat += {"Чтобы укусить кого-то, нацельтесь в голову, выберите намерение вреда (4) и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы.
+Вы уязвимы перед святостью и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды."}
+	to_chat(vampire.current, dat, ru_message = ru_dat)
+	to_chat(vampire.current, "<B>You must complete the following tasks:</B>",
+		ru_message = "<B>Вы должны выполнить следующие задания:</B>")
 
 	if(vampire.current.mind)
 		if(vampire.current.mind.assigned_role == "Clown")
-			to_chat(vampire.current, pick_translation("Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.",
-				"Ваша жажда крови позволяет вам преодолевать собственную неуклюжесть. Вы можете использовать оружие, не опасаясь навредить себе."))
+			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.",
+				ru_message = "Ваша жажда крови позволяет вам преодолевать собственную неуклюжесть. Вы можете использовать оружие, не опасаясь навредить себе.")
 			vampire.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(vampire.current)
 	var/obj_count = 1
 	for(var/datum/objective/objective in vampire.objectives)
-		to_chat(vampire.current, pick_translation("<B>Objective #[obj_count]</B>: [objective.explanation_text]",
-			"<B>Задание №[obj_count]</B>: [objective.explanation_text]"))
+		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]",
+			ru_message = "<B>Задание №[obj_count]</B>: [objective.ru_explanation_text]")
 		obj_count++
 	return
 
@@ -307,8 +316,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	if(owner.is_muzzled())
-		to_chat(owner, pick_translation("<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>",
-			"<span class='warning'>[owner.wear_mask] мешает вам укусить [H]!</span>"))
+		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>",
+			ru_message = "<span class='warning'>[owner.wear_mask] мешает вам укусить [H]!</span>")
 		draining = null
 		return
 	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
@@ -324,8 +333,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.LAssailant = owner
 	while(do_mob(owner, H, 50))
 		if(!(owner.mind in SSticker.mode.vampires))
-			to_chat(owner, pick_translation("<span class='userdanger'>Your fangs have disappeared!</span>",
-				"<span class='userdanger'>Ваши клыки исчезают!</span>"))
+			to_chat(owner, "<span class='userdanger'>Your fangs have disappeared!</span>",
+				ru_message = "<span class='userdanger'>Ваши клыки исчезают!</span>")
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
@@ -340,37 +349,37 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
 			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
-				to_chat(owner, pick_translation("<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>",
-					"<span class='notice'><b>Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""].</b></span>"))
+				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>",
+					ru_message = "<span class='notice'><b>Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""].</b></span>")
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner, pick_translation("<span class='danger'>Your victim's blood volume is dangerously low.</span>",
-					"<span class='danger'>У вашей жертвы остаётся опасно мало крови!</span>"))
+				to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>",
+					ru_message = "<span class='danger'>У вашей жертвы остаётся опасно мало крови!</span>")
 			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner, pick_translation("<span class='warning'>Your victim's blood is at an unsafe level.</span>",
-					"<span class='warning'>У вашей жертвы остаётся тревожно мало крови.</span>"))
+				to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>",
+					ru_message = "<span class='warning'>У вашей жертвы остаётся тревожно мало крови.</span>")
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
-			to_chat(owner, pick_translation("<span class='warning'>You have bled your victim dry!</span>",
-				"<span class='warning'>Вы выпили свою жертву досуха!</span>"))
+			to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>",
+				ru_message = "<span class='warning'>Вы выпили свою жертву досуха!</span>")
 			break
 
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
 			if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
-				to_chat(V, pick_translation("<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>",
-					"<span class='notice'><b>Питьё крови у [H] насыщает вас, но доступной крови от этого вы не получаете.</b></span>"))
+				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>",
+					ru_message = "<span class='notice'><b>Питьё крови у [H] насыщает вас, но доступной крови от этого вы не получаете.</b></span>")
 				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5))
 			else
 				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2)))
 
 
 	draining = null
-	to_chat(owner, pick_translation("<span class='notice'>You stop draining [H.name] of blood.</span>",
-		"<span class='notice'>Вы прекращаете пить кровь [H.name].</span>"))
+	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>",
+		ru_message = "<span class='notice'>Вы прекращаете пить кровь [H.name].</span>")
 
 /datum/vampire/proc/check_vampire_upgrade(announce = 1)
 	var/list/old_powers = powers.Copy()
@@ -388,12 +397,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(!(p in old_powers))
 			if(istype(p, /obj/effect/proc_holder/spell/vampire))
 				var/obj/effect/proc_holder/spell/vampire/power = p
-				to_chat(owner, pick_translation("<span class='notice'>[power.gain_desc]</span>",
-					"<span class='notice'>[power.ru_gain_desc]</span>"))
+				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>",
+					ru_message = "<span class='notice'>[power.ru_gain_desc]</span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
-				to_chat(owner, pick_translation("<span class='notice'>[power.gain_desc]</span>",
-					"<span class='notice'>[power.ru_gain_desc]</span>"))
+				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>",
+					ru_message = "<span class='notice'>[power.ru_gain_desc]</span>")
 
 /datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
 	if(vampire_mind in vampires)
@@ -405,11 +414,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			vampire_mind.vampire.remove_vampire_powers()
 			QDEL_NULL(vampire_mind.vampire)
 		if(issilicon(vampire_mind.current))
-			to_chat(vampire_mind.current, pick_translation("<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>",
-				"<span class='userdanger'>Вы превратились в робота! Вы чувствуете как вампирские силы исчезают…</span>"))
+			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>",
+				ru_message = "<span class='userdanger'>Вы превратились в робота! Вы чувствуете как вампирские силы исчезают…</span>")
 		else
-			to_chat(vampire_mind.current, pick_translation("<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>",
-				"<span class='userdanger'>Ваш разум очищен! Вы больше не вампир.</span>"))
+			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>",
+				ru_message = "<span class='userdanger'>Ваш разум очищен! Вы больше не вампир.</span>")
 		SSticker.mode.update_vampire_icons_removed(vampire_mind)
 
 //prepare for copypaste
@@ -440,7 +449,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	vampire_mind.current.visible_message("<span class='userdanger'>[vampire_mind.current] looks as though a burden has been lifted!</span>",
 		"<span class='userdanger'>The dark fog in your mind clears as you regain control of your own faculties, you are no longer a vampire thrall!</span>",
 			ru_message = "<span class='userdanger'>Кажется, будто тяжёлый груз упал с плеч [vampire_mind.current]!</span>",
-				ru_self_message = "<span class='userdanger'>Тёмная пелена спала с вашего рассудка. Ваш разум прояснился. Вы больше не [usr.gender == MALE ? "раб" : "раба"] вампира и снова отвечаете за свои действия!</span>")
+				ru_self_message = "<span class='userdanger'>Тёмная пелена спала с вашего рассудка. Ваш разум прояснился. Вы больше не [genderize_ru(vampire_mind.current.gender, "раб", "рабыня", "раб", "рабы")] вампира и снова отвечаете за свои действия!</span>")
 	if(vampire_mind.current.hud_used)
 		vampire_mind.current.hud_used.remove_vampire_hud()
 
@@ -461,13 +470,13 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner, pick_translation("<span class='warning'>The starlight saps your strength!</span>",
-			"<span class='warning'>Свет звёзд жжётся и истощает ваши силы!</span>"))
+		to_chat(owner, "<span class='warning'>The starlight saps your strength!</span>",
+			ru_message = "<span class='warning'>Свет звёзд жжётся и истощает ваши силы!</span>")
 		bloodusable -= 10
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner, pick_translation("<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>",
-			"<span class='userdanger'>Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!</span>"))
+		to_chat(owner, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>",
+			ru_message = "<span class='userdanger'>Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!</span>")
 		owner.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 
@@ -476,8 +485,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		var/datum/hud/hud = owner.hud_used
 		if(!hud.vampire_blood_display)
 			hud.vampire_blood_display = new /obj/screen()
-			hud.vampire_blood_display.name = pick_translation("Usable Blood",
-				"Доступная кровь")
+			hud.vampire_blood_display.name = "Usable Blood"
+			hud.vampire_blood_display.ru_name = "Доступная кровь"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
@@ -514,20 +523,20 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(prob(burn_chance) && owner.health >= 50)
 		switch(owner.health)
 			if(75 to 100)
-				to_chat(owner, pick_translation("<span class='warning'>Your skin flakes away...</span>",
-					"<span class='warning'>Ваша кожа дымится…</span>"))
+				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>",
+					ru_message = "<span class='warning'>Ваша кожа дымится…</span>")
 			if(50 to 75)
-				to_chat(owner, pick_translation("<span class='warning'>Your skin sizzles!</span>",
-					"<span class='warning'>Ваша кожа шипит!</span>"))
+				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>",
+					ru_message = "<span class='warning'>Ваша кожа шипит!</span>")
 		owner.adjustFireLoss(3)
 	else if(owner.health < 50)
 		if(!owner.on_fire)
-			to_chat(owner, pick_translation("<span class='danger'>Your skin catches fire!</span>",
-				"<span class='danger'>Ваша кожа загорается!</span>"))
+			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>",
+				ru_message = "<span class='danger'>Ваша кожа загорается!</span>")
 			owner.emote("scream")
 		else
-			to_chat(owner, pick_translation("<span class='danger'>You continue to burn!</span>",
-				"<span class='danger'>Вы продолжаете гореть!</span>"))
+			to_chat(owner, "<span class='danger'>You continue to burn!</span>",
+				ru_message = "<span class='danger'>Вы продолжаете гореть!</span>")
 		owner.adjust_fire_stacks(5)
 		owner.IgniteMob()
 	return
