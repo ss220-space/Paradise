@@ -152,8 +152,7 @@
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. += pick_translation("Has [get_ammo()] round\s remaining.",
-		"Боезапаса внутри: [get_ammo()]")
+	. +=(!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Has [get_ammo()] round\s remaining." : "Боезапаса внутри: [get_ammo()]")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people

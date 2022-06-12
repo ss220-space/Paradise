@@ -89,20 +89,15 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += pick_translation("<span class='notice'>Alt-click it to reskin it.</span>",
-			"<span class='notice'>Нажмите Альт-клик, чтобы сменить раскраску.</span>")
+		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<span class='notice'>Alt-click it to reskin it.</span>" : "<span class='notice'>Нажмите Альт-клик, чтобы сменить раскраску.</span>")
 	if(unique_rename)
-		. += pick_translation("<span class='notice'>Use a pen on it to rename it.</span>",
-			"<span class='notice'>Используйте ручку, чтобы переименовать оружие.</span>")
+		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<span class='notice'>Use a pen on it to rename it.</span>" : "<span class='notice'>Используйте ручку, чтобы переименовать оружие.</span>")
 	if(bayonet)
-		. += pick_translation("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.",
-			"Оружие имеет [can_bayonet ? "" : "перманентно "]закрепленн[genderize_ru(bayonet.ru_gender, "ый", "ую", "ое", "ые")] [bayonet.declent_ru(ACCUSATIVE)].")
+		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it." : "Оружие имеет [can_bayonet ? "" : "перманентно "]закрепленн[genderize_ru(bayonet.ru_gender, "ый", "ую", "ое", "ые")] [bayonet.declent_ru(ACCUSATIVE)].")
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += pick_translation("<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>",
-				"<span class='info'>Похоже, что [bayonet.declent_ru(ACCUSATIVE)] можно снять отверткой.</span>")
+			. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>" : "<span class='info'>Похоже, что [bayonet.declent_ru(ACCUSATIVE)] можно снять отверткой.</span>")
 	else if(can_bayonet)
-		. += pick_translation("It has a <b>bayonet</b> lug on it.",
-			"На оружии есть крепление для <b>байонеты</b>.")
+		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "It has a <b>bayonet</b> lug on it." : "На оружии есть крепление для <b>байонеты</b>.")
 
 /obj/item/gun/proc/process_chamber()
 	return 0
