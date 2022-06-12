@@ -683,7 +683,8 @@
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.explanation_text = "Накопить не менее [target_number] единиц крови."
+						new_objective.explanation_text = pick_translation("Accumulate at least [target_number] total units of blood.",
+							"Накопить не менее [target_number] единиц крови.")
 				new_objective.owner = src
 				new_objective.target_amount = target_number
 
@@ -1027,7 +1028,8 @@
 						qdel(vampire)
 						vampire = null
 					SSticker.mode.update_vampire_icons_removed(src)
-					to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
+					to_chat(current, pick_translation("<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>",
+						"<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>"))
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
 			if("vampire")
@@ -1040,13 +1042,15 @@
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
 					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
-					to_chat(current, "<B><font color='red'>Ваши силы пробудились. Жажда крови нарастает… Вы — вампир!</font></B>")
+					to_chat(current, pick_translation("<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>",
+						"<B><font color='red'>Ваши силы пробудились. Жажда крови нарастает… Вы — вампир!</font></B>"))
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
 
 			if("autoobjectives")
 				SSticker.mode.forge_vampire_objectives(src)
-				to_chat(usr, "<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>")
+				to_chat(usr, pick_translation("<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>",
+					"<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>"))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
