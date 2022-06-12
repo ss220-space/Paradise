@@ -71,7 +71,7 @@
 
 	usr.show_message(t, 1)
 
-/mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+/mob/proc/show_message(msg, type, alt, alt_type, ru_msg, ru_alt)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)	return
 
@@ -81,12 +81,14 @@
 				return
 			else
 				msg = alt
+				ru_msg = (ru_alt ? ru_alt : alt)
 				type = alt_type
 		if(type & 2 && !can_hear())//Hearing related
 			if(!( alt ))
 				return
 			else
 				msg = alt
+				ru_msg = (ru_alt ? ru_alt : alt)
 				type = alt_type
 				if(type & 1 && !has_vision(information_only=TRUE))
 					return
@@ -94,7 +96,7 @@
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
 		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
-		to_chat(src, msg)
+		to_chat(src, msg, ru_message = ru_msg)
 	return
 
 // Show a message to all mobs in sight of this one
@@ -108,11 +110,11 @@
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
-		var/ru_msg = ru_message
+		var/ru_msg = (ru_message ? ru_message : message)
 		if(self_message && M == src)
 			msg = self_message
-			ru_msg = ru_self_message
-		M.show_message(pick_translation(msg, ru_msg, target = M.client), 1, pick_translation(blind_message, ru_blind_message, target = M.client), 2)
+			ru_msg = (ru_self_message ? ru_self_message : self_message)
+		M.show_message(msg, 1, blind_message, 2, ru_msg, ru_blind_message)
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
@@ -122,7 +124,7 @@
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
-		M.show_message(pick_translation(message, ru_message), 1, pick_translation(blind_message, ru_blind_message), 2)
+		M.show_message(message, 1, blind_message, 2, ru_msg = ru_message, ru_alt = ru_blind_message)
 
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob

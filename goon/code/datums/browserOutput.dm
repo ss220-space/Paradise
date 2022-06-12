@@ -284,7 +284,14 @@ var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
 
-/proc/to_chat(target, message, flag)
+/proc/to_chat(target, message, flag, ru_message)
+	var/client/C
+	if(istype(target, /client))
+		C = target
+	if(ismob(target))
+		C = target:client
+	if(C.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN && ru_message)
+		message = ru_message
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
 
@@ -309,7 +316,6 @@ var/to_chat_src
 	else if(is_valid_tochat_message(message))
 		if(istext(target))
 			CRASH("Somehow, to_chat got a text as a target, message: '[message]', target: '[target]'")
-
 		message = replacetext(message, "\n", "<br>")
 
 		message = macro2html(message)
@@ -322,7 +328,6 @@ var/to_chat_src
 			for(var/char in config.twich_censor_list)
 				message = replacetext(message, char, config.twich_censor_list[char])
 
-		var/client/C
 		if(istype(target, /client))
 			C = target
 		if(ismob(target))
