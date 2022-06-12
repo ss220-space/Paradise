@@ -124,7 +124,7 @@
 
 /obj/screen/movable/action_button/MouseEntered(location, control, params)
 	if(!QDELETED(src))
-		openToolTip(usr, src, params, title = pick_translation(name, ru_name), content = pick_translation(desc, ru_desc), theme = actiontooltipstyle)
+		openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle, ru_title = ru_name, ru_content = ru_desc)
 
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)

@@ -97,7 +97,7 @@
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 /obj/screen/alert/MouseEntered(location,control,params)
-	openToolTip(usr, src, params, title = pick_translation(name, ru_name), content = pick_translation(desc, ru_desc), theme = alerttooltipstyle)
+	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle, ru_title = ru_name, ru_content = ru_desc)
 
 
 /obj/screen/alert/MouseExited()
