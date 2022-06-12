@@ -103,24 +103,26 @@
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
-/mob/visible_message(var/message, var/self_message, var/blind_message)
+/mob/visible_message(var/message, var/self_message, var/blind_message, var/ru_message, var/ru_self_message, var/ru_blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
+		var/ru_msg = ru_message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, 1, blind_message, 2)
+			ru_msg = ru_self_message
+		M.show_message(pick_translation(msg, ru_msg, target = M.client), 1, pick_translation(blind_message, ru_blind_message, target = M.client), 2)
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(var/message, var/blind_message)
+/atom/proc/visible_message(var/message, var/blind_message, var/ru_message, var/ru_blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
-		M.show_message(message, 1, blind_message, 2)
+		M.show_message(pick_translation(message, ru_message), 1, pick_translation(blind_message, ru_blind_message), 2)
 
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob

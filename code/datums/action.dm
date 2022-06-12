@@ -7,6 +7,8 @@
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
+	var/ru_name = null
+	var/ru_desc = null
 	var/obj/target = null
 	var/check_flags = 0
 	var/obj/screen/movable/action_button/button = null
@@ -22,9 +24,11 @@
 	button = new
 	button.linked_action = src
 	button.name = name
+	button.ru_name = target.ru_name
 	button.actiontooltipstyle = buttontooltipstyle
 	if(desc)
 		button.desc = desc
+		button.ru_desc = ru_desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -96,6 +100,7 @@
 			button.icon = button_icon
 			button.icon_state = background_icon_state
 		button.desc = desc
+		button.ru_desc = ru_desc
 
 		ApplyIcon(button)
 
@@ -251,10 +256,12 @@
 			button_icon_state = "vortex_ff_off"
 			name = "Toggle Friendly Fire \[OFF\]"
 			button.name = name
+			button.ru_name = ru_name
 		else
 			button_icon_state = "vortex_ff_on"
 			name = "Toggle Friendly Fire \[ON\]"
 			button.name = name
+			button.ru_name = ru_name
 	..()
 
 /datum/action/item_action/vortex_recall
@@ -278,6 +285,7 @@
 	..()
 	name = "Toggle [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/openclose
 
@@ -285,6 +293,7 @@
 	..()
 	name = "Open/Close [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/button
 
@@ -292,6 +301,7 @@
 	..()
 	name = "Button/Unbutton [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/zipper
 
@@ -299,6 +309,7 @@
 	..()
 	name = "Zip/Unzip [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/halt
 	name = "HALT!"
@@ -330,6 +341,7 @@
 	..()
 	name = "Adjust [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/pontificate
 	name = "Pontificate Evilly"
@@ -435,11 +447,13 @@
 	..()
 	name = "Toggle [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
 	name = "Use [target.name]"
 	button.name = name
+	button.ru_name = ru_name
 
 /datum/action/item_action/voice_changer/toggle
 	name = "Toggle Voice Changer"
@@ -487,10 +501,14 @@
 	S.action = src
 	name = S.name
 	desc = S.desc
+	ru_name = S.ru_name
+	ru_desc = S.ru_desc
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state
 	button.name = name
+	button.ru_name = ru_name
+	button.ru_desc = ru_desc
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/spell/S = target

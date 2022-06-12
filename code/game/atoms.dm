@@ -62,9 +62,6 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
-	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
-	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
-	var/list/ru_names
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -317,38 +314,50 @@
 //All atoms
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
-	var/f_name = "\a [src][infix]."
+	var/f_name = pick_translation("\a [src][infix].",
+		"[declent_ru(NOMINATIVE)][infix].")
+	if(!ru_gender)
+		ru_gender = gender
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
 		if(gender == PLURAL)
-			f_name = "some "
+			f_name = pick_translation("some ", "", override = TRUE)
 		else
-			f_name = "a "
+			f_name = pick_translation("a ", "", override = TRUE)
 		if(blood_color != "#030303")
-			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			f_name += pick_translation("<span class='danger'>blood-stained</span> [name][infix]!",
+				"<span class='danger'>[genderize_ru(ru_gender, "окровавленный", "окровавленная", "окровавленное", "окровавленные")]</span> [declent_ru(NOMINATIVE)][infix]!")
 		else
-			f_name += "oil-stained [name][infix]."
-	. = list("[bicon(src)] That's [f_name] [suffix]")
+			f_name += pick_translation("oil-stained [name][infix].",
+				"[genderize_ru(ru_gender, "обмасленный", "обмасленная", "обмасленное", "обмасленные")] [declent_ru(NOMINATIVE)][infix].")
+	. = list(pick_translation("[bicon(src)] That's [f_name] [suffix]",
+		"[bicon(src)] Это [f_name] [suffix]"))
 	if(desc)
-		. += desc
+		. += pick_translation(desc, ru_desc)
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			. += "<span class='notice'>It contains:</span>"
+			. += pick_translation("<span class='notice'>It contains:</span>",
+				"<span class='notice'>Контейнер содержит:</span>")
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+						. += pick_translation("<span class='notice'>[R.volume] units of [R.name]</span>",
+							"<span class='notice'>[R.volume] единиц [R.name]</span>")
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+						. += pick_translation("<span class='notice'>[reagents.total_volume] units of various reagents.</span>",
+							"<span class='notice'>[reagents.total_volume] единиц различных реагентов.</span>")
 			else
-				. += "<span class='notice'>Nothing.</span>"
+				. += pick_translation("<span class='notice'>Nothing.</span>",
+					"<span class='notice'>ничего.</span>")
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+				. += pick_translation("<span class='notice'>It has [reagents.total_volume] unit\s left.</span>",
+					"<span class='notice'>Контейнер содержит [reagents.total_volume] единиц веществ.</span>")
 			else
-				. += "<span class='danger'>It's empty.</span>"
+				. += pick_translation("<span class='danger'>It's empty.</span>",
+					"<span class='danger'>Контейнер пуст.</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -1006,9 +1015,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// OR (much more likely) the thing is unlabeled yet.
 		default_value = ""
 	if(!prompt)
-		prompt = "What would you like the label on [src] to be?"
-
-	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+		prompt = pick_translation("What would you like the label on [src] to be?",
+			"Какой ярлык вы хотите поставить на [declent_ru(ACCUSATIVE)]?")
+	var/t = input(user, prompt, pick_translation("Renaming [src]",
+		"Переименование [declent_ru(GENITIVE)]"), default_value)  as text | null
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1017,13 +1027,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		to_chat(user, pick_translation("<span class='warning'>You no longer have the pen to rename [src].</span>",
+			"<span class='warning'>У вас нет ручки, чтобы переименовать [declent_ru(ACCUSATIVE)].</span>"))
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		to_chat(user, pick_translation("<span class='warning'>You cannot rename [src] from here.</span>",
+			"<span class='warning'>Вы не можете переименовать [declent_ru(ACCUSATIVE)] отсюда.</span>"))
 		return null
 	else if (user.incapacitated(ignore_lying = TRUE))
-		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		to_chat(user, pick_translation("<span class='warning'>You cannot rename [src] in your current state.</span>",
+			"<span class='warning'>Вы не можете переименовать [declent_ru(ACCUSATIVE)] в вашем текущем состоянии.</span>"))
 		return null
 
 
@@ -1046,11 +1059,3 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	. = density
 	density = new_value
-
-// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
-// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
-/atom/proc/declent_ru(case_id, list/ru_names_override)
-	var/list/list_to_use = ru_names_override || ru_names
-	if(length(list_to_use))
-		return list_to_use[case_id] || name
-	return name
