@@ -50,7 +50,7 @@
 			to_chat(user, "Вы не можете собрать голема из такого металла.")
 
 /obj/effect/mob_spawn/human/golem
-	name = "свободная инертная оболочка голема"
+	name = "инертная оболочка свободного голема"
 	desc = "Гуманоидная форма, пуста, безжизненна и полна потенциала."
 	mob_name = "свободный голем"
 	icon = 'icons/obj/wizard.dmi'
@@ -72,12 +72,13 @@
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
-		name += " ([initial(species.prefix)]ый)"
+		name += " ([initial(species.prefix)]ая)"
 		mob_species = species
 	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
-		notify_ghosts("[initial(species.prefix)]ая оболочка голема была создана на [A.name].", source = src)
+		var/golem_type_text = initial(species.prefix) != null ? initial(species.prefix) + "ая " : initial(species.prefix)
+		notify_ghosts("Собрана [golem_type_text]оболочка голема на [A.name].", source = src) //здесь пробел перед не нужен, это не ошибка!
 	if(has_owner && creator)
 		important_info = "Служите вашему создателю, даже если он антагонист."
 		flavour_text = "Вы голем, созданный для службы своему хозяину."
@@ -105,7 +106,7 @@
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species
 			G.owner = owner
-		if(!name)
+		if(!name || name == "" || name == "Unknown") //Существует баг который заставляет всех големов бегать без имени. Я так и не нашел почему он вызывается и как, поэтому пускай будет хоть какая-то проверка при создании големов.
 			H.rename_character(null, H.dna.species.get_random_name())
 		else
 			H.rename_character(null, name)
@@ -141,7 +142,7 @@
 	mob_name = "голем-прислужник"
 
 /obj/effect/mob_spawn/human/golem/adamantine
-	name = "пыльная свободная оболочка голема"
+	name = "пыльная оболочка свободного голема"
 	desc = "Гуманоидная форма, пуста, безжизненна и полна потенциала."
 	mob_name = "свободный голем"
 	can_transfer = FALSE
