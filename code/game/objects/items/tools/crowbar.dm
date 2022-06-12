@@ -70,7 +70,9 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	ru_gender = PLURAL
 	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	ru_desc = "Это набор челюстей жизни, и магия науки позволила нам поместить это в достаточно маленькое устройство, чтобы оно вместилось в пояс для инструментов. Установлена выпирающая головка"
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/suicide_act(mob/user)
