@@ -587,7 +587,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = "Накопить не менее [target_amount] единиц крови."
+	explanation_text = pick_translation("Accumulate at least [target_amount] total units of blood.",
+		"Накопить не менее [target_amount] единиц крови.")
 	return target_amount
 
 /datum/objective/blood/check_completion()
