@@ -171,22 +171,27 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /obj/item/examine(mob/user)
 	var/size
+	var/ru_size
 	switch(src.w_class)
 		if(WEIGHT_CLASS_TINY)
-			size = pick_translation("tiny", "крохотный")
+			size = "tiny"
+			ru_size = "крохотный"
 		if(WEIGHT_CLASS_SMALL)
-			size = pick_translation("small", "маленький")
+			size = "small"
+			ru_size = "маленький"
 		if(WEIGHT_CLASS_NORMAL)
-			size = pick_translation("normal-sized", "обычного размера")
+			size = "normal-sized"
+			ru_size = "обычного размера"
 		if(WEIGHT_CLASS_BULKY)
-			size = pick_translation("bulky", "громоздкий")
+			size = "bulky"
+			ru_size = "громоздкий"
 		if(WEIGHT_CLASS_HUGE)
-			size = pick_translation("huge", "огромный")
+			size = "huge"
+			ru_size = "огромный"
 		if(WEIGHT_CLASS_GIGANTIC)
-			size = pick_translation("gigantic", "гигантский")
-
-	. = ..(user, "", pick_translation("It is a [size] item.",
-		"Это [size] предмет."))
+			size = "gigantic"
+			ru_size = "гигантский"
+	. = ..(user, suffix = "It is a [size] item.", ru_suffix = "Это [ru_size] предмет.")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -632,7 +637,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	return 0
 
 /obj/item/proc/openTip(location, control, params, user)
-	openToolTip(user, src, params, title = pick_translation(name, ru_name), content = pick_translation("[desc]", "[ru_desc]"), theme = "")
+	openToolTip(user, src, params, title = name, content = "[desc]", theme = "", ru_title = ru_name, ru_content = "[ru_desc]")
 
 /obj/item/MouseEntered(location, control, params)
 	if(in_inventory)

@@ -312,53 +312,60 @@
 
 
 //All atoms
-/atom/proc/examine(mob/user, infix = "", suffix = "")
+/atom/proc/examine(mob/user, infix = "", suffix = "", ru_infix = "", ru_suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
-	var/f_name = pick_translation("\a [src][infix].",
-		"[declent_ru(NOMINATIVE)][infix].")
+	var/f_name = "\a [src][infix]."
+	var/ru_f_name = "[declent_ru(NOMINATIVE)][ru_infix]."
+	var/english
+	var/russian
 	if(!ru_gender)
 		ru_gender = gender
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
 		if(gender == PLURAL)
-			f_name = pick_translation("some ", "", override = TRUE)
+			f_name = "some "
 		else
-			f_name = pick_translation("a ", "", override = TRUE)
+			f_name = "a "
 		if(blood_color != "#030303")
-			f_name += pick_translation("<span class='danger'>blood-stained</span> [name][infix]!",
-				"<span class='danger'>[genderize_ru(ru_gender, "окровавленный", "окровавленная", "окровавленное", "окровавленные")]</span> [declent_ru(NOMINATIVE)][infix]!")
+			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			ru_f_name = "<span class='danger'>[genderize_ru(ru_gender, "окровавленный", "окровавленная", "окровавленное", "окровавленные")]</span> [declent_ru(NOMINATIVE)][ru_infix]!"
 		else
-			f_name += pick_translation("oil-stained [name][infix].",
-				"[genderize_ru(ru_gender, "обмасленный", "обмасленная", "обмасленное", "обмасленные")] [declent_ru(NOMINATIVE)][infix].")
-	. = list(pick_translation("[bicon(src)] That's [f_name] [suffix]",
-		"[bicon(src)] Это [f_name] [suffix]"))
+			f_name += "oil-stained [name][infix]."
+			ru_f_name = "[genderize_ru(ru_gender, "обмасленный", "обмасленная", "обмасленное", "обмасленные")] [declent_ru(NOMINATIVE)][ru_infix]."
+	english = list("[bicon(src)] That's [f_name] [suffix]")
+	russian = list("[bicon(src)] Это [ru_f_name] [ru_suffix]")
 	if(desc)
-		. += pick_translation(desc, ru_desc)
+		english += desc
+		russian += (ru_desc ? ru_desc : desc)
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			. += pick_translation("<span class='notice'>It contains:</span>",
-				"<span class='notice'>Контейнер содержит:</span>")
+			english += "<span class='notice'>It contains:</span>"
+			russian += "<span class='notice'>Контейнер содержит:</span>"
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += pick_translation("<span class='notice'>[R.volume] units of [R.name]</span>",
-							"<span class='notice'>[R.volume] единиц [R.name]</span>")
+						english += "<span class='notice'>[R.volume] units of [R.name]</span>"
+						russian += "<span class='notice'>[R.volume] единиц [R.name]</span>"
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						. += pick_translation("<span class='notice'>[reagents.total_volume] units of various reagents.</span>",
-							"<span class='notice'>[reagents.total_volume] единиц различных реагентов.</span>")
+						english += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+						russian += "<span class='notice'>[reagents.total_volume] единиц различных реагентов.</span>"
 			else
-				. += pick_translation("<span class='notice'>Nothing.</span>",
-					"<span class='notice'>ничего.</span>")
+				english += "<span class='notice'>Nothing.</span>"
+				russian += "<span class='notice'>ничего.</span>"
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += pick_translation("<span class='notice'>It has [reagents.total_volume] unit\s left.</span>",
-					"<span class='notice'>Контейнер содержит [reagents.total_volume] единиц веществ.</span>")
+				english += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+				russian += "<span class='notice'>Контейнер содержит [reagents.total_volume] единиц веществ.</span>"
 			else
-				. += pick_translation("<span class='danger'>It's empty.</span>",
-					"<span class='danger'>Контейнер пуст.</span>")
+				english += "<span class='danger'>It's empty.</span>"
+				russian += "<span class='danger'>Контейнер пуст.</span>"
 
+	if(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+		. = russian
+	else
+		. = english
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /atom/proc/relaymove()
@@ -994,7 +1001,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
  **/
 /atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
-		actually_rename = TRUE, prompt = null)
+		actually_rename = TRUE, prompt = null, ru_prompt)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
@@ -1015,10 +1022,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// OR (much more likely) the thing is unlabeled yet.
 		default_value = ""
 	if(!prompt)
-		prompt = pick_translation("What would you like the label on [src] to be?",
-			"Какой ярлык вы хотите поставить на [declent_ru(ACCUSATIVE)]?")
-	var/t = input(user, prompt, pick_translation("Renaming [src]",
-		"Переименование [declent_ru(GENITIVE)]"), default_value)  as text | null
+		prompt = "What would you like the label on [src] to be?"
+		ru_prompt = "Какой ярлык вы хотите поставить на [declent_ru(ACCUSATIVE)]?"
+	var/t
+	if(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+		t = input(user, ru_prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
+	else
+		t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1027,16 +1038,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, pick_translation("<span class='warning'>You no longer have the pen to rename [src].</span>",
-			"<span class='warning'>У вас нет ручки, чтобы переименовать [declent_ru(ACCUSATIVE)].</span>"))
+		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>",
+			ru_message = "<span class='warning'>У вас нет ручки, чтобы переименовать [declent_ru(ACCUSATIVE)].</span>")
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, pick_translation("<span class='warning'>You cannot rename [src] from here.</span>",
-			"<span class='warning'>Вы не можете переименовать [declent_ru(ACCUSATIVE)] отсюда.</span>"))
+		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>",
+			ru_message = "<span class='warning'>Вы не можете переименовать [declent_ru(ACCUSATIVE)] отсюда.</span>")
 		return null
 	else if (user.incapacitated(ignore_lying = TRUE))
-		to_chat(user, pick_translation("<span class='warning'>You cannot rename [src] in your current state.</span>",
-			"<span class='warning'>Вы не можете переименовать [declent_ru(ACCUSATIVE)] в вашем текущем состоянии.</span>"))
+		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>",
+			ru_message = "<span class='warning'>Вы не можете переименовать [declent_ru(ACCUSATIVE)] в вашем текущем состоянии.</span>")
 		return null
 
 
