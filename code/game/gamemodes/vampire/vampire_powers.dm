@@ -193,7 +193,7 @@
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as [user.p_they()] stare[user.p_s()] into [target]'s eyes</span>",
-			ru_message = "<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
+			ru_message = "<span class='warning'>Глаза [user] вспыхивают, когда [genderize_ru(user.gender), "он", "она", "оно", "они"] пристально смотр[pluralize_ru(user.gender, "ит", "ят")] в глаза [target]</span>")
 		if(do_mob(user, target, 60))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>",
@@ -447,7 +447,8 @@
 	var/mob/living/user = loc
 	if(!ishuman(user) || !user.mind || !user.mind.vampire)
 		return
-	name = "[initial(name)] ([user.mind.vampire.iscloaking ? (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Deactivate" : "Выключить") : (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Activate" : "Включить")]"
+	var/current_name = (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? initial(name) : initial(ru_name))
+	name = "[current_name] ([user.mind.vampire.iscloaking ? (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Deactivate" : "Выключить") : (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Activate" : "Включить")]"
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/vampire/V = user.mind.vampire
