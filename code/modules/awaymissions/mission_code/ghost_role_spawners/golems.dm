@@ -106,7 +106,7 @@
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species
 			G.owner = owner
-		if(!name || name == "" || name == "Unknown") //Существует баг который заставляет всех големов бегать без имени. Я так и не нашел почему он вызывается и как, поэтому пускай будет хоть какая-то проверка при создании големов.
+		if(!name || name == "Unknown") //Существует баг который заставляет всех големов бегать без имени. Я так и не нашел почему он вызывается и как, поэтому пускай будет хоть какая-то проверка при создании големов.
 			H.rename_character(null, H.dna.species.get_random_name())
 		else
 			H.rename_character(null, name)
@@ -126,7 +126,7 @@
 		return
 	if(isgolem(user) && can_transfer)
 		var/transfer_choice = alert("Перенести свою душу в [src.name]? (Осторожно, ваше старое тело умрет!)",,"Да","Нет")
-		if(transfer_choice != "Yes")
+		if(transfer_choice != "Да")
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
