@@ -486,7 +486,7 @@
 					for(var/mob/living/L in view(7,src)-list(src,who))
 						if(findtext_char(phrase, lowertext(L.name)))
 							if(isslime(L))
-								to_say = "НЕТ… [L] друг слайм"
+								to_say = "НЕТ… [L] друг слайма"
 								--Friends[who] //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
