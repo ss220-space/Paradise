@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/retaliate/kangaroo
 	name = "Kangaroo"
 	real_name = "Kangaroo"
-	voice_name = "unidentifiable voice"
+	voice_name = "неизвестный голос"
 	desc = "A large marsupial herbivore. It has powerful hind legs, with nails that resemble long claws."
 	icon_state = "kangaroo" // Credit: FoS
 	icon_living = "kangaroo"
@@ -15,7 +15,7 @@
 	harm_intent_damage = 3
 	melee_damage_lower = 5 // avg damage 12.5 without kick, (12.5+12.5+60)/3=25 with kick
 	melee_damage_upper = 20
-	attacktext = "slashes"
+	attacktext = "пинает"
 	attack_sound = 'sound/weapons/bladeslice.ogg' // they have nails that work like claws, so, slashing sound
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	move_to_delay = 4 // at 20ticks/sec, this is 5 tile/sec movespeed, about the same as a 'fast human'.
@@ -46,14 +46,14 @@
 
 	// ... but, every attack_cycles_max attacks on a living mob, do a powerful disemboweling kick instead
 	attack_cycles = 0
-	attacktext = "VICIOUSLY KICKS"
+	attacktext = "ЗЛОБНО ПИНАЕТ"
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 	. = ..()
 
 	var/rookick_dir = get_dir(src, L)
 	var/turf/general_direction = get_edge_target_turf(L, rookick_dir)
-	L.visible_message("<span class='danger'>[L] is kicked hard!</span>", "<span class='userdanger'>The kangaroo kick sends you flying mate!</span>")
+	L.visible_message("<span class='danger'>[L] сильно пинает!</span>", "<span class='userdanger'>Пинок [name] посылает вас в полёт!</span>")
 	L.throw_at(general_direction, 10, 2)
 
 	attacktext = initial(attacktext)

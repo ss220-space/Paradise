@@ -10,6 +10,7 @@
 
 	if(stat != DEAD)
 		handle_organs()
+		handle_disgust() //todo when you port stomachs that should happen there instead
 
 	//stuff in the stomach
 	if(LAZYLEN(stomach_contents))
@@ -47,7 +48,7 @@
 	else
 		if(istype(loc, /obj/))
 			var/obj/location_as_object = loc
-			location_as_object.handle_internal_lifeform(src,0)
+			location_as_object.handle_internal_lifeform(src, 0)
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
@@ -81,7 +82,7 @@
 
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
@@ -92,7 +93,7 @@
 		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc
-				loc_as_obj.handle_internal_lifeform(src,0)
+				loc_as_obj.handle_internal_lifeform(src, 0)
 
 	check_breath(breath)
 
@@ -224,6 +225,28 @@
 
 /mob/living/carbon/proc/handle_changeling()
 	return
+
+/mob/living/carbon/proc/handle_disgust()
+	if(disgust)
+		if(disgust >= DISGUST_LEVEL_GROSS)
+			if(prob(10))
+				AdjustStuttering(1)
+				AdjustConfused(2)
+			if(prob(10) && !stat)
+				to_chat(src, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+			jitteriness = max(jitteriness - 3, 0)
+		if(disgust >= DISGUST_LEVEL_VERYGROSS)
+			var/pukeprob = 5 + 0.05 * disgust
+			if(prob(pukeprob))
+				AdjustConfused(2.5)
+				AdjustStuttering(1)
+				vomit(10, FALSE, TRUE, 0, FALSE)
+			Dizzy(5)
+		if(disgust >= DISGUST_LEVEL_DISGUSTED)
+			if(prob(25))
+				AdjustEyeBlurry(3)
+
+		AdjustDisgust(-0.5)
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(radiation)
