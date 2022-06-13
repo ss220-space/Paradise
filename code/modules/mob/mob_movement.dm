@@ -128,18 +128,13 @@
 
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-	var/mob/living/living_mob = mob
-	if(istype(living_mob))
+	if(istype(mob))
 		var/newdir = NONE
 		if(mob.confused > 40)
-		// Данные изменение в 4 строках ниже должны идти поверх другого ПРа: https://github.com/ParadiseSS13/Paradise/pull/17579
-		// Но у нас накатана боевка Ржодана и необходимо решить конфликт с их объединением
-		// var/confusion = living_mob.get_confusion()
-		// if(confusion > CONFUSION_MAX)
 			newdir = pick(GLOB.alldirs)
-		else if(prob(mob.confused * 1.5)) // else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
+		else if(prob(mob.confused * 1.5))
 			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(mob.confused * 3)) // else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
+		else if(prob(mob.confused * 3))
 			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
 		if(newdir)
 			direct = newdir
