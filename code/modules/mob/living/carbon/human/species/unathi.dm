@@ -103,17 +103,9 @@
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 
-		var/E_ru //русифицируем орган
-		switch (E)
-			if ("l_leg") E_ru = "левую ногу"
-			if ("r_leg") E_ru = "правую ногу"
-			if ("l_foot") E_ru = "левую ступню"
-			if ("r_foot") E_ru = "правую ступню"
-			if ("groin") E_ru = "пах"
-
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
-			user.visible_message("<span class='danger'>[user] хлещет [C] в [E_ru] своим хвостом! </span>", "<span class='danger'>Вы хлестаете [C] в [E_ru] своим хвостом!</span>")
+			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
@@ -122,7 +114,7 @@
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(2)
-					user.visible_message("<span class='danger'>[user] теря[pluralize_ru(user.gender,"ет","ют")] [genderize_ru(user.gender,"его","её","свое","их")] равновесие!</span>", "<span class='danger'>Вы теряете равновесие!</span>")
+					user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
 				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
