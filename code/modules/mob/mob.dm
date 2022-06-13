@@ -1082,6 +1082,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			statpanel(listed_turf.name, null, statpanel_things)
 
 /mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
+	if(src.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN && S.ru_name)
+		S.name = S.ru_name
+	else
+		S.name = initial(S.name)
 	switch(S.charge_type)
 		if("recharge")
 			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)

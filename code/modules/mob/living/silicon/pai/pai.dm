@@ -145,6 +145,10 @@
 
 	if(proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
+			if(src.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN && P.ru_name)
+				P.name = P.ru_name
+			else
+				P.name = initial(P.name)
 			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/blob_act()
