@@ -128,7 +128,7 @@
 
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-	if(istype(mob))
+	if(isliving(mob))
 		var/newdir = NONE
 		if(mob.confused > 40)
 			newdir = pick(GLOB.alldirs)
