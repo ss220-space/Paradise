@@ -128,17 +128,16 @@
 
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-	if(isliving(mob))
-		var/newdir = NONE
-		if(mob.confused > 40)
-			newdir = pick(GLOB.alldirs)
-		else if(prob(mob.confused * 1.5))
-			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(mob.confused * 3))
-			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-		if(newdir)
-			direct = newdir
-			n = get_step(mob, direct)
+	var/newdir = NONE
+	if(mob.confused > 40)
+		newdir = pick(GLOB.alldirs)
+	else if(prob(mob.confused * 1.5))
+		newdir = angle2dir(dir2angle(direct) + pick(90, -90))
+	else if(prob(mob.confused * 3))
+		newdir = angle2dir(dir2angle(direct) + pick(45, -45))
+	if(newdir)
+		direct = newdir
+		n = get_step(mob, direct)
 
 	. = mob.SelfMove(n, direct, delay)
 	mob.setDir(direct)
