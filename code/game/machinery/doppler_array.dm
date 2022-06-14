@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	density = 1
 	anchored = 1
 	atom_say_verb = "states coldly"
+	ru_atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech

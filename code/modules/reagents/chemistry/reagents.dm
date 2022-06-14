@@ -1,7 +1,9 @@
 /datum/reagent
 	var/name = "Reagent"
+	var/ru_name
 	var/id = "reagent"
 	var/description = ""
+	var/ru_description
 	var/datum/reagents/holder = null
 	var/reagent_state = SOLID
 	var/list/data = null
@@ -32,6 +34,7 @@
 	var/drink_desc = "You can't really tell what this is."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
+	var/ru_taste_description
 
 /datum/reagent/Destroy()
 	. = ..()

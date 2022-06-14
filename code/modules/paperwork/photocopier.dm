@@ -18,6 +18,7 @@
 	integrity_failure = 100
 	var/emag_cooldown
 	atom_say_verb = "bleeps"
+	ru_atom_say_verb = "bleeps"
 	var/mode = MODE_COPY
 	var/category = "" // selected form's category
 	var/form_id = "" // selected form's id

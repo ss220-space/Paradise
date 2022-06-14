@@ -5,6 +5,7 @@
 	icon_state = "disco0"
 	anchored = FALSE
 	atom_say_verb = "states"
+	ru_atom_say_verb = "states"
 	density = TRUE
 	var/active = FALSE
 	var/list/rangers = list()

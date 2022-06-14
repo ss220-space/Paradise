@@ -22,6 +22,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/ru_atom_say_verb = "говорит"
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 
@@ -877,12 +878,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/handle_atom_del(atom/A)
 	return
 
-/atom/proc/atom_say(message)
+/atom/proc/atom_say(message, ru_message)
 	if(!message)
 		return
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1,
+			ru_msg = "<span class='game say'><span class='name'>[src]</span> [ru_atom_say_verb], \"[ru_message ? ru_message : message]\"</span>")
 		if(M.client)
 			speech_bubble_hearers += M.client
 

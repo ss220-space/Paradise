@@ -121,6 +121,7 @@ Class Procs:
 	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
+	ru_atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
 	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
 	var/frequency = NONE
