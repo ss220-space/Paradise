@@ -115,8 +115,7 @@
 		golem_surname = pick(special_names[gender_name])
 
 	// 5% шанс выбрать человеческое имя или фамилию, ну или если голем до сих пор не имеет имени
-	if(prob(human_surname_chance) || (golem_surname == null)
-	|| golem_surname == "" || golem_surname == " ") //игра по прежнему не считает строчные пустые элементы != null элементами. Из-за чего нужна такая проверка
+	if(prob(human_surname_chance) || (golem_surname == null) || golem_surname == "" || golem_surname == " ") //игра по прежнему не считает строчные пустые элементы != null элементами. Из-за чего нужна такая проверка
 		switch (gender_name)
 			if (MALE)
 				if (prob(50)) //выбираем мужское имя или фамилию
@@ -129,7 +128,7 @@
 				else
 					golem_surname = pick(GLOB.last_names_female)
 		 	if (NEUTER)
-			 	golem_surname = "Нечто" //Средний пол голема
+			 	golem_surname = pick("Нечто", "Чудо") //Средний пол голема
 
 	//устанавливаем окончание прилагательных префиксов (золотой мужик теперь золотОЙ, а не золотЫЙ)
 	var/end_pr
