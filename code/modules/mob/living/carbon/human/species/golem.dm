@@ -71,7 +71,7 @@
 	var/prefix = "Железн" 		// неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	var/prefix_type = 1			// Тип гендеризации префикса для более гладких переводов. 1-й = "-ый", 2-й = "-ой", 3-й = ""
 
-	var/gender_name = NEUTER 	// Пол для имени голема. Default - мужской
+	var/gender_name = MALE 	// Пол для имени голема. Default - мужской
 	var/chance_name_male = 80	// Шанс на выпадение пола для имени
 	var/chance_name_female = 60
 	var/chance_name_neuter = 5
