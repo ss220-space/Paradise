@@ -100,13 +100,13 @@
 	//выбираем изначально случайное големское имя аля "Андезит"
 	switch (gender_name)
 		if (MALE)
-			if (length(GLOB.golem_male) == 0) //Бйонд имеет привычку с отваливанием файлов. Чтобы такого не допустить, мы проверяем длину файла
+			if (length(GLOB.golem_male)) //Бйонд имеет привычку с отваливанием файлов. Чтобы такого не допустить, мы проверяем длину файла
 				golem_surname = "[pick(GLOB.golem_male)]"
 		if (FEMALE)
-			if (length(GLOB.golem_female) == 0)
+			if (length(GLOB.golem_female))
 				golem_surname = "[pick(GLOB.golem_female)]"
 		if (NEUTER)
-			if (length(GLOB.golem_neuter) == 0)
+			if (length(GLOB.golem_neuter))
 				golem_surname = "[pick(GLOB.golem_neuter)]"
 
 
