@@ -715,10 +715,6 @@
 		if("moan", "moans")
 			if(miming)
 				message = "кажется стонет!"
-				if(gender == FEMALE)
-					playsound(src, pick('sound/voice/moan_female_1.ogg','sound/voice/moan_female_2.ogg','sound/voice/moan_female_3.ogg'), 70, 1, frequency = get_age_pitch())
-				else
-					playsound(src, pick('sound/voice/moan_male_1.ogg','sound/voice/moan_male_2.ogg','sound/voice/moan_male_3.ogg'), 70, 1, frequency = get_age_pitch())
 				m_type = 1
 			else
 				message = "<B>[src]</B> стонет!"
