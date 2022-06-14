@@ -115,7 +115,8 @@
 		golem_surname = pick(special_names[gender_name])
 
 	// 5% шанс выбрать человеческое имя или фамилию, ну или если голем до сих пор не имеет имени
-	if(prob(human_surname_chance) || (golem_surname == null))
+	if(prob(human_surname_chance) || (golem_surname == null)
+	|| golem_surname == "" || golem_surname == " ") //игра по прежнему не считает строчные пустые элементы != null элементами. Из-за чего нужна такая проверка
 		switch (gender_name)
 			if (MALE)
 				if (prob(50)) //выбираем мужское имя или фамилию
