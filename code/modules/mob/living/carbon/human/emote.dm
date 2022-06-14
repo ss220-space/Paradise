@@ -717,7 +717,7 @@
 				message = "каж[pluralize_ru(src.gender,"ет","ют")]ся стон[pluralize_ru(src.gender,"ет","ут")]!"
 				m_type = 1
 			else
-				message = "стон[pluralize_ru(src.gender,"ет","ут")!"
+				message = "стон[pluralize_ru(src.gender,"ет","ут")]!"
 				if(gender == FEMALE)
 					playsound(src, pick('sound/voice/moan_female_1.ogg','sound/voice/moan_female_2.ogg','sound/voice/moan_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 				else
