@@ -152,7 +152,10 @@
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. +=(!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Has [get_ammo()] round\s remaining." : "Боезапаса внутри: [get_ammo()]")
+	if(check_locale(user.client) == "ru")
+		. += "Боезапаса внутри: [get_ammo()]"
+	else
+		. += "Has [get_ammo()] round\s remaining."
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people

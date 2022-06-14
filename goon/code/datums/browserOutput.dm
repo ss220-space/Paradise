@@ -290,7 +290,7 @@ var/to_chat_src
 		C = target
 	if(ismob(target))
 		C = target:client
-	if(C.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN && ru_message)
+	if(check_locale(C) == "ru" && ru_message)
 		message = ru_message
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message

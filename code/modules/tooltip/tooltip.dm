@@ -105,7 +105,7 @@ Notes:
 				theme = lowertext(user.client.prefs.UI_style)
 			if(!theme)
 				theme = "default"
-			if(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+			if(check_locale(user.client) == "ru")
 				if(ru_title)
 					title = ru_title
 				if(ru_content)

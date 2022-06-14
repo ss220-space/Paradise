@@ -89,15 +89,30 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<span class='notice'>Alt-click it to reskin it.</span>" : "<span class='notice'>Нажмите Альт-клик, чтобы сменить раскраску.</span>")
+		if(check_locale(user.client) == "ru")
+			. += "<span class='notice'>Нажмите Альт-клик, чтобы сменить раскраску.</span>"
+		else
+			. += "<span class='notice'>Alt-click it to reskin it.</span>"
 	if(unique_rename)
-		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<span class='notice'>Use a pen on it to rename it.</span>" : "<span class='notice'>Используйте ручку, чтобы переименовать оружие.</span>")
+		if(check_locale(user.client) == "ru")
+			. += "<span class='notice'>Используйте ручку, чтобы переименовать оружие.</span>"
+		else
+			. += "<span class='notice'>Use a pen on it to rename it.</span>"
 	if(bayonet)
-		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it." : "Оружие имеет [can_bayonet ? "" : "перманентно "]закрепленн[genderize_ru(bayonet.ru_gender, "ый", "ую", "ое", "ые")] [bayonet.declent_ru(ACCUSATIVE)].")
+		if(check_locale(user.client) == "ru")
+			. += "Оружие имеет [can_bayonet ? "" : "перманентно "]закрепленн[genderize_ru(bayonet.ru_gender, "ый", "ую", "ое", "ые")] [bayonet.declent_ru(ACCUSATIVE)]."
+		else
+			. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>" : "<span class='info'>Похоже, что [bayonet.declent_ru(ACCUSATIVE)] можно снять отверткой.</span>")
+			if(check_locale(user.client) == "ru")
+				. += "<span class='info'>Похоже, что [bayonet.declent_ru(ACCUSATIVE)] можно снять отверткой.</span>"
+			else
+				. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
-		. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "It has a <b>bayonet</b> lug on it." : "На оружии есть крепление для <b>байонеты</b>.")
+		if(check_locale(user.client) == "ru")
+			. += "На оружии есть крепление для <b>байонеты</b>."
+		else
+			. += "It has a <b>bayonet</b> lug on it."
 
 /obj/item/gun/proc/process_chamber()
 	return 0

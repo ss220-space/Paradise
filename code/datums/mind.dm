@@ -170,10 +170,15 @@
 
 	if(LAZYLEN(all_objectives))
 		for(var/datum/objective/objective in all_objectives)
-			. += (!(src.current.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]" : "<br><B>Задача #[obj_count++]</B>: [objective.ru_explanation_text ? objective.ru_explanation_text : objective.explanation_text]")
-
+			if(check_locale(src.current.client) == "ru")
+				. += "<br><B>Задача #[obj_count++]</B>: [objective.ru_explanation_text ? objective.ru_explanation_text : objective.explanation_text]"
+			else
+				. += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 	for(var/datum/objective/objective in objectives)
-		. += (!(src.current.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "<b>Objective #[obj_count++]</b>: [objective.explanation_text]" : "<b>Задача #[obj_count++]</b>: [objective.ru_explanation_text ? objective.ru_explanation_text : objective.explanation_text]")
+		if(check_locale(src.current.client) == "ru")
+			. += "<br><B>Задача #[obj_count++]</B>: [objective.ru_explanation_text ? objective.ru_explanation_text : objective.explanation_text]"
+		else
+			. += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 		if(admin)
 			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
 			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete

@@ -85,7 +85,10 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "[get_ammo(0,0)] of those are live rounds." : "Из них заряжено: [get_ammo(0,0)]")
+	if(check_locale(user.client) == "ru")
+		. += "Из них заряжено: [get_ammo(0,0)]"
+	else
+		. += "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."

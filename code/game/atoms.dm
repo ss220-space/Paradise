@@ -362,7 +362,7 @@
 				english += "<span class='danger'>It's empty.</span>"
 				russian += "<span class='danger'>Контейнер пуст.</span>"
 
-	if(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+	if(check_locale(user.client) == "ru")
 		. = russian
 	else
 		. = english
@@ -1025,7 +1025,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		prompt = "What would you like the label on [src] to be?"
 		ru_prompt = "Какой ярлык вы хотите поставить на [declent_ru(ACCUSATIVE)]?"
 	var/t
-	if(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+	if(check_locale(user.client) == "ru")
 		t = input(user, ru_prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
 	else
 		t = input(user, prompt, "Renaming [src]", default_value)  as text | null

@@ -190,7 +190,7 @@
 			if(mind.vampire)
 				var/totalbloodstat = "Total Blood"
 				var/usablebloodstat = "Usable Blood"
-				if(mind.current.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN)
+				if(check_locale(mind.current.client) == "ru")
 					totalbloodstat = "Всего крови"
 					usablebloodstat = "Доступная кровь"
 				stat(totalbloodstat, "[mind.vampire.bloodtotal]")

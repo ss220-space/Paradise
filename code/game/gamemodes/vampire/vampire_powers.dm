@@ -119,8 +119,11 @@
 	var/list/possible_targets[0]
 	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
 		possible_targets += C
-	var/mob/living/carbon/T = input(user, (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Choose your victim." : "Выберите жертву."), name) as null|mob in possible_targets
-
+	var/mob/living/carbon/T
+	if(check_locale(user.client) == "ru")
+		T = input(user, "Выберите жертву.", name) as null|mob in possible_targets
+	else
+		T = input(user, "Choose your victim.", name) as null|mob in possible_targets
 	if(!T || !can_reach(T))
 		revert_cast(user)
 		return
@@ -193,7 +196,7 @@
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as [user.p_they()] stare[user.p_s()] into [target]'s eyes</span>",
-			ru_message = "<span class='warning'>Глаза [user] вспыхивают, когда [genderize_ru(user.gender), "он", "она", "оно", "они"] пристально смотр[pluralize_ru(user.gender, "ит", "ят")] в глаза [target]</span>")
+			ru_message = "<span class='warning'>Глаза [user] вспыхивают, когда [genderize_ru(user.gender, "он", "она", "оно", "они")] пристально смотр[pluralize_ru(user.gender, "ит", "ят")] в глаза [target]</span>")
 		if(do_mob(user, target, 60))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>",
@@ -447,8 +450,10 @@
 	var/mob/living/user = loc
 	if(!ishuman(user) || !user.mind || !user.mind.vampire)
 		return
-	var/current_name = (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? initial(name) : initial(ru_name))
-	name = "[current_name] ([user.mind.vampire.iscloaking ? (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Deactivate" : "Выключить") : (!(user.client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "Activate" : "Включить")]"
+	if(check_locale(user.client) == "ru")
+		name = "[ru_name] ([user.mind.vampire.iscloaking ? "Выключить" : "Включить"])"
+	else
+		name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Deactivate" : "Activate"])"
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/vampire/V = user.mind.vampire

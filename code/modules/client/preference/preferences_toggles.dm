@@ -330,7 +330,7 @@
 	set desc = "Toggle Russian messages"
 	prefs.toggles2 ^= PREFTOGGLE_2_RUSSIAN
 	prefs.save_preferences(src)
-	to_chat(src, "Вы теперь [(prefs.toggles2 & PREFTOGGLE_2_RUSSIAN) ? "видите" : "не видите"] перевод на русский язык.")
+	to_chat(src, "You will now see English messages", ru_message = "Вы теперь видите перевод на русский язык.")
 
 /client/verb/toggle_death_messages()
 	set name = "Show/Hide Death Notifications"
