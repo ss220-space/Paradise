@@ -14,6 +14,7 @@
 
 /datum/spawners_menu/ui_data(mob/user)
 	var/list/data = list()
+	var/isrussian = check_locale(user.client) == "ru" ? TRUE : FALSE
 	data["spawners"] = list()
 	for(var/spawner in GLOB.mob_spawners)
 		var/list/this = list()
@@ -30,9 +31,15 @@
 					this["desc"] = MS.description
 					this["important_info"] = MS.important_info
 					this["fluff"] = MS.flavour_text
+					if(isrussian)
+						this["desc"] = MS.ru_description || MS.description
+						this["important_info"] = MS.ru_important_info || MS.important_info
+						this["fluff"] = MS.ru_flavour_text || MS.flavour_text
 				else
 					var/obj/O = spawner_obj
 					this["desc"] = O.desc
+					if(isrussian)
+						this["desc"] = O.ru_desc || O.desc
 		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
 	return data
