@@ -8,23 +8,35 @@
 
 /atom/
 	var/description_info = null //Helpful blue text.
+	var/ru_description_info
 	var/description_fluff = null //Green text about the atom's fluff, if any exists.
+	var/ru_description_fluff
 	var/description_antag = null //Malicious red text, for the antags.
+	var/ru_description_antag
 
 //Override these if you need special behaviour for a specific type.
-/atom/proc/get_description_info()
+/atom/proc/get_description_info(translation)
 	if(description_info)
-		return description_info
+		if(translation == "ru" && ru_description_info)
+			return ru_description_info
+		else
+			return description_info
 	return
 
-/atom/proc/get_description_fluff()
+/atom/proc/get_description_fluff(translation)
 	if(description_fluff)
-		return description_fluff
+		if(translation == "ru" && ru_description_fluff)
+			return ru_description_fluff
+		else
+			return description_fluff
 	return
 
-/atom/proc/get_description_antag()
+/atom/proc/get_description_antag(translation)
 	if(description_antag)
-		return description_antag
+		if(translation == "ru" && ru_description_antag)
+			return ru_description_antag
+		else
+			return description_antag
 	return
 
 /mob/living/get_description_fluff()
@@ -46,8 +58,17 @@
 	description_holders["antag"] = (update_antag_info)? A.get_description_antag() : ""
 
 	description_holders["name"] = "[A.name]"
-	description_holders["icon"] = "\icon[A]" //"[bicon(A)]" 
+	description_holders["icon"] = "\icon[A]" //"[bicon(A)]"
 	description_holders["desc"] = A.desc
+
+	if(check_locale(src) == "ru")
+		description_holders["info"] = A.get_description_info("ru")
+		description_holders["fluff"] = A.get_description_fluff("ru")
+		description_holders["antag"] = (update_antag_info)? A.get_description_antag("ru") : ""
+
+		description_holders["name"] = "[A.declent_ru(NOMINATIVE)]"
+		description_holders["icon"] = "\icon[A]" //"[bicon(A)]"
+		description_holders["desc"] = A.ru_desc || A.desc
 
 /client/Stat()
 	. = ..()

@@ -85,7 +85,10 @@
 /obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Autolathe", name, 800, 700, master_ui, state)
+		if(check_locale(user.client) == "ru")
+			ui = new(user, src, ui_key, "Autolathe", name, 800, 700, master_ui, state)
+		else
+			ui = new(user, src, ui_key, "Autolathe", declent_ru(NOMINATIVE), 800, 700, master_ui, state)
 		ui.open()
 
 

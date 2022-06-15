@@ -224,9 +224,11 @@
 /////// Messages and Log ///////
 ////////////////////////////////
 
-/obj/mecha/proc/occupant_message(message as text)
+/obj/mecha/proc/occupant_message(message as text, ru_message as text)
 	if(message)
 		if(occupant && occupant.client)
+			if(check_locale(occupant.client) == "ru")
+				message = ru_message
 			to_chat(occupant, "[bicon(src)] [message]")
 	return
 

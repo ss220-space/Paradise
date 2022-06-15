@@ -336,7 +336,7 @@
 	russian = list("[bicon(src)] Это [ru_f_name] [ru_suffix]")
 	if(desc)
 		english += desc
-		russian += (ru_desc ? ru_desc : desc)
+		russian += ru_desc || desc
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
@@ -884,7 +884,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
 		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1,
-			ru_msg = "<span class='game say'><span class='name'>[src]</span> [ru_atom_say_verb], \"[ru_message ? ru_message : message]\"</span>")
+			ru_msg = "<span class='game say'><span class='name'>[src]</span> [ru_atom_say_verb], \"[ru_message || message]\"</span>")
 		if(M.client)
 			speech_bubble_hearers += M.client
 

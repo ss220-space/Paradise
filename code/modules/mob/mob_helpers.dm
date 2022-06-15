@@ -494,10 +494,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
-/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
+/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP, ru_message) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client)
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>",
+				ru_message = "<span class='ghostalert'>[ru_message || message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
 				O << sound(ghost_sound)
 			if(flashwindow)

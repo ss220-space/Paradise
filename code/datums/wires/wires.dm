@@ -9,6 +9,7 @@
 	/// The display name for the TGUI window. For example, given the var is "APC"...
 	/// When the TGUI window is opened, "wires" will be appended to it's title, and it would become "APC wires".
 	var/proper_name = "Unknown"
+	var/ru_proper_name
 	/// The total number of wires that our holder atom has.
 	var/wire_count = NONE
 	/// A list of all wires. For a list of valid wires defines that can go here, see `code/__DEFINES/wires.dm`
@@ -95,11 +96,15 @@
 /datum/wires/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
+		if(check_locale(user.client) == "ru")
+			ui = new(user, src, ui_key, "Wires", "Проводка [ru_proper_name || proper_name]", window_x, window_y + wire_count * 30, master_ui, state)
+		else
+			ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
 		ui.open()
 
 /datum/wires/ui_data(mob/user)
 	var/list/data = list()
+	var/list/ru_data = list()
 	var/list/replace_colors
 
 	if(ishuman(user))
@@ -134,6 +139,7 @@
 	// Get the information shown at the bottom of wire TGUI window, such as "The red light is blinking", etc.
 	// If the user is colorblind, we need to replace these colors as well.
 	var/list/status = get_status()
+	var/list/ru_status = get_status("ru")
 
 	if(replace_colors)
 		var/i
@@ -144,9 +150,12 @@
 					new_color = LIST_COLOR_RENAME[new_color]
 				if(findtext(status[i], color))
 					status[i] = replacetext(status[i], color, new_color)
+					ru_status[i] = replacetext(ru_status[i], color, new_color)
 					break
 
 	data["status"] = status
+	if(check_locale(user.client) == "ru")
+		data["status"] = ru_status
 	return data
 
 /datum/wires/ui_act(action, list/params)
@@ -226,7 +235,7 @@
 /**
  * Base proc, intended to be overwritten. Put wire information you'll see at the botton of the TGUI window here, such as "The red light is blinking".
  */
-/datum/wires/proc/get_status()
+/datum/wires/proc/get_status(var/language)
 	return list()
 
 /**

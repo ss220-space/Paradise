@@ -81,14 +81,14 @@
 				return
 			else
 				msg = alt
-				ru_msg = (ru_alt ? ru_alt : alt)
+				ru_msg = ru_alt || alt
 				type = alt_type
 		if(type & 2 && !can_hear())//Hearing related
 			if(!( alt ))
 				return
 			else
 				msg = alt
-				ru_msg = (ru_alt ? ru_alt : alt)
+				ru_msg = ru_alt || alt
 				type = alt_type
 				if(type & 1 && !has_vision(information_only=TRUE))
 					return
@@ -110,10 +110,10 @@
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
-		var/ru_msg = (ru_message ? ru_message : message)
+		var/ru_msg = ru_message || message
 		if(self_message && M == src)
 			msg = self_message
-			ru_msg = (ru_self_message ? ru_self_message : self_message)
+			ru_msg = ru_self_message || self_message
 		M.show_message(msg, 1, blind_message, 2, ru_msg, ru_blind_message)
 
 // Show a message to all mobs in sight of this atom
