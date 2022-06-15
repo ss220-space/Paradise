@@ -310,7 +310,10 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ExosuitFabricator", name, 800, 600)
+		if(check_locale(user.client) == "ru")
+			ui = new(user, src, ui_key, "ExosuitFabricator", declent_ru(NOMINATIVE), 800, 600)
+		else
+			ui = new(user, src, ui_key, "ExosuitFabricator", name, 800, 600)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -338,7 +341,10 @@
 	var/list/queue_deficit = mats.Copy() // What (and how much) materials are we missing to fully process the queue? Any negative values after the loop mean a deficit for a particular material.
 	for(var/d in build_queue)
 		var/datum/design/D = d
-		var/list/out = list("name" = D.name, "time" = get_design_build_time(D))
+		var/output_name = D.name
+		if(check_locale(user.client) == "ru")
+			output_name = D.ru_name || D.name
+		var/list/out = list("name" = output_name, "time" = get_design_build_time(D))
 		// Add to deficit
 		var/list/actual_cost = get_design_cost(D)
 		for(var/cost_id in actual_cost)
@@ -356,7 +362,10 @@
 			var/datum/design/D = local_designs.known_designs[v]
 			if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 				continue
-			var/list/design_out = list("id" = D.id, "name" = D.name, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
+			var/output_name = D.name
+			if(check_locale(user.client) == "ru")
+				output_name = D.ru_name || D.name
+			var/list/design_out = list("id" = D.id, "name" = output_name, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
 			if(!can_afford_design(D))
 				design_out["notEnough"] = TRUE
 			category_designs += list(design_out)

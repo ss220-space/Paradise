@@ -35,6 +35,7 @@
 	var/temp_search
 	var/selected_category
 	var/list/recipiecache = list()
+	var/list/ru_recipiecache = list()
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
@@ -97,6 +98,7 @@
 	data["categories"] = categories
 	if(!recipiecache.len)
 		var/list/recipes = list()
+		var/list/ru_recipies = list()
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
 			var/list/cost_list = design_cost_data(D)
@@ -128,8 +130,21 @@
 				"max_multiplier" = maxmult,
 				"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 			)))
+			ru_recipies.Add(list(list(
+				"name" = D.ru_name || D.name,
+				"category" = categories,
+				"uid" = D.UID(),
+				"requirements" =  matreq,
+				"hacked" = ("hacked" in categories) ? TRUE : FALSE,
+				"max_multiplier" = maxmult,
+				"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
+			)))
 		recipiecache = recipes
-	data["recipes"] = recipiecache
+		ru_recipiecache = ru_recipies
+	if(check_locale(user.client) == "ru")
+		data["recipes"] = ru_recipiecache
+	else
+		data["recipes"] = recipiecache
 	return data
 
 /obj/machinery/autolathe/ui_data(mob/user)

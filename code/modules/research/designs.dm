@@ -31,7 +31,9 @@ other types of metals and chemistry for reagents).
 
 /datum/design						//Datum for object designs, used in construction
 	var/name = "Name"					//Name of the created object.
+	var/ru_name
 	var/desc = "Desc"					//Description of the created object.
+	var/ru_desc
 	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
 	var/list/req_tech = list()			//IDs of that techs the object originated from and the minimum level requirements.
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
