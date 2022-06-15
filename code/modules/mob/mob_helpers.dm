@@ -414,7 +414,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	set category = "IC"
 
 	if(sleeping)
-		to_chat(src, "<span class='notice'>Вы уже спите.</span>")
+		to_chat(src, "<span class='notice'>You are already sleeping.</span>",
+			ru_message = "<span class='notice'>Вы уже спите.</span>")
 		return
 	else
 		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
@@ -426,10 +427,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 	if(!resting)
 		client.move_delay = world.time + 20
-		to_chat(src, "<span class='notice'>Вы отдыхаете.</span>")
+		to_chat(src, "<span class='notice'>You are now resting.</span>",
+			ru_message = "<span class='notice'>Вы отдыхаете.</span>")
 		StartResting()
 	else if(resting)
-		to_chat(src, "<span class='notice'>Вы встаёте.</span>")
+		to_chat(src, "<span class='notice'>You are now getting up.</span>",
+			ru_message = "<span class='notice'>Вы встаёте.</span>")
 		StopResting()
 
 /proc/get_multitool(mob/user as mob)
@@ -622,7 +625,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					break
 			if(newname)
 				break	//That's a suitable name!
-			to_chat(src, "Извините, но это имя не подходит для роли «[role]». Возможно, оно слишком длинное или короткое, содержит неподходящие символы, либо уже занято.")
+			to_chat(src, "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken.",
+				ru_message = "Извините, но это имя не подходит для роли «[role]». Возможно, оно слишком длинное или короткое, содержит неподходящие символы, либо уже занято.")
 
 		if(!newname)	//we'll stick with the oldname then
 			return
