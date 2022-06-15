@@ -104,4 +104,4 @@
 #define PARALLAX_INSANE			16
 
 // Translation
-#define check_locale(Client) (Client.prefs.toggles2 & PREFTOGGLE_2_RUSSIAN ? "ru" : "en")
+#define check_locale(Client) (Client?.prefs?.toggles2 & PREFTOGGLE_2_RUSSIAN ? "ru" : "en")

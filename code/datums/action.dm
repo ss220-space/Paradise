@@ -24,7 +24,7 @@
 	button = new
 	button.linked_action = src
 	button.name = name
-	button.ru_name = target.ru_name
+	button.ru_name = ru_name
 	button.actiontooltipstyle = buttontooltipstyle
 	if(desc)
 		button.desc = desc
@@ -100,6 +100,7 @@
 			button.icon = button_icon
 			button.icon_state = background_icon_state
 		button.desc = desc
+		button.ru_name = ru_name
 		button.ru_desc = ru_desc
 
 		ApplyIcon(button)
