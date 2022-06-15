@@ -104,7 +104,6 @@
 
 /datum/wires/ui_data(mob/user)
 	var/list/data = list()
-	var/list/ru_data = list()
 	var/list/replace_colors
 
 	if(ishuman(user))
