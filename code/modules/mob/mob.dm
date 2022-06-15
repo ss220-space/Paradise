@@ -94,7 +94,7 @@
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
+		to_chat(src, "<I>... You can almost hear someone talking ...</I>", ru_message = "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
 		to_chat(src, msg, ru_message = ru_msg)
 	return
@@ -210,7 +210,7 @@
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "<span class='warning'>Вы не можете это надеть.</span>")//Only print if del_on_fail is false
+				to_chat(src, "<span class='warning'>You are unable to equip that.</span>", ru_message = "<span class='warning'>Вы не можете это надеть.</span>")//Only print if del_on_fail is false
 
 		return 0
 
@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_belt)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы навесить [name] на него.</span>")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>", ru_message = "<span class='warning'>Наденьте комбинезон, чтобы навесить [declent_ru(ACCUSATIVE)] на него.</span>")
 					return 0
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
@@ -418,7 +418,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_wear_id)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы прикрепить к нему [name].</span>")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>", ru_message = "<span class='warning'>Наденьте комбинезон, чтобы прикрепить к нему [declent_ru(ACCUSATIVE)].</span>")
 					return 0
 				if( !(slot_flags & SLOT_ID) )
 					return 0
@@ -433,7 +433,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [name] в карман.</span>")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>", ru_message = "<span class='warning'>Наденьте комбинезон, чтобы положить [declent_ru(ACCUSATIVE)] в карман.</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return
@@ -444,7 +444,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [name] в карман.</span>")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>", ru_message = "<span class='warning'>Наденьте комбинезон, чтобы положить [declent_ru(ACCUSATIVE)] в карман.</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
@@ -454,15 +454,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_s_store)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте верхнюю одежду, чтобы положить [name] в карман.</span>")
+						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>", ru_message = "<span class='warning'>Наденьте верхнюю одежду, чтобы положить [declent_ru(ACCUSATIVE)] в карман.</span>")
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
-						to_chat(usr, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
+						to_chat(usr, "You somehow have a suit with no defined allowed items for suit storage, stop that.", ru_message = "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
 					return 0
 				if(src.w_class > WEIGHT_CLASS_BULKY)
 					if(!disable_warning)
-						to_chat(usr, "[name] слишком большого размера и не влезает в карман верхней одежды.")
+						to_chat(usr, "The [name] is too big to attach.", ru_message = "[name] слишком большого размера и не влезает в карман верхней одежды.")
 					return 0
 				if( istype(src, /obj/item/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
@@ -595,7 +595,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
+		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>",
+			ru_message = "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
 		return 1
 
 	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
@@ -1228,11 +1229,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(istype(location, /turf/simulated))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
+				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>",
+					ru_message = "<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>", ru_self_message = "<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>",
+					ru_message = "<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>", ru_self_message = "<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
