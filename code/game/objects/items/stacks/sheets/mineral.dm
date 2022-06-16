@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	))
 
 GLOBAL_LIST_INIT(adamantine_recipes, list(
-	new /datum/stack_recipe("незавершенная оболочка голема-прислужника", /obj/item/golem_shell/servant, req_amount = 1, res_amount = 1), \
+	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount = 1, res_amount = 1), \
 	))
 
 GLOBAL_LIST_INIT(snow_recipes, list(

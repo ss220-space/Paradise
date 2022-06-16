@@ -2,15 +2,15 @@
 //Xenobiology golems are slaved to their creator.
 
 /obj/item/golem_shell
-	name = "незавершенная оболочка свободного голема"
+	name = "incomplete free golem shell"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
-	desc = "Незавершенное тело голема. Добавьте десять листов любого минерала для завершения сборки."
+	desc = "The incomplete body of a golem. Add ten sheets of any mineral to finish."
 	var/shell_type = /obj/effect/mob_spawn/human/golem
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/golem_shell/servant
-	name = "незавершенная оболочка голема-прислужника"
+	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
 
 /obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
@@ -41,18 +41,18 @@
 		var/species = golem_shell_species_types[O.merge_type]
 		if(species)
 			if(O.use(10))
-				to_chat(user, "Вы собрали оболочку голема десятью листами [O.name].")
+				to_chat(user, "You finish up the golem shell with ten sheets of [O].")
 				new shell_type(get_turf(src), species, user)
 				qdel(src)
 			else
-				to_chat(user, "Вам нужно как минимум десять листов, чтобы собрать голема.")
+				to_chat(user, "You need at least ten sheets to finish a golem.")
 		else
-			to_chat(user, "Вы не можете собрать голема из такого металла.")
+			to_chat(user, "You can't build a golem out of this kind of material.")
 
 /obj/effect/mob_spawn/human/golem
-	name = "инертная оболочка свободного голема"
-	desc = "Гуманоидная форма, пуста, безжизненна и полна потенциала."
-	mob_name = "свободный голем"
+	name = "inert free golem shell"
+	desc = "A humanoid shape, empty, lifeless, and full of potential."
+	mob_name = "a free golem"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
 	mob_species = /datum/species/golem
@@ -64,11 +64,11 @@
 	var/has_owner = FALSE
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
-	important_info = "Вы не антагонист. Не впутывайтесь в дела станции и не создавайте ИИ."
-	description = "Будучи свободным големом лаваленда, вы не можете использовать большую часть оружия, но вы можете добывать, исследовать и создавать больше себе подобных. Заработав достаточно очков, вы даже сможете улететь на шаттле."
-	flavour_text = "Вы свободный голем. Ваша семья поклоняется Освободителю. В своей безграничной и божественной мудрости он освободил ваш клан, \
-	чтобы вы могли путешествовать по звездам, с единственным заявлением: \"Да делайте что хотите.\" Хоть вы и связаны с тем, кто вас создал, в вашем обществе принято повторять \
-	эти слова новорожденным големам, чтобы ни один голем больше никогда не был вынужден служить."
+	important_info = "You are not an antag. Do not mess with the station or create AIs."
+	description = "As a Free Golem on lavaland, you are unable to use most weapons, but you can mine, research and make more of your kind. Earn enough mining points and you can even move your shuttle out of there."
+	flavour_text = "You are a Free Golem. Your family worships The Liberator. In his infinite and divine wisdom, he set your clan free to \
+	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
+	golems, so that no golem may ever be forced to serve again."
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -80,25 +80,24 @@
 		var/golem_type_text = initial(species.prefix) != null ? initial(species.prefix) + "ая " : initial(species.prefix)
 		notify_ghosts("Собрана [golem_type_text]оболочка голема на [A.name].", source = src) //здесь пробел перед не нужен, это не ошибка!
 	if(has_owner && creator)
-		important_info = "Служите вашему создателю, даже если он антагонист."
-		flavour_text = "Вы голем, созданный для службы своему хозяину."
-		description = "Вы Голем. Вы медленно двигаетесь, но вы устойчивы к жаре и холоду, а также к тупым травмам. \
-		Вы не можете носить одежду, кроме плащей, но можете пользоваться большинством инструментов. \
-		Служите [creator], и помогайте [genderize_ru(creator.gender,"ему","ей","этому","им")] в достижении [genderize_ru(creator.gender,"его","её","этого","их")] целей."
+		important_info = "Serve your creator, even if they are an antag."
+		flavour_text = "You are a golem created to serve your creator."
+		description = "You are a Golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. \
+		Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
-		to_chat(new_spawn, "<span class='notice'>В обществах свободных големов принято уважать адамантовых големов как старейшин, однако вы не обязаны им подчиняться. \
-		Адамантиновые големы — единственные големы, которые могут резонировать со всеми големами.</span>")
-		to_chat(new_spawn, "Создавайте оболочки големов в автолате и загружайте в них минеральные листы, чтобы оживить их! Вы довольно миролюбивая община, пока вас не провоцируют.")
-		to_chat(new_spawn, "<span class='warning'>Вы не антагонист. А также не член экипажа. \
-		Вы можете взаимодействовать или торговать с экипажем, с которым вы сталкиваетесь, а также защищать себя и свой корабль, \
-		но избегайте активных вмешательств в работу станции, если у вас нет для этого веской ролевой причины, такой как приглашение членов экипажа.</span>")
+		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
+		Adamantine golems are the only golems that can resonate to all golems.</span>")
+		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
+		to_chat(new_spawn, "<span class='warning'>You are not an antagonist, but you are not a crewmember either. \
+		You may interact or trade with crew you come across, aswell as defend yourself and your ship \
+		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers.</span>")
 	else
-		new_spawn.mind.store_memory("<b>Служите [owner.real_name], вашему создателю.</b>")
+		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
@@ -106,7 +105,7 @@
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species
 			G.owner = owner
-		if(!name || name == "Unknown") //Существует баг который заставляет всех големов бегать без имени. Я так и не нашел почему он вызывается и как, поэтому пускай будет хоть какая-то проверка при создании големов.
+		if(!name || name == "Unknown")
 			H.rename_character(null, H.dna.species.get_random_name())
 		else
 			H.rename_character(null, name)
@@ -125,25 +124,25 @@
 	if(.)
 		return
 	if(isgolem(user) && can_transfer)
-		var/transfer_choice = alert("Перенести свою душу в [src.name]? (Осторожно, ваше старое тело умрет!)",,"Да","Нет")
-		if(transfer_choice != "Да")
+		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		if(transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>Тусклый свет покинул [user.name], перелетев к [src.name] и оживив его!</span>","<span class='notice'>Вы покинули старое тело и переместились в [src.name]!</span>")
+		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 		return
 
 /obj/effect/mob_spawn/human/golem/servant
 	has_owner = TRUE
-	name = "инертная оболочка голема-прислужника"
-	mob_name = "голем-прислужник"
+	name = "inert servant golem shell"
+	mob_name = "a servant golem"
 
 /obj/effect/mob_spawn/human/golem/adamantine
-	name = "пыльная оболочка свободного голема"
-	desc = "Гуманоидная форма, пуста, безжизненна и полна потенциала."
-	mob_name = "свободный голем"
+	name = "dust-caked free golem shell"
+	desc = "A humanoid shape, empty, lifeless, and full of potential."
+	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
