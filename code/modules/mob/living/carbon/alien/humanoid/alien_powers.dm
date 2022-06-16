@@ -70,20 +70,25 @@ Doesn't work on other aliens/AI.*/
 	return
 
 
-/mob/living/carbon/alien/humanoid/proc/corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
+/mob/living/carbon/alien/humanoid/proc/corrosive_acid() //If they right click to corrode, an error will flash if its an invalid target./N
 	set name = "Corrossive Acid (200)"
 	set desc = "Drench an object in acid, destroying it over time."
 	set category = "Alien"
 
 	if(powerc(200))
-		if(target in oview(1))
+		var/list/choices = list()
+		for(var/atom/A as anything in view(1, src))
+			if(!(isitem(A) || isstructure(A) || iswallturf(A) || ismachinery(A)))
+				continue
+			if(Adjacent(A))
+				choices += A
+		if(length(choices))
+			var/atom/target = input(src,"Вы уверены что желаете растворить именно это?") in null|choices
 			if(target.acid_act(200, 100))
 				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 				adjustPlasma(-200)
 			else
 				to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
-		else
-			to_chat(src, "<span class='noticealien'>[target] is too far away.</span>")
 
 /mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
 	set name = "Spit Neurotoxin (50)"
