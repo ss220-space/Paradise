@@ -8,12 +8,8 @@
 ///can be changed if xenos get an update..
 /obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
 	..()
-	for(var/P in alien_powers)
-		M.verbs |= P
 
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
-	for(var/P in alien_powers)
-		M.verbs -= P
 	. = ..()
 
 /obj/item/organ/internal/xenos/prepare_eat()
@@ -30,7 +26,6 @@
 	origin_tech = "biotech=5;plasmatech=4"
 	parent_organ = "chest"
 	slot = "plasmavessel"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/plant, /mob/living/carbon/alien/humanoid/verb/transfer_plasma)
 
 
 	var/stored_plasma = 0
@@ -66,7 +61,6 @@
 	icon_state = "plasma_tiny"
 	stored_plasma = 100
 	max_plasma = 150
-	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/plant)
 
 /obj/item/organ/internal/xenos/plasmavessel/larva
 	name = "tiny xeno plasma vessel"
@@ -108,7 +102,6 @@
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
 
 
 /obj/item/organ/internal/xenos/hivenode
@@ -118,7 +111,6 @@
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
-	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/whisp)
 
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -138,7 +130,6 @@
 	parent_organ = "head"
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/neurotoxin)
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....
@@ -146,7 +137,6 @@
 	icon_state = "liver-x"
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)
 
 /obj/item/organ/internal/xenos/eggsac
 	name = "xeno egg sac"
@@ -155,4 +145,3 @@
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/queen/verb/lay_egg)
