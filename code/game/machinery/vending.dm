@@ -1936,12 +1936,12 @@
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
 					)
-	prices = list(/obj/item/clothing/accessory/petcollar = 500, /obj/item/storage/firstaid/aquatic_kit/full = 600, /obj/item/fish_eggs/goldfish = 1000,
-					/obj/item/fish_eggs/clownfish = 1000, /obj/item/fish_eggs/shark = 1000, /obj/item/fish_eggs/feederfish = 500,
-					/obj/item/fish_eggs/salmon = 1000, /obj/item/fish_eggs/catfish = 1000, /obj/item/fish_eggs/glofish = 1000,
-					/obj/item/fish_eggs/electric_eel = 1000, /obj/item/fish_eggs/shrimp = 500, /obj/item/toy/pet_rock = 100,
+	prices = list(/obj/item/clothing/accessory/petcollar = 300, /obj/item/storage/firstaid/aquatic_kit/full = 400, /obj/item/fish_eggs/goldfish = 600,
+					/obj/item/fish_eggs/clownfish = 600, /obj/item/fish_eggs/shark = 600, /obj/item/fish_eggs/feederfish = 300,
+					/obj/item/fish_eggs/salmon = 600, /obj/item/fish_eggs/catfish = 6000, /obj/item/fish_eggs/glofish = 600,
+					/obj/item/fish_eggs/electric_eel = 600, /obj/item/fish_eggs/shrimp = 300, /obj/item/toy/pet_rock = 100,
 					)
-	contraband = list(/obj/item/fish_eggs/babycarp = 1000)
+	contraband = list(/obj/item/fish_eggs/babycarp = 800)
 	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
 	refill_canister = /obj/item/vending_refill/crittercare
 
