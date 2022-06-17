@@ -4,7 +4,7 @@
 	damage = 50
 	damage_type = BRUTE
 	flag = "bullet"
-	hitsound_wall = "ricochet"
+	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage

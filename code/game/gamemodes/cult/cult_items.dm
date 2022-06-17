@@ -162,7 +162,7 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, SFX_SPARKS, 100, TRUE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
@@ -355,7 +355,7 @@
 		var/turf/destination = pick(turfs)
 		if(uses <= 0)
 			icon_state ="shifter_drained"
-		playsound(mobloc, "sparks", 50, TRUE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -365,7 +365,7 @@
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE)
-		playsound(destination, "sparks", 50, TRUE)
+		playsound(destination, SFX_SPARKS, 50, TRUE)
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")

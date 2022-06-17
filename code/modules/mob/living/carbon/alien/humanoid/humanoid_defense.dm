@@ -4,7 +4,7 @@
 			if(INTENT_HARM)
 				var/damage = rand(1, 9)
 				if(prob(90))
-					playsound(loc, "punch", 25, 1, -1)
+					playsound(loc, SFX_PUNCH, 25, 1, -1)
 					visible_message("<span class='danger'>[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
 							"<span class='userdanger'>[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>")
 					if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.

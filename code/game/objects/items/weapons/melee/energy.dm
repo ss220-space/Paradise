@@ -110,7 +110,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
 	armour_penetration = 35

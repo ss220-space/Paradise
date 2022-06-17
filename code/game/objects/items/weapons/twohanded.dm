@@ -347,7 +347,7 @@
 	. = ..()
 	if(!.)
 		return
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	w_class = initial(w_class)
 
 /obj/item/twohanded/dualsaber/IsReflect()
@@ -535,7 +535,7 @@
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -551,10 +551,10 @@
 	throwforce = on ? force_on : initial(throwforce)
 	icon_state = "gchainsaw_[on ? "on" : "off"]"
 
-	if(hitsound == "swing_hit")
+	if(hitsound == SFX_SWING_HIT)
 		hitsound = 'sound/weapons/chainsaw.ogg'
 	else
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 
 	if(src == user.get_active_hand()) //update inhands
 		user.update_inv_l_hand()
@@ -629,7 +629,7 @@
 			..()
 		return
 	else
-		playsound(loc, "swing_hit", 50, 1, -1)
+		playsound(loc, SFX_SWING_HIT, 50, 1, -1)
 		return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
@@ -736,7 +736,7 @@
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
-		playsound(loc, "sparks", 50, 1)
+		playsound(loc, SFX_SPARKS, 50, 1)
 		if(isliving(M))
 			M.Stun(2)
 			shock(M)

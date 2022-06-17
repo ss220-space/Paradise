@@ -175,7 +175,7 @@
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
 	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, SFX_CLOWNSTEP, 50, 1)
 		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless

@@ -23,7 +23,7 @@
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/pickup_all_on_tile = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
-	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	var/use_sound = SFX_RUSTLE	//sound played when used. null for no sound.
 
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
@@ -67,7 +67,7 @@
 			return ..()
 		if(!(loc == usr) || (loc && loc.loc == usr))
 			return
-		playsound(loc, "rustle", 50, TRUE, -5)
+		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		if(!(M.restrained()) && !(M.stat))
 			switch(over_object.name)
 				if("r_hand")
@@ -89,7 +89,7 @@
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
 		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
+		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -394,7 +394,7 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
+	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

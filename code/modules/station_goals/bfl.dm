@@ -418,7 +418,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message("Lens shatters in a million pieces")
-	playsound(src, "shatter", 70, 1)
+	playsound(src, SFX_SHATTER, 70, 1)
 	overlays.Cut()
 	return ..()
 

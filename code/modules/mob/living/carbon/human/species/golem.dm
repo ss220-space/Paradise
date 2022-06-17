@@ -601,7 +601,7 @@
 	special_name_chance = 50
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
-	playsound(H, "shatter", 70, 1)
+	playsound(H, SFX_SHATTER, 70, 1)
 	H.visible_message("<span class='danger'>[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)

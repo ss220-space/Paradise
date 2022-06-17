@@ -12,7 +12,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	w_class = WEIGHT_CLASS_SMALL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
@@ -87,7 +87,7 @@
 			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
 		force = 3
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
 	update_icon()

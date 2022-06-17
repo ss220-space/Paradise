@@ -16,7 +16,7 @@
 	needs_permit = 1
 	attack_verb = list("struck", "hit", "bashed")
 
-	var/fire_sound = "gunshot"
+	var/fire_sound = SFX_GUNSHOT
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.

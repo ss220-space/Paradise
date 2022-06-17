@@ -403,7 +403,7 @@
 						user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-						playsound(get_turf(src), "bodyfall", 50, 1)
+						playsound(get_turf(src), SFX_BODYFALL, 50, 1)
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						defib.deductcharge(revivecost)
 						busy = FALSE
@@ -414,7 +414,7 @@
 				if(H.stat == DEAD)
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
-					playsound(get_turf(src), "bodyfall", 50, 1)
+					playsound(get_turf(src), SFX_BODYFALL, 50, 1)
 					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
@@ -536,7 +536,7 @@
 				if(H.stat == DEAD)
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
-					playsound(get_turf(src), "bodyfall", 50, 1)
+					playsound(get_turf(src), SFX_BODYFALL, 50, 1)
 					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam

@@ -602,7 +602,7 @@
 										"<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
 			thrallToRevive.Weaken(4)
 			thrallToRevive.emote("gasp")
-			playsound(thrallToRevive, "bodyfall", 50, 1)
+			playsound(thrallToRevive, SFX_BODYFALL, 50, 1)
 	else
 		to_chat(user, "<span class='warning'>The target must be awake to empower or dead to revive.</span>")
 		revert_cast(user)

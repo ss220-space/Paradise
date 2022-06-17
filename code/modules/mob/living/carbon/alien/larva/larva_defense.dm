@@ -2,7 +2,7 @@
 	if(..())
 		var/damage = rand(1, 9)
 		if(prob(90))
-			playsound(loc, "punch", 25, 1, -1)
+			playsound(loc, SFX_PUNCH, 25, 1, -1)
 			add_attack_logs(M, src, "Melee attacked with fists")
 			visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 					"<span class='userdanger'>[M] has kicked [src]!</span>")

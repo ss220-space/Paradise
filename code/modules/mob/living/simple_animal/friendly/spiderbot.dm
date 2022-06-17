@@ -15,7 +15,7 @@
 	melee_damage_upper = 2
 	melee_damage_type = BURN
 	attacktext = "бьёт током"
-	attack_sound = "sparks"
+	attack_sound = SFX_SPARKS
 
 	response_help  = "pets"
 	response_disarm = "shoos"

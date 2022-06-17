@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		active = 0
 		return
 	if(prob(3))
-		playsound(loc, "computer_ambience", 50, 1)
+		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, 1)
 	update_icon()
 	return
 

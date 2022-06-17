@@ -70,7 +70,7 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
-	shoe_sound = "clownstep"
+	shoe_sound = SFX_CLOWNSTEP
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
@@ -114,7 +114,7 @@
 	put_on_delay = 50
 	resistance_flags = NONE
 	var/footstep = 1
-	shoe_sound = "jackboot"
+	shoe_sound = SFX_JACKBOOT
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -276,7 +276,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODROP
-	shoe_sound = "clownstep"
+	shoe_sound = SFX_CLOWNSTEP
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"

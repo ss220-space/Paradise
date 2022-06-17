@@ -93,7 +93,7 @@
 
 	var/allow_movement_on_non_turfs = FALSE
 
-	var/attacked_sound = "punch"
+	var/attacked_sound = SFX_PUNCH
 
 	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
 	var/can_have_ai = TRUE //once we have become sentient, we can never go back

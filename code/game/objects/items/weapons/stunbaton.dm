@@ -51,7 +51,7 @@
 		if(R.cell && R.cell.charge < (hitcost+chrgdeductamt))
 			status = 0
 			update_icon()
-			playsound(loc, "sparks", 75, 1, -1)
+			playsound(loc, SFX_SPARKS, 75, 1, -1)
 		if(R.cell.use(chrgdeductamt))
 			return 1
 		else
@@ -60,7 +60,7 @@
 		if(cell.charge < (hitcost+chrgdeductamt)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 			status = 0
 			update_icon()
-			playsound(loc, "sparks", 75, 1, -1)
+			playsound(loc, SFX_SPARKS, 75, 1, -1)
 		if(cell.use(chrgdeductamt))
 			return 1
 		else
@@ -118,14 +118,14 @@
 		if(R && R.cell &&  R.cell.charge >= (hitcost))
 			status = !status
 			to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
-			playsound(loc, "sparks", 75, 1, -1)
+			playsound(loc, SFX_SPARKS, 75, 1, -1)
 		else
 			status = 0
 			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge the [src]!</span>")
 	else if(cell && cell.charge >= hitcost)
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
-		playsound(loc, "sparks", 75, 1, -1)
+		playsound(loc, SFX_SPARKS, 75, 1, -1)
 	else
 		status = 0
 		if(!cell)
@@ -218,7 +218,7 @@
 			deductcharge(hitcost)
 			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
 								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
-			playsound(src, "sparks", 50, 1)
+			playsound(src, SFX_SPARKS, 50, 1)
 			return 1
 	..()
 

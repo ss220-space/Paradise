@@ -253,7 +253,7 @@
 	if(locked)
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 60, 1)
+		playsound(src.loc, SFX_SPARKS, 60, 1)
 		src.locked = 0
 		src.broken = 1
 		update_icon()

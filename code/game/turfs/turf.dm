@@ -425,7 +425,7 @@
 	if(!forced)
 		return
 	if(has_gravity(src))
-		playsound(src, "bodyfall", 50, TRUE)
+		playsound(src, SFX_BODYFALL, 50, TRUE)
 
 /turf/singularity_act()
 	if(intact)

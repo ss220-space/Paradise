@@ -507,7 +507,7 @@
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overloaded!</span>")
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
+	ranged_ability_user.playsound_local(ranged_ability_user, SFX_SPARKS, 50, 0)
 	attached_action.adjust_uses(-1)
 	if(attached_action && attached_action.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
@@ -676,7 +676,7 @@
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
-	owner.playsound_local(owner, "sparks", 50, 0)
+	owner.playsound_local(owner, SFX_SPARKS, 50, 0)
 	adjust_uses(-1)
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] It has [uses] use\s remaining."

@@ -25,7 +25,7 @@
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
-		playsound(src.loc, "rustle", 50, 1, -5)
+		playsound(src.loc, SFX_RUSTLE, 50, 1, -5)
 		return ..()
 
 /obj/item/storage/backpack/examine(mob/user)

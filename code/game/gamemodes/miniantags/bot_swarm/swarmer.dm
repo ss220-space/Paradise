@@ -566,7 +566,7 @@
 
 /obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, SFX_SPARKS, 100, TRUE)
 
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"

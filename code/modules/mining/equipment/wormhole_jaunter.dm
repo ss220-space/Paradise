@@ -65,7 +65,7 @@
 		to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
-		playsound(T, "sparks", 50, 1)
+		playsound(T, SFX_SPARKS, 50, 1)
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"

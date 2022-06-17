@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/image/crack_overlay
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
-	var/breaksound = "shatter"
+	var/breaksound = SFX_SHATTER
 	var/hitsound = 'sound/effects/Glasshit.ogg'
 
 /obj/structure/window/examine(mob/user)

@@ -77,7 +77,7 @@
 		if(istype(weapon, /obj/item/melee/energy/blade))
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
-			playsound(loc, "sparks", 50, 1)
+			playsound(loc, SFX_SPARKS, 50, 1)
 			to_chat(user, "You slice through the lock on [src].")
 		else
 			to_chat(user, "You short out the lock on [src].")
@@ -184,7 +184,7 @@
 	icon_state = "secure"
 	item_state = "sec-case"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 8
 	throw_speed = 2
 	throw_range = 4
@@ -202,7 +202,7 @@
 	if((loc == user) && (locked == 1))
 		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
 	else if((loc == user) && !locked)
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, SFX_RUSTLE, 50, 1, -5)
 		if(user.s_active)
 			user.s_active.close(user) //Close and re-open
 		show_to(user)

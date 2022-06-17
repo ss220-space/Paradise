@@ -170,7 +170,7 @@
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
 			message = "рычит[M ? " на [M]" : ""]."
-			playsound(loc, "growls", !muzzled ? 80:25, 1, frequency = get_age_pitch())
+			playsound(loc, SFX_GROWL, !muzzled ? 80:25, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("purr", "purrs")

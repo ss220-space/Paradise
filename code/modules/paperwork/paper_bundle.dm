@@ -21,7 +21,7 @@
 		new /obj/item/paper(src)
 		new /obj/item/paper(src)
 		amount += 1
-		
+
 /obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
@@ -155,7 +155,7 @@
 			else if(page == amount+1)
 				return
 			page++
-			playsound(src.loc, "pageturn", 50, 1)
+			playsound(src.loc, SFX_PAGETURN, 50, 1)
 		if(href_list["prev_page"])
 			if(page == 1)
 				return
@@ -164,7 +164,7 @@
 			else if(page == amount+1)
 				screen = 1
 			page--
-			playsound(src.loc, "pageturn", 50, 1)
+			playsound(src.loc, SFX_PAGETURN, 50, 1)
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)

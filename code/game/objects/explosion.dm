@@ -39,7 +39,7 @@
 
 		if(!silent)
 			var/frequency = get_rand_frequency()
-			var/sound/explosion_sound = sound(get_sfx("explosion"))
+			var/sound/explosion_sound = sound(get_sfx(SFX_EXPLOSION))
 			var/sound/global_boom = sound('sound/effects/explosionfar.ogg')
 
 			for(var/P in GLOB.player_list)

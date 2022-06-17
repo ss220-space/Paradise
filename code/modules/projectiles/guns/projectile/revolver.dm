@@ -46,7 +46,7 @@
 			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
 			CB.update_icon()
-			playsound(get_turf(CB), "casingdrop", 60, 1)
+			playsound(get_turf(CB), SFX_CASINGDROP, 60, 1)
 			num_unloaded++
 	if(num_unloaded)
 		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
@@ -256,7 +256,7 @@
 			chambered = null
 			CB.loc = get_turf(loc)
 			CB.update_icon()
-			playsound(get_turf(CB), "casingdrop", 60, 1)
+			playsound(get_turf(CB), SFX_CASINGDROP, 60, 1)
 			num_unloaded++
 		if(num_unloaded)
 			to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")

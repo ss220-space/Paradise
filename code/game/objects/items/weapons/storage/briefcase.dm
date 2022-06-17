@@ -4,7 +4,7 @@
 	icon_state = "briefcase"
 	item_state = "briefcase"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 8
 	throw_speed = 2
 	throw_range = 4

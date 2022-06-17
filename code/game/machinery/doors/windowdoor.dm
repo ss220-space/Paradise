@@ -42,7 +42,7 @@
 	density = FALSE
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
-		playsound(src, "shatter", 70, 1)
+		playsound(src, SFX_SHATTER, 70, 1)
 	QDEL_NULL(electronics)
 	return ..()
 
@@ -224,7 +224,7 @@
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
+		playsound(src, SFX_SPARKS, 75, 1)
 		sleep(6)
 		operating = FALSE
 		open(2)

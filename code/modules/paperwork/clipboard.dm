@@ -91,7 +91,7 @@
 		user.unEquip(W)
 		W.forceMove(src)
 		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
-		playsound(loc, "pageturn", 50, 1)
+		playsound(loc, SFX_PAGETURN, 50, 1)
 		if(isPaperwork(W) == PAPERWORK)
 			toppaper = W
 		update_icon()
@@ -153,7 +153,7 @@
 		if(P == toppaper)
 			return
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
-		playsound(loc, "pageturn", 50, 1)
+		playsound(loc, SFX_PAGETURN, 50, 1)
 		toppaper = P
 	update_icon()
 	showClipboard(usr)

@@ -79,7 +79,7 @@
 	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
 	silence_steps = 1
-	shoe_sound = "clownstep"
+	shoe_sound = SFX_CLOWNSTEP
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
 

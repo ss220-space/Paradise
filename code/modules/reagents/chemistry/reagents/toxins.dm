@@ -1236,7 +1236,7 @@
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
 		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, 1)
+		playsound(M, SFX_SPARKS, 50, 1)
 	return ..()
 
 /datum/reagent/gluttonytoxin

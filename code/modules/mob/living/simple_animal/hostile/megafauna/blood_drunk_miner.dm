@@ -52,7 +52,7 @@ Difficulty: Medium
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "falls to the ground, decaying into glowing particles."
-	death_sound = "bodyfall"
+	death_sound = SFX_BODYFALL
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)

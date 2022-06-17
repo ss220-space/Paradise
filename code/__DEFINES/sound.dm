@@ -71,3 +71,28 @@
 	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+
+
+/**
+ * SFX DEFINES
+ */
+
+#define SFX_SHATTER "shatter"
+#define SFX_EXPLOSION "explosion"
+#define SFX_SPARKS "sparks"
+#define SFX_RUSTLE "rustle"
+#define SFX_BODYFALL "bodyfall"
+#define SFX_PUNCH "punch"
+#define SFX_CLOWNSTEP "clownstep"
+#define SFX_JACKBOOT "jackboot"
+#define SFX_SWING_HIT "swing_hit"
+#define SFX_HISS "hiss"
+#define SFX_PAGETURN "pageturn"
+#define SFX_GUNSHOT "gunshot"
+#define SFX_CASINGDROP "casingdrop"
+#define SFX_COMPUTER_AMBIENCE "computer_ambience"
+#define SFX_RICOCHET "ricochet"
+#define SFX_TERMINAL_TYPE "terminal_type"
+#define SFX_GROWL "growls"
+#define SFX_BONEBREAK "bonebreak"
+#define SFX_HONKBOT "honkbot_e"

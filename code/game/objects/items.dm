@@ -116,7 +116,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(damtype == "fire")
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
-			hitsound = "swing_hit"
+			hitsound = SFX_SWING_HIT
 	if(!move_resist)
 		determine_move_resist()
 

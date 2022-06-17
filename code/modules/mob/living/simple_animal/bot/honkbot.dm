@@ -148,7 +148,7 @@
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
-			playsound(src, "honkbot_e", 50, 0)
+			playsound(src, SFX_HONKBOT, 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
 			addtimer(CALLBACK(src, .proc/update_icon), 30, TIMER_OVERRIDE|TIMER_UNIQUE)

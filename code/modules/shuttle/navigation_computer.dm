@@ -344,7 +344,7 @@
 	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in L
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
-	playsound(src, "terminal_type", 25, 0)
+	playsound(src, SFX_TERMINAL_TYPE, 25, 0)
 	if(selected)
 		var/turf/T = get_turf(L[selected])
 		if(T)

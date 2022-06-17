@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	item_state = "sibyl_chip"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "combat=4;magnets=3;engineering=3"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/obj/item/gun/energy/weapon = null
 	var/obj/item/card/id/user = null

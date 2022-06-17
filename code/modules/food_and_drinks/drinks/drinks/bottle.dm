@@ -32,7 +32,7 @@
 	if(isGlass)
 		if(prob(33))
 			new/obj/item/shard(new_location)
-		playsound(src, "shatter", 70, 1)
+		playsound(src, SFX_SHATTER, 70, 1)
 	else
 		B.name = "broken carton"
 		B.force = 0

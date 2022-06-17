@@ -588,7 +588,7 @@
 /datum/unarmed_attack
 	var/attack_verb = list("ударил", "вмазал", "стукнул", "вдарил", "влепил")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
-	var/attack_sound = "punch"
+	var/attack_sound = SFX_PUNCH
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
