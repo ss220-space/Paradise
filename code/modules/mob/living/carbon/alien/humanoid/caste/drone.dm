@@ -29,6 +29,7 @@
 
 /datum/action/innate/xeno_action/evolve_to_queen/Activate()
 	var/mob/living/carbon/alien/humanoid/drone/drone_host = owner
+
 	if(plasmacheck(500))
 		// Queen check
 		var/no_queen = 1
@@ -37,13 +38,13 @@
 				continue
 			no_queen = 0
 
-		if(host.has_brain_worms())
+		if(drone_host.has_brain_worms())
 			to_chat(drone_host, "<span class='warning'>We cannot perform this ability at the present time!</span>")
 			return
 		if(no_queen)
 			drone_host.adjustPlasma(-500)
 			to_chat(drone_host, "<span class='noticealien'>You begin to evolve!</span>")
-			for(var/mob/O in viewers(host, null))
+			for(var/mob/O in viewers(drone_host, null))
 				O.show_message(text("<span class='alertalien'>[drone_host] begins to twist and contort!</span>"), 1)
 			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(drone_host.loc)
 			drone_host.mind.transfer_to(new_xeno)

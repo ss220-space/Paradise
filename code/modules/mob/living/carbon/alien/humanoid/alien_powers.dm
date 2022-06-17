@@ -5,16 +5,14 @@ These are general powers. Specific powers are stored under the appropriate alien
 /*Alien spit now works like a taser shot. It won't home in on the target but will act the same once it does hit.
 Doesn't work on other aliens/AI.*/
 #define WORLD_VIEW "15x15"
-#define WORLD_VIEW_NUM 7
 
 /datum/action/innate/xeno_action
-	var/mob/living/carbon/alien/host
 
 /datum/action/innate/xeno_action/Activate()
-	host = owner
 
 /datum/action/innate/xeno_action/proc/plasmacheck(X, Y)//Y is optional, checks for weed planting. X can be null.
-	host = owner
+	var/mob/living/carbon/alien/host = owner
+
 	if(!IsAvailable())
 		to_chat(host, "<span class='noticealien'>You must be conscious to do this.</span>")
 		return 0
@@ -31,7 +29,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "meson"
 
 /datum/action/innate/xeno_action/nightvisiontoggle/Activate()
-	host = owner
+	var/mob/living/carbon/alien/host = owner
 
 	if(!host.nightvision)
 		host.see_in_dark = 8
@@ -55,6 +53,8 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_plant"
 
 /datum/action/innate/xeno_action/plant/Activate()
+	var/mob/living/carbon/alien/host = owner
+
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(owner))
 		to_chat(owner, "<span class='noticealien'>There's already a weed node here.</span>")
 		return
@@ -72,7 +72,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_whisper"
 
 /datum/action/innate/xeno_action/whisper/Activate()
-	host = owner
+	var/mob/living/carbon/alien/host = owner
 
 	if(!plasmacheck(10))
 		return
@@ -106,7 +106,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_transfer"
 
 /datum/action/innate/xeno_action/transfer_plasma/Activate()
-	host = owner
+	var/mob/living/carbon/alien/host = owner
 
 	var/list/target_list = list()
 	for(var/mob/living/carbon/alien/possible_target in oview(WORLD_VIEW, host))
@@ -141,7 +141,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_acid"
 
 /datum/action/innate/xeno_action/corrosive_acid/Activate()
-	host = owner
+	var/mob/living/carbon/alien/host = owner
 
 	if(!plasmacheck(200))
 		return
@@ -173,7 +173,8 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_neurotoxin"
 
 /datum/action/innate/xeno_action/neurotoxin/Activate()
-	. = ..()
+	var/mob/living/carbon/alien/host = owner
+
 	if(plasmacheck(50))
 		host.adjustPlasma(-50)
 		host.visible_message("<span class='danger'>[host] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
@@ -199,7 +200,8 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_resin"
 
 /datum/action/innate/xeno_action/resin/Activate()
-	. = ..()
+	var/mob/living/carbon/alien/host = owner
+
 	if(plasmacheck(55))
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
 
@@ -222,7 +224,8 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_barf"
 
 /datum/action/innate/xeno_action/regurgitate/Activate()
-	. = ..()
+	var/mob/living/carbon/alien/host = owner
+
 	if(plasmacheck())
 		if(LAZYLEN(host.stomach_contents))
 			for(var/mob/M in host)
@@ -255,4 +258,3 @@ Doesn't work on other aliens/AI.*/
 	return 0
 
 #undef WORLD_VIEW
-#undef WORLD_VIEW_NUM

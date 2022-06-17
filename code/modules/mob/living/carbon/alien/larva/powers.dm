@@ -5,7 +5,8 @@
 	button_icon_state = "alien_hide"
 
 /datum/action/innate/xeno_action/hide/Activate(var/mob/living/carbon/alien/larva/owner)
-	. = ..()
+	var/mob/living/carbon/alien/host = owner
+
 	if(!IsAvailable())
 		to_chat(host, "<span class='noticealien'>You must be conscious to do this.</span>")
 		return 0
@@ -24,6 +25,7 @@
 
 /datum/action/innate/xeno_action/evolve/Activate()
 	var/mob/living/carbon/alien/larva/larva_host = owner
+
 	if(!IsAvailable())
 		to_chat(larva_host, "<span class='noticealien'>You must be conscious to do this.</span>")
 		return 0

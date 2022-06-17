@@ -48,6 +48,7 @@
 
 /datum/action/innate/xeno_action/lay_egg_queen/Activate()
 	var/mob/living/carbon/alien/humanoid/queen/host = owner
+
 	if(locate(/obj/structure/alien/egg) in get_turf(owner))
 		to_chat(host, "<span class='noticealien'>There's already an egg here.</span>")
 		return
