@@ -123,16 +123,16 @@
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 	hitsound = 'sound/effects/snap.ogg'
 	var/size = 10
-	var/sizemod
-	var/adj
-	var/noun
-	var/unique_noun
-	var/unique_desc
+	var/sizemod = 1
+	var/adj = "Foo"
+	var/noun = "Bar"
+	var/unique_noun = "Baz"
+	var/unique_desc = "This is exceptionally generic fish"
 
 /obj/item/fish/Initialize()
 	. = ..()
 	if(prob(75))
-		size = rand(1, 30)
+		size = rand(10, 30)
 	if(prob(25))
 		size = rand(25, 60)
 	if(prob(10))
@@ -144,28 +144,41 @@
 	transform *= TRANSFORM_USING_VARIABLE(size, 100) + 0.8
 	sizemod = (round(size, 10)/10)
 	switch(sizemod)
-		if(SIZEMOD_TINY)	adj = "tiny"
-		if(SIZEMOD_SMALL)	adj = "small"
-		if(SIZEMOD_AVERAGE)	adj = "average"
-		if(SIZEMOD_OVERWEIGHT)	adj = "overweight"
-		if(SIZEMOD_OBESE)	adj = "obese"
-		if(SIZEMOD_CHONKY)	adj = "chunky"
-		if(SIZEMOD_HUGE)	adj = "huge"
-		if(SIZEMOD_ENORMOUS)	adj = "enormous"
-		if(SIZEMOD_GIGANTIC)	adj = "giant"
-		if(SIZEMOD_COLOSSAL)	adj = "colossal"
+		if(SIZEMOD_TINY)
+			adj = "tiny"
+		if(SIZEMOD_SMALL)
+			adj = "small"
+		if(SIZEMOD_AVERAGE)
+			adj = "average"
+		if(SIZEMOD_OVERWEIGHT)
+			adj = "overweight"
+		if(SIZEMOD_OBESE)
+			adj = "obese"
+		if(SIZEMOD_CHONKY)
+			adj = "chunky"
+		if(SIZEMOD_HUGE)
+			adj = "huge"
+		if(SIZEMOD_ENORMOUS)
+			adj = "enormous"
+		if(SIZEMOD_GIGANTIC)
+			adj = "giant"
+		if(SIZEMOD_COLOSSAL)
+			adj = "colossal"
 	switch (size)
-		if(1 to 40) w_class = WEIGHT_CLASS_NORMAL
-		if(41 to 100) w_class = WEIGHT_CLASS_BULKY
-
-	if(size == 100)
-		sizemod = SIZEMOD_UNIQUE
-		adj = ""
-		noun = unique_noun
-		desc = unique_desc
-		var/image/unique_underlay = new('icons/obj/rune.dmi', pick("main2", "main3", "main4", "main5", "shade1", "shade5", "shade6", "shade4"))
-		unique_underlay.alpha = 40
-		underlays += unique_underlay
+		if(1 to 40)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(41 to 99)
+			w_class = WEIGHT_CLASS_BULKY
+		if(100)
+			w_class = WEIGHT_CLASS_BULKY
+			sizemod = SIZEMOD_UNIQUE
+			adj = ""
+			noun = unique_noun
+			desc = unique_desc
+			var/image/rand_lay = new('icons/obj/rune.dmi', pick("1", "2", "3", "4", "5", "6", "7"))
+			rand_lay.color = rgb(pick(0, 255), pick(0, 255), pick(0, 255))
+			rand_lay.alpha = rand(40, 80)
+			underlays += rand_lay
 	name = "[adj] [noun]"
 
 /obj/item/fish/glofish
@@ -193,7 +206,7 @@
 	. = ..()
 	target.apply_damage(sizemod, BURN)
 	if(ishuman(target))
-		target.adjustStaminaLoss(sizemod*2.5)
+		target.apply_damage((sizemod*2), STAMINA, user.zone_selected, target.run_armor_check(user.zone_selected, "melee"))
 	if(prob(10+sizemod))
 		user.apply_damage(sizemod, BURN)
 		visible_message("[user] tries to swing [src] but it fights back!" )
@@ -318,8 +331,12 @@
 	..()
 	if(ismob(AM))
 		var/mob/living/carbon/C = AM
-		visible_message("[src] bites [C]!" )
-		C.apply_damage(sizemod*2, BRUTE)
+		visible_message("[src] bites [C]!")
+		if(ishuman(C))
+			var/obj/item/organ/external/affecting = pick("r_foot", "l_foot")
+			C.apply_damage(sizemod*2, BRUTE, affecting, C.run_armor_check(affecting, "melee"))
+		else
+			C.apply_damage(sizemod*2, BRUTE)
 		playsound(src, 'sound/weapons/bite.ogg', 50, 15)
 	else if(istype(AM, /obj/item/fish))
 		visible_message("[AM] is eaten by [src]!" )
