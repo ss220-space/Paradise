@@ -1988,7 +1988,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/vending/pets
 	name = "Pet Supply Crate"
 	contains = list(/obj/item/vending_refill/crittercare)
-	cost = 150
+	cost = 55
 	containername = "pet supply crate"
 
 /datum/supply_packs/vending/bartending
