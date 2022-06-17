@@ -1938,7 +1938,7 @@
 					)
 	prices = list(/obj/item/clothing/accessory/petcollar = 300, /obj/item/storage/firstaid/aquatic_kit/full = 400, /obj/item/fish_eggs/goldfish = 600,
 					/obj/item/fish_eggs/clownfish = 600, /obj/item/fish_eggs/shark = 600, /obj/item/fish_eggs/feederfish = 300,
-					/obj/item/fish_eggs/salmon = 600, /obj/item/fish_eggs/catfish = 6000, /obj/item/fish_eggs/glofish = 600,
+					/obj/item/fish_eggs/salmon = 600, /obj/item/fish_eggs/catfish = 600, /obj/item/fish_eggs/glofish = 600,
 					/obj/item/fish_eggs/electric_eel = 600, /obj/item/fish_eggs/shrimp = 300, /obj/item/toy/pet_rock = 100,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 800)
