@@ -4,7 +4,8 @@ These are general powers. Specific powers are stored under the appropriate alien
 
 /*Alien spit now works like a taser shot. It won't home in on the target but will act the same once it does hit.
 Doesn't work on other aliens/AI.*/
-
+#define WORLD_VIEW "15x15"
+#define WORLD_VIEW_NUM 7
 
 /datum/action/innate/xeno_action
 	var/mob/living/carbon/alien/host
@@ -30,7 +31,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "meson"
 
 /datum/action/innate/xeno_action/nightvisiontoggle/Activate()
-	. = ..()
+	host = owner
 
 	if(!host.nightvision)
 		host.see_in_dark = 8
@@ -70,38 +71,67 @@ Doesn't work on other aliens/AI.*/
 	desc = "Whisper to someone"
 	button_icon_state = "alien_whisper"
 
-/datum/action/innate/xeno_action/whisper/Activate(mob/living/carbon/alien/M as mob in oview(, owner))
-	. = ..()
-	if(plasmacheck(10))
-		host.adjustPlasma(-10)
-		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
-		if(msg)
-			log_say("(AWHISPER to [key_name(M)]) [msg]", host)
-			to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
-			to_chat(host, "<span class='noticealien'>You said: [msg] to [M]</span>")
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				G.show_message("<i>Alien message from <b>[host]</b> ([ghost_follow_link(host, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
-	return
+/datum/action/innate/xeno_action/whisper/Activate()
+	host = owner
+
+	if(!plasmacheck(10))
+		return
+	var/list/target_list = list()
+	for(var/mob/living/possible_target in view(WORLD_VIEW, host))
+		if(possible_target == host || !possible_target.client || isalien(possible_target))
+			continue
+		target_list += possible_target
+
+	if(!length(target_list))
+		to_chat(host, "<span class='alertalien'> There's nobody nearby to whisper to!</span>")
+		return
+
+	var/mob/living/L = input(host, "Target", "Send a Whisper to whom?", target_list) as null|anything in target_list
+	if(!L)
+		return
+
+	var/msg = stripped_input("Message:", "Alien Whisper")
+	if(!msg)
+		return
+	host.adjustPlasma(-10)
+	log_say("(AWHISPER to [key_name(L)]) [msg]", host)
+	to_chat(L, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
+	to_chat(host, "<span class='noticealien'>You said: [msg] to [L]</span>")
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.show_message("<i>Alien message from <b>[host]</b> ([ghost_follow_link(host, ghost=G)]) to <b>[L]</b> ([ghost_follow_link(L, ghost=G)]): [msg]</i>")
 
 /datum/action/innate/xeno_action/transfer_plasma
 	name = "Transfer Plasma"
 	desc = "Transfer Plasma to another alien"
 	button_icon_state = "alien_transfer"
 
-/datum/action/innate/xeno_action/transfer_plasma/Activate(mob/living/carbon/alien/M as mob in oview(, owner))
-	. = ..()
-	if(isalien(M))
-		var/amount = input("Amount:", "Transfer Plasma to [M]") as num
-		if(amount)
-			amount = abs(round(amount))
-			if(plasmacheck(amount))
-				if(get_dist(host,M) <= 1)
-					M.adjustPlasma(amount)
-					host.adjustPlasma(-amount)
-					to_chat(M, "<span class='noticealien'>[host] has transfered [amount] plasma to you.</span>")
-					to_chat(host, {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"})
-				else
-					to_chat(host, "<span class='noticealien'>You need to be closer.</span>")
+/datum/action/innate/xeno_action/transfer_plasma/Activate()
+	host = owner
+
+	var/list/target_list = list()
+	for(var/mob/living/carbon/alien/possible_target in oview(WORLD_VIEW, host))
+		target_list += possible_target
+
+
+	if(!length(target_list))
+		to_chat(host, "<span class='alertalien'> There's nobody nearby to transfer plasma to!</span>")
+		return
+
+	var/mob/living/carbon/alien/L = input(host, "Target", "Send a plasma to whom?", target_list) as null|anything in target_list
+	if(!L)
+		return
+
+	var/amount = input("Amount:", "Transfer Plasma to [L]") as num
+	if(amount)
+		amount = abs(round(amount))
+		if(plasmacheck(amount))
+			if(get_dist(host,L) <= 1)
+				L.adjustPlasma(amount)
+				host.adjustPlasma(-amount)
+				to_chat(L, "<span class='noticealien'>[host] has transfered [amount] plasma to you.</span>")
+				to_chat(host, {"<span class='noticealien'>You have trasferred [amount] plasma to [L]</span>"})
+			else
+				to_chat(host, "<span class='noticealien'>You need to be closer.</span>")
 	return
 
 
@@ -111,21 +141,27 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_acid"
 
 /datum/action/innate/xeno_action/corrosive_acid/Activate()
-	. = ..()
+	host = owner
+
 	if(!plasmacheck(200))
 		return
-	var/list/choices = list()
-	for(var/atom/A as anything in view(1, owner))
-		if(!(isitem(A) || isstructure(A) || iswallturf(A) || ismachinery(A)))
+	var/list/target_list = list()
+	for(var/atom/possible_target in oview(1, host))
+		if(!(isitem(possible_target) || isstructure(possible_target) || iswallturf(possible_target) || ismachinery(possible_target)))
 			continue
-		if(host.Adjacent(A))
-			choices += A
-	if(!length(choices))
-		to_chat(src, "<span class='noticealien'>You haven't found anything to dissolvable.</span>")
+		if(owner.Adjacent(possible_target))
+			target_list += possible_target
+
+	if(!length(target_list))
+		to_chat(host, "<span class='alertalien'> There's nothing to melt!</span>")
 		return
-	var/atom/target = input(src,"Вы уверены что желаете растворить именно это?") in null|choices
-	if(target.acid_act(200, 100))
-		host.visible_message("<span class='alertalien'>[host] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+
+	var/atom/L = input(host, "Target", "What to melt?", target_list) as null|anything in target_list
+	if(!L)
+		return
+
+	if(L.acid_act(200, 100))
+		host.visible_message("<span class='alertalien'>[host] vomits globs of vile stuff all over [L]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 		host.adjustPlasma(-200)
 	else
 		to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
@@ -217,3 +253,6 @@ Doesn't work on other aliens/AI.*/
 		return 1
 
 	return 0
+
+#undef WORLD_VIEW
+#undef WORLD_VIEW_NUM
