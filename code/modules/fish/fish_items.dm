@@ -237,7 +237,7 @@
 				new /obj/item/reagent_containers/food/snacks/meat(get_turf(src))
 		qdel(src)
 		return TRUE
-	..()
+	. = ..()
 
 /obj/item/shard/shark_teeth
 	name = "shark teeth"
