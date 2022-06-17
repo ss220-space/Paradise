@@ -268,6 +268,7 @@
 	for(var/i in 1 to sizemod)
 		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 	qdel(src)
+	return TRUE
 
 /obj/item/fish/catfish/throw_impact(atom/hit_atom)
 	. = ..()
