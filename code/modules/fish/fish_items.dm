@@ -307,7 +307,7 @@
 	if(!is_sharp(weapon))
 		return ..()
 
-	for(var/i = 1 to (sizemod*3))
+	for(var/i in 1 to (sizemod*3))
 		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 	qdel(src)
 
