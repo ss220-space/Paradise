@@ -84,11 +84,13 @@ export class NanoMap extends Component {
         state.zoom = newZoom;
 
         const container = document.getElementsByClassName('NanoMap__container');
-        const bounds = getBoundingBox(container[0]);
-        const currentCenterX = bounds.size[0] / 2 - state.offsetX;
-        const currentCenterY = bounds.size[1] / 2 - state.offsetY;
-        state.offsetX += currentCenterX - (currentCenterX * zoomDiff);
-        state.offsetY += currentCenterY - (currentCenterY * zoomDiff);
+        if (container.length) {
+          const bounds = getBoundingBox(container[0]);
+          const currentCenterX = bounds.size[0] / 2 - state.offsetX;
+          const currentCenterY = bounds.size[1] / 2 - state.offsetY;
+          state.offsetX += currentCenterX - (currentCenterX * zoomDiff);
+          state.offsetY += currentCenterY - (currentCenterY * zoomDiff);
+        }
 
         if (props.onZoom) {
           props.onZoom(state.zoom);
@@ -137,7 +139,7 @@ export class NanoMap extends Component {
   }
 }
 
-const NanoMapMarker = (props, context) => {
+const NanoMapMarker = props => {
   const {
     x,
     y,
@@ -216,7 +218,7 @@ NanoMap.NanoButton = NanoButton;
 NanoMap.Marker = NanoMapMarker;
 
 
-const NanoMapZoomer = (props, context) => {
+const NanoMapZoomer = props => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
