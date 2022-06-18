@@ -88331,6 +88331,11 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"dwF" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/maintenance/asmaint)
 "dzR" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -91203,6 +91208,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"lsc" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/maintenance/asmaint)
 "lsY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -136638,7 +136647,7 @@ dhP
 chf
 csL
 ddH
-cYi
+lsc
 dkS
 dlA
 dfM
@@ -137152,7 +137161,7 @@ dhQ
 chf
 chf
 cUm
-cYi
+dwF
 cYi
 cYg
 dlO
@@ -137665,7 +137674,7 @@ chf
 cUB
 cYi
 dlA
-chf
+cDm
 chf
 csL
 csL
