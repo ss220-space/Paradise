@@ -158,22 +158,22 @@
 	original_body.mutations.Remove(HULK)
 	original_body.dna.SetSEState(GLOB.hulkblock,0)
 	genemutcheck(original_body, GLOB.hulkblock,null,MUTCHK_FORCED)
-	to_chat(original_body, "<span class='danger'>You suddenly feel very weak.</span>")
+	to_chat(original_body, "<span class='danger'>Внезапно вы чувствуете себя очень слабым.</span>")
 	original_body.update_mutations()		//update our mutation overlays
 	qdel(src)
 
-/mob/living/proc/hulk_scream(obj/target, chance = 75)
+/mob/living/proc/hulk_scream(obj/target, chance)
 	if(prob(chance))
-		visible_message("<span class='userdanger'>[src] has punched \the [target]!</span>",\
-		"<span class='userdanger'>You punch the [target]!</span>",\
-		"<span class='userdanger'>You feel some weird vibration!</span>")
+		visible_message("<span class='userdanger'>[src] ударил \the [target]!</span>",\
+		"<span class='userdanger'>Вы ударили [target]!</span>",\
+		"<span class='userdanger'>Вы чувствуете какую-то странную вибрацию!</span>")
 		playsound(target, 'sound/effects/hulk_hit_airlock.ogg', CHANNEL_BUZZ, 75)
 		return 0
 	else
 		say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
-		visible_message("<span class='userdanger'>[src] has destroyed some mechanic in the [target]!</span>",\
-		"<span class='userdanger'>You destroy some mechanic in the [target] door, which holds it in place!</span>",\
-		"<span class='userdanger'>You feel some weird vibration!</span>")
+		visible_message("<span class='userdanger'>[src] уничтожил какой-то механизм в [target]!</span>",\
+		"<span class='userdanger'>Вы уничтожили механизм [target], который удерживал его на месте!</span>",\
+		"<span class='userdanger'>Вы чувствуете какую-то странную вибрацию!</span>")
 		playsound(target, pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg'), CHANNEL_BUZZ)
 		return 1
 
@@ -183,18 +183,17 @@
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
-			hulk_scream(A)
-			A.deconstruct()
+			if(hulk_scream(A, 75))
+				A.deconstruct(src)
 			return
 	if(istype(D,/obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = D
-		if(F.density)
-			hulk_scream(F)
-			F.deconstruct()
-			return
+		if(F.welded || F.locked)
+			if(hulk_scream(F, 75))
+				F.deconstruct(src);
+				return
 	if(D.density)
-		to_chat(src, "<span class='userdanger'>You force your fingers between \
-		 the doors and begin to pry them open...</span>")
+		to_chat(src, "<span class='userdanger'>Вы просовываете свои пальцы между дверьми и стараетесь их открыть...</span>")
 		playsound(D, 'sound/machines/airlockforced.ogg', CHANNEL_BUZZ, 30, null, -4)
 		D.open(1)
 
