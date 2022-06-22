@@ -134,17 +134,32 @@ Doesn't work on other aliens/AI.*/
 				to_chat(host, "<span class='noticealien'>You need to be closer.</span>")
 	return
 
+/mob/living/carbon/alien/humanoid/proc/corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
+	set name = "Corrossive Acid (200)"
+	set desc = "Drench an object in acid, destroying it over time."
+
+	corrosive_acid_action.Activate(target)
 
 /datum/action/innate/xeno_action/corrosive_acid
 	name = "Corrossive Acid (200)"
 	desc = "Drench an object in acid, destroying it over time."
 	button_icon_state = "alien_acid"
 
-/datum/action/innate/xeno_action/corrosive_acid/Activate()
+/datum/action/innate/xeno_action/corrosive_acid/Activate(var/atom/target)
 	var/mob/living/carbon/alien/host = owner
 
 	if(!plasmacheck(200))
 		return
+
+	if(target)
+		if(!(owner.Adjacent(target)))
+			to_chat(host, "<span class='alertalien'> Target is too far away!</span>")
+			return
+		if(target.acid_act(200, 100))
+			host.visible_message("<span class='alertalien'>[host] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+			host.adjustPlasma(-200)
+			return
+
 	var/list/target_list = list()
 	for(var/atom/possible_target in oview(1, host))
 		if(!(isitem(possible_target) || isstructure(possible_target) || iswallturf(possible_target) || ismachinery(possible_target)))

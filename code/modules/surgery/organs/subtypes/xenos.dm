@@ -8,10 +8,13 @@
 ///can be changed if xenos get an update..
 /obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
 	..()
+	for(var/P in alien_powers)
+		M.verbs |= P
 
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
+	for(var/P in alien_powers)
+		M.verbs -= P
 	. = ..()
-
 /obj/item/organ/internal/xenos/prepare_eat()
 	var/obj/S = ..()
 	S.reagents.add_reagent("sacid", 10)
@@ -102,6 +105,7 @@
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
+	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
 
 
 /obj/item/organ/internal/xenos/hivenode
