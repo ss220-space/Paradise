@@ -11,6 +11,7 @@
 	transfer_plasma_action.Grant(src)
 	neurotoxin_action.Grant(src)
 	regurgitate_action.Grant(src)
+	corrosive_acid_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
