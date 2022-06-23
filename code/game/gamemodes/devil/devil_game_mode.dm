@@ -15,7 +15,7 @@
 //	var/devil_scale_coefficient = 10
 
 /datum/game_mode/devil/announce()
-	to_chat(world, {"<B>The current game mode is - Devil!</B><br>)
+	to_chat(world, {"<B>Текущий режим игры - Devil!</B><br>)
 		<span class='danger'>Devils</span>: Purchase souls and tempt the crew to sin!<br>
 		<span class='notice'>Crew</span>: Resist the lure of sin and remain pure!"})
 

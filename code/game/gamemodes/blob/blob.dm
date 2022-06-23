@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 
 /datum/game_mode/blob/announce()
-	to_chat(world, "<B>The current game mode is - <font color='green'>Blob</font>!</B>")
+	to_chat(world, "<B>Текущий режим игры - <font color='green'>Blob</font>!</B>")
 	to_chat(world, "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>")
 	to_chat(world, "You must kill it all while minimizing the damage to the station.")
 

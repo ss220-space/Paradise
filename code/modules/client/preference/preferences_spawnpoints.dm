@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/arrivals
 	display_name = "Arrivals Shuttle"
-	msg = "has arrived on the station"
+	msg = "прибыл на станцию"
 
 /datum/spawnpoint/arrivals/New()
 	..()
@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/gateway
 	display_name = "Gateway"
-	msg = "has completed translation from offsite gateway"
+	msg = "завершил переход с гейта"
 
 /datum/spawnpoint/gateway/New()
 	..()
@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/cryo
 	display_name = "Cryogenic Storage"
-	msg = "has completed cryogenic revival"
+	msg = "завершил криогенное восстановление"
 	disallow_job = list("Cyborg")
 
 /datum/spawnpoint/cryo/New()
@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/cyborg
 	display_name = "Cyborg Storage"
-	msg = "has been activated from storage"
+	msg = "был активирован из хранилища"
 	restrict_job = list("Cyborg")
 
 /datum/spawnpoint/cyborg/New()

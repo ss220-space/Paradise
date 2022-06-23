@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	var/win_button_triggered = 0
 
 /datum/game_mode/heist/announce()
-	to_chat(world, "<B>The current game mode is - Heist!</B>")
+	to_chat(world, "<B>Текущий режим игры - Heist!</B>")
 	to_chat(world, "<B>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</B>")
 	to_chat(world, "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
 	to_chat(world, "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")

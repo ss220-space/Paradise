@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/changeling_amount = 4
 
 /datum/game_mode/changeling/announce()
-	to_chat(world, "<B>The current game mode is - Changeling!</B>")
+	to_chat(world, "<B>Текущий режим игры - Changeling!</B>")
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
 
 /datum/game_mode/changeling/pre_setup()

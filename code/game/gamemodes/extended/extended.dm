@@ -4,8 +4,8 @@
 	required_players = 0
 
 /datum/game_mode/announce()
-	to_chat(world, "<B>The current game mode is - Extended Role-Playing!</B>")
-	to_chat(world, "<B>Just have fun and role-play!</B>")
+	to_chat(world, "<B>Текущий режим игры - Extended Role-Playing!</B>")
+	to_chat(world, "<B>Просто веселитесь и играйте роль!</B>")
 
 /datum/game_mode/extended/pre_setup()
 	return 1

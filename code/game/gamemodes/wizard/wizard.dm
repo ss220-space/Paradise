@@ -14,7 +14,7 @@
 	var/but_wait_theres_more = 0
 
 /datum/game_mode/wizard/announce()
-	to_chat(world, "<B>The current game mode is - Wizard!</B>")
+	to_chat(world, "<B>Текущий режим игры - Wizard!</B>")
 	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
