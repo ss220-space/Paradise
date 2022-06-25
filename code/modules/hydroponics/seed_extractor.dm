@@ -137,9 +137,7 @@
 	if(stat)
 		return 0
 
-	add_fingerprint(user)
-	user.set_machine(src)
-	ui_interact(user)
+	ui_interact(user) //Перенаправление: Расширенный инвентарь и tgui
 	return
 
 /obj/machinery/seed_extractor/Topic(var/href, var/list/href_list)
@@ -172,6 +170,9 @@
 
 	updateUsrDialog()
 	return
+
+/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
+	return add_seedExt(O) //Перенаправление: Расширенный инвентарь и tgui
 
 //Расширенный инвентарь и tgui
 /datum/seed_pile/extended
@@ -213,12 +214,7 @@
 
 	return strain_text
 
-/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
-
-	if(contents.len >= 999)
-		to_chat(usr, "<span class='notice'>\The [src] is full.</span>")
-		return 0
-
+/obj/machinery/seed_extractor/proc/add_seedExt(obj/item/seeds/O)
 	if(istype(O.loc,/mob))
 		var/mob/M = O.loc
 		if(!M.drop_item())
@@ -243,6 +239,10 @@
 	return
 
 /obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+
+	add_fingerprint(user)
+	user.set_machine(src)
+
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SeedExtractor", name, 900, 600)
