@@ -99,6 +99,10 @@
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
 
+/mob/living/simple_animal/mouse/ratvar_act()
+	new/mob/living/simple_animal/mouse/clockwork(loc)
+	gib()
+
 /mob/living/simple_animal/mouse/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 	desc = "It's toast."
@@ -135,7 +139,7 @@
 
 	switch(act)
 		if("squeak")
-			message = "<B>\The [src]</B> [pick(emote_hear)]!"
+			message = "[pick(emote_hear)]!"
 			m_type = 2 //audible
 			playsound(src, squeak_sound, 40, 1)
 		if("help")

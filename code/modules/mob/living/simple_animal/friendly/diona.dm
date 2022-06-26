@@ -30,7 +30,7 @@
 
 	melee_damage_lower = 5
 	melee_damage_upper = 8
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
@@ -291,7 +291,7 @@
 
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("chirp")
-			message = "<B>\The [src]</B> chirps!"
+			message = "chirps!"
 			m_type = 2 //audible
 			playsound(src, chirp_sound, 40, 1, 1)
 		if("help")

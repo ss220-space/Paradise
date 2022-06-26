@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
-			signal["area"] = get_area_name(G, TRUE)
+			signal["area"] = (GT.z == T.z) ? get_area_name(G, TRUE) : "???"
 			signal["position"] = ATOM_COORDS(GT)
 		signals += list(signal)
 	data["signals"] = signals
@@ -165,6 +165,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-b"
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
+	flags = NODROP
+
+/obj/item/gps/syndiecyborg
+	icon_state = "gps-b"
+	local = TRUE
+	gpstag = "SBORG0"
+	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
 	flags = NODROP
 
 /obj/item/gps/internal

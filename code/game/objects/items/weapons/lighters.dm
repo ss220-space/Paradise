@@ -33,7 +33,6 @@
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = icon_on
-	item_state = icon_on
 	force = 5
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
@@ -57,7 +56,6 @@
 	lit = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = icon_off
-	item_state = icon_off
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
@@ -135,6 +133,7 @@
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
 	icon_state = "zippo_nt_off"
+	item_state = "ntzippo"
 	icon_on = "zippo_nt_on"
 	icon_off = "zippo_nt_off"
 
@@ -142,6 +141,7 @@
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
 	icon_state = "bluezippo"
+	item_state = "bluezippo"
 	icon_on = "bluezippoon"
 	icon_off = "bluezippo"
 
@@ -149,6 +149,7 @@
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
 	icon_state = "blackzippo"
+	item_state = "chapzippo"
 	icon_on = "blackzippoon"
 	icon_off = "blackzippo"
 
@@ -156,6 +157,7 @@
 	name = "engraved zippo lighter"
 	desc = "A intricately engraved zippo lighter."
 	icon_state = "engravedzippo"
+	item_state = "engravedzippo"
 	icon_on = "engravedzippoon"
 	icon_off = "engravedzippo"
 
@@ -163,6 +165,7 @@
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
 	icon_state = "gonzozippo"
+	item_state = "gonzozippo"
 	icon_on = "gonzozippoon"
 	icon_off = "gonzozippo"
 
@@ -170,6 +173,7 @@
 	name = "Captain's zippo"
 	desc = "A limited edition gold Zippo espesially for NT Captains. Looks extremely expensive."
 	icon_state = "zippo_cap"
+	item_state = "capzippo"
 	icon_on = "zippo_cap_on"
 	icon_off = "zippo_cap"
 
@@ -177,6 +181,7 @@
 	name = "Head of personnel zippo"
 	desc = "A limited edition Zippo for NT Heads. Tries it best to look like captain's."
 	icon_state = "zippo_hop"
+	item_state = "hopzippo"
 	icon_on = "zippo_hop_on"
 	icon_off = "zippo_hop"
 
@@ -184,6 +189,7 @@
 	name = "Head of Security zippo"
 	desc = "A limited edition Zippo for NT Heads. Fuel it with clown's tears."
 	icon_state = "zippo_hos"
+	item_state = "hoszippo"
 	icon_on = "zippo_hos_on"
 	icon_off = "zippo_hos"
 
@@ -191,6 +197,7 @@
 	name = "Chief Medical Officer zippo"
 	desc = "A limited edition Zippo for NT Heads. Made of hypoallergenic steel."
 	icon_state = "zippo_cmo"
+	item_state = "bluezippo"
 	icon_on = "zippo_cmo_on"
 	icon_off = "zippo_cmo"
 
@@ -198,6 +205,7 @@
 	name = "Chief Engineer zippo"
 	desc = "A limited edition Zippo for NT Heads. Somebody've tried to repair cover with blue tape."
 	icon_state = "zippo_ce"
+	item_state = "cezippo"
 	icon_on = "zippo_ce_on"
 	icon_off = "zippo_ce"
 
@@ -205,6 +213,7 @@
 	name = "Research Director zippo"
 	desc = "A limited edition Zippo for NT Heads. Uses advanced tech to make fire from plasma."
 	icon_state = "zippo_rd"
+	item_state = "rdzippo"
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
 

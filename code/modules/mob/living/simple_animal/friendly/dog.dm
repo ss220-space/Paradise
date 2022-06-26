@@ -55,15 +55,15 @@
 
 	switch(act)
 		if("bark")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
+			message = "[pick(src.speak_emote)]!"
 			m_type = 2 //audible
 			playsound(src, pick(src.bark_sound), 50, TRUE)
 		if("yelp")
-			message = "<B>[src]</B> yelps!"
+			message = "yelps!"
 			m_type = 2 //audible
 			playsound(src, yelp_sound, 75, TRUE)
 		if("growl")
-			message = "<B>[src]</B> growls!"
+			message = "growls!"
 			m_type = 2 //audible
 		if("help")
 			to_chat(src, "scream, bark, growl")
@@ -96,9 +96,7 @@
 	icon_state = "blackdog"
 	icon_living = "blackdog"
 	icon_dead = "blackdog_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	icon_resting = "blackdog_rest"
 
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
@@ -107,7 +105,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/clothing/head/corgipelt = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
@@ -570,6 +568,12 @@
 	N.setDir(dir)
 	gib()
 
+/mob/living/simple_animal/pet/dog/corgi/Ian/ratvar_act()
+	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
+	var/mob/living/simple_animal/pet/dog/corgi/ratvar/N = new(loc)
+	N.setDir(dir)
+	gib()
+
 /mob/living/simple_animal/pet/dog/corgi/narsie
 	name = "Nars-Ian"
 	desc = "Ia! Ia!"
@@ -604,6 +608,28 @@
 	emote_see = list("communes with the unnameable.", "ponders devouring some souls.", "shakes.")
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
+	adjustBruteLoss(-maxHealth)
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar
+	name = "Cli-k"
+	desc = "It's a coolish Ian that clicks!"
+	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon_state = "clik"
+	icon_living = "clik"
+	icon_dead = "clik_dead"
+	faction = list("neutral", "clockwork_cult")
+	gold_core_spawnable = NO_SPAWN
+	nofur = TRUE
+	unique_pet = TRUE
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
+	..()
+	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
+	speak_emote = list("growls", "barks ominously")
+	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an judicial manner.", "mutters something unspeakable.")
+	emote_see = list("communes with the unnameable.", "seeks the light in souls.", "shakes.")
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/ratvar_act()
 	adjustBruteLoss(-maxHealth)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy

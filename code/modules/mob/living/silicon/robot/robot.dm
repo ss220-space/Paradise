@@ -49,11 +49,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/wires/robot/wires = null
 
-	var/opened = 0
+	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Cricket","Standard")
-	var/emagged = 0
+	var/list/custom_eye_names = list("Robot","Cricket","Noble","Standard")
+	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
 
-	var/list/force_modules = list()
+	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
@@ -77,9 +77,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//var/list/laws = list()
 	var/viewalerts = 0
 	var/modtype = "Default"
-	var/lower_mod = 0
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
@@ -141,7 +139,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	init(alien, connect_to_AI, ai_to_sync_to)
 
-	if(has_camera && !camera)
+	if(is_taipan(z) || syndie) //Чтобы турели не били собранных на тайпане или из емагнутого корпуса боргов
+		faction += "syndicate"
+
+	if(has_camera && !camera && !syndie)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
@@ -151,6 +152,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
+
+	if(mmi.clock)
+		ratvar_act(TRUE)
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new default_cell_type(src)
@@ -307,17 +311,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(cell)
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
 	return ..()
 
-/mob/living/silicon/robot/proc/pick_module()
+/mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
 	if(module)
 		return
 	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
-	if(islist(force_modules) && force_modules.len)
-		modules = force_modules.Copy()
-	if(mmi != null && mmi.alien)
-		modules = list("Hunter")
-	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	if(islist(limited_modules) && limited_modules.len)
+		modules = limited_modules.Copy()
+	if(mmi?.alien)
+		forced_module = "Hunter"
+	if(mmi?.syndicate)
+		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
+	if(mmi?.clock || isclocker(src))
+		forced_module = "Clockwork"
+	if(forced_module)
+		modtype = forced_module
+	else
+		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
 	designation = modtype
@@ -330,7 +342,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
 			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
-			module_sprites["Basic"] = "robot_old"
+			module_sprites["Basic"] = "Robot-STD"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
@@ -338,11 +350,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Service"
+			module_sprites["Waitress"] = "Robot-LDY"
 			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Brobot"
+			module_sprites["Bro"] = "Robot-RLX"
 			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Service2"
+			module_sprites["Default"] = "Robot-MAN"
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
@@ -353,7 +365,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Miner_old"
+			module_sprites["Basic"] = "Robot-MNR"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "Standard-Mine"
@@ -366,10 +378,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Medbot"
+			module_sprites["Basic"] = "Robot-MED"
 			module_sprites["Surgeon"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "medicalrobot"
+			module_sprites["Needles"] = "Robot-SRG"
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
@@ -390,7 +402,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "secborg"
+			module_sprites["Basic"] = "Robot-SEC"
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
@@ -404,8 +416,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Engineering"
-			module_sprites["Antique"] = "engineerrobot"
+			module_sprites["Basic"] = "Robot-ENG"
+			module_sprites["Antique"] = "Robot-ENG2"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
@@ -415,8 +427,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "JanBot2"
-			module_sprites["Mopbot"]  = "janitorrobot"
+			module_sprites["Basic"] = "Robot-JAN"
+			module_sprites["Mopbot"]  = "Robot-JAN2"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
@@ -437,6 +449,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
+
+		if("Syndicate Saboteur")
+			spawn_syndicate_borgs(src, "Saboteur", get_turf(src))
+			qdel(src)
+			return
+
+		if("Syndicate Medical")
+			spawn_syndicate_borgs(src, "Medical", get_turf(src))
+			qdel(src)
+			return
+
+		if("Syndicate Bloodhound")
+			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
+			qdel(src)
+			return
+
+		if("Clockwork")
+			module = new /obj/item/robot_module/clockwork(src)
+			icon = 'icons/mob/clockwork_mobs.dmi'
+			icon_state = "cyborg"
+			status_flags &= ~CANPUSH
+			QDEL_NULL(mmi)
+			mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
 
 	//languages
 	module.add_languages(src)
@@ -459,6 +494,58 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		radio.config(module.channels)
 	notify_ai(2)
 
+/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
+
+	var/mob/living/silicon/robot/syndicate/R
+	switch(robot_to_spawn)
+		if("Medical")
+			R = new /mob/living/silicon/robot/syndicate/medical(T)
+			R.playstyle_string = "<span class='userdanger'>Вы Медицинский Киборг Синдиката!</span><br> \
+						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
+						Ваш Гипоспрей способен создавать восстанавливающие Наниты, чудодействующее лекарство, способное вылечить большинство видов телесных повреждений, включая урон от клонирования и мозгу. Он так же производит морфин для наступления. \
+						Электроды вашего дефибриллятора способны оживлять оперативников и агентов через их хардсьюты, а так же могут быть использованы с намерением вреда, чтобы шокировать ваших врагов! \
+						Ваша энергетическая пила функционирует как циркулярная пила, но её можно активировать для нанесения дополнительного урона. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
+		if("Saboteur")
+			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
+			R.playstyle_string = "<span class='userdanger'>Вы Киборг Саботажник Синдиката!</span><br> \
+						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
+						Вы экипированны крепким набором инженерных инструментов для выполнения различного рода задач. \
+						В вас встроен специальный маячок для посылок, который позволит вам незаметно передвигаться по станциям НТ через мусорные трубы. \
+						Ваш хамеллион проектор позволяет вам замаскироваться под стандартного инженерного киборга Нанотрэйзен и выполнять любого рода саботаж под прикрытием. \
+						Вы способны взламывать киборгов НТ Емагнув их внутренние компоненты, не забудьте ослепить их перед этим. \
+						Вы вооружены стандартным Световым Мечом, используйте его чтобы застать врасплох ключевые цели если необходимо. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят. \
+						Помните, физический контакт или повреждения отключат вашу маскировку."
+		if("Bloodhound")
+			R = new /mob/living/silicon/robot/syndicate(T)
+			R.playstyle_string = "<span class='userdanger'>Вы Штурмовой Киборг Синдиката!</span><br> \
+							<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
+						Вы вооружены мощными наступательными инструментами чтобы выполнять выданные вам миссии. \
+						Встроенное в вас LMG самостоятельно производит патроны используя вашу батарею. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
+
+	var/datum/robot_component/cell/C = R.components["power cell"]
+
+	var/obj/item/stock_parts/cell/CC = get_cell(M)
+	CC.loc = src
+	R.cell = new CC.type
+	C.installed = 1
+	C.wrapped = CC
+	C.install()
+	C.external_type = CC.type
+	C.brute_damage = 0
+	C.electronics_damage = 0
+	diag_hud_set_borgcell()
+
+	R.mmi = new /obj/item/mmi/robotic_brain/syndicate(M)
+	M.mind.transfer_to(R)
+	R.faction = list("syndicate")
+	SEND_SOUND(R.mind.current, 'sound/effects/contractstartup.ogg')
+
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
 
@@ -471,7 +558,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.remove_subsystems_and_actions(src)
 	QDEL_NULL(module)
 
-	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
@@ -505,30 +592,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Station Manifest"
 	show_station_manifest()
-
-/mob/living/silicon/robot/proc/self_diagnosis()
-	if(!is_component_functioning("diagnosis unit"))
-		return null
-
-	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"}
-	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 0)
-			dat += "<b>[C.name]</b><br>MISSING<br>"
-		else
-			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-	return dat
-
-/mob/living/silicon/robot/verb/self_diagnosis_verb()
-	set category = "Robot Commands"
-	set name = "Self Diagnosis"
-
-	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
-
-	var/dat = self_diagnosis()
-	src << browse(dat, "window=robotdiagnosis")
-
 
 /mob/living/silicon/robot/verb/toggle_component()
 	set category = "Robot Commands"
@@ -804,6 +867,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
+	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user) && src != user)
+		locked = !locked
+		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
+		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
+		update_icons()
 	else
 		return ..()
 
@@ -917,6 +985,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/emag_act(user as mob)
 	if(!ishuman(user) && !issilicon(user))
 		return
+	if(isclocker(src))
+		to_chat(user, "<span class='danger'>As you try to emag, a magic force keeps the cover locked!</span>")
+		return
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)
@@ -929,7 +1000,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	if(opened)//Cover is open
-		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
+		if(emagged)
+			return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "You must close the panel first")
 			return
@@ -948,7 +1020,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
-			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
+			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [genderize_ru(M.gender,"его","её","его","их")] приказы и указания.")
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
 			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
@@ -979,6 +1051,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 			update_icons()
 		return
+
+/mob/living/silicon/robot/ratvar_act(weak = FALSE)
+	if(isclocker(src) && module?.type == /obj/item/robot_module/clockwork)
+		return
+	if(!weak)
+		if(module)
+			reset_module()
+		pick_module("Clockwork")
+	SSticker.mode.add_clocker(mind)
+	UnlinkSelf()
+	laws = new /datum/ai_laws/ratvar
+	speed = -0.5
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
@@ -1021,9 +1105,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
-			overlays += "eyes-[custom_panel]"
+			if(!isclocker(src))
+				overlays += "eyes-[custom_panel]"
+			else
+				overlays += "eyes-[custom_panel]-clocked"
 		else
-			overlays += "eyes-[icon_state]"
+			if(!isclocker(src))
+				overlays += "eyes-[icon_state]"
+			else
+				overlays += "eyes-[icon_state]-clocked"
 	else
 		overlays -= "eyes"
 	if(opened)
@@ -1174,6 +1264,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
+	if((modtype != "Clockwork" || !mmi.clock) && isclocker(src))
+		to_chat(src, "<span class='warning'>With body torn into pieces, your mind got free from evil cult!</span>")
+		SSticker.mode.remove_clocker(mind, FALSE)
 	if(robot_suit)
 		robot_suit.forceMove(T)
 		robot_suit.l_leg.forceMove(T)
@@ -1423,6 +1516,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
+	brute_mod = 0.5 // Пулевые орудия наносят на 50%+5ед меньше урона. Теперь полная обойма ружейных пуль не убьет киборга(но заставит потерять 2 модуля и броню)
+	burn_mod = 0.5 // Забавно, у киборга отряда смерти отражение лазерных снарядов, впрочем все еще снижает урон от взрывов, и позволяет пережить более чем одну ракету из SRM8.
+	emp_protection = TRUE // Это киборг отряда смерти, он не должен быть остановим обычной импульсной винтовкой.
 	allow_rename = FALSE
 	modtype = "Commando"
 	faction = list("nanotrasen")
@@ -1453,7 +1549,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	force_modules = list("Engineering", "Medical", "Security")
+	limited_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
@@ -1492,7 +1588,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	force_modules = list("Combat", "Engineering", "Medical")
+	limited_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1

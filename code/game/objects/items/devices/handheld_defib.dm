@@ -63,8 +63,6 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			H.AdjustParalysis(2)
-			H.AdjustStunned(2)
 			H.AdjustWeakened(2)
 			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
@@ -89,3 +87,11 @@
 	cooldown = FALSE
 	icon_state = "[icon_base]-on"
 	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
+
+/obj/item/handheld_defibrillator/syndie
+	name = "combat handheld defibrillator"
+	desc = "Used to restart stopped hearts(Not nanotrasen's pigs hearts"
+	icon_state = "sdefib-on"
+	item_state = "sdefib"
+	charge_time = 30
+	icon_base = "sdefib"

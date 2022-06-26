@@ -672,6 +672,22 @@
 		src.give_disease(M)
 		href_list["datumrefresh"] = href_list["give_spell"]
 
+	else if(href_list["give_taipan_hud"])
+		if(!check_rights(R_ADMIN|R_EVENT))	return
+
+		var/mob/living/M = locateUID(href_list["give_taipan_hud"])
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+		var/selected_job = input("Select a job", "Hud Job Selection") as null|anything in all_taipan_jobs
+
+		if(!selected_job)
+			to_chat(usr, "No job selected!")
+			return
+
+		var/selected_role = M.find_taipan_hud_number_by_job(job = selected_job)
+		M.give_taipan_hud(role = selected_role)
+
 	else if(href_list["godmode"])
 		if(!check_rights(R_REJUVINATE))	return
 
@@ -1143,6 +1159,21 @@
 			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")
 		else
 			to_chat(usr, "Mob doesn't know that language.")
+
+	else if(href_list["grantalllanguage"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/H = locateUID(href_list["grantalllanguage"])
+
+		if(!istype(H))
+			to_chat(usr, "This can only be done to instances of type /mob")
+			return
+
+		H.grant_all_languages()
+
+		to_chat(usr, "Added all languages to [H].")
+		message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] all languages")
+		log_admin("[key_name(usr)] has given [key_name(H)] all languages")
 
 	else if(href_list["addverb"])
 		if(!check_rights(R_DEBUG))			return

@@ -126,7 +126,7 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/New()
@@ -134,19 +134,19 @@
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	return
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/hardsuit/New()
 	..()
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
@@ -358,3 +358,25 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/sarin(src)
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
+/obj/item/storage/box/syndie_kit/genes
+	name = "Genetic superiority bundle"
+	desc = "Fun for the whole family"
+
+/obj/item/storage/box/syndie_kit/genes/New()
+	..()
+	new /obj/item/dnainjector/hulkmut(src)
+	new /obj/item/dnainjector/xraymut(src)
+	new /obj/item/dnainjector/telemut(src)
+	new /obj/item/dnainjector/runfast(src)
+	new /obj/item/dnainjector/insulation(src)
+
+/obj/item/storage/box/syndie_kit/stungloves
+	name = "Stungloves"
+
+/obj/item/storage/box/syndie_kit/stungloves/New()
+	..()
+	new /obj/item/clothing/gloves/color/yellow/stun(src)
+	new /obj/item/stock_parts/cell/high/plus(src)
+	new /obj/item/toy/crayon/white(src)
+	new /obj/item/toy/crayon/yellow(src)
+	new /obj/item/toy/crayon/rainbow(src)

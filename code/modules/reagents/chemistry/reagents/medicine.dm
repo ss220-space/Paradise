@@ -59,6 +59,7 @@
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
+	update_flags |= M.adjustStaminaLoss(-8, FALSE)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags
@@ -327,7 +328,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.4
 	overdose_threshold = 30
-	addiction_chance = 1
+	addiction_chance = 3
 	addiction_chance_additional = 20
 	addiction_threshold = 5
 	harmless = FALSE
@@ -520,7 +521,7 @@
 	metabolization_rate = 0.3
 	overdose_threshold = 35
 	addiction_chance = 1
-	addiction_chance = 10
+	addiction_chance_additional = 10
 	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
@@ -768,6 +769,9 @@
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
+					return
+				if(!M.ghost_can_reenter())
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
 				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath

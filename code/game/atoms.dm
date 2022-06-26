@@ -1,3 +1,11 @@
+// Падежи русского языка
+#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
+#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
+#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
+#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
+#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
+#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
+
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -54,6 +62,9 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
+	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
+	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	var/list/ru_names
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -762,6 +773,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
+	if(neck)
+		if(neck.clean_blood())
+			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -1020,3 +1034,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else
 			name = "[prefix][t]"
 	return t
+
+/*
+	Setter for the `density` variable.
+	Arguments:
+	* new_value - the new density you would want it to set.
+	Returns: Either null if identical to existing density, or the new density if different.
+*/
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
+
+// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
+// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+/atom/proc/declent_ru(case_id, list/ru_names_override)
+	var/list/list_to_use = ru_names_override || ru_names
+	if(length(list_to_use))
+		return list_to_use[case_id] || name
+	return name

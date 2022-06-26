@@ -7,6 +7,7 @@
 	can_unwrench = 1
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
+	resistance_flags = NO_MALF_EFFECT
 
 	//Buckling
 	can_buckle = TRUE
@@ -40,10 +41,6 @@
 	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(parent.air, user)
 		return
-
-	if(istype(W,/obj/item/pipe_painter))
-		return
-
 	return ..()
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()

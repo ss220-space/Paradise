@@ -10,7 +10,7 @@
 	flesh_color = "#222222"
 
 	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
-	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
+	burn_mod = 1.25
 	heatmod = 1.5
 
 	silent_steps = 1
@@ -19,6 +19,8 @@
 	has_organ = list(
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes)
+
+	disliked_food = NONE
 
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
@@ -31,7 +33,7 @@
 			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
-				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
+				to_chat(H, "<span class='userdanger'>Свет жжёт вас!</span>")//Message spam to say "GET THE FUCK OUT"
 				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.clear_alert("lightexposure")

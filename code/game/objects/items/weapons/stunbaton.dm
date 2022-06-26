@@ -11,11 +11,11 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	var/staminaforce = 25
+	var/staminaforce = 20
 	var/stunforce = 2
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/cell = null
-	var/hitcost = 400
+	var/hitcost = 500
 	var/throw_hit_chance = 50
 
 /obj/item/melee/baton/suicide_act(mob/user)
@@ -36,7 +36,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(status && prob(throw_hit_chance))
+	if(status && prob(throw_hit_chance) && !issilicon(hit_atom))
 		baton_stun(hit_atom)
 
 /obj/item/melee/baton/loaded/New() //this one starts with a cell pre-installed.
@@ -232,21 +232,14 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	staminaforce = 33
+	staminaforce = 25
 	stunforce = 1
-	hitcost = 1000
-	throw_hit_chance = 10
+	hitcost = 500
+	throw_hit_chance = 50
 	slot_flags = SLOT_BACK
-	var/obj/item/assembly/igniter/sparkler = null
-
-/obj/item/melee/baton/cattleprod/New()
-	..()
-	sparkler = new(src)
-
-/obj/item/melee/baton/cattleprod/Destroy()
-	QDEL_NULL(sparkler)
-	return ..()
 
 /obj/item/melee/baton/cattleprod/baton_stun()
-	if(sparkler.activate())
-		..()
+	do_sparks(1, 1, src)
+	playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
+	..()
+

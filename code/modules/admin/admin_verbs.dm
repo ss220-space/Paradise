@@ -172,7 +172,12 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
-	/client/proc/reestablish_db_connection
+	/client/proc/reestablish_db_connection,
+	/client/proc/dmjit_debug_toggle_call_counts,
+	/client/proc/dmjit_debug_dump_call_count,
+	/client/proc/dmjit_debug_dump_opcode_count,
+	/client/proc/dmjit_debug_toggle_hooks,
+	/client/proc/dmjit_debug_dump_deopts
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -362,17 +367,20 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(!check_rights(R_ADMIN))
 		return
+	if(!isliving(mob))
+		return
 
-	if(mob)
-		if(mob.invisibility == INVISIBILITY_OBSERVER)
-			mob.invisibility = initial(mob.invisibility)
-			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
-			mob.add_to_all_human_data_huds()
-			//TODO: Make some kind of indication for the badmin that they are currently invisible
-		else
-			mob.invisibility = INVISIBILITY_OBSERVER
-			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
-			mob.remove_from_all_data_huds()
+	if(mob.invisibility == INVISIBILITY_OBSERVER)
+		mob.invisibility = initial(mob.invisibility)
+		mob.add_to_all_human_data_huds()
+		to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin OFF")
+	else
+		mob.invisibility = INVISIBILITY_OBSERVER
+		mob.remove_from_all_data_huds()
+		to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin ON")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Invisimin")
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"

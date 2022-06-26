@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(is_sacrifice_target(mind))
 		return FALSE
+	if(isclocker(mind.current))
+		return FALSE // Go away Ratvar
 	if(iscultist(mind.current))
 		return TRUE //If they're already in the cult, assume they are convertable
 	if(mind.isholy)
@@ -54,8 +56,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/min_cultists_to_start = 3
-	var/const/max_cultists_to_start = 4
+	var/const/max_cultist_to_start = 4
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
@@ -66,7 +67,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		restricted_jobs += protected_jobs
 
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
-	for(var/cultists_number = 1 to max_cultists_to_start)
+	for(var/cultists_number = 1 to max_cultist_to_start)
 		if(!length(cultists_possible))
 			break
 		var/datum/mind/cultist = pick(cultists_possible)
@@ -85,6 +86,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+		var/datum/objective/servecult/obj = new
+		obj.owner = cult_mind
+		cult_mind.objectives += obj
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -236,6 +240,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
+		if(!H.original_eye_color)
+			H.original_eye_color = H.get_eye_color()
 		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
@@ -299,10 +305,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
+		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
+		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
+		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/endtext
 	endtext += "<br><b>The cultists' objectives were:</b>"

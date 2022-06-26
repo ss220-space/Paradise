@@ -105,7 +105,7 @@
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-			custom_emote(1, "coughs up blood!")
+			custom_emote(1, "кашляет кровью!")
 			add_splatter_floor(loc, 1)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
@@ -342,3 +342,21 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+	if(!T)
+		T = get_turf(src)
+
+	var/obj/effect/decal/cleanable/blood/clock/streak/oil = locate() in T
+	var/list/oils = get_atoms_of_type(T, oil, TRUE, 0, 0)
+	if(shift_x || shift_y)
+		oils = get_atoms_of_type(T, oil, TRUE, shift_x, shift_y)
+		oil = locate() in oils
+	if(!oil)
+		oil = new(T)
+
+	oil.pixel_x = (shift_x)
+	oil.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		oil.off_floor = TRUE
+		oil.layer = BELOW_MOB_LAYER

@@ -478,7 +478,10 @@
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in ply.objectives)
-		objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
+		if(objective.check_completion())
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+		else
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 		count++
 	return objective_parts.Join("<br>")
 
@@ -500,15 +503,15 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
-	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
-	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
+	message_text += "<h3>Приказания [command_name()]</h3></div><hr>"
+	message_text += "<b>Особые указания для [station_name()]</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
 		G.on_report()
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders", FALSE)
+	print_command_report(message_text, "Приказания [command_name()]", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)

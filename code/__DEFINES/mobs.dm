@@ -46,6 +46,10 @@
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
 #define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
+#define DISGUST_LEVEL_MAXEDOUT 150
+#define DISGUST_LEVEL_DISGUSTED 75
+#define DISGUST_LEVEL_VERYGROSS 50
+#define DISGUST_LEVEL_GROSS 25
 
 //Mob attribute defaults.
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
@@ -215,6 +219,7 @@
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+#define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
 
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))

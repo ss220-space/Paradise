@@ -67,6 +67,13 @@
 		else
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(head)] \a [head] on [p_their()] head.\n"
 
+	//neck
+	if(neck && !(neck.flags & ABSTRACT))
+		if(neck.blood_DNA)
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(neck)] [neck.gender==PLURAL?"some":"a"] [neck.blood_color != "#030303" ? "blood-stained":"oil-stained"] [neck.name] around [p_their()] neck!</span>\n"
+		else
+			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(neck)] \a [neck] around [p_their()] neck.\n"
+
 	//suit/armour
 	if(wear_suit && !(wear_suit.flags & ABSTRACT))
 		if(wear_suit.blood_DNA)
@@ -110,6 +117,8 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(gloves)] \a [gloves] on [p_their()] hands.\n"
 	else if(blood_DNA)
 		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+	else if(isclocker(src) && HAS_TRAIT(src, CLOCK_HANDS))
+		msg += "<span class='clockitalic'>[p_their(TRUE)] hands are sparkling with an unnatural amber!</span>\n"
 
 	//handcuffed?
 	if(handcuffed)
@@ -434,7 +443,7 @@
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
-		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
 			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
 
 	return FALSE

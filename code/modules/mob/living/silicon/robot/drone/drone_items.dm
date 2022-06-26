@@ -38,8 +38,9 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
-	can_hold = list()
+	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
+	can_hold = list(/obj/item/organ,
+					/obj/item/reagent_containers/iv_bag)
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
@@ -60,6 +61,25 @@
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
 				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
 				)
+		return
+	..()
+
+/obj/item/gripper/cogscarab
+	name = "ancient gripper"
+	desc = "A brass grasping tool for supporting workmates."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clock_gripper"
+
+/obj/item/gripper/cogscarab/New()
+	//Has a list of items that it can hold.
+	can_hold += list(
+		/obj/item/clockwork/integration_cog,
+		/obj/item/clockwork/shard,
+		/obj/item/stack/sheet,
+		/obj/item/mmi/robotic_brain/clockwork
+	)
+	..()
+
 
 /obj/item/gripper/New()
 	..()
@@ -125,7 +145,7 @@
 	else if(istype(target,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened)
-			if(A.cell)
+			if(A.cell && is_type_in_typecache(A.cell, can_hold))
 
 				gripped_item = A.cell
 

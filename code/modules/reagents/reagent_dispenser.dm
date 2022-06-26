@@ -11,6 +11,7 @@
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
+	var/went_boom = FALSE /// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -35,7 +36,10 @@
 			if(reagents)
 				reagents.temperature_reagents(exposed_temperature)
 
-/obj/structure/reagent_dispensers/proc/boom()
+/obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
+	if(went_boom)
+		return
+	went_boom = TRUE
 	visible_message("<span class='danger'>[src] ruptures!</span>")
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
@@ -81,13 +85,13 @@
 	return ..()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
+	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
+
+	if(will_explode) // Log here while you have the information needed
+		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
+		log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
+		investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 	..()
-	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
-		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
-			add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
-			log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
-			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
-			boom()
 
 /obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
@@ -244,11 +248,28 @@
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
 	reagent_id = "beer"
+	var/has_lid = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, 0, 3, 5, 7, 10)
 	if(!QDELETED(src))
 		qdel(src)
+
+/obj/structure/reagent_dispensers/beerkeg/proc/add_lid()
+		container_type = DRAINABLE | AMOUNT_VISIBLE
+		has_lid = TRUE
+
+/obj/structure/reagent_dispensers/beerkeg/proc/remove_lid()
+		container_type = REFILLABLE | AMOUNT_VISIBLE
+		has_lid = FALSE
+
+/obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
+	if(has_lid)
+		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+		remove_lid()
+	else
+		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+		add_lid()
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
 	name = "Nanotrasen-brand nuclear fission explosive"

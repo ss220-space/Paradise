@@ -22,6 +22,11 @@
 	icon_state = "heavylaser"
 	damage = 40
 
+/obj/item/projectile/beam/laser/slug
+	name = "laser slug beam"
+	damage = 50
+	stamina = 33
+
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
@@ -47,7 +52,7 @@
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 33
+	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"
@@ -193,7 +198,7 @@
 /obj/item/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 33
+	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"
