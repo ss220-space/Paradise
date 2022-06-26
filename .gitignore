@@ -1,9 +1,30 @@
 #ignore misc BYOND files
+Thumbs.db
 *.log
 *.int
 *.rsc
+*.mdme
+*.mdme.*
+*.m.dme
+*.test.dme
 *.dmb
 *.lk
+*.backup
+*.dmm.before
+*.cache
+*.pyc
+data/
+cfg/
+tmp/
+tools/Runtime Condenser/Input.txt
+tools/Runtime Condenser/Output.txt
+tools/MapDaemon/logs/*.txt
+
+#Visual studio stuff
+*.vscode/*
+!/.vscode/extensions.json
+!/.vscode/launch.json
+!/.vscode/tasks.json
 
 #ignore any files in config/, except those in subdirectories.
 /config/*
@@ -23,8 +44,7 @@ data/
 *.db
 stddef.dm
 .atom-build.json
-*.vscode/*
-!/.vscode/extensions.json
+.idea/
 
 # ignore DMI tool build cache
 /tools/dmitool/bin/
@@ -37,3 +57,6 @@ stddef.dm
 /tools/midi2piano/midi2piano/obj/*
 
 */node_modules/*
+
+# Ignore compiled linux libs in the root folder, e.g. librust_g.so
+/*.so

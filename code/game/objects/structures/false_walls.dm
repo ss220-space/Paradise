@@ -28,6 +28,7 @@
 	/turf/simulated/wall/r_wall,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
+	/obj/structure/falsewall/clockwork,
 	/obj/structure/falsewall/reinforced,  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS. //because we do smooth with real r-walls now
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust)
@@ -36,6 +37,18 @@
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
 	air_update_turf(1)
+
+/obj/structure/falsewall/examine_status(mob/user)
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(100)
+			return "<span class='notice'>It looks fully intact.</span>"
+		if(70 to 99)
+			return  "<span class='warning'>It looks slightly damaged.</span>"
+		if(40 to 70)
+			return  "<span class='warning'>It looks moderately damaged.</span>"
+		if(0 to 40)
+			return "<span class='danger'>It looks heavily damaged.</span>"
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
@@ -84,9 +97,9 @@
 	if(density)
 		smooth = SMOOTH_FALSE
 		clear_smooth_overlays()
-		icon_state = "fwall_opening"
+		flick("fwall_opening", src)
 	else
-		icon_state = "fwall_closing"
+		flick("fwall_closing", src)
 
 /obj/structure/falsewall/update_icon()
 	if(density)
@@ -158,6 +171,10 @@
 	icon_state = "r_wall"
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
+
+/obj/structure/falsewall/reinforced/examine_status(mob/user)
+	. = ..()
+	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
@@ -286,6 +303,7 @@
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
@@ -347,10 +365,41 @@
 	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
 	walltype = /turf/simulated/wall/clockwork
-	mineral = /obj/item/stack/tile/brass
+	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
+
+/obj/structure/falsewall/clockwork/attack_hand(mob/user)
+	if(!isclocker(user))
+		user.changeNext_move(CLICK_CD_MELEE)
+		to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
+		playsound(src, 'sound/weapons/genhit.ogg', 25, 1) //sneaky
+		return FALSE
+	return ..()
+
+/obj/structure/falsewall/clockwork/welder_act(mob/user, obj/item/I)
+	if(!density)
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
+		dismantle(user, TRUE)
+
+/obj/structure/falsewall/clockwork/attackby(obj/item/W, mob/user, params)
+	if(opening)
+		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
+		return FALSE
+
+	if(density)
+		var/turf/T = get_turf(src)
+		if(T.density)
+			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
+			return FALSE
+
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
+		dismantle(user, TRUE)
+		return TRUE
+	return TRUE

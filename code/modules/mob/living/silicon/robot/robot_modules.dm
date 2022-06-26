@@ -90,6 +90,9 @@
 		else if(istype(S, /obj/item/stack/tile/wood/cyborg))
 			S.cost = 1
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
+		else if(istype(S, /obj/item/stack/sheet/brass/cyborg))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
 
 /obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
@@ -164,6 +167,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	// sec
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	// janitorial
@@ -219,6 +223,7 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -267,6 +272,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
@@ -289,7 +295,9 @@
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
@@ -307,6 +315,7 @@
 	modules += new /obj/item/holosign_creator(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
@@ -337,7 +346,9 @@
 	modules += new /obj/item/lighter/zippo(src)
 	modules += new /obj/item/storage/bag/tray/cyborg(src)
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
+	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
@@ -421,6 +432,7 @@
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/crowbar(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -435,8 +447,10 @@
 	modules += new /obj/item/gun/energy/printer(src)
 	modules += new /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	modules += new /obj/item/card/emag(src)
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -472,6 +486,7 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
@@ -505,6 +520,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
@@ -526,6 +542,7 @@
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 	fix_modules()
 
@@ -545,7 +562,9 @@
 	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 	fix_modules()
 
@@ -618,11 +637,73 @@
 	C.reagents.add_reagent("cleaner", 3)
 	..()
 
-
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/cogscarab
+	name = "cogscarab module"
+	module_type = "Cogscarab"
+
+/obj/item/robot_module/cogscarab/Initialize()
+	. = ..()
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = null
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/cogscarab/add_default_robot_items()
+	return
+
+/obj/item/robot_module/cogscarab/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	G?.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/clockwork
+	name = "Ratvar module"
+	module_type = "Cogscarab" //icon_state
+
+/obj/item/robot_module/clockwork/Initialize()
+	. = ..()
+	modules += new /obj/item/clockwork/clockslab(src)
+	modules += new /obj/item/clock_borg_spear(src)
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/brass(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = new /obj/item/toy/carpplushie/gold(src)
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/clockwork/add_default_robot_items()
+	return
+
+/obj/item/robot_module/clockwork/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	G?.drop_gripped_item(silent = TRUE)
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
@@ -671,6 +752,12 @@
 	max_energy = 50
 	recharge_rate = 2
 	name = "Wire Storage"
+
+/datum/robot_energy_storage/brass
+	max_energy = 10
+	recharge_rate = 0
+	energy = 1
+	name = "Brass Storage"
 
 /datum/robot_energy_storage/medical
 	max_energy = 12

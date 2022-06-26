@@ -180,6 +180,8 @@
 	force = 5
 	throwforce = 15
 	sharp = TRUE
+	embed_chance = 25
+	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
@@ -280,12 +282,12 @@
 	light_power = 2
 	needs_permit = TRUE
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
 	..()
 	if(!blade_color)
-		blade_color = pick("red", "blue", "green", "purple")
+		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
 /obj/item/twohanded/dualsaber/update_icon()
 	if(wielded)
@@ -328,6 +330,18 @@
 
 /obj/item/twohanded/dualsaber/blue
 	blade_color = "blue"
+
+/obj/item/twohanded/dualsaber/orange
+	blade_color = "orange"
+
+/obj/item/twohanded/dualsaber/darkblue
+	blade_color = "darkblue"
+
+/obj/item/twohanded/dualsaber/pink
+	blade_color = "pink"
+
+/obj/item/twohanded/dualsaber/yellow
+	blade_color = "yellow"
 
 /obj/item/twohanded/dualsaber/unwield()
 	. = ..()
@@ -379,6 +393,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = TRUE
+	embed_chance = 50
+	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
 	max_integrity = 200
@@ -521,6 +537,8 @@
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
 	sharp = TRUE
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 
@@ -588,6 +606,8 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/twohanded/chainsaw/update_icon()
 	if(wielded)
@@ -883,6 +903,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharp = TRUE
+	embed_chance = 50
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"

@@ -12,6 +12,7 @@
 
 	var/twitch_censor = FALSE
 	var/list/twich_censor_list = list()
+	var/list/topic_filtering_whitelist = list()
 
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout
@@ -845,6 +846,9 @@
 
 				if ("allow_head_of_departaments_assign_civilian")
 					config.allow_head_of_departaments_assign_civilian = TRUE
+
+				if("topic_filtering_whitelist")
+					config.topic_filtering_whitelist = splittext(value, " ")
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")

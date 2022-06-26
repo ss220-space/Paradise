@@ -1,6 +1,6 @@
 #define LIGHT_DAM_THRESHOLD 4
 #define LIGHT_HEAL_THRESHOLD 2
-#define LIGHT_DAMAGE_TAKEN 7
+#define LIGHT_DAMAGE_TAKEN 4
 
 /*
 
@@ -126,7 +126,7 @@ Made by Xhuis
 	to_chat(shadow.current, "<b>Currently, you are disguised as an employee aboard [world.name].</b>")
 	to_chat(shadow.current, "<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>")
 	to_chat(shadow.current, "<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
-	to_chat(shadow.current, "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at https://www.paradisestation.org/wiki/index.php/Shadowling</b><br>")
+	to_chat(shadow.current, "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at https://wiki.ss220.space/index.php/Тенеморф</b><br>")
 
 
 
@@ -267,12 +267,20 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "shadowling win - shadowling ascension"
+		to_chat(world, "<FONT size = 3><B>Shadowling Victory</B></FONT>")
+		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		SSticker.mode_result = "shadowling loss - shadowling killed"
+		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
+		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
 	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		SSticker.mode_result = "shadowling loss - crew escaped"
+		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
+		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
 	else
 		SSticker.mode_result = "shadowling loss - generic failure"
+		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
+		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
 	..()
 	return 1
 

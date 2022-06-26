@@ -233,12 +233,19 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola)
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/forensics/sample_kit/powder,
+		/obj/item/forensics/sample_kit)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
 	new /obj/item/flashlight/seclite(src)
 	update_icon()
+/obj/item/storage/belt/security/detective
+	name = "detective belt"
+	desc = "An old fashion security belt. Made of leather"
+	icon_state = "detective_belt"
+	item_state = "detective_belt"
 
 /obj/item/storage/belt/security/response_team/New()
 	..()

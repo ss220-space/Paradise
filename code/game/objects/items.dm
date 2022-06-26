@@ -69,6 +69,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
+	var/datum/muhtar_fashion/muhtar_fashion = null
+	var/datum/snake_fashion/snake_fashion = null
 
 	var/mob/thrownby = null
 
@@ -104,6 +106,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
+
+	//Clockwork enchantment
+	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
+	var/list/enchants = null // List(datum)
+
 
 /obj/item/New()
 	..()
@@ -205,6 +212,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
 		. += msg
+
+	if(isclocker(user) && enchant_type)
+		for(var/datum/spell_enchant/S in enchants)
+			if(S.enchantment == enchant_type)
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				break
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -670,6 +683,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		owner.update_inv_ears()
 	if(flags & SLOT_MASK)
 		owner.update_inv_wear_mask()
+	if(flags & SLOT_NECK)
+		owner.update_inv_neck()
 	if(flags & SLOT_HEAD)
 		owner.update_inv_head()
 	if(flags & SLOT_FEET)
@@ -683,3 +698,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/obj/item/proc/deplete_spell()
+	enchant_type = NO_SPELL
+	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
+	if(enchant_action)
+		qdel(enchant_action)
+	update_icon()

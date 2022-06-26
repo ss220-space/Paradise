@@ -391,7 +391,7 @@
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Weaken(5)
+		T.Weaken(3)
 		return
 	..()
 
@@ -425,7 +425,7 @@
 	desc = "A spinny chair made of brass. It looks uncomfortable."
 	icon_state = "brass_chair"
 	max_integrity = 150
-	buildstacktype = /obj/item/stack/tile/brass
+	buildstacktype = /obj/item/stack/sheet/brass
 	buildstackamount = 1
 	item_chair = null
 	var/turns = 0

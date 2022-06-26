@@ -358,6 +358,8 @@ Class Procs:
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/attack_ai(mob/user)
+	if(iscogscarab(user))
+		return
 	if(isrobot(user))// For some reason attack_robot doesn't work
 		var/mob/living/silicon/robot/R = user
 		if(R.client && R.client.eye == R && !R.low_power_mode)// This is to stop robots from using cameras to remotely control machines; and from using machines when the borg has no power.
@@ -639,9 +641,6 @@ Class Procs:
 
 /obj/machinery/proc/on_deconstruction()
 	return
-
-/obj/machinery/proc/can_be_overridden()
-	. = 1
 
 /obj/machinery/tesla_act(power, explosive = FALSE)
 	..()

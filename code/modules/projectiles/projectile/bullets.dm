@@ -1,7 +1,7 @@
 /obj/item/projectile/bullet
 	name = "bullet"
 	icon_state = "bullet"
-	damage = 60
+	damage = 50
 	damage_type = BRUTE
 	flag = "bullet"
 	hitsound_wall = "ricochet"
@@ -10,7 +10,7 @@
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
-	stamina = 66
+	stamina = 55
 
 /obj/item/projectile/bullet/weakbullet/booze
 
@@ -41,7 +41,7 @@
 	name = "invisible bullet"
 	damage = 0
 	weaken = 1
-	stamina = 60
+	stamina = 45
 	icon_state = null
 	hitsound_wall = null
 
@@ -90,7 +90,7 @@
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
-	stamina = 20
+	stamina = 15
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/pellet/weak
@@ -132,11 +132,11 @@
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
-	stamina = 65 //two rounds from the c20r knocks people down
+	stamina = 33 //two rounds from the c20r knocks people down
 
 /obj/item/projectile/bullet/midbullet_r
 	damage = 5
-	stamina = 75 //Still two rounds to knock people down
+	stamina = 33 //Still two rounds to knock people down
 
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
@@ -145,7 +145,7 @@
 	damage = 30
 
 /obj/item/projectile/bullet/midbullet3/hp
-	damage = 40
+	damage = 50
 	armour_penetration = -50
 
 /obj/item/projectile/bullet/midbullet3/ap
@@ -209,15 +209,15 @@
 	SpinAnimation()
 
 /obj/item/projectile/bullet/meteorshot/weak
-	damage = 10
-	weaken = 1
-	stun = 1
+	damage = 50
+	weaken = 3
+	stun = 3
 
 /obj/item/projectile/bullet/mime
 	damage = 0
 	stun = 1
 	weaken = 1
-	stamina = 60
+	stamina = 45
 	slur = 20
 	stutter = 20
 

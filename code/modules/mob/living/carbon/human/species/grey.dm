@@ -24,11 +24,13 @@
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
-	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
+
+	disliked_food = SUGAR | FRIED
+	liked_food = VEGETABLES | GRAIN | MEAT
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -41,11 +43,11 @@
 
 	if(method == REAGENT_TOUCH)
 		if(H.wear_mask)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+			to_chat(H, "<span class='danger'>Ваша [H.wear_mask] защищает вас от кислоты!</span>")
 			return
 
 		if(H.head)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+			to_chat(H, "<span class='danger'>Ваша [H.wear_mask] защищает вас от кислоты!</span>")
 			return
 
 		if(volume > 25)
@@ -60,11 +62,11 @@
 		else
 			H.take_organ_damage(5, 10)
 	else
-		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		to_chat(H, "<span class='warning'>Вода жжет вас[volume < 10 ? ", но она недостаточно сконцентрирована, чтобы вам навредить" : null]!</span>")
 		if(volume >= 10)
 			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 			H.emote("scream")
-			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, "<span class='warning'>Вода жжет вас[volume < 10 ? ", но она недостаточно сконцентрирована, чтобы вам навредить" : null]!</span>")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
@@ -78,7 +80,7 @@
 			var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
 			implant.insert(H)
 			if(!translator_pref)
-				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
+				to_chat(H, "<span class='notice'>Имплант переводчика речи был установлен вам, из-за вашей роли на станции.</span>")
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")

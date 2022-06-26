@@ -17,7 +17,8 @@
 	new /obj/item/storage/backpack/duffel/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/suit/captunic/capjacket(src)
-	new /obj/item/clothing/suit/mantle/armor/captain(src)
+	new /obj/item/clothing/neck/mantle/captain(src)
+	new /obj/item/clothing/neck/cloak/captain(src)
 	new /obj/item/clothing/under/captainparade(src)
 	new /obj/item/clothing/head/caphat/parade(src)
 	new /obj/item/clothing/under/rank/captain(src)
@@ -32,7 +33,7 @@
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
-	new /obj/item/tank/emergency_oxygen/double(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
 
 /obj/structure/closet/secure_closet/hop
@@ -72,7 +73,8 @@
 
 /obj/structure/closet/secure_closet/hop2/populate_contents()
 	new /obj/item/clothing/under/rank/head_of_personnel(src)
-	new /obj/item/clothing/suit/mantle/armor/head_of_personnel(src)
+	new /obj/item/clothing/neck/mantle/head_of_personnel(src)
+	new /obj/item/clothing/neck/cloak/head_of_personnel(src)
 	new /obj/item/clothing/under/dress/dress_hop(src)
 	new /obj/item/clothing/under/dress/dress_hr(src)
 	new /obj/item/clothing/under/lawyer/female(src)
@@ -111,7 +113,8 @@
 	new /obj/item/clothing/suit/armor/hos/alt(src)
 	new /obj/item/clothing/head/HoS(src)
 	new /obj/item/clothing/head/HoS/beret(src)
-	new /obj/item/clothing/suit/mantle/armor(src)
+	new /obj/item/clothing/neck/mantle/head_of_security(src)
+	new /obj/item/clothing/neck/cloak/head_of_security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/lockbox/mindshield(src)
@@ -220,7 +223,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
@@ -249,6 +252,7 @@
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/head/beret/centcom/officer(src)
 	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
+	new /obj/item/clothing/neck/cloak/blueshield(src)
 	new /obj/item/clothing/suit/armor/vest/blueshield(src)
 	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/shoes/centcom(src)
@@ -256,7 +260,9 @@
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 	new /obj/item/clothing/under/rank/centcom/blueshield(src)
-
+	new /obj/item/clothing/under/fluff/jay_turtleneck(src)
+	new /obj/item/clothing/mask/gas/sechailer/blue(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
@@ -276,6 +282,7 @@
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
+	new /obj/item/clothing/neck/cloak/nanotrasen_representative(src)
 	new /obj/item/clothing/under/lawyer/oldman(src)
 	new /obj/item/clothing/under/lawyer/black(src)
 	new /obj/item/clothing/under/lawyer/female(src)
@@ -327,6 +334,7 @@
 	max_integrity = 70
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
+	new /obj/item/storage/backpack/satchel_detective(src)
 	new /obj/item/clothing/under/det(src)
 	new /obj/item/clothing/suit/storage/det_suit(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
@@ -349,6 +357,7 @@
 	new /obj/item/clothing/accessory/black(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/storage/belt/security/detective(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)
@@ -375,7 +384,7 @@
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
 	req_access = list(ACCESS_BRIG)
-	anchored = 1
+	anchored = TRUE
 	var/id = null
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
@@ -384,6 +393,12 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/brig/evidence
+	name = "evidence locker"
+	req_access = list(ACCESS_SECURITY)
+
+/obj/structure/closet/secure_closet/brig/evidence/populate_contents()
+	new /obj/item/stack/sheet/cardboard(src)
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"

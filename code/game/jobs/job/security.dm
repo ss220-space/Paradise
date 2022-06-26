@@ -82,7 +82,7 @@
 	head = /obj/item/clothing/head/warden
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/card/id/security
+	id = /obj/item/card/id/warden
 	l_pocket = /obj/item/flash
 	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/warden
@@ -125,7 +125,7 @@
 	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
@@ -138,6 +138,7 @@
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
+	satchel = /obj/item/storage/backpack/satchel_detective
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -211,6 +212,8 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
+	exp_requirements = 1800
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 
 /datum/outfit/job/brigdoc
@@ -219,7 +222,7 @@
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_brigphys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen

@@ -13,20 +13,26 @@ SUBSYSTEM_DEF(radio)
 	"Response Team" = ERT_FREQ,
 	"Special Ops" 	= DTH_FREQ,
 	"Syndicate" 	= SYND_FREQ,
+	"SyndTaipan" 	= SYND_TAIPAN_FREQ,
 	"SyndTeam" 		= SYNDTEAM_FREQ,
 	"Supply" 		= SUP_FREQ,
 	"Service" 		= SRV_FREQ,
 	"AI Private"	= AI_FREQ,
 	"Medical(I)"	= MED_I_FREQ,
-	"Security(I)"	= SEC_I_FREQ
+	"Security(I)"	= SEC_I_FREQ,
+	"Spy Spider"	= SPY_SPIDER_FREQ
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
-	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
+	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
 	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
+	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ)	//list of frequencies syndicate headset can't hear
 	var/list/datum/radio_frequency/frequencies = list()
 
 // This is fucking disgusting and needs to die
 /datum/controller/subsystem/radio/proc/frequency_span_class(var/frequency)
+	// Taipan!
+	if(frequency == SYND_TAIPAN_FREQ)
+		return "taipan"
 	// Antags!
 	if(frequency in ANTAG_FREQS)
 		return "syndradio"
@@ -53,6 +59,8 @@ SUBSYSTEM_DEF(radio)
 			return "srvradio"
 		if(PROC_FREQ)
 			return "proradio"
+		if(SPY_SPIDER_FREQ)
+			return "spyradio"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)

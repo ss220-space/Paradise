@@ -300,7 +300,7 @@
 	time = 15
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 5)
-	pathtools = list(/obj/item/kitchen/knife) // Gotta carve the wood into handles
+	pathtools = list(/obj/item/shard) // Gotta carve the wood into handles
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -338,7 +338,7 @@
 	result = /obj/item/bikehorn/golden
 	time = 20
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
-				/obj/item/bikehorn)
+				/obj/item/bikehorn = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/blackcarpet
@@ -522,6 +522,14 @@
 		        /obj/item/stack/cable_coil = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/ghettojetpack
+	name = "Improvised Jetpack"
+	result = /obj/item/tank/jetpack/improvised
+	time = 30
+	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil = MAXCOIL)
+	category = CAT_MISC
+	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"
@@ -1020,7 +1028,7 @@
 	reqs = list(/obj/item/stack/cable_coil = 20,
 				/obj/item/stack/sheet/metal = 10,
 				/obj/item/storage/toolbox = 2, // For feet
-				/obj/item/tank/oxygen = 1, // For air
+				/obj/item/tank/internals/oxygen = 1, // For air
 				/obj/item/airlock_electronics = 1, //You are stealing the motors from airlocks
 				/obj/item/extinguisher = 1, //For bastard pnumatics
 				/obj/item/c_tube = 5, //to make it airtight

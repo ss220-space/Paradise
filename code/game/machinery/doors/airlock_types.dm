@@ -579,6 +579,9 @@
 /obj/machinery/door/airlock/cult/narsie_act()
 	return
 
+/obj/machinery/door/airlock/cult/ratvar_act()
+	new /obj/machinery/door/airlock/clockwork(get_turf(src))
+	qdel(src)
 /obj/machinery/door/airlock/cult/friendly
 	friendly = TRUE
 
@@ -628,6 +631,201 @@
 
 //////////////////////////////////
 /*
+	Clockwork Airlocks
+*/
+
+/obj/machinery/door/airlock/clockwork
+	name = "clockwork airlock"
+	icon = 'icons/obj/doors/airlocks/clockwork/pinion_airlock.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_clock
+	damage_deflection = 10
+	hackProof = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
+	paintable = FALSE
+	/// Will the door let anyone through
+	var/friendly = FALSE
+
+/obj/machinery/door/airlock/clockwork/Initialize()
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/door(get_turf(src))
+
+/obj/machinery/door/airlock/clockwork/canAIControl(mob/user)
+	return (isclocker(user) && !isAllPowerLoss())
+
+/obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
+	if(!density)
+		return TRUE
+	if(friendly || isclocker(L))
+		return TRUE
+	else
+		new /obj/effect/temp_visual/ratvar/door(loc)
+		var/atom/throwtarget
+		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
+		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+		L.Weaken(2)
+		L.throw_at(throwtarget, 5, 1,src)
+		return FALSE
+
+/obj/machinery/door/airlock/clockwork/narsie_act()
+	new /obj/machinery/door/airlock/cult(get_turf(src))
+	qdel(src)
+
+/obj/machinery/door/airlock/clockwork/ratvar_act()
+	return
+
+/obj/machinery/door/airlock/clockwork/friendly
+	friendly = TRUE
+
+/obj/machinery/door/airlock/clockwork/glass
+	glass = TRUE
+	opacity = 0
+
+/obj/machinery/door/airlock/clockwork/glass/friendly
+	friendly = TRUE
+
+/obj/machinery/door/airlock/clockwork/weak
+	name = "brittle clockwork airlock"
+	desc = "An airlock made from pure-hands into some brass moving structure."
+	normal_integrity = 150
+	damage_deflection = 5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+//////////////////////////////////
+/*
+	Syndie airlocks by Furukai
+*/
+
+/obj/machinery/door/airlock/syndicate
+	name = "evil looking airlock"
+	desc = "Why does it have those blowers?"
+	overlays_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
+	note_overlay_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/security
+	name = "evil looking security airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_sec
+	normal_integrity = 500
+
+/obj/machinery/door/airlock/syndicate/security/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/public
+	name = "evil looking public airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/public.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_public
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/public/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/atmos
+	name = "evil looking atmos airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/atmos.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_atmos
+	normal_integrity = 400
+/obj/machinery/door/airlock/syndicate/atmos/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/maintenance
+	name = "evil looking maintenance airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/maintenance.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint
+	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/maintenance/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 250
+
+/obj/machinery/door/airlock/syndicate/medical
+	name = "evil looking medbay airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/medical.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_med
+	normal_integrity = 400
+
+
+/obj/machinery/door/airlock/syndicate/medical/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/cargo
+	name = "evil looking cargo airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/cargo.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_cargo
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/syndicate/cargo/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/research
+	name = "evil looking research airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/research.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/syndicate/research/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/engineering
+	name = "evil looking engineering airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/engineering.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_engi
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/engineering/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/syndicate/command
+	name = "evil looking command airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/command.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
+	normal_integrity = 500
+
+/obj/machinery/door/airlock/syndicate/command/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/freezer
+	name = "evil looking freezer airlock"
+	desc = "It's not even cold inside..."
+	icon = 'icons/obj/doors/airlocks/syndicate/freezer.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_freezer
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/freezer/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/extmai
+	name = "evil looking external maintenance airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/maintenanceexternal.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_extmai
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/extmai/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 300
+
+/*
 	Misc Airlocks
 */
 
@@ -643,6 +841,9 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
+	return
+
+/obj/machinery/door/airlock/multi_tile/ratvar_act()
 	return
 
 /obj/machinery/door/airlock/multi_tile/glass
