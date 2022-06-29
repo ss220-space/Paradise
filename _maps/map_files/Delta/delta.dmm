@@ -39,6 +39,8 @@
 	initialize_directions = 11
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -106,9 +108,13 @@
 /area/medical/medbay)
 "abd" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -132,6 +138,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor{
@@ -289,6 +297,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -501,7 +511,7 @@
 	},
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /obj/machinery/camera{
@@ -538,6 +548,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -569,9 +581,13 @@
 /area/quartermaster/storage)
 "aeR" = (
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -676,7 +692,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -1535,6 +1551,8 @@
 /area/maintenance/incinerator)
 "amE" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1550,6 +1568,8 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1652,6 +1672,8 @@
 "anR" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1721,10 +1743,11 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1761,9 +1784,13 @@
 "aoK" = (
 /obj/machinery/photocopier,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -1839,6 +1866,8 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/warden,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/alarm{
@@ -2238,7 +2267,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -2446,6 +2475,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2645,6 +2676,8 @@
 	auto_patrol = 1
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2804,6 +2837,8 @@
 /area/security/execution)
 "axY" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -3296,9 +3331,13 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3416,6 +3455,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3618,7 +3659,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -3732,6 +3773,8 @@
 /obj/item/seeds/tobacco,
 /obj/item/storage/box/matches,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -4192,6 +4235,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4413,12 +4458,16 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4647,6 +4696,8 @@
 	pixel_y = 32
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/camera{
@@ -4798,6 +4849,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4813,6 +4866,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -4872,7 +4927,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -25
+	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -5109,12 +5164,18 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -5802,6 +5863,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5853,12 +5916,18 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
@@ -6141,6 +6210,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6221,6 +6292,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/flasher{
@@ -6448,23 +6521,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
-"beW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/brig)
 "beZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6832,6 +6888,8 @@
 	},
 /obj/structure/cable,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -7333,9 +7391,13 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
@@ -7602,6 +7664,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -7792,6 +7856,8 @@
 	c_tag = "Magistrate Office North"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -8089,7 +8155,7 @@
 	cell_type = 0;
 	dir = 8;
 	name = "west bump";
-	pixel_x = -28
+	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
@@ -8158,9 +8224,13 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor{
@@ -8214,6 +8284,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
@@ -8731,6 +8803,8 @@
 /area/turret_protected/ai)
 "bAA" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9245,6 +9319,8 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -9287,6 +9363,8 @@
 	scrub_Toxins = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -9305,6 +9383,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -9886,6 +9966,8 @@
 	pixel_y = 32
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -9940,12 +10022,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/airlock/security{
@@ -10435,6 +10523,8 @@
 /area/crew_quarters/serviceyard)
 "bPa" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -10588,6 +10678,8 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor{
@@ -10930,7 +11022,7 @@
 "bSL" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -11049,6 +11141,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -11238,6 +11332,8 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
@@ -11352,7 +11448,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 26
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/aisat_interior)
@@ -11587,6 +11683,8 @@
 /area/assembly/robotics)
 "bXN" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -11988,7 +12086,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12029,6 +12127,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12332,9 +12432,13 @@
 	req_access_txt = "1"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor{
@@ -12999,10 +13103,14 @@
 /area/hydroponics)
 "ckD" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -13394,6 +13502,8 @@
 	name = "Security Pod Pilot"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -13673,9 +13783,13 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -13704,13 +13818,14 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -13728,6 +13843,8 @@
 /area/security/processing)
 "cqj" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -13756,6 +13873,8 @@
 	scrub_Toxins = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -13801,6 +13920,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -13831,6 +13952,8 @@
 /area/hydroponics)
 "cru" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -14378,8 +14501,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/space,
 /area/solar/auxstarboard)
@@ -14422,7 +14544,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -14569,7 +14691,7 @@
 	cell_type = 5000;
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -14733,9 +14855,13 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -14803,6 +14929,8 @@
 	})
 "cyZ" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -15163,6 +15291,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -16192,9 +16322,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -16708,6 +16842,8 @@
 /area/hallway/primary/central/south)
 "cOn" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -16889,6 +17025,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/navbeacon{
@@ -17458,6 +17596,8 @@
 	name = "Detective"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
@@ -17536,7 +17676,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint{
@@ -17563,7 +17703,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -18017,9 +18157,13 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/sortjunction{
@@ -18119,6 +18263,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
@@ -18158,7 +18304,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -18224,9 +18370,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -18439,9 +18589,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -18538,6 +18692,8 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -18897,9 +19053,13 @@
 	id_tag = "Perma22"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
@@ -19192,6 +19352,8 @@
 /area/security/customs)
 "dkX" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -19262,7 +19424,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -19310,6 +19472,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -19366,6 +19530,8 @@
 "dmr" = (
 /obj/machinery/computer/secure_data,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/radio/intercom{
@@ -19450,6 +19616,8 @@
 	pixel_x = -5
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -19586,6 +19754,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -19743,6 +19913,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
@@ -19823,7 +19995,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/fork,
@@ -20506,6 +20678,8 @@
 	})
 "dyr" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -20586,6 +20760,8 @@
 /area/security/brig)
 "dyS" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -20627,6 +20803,8 @@
 /obj/item/folder/red,
 /obj/item/pen/multi,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -20719,9 +20897,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -20922,7 +21104,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -21577,6 +21759,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -21797,7 +21981,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/camera{
 	c_tag = "Departure Lounge North"
@@ -22068,6 +22252,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -22205,9 +22391,13 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/junction{
@@ -22216,6 +22406,8 @@
 	tag = "icon-pipe-j1 (WEST)"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -22266,6 +22458,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -22280,6 +22474,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -22349,6 +22545,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -22635,6 +22833,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -22760,6 +22960,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -22808,6 +23010,8 @@
 "dSh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -23372,8 +23576,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -23434,6 +23637,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -23597,6 +23802,8 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -23666,7 +23873,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/table/wood,
 /obj/item/clothing/gloves/color/fyellow,
@@ -23696,6 +23903,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -24047,6 +24256,8 @@
 /area/maintenance/fsmaint)
 "eeM" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -24234,9 +24445,13 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -24255,6 +24470,8 @@
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -24311,6 +24528,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -24352,6 +24571,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -24359,6 +24580,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -24616,13 +24839,14 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/camera{
 	c_tag = "Internal Affairs Office North";
 	network = list("SS13","Security")
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/carpet,
@@ -24780,7 +25004,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -25015,6 +25239,8 @@
 /area/library)
 "eoT" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
@@ -25181,6 +25407,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
@@ -25354,6 +25582,8 @@
 /area/crew_quarters/serviceyard)
 "esP" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/flag/sec,
@@ -25375,10 +25605,14 @@
 "etf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -25522,6 +25756,8 @@
 	})
 "eug" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
@@ -26211,7 +26447,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -26246,8 +26482,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -26302,9 +26537,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -26457,6 +26696,8 @@
 /area/quartermaster/storage)
 "eDv" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -26470,7 +26711,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -26535,6 +26776,8 @@
 "eDT" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -26582,6 +26825,8 @@
 /area/gateway)
 "eEz" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -26861,6 +27106,8 @@
 	scrub_Toxins = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -27306,13 +27553,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
-/obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "eMr" = (
@@ -27337,7 +27583,7 @@
 "eMz" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -27528,7 +27774,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -27554,6 +27800,8 @@
 	},
 /obj/machinery/vending/coffee/free,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -28676,6 +28924,8 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -28978,18 +29228,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/range)
-"fcD" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/security/reception)
 "fcM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -29212,6 +29450,8 @@
 	},
 /mob/living/simple_animal/bot/medbot,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -29453,6 +29693,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -29523,7 +29764,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
@@ -29882,12 +30123,16 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -29930,7 +30175,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -29943,6 +30188,8 @@
 	pixel_y = 3
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -30711,7 +30958,7 @@
 "ftm" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -31203,12 +31450,18 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -31445,6 +31698,8 @@
 "fzX" = (
 /obj/structure/chair,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -31500,12 +31755,6 @@
 "fAA" = (
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/obj/structure/cable{
-	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
@@ -31521,6 +31770,11 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -31743,9 +31997,13 @@
 /area/shuttle/vox)
 "fBM" = (
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet,
@@ -32406,7 +32664,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/chair/stool,
@@ -32469,6 +32727,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/flasher{
@@ -32503,30 +32763,14 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/cabin1)
-"fIU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
-	},
-/area/security/brig)
 "fJh" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "fJn" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
@@ -32557,6 +32801,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -32595,7 +32841,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -33043,7 +33289,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
@@ -33056,12 +33302,11 @@
 	name = "Engineering Maintenance"
 	})
 "fNr" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
 "fNy" = (
@@ -33489,8 +33734,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -33976,6 +34220,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor{
@@ -34511,12 +34757,18 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/hologram/holopad,
@@ -34539,7 +34791,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -34573,7 +34825,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -25
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -34642,7 +34894,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -35111,6 +35363,8 @@
 /area/hallway/secondary/entry/lounge)
 "ghL" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -35123,6 +35377,8 @@
 	req_access_txt = "2"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -35147,6 +35403,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -35175,6 +35433,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -35378,7 +35638,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -35525,7 +35785,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -36330,7 +36590,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
@@ -36515,7 +36775,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -36705,6 +36965,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -36741,7 +37003,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -37040,6 +37302,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/junction{
@@ -37047,6 +37311,8 @@
 	tag = "icon-pipe-j1 (EAST)"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -37290,7 +37556,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/item/folder/yellow,
 /obj/item/airlock_electronics,
@@ -37312,6 +37578,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -37990,8 +38258,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -38041,6 +38308,8 @@
 	dir = 5
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -38053,12 +38322,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
@@ -38100,9 +38375,13 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -38203,6 +38482,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/sortjunction{
@@ -38219,6 +38500,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -38496,6 +38779,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -38513,9 +38798,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -38613,12 +38902,18 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
@@ -38728,6 +39023,8 @@
 	scrub_Toxins = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -38799,6 +39096,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -39422,6 +39721,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -39642,7 +39943,7 @@
 	},
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -40005,7 +40306,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/machinery/alarm{
 	dir = 1;
@@ -40335,6 +40636,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -40611,9 +40914,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -40926,6 +41233,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -41081,6 +41390,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -41140,6 +41451,8 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/lighter,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -41305,6 +41618,8 @@
 	pixel_y = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -41484,7 +41799,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42117,6 +42432,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -42258,6 +42575,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -42436,9 +42755,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -42702,6 +43025,8 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -42790,8 +43115,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -42886,6 +43210,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/junction{
@@ -43050,6 +43376,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -43063,12 +43391,18 @@
 /area/security/podbay)
 "hCk" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -43116,6 +43450,8 @@
 "hCI" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -43361,7 +43697,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -43716,6 +44052,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -43953,6 +44291,7 @@
 "hLF" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -44062,6 +44401,8 @@
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -44222,7 +44563,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -44308,6 +44649,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -44487,6 +44830,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light{
@@ -44630,7 +44975,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -44853,6 +45198,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -44914,6 +45261,7 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -45400,6 +45748,8 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light{
@@ -45488,8 +45838,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -45823,12 +46172,18 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -45877,7 +46232,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -45918,9 +46273,12 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -45959,9 +46317,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -46191,6 +46553,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -46399,6 +46763,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -46846,7 +47212,7 @@
 "imX" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -47215,9 +47581,13 @@
 /obj/structure/closet/secure_closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -47250,6 +47620,7 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -47401,12 +47772,18 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/firedoor,
@@ -47490,6 +47867,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -47714,9 +48093,10 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -47848,6 +48228,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/radio/intercom{
@@ -48162,6 +48544,8 @@
 /area/library/abandoned)
 "ixE" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -48301,6 +48685,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -48309,6 +48695,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -48321,6 +48709,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -48603,7 +48993,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -48783,7 +49173,7 @@
 /obj/item/clothing/glasses/science,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /obj/item/storage/bag/chemistry,
@@ -49017,6 +49407,8 @@
 /area/teleporter/abandoned)
 "iFR" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/vending/wallmed{
@@ -49443,6 +49835,8 @@
 /area/security/prisonershuttle)
 "iJs" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/computer/secure_data,
@@ -49750,6 +50144,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock{
@@ -49970,6 +50366,8 @@
 /area/toxins/test_area)
 "iNS" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -49979,6 +50377,8 @@
 /area/security/podbay)
 "iNT" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -50073,7 +50473,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -50406,7 +50806,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -50670,6 +51070,8 @@
 /area/medical/research/shallway)
 "iUh" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/vending/wallmed{
@@ -50752,6 +51154,8 @@
 	req_access_txt = "3"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -50893,6 +51297,8 @@
 	})
 "iVU" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -50914,12 +51320,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
@@ -51825,6 +52237,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -51879,6 +52293,8 @@
 /area/quartermaster/storage)
 "jgt" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -52044,6 +52460,8 @@
 "jis" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -52191,7 +52609,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -52604,9 +53022,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -52662,6 +53084,8 @@
 /obj/structure/curtain/black,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -52914,9 +53338,10 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -53017,7 +53442,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -53075,7 +53500,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -53113,7 +53538,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53386,6 +53811,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -54082,6 +54509,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -54169,7 +54598,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -54301,6 +54730,8 @@
 	pixel_y = 3
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -54779,6 +55210,8 @@
 	dir = 5
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -55230,6 +55663,8 @@
 "jLM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -55262,15 +55697,21 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -55537,6 +55978,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -55784,7 +56227,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -55918,12 +56361,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -56137,7 +56586,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -56166,6 +56615,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -56305,7 +56756,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -57095,12 +57546,18 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/navbeacon{
@@ -57292,6 +57749,8 @@
 /area/hallway/secondary/entry)
 "kdE" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -57430,10 +57889,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -57489,7 +57952,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -57961,9 +58424,6 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
-	},
-/obj/machinery/camera{
-	c_tag = "Aft Starboard Solars"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -58744,6 +59204,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
@@ -59456,7 +59918,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -59548,6 +60010,8 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -59719,6 +60183,8 @@
 "kyZ" = (
 /obj/machinery/computer/prisoner,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light{
@@ -59781,7 +60247,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -59876,6 +60342,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -59973,7 +60441,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -60058,6 +60526,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -60341,7 +60811,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/closet/wardrobe/pink,
 /turf/simulated/floor/plasteel{
@@ -60379,6 +60849,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -60695,8 +61167,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -61099,6 +61570,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door_control{
@@ -61324,9 +61797,13 @@
 /area/ai_monitored/storage/eva)
 "kMu" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -61390,6 +61867,8 @@
 /area/maintenance/fpmaint)
 "kMU" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/bed/dogbed,
@@ -61418,7 +61897,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -61448,8 +61927,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -61475,6 +61953,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -61632,6 +62112,8 @@
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
@@ -61888,6 +62370,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -61975,9 +62459,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -62265,12 +62753,18 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -62346,6 +62840,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -62384,6 +62880,8 @@
 /obj/item/seeds/orange,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -62695,7 +63193,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62731,6 +63229,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -62750,15 +63250,14 @@
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/gloves/color/black,
 /obj/effect/decal/warning_stripes/north,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
 	pixel_y = 26
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -63125,6 +63624,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -63386,6 +63887,8 @@
 	req_access_txt = "2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -63558,6 +64061,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -63566,6 +64071,8 @@
 /area/security/brig)
 "lge" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table,
@@ -63959,6 +64466,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -64021,12 +64530,18 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -64053,6 +64568,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -64205,7 +64722,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -64574,6 +65091,8 @@
 "lqh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -64629,9 +65148,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
@@ -64841,6 +65364,8 @@
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/firealarm{
@@ -65115,12 +65640,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
@@ -65190,9 +65721,13 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -65364,6 +65899,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/sortjunction{
@@ -65871,6 +66408,8 @@
 /area/security/range)
 "lBR" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor{
@@ -66440,9 +66979,13 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -66734,12 +67277,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -66908,6 +67457,8 @@
 "lLw" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/closet/secure_closet/hos,
@@ -67052,6 +67603,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
@@ -67249,7 +67802,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -67902,6 +68455,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -68121,17 +68676,16 @@
 	})
 "lVI" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
 	id_tag = "Brig_lockdown";
 	name = "Brig Lockdown";
 	opacity = 0
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
@@ -68407,6 +68961,8 @@
 /area/quartermaster/storage)
 "lYp" = (
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -68659,6 +69215,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood{
@@ -68694,6 +69252,8 @@
 /area/medical/ward)
 "mbd" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/defibrillator_mount/loaded{
@@ -68950,6 +69510,7 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -68959,8 +69520,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -70202,7 +70762,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -70411,6 +70971,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -70682,6 +71244,8 @@
 /area/hydroponics)
 "mrK" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -70925,7 +71489,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -70967,6 +71531,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -71118,7 +71684,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -71369,7 +71935,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/machinery/camera{
 	c_tag = "Head of Personnel's Office";
@@ -71661,6 +72227,8 @@
 /area/turret_protected/ai)
 "mAA" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -71706,9 +72274,13 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor{
@@ -71740,9 +72312,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/newscaster/security_unit{
@@ -71968,6 +72544,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
@@ -72209,7 +72787,7 @@
 	cell_type = 5000;
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -72228,7 +72806,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -72275,6 +72853,8 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -72295,6 +72875,8 @@
 /obj/item/flashlight/lamp,
 /obj/item/taperecorder,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -72453,6 +73035,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -72721,7 +73305,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -72739,6 +73323,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/chair/office/dark,
@@ -72895,6 +73481,8 @@
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -73084,6 +73672,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -73347,6 +73937,8 @@
 	})
 "mQA" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
@@ -73360,12 +73952,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment,
@@ -73381,7 +73979,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage{
@@ -73964,7 +74562,7 @@
 "mVE" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -74041,6 +74639,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -74145,7 +74745,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
@@ -74276,6 +74876,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor{
@@ -74375,6 +74977,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -74660,6 +75264,8 @@
 /area/maintenance/fsmaint)
 "nbb" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table/wood,
@@ -74707,6 +75313,8 @@
 /area/medical/research/nhallway)
 "nbD" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -74722,7 +75330,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -75099,7 +75707,7 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -75113,9 +75721,13 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -75160,9 +75772,13 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -75277,8 +75893,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -75539,6 +76154,8 @@
 /area/quartermaster/office)
 "njh" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -75547,6 +76164,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -75612,7 +76231,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -25
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -75694,7 +76313,7 @@
 "nko" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -75825,6 +76444,8 @@
 	},
 /obj/structure/chair,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -76274,13 +76895,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "nrf" = (
@@ -76362,6 +76982,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
@@ -76429,9 +77051,13 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -78062,6 +78688,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -78224,6 +78852,8 @@
 	tag = "icon-pipe-j1 (EAST)"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -78832,6 +79462,8 @@
 /area/crew_quarters/heads/hop)
 "nPi" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/vending/cigarette/free,
@@ -79090,7 +79722,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
@@ -79226,6 +79858,8 @@
 "nSZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -79337,6 +79971,8 @@
 "nTN" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -79619,6 +80255,8 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -79875,7 +80513,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -80446,6 +81084,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor{
@@ -80617,7 +81257,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -80838,6 +81478,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -80990,7 +81632,7 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
@@ -81126,6 +81768,8 @@
 	pixel_y = -4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
@@ -81333,6 +81977,8 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -81447,12 +82093,18 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -81514,6 +82166,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -81876,6 +82530,8 @@
 "ooT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -82008,7 +82664,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -82385,6 +83041,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -82411,7 +83069,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82611,9 +83269,13 @@
 	req_access_txt = "58"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/firedoor,
@@ -83399,7 +84061,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/table,
 /obj/item/hand_tele,
@@ -83753,6 +84415,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -83802,6 +84466,8 @@
 /area/maintenance/fsmaint)
 "oFH" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -84367,6 +85033,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -84442,6 +85110,8 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/door/poddoor{
@@ -84508,6 +85178,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor{
@@ -84531,6 +85203,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -84703,6 +85377,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -84828,8 +85504,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -84895,23 +85570,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"oPS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/brig)
 "oQa" = (
 /obj/machinery/disposal,
 /obj/machinery/alarm{
@@ -85202,6 +85860,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/closet/emcloset,
@@ -85220,7 +85880,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -85734,6 +86394,8 @@
 "oYw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -86120,6 +86782,8 @@
 "paS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -86235,6 +86899,8 @@
 	},
 /obj/machinery/atmospherics/binary/valve/digital,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -86276,6 +86942,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -86497,6 +87165,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor{
@@ -86914,9 +87584,13 @@
 /area/engine/gravitygenerator)
 "phw" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -86940,23 +87614,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering/monitor)
-"phE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/securehallway)
 "phM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87010,6 +87667,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -87402,9 +88061,13 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/radio/intercom{
@@ -87565,6 +88228,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -87649,9 +88314,12 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -87836,7 +88504,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -88291,7 +88959,7 @@
 "psJ" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -88426,7 +89094,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/chair{
 	dir = 4
@@ -88520,6 +89188,8 @@
 /area/library/abandoned)
 "pus" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -88548,12 +89218,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -88563,6 +89227,11 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -88694,6 +89363,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -88948,6 +89619,8 @@
 /area/medical/virology/lab)
 "pxP" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -88985,8 +89658,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
@@ -89004,6 +89676,8 @@
 /area/maintenance/incinerator)
 "pyk" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -89283,6 +89957,8 @@
 	pixel_x = 27
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -89477,6 +90153,8 @@
 /area/gateway)
 "pCI" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -89522,6 +90200,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -89690,6 +90370,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -89743,6 +90425,8 @@
 /area/maintenance/turbine)
 "pFs" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -89831,9 +90515,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -89917,8 +90605,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/space,
 /area/solar/auxstarboard)
@@ -90141,6 +90828,8 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -90172,7 +90861,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -90203,7 +90892,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/light{
 	dir = 1
@@ -90228,6 +90917,8 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -90278,6 +90969,8 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/window/reinforced{
@@ -90331,6 +91024,8 @@
 /obj/structure/closet/secure_closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -90371,9 +91066,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -90482,6 +91181,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -90720,15 +91421,21 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -90955,6 +91662,8 @@
 /obj/structure/table,
 /obj/item/camera,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -91125,6 +91834,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -91394,6 +92105,8 @@
 	dir = 5
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -91637,6 +92350,8 @@
 /obj/item/taperecorder,
 /obj/item/clothing/glasses/sunglasses/blindfold,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -92001,6 +92716,8 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -92643,6 +93360,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -93024,7 +93743,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -93147,6 +93866,8 @@
 /area/turret_protected/ai)
 "qin" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -93284,6 +94005,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -93420,6 +94143,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -93873,7 +94598,7 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
@@ -93910,6 +94635,8 @@
 /area/atmos)
 "qpU" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -94018,6 +94745,8 @@
 "qqN" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
@@ -94232,7 +94961,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
@@ -94633,6 +95362,8 @@
 /area/quartermaster/miningdock)
 "qwv" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -94869,6 +95600,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -94979,6 +95712,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/radio/intercom{
@@ -95032,6 +95767,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -95105,6 +95842,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
@@ -95258,7 +95997,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -95316,6 +96055,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
@@ -95332,6 +96073,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -95376,6 +96119,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
@@ -95511,6 +96256,8 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -95667,8 +96414,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/space,
 /area/solar/auxstarboard)
@@ -95742,9 +96488,13 @@
 	name = "Internal Affairs Agent"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -95915,13 +96665,19 @@
 "qHK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -96471,6 +97227,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -96631,6 +97389,8 @@
 /area/crew_quarters/kitchen)
 "qNV" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -96771,6 +97531,8 @@
 "qPg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -96830,6 +97592,8 @@
 "qPN" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -97055,12 +97819,13 @@
 /area/quartermaster/miningdock)
 "qSO" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -98088,12 +98853,18 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/landmark/start{
@@ -98464,6 +99235,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/radio/beacon,
@@ -98476,9 +99249,13 @@
 	id_tag = "Perma12"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/firedoor,
@@ -98693,12 +99470,18 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -98713,6 +99496,8 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/door/poddoor{
@@ -98864,7 +99649,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/machinery/atmospherics/unary/cold_sink/freezer{
 	current_temperature = 80;
@@ -99129,11 +99914,12 @@
 /area/hallway/secondary/entry/commercial)
 "rkF" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/north{
+	pixel_x = 30;
+	pixel_y = 0
+	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -99342,6 +100128,8 @@
 /area/crew_quarters/locker/locker_toilet)
 "rmZ" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -99433,9 +100221,13 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -99727,7 +100519,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -99757,6 +100549,8 @@
 /area/security/permabrig)
 "rrR" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -100079,7 +100873,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -100157,7 +100951,7 @@
 /obj/item/flashlight/lamp,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -101274,12 +102068,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
@@ -101324,6 +102124,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -101460,6 +102262,8 @@
 /area/toxins/xenobiology)
 "rEs" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -101564,10 +102368,11 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/space,
@@ -101763,6 +102568,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -101876,6 +102683,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -102038,6 +102847,8 @@
 /area/hydroponics)
 "rJx" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
@@ -102046,7 +102857,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/chair/barber{
 	dir = 4
@@ -102146,12 +102957,18 @@
 "rKc" = (
 /obj/structure/chair/office/dark,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/landmark/start{
@@ -102490,6 +103307,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -102719,7 +103538,7 @@
 /obj/machinery/light,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -28
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/engine,
@@ -102844,6 +103663,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -103009,6 +103830,8 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -103251,6 +104074,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -103458,7 +104283,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -25
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -103491,7 +104316,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore{
@@ -104273,6 +105098,8 @@
 "scg" = (
 /obj/structure/chair/comfy/brown,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
@@ -104324,6 +105151,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/navbeacon{
@@ -104853,9 +105682,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
@@ -104909,6 +105742,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -105088,6 +105923,8 @@
 	scrub_Toxins = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light{
@@ -106556,7 +107393,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -107292,6 +108129,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -107313,12 +108152,18 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/hologram/holopad,
@@ -107734,6 +108579,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -108533,9 +109380,13 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -108570,6 +109421,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -108610,7 +109463,7 @@
 "sSf" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -28
+	pixel_y = -26
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -108815,7 +109668,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate/engineering{
@@ -109083,6 +109936,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -109757,8 +110612,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -110140,9 +110994,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -110659,6 +111517,8 @@
 	pixel_y = 28
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
@@ -110809,6 +111669,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -110894,9 +111756,13 @@
 	dir = 5
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -110925,6 +111791,8 @@
 /area/maintenance/turbine)
 "tnk" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -110935,6 +111803,8 @@
 "tnm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -111210,9 +112080,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -111496,6 +112370,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor{
@@ -111740,7 +112616,7 @@
 /area/medical/biostorage)
 "tsU" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "";
+	id_tag = null;
 	name = "Staff Room";
 	req_access_txt = "5"
 	},
@@ -111771,6 +112647,8 @@
 "tsV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
@@ -111827,6 +112705,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -111932,8 +112812,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -112236,6 +113115,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -112277,6 +113158,8 @@
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -112930,6 +113813,8 @@
 /area/security/processing)
 "tEN" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -113012,7 +113897,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -113187,6 +114072,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
@@ -113345,9 +114232,13 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -113629,7 +114520,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -113999,6 +114890,8 @@
 	scrub_Toxins = 1
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -114473,6 +115366,8 @@
 "tTR" = (
 /obj/structure/chair/office/dark,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -114503,6 +115398,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -114565,6 +115462,8 @@
 	pixel_y = 7
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/vending/wallmed{
@@ -114705,10 +115604,11 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -115037,6 +115937,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -115538,6 +116440,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -115546,6 +116450,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/chair,
@@ -115574,6 +116480,8 @@
 "uek" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -115708,7 +116616,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -115817,6 +116725,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -116284,12 +117194,18 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -116362,6 +117278,8 @@
 /area/hallway/secondary/entry/commercial)
 "ulf" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/light_construct,
@@ -116506,6 +117424,8 @@
 "unh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
@@ -116513,6 +117433,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor{
@@ -117001,7 +117923,7 @@
 /obj/item/lock_buster,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/north,
@@ -117017,6 +117939,8 @@
 	dir = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -117617,7 +118541,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
@@ -118408,7 +119332,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -118421,6 +119345,8 @@
 "uFU" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -118500,6 +119426,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -118610,9 +119538,13 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/hologram/holopad,
@@ -118841,6 +119773,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -119055,9 +119989,13 @@
 "uMi" = (
 /obj/machinery/computer/arcade,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -119247,6 +120185,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -119759,7 +120699,7 @@
 /obj/structure/table/wood,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -120169,12 +121109,18 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -120262,6 +121208,8 @@
 "uXN" = (
 /obj/item/flashlight/lamp,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
@@ -120275,6 +121223,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -120479,6 +121429,8 @@
 /area/hallway/primary/central/ne)
 "uZl" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -120489,7 +121441,7 @@
 "uZn" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -120692,6 +121644,8 @@
 /area/medical/virology)
 "vbm" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/wood,
@@ -120845,7 +121799,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -120873,6 +121827,8 @@
 	pixel_y = 14
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
@@ -120925,6 +121881,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -121062,6 +122020,8 @@
 	})
 "vdL" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -121094,6 +122054,8 @@
 	},
 /obj/item/clothing/glasses/welding,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -121149,6 +122111,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood,
@@ -121455,7 +122419,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
 /area/library/abandoned)
@@ -121884,6 +122848,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/junction{
@@ -121899,8 +122865,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -121969,6 +122934,8 @@
 	req_access_txt = "4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -122013,6 +122980,8 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -122227,6 +123196,8 @@
 /area/hallway/primary/central/west)
 "vmH" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -122389,9 +123360,12 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -122578,6 +123552,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/junction{
@@ -122585,6 +123561,8 @@
 	tag = "icon-pipe-j1 (EAST)"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -122708,12 +123686,18 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
@@ -122892,6 +123876,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -123044,7 +124030,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
@@ -123103,6 +124089,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/hologram/holopad,
@@ -123155,6 +124143,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -123262,6 +124252,8 @@
 /obj/item/seeds/nymph,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -123646,6 +124638,8 @@
 	name = "Magistrate"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -123659,6 +124653,8 @@
 /area/quartermaster/storage)
 "vzc" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -123675,6 +124671,8 @@
 /obj/item/pen,
 /obj/item/stamp/hos,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -123885,7 +124883,7 @@
 	name = "Engineering gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/eng{
-	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/internals/emergency_oxygen/double = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
+	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/emergency_oxygen/double/full = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
 	lootcount = 8;
 	name = "8. Eng. gear"
 	},
@@ -123908,7 +124906,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
@@ -124072,7 +125070,7 @@
 "vDb" = (
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -124318,6 +125316,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -124328,6 +125328,8 @@
 "vEw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/engine,
@@ -125145,6 +126147,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -125162,12 +126166,17 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -125393,7 +126402,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -125815,6 +126824,8 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -126006,6 +127017,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -126176,6 +127189,8 @@
 	initialize_directions = 10
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -126223,7 +127238,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -126400,6 +127415,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -126930,6 +127947,8 @@
 /obj/structure/window/reinforced,
 /obj/effect/decal/warning_stripes/red,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -127024,6 +128043,8 @@
 /area/security/main)
 "wbK" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -127267,6 +128288,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -127440,7 +128463,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/item/crowbar,
 /obj/item/wrench,
@@ -128621,6 +129644,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
@@ -128850,7 +129875,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
@@ -130316,6 +131341,8 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor{
@@ -130479,9 +131506,13 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -130578,6 +131609,8 @@
 /area/security/warden)
 "wIr" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -130732,6 +131765,8 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -131258,6 +132293,8 @@
 "wPr" = (
 /obj/structure/chair/office/dark,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -131301,7 +132338,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -131602,9 +132639,9 @@
 /area/shuttle/trade/sol)
 "wRD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = 30;
-	pixel_y = 0
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit{
@@ -131751,6 +132788,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -132127,6 +133166,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
@@ -132259,7 +133300,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -132364,6 +133405,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -132445,6 +133488,8 @@
 	dir = 5
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -132494,7 +133539,7 @@
 /obj/machinery/light,
 /obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -132556,6 +133601,8 @@
 	name = "Detective"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -132923,7 +133970,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -133190,8 +134237,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -134192,7 +135238,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -134517,6 +135563,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -134895,9 +135943,13 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -135082,7 +136134,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/camera{
 	c_tag = "Experimentation Lab Office";
@@ -135210,9 +136262,13 @@
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -135331,9 +136387,13 @@
 	name = "Internal Affairs Agent"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -135524,6 +136584,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood,
@@ -135621,6 +136683,7 @@
 	opacity = 0
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -135869,6 +136932,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -136094,7 +137159,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
@@ -136228,6 +137293,8 @@
 /area/maintenance/engrooms)
 "xDW" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -136708,6 +137775,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -136731,6 +137800,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
@@ -137063,6 +138134,8 @@
 /obj/structure/chair,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
@@ -137223,6 +138296,8 @@
 "xMd" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -137516,6 +138591,8 @@
 /area/space)
 "xPI" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -137603,7 +138680,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -137758,6 +138835,8 @@
 	})
 "xRK" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/computer/security{
@@ -137983,9 +139062,13 @@
 	dir = 6
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -138140,9 +139223,13 @@
 "xVL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
@@ -138221,6 +139308,8 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -138961,12 +140050,18 @@
 /area/maintenance/gambling_den)
 "ycA" = (
 /obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
@@ -139269,6 +140364,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -139435,7 +140532,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -139738,6 +140835,8 @@
 	dir = 4
 	},
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -139936,6 +141035,8 @@
 	req_access_txt = "71"
 	},
 /obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -188650,7 +189751,7 @@ ptU
 sKG
 stN
 dMt
-fcD
+qjn
 qgX
 aQe
 stN
@@ -190446,7 +191547,7 @@ bES
 qFK
 iSu
 oPD
-beW
+ybE
 nEq
 bpw
 bpw
@@ -190703,7 +191804,7 @@ acs
 cLc
 vmR
 oPD
-beW
+ybE
 nEq
 bpw
 lwH
@@ -190960,7 +192061,7 @@ ieF
 vag
 iSu
 eLn
-fIU
+jZn
 nEq
 sCY
 ptc
@@ -191217,7 +192318,7 @@ vqJ
 vXY
 gZl
 thE
-beW
+ybE
 nEq
 sRN
 iUN
@@ -191488,7 +192589,7 @@ kMU
 rqR
 hUd
 uba
-oPS
+pyk
 bLi
 fNY
 cgz
@@ -191731,7 +192832,7 @@ jLW
 tEN
 vXY
 oPD
-beW
+ybE
 nEq
 bpw
 qjd
@@ -191988,7 +193089,7 @@ mFO
 aBr
 gZl
 oPD
-beW
+ybE
 sPq
 bpw
 bpw
@@ -192502,7 +193603,7 @@ piL
 faB
 gZl
 oay
-beW
+ybE
 nEq
 mwK
 ogs
@@ -197642,7 +198743,7 @@ auf
 ewo
 hWv
 hCB
-phE
+uKQ
 mJj
 axV
 axV
@@ -197899,7 +199000,7 @@ hmC
 iKw
 iKw
 dwH
-phE
+uKQ
 ksV
 dbl
 qBE

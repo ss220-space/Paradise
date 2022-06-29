@@ -638,6 +638,7 @@
 	pixel_y = 25
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/bluegrid,
@@ -3471,6 +3472,7 @@
 /obj/item/gps/mining,
 /obj/item/gps/mining,
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
