@@ -8153,8 +8153,10 @@
 	},
 /obj/machinery/power/apc{
 	cell_type = 0;
+	coverlocked = 0;
 	dir = 8;
 	name = "west bump";
+	panel_open = 1;
 	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
@@ -18772,8 +18774,10 @@
 "dfI" = (
 /obj/structure/closet,
 /obj/item/clothing/under/color/grey,
-/obj/item/twohanded/spear/grey_tide,
 /obj/item/clothing/mask/gas,
+/obj/item/twohanded/spear{
+	name = "Grey Tide"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -23742,7 +23746,7 @@
 	},
 /obj/structure/table/glass,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-1";
+	layer = 5.1;
 	pixel_y = 12;
 	tag = "plant-dead"
 	},
@@ -114965,10 +114969,17 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "tPG" = (
-/obj/item/mounted/frame/apc_frame,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	cell_type = 0;
+	coverlocked = 0;
+	dir = 8;
+	name = "west bump";
+	panel_open = 1;
+	pixel_x = -26
 	},
 /turf/simulated/floor/wood/fancy/birch{
 	icon_state = "fancy-wood-birch-broken6"
@@ -116185,12 +116196,6 @@
 	name = "Tourist Area Maintenance"
 	})
 "ubO" = (
-/obj/machinery/shower{
-	dir = 8;
-	layer = 3.5;
-	pixel_y = -6;
-	tag = "icon-shower (WEST)"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/eastright{
 	dir = 2;
@@ -116204,6 +116209,10 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab{
@@ -124883,7 +124892,7 @@
 	name = "Engineering gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/eng{
-	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/emergency_oxygen/double/full = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
+	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/internals/emergency_oxygen/double = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
 	lootcount = 8;
 	name = "8. Eng. gear"
 	},
@@ -132639,9 +132648,8 @@
 /area/shuttle/trade/sol)
 "wRD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit{
@@ -192920,7 +192928,7 @@ eJQ
 eJQ
 eJQ
 eJQ
-uhU
+eJQ
 uhU
 uhU
 xAb
@@ -193178,7 +193186,7 @@ eJQ
 eJQ
 eJQ
 eJQ
-uhU
+eJQ
 uhU
 xAb
 pVY
