@@ -214,20 +214,27 @@
 			var/list/obj/item/organ/external/possible_points = list()
 			if(parent)
 				possible_points += parent
-				if(parent.max_damage - parent.damage)
-					forbidden_limbs += parent
 			if(children)
+				var/all_child_forbidden = TRUE
 				for(var/organ in children)
-					if(organ)
+					if(organ && !(organ in forbidden_limbs))
+						all_child_forbidden = FALSE
 						possible_points += organ
+				if(all_child_forbidden)
+					forbidden_limbs += src
 			else
 				forbidden_limbs += src
 			if(forbidden_limbs.len)
 				possible_points -= forbidden_limbs
+			//If everything is damaged, no damage
+			var/can_distribute = TRUE
+			if(forbidden_limbs?.len == owner?.bodyparts_by_name.len)
+				can_distribute = FALSE
 			//Return damage to upper body if nothing is available
 			if(!possible_points.len && parent)
 				possible_points += parent
-			if(possible_points.len)
+
+			if(possible_points.len && can_distribute)
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
 				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
