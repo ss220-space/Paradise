@@ -33,7 +33,7 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/glare/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(usr))
+	if(!shadowling_check(user))
 		return FALSE
 	return ..()
 
