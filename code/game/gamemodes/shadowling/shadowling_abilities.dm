@@ -33,7 +33,7 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/glare/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
+	if(!shadowling_check(usr))
 		return FALSE
 	return ..()
 
@@ -214,7 +214,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/targeted/click/enthrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(enthralling || !shadowling_check(user))
 		return FALSE
 	return ..()
@@ -531,7 +531,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/click/reviveThrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
@@ -621,16 +621,14 @@
 	action_icon_state = "extend_shuttle"
 	var/global/extendlimit = 0
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	if(extendlimit == 1)
-		if(show_message)
-			to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
+		to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
 		return FALSE
 	if(SSshuttle.emergency.mode != SHUTTLE_CALL)
-		if(show_message)
-			to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
+		to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
 		return FALSE
 	return ..()
 
