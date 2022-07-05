@@ -209,12 +209,16 @@
 
 		else
 			if(!air.check_turf(enemy_tile, atmos_adjacent_turfs_amount))
-				var/difference = air.mimic(enemy_tile,atmos_adjacent_turfs_amount)
-				if(difference)
-					if(difference > 0)
-						consider_pressure_difference(enemy_tile, difference)
-					else
-						enemy_tile.consider_pressure_difference(src, difference)
+				var/current_moles = air.total_moles()
+				if (is_station_level(loc.z) && current_moles > 5 && isspaceturf(enemy_tile))
+					handle_space()
+				else
+					var/difference = air.mimic(enemy_tile,atmos_adjacent_turfs_amount)
+					if(difference)
+						if(difference > 0)
+							consider_pressure_difference(enemy_tile, difference)
+						else
+							enemy_tile.consider_pressure_difference(src, difference)
 				remove = 0
 				if(excited_group)
 					LAST_SHARE_CHECK
@@ -253,6 +257,31 @@
 	if(!excited_group && remove == 1)
 		SSair.remove_from_active(src)
 
+/turf/simulated/proc/handle_space()
+	var/list/unchecked_turfs = GetAtmosAdjacentTurfs()
+	var/list/checked_turfs = list()
+	while (unchecked_turfs.len)
+		var/turf/current_turf = unchecked_turfs[1]
+		var/list/connected_turfs = current_turf.GetAtmosAdjacentTurfs()
+		if (checked_turfs.len < 30)
+			for (var/turf/simulated/turf in connected_turfs)
+				if (!unchecked_turfs.Find(turf) && !checked_turfs.Find(turf))
+					unchecked_turfs.Add(connected_turfs)
+		checked_turfs.Add(current_turf)
+		unchecked_turfs.Remove(current_turf)
+
+	for (var/turf/simulated/turf in checked_turfs)
+		var/difference = air.return_pressure()
+		turf.air.oxygen = 0.5
+		turf.air.carbon_dioxide = 0.5
+		turf.air.nitrogen = 0
+		turf.air.toxins = 0
+		turf.air.sleeping_agent = 0
+		turf.air.agent_b = 0
+
+		if(difference)
+			turf.consider_pressure_difference(src, difference)
+			turf.high_pressure_movements()
 
 /turf/simulated/proc/archive()
 	if(air) //For open space like floors
@@ -331,7 +360,10 @@
 		move_prob = (pressure_difference / pressure_resistance * PROBABILITY_BASE_PRECENT) - PROBABILITY_OFFSET
 	move_prob += pressure_resistance_prob_delta
 	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		step(src, direction)
+		if (pressure_difference < 90)
+			step(src, direction)
+		else
+			src.throw_at(get_step(src, direction), 7, 3)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
 
