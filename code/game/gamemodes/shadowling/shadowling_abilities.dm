@@ -30,7 +30,7 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/glare/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -71,7 +71,7 @@
 	action_icon_state = "veil"
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -108,7 +108,7 @@
 		target.visible_message("<span class='warning'>[target] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 		target.SetStunned(0)
 		target.SetWeakened(0)
-		target.incorporeal_move = 1
+		target.incorporeal_move = INCORPOREAL_NORMAL
 		target.alpha = 0
 		target.ExtinguishMob()
 		var/turf/T = get_turf(target)
@@ -118,7 +118,7 @@
 		target.stop_pulling()
 		sleep(40) //4 seconds
 		target.visible_message("<span class='warning'>[target] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
-		target.incorporeal_move = 0
+		target.incorporeal_move = INCORPOREAL_NONE
 		target.alpha = 255
 		target.forceMove(user.loc)
 
@@ -178,7 +178,7 @@
 	action_icon_state = "icy_veins"
 
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -222,7 +222,7 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(enthralling || user.incorporeal_move == 1)
+	if(enthralling || user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -318,7 +318,7 @@
 	action_icon_state = "collective_mind"
 
 /obj/effect/proc_holder/spell/targeted/collective_mind/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -398,7 +398,7 @@
 	action_icon_state = "black_smoke"
 
 /obj/effect/proc_holder/spell/targeted/blindness_smoke/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -452,7 +452,7 @@
 	action_icon_state = "screech"
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -494,7 +494,7 @@
 	action_icon_state = "null_charge"
 
 /obj/effect/proc_holder/spell/aoe_turf/null_charge/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -559,7 +559,7 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -649,7 +649,7 @@
 	var/global/extendlimit = 0
 
 /obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == 1)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
@@ -789,12 +789,12 @@
 		if(SHA.phasing)
 			SHA.visible_message("<span class='danger'>[SHA] suddenly vanishes!</span>", \
 			"<span class='shadowling'>You begin phasing through planes of existence. Use the ability again to return.</span>")
-			SHA.incorporeal_move = 1
+			SHA.incorporeal_move = INCORPOREAL_NORMAL
 			SHA.alpha = 0
 		else
 			SHA.visible_message("<span class='danger'>[SHA] suddenly appears from nowhere!</span>", \
 			"<span class='shadowling'>You return from the space between worlds.</span>")
-			SHA.incorporeal_move = 0
+			SHA.incorporeal_move = INCORPOREAL_NONE
 			SHA.alpha = 255
 
 
