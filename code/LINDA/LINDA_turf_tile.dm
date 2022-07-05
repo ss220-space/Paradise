@@ -279,6 +279,8 @@
 		turf.air.toxins /= 2
 		turf.air.sleeping_agent /= 2
 		turf.air.agent_b /= 2
+		turf.air.temperature /= 2
+		turf.archive()
 
 		var/difference = air.total_moles()
 
@@ -287,7 +289,6 @@
 			if (!decompression_direction)
 				decompression_direction = get_dir(turf, space_turf)
 			turf.consider_pressure_difference(src, difference, decompression_direction)
-			turf.high_pressure_movements()
 	if (turn < 10 && space_turf)
 		addtimer(CALLBACK(src, .proc/decompression_loop, turfs, space_turf, turn + 1), 1 SECONDS)
 
@@ -369,9 +370,9 @@
 		move_prob = (pressure_difference / pressure_resistance * PROBABILITY_BASE_PRECENT) - PROBABILITY_OFFSET
 	move_prob += pressure_resistance_prob_delta
 	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		if (istype(src, /mob/living/carbon) && pressure_difference > 20)
+		if (istype(src, /mob/living/carbon) && pressure_difference > 50)
 			var/mob/living/carbon/carbon = src
-			carbon.apply_effect(pressure_difference / 20, WEAKEN, 0)
+			carbon.apply_effect(3, WEAKEN, 0)
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
