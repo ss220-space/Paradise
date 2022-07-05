@@ -211,7 +211,7 @@
 			if(!air.check_turf(enemy_tile, atmos_adjacent_turfs_amount))
 				var/current_moles = air.total_moles()
 				if (is_station_level(loc.z) && current_moles > 5 && isspaceturf(enemy_tile))
-					handle_space()
+					handle_space(enemy_tile)
 				else
 					var/difference = air.mimic(enemy_tile,atmos_adjacent_turfs_amount)
 					if(difference)
@@ -257,7 +257,7 @@
 	if(!excited_group && remove == 1)
 		SSair.remove_from_active(src)
 
-/turf/simulated/proc/handle_space()
+/turf/simulated/proc/handle_space(var/turf/space/space_turf)
 	var/list/unchecked_turfs = GetAtmosAdjacentTurfs()
 	var/list/checked_turfs = list()
 	while (unchecked_turfs.len)
@@ -269,19 +269,28 @@
 					unchecked_turfs.Add(connected_turfs)
 		checked_turfs.Add(current_turf)
 		unchecked_turfs.Remove(current_turf)
+	decompression_loop(checked_turfs, space_turf)
 
-	for (var/turf/simulated/turf in checked_turfs)
-		var/difference = air.return_pressure()
-		turf.air.oxygen = 0.5
-		turf.air.carbon_dioxide = 0.5
-		turf.air.nitrogen = 0
-		turf.air.toxins = 0
-		turf.air.sleeping_agent = 0
-		turf.air.agent_b = 0
+/turf/simulated/proc/decompression_loop(var/list/turfs, var/turf/space/space_turf, var/turn = 0)
+	for (var/turf/simulated/turf in turfs)
+		turf.air.oxygen /= 2
+		turf.air.carbon_dioxide /= 2
+		turf.air.nitrogen /= 2
+		turf.air.toxins /= 2
+		turf.air.sleeping_agent /= 2
+		turf.air.agent_b /= 2
+
+		var/difference = air.total_moles()
 
 		if(difference)
-			turf.consider_pressure_difference(src, difference)
+			var/decompression_direction = get_dir(turf, get_step_towards(turf, space_turf))
+			if (!decompression_direction)
+				decompression_direction = get_dir(turf, space_turf)
+			turf.consider_pressure_difference(src, difference, decompression_direction)
 			turf.high_pressure_movements()
+	if (turn < 10 && space_turf)
+		addtimer(CALLBACK(src, .proc/decompression_loop, turfs, space_turf, turn + 1), 1 SECONDS)
+
 
 /turf/simulated/proc/archive()
 	if(air) //For open space like floors
@@ -331,10 +340,10 @@
 				T.consider_pressure_difference(src, difference)
 		LAST_SHARE_CHECK
 
-/turf/proc/consider_pressure_difference(var/turf/simulated/T, var/difference)
+/turf/proc/consider_pressure_difference(var/turf/simulated/T, var/difference, var/direction = get_dir(src, T))
 	SSair.high_pressure_delta |= src
 	if(difference > pressure_difference)
-		pressure_direction = get_dir(src, T)
+		pressure_direction = direction
 		pressure_difference = difference
 
 /turf/proc/high_pressure_movements()
@@ -360,10 +369,10 @@
 		move_prob = (pressure_difference / pressure_resistance * PROBABILITY_BASE_PRECENT) - PROBABILITY_OFFSET
 	move_prob += pressure_resistance_prob_delta
 	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		if (pressure_difference < 90)
-			step(src, direction)
-		else
-			src.throw_at(get_step(src, direction), 7, 3)
+		if (istype(src, /mob/living/carbon) && pressure_difference > 20)
+			var/mob/living/carbon/carbon = src
+			carbon.apply_effect(pressure_difference / 20, WEAKEN, 0)
+		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
 
