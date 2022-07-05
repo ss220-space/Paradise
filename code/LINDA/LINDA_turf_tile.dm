@@ -282,14 +282,14 @@
 		turf.air.temperature /= 2
 		turf.archive()
 
-		var/difference = air.total_moles()
+		var/difference = turf.air.total_moles()
 
 		if(difference)
 			var/decompression_direction = get_dir(turf, get_step_towards(turf, space_turf))
 			if (!decompression_direction)
 				decompression_direction = get_dir(turf, space_turf)
 			turf.consider_pressure_difference(src, difference, decompression_direction)
-	if (turn < 10 && space_turf)
+	if (turn < 5 && space_turf)
 		addtimer(CALLBACK(src, .proc/decompression_loop, turfs, space_turf, turn + 1), 1 SECONDS)
 
 
