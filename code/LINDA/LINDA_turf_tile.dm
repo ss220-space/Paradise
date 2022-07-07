@@ -269,9 +269,9 @@
 					unchecked_turfs.Add(connected_turfs)
 		checked_turfs.Add(current_turf)
 		unchecked_turfs.Remove(current_turf)
-	decompression_loop(checked_turfs, space_turf)
+	decompression(checked_turfs, space_turf)
 
-/turf/simulated/proc/decompression_loop(var/list/turfs, var/turf/space/space_turf, var/turn = 0)
+/turf/simulated/proc/decompression(var/list/turfs, var/turf/space/space_turf, var/turn = 0)
 	for (var/turf/simulated/turf in turfs)
 		turf.air.oxygen /= 2
 		turf.air.carbon_dioxide /= 2
@@ -289,8 +289,6 @@
 			if (!decompression_direction)
 				decompression_direction = get_dir(turf, space_turf)
 			turf.consider_pressure_difference(src, difference, decompression_direction)
-	if (turn < 5 && space_turf)
-		addtimer(CALLBACK(src, .proc/decompression_loop, turfs, space_turf, turn + 1), 1 SECONDS)
 
 
 /turf/simulated/proc/archive()
