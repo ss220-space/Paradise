@@ -247,7 +247,7 @@
 	name = "Из скрабберов на фильтрацию"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "abX" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -1683,7 +1683,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "anX" = (
 /obj/machinery/light/small,
 /obj/structure/sign/poster/contraband/random{
@@ -3748,6 +3748,16 @@
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
+"aFV" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "aFW" = (
 /obj/machinery/suit_storage_unit/mime,
 /obj/machinery/door_control{
@@ -6129,7 +6139,7 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "baU" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -9472,7 +9482,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "bFV" = (
 /obj/machinery/camera{
 	c_tag = "Fore Hallway South 2";
@@ -12404,7 +12414,7 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "cdI" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -16763,7 +16773,7 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "cNq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -17265,22 +17275,6 @@
 	icon_state = "green"
 	},
 /area/medical/virology/lab)
-"cRH" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
-	})
 "cRJ" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/gloves{
@@ -22943,7 +22937,7 @@
 	dir = 9;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "dRv" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/suit_storage_unit/security/secure,
@@ -24472,7 +24466,7 @@
 	density = 0;
 	dir = 2;
 	icon_state = "open";
-	id_tag = "brig_detprivacy";
+	id_tag = "detprivacy";
 	name = "Detective Privacy Shutters";
 	opacity = 0
 	},
@@ -28630,7 +28624,7 @@
 /area/chapel/main)
 "eWa" = (
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "eWc" = (
 /obj/machinery/camera{
@@ -29066,7 +29060,7 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "eZX" = (
 /obj/machinery/door/poddoor{
 	id_tag = "chapelgun";
@@ -29224,7 +29218,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "fbL" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -29828,7 +29822,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "fhw" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -33742,7 +33736,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "fPR" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -35677,6 +35671,13 @@
 /area/medical/cmostore{
 	name = "\improper Medical Suit Storage"
 	})
+"gjI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "gjU" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
@@ -35847,7 +35848,7 @@
 /area/quartermaster/storage)
 "glo" = (
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "gly" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -42904,7 +42905,7 @@
 "hww" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "hwy" = (
 /obj/structure/rack{
 	dir = 8;
@@ -54966,6 +54967,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea{
 	name = "Virology Maintenance Construction Area"
@@ -55179,6 +55181,7 @@
 "jFn" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark/burnturf,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea{
 	name = "Virology Maintenance Construction Area"
@@ -57580,7 +57583,8 @@
 	},
 /area/chapel/office)
 "kak" = (
-/obj/structure/holosign/barrier/atmos,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/transparent/glass,
 /area/maintenance/consarea{
 	name = "Virology Maintenance Construction Area"
@@ -59885,7 +59889,7 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "kvp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -59915,8 +59919,10 @@
 	dir = 1
 	},
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "kvB" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -60565,10 +60571,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
-"kAx" = (
-/turf/simulated/floor/transparent/glass,
-/area/space/nearstation)
+/area/maintenance/electrical)
 "kAz" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall7";
@@ -61586,7 +61589,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "kJK" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -61676,7 +61679,7 @@
 	parallax_movedir = 2
 	})
 "kKB" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "kKJ" = (
 /obj/structure/sink{
@@ -63453,14 +63456,14 @@
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/gloves/color/black,
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 1;
+	pixel_y = 26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -64146,12 +64149,14 @@
 /area/bridge)
 "lfh" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/floor/plating,
+/area/maintenance/electrical)
 "lfj" = (
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/floor/transparent/glass,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "lfk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/freezer,
@@ -66689,12 +66694,11 @@
 	},
 /area/engine/hardsuitstorage)
 "lCk" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "lCm" = (
 /turf/simulated/wall/rust,
 /area/toxins/mixing)
@@ -66708,8 +66712,10 @@
 "lCp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "lCq" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -69183,7 +69189,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "lXS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -70523,10 +70529,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "miB" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "miU" = (
 /obj/machinery/light/small{
@@ -71425,7 +71431,7 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "mrm" = (
 /obj/effect/landmark/start{
 	name = "Cyborg"
@@ -77873,8 +77879,11 @@
 "nwP" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
+/obj/structure/holosign/barrier/atmos,
 /turf/space,
-/area/space/nearstation)
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "nwR" = (
 /obj/structure/table,
 /obj/machinery/camera{
@@ -79127,16 +79136,19 @@
 /turf/space,
 /area/space)
 "nJr" = (
-/obj/structure/disposalpipe/broken,
-/obj/machinery/atmospherics/pipe/cap/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/cap/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
 	d2 = 2;
-	icon_state = "0-2"
+	icon_state = "1-2"
 	},
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/floor/transparent/glass,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "nJs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -80933,7 +80945,6 @@
 	},
 /area/crew_quarters/sleep)
 "nZF" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80943,7 +80954,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/transparent/glass,
-/area/space/nearstation)
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "nZO" = (
 /obj/structure/chair{
 	dir = 8
@@ -82724,7 +82737,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "omZ" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 19
@@ -83735,7 +83748,8 @@
 	},
 /area/construction/hallway)
 "ouU" = (
-/obj/structure/holosign/barrier/atmos,
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -83744,9 +83758,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/transparent/glass,
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
+/obj/machinery/door/firedoor/closed,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
 	})
 "ouW" = (
 /obj/structure/cable{
@@ -83830,10 +83845,12 @@
 	},
 /area/medical/research/restroom)
 "ovR" = (
-/obj/structure/holosign/barrier/atmos,
-/turf/simulated/floor/transparent/glass,
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor/closed,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
 	})
 "ovV" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -83884,7 +83901,7 @@
 	dir = 4;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "oww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard{
@@ -84587,7 +84604,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "oDJ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=A2";
@@ -86727,11 +86744,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "oYK" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
 	})
 "oYN" = (
 /obj/machinery/status_display,
@@ -91914,7 +91929,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "pPD" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -92237,15 +92252,18 @@
 /area/maintenance/garden)
 "pSe" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
 /area/maintenance/asmaint{
 	name = "Virology Maintenance"
 	})
@@ -94973,7 +94991,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "qqm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -95228,10 +95248,16 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "qsF" = (
-/obj/structure/falsewall,
-/turf/space,
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
 	})
 "qsK" = (
 /obj/machinery/light{
@@ -96013,7 +96039,7 @@
 	dir = 4;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "qzS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97330,7 +97356,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "qLk" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/item/radio/intercom{
@@ -100958,10 +100984,10 @@
 	},
 /area/security/nuke_storage)
 "rta" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/floor/transparent/glass,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "rtd" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -104019,7 +104045,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "rRk" = (
 /obj/machinery/light,
 /obj/machinery/vending/coffee,
@@ -106189,7 +106215,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "skl" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench,
@@ -108393,7 +108419,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "sGE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -109815,7 +109841,9 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "sTj" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -110007,7 +110035,7 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "sUV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -113784,9 +113812,12 @@
 	},
 /area/medical/virology)
 "tBy" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/maintenance/storage)
+/obj/structure/lattice,
+/obj/structure/holosign/barrier/atmos,
+/turf/space,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "tBC" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -117234,11 +117265,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "uiE" = (
 /obj/structure/closet/lasertag/red,
 /turf/simulated/floor/plasteel{
@@ -117536,7 +117566,7 @@
 "ulK" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "ulP" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/structure/cable{
@@ -118279,7 +118309,7 @@
 	density = 0;
 	dir = 1;
 	icon_state = "open";
-	id_tag = "brig_detprivacy";
+	id_tag = "detprivacy";
 	name = "Detective Privacy Shutters";
 	opacity = 0
 	},
@@ -121160,7 +121190,7 @@
 "uTc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door_control{
-	id = "brig_detprivacy";
+	id = "detprivacy";
 	name = "Detective Privacy Shutters Control";
 	pixel_x = 25;
 	pixel_y = -24
@@ -123944,7 +123974,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "vqD" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer/upgraded,
@@ -133373,7 +133403,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "wVn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -134039,7 +134069,7 @@
 	dir = 4;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "wZR" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
@@ -134412,6 +134442,19 @@
 /area/maintenance/asmaint{
 	name = "Virology Maintenance"
 	})
+"xdS" = (
+/obj/structure/disposalpipe/broken,
+/obj/machinery/atmospherics/pipe/cap/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/cap/hidden/supply,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea{
+	name = "Virology Maintenance Construction Area"
+	})
 "xdT" = (
 /obj/structure/sign/botany{
 	pixel_x = -32
@@ -134524,7 +134567,7 @@
 	name = "Труба на фильтрацию"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "xev" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134993,7 +135036,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "xiY" = (
-/obj/structure/holosign/barrier/atmos,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
@@ -135002,6 +135044,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/transparent/glass,
 /area/maintenance/consarea{
 	name = "Virology Maintenance Construction Area"
@@ -136458,7 +136501,7 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "xvk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -136617,7 +136660,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/electrical)
 "xwd" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -139336,18 +139379,18 @@
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "xTJ" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/maintenance/asmaint{
 	name = "Virology Maintenance"
 	})
@@ -188307,7 +188350,7 @@ cas
 gTy
 wgn
 wyg
-qQn
+qdm
 dRm
 eZQ
 cdw
@@ -188572,7 +188615,7 @@ xeu
 bFS
 fhv
 ulK
-tBy
+pxR
 hFL
 fKh
 kDr
@@ -189083,10 +189126,10 @@ cNn
 fbJ
 anW
 sUT
-uEc
+lfh
 omT
 kAt
-tBy
+pxR
 jnO
 jEW
 kXS
@@ -189335,8 +189378,8 @@ kYK
 vOj
 gta
 ewr
-qQn
-qQn
+qdm
+qdm
 wZN
 owr
 oDE
@@ -189593,13 +189636,13 @@ wiF
 vCa
 bVP
 hBH
-qQn
-qQn
-qQn
-qQn
-qQn
-qQn
-qQn
+qdm
+qdm
+qdm
+qdm
+qdm
+qdm
+qdm
 wIV
 moX
 dDk
@@ -194255,7 +194298,7 @@ rAL
 prd
 rSc
 rFS
-qsF
+xWo
 lvd
 lvd
 lvd
@@ -194756,9 +194799,9 @@ uiC
 lCk
 lCk
 sTi
-uuY
-uuY
-xWo
+gPO
+gPO
+cfk
 rRD
 nrK
 xLw
@@ -195009,17 +195052,17 @@ nik
 jDw
 xiY
 kvz
-lfh
-kZC
-eJQ
-eek
+jTO
+oYK
+oYK
+xdS
 nJr
 nZF
 ouU
 xTJ
 pSe
 sYH
-cRH
+pSe
 mEX
 qAP
 vSR
@@ -195265,15 +195308,15 @@ ePG
 qlk
 jFn
 kak
-kAx
+rta
 lfj
 lCp
-kZC
-eJQ
-eek
+oYK
+oYK
+gjI
 rta
 ovR
-oYK
+rSc
 tNR
 rSc
 hTo
@@ -195523,13 +195566,13 @@ pAN
 jHw
 gPO
 gPO
-riU
-riU
-eJQ
+qqk
+qsF
+tBy
 nwP
-riU
-uuY
-uuY
+aFV
+gPO
+gPO
 koW
 xLw
 qAw
