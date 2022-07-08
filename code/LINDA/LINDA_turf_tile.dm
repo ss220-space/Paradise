@@ -212,6 +212,10 @@
 				var/current_moles = air.total_moles()
 				if (is_station_level(loc.z) && current_moles > 5 && isspaceturf(enemy_tile))
 					handle_space(enemy_tile)
+					var/pressure_direction = get_dir(src, enemy_tile)
+					for(var/atom/movable/movable in enemy_tile)
+						if(!movable.anchored && !movable.pulledby)
+							movable.experience_pressure_difference(current_moles, pressure_direction)
 				else
 					var/difference = air.mimic(enemy_tile,atmos_adjacent_turfs_amount)
 					if(difference)
@@ -273,6 +277,8 @@
 
 /turf/simulated/proc/decompression(var/list/turfs, var/turf/space/space_turf, var/turn = 0)
 	for (var/turf/simulated/turf in turfs)
+		var/difference = turf.air.total_moles() / 2
+
 		turf.air.oxygen /= 2
 		turf.air.carbon_dioxide /= 2
 		turf.air.nitrogen /= 2
@@ -281,8 +287,6 @@
 		turf.air.agent_b /= 2
 		turf.air.temperature /= 2
 		turf.archive()
-
-		var/difference = turf.air.total_moles()
 
 		if(difference)
 			var/decompression_direction = get_dir(turf, get_step_towards(turf, space_turf))
