@@ -678,7 +678,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/maintcentral
 	name = "Bridge Maintenance"
-	icon_state = "maintcentral"
+	icon_state = "central"
 
 /area/maintenance/starboard
 	name = "Starboard Maintenance"
@@ -913,11 +913,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/ntrep
 	name = "\improper Nanotrasen Representative's Office"
-	icon_state = "bluenew"
+	icon_state = "ntrep"
 
 /area/blueshield
 	name = "\improper Blueshield's Office"
-	icon_state = "blueold"
+	icon_state = "blueshield"
 
 /area/centcomdocks
 	name = "\improper Central Command Docks"
@@ -1412,19 +1412,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/medical/research
 	name = "\improper Medical Research"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research/nhallway
 	name = "\improper RnD North Hallway"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research/shallway
 	name = "\improper RnD South Hallway"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research/restroom
 	name = "\improper RnD Restroom"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research_shuttle_dock
 	name = "\improper Research Shuttle Dock"
@@ -2175,7 +2175,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/tcommsat/chamber
 	name = "\improper Telecoms Central Compartment"
-	icon_state = "tcomsatcham"
+	icon_state = "ai"
 
 // These areas are needed for MetaStation's AI sat
 /area/turret_protected/tcomsat
