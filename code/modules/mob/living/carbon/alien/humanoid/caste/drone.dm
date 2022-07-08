@@ -17,6 +17,7 @@
 /mob/living/carbon/alien/humanoid/drone/GrantAlienActions()
 	. = ..()
 	evolve_to_queen_action.Grant(src)
+	neurotoxin_action.Grant(src)
 
 
 //Drones use the same base as generic humanoids.
