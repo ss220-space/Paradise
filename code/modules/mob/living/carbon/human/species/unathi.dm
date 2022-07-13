@@ -5,6 +5,8 @@
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
+	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+	speech_chance = 33
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
@@ -18,7 +20,6 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
-	dietflags = DIET_CARN
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -66,12 +67,15 @@
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
 
 	var/datum/action/innate/tail_lash/lash
+
+	disliked_food = VEGETABLES | FRUIT | GRAIN
+	liked_food = MEAT | RAW | EGG
 
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
@@ -85,7 +89,7 @@
 		lash.Remove(H)
 
 /datum/action/innate/tail_lash
-	name = "Tail lash"
+	name = "Взмах хвостом"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
@@ -93,16 +97,17 @@
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
 	if((user.restrained() && user.pulledby) || user.buckled)
-		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
+		to_chat(user, "<span class='warning'>Вам нужно больше свободы движений для взмаха хвостом!</span>")
 		return
 	if(user.getStaminaLoss() >= 50)
-		to_chat(user, "<span class='warning'>Rest before tail lashing again!</span>")
+		to_chat(user, "<span class='warning'>Передохните перед повторным взмахом хвоста!</span>")
 		return
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+
 		if(E)
-			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("<span class='danger'>[user] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
+			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
+			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
@@ -111,20 +116,20 @@
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(2)
-					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
+					user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
-				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
+				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
 				return
 
 /datum/action/innate/tail_lash/IsAvailable()
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!user.bodyparts_by_name["tail"])
-		to_chat(user, "<span class='warning'>You have NO TAIL!</span>")
+		to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
 	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
-		to_chat(user, "<span class='warning'>You have to weak tail!</span>")
+		to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
 	return .
 

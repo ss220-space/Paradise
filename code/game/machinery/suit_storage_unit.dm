@@ -84,6 +84,7 @@
 	name = "security suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/tank/jetpack/oxygen/security
 	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
@@ -146,6 +147,15 @@
 
 /obj/machinery/suit_storage_unit/blueshield
 	secure = TRUE
+/obj/machinery/suit_storage_unit/rd
+	name = "research director's suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
+	mask_type = /obj/item/clothing/mask/gas
+	magboots_type = /obj/item/clothing/shoes/magboots
+	req_access = list(ACCESS_RD)
+
+/obj/machinery/suit_storage_unit/rd/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/mime
 	name = "mime suit storage unit"
@@ -182,7 +192,7 @@
 /obj/machinery/suit_storage_unit/ert/command
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/command/secure
 	secure = TRUE
@@ -190,7 +200,7 @@
 /obj/machinery/suit_storage_unit/ert/security
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/security
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/security/secure
 	secure = TRUE
@@ -198,7 +208,7 @@
 /obj/machinery/suit_storage_unit/ert/engineer
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/engineer/secure
 	secure = TRUE
@@ -206,7 +216,7 @@
 /obj/machinery/suit_storage_unit/ert/medical
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/medical/secure
 	secure = TRUE
@@ -642,6 +652,8 @@
 			updateUsrDialog()
 			update_icon()
 		if(href_list["cook"])
+			if(!check_allowed(usr))
+				return
 			cook(usr)
 			updateUsrDialog()
 			update_icon()

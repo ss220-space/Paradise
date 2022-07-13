@@ -318,7 +318,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id/syndicate/vox
 	l_pocket = /obj/item/melee/classic_baton/telescopic
-	r_pocket = /obj/item/tank/emergency_oxygen/vox
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double/vox
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/restraints/handcuffs/cable/zipties = 1,
@@ -484,7 +484,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/xenos
 	glasses = /obj/item/clothing/glasses/thermal
-	l_pocket = /obj/item/tank/emergency_oxygen/double/full
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/toy/toy_xeno
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
@@ -734,7 +734,7 @@
 	mask = /obj/item/clothing/mask/gas/syndicate
 	glasses = /obj/item/clothing/glasses/night
 	id = /obj/item/card/id/syndicate
-	suit_store = /obj/item/tank/emergency_oxygen/double/full
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
 /datum/outfit/admin/chrono/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -813,7 +813,7 @@
 /datum/outfit/admin/hardsuit/wizard
 	name = "Wizard Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/wizard
 
 /datum/outfit/admin/hardsuit/medical
 	name = "Medical Hardsuit"
@@ -961,7 +961,7 @@
 	l_ear = /obj/item/radio/headset/ert
 	glasses = /obj/item/clothing/glasses/meson/cyber
 	id = /obj/item/card/id
-	suit_store = /obj/item/tank/oxygen
+	suit_store = /obj/item/tank/internals/oxygen
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1

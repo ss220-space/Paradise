@@ -41,7 +41,7 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/other_mobs = null
+	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
@@ -110,7 +110,7 @@
 	var/list/mutations = list() //Carbon -- Doohl
 	//see: setup.dm for list of mutations
 
-	var/voice_name = "unidentifiable voice"
+	var/voice_name = "неизвестный голос"
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 

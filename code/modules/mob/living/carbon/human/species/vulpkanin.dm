@@ -18,7 +18,6 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
-	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
@@ -35,8 +34,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
 		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
-															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin
 		)
 
 	has_limbs = list(
@@ -57,10 +55,13 @@
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"выдавливает когтями свои глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
+
+	disliked_food = VEGETABLES | FRUIT | GRAIN
+	liked_food = MEAT | RAW | DAIRY | GROSS | EGG
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
