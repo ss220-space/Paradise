@@ -46,9 +46,9 @@ GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 8),
 	new /datum/spell_enchant("Force Passage", KNOCK_SPELL, 100),
 	new /datum/spell_enchant("Terraform", REFORM_SPELL, 40),
-	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25), // has do_after 5 seconds
+	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25, 5), // has do_after 1.5 seconds
 	new /datum/spell_enchant("Seal Wounds", HEAL_SPELL, 100, 5),
-	new /datum/spell_enchant("Hidings Clock", HIDE_SPELL, 100, 5)
+	new /datum/spell_enchant("Hidings Clock", HIDE_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(spear_spells, list(
 	new /datum/spell_enchant("Confusion", CONFUSE_SPELL, 80),
@@ -59,31 +59,31 @@ GLOBAL_LIST_INIT(hammer_spells, list(
 	new /datum/spell_enchant("Knock off", KNOCKOFF_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(sword_spells, list(
-	new /datum/spell_enchant("Bloodshed", BLOODSHED_SPELL, 100, 6),
-	new /datum/spell_enchant("Swordsman", FASTSWORD_SPELL, 100, 5, spell_action = TRUE)
+	new /datum/spell_enchant("Bloodshed", BLOODSHED_SPELL, 100, 4),
+	new /datum/spell_enchant("Swordsman", FASTSWORD_SPELL, 100, 6, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shield_spells, list(
-	new /datum/spell_enchant("Push off", PUSHOFF_SPELL, 100, 5)
+	new /datum/spell_enchant("Push off", PUSHOFF_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(robe_spells, list(
 	new /datum/spell_enchant("Camoflauge", INVIS_SPELL, 100, 5, spell_action = TRUE),
-	new /datum/spell_enchant("Haste", SPEED_SPELL, 100, 10, spell_action = TRUE)
+	new /datum/spell_enchant("Haste", SPEED_SPELL, 100, 8, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(armour_spells, list(
-	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 6),
+	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 8),
 	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, spell_action = TRUE),
-	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 10),
-	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 12, spell_action = TRUE)
+	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 8),
+	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 10, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(gloves_spell, list(
-	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 75, spell_action = TRUE),
-	new /datum/spell_enchant("Stunning", STUNHAND_SPELL, 75),
-	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, spell_action = TRUE)
+	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 75, 5, spell_action = TRUE),
+	new /datum/spell_enchant("Stunning", STUNHAND_SPELL, 75, 8),
+	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, 5, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shard_spells, list(
-	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 10),
-	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 10),
-	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 10)
+	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 9),
+	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 9),
+	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 9)
 ))
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400

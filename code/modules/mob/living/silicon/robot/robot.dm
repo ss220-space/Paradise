@@ -1059,10 +1059,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module)
 			reset_module()
 		pick_module("Clockwork")
+		emp_protection = TRUE
+		speed = -0.5
+		pdahide = TRUE
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
-	speed = -0.5
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
