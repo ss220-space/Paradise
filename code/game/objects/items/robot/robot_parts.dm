@@ -322,6 +322,14 @@
 			forceMove(O)
 			O.robot_suit = src
 
+			if(O.mmi.clock) // so robots created from vessel have magic
+				var/datum/action/innate/clockwork/comm/C = new //not add_clock_actions because it gives actions to mind, which does not work for robots
+				var/datum/action/innate/clockwork/check_progress/D = new
+				var/datum/action/innate/clockwork/clock_magic/magic = new
+				C.Grant(O)
+				D.Grant(O)
+				magic.Grant(O) //copy-paste go ctrl+c/ctrl+v
+
 			if(!locomotion)
 				O.lockcharge = 1
 				O.update_canmove()
