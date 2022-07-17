@@ -396,7 +396,7 @@
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
 	to_chat(user, "<span class='notice'>The grip on [src] looses...</span>")
 	flags &= ~NODROP
-	force = 15
+	force = initial(force)
 	swordsman = FALSE
 	deplete_spell()
 
@@ -553,10 +553,14 @@
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	var/absorb_uses = 2
 	var/reflect_uses = 3
+	var/normal_armor
+	var/harden_armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.armour_spells
+	normal_armor = armor //initialize, so it will be easier to change armors stats
+	harden_armor = getArmor(arglist(harden_armor))
 
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
@@ -564,7 +568,7 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(absorb_uses <= 0)
-			absorb_uses = 2
+			absorb_uses = initial(absorb_uses)
 			deplete_spell()
 		else
 			absorb_uses--
@@ -581,7 +585,7 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(reflect_uses <= 0)
-			reflect_uses = 2
+			reflect_uses = initial(reflect_uses)
 			deplete_spell()
 		else
 			reflect_uses--
@@ -604,8 +608,7 @@
 				return
 			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
 			"<span class='notice'>The [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
-			//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-			armor.setRating(80, 60, 50, 50, 100, 100, 100, 100, 100)
+			armor = harden_armor
 			flags |= NODROP
 			enchant_type = CASTING_SPELL
 			add_attack_logs(user, user, "Hardened [src]", ATKLOG_ALL)
@@ -627,8 +630,7 @@
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
 	set_light(0)
-	//armor = list("melee" = 35, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 60, "bio" = 40, "rad" = 40, "fire" = 100, "acid" = 100)
-	armor.setRating(35, 30, 30, 25, 60, 40, 40, 100, 100)
+	armor = normal_armor
 	flags &= ~NODROP
 	deplete_spell()
 
