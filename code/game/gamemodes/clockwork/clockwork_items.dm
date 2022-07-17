@@ -47,6 +47,13 @@
 		attack_verb = null
 		deplete_spell()
 		plushy = FALSE
+	if(!isclocker(user))
+		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			carbon.Weaken(5)
+			carbon.Stuttering(10)
+		return
 	if(enchant_type == HIDE_SPELL)
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
