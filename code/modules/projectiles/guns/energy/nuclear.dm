@@ -63,10 +63,11 @@
 	shaded_charge = 1
 
 /obj/item/gun/energy/gun/blueshield/can_shoot()
-	if (!isertmindshielded(usr))
-		to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
-		return FALSE
-	return TRUE
+    . = ..()
+    if (. && !isertmindshielded(usr))
+        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+        return FALSE
+    return .
 
 /obj/item/gun/energy/gun/blueshield/pdw9
 	name = "PDW-9 taser pistol"
