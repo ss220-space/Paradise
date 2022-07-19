@@ -351,7 +351,7 @@
 
 /datum/crafting_recipe/bluecarpet
 	name = "Blue Carpet"
-	result = list(/obj/item/stack/tile/carpet/blue)
+	result = /obj/item/stack/tile/carpet/blue
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue)
@@ -359,7 +359,7 @@
 
 /datum/crafting_recipe/cyancarpet
 	name = "Cyan Carpet"
-	result = list(/obj/item/stack/tile/carpet/cyan)
+	result = /obj/item/stack/tile/carpet/cyan
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
@@ -367,7 +367,7 @@
 
 /datum/crafting_recipe/greencarpet
 	name = "Green Carpet"
-	result = list(/obj/item/stack/tile/carpet/green)
+	result = /obj/item/stack/tile/carpet/green
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/green)
@@ -375,7 +375,7 @@
 
 /datum/crafting_recipe/orangecarpet
 	name = "Orange Carpet"
-	result = list(/obj/item/stack/tile/carpet/orange)
+	result = /obj/item/stack/tile/carpet/orange
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/orange)
@@ -383,7 +383,7 @@
 
 /datum/crafting_recipe/purplecarpet
 	name = "Purple Carpet"
-	result = list(/obj/item/stack/tile/carpet/purple)
+	result = /obj/item/stack/tile/carpet/purple
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/purple)
@@ -391,7 +391,7 @@
 
 /datum/crafting_recipe/redcarpet
 	name = "Red Carpet"
-	result = list(/obj/item/stack/tile/carpet/red)
+	result = /obj/item/stack/tile/carpet/red
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/red)
@@ -399,7 +399,7 @@
 
 /datum/crafting_recipe/royalblackcarpet
 	name = "Royal Black Carpet"
-	result = list(/obj/item/stack/tile/carpet/royalblack/ten)
+	result = /obj/item/stack/tile/carpet/royalblack/ten
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet/black = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)
@@ -407,7 +407,7 @@
 
 /datum/crafting_recipe/royalbluecarpet
 	name = "Royal Blue Carpet"
-	result = list(/obj/item/stack/tile/carpet/royalblue/ten)
+	result = /obj/item/stack/tile/carpet/royalblue/ten
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet/blue = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)
