@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define CLOCK_POWER_PER_CREW 300
 #define CLOCK_POWER_GAIN_MAXIMUM 1000
 /// Power gains permanent
-#define CLOCK_POWER_CONVERT 100
+#define CLOCK_POWER_CONVERT 200
 #define CLOCK_POWER_SACRIFICE 500
 /// Power gains as time progresses. Goes in process() so it makes x power per second.
 #define CLOCK_POWER_BEACON 2
