@@ -86,11 +86,11 @@ GLOBAL_LIST_INIT(shard_spells, list(
 	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 9)
 ))
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
-#define CLOCK_POWER_PER_CREW 400
+#define CLOCK_POWER_PER_CREW 300
 #define CLOCK_POWER_GAIN_MAXIMUM 1000
 /// Power gains permanent
-#define CLOCK_POWER_CONVERT 150
-#define CLOCK_POWER_SACRIFICE 300
+#define CLOCK_POWER_CONVERT 100
+#define CLOCK_POWER_SACRIFICE 500
 /// Power gains as time progresses. Goes in process() so it makes x power per second.
 #define CLOCK_POWER_BEACON 2
 #define CLOCK_POWER_GENERATOR 10
@@ -105,11 +105,11 @@ GLOBAL_LIST_INIT(shard_spells, list(
 /// Percent for power to reveal (Lowpop)
 #define CLOCK_POWER_REVEAL_LOW 0.7
 /// Percent clockers to reveal (Lowpop)
-#define CLOCK_CREW_REVEAL_LOW 0.25
+#define CLOCK_CREW_REVEAL_LOW 0.35
 /// Percent for power to reveal (Highpop)
 #define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)
-#define CLOCK_CREW_REVEAL_HIGH 0.15
+#define CLOCK_CREW_REVEAL_HIGH 0.25
 
 // Text
 #define CLOCK_GREETING "<span class='clocklarge'>You catch a glimpse of the Realm of Ratvar, the Clockwork Justiciar. \
