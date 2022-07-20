@@ -52,6 +52,11 @@
 	range = 4
 	cooldown = 50
 
+/obj/item/mining_scanner/cyborg
+	cooldown = 50
+	flags = CONDUCT | NODROP
+
+
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
