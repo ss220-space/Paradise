@@ -7,6 +7,10 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clock_slab"
 	w_class = WEIGHT_CLASS_SMALL
+	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "blue fox plushie" = "bluefox",
+								"orange fox plushie" = "orangefox", "corgi plushie" = "corgi", "black cat plushie" = "blackcat",
+								"deer plushie" = "deer", "octopus plushie" = "loveable", "facehugger plushie" = "huggable")
+	var/plushy = FALSE
 
 /obj/item/clockwork/clockslab/Initialize(mapload)
 	. = ..()
@@ -14,14 +18,17 @@
 
 /obj/item/clockwork/clockslab/update_icon()
 	update_overlays()
-	//if(enchant_type)
-	//	add_overlay("overlay_temp")
 	..()
 
 /obj/item/clockwork/clockslab/proc/update_overlays()
 	cut_overlays()
 	if(enchant_type)
 		overlays += "clock_slab_overlay_[enchant_type]"
+
+/obj/item/clockwork/clockslab/attack(mob/M as mob, mob/user as mob)
+	if(plushy)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 20, 1)	// Play the whoosh sound in local area
+	return ..()
 
 /obj/item/clockwork/clockslab/attack_self(mob/user)
 	. = ..()
@@ -103,6 +110,8 @@
 /obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
 	if(!isclocker(user))
+		if(plushy)
+			return
 		user.unEquip(src, 1)
 		user.emote("scream")
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -173,10 +182,23 @@
 				add_attack_logs(user, target, "Teleported to by [src]", ATKLOG_ALL)
 				deplete_spell()
 			user.color = null
+		if(HEAL_SPELL)
+			if(!isliving(target) || !isclocker(target) || !proximity)
+				return
+			var/mob/living/living = target
+			if(ishuman(living))
+				living.heal_overall_damage(30, 30, TRUE)
+			else if(isanimal(living))
+				var/mob/living/simple_animal/M = living
+				if(M.health < M.maxHealth)
+					M.adjustHealth(-50)
+			add_attack_logs(user, target, "clockslab healed", ATKLOG_ALL)
+			deplete_spell()
 
 /obj/item/clockwork
 	name = "Clockwork item name"
 	icon = 'icons/obj/clockwork.dmi'
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 //Ratvarian spear
 /obj/item/twohanded/ratvarian_spear
@@ -209,10 +231,17 @@
 /obj/item/twohanded/ratvarian_spear/proc/update_overlays()
 	cut_overlays()
 	if(enchant_type)
-		overlays += "ratvarian_spear_overlay_[enchant_type]"
+		overlays += "ratvarian_spear0_overlay_[enchant_type]"
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
+
+/obj/item/twohanded/ratvarian_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	if(wielded)
+		return ..()
+	return FALSE
+
+/obj/item/twohanded/ratvarian_spear/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
@@ -268,12 +297,14 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
 	slot_flags = SLOT_BACK
-	force = 5
 	force_unwielded = 5
-	force_wielded = 25
+	force_wielded = 20
+	armour_penetration = 40
 	throwforce = 30
 	throw_range = 7
+	block_chance = 25
 	w_class = WEIGHT_CLASS_HUGE
+	needs_permit = TRUE
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)
 	. = ..()
@@ -287,7 +318,7 @@
 /obj/item/twohanded/clock_hammer/proc/update_overlays()
 	cut_overlays()
 	if(enchant_type)
-		overlays += "clock_hammer_overlay_[enchant_type]"
+		overlays += "clock_hammer0_overlay_[enchant_type]"
 
 /obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, def_zone)
 	. = ..()
@@ -296,6 +327,7 @@
 		to_chat(user, "<span class='clocklarge'>\"Don't hit yourself.\"</span>")
 		target.adjustBruteLoss(25)
 		user.remove_from_mob(src)
+		return
 	if(!wielded)
 		return
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
@@ -336,7 +368,7 @@
 	force = 20
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 25
+	armour_penetration = 10
 	sharp = TRUE
 	attack_verb = list("lunged at", "stabbed")
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -446,7 +478,7 @@
 	item_state = "clockwork_robe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood
-	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer)
+	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
@@ -577,6 +609,7 @@
 		user.remove_from_mob(src)
 		user.emote("scream")
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		return
 	switch(enchant_type)
 		if(ARMOR_SPELL)
 			if(!iscarbon(user))
@@ -616,7 +649,7 @@
 
 /obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(slot == slot_wear_suit && !isclocker(user))
+	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their body!</span>", "<span class='warning'>The curiass flickers off your body, leaving only nausea!</span>")
@@ -635,7 +668,7 @@
 // Gloves
 /obj/item/clothing/gloves/clockwork
 	name = "clockwork gauntlets"
-	desc = "Heavy, shock-resistant gauntlets with brass reinforcement."
+	desc = "Heavy, fire-resistant gauntlets with brass reinforcement."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
@@ -710,7 +743,7 @@
 
 /obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(slot == slot_gloves && !isclocker(user))
+	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their arms!</span>", "<span class='warning'>The gauntlets flicker off your arms, leaving only nausea!</span>")
@@ -738,7 +771,7 @@
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(slot == slot_shoes && !isclocker(user))
+	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their feet!</span>", "<span class='warning'>The treads flicker off your feet, leaving only nausea!</span>")
@@ -764,11 +797,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	armor = list(melee = 50, bullet = 70, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(slot == slot_head && !isclocker(user))
+	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their head!</span>", "<span class='warning'>The helmet flickers off your head, leaving only nausea!</span>")
@@ -867,8 +900,8 @@
 		if(cell.charge / cell.maxcharge > COG_MAX_SIPHON_THRESHOLD)
 			cell.use(round(0.001*cell.maxcharge,1))
 			adjust_clockwork_power(CLOCK_POWER_COG) //Power is shared, so only do it once; this runs very quickly so it's about CLOCK_POWER_COG(1)/second
-			if(prob(2))
-				playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 10, TRUE)
+			if(prob(1))
+				playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 5, TRUE)
 				new/obj/effect/temp_visual/small_smoke(get_turf(apc))
 
 // Soul vessel (Posi Brain)
@@ -949,9 +982,6 @@
 		return
 	if(brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
-		return
-	if(isclocker(M))
-		to_chat(user, "<span class='clocklarge'>\"It would be more wise to revive your allies, friend.\"</span>")
 		return
 	if(jobban_isbanned(M, ROLE_CLOCKER) || jobban_isbanned(M, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from claiming [M]'s mind.</span>")
@@ -1061,7 +1091,7 @@
 	. = ..()
 	enchants = GLOB.shard_spells
 
-/obj/item/twohanded/clock_hammer/update_icon()
+/obj/item/clockwork/shard/update_icon()
 	update_overlays()
 	return ..()
 
@@ -1095,21 +1125,51 @@
 				empulse(src, 4, 6, cause="clock")
 				qdel(src)
 			if(TIME_SPELL)
-				qdel(src)
 				add_attack_logs(user, user, "Time stopped with [src]")
+				qdel(src)
 				new /obj/effect/timestop/clockwork(get_turf(user))
 			if(RECONSTRUCT_SPELL)
 				add_attack_logs(user, user, "Reconstructed with [src]")
-				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(src))
 				qdel(src)
+				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(user))
 	return
+
+/obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!ishuman(target) || !isclocker(user))
+		return
+	var/mob/living/carbon/human/human = target
+	if(human.stat == DEAD && isclocker(human)) // dead clocker
+		user.unEquip(src)
+		qdel(src)
+		if(!human.client)
+			give_ghost(human)
+		else
+			human.revive()
+			human.set_species(/datum/species/golem/clockwork)
+			to_chat(human, "<span class='clocklarge'><b>\"You are back once again.\"</b></span>")
+
+/obj/item/clockwork/shard/proc/give_ghost(var/mob/living/carbon/human/golem)
+	set waitfor = FALSE
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
+	if(length(candidates))
+		var/mob/dead/observer/C = pick(candidates)
+		golem.ghostize(FALSE)
+		golem.key = C.key
+		golem.revive()
+		golem.set_species(/datum/species/golem/clockwork)
+		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
+	else
+		golem.visible_message("<span class='warning'>[golem] twitches as their body twists and rapidly changes the form!</span>")
+		new /obj/effect/mob_spawn/human/golem/clockwork(get_turf(golem))
+		golem.dust()
 
 /obj/effect/temp_visual/ratvar/reconstruct
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_active"
 	layer = BELOW_OBJ_LAYER
 	alpha = 128
-	duration = 30
+	duration = 40
 	pixel_x = -32
 	pixel_y = -32
 
@@ -1120,12 +1180,21 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
 	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
-	animate(src, transform = matrix() * 1, time = 1.5 SECONDS)
-	sleep(15)
-	for(var/atom/affected in range(3, get_turf(src)))
+	animate(src, transform = matrix() * 1, time = 2 SECONDS)
+	sleep(20)
+	for(var/atom/affected in range(4, get_turf(src)))
 		if(isliving(affected))
 			var/mob/living/living = affected
 			living.ratvar_act(TRUE)
+			if(!isclocker(living) && !ishuman(living))
+				continue
+			living.heal_overall_damage(100, 100, TRUE)
+			living.reagents.add_reagent("epinephrine", 5)
+			var/mob/living/carbon/human/H = living
+			for(var/thing in H.bodyparts)
+				var/obj/item/organ/external/E = thing
+				E.internal_bleeding = FALSE
+				E.mend_fracture()
 		else
 			affected.ratvar_act()
-	animate(src, transform = matrix() * 0.1, time = 1.5 SECONDS)
+	animate(src, transform = matrix() * 0.1, time = 2 SECONDS)
