@@ -619,7 +619,7 @@
 			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
 			"<span class='notice'>The [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
 			//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-			armor.setRating(80, 60, 50, 50, 100, 100, 100, 100, 100)
+			armor = harden_armor
 			flags |= NODROP
 			enchant_type = CASTING_SPELL
 			add_attack_logs(user, user, "Hardened [src]", ATKLOG_ALL)
