@@ -206,6 +206,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
+	force = 12
 	force_unwielded = 12
 	force_wielded = 20
 	throwforce = 50
@@ -294,6 +295,7 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
 	slot_flags = SLOT_BACK
+	force = 5
 	force_unwielded = 5
 	force_wielded = 20
 	armour_penetration = 40
