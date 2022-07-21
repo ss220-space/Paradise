@@ -233,9 +233,6 @@
 	if(enchant_type)
 		overlays += "ratvarian_spear0_overlay_[enchant_type]"
 
-/obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
-	. = ..()
-
 /obj/item/twohanded/ratvarian_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(wielded)
 		return ..()
