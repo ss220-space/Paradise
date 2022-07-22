@@ -13,6 +13,7 @@
 	var/state = 0
 	var/prev_sign = ""
 	var/panel_open = 0
+	var/secret = FALSE
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -79,6 +80,8 @@
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
 			if(!broken && !emagged)
 				set_sign(pick(barsigns))
+			else if(secret)
+				set_sign(new /datum/barsign/hiddensigns/furukai)
 			else if(emagged)
 				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 			else
@@ -112,11 +115,15 @@
 
 
 /obj/structure/sign/barsign/emag_act(mob/user)
-	if(broken || emagged)
+	if(broken || secret)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
-	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(CALLBACK(src, .proc/post_emag), 100)
+	if(!emagged)
+		to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+		addtimer(CALLBACK(src, .proc/post_emag), 100)
+	if(emagged && !broken)
+		to_chat(user, "<span class='notice'>You emag the barsign. But it was already emagged and something weird happens...</span>")
+		addtimer(CALLBACK(src, .proc/post_emag_hidden), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)
@@ -125,8 +132,11 @@
 	emagged = 1
 	req_access = list(ACCESS_SYNDICATE)
 
-
-
+/obj/structure/sign/barsign/proc/post_emag_hidden()
+	if(broken || secret)
+		return
+	set_sign(new /datum/barsign/hiddensigns/furukai)
+	secret= TRUE
 
 /obj/structure/sign/barsign/proc/pick_sign()
 	var/picked_name = input("Available Signage", "Bar Sign") as null|anything in barsigns
@@ -430,7 +440,12 @@
 	icon = "syndibarsign"
 	desc = "Syndicate or die."
 
-
+/datum/barsign/hiddensigns/furukai
+	name = "Чулки Фуру"
+	icon = "furukai"
+	desc = "Кто-то настолько запарился, что скрыл это среди механизмов барной таблички... \
+	На барную вывеску это не очень похоже. Больше на вывеску магазина одежды... \
+	Или это такая хорошо запрятанная дань уважения неизвестной женщине..."
 
 /datum/barsign/hiddensigns/signoff
 	name = "Bar Sign"
