@@ -44,7 +44,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen( src )
+	new /obj/item/tank/internals/emergency_oxygen( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -56,7 +56,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/emergency_oxygen/nitrogen(src)
+	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -77,7 +77,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/plasma(src)
+	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -88,7 +88,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen/engi( src )
+	new /obj/item/tank/internals/emergency_oxygen/engi( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -100,7 +100,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
@@ -112,7 +112,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -1072,7 +1072,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/double/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 
@@ -1091,7 +1091,7 @@
 /obj/item/storage/box/responseteam/New()
 	..()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/engi/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -1203,6 +1203,17 @@
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit
+	name = "Battlemage Armour Bundle"
+	desc = "This box contains a bundle of Battlemage Armour"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit/New()
+	. = ..()
+	contents = list()
+	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

@@ -95,6 +95,7 @@
 		else
 			button.icon = button_icon
 			button.icon_state = background_icon_state
+		button.name = name
 		button.desc = desc
 
 		ApplyIcon(button)
@@ -470,6 +471,9 @@
 
 /datum/action/item_action/accessory/holster
 	name = "Holster"
+
+/datum/action/item_action/accessory/holobadge
+	name = "Holobadge"
 
 /datum/action/item_action/accessory/storage
 	name = "View Storage"

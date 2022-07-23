@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
 
 //same as above
 //note: ghosts can point, this is intended
@@ -1397,8 +1397,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE		//overridden in living.dm
 
 /mob/proc/spin(spintime, speed)
-	set waitfor = 0
+	set waitfor = FALSE
 	var/D = dir
+	if(spintime < world.tick_lag || speed < world.tick_lag || !spintime || !speed)
+		return
 	while(spintime >= speed)
 		sleep(speed)
 		switch(D)

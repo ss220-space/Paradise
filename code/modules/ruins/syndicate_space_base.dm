@@ -107,7 +107,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 		var/race = H.dna.species.name
 
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				box = /obj/item/storage/box/survival_vox
 			if("Plasmaman")
 				box = /obj/item/storage/box/survival_plasmaman
@@ -121,9 +121,9 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 		var/race = H.dna.species.name
 
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
-				H.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(H), slot_l_hand)
+				H.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(H), slot_l_hand)
 				H.internal = H.l_hand
 
 			if("Plasmaman")
@@ -133,7 +133,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 				qdel(H.get_item_by_slot(slot_w_uniform))
 				qdel(H.get_item_by_slot(slot_head))
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
-				H.equip_to_slot(new /obj/item/tank/plasma/plasmaman/belt/full(H), slot_l_hand)
+				H.equip_to_slot(new /obj/item/tank/internals/plasmaman/belt/full(H), slot_l_hand)
 				H.equip_to_slot(I, slot_wear_id) // По непонятной мне причине другие методы считают что персонаж не может надеть предметы. Поэтому надеваем насильно!
 				H.equip_to_slot(R, slot_r_store)
 				H.equip_to_slot(L, slot_l_store)
