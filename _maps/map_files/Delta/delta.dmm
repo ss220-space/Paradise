@@ -85,11 +85,7 @@
 "abG" = (/obj/machinery/door/poddoor/shutters{density = 0; dir = 1; icon_state = "open"; id_tag = "syndieshutters"; name = "Blast Shutters"; opacity = 0},/obj/structure/grille,/obj/structure/shuttle/window{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_end"; tag = "icon-window5_end (NORTH)"},/turf/simulated/shuttle/plating,/area/shuttle/syndicate)
 "abH" = (/obj/structure/bed/roller,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6},/mob/living/carbon/human/monkey,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitegreen"},/area/medical/virology)
 "abI" = (/turf/space,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/machinery/door/airlock/security/glass{name = "Brig Reception"; req_access_txt = "63"},/obj/machinery/door/firedoor,/turf/simulated/floor/plasteel{dir = 1},/area/security/reception)
-<<<<<<< Updated upstream
 "abJ" = (/obj/machinery/atmospherics/unary/vent_scrubber{name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel{dir = 4; icon_state = "red"},/area/security/reception)
-=======
-"abJ" = (/obj/machinery/atmospherics/unary/vent_scrubber{name = "standard air scrubber"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/structure/closet/secure_closet/security/brigofficer,/turf/simulated/floor/plasteel{dir = 4; icon_state = "red"},/area/security/reception)
->>>>>>> Stashed changes
 "abK" = (/turf/space,/obj/structure/table,/obj/item/clothing/glasses/welding{pixel_y = 10},/obj/item/weldingtool/largetank{pixel_x = 4; pixel_y = -4},/turf/simulated/floor/plasteel{dir = 1; icon_state = "bot"},/area/shuttle/escape{parallax_movedir = 2})
 "abL" = (/turf/space,/obj/structure/grille,/obj/structure/window/full/shuttle,/turf/simulated/floor/plating,/area/shuttle/escape{parallax_movedir = 2})
 "abN" = (/obj/machinery/light/spot{dir = 8; tag = "icon-tube1 (WEST)"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate)
