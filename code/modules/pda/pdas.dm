@@ -14,6 +14,10 @@
 	default_cartridge = /obj/item/cartridge/security
 	icon_state = "pda-security"
 
+/obj/item/pda/security/brigoff
+	default_cartridge = /obj/item/cartridge/security
+	icon_state = "pda-brigoff"
+
 /obj/item/pda/detective
 	default_cartridge = /obj/item/cartridge/detective
 	icon_state = "pda-security"
