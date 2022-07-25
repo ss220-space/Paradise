@@ -122,12 +122,11 @@
 	suit = /obj/item/clothing/suit/storage/brigofficer
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/beret/sec/brigofficer
+	head = /obj/item/clothing/head/officer/brigofficer
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
-	l_pocket = /obj/item/flash
 	suit_store = /obj/item/gun/energy/dominator
-	pda = /obj/item/pda/security
+	pda = /obj/item/pda/security/brigoff
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1
 	)
