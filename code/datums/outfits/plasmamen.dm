@@ -48,6 +48,12 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security
 	uniform = /obj/item/clothing/under/plasmaman/security
 
+/datum/outfit/plasmaman/brigofficer
+	name = "Brig Officer Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/security/brigofficer
+	uniform = /obj/item/clothing/under/plasmaman/security/brigofficer
+
 /datum/outfit/plasmaman/detective
 	name = "Detective Plasmaman"
 

@@ -265,6 +265,24 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/brigofficer
+	name = "Brig officer's jacket"
+	desc = "A pressed and ironed suit jacket, it has light armor against stabbings. There's some rank badges on the right breast."
+	icon_state = "brigofficer_jacket_open"
+	item_state = "brigofficer_jacket_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
 /obj/item/clothing/suit/storage/ntrep
 	name = "\improper Nanotrasen Representative jacket"
 	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."

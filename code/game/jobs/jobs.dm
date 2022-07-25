@@ -75,6 +75,7 @@ GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positi
 GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
 	"Warden",
+	"Brig Officer",
 	"Detective",
 	"Security Officer",
 	"Brig Physician",

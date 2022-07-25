@@ -130,6 +130,13 @@
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 
+/obj/item/clothing/head/officer/brigofficer
+	name = "brig officer's cap"
+	desc = "A black visor cap with a round Nanotrasen logo made out of silver in the center, despite the looks, can sustain hits to the head from any prison found object."
+	icon_state = "brigofficerhat"
+	item_state = "brigofficerhat"
+	armor = list("melee" = 40, "bullet" = 35, "laser" = 35,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 55)
+
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
@@ -138,6 +145,12 @@
 	strip_delay = 60
 	dog_fashion = null
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
+
+/obj/item/clothing/head/beret/sec/brigofficer
+	name = "brig officer's beret"
+	desc = "A black beret with silver insignia on it, let the prisoners know that you have some style."
+	icon_state = "beret_brigofficer"
+	armor = list("melee" = 36, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 50)
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
