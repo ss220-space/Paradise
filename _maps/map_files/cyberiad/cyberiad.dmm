@@ -1450,6 +1450,9 @@
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start{
+	name = "Brig Officer"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aef" = (
@@ -7530,6 +7533,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/closet/secure_closet/security/brigofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -8235,7 +8239,7 @@
 	name = "Sec. gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/sec{
-	loot = list(/obj/item/clothing/gloves/combat = 50, /obj/item/grenade/clusterbuster/smoke = 50, /obj/item/clothing/suit/armor/laserproof = 50, /obj/item/clothing/suit/armor/vest/combat = 50, /obj/item/clothing/suit/armor/vest/combat = 50, /obj/item/clothing/suit/armor/vest/combat = 50, /obj/item/kitchen/knife/combat = 50, /obj/item/kitchen/knife/combat = 50, /obj/item/kitchen/knife/combat = 50, /obj/item/fluff/desolate_baton_kit = 50, /obj/item/storage/belt/military/assault = 50, /obj/item/storage/belt/military/assault = 50, /obj/item/storage/belt/military/assault = 50, /obj/item/clothing/mask/gas/sechailer/swat = 50, /obj/item/clothing/mask/gas/sechailer/swat = 50, /obj/item/clothing/suit/space/swat = 50, /obj/item/clothing/suit/space/swat = 50, /obj/item/clothing/glasses/thermal = 50, /obj/item/storage/box/enforcer_rubber = 50, /obj/item/storage/box/enforcer_rubber = 50, /obj/item/storage/box/enforcer_lethal = 50, /obj/item/melee/classic_baton/telescopic = 50, /obj/item/melee/classic_baton/telescopic = 50, /obj/item/gun/projectile/shotgun/automatic/combat = 50, /obj/item/gun/projectile/shotgun/automatic/combat = 50, /obj/item/gun/projectile/shotgun/automatic/combat = 50, /obj/item/gun/projectile/shotgun/automatic/dual_tube = 50, /obj/item/gun/projectile/shotgun/automatic/dual_tube = 50, /obj/item/storage/box/buck = 50, /obj/item/storage/box/buck = 50, /obj/item/storage/box/buck = 50, /obj/item/ammo_box/shotgun/buck = 50, /obj/item/ammo_box/shotgun/buck = 50, /obj/item/grenade/clusterbuster = 50, /obj/item/grenade/clusterbuster = 50, /obj/item/grenade/clusterbuster/teargas = 50, /obj/item/grenade/clusterbuster/n2o = 50);
+	loot = list(/obj/item/clothing/gloves/combat=50,/obj/item/grenade/clusterbuster/smoke=50,/obj/item/clothing/suit/armor/laserproof=50,/obj/item/clothing/suit/armor/vest/combat=50,/obj/item/clothing/suit/armor/vest/combat=50,/obj/item/clothing/suit/armor/vest/combat=50,/obj/item/kitchen/knife/combat=50,/obj/item/kitchen/knife/combat=50,/obj/item/kitchen/knife/combat=50,/obj/item/fluff/desolate_baton_kit=50,/obj/item/storage/belt/military/assault=50,/obj/item/storage/belt/military/assault=50,/obj/item/storage/belt/military/assault=50,/obj/item/clothing/mask/gas/sechailer/swat=50,/obj/item/clothing/mask/gas/sechailer/swat=50,/obj/item/clothing/suit/space/swat=50,/obj/item/clothing/suit/space/swat=50,/obj/item/clothing/glasses/thermal=50,/obj/item/storage/box/enforcer_rubber=50,/obj/item/storage/box/enforcer_rubber=50,/obj/item/storage/box/enforcer_lethal=50,/obj/item/melee/classic_baton/telescopic=50,/obj/item/melee/classic_baton/telescopic=50,/obj/item/gun/projectile/shotgun/automatic/combat=50,/obj/item/gun/projectile/shotgun/automatic/combat=50,/obj/item/gun/projectile/shotgun/automatic/combat=50,/obj/item/gun/projectile/shotgun/automatic/dual_tube=50,/obj/item/gun/projectile/shotgun/automatic/dual_tube=50,/obj/item/storage/box/buck=50,/obj/item/storage/box/buck=50,/obj/item/storage/box/buck=50,/obj/item/ammo_box/shotgun/buck=50,/obj/item/ammo_box/shotgun/buck=50,/obj/item/grenade/clusterbuster=50,/obj/item/grenade/clusterbuster=50,/obj/item/grenade/clusterbuster/teargas=50,/obj/item/grenade/clusterbuster/n2o=50);
 	lootcount = 10;
 	name = "1. Sec. gear"
 	},
@@ -8248,7 +8252,7 @@
 	name = "Donksoft gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/donksoft{
-	loot = list(/obj/item/gun/projectile/automatic/c20r/toy = 50, /obj/item/gun/projectile/automatic/c20r/toy = 50, /obj/item/gun/projectile/automatic/c20r/toy = 50, /obj/item/gun/projectile/automatic/l6_saw/toy = 50, /obj/item/gun/projectile/automatic/l6_saw/toy = 50, /obj/item/gun/projectile/automatic/toy/pistol = 100, /obj/item/gun/projectile/automatic/toy/pistol = 100, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50, /obj/item/gun/projectile/shotgun/toy = 50, /obj/item/gun/projectile/shotgun/toy = 50, /obj/item/gun/projectile/shotgun/toy/crossbow = 50, /obj/item/gun/projectile/shotgun/toy/crossbow = 50, /obj/item/gun/projectile/shotgun/toy/tommygun = 50, /obj/item/gun/projectile/shotgun/toy/tommygun = 50, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 50, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 50, /obj/item/ammo_box/foambox/sniper = 50, /obj/item/ammo_box/foambox = 50, /obj/item/ammo_box/foambox = 50, /obj/item/ammo_box/foambox = 50, /obj/item/ammo_box/foambox/riot = 50, /obj/item/ammo_box/foambox/riot = 50, /obj/item/ammo_box/foambox/sniper/riot = 50, /obj/item/twohanded/toy/chainsaw = 50, /obj/item/twohanded/dualsaber/toy = 50);
+	loot = list(/obj/item/gun/projectile/automatic/c20r/toy=50,/obj/item/gun/projectile/automatic/c20r/toy=50,/obj/item/gun/projectile/automatic/c20r/toy=50,/obj/item/gun/projectile/automatic/l6_saw/toy=50,/obj/item/gun/projectile/automatic/l6_saw/toy=50,/obj/item/gun/projectile/automatic/toy/pistol=100,/obj/item/gun/projectile/automatic/toy/pistol=100,/obj/item/gun/projectile/automatic/toy/pistol/enforcer=50,/obj/item/gun/projectile/automatic/toy/pistol/enforcer=50,/obj/item/gun/projectile/shotgun/toy=50,/obj/item/gun/projectile/shotgun/toy=50,/obj/item/gun/projectile/shotgun/toy/crossbow=50,/obj/item/gun/projectile/shotgun/toy/crossbow=50,/obj/item/gun/projectile/shotgun/toy/tommygun=50,/obj/item/gun/projectile/shotgun/toy/tommygun=50,/obj/item/gun/projectile/automatic/sniper_rifle/toy=50,/obj/item/gun/projectile/automatic/sniper_rifle/toy=50,/obj/item/ammo_box/foambox/sniper=50,/obj/item/ammo_box/foambox=50,/obj/item/ammo_box/foambox=50,/obj/item/ammo_box/foambox=50,/obj/item/ammo_box/foambox/riot=50,/obj/item/ammo_box/foambox/riot=50,/obj/item/ammo_box/foambox/sniper/riot=50,/obj/item/twohanded/toy/chainsaw=50,/obj/item/twohanded/dualsaber/toy=50);
 	lootcount = 8;
 	name = "2. Donksoft gear"
 	},
@@ -8744,7 +8748,7 @@
 	name = "Science gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/sci{
-	loot = list(/obj/item/mmi/robotic_brain = 50, /obj/item/assembly/signaler/anomaly = 50, /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50, /obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50, /obj/item/autoimplanter/old = 50, /obj/item/paper/researchnotes = 50, /obj/item/paper/researchnotes = 50, /obj/item/slimepotion/fireproof = 50, /obj/item/slimepotion/speed = 50, /obj/item/slimepotion/enhancer = 50,/obj/item/slimepotion/slime/mutator = 50, /obj/item/slimepotion/transference = 50, /obj/item/slimepotion/slime/steroid = 50, /obj/item/slimepotion/slime/stabilizer = 50, /obj/item/slimepotion/slime/docility = 50, /obj/item/slime_extract/bluespace = 50, /obj/item/slime_extract/adamantine = 50, /obj/item/slime_extract/rainbow = 50, /obj/item/slime_extract/sepia = 50, /obj/item/assembly/signaler/anomaly/vortex = 50, /obj/item/assembly/signaler/anomaly/bluespace = 50, /obj/item/assembly/signaler/anomaly/flux = 50, /obj/item/assembly/signaler/anomaly/grav = 50, /obj/item/assembly/signaler/anomaly/pyro = 50);
+	loot = list(/obj/item/mmi/robotic_brain=50,/obj/item/assembly/signaler/anomaly=50,/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray=50,/obj/item/mecha_parts/mecha_equipment/teleporter/precise=50,/obj/item/autoimplanter/old=50,/obj/item/paper/researchnotes=50,/obj/item/paper/researchnotes=50,/obj/item/slimepotion/fireproof=50,/obj/item/slimepotion/speed=50,/obj/item/slimepotion/enhancer=50,/obj/item/slimepotion/slime/mutator=50,/obj/item/slimepotion/transference=50,/obj/item/slimepotion/slime/steroid=50,/obj/item/slimepotion/slime/stabilizer=50,/obj/item/slimepotion/slime/docility=50,/obj/item/slime_extract/bluespace=50,/obj/item/slime_extract/adamantine=50,/obj/item/slime_extract/rainbow=50,/obj/item/slime_extract/sepia=50,/obj/item/assembly/signaler/anomaly/vortex=50,/obj/item/assembly/signaler/anomaly/bluespace=50,/obj/item/assembly/signaler/anomaly/flux=50,/obj/item/assembly/signaler/anomaly/grav=50,/obj/item/assembly/signaler/anomaly/pyro=50);
 	lootcount = 8;
 	name = "6. Science gear"
 	},
@@ -8752,7 +8756,7 @@
 /area/shuttle/trade/sol)
 "arh" = (
 /obj/effect/spawner/lootdrop/trade_sol/largeitem{
-	loot = list(/obj/machinery/floodlight = 50, /obj/machinery/disco = 50, /obj/mecha/combat/durand/old = 50, /obj/machinery/snow_machine = 50);
+	loot = list(/obj/machinery/floodlight=50,/obj/machinery/disco=50,/obj/mecha/combat/durand/old=50,/obj/machinery/snow_machine=50);
 	name = "3. Large item"
 	},
 /turf/simulated/floor/wood,
@@ -8782,6 +8786,9 @@
 "ark" = (
 /obj/structure/chair/office/dark{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Brig Officer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9946,6 +9953,9 @@
 	pixel_x = -5;
 	pixel_y = -25;
 	req_access_txt = "63"
+	},
+/obj/effect/landmark/start{
+	name = "Brig Officer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -50655,7 +50665,7 @@
 	name = "Medical gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/med{
-	loot = list(/obj/item/storage/fancy/cigarettes/cigpack_med = 50, /obj/item/stack/nanopaste = 50, /obj/item/storage/pill_bottle/random_meds/labelled = 50, /obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50, /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50, /obj/item/scalpel/laser/manager = 50, /obj/item/organ/internal/heart/gland/ventcrawling = 50, /obj/item/organ/internal/heart/gland/heals = 50, /obj/item/dnainjector/regenerate = 50, /obj/item/dnainjector/nobreath = 50, /obj/item/dnainjector/telemut = 50, /obj/item/reagent_containers/glass/bottle/regeneration = 50, /obj/item/reagent_containers/glass/bottle/sensory_restoration = 50, /obj/item/autopsy_scanner = 50, /obj/item/organ/internal/cyberimp/eyes/hud/medical = 50, /obj/item/gun/medbeam = 50, /obj/item/reagent_containers/applicator/dual/syndi = 50, /obj/item/reagent_containers/glass/bottle/retrovirus = 50, /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50, /obj/item/reagent_containers/glass/bottle/tuberculosiscure = 50, /obj/item/reagent_containers/glass/bottle/gbs = 50, /obj/item/bodyanalyzer/advanced = 50);
+	loot = list(/obj/item/storage/fancy/cigarettes/cigpack_med=50,/obj/item/stack/nanopaste=50,/obj/item/storage/pill_bottle/random_meds/labelled=50,/obj/item/reagent_containers/glass/bottle/reagent/omnizine=50,/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent=50,/obj/item/scalpel/laser/manager=50,/obj/item/organ/internal/heart/gland/ventcrawling=50,/obj/item/organ/internal/heart/gland/heals=50,/obj/item/dnainjector/regenerate=50,/obj/item/dnainjector/nobreath=50,/obj/item/dnainjector/telemut=50,/obj/item/reagent_containers/glass/bottle/regeneration=50,/obj/item/reagent_containers/glass/bottle/sensory_restoration=50,/obj/item/autopsy_scanner=50,/obj/item/organ/internal/cyberimp/eyes/hud/medical=50,/obj/item/gun/medbeam=50,/obj/item/reagent_containers/applicator/dual/syndi=50,/obj/item/reagent_containers/glass/bottle/retrovirus=50,/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent=50,/obj/item/reagent_containers/glass/bottle/tuberculosiscure=50,/obj/item/reagent_containers/glass/bottle/gbs=50,/obj/item/bodyanalyzer/advanced=50);
 	lootcount = 8;
 	name = "5. Medical gear"
 	},
@@ -50672,7 +50682,7 @@
 	name = "Service gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/serv{
-	loot = list(/obj/item/storage/box/beakers/bluespace = 50, /obj/item/storage/box/monkeycubes = 50, /obj/item/storage/box/monkeycubes = 50, /obj/item/storage/box/stockparts/deluxe = 50, /obj/item/storage/box/rndboards = 50, /obj/item/reagent_containers/spray/cleaner = 50, /obj/item/soap = 50, /obj/item/clothing/under/syndicate/combat = 50, /obj/item/soap/syndie = 50, /obj/item/lighter/zippo/gonzofist = 50, /obj/item/clothing/under/psyjump = 50, /obj/item/immortality_talisman = 50, /obj/item/t_scanner/adv_mining_scanner = 50, /obj/item/storage/box/bartender_rare_ingredients_kit = 50, /obj/item/storage/box/chef_rare_ingredients_kit = 50, /obj/item/grenade/clusterbuster/cleaner = 50, /obj/item/mining_voucher = 50, /obj/item/gun/energy/kinetic_accelerator/experimental = 50, /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 50, /obj/item/seeds/random/labelled = 50, /obj/item/seeds/random/labelled = 50, /obj/item/seeds/random/labelled = 50, /obj/item/grenade/clusterbuster/honk = 50, /obj/item/bikehorn/golden = 50);
+	loot = list(/obj/item/storage/box/beakers/bluespace=50,/obj/item/storage/box/monkeycubes=50,/obj/item/storage/box/monkeycubes=50,/obj/item/storage/box/stockparts/deluxe=50,/obj/item/storage/box/rndboards=50,/obj/item/reagent_containers/spray/cleaner=50,/obj/item/soap=50,/obj/item/clothing/under/syndicate/combat=50,/obj/item/soap/syndie=50,/obj/item/lighter/zippo/gonzofist=50,/obj/item/clothing/under/psyjump=50,/obj/item/immortality_talisman=50,/obj/item/t_scanner/adv_mining_scanner=50,/obj/item/storage/box/bartender_rare_ingredients_kit=50,/obj/item/storage/box/chef_rare_ingredients_kit=50,/obj/item/grenade/clusterbuster/cleaner=50,/obj/item/mining_voucher=50,/obj/item/gun/energy/kinetic_accelerator/experimental=50,/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs=50,/obj/item/seeds/random/labelled=50,/obj/item/seeds/random/labelled=50,/obj/item/seeds/random/labelled=50,/obj/item/grenade/clusterbuster/honk=50,/obj/item/bikehorn/golden=50);
 	lootcount = 8;
 	name = "7. Service gear"
 	},
@@ -59026,7 +59036,7 @@
 /area/shuttle/specops)
 "clH" = (
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber North";
 	network = list("Toxins","Research","SS13")
 	},
@@ -61629,7 +61639,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor" = "Burn Mix")
+	sensors = list("burn_sensor"="Burn Mix")
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -64616,7 +64626,7 @@
 /area/storage/tech)
 "cvv" = (
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber East";
 	dir = 8;
 	network = list("Toxins","Research","SS13")
@@ -65547,7 +65557,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -65753,7 +65763,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -67097,7 +67107,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -69059,7 +69069,7 @@
 /area/toxins/test_area)
 "cDN" = (
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber South";
 	dir = 1;
 	network = list("Toxins","Research","SS13")
@@ -71313,7 +71323,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /obj/machinery/alarm{
 	pixel_y = 22
@@ -74976,7 +74986,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor" = "Tank")
+	sensors = list("tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -77186,7 +77196,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor" = "Tank")
+	sensors = list("waste_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -79618,7 +79628,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor" = "Tank")
+	sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -82597,7 +82607,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor" = "Tank")
+	sensors = list("co2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -83287,7 +83297,7 @@
 	name = "Engineering gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/eng{
-	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/internals/emergency_oxygen/double = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
+	loot = list(/obj/item/pickaxe/drill/jackhammer=50,/obj/item/storage/belt/utility/chief/full=50,/obj/item/clothing/glasses/welding=50,/obj/item/storage/belt/utility/full/multitool=50,/obj/item/clothing/shoes/magboots=50,/obj/item/rcd/combat=50,/obj/item/rpd/bluespace=50,/obj/item/tank/internals/emergency_oxygen/double=50,/obj/item/storage/backpack/holding=50,/obj/item/clothing/glasses/meson/night=50,/obj/item/clothing/glasses/material=50,/obj/item/grenade/clusterbuster/metalfoam=50,/obj/item/crowbar/power=50,/obj/item/screwdriver/power=50,/obj/item/t_scanner/extended_range=50,/obj/item/borg/upgrade/abductor_engi=50);
 	lootcount = 8;
 	name = "8. Eng. gear"
 	},
@@ -83481,14 +83491,14 @@
 "dhl" = (
 /obj/machinery/light/spot,
 /obj/effect/spawner/lootdrop/trade_sol/largeitem{
-	loot = list(/obj/machinery/floodlight = 50, /obj/machinery/disco = 50, /obj/mecha/combat/durand/old = 50, /obj/machinery/snow_machine = 50);
+	loot = list(/obj/machinery/floodlight=50,/obj/machinery/disco=50,/obj/mecha/combat/durand/old=50,/obj/machinery/snow_machine=50);
 	name = "3. Large item"
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "dhm" = (
 /obj/effect/spawner/lootdrop/trade_sol/vehicle{
-	loot = list(/obj/vehicle/motorcycle = 50, /obj/vehicle/snowmobile/key = 50, /obj/vehicle/snowmobile/blue/key = 50, /obj/vehicle/space/speedbike/red = 50, /obj/vehicle/space/speedbike = 50);
+	loot = list(/obj/vehicle/motorcycle=50,/obj/vehicle/snowmobile/key=50,/obj/vehicle/snowmobile/blue/key=50,/obj/vehicle/space/speedbike/red=50,/obj/vehicle/space/speedbike=50);
 	name = "4. Vehicle"
 	},
 /turf/simulated/floor/wood,
@@ -83646,7 +83656,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor" = "Tank")
+	sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -83690,7 +83700,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor" = "Tank")
+	sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -83734,7 +83744,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor" = "Tank")
+	sensors = list("air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -90972,7 +90982,7 @@
 /area/shuttle/escape)
 "kNZ" = (
 /obj/machinery/door/poddoor/multi_tile/two_tile_hor{
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70);
+	armor = list("melee"=30,"bullet"=30,"laser"=20,"energy"=20,"bomb"=10,"bio"=100,"rad"=100,"fire"=80,"acid"=70);
 	damage_deflection = 30;
 	explosion_block = 2;
 	id_tag = "SecureArmory";
@@ -131136,7 +131146,7 @@ ajJ
 asy
 aFL
 amb
-apG
+aoQ
 aFL
 apG
 auI
