@@ -48,11 +48,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
 			continue
-
-		possible_targets += possible_target
+		possible_targets[possible_target.assigned_role] += list(possible_target)
 
 	if(possible_targets.len > 0)
-		target = pick(possible_targets)
+		var/target_role = pick(possible_targets)
+		target = pick(possible_targets[target_role])
 
 /**
   * Called when the objective's target goes to cryo.
@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon/find_target()
 	..()
 	if(target && target.current)
-		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
+		explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 	return target

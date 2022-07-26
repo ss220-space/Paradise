@@ -11,7 +11,7 @@
 	melee_damage_type = STAMINA
 	melee_damage_lower = 10
 	melee_damage_upper = 8
-	attacktext = "bites"
+	attacktext = "кусает"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 
@@ -30,7 +30,7 @@
 	desc = "Мудрый служебный пес, названный в честь единственной собаки удостоившийся боевой награды."
 	icon_state = "german_shep2"
 	icon_living = "german_shep2"
-	icon_resting = ""
+	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)

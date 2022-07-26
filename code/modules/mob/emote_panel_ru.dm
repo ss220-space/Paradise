@@ -148,6 +148,11 @@
 	set category = "Эмоции"
 	usr.emote("sniff")
 
+/mob/living/carbon/human/verb/emote_snuffle()
+	set name = "~ Шмыгать носом "
+	set category = "Эмоции"
+	usr.emote("snuffle")
+
 /mob/living/carbon/human/verb/emote_snore()
 	set name = "> Храпеть "
 	set category = "Эмоции"
@@ -374,6 +379,11 @@
 	set name = "< Шипеть >"
 	set category = "Эмоции"
 	usr.emote("hiss")
+
+/mob/living/carbon/human/proc/emote_hisses()
+	set name = "< Шипеть >"
+	set category = "Эмоции"
+	usr.emote("hisses")
 
 /mob/living/carbon/human/proc/emote_quill()
 	set name = "< Шуршать перьями >"

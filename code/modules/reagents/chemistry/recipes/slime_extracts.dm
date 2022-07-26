@@ -147,7 +147,8 @@
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
-		/obj/item/reagent_containers/food/snacks/monstermeat
+		/obj/item/reagent_containers/food/snacks/monstermeat,
+		/obj/item/reagent_containers/food/snacks/grown/tomato/debug,
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
@@ -492,6 +493,10 @@
 /datum/chemical_reaction/slimeexplosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
+	var/area/A = get_area(T)
+	message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>")
+	log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([T.x],[T.y],[T.z])")
+	add_attack_logs(usr, src, "has primed for detonation", ATKLOG_MOST)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
 	spawn(50)
 		if(holder && holder.my_atom)

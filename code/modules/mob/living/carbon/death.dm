@@ -37,12 +37,15 @@ do {\
 	var/list/to_be_picked_from = target?.internal_organs.Copy()
 	var/excessive_infinite_cycle_counter = 0 // not needed but tbh im scared of unfound ussues possibly causing server to enter infinite loop
 	var/max_cycles_amount = 200 // made it bigger in order to prevent premature while ending for species with more organs / very endurable organs / etc
+
+	var/list/to_be_picked_from = target.internal_organs.Copy()
 	while (internal_damage > 0 && to_be_picked_from && to_be_picked_from.len > 0 && excessive_infinite_cycle_counter < max_cycles_amount)
 		var/obj/item/organ/internal/organ_picked = pick(to_be_picked_from)
 		APPLY_DAMAGE(min(rand(5,19), internal_damage), organ_picked, internal_damage)
 		if (organ_picked.damage >= organ_picked.max_damage) // you can't check if the organ is dead because of immortality of the brain
 			to_be_picked_from.Remove(organ_picked)
 		excessive_infinite_cycle_counter++
+
 
 #undef APPLY_DAMAGE
 
