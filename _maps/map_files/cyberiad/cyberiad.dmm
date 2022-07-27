@@ -1450,9 +1450,6 @@
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start{
-	name = "Brig Officer"
-	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aef" = (
@@ -7533,7 +7530,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/closet/secure_closet/security/brigofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -9866,6 +9862,7 @@
 	},
 /area/security/lobby)
 "asR" = (
+/obj/structure/closet/secure_closet/security/brigofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -131146,7 +131143,7 @@ ajJ
 asy
 aFL
 amb
-aoQ
+apG
 aFL
 apG
 auI
