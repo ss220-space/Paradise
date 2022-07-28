@@ -472,6 +472,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			status_flags &= ~CANPUSH
 			QDEL_NULL(mmi)
 			mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
+			UnlinkSelf()
 
 	//languages
 	module.add_languages(src)
