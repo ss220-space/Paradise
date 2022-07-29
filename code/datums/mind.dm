@@ -155,6 +155,16 @@
 			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
 			obj_count++
 		output += "</UL>"
+
+	if(LAZYLEN(ambition_objectives))
+		output += "<HR><B>Амбиции:</B><UL>"
+
+		var/amb_count = 1
+		for(var/datum/ambition_objective/objective in ambition_objectives)
+			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.get_description()]</LI>"
+			amb_count++
+		output += "</UL>"
+
 	if(window)
 		recipient << browse(output, "window=memory")
 	else
