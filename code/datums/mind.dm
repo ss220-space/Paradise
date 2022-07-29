@@ -162,6 +162,11 @@
 		var/amb_count = 1
 		for(var/datum/ambition_objective/objective in ambition_objectives)
 			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.get_description()]</LI>"
+			output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Delete</a> " // Delete
+			output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Mark Completed
+			output += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
+			output += "</a>"
+			output += "<br>"
 			amb_count++
 		output += "</UL>"
 
@@ -758,6 +763,27 @@
 
 		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has toggled the completion of one of [key_name_admin(current)]'s objectives")
+
+	else if(href_list["amb_delete"])
+		var/datum/objective/objective = locate(href_list["amb_delete"])
+		if(!istype(objective))
+			return
+
+		//job.ambitions_objectives.Remove(objective)
+		objectives -= objective
+
+		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s ambition objectives: [objective]")
+		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s ambition objectives: [objective]")
+		qdel(objective)
+
+	else if(href_list["amb_completed"])
+		var/datum/objective/objective = locate(href_list["amb_completed"])
+		if(!istype(objective))
+			return
+		objective.completed = !objective.completed
+
+		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambition objectives")
+		message_admins("[key_name_admin(usr)] has toggled the completion of one of [key_name_admin(current)]'s ambition objectives")
 
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
