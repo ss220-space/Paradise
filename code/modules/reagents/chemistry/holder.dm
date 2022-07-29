@@ -1,5 +1,5 @@
-#define ADDICTION_TIME 4800 //8 minutes
-#define MINOR_ADDICTION_TIME 27000 //45 minutes
+#define ADDICTION_TIME 8 MINUTES
+#define MINOR_ADDICTION_TIME 45 MINUTES
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -669,8 +669,7 @@
 	return TRUE
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
+	for(var/datum/reagent/R in reagent_list)
 		if(R.id == reagent)
 			if(!amount)
 				return R
@@ -682,8 +681,7 @@
 	return FALSE
 
 /datum/reagents/proc/has_addict_supertype_reagent(reagent, amount = -1)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
+	for(var/datum/reagent/R in reagent_list)
 		if(R.id == R.addict_supertype)
 			if(!amount)
 				return R

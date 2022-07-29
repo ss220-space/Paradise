@@ -91,8 +91,7 @@
 			M.reagents.addiction_list.Add(new_reagent)
 
 /datum/reagent/proc/sate_addiction(mob/living/M) //reagents sate their own withdrawals
-	for(var/A in M.reagents.addiction_list)
-		var/datum/reagent/AD = A
+	for(var/datum/reagent/AD in M.reagents.addiction_list)
 		if(AD && istype(AD, addict_supertype))
 			AD.last_addiction_dose = world.timeofday
 			AD.addiction_stage = 1
