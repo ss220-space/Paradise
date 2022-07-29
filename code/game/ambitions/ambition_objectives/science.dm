@@ -40,6 +40,6 @@
 	per_unit = 1
 
 /datum/ambition_objective/make_ripley/get_description()
-	var/desc = "Построить АТМЕ «Рипли» или «Огнеборца»."
+	var/desc = "Построить АТМЕ «Рипли» или «Огнеборца». Тест 3"
 	desc += "(построено [units_completed])."
 	return desc
