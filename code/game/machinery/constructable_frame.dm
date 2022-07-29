@@ -123,7 +123,7 @@
 				return
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
-				if(!anchored && !isinspace())
+			  if(!anchored && !isinspace())
 					anchored = TRUE
 					WRENCH_ANCHOR_MESSAGE
 				else if(anchored)
