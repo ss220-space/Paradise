@@ -63,7 +63,8 @@
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "SUCCESS"))
 				tasks_completed++
 			else
-				text += "<br>&nbsp;-&nbsp;<B>Амбиция №[count]</B>: [objective.get_description()] <font color='red'><b> не осуществлена.</b></font>"
+			//	//отключено текстовое отображение не выполненных амбиций
+			//	text += "<br>&nbsp;-&nbsp;<B>Амбиция №[count]</B>: [objective.get_description()] <font color='red'><b> не осуществлена.</b></font>"
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "FAIL"))
 			count++
 
