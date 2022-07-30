@@ -109,6 +109,10 @@
 		/datum/job_objective/make_cyborg,
 		/datum/job_objective/make_ripley
 	)
+	ambitions_objectives = list(
+		/datum/ambition_objective/make_cyborg,
+		/datum/ambition_objective/make_ripley
+	)
 
 	outfit = /datum/outfit/job/roboticist
 
