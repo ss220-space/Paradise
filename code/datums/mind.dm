@@ -78,6 +78,8 @@
 
 	var/list/learned_recipes //List of learned recipe TYPES.
 
+	var/ambition_limit = 6 //Лимит амбиций
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -156,24 +158,28 @@
 			obj_count++
 		output += "</UL>"
 
+	// Кнопки для амбиций и их отображение
+	output += "<HR><B>Амбиции:</B><UL>"
 	if(LAZYLEN(ambition_objectives))
-		output += "<HR><B>Амбиции:</B><UL>"
 
 		var/amb_count = 1
 		for(var/datum/ambition_objective/objective in ambition_objectives)
 			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.get_description()]</LI>"
-			output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Delete</a> " // Delete
-			output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Mark Completed
-			output += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
+			output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
+			output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
+			output += "<font color=[objective.completed ? "green" : "red"]>Переключить</font>"
 			output += "</a>"
 			output += "<br>"
 			amb_count++
-		output += "</UL>"
+
+	output += "<a href='?src=[UID()];amb_add=1'>Добавить амбицию</a><br><br>"
+	output += "</UL>"
 
 	if(window)
 		recipient << browse(output, "window=memory")
 	else
 		to_chat(recipient, "<i>[output]</i>")
+
 
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
@@ -542,7 +548,54 @@
 	usr << browse(out, "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
-	if(!check_rights(R_ADMIN))
+
+	//функция обходящая админские кнопки и не дающая залезть в антаг_панель
+	var/ambition_func = FALSE
+
+	if(href_list["amb_add"])
+		ambition_func = TRUE
+		if (ambition_objectives.len < ambition_limit)
+			var/datum/ambition_objective/objective
+			objective = /datum/ambition_objective/make_cyborg
+
+			ambition_objectives.Add(objective)
+
+			log_admin("[key_name(usr)] has added [key_name(current)]'s ambition.")
+			message_admins("[key_name(usr)] has added [key_name(current)]'s ambition.")
+			qdel(objective)
+
+			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.get_description()].</span>")
+
+		else
+			to_chat(usr, "<span class='warning'>Количество амбиций переполнено, избавьтесь от неосуществимых.</span>")
+
+
+	else if(href_list["amb_delete"])
+		ambition_func = TRUE
+		var/datum/ambition_objective/objective = locate(href_list["amb_delete"])
+		if(!istype(objective))
+			return
+		ambition_objectives.Remove(objective)
+
+		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
+		message_admins("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
+		qdel(objective)
+
+	else if(href_list["amb_completed"])
+		ambition_func = TRUE
+		var/datum/ambition_objective/objective = locate(href_list["amb_completed"])
+		if(!istype(objective))
+			return
+		objective.completed = !objective.completed
+
+		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
+		message_admins("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
+
+	// Обновляем открытую память
+	if (ambition_func)
+		show_memory()
+
+	if(!check_rights(R_ADMIN) && !ambition_func)
 		return
 
 	if(href_list["role_edit"])
@@ -763,27 +816,6 @@
 
 		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has toggled the completion of one of [key_name_admin(current)]'s objectives")
-
-	else if(href_list["amb_delete"])
-		var/datum/objective/objective = locate(href_list["amb_delete"])
-		if(!istype(objective))
-			return
-
-		//job.ambitions_objectives.Remove(objective)
-		objectives -= objective
-
-		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s ambition objectives: [objective]")
-		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s ambition objectives: [objective]")
-		qdel(objective)
-
-	else if(href_list["amb_completed"])
-		var/datum/objective/objective = locate(href_list["amb_completed"])
-		if(!istype(objective))
-			return
-		objective.completed = !objective.completed
-
-		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambition objectives")
-		message_admins("[key_name_admin(usr)] has toggled the completion of one of [key_name_admin(current)]'s ambition objectives")
 
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
@@ -1675,7 +1707,8 @@
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
-	edit_memory()
+	if(!ambition_func)
+		edit_memory()
 
 
 // Datum antag mind procs

@@ -17,7 +17,6 @@
 	var/units_compensated = 0 // Shit paid for
 	var/units_requested = INFINITY
 	var/completion_payment = 0			// Credits paid to owner when completed
-
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
 	owner.ambition_objectives += src

@@ -8,8 +8,8 @@
 	per_unit = 1
 
 /datum/ambition_objective/further_research/get_description()
-	var/desc = "Изучить уровни технологий, и доставить их шаттлом снабжения на ЦК. ТЕСТ 1"
-	desc += "(сделано [units_completed])."
+	var/desc = "Тестовая амбиция 1"
+	//desc += "(сделано [units_completed])."
 	return desc
 
 /datum/ambition_objective/maximize_research/check_for_completion()
@@ -28,8 +28,8 @@
 	per_unit = 1
 
 /datum/ambition_objective/make_cyborg/get_description()
-	var/desc = "Построить киборга. ТЕСТ 2"
-	desc += "(построено [units_completed])."
+	var/desc = "Тестовая амбиция 2"
+	//desc += "(построено [units_completed])."
 	return desc
 
 
@@ -40,6 +40,6 @@
 	per_unit = 1
 
 /datum/ambition_objective/make_ripley/get_description()
-	var/desc = "Построить АТМЕ «Рипли» или «Огнеборца». Тест 3"
-	desc += "(построено [units_completed])."
+	var/desc = "Тестовая амбиция 3"
+	//desc += "(построено [units_completed])."
 	return desc
