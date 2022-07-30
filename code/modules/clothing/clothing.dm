@@ -751,6 +751,29 @@ BLIND     // can't see anything
 	QDEL_LIST(accessories)
 	return ..()
 
+
+/obj/item/clothing/under/dropped(mob/user, silent)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(slot_w_uniform) == src)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attached_unequip()
+
+/obj/item/clothing/under/equipped(mob/user, slot, initial)
+	if(!ishuman(user))
+		return
+	if(slot == slot_w_uniform)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attached_equip()
+
+/*
+  * # can_attach_accessory
+  *
+  * Arguments:
+  * * A - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+*/
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
 		. = TRUE
@@ -895,7 +918,7 @@ BLIND     // can't see anything
 		"Neara" = 'icons/mob/species/monkey/neck.dmi',
 		"Stok" = 'icons/mob/species/monkey/neck.dmi'
 		)
-	
+
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!teleportation)
 		return ..()
@@ -909,7 +932,7 @@ BLIND     // can't see anything
 			if(T.density)
 				continue
 			if(T.x>world.maxx-3 || T.x<3)
-				continue			
+				continue
 			if(T.y>world.maxy-3 || T.y<3)
 				continue
 			turfs += T

@@ -29,5 +29,6 @@ GLOBAL_LIST_INIT(other_roles, list(
 	ROLE_ERT,
 	ROLE_GHOST,
 	"AntagHUD",
-	"Records"
+	"Records",
+	ROLE_ELITE
 ))

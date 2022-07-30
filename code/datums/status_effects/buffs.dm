@@ -246,5 +246,103 @@
 	duration = 250
 	alert_type = null
 
+
 /datum/status_effect/terror/food_regen/tick()
 	owner.adjustBruteLoss(-(owner.maxHealth/20))
+
+/datum/status_effect/speedlegs/before_remove()
+	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
+		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
+		return FALSE
+	return TRUE
+
+/datum/status_effect/speedlegs/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	if(!owner.IsWeakened())
+		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
+		if(stacks >= 7)
+			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
+			owner.Weaken(6 SECONDS)
+			owner.emote("gasp")
+	cling.genetic_damage += stacks
+	cling = null
+
+/datum/status_effect/chainsaw_slaying
+	id = "chainsaw_slaying"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/chainsaw
+
+/obj/screen/alert/status_effect/chainsaw
+	name = "Revved up!"
+	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
+	icon_state = "chainsaw"
+
+/datum/status_effect/chainsaw_slaying/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.brute_mod *= 0.8
+			H.physiology.burn_mod *= 0.8
+			H.physiology.stamina_mod *= 0.8
+		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
+		owner.add_stun_absorption("chainsaw", INFINITY, 4)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+
+/datum/status_effect/chainsaw_slaying/on_remove()
+	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
+		owner.remove_stun_absorption("chainsaw")
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.brute_mod /= 0.8
+		H.physiology.burn_mod /=0.8
+		H.physiology.stamina_mod /= 0.8
+
+/datum/status_effect/hope
+	id = "hope"
+	duration = -1
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /obj/screen/alert/status_effect/hope
+
+/obj/screen/alert/status_effect/hope
+	name = "Hope."
+	desc = "A ray of hope beyond dispair."
+	icon_state = "hope"
+
+/datum/status_effect/hope/tick()
+	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
+		return
+	if(owner.health > 50)
+		if(prob(0.5))
+			hope_message()
+		return
+	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
+	owner.adjustBruteLoss(-heal_multiplier * 0.5)
+	owner.adjustFireLoss(-heal_multiplier * 0.5)
+	owner.adjustOxyLoss(-heal_multiplier)
+	if(prob(heal_multiplier * 2))
+		hope_message()
+
+/datum/status_effect/hope/proc/hope_message()
+	var/list/hope_messages = list("You are filled with [pick("hope", "determination", "strength", "peace", "confidence", "robustness")].",
+							"Don't give up!",
+							"You see your [pick("friends", "family", "coworkers", "self")] [pick("rooting for you", "cheering you on", "worrying about you")].",
+							"You can't give up now, keep going!",
+							"But you refused to die!",
+							"You have been through worse, you can do this!",
+							"People need you, do not [pick("give up", "stop", "rest", "pass away", "falter", "lose hope")] yet!",
+							"This person is not nearly as robust as you!",
+							"You ARE robust, don't let anyone tell you otherwise!",
+							"[owner], don't lose hope, the future of the station depends on you!",
+							"Do not follow the light yet!")
+	var/list/un_hopeful_messages = list("DON'T FUCKING DIE NOW COWARD!",
+							"Git Gud, [owner]",
+							"I bet a [pick("vox", "vulp", "nian", "tajaran", "baldie")] could do better than you!",
+							"You hear people making fun of you for getting robusted.")
+	if(prob(99))
+		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+	else
+		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
