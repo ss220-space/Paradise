@@ -788,7 +788,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gibself") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set name = "Check Contents"
+	set name = "\[Admin\] Check Contents"
 	set category = null
 
 	if(!check_rights(R_ADMIN))
