@@ -13,6 +13,8 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
+#define TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER 2 // coefficient wich defines ratio of toxin into internal organs damage transfer
+
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
@@ -175,6 +177,12 @@
 #define STATUS_UPDATE_ALL (~0)
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
+
+// Incorporeal movement
+#define INCORPOREAL_NONE 0
+#define INCORPOREAL_NORMAL 1
+#define INCORPOREAL_NINJA 2
+#define INCORPOREAL_REVENANT 3
 
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))

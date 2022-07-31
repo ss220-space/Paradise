@@ -15,6 +15,20 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/paramedic_jacket
+	name = "paramedic jacket"
+	desc = "Standard issue paramedic jacket. Not that different from any other work apparel, except for the bright, reflective stripes"
+	blood_overlay_type = "armor"
+	icon_state = "paramedic_jacket_open"
+	item_state = "paramedic_jacket_open"
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
+	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+
 //Brig Physician
 /obj/item/clothing/suit/storage/brigdoc
 	name = "brig physician vest"
@@ -106,7 +120,7 @@
 	icon_state = "monkrobe"
 	item_state = "monkrobe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/monk_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 

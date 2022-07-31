@@ -28,6 +28,8 @@
 	var/last_sound = 0
 	var/required_mode_to_deconstruct = -1
 	var/deconstructs_to = PIPE_DISPOSALS_BIN
+	var/storage_slots = 50 //The number of storage slots in this container.
+	var/max_combined_w_class = 50 //The sum of the w_classes of all the items in this storage item.
 	active_power_usage = 600
 	idle_power_usage = 100
 
@@ -92,6 +94,34 @@
 	air_contents.merge(removed)
 	trunk_check()
 
+//This proc returns TRUE if the item can be picked up and FALSE if it can't.
+//Set the stop_messages to stop it from printing messages
+/obj/machinery/disposal/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
+	if(!istype(W) || (W.flags & ABSTRACT)) //Not an item
+		return
+
+	if(loc == W)
+		return FALSE //Means the item is already in the storage item
+	if(contents.len >= storage_slots)
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
+		return FALSE //Storage item is full
+
+	var/sum_w_class = W.w_class
+	for(var/obj/item/I in contents)
+		sum_w_class += I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+
+	if(sum_w_class > max_combined_w_class)
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
+		return FALSE
+
+	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
+		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
+		return FALSE
+
+	return TRUE
+
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
 	if(stat & BROKEN || !I || !user)
@@ -107,9 +137,15 @@
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
-			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
 			for(var/obj/item/O in S.contents)
+				if(!can_be_inserted(O))
+					break
 				S.remove_from_storage(O, src)
+				O.add_hiddenprint(user)
+			if(!S.contents.len)
+				user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
+			else
+				user.visible_message("[user] dumped some items from \the [S] into \the [src].", "You dumped some items \the [S] into \the [src].")
 			S.update_icon() // For content-sensitive icons
 			update()
 			return
@@ -131,6 +167,8 @@
 	if(!I)
 		return
 
+	if(!can_be_inserted(I))
+		return
 	if(!user.drop_item())
 		return
 	if(I)
@@ -480,7 +518,7 @@
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
-		if(prob(75))
+		if(prob(75) && can_be_inserted(I, TRUE))
 			I.forceMove(src)
 			for(var/mob/M in viewers(src))
 				M.show_message("\the [I] lands in \the [src].", 3)

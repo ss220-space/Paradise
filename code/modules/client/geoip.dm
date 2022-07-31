@@ -48,13 +48,13 @@ var/global/list/geoip_ckey_updated = list()
 				proxy = "<span style='color: red'>true</span>"
 
 				if(config.proxy_autoban)
-					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением."
-					var/list/play_records = params2list(C.prefs.exp)
-					var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
-					if(livingtime > 600) // 10 hours * 60 min
-						to_chat(C, "<span class='danger'><BIG><B>[reason]</B></BIG></span>")
-						del(C)
-						return
+					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
+					// var/list/play_records = params2list(C.prefs.exp)
+					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
+					// if(livingtime > 600) // 10 hours * 60 min
+					// 	to_chat(C, "<span class='danger'><BIG><B>[reason]</B></BIG></span>")
+					// 	del(C)
+					// 	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
 					to_chat(C, "<span class='danger'><BIG><B>You have been banned by SyndiCat.\nReason: [reason].</B></BIG></span>")
 					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
@@ -110,161 +110,9 @@ var/global/list/geoip_ckey_updated = list()
 					ip = msg[data]
 		status = "updated"
 		if(proxy == "true")
-			proxy = is_isp_really_proxy(isp) ? "true" : "false"
-	return TRUE
-
-/datum/geoip_data/proc/is_isp_really_proxy(isp)
-	switch(isp)
-		if("Yuginterseti LLC")
-			return FALSE
-		if("Orion Telecom LLC")
-			return FALSE
-		if("OJSC \"Sibirtelecom\"")
-			return FALSE
-		if("NCNET")
-			return FALSE
-		if("PC \"Astra-net\"")
-			return FALSE
-		if("TIS-DIALOG")
-			return FALSE
-		if("K-Link LLC")
-			return FALSE
-		if("LLC \"TEXNOPROSISTEM\"")
-			return FALSE
-		if("CJSC \"ER-Telecom Holding\" Kurgan branch")
-			return FALSE
-		if("CJSC \"ER-Telecom Holding\" Ufa branch")
-			return FALSE
-		if("CMST-ULJANOVSK")
-			return FALSE
-		if("CORBINA-BROADBAND")
-			return FALSE
-		if("JSC Avantel")
-			return FALSE
-		if("JSC Kazakhtelecom")
-			return FALSE
-		if("JSC \"Russian Company\" LIR")
-			return FALSE
-		if("JSC Svyazist")
-			return FALSE
-		if("Lugansky Merezhy Ltd")
-			return FALSE
-		if("Mobile TeleSystems")
-			return FALSE
-		if("Moscow Local Telephone Network (OAO MGTS)")
-			return FALSE
-		if("OJSC \"Sibirtelecom\"")
-			return FALSE
-		if("Orenburg branch of OJSC VolgaTelecom")
-			return FALSE
-		if("PJSC Bashinformsvyaz NAT")
-			return FALSE
-		if("PJSC Promtelecom")
-			return FALSE
-		if("Podolsk Electrosvyaz Ltd.")
-			return FALSE
-		if("Public Joint Stock Company \"Vimpel-Communications\"")
-			return FALSE
-		if("RTCOMM")
-			return FALSE
-		if("Sakhalin Cable Telesystems Ltd")
-			return FALSE
-		if("Ukrainian Telecommunication Group LLC")
-			return FALSE
-		if("Uzbektelecom JSC")
-			return FALSE
-		if("Volga Branch of PJSC MegaFon")
-			return FALSE
-		if("ZagorodTelecom LLC")
-			return FALSE
-		if("Corporate Internet Service Provider LLC")
-			return FALSE
-		if("2Day Telecom LLP")
-			return FALSE
-		if("CRELCOM")
-			return FALSE
-		if("Kyivstar UA")
-			return FALSE
-		if("LLC TK Altair")
-			return FALSE
-		if("MTS PJSC")
-			return FALSE
-		if("NMTS")
-			return FALSE
-		if("CTC ASTANA LTD")
-			return FALSE
-		if("Tele2 Russia Groups")
-			return FALSE
-		if("PJSC MegaFon")
-			return FALSE
-		if("MegaFon-Moscow")
-			return FALSE
-		if("OJSC \"Sibirtelecom\"")
-			return FALSE
-		if("Rostelecom networks")
-			return FALSE
-		if("REDCOM LIR 6 Vladivostok")
-			return FALSE
-		if("Digital Network JSC")
-			return FALSE
-		if("MegaFon")
-			return FALSE
-		if("LLC \"PioneerNet\"")
-			return FALSE
-		if("CJSC \"ER-Telecom Holding\" Nizhny Novgorod branch")
-			return FALSE
-		if("PJSC \"Vimpelcom\"")
-			return FALSE
-		if("SEVEN-SKY")
-			return FALSE
-		if("pool-miranda")
-			return FALSE
-		if("Unico wireless network")
-			return FALSE
-		if("OJSC Kyrgyztelecom")
-			return FALSE
-		if("SPD Kurilov Sergiy Oleksandrovich")
-			return FALSE
-		if("VilTel Ltd")
-			return FALSE
-		if("MARK-ITT")
-			return FALSE
-		if("Sakhatelecom")
-			return FALSE
-		if("Dataline LLC")
-			return FALSE
-		if("LTD Magistral_Telecom")
-			return FALSE
-		if("SP Argaev Artem Sergeyevich")
-			return FALSE
-		if("LLC Digital Dialogue-Nets")
-			return FALSE
-		if("Corporate Internet Service Provider LLC")
-			return FALSE
-		if("NetDataComm, s.r.o.")
-			return FALSE
-		if("Telnet Ltd.")
-			return FALSE
-		if("Kabardino-Balkaria")
-			return FALSE
-		if("KVS Ltd")
-			return FALSE
-		if("Triolan")
-			return FALSE
-		if("Nikita Sergienko")
-			return FALSE
-		if("Teleskan-Intercom Ltd. network")
-			return FALSE
-		if("OOO NIIR-RadioNet")
-			return FALSE
-		if("LLC \"FTICOM\"")
-			return FALSE
-		if("Mediagrand Ltd.")
-			return FALSE
-		if("Internet96 llc")
-			return FALSE
-		if("JSC \"Ufanet\"")
-			return FALSE
+			proxy = (isp in GLOB.isp_whitelist) ? "false" : "true"
+		else
+			proxy = (isp in GLOB.isp_blacklist) ? "true" : "false"
 	return TRUE
 
 /proc/geoip_check(addr)
