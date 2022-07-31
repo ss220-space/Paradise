@@ -1,6 +1,6 @@
 /// Verb for opening the requests manager panel
 /client/proc/requests()
-	set name = "Requests Manager(As Observer)"
+	set name = "Requests Manager"
 	set desc = "Open the request manager panel to view all requests during this round"
 	set category = "Event"
 	GLOB.requests.ui_interact(usr)
