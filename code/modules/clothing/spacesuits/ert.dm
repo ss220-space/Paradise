@@ -289,5 +289,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	taser_proof = TRUE
 	strip_delay = 130
+	jetpack = /obj/item/tank/jetpack/suit
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
