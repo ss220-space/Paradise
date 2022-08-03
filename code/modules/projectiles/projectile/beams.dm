@@ -147,6 +147,11 @@
 	damage = 8
 	icon_state = "scatterlaser"
 
+/obj/item/projectile/beam/immolator/medium
+	name = "immolation beam"
+	damage = 25
+	icon_state = "laser"
+
 /obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
 	if(istype(target, /mob/living/carbon))
