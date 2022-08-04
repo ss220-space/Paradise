@@ -11,6 +11,7 @@ GLOBAL_DATUM_INIT(security_announcement_up, /datum/announcement/priority/securit
 GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0))
 
 /proc/set_security_level(var/level)
+	var/old_security_level = GLOB.security_level
 	switch(level)
 		if("green")
 			level = SEC_LEVEL_GREEN
@@ -135,6 +136,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 		SSnightshift.check_nightshift(TRUE)
+		update_civil_lighting_color(old_security_level)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
 		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
@@ -157,6 +159,21 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				mod.set_limit(limit)
 	else
 		return
+
+/proc/update_civil_lighting_color(old_level)
+	var/new_level = GLOB.security_level
+	if(new_level < SEC_LEVEL_RED && old_level < SEC_LEVEL_RED)
+		return
+
+	if(new_level > SEC_LEVEL_BLUE && old_level > SEC_LEVEL_BLUE)
+		return
+
+	var/set_emergency_light = (new_level > SEC_LEVEL_BLUE)
+
+	for(var/obj/machinery/light/light as anything in GLOB.civil_areas_lighting)
+		light.in_emergency_mode = set_emergency_light
+		light.update()
+
 
 /proc/get_security_level()
 	switch(GLOB.security_level)
