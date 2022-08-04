@@ -8,6 +8,8 @@
 #define LIGHT_BROKEN 2
 #define LIGHT_BURNED 3
 
+GLOBAL_LIST_EMPTY(civil_areas_lighting)
+
 /**
   * # Light fixture frame
   *
@@ -211,7 +213,8 @@
 	var/nightshift_light_color = "#FFDDCC"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
-
+	/// If this light is currently in emergency mode or not (activates on red and delta alerts)
+	var/in_emergency_mode = FALSE
 
 /**
   * # Small light fixture
@@ -237,11 +240,11 @@
 
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	. = ..()
 
 /obj/machinery/light/small/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	. = ..()
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -260,6 +263,14 @@
 			brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)
+
+	var/static/list/civil_areas_types = list()
+	if(!LAZYLEN(civil_areas_types))
+		civil_areas_types = typesof(/area/crew_quarters) + typesof(/area/hallway) + typesof(/area/chapel) + typesof(/area/civilian) + typesof(/area/storage) + list(/area/library)
+ 
+	if(is_on_level_name(src, MAIN_STATION) && (A.type in civil_areas_types))
+		GLOB.civil_areas_lighting += src
+
 	update(FALSE)
 
 /obj/machinery/light/Destroy()
@@ -267,6 +278,7 @@
 	if(A)
 		on = FALSE
 //		A.update_lights()
+	GLOB.civil_areas_lighting -= src
 	return ..()
 
 /obj/machinery/light/update_icon()
@@ -274,7 +286,7 @@
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
 			var/area/A = get_area(src)
-			if(A && A.fire)
+			if(A?.fire || in_emergency_mode)
 				icon_state = "[base_state]_emergency"
 			else
 				icon_state = "[base_state][on]"
@@ -309,7 +321,7 @@
 		if(color)
 			CO = color
 		var/area/A = get_area(src)
-		if(A && A.fire)
+		if(A?.fire || in_emergency_mode)
 			BR = brightness_range
 			PO = brightness_power
 			CO = bulb_emergency_colour
