@@ -171,11 +171,11 @@
 		return ", missing tool."
 	if(!check_pathtools(user, R, contents))
 		return ", missing tool."
-	
+
 	var/list/parts = del_reqs(R, user)
 	if(!parts)
 		return ", missing component."
-					
+
 	var/atom/movable/I = new R.result (get_turf(user.loc))
 	I.CheckParts(parts, R)
 	if(isitem(I))
@@ -184,7 +184,7 @@
 	if(send_feedback)
 		SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
-			
+
 
 /datum/personal_crafting/proc/del_reqs(datum/crafting_recipe/recipe, mob/user)
 	var/list/surroundings = get_environment(user)
@@ -203,7 +203,7 @@
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
-				
+
 				if(contained_reagent.volume > needed_amount)
 					things_for_deletion[container] = list(contained_reagent, needed_amount)
 					part_reagent.volume = needed_amount
@@ -215,7 +215,7 @@
 					things_for_deletion[container] = list(contained_reagent, contained_reagent.volume)
 					part_reagent.volume += contained_reagent.volume
 					part_reagent.data += contained_reagent.data
-	
+
 			if(needed_amount > 0)
 				return null
 
@@ -229,7 +229,7 @@
 			for(var/obj/item/stack/item_stack in (surroundings - things_for_deletion))
 				if(!istype(item_stack, thing))
 					continue
-				
+
 				if(item_stack.amount > needed_amount)
 					things_for_deletion[item_stack] = needed_amount
 					part_stack.amount += needed_amount
@@ -239,15 +239,17 @@
 					needed_amount -= item_stack.amount
 					part_stack.amount += item_stack.amount
 					things_for_deletion[item_stack] = item_stack.amount
-			
+
 			if(needed_amount > 0)
 				return null
 
 		else
-			var/atom/movable/part_atom = locate(thing) in (surroundings - parts_list_for_return)
-			if(!part_atom)
-				return null
-			parts_list_for_return += part_atom
+			while(needed_amount > 0)
+				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_list_for_return)
+				if(!part_atom)
+					return null
+				parts_list_for_return += part_atom
+				needed_amount -= 1
 
 	for(var/thing in things_for_deletion)
 		if(istype(thing, /obj/item/reagent_containers))
