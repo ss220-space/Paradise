@@ -1,6 +1,7 @@
 /obj/item/storage/pill_bottle/dice
-	name = "Мешок игральных костей"
-	desc = "Содержит всю удачу, которая вам могла бы пригодиться."
+	name = "bag of dice"
+	ru_names = list(NOMINATIVE = "мешок игральных костей", GENITIVE = "мешка игральных костей", DATIVE = "мешку игральных костей", ACCUSATIVE = "мешок игральных костей", INSTRUMENTAL = "мешком игральных костей", PREPOSITIONAL = "мешке игральных костей")
+	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
@@ -27,11 +28,12 @@
 		new /obj/item/dice/d100(src)
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] Игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!</span>")
+	user.visible_message("<span class='suicide'>[user] Игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже [genderize_ru(user.gender, "он пытается", "она пытается", "оно пытается", "они пытаются")] покончить жизнь самоубийством!</span>")
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
-	name = "Игральная кость"
+	name = "die"
+	ru_names = list(NOMINATIVE = "игральная кость", GENITIVE = "игральной кости", DATIVE = "игральной кости", ACCUSATIVE = "игральную кость", INSTRUMENTAL = "игральной костью", PREPOSITIONAL = "игральной кости")
 	desc = "Кость с шестью гранями. Непримечательна и проста в обращении."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
@@ -51,7 +53,7 @@
 	update_icon()
 
 /obj/item/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!</span>")
+	user.visible_message("<span class='suicide'>[user] играет со смертью! Похоже [genderize_ru(user.gender, "он пытается", "она пытается", "оно пытается", "они пытаются")] покончить жизнь самоубийством!</span>")
 	return (OXYLOSS)
 
 /obj/item/dice/d1
@@ -80,7 +82,8 @@
 	name = "d6"
 
 /obj/item/dice/fudge
-	name = "Fudge-кость"
+	name = "fudge die"
+	ru_names = list(NOMINATIVE = "Fudge-кость", GENITIVE = "Fudge-кости", DATIVE = "Fudge-кости", ACCUSATIVE = "Fudge-кость", INSTRUMENTAL = "Fudge-костью", PREPOSITIONAL = "Fudge-кости")
 	desc = "Кость с шестью гранями, но только с тремя результатами. Это плюс или минус? Ваш разум опустел..."
 	sides = 3
 	icon_state = "fudge"
@@ -199,7 +202,8 @@
 	overlays += "[icon_state][result]"
 
 /obj/item/storage/box/dice
-	name = "Коробка игральных костей"
+	name = "Box of dice"
+	ru_names = list(NOMINATIVE = "коробка игральных костей", GENITIVE = "коробки игральных костей", DATIVE = "коробке игральных костей", ACCUSATIVE = "коробку игральных костей", INSTRUMENTAL = "коробкой игральных костей", PREPOSITIONAL = "коробке игральных костей")
 	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
 	icon_state = "box"
 

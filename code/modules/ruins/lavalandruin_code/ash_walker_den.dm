@@ -36,7 +36,7 @@
 /obj/structure/lavaland/ash_walker/proc/consume()
 	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
 		if(H.stat)
-			visible_message("<span class='warning'>Шипастые усики жадно подтаскивают тело [H] и разрывают его на куски, окропляя кровью растущие яйца.</span>")
+			visible_message("<span class='warning'>Шипастые усики жадно подтаскивают тело [H.declent_ru(GENITIVE)] и разрывают его на куски, окропляя кровью растущие яйца.</span>")
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
 			for(var/obj/item/W in H)
 				if(!H.unEquip(W))

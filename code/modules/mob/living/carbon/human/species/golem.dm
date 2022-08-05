@@ -518,7 +518,7 @@
 			if(!(RADIMMUNE in I.dna.species.species_traits))
 				L.apply_effect(10, IRRADIATE)
 				if(prob(25)) //reduce spam
-					to_chat(L, "<span class='danger'>Вас окутывает мягкое зелёное свечение, исходящее от [H].</span>")
+					to_chat(L, "<span class='danger'>Вас окутывает мягкое зелёное свечение, исходящее от [H.declent_ru(ACCUSATIVE)].</span>")
 	..()
 
 //Ventcrawler
@@ -568,8 +568,8 @@
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>", \
-			"<span class='userdanger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>")
+			H.visible_message("<span class='danger'>[P.declent_ru(NOMINATIVE)] тонет в песчаном теле [H.declent_ru(GENITIVE)] без видимого вреда здоровью!</span>", \
+			"<span class='userdanger'>[P.declent_ru(NOMINATIVE)] тонет в песчаном теле [H.declent_ru(GENITIVE)] без видимого вреда здоровью!</span>")
 			return FALSE
 	return TRUE
 
@@ -602,7 +602,7 @@
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
-	H.visible_message("<span class='danger'>[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
+	H.visible_message("<span class='danger'>[H.declent_ru(NOMINATIVE)] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -612,8 +612,8 @@
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable)
-			H.visible_message("<span class='danger'>[P.name] отражается от стеклянной кожи [H]!</span>", \
-			"<span class='userdanger'>[P.name] отражается от стеклянной кожи [H]!</span>")
+			H.visible_message("<span class='danger'>[P.declent_ru(NOMINATIVE)] отражается от стеклянной кожи [H.declent_ru(GENITIVE)]!</span>", \
+			"<span class='userdanger'>[P.declent_ru(NOMINATIVE)] отражается от стеклянной кожи [H.declent_ru(GENITIVE)]!</span>")
 
 			P.reflect_back(H)
 
@@ -647,7 +647,7 @@
 	var/tele_range = 6
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
+	H.visible_message("<span class='warning'>[H.declent_ru(NOMINATIVE)] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -723,13 +723,13 @@
 /datum/action/innate/unstable_teleport/Activate()
 	activated = TRUE
 	var/mob/living/carbon/human/H = owner
-	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро…</span>")
+	H.visible_message("<span class='warning'>[H.declent_ru(NOMINATIVE)] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро…</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы телепортировались!</span>")
+	H.visible_message("<span class='warning'>[H.declent_ru(NOMINATIVE)] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы телепортировались!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(istype(T, /turf/space))

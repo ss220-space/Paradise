@@ -399,7 +399,7 @@
 	vampire_mind.som = null
 	slaved.leave_serv_hud(vampire_mind)
 	update_vampire_icons_removed(vampire_mind)
-	vampire_mind.current.visible_message("<span class='userdanger'>Кажется, будто тяжёлый груз упал с плеч [vampire_mind.current]!</span>", "<span class='userdanger'>Тёмная пелена спала с вашего рассудка. Ваш разум прояснился. Вы больше не [usr.gender == MALE ? "раб" : "раба"] вампира и снова отвечаете за свои действия!</span>")
+	vampire_mind.current.visible_message("<span class='userdanger'>Кажется, будто тяжёлый груз упал с плеч [vampire_mind.current]!</span>", "<span class='userdanger'>Тёмная пелена спала с вашего рассудка. Ваш разум прояснился. Вы больше не [genderize_ru(vampire_mind.current.gender, "раб", "рабыня", "раб", "рабы")] вампира и снова отвечаете за свои действия!</span>")
 	if(vampire_mind.current.hud_used)
 		vampire_mind.current.hud_used.remove_vampire_hud()
 

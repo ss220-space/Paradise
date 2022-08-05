@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_belt)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы навесить [name] на него.</span>")
+						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы навесить [declent_ru(ACCUSATIVE)] на него.</span>")
 					return 0
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
@@ -414,7 +414,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_wear_id)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы прикрепить к нему [name].</span>")
+						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы прикрепить к нему [declent_ru(ACCUSATIVE)].</span>")
 					return 0
 				if( !(slot_flags & SLOT_ID) )
 					return 0
@@ -429,7 +429,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [name] в карман.</span>")
+						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [declent_ru(ACCUSATIVE)] в карман.</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return
@@ -440,7 +440,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [name] в карман.</span>")
+						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [declent_ru(ACCUSATIVE)] в карман.</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_s_store)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте верхнюю одежду, чтобы положить [name] в карман.</span>")
+						to_chat(H, "<span class='warning'>Наденьте верхнюю одежду, чтобы положить [declent_ru(ACCUSATIVE)] в карман.</span>")
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
@@ -458,7 +458,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(src.w_class > WEIGHT_CLASS_BULKY)
 					if(!disable_warning)
-						to_chat(usr, "[name] слишком большого размера и не влезает в карман верхней одежды.")
+						to_chat(usr, "[declent_ru(NOMINATIVE)] слишком большого размера и не влезает в карман верхней одежды.")
 					return 0
 				if( istype(src, /obj/item/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
