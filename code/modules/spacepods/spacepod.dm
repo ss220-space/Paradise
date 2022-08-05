@@ -240,7 +240,7 @@
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
-		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
+		visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)]</span> [user.attacktext] [src.declent_ru(ACCUSATIVE)]!")
 		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 		add_attack_logs(user, src, "attacked")
 		return TRUE
