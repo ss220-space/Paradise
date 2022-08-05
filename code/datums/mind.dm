@@ -134,7 +134,7 @@
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
 		recipient = current
-	var/output = {"<meta charset="UTF-8"><B>[current.real_name]'s Memories:</B><HR>"}
+	var/output = {"<meta charset="UTF-8"><B>Память [current.real_name]:</B><HR>"}
 	output += memory
 
 	var/antag_datum_objectives = FALSE
@@ -144,15 +144,15 @@
 			antag_datum_objectives = TRUE
 
 	if(LAZYLEN(objectives) || antag_datum_objectives)
-		output += "<HR><B>Objectives:</B><BR>"
+		output += "<HR><B>Задачи:</B><BR>"
 		output += gen_objective_text()
 
 	if(LAZYLEN(job_objectives))
-		output += "<HR><B>Job Objectives:</B><UL>"
+		output += "<HR><B>Задачи профессии:</B><UL>"
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
+			output += "<LI><B>Задача #[obj_count]</B>: [objective.get_description("ru")]</LI>"
 			obj_count++
 		output += "</UL>"
 	if(window)
@@ -169,10 +169,10 @@
 
 	if(LAZYLEN(all_objectives))
 		for(var/datum/objective/objective in all_objectives)
-			. += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+			. += "<br><B>Задача #[obj_count++]</B>: [objective.explanation_text]"
 
 	for(var/datum/objective/objective in objectives)
-		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
+		. += "<b>Задача #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
 			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
 			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
@@ -1697,7 +1697,7 @@
 
 /datum/mind/proc/announce_objectives()
 	if(current)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		to_chat(current, "<span class='notice'>Ваши текущие задачи:</span>")
 		for(var/line in splittext(gen_objective_text(), "<br>"))
 			to_chat(current, line)
 
