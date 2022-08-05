@@ -127,6 +127,7 @@
 #define	WIRE_COLOR_PINK		"#dd20cc"
 #define	WIRE_COLOR_YELLOW	"#eebb20"
 #define	WIRE_COLOR_CYAN		"#20ddcc"
+#define	WIRE_COLOR_BLACK	"#000000"
 
 ///Main colors for UI themes
 #define COLOR_THEME_MIDNIGHT "#6086A0"

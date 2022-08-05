@@ -60,6 +60,9 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/white
 	color = WIRE_COLOR_WHITE
 
+/obj/structure/cable/black
+	color = WIRE_COLOR_BLACK
+
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
 
@@ -245,7 +248,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		color = colorC
 
 /obj/structure/cable/proc/color_rainbow()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN, WIRE_COLOR_BLACK)
 	return color
 
 /////////////////////////////////////////////////
@@ -581,7 +584,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/update_icon()
 	if(!color)
-		color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_ORANGE, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+		color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_ORANGE, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN, WIRE_COLOR_BLACK)
 	if(amount == 1)
 		icon_state = "coil1"
 		name = "cable piece"
@@ -849,8 +852,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/white
 	color = WIRE_COLOR_WHITE
 
+/obj/item/stack/cable_coil/black
+	color = WIRE_COLOR_BLACK
+
 /obj/item/stack/cable_coil/random/New()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN, WIRE_COLOR_BLACK)
 	..()
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
@@ -864,7 +870,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		color = colorC
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN, WIRE_COLOR_BLACK)
 	return color
 
 /obj/item/stack/cable_coil/cyborg
@@ -872,7 +878,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	is_cyborg = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white", "black")
 	color = cablecolor
 	update_icon()
 
