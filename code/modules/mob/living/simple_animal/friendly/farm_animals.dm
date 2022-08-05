@@ -102,7 +102,8 @@
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
-	desc = "Known for their milk, just don't tip them over."
+	ru_names = list(NOMINATIVE = "корова", GENITIVE = "коровы", DATIVE = "корове", ACCUSATIVE = "корову", INSTRUMENTAL = "коровой", PREPOSITIONAL = "корове")
+	desc = "Известны за свое молоко, только не опрокидывайте их."
 	icon_state = "cow"
 	icon_living = "cow"
 	icon_dead = "cow_dead"

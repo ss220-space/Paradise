@@ -10,6 +10,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince
 	name = "Prince of Terror spider"
+	ru_names = list(NOMINATIVE = "Принц Ужаса", GENITIVE = "Принца Ужаса", DATIVE = "Принцу Ужаса", ACCUSATIVE = "Принца Ужаса", INSTRUMENTAL = "Принцем Ужаса", PREPOSITIONAL = "Принце Ужаса")
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Its hide seems armored, and it bears the scars of many battles."
 	spider_role_summary = "Miniboss terror spider. Lightning bruiser."
 	ai_target_method = TS_DAMAGE_BRUTE
