@@ -1,6 +1,8 @@
 /obj/item/radio/spy_spider
-	name = "жучок"
-	desc = "Кажется, ты видел такого в фильмах про шпионов."
+	name = "spy spider"
+	ru_names = list(NOMINATIVE = "жучок", GENITIVE = "жучка", DATIVE = "жучку", ACCUSATIVE = "жучок", INSTRUMENTAL = "жучком", PREPOSITIONAL = "жучке")
+	desc = "Кажется, вы видели такого в фильмах про шпионов."
+	gender = MALE
 	icon_state = "spy_spider"
 	frequency = SPY_SPIDER_FREQ
 	freqlock = SPY_SPIDER_FREQ
@@ -8,7 +10,7 @@
 	broadcasting = FALSE
 	canhear_range = 3
 	gender = MALE
-	ru_names = list(NOMINATIVE = "жучок", GENITIVE = "жучка", DATIVE = "жучку", ACCUSATIVE = "жучок", INSTRUMENTAL = "жучком", PREPOSITIONAL = "жучке")
+
 
 /obj/item/radio/spy_spider/examine(mob/user)
 	. = ..()
@@ -17,9 +19,9 @@
 /obj/item/radio/spy_spider/attack_self(mob/user)
 	broadcasting = !broadcasting
 	if(broadcasting)
-		to_chat(user, "<span class='info'>Ты включаешь жучок.</span>")
+		to_chat(user, "<span class='info'>Вы включаете жучок.</span>")
 	else
-		to_chat(user, "<span class='info'>Ты выключил жучка.</span>")
+		to_chat(user, "<span class='info'>Вы выключили жучок.</span>")
 	return TRUE
 
 /obj/item/encryptionkey/spy_spider
@@ -28,8 +30,10 @@
 	channels = list("Spy Spider" = TRUE)
 
 /obj/item/storage/lockbox/spy_kit
-	name = "набор жучков"
+	name = "Spy kit"
+	ru_names = list(NOMINATIVE = "набор жучков", GENITIVE = "набора жучков", DATIVE = "набору жучков", ACCUSATIVE = "набор очков", INSTRUMENTAL = "набором жучков", PREPOSITIONAL = "наборе жучков")
 	desc = "Не самый легальный из способов достать информацию, но какая разница, если никто не узнает?"
+	gender = MALE
 	storage_slots = 5
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
@@ -65,7 +69,7 @@
 	if(!istype(I, /obj/item/radio/spy_spider))
 		return ..()
 	if(spy_spider_attached || !((slot_flags & SLOT_OCLOTHING) || (slot_flags & SLOT_ICLOTHING)))
-		to_chat(user, "<span class='warning'>Ты не находишь места для жучка!</span>")
+		to_chat(user, "<span class='warning'>Вы не находите места для жучка!</span>")
 		return TRUE
 	var/obj/item/radio/spy_spider/spy_spider = I
 
@@ -76,7 +80,7 @@
 	user.unEquip(spy_spider)
 	spy_spider.forceMove(src)
 	spy_spider_attached = spy_spider
-	to_chat(user, "<span class='info'>Ты незаметно прикрепляешь жучок к [src.declent_ru(DATIVE)].</span>")
+	to_chat(user, "<span class='info'>Вы незаметно прикрепляете жучок к [src.declent_ru(DATIVE)].</span>")
 	return TRUE
 
 /obj/item/clothing/proc/remove_spy_spider()
@@ -106,27 +110,27 @@
 		return ..()
 
 	if(!(w_uniform || wear_suit))
-		to_chat(user, "<span class='warning'>У тебя нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок надо крепить на одежду!</span>")
+		to_chat(user, "<span class='warning'>У вас нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок надо крепить на одежду!</span>")
 		return TRUE
 
 	var/obj/item/radio/spy_spider/spy_spider = I
 	var/obj/item/clothing/clothing_for_attach = wear_suit || w_uniform
 	if(clothing_for_attach.spy_spider_attached)
-		to_chat(user, "<span class='warning'>Ты не находишь места для жучка!</span>")
+		to_chat(user, "<span class='warning'>Вы не находите места для жучка!</span>")
 		return TRUE
 
 	if(!spy_spider.broadcasting)
 		to_chat(user, "<span class='warning'>Жучок выключен!</span>")
 		return TRUE
 
-	var/attempt_cancel_message = "<span class='warning'>Ты не успеваешь установить жучок.</span>"
+	var/attempt_cancel_message = "<span class='warning'>Вы не успеваете установить жучок.</span>"
 	if(!do_after_once(user, 3 SECONDS, TRUE, src, TRUE, attempt_cancel_message))
 		return TRUE
 
 	user.unEquip(spy_spider)
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
-	to_chat(user, "<span class='info'>Ты незаметно прикрепляешь жучок к одежде [src.declent_ru(GENITIVE)].</span>")
+	to_chat(user, "<span class='info'>Вы незаметно прикрепляете жучок к одежде [src.declent_ru(GENITIVE)].</span>")
 	return TRUE
 
 

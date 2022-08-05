@@ -304,7 +304,7 @@
 		var/burndamage = LB.burn_dam
 
 		if(brutedamage > 0)
-			status = "имеет ушибы"
+			status = "помят[genderize_ru(LB.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 20)
 			status = "избит[genderize_ru(LB.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 40)
@@ -319,10 +319,10 @@
 		else if(burndamage > 0)
 			status += "онемел[genderize_ru(LB.gender, "", "а", "о", "и")]"
 		if(LB.status & ORGAN_MUTATED)
-			status = "weirdly shapen."
+			status = "странной формы."
 		if(status == "")
 			status = "в норме."
-		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>[genderize_ru(LB.gender, "Ваш", "Ваша", "Ваше", "Ваши")] [LB.declent_ru(NOMINATIVE)] [status].</span>")
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Ваш[genderize_ru(LB.gender, "", "а", "е", "и")] [LB.declent_ru(NOMINATIVE)] [status].</span>")
 
 		for(var/obj/item/I in LB.embedded_objects)
 			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>В твоем [LB.declent_ru(PREPOSITIONAL)] застрял [I.declent_ru(NOMINATIVE)]!</a>")
@@ -1055,7 +1055,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notify'>Вы [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
-			to_chat(src, "<span class='notice'>Вы пока что не хотите есть еще больше нездоровой пищи.</span>")
+			to_chat(src, "<span class='notice'>Вам больше не хочется есть вредную пищу.</span>")
 			return 0
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>Вы жадно откусываете часть [toEat.declent_ru(GENITIVE)] и проглатываете!</span>")
@@ -1064,9 +1064,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		else if(fullness > 150 && fullness < 500)
 			to_chat(src, "<span class='notice'>Вы откусываете [toEat.declent_ru(ACCUSATIVE)].</span>")
 		else if(fullness > 500 && fullness < 600)
-			to_chat(src, "<span class='notice'>Вы не хотя берете кусок [toEat.declent_ru(GENITIVE)].</span>")
+			to_chat(src, "<span class='notice'>Вы неохотно прожевываете [toEat.declent_ru(GENITIVE)].</span>")
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			to_chat(src, "<span class='warning'>Вы больше не можете заставить себя проглотить [toEat.declent_ru(ACCUSATIVE)].</span>")
+			to_chat(src, "<span class='warning'>В вас больше не лезет [toEat.declent_ru(ACCUSATIVE)].</span>")
 			return 0
 	return 1
 
@@ -1076,15 +1076,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
-			visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] пытается насильно [src.declent_ru(ACCUSATIVE)] [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
+			visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] пыта[pluralize_ru(src.gender,"ет","ют")]ся насильно [src.declent_ru(ACCUSATIVE)] [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
 	else
-		visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] больше не может насильно заставить [src.declent_ru(ACCUSATIVE)] проглотить [toEat.declent_ru(ACCUSATIVE)].</span>")
+		visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] больше не мож[pluralize_ru(src.gender,"ет","ут")] насильно заставить [src.declent_ru(ACCUSATIVE)] проглотить [toEat.declent_ru(ACCUSATIVE)].</span>")
 		return 0
 	if(!toEat.instant_application)
 		if(!do_mob(user, src))
 			return 0
 	forceFedAttackLog(toEat, user)
-	visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] насильно заставляет [src.declent_ru(ACCUSATIVE)] [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
+	visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] насильно заставля[pluralize_ru(src.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)

@@ -126,7 +126,7 @@
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src.declent_ru(NOMINATIVE)] слишком тяжелый!</span>")
+			to_chat(user, "<span class='warning'>[src.declent_ru(NOMINATIVE)] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!</span>")
 		return FALSE
 	return TRUE
 

@@ -25,7 +25,7 @@
 	icon_state = "mi-go"
 	icon_living = "mi-go"
 	icon_dead = "mi-go-dead"
-	attacktext = "разрывает"
+	attacktext = "мучает"
 	speed = -0.5
 	var/static/list/migo_sounds
 	deathmessage = "wails as its form turns into a pulpy mush."

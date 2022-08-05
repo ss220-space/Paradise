@@ -238,7 +238,7 @@
 	required_blood = 50
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'>Внешность [user.declent_ru(GENITIVE)] изменяется!</span>")
+	user.visible_message("<span class='warning'>[user.declent_ru(GENITIVE)] преображается!</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		scramble(1, H, 100)
@@ -292,7 +292,7 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] кусает [target.declent_ru(ACCUSATIVE)] в шею!</span>", "<span class='warning'>Вы кусаете [target.declent_ru(ACCUSATIVE)] в шею и начинаете передачу части своей силы.</span>")
+		user.visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] куса[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] в шею!</span>", "<span class='warning'>Вы кусаете [target.declent_ru(ACCUSATIVE)] в шею и начинаете передачу части своей силы.</span>")
 		to_chat(target, "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
 		if(!ishuman(target))
 			to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов.</span>")
@@ -318,13 +318,13 @@
 		log_runtime(EXCEPTION("При порабощении моба случилось что-то плохое. Атакующий: [user] [user.key] \ref[user]"), user)
 		return 0
 	if(!C.mind)
-		to_chat(user, "<span class='warning'>Разум [C.declent_ru(GENITIVE)] сейчас не здесь, поэтому порабощение не удастся.</span>")
+		to_chat(user, "<span class='warning'>Душа покинула тело [C.declent_ru(GENITIVE)]. [genderize_ru(C.gender, "Его", "Её", "Его", "Их")] нельзя поработить.")
 		return 0
 	if(enthrall_safe || ( C.mind in SSticker.mode.vampires )||( C.mind.vampire )||( C.mind in SSticker.mode.vampire_enthralled ))
-		C.visible_message("<span class='warning'>Похоже что [C.declent_ru(NOMINATIVE)] сопротивляется захвату!</span>", "<span class='notice'>Вы ощущаете в голове знакомое ощущение, но оно быстро проходит.</span>")
+		C.visible_message("<span class='warning'>Похоже что [C.declent_ru(NOMINATIVE)] сопротивля[pluralize_ru(C.gender, "ет", "ют")]ся захвату!</span>", "<span class='notice'>Вы ощущаете в голове знакомое ощущение, но оно быстро проходит.</span>")
 		return 0
 	if(!affects(C))
-		C.visible_message("<span class='warning'>Похоже что [C.declent_ru(NOMINATIVE)] сопротивляется захвату!</span>", "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
+		C.visible_message("<span class='warning'>Похоже что [C.declent_ru(NOMINATIVE)] сопротивля[pluralize_ru(C.gender, "ет", "ют")]ся захвату!</span>", "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
 		return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов!</span>")

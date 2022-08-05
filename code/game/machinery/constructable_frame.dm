@@ -336,6 +336,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Freezer)"
 	ru_names = list(NOMINATIVE = "плата (Охладитель)", GENITIVE = "плату (Охладитель)", DATIVE = "плате (Охладитель)", ACCUSATIVE = "плату (Охладитель)", INSTRUMENTAL = "платой (Охладитель)", PREPOSITIONAL = "плате (Охладитель)")
 	desc = "Use screwdriver to switch between heating and cooling modes."
+	gender = FEMALE
 	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 	board_type = "machine"
 	origin_tech = "programming=3;plasmatech=3"

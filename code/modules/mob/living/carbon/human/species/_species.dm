@@ -409,7 +409,7 @@
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
-			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
+			to_chat(user, "<span class='warning'>Ваши клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")

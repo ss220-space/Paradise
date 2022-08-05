@@ -134,7 +134,7 @@
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
 		recipient = current
-	var/output = {"<meta charset="UTF-8"><B>Память [current.real_name]:</B><HR>"}
+	var/output = {"<meta charset="UTF-8"><B>Воспоминания [current.real_name]:</B><HR>"}
 	output += memory
 
 	var/antag_datum_objectives = FALSE
@@ -148,11 +148,11 @@
 		output += gen_objective_text()
 
 	if(LAZYLEN(job_objectives))
-		output += "<HR><B>Задачи профессии:</B><UL>"
+		output += "<HR><B>Должностные задачи:</B><UL>"
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Задача #[obj_count]</B>: [objective.get_description("ru")]</LI>"
+			output += "<LI><B>Запрос #[obj_count]</B>: [objective.get_description("ru")]</LI>"
 			obj_count++
 		output += "</UL>"
 	if(window)

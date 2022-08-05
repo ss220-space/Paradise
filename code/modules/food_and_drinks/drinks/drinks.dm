@@ -116,7 +116,7 @@
 		else if(reagents.total_volume <= volume/4)
 			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] почти пуст!</span>"
 		else if(reagents.total_volume <= volume*0.66)
-			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] наполовину наполон!</span>"// We're all optimistic, right?!
+			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] наполовину полон!</span>"// We're all optimistic, right?!
 
 		else if(reagents.total_volume <= volume*0.90)
 			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] почти наполнен!</span>"

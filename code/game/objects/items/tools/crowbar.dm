@@ -63,7 +63,7 @@
 /obj/item/crowbar/power
 	name = "jaws of life"
 	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
-	desc = "Это набор челюстей жизни, и магия науки позволила нам поместить это в достаточно маленькое устройство, чтобы оно вместилось в пояс для инструментов. Установлена выпирающая головка"
+	desc = "Это \"Челюсти жизни\", и магия науки позволила нам уменьшить этот широкопрофильный инструмент до такой степени, что он спокойно помещается на пояс. Установлен гидравлический режим."
 	gender = PLURAL
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
@@ -76,13 +76,13 @@
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")
+	user.visible_message("<span class='suicide'>[user.declent_ru(NOMINATIVE)] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
+	to_chat(user, "<span class='notice'>Вы устанавливаете разрезающий режим на [src.declent_ru(PREPOSITIONAL)].</span>")
 	qdel(src)
 	user.put_in_active_hand(cutjaws)
