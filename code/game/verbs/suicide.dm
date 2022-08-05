@@ -107,7 +107,7 @@
 					do_suicide(damagetype, O)
 					return
 
-		to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src.declent_ru(NOMINATIVE)] [pick(dna.species.suicide_messages)] Похоже, что [genderize_ru(gender, "он хочет", "она хочет", "оно хочет", "они хотят")] совершить самоубийство.</span>")
 		do_suicide(0)
 
 /mob/living/carbon/brain/verb/suicide()

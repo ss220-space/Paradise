@@ -2,7 +2,8 @@
 #define AUTO_EJECT_HEALTHY	(1<<1)
 
 /obj/machinery/atmospherics/unary/cryo_cell
-	name = "криокапсула"
+	name = "cryo cell"
+	ru_names = list(NOMINATIVE = "криокапсула", GENITIVE = "криокапсулы", DATIVE = "криокапсуле", ACCUSATIVE = "криокапсулу", INSTRUMENTAL = "криокапсулой", PREPOSITIONAL = "криокапсуле")
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
