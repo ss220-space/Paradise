@@ -50,7 +50,7 @@
 		else
 			deconvert = 0.0001 // Один на миллион
 	if(prob(deconvert))
-		M.visible_message("<span class='notice'>Благодаря [user] [M] вспоминает, что душа [M] уже приобретена НаноТрейзен!</span>")
+		M.visible_message("<span class='notice'>Благодаря [user.declent_ru(DATIVE)] [M.declent_ru(GENITIVE)] вспоминает, что душа [M.declent_ru(GENITIVE)] уже приобретена НаноТрейзен!</span>")
 		to_chat(M,"<span class='boldnotice'>Вы чувствуете, как Ваша душа возвращается к её правомочному владельцу — НаноТрейзен.</span>")
 		M.return_soul()
 	return ..()

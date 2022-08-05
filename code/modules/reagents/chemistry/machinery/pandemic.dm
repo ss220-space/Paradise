@@ -199,7 +199,7 @@
 
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
-		visible_message("<span class='notice'>[src] гремит и печатает лист бумаги.</span>")
+		visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] гремит и печатает лист бумаги.</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 		P.info = "<U><font size=\"4\"><B><center> Выпуск вируса </B></center></font></U>"

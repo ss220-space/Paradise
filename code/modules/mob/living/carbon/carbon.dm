@@ -59,7 +59,7 @@
 			last_stomach_attack = world.time
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("<span class='warning'>Вы слышите как что-то урчит в животе [src.name]...</span>"), 2)
+					M.show_message(text("<span class='warning'>Вы слышите как что-то урчит в животе [src.declent_ru(GENITIVE)]...</span>"), 2)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -79,7 +79,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] атаку[pluralize_ru(user.gender,"ет","ют")] стенку желудка [src.name], используя [I.name]!</span>"), 2)
+						M.show_message(text("<span class='warning'><B>[user.declent_ru(NOMINATIVE)] атаку[pluralize_ru(user.gender,"ет","ют")] стенку желудка [src.declent_ru(GENITIVE)], используя [I.declent_ru(ACCUSATIVE)]!</span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -102,13 +102,13 @@
 		Stun(4)
 	if(nutrition < 100 && !blood)
 		if(message)
-			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
+			visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
 		if(stun)
 			Weaken(10)
 	else
 		if(message)
-			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
+			visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вас вырвало!</span>")
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 		var/turf/T = get_turf(src)
@@ -142,7 +142,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_location())
-		visible_message("<span class='danger'>[M] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.name]!</span>")
+		visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.declent_ru(GENITIVE)]!</span>")
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
@@ -165,7 +165,7 @@
 		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
 		shock_internal_organs(shock_damage)
 	visible_message(
-		"<span class='danger'>[src.name] получил[genderize_ru(src.gender,"","а","о","и")] разряд током [source]!</span>",
+		"<span class='danger'>[src.declent_ru(NOMINATIVE)] получил[genderize_ru(src.gender,"","а","о","и")] разряд током от [source.declent_ru(GENITIVE)]!</span>",
 		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
 		"<span class='italics'>Вы слышите сильный электрический треск.</span>")
 	AdjustJitter(1000) //High numbers for violent convulsions
@@ -180,8 +180,8 @@
 			Weaken(3)
 	if(shock_damage > 200)
 		src.visible_message(
-			"<span class='danger'>[src.name] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой [source]!</span>",
-			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
+			"<span class='danger'>[src.declent_ru(NOMINATIVE)] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой из [source.declent_ru(GENITIVE)]!</span>",
+			"<span class='userdanger'>Дуга из [source.declent_ru(GENITIVE)] вспыхивает и ударяет вас электрическим током!</span>",
 			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
 		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 		explosion(loc, -1, 0, 2, 2)
@@ -198,7 +198,7 @@
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/twohanded))
 			if(item_in_hand:wielded == 1)
-				to_chat(usr, "<span class='warning'>Ваша другая рука занята удерживанием [item_in_hand.name]</span>")
+				to_chat(usr, "<span class='warning'>Ваша другая рука занята удерживанием [item_in_hand.declent_ru(GENITIVE)]</span>")
 				return
 	src.hand = !( src.hand )
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
@@ -228,8 +228,8 @@
 			check_self_for_injuries()
 		else
 			if(player_logged)
-				M.visible_message("<span class='notice'>[M] встряхива[pluralize_ru(M.gender,"ет","ют")] [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.", \
-				"<span class='notice'>Вы трясете [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.</span>")
+				M.visible_message("<span class='notice'>[M.declent_ru(NOMINATIVE)] встряхива[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.", \
+				"<span class='notice'>Вы трясете [src.declent_ru(ACCUSATIVE)], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.</span>")
 			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
@@ -245,12 +245,12 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
-						"<span class='notice'>[M] трясет [src.name] пытаясь разбудить [genderize_ru(src.gender,"его","её","это","их")]!</span>",\
-						"<span class='notice'>Вы трясете [src.name] пытаясь разбудить [genderize_ru(src.gender,"его","её","это","их")]!</span>",\
+						"<span class='notice'>[M.declent_ru(NOMINATIVE)] трясет [src.declent_ru(ACCUSATIVE)] пытаясь разбудить [genderize_ru(src.gender,"его","её","это","их")]!</span>",\
+						"<span class='notice'>Вы трясете [src.declent_ru(ACCUSATIVE)] пытаясь разбудить [genderize_ru(src.gender,"его","её","это","их")]!</span>",\
 						)
 
 			else if(on_fire)
-				var/self_message = "<span class='warning'>Вы пытаетесь потушить [src.name]!</span>"
+				var/self_message = "<span class='warning'>Вы пытаетесь потушить [src.declent_ru(ACCUSATIVE)]!</span>"
 				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
 					var/mob/living/carbon/human/H = M
 					var/protected = FALSE // Protected from the fire
@@ -260,10 +260,10 @@
 					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
 					if(active_hand && !protected) // Wouldn't really work without a hand
 						active_hand.receive_damage(0, 5)
-						self_message = "<span class='danger'>Вы обжигаете ваши руки пытаясь потушить [src.name]!</span>"
+						self_message = "<span class='danger'>Вы обжигаете ваши руки пытаясь потушить [src.declent_ru(ACCUSATIVE)]!</span>"
 						H.update_icons()
 
-				M.visible_message("<span class='warning'>[M] пыта[pluralize_ru(M.gender,"ет","ют")]ся потушить [src.name]!</span>", self_message)
+				M.visible_message("<span class='warning'>[M.declent_ru(NOMINATIVE)] пыта[pluralize_ru(M.gender,"ет","ют")]ся потушить [src.declent_ru(ACCUSATIVE)]!</span>", self_message)
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				adjust_fire_stacks(-0.5)
 
@@ -272,14 +272,14 @@
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(M.zone_selected == "head")
 					M.visible_message(\
-					"<span class='notice'>[M] глад[pluralize_ru(M.gender,"ит","ят")] [src.name] по голове.</span>",\
-					"<span class='notice'>Вы погладили [src.name] по голове.</span>",\
+					"<span class='notice'>[M.declent_ru(NOMINATIVE)] глад[pluralize_ru(M.gender,"ит","ят")] [src.declent_ru(ACCUSATIVE)] по голове.</span>",\
+					"<span class='notice'>Вы погладили [src.declent_ru(ACCUSATIVE)] по голове.</span>",\
 					)
 				else
 
 					M.visible_message(\
-					"<span class='notice'>[M] [pick("обнима[pluralize_ru(M.gender,"ет","ют")]","тепло обнима[pluralize_ru(M.gender,"ет","ют")]", "прижима[pluralize_ru(M.gender,"ет","ют")] к груди", "приобнима[pluralize_ru(M.gender,"ет","ют")]", "прижима[pluralize_ru(M.gender,"ет","ют")] к груди голову", "приобнял[genderize_ru(M.gender,"","а","о","и")] плечи")] [src.name].</span>",\
-					"<span class='notice'>Вы обняли [src.name].</span>",\
+					"<span class='notice'>[M.declent_ru(NOMINATIVE)] [pick("обнима[pluralize_ru(M.gender,"ет","ют")]","тепло обнима[pluralize_ru(M.gender,"ет","ют")]", "прижима[pluralize_ru(M.gender,"ет","ют")] к груди", "приобнима[pluralize_ru(M.gender,"ет","ют")]", "прижима[pluralize_ru(M.gender,"ет","ют")] к груди голову", "приобнял[genderize_ru(M.gender,"","а","о","и")] плечи")] [src.declent_ru(GENITIVE)].</span>",\
+					"<span class='notice'>Вы обняли [src.declent_ru(ACCUSATIVE)].</span>",\
 					)
 					if(ishuman(src))
 						var/mob/living/carbon/human/H = src
@@ -291,7 +291,7 @@
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
 	visible_message( \
-		text("<span class='notice'>[src.name] осматрива[pluralize_ru(src.gender,"ет","ют")] себя.</span>"),\
+		text("<span class='notice'>[src.declent_ru(NOMINATIVE)] осматрива[pluralize_ru(src.gender,"ет","ют")] себя.</span>"),\
 		"<span class='notice'>Вы осмотрели себя на наличие травм.</span>", \
 		)
 
@@ -304,28 +304,28 @@
 		var/burndamage = LB.burn_dam
 
 		if(brutedamage > 0)
-			status = "bruised"
+			status = "имеет ушибы"
 		if(brutedamage > 20)
-			status = "battered"
+			status = "избит[genderize_ru(LB.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 40)
-			status = "mangled"
+			status = "искалечен[genderize_ru(LB.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 0 && burndamage > 0)
-			status += " and "
+			status += " и "
 		if(burndamage > 40)
-			status += "peeling away"
+			status += "отслаивается"
 
 		else if(burndamage > 10)
-			status += "blistered"
+			status += "покрыт[genderize_ru(LB.gender, "", "а", "о", "ы")] волдырями"
 		else if(burndamage > 0)
-			status += "numb"
+			status += "онемел[genderize_ru(LB.gender, "", "а", "о", "и")]"
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen."
 		if(status == "")
-			status = "OK"
-		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+			status = "в норме."
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>[genderize_ru(LB.gender, "Ваш", "Ваша", "Ваше", "Ваши")] [LB.declent_ru(NOMINATIVE)] [status].</span>")
 
 		for(var/obj/item/I in LB.embedded_objects)
-			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>В твоем [LB.name] застрял [I]!</a>")
+			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>В твоем [LB.declent_ru(PREPOSITIONAL)] застрял [I.declent_ru(NOMINATIVE)]!</a>")
 
 	for(var/t in missing)
 		to_chat(src, "<span class='boldannounce'>У вас отсутствует [parse_zone(t)]!</span>")
@@ -467,7 +467,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(vent_found)
 		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию...</span>", \
+			visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию...</span>", \
 							"<span class='notice'>Вы начинаете лезть в вентиляцию...</span>")
 
 			if(!do_after(src, 45, target = src))
@@ -503,7 +503,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				var/mob/living/simple_animal/hostile/swarmer/S = src
 				if(S.light_range)
 					S.ToggleLight()
-			visible_message("<b>[src.name] лез[pluralize_ru(src.gender,"ет","ют")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
+			visible_message("<b>[src.declent_ru(NOMINATIVE)] лез[pluralize_ru(src.gender,"ет","ут")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
 			src.loc = vent_found
 			add_ventcrawl(vent_found)
 
@@ -569,7 +569,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 			victim.Weaken(1)
 			Weaken(1)
-			visible_message("<span class='danger'>[src.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [victim.name], сбивая друг друга с ног!</span>", "<span class='userdanger'>Вы жестко врезаетесь в [victim.name]!</span>")
+			visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [victim.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!</span>", "<span class='userdanger'>Вы жестко врезаетесь в [victim.declent_ru(ACCUSATIVE)]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
 /mob/living/carbon/proc/toggle_throw_mode()
@@ -612,7 +612,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(throwable_mob)
 			thrown_thing = throwable_mob
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] осторожно отпускае[pluralize_ru(src.gender,"шь","те")] [throwable_mob.declent_ru(ACCUSATIVE)].</span>")
+				to_chat(src, "<span class='notice'>Вы осторожно отпускаете [throwable_mob.declent_ru(ACCUSATIVE)].</span>")
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		unEquip(I)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю.</span>")
+			to_chat(src, "<span class='notice'>Вы осторожно опускаете [I.declent_ru(ACCUSATIVE)] на землю.</span>")
 			return
 
 	if(thrown_thing)
@@ -720,8 +720,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/slot = text2num(href_list["internal"])
 			var/obj/item/ITEM = get_item_by_slot(slot)
 			if(ITEM && istype(ITEM, /obj/item/tank))
-				visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
-								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
+				visible_message("<span class='danger'>[usr.declent_ru(NOMINATIVE)] пытается [internal ? "закрыть" : "открыть"] клапан на [ITEM.declent_ru(PREPOSITIONAL)] [src.declent_ru(GENITIVE)].</span>", \
+								"<span class='userdanger'>[usr.declent_ru(NOMINATIVE)] пытается [internal ? "закрыть" : "открыть"] клапан на [ITEM.declent_ru(PREPOSITIONAL)] [src.declent_ru(GENITIVE)].</span>")
 
 				var/no_mask
 				if(!get_organ_slot("breathing_tube"))
@@ -729,7 +729,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 						if(!(head && head.flags & AIRTIGHT))
 							no_mask = 1
 				if(no_mask)
-					to_chat(usr, "<span class='warning'>[src.name] не нос[pluralize_ru(src.gender,"ит","ят")] подходящую маску или шлем!</span>")
+					to_chat(usr, "<span class='warning'>[src.declent_ru(NOMINATIVE)] не нос[pluralize_ru(src.gender,"ит","ят")] подходящую маску или шлем!</span>")
 					return
 
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
@@ -743,13 +743,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 								if(!(head && head.flags & AIRTIGHT))
 									no_mask2 = 1
 						if(no_mask2)
-							to_chat(usr, "<span class='warning'>[src.name] не нос[pluralize_ru(src.gender,"ит","ят")] подходящую маску или шлем!</span>")
+							to_chat(usr, "<span class='warning'>[src.declent_ru(NOMINATIVE)] не нос[pluralize_ru(src.gender,"ит","ят")] подходящую маску или шлем!</span>")
 							return
 						internal = ITEM
 						update_action_buttons_icon()
 
-					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
-									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
+					visible_message("<span class='danger'>[usr.declent_ru(NOMINATIVE)] [internal ? "открыл" : "закрыл"] клапан на [ITEM.declent_ru(PREPOSITIONAL)] [src.declent_ru(GENITIVE)].</span>", \
+									"<span class='userdanger'>[usr.declent_ru(NOMINATIVE)] [internal ? "открыл" : "закрыл"] клапан на [ITEM.declent_ru(PREPOSITIONAL)] [src.declent_ru(GENITIVE)].</span>")
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
@@ -809,7 +809,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
 		var/breakouttime = I.breakouttime
 		var/displaytime = breakouttime / 10
-		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся себя отстегнуть!</span>", \
+		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] пыта[pluralize_ru(src.gender,"ет","ют")]ся себя отстегнуть!</span>", \
 					"<span class='notice'>Вы пытаетесь себя отстегнуть... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
 			if(!buckled)
@@ -826,11 +826,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
-	visible_message("<span class='danger'>[src.name] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
+	visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
 		"<span class='notice'>Вы остановились, упали и катаетесь!</span>")
 	sleep(30)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src.name] успешно потушился!</span>", \
+		visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] успешно потушился!</span>", \
 			"<span class='notice'>Вы потушились.</span>")
 		ExtinguishMob()
 
@@ -854,11 +854,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I.resist_time == 0)//if it's 0, you can't get out of it
 		to_chat(src, "[I] слишком хорошо зафиксирован, для него вам понадобятся руки!")
 	else
-		visible_message("<span class='warning'>[src.name] грыз[pluralize_ru(src.gender,"ет","ут")] [I], пытаясь избавиться от него!</span>")
-		to_chat(src, "<span class='notice'>Вы пытаетесь избавиться от [I]... (Это займет около [time/10] секунд и вам не нужно двигаться.)</span>")
+		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] грыз[pluralize_ru(src.gender,"ет","ут")] [I.declent_ru(ACCUSATIVE)], пытаясь избавиться от него!</span>")
+		to_chat(src, "<span class='notice'>Вы пытаетесь избавиться от [I.declent_ru(GENITIVE)]... (Это займет около [time/10] секунд и вам не нужно двигаться.)</span>")
 		if(do_after(src, time, 0, target = src))
-			visible_message("<span class='warning'>[src.name] избавил[genderize_ru(src.gender,"ся","ась","ось","ись")] от [I]!</span>")
-			to_chat(src, "<span class='notice'>Вы избавились от [I]!</span>")
+			visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] избавил[genderize_ru(src.gender,"ся","ась","ось","ись")] от [I.declent_ru(ACCUSATIVE)]!</span>")
+			to_chat(src, "<span class='notice'>Вы избавились от [I.declent_ru(GENITIVE)]!</span>")
 			if(I.security_lock)
 				I.do_break()
 			unEquip(I)
@@ -869,13 +869,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/displaytime = breakouttime / 10
 	if(!cuff_break)
-		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся снять [I]!</span>")
-		to_chat(src, "<span class='notice'>Вы пытаетесь снять [I]... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
+		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] пыта[pluralize_ru(src.gender,"ет","ют")]ся снять [I.declent_ru(ACCUSATIVE)]!</span>")
+		to_chat(src, "<span class='notice'>Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			visible_message("<span class='danger'>[src.name] удалось снять [I]!</span>")
-			to_chat(src, "<span class='notice'>Вы успешно сняли [I].</span>")
+			visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] удалось снять [I.declent_ru(ACCUSATIVE)]!</span>")
+			to_chat(src, "<span class='notice'>Вы успешно сняли [I.declent_ru(ACCUSATIVE)].</span>")
 
 			if(I == handcuffed)
 				handcuffed.forceMove(drop_location())
@@ -897,17 +897,17 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				I.dropped()
 				return
 		else
-			to_chat(src, "<span class='warning'>Вам не удалось снять [I]!</span>")
+			to_chat(src, "<span class='warning'>Вам не удалось снять [I.declent_ru(ACCUSATIVE)]!</span>")
 
 	else
 		breakouttime = 50
-		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся сломать [I]!</span>")
-		to_chat(src, "<span class='notice'>Вы пытаетесь сломать [I]... (Это займет у вас приблизительно 5 секунд и вам не нужно двигаться)</span>")
+		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] пыта[pluralize_ru(src.gender,"ет","ют")]ся сломать [I.declent_ru(ACCUSATIVE)]!</span>")
+		to_chat(src, "<span class='notice'>Вы пытаетесь сломать [I.declent_ru(ACCUSATIVE)]... (Это займет у вас приблизительно 5 секунд и вам не нужно двигаться)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
 			if(!I.loc || buckled)
 				return
-			visible_message("<span class='danger'>[src.name] успешно сломал[genderize_ru(src.gender,"","а","о","и")] [I]!</span>")
-			to_chat(src, "<span class='notice'>Вы успешно сломали [I].</span>")
+			visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] успешно сломал[genderize_ru(src.gender,"","а","о","и")] [I.declent_ru(ACCUSATIVE)]!</span>")
+			to_chat(src, "<span class='notice'>Вы успешно сломали [I.declent_ru(ACCUSATIVE)].</span>")
 			qdel(I)
 
 			if(I == handcuffed)
@@ -921,7 +921,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			return 1
 		else
-			to_chat(src, "<span class='warning'>Вам не удалось сломать [I]!</span>")
+			to_chat(src, "<span class='warning'>Вам не удалось сломать [I.declent_ru(ACCUSATIVE)]!</span>")
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
@@ -1052,21 +1052,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
-		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
+		to_chat(src, "<span class='notify'>Вы [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
-			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+			to_chat(src, "<span class='notice'>Вы пока что не хотите есть еще больше нездоровой пищи.</span>")
 			return 0
 		if(fullness <= 50)
-			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
+			to_chat(src, "<span class='warning'>Вы жадно откусываете часть [toEat.declent_ru(GENITIVE)] и проглатываете!</span>")
 		else if(fullness > 50 && fullness < 150)
-			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
+			to_chat(src, "<span class='notice'>Вы жадно начинаете есть [toEat.declent_ru(ACCUSATIVE)].</span>")
 		else if(fullness > 150 && fullness < 500)
-			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
+			to_chat(src, "<span class='notice'>Вы откусываете [toEat.declent_ru(ACCUSATIVE)].</span>")
 		else if(fullness > 500 && fullness < 600)
-			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
+			to_chat(src, "<span class='notice'>Вы не хотя берете кусок [toEat.declent_ru(GENITIVE)].</span>")
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
+			to_chat(src, "<span class='warning'>Вы больше не можете заставить себя проглотить [toEat.declent_ru(ACCUSATIVE)].</span>")
 			return 0
 	return 1
 
@@ -1076,15 +1076,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
-			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
+			visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] пытается насильно [src.declent_ru(ACCUSATIVE)] [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
 	else
-		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
+		visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] больше не может насильно заставить [src.declent_ru(ACCUSATIVE)] проглотить [toEat.declent_ru(ACCUSATIVE)].</span>")
 		return 0
 	if(!toEat.instant_application)
 		if(!do_mob(user, src))
 			return 0
 	forceFedAttackLog(toEat, user)
-	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
+	visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] насильно заставляет [src.declent_ru(ACCUSATIVE)] [toEat.apply_method] [toEat.declent_ru(ACCUSATIVE)].</span>")
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
