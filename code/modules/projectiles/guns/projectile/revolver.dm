@@ -192,8 +192,8 @@
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
 	ru_names = list(NOMINATIVE = "авто-револьвер Уника 6", GENITIVE = "авто-револьвера Уника 6", DATIVE = "авто-револьверу Уника 6", ACCUSATIVE = "авто-револьвер Уника 6", INSTRUMENTAL = "авто-револьвером Уника 6", PREPOSITIONAL = "авто-револьвере Уника 6")
+	desc = "Убойный автоматический револьвер, выполненный в ретро-стиле. Находится на вооружении у офицеров армии Новой России. Использует патроны калибра .357"	//>10mm hole >.357
 	gender = MALE
-	desc = "Сильный ретро авторевольвер, который обычно используется офицерами Новорусской армии. Использует патроны калибра .357"	//>10mm hole >.357
 	icon_state = "mateba"
 
 /obj/item/gun/projectile/revolver/golden

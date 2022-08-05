@@ -122,7 +122,9 @@
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
+	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
+	gender = FEMALE
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -132,8 +134,6 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
-	gender = FEMALE
-	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)

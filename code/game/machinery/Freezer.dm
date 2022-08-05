@@ -1,6 +1,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "freezer"
 	ru_names = list(NOMINATIVE = "охладитель", GENITIVE = "охладителя", DATIVE = "охладителю", ACCUSATIVE = "охладитель", INSTRUMENTAL = "охладителем", PREPOSITIONAL = "охладителе")
+	gender = MALE
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
@@ -166,6 +167,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "heater"
 	ru_names = list(NOMINATIVE = "нагреватель", GENITIVE = "нагревателя", DATIVE = "нагревателю", ACCUSATIVE = "нагреватель", INSTRUMENTAL = "нагревателем", PREPOSITIONAL = "нагревателе")
+	gender = MALE
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1

@@ -362,7 +362,7 @@
 			visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] проламывает [src.declent_ru(ACCUSATIVE)] с помощью [C.declent_ru(GENITIVE)]!</span>")
 			smash()
 		else
-			visible_message("<span class='warning'>[C.declent_ru(NOMINATIVE)] отскакивает от [src.declent_ru(GENITIVE)]!</span>")
+			visible_message("<span class='warning'>[C.declent_ru(NOMINATIVE)] [C.declent_ru(GENITIVE)] отскакивает от [src.declent_ru(GENITIVE)]!</span>")
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)

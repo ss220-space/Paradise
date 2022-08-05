@@ -255,7 +255,7 @@
 			create_log(EMOTE_LOG, "point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])")
 			return TRUE
 		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
-											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
+											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на вас!</span>")
 		A << 'sound/weapons/targeton.ogg'
 		log_emote("point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])", src)
 		create_log(EMOTE_LOG, "point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])")

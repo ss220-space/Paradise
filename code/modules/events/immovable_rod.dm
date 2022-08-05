@@ -81,7 +81,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else if(istype(clong, /mob))
 		if(istype(clong, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = clong
-			H.visible_message("<span class='danger'>[H.name] пронизан незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает тебя!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
+			H.visible_message("<span class='danger'>[H.declent_ru(NOMINATIVE)] пронизан[genderize_ru(H.gender, "", "а", "о", "ы")] незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает вас!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
 			clong.ex_act(2)

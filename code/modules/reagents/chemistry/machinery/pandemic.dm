@@ -1,6 +1,7 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
+	gender = MALE
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
@@ -199,7 +200,7 @@
 
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
-		visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] гремит и печатает лист бумаги.</span>")
+		visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] грем[pluralize_ru(src.gender, "ит", "ят")] и печата[pluralize_ru(src.gender, "ет", "ют")] лист бумаги.</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 		P.info = "<U><font size=\"4\"><B><center> Выпуск вируса </B></center></font></U>"
