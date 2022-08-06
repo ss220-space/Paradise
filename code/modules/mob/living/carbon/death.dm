@@ -13,7 +13,7 @@
 		_PART:add_autopsy_data("Toxin Residue", damage_to_be_applied);\
 		//subtract applied damage from passed variable
 		_RES -= damage_to_be_applied;\
-	} else return
+	}
 
 /**
 * This function applies damage to internal organs in case the mob died having toxin damage
