@@ -159,6 +159,7 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/airlock_electronics/syndicate
 	category = list("hacked", "Electronics")
+	maxstack = 10
 
 /datum/design/firelock_board
 	name = "Firelock Electronics"
@@ -506,7 +507,7 @@
 	materials = list(MAT_METAL = 250)
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
 	category = list("initial", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/rubbershot
 	name = "Rubber shot"
@@ -515,7 +516,7 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/c38
 	name = "Speed Loader (.38)"
@@ -524,7 +525,7 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c38
 	category = list("initial", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -549,6 +550,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/assembly/igniter
 	category = list("initial", "Miscellaneous")
+	maxstack = 5
 
 /datum/design/signaler
 	name = "Remote Signaling Device"
@@ -557,6 +559,7 @@
 	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	build_path = /obj/item/assembly/signaler
 	category = list("initial", "Communication")
+	maxstack = 5
 
 /datum/design/radio_headset
 	name = "Radio Headset"
@@ -589,6 +592,7 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	build_path = /obj/item/assembly/health
 	category = list("initial", "Medical")
+	maxstack = 5
 
 /datum/design/stethoscope
 	name = "Stethoscope"
@@ -630,7 +634,7 @@
 	materials = list(MAT_GLASS = 100)
 	build_path = /obj/item/light/tube
 	category = list("initial", "Construction")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/light_bulb
 	name = "Light Bulb"
@@ -639,7 +643,7 @@
 	materials = list(MAT_GLASS = 100)
 	build_path = /obj/item/light/bulb
 	category = list("initial", "Construction")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/camera_assembly
 	name = "Camera Assembly"
@@ -648,6 +652,7 @@
 	materials = list(MAT_METAL = 400, MAT_GLASS = 250)
 	build_path = /obj/item/camera_assembly
 	category = list("initial", "Construction")
+	maxstack = 5
 
 /datum/design/newscaster_frame
 	name = "Newscaster Frame"
@@ -672,7 +677,6 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/reagent_containers/hypospray/safety
 	category = list("initial", "Medical")
-	maxstack = 10
 
 /datum/design/automender
 	name = "Auto-mender"
@@ -690,7 +694,7 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	build_path = /obj/item/assembly/prox_sensor
 	category = list("initial", "Miscellaneous")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/foam_dart
 	name = "Box of Foam Darts"
@@ -699,7 +703,7 @@
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Miscellaneous")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/foam_dart_sniper
 	name = "Box of Sniper Foam Darts"
@@ -708,7 +712,7 @@
 	materials = list(MAT_METAL = 900)
 	build_path = /obj/item/ammo_box/foambox/sniper
 	category = list("initial", "Miscellaneous")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/rubber9mm
 	name = "Ammo Box (rubber 9mm)"
@@ -717,7 +721,7 @@
 	materials = list(MAT_METAL = 19500) //меньше меттала, потому что пули резиновые
 	build_path = /obj/item/ammo_box/rubber9mm
 	category = list("initial", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/enforcermag
 	name = "handgun magazine (9mm rubber)"
@@ -726,7 +730,7 @@
 	materials = list(MAT_METAL = 7200) //5200 за пули + 2000 за корпус
 	build_path = /obj/item/ammo_box/magazine/enforcer
 	category = list("initial", "Security")
-	maxstack = 30
+	maxstack = 20
 
 //hacked autolathe recipes
 /datum/design/enforcermaglethal
@@ -736,7 +740,7 @@
 	materials = list(MAT_METAL = 10000) //8000 за пули + 2000 за корпус
 	build_path = /obj/item/ammo_box/magazine/enforcer/lethal
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/flamethrower
 	name = "Flamethrower"
@@ -814,7 +818,7 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
@@ -823,7 +827,7 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/shotgun_dart
 	name = "Shotgun Dart"
@@ -832,7 +836,7 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/incendiary_slug
 	name = "Incendiary Slug"
@@ -841,7 +845,7 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/riot_dart
 	name = "Foam riot dart"
@@ -850,7 +854,7 @@
 	materials = list(MAT_METAL = 1000) //Discount for making individually - no box = less metal!
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/riot_dart_sniper
 	name = "Foam riot sniper dart"
@@ -859,7 +863,7 @@
 	materials = list(MAT_METAL = 1800) //Discount for making individually - no box = less metal!
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/riot_darts
 	name = "Foam riot dart box"
@@ -868,7 +872,7 @@
 	materials = list(MAT_METAL = 50000) //Comes with 40 darts
 	build_path = /obj/item/ammo_box/foambox/riot
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/riot_darts_sniper
 	name = "Foam riot sniper dart box"
@@ -877,7 +881,7 @@
 	materials = list(MAT_METAL = 90000) //Comes with 40 darts
 	build_path = /obj/item/ammo_box/foambox/sniper/riot
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/a357
 	name = "Ammo Box (.357)"
@@ -886,7 +890,7 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/c10mm
 	name = "Ammo Box (10mm)"
@@ -895,7 +899,7 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/c45
 	name = "Ammo Box (.45)"
@@ -904,7 +908,7 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c45
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/c9mm
 	name = "Ammo Box (9mm)"
@@ -913,7 +917,7 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c9mm
 	category = list("hacked", "Security")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/cleaver
 	name = "Butcher's cleaver"
@@ -988,7 +992,7 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
-	maxstack = 30
+	maxstack = 20
 
 /datum/design/vendor
 	name = "Machine Board (Vendor)"
