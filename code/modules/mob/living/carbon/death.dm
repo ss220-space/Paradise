@@ -3,17 +3,17 @@
 * this macro tries to apply DAMAGE damage to the PART internal organ and
 * then subtracts RES by the damage actually taken
 */
-#define APPLY_DAMAGE(_damage, _part, _res) \
-do {\
-	if (!_part){\
-		break;\
-	}\
-	var/can_be_absorbed = _part?.max_damage - _part?.damage;\
-	var/damage_to_be_applied = min(can_be_absorbed, _damage);\
-	_part?.receive_damage(damage_to_be_applied);\
-	_part?.add_autopsy_data("Toxin Residue", damage_to_be_applied);\
-	_res-=damage_to_be_applied;\
-} while(FALSE)
+#define APPLY_DAMAGE(_DAMAGE, _PART, _RES)\
+	if (_part){\
+		//calculate damage to be recieved
+		var/can_be_absorbed = _PART:max_damage - _PART:damage;\
+		var/damage_to_be_applied = min(can_be_absorbed, _DAMAGE);\
+		//apply calculated damage
+		_PART:receive_damage(damage_to_be_applied);\
+		_PART:add_autopsy_data("Toxin Residue", damage_to_be_applied);\
+		//subtract applied damage from passed variable
+		_RES -= damage_to_be_applied;\
+	} else return
 
 /**
 * This function applies damage to internal organs in case the mob died having toxin damage
