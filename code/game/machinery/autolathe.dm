@@ -106,9 +106,7 @@
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
 			var/obj/item/I = D.build_path
-			var/maxmult = 1
-			if(ispath(D.build_path, /obj/item/stack))
-				maxmult = D.maxstack
+			var/maxmult = D.maxstack
 
 			var/list/default_categories = D.category
 			var/list/categories = istype(default_categories) ? default_categories.Copy() : list()
@@ -184,14 +182,10 @@
 			if(!hacked && ("hacked" in design_last_ordered.category))
 				to_chat(usr, "<span class='warning'>Invalid design (lathe requires hacking)</span>")
 				return
-			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
+			//multiplier checks : only stacks can have one and its value is 1, 5, 10, 20 or max_multiplier
 			var/multiplier = text2num(params["multiplier"])
 			var/max_multiplier = min(design_last_ordered.maxstack, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
-			var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
-
-			if(!is_stack && (multiplier > 1))
-				return
-			if(!(multiplier in list(1, 10, 25, max_multiplier))) //"enough materials ?" is checked in the build proc
+			if(!(multiplier in list(1, 5, 10, 20, max_multiplier))) //"enough materials ?" is checked in the build proc
 				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
 			if((queue.len + 1) < queue_max_len)
@@ -375,21 +369,18 @@
 		use_power(power)
 		icon_state = "autolathe"
 		flick("autolathe_n",src)
-		if(is_stack)
-			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
-			materials.use_amount(materials_used)
-		else
-			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff)
-			materials.use_amount(materials_used)
+		var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
+		materials.use_amount(materials_used)
 		SStgui.update_uis(src)
 		sleep(32/coeff)
 		if(is_stack)
 			var/obj/item/stack/S = new D.build_path(BuildTurf)
 			S.amount = multiplier
 		else
-			var/obj/item/new_item = new D.build_path(BuildTurf)
-			new_item.materials[MAT_METAL] /= coeff
-			new_item.materials[MAT_GLASS] /= coeff
+			for(var/i in 1 to multiplier)
+				var/obj/item/new_item = new D.build_path(BuildTurf)
+				new_item.materials[MAT_METAL] /= coeff
+				new_item.materials[MAT_GLASS] /= coeff
 	SStgui.update_uis(src)
 	desc = initial(desc)
 

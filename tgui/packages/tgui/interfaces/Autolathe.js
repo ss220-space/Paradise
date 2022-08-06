@@ -129,6 +129,21 @@ export const Autolathe = (props, context) => {
                     {toTitleCase(recipe.name)}
 
                   </Button>
+                  {recipe.max_multiplier >= 5 && (
+                    <Button
+                      icon="hammer"
+                      selected={data.busyname === recipe.name
+                        && data.busyamt === 5}
+                      disabled={
+                        !canBeMade(recipe,
+                          data.metal_amount, data.glass_amount, 5)
+                      }
+                      onClick={() => act("make", {
+                        make: recipe.uid, multiplier: 5,
+                      })}>
+                      5x
+                    </Button>
+                  )}
                   {recipe.max_multiplier >= 10 && (
                     <Button
                       icon="hammer"
@@ -144,19 +159,19 @@ export const Autolathe = (props, context) => {
                       10x
                     </Button>
                   )}
-                  {recipe.max_multiplier >= 25 && (
+                  {recipe.max_multiplier >= 20 && (
                     <Button
                       icon="hammer"
                       selected={data.busyname === recipe.name
-                        && data.busyamt === 25}
+                        && data.busyamt === 20}
                       disabled={
                         !canBeMade(recipe,
-                          data.metal_amount, data.glass_amount, 25)
+                          data.metal_amount, data.glass_amount, 20)
                       }
                       onClick={() => act("make", {
-                        make: recipe.uid, multiplier: 25,
+                        make: recipe.uid, multiplier: 20,
                       })}>
-                      25x
+                      20x
                     </Button>
                   )}
                   {recipe.max_multiplier > 25 && (
