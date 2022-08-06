@@ -280,7 +280,7 @@
 	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
-	maxstack = 5
+	maxstack = 10
 
 /datum/design/kitchen_knife
 	name = "Kitchen Knife"
