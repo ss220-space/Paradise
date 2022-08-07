@@ -240,6 +240,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+	var/original_loc = loc
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
@@ -291,8 +292,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	else
 		if(isliving(loc))
 			return 0
+<<<<<<< HEAD
 	if(isturf(loc))
 		var/show_anim = TRUE
+=======
+
+	if(isturf(original_loc))
+		var/show_anim = (user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS)
+>>>>>>> 951b07b7d37f91ae4dac3bc3ebe2af9a0e73222b
 		var/mob/living/carbon/human/H = user
 		if(istype(H) && H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
@@ -797,7 +804,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/do_drop_animation(atom/moving_from)
 	var/mob/user = moving_from
 	if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
-		to_chat(world, "Чет не пошло, [user]")
 		return
 	if(!isturf(loc))
 		return

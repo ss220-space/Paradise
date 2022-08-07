@@ -755,7 +755,12 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
+<<<<<<< HEAD
 			W.do_drop_animation(user)
+=======
+			if((user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
+				W.do_drop_animation(user)
+>>>>>>> 951b07b7d37f91ae4dac3bc3ebe2af9a0e73222b
 	return
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
