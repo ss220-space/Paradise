@@ -111,8 +111,7 @@
  * Called when an item in particular is placed onto a table.
  */
 /obj/structure/table/proc/item_placed(obj/item/I, mob/user)
-	if((user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
-		I.do_drop_animation(get_turf(user))
+	I.do_drop_animation(user)
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
@@ -756,8 +755,7 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
-			if((user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
-				W.do_drop_animation(user)
+			W.do_drop_animation(user)
 	return
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)

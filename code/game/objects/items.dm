@@ -240,7 +240,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
-	var/original_loc = loc
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
@@ -292,9 +291,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	else
 		if(isliving(loc))
 			return 0
-
-	if(isturf(original_loc))
-		var/show_anim = (user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS)
+	if(isturf(loc))
+		var/show_anim = TRUE
 		var/mob/living/carbon/human/H = user
 		if(istype(H) && H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
@@ -760,7 +758,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /// Show a pickup animation when an item is collected from the ground.
 /obj/item/proc/do_pickup_animation(atom/target)
-	if(!istype(loc, /turf))
+	var/mob/user = target
+	if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
+		return
+	if(!isturf(loc))
 		return
 	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
 	pickup_animation.plane = GAME_PLANE
@@ -794,9 +795,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /// Show a drop animation
 /obj/item/proc/do_drop_animation(atom/moving_from)
-	if(!istype(loc, /turf))
+	var/mob/user = moving_from
+	if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
+		to_chat(world, "Чет не пошло, [user]")
 		return
-
+	if(!isturf(loc))
+		return
 	var/turf/current_turf = get_turf(src)
 	var/direction = get_dir(moving_from, current_turf)
 	var/from_x = moving_from.pixel_x

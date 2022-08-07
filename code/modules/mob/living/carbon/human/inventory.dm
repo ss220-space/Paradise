@@ -320,8 +320,7 @@
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 
 /mob/living/carbon/human/put_in_hands(obj/item/I)
-	var/mob/user
-	var/show_anim = (user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS)
+	var/show_anim = TRUE
 	if(!I)
 		return FALSE
 	if(gloves)
