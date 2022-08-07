@@ -1971,7 +1971,9 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTH)"
 	},
 /area/toxins/lab)
 "aiL" = (
@@ -2915,21 +2917,11 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "anP" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
+	icon_state = "white"
 	},
-/area/medical/research/shallway)
+/area/toxins/lab)
 "anQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -11534,19 +11526,12 @@
 	},
 /area/toxins/mixing)
 "biZ" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/stock_parts/cell/high/plus{
-	pixel_x = 5;
-	pixel_y = -5
-	},
-/obj/item/stock_parts/cell/high/plus{
-	pixel_x = 5;
-	pixel_y = 6
-	},
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "bjc" = (
@@ -12587,6 +12572,15 @@
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"boy" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "RoboPrivat";
+	name = "Robotics Privacy Shutter"
+	},
+/obj/structure/cable,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/assembly/robotics)
 "boD" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow,
@@ -21781,11 +21775,8 @@
 /turf/simulated/floor/carpet/black,
 /area/bridge/vip)
 "cbI" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/effect/landmark/start{
+	name = "Roboticist"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -23322,6 +23313,17 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/engrooms)
+"cii" = (
+/obj/machinery/optable,
+/obj/structure/sign/science{
+	pixel_y = -32
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/assembly/robotics)
 "cij" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -34045,7 +34047,9 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (SOUTHEAST)"
 	},
 /area/toxins/lab)
 "cYk" = (
@@ -34112,14 +34116,14 @@
 /area/medical/reception)
 "cYB" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/dropper,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34400,6 +34404,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
@@ -34408,7 +34417,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitepurplefull"
 	},
 /area/toxins/lab)
 "cZw" = (
@@ -37734,6 +37743,21 @@
 	icon_state = "purple"
 	},
 /area/assembly/chargebay)
+"dlU" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1;
+	initialize_directions = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "dlY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
@@ -38608,15 +38632,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "doP" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	d2 = 8;
+	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
 "doU" = (
@@ -39063,11 +39087,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "dql" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "Robotics Junction";
-	sortType = 14
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -39276,21 +39296,19 @@
 	},
 /area/medical/research/nhallway)
 "drv" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
-	},
-/area/assembly/robotics)
-"drC" = (
-/obj/machinery/mecha_part_fabricator,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
+"drC" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/toxins/lab)
 "drD" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -39387,7 +39405,6 @@
 	},
 /area/turret_protected/ai)
 "drN" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/item/folder,
 /obj/machinery/door/window/westleft{
@@ -39400,19 +39417,7 @@
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "drP" = (
@@ -39548,24 +39553,11 @@
 /turf/space,
 /area/space/nearstation)
 "dsu" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
-/area/assembly/robotics)
+/area/toxins/lab)
 "dsw" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -39598,35 +39590,16 @@
 /area/crew_quarters/captain/bedroom)
 "dsE" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "dsG" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "whitepurplefull"
 	},
 /area/assembly/robotics)
 "dsI" = (
@@ -40181,11 +40154,20 @@
 	},
 /area/hallway/primary/central/west)
 "dvg" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/item/robot_parts/robot_suit,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
+/obj/structure/closet/secure_closet/roboticist,
+/obj/item/radio/headset/headset_sci{
+	pixel_x = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
 /area/assembly/robotics)
 "dvk" = (
 /obj/structure/disposalpipe/segment,
@@ -40387,13 +40369,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
-"dwk" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/assembly/robotics)
 "dwm" = (
 /obj/structure/girder,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -40759,44 +40734,36 @@
 	},
 /area/tcommsat/chamber)
 "dxu" = (
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/computer/operating{
-	name = "Robotics Operating Computer"
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/status_display{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
-	},
-/area/assembly/robotics)
-"dxv" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (WEST)"
 	},
 /area/assembly/robotics)
 "dxw" = (
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_y = -28
-	},
 /obj/structure/table/reinforced,
-/obj/structure/sink{
-	dir = 1
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
 	},
-/obj/item/storage/toolbox/surgery{
-	pixel_x = -1;
-	pixel_y = 2
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
 	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	tag = "icon-whitepurple (WEST)"
@@ -40804,20 +40771,22 @@
 /area/assembly/robotics)
 "dxx" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/gloves{
-	pixel_x = 4;
-	pixel_y = 4
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 5;
+	pixel_y = -5
 	},
-/obj/item/storage/box/masks,
-/obj/item/storage/box/bodybags{
-	pixel_x = -4;
-	pixel_y = -4
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 5;
+	pixel_y = 6
 	},
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
+/obj/machinery/newscaster{
+	pixel_y = -28
+	},
+/obj/machinery/light,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -41324,16 +41293,10 @@
 	name = "Engineering Maintenance"
 	})
 "dzQ" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/assembly/robotics)
+/area/toxins/lab)
 "dzY" = (
 /obj/structure/table,
 /obj/structure/cable{
@@ -43481,12 +43444,17 @@
 	},
 /area/crew_quarters/hor)
 "dIi" = (
-/obj/machinery/disposal,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/r_n_d/protolathe{
+	pixel_x = 1
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple";
@@ -45115,6 +45083,22 @@
 	tag = "icon-whitegreen (NORTHWEST)"
 	},
 /area/medical/virology)
+"dOG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplefull"
+	},
+/area/assembly/robotics)
 "dOH" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
@@ -50030,23 +50014,17 @@
 	},
 /area/quartermaster/office)
 "eri" = (
-/obj/structure/table/reinforced,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi/robotic_brain,
-/obj/item/robotanalyzer,
-/obj/machinery/status_display{
-	pixel_x = -32
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
 	},
-/obj/machinery/camera{
-	c_tag = "Robotics Lab";
-	dir = 4;
-	network = list("Research","SS13")
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "whiteblue"
 	},
 /area/assembly/robotics)
 "erl" = (
@@ -50096,18 +50074,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 13
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -50417,10 +50383,8 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -51228,8 +51192,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "eGn" = (
@@ -53866,7 +53834,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock/research/glass{
 	name = "Robotics Lab";
 	req_access_txt = "29"
@@ -55208,13 +55175,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
-"fFf" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/assembly/robotics)
 "fFl" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
@@ -55513,10 +55473,11 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "fIC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitepurple"
+	},
+/area/toxins/lab)
 "fIE" = (
 /obj/machinery/vending/cart,
 /obj/structure/window/reinforced{
@@ -56156,21 +56117,20 @@
 	},
 /area/medical/medbay2)
 "fQT" = (
-/obj/structure/closet/secure_closet/roboticist,
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/surgery{
+	pixel_x = -1;
+	pixel_y = 2
 	},
-/obj/machinery/firealarm{
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
 	dir = 1;
-	pixel_y = -24
-	},
-/obj/structure/window/reinforced{
-	dir = 4
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (SOUTHWEST)"
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHEAST)"
 	},
 /area/assembly/robotics)
 "fRj" = (
@@ -56846,14 +56806,15 @@
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "fXx" = (
-/obj/machinery/status_display{
-	pixel_y = -32
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/machinery/optable,
-/obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "white"
 	},
 /area/assembly/robotics)
 "fXD" = (
@@ -56984,21 +56945,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"fZf" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "fZm" = (
 /obj/item/radio/beacon/engine/tesling,
 /turf/simulated/floor/plating/airless,
@@ -57573,10 +57519,9 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "gih" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/chair/office/light{
+	dir = 4;
+	pixel_y = 3
 	},
 /obj/effect/landmark/start{
 	name = "Roboticist"
@@ -57646,7 +57591,9 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTH)"
 	},
 /area/toxins/lab)
 "gkk" = (
@@ -61115,24 +61062,10 @@
 	},
 /area/medical/virology)
 "gVV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research/glass{
-	name = "Robotics Lab";
-	req_access_txt = "29"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/assembly/robotics)
+/area/toxins/lab)
 "gWh" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -62961,6 +62894,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/west)
+"hui" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
 "hur" = (
 /obj/structure/toilet{
 	desc = "Старый грязный туалет, по какой-то причине стоящий в техах. У вас нет ни единого понятия откуда он здесь.";
@@ -63975,20 +63914,13 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/landmark/start{
 	name = "Roboticist"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/assembly/robotics)
 "hGs" = (
@@ -64263,20 +64195,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/mixing)
-"hJX" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/obj/effect/landmark/start{
-	name = "Roboticist"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTHWEST)"
-	},
-/area/assembly/robotics)
 "hJZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -65425,7 +65343,8 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 5;
+	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "hXt" = (
@@ -65856,12 +65775,25 @@
 	},
 /area/chapel/main)
 "idx" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+/obj/structure/table/reinforced,
+/obj/item/storage/box/gloves{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/masks,
+/obj/item/storage/box/bodybags{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/assembly/robotics)
 "idE" = (
@@ -70183,14 +70115,13 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "jhc" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	name = "Mech Bay";
-	req_access_txt = "29"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
@@ -73170,19 +73101,16 @@
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
 "jRH" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Robotics Maintenance";
-	req_access_txt = "29"
-	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
 	},
-/area/maintenance/asmaint2)
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
 "jRL" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -74240,11 +74168,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -74516,19 +74439,16 @@
 	},
 /area/toxins/explab)
 "klr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/southwest,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "klv" = (
@@ -75924,7 +75844,23 @@
 	pixel_x = 24;
 	pixel_y = -22
 	},
-/turf/simulated/floor/plasteel,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26;
+	pixel_y = 4
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
 /area/assembly/chargebay)
 "kCW" = (
 /obj/structure/cable{
@@ -76963,14 +76899,9 @@
 	},
 /area/medical/medbay2)
 "kSR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/toxins/lab)
 "kSU" = (
@@ -78314,18 +78245,16 @@
 	},
 /area/security/permabrig)
 "lmj" = (
-/obj/machinery/r_n_d/circuit_imprinter{
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/table/reinforced,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi/robotic_brain,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/assembly/robotics)
 "lmz" = (
@@ -81442,6 +81371,20 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"mbg" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Robotics Maintenance";
+	req_access_txt = "29"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/assembly/robotics)
 "mbm" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -82567,7 +82510,9 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 9;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTHWEST)"
 	},
 /area/toxins/lab)
 "mnJ" = (
@@ -83812,14 +83757,10 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTH)"
 	},
 /area/toxins/lab)
 "mAV" = (
@@ -84561,9 +84502,6 @@
 	},
 /area/security/detectives_office)
 "mIZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -85861,8 +85799,18 @@
 	dir = 4;
 	pixel_x = -23
 	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "nab" = (
@@ -85918,7 +85866,11 @@
 	},
 /area/hallway/primary/central/ne)
 "nan" = (
-/obj/structure/reagent_dispensers/oil,
+/obj/machinery/r_n_d/circuit_imprinter{
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/beaker/sulphuric,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -85927,6 +85879,11 @@
 "naq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -87020,8 +86977,8 @@
 	},
 /area/crew_quarters/fitness)
 "nom" = (
-/obj/machinery/recharge_station,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -87589,6 +87546,15 @@
 	icon_state = "neutralfull"
 	},
 /area/maintenance/electrical)
+"ntB" = (
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplefull"
+	},
+/area/assembly/robotics)
 "ntG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -88043,14 +88009,9 @@
 /turf/simulated/floor/plating,
 /area/security/execution)
 "nzN" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/assembly/robotics)
 "nzR" = (
@@ -90360,6 +90321,18 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"odX" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
+	},
+/area/toxins/lab)
 "oee" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -90405,20 +90378,15 @@
 	},
 /area/chapel/office)
 "ofk" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -26
-	},
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -23
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90772,7 +90740,9 @@
 	},
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/toxins/lab)
 "ohL" = (
@@ -91012,16 +90982,11 @@
 	},
 /area/maintenance/xenozoo)
 "okH" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -91199,11 +91164,20 @@
 	},
 /area/medical/surgery/south)
 "omU" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/obj/machinery/light{
+	dir = 8
 	},
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/robotics)
 "onj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -93480,8 +93454,12 @@
 	},
 /area/security/main)
 "oNS" = (
-/obj/structure/sign/science,
-/turf/simulated/wall,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/item/robot_parts/robot_suit,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/assembly/robotics)
 "oNV" = (
 /turf/simulated/floor/plasteel{
@@ -94297,7 +94275,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitepurplefull"
 	},
 /area/toxins/lab)
 "oYk" = (
@@ -94343,7 +94321,9 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/toxins/lab)
 "oYL" = (
@@ -95301,8 +95281,23 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/medical/research/shallway)
 "plJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96745,8 +96740,17 @@
 	dir = 1;
 	pixel_y = 3
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/toxins/lab)
 "pCr" = (
@@ -96776,13 +96780,10 @@
 /turf/simulated/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "pCx" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (WEST)"
 	},
 /area/toxins/lab)
 "pCz" = (
@@ -98867,7 +98868,7 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "pYL" = (
@@ -100432,35 +100433,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"qqe" = (
-/obj/structure/closet,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/plasteel{
-	amount = 15
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/assembly/robotics)
 "qqA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -101158,16 +101130,6 @@
 /obj/effect/landmark{
 	name = "JoinLateCyborg"
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 26;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -101586,7 +101548,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "qEC" = (
@@ -101733,7 +101696,7 @@
 	},
 /obj/structure/chair/office/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "qGf" = (
@@ -102398,15 +102361,33 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "qNZ" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "qOh" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research/glass{
+	name = "Robotics Lab";
+	req_access_txt = "29"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/assembly/robotics)
 "qOo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
@@ -104599,30 +104580,11 @@
 	},
 /area/bridge)
 "roU" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/obj/item/stack/cable_coil,
-/obj/item/multitool{
-	pixel_x = 3
-	},
-/obj/item/flash,
-/obj/item/flash,
-/obj/item/flash,
-/obj/item/flash,
-/obj/item/flash,
-/obj/item/flash,
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
-/obj/item/clothing/suit/fire/firefighter,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHWEST)"
 	},
 /area/assembly/robotics)
 "roX" = (
@@ -104821,9 +104783,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/office)
-"rru" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/assembly/robotics)
 "rrz" = (
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
@@ -105481,12 +105440,8 @@
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "rzT" = (
-/obj/machinery/mecha_part_fabricator,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/robotics)
 "rzU" = (
 /turf/simulated/floor/wood,
@@ -106542,7 +106497,6 @@
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
 "rLk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 1;
@@ -106552,7 +106506,6 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "rLl" = (
@@ -107214,11 +107167,6 @@
 	on = 1
 	},
 /obj/structure/table/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/stock_parts/matter_bin{
 	pixel_x = 3;
 	pixel_y = 3
@@ -111933,7 +111881,6 @@
 	},
 /area/engine/engineering)
 "tdA" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "RoboPrivat";
 	name = "Robotics Privacy Shutter"
@@ -111942,6 +111889,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
 "tdC" = (
@@ -113647,6 +113598,10 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"tAb" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/assembly/robotics)
 "tAz" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/ai_status_display{
@@ -114196,13 +114151,14 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "tHC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel,
-/area/assembly/chargebay)
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "tHH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -118187,7 +118143,9 @@
 "uDz" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (SOUTHEAST)"
 	},
 /area/toxins/lab)
 "uDH" = (
@@ -119262,34 +119220,22 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "uQL" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/machinery/camera{
+	c_tag = "Robotics Lab";
+	dir = 4;
+	network = list("Research","SS13")
 	},
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/head/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/clothing/head/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/requests_console{
+	department = "Robotics";
+	departmentType = 2;
+	name = "Robotics Requests Console";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "uQO" = (
@@ -120246,6 +120192,27 @@
 "vbw" = (
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
+"vbH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplefull"
+	},
+/area/assembly/robotics)
 "vbJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
@@ -121800,10 +121767,8 @@
 /turf/simulated/floor/plating,
 /area/security/checkpoint/south)
 "vuD" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/mob/living/simple_animal/pet/dog/corgi/borgi,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -121811,10 +121776,12 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/assembly/robotics)
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research/shallway)
 "vuE" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -123394,9 +123361,33 @@
 /turf/simulated/wall/r_wall,
 /area/security/processing)
 "vMV" = (
+/obj/machinery/door_control{
+	id = "RoboPrivat";
+	name = "Robotics Privacy Shutters Control";
+	pixel_x = 24;
+	pixel_y = -6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "RoboDesk";
+	name = "Robotics Desc Privacy Shutters Control";
+	pixel_x = 24;
+	pixel_y = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/book/manual/sop_science,
+/obj/item/clipboard,
+/obj/item/book/manual/robotics_cyborgs{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/toy/figure/roboticist,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/assembly/robotics)
 "vMY" = (
@@ -123481,24 +123472,42 @@
 	name = "AI Maintenance"
 	})
 "vNU" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "RoboDesk";
-	name = "Robotics Privacy Shutter"
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/research{
+	name = "Mech Bay";
+	req_access_txt = "29"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/assembly/robotics)
 "vNX" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/securearmory)
 "vNZ" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/area/hallway/primary/aft)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
 "vOa" = (
 /obj/item/paper_bin{
 	pixel_x = -2;
@@ -124322,6 +124331,28 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
+"vWr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplefull"
+	},
+/area/assembly/robotics)
 "vWy" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -125305,26 +125336,16 @@
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "wiW" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "wiY" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/firealarm{
@@ -125355,31 +125376,20 @@
 	},
 /area/engine/break_room)
 "wjc" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 28;
-	pixel_y = 6
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
+	d1 = 1;
 	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "1-8"
 	},
-/obj/machinery/door_control{
-	id = "RoboPrivat";
-	name = "Robotics Privacy Shutters Control";
-	pixel_x = 24;
-	pixel_y = -9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/assembly/robotics)
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "wjh" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/conveyor/south/ccw{
@@ -125709,16 +125719,18 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "wnh" = (
-/obj/structure/closet/wardrobe/robotics_black,
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
+/obj/machinery/computer/operating{
+	name = "Robotics Operating Computer"
 	},
-/obj/structure/closet/walllocker/emerglocker{
+/obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitepurple"
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
 	},
 /area/assembly/robotics)
 "wns" = (
@@ -126066,16 +126078,16 @@
 	},
 /area/crew_quarters/courtroom)
 "wrd" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/disposalpipe/sortjunction{
+	dir = 2;
+	name = "Robotics Junction";
+	sortType = 14
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
 	},
-/turf/simulated/floor/plasteel,
-/area/assembly/chargebay)
+/area/hallway/primary/aft)
 "wrm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -127571,11 +127583,15 @@
 	},
 /area/medical/sleeper)
 "wJB" = (
-/obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -127590,24 +127606,19 @@
 /area/aisat/maintenance{
 	name = "\improper AI Satellite Service"
 	})
-"wJG" = (
+"wJK" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner"
-	},
-/area/assembly/robotics)
-"wJK" = (
-/obj/machinery/computer/rdconsole/robotics,
-/obj/machinery/requests_console{
-	department = "Robotics";
-	departmentType = 2;
-	name = "Robotics Requests Console";
-	pixel_x = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitepurple";
-	tag = "icon-whitepurple (SOUTHWEST)"
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/assembly/robotics)
 "wJP" = (
@@ -129188,25 +129199,11 @@
 	},
 /area/library/abandoned)
 "xdb" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "xdo" = (
@@ -129410,10 +129407,20 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "xeT" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/machine{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/machine{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHEAST)"
 	},
 /area/assembly/robotics)
 "xfd" = (
@@ -129661,17 +129668,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "xhi" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -129976,16 +129984,19 @@
 /area/maintenance/bar)
 "xlY" = (
 /obj/machinery/door/window/westleft{
-	dir = 1;
+	dir = 4;
 	name = "Robotic Delivery";
 	req_access_txt = "29"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "whitepurplefull"
 	},
 /area/assembly/robotics)
 "xmf" = (
@@ -130597,18 +130608,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
 "xsv" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/robotics_cyborgs{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/clipboard,
-/obj/item/toy/figure/roboticist,
-/obj/machinery/door_control{
-	id = "RoboDesk";
-	name = "Robotics Desc Privacy Shutters Control";
-	pixel_x = 24;
-	pixel_y = 24
+/obj/machinery/computer/rdconsole/robotics,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -131773,30 +131778,33 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "xDU" = (
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/assembly/robotics)
 "xEf" = (
+/obj/item/clothing/suit/fire/firefighter,
+/obj/item/multitool{
+	pixel_x = 3
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/crowbar,
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/machine{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/firstaid/machine{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/firstaid/machine,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/assembly/robotics)
 "xEr" = (
@@ -131852,17 +131860,40 @@
 	},
 /area/hallway/primary/central/west)
 "xFd" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 1
+/obj/structure/closet/wardrobe/robotics_black,
+/obj/item/radio/headset/headset_sci{
+	pixel_x = -3
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 13
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
 	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
 "xFk" = (
@@ -133032,13 +133063,6 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "xQB" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/sop_science,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/belt/utility,
 /obj/item/radio/intercom{
 	dir = 1;
 	pixel_y = 28
@@ -133047,8 +133071,12 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "xQE" = (
@@ -133333,29 +133361,36 @@
 	},
 /area/medical/genetics)
 "xUz" = (
-/obj/structure/table/reinforced,
-/obj/item/crowbar,
-/obj/item/assembly/prox_sensor{
-	pixel_x = -8;
-	pixel_y = 4
+/obj/structure/closet,
+/obj/item/stack/sheet/metal{
+	amount = 50
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
+/obj/item/stack/sheet/metal{
+	amount = 50
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
+/obj/item/stack/sheet/metal{
+	amount = 50
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
+/obj/item/stack/sheet/metal{
+	amount = 50
 	},
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 15
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/assembly/robotics)
 "xUA" = (
@@ -168828,7 +168863,7 @@ dqb
 jmL
 dqb
 esa
-xDv
+plG
 dvd
 xDv
 hYi
@@ -169084,8 +169119,8 @@ eCO
 xDD
 mEE
 xDD
-anP
 xDD
+vuD
 xDD
 xDD
 mSh
@@ -169340,10 +169375,10 @@ vEo
 tXf
 tXf
 tXf
-qOh
-gVV
-qOh
 tXf
+tAb
+qOh
+tAb
 tXf
 tXf
 ykx
@@ -169585,7 +169620,7 @@ pBD
 pBD
 mnh
 iLA
-oIq
+fIC
 ntS
 vEo
 uhl
@@ -169599,7 +169634,7 @@ xQB
 uQL
 omU
 klr
-fFf
+vbH
 roU
 eri
 wnh
@@ -169840,7 +169875,7 @@ oJF
 mZM
 clb
 ofk
-oIq
+drC
 iLA
 qFV
 oXm
@@ -169853,15 +169888,15 @@ wUw
 lKt
 utT
 xUz
-hJX
 qNZ
+oNS
 xdb
-nzN
+dOG
 nzN
 cbI
-uQV
-jRH
-plG
+cii
+ykx
+fGj
 khf
 aKq
 yjo
@@ -170095,11 +170130,11 @@ xXi
 cRb
 cYB
 pCn
-oIq
 pCx
-oIq
+pCx
+dsu
 oXK
-oIq
+gVV
 poO
 rjs
 dfh
@@ -170113,7 +170148,7 @@ biZ
 drv
 rzT
 dsE
-rru
+dOG
 xeT
 idx
 fQT
@@ -170353,10 +170388,10 @@ cTB
 rTF
 naq
 daC
-kSR
+daC
 daC
 naR
-oIq
+kSR
 qEx
 vEo
 vQY
@@ -170365,17 +170400,17 @@ tjR
 eUq
 dfn
 uIQ
-oNS
+tXf
 dIi
-dzQ
-qqe
-vuD
-dwk
+hui
+hui
+hui
+vNZ
 dvg
 xFd
 xlY
 rLk
-fIC
+fGj
 eGb
 uBY
 lJs
@@ -170624,11 +170659,11 @@ hFn
 wdk
 utT
 nan
-fZf
-drC
+xDU
+xDU
 dsG
-rru
-xeT
+dlU
+ntB
 xDU
 dxu
 ykx
@@ -170865,7 +170900,7 @@ iQQ
 tot
 iVt
 gjV
-oIq
+anP
 cTU
 dkQ
 oIq
@@ -170874,23 +170909,23 @@ rSk
 nIS
 hXg
 sWC
-wrd
+sWC
 rKW
 sWC
-sWC
+jhc
 sWC
 fno
+wJB
 uQV
-dsu
-wJB
-wiW
-wJB
+uQV
+uQV
+vWr
 xhi
-dxv
 fXx
-ykx
-wKr
-kVJ
+fXx
+mbg
+wiW
+wjc
 uBY
 hVe
 ivw
@@ -171125,23 +171160,23 @@ aiF
 oIq
 cUY
 cVs
-oIq
+dzQ
 oYt
-pCx
+odX
 uDz
 rjs
 nom
-tHC
+hFn
 rwB
 sPZ
-hFn
+jRH
 lsc
 dcu
 xsv
 hGm
 vMV
-wjc
-wJG
+xDU
+xDU
 xus
 gih
 dxw
@@ -171396,8 +171431,8 @@ evO
 ykx
 doP
 drN
-vNU
 ykx
+tHC
 wJK
 lmj
 xEf
@@ -171648,16 +171683,16 @@ dfm
 dfm
 sio
 dpY
-jhc
+dfm
 dfm
 ykx
 mJJ
 mIZ
-vNZ
 ykx
+vNU
 ykx
 tdA
-tdA
+boy
 ykx
 ykx
 mhL
@@ -171911,7 +171946,7 @@ xUN
 uRI
 dql
 xHs
-xUN
+wrd
 dim
 xUN
 xUN
