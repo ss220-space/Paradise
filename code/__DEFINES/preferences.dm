@@ -103,5 +103,3 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
-
-#define check_animations(Client) (Client?.prefs?.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS ? TRUE : FALSE)

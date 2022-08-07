@@ -292,14 +292,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	else
 		if(isliving(loc))
 			return 0
-<<<<<<< HEAD
 	if(isturf(loc))
 		var/show_anim = TRUE
-=======
-
-	if(isturf(original_loc))
-		var/show_anim = (user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS)
->>>>>>> 951b07b7d37f91ae4dac3bc3ebe2af9a0e73222b
 		var/mob/living/carbon/human/H = user
 		if(istype(H) && H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
