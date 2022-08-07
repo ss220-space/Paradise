@@ -240,7 +240,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
-	var/original_loc = loc
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
