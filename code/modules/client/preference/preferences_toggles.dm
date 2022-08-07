@@ -339,3 +339,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
+
+/client/verb/toggle_pickup_animations()
+	set name = "Toggle Pickup Animations"
+	set category = "Preferences"
+	set desc = "Toggle Pickup Animations."
+	prefs.toggles2 ^= PREFTOGGLE_2_PICKUP_ANIMATIONS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS) ? "now" : "no longer"] see item pickup animations. ")
