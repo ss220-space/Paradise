@@ -82,6 +82,10 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 
+/obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
+	if(gripped_item)
+		gripped_item.tool_act(user, tool, tool_type)
+
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(gripped_item)
 		if(!silent)
