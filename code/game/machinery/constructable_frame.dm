@@ -3,7 +3,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null
@@ -121,6 +121,15 @@
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
 				return
+			if(istype(P, /obj/item/wrench))
+				playsound(src.loc, P.usesound, 75, 1)
+				if(!anchored && !isinspace())
+					anchored = TRUE
+					WRENCH_ANCHOR_MESSAGE
+				else if(anchored)
+					anchored = FALSE
+					WRENCH_UNANCHOR_MESSAGE
+				return
 		if(3)
 			if(istype(P, /obj/item/crowbar))
 				playsound(src.loc, P.usesound, 50, 1)
@@ -137,6 +146,16 @@
 				req_components = null
 				components = null
 				icon_state = "box_1"
+				return
+
+			if(istype(P, /obj/item/wrench))
+				playsound(src.loc, P.usesound, 75, 1)
+				if(!anchored && !isinspace())
+					anchored = TRUE
+					WRENCH_ANCHOR_MESSAGE
+				else if(anchored)
+					anchored = FALSE
+					WRENCH_UNANCHOR_MESSAGE
 				return
 
 			if(istype(P, /obj/item/screwdriver))
