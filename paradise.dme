@@ -862,6 +862,7 @@
 #include "code\game\machinery\atmoalter\pump.dm"
 #include "code\game\machinery\atmoalter\scrubber.dm"
 #include "code\game\machinery\atmoalter\zvent.dm"
+#include "code\game\machinery\camera\body_camera.dm"
 #include "code\game\machinery\camera\camera.dm"
 #include "code\game\machinery\camera\camera_assembly.dm"
 #include "code\game\machinery\camera\motion.dm"
