@@ -86,6 +86,5 @@
 		return
 	if(oldLoc == get_turf(loc))
 		return
-	to_chat(world, "update position")
 	GLOB.cameranet.updatePortableCamera(camera)
 
