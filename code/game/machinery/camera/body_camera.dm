@@ -20,6 +20,7 @@
 	camera.network = list("SS13")
 	toggle()
 	RegisterSignal(src, COMSIG_ITEM_PICKUP, .proc/was_pickedup)
+	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/was_pickedup)
 	RegisterSignal(src, COMSIG_ITEM_DROPPED, .proc/was_dropped)
 
 /obj/item/body_camera/Destroy()
@@ -57,7 +58,7 @@
 		return
 	new_name = sanitize(new_name)
 	if(length(new_name) > 32)
-		usr << "<span class='warning'>Название слишком длинное!</span>"
+		to_chat(usr, "<span class='warning'>Название слишком длинное!</span>")
 		return
 	camera.c_tag = new_name
 
@@ -75,12 +76,13 @@
 
 /obj/item/body_camera/proc/was_pickedup(datum/source, mob/user)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/update_position, override = TRUE)
+	RegisterSignal(user, COMSIG_MOVABLE_HOLDER_MOVED, .proc/update_position, override = TRUE)
 
 /obj/item/body_camera/proc/was_dropped(datum/source, mob/user)
-	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_HOLDER_MOVED))
 
 /obj/item/body_camera/proc/update_position(datum/source, turf/oldLoc)
-	if(!camera)
+	if(!camera || !camera.status)
 		return
 	if(oldLoc == get_turf(loc))
 		return
