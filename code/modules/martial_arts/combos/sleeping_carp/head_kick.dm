@@ -13,7 +13,13 @@
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		if(prob(60))
-			user.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
-		target.Weaken(3)
+			if(config.prime_server)
+				user.say(pick("УУХЙОО!", "УПХААА!", "ХЬЙОО!", "ВУАА!", "УДАР ШУРЬЮ!", "КИЙААА!", "ПРИГОТОВЬ ЗУБЫ!", "ГОЛОВНАЯ БОЛЬ!", "ПОРАСКИНЬ МОЗГАМИ!", "БЕЗБАШЕННОСТЬ!", "ОТВАЛ БАШКИ!", "ДА У ТЕБЯ ЛИШНИЕ ЗУБЫ!", "НЕ ЩУРЬСЯ!", "САЕЧКУ ЗА ИСПУГ!"))
+			else
+				user.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
+		if(config.prime_server)
+			target.Stun(4)
+		else
+			target.Weaken(3)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT

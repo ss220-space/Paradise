@@ -298,6 +298,9 @@
 
 	var/allow_head_of_departaments_assign_civilian = FALSE
 
+	// Prime server specific changes
+	var/prime_server = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -849,6 +852,9 @@
 
 				if("topic_filtering_whitelist")
 					config.topic_filtering_whitelist = splittext(value, " ")
+
+				if("prime_server")
+					config.prime_server = TRUE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")

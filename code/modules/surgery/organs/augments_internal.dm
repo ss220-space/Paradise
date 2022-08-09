@@ -28,7 +28,7 @@
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	var/stun_amount = 2 + (severity-1 ? 0 : 5)
+	var/stun_amount = PRIME(5,2) + (severity-1 ? 0 : 5)
 	owner.Stun(stun_amount)
 	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 	return stun_amount
@@ -138,8 +138,14 @@
 	..()
 	if(crit_fail)
 		return
-	if(owner.getStaminaLoss() > 60)
-		owner.adjustStaminaLoss(-9)
+	if(config.prime_server)
+		if(owner.stunned > 2)
+			owner.SetStunned(2)
+		if(owner.weakened > 2)
+			owner.SetWeakened(2)
+	else
+		if(owner.getStaminaLoss() > 60)
+			owner.adjustStaminaLoss(-9)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	..()

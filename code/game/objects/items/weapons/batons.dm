@@ -87,7 +87,7 @@
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
 	target.adjustStaminaLoss(staminaforce)
-	if(prob(75))
+	if(prob(PRIME(100,75)))
 		target.Weaken(stun_time)
 	else
 		target.Weaken(stun_time + 1)
