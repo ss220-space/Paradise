@@ -86,6 +86,10 @@
 	if(gripped_item)
 		gripped_item.tool_act(user, tool, tool_type)
 
+/obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
+	if(gripped_item)
+		gripped_item.attackby(weapon, user, params)
+
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(gripped_item)
 		if(!silent)
