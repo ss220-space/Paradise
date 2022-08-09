@@ -12,7 +12,7 @@
 	var/server_port = world.port
 	var/bantype_pass = 0
 	var/bantype_str
-	var/applies_to_admins = null
+	var/applies_to_admins = 1
 	var/maxadminbancheck	//Used to limit the number of active bans of a certein type that each admin can give. Used to protect against abuse or mutiny.
 	var/announce_in_discord = FALSE		//When set, it announces the ban in irc. Intended to be a way to raise an alarm, so to speak.
 	var/blockselfban		//Used to prevent the banning of yourself.
