@@ -81,7 +81,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(permabans)
 
 		// Job tempbans
-		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND isnull(unbanned_datetime) AND expiration_time > Now()")
+		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND isnull(unbanned_datetime) AND expiration_time > Now()")
 
 		if(!tempbans.warn_execute(async=FALSE))
 			qdel(tempbans)
@@ -89,9 +89,9 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 		while(tempbans.NextRow())
 			var/ckey = tempbans.item[1]
-			var/job = tempbans.item[2]
-			GLOB.jobban_keylist.Add("[ckey] - [job]")
-			jobban_assoc_insert(ckey, job)
+			var/role = tempbans.item[2]
+			GLOB.jobban_keylist.Add("[ckey] - [role]")
+			jobban_assoc_insert(ckey, role)
 
 		qdel(tempbans)
 

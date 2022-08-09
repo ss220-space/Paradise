@@ -1,6 +1,6 @@
 #define MAX_ADMIN_BANS_PER_ADMIN 1
 
-/datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/role = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/role = "Server", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
 
 	if(!check_rights(R_BAN))	return
 
@@ -409,11 +409,12 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("ban")] SET unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("ban")] SET unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id, unbanned_round_id=:unbanned_round_id", list(
 		"unban_ckey" = unban_ckey,
 		"unban_computerid" = unban_computerid,
 		"unban_ip" = unban_ip,
-		"id" = id
+		"id" = id,
+		"unbanned_round_id" = GLOB.round_id
 	))
 	if(!query_update.warn_execute())
 		qdel(query_update)
@@ -593,7 +594,7 @@
 
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
-				SELECT id, bantime, bantype, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, ip, computerid
+				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, ip, computerid, applies_to_admins
 				FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
@@ -603,17 +604,17 @@
 			while(select_query.NextRow())
 				var/banid = select_query.item[1]
 				var/bantime = select_query.item[2]
-				var/bantype  = select_query.item[3]
-				var/reason = select_query.item[4]
-				var/role = select_query.item[5]
-				var/expiration = select_query.item[6]
-				var/ckey = select_query.item[7]
-				var/ackey = select_query.item[8]
-				var/unbanckey = select_query.item[9]
-				var/unbantime = select_query.item[10]
-				var/edits = select_query.item[11]
-				var/ip = select_query.item[12]
-				var/cid = select_query.item[13]
+				var/reason = select_query.item[3]
+				var/role = select_query.item[4]
+				var/expiration = select_query.item[5]
+				var/ckey = select_query.item[6]
+				var/ackey = select_query.item[7]
+				var/unbanckey = select_query.item[8]
+				var/unbantime = select_query.item[9]
+				var/edits = select_query.item[10]
+				var/ip = select_query.item[11]
+				var/cid = select_query.item[12]
+				var/applies_to_admins = select_query.item[13]
 
 				var/lcolor = blcolor
 				var/dcolor = bdcolor
@@ -621,22 +622,21 @@
 					lcolor = ulcolor
 					dcolor = udcolor
 
+				var/list/ban_titles = list()
+				if (applies_to_admins)
+					ban_titles.Add("ADMIN")
+
+				ban_titles.Add(isnull(expiration) ? "PERMABAN" : "TEMPBAN")
+
+				if (role != "Server" && role != "Appearance")
+					ban_titles.Add("JOBBAN")
+
+				var/ban_title_text = ban_titles.Join(" ")
 				var/typedesc =""
-				switch(bantype)
-					if("PERMABAN")
-						typedesc = "<font color='red'><b>PERMABAN</b></font>"
-					if("TEMPBAN")
-						typedesc = "<b>TEMPBAN</b><br><font size='2'>([(unbantime) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
-					if("JOB_PERMABAN")
-						typedesc = "<b>JOBBAN</b><br><font size='2'>([role])"
-					if("JOB_TEMPBAN")
-						typedesc = "<b>TEMP JOBBAN</b><br><font size='2'>([role])<br>(<br>Expires [expiration]"
-					if("APPEARANCE_BAN")
-						typedesc = "<b>APPEARANCE/NAME BAN</b>"
-					if("ADMIN_PERMABAN")
-						typedesc = "<b>ADMIN PERMABAN</b>"
-					if("ADMIN_TEMPBAN")
-						typedesc = "<b>ADMIN TEMPBAN</b><br><font size='2'>([(unbantime) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
+				if (isnull(expiration))
+					typedesc += "<font color='red'><b>[ban_title_text]</b></font>"
+				else
+					typedesc += "<b>[ban_title_text]</b><br><font size='2'>[role]<br>[(unbantime) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
 
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"
