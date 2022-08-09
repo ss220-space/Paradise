@@ -91,7 +91,7 @@
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
 	if(gripped_item)
 		gripped_item.attackby(weapon, user, params)
-		if (gripped_item.gc_destroyed) // if item was dissasembled we need to clear the pointer
+		if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 			drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
