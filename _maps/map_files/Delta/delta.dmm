@@ -87493,8 +87493,7 @@
 	},
 /area/security/range)
 "nsS" = (
-/obj/effect/decal/warning_stripes/arrow,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "nsT" = (
