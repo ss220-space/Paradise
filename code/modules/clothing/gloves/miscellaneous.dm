@@ -120,7 +120,7 @@
 				C.Stun(stun_strength)
 				C.Weaken(stun_strength)
 				C.apply_effect(STUTTER, 5 SECONDS)
-				C.adjustStaminaLoss(20)
+				C.adjustStaminaLoss(PRIME(0,20))
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE

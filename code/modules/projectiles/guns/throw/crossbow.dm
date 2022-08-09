@@ -49,9 +49,9 @@
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
 		var/obj/item/arrow/rod/R = I
 		visible_message("<span class='danger'>[R] is ready!</span>")
-		R.throwforce = 33
+		R.throwforce = PRIME(25,33)
 		R.superheated = 1 //guess this useless now...
-		armour_penetration = 15
+		armour_penetration = PRIME(0,15)
 
 /obj/item/gun/throw/crossbow/get_throwspeed()
 	return tension * speed_multiplier

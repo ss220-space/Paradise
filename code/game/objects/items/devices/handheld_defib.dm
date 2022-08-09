@@ -63,7 +63,12 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			H.AdjustWeakened(2)
+			if(config.prime_server)
+				H.AdjustParalysis(3)
+				H.AdjustStunned(5)
+				H.AdjustWeakened(5)
+			else
+				H.AdjustWeakened(2)
 			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			H.shock_internal_organs(100)

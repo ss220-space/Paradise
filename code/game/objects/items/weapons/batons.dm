@@ -23,7 +23,7 @@
 	/// The stun time (in life cycles) for silicons
 	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
 	/// Cooldown in deciseconds between two knockdowns
-	var/cooldown = 2 SECONDS
+	var/cooldown = 4 SECONDS
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
 	// Variables
@@ -87,7 +87,7 @@
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
 	target.adjustStaminaLoss(staminaforce)
-	if(prob(75))
+	if(prob(PRIME(100,75)))
 		target.Weaken(stun_time)
 	else
 		target.Weaken(stun_time + 1)

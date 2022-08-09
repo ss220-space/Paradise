@@ -41,21 +41,26 @@ effective or pretty fucking useless.
 		return
 
 
-	for(var/mob/living/carbon/human/M in orange (10, user))
+	for(var/mob/living/carbon/human/M in PRIME(oview(7, user),orange(10, user)))
 		if(prob(50))
-			M.Weaken(rand(1,3))
-			M.adjustStaminaLoss(rand(35, 60))
+			if(config.prime_server)
+				M.Weaken(rand(4,7))
+			else
+				M.Weaken(rand(1,3))
+				M.adjustStaminaLoss(rand(35, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
-			M.Slowed(5)
-			M.Confused(3)
+			if(!config.prime_server)
+				M.Slowed(5)
+				M.Confused(3)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
 	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
-	addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
+	if(config.prime_server)
+		addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
 
 /obj/item/batterer/proc/recharge()
 	charges++

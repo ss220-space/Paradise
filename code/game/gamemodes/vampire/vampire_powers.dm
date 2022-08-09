@@ -157,7 +157,7 @@
 	user.SetStunned(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
-	U.adjustStaminaLoss(-60)
+	U.adjustStaminaLoss(-PRIME(75,60))
 	to_chat(user, "<span class='notice'>Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
@@ -166,7 +166,7 @@
 				U.adjustOxyLoss(-5)
 				U.adjustToxLoss(-2)
 				U.adjustFireLoss(-2)
-				U.adjustStaminaLoss(-10)
+				U.adjustStaminaLoss(PRIME(0,-10))
 				sleep(35)
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise
@@ -178,14 +178,19 @@
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
-		if(do_mob(user, target, 60))
+		if(do_mob(user, target, PRIME(50,60)))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target].</span>")
 				to_chat(target, "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
 			else
 				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
 				to_chat(target, "<span class='warning'>Вы чувствуете сильную слабость.</span>")
-				target.SetSleeping(20)
+				if(config.prime_server)
+					target.Weaken(10)
+					target.Stun(10)
+					target.stuttering = 10
+				else
+					target.SetSleeping(20)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>Вы смотрите в никуда.</span>")
@@ -222,13 +227,19 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(2)
-		target.Weaken(2)
 		target.stuttering = 20
-		target.adjustStaminaLoss(20)
+		if(config.prime_server)
+			target.Stun(5)
+			target.Weaken(5)
+			target.stuttering = 20
+		else
+			target.Stun(2)
+			target.Weaken(2)
+			target.adjustStaminaLoss(20)
 		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>")
 		add_attack_logs(user, target, "(Vampire) слепит")
-		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+		if(!config.prime_server)
+			target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Превращение (50)"
@@ -270,12 +281,16 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>")
-		C.Weaken(2)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(2)
 		C.Jitter(150)
-		C.adjustStaminaLoss(60)
+		if(config.prime_server)
+			C.Weaken(4)
+			C.Stun(4)
+		else
+			C.Weaken(2)
+			C.Stun(2)
+			C.adjustStaminaLoss(60)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)

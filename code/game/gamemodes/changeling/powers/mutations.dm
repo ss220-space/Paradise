@@ -263,8 +263,8 @@
 	if(Adjacent(C))
 		var/obj/item/grab/G = C.grabbedby(src,1)
 		if(istype(G))
-			G.state = GRAB_PASSIVE
-			C.Weaken(2)
+			G.state = PRIME(GRAB_AGGRESSIVE,GRAB_PASSIVE)
+			PRIME(null,C.Weaken(2))
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))
@@ -305,6 +305,8 @@
 					if(INTENT_HELP)
 						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
+						if(config.prime_server)
+							C.client?.move_delay = world.time + 10
 						C.throw_at(get_step_towards(H,C), 8, 2)
 						return 1
 
@@ -327,11 +329,15 @@
 					if(INTENT_GRAB)
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
+						if(config.prime_server)
+							C.client?.move_delay = world.time + 10
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
 						return 1
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
+						if(config.prime_server)
+							C.client?.move_delay = world.time + 10
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_stab, C))
 						return 1
 			else
