@@ -23,7 +23,7 @@
 	/// The stun time (in life cycles) for silicons
 	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
 	/// Cooldown in deciseconds between two knockdowns
-	var/cooldown = 4 SECONDS
+	var/cooldown = 2 SECONDS
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
 	// Variables
