@@ -503,3 +503,6 @@
 
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+// Prime server macros
+#define PRIME(PrimeVal, UsualVal) (config.prime_server ? PrimeVal : UsualVal)
