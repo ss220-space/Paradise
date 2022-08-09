@@ -4,37 +4,37 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
-	ROLE_SENTIENT = 40,
-	ROLE_ERT = 80, // High, because they're team-based, and we want ERT to be robust
-	ROLE_DEATHSQUAD = 30,
-	ROLE_TRADER = 40, // Very high, because they're an admin-spawned event with powerful items
+	ROLE_SENTIENT = PRIME(5,40),
+	ROLE_ERT = PRIME(40,80), // High, because they're team-based, and we want ERT to be robust
+	ROLE_DEATHSQUAD = PRIME(10,30),
+	ROLE_TRADER = PRIME(20,40), // Very high, because they're an admin-spawned event with powerful items
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
 	// SOLO ANTAGS
-	ROLE_TRAITOR = 30,
-	ROLE_CHANGELING = 30,
-	ROLE_WIZARD = 30,
-	ROLE_VAMPIRE = 30,
-	ROLE_BLOB = 30,
-	ROLE_REVENANT = 30,
-	ROLE_BORER = 30,
-	ROLE_NINJA = 30,
-	ROLE_MORPH = 30,
-	ROLE_DEMON = 30,
+	ROLE_TRAITOR = PRIME(3,30),
+	ROLE_CHANGELING = PRIME(3,30),
+	ROLE_WIZARD = PRIME(3,30),
+	ROLE_VAMPIRE = PRIME(3,30),
+	ROLE_BLOB = PRIME(3,30),
+	ROLE_REVENANT = PRIME(3,30),
+	ROLE_BORER = PRIME(3,30),
+	ROLE_NINJA = PRIME(3,30),
+	ROLE_MORPH = PRIME(3,30),
+	ROLE_DEMON = PRIME(3,30),
 
 	// DUO ANTAGS
-	ROLE_GUARDIAN = 40,
-	ROLE_GSPIDER = 40,
+	ROLE_GUARDIAN = PRIME(5,40),
+	ROLE_GSPIDER = PRIME(5,40),
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
-	ROLE_SHADOWLING = 50,
-	ROLE_REV = 50,
-	ROLE_OPERATIVE = 50,
-	ROLE_CULTIST = 50,
-	ROLE_RAIDER = 50,
-	ROLE_ALIEN = 50,
-	ROLE_ABDUCTOR = 50,
+	ROLE_SHADOWLING = PRIME(10,50),
+	ROLE_REV = PRIME(10,50),
+	ROLE_OPERATIVE = PRIME(10,50),
+	ROLE_CULTIST = PRIME(10,50),
+	ROLE_RAIDER = PRIME(10,50),
+	ROLE_ALIEN = PRIME(10,50),
+	ROLE_ABDUCTOR = PRIME(10,50),
 ))
 
 // Client Verbs
