@@ -14,6 +14,9 @@
 	job = list("Prime Restricted")
 
 /datum/uplink_item/jobspecific/batterer
+	category = "Highly Visible and Dangerous Weapons"
+	cant_discount = FALSE
+	excludefrom = list()
 	cost = 5
 	job = list()
 
