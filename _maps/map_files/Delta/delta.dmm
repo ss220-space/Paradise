@@ -2923,7 +2923,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
 "anQ" = (
@@ -81313,7 +81313,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
 "lZU" = (
@@ -84001,16 +84001,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"mCD" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/aft)
 "mCK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
@@ -172015,14 +172005,14 @@ xUN
 xUN
 xQG
 xUN
-xUN
-xUN
+xHs
+xHs
 lZA
-xUN
-mCD
-xUN
+xHs
+dxw
+xHs
 anP
-ayU
+xHs
 ayU
 dql
 xHs
