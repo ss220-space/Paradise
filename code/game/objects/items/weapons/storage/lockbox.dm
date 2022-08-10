@@ -147,3 +147,31 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
+
+/obj/item/storage/lockbox/research/anomaly
+	name = "anomaly core"
+	desc = "A large lockbox containing anomaly core"
+	req_access = list(ACCESS_RD)
+
+/obj/item/storage/lockbox/research/anomaly/New()
+	..()
+	switch(pickweight(list("pyro" = 1, "grav" = 1, "flux" = 1, "bluespace" = 1, "vortex" = 1)))
+		if("pyro")
+			new /obj/item/assembly/signaler/anomaly/pyro(src)
+			return
+
+		if("grav")
+			new /obj/item/assembly/signaler/anomaly/grav(src)
+			return
+
+		if("flux")
+			new /obj/item/assembly/signaler/anomaly/flux(src)
+			return
+
+		if("bluespace")
+			new /obj/item/assembly/signaler/anomaly/bluespace(src)
+			return
+
+		if("vortex")
+			new /obj/item/assembly/signaler/anomaly/vortex(src)
+			return

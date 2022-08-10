@@ -1054,6 +1054,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "machine prototype crate"
 	access = ACCESS_RESEARCH
 
+/datum/supply_packs/science
+	name = "Anomaly Cores Crate"
+	contains = list(/obj/item/storage/lockbox/research/anomaly)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	access = ACCESS_RD
+	containername = "anomaly core crate"
 /datum/supply_packs/science/oil
     name = "Oil Tank Crate"
     contains = list(/obj/structure/reagent_dispensers/oil,
