@@ -974,6 +974,7 @@
 				if(!muzzled)
 					message = "[pluralize_ru(src.gender,"[dna.species.scream_verb]","кричат")][M ? " на [M]" : ""]!"
 					m_type = 2
+					create_log(EMOTE_LOG, "[key_name(usr)] scream")
 					if(gender == FEMALE)
 						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
 					else
