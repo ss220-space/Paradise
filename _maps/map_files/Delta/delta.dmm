@@ -12589,12 +12589,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "boy" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "RoboPrivat";
-	name = "Robotics Privacy Shutter"
-	},
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "RoboDesk";
+	name = "Robotics Privacy Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
 "boD" = (
@@ -63497,7 +63497,7 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/toxins/lab)
+/area/hallway/primary/aft)
 "hCc" = (
 /obj/machinery/light/spot{
 	dir = 4;
@@ -112002,10 +112002,6 @@
 	},
 /area/engine/engineering)
 "tdA" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "RoboPrivat";
-	name = "Robotics Privacy Shutter"
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -112014,6 +112010,10 @@
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "RoboDesk";
+	name = "Robotics Privacy Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
 "tdC" = (
@@ -123466,7 +123466,7 @@
 	id = "RoboPrivat";
 	name = "Robotics Privacy Shutters Control";
 	pixel_x = 24;
-	pixel_y = -6
+	pixel_y = 6
 	},
 /obj/machinery/light{
 	dir = 4
@@ -123475,7 +123475,7 @@
 	id = "RoboDesk";
 	name = "Robotics Desc Privacy Shutters Control";
 	pixel_x = 24;
-	pixel_y = 6
+	pixel_y = -6
 	},
 /obj/structure/table/reinforced,
 /obj/item/book/manual/sop_science,
