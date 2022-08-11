@@ -56,7 +56,6 @@
 	cooldown = 50
 	flags = CONDUCT | NODROP
 
-
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
