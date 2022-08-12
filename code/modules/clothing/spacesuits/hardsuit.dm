@@ -497,7 +497,7 @@
 	item_state = "sec_helm"
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 	item_color = "sec"
-	
+
 
 /obj/item/clothing/suit/space/hardsuit/security
 	name = "security hardsuit"
@@ -604,7 +604,7 @@
 	desc = "This is an adamantium helmet from the chapter of the Singuloth Knights. It shines with a holy aura."
 	icon_state = "hardsuit0-singuloth"
 	item_state = "singuloth_helm"
-	armor = list(melee = 40, bullet = 5, laser = 20, energy = 5, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
+	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
 	item_color = "singuloth"
 	sprite_sheets = null
 
