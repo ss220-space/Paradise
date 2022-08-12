@@ -726,3 +726,7 @@
 	desc = "Данное улучшение позволяет хардсьюту поглащать слабые энергетические снаряды."
 	icon = 'icons/obj/hardsuits_modules.dmi'
 	icon_state = "powersink"
+
+//Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
+//Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm
+//Prototype RIG Hardsuit — code\modules\awaymissions\mission_code\ruins\oldstation.dm
