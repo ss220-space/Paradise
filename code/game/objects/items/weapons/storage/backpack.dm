@@ -419,7 +419,7 @@
 	max_combined_w_class = 30
 	slowdown = 1
 
-/obj/item/storage/backpack/durathread
+/obj/item/storage/backpack/duffel/durathread
 	name = "durathread duffelbag"
 	desc = "A large durathread duffelbag"
 	icon_state = "duffel-durathread"
