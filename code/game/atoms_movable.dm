@@ -46,7 +46,7 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)
-	loc = null
+	forceMove(null)
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(orbiting)
@@ -83,7 +83,7 @@
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
+			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [M]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -119,14 +119,14 @@
 	if(src == user || !isturf(loc))
 		return FALSE
 	if(anchored || move_resist == INFINITY)
-		if(show_message)
-			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
+		if(show_message)  //Это разве не проверка таскания прикрученных объектов? Оно точно может получить пол ящика?
+			to_chat(user, "<span class='warning'>Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!</span>")
 		return FALSE
 	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
+			to_chat(user, "<span class='warning'>[src.name] слишком тяжелый!</span>")
 		return FALSE
 	return TRUE
 
@@ -214,6 +214,8 @@
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	for(var/atom/movable/atom in contents)
+		SEND_SIGNAL(atom, COMSIG_MOVABLE_HOLDER_MOVED, OldLoc, Dir, Forced)
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
@@ -300,6 +302,7 @@
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+	update_runechat_msg_location()
 
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
@@ -462,12 +465,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='warning'>[src] forcefully pushes against [AM]!</span>", "<span class='warning'>You forcefully push against [AM]!</span>")
+		visible_message("<span class='warning'>[src] сильно толка[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='warning'>Вы сильно толкаете [AM]!</span>")
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
+		visible_message("<span class='danger'>[src] сокруша[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='danger'>Вы сокрушили [AM]!</span>")
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE

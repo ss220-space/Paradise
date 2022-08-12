@@ -96,9 +96,7 @@
 	icon_state = "blackdog"
 	icon_living = "blackdog"
 	icon_dead = "blackdog_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	icon_resting = "blackdog_rest"
 
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
@@ -107,7 +105,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/clothing/head/corgipelt = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"

@@ -23,7 +23,7 @@
 		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
-	
+
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
@@ -33,6 +33,8 @@
 	recharge_time = 2
 	reagent_ids = list( \
 		"syndicate_nanites" = list('icons/mob/swarmer.dmi', "swarmer_ranged"), \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
 		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = 1
@@ -69,15 +71,22 @@
 		return FALSE
 	charge_tick = 0
 
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell)
-			var/datum/reagents/RG = reagent_list[mode]
-			if(!refill_borghypo(RG, reagent_ids[mode], R)) 	//If the storage is not full recharge reagents and drain power.
-				for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
-					RG = reagent_list[i]
-					if(refill_borghypo(RG, reagent_ids[i], R))
-						break
+	var/target_loc
+	if (isrobot(loc))
+		target_loc = loc
+	else if (isrobot(loc.loc))
+		target_loc = loc.loc
+	else
+		return TRUE
+
+	var/mob/living/silicon/robot/R = target_loc
+	if(R && R.cell)
+		var/datum/reagents/RG = reagent_list[mode]
+		if(!refill_borghypo(RG, reagent_ids[mode], R)) 	//If the storage is not full recharge reagents and drain power.
+			for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
+				RG = reagent_list[i]
+				if(refill_borghypo(RG, reagent_ids[i], R))
+					break
 	//update_icon()
 	return TRUE
 

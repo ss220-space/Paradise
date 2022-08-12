@@ -178,6 +178,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
+	item_state = "sheet-diamond"
 	singular_name = "diamond"
 	origin_tech = "materials=6"
 	sheettype = "diamond"
@@ -195,6 +196,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
+	item_state = "sheet-uranium"
 	singular_name = "uranium sheet"
 	origin_tech = "materials=5"
 	sheettype = "uranium"
@@ -209,6 +211,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
+	item_state = "sheet-plasma"
 	singular_name = "plasma sheet"
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
@@ -252,6 +255,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
+	item_state = "sheet-gold"
 	singular_name = "gold bar"
 	origin_tech = "materials=4"
 	sheettype = "gold"
@@ -266,6 +270,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
+	item_state = "sheet-silver"
 	singular_name = "silver bar"
 	origin_tech = "materials=4"
 	sheettype = "silver"
@@ -318,7 +323,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
 	icon_state = "sheet-titanium"
-	item_state = "sheet-metal"
+	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
 	force = 5
 	throwforce = 5
@@ -349,7 +354,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 /obj/item/stack/sheet/mineral/plastitanium
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
-	item_state = "sheet-metal"
+	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
 	force = 5
 	throwforce = 5
@@ -363,6 +368,36 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
+	//adding syndie crate recipe here - Furu
+	new/datum/stack_recipe("Suspicious crate", /obj/structure/closet/crate/syndicate, 10, 1, time = 20, one_per_turf = 1, on_floor = 1),
+
+	//adding syndie airlocks recipe's here - Furu
+	//WIP
+
+	new /datum/stack_recipe_list("Evil airlock assemblies", list(
+
+		new /datum/stack_recipe("Syndicate public airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_public, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate security airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_sec, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate cargo airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_cargo, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate atmospherics airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_atmos, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate research airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_research, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate medical airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_med, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate maintenance airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate command airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_com, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate freezer airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_freezer, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate external maintenance airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_extmai, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate engineering airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_engi, 4, time = 50, one_per_turf = 1, on_floor = 1),
+
+		//If i ever decide to make the rest syndie door types, here is the reference to what was not made - Furu
+		/*
+		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 50, one_per_turf = 1, on_floor = 1),
+		*/
+	))
 	))
 
 /obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
@@ -380,6 +415,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "alien alloy"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
+	item_state = "sheet-abductor"
 	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5
@@ -399,6 +435,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "adamantine"
 	desc = "A strange mineral used in the construction of sentient golems."
 	icon_state = "sheet-adamantine"
+	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	origin_tech = "materials=5"
 	merge_type = /obj/item/stack/sheet/mineral/adamantine

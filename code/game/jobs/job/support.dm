@@ -92,6 +92,8 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/hydro
 
 /datum/outfit/job/hydro
@@ -138,10 +140,10 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/qm
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
-
+	backpack = /obj/item/storage/backpack/cargo
 
 
 /datum/job/cargo_tech
@@ -154,7 +156,7 @@
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -167,7 +169,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
-
+	backpack = /obj/item/storage/backpack/cargo
 
 
 /datum/job/mining
@@ -180,7 +182,7 @@
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
@@ -205,7 +207,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
@@ -214,7 +216,7 @@
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
-	suit_store = /obj/item/tank/emergency_oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = slot_s_store
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
@@ -259,6 +261,7 @@
 	jobtype = /datum/job/clown
 
 	uniform = /obj/item/clothing/under/rank/clown
+	belt = /obj/item/signmaker
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
@@ -276,7 +279,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -345,7 +348,6 @@
 
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
-	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
@@ -358,6 +360,8 @@
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1
 	)
+	backpack = /obj/item/storage/backpack/mime
+	satchel = /obj/item/storage/backpack/satchel_mime
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

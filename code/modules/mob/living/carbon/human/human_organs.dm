@@ -6,6 +6,7 @@
 
 /mob/living/carbon/human/var/list/bodyparts = list()
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
+/mob/living/carbon/human/var/obj/item/organ/external/tail/bodypart_tail = null
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/handle_organs()
@@ -23,7 +24,7 @@
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				custom_pain("You feel broken bones moving in your [E.name]!")
+				custom_pain("Вы чувствуете как в вашей [E.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 				I.receive_damage(rand(3,5))
 
 	//handle_stance()
@@ -67,7 +68,7 @@
 		if(!(lying || resting))
 			if(!(NO_PAIN in dna.species.species_traits))
 				emote("scream")
-			custom_emote(1, "collapses!")
+			custom_emote(1, "падает!")
 		Weaken(5) //can't emote while weakened, apparently.
 
 
@@ -92,8 +93,8 @@
 				if(!unEquip(r_hand))
 					continue
 
-			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+			var/emote_scream = pick("крич[pluralize_ru(src.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(src.gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(src.gender,"ет","ют")] и ")
+			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
 
 		else if(E.is_malfunctioning())
 
@@ -108,7 +109,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
+			custom_emote(1, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
 
 			do_sparks(5, 0, src)
 
@@ -118,11 +119,11 @@
 		gloves.germ_level += 1
 
 /mob/living/carbon/human/proc/becomeSlim()
-	to_chat(src, "<span class='notice'>You feel fit again!</span>")
+	to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!</span>")
 	mutations.Remove(FAT)
 
 /mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+	to_chat(src, "<span class='alert'>[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!</span>")
 	mutations.Add(FAT)
 
 //Handles chem traces
@@ -169,3 +170,9 @@ I use this to standardize shadowling dethrall code
 	for(var/obj/item/organ/external/limb in bodyparts)
 		if(limb.status & ORGAN_SPLINTED)
 			splinted_limbs += limb
+
+/mob/living/carbon/human/proc/update_tail()
+	if(bodyparts_by_name["tail"])
+		bodypart_tail = bodyparts_by_name["tail"]
+	else
+		bodypart_tail = null

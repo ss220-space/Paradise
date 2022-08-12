@@ -6,6 +6,7 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
+	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
@@ -248,6 +249,9 @@
 
 /turf/proc/BeforeChange()
 	return
+
+/turf/proc/is_safe()
+	return FALSE
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()

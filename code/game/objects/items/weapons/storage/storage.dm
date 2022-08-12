@@ -93,7 +93,6 @@
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
-	return ..()
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -351,8 +350,6 @@
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
 		W.forceMove(new_location)
-	else
-		W.forceMove(get_turf(src))
 
 	if(usr)
 		orient2hud(usr)
@@ -635,3 +632,4 @@
 	if(user && user.s_active == src)
 		orient2hud(user)
 		show_to(user)
+	return TRUE

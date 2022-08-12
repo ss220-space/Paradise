@@ -86,7 +86,8 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
-				N.new_player_panel_proc() // to enable the observe option
+				if (N.client)
+					N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
 				return
@@ -434,7 +435,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
+		to_chat(world, "<span class='purple'><b>Совет раунда: </b>[html_encode(m)]</span>")
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.

@@ -6,7 +6,10 @@
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
-														/area/crew_quarters/bar))
+														/area/crew_quarters/bar,
+														/area/syndicate/unpowered/syndicate_space_base/bar,
+														/area/syndicate/unpowered/syndicate_space_base/kitchen
+														))
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
@@ -51,7 +54,7 @@
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
-		D.Weaken(3)
+		D.Weaken(1)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -61,7 +64,7 @@
 	if(restraining && istype(G) && G.affecting == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(20)
+		D.SetSleeping(10)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
 			G.state = GRAB_NECK
@@ -71,7 +74,7 @@
 
 	var/obj/item/I = null
 
-	if(prob(65))
+	if(prob(50))
 		if(!D.stat || !D.IsWeakened() || !restraining)
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \

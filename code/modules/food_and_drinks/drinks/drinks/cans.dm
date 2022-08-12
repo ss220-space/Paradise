@@ -6,6 +6,7 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
+	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()
@@ -69,7 +70,6 @@
 				handle_bursting(user)
 	else
 		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
-	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!canopened)

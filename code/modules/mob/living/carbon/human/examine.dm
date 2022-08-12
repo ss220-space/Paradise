@@ -25,7 +25,7 @@
 		skipface |= wear_mask.flags_inv & HIDEFACE
 		skipeyes |= wear_mask.flags_inv & HIDEEYES
 
-	var/msg = "<span class='info'>*---------*\nThis is "
+	var/msg = "<span class='info'>This is "
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
@@ -66,6 +66,13 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(head)] [head.gender==PLURAL?"some":"a"] [head.blood_color != "#030303" ? "blood-stained":"oil-stained"] [head.name] on [p_their()] head!</span>\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(head)] \a [head] on [p_their()] head.\n"
+
+	//neck
+	if(neck && !(neck.flags & ABSTRACT))
+		if(neck.blood_DNA)
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(neck)] [neck.gender==PLURAL?"some":"a"] [neck.blood_color != "#030303" ? "blood-stained":"oil-stained"] [neck.name] around [p_their()] neck!</span>\n"
+		else
+			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(neck)] \a [neck] around [p_their()] neck.\n"
 
 	//suit/armour
 	if(wear_suit && !(wear_suit.flags & ABSTRACT))
@@ -404,7 +411,7 @@
 			if(!H.disfigured)
 				msg += "[print_flavor_text()]\n"
 
-	msg += "*---------*</span>"
+	msg += "</span>"
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
@@ -434,7 +441,7 @@
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
-		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
 			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
 
 	return FALSE

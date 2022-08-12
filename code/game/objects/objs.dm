@@ -117,7 +117,9 @@
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
 	if(breath_request > 0)
-		return remove_air(breath_request)
+		var/datum/gas_mixture/environment = return_air()
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -363,4 +365,13 @@ a {
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
+
+/proc/get_obj_in_atom_without_warning(atom/A)
+	if(!istype(A))
+		return null
+	if(isobj(A))
+		return A
+
+	return locate(/obj) in A
+
 

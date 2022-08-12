@@ -104,17 +104,17 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		destroy_objective.find_target()
 		changeling.objectives += destroy_objective
 	else
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = changeling
-		kill_objective.find_target()
-		changeling.objectives += kill_objective
+		var/datum/objective/maroon/maroon_objective = new
+		maroon_objective.owner = changeling
+		maroon_objective.find_target()
+		changeling.objectives += maroon_objective
 
 		if(!(locate(/datum/objective/escape) in changeling.objectives))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
-			identity_theft.target = kill_objective.target
+			identity_theft.target = maroon_objective.target
 			if(identity_theft.target && identity_theft.target.current)
-				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
+				identity_theft.target_real_name = maroon_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
 				if(can_absorb_species(H.dna.species)) // For species that can't be absorbed - should default to an escape objective
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing [identity_theft.target.p_their()] identification card."
@@ -207,17 +207,19 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 				var/count = 1
 				for(var/datum/objective/objective in changeling.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "FAIL"))
 						changelingwin = 0
 					count++
 
 			if(changelingwin)
+				text += "<br><font color='green'><B>The changeling was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "SUCCESS")
 			else
+				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
 
 		to_chat(world, text)

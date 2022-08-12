@@ -172,6 +172,7 @@
 		door = new glass_type(loc)
 	else
 		door = new airlock_type(loc)
+	door.remove_shielding()
 	door.setDir(dir)
 	door.electronics = electronics
 	door.unres_sides = electronics.unres_access_from
@@ -187,6 +188,7 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 	electronics.forceMove(door)
+	electronics = null
 	qdel(src)
 	update_icon()
 

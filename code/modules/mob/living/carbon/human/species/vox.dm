@@ -25,7 +25,6 @@
 
 	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
 
 	silent_steps = TRUE
@@ -81,13 +80,16 @@
 		"tail" =   list("path" = /obj/item/organ/external/tail/vox))
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is deeply inhaling oxygen!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!",
+		"глубоко вдыхает кислород!")
 
 	speciesbox = /obj/item/storage/box/survival_vox
+
+	disliked_food = GROSS | DAIRY | FRIED
+	liked_food = GRAIN | MEAT | FRUIT
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -110,18 +112,18 @@
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
-	var/obj/item/tank/internal_tank
+	var/obj/item/tank/internals/internal_tank
 	if(tank_pref)//Diseasel, here you go
-		internal_tank = new /obj/item/tank/nitrogen(H)
+		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
-		internal_tank = new /obj/item/tank/emergency_oxygen/vox(H)
+		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
-	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
+	to_chat(H, "<span class='notice'>Теперь вы живете на азоте из [internal_tank]. Кислород токсичен для вашего вида, поэтому вы должны дышать только азотом.</span>")
 	H.update_action_buttons_icon()
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
@@ -215,11 +217,11 @@
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is huffing oxygen!")
+		"пытается откусить себе язык!",
+		"вонзает когти в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!",
+		"пыхтит кислородом!")
 
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE

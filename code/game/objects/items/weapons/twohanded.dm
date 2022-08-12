@@ -248,7 +248,7 @@
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			M.Weaken(4)
+			M.Weaken(3)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -282,12 +282,12 @@
 	light_power = 2
 	needs_permit = TRUE
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
 	..()
 	if(!blade_color)
-		blade_color = pick("red", "blue", "green", "purple")
+		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
 /obj/item/twohanded/dualsaber/update_icon()
 	if(wielded)
@@ -330,6 +330,18 @@
 
 /obj/item/twohanded/dualsaber/blue
 	blade_color = "blue"
+
+/obj/item/twohanded/dualsaber/orange
+	blade_color = "orange"
+
+/obj/item/twohanded/dualsaber/darkblue
+	blade_color = "darkblue"
+
+/obj/item/twohanded/dualsaber/pink
+	blade_color = "pink"
+
+/obj/item/twohanded/dualsaber/yellow
+	blade_color = "yellow"
 
 /obj/item/twohanded/dualsaber/unwield()
 	. = ..()
@@ -613,7 +625,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(4)
+			target.Weaken(1)
 			..()
 		return
 	else
@@ -726,14 +738,14 @@
 		//charged = 0
 		playsound(loc, "sparks", 50, 1)
 		if(isliving(M))
-			M.Stun(3)
+			M.Stun(2)
 			shock(M)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(3)
+		L.Stun(2)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.

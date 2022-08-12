@@ -188,9 +188,9 @@
 			return
 	if(istype(D,/obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = D
-		if(FD_CLOSED)
-			if(hulk_scream(F))
-				qdel(F)
+		if(F.welded || F.locked)
+			if(hulk_scream(F, 75))
+				F.deconstruct(src);
 				return
 	if(D.density)
 		to_chat(src, "<span class='userdanger'>You force your fingers between \

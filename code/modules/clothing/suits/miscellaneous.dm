@@ -139,7 +139,7 @@
 	item_state = "syndicate-black-red"
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
 
@@ -150,7 +150,7 @@
 	icon_state = "hastur"
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/imperium_monk
@@ -160,7 +160,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/chickensuit
 	name = "chicken suit"
@@ -176,7 +176,7 @@
 	icon_state = "corgisuit"
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/super_hero
@@ -213,7 +213,7 @@
 	icon_state = "monkeysuit"
 	item_state = "monkeysuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 
 /obj/item/clothing/suit/holidaypriest
@@ -223,7 +223,7 @@
 	item_state = "holidaypriest"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
@@ -262,35 +262,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/poncho
-	name = "poncho"
-	desc = "Your classic, non-racist poncho."
-	icon_state = "classicponcho"
-	item_state = "classicponcho"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
-
-/obj/item/clothing/suit/poncho/green
-	name = "green poncho"
-	desc = "Your classic, non-racist poncho. This one is green."
-	icon_state = "greenponcho"
-	item_state = "greenponcho"
-
-/obj/item/clothing/suit/poncho/red
-	name = "red poncho"
-	desc = "Your classic, non-racist poncho. This one is red."
-	icon_state = "redponcho"
-	item_state = "redponcho"
-
-/obj/item/clothing/suit/poncho/ponchoshame
-	name = "poncho of shame"
-	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
-	icon_state = "ponchoshame"
-	item_state = "ponchoshame"
-	flags = NODROP
-
 /obj/item/clothing/suit/hooded/carp_costume
 	name = "carp costume"
 	desc = "A costume made from 'synthetic' carp scales, it smells."
@@ -299,7 +270,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
-	allowed = list(/obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
 
 /obj/item/clothing/head/hooded/carp_hood
@@ -371,7 +342,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
 
@@ -441,7 +412,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatengineer"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 45)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
 /obj/item/clothing/head/hooded/winterhood/engineering
@@ -480,7 +451,7 @@
 	icon_state = "wintercoat_miner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
-	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
@@ -499,7 +470,7 @@
 	icon_state = "black_hoodie"
 	item_state = "blueshieldcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -690,7 +661,7 @@
 	ignore_suitadjust = 1
 	actions_types = list()
 	adjust_flavour = null
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -713,7 +684,7 @@
 	icon_state = "xenos"
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 //swimsuit
 /obj/item/clothing/under/swimsuit/
@@ -757,9 +728,9 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv = HIDEJUMPSUIT|HIDETAIL
 
 /obj/item/clothing/head/mercy_hood
 	name = "Mercy Hood"
@@ -778,7 +749,7 @@
 	icon_state = "bomber"
 	item_state = "bomber"
 	ignore_suitadjust = 0
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -863,36 +834,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
-/obj/item/clothing/suit/toggle/owlwings
-	name = "owl cloak"
-	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
-	w_class = WEIGHT_CLASS_NORMAL
-	icon_state = "owl_wings"
-	item_state = "owl_wings"
-	body_parts_covered = ARMS
-	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 25, acid = 25)
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite)
-	actions_types = list(/datum/action/item_action/toggle_wings)
-
-
-/obj/item/clothing/suit/toggle/owlwings/griffinwings
-	name = "griffon cloak"
-	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
-	icon_state = "griffin_wings"
-	item_state = "griffin_wings"
-
-/obj/item/clothing/suit/toggle/attack_self()
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	usr.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/lordadmiral
 	name = "Lord Admiral's Coat"
@@ -1026,28 +967,6 @@
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
 
-//Mantles!
-/obj/item/clothing/suit/mantle
-	name = "mantle"
-	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
-	icon_state = "mantle"
-	item_state = "mantle"
-	body_parts_covered = UPPER_TORSO|ARMS
-	cold_protection = UPPER_TORSO|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-
-/obj/item/clothing/suit/mantle/regal
-	name = "regal shawl"
-	desc = "A fancy shawl for nobility, made from high quality materials."
-	icon_state = "regal_mantle"
-	item_state = "regal_mantle"
-
-/obj/item/clothing/suit/mantle/old
-	name = "old wrap"
-	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
-	icon_state = "old_mantle"
-	item_state = "old_mantle"
-
 /obj/item/clothing/suit/ghost_sheet
 	name = "ghost sheet"
 	desc = "The hands float by themselves, so it's extra spooky."
@@ -1060,7 +979,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
 
-
 // Suragi start
 // Suragi parent
 /obj/item/clothing/suit/storage/suragi_jacket
@@ -1070,7 +988,7 @@
 	ignore_suitadjust = 1
 	blood_overlay_type = ""
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
 
 // Suragi Children
 /obj/item/clothing/suit/storage/suragi_jacket/civ
@@ -1102,7 +1020,7 @@
 	icon_state = "suragi_jacket_atmos"
 	item_state = "suragi_jacket_atmos"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 5, "acid" = 0)
-	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen, /obj/item/rcd, /obj/item/rpd, /obj/item/holosign_creator/atmos)
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd, /obj/item/holosign_creator/atmos)
 
 /obj/item/clothing/suit/storage/suragi_jacket/eng
 	name = "Engineering Suragi Jacket"
@@ -1110,7 +1028,7 @@
 	icon_state = "suragi_jacket_eng"
 	item_state = "suragi_jacket_eng"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
 
 /obj/item/clothing/suit/storage/suragi_jacket/botany
 	name = "Botany Suragi Jacket"
@@ -1134,7 +1052,7 @@
 	icon_state = "suragi_jacket_brigmed"
 	item_state = "suragi_jacket_brigmed"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/emergency_oxygen, /obj/item/rad_laser)
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/virus
 	name = "Virology Suragi Jacket"

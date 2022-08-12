@@ -24,6 +24,8 @@
 			return has_organ("chest")
 		if(slot_wear_mask)
 			return has_organ("head")
+		if(slot_neck)
+			return has_organ("chest")
 		if(slot_handcuffed)
 			return has_organ("l_hand") && has_organ("r_hand")
 		if(slot_legcuffed)
@@ -85,6 +87,8 @@
 		wear_suit = null
 		if(I.flags_inv & HIDEJUMPSUIT)
 			update_inv_w_uniform()
+		if(I.flags_inv & HIDESHOES)
+			update_inv_shoes()
 		update_inv_wear_suit()
 	else if(I == w_uniform)
 		if(r_store)
@@ -100,6 +104,9 @@
 	else if(I == gloves)
 		gloves = null
 		update_inv_gloves()
+	else if(I == neck)
+		neck = null
+		update_inv_neck()
 	else if(I == glasses)
 		glasses = null
 		var/obj/item/clothing/glasses/G = I
@@ -175,8 +182,6 @@
 		update_inv_l_hand()
 
 
-
-
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 /mob/living/carbon/human/equip_to_slot(obj/item/I, slot)
 	if(!slot)
@@ -213,6 +218,9 @@
 				sec_hud_set_ID()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask()
+		if(slot_neck)
+			neck = I
+			update_inv_neck()
 		if(slot_handcuffed)
 			handcuffed = I
 			update_inv_handcuffed()
@@ -286,6 +294,8 @@
 			update_inv_shoes()
 		if(slot_wear_suit)
 			wear_suit = I
+			if(wear_suit.flags_inv & HIDESHOES)
+				update_inv_shoes()
 			update_inv_wear_suit()
 		if(slot_w_uniform)
 			w_uniform = I
@@ -331,6 +341,8 @@
 			return back
 		if(slot_wear_mask)
 			return wear_mask
+		if(slot_neck)
+			return neck
 		if(slot_handcuffed)
 			return handcuffed
 		if(slot_legcuffed)

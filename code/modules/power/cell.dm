@@ -29,6 +29,7 @@
 	..()
 	START_PROCESSING(SSobj, src)
 	charge = maxcharge
+
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()

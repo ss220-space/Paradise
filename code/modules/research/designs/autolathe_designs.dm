@@ -147,6 +147,14 @@
 	build_path = /obj/item/airlock_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/syndie_airlock_board
+	name = "Suspicious Airlock Electronics"
+	id = "syndie_airlock_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/airlock_electronics/syndicate
+	category = list("hacked", "Electronics")
+
 /datum/design/firelock_board
 	name = "Firelock Electronics"
 	id = "firelock_board"
@@ -453,6 +461,30 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 2500)
 	build_path = /obj/item/reagent_containers/glass/beaker/large
+	category = list("initial", "Medical")
+
+/datum/design/vial
+	name = "Vial"
+	id = "vial"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 250)
+	build_path = /obj/item/reagent_containers/glass/beaker/vial
+	category = list("initial", "Medical")
+
+/datum/design/vial_storage_box
+	name = "Vial storage box"
+	id = "vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 250, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/fancy/vials
+	category = list("initial", "Medical")
+
+/datum/design/secure_vial_storage_box
+	name = "Secure vial storage box"
+	id = "secure_vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/lockbox/vials
 	category = list("initial", "Medical")
 
 /datum/design/healthanalyzer
@@ -961,3 +993,12 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+
+/datum/design/tts
+	name = "TTS device"
+	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker."
+	id = "tts"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/ttsdevice
+	category = list("initial", "Miscellaneous")

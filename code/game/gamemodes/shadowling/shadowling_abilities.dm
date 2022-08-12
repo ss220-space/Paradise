@@ -3,9 +3,6 @@
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
 	if(!H || !istype(H))
 		return
-	if(H.incorporeal_move == 1)
-		to_chat(H, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
-		return FALSE
 	if(isshadowling(H) && is_shadow(H))
 		return 1
 	if(isshadowlinglesser(H) && is_thrall(H))
@@ -32,10 +29,10 @@
 	selection_deactivated_message	= "<span class='notice'>Your eyes relax... for now.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/glare/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
+/obj/effect/proc_holder/spell/targeted/click/glare/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
-	return ..()
+	. = ..()
 
 /obj/effect/proc_holder/spell/targeted/click/glare/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
@@ -47,28 +44,21 @@
 
 	user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
 	var/distance = get_dist(H, user)
-	if (distance <= 1) //Melee glare
+	if (distance <= 2)
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		H.Stun(10)
-		H.AdjustSilence(10)
-	else //Distant glare
-		var/loss = 10 - distance
-		var/duration = 10 - loss
-		if(loss <= 0)
-			to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
-			return
-		H.slowed = duration
-		H.AdjustSilence(10)
-		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
-		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss), duration SECONDS)
 
-/obj/effect/proc_holder/spell/targeted/click/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
-	if(!istype(target) || target.stat)
-		return
-	target.Stun(stun_time)
-	target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>",\
-		"<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
+		H.Weaken(2)
+		H.AdjustSilence(10)
+		H.adjustStaminaLoss(20)
+		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+
+	else //Distant glare
+		H.Stun(1)
+		H.slowed = 5
+		H.AdjustSilence(5)
+		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
+		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
@@ -79,6 +69,11 @@
 	range = 5
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
 	action_icon_state = "veil"
+
+/obj/effect/proc_holder/spell/aoe_turf/veil/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -99,6 +94,7 @@
 	panel = "Shadowling Abilities"
 	charge_max = 300 //Used to be twice this, buffed
 	clothes_req = 0
+	phase_allowed = TRUE
 	range = -1
 	include_user = 1
 	action_icon_state = "shadow_walk"
@@ -112,7 +108,7 @@
 		target.visible_message("<span class='warning'>[target] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 		target.SetStunned(0)
 		target.SetWeakened(0)
-		target.incorporeal_move = 1
+		target.incorporeal_move = INCORPOREAL_NORMAL
 		target.alpha = 0
 		target.ExtinguishMob()
 		var/turf/T = get_turf(target)
@@ -122,7 +118,7 @@
 		target.stop_pulling()
 		sleep(40) //4 seconds
 		target.visible_message("<span class='warning'>[target] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
-		target.incorporeal_move = 0
+		target.incorporeal_move = INCORPOREAL_NONE
 		target.alpha = 255
 		target.forceMove(user.loc)
 
@@ -181,6 +177,11 @@
 	clothes_req = 0
 	action_icon_state = "icy_veins"
 
+/obj/effect/proc_holder/spell/aoe_turf/flashfreeze/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
+
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
 		charge_counter = charge_max
@@ -197,7 +198,7 @@
 					to_chat(M, "<span class='danger'>You feel a blast of paralyzingly cold air wrap around you and flow past, but you are unaffected!</span>")
 					continue
 			to_chat(M, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
-			M.Stun(2)
+			M.Stun(1)
 			M.apply_damage(10, BURN)
 			if(M.bodytemperature)
 				M.bodytemperature -= 200 //Extreme amount of initial cold
@@ -220,10 +221,10 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(enthralling || !shadowling_check(user))
+/obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(enthralling || user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
-	return ..()
+	. = ..()
 
 /obj/effect/proc_holder/spell/targeted/click/enthrall/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
@@ -316,6 +317,11 @@
 	var/reviveThrallAcquired
 	action_icon_state = "collective_mind"
 
+/obj/effect/proc_holder/spell/targeted/collective_mind/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
+
 /obj/effect/proc_holder/spell/targeted/collective_mind/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
 		charge_counter = charge_max
@@ -391,6 +397,11 @@
 	include_user = 1
 	action_icon_state = "black_smoke"
 
+/obj/effect/proc_holder/spell/targeted/blindness_smoke/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
+
 /obj/effect/proc_holder/spell/targeted/blindness_smoke/cast(list/targets, mob/user = usr) //Extremely hacky
 	if(!shadowling_check(user))
 		charge_counter = charge_max
@@ -423,7 +434,7 @@
 		update_flags |= M.EyeBlind(5, FALSE)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
-			M.Stun(3)
+			M.Stun(2)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
 		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)
@@ -439,6 +450,11 @@
 	charge_max = 300
 	clothes_req = 0
 	action_icon_state = "screech"
+
+/obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -476,6 +492,11 @@
 	charge_max = 600
 	clothes_req = FALSE
 	action_icon_state = "null_charge"
+
+/obj/effect/proc_holder/spell/aoe_turf/null_charge/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
 
 /obj/effect/proc_holder/spell/aoe_turf/null_charge/cast(mob/user = usr)
 	if(!shadowling_check(user))
@@ -537,10 +558,10 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/user = usr)
-	if(!shadowling_check(user))
+/obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
-	return ..()
+	. = ..()
 
 /obj/effect/proc_holder/spell/targeted/click/reviveThrall/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
@@ -627,18 +648,21 @@
 	action_icon_state = "extend_shuttle"
 	var/global/extendlimit = 0
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+		return FALSE
+	. = ..()
+
+/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user)
 	if(!shadowling_check(user))
 		return FALSE
 	if(extendlimit == 1)
-		if(show_message)
-			to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
+		to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
 		return FALSE
 	if(SSshuttle.emergency.mode != SHUTTLE_CALL)
-		if(show_message)
-			to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
+		to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
 		return FALSE
-	return ..()
+	. = ..()
 
 /obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
@@ -765,12 +789,12 @@
 		if(SHA.phasing)
 			SHA.visible_message("<span class='danger'>[SHA] suddenly vanishes!</span>", \
 			"<span class='shadowling'>You begin phasing through planes of existence. Use the ability again to return.</span>")
-			SHA.incorporeal_move = 1
+			SHA.incorporeal_move = INCORPOREAL_NORMAL
 			SHA.alpha = 0
 		else
 			SHA.visible_message("<span class='danger'>[SHA] suddenly appears from nowhere!</span>", \
 			"<span class='shadowling'>You return from the space between worlds.</span>")
-			SHA.incorporeal_move = 0
+			SHA.incorporeal_move = INCORPOREAL_NONE
 			SHA.alpha = 255
 
 

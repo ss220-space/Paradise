@@ -115,7 +115,7 @@ a.popt {text-decoration: none;}
     float: right;
     text-align: center;
 }
-#options .sub {clear: both; display: none; width: 160px;}
+#options .sub {clear: both; display: none; width: 240px;}
 #options .sub.scroll {overflow-y: scroll;}
 #options .sub a {padding: 5px 0 5px 8px; line-height: 30px; font-size: 0.9em; clear: both;}
 #options .sub span {
@@ -174,7 +174,7 @@ a.popt {text-decoration: none;}
 .changeFont a {display: block; text-decoration: none; padding: 3px; color: #333;}
 .changeFont a:hover {background: #ccc;}
 
-.highlightPopup {padding: 10px; text-align: center;}
+.highlightPopup {padding: 10px; text-align: center; color: #000;}
 .highlightPopup input[type=text] {display: block; width: 215px; text-align: left; margin-top: 5px;}
 .highlightPopup input.highlightColor {background-color: #FFFF00;}
 .highlightPopup input.highlightTermSubmit {margin-top: 5px;}
@@ -201,7 +201,7 @@ a.popt {text-decoration: none;}
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
 .filterMessages input {}
-.filterMessages label {}
+.filterMessages label {color: #000;}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
 
@@ -266,9 +266,11 @@ em						{font-style: normal;	font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
 .radio					{color: #408010;}
+.spyradio				{color: #776f96;}
 .deptradio				{color: #993399;}
 .comradio				{color: #204090;}
 .syndradio				{color: #6D3F40;}
+.taipan					{color: #998e54;}
 .dsquadradio				{color: #686868;}
 .resteamradio				{color: #18BC46;}
 .airadio				{color: #FF00FF;}
@@ -425,3 +427,6 @@ h1.alert, h2.alert			{color: #000000;}
 /* Syndicate codewords */
 span.body .codephrases {color: #0000FF;}
 span.body .coderesponses {color: #FF0000;}
+
+/* Examine styles */
+.examine {border: 1px solid #000000; padding: 5px; margin: 2px 10px; background: #D3D3D3;}

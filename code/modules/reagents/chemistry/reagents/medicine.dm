@@ -59,6 +59,7 @@
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
+	update_flags |= M.adjustStaminaLoss(-8, FALSE)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags
@@ -327,7 +328,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.4
 	overdose_threshold = 30
-	addiction_chance = 1
+	addiction_chance = 3
 	addiction_chance_additional = 20
 	addiction_threshold = 5
 	harmless = FALSE
@@ -520,7 +521,7 @@
 	metabolization_rate = 0.3
 	overdose_threshold = 35
 	addiction_chance = 1
-	addiction_chance = 10
+	addiction_chance_additional = 10
 	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
@@ -531,7 +532,7 @@
 	update_flags |= M.AdjustParalysis(-1, FALSE)
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
-	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
@@ -769,6 +770,9 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
+				if(!M.ghost_can_reenter())
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
+					return
 				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
@@ -911,7 +915,7 @@
 	update_flags |= M.AdjustParalysis(-3, FALSE)
 	update_flags |= M.AdjustStunned(-3, FALSE)
 	update_flags |= M.AdjustWeakened(-3, FALSE)
-	update_flags |= M.adjustStaminaLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -1207,7 +1211,7 @@
 	update_flags |= M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	update_flags |= M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustStaminaLoss(-30 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-9 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.SetJitter(min(max(0, M.jitteriness + 3), 30))
 	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
 	return ..() | update_flags

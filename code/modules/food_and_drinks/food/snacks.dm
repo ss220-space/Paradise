@@ -116,13 +116,7 @@
 			reagents.trans_to(collected, bitesize)
 		else
 			reagents.trans_to(collected, reagents.total_volume)
-			if(trash)
-				var/obj/item/TrashItem
-				if(ispath(trash,/obj/item))
-					TrashItem = new trash(src)
-				else if(istype(trash,/obj/item))
-					TrashItem = trash
-				TrashItem.forceMove(loc)
+			generate_trash(loc)
 			qdel(src)
 		return TRUE
 	else
@@ -298,6 +292,6 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "deepfried_holder_icon"
 	list_reagents = list("nutriment" = 3)
-
+	foodtype = FRIED | JUNKFOOD | GROSS
 
 #undef MAX_WEIGHT_CLASS
