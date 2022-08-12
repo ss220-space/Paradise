@@ -106,9 +106,16 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				return TRUE
 			usr.client.open_logging_view(list(M), TRUE)
 			return TRUE
+		if ("bless")
+			if(!check_rights(R_EVENT))
+				to_chat(usr, "Insufficient permissions to bless, you require +EVENT")
+				return TRUE
+			var/mob/living/M = request.owner?.mob
+			usr.client.bless(M)
+			return TRUE
 		if ("smite")
 			if(!check_rights(R_EVENT))
-				to_chat(usr, "Insufficient permissions to smite, you require +FUN")
+				to_chat(usr, "Insufficient permissions to smite, you require +EVENT")
 				return TRUE
 			var/mob/living/M = request.owner?.mob
 			usr.client.smite(M)
