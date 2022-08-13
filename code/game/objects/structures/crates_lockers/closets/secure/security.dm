@@ -201,32 +201,37 @@
 /obj/structure/closet/secure_closet/security/brigofficer
 	name = "brig officer's locker"
 	req_access = list(ACCESS_BRIGOFFICER)
-	icon_state = "brigoff1"
-	icon_closed = "brigoff"
-	icon_locked = "brigoff1"
-	icon_opened = "brigoffopen"
-	icon_broken = "brigoffbroken"
-	icon_off = "brigoffoff"
+	icon_state = "sec1"
+	icon_closed = "sec"
+	icon_locked = "sec1"
+	icon_opened = "secopen"
+	icon_broken = "secbroken"
+	icon_off = "secoff"
 
 
 /obj/structure/closet/secure_closet/security/brigofficer/populate_contents()
-	new /obj/item/storage/backpack/security(src)
-	new /obj/item/storage/backpack/satchel_sec(src)
+	if(prob(50))
+		new /obj/item/storage/backpack/security(src)
+	else
+		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/clothing/suit/storage/brigofficer(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/head/beret/sec/brigofficer(src)
 	new /obj/item/clothing/head/officer/brigofficer(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/flashlight/seclite(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flash(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
-	new /obj/item/clothing/under/rank/security/brigofficer(src)
-	new /obj/item/clothing/under/rank/security/brigofficer/skirt(src)
-	new /obj/item/clothing/under/rank/security/brigofficer/sweater(src)
-	new /obj/item/clothing/under/rank/security/brigofficer/sweater/skirt(src)
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/clothing/under/rank/security/brigofficer
+	new /obj/item/clothing/under/rank/security/brigofficer/skirt
+	new /obj/item/clothing/under/rank/security/brigofficer/sweater
+	new /obj/item/clothing/under/rank/security/brigofficer/sweater/skirt
 
 
 

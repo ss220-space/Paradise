@@ -247,15 +247,6 @@
 	icon_state = "detective_belt"
 	item_state = "detective_belt"
 
-/obj/item/storage/belt/security/full/New()
-	..()
-	new /obj/item/melee/baton/loaded(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/flash(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/restraints/handcuffs(src)
-	update_icon()
-
 /obj/item/storage/belt/security/response_team/New()
 	..()
 	new /obj/item/reagent_containers/spray/pepper(src)
