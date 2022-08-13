@@ -239,6 +239,11 @@
 	if(!istype(W))
 		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
 		return
+	if(W == user.get_item_by_slot(slot_wear_suit))
+		to_chat(user, "<span class='warning'>You cannot replenish charges to [W] while wearing it.</span>")
+		return
 	W.current_charges += 8
+	W.shield_state = "[W.shield_on]"
+	playsound(loc, 'sound/magic/charge.ogg', 50, TRUE)
 	to_chat(user, "<span class='notice'>You charge [W]. It can now absorb [W.current_charges] hits.</span>")
 	qdel(src)
