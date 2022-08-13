@@ -104,12 +104,6 @@
 	icon_state = "warden_envirohelm"
 	item_state = "warden_envirohelm"
 
-/obj/item/clothing/head/helmet/space/plasmaman/security/brigofficer
-	name = "brig officer's plasma envirosuit helmet"
-	desc = "A plasmaman containment helmet designed for the brig officer, a pair of white and yellow stripes being added to differentiate them from other members of security."
-	icon_state = "brigofficer_envirohelm"
-	item_state = "brigofficer_envirohelm"
-
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the head of security."

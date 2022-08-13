@@ -34,45 +34,13 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	strip_delay = 50
 
-//Brig Officer, sprites from SkyRat
-
-/obj/item/clothing/under/rank/security/brigofficer
-	name = "brig officer's jumpsuit"
-	desc = "A white satin shirt with some bronze rank pins at the neck."
-	icon_state = "brigofficer"
-	item_state = "r_suit"
-	item_color = "brigofficer"
-
-/obj/item/clothing/under/rank/security/brigofficer/skirt
-	name = "brig officer's jumpskirt"
-	desc = "A white satin dress with some bronze rank pins at the neck."
-	icon_state = "brigofficerf"
-	item_state = "r_suit"
-	item_color = "brigofficerf"
-
-/obj/item/clothing/under/rank/security/brigofficer/sweater
-	name = "brig officer's sweater"
-	desc = "A black combat sweater thrown over the standard issue shirt, perfect for wake up calls."
-	icon_state = "brigofficersweater"
-	item_state = "bl_suit"
-	item_color = "brigofficersweater"
-
-/obj/item/clothing/under/rank/security/brigofficer/sweater/skirt
-	name = "brig officer's sweater dress"
-	desc = "A black combat sweater thrown over the standard issue dress, perfect for wake up calls."
-	icon_state = "brigofficersweaterf"
-	item_state = "bl_suit"
-	item_color = "brigofficersweaterf"
-
-//Security
-
 /obj/item/clothing/under/rank/security/sensor
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/security/skirt
 	name = "security officer's jumpskirt"
-	desc = "Standard feminine fashion for Security Officers. It's made of sturdier material than the standard jumpskirts."
+	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"

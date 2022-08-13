@@ -193,20 +193,10 @@
 	path = /obj/item/clothing/under/rank/warden/skirt
 	allowed_roles = list("Head of Security", "Warden")
 
-/datum/gear/uniform/skirt/job/brigofficer
-	display_name = "skirt, brig officer"
-	path = /obj/item/clothing/under/rank/security/brigofficer/skirt
-	allowed_roles = list("Head of Security", "Brig Officer")
-
-/datum/gear/uniform/skirt/job/brigofficer
-	display_name = "skirt sweater, brig officer"
-	path = /obj/item/clothing/under/rank/security/brigofficer/sweater/skirt
-	allowed_roles = list("Head of Security", "Brig Officer")
-
 /datum/gear/uniform/skirt/job/security
 	display_name = "skirt, security"
 	path = /obj/item/clothing/under/rank/security/skirt
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "skirt, hos"
@@ -245,25 +235,20 @@
 	path = /obj/item/clothing/under/rank/security/formal
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
-/datum/gear/uniform/sec/brigofficer/sweater
-	display_name = "brig officer, sweater"
-	path = /obj/item/clothing/under/rank/security/brigofficer/sweater
-	allowed_roles = list("Head of Security", "Brig Officer")
-
 /datum/gear/uniform/sec/secorporate
 	display_name = "security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Brig Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Brig Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/casual
 	display_name = "security uniform, casual"
 	path = /obj/item/clothing/under/rank/security2
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot", "Brig Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
 
 /datum/gear/uniform/shorts
 	subtype_path = /datum/gear/uniform/shorts

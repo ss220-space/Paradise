@@ -13,13 +13,6 @@
 	item_state = "warden_envirosuit"
 	item_color = "warden_envirosuit"
 
-/obj/item/clothing/under/plasmaman/security/brigofficer
-	name = "brig officer envirosuit"
-	desc = "A plasmaman containment suit designed for the brig officer, white and yellow stripes being added to differentiate them from other members of security."
-	icon_state = "brigofficer_envirosuit"
-	item_state = "brigofficer_envirosuit"
-	item_color = "brigofficer_envirosuit"
-
 /obj/item/clothing/under/plasmaman/security/hos
 	name = "head of security plasma envirosuit"
 	desc = "A plasmaman containment suit designed for the head of security."
