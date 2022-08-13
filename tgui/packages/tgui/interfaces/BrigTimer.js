@@ -55,7 +55,7 @@ export const BrigTimer = (props, context) => {
                   disabled={!data.isAllowed}
                   onClick={() => act('flash')} />
                 <Button
-                  icon="sync"
+                  icon="angle-up"
                   content="Add Timer"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('add_timer')} />

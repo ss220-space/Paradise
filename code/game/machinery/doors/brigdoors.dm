@@ -368,11 +368,13 @@
 				if(!add_reason)
 					to_chat(usr, "<span class='warning'>Необходимо указать причину добавления времени к сроку!</span>")
 					return FALSE
-				prisoner_time_add = input(usr, "Add prisoner time (in minutes", name, prisoner_time_add) as num|null
+				prisoner_time_add = input(usr, "Add prisoner time (in minutes)", name, prisoner_time_add) as num|null
 				if(!prisoner_time_add)
 					to_chat(usr, "<span class='warning'>Необходимо указать добавленный срок!</span>")
 					return FALSE
-				releasetime = world.timeofday + prisoner_time + prisoner_time_add
+				prisoner_time_add = prisoner_time_add MINUTES
+				releasetime = world.timeofday + timetoset + prisoner_time_add
+				timetoset = timetoset + prisoner_time_add
 				var/addtext = isobserver(usr) ? "for: [add_reason]." : "by [usr.name] for: [add_reason]"
 				Radio.autosay("Prisoner [occupant] had their timer increased [addtext]", name, "Security", list(z))
 				notify_prisoner("Your brig timer has been increased for: '[add_reason]'.")
