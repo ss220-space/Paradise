@@ -198,7 +198,7 @@
 	path = /obj/item/clothing/under/rank/security/brigofficer/skirt
 	allowed_roles = list("Head of Security", "Brig Officer")
 
-/datum/gear/uniform/skirt/job/brigofficer/sweater
+/datum/gear/uniform/skirt/job/brigofficer
 	display_name = "skirt sweater, brig officer"
 	path = /obj/item/clothing/under/rank/security/brigofficer/sweater/skirt
 	allowed_roles = list("Head of Security", "Brig Officer")

@@ -64,11 +64,6 @@
 	path = /obj/item/clothing/head/soft/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Brig Officer")
 
-/datum/gear/hat/capbrigofficer
-	display_name = "brig officer's hat"
-	path = /obj/item/clothing/head/officer/brigofficer
-	allowed_roles = list("Head of Security", "Brig Officer")
-
 /datum/gear/hat/capred
 	display_name = "cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -149,11 +144,6 @@
 	display_name = "security beret"
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Brig Officer")
-
-/datum/gear/hat/beret_job/brigofficer
-	display_name = "brig officer's beret"
-	path = /obj/item/clothing/head/beret/sec/brigofficer
-	allowed_roles = list("Head of Security", "Brig Officer")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "science beret"
