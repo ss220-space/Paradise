@@ -116,6 +116,8 @@ export const BrigTimer = (props, context) => {
                   disabled={!data.prisoner_name
                   || !data.prisoner_charge
                   || !data.prisoner_time
+                  || data.prisoner_time < 0
+                  || data.prisoner_time > 60
                   || !data.isAllowed}
                   onClick={() => act('start')} />
               </LabeledList.Item>
