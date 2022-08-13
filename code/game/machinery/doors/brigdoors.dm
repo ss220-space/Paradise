@@ -318,6 +318,7 @@
 	data["prisoner_charge"] = prisoner_charge
 	data["prisoner_time"] = prisoner_time
 	data["prisoner_hasrec"] = prisoner_hasrecord
+	data["add_timer"] = prisoner_time_add
 	return data
 
 /obj/machinery/door_timer/allowed(mob/user)
@@ -361,14 +362,17 @@
 			timing = TRUE
 			timer_start()
 			update_icon()
-		if("add")
+		if("add_timer")
 			if(timing)
 				var/add_reason = sanitize(copytext(input(usr, "Reason for add time:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!add_reason)
 					to_chat(usr, "<span class='warning'>Необходимо указать причину добавления времени к сроку!</span>")
 					return FALSE
-				var/prisoner_time_add = sanitize(copytext(input(usr, "Add prisoner Time (in minutes", name, prisoner_time_add) as num|null))
-				releasetime = world.timeofday + timetoset + prisoner_time_add
+				prisoner_time_add = input(usr, "Add prisoner time (in minutes", name, prisoner_time_add) as num|null
+				if(!prisoner_time_add)
+					to_chat(usr, "<span class='warning'>Необходимо указать добавленный срок!</span>")
+					return FALSE
+				releasetime = world.timeofday + prisoner_time + prisoner_time_add
 				var/addtext = isobserver(usr) ? "for: [add_reason]." : "by [usr.name] for: [add_reason]"
 				Radio.autosay("Prisoner [occupant] had their timer increased [addtext]", name, "Security", list(z))
 				notify_prisoner("Your brig timer has been increased for: '[add_reason]'.")
