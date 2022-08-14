@@ -66,7 +66,7 @@ var/anonced = FALSE
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 proc/check_morphs()
-	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (anonced == FALSE))
+	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (!anonced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксировано критическое биожизни морфического типа на [station_name()]. Необходимо уничтожить их для восстановления безопасной среды.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
 		anonced = TRUE
 	else
