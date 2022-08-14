@@ -62,6 +62,35 @@
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 
+
+/obj/item/gun/energy/laser/awaymission_aeg
+	name = "Wireless Energy Gun"
+	desc = "An energy gun that recharges wirelessly during away missions. Does not work outside the gate."
+	icon_state = "laser_gate"
+	item_state = "nucgun"
+	force = 10
+	origin_tech = "combat=5;magnets=3;powerstorage=4"
+	selfcharge = 1 // Selfcharge is enabled and disabled, and used as the away mission tracker
+	can_charge = 0
+
+
+/obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
+	. = ..()
+	// Force update it incase it spawns outside an away mission and shouldnt be charged
+	onTransitZ(new_z = loc.z)
+
+/obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
+	if(is_away_level(new_z))
+		if(ismob(loc))
+			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+		selfcharge = TRUE
+	else
+		if(selfcharge)
+			if(ismob(loc))
+				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+			cell.charge = 0
+			selfcharge = FALSE
+			update_icon()
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon
