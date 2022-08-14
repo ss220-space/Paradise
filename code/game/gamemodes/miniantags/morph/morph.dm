@@ -1,6 +1,9 @@
 #define MORPHED_SPEED 2.5
 #define ITEM_EAT_COST 5
 
+var/morphs_number = 0
+var/anonced = FALSE
+
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
 	real_name = "morph"
@@ -62,6 +65,15 @@
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
 
+proc/check_morphs()
+	if(anonced)
+		return
+	if(morphs_number > 5)
+		GLOB.command_announcement.Announce("Внимание! Зафиксировано критическое биожизни морфического типа на [station_name()]. Необходимо уничтожить их для восстановления безопасной среды.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
+		anonced = TRUE
+	else
+		return
+
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	mimic_spell = new
@@ -72,6 +84,8 @@
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
+	morphs_number++
+	check_morphs()
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -204,6 +218,7 @@
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
+	morphs_number--
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
 	if(ambush_prepared)
