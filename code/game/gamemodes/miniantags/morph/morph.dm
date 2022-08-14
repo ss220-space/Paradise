@@ -1,7 +1,7 @@
 #define MORPHED_SPEED 2.5
 #define ITEM_EAT_COST 5
+#define MORPHS_ANNOUNCE_THRESHOLD 5
 
-var/morphs_number = 0
 var/anonced = FALSE
 
 /mob/living/simple_animal/hostile/morph
@@ -66,9 +66,7 @@ var/anonced = FALSE
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 proc/check_morphs()
-	if(anonced)
-		return
-	if(morphs_number > 5)
+	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (anonced == FALSE))
 		GLOB.command_announcement.Announce("Внимание! Зафиксировано критическое биожизни морфического типа на [station_name()]. Необходимо уничтожить их для восстановления безопасной среды.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
 		anonced = TRUE
 	else
@@ -84,7 +82,7 @@ proc/check_morphs()
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
-	morphs_number++
+	GLOB.MORPHS_NUMBER++
 	check_morphs()
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
@@ -218,7 +216,7 @@ proc/check_morphs()
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
-	morphs_number--
+	GLOB.MORPHS_NUMBER--
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
 	if(ambush_prepared)
@@ -372,3 +370,4 @@ proc/check_morphs()
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST
+#undef MORPHS_ANNOUNCE_THRESHOLD
