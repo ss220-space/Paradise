@@ -70,9 +70,13 @@
 	item_state = "nucgun"
 	force = 10
 	origin_tech = "combat=5;magnets=3;powerstorage=4"
-	selfcharge = 1 // Selfcharge is enabled and disabled, and used as the away mission tracker
+	selfcharge = TRUE // Selfcharge is enabled and disabled, and used as the away mission tracker
 	can_charge = 0
+	var/emagged = FALSE
 
+/obj/item/gun/energy/laser/awaymission_aeg/rnd
+	name = "Exploreverse Strangler MK1"
+	desc = "Первый прототип самозаряжающегося оружия для исследований вне станции и ближайших к ней секторов. Благодаря встроенному экспериментальному миниатюрному реактору и записанными протоколами системы безопасности, позволяет восстановить заряд, находясь в отдаленных секторах от научной станции и его ближайших секторов, где это оружие было собрано. Данную модель невозможно подключить к зарядной станции, во избежании истощения подключенных источников питания, в связи с протоколами безопасности, опустошающие заряд при нахождении вне предназначенных мест использования устройств. Разработано частной позитронной исследовательской компанией П.У.П.С. по персональному заказу главы внутренней службы безопасности ЦК-НТ Муниверса Нормандии, после расследований детектива Мэксона Стрэнглера о нелегальном использовании разрабатываемых боевых устройств против корпорации НТ."
 
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
 	. = ..()
@@ -80,17 +84,31 @@
 	onTransitZ(new_z = loc.z)
 
 /obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
-	if(is_away_level(new_z))
-		if(ismob(loc))
-			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
-		selfcharge = TRUE
-	else
-		if(selfcharge)
+	if (!emagged)
+		if(is_away_level(new_z))
 			if(ismob(loc))
-				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
-			cell.charge = 0
-			selfcharge = FALSE
-			update_icon()
+				to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			selfcharge = TRUE
+		else
+			if(selfcharge)
+				if(ismob(loc))
+					to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+				cell.charge = 0
+				selfcharge = FALSE
+				update_icon()
+
+/obj/item/gun/energy/laser/awaymission_aeg/emag_act(mob/user)
+	. = ..()
+	if (!emagged)
+		user.visible_message("<span class='warning'>От [src] летят искры!</span>", "<span class='notice'>Вы взломали [src], что привело к перезаписи протоколов безопасности. Устройство может быть использовано вне ограничений.</span>")
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
+		do_sparks(5, 1, src)
+
+		emagged = TRUE
+		selfcharge = TRUE
+
+
+
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon
