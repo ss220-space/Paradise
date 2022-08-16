@@ -282,12 +282,12 @@
 	light_power = 2
 	needs_permit = TRUE
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
 	..()
 	if(!blade_color)
-		blade_color = pick("red", "blue", "green", "purple")
+		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
 /obj/item/twohanded/dualsaber/update_icon()
 	if(wielded)
@@ -330,6 +330,18 @@
 
 /obj/item/twohanded/dualsaber/blue
 	blade_color = "blue"
+
+/obj/item/twohanded/dualsaber/orange
+	blade_color = "orange"
+
+/obj/item/twohanded/dualsaber/darkblue
+	blade_color = "darkblue"
+
+/obj/item/twohanded/dualsaber/pink
+	blade_color = "pink"
+
+/obj/item/twohanded/dualsaber/yellow
+	blade_color = "yellow"
 
 /obj/item/twohanded/dualsaber/unwield()
 	. = ..()

@@ -164,7 +164,7 @@
 	category = list("initial", "Electronics")
 
 /datum/design/airalarm_electronics
-	name = "Электроника воздушной сигнализации (Air Alarm)" // Air Alarm Electronics
+	name = "Air Alarm Electronics"
 	id = "airalarm_electronics"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
@@ -461,6 +461,30 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 2500)
 	build_path = /obj/item/reagent_containers/glass/beaker/large
+	category = list("initial", "Medical")
+
+/datum/design/vial
+	name = "Vial"
+	id = "vial"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 250)
+	build_path = /obj/item/reagent_containers/glass/beaker/vial
+	category = list("initial", "Medical")
+
+/datum/design/vial_storage_box
+	name = "Vial storage box"
+	id = "vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 250, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/fancy/vials
+	category = list("initial", "Medical")
+
+/datum/design/secure_vial_storage_box
+	name = "Secure vial storage box"
+	id = "secure_vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/lockbox/vials
 	category = list("initial", "Medical")
 
 /datum/design/healthanalyzer
@@ -832,7 +856,7 @@
 	category = list("hacked", "Security")
 
 /datum/design/a357
-	name = "Ammo Box (.357)"
+	name = "Speed Loader (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30000)

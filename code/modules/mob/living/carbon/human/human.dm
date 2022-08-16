@@ -175,9 +175,7 @@
 			if(!internal.air_contents)
 				qdel(internal)
 			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
+				stat(null, "Internals: [internal.name]")
 
 		// I REALLY need to split up status panel things into datums
 		var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -1951,7 +1949,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
 	var/obj_count = 1
-	to_chat(src, "<span class='notice> Your current objectives:")
+	to_chat(src, "<span class='notice'> Your current objectives:")
 	for(var/datum/objective/objective in src.mind.objectives)
 		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
