@@ -791,7 +791,7 @@
 	desc = "A Exclusive and Expensive upgrade for Hardsuits."
 	icon_state = "box_ert"
 
-/obj/item/storage/box/hardsuit_shield_upgrade/New()
+/obj/item/storage/box/ert_hardsuit_shield_upgrade/New()
 	..()
 	new /obj/item/hardsuit_shield_upgrade(src)
 	new /obj/item/hardsuit_shield_upgrade(src)
