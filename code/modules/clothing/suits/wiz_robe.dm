@@ -183,7 +183,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	slowdown = 0
 	magical = TRUE
