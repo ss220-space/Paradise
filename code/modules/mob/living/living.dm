@@ -546,10 +546,12 @@
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
+			unpixel_shift()
 			return buckled.Move(newloc, direct)
 		else
 			return 0
 
+	unpixel_shift()
 	var/atom/movable/pullee = pulling
 	if(pullee && get_dist(src, pullee) > 1)
 		stop_pulling()
