@@ -2,7 +2,7 @@
 #define ITEM_EAT_COST 5
 #define MORPHS_ANNOUNCE_THRESHOLD 5
 
-var/anonced = FALSE
+var/announced = FALSE
 
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
@@ -66,9 +66,9 @@ var/anonced = FALSE
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 proc/check_morphs()
-	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (!anonced))
-		GLOB.command_announcement.Announce("Внимание! Зафиксировано критическое биожизни морфического типа на [station_name()]. Необходимо уничтожить их для восстановления безопасной среды.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
-		anonced = TRUE
+	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (!announced))
+		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные био-угрозы 6-М уровня на [station_name()]. Необходимо уничтожение для продолжения безопасной работы.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
+		announced = TRUE
 	else
 		return
 
