@@ -125,6 +125,10 @@ GLOBAL_LIST_EMPTY(id_cards)
 			SetOwnerInfo(H)
 	GLOB.id_cards += src
 
+/obj/item/card/id/Destroy()
+	GLOB.id_cards -= src
+	return ..()
+	
 /obj/item/card/id/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
