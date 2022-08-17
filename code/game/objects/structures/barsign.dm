@@ -64,24 +64,23 @@
 	pick_sign()
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
-	if(istype(I, /obj/item/screwdriver))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-			set_sign(new /datum/barsign/hiddensigns/signoff)
-			panel_open = 1
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		set_sign(new /datum/barsign/hiddensigns/signoff)
+		panel_open = 1
 
+	else
+		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+		if(!broken && !emagged)
+			set_sign(pick(barsigns))
+		else if(emagged)
+			set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-			if(!broken && !emagged)
-				set_sign(pick(barsigns))
-			else if(emagged)
-				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-			else
-				set_sign(new /datum/barsign/hiddensigns/empbarsign)
+			set_sign(new /datum/barsign/hiddensigns/empbarsign)
 
 			panel_open = 0
 
-		return TRUE
+	return TRUE
 
 /obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
