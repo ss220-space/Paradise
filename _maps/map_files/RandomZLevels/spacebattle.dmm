@@ -583,9 +583,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "bF" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/space,
 /area/space)
 "bG" = (
@@ -724,10 +722,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "cc" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -926,10 +921,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cL" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1003,10 +995,7 @@
 	},
 /area/awaymission/spacebattle/engine)
 "cU" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
 "cV" = (
@@ -1024,9 +1013,7 @@
 	},
 /area/awaymission/spacebattle/kitchen)
 "cY" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cZ" = (
@@ -1322,10 +1309,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "ed" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1342,9 +1326,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "ef" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1439,9 +1421,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "eu" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1508,10 +1488,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "eE" = (
-/mob/living/simple_animal/hostile/syndicate/melee/space{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee/space,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "eF" = (
@@ -1692,11 +1669,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "fg" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	name = "Syndicate Commander Bodyguard";
-	health = 400;
-	damage_coeff = list("brute"=0.5,"fire"=1.5,"tox"=0,"clone"=0,"stamina"=0,"oxy"=0);
-	maxHealth = 400
+/mob/living/simple_animal/hostile/cruiser/ranged{
+	name = "Syndicate Commander Bodyguard"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -1869,9 +1843,7 @@
 	},
 /area/awaymission/spacebattle/prhallway4)
 "fD" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -2213,11 +2185,7 @@
 	name = "Adam Smith"
 	},
 /obj/effect/decal/cleanable/blood,
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	health = 300;
-	aggro_vision_range = 12;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2503,10 +2471,7 @@
 	},
 /area/awaymission/spacebattle/medbay)
 "hv" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2576,7 +2541,7 @@
 	},
 /area/awaymission/spacebattle/engine)
 "hI" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
@@ -2666,10 +2631,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "hW" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/item/ammo_casing/c45,
 /obj/item/ammo_casing/c45,
 /obj/item/ammo_casing/c45,
@@ -3176,10 +3138,7 @@
 	},
 /area/awaymission/spacebattle/prhallway6)
 "kg" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "kw" = (
@@ -3278,10 +3237,7 @@
 	},
 /area/awaymission/spacebattle/hallway1)
 "kT" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3536,7 +3492,7 @@
 	},
 /area/awaymission/spacebattle/bridge)
 "mw" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
@@ -3665,7 +3621,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway11)
 "ny" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
 	d1 = 4;
@@ -3914,9 +3870,7 @@
 	requires_power = 0
 	})
 "pn" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4033,10 +3987,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engineering)
 "qd" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4063,9 +4014,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "qn" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engineering)
 "qo" = (
@@ -4097,7 +4046,7 @@
 	},
 /area/awaymission/spacebattle/hallway6)
 "qB" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/structure/cable{
@@ -4268,10 +4217,7 @@
 /turf/space,
 /area/space)
 "rK" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "rL" = (
@@ -4457,7 +4403,7 @@
 /area/awaymission/spacebattle/hallway6)
 "sz" = (
 /obj/effect/mob_spawn/human/bridgeofficer,
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4721,10 +4667,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "ub" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -4786,10 +4729,7 @@
 /turf/space,
 /area/space/nearstation)
 "uz" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 5
@@ -5174,7 +5114,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
 "xe" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
 	d1 = 1;
@@ -5614,11 +5554,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "AI" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	health = 300;
-	aggro_vision_range = 12;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 4
@@ -5626,10 +5562,7 @@
 /area/awaymission/spacebattle/prhallway2)
 "AK" = (
 /obj/effect/landmark/damageturf,
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -5752,10 +5685,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway11)
 "Bv" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1
@@ -5788,7 +5718,7 @@
 	},
 /area/awaymission/spacebattle/prhallway5)
 "BI" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
 	d1 = 4;
@@ -5892,9 +5822,7 @@
 	},
 /area/awaymission/spacebattle/hallway10)
 "Cg" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/living)
 "Ck" = (
@@ -6005,10 +5933,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "Dl" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -6096,9 +6021,7 @@
 	},
 /area/space/nearstation)
 "DH" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6214,10 +6137,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
 "EU" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6354,11 +6274,7 @@
 	},
 /area/awaymission/spacebattle/hallway5)
 "FL" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	health = 300;
-	aggro_vision_range = 12;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6456,10 +6372,7 @@
 	},
 /area/awaymission/spacebattle/hallway5)
 "Gp" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1
@@ -6507,10 +6420,7 @@
 	},
 /area/awaymission/spacebattle/living)
 "GB" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -6522,10 +6432,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "GK" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6622,10 +6529,7 @@
 	},
 /area/awaymission/spacebattle/hallway1)
 "Hj" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6673,10 +6577,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
 "Hz" = (
-/mob/living/simple_animal/hostile/syndicate/ranged{
-	health = 300;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -6698,7 +6599,7 @@
 	},
 /area/awaymission/spacebattle/hallway1)
 "HK" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway4)
@@ -6805,10 +6706,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/hallway11)
 "IF" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6872,10 +6770,7 @@
 	},
 /area/awaymission/spacebattle/engine)
 "Ji" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6982,22 +6877,18 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "JN" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway9)
 "JR" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
 "JS" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7048,7 +6939,7 @@
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/awaymission/spacebattle/server)
 "Kp" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
 	d1 = 1;
@@ -7106,7 +6997,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "KT" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -7136,10 +7027,7 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "Lo" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1
@@ -7401,9 +7289,7 @@
 	},
 /area/awaymission/spacebattle/hallway3)
 "Nm" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -8082,9 +7968,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "RI" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -8139,7 +8023,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Se" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -8206,7 +8090,7 @@
 /area/awaymission/spacebattle/sec_storage)
 "SA" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "SI" = (
@@ -8217,7 +8101,7 @@
 	},
 /area/space/nearstation)
 "SN" = (
-/obj/effect/mob_spawn/human/securty,
+/obj/effect/mob_spawn/human/security,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
 	d1 = 4;
@@ -8286,9 +8170,7 @@
 	},
 /area/awaymission/spacebattle/hallway9)
 "Tn" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -8348,10 +8230,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "TH" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	pixel_y = -24
@@ -8440,10 +8319,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
 "Ul" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	name = "Syndicate Commander Bodyguard";
-	health = 400;
-	maxHealth = 400
+/mob/living/simple_animal/hostile/cruiser/melee{
+	name = "Syndicate Commander Bodyguard"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
@@ -8576,9 +8453,7 @@
 /area/awaymission/spacebattle/hallway4)
 "Vp" = (
 /obj/effect/landmark/damageturf,
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -8588,10 +8463,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway1)
 "Vs" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	health = 400;
-	maxHealth = 400
-	},
+/mob/living/simple_animal/hostile/cruiser/melee,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -8665,19 +8537,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "VE" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	health = 300
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/awaymission/spacebattle/hallway4)
+/mob/living/simple_animal/hostile/cruiser/melee,
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/sec_storage)
 "VF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8922,9 +8784,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret8)
 "WX" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -8982,9 +8842,7 @@
 /area/awaymission/spacebattle/engine)
 "Xv" = (
 /obj/effect/landmark/damageturf,
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
-	maxHealth = 300
-	},
+/mob/living/simple_animal/hostile/cruiser/ranged/space,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "Xz" = (
@@ -33660,7 +33518,7 @@ jB
 AV
 AH
 dE
-cr
+VE
 cH
 cH
 cH
@@ -35455,7 +35313,7 @@ Zl
 dM
 cH
 hs
-cr
+VE
 hr
 cH
 dE
@@ -38561,7 +38419,7 @@ OY
 Ks
 bS
 eZ
-VE
+fD
 bS
 ab
 ab
