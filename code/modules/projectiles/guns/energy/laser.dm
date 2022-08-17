@@ -84,28 +84,32 @@
 	onTransitZ(new_z = loc.z)
 
 /obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
-	if (!emagged)
-		if(is_away_level(new_z))
+	if (emagged)
+		return
+
+	if(is_away_level(new_z))
+		if(ismob(loc))
+			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+		selfcharge = TRUE
+	else
+		if(selfcharge)
 			if(ismob(loc))
-				to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
-			selfcharge = TRUE
-		else
-			if(selfcharge)
-				if(ismob(loc))
-					to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
-				cell.charge = 0
-				selfcharge = FALSE
-				update_icon()
+				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+			cell.charge = 0
+			selfcharge = FALSE
+			update_icon()
 
 /obj/item/gun/energy/laser/awaymission_aeg/emag_act(mob/user)
 	. = ..()
-	if (!emagged)
-		user.visible_message("<span class='warning'>От [src] летят искры!</span>", "<span class='notice'>Вы взломали [src], что привело к перезаписи протоколов безопасности. Устройство может быть использовано вне ограничений.</span>")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
-		do_sparks(5, 1, src)
+	if (emagged)
+		return
 
-		emagged = TRUE
-		selfcharge = TRUE
+	user.visible_message("<span class='warning'>От [src] летят искры!</span>", "<span class='notice'>Вы взломали [src], что привело к перезаписи протоколов безопасности. Устройство может быть использовано вне ограничений.</span>")
+	playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
+	do_sparks(5, 1, src)
+
+	emagged = TRUE
+	selfcharge = TRUE
 
 
 
