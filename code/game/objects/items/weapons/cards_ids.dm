@@ -100,6 +100,8 @@
 		return
 	target.cmag_act(user)
 
+GLOBAL_LIST_EMPTY(id_cards)
+
 /obj/item/card/id
 	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
@@ -107,6 +109,8 @@
 	item_state = "card-id"
 	var/mining_points = 0 //For redeeming at mining equipment lockers
 	var/list/access = list()
+	//accesses that were given on red alert
+	var/list/red_alert_given_access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
@@ -139,7 +143,12 @@
 		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
 			SetOwnerInfo(H)
+	GLOB.id_cards += src
 
+/obj/item/card/id/Destroy()
+	GLOB.id_cards -= src
+	return ..()
+	
 /obj/item/card/id/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -247,6 +256,20 @@
 		return
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+
+/obj/item/card/id/proc/on_red_alert()
+	if(!has_access(list(), list(ACCESS_SECURITY), access))
+		return
+	red_alert_given_access = get_region_accesses(REGION_ALL) - get_region_accesses(REGION_COMMAND)
+	red_alert_given_access -= access
+
+	access += red_alert_given_access
+
+/obj/item/card/id/proc/after_red_alert()
+	if(!has_access(list(), list(ACCESS_SECURITY), access))
+		return
+	access -= red_alert_given_access
+	red_alert_given_access.Cut()
 
 /obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
