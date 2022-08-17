@@ -9,8 +9,8 @@
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/emagged = 0
-	var/panel_open = 0
+	var/emagged = FALSE
+	var/panel_open = FALSE
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -67,7 +67,7 @@
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 		set_sign(new /datum/barsign/hiddensigns/signoff)
-		panel_open = 1
+		panel_open = TRUE
 
 	else
 		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
@@ -78,7 +78,7 @@
 		else
 			set_sign(new /datum/barsign/hiddensigns/empbarsign)
 
-			panel_open = 0
+		panel_open = FALSE
 
 	return TRUE
 
@@ -94,7 +94,7 @@
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-			broken = 0
+			broken = FALSE
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
 
@@ -103,7 +103,7 @@
 
 /obj/structure/sign/barsign/emp_act(severity)
     set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = 1
+    broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
@@ -116,7 +116,7 @@
 	if(broken || emagged)
 		return
 	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-	emagged = 1
+	emagged = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/structure/sign/barsign/proc/pick_sign()
