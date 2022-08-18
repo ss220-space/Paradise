@@ -381,7 +381,7 @@
 	icon_state = "sparkyninja_beret"
 
 /obj/item/clothing/head/beret/centcom/officer/sigholt
-	name = "marine lieutenant's beret"
+	name = "marine lieutenant beret"
 	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
 	icon_state = "beret_hos"
 	item_state = "beret_hos"
