@@ -154,6 +154,7 @@
 	display_name = "royal marines commando beret"
 	path = /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
 	allowed_roles = list("Head of Security", "Blueshield")
+
 /datum/gear/hat/beret_job/marine_old
 	display_name = "marine lieutenant beret"
 	path = /obj/item/clothing/head/beret/centcom/officer/sigholt
