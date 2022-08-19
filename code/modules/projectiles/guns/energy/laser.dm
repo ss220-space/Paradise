@@ -75,7 +75,7 @@
 	var/emagged = FALSE
 
 /obj/item/gun/energy/laser/awaymission_aeg/rnd
-	name = "Exploreverse MK1"
+	name = "Exploreverse Mk I"
 	desc = "Первый прототип оружия с миниатюрным реактором для исследований в крайне отдаленных секторах. Данную модель невозможно подключить к зарядной станции, во избежание истощения подключенных источников питания, в связи с протоколами безопасности, опустошающие заряд при нахождении вне предназначенных мест использования устройств."
 
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
@@ -110,9 +110,6 @@
 
 	emagged = TRUE
 	selfcharge = TRUE
-
-
-
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon
