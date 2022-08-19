@@ -59,6 +59,7 @@
 	var/amount_grown = 0
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
+	var/changeling = FALSE
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	. = ..()
@@ -74,6 +75,9 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			if(changeling)
+				S.grow_as = /mob/living/simple_animal/hostile/poison/changelingspider
+				S.amount_grown = 80
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
