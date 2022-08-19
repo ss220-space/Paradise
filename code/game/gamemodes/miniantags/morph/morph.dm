@@ -67,7 +67,7 @@ var/announced = FALSE
 
 proc/check_morphs()
 	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (!announced))
-		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные био-угрозы 6-М уровня на [station_name()]. Необходимо уничтожение для продолжения безопасной работы.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
+		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходимо уничтожение для продолжения безопасной работы.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
 		announced = TRUE
 	else
 		return
