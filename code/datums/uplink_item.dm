@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holomine Projector"
 	desc = "Projector that can set up to 5 stun mines with additional EMP effect."
 	reference = "HM"
-	item = /obj/item/holosign_creator/syndie
+	item = /obj/item/holosign_creator/janitor/syndie
 	cost = 8
 	job = list("Janitor")
 	surplus = 0
@@ -1392,6 +1392,27 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/accessory/holster
 	cost = 2
 
+/datum/uplink_item/device_tools/webbing
+	name = "Combat Webbing"
+	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
+	reference = "WBNG"
+	item = /obj/item/clothing/accessory/storage/webbing
+	cost = 2
+
+/datum/uplink_item/device_tools/black_vest
+	name = "Black Vest"
+	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
+	reference = "BLCKVST"
+	item = /obj/item/clothing/accessory/storage/black_vest
+	cost = 2
+
+/datum/uplink_item/device_tools/brown_vest
+	name = "Brown Vest"
+	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
+	reference = "BRWNVST"
+	item = /obj/item/clothing/accessory/storage/brown_vest
+	cost = 2
+
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
@@ -1487,7 +1508,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/shielded
 	name = "Shielded Hardsuit"
 	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi
+	item = /obj/item/clothing/suit/space/hardsuit/syndi/shielded
 	cost = 30
 	reference = "SHS"
 	excludefrom = list()

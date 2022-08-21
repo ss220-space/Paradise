@@ -31,7 +31,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
+	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration.</span>"
+	. += "<span class='info'>You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -292,7 +293,7 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
-	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")

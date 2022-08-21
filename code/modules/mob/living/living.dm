@@ -251,12 +251,18 @@
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
+			log_emote("point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])", src)
+			create_log(EMOTE_LOG, "point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])")
 			return TRUE
 		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
 											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
 		A << 'sound/weapons/targeton.ogg'
+		log_emote("point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])", src)
+		create_log(EMOTE_LOG, "point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])")
 		return TRUE
 	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
+	log_emote("point to [key_name(A)] ([A.x],[A.y],[A.z])", src)
+	create_log(EMOTE_LOG, "point to [key_name(A)] ([A.x],[A.y],[A.z])")
 	return TRUE
 
 /mob/living/verb/succumb()
@@ -597,6 +603,8 @@
 	for(var/i in 1 to length(grabbing))
 		var/mob/M = grabbing[i]
 		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
+			continue
+		if(!isturf(M.loc))
 			continue
 		// compile a list of turfs we can maybe move them towards
 		// importantly, this should happen before actually trying to move them to either of those
