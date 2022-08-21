@@ -13,7 +13,7 @@
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/completed = 0					//currently only used for custom objectives.
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
-	var/chance_generic_ambition = 30	//шанс выпадения ОБЩЕЙ амбиции
+	var/chance_generic_ambition = 1// !!!ВЫСТАВЛЕНО ДЛЯ ТЕСТА!!! //30	//шанс выпадения ОБЩЕЙ амбиции
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
@@ -30,7 +30,9 @@
 		if (!result)
 			result = pick_list("ambition_objectives_generic.json", "Общий")
 
-	return result
+	//message = replacetextEx_char(message,"ого ","аго ")
+
+	return ambition_code(result)
 
 /datum/ambition_objective/proc/get_job_departament_ambition()
 	var/result
@@ -120,6 +122,29 @@
 		if (!result)
 			return result
 	return result
+
+/datum/ambition_objective/proc/ambition_code(var/text)
+
+	text = replacetextEx_char(text, "\[random_crew\]", random_player()) //[random_crew] - случайный член экипажа
+	text = replacetextEx_char(text, "\[random_departament\]", pick_list("ambition_randoms.json", "отдел"))//[random_departament] - случайный отдел
+	text = replacetextEx_char(text, "\[random_departament_crew\]", pick_list("ambition_randoms.json", "отдел_наименования"))//[random_departament_crew] - наименования членов отдела
+
+	//[random_pet] - случайный питомец
+	//[random_food] - случайная еда
+	//[random_drink] - случайный напиток
+	text = replacetextEx_char(text, "\[random_holiday\]", pick_list("ambition_randoms.json", "праздник")) //[random_holiday] - случайный праздник
+	return text
+
+/datum/ambition_objective/proc/random_player()
+	var/list/players = list()
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES)
+			continue
+		players += player.real_name
+	var/random_player = "Капитан"
+	if(players.len)
+		random_player = pick(players)
+	return random_player
 
 /datum/game_mode/proc/declare_ambition_completion()
 	var/text = "<hr><b><u>Осуществление амбиции</u></b>"
