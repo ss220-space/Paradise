@@ -110,11 +110,6 @@
 		if (!result)
 			return result
 
-	if(owner.assigned_role in GLOB.service_positions)
-		result = pick_list("ambition_objectives_service.json", job)
-		if (!result)
-			return result
-
 	if(owner.assigned_role in GLOB.security_positions)
 		result = pick_list("ambition_objectives_security.json", job)
 		if (!result)

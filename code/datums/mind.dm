@@ -167,7 +167,7 @@
 			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.description]</LI>"
 			output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
 			output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
-			output += "<font color=[objective.completed ? "green" : "red"]>Переключить</font>"
+			output += "<font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Передумать" : "Выполнить"]</font>"
 			output += "</a>"
 			output += "<br>"
 			amb_count++
@@ -557,13 +557,15 @@
 		if (ambition_objectives.len < ambition_limit)
 			var/datum/ambition_objective/objective = new /datum/ambition_objective(usr.mind)
 
-			var/is_unique = TRUE
+			var/counter = 0
 			do
+				counter = 0
 				objective.description = objective.get_random_ambition()
 				for(var/datum/ambition_objective/amb in ambition_objectives)
-					if (objective.description == amb.description)
-						is_unique = FALSE
-			while(is_unique)
+					if (objective.description == amb.description) //&& objective.unique_datum_id != amb.unique_datum_id)
+						counter++
+						log_admin("[counter] у [objective.description] и [amb.description]")
+			while(counter > 1)
 
 			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
 		else
