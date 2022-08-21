@@ -556,7 +556,14 @@
 		ambition_func = TRUE
 		if (ambition_objectives.len < ambition_limit)
 			var/datum/ambition_objective/objective = new /datum/ambition_objective(usr.mind)
-			objective.description = objective.get_random_ambition()
+
+			var/is_unique = TRUE
+			do
+				objective.description = objective.get_random_ambition()
+				for(var/datum/ambition_objective/amb in ambition_objectives)
+					if (objective.description == amb.description)
+						is_unique = FALSE
+			while(is_unique)
 
 			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
 		else
