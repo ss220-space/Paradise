@@ -164,7 +164,7 @@
 
 		var/amb_count = 1
 		for(var/datum/ambition_objective/objective in ambition_objectives)
-			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.get_description()]</LI>"
+			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.description]</LI>"
 			output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
 			output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
 			output += "<font color=[objective.completed ? "green" : "red"]>Переключить</font>"
@@ -549,25 +549,19 @@
 
 /datum/mind/Topic(href, href_list)
 
-	//функция обходящая админские кнопки и не дающая залезть в антаг_панель
+	//функция обходящая админские кнопки и не дающая залезть в антаг_панель (на админов тоже работает)
 	var/ambition_func = FALSE
 
 	if(href_list["amb_add"])
 		ambition_func = TRUE
 		if (ambition_objectives.len < ambition_limit)
-			var/datum/ambition_objective/objective
-			objective = /datum/ambition_objective/make_cyborg
+			var/datum/ambition_objective/objective = new /datum/ambition_objective(usr.mind)
+			objective.description = objective.get_random_ambition()
 
-			ambition_objectives.Add(objective)
-
-			log_admin("[key_name(usr)] has added [key_name(current)]'s ambition.")
-			message_admins("[key_name(usr)] has added [key_name(current)]'s ambition.")
-			qdel(objective)
-
-			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.get_description()].</span>")
-
+			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
 		else
 			to_chat(usr, "<span class='warning'>Количество амбиций переполнено, избавьтесь от неосуществимых.</span>")
+		log_misc("[key_name(usr)] has added [key_name(current)]'s ambition.")
 
 
 	else if(href_list["amb_delete"])
@@ -577,8 +571,7 @@
 			return
 		ambition_objectives.Remove(objective)
 
-		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
-		message_admins("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
+		log_misc("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
 		qdel(objective)
 
 	else if(href_list["amb_completed"])
@@ -588,8 +581,11 @@
 			return
 		objective.completed = !objective.completed
 
-		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
-		message_admins("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
+		if (objective.completed)
+			to_chat(usr, "<span class='warning'>[pluralize_ru(usr.gender,"Моя","Наша")] амбиция выполнена. [pluralize_ru(usr.gender,"Поздравляю сам себя","Поздравим же нас")]!</span>")
+		else
+			to_chat(usr, "<span class='warning'>Пожалуй [pluralize_ru(usr.gender,"Моя","Наша")] амбиция еще не выполнена. Но у [pluralize_ru(usr.gender,"меня","нас")] еще будут возможности!</span>")
+		log_misc("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
 
 	// Обновляем открытую память
 	if (ambition_func)

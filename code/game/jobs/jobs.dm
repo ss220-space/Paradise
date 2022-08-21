@@ -20,7 +20,6 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 	"Mechanic"
 ))
 
-
 GLOBAL_LIST_INIT(medical_positions, list(
 	"Chief Medical Officer",
 	"Medical Doctor",
@@ -31,7 +30,6 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	"Paramedic",
 	"Coroner"
 ))
-
 
 GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
