@@ -128,10 +128,9 @@
 	text = replacetextEx_char(text, "\[random_crew\]", random_player()) //[random_crew] - случайный член экипажа
 	text = replacetextEx_char(text, "\[random_departament\]", pick_list("ambition_randoms.json", "отдел"))//[random_departament] - случайный отдел
 	text = replacetextEx_char(text, "\[random_departament_crew\]", pick_list("ambition_randoms.json", "отдел_наименования"))//[random_departament_crew] - наименования членов отдела
-
-	//[random_pet] - случайный питомец
-	//[random_food] - случайная еда
-	//[random_drink] - случайный напиток
+	text = replacetextEx_char(text, "\[random_pet\]", pick_list("ambition_randoms.json", "питомец"))//[random_pet] - случайный питомец
+	text = replacetextEx_char(text, "\[random_food\]", pick_list("ambition_randoms.json", "еда"))//[random_food] - случайная еда
+	text = replacetextEx_char(text, "\[random_drink\]", pick_list("ambition_randoms.json", "напиток"))//[random_drink] - случайный напиток
 	text = replacetextEx_char(text, "\[random_holiday\]", pick_list("ambition_randoms.json", "праздник")) //[random_holiday] - случайный праздник
 	return text
 
