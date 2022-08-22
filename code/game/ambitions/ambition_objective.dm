@@ -13,7 +13,7 @@
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/completed = 0					//currently only used for custom objectives.
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
-	var/chance_generic_ambition = 1// !!!ВЫСТАВЛЕНО ДЛЯ ТЕСТА!!! //30	//шанс выпадения ОБЩЕЙ амбиции
+	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner

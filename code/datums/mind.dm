@@ -561,10 +561,13 @@
 			do
 				counter = 0
 				objective.description = objective.get_random_ambition()
+				if (objective.description == null)
+					break
 				for(var/datum/ambition_objective/amb in ambition_objectives)
 					if (objective.description == amb.description) //&& objective.unique_datum_id != amb.unique_datum_id)
 						counter++
-						log_admin("[counter] у [objective.description] и [amb.description]")
+						if (counter > 1)
+							break
 			while(counter > 1)
 
 			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
