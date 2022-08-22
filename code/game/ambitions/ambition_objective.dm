@@ -10,10 +10,10 @@
 	return task
 
 /datum/ambition_objective
-	var/datum/mind/owner = null			//Who owns the objective.
-	var/completed = 0					//currently only used for custom objectives.
+	var/datum/mind/owner = null			//владелец амбиции
+	var/completed = 0					//завершение амбиции для конца раунда
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
-	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции
+	var/chance_generic_ambition = 30	//шанс выпадения ОБЩЕЙ амбиции, оптимальный 30, если бы у всех отделов было бы достаточно амбиций, но это нивелируется пустыми строками
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
