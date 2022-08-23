@@ -1457,6 +1457,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 
 /mob/living/silicon/ai/proc/add_heat(value)
+	if(mind.has_antag_datum(/datum/antagonist/traitor) || malf_picker)
+		return TRUE
 	if(overheated)
 		return FALSE
 
