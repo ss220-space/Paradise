@@ -41,6 +41,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
+	description_info = "The canister can be connected to a connector port with a wrench.  Tanks of gas (the kind you can hold in your hand) \
+	can be filled by the canister, by using the tank on the canister, increasing the release pressure, then opening the valve until it is full, and then close it.  \
+	*DO NOT* remove the tank until the valve is closed.  A gas analyzer can be used to check the contents of the canister."
+	description_antag = "Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open."
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
 	density = 1

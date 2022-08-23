@@ -1,5 +1,7 @@
 /obj/structure/grille
 	desc = "A flimsy framework of metal rods."
+	description_info = "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\
+	Wirecutters will turn the grille into metal rods instantly.  Grilles are made with metal rods."
 	name = "grille"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"

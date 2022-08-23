@@ -1,6 +1,8 @@
 /obj/item/gun/projectile
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason"
 	name = "projectile gun"
+	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
+	will tell you what caliber you need."
 	icon_state = "pistol"
 	origin_tech = "combat=2;materials=2"
 	w_class = WEIGHT_CLASS_NORMAL

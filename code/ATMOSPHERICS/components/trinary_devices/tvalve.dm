@@ -7,6 +7,7 @@
 
 	name = "manual switching valve"
 	desc = "A pipe valve"
+	description_info = "Click this to toggle the mode.  The direction with the green light is where the gas will flow."
 
 	can_unwrench = 1
 

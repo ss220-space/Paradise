@@ -12,6 +12,10 @@
 /obj/structure/bed
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
+	description_info = "Click and drag yourself (or anyone) to this to buckle in. Click on this with an empty hand to undo the buckles.<br>\
+	<br>\
+	Anyone with restraints, such as handcuffs, will not be able to unbuckle themselves. They must use the Resist button, or verb, to break free of \
+	the buckles, instead."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
 	can_buckle = TRUE

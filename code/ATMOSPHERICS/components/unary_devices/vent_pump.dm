@@ -8,6 +8,7 @@
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
+	description_info = "This pumps the contents of the attached pipe out into the atmosphere, if needed.  It can be controlled from an Air Alarm."
 	use_power = IDLE_POWER_USE
 
 	layer = GAS_SCRUBBER_LAYER

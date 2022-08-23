@@ -3,6 +3,7 @@
 	icon_state = ""
 	name = "pipe manifold"
 	desc = "A manifold composed of regular pipes"
+	description_info = "A normal pipe with three ends to connect to."
 
 	volume = 105
 
@@ -164,6 +165,8 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
 	name="Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
+	description_info = "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map-scrubbers"
 	connect_types = list(3)
 	layer = 2.38
@@ -173,6 +176,8 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
+	description_info = "This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map-supply"
 	connect_types = list(2)
 	layer = 2.39
@@ -199,6 +204,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
 	name="Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
+	description_info = "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map-scrubbers"
 	connect_types = list(3)
 	layer = 2.38
@@ -208,6 +215,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
+	description_info = "This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map-supply"
 	connect_types = list(2)
 	layer = 2.39

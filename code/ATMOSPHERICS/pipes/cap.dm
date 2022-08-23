@@ -1,6 +1,7 @@
 /obj/machinery/atmospherics/pipe/cap
 	name = "pipe endcap"
 	desc = "An endcap for pipes"
+	description_info = "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
 	icon = 'icons/atmos/pipes.dmi'
 	icon_state = "cap"
 	level = 2

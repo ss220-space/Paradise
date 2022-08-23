@@ -3,6 +3,7 @@
 	icon_state = ""
 	name = "4-way pipe manifold"
 	desc = "A manifold composed of regular pipes"
+	description_info = "This is a four-way pipe."
 
 	volume = 140
 
@@ -173,6 +174,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
+	description_info = "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(3)
 	layer = 2.38
@@ -208,6 +211,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
+	description_info = "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(3)
 	layer = 2.38
@@ -217,6 +222,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply
 	name="4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
+	description_info = "This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "map_4way-supply"
 	connect_types = list(2)
 	layer = 2.39

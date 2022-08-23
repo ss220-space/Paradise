@@ -43,6 +43,9 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
+	description_info += "<br>Most pipes and atmospheric devices can be connected or disconnected with a wrench.  The pipe's pressure must not be too high, \
+	or if it is a device, it must be turned off first." //This is needed or else 20+ lines of copypasta to dance around inheritence.
+
 /obj/machinery/atmospherics/Initialize()
 	. = ..()
 	SSair.atmos_machinery += src

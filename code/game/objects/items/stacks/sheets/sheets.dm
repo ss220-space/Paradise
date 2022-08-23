@@ -1,5 +1,6 @@
 /obj/item/stack/sheet
 	name = "sheet"
+	description_info = "Use in your hand to bring up the recipe menu.  If you have enough sheets, click on something on the list to build it."
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 5
 	throwforce = 5

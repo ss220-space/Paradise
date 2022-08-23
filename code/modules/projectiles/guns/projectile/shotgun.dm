@@ -1,6 +1,8 @@
 /obj/item/gun/projectile/shotgun
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
+	description_info = "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand.  To reload, load more shotgun \
+	shells into the gun."
 	icon_state = "shotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
@@ -296,6 +298,8 @@
 // Automatic Shotguns//
 
 /obj/item/gun/projectile/shotgun/automatic
+	description_info = "This is a ballistic weapon. This one is automatic, so you don't need to pump the gun. To reload, load more shotgun \
+	shells into the gun."
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()

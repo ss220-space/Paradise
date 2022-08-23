@@ -6,6 +6,8 @@
 /obj/machinery/atmospherics/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
+	description_info = "This generates electricity, depending on the difference in temperature between each side of the machine.  The meter in \
+	the center of the machine gives an indicator of how much electricity is being generated."
 	icon = 'icons/obj/atmospherics/circulator.dmi'
 	icon_state = "circ1-off"
 

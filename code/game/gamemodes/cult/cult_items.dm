@@ -14,6 +14,7 @@
 /obj/item/melee/cultblade
 	name = "cult blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
+	description_antag = "This sword is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	item_state = "blood_blade"

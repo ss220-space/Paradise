@@ -2,6 +2,7 @@
 
 /obj/machinery/computer/operating
 	name = "operating computer"
+	description_info = "This console gives information on the status of the patient on the adjacent operating table, notably their consciousness."
 	density = 1
 	anchored = 1.0
 	icon_keyboard = "med_key"

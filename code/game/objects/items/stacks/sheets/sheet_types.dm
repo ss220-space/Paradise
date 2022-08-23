@@ -121,6 +121,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	point_value = 2
 
 /obj/item/stack/sheet/metal/cyborg
+	description_info = "Use in your hand to bring up the recipe menu.  If you have enough sheets, click on something on the list to build it.<br>\
+	You can replenish your supply of metal as a synthetic by recharging."
 	materials = list()
 	is_cyborg = 1
 

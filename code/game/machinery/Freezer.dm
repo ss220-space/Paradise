@@ -1,5 +1,8 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "охладитель"
+	description_info = "Cools down the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
+	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
+	screwdriver, and then using a crowbar."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
@@ -164,6 +167,9 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "нагреватель"
+	description_info = "Heats up the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
+	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
+	screwdriver, and then using a crowbar."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1

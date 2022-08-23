@@ -1510,6 +1510,8 @@
 /obj/item/toy/russian_revolver/trick_revolver
 	name = "\improper .357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
+	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
+	will tell you what caliber you need."
 	icon_state = "revolver"
 	max_shots = 1
 	var/fake_bullets = 0

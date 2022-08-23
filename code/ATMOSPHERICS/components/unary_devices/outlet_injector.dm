@@ -10,6 +10,8 @@
 
 	name = "air injector"
 	desc = "Has a valve and pump attached to it"
+	description_info = "Outputs the pipe's gas into the atmosphere, similar to an air vent.  It can be controlled by a nearby atmospherics computer. \
+	A green light on it means it is on."
 
 	req_one_access_txt = "24;10"
 

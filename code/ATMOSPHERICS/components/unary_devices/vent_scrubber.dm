@@ -6,6 +6,8 @@
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"
+	description_info = "This filters the atmosphere of harmful gas.  Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
+	It can be controlled from an Air Alarm.  It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
 	layer = GAS_SCRUBBER_LAYER
 
 	use_power = IDLE_POWER_USE

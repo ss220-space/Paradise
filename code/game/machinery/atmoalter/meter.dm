@@ -1,6 +1,7 @@
 /obj/machinery/meter
 	name = "gas flow meter"
 	desc = "It measures something."
+	description_info = "Measures the volume and temperature of the pipe under the meter."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
 

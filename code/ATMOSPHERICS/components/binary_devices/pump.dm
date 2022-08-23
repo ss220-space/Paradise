@@ -18,6 +18,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	name = "gas pump"
 	desc = "A pump"
+	description_info = "This moves gas from one pipe to another.  A higher target pressure demands more energy.  The side with the red end is the output."
 
 	can_unwrench = 1
 

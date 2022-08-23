@@ -1,5 +1,8 @@
 /obj/structure/girder
 	name = "girder"
+	description_info = "Use metal sheets on this to build a normal wall.  Adding plasteel instead will make a reinforced wall.<br>\
+	A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
+	You can dismantle the girder with a wrench."
 	icon_state = "girder"
 	anchored = 1
 	density = 1
@@ -398,6 +401,7 @@
 
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
+	description_info = "Add another sheet of plasteel to finish."
 	icon_state = "reinforced"
 	state = GIRDER_REINF
 	girderpasschance = 0

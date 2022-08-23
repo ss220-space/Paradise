@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 /obj/item/stack/sheet/glass
 	name = "glass"
 	desc = "HOLY SHEET! That is a lot of glass."
+	description_info = "Use in your hand to build a window.  Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets."
 	singular_name = "glass sheet"
 	icon_state = "sheet-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -40,6 +41,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	amount = 50
 
 /obj/item/stack/sheet/glass/cyborg
+	description_info = "Use in your hand to build a window.  Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets.<br>\
+	As a synthetic, you can acquire more sheets of glass by recharging."
 	materials = list()
 	is_cyborg = 1
 
@@ -87,6 +90,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 /obj/item/stack/sheet/rglass
 	name = "reinforced glass"
 	desc = "Glass which seems to have rods or something stuck in them."
+	description_info = "Use in your hand to build a window.  Reinforced glass is much stronger against damage."
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -99,6 +103,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	point_value = 4
 
 /obj/item/stack/sheet/rglass/cyborg
+	description_info = "Use in your hand to build a window. Reinforced glass is much stronger against damage.<br>\
+	As a synthetic, you can gain more reinforced glass by recharging."
 	materials = list()
 	is_cyborg = 1
 	var/datum/robot_energy_storage/glasource

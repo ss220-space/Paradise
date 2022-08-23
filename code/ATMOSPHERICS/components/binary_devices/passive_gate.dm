@@ -6,6 +6,7 @@
 
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
+	description_info = "This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate.  If the light is green, it is flowing."
 
 	can_unwrench = 1
 

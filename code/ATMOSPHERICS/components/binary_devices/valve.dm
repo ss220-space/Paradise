@@ -4,6 +4,7 @@
 
 	name = "manual valve"
 	desc = "A pipe valve"
+	description_info = "Click this to turn the valve.  If red, the pipes on each end are separated.  Otherwise, they are connected."
 
 	can_unwrench = 1
 

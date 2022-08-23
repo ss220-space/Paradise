@@ -5,6 +5,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
 	name = "Scrubbers pipe"
 	desc = "A one meter section of scrubbers pipe"
+	description_info = "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "intact-scrubbers"
 	connect_types = list(3)
 	layer = 2.38
@@ -14,6 +16,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/supply
 	name = "Air supply pipe"
 	desc = "A one meter section of supply pipe"
+	description_info = "This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe."
 	icon_state = "intact-supply"
 	connect_types = list(2)
 	layer = 2.39
@@ -35,6 +39,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
+	description_info = "This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes."
 	connect_types = list(1,2,3)
 	icon_state = "map_universal"
 
