@@ -71,7 +71,7 @@
 
 	if(owner.assigned_role in GLOB.command_positions)
 		//шанс получить за главу работу одного из своих отделов
-		if (prob(chance_generic_ambition))
+		if (prob(chance_other_departament_ambition))
 			switch(owner.assigned_role)
 				if("Head of Personnel")
 					if (prob(50))
