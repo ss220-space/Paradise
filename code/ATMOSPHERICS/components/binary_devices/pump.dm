@@ -37,7 +37,9 @@ Thus, the two variables affect pump operation are set in New():
 	toggle()
 	return ..()
 
-/obj/machinery/atmospherics/binary/pump/AICtrlClick()
+/obj/machinery/atmospherics/binary/pump/AICtrlClick(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		return
 	toggle()
 	return ..()
 
@@ -52,7 +54,9 @@ Thus, the two variables affect pump operation are set in New():
 	set_max()
 	return
 
-/obj/machinery/atmospherics/binary/pump/AIAltClick()
+/obj/machinery/atmospherics/binary/pump/AIAltClick(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		return
 	set_max()
 	return ..()
 

@@ -23,7 +23,9 @@
 	toggle()
 	return ..()
 
-/obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
+/obj/machinery/atmospherics/trinary/mixer/AICtrlClick(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		return
 	toggle()
 	return ..()
 
@@ -38,7 +40,9 @@
 	set_max()
 	return
 
-/obj/machinery/atmospherics/trinary/mixer/AIAltClick()
+/obj/machinery/atmospherics/trinary/mixer/AIAltClick(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		return
 	set_max()
 	return ..()
 

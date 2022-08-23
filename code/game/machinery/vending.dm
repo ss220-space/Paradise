@@ -478,6 +478,8 @@
 
 
 /obj/machinery/vending/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+		return
 	return attack_hand(user)
 
 /obj/machinery/vending/attack_ghost(mob/user)

@@ -11,6 +11,8 @@
 	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+		return
 	return attack_hand(user)
 
 /obj/machinery/computer/mecha/attack_hand(mob/user)

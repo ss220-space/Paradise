@@ -105,6 +105,8 @@
 	ui_interact(user)
 
 /obj/machinery/chem_heater/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		return
 	add_hiddenprint(user)
 	return attack_hand(user)
 
