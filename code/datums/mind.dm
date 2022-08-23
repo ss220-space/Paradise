@@ -561,7 +561,7 @@
 			do
 				counter = 0
 				objective.description = objective.get_random_ambition()
-				if (objective.description == null)
+				if (objective.description == null || objective.description == "")
 					break
 				for(var/datum/ambition_objective/amb in ambition_objectives)
 					if (objective.description == amb.description) //&& objective.unique_datum_id != amb.unique_datum_id)
