@@ -13,7 +13,8 @@
 	var/datum/mind/owner = null			//владелец амбиции
 	var/completed = 0					//завершение амбиции для конца раунда
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
-	var/chance_generic_ambition = 30	//шанс выпадения ОБЩЕЙ амбиции, оптимальный 30, если бы у всех отделов было бы достаточно амбиций, но это нивелируется пустыми строками
+	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции, оптимальный 30, если бы у всех отделов было бы достаточно амбиций, но это нивелируется пустыми строками
+	var/chance_other_departament_ambition = 30	//шанс выпадения амбиции чужого департамента
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
@@ -45,11 +46,19 @@
 	//Проверяем работы не в позициях и вынесенные в отдельный документ
 	switch(owner.assigned_role)
 		if("Magistrate" || "Internal Affairs Agent")
+			if("Magistrate" && (prob(chance_other_departament_ambition))) //шанс что магистрат возьмёт общую амбицию глав.
+				result = pick_list("ambition_objectives_command.json", "Общий")
+				if (!result)
+					return result
 			result = pick_list("ambition_objectives_law.json", job)
 			if (!result)
 				return result
 
 		if("Nanotrasen Representative" || "Blueshield")
+			if("Nanotrasen Representative" && (prob(chance_other_departament_ambition))) //шанс что НТР возьмёт общую амбицию закона.
+				result = pick_list("ambition_objectives_law.json", "Общий")
+				if (!result)
+					return result
 			result = pick_list("ambition_objectives_representative.json", job)
 			if (!result)
 				return result
@@ -113,6 +122,10 @@
 			return result
 
 	if(owner.assigned_role in GLOB.security_positions)
+		if("Brig Physician" && (prob(chance_other_departament_ambition)))	//шанс что бригмедик возьмёт амбицию мед. отдела.
+			job = pick(GLOB.medical_positions)
+			result = pick_list("ambition_objectives_medical.json", job)
+			return result
 		result = pick_list("ambition_objectives_security.json", job)
 		if (!result)
 			return result
@@ -121,6 +134,7 @@
 		result = pick_list("ambition_objectives_nonhuman.json", job)
 		if (!result)
 			return result
+
 	return result
 
 /datum/ambition_objective/proc/ambition_code(var/text)
