@@ -118,7 +118,7 @@
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.aiCamera.in_camera_mode && !AI.add_heat(AI_TAKE_IMAGE_HEAT))
-		AI.aiCamera.toggle_camera_mode()
+			AI.aiCamera.toggle_camera_mode()
 
 /obj/screen/ai/image_view
 	name = "View Images"

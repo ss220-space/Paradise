@@ -21,11 +21,11 @@
 //изменения доступа двери на общий и обратно
 #define AI_DOOR_EMERGENCYACCESS_HEAT	100
 //электризация двери
-#define AI_DOOR_ELECTRIFY_HEAT			100
+#define AI_DOOR_ELECTRIFY_HEAT			200
 //болтирование двери
-#define AI_DOOR_BOLTS_HEAT				100
+#define AI_DOOR_BOLTS_HEAT				200
 //индикатор болтирования двери
-#define AI_DOOR_BOLTS_LIGHTS_HEAT		100
+#define AI_DOOR_BOLTS_LIGHTS_HEAT		200
 
 //движение камеры
 #define AI_MOVE_HEAT					25
