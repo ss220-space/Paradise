@@ -230,7 +230,7 @@
 
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	return src.attack_hand(user)
 

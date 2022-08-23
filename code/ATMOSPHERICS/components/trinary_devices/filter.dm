@@ -43,7 +43,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/user)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	toggle()
 	return ..()
@@ -60,7 +60,7 @@
 	return
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/user)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	set_max()
 	return ..()

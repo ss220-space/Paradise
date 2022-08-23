@@ -132,7 +132,7 @@
 	return
 
 /obj/item/paper/attack_ai(var/mob/living/silicon/ai/user as mob)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	var/dist
 	if(istype(user) && user.current) //is AI

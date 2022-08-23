@@ -49,7 +49,7 @@
 	ui_theme = "syndicate"
 
 /obj/machinery/photocopier/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	src.add_hiddenprint(user)
 	parse_forms(user)

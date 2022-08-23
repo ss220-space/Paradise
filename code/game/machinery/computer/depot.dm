@@ -33,7 +33,7 @@
 	if(length(req_access) && !("syndicate" in user.faction))
 		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
 		return TRUE
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	return ..()
 

@@ -83,7 +83,7 @@
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	src.attack_hand(user)
 

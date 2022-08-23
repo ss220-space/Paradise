@@ -16,7 +16,7 @@
 	light_color = LIGHT_COLOR_DARKRED
 
 /obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	return src.attack_hand(user)
 

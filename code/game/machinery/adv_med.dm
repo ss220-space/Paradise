@@ -132,7 +132,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/bodyscanner/attack_ai(user)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	return attack_hand(user)
 

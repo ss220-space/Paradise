@@ -91,7 +91,7 @@ FIRE ALARM
 		alarm()			// added check of detector status here
 
 /obj/machinery/firealarm/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	add_hiddenprint(user)
 	return attack_hand(user)

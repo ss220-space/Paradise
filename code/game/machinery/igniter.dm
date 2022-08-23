@@ -18,7 +18,7 @@
 	on = TRUE
 
 /obj/machinery/igniter/attack_ai(mob/user as mob)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	return src.attack_hand(user)
 
@@ -99,7 +99,7 @@
 
 /obj/machinery/sparker/attack_ai(mob/user)
 	if(src.anchored)
-		if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 			return
 		return src.spark()
 	else

@@ -391,7 +391,7 @@
 	return TRUE
 
 /obj/machinery/computer/scan_consolenew/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	add_hiddenprint(user)
 	attack_hand(user)

@@ -1398,8 +1398,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(istype(A))
 			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
 				if("Yes")
-					if(!add_heat(AI_OPEN_DOOR_HEAT))
-						return
 					if(!A.density)
 						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
 					else if(A.open_close(src))

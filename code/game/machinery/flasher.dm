@@ -40,7 +40,7 @@
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
 	if(anchored)
-		if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+		if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 			return
 		return flash()
 
@@ -126,7 +126,7 @@
 	active_power_usage = 4
 
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	return attack_hand(user)
 

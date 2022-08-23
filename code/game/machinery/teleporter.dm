@@ -68,7 +68,7 @@
 		ui_interact(user)
 
 /obj/machinery/computer/teleporter/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	attack_hand(user)
 
@@ -604,7 +604,7 @@
 
 
 /obj/machinery/teleport/station/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	attack_hand(user)
 

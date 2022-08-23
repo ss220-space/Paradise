@@ -59,7 +59,7 @@
 		return attached.powernet
 
 /obj/machinery/computer/monitor/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	attack_hand(user)
 

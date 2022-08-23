@@ -292,7 +292,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return FALSE
 
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	return attack_hand(user)
 

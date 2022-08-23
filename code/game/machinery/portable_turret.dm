@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return FALSE
 
 /obj/machinery/porta_turret/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	ui_interact(user)
 

@@ -106,7 +106,7 @@
 	return ..()
 
 /obj/item/radio/intercom/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	add_hiddenprint(user)
 	add_fingerprint(user)

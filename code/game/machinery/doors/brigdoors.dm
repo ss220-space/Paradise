@@ -277,7 +277,7 @@
 	return
 
 /obj/machinery/door_timer/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	ui_interact(user)
 

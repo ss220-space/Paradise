@@ -12,23 +12,25 @@
 //мультипликатор охлаждения при перегреве
 #define AI_OVERHEAT_COOLDOWN_MULTIPLIER	2
 
+//использование топиков (все действия во всех консолях)
+#define AI_USE_TOPIC_HEAT				30
 //большая часть неприметных действий (потрогать вентиль, нажать кнопку, посмотреть на бумажку)
-#define AI_NORMAL_ACTION				50
+#define AI_NORMAL_ACTION_HEAT			50
 //все действия с компьютерами
-#define AI_COMPUTER_ACTION				100
+#define AI_COMPUTER_ACTION_HEAT			100
 //открытие двери
-#define AI_OPEN_DOOR_HEAT				100
+#define AI_OPEN_DOOR_HEAT				150
 //изменения доступа двери на общий и обратно
-#define AI_DOOR_EMERGENCYACCESS_HEAT	100
+#define AI_DOOR_EMERGENCYACCESS_HEAT	150
 //электризация двери
-#define AI_DOOR_ELECTRIFY_HEAT			200
+#define AI_DOOR_ELECTRIFY_HEAT			250
 //болтирование двери
-#define AI_DOOR_BOLTS_HEAT				200
+#define AI_DOOR_BOLTS_HEAT				250
 //индикатор болтирования двери
-#define AI_DOOR_BOLTS_LIGHTS_HEAT		200
+#define AI_DOOR_BOLTS_LIGHTS_HEAT		250
 
 //движение камеры
-#define AI_MOVE_HEAT					25
+#define AI_MOVE_HEAT					15
 //текстовый анонс
 #define AI_ANNOUNCEMENT_HEAT			200
 //голосовой анонс

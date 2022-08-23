@@ -169,21 +169,19 @@
 // APC
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
-		return
 	toggle_breaker(user)
 
 
 // TURRETCONTROL
 
 /obj/machinery/turretid/AICtrlClick(mob/living/silicon/user) //turns off/on Turrets
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	enabled = !enabled
 	updateTurrets()
 
 /obj/machinery/turretid/AIAltClick(mob/user) //toggles lethal on turrets
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	if(lethal_is_configurable)
 		lethal = !lethal
@@ -194,21 +192,15 @@
 /obj/machinery/door/airlock/AIAltShiftClick(mob/user)  // Sets/Unsets Emergency Access Override
 	if(!ai_control_check(user))
 		return
-	if(isAI(user) && !user:add_heat(AI_DOOR_EMERGENCYACCESS_HEAT))
-		return
 	toggle_emergency_status(user)
 
 /obj/machinery/door/airlock/AIShiftClick(mob/user)  // Opens and closes doors!
 	if(!ai_control_check(user))
 		return
-	if(isAI(user) && !user:add_heat(AI_OPEN_DOOR_HEAT))
-		return
 	open_close(user)
 
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
-		return
-	if(isAI(user) && !user:add_heat(AI_DOOR_BOLTS_HEAT))
 		return
 	toggle_bolt(user)
 
@@ -217,8 +209,6 @@
 		return
 	if(wires.is_cut(WIRE_ELECTRIFY))
 		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
-	if(isAI(user) && !user:add_heat(AI_DOOR_ELECTRIFY_HEAT))
-		return
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
@@ -227,8 +217,6 @@
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
 	if(!ai_control_check(user))
-		return
-	if(isAI(user) && !user:add_heat(AI_DOOR_BOLTS_LIGHTS_HEAT))
 		return
 	toggle_light(user)
 

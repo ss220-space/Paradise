@@ -48,7 +48,7 @@
 		theft_cache += new T
 
 /obj/machinery/computer/cryopod/attack_ai(mob/user)
-	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION))
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
 		return
 	attack_hand(user)
 

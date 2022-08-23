@@ -38,7 +38,7 @@
 	return 1
 
 /obj/machinery/computer/salvage_ship/attack_ai(mob/user as mob)
-	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION))
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
 		return
 	src.add_hiddenprint(user)
 	return attack_hand(user)
