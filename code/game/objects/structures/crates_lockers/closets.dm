@@ -182,6 +182,7 @@
 			return
 		if(W)
 			W.forceMove(loc)
+			W.do_drop_animation(user)
 			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
 	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
 		emag_act(user)

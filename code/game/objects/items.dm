@@ -291,6 +291,16 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	else
 		if(isliving(loc))
 			return 0
+	if(isturf(loc))
+		var/show_anim = TRUE
+		var/mob/living/carbon/human/H = user
+		if(istype(H) && H.gloves)
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(istype(G) && G.pickpocket)
+				show_anim = FALSE
+		if(show_anim)
+			do_pickup_animation(user)
+
 	add_fingerprint(user)
 	if(pickup(user)) // Pickup succeeded
 		user.put_in_active_hand(src)
@@ -746,3 +756,84 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/// Show a pickup animation when an item is collected from the ground.
+/obj/item/proc/do_pickup_animation(atom/target)
+	var/mob/user = target
+	if(isturf(loc))
+		var/list/pickup_viewing = list()
+		for(var/mob/other_user in viewers(user))
+			if(other_user.client && (other_user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
+				pickup_viewing |= other_user.client
+		for(var/client/user_client in pickup_viewing)
+			var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+			pickup_animation.plane = GAME_PLANE
+			pickup_animation.transform.Scale(0.75)
+			pickup_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+			var/turf/current_turf = get_turf(src)
+			var/direction = get_dir(current_turf, user)
+			var/to_x = user.pixel_x
+			var/to_y = user.pixel_y
+
+			if(direction & NORTH)
+				to_y += 32
+			else if(direction & SOUTH)
+				to_y -= 32
+			if(direction & EAST)
+				to_x += 32
+			else if(direction & WEST)
+				to_x -= 32
+			if(!direction)
+				to_y += 10
+				pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+			flick_overlay(pickup_animation, pickup_viewing, 4)
+			var/matrix/animation_matrix = new(pickup_animation.transform)
+			animation_matrix.Turn(pick(-30, 30))
+			animation_matrix.Scale(0.65)
+
+			animate(pickup_animation, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+			animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+
+/// Show a drop animation
+/obj/item/proc/do_drop_animation(atom/target)
+	var/mob/user = target
+	if(isturf(loc))
+		var/list/drop_viewing = list()
+		for(var/mob/other_user in viewers(user))
+			if(other_user.client && (other_user.client.prefs.toggles2 & PREFTOGGLE_2_PICKUP_ANIMATIONS))
+				drop_viewing  |= other_user.client
+		for(var/client/user_client in drop_viewing )
+			var/turf/current_turf = get_turf(src)
+			var/direction = get_dir(user, current_turf)
+			var/from_x = user.pixel_x
+			var/from_y = user.pixel_y
+
+			if(direction & NORTH)
+				from_y -= 32
+			else if(direction & SOUTH)
+				from_y += 32
+			if(direction & EAST)
+				from_x -= 32
+			else if(direction & WEST)
+				from_x += 32
+			if(!direction)
+				from_y += 10
+				from_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+			//We're moving from these chords to our current ones
+			var/old_x = pixel_x
+			var/old_y = pixel_y
+			var/old_alpha = alpha
+			var/matrix/old_transform = transform
+			var/matrix/animation_matrix = new(old_transform)
+			animation_matrix.Turn(pick(-30, 30))
+			animation_matrix.Scale(0.7) // Shrink to start, end up normal sized
+
+			pixel_x = from_x
+			pixel_y = from_y
+			alpha = 0
+			transform = animation_matrix
+
+			// This is instant on byond's end, but to our clients this looks like a quick drop
+			animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
