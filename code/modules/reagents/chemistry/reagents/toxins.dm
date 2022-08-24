@@ -25,6 +25,27 @@
 	update_flags |= M.adjustToxLoss(1.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/headcrab_neurotoxin
+	name = "Headcrab Neurotoxin"
+	id = "headcrabneurotoxin"
+	description = "Neurotoxin from black headcrab's sting."
+	reagent_state = LIQUID
+	color = "#000000" // rgb: 0, 0, 0
+	taste_description = "weakness and bitterness"
+
+/datum/reagent/headcrab_poison/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(M.reagents.has_reagent("diphenhydramine"))
+		M.reagents.remove_reagent("headcrabneurotoxin",5)
+		return
+	else
+		update_flags |= M.adjustToxLoss(6, FALSE)
+		update_flags |= M.adjustOxyLoss(2, FALSE)
+		update_flags |= M.adjustFireLoss(0.1, FALSE)
+		update_flags |= M.adjustStaminaLoss(0.5, FALSE)
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"

@@ -3,7 +3,8 @@
 #define HEADCRAB_FAST 2
 #define HEADCRAB_POISONMIX 3
 #define HEADCRAB_POISON 4
-#define HEADCRAB_SPAWNER 5
+#define HEADCRAB_MEGAMIX 5
+#define HEADCRAB_SPAWNER 6
 
 /datum/event/headcrabs
 	announceWhen = 10
@@ -22,7 +23,7 @@
 			turfs += F
 	var/list/spawn_types = list()
 	var/max_number
-	headcrab_type = rand(0, 5)
+	headcrab_type = rand(0, 6)
 	switch(headcrab_type)
 		if(HEADCRAB_NORMAL)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
@@ -39,10 +40,12 @@
 		if(HEADCRAB_POISON)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/poison)
 			max_number = 3
+		if(HEADCRAB_MEGAMIX)
+			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+			max_number = 10
 		if(HEADCRAB_SPAWNER)
 			spawn_types = list(/obj/structure/spawner/headcrab)
 			max_number = 2
-
 
 	var/num = rand(2,max_number)
 
@@ -53,13 +56,23 @@
 		var/spawn_type = pick(spawn_types)
 		new spawn_type(T)
 
+	var/i = 0
+	var/c = rand(2,6)
+
+	while(i > c)
+		var/turf/simulated/floor/T = pick(turfs)
+		turfs.Remove(T)
+		i++
+		new /obj/structure/spawner/headcrab(T)
 
 /datum/event/headcrabs/announce()
-	GLOB.event_announcement.Announce("Биосканеры фиксируют размножение хедкрабов на борту станции. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
+	if(prob(50))
+		GLOB.event_announcement.Announce("Биосканеры фиксируют размножение хедкрабов на борту станции. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
 #undef HEADCRAB_NORMAL
 #undef HEADCRAB_FASTMIX
 #undef HEADCRAB_FAST
 #undef HEADCRAB_POISONMIX
 #undef HEADCRAB_POISON
+#undef HEADCRAB_MEGAMIX
 #undef HEADCRAB_SPAWNER
