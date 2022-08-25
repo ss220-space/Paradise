@@ -239,6 +239,8 @@
 			return FALSE
 
 /obj/machinery/chem_master/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/chem_master/attack_ghost(mob/user)
