@@ -15,6 +15,8 @@
 
 /obj/item/hardsuit_shield/syndi
 	allowed_to_change_color = TRUE
+	shield_state = "shield-red"
+	shield_on = "shield-red"
 
 /obj/item/hardsuit_shield/wizard
 	current_charges = 15
