@@ -51,7 +51,7 @@
 /obj/item/clothing/suit/space/hardsuit/shielded
 	name = "shielded hardsuit"
 	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
-	shield = /obj/item/hardsuit_shield/syndi
+	shield = /obj/item/hardsuit_shield
 
 //////Syndicate Version
 
@@ -69,9 +69,6 @@
 //////Wizard Versions
 /obj/item/clothing/suit/space/hardsuit/wizard/shielded
 	shield = /obj/item/hardsuit_shield/wizard
-
-/obj/item/clothing/head/helmet/space/hardsuit/wizard/shielded/attack_self(mob/user)
-	return
 
 /obj/item/clothing/suit/space/hardsuit/wizard/arch/shielded
 	shield = /obj/item/hardsuit_shield/wizard/arch

@@ -201,6 +201,9 @@
 	actions_types = list() //No inbuilt light
 	magical = TRUE
 
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
+	return
+
 /obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
