@@ -24,6 +24,8 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	ui_interact(user)
 
 /obj/machinery/computer/station_alert/attack_hand(mob/user)

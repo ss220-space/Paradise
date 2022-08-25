@@ -58,6 +58,8 @@
 
 
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/driver_button/attack_ghost(mob/user)
@@ -166,6 +168,8 @@
 	active_power_usage = 4
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/ignition_switch/attack_ghost(mob/user)
