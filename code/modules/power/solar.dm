@@ -356,6 +356,8 @@
 		overlays += image('icons/obj/computer.dmi', "solcon-o", FLY_LAYER, angle2dir(cdir))
 
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	add_hiddenprint(user)
 	ui_interact(user)
 

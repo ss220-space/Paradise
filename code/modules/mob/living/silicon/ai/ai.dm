@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/mob/camera/aiEye/eyeobj
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
+	var/acceleration = FALSE
 	var/tracking = 0 //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
 	var/obj/machinery/camera/portable/builtInCamera
@@ -111,6 +111,21 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
 	var/list/all_eyes = list()
+
+	//основная система охлаждения, используется всегда
+	var/current_heat = AI_INITIAL_HEAT
+	var/max_heat = AI_MAX_HEAT
+	var/cooldown_rate = AI_COOLDOWN_RATE
+
+	//резервная система охлаждения, используется при истощении основной и только при красном коде и выше
+	var/current_reserve_heat = AI_INITIAL_HEAT
+	var/max_reserve_heat = AI_RESERVE_MAX_HEAT
+	var/reserve_cooldown_rate = AI_RESERVE_COOLDOWN_RATE
+
+	//время последнего предупреждения о критической нагрузке на систему охлаждения
+	var/warning_last_time = 0
+	var/overheated = FALSE
+
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -512,6 +527,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_roster()
 	set name = "Show Crew Manifest"
 	set category = "AI Commands"
+
+	if(!add_heat(AI_SHOW_ROSTER_HEAT))
+		return
+
 	show_station_manifest()
 
 /mob/living/silicon/ai/var/message_cooldown = 0
@@ -533,6 +552,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
+	if(!add_heat(AI_ANNOUNCEMENT_HEAT))
+		return
+
 	announcement.Announce(input)
 	message_cooldown = 1
 	spawn(600)//One minute cooldown
@@ -552,6 +574,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
+	if(!add_heat(AI_CALL_SHUTTLE_HEAT))
+		return
+
 	call_shuttle_proc(src, input)
 
 	return
@@ -566,6 +591,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")
 
 	if(check_unable(AI_CHECK_WIRELESS))
+		return
+
+	if(!add_heat(AI_CALL_SHUTTLE_HEAT))
 		return
 
 	if(confirm == "Yes")
@@ -745,6 +773,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!isturf(loc))
 			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
 			return
+		if(!add_heat(AI_MECH_CONTROL_HEAT))
+			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
@@ -794,6 +824,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+		return
+
+	if(!add_heat(AI_CALLBOT_HEAT))
 		return
 
 	var/d
@@ -883,6 +916,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
 
+	if(!add_heat(AI_JUMPTO_CAMERA_HEAT))
+		return
+
 	if(!eyeobj)
 		view_core()
 		return
@@ -909,6 +945,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	var/mob/living/silicon/ai/U = usr
+
+	if(!U.add_heat(AI_CHANGE_NETWORK_HEAT))
+		return
 
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if(!C.can_use())
@@ -957,6 +996,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
+	if(!add_heat(AI_STATUSCHANGE_HEAT))
+		return
+
 	for(var/obj/machinery/M in GLOB.machines) //change status
 		if(istype(M, /obj/machinery/ai_status_display))
 			var/obj/machinery/ai_status_display/AISD = M
@@ -979,6 +1021,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(check_unable())
 		return
+
+	if(!add_heat(AI_CHANGEHOLO_HEAT))
+		return
+
 	if(!custom_hologram) //Check to see if custom sprite time, checking the appopriate file to change a var
 		var/file = file2text("config/custom_sprites.txt")
 		var/lines = splittext(file, "\n")
@@ -1143,6 +1189,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
+
+	if(!add_heat(AI_TOGGLE_SENSORS_MODE_HEAT))
+		return
+
 	toggle_sensor_mode()
 
 /mob/living/silicon/ai/proc/ai_change_voice()
@@ -1162,6 +1212,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Set Arrival Message"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
+
+	if(!add_heat(AI_CHANGE_ARRIVAL_MSG_HEAT))
+		return
 
 	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
 	if(newmsg != arrivalmsg)
@@ -1244,6 +1297,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if((flags & AI_CHECK_RADIO) && aiRadio.disabledAi)
 		to_chat(src, "<span class='warning'>System Error - Transceiver Disabled!</span>")
 		return TRUE
+
+	if(overheated)
+		to_chat(src, "<span class='warning'>Отказ доступа! Перегрев системы! Протокол экстренного охлаждения в действии...</span>")
+		return TRUE
+
 	return FALSE
 
 /mob/living/silicon/ai/proc/is_in_chassis()
@@ -1457,3 +1515,108 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		runechat_msg_location = loc
 	else
 		runechat_msg_location = src
+
+
+/mob/living/silicon/ai/proc/add_heat(value)
+	if(mind.has_antag_datum(/datum/antagonist/traitor) || malf_picker)
+		return TRUE
+	if(overheated)
+		return FALSE
+
+	var/cant_handle_heat = (\
+		(value > max_heat * 0.1)\
+		&& ((GLOB.security_level > SEC_LEVEL_BLUE)\
+		? (current_heat + value - max_heat) > (max_reserve_heat - current_reserve_heat)\
+		: (current_heat + value > max_heat))\
+	)
+	if(cant_handle_heat)
+		to_chat(src, "<span class='warning'>Система охлаждения не выдержит таких нагрузок!</span>")
+		return FALSE
+
+	current_heat += value
+
+	if(current_heat > max_heat)
+		if(!add_reserve_heat(current_heat - max_heat))
+			on_overheat()
+	else if((current_heat > max_heat * 0.85) && (warning_last_time < world.time - 15 SECONDS))
+		warning_last_time = world.time
+		to_chat(src, "<span class='warning'>Внимание! Предельная нагрузка на систему охлаждения!</span>")
+
+	current_heat = min(current_heat, max_heat)
+	update_heat_display()
+	return TRUE
+
+/mob/living/silicon/ai/proc/remove_heat(value)
+	if(!current_heat)
+		return
+
+	current_heat -= value
+	current_heat = max(0, current_heat)
+	update_heat_display()
+
+/mob/living/silicon/ai/proc/update_heat_display()
+	var/datum/hud/ai/hud = hud_used
+	if(!istype(hud))
+		return
+
+	hud.heat_display.update_display_value(src, current_heat)
+
+
+/mob/living/silicon/ai/proc/on_overheat()
+	if(overheated)
+		return
+	to_chat(src, "<span class='danger'>ОПАСНОСТЬ! Перегрузка системы охлаждения! Минимизирую потребление энергии до полного восстановления системы...</span>")
+	overheated = TRUE
+	cooldown_rate *= AI_OVERHEAT_COOLDOWN_MULTIPLIER
+	addtimer(CALLBACK(src, .proc/view_core), 0.1 SECONDS)
+
+
+/mob/living/silicon/ai/proc/after_overheat()
+	if(!overheated)
+		return
+	to_chat(src, "<spann class='info'>Восстановление системы охлаждения успешно завершено.</span>")
+	overheated = FALSE
+	cooldown_rate /= AI_OVERHEAT_COOLDOWN_MULTIPLIER
+
+
+/mob/living/silicon/ai/proc/add_reserve_heat(value)
+	if(GLOB.security_level < SEC_LEVEL_RED)
+		return FALSE
+
+	current_reserve_heat += value
+
+	var/not_overheated = TRUE
+	if(current_reserve_heat > max_reserve_heat)
+		not_overheated = FALSE
+
+	current_reserve_heat = min(current_reserve_heat, max_reserve_heat)
+	update_reserve_heat_display()
+
+	return not_overheated
+
+/mob/living/silicon/ai/proc/remove_reserve_heat(value)
+	if(!current_reserve_heat)
+		return
+	
+	current_reserve_heat -= value
+	current_reserve_heat = max(0, current_reserve_heat)
+	update_reserve_heat_display()
+
+
+/mob/living/silicon/ai/proc/update_reserve_heat_display()
+	var/datum/hud/ai/hud = hud_used
+	if(!istype(hud))
+		return
+
+	hud.heat_display.update_reserve_display_value(src, current_reserve_heat)
+
+/mob/living/silicon/ai/proc/systems_cooldown()
+	if(tracking)
+		return
+
+	remove_heat(cooldown_rate)
+	remove_reserve_heat(reserve_cooldown_rate)
+
+	if(overheated && !current_heat)
+		after_overheat()
+

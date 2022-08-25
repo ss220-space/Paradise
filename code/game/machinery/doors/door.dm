@@ -168,6 +168,8 @@
 			do_animate("deny")
 
 /obj/machinery/door/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_OPEN_DOOR_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/door/attack_ghost(mob/user)

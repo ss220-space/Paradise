@@ -342,6 +342,8 @@
 	return
 
 /obj/machinery/power/smes/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	add_hiddenprint(user)
 	ui_interact(user)
 
