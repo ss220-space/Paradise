@@ -40,6 +40,8 @@
 	if(stunned)
 		AdjustStunned(-1, updating = 1, force = 1)
 
+	systems_cooldown()
+
 	var/area/my_area = get_area(src)
 
 	if(!lacks_power())

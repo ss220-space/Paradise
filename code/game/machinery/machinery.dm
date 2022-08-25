@@ -267,6 +267,8 @@ Class Procs:
 		if(R.client && R.client.eye == R && !R.low_power_mode)// This is to stop robots from using cameras to remotely control machines; and from using machines when the borg has no power.
 			return attack_hand(user)
 	else
+		if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+			return
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)

@@ -127,7 +127,7 @@
 		return eye_user.client
 	return null
 
-/mob/camera/aiEye/remote/setLoc(T)
+/mob/camera/aiEye/remote/setLoc(T, teleported = FALSE)
 	if(eye_user)
 		if(!isturf(eye_user.loc))
 			return
