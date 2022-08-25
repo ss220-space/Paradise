@@ -117,6 +117,8 @@
 /obj/screen/ai/image_take/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
+		if(AI.aiCamera.in_camera_mode && !AI.add_heat(AI_TAKE_IMAGE_HEAT))
+			return
 		AI.aiCamera.toggle_camera_mode()
 
 /obj/screen/ai/image_view
@@ -143,6 +145,63 @@
 /mob/living/silicon/ai/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/ai(src)
+
+/obj/screen/ai/heat_display
+	icon = 'icons/mob/screen_ai_heat_panels.dmi'
+	name = "Current Heat"
+	icon_state = "heat_display"
+	var/image/reserve_heat_display = null
+
+	var/image/heat_indicator = null
+	var/image/reserve_heat_indicator = null
+
+/obj/screen/ai/heat_display/Initialize(mapload)
+	. = ..()
+	underlays += image(src.icon, null, "heat_display_background", src.layer - 1)
+	reserve_heat_display = image(src.icon, null, "reserve_heat_display", src.layer)
+	reserve_heat_display.underlays += image(src.icon, null, "reserve_heat_display_background", src.layer - 1)
+
+	var/icon/indicator_icon = icon(src.icon)
+	indicator_icon.Crop(1, 1, 1, indicator_icon.Height())
+
+	heat_indicator = image(indicator_icon, null, "heat_display_indicator")
+	heat_indicator.pixel_x = 20
+	reserve_heat_indicator = image(indicator_icon, null, "reserve_heat_display_indicator")
+	reserve_heat_indicator.pixel_x = 50
+
+/obj/screen/ai/heat_display/proc/update_display_value(mob/living/silicon/ai/user, new_value)
+	var/indicator_lenght = round(new_value / user.max_heat * 120)
+	underlays -= heat_indicator
+	
+	var/matrix/M = matrix()
+	M.Scale(indicator_lenght, 1)
+	M.Translate(round(indicator_lenght/2), 0)
+	heat_indicator.transform = M
+	
+	underlays += heat_indicator
+
+/obj/screen/ai/heat_display/proc/update_reserve_display_value(mob/living/silicon/ai/user, new_value)
+	if(GLOB.security_level < SEC_LEVEL_RED)
+		if(LAZYLEN(overlays))
+			overlays -= reserve_heat_display
+			underlays -= reserve_heat_indicator
+		return
+	else if(!LAZYLEN(overlays))
+		overlays += reserve_heat_display
+
+	var/indicator_lenght = round(new_value / user.max_reserve_heat * 60)
+	underlays -= reserve_heat_indicator
+
+	var/matrix/M = matrix()
+	M.Scale(indicator_lenght, 1)
+	M.Translate(round(indicator_lenght/2), 0)
+	reserve_heat_indicator.transform = M
+
+	underlays += reserve_heat_indicator
+
+/datum/hud/ai
+	var/obj/screen/ai/heat_display/heat_display = null
+
 
 /datum/hud/ai/New(mob/owner)
 	..()
@@ -233,3 +292,9 @@
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
+
+//Heat display
+	using = new /obj/screen/ai/heat_display()
+	using.screen_loc = ui_ai_heat_display
+	heat_display = using
+	static_inventory += using
