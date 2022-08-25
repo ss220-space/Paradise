@@ -17,6 +17,8 @@
 	return ..()
 
 /obj/machinery/computer/sm_monitor/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	attack_hand(user)
 
 /obj/machinery/computer/sm_monitor/attack_hand(mob/user)
