@@ -324,6 +324,8 @@
 		WRENCH_ANCHOR_MESSAGE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
