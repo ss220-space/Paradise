@@ -1,6 +1,6 @@
 #define HOLOPAD_MAX_DIAL_TIME 200
 
-/mob/camera/aiEye/remote/holo/setLoc()
+/mob/camera/aiEye/remote/holo/setLoc(T, teleported = FALSE)
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
 	H.move_hologram(eye_user, loc)

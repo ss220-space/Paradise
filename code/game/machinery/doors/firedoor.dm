@@ -176,6 +176,8 @@
 		close()
 
 /obj/machinery/door/firedoor/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_OPEN_DOOR_HEAT))
+		return
 	forcetoggle()
 
 /obj/machinery/door/firedoor/attack_ghost(mob/user)

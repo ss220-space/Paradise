@@ -159,8 +159,8 @@
 /atom/proc/AICtrlClick(mob/living/silicon/user)
 	return
 
-/atom/proc/AIAltClick(atom/A)
-	AltClick(A)
+/atom/proc/AIAltClick(mob/user)
+	AltClick(user)
 
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
@@ -181,10 +181,14 @@
 // TURRETCONTROL
 
 /obj/machinery/turretid/AICtrlClick(mob/living/silicon/user) //turns off/on Turrets
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	enabled = !enabled
 	updateTurrets()
 
-/obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
+/obj/machinery/turretid/AIAltClick(mob/user) //toggles lethal on turrets
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	if(lethal_is_configurable)
 		lethal = !lethal
 		updateTurrets()

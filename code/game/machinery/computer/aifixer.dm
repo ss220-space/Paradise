@@ -22,6 +22,8 @@
 		return ..()
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)

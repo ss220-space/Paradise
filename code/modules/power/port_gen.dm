@@ -318,6 +318,8 @@
 	ui_interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	add_hiddenprint(user)
 	return attack_hand(user)
 

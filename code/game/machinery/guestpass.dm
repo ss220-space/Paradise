@@ -65,6 +65,8 @@
 	return giver.access
 
 /obj/machinery/computer/guestpass/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 

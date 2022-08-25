@@ -1037,7 +1037,9 @@
 			if(get_malf_status(usr))
 				malfvacate()
 
-/obj/machinery/power/apc/proc/toggle_breaker()
+/obj/machinery/power/apc/proc/toggle_breaker(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	operating = !operating
 	update()
 	update_icon()
