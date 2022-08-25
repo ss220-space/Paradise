@@ -43,11 +43,11 @@
 
 	if(method == REAGENT_TOUCH)
 		if(H.wear_mask)
-			to_chat(H, "<span class='danger'>Ваша [H.wear_mask] защищает вас от кислоты!</span>")
+			to_chat(H, "<span class='danger'>Ваш[genderize_ru(H.wear_mask.gender, "", "а", "е", "и")] [H.wear_mask.declent_ru(NOMINATIVE)] защищает вас от кислоты!</span>")
 			return
 
 		if(H.head)
-			to_chat(H, "<span class='danger'>Ваша [H.wear_mask] защищает вас от кислоты!</span>")
+			to_chat(H, "<span class='danger'>Ваш[genderize_ru(H.wear_mask.gender, "", "а", "е", "и")] [H.wear_mask.declent_ru(NOMINATIVE)] защищает вас от кислоты!</span>")
 			return
 
 		if(volume > 25)

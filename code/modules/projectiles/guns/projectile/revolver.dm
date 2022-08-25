@@ -31,7 +31,7 @@
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src].</span>")
+		to_chat(user, "<span class='notice'>Вы заряжаете [num_loaded] единиц боезапаса в [src.declent_ru(ACCUSATIVE)].</span>")
 		A.update_icon()
 		update_icon()
 		chamber_round(0)
@@ -49,9 +49,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
+		to_chat(user, "<span class='notice'>Вы разряжаете [num_unloaded] единиц боезапаса из [src.declent_ru(GENITIVE)].</span>")
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, "<span class='warning'>[src.declent_ru(NOMINATIVE)] пуст!</span>")
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
@@ -68,7 +68,7 @@
 		C.spin()
 		chamber_round(0)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
-		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
+		usr.visible_message("[usr.declent_ru(NOMINATIVE)] крутит барабан [src.declent_ru(GENITIVE)].", "<span class='notice'>Вы крутите барабан [src.declent_ru(GENITIVE)].</span>")
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -85,7 +85,7 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[get_ammo(0,0)] of those are live rounds.</span>"
+	. += "<span class='notice'>Из них заряжен[declension_ru(get_ammo(0,0), "", "ы", "ы")] [get_ammo(0,0)] патрон[declension_ru(get_ammo(0,0), "", "а", "ов")].</span>"
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
@@ -191,7 +191,9 @@
 
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
-	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
+	ru_names = list(NOMINATIVE = "авто-револьвер Уника 6", GENITIVE = "авто-револьвера Уника 6", DATIVE = "авто-револьверу Уника 6", ACCUSATIVE = "авто-револьвер Уника 6", INSTRUMENTAL = "авто-револьвером Уника 6", PREPOSITIONAL = "авто-револьвере Уника 6")
+	desc = "Убойный автоматический револьвер, выполненный в ретро-стиле. Находится на вооружении у офицеров армии Новой России. Использует патроны калибра .357"	//>10mm hole >.357
+	gender = MALE
 	icon_state = "mateba"
 
 /obj/item/gun/projectile/revolver/golden

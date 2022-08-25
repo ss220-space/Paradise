@@ -501,24 +501,36 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
+/mob/living/carbon/human/get_visible_name(var/id_override = FALSE, case_id = NOMINATIVE)
+	var/list/ru_unknown = list(
+		NOMINATIVE = "Неизвестный",
+		GENITIVE = "Неизвестного",
+		DATIVE = "Неизвестному",
+		ACCUSATIVE = "Неизвестного",
+		INSTRUMENTAL = "Неизвестным",
+		PREPOSITIONAL = "Неизвестном"
+	)
 	if(name_override)
 		return name_override
-	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
-		return get_id_name("Unknown")
-	if(head && (head.flags_inv & HIDEFACE))
-		return get_id_name("Unknown")		//Likewise for hats
-	var/face_name = get_face_name()
+	if(wear_mask?.flags_inv & HIDEFACE || head?.flags_inv & HIDEFACE)	//Wearing a mask or a hat which hides our face, use id-name if possible
+		return get_id_name(ru_unknown[case_id])
+	var/face_name = get_face_name(ru_unknown[case_id])
+	var/ru_face_name = face_name
+	if(face_name == real_name && length(ru_names) >= case_id && ru_names[case_id] != null && ru_names[NOMINATIVE] == real_name)
+		ru_face_name = ru_names[case_id]
 	var/id_name = get_id_name("")
 	if(id_name && (id_name != face_name) && !id_override)
-		return "[face_name] (as [id_name])"
-	return face_name
+		return "[ru_face_name] (как [id_name])"
+	return ru_face_name
+
+/mob/living/carbon/human/declent_ru(case_id, list/ru_names_override)
+	return get_visible_name(case_id = case_id)
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
-/mob/living/carbon/human/proc/get_face_name()
+/mob/living/carbon/human/proc/get_face_name(var/if_no_face = "Unknown")
 	var/obj/item/organ/external/head = get_organ("head")
 	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
-		return "Unknown"
+		return if_no_face
 	return real_name
 
 //gets name from ID or PDA itself, ID inside PDA doesn't matter

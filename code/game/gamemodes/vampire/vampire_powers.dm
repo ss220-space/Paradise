@@ -177,13 +177,13 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
+		user.visible_message("<span class='warning'>Глаза [user.declent_ru(NOMINATIVE)] вспыхивают, когда [genderize_ru(user.gender, "он", "она", "оно", "они")] пристально смотр[pluralize_ru(user.gender, "ит", "ят")] в глаза [target]</span>")
 		if(do_mob(user, target, 60))
 			if(!affects(target))
-				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target].</span>")
-				to_chat(target, "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
+				to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target.declent_ru(ACCUSATIVE)].</span>")
+				to_chat(target, "<span class='notice'>Невыразительный взгляд [user.declent_ru(GENITIVE)] ничего вам не делает.</span>")
 			else
-				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
+				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target.declent_ru(ACCUSATIVE)].</span>")
 				to_chat(target, "<span class='warning'>Вы чувствуете сильную слабость.</span>")
 				target.SetSleeping(20)
 		else
@@ -199,10 +199,10 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
-		to_chat(user, "<span class='warning'>Вы незаметно инфицируете [target] заражающим касанием.</span>")
+		to_chat(user, "<span class='warning'>Вы незаметно инфицируете [target.declent_ru(ACCUSATIVE)] заражающим касанием.</span>")
 		target.help_shake_act(user)
 		if(!affects(target))
-			to_chat(user, "<span class='warning'>Вам кажется, что заражающее касание не подействовало на [target].</span>")
+			to_chat(user, "<span class='warning'>Вам кажется, что заражающее касание не подействовало на [target.declent_ru(ACCUSATIVE)].</span>")
 			continue
 		var/datum/disease/D = new /datum/disease/vampire
 		target.ForceContractDisease(D)
@@ -215,7 +215,7 @@
 	stat_allowed = 1
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'>Глаза [user] ослепительно вспыхивают!</span>")
+	user.visible_message("<span class='warning'>Глаза [user.declent_ru(GENITIVE)] ослепительно вспыхивают!</span>")
 	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		to_chat(user, "<span class='warning'>У вас на глазах повязка!</span>")
 		return
@@ -226,7 +226,7 @@
 		target.Weaken(2)
 		target.stuttering = 20
 		target.adjustStaminaLoss(20)
-		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>")
+		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой из глаз [user.declent_ru(GENITIVE)].</span>")
 		add_attack_logs(user, target, "(Vampire) слепит")
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
@@ -238,7 +238,7 @@
 	required_blood = 50
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'>[user] transforms!</span>")
+	user.visible_message("<span class='warning'>[user.declent_ru(GENITIVE)] преображается!</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		scramble(1, H, 100)
@@ -259,7 +259,7 @@
 	required_blood = 30
 
 /obj/effect/proc_holder/spell/vampire/self/screech/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'>[user] издаёт ушераздирающий визг!</span>", "<span class='warning'>Вы громко визжите.</span>", "<span class='warning'>Вы слышите болезненно громкий визг!</span>")
+	user.visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] издаёт ушераздирающий визг!</span>", "<span class='warning'>Вы громко визжите.</span>", "<span class='warning'>Вы слышите болезненно громкий визг!</span>")
 	for(var/mob/living/carbon/C in hearers(4))
 		if(C == user)
 			continue
@@ -293,7 +293,7 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user] кусает [target] в шею!</span>", "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
+		user.visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] куса[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] в шею!</span>", "<span class='warning'>Вы кусаете [target.declent_ru(ACCUSATIVE)] в шею и начинаете передачу части своей силы.</span>")
 		to_chat(target, "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
 		if(!ishuman(target))
 			to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов.</span>")
@@ -319,13 +319,13 @@
 		log_runtime(EXCEPTION("При порабощении моба случилось что-то плохое. Атакующий: [user] [user.key] \ref[user]"), user)
 		return 0
 	if(!C.mind)
-		to_chat(user, "<span class='warning'>Разум [C.name] сейчас не здесь, поэтому порабощение не удастся.</span>")
+		to_chat(user, "<span class='warning'>Душа покинула тело [C.declent_ru(GENITIVE)]. [genderize_ru(C.gender, "Его", "Её", "Его", "Их")] нельзя поработить.")
 		return 0
 	if(enthrall_safe || ( C.mind in SSticker.mode.vampires )||( C.mind.vampire )||( C.mind in SSticker.mode.vampire_enthralled ))
-		C.visible_message("<span class='warning'>Похоже что [C] сопротивляется захвату!</span>", "<span class='notice'>Вы ощущаете в голове знакомое ощущение, но оно быстро проходит.</span>")
+		C.visible_message("<span class='warning'>Похоже что [C.declent_ru(NOMINATIVE)] сопротивля[pluralize_ru(C.gender, "ет", "ют")]ся захвату!</span>", "<span class='notice'>Вы ощущаете в голове знакомое ощущение, но оно быстро проходит.</span>")
 		return 0
 	if(!affects(C))
-		C.visible_message("<span class='warning'>Похоже что [C] сопротивляется захвату!</span>", "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
+		C.visible_message("<span class='warning'>Похоже что [C.declent_ru(NOMINATIVE)] сопротивля[pluralize_ru(C.gender, "ет", "ют")]ся захвату!</span>", "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
 		return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов!</span>")
@@ -356,11 +356,11 @@
 	var/datum/objective/protect/serve_objective = new
 	serve_objective.owner = user.mind
 	serve_objective.target = H.mind
-	serve_objective.explanation_text = "Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы."
+	serve_objective.explanation_text = "Вы были порабощены [user.real_name]. Выполняйте все [genderize_ru(user.gender, "его", "её", "его", "их")] приказы."
 	H.mind.objectives += serve_objective
 
-	to_chat(H, "<span class='biggerdanger'>Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы.</span>")
-	to_chat(user, "<span class='warning'>Вы успешно поработили [H]. <i>Если [H.p_they()] откажется вас слушаться, используйте adminhelp.</i></span>")
+	to_chat(H, "<span class='biggerdanger'>Вы были порабощены [user.real_name]. Выполняйте все [genderize_ru(user.gender, "его", "её", "его", "их")] приказы.</span>")
+	to_chat(user, "<span class='warning'>Вы успешно поработили [H.declent_ru(ACCUSATIVE)]. <i>Если [genderize_ru(H.gender, "он", "она", "оно", "они")] откажется вас слушаться, используйте adminhelp.</i></span>")
 	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")
 
@@ -570,13 +570,13 @@
 		log_debug("human/proc/raise_vampire called with invalid argument.")
 		return
 	if(!mind)
-		visible_message("Кажется, [src] недостаёт ума, чтобы понять, о чём вы говорите.")
+		visible_message("Кажется, [src.declent_ru(DATIVE)] недостаёт ума, чтобы понять, о чём вы говорите.")
 		return
 	if(dna && (NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !blood_volume)
-		visible_message("[src] выглядит невозмутимо!")
+		visible_message("[src.declent_ru(NOMINATIVE)] выглядит невозмутимо!")
 		return
 	if(mind.vampire || mind.special_role == SPECIAL_ROLE_VAMPIRE || mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message("<span class='notice'>[src] выглядит обновлённо!</span>")
+		visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] выглядит обновлённо!</span>")
 		adjustBruteLoss(-60)
 		adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in bodyparts)
@@ -586,10 +586,10 @@
 		return
 	if(stat != DEAD)
 		if(IsWeakened())
-			visible_message("<span class='warning'>Кажется, [src] ощущает боль!</span>")
+			visible_message("<span class='warning'>Кажется, [src.declent_ru(NOMINATIVE)] ощущает боль!</span>")
 			adjustBrainLoss(60)
 		else
-			visible_message("<span class='warning'>Кажется, энергия оглушает [src]!</span>")
+			visible_message("<span class='warning'>Кажется, энергия оглушает [src.declent_ru(ACCUSATIVE)]!</span>")
 			Weaken(20)
 		return
 	for(var/obj/item/implant/mindshield/L in src)
@@ -598,7 +598,7 @@
 	for(var/obj/item/implant/traitor/T in src)
 		if(T && T.implanted)
 			qdel(T)
-	visible_message("<span class='warning'>Глаза [src] начинают светиться жутким красным светом!</span>")
+	visible_message("<span class='warning'>Глаза [src.declent_ru(GENITIVE)] начинают светиться жутким красным светом!</span>")
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = mind
 	protect_objective.target = M.mind

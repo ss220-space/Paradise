@@ -334,7 +334,9 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/thermomachine
 	name = "circuit board (Freezer)"
+	ru_names = list(NOMINATIVE = "плата (Охладитель)", GENITIVE = "плату (Охладитель)", DATIVE = "плате (Охладитель)", ACCUSATIVE = "плату (Охладитель)", INSTRUMENTAL = "платой (Охладитель)", PREPOSITIONAL = "плате (Охладитель)")
 	desc = "Use screwdriver to switch between heating and cooling modes."
+	gender = FEMALE
 	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 	board_type = "machine"
 	origin_tech = "programming=3;plasmatech=3"
@@ -349,10 +351,12 @@ to destroy them and players will be able to make replacements.
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 			name = "circuit board (Heater)"
+			ru_names = list(NOMINATIVE = "плата (Нагреватель)", GENITIVE = "плату (Нагреватель)", DATIVE = "плате (Нагреватель)", ACCUSATIVE = "плату (Нагреватель)", INSTRUMENTAL = "платой (Нагреватель)", PREPOSITIONAL = "плате (Нагреватель)")
 			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
 		else
 			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 			name = "circuit board (Freezer)"
+			ru_names = list(NOMINATIVE = "плата (Охладитель)", GENITIVE = "плату (Охладитель)", DATIVE = "плате (Охладитель)", ACCUSATIVE = "плату (Охладитель)", INSTRUMENTAL = "платой (Охладитель)", PREPOSITIONAL = "плате (Охладитель)")
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 		return
 	return ..()

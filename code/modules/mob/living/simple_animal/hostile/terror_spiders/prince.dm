@@ -10,7 +10,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince
 	name = "Prince of Terror spider"
+	ru_names = list(NOMINATIVE = "Принц Ужаса", GENITIVE = "Принца Ужаса", DATIVE = "Принцу Ужаса", ACCUSATIVE = "Принца Ужаса", INSTRUMENTAL = "Принцем Ужаса", PREPOSITIONAL = "Принце Ужаса")
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Its hide seems armored, and it bears the scars of many battles."
+	gender = MALE
 	spider_role_summary = "Miniboss terror spider. Lightning bruiser."
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_allblack"
@@ -29,7 +31,6 @@
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/purple
 	ai_spins_webs = FALSE
-	gender = MALE
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)

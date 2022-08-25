@@ -1,11 +1,3 @@
-// Падежи русского языка
-#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
-#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
-#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
-#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
-#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
-#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
-
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -317,38 +309,34 @@
 //All atoms
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
-	var/f_name = "\a [src][infix]."
+	var/f_name = "[src.declent_ru(NOMINATIVE)][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
-		if(gender == PLURAL)
-			f_name = "some "
-		else
-			f_name = "a "
 		if(blood_color != "#030303")
-			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			f_name = "<span class='danger'>окровавленн[genderize_ru(src.gender, "ый", "ая", "ое", "ые")]</span> [src.declent_ru(NOMINATIVE)][infix]!"
 		else
-			f_name += "oil-stained [name][infix]."
-	. = list("[bicon(src)] That's [f_name] [suffix]")
+			f_name = "обмасленн[genderize_ru(src.gender, "ый", "ая", "ое", "ые")] [src.declent_ru(NOMINATIVE)][infix]."
+	. = list("[bicon(src)] Это [f_name] [suffix]")
 	if(desc)
 		. += desc
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			. += "<span class='notice'>It contains:</span>"
+			. += "<span class='notice'>Содержит:</span>"
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+						. += "<span class='notice'>[R.volume] единиц [R.name]</span>"
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+						. += "<span class='notice'>[reagents.total_volume] единиц различных реагентов.</span>"
 			else
-				. += "<span class='notice'>Nothing.</span>"
+				. += "<span class='notice'>Ничего.</span>"
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+				. += "<span class='notice'>Содержит [reagents.total_volume] единиц веществ.</span>"
 			else
-				. += "<span class='danger'>It's empty.</span>"
+				. += "<span class='danger'>Внутри пусто.</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -1006,9 +994,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// OR (much more likely) the thing is unlabeled yet.
 		default_value = ""
 	if(!prompt)
-		prompt = "What would you like the label on [src] to be?"
+		prompt = "Какой ярлык вы хотите поставить на [src.declent_ru(ACCUSATIVE)]?"
 
-	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	var/t = input(user, prompt, "Переименование [src.declent_ru(GENITIVE)]", default_value)  as text | null
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1017,13 +1005,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		to_chat(user, "<span class='warning'>У вас нет ручки, чтобы переименовать [src.declent_ru(ACCUSATIVE)].</span>")
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		to_chat(user, "<span class='warning'>Вы не можете переименовать [src.declent_ru(ACCUSATIVE)] отсюда.</span>")
 		return null
 	else if (user.incapacitated(ignore_lying = TRUE))
-		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		to_chat(user, "<span class='warning'>Вы не можете переименовать [src.declent_ru(ACCUSATIVE)] в вашем текущем состоянии.</span>")
 		return null
 
 

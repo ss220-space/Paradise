@@ -152,7 +152,7 @@
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Has [get_ammo()] round\s remaining.</span>"
+	. += "<span class='notice'>Внутри [get_ammo()] патрон[declension_ru(get_ammo(), "", "а", "ов")].</span>"
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people

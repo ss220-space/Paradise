@@ -70,7 +70,9 @@
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
+	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	desc = "Это \"Челюсти жизни\", и магия науки позволила нам уменьшить этот широкопрофильный инструмент до такой степени, что он спокойно помещается на пояс. Установлен разрезающий режим."
+	gender = PLURAL
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	origin_tech = "materials=2;engineering=2"
@@ -80,7 +82,7 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+	user.visible_message("<span class='suicide'>[user.declent_ru(NOMINATIVE)] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] отрезать свою голову!</span>")
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -93,6 +95,6 @@
 /obj/item/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+	to_chat(user, "<span class='notice'>Вы устанавливаете гидравлический режим на [src.declent_ru(PREPOSITIONAL)].</span>")
 	qdel(src)
 	user.put_in_active_hand(pryjaws)

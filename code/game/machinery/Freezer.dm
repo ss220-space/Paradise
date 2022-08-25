@@ -1,5 +1,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
-	name = "охладитель"
+	name = "freezer"
+	ru_names = list(NOMINATIVE = "охладитель", GENITIVE = "охладителя", DATIVE = "охладителю", ACCUSATIVE = "охладитель", INSTRUMENTAL = "охладителем", PREPOSITIONAL = "охладителе")
+	gender = MALE
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
@@ -78,7 +80,7 @@
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
 		return
-	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/list/choices = list("Запад" = WEST, "Восток" = EAST, "Юг" = SOUTH, "Север" = NORTH)
 	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
 	dir = choices[selected]
 	var/node_connect = dir
@@ -163,7 +165,9 @@
 		update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
-	name = "нагреватель"
+	name = "heater"
+	ru_names = list(NOMINATIVE = "нагреватель", GENITIVE = "нагревателя", DATIVE = "нагревателю", ACCUSATIVE = "нагреватель", INSTRUMENTAL = "нагревателем", PREPOSITIONAL = "нагревателе")
+	gender = MALE
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1
@@ -181,7 +185,8 @@
 	initialize_directions = dir
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "circuit board (Нагреватель)"
+	H.name = "circuit board (Heater)"
+	H.ru_names = list(NOMINATIVE = "плата (Нагреватель)", GENITIVE = "плату (Нагреватель)", DATIVE = "плате (Нагреватель)", ACCUSATIVE = "плату (Нагреватель)", INSTRUMENTAL = "платой (Нагреватель)", PREPOSITIONAL = "плате (Нагреватель)")
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
@@ -196,7 +201,8 @@
 	..()
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "circuit board (Нагреватель)"
+	H.name = "circuit board (Heater)"
+	H.ru_names = list(NOMINATIVE = "плата (Нагреватель)", GENITIVE = "плату (Нагреватель)", DATIVE = "плате (Нагреватель)", ACCUSATIVE = "плату (Нагреватель)", INSTRUMENTAL = "платой (Нагреватель)", PREPOSITIONAL = "плате (Нагреватель)")
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
@@ -246,7 +252,7 @@
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
 		return
-	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/list/choices = list("Запад" = WEST, "Восток" = EAST, "Юг" = SOUTH, "Север" = NORTH)
 	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
 	dir = choices[selected]
 	var/node_connect = dir

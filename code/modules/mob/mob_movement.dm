@@ -189,14 +189,14 @@
 					move_delay = world.time + 10
 					if(!prob(25))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] вырыва[pluralize_ru(mob.gender,"ется","ются")] из хватки [G.assailant]!</span>")
+					mob.visible_message("<span class='danger'>[mob.declent_ru(NOMINATIVE)] вырыва[pluralize_ru(mob.gender,"ется","ются")] из хватки [G.assailant.declent_ru(GENITIVE)]!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] вырыва[pluralize_ru(mob.gender,"ется","ются")] из захвата головы [G.assailant]!</span>")
+					mob.visible_message("<span class='danger'>[mob.declent_ru(NOMINATIVE)] вырыва[pluralize_ru(mob.gender,"ется","ются")] из захвата головы [G.assailant.declent_ru(GENITIVE)]!</span>")
 					qdel(G)
 	return FALSE
 
@@ -278,7 +278,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
 			if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='notice'>Вы отталкиваетесь от [backup] для продолжения движения.</span>")
+				to_chat(src, "<span class='notice'>Вы отталкиваетесь от [backup.declent_ru(GENITIVE)] для продолжения движения.</span>")
 		return 1
 	return 0
 
@@ -466,7 +466,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!</span>")
+			to_chat(C, "<span class='notice'>Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed.declent_ru(ACCUSATIVE)]!</span>")
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used.move_intent.icon_state = "walking"
 			return

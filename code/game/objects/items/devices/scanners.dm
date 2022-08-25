@@ -278,9 +278,9 @@ REAGENT SCANNER
 		return
 
 	if(user == target)
-		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] свои жизненные показатели.</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] свои жизненные показатели.</span>")
+		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] свои жизненные показатели.</span>", "<span class='notice'>Вы анализируете свои жизненные показатели.</span>")
 	else
-		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>")
+		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>", "<span class='notice'>Вы анализируете жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>")
 
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20

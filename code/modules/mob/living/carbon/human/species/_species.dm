@@ -409,7 +409,7 @@
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
-			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
+			to_chat(user, "<span class='warning'>Ваши клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
@@ -526,7 +526,7 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружива[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
@@ -755,7 +755,7 @@
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>У вас уже есть аксессуар этого типа на [uniform].</span>")
+					to_chat(H, "<span class='warning'>У вас уже есть аксессуар этого типа на [uniform.declent_ru(ACCUSATIVE)].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_TIE))
 				return FALSE

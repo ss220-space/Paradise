@@ -255,7 +255,7 @@
 		if(!allow_upgrade)
 			return
 		//if(!affecting.lying)
-		assailant.visible_message("<span class='warning'>[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!</span>")
+		assailant.visible_message("<span class='warning'>[assailant.declent_ru(NOMINATIVE)] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting.declent_ru(ACCUSATIVE)] (за руки)!</span>")
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
@@ -270,10 +270,10 @@
 		add_attack_logs(assailant, affecting, "Aggressively grabbed", ATKLOG_ALL)
 	else if(state < GRAB_NECK)
 		if(isslime(affecting))
-			to_chat(assailant, "<span class='notice'>Вы сжимаете [affecting], но ничего интересного не происходит.</span>")
+			to_chat(assailant, "<span class='notice'>Вы сжимаете [affecting.declent_ru(ACCUSATIVE)], но ничего интересного не происходит.</span>")
 			return
 
-		assailant.visible_message("<span class='warning'>[assailant] крепко хвата[pluralize_ru(assailant.gender,"ет","ют")] [affecting] (за шею)!</span>") // [assailant.p_their()]
+		assailant.visible_message("<span class='warning'>[assailant.declent_ru(NOMINATIVE)] крепко хвата[pluralize_ru(assailant.gender,"ет","ют")] [affecting.declent_ru(ACCUSATIVE)] (за шею)!</span>") // [assailant.p_their()]
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
 
@@ -286,11 +286,11 @@
 		hud.name = "kill"
 		affecting.Stun(10) //10 ticks of ensured grab
 	else if(state < GRAB_UPGRADING)
-		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting]!</span>") //[assailant.p_their()]
+		assailant.visible_message("<span class='danger'>[assailant.declent_ru(NOMINATIVE)] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting.declent_ru(GENITIVE)]!</span>") //[assailant.p_their()]
 		hud.icon_state = "kill1"
 
 		state = GRAB_KILL
-		assailant.visible_message("<span class='danger'>[assailant] сдавлива[pluralize_ru(assailant.gender,"ет","ют")] шею [affecting]!</span>") //[assailant.p_their()]
+		assailant.visible_message("<span class='danger'>[assailant.declent_ru(NOMINATIVE)] сдавлива[pluralize_ru(assailant.gender,"ет","ют")] шею [affecting.declent_ru(GENITIVE)]!</span>") //[assailant.p_their()]
 		add_attack_logs(assailant, affecting, "Strangled")
 
 		assailant.next_move = world.time + 10
@@ -336,7 +336,7 @@
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(affecting.lying)
 							return
-						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ёт","ют")] [genderize_ru(assailant.gender,"его","её","своей","их")]  головой о череп [affecting]!</span>") //A visible message for what is going on.
+						assailant.visible_message("<span class='danger'>[assailant.declent_ru(NOMINATIVE)] с размаха бь[pluralize_ru(assailant.gender,"ёт","ют")] [genderize_ru(assailant.gender,"его","её","его","их")] головой о череп [affecting.declent_ru(GENITIVE)]!</span>") //A visible message for what is going on.
 						var/damage = 5
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
@@ -393,18 +393,18 @@
 			var/mob/living/carbon/attacker = user
 
 			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
+				to_chat(user, "<span class='warning'>[affecting.declent_ru(NOMINATIVE)] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
 				return
 
-			user.visible_message("<span class='danger'>[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting]!</span>")
+			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting.declent_ru(ACCUSATIVE)]!</span>")
 
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
 
 			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
+				to_chat(user, "<span class='warning'>[affecting.declent_ru(NOMINATIVE)] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
 				return
 
-			user.visible_message("<span class='danger'>[user] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting]!</span>")
+			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.declent_ru(ACCUSATIVE)]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
 

@@ -112,16 +112,16 @@
 	. = ..()
 	if(in_range(user, src))
 		if(!reagents || reagents.total_volume == 0)
-			. += "<span class='notice'> \The [src] is empty!</span>"
+			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] пуст!</span>"
 		else if(reagents.total_volume <= volume/4)
-			. += "<span class='notice'> \The [src] is almost empty!</span>"
+			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] почти пуст!</span>"
 		else if(reagents.total_volume <= volume*0.66)
-			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
+			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] наполовину полон!</span>"// We're all optimistic, right?!
 
 		else if(reagents.total_volume <= volume*0.90)
-			. += "<span class='notice'> \The [src] is almost full!</span>"
+			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] почти наполнен!</span>"
 		else
-			. += "<span class='notice'> \The [src] is full!</span>"
+			. += "<span class='notice'> \The [src.declent_ru(NOMINATIVE)] наполнен!</span>"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END
