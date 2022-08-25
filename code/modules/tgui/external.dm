@@ -75,6 +75,8 @@
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != STATUS_INTERACTIVE)
 		return TRUE
+	if(isAI(usr) && !usr:add_heat(AI_USE_TOPIC_HEAT))
+		return
 
 /**
  * public

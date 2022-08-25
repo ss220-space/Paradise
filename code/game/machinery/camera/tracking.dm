@@ -44,8 +44,11 @@
 	if(!camera || camera == "Cancel")
 		return 0
 
+	if(!add_heat(AI_JUMPTO_CAMERA_HEAT))
+		return
+
 	var/obj/machinery/camera/C = track.cameras[camera]
-	src.eyeobj.setLoc(C)
+	src.eyeobj.setLoc(C, teleported = TRUE)
 
 	return
 
@@ -72,6 +75,9 @@
 		to_chat(src, "<span class='warning'>Unable to store this location</span>")
 		return
 
+	if(!add_heat(AI_LOCATION_STORAGE_HEAT))
+		return
+
 	stored_locations[loc] = L
 	to_chat(src, "Location '[loc]' stored")
 
@@ -87,8 +93,11 @@
 		to_chat(src, "<span class='warning'>Location [loc] not found</span>")
 		return
 
+	if(!add_heat(AI_JUMPTO_CAMERA_HEAT))
+		return
+
 	var/L = stored_locations[loc]
-	src.eyeobj.setLoc(L)
+	src.eyeobj.setLoc(L, teleported = TRUE)
 
 /mob/living/silicon/ai/proc/ai_remove_location(loc in sorted_stored_locations())
 	set category = "AI Commands"
@@ -172,6 +181,9 @@
 		return
 	var/mob/living/silicon/ai/U = usr
 
+	if(!U.add_heat(AI_TRY_TRACK_HEAT))
+		return
+
 	U.cameraFollow = target
 	U.tracking = 1
 
@@ -193,6 +205,9 @@
 			if(U.cameraFollow == null)
 				return
 
+			if(!add_heat(AI_IN_TRACKING_HEAT))
+				return
+
 			if(!target.can_track(usr))
 				U.tracking = 1
 				if(!cameraticks)
@@ -212,7 +227,7 @@
 				U.tracking = 0
 
 			if(U.eyeobj)
-				U.eyeobj.setLoc(get_turf(target))
+				U.eyeobj.setLoc(get_turf(target), teleported = TRUE)
 
 			else
 				view_core()
