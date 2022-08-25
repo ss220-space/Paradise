@@ -764,6 +764,8 @@
 		occupant = null
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()

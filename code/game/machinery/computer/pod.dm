@@ -109,6 +109,8 @@
 
 
 /obj/machinery/computer/pod/attack_ai(var/mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	src.add_hiddenprint(user)
 	return attack_hand(user)
 
