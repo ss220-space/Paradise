@@ -295,7 +295,7 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
+/mob/camera/aiEye/remote/shuttle_docker/setLoc(T, teleported = FALSE)
 	if(/*istype(get_turf(T), /turf/space) ||*/ istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle) ||  istype(get_area(T), /area/lavaland) || istype(get_area(T), /area/ruin))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
