@@ -302,6 +302,8 @@
 		SStgui.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	return src.attack_hand(user)
 
 /obj/machinery/computer/communications/attack_hand(var/mob/user as mob)

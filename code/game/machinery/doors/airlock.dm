@@ -274,6 +274,9 @@ About the new airlock wires panel:
 		deltimer(electrified_timer)
 		electrified_timer = null
 
+	if(isAI(user) && !user:add_heat(AI_DOOR_ELECTRIFY_HEAT))
+		return
+
 	var/message = ""
 	if(wires.is_cut(WIRE_ELECTRIFY) && arePowerSystemsOn())
 		message = text("The electrification wire is cut - Door permanently electrified.")
@@ -589,6 +592,8 @@ About the new airlock wires panel:
 	ui_interact(user)
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	ui_interact(user)
 
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -890,6 +895,8 @@ About the new airlock wires panel:
 	else if(locked)
 		to_chat(user, "<span class='warning'>The door bolts are down!</span>")
 		return FALSE
+	if(isAI(user) && !user:add_heat(AI_OPEN_DOOR_HEAT))
+		return
 	else if(density)
 		return open()
 	else
@@ -898,6 +905,10 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/toggle_light(mob/user)
 	if(wires.is_cut(WIRE_BOLT_LIGHT))
 		to_chat(user, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
+
+	if(isAI(user) && !user:add_heat(AI_DOOR_BOLTS_LIGHTS_HEAT))
+		return
+
 	else if(lights)
 		lights = FALSE
 		to_chat(user, "<span class='notice'>The door bolt lights have been disabled.</span>")
@@ -911,6 +922,9 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
 		return
 
+	if(isAI(user) && !user:add_heat(AI_DOOR_BOLTS_HEAT))
+		return
+
 	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
 		return
@@ -921,6 +935,8 @@ About the new airlock wires panel:
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
+	if(isAI(user) && !user:add_heat(AI_DOOR_EMERGENCYACCESS_HEAT))
+		return
 	emergency = !emergency
 	if(emergency)
 		to_chat(user, "<span class='notice'>Emergency access has been enabled.</span>")

@@ -13,6 +13,8 @@
 	light_color = LIGHT_COLOR_CYAN
 
 /obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 

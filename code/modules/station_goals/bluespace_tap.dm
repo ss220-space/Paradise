@@ -381,6 +381,8 @@
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	ui_interact(user)
 
 /**

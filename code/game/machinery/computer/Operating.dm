@@ -40,6 +40,8 @@
 	return ..()
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return

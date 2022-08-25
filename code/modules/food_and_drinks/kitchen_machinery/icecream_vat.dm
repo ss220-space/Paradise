@@ -180,6 +180,8 @@
 
 
 /obj/machinery/icemachine/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 

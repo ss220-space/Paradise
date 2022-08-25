@@ -577,6 +577,9 @@
 	if(buildstage != 2)
 		return
 
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
+
 	add_hiddenprint(user)
 	return ui_interact(user)
 

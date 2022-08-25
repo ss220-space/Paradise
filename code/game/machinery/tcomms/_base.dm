@@ -93,6 +93,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 // Attack overrides. These are needed so the UIs can be opened up //
 /obj/machinery/tcomms/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	add_hiddenprint(user)
 	ui_interact(user)
 
