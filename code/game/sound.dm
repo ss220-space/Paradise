@@ -85,7 +85,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 	S.wait = 0 //No queue
 	S.channel = channel || SSsounds.random_available_channel()
-	S.volume = vol
+	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
 	S.environment = -1
 
 	if(channel)

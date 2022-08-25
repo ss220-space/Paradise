@@ -2064,6 +2064,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/get_channel_name(channel)
 	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
 		if(CHANNEL_LOBBYMUSIC)
 			return "Lobby Music"
 		if(CHANNEL_ADMIN)
