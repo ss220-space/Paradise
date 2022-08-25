@@ -30,7 +30,7 @@
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "The service panel is [open ? "open" : "closed"]."
+		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
 
 /obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(locked)
@@ -77,7 +77,7 @@
 		if(istype(weapon, /obj/item/melee/energy/blade))
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
-			playsound(loc, "sparks", 50, 1)
+			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			to_chat(user, "You slice through the lock on [src].")
 		else
 			to_chat(user, "You short out the lock on [src].")
@@ -86,6 +86,7 @@
 /obj/item/storage/secure/AltClick(mob/user)
 	if(!try_to_open())
 		return FALSE
+	return ..()
 
 /obj/item/storage/secure/MouseDrop(over_object, src_location, over_location)
 	if(!try_to_open())

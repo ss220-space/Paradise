@@ -467,6 +467,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
+			dat += "<b>Item Outlines:</b> <a href='?_src_=prefs;preference=item_outlines'><b>[(toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "Yes" : "No"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
@@ -889,6 +890,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Nicotine addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
 
 
 	HTML += {"</ul>
@@ -2098,6 +2103,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ghost_anonsay")
 					toggles2 ^= PREFTOGGLE_2_ANONDCHAT
 
+				if("item_outlines")
+					toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
+
 				if("save")
 					save_preferences(user)
 					save_character(user)
@@ -2261,6 +2269,26 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour
+
+	if(disabilities & DISABILITY_FLAG_COFFEE_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/coffee()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
+
+	if(disabilities & DISABILITY_FLAG_TEA_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/tea()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
+
+	if(disabilities & DISABILITY_FLAG_NICOTINE_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/nicotine()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
+
+	if(disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/consumable/ethanol()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
 
 	if(disabilities & DISABILITY_FLAG_FAT)
 		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)

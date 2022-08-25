@@ -184,18 +184,18 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
-	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
+	. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
 
 //Clonepod
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	if(mess)
-		. += "It's filled with blood and viscera. You swear you can see it moving..."
+		. += "<span class='warning'>It's filled with blood and viscera. You swear you can see it moving...</span>"
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		. +=  "Current clone cycle is [round(get_completion())]% complete."
+		. += "<span class='notice'>Current clone cycle is [round(get_completion())]% complete.</span>"
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
 			message += "<i>Is this what dying is like? Yes it is.</i>"
 			to_chat(occupant, "<span class='warning'>[message]</span>")
-			occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
+			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()
