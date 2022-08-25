@@ -51,6 +51,8 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/sign/barsign/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return src.attack_hand(user)
 
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)

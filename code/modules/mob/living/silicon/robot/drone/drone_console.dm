@@ -12,6 +12,8 @@
 	var/obj/machinery/drone_fabricator/dronefab
 
 /obj/machinery/computer/drone_control/attack_ai(var/mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	return src.attack_hand(user)
 
 

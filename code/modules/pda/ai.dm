@@ -23,6 +23,8 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+	if(isAI(usr) && !usr:add_heat(AI_SEND_PDA_MESSAGE_HEAT))
+		return
 	var/list/plist = M.available_pdas()
 	if(plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
