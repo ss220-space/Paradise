@@ -53,16 +53,16 @@ jobs:
           tools/ci/dm.sh -Mci_map_testing paradise.dme
 
   unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+    name: Compile And Run # Unit Tests + SQL Validation
     runs-on: ubuntu-20.04
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    # services:
+    #   mariadb:
+    #     image: mariadb:latest
+    #     env:
+    #       MYSQL_ROOT_PASSWORD: root
+    #     ports:
+    #       - 3306
+    #     options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v2
       - name: Setup Cache
@@ -70,21 +70,21 @@ jobs:
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
-      - name: Setup & Validate DB
-        run: |
-          sudo systemctl start mysql
-          python3 tools/ci/generate_sql_scripts.py
-          tools/ci/validate_sql.sh
+      # - name: Setup & Validate DB
+      #   run: |
+      #     sudo systemctl start mysql
+      #     python3 tools/ci/generate_sql_scripts.py
+      #     tools/ci/validate_sql.sh
       - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
           sudo apt install libssl1.1:i386
           bash tools/ci/install_rustg.sh
-      - name: Compile & Run Unit Tests
+      - name: Compile And Run # & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
-          tools/ci/run_server.sh
+      #   tools/ci/run_server.sh
 
