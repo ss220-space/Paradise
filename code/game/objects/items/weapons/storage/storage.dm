@@ -29,6 +29,25 @@
 	var/foldable = null
 	/// How much of the stack item do you get.
 	var/foldable_amt = 0
+	/// Lazy list of mobs which are currently viewing the storage inventory.
+	var/list/mobs_viewing
+
+/obj/item/storage/Destroy()
+	for(var/obj/O in contents)
+		O.mouse_opacity = initial(O.mouse_opacity)
+
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
+	LAZYCLEARLIST(mobs_viewing)
+	return ..()
+
+/obj/item/storage/forceMove(atom/destination)
+	. = ..()
+	if(!ismob(destination.loc))
+		for(var/mob/player in mobs_viewing)
+			if(player == destination)
+				continue
+			hide_from(player)
 
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -126,18 +145,24 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	return
+	LAZYADDOR(mobs_viewing, user)
 
 /obj/item/storage/proc/hide_from(mob/user)
+	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
-
 	user.client.screen -= boxes
 	user.client.screen -= closer
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
-	return
+
+/obj/item/storage/proc/update_viewers()
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+			continue
+		hide_from(M)
 
 /obj/item/storage/proc/open(mob/user as mob)
 	if(use_sound)
@@ -303,6 +328,12 @@
 		prevent_warning = TRUE
 	W.forceMove(src)
 	W.on_enter_storage(src)
+
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen += W
+
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
@@ -335,10 +366,10 @@
 		var/obj/item/storage/fancy/F = src
 		F.update_icon(TRUE)
 
-	for(var/mob/M in range(1, loc))
-		if(M.s_active == src)
-			if(M.client)
-				M.client.screen -= W
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen -= W
 
 	if(new_location)
 		if(ismob(loc))
@@ -413,10 +444,11 @@
 		show_to(user)
 	else
 		..()
-		for(var/mob/M in range(1))
-			if(M.s_active == src)
-				close(M)
 	add_fingerprint(user)
+
+/obj/item/storage/equipped(mob/user, slot, initial)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/attack_ghost(mob/user)
 	if(isobserver(user))
@@ -479,14 +511,6 @@
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
-
-/obj/item/storage/Destroy()
-	for(var/obj/O in contents)
-		O.mouse_opacity = initial(O.mouse_opacity)
-
-	QDEL_NULL(boxes)
-	QDEL_NULL(closer)
-	return ..()
 
 /obj/item/storage/emp_act(severity)
 	..()
