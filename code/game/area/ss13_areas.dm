@@ -633,13 +633,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //STATION13
 
 /area/atmos
- 	name = "Atmospherics"
- 	icon_state = "atmos"
+	name = "Atmospherics"
+	icon_state = "atmos"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/atmos/control
- 	name = "Atmospherics Control Room"
- 	icon_state = "atmos"
+	name = "Atmospherics Control Room"
+	icon_state = "atmos"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/atmos/distribution
