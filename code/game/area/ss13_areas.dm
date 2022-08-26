@@ -2,12 +2,13 @@
 
 ### This file contains a list of all the areas in your station. Format is as follows:
 
-/area/CATEGORY/OR/DESCRIPTOR/NAME 	(you can make as many subdivisions as you want)
-	name = "NICE NAME" 				(not required but makes things really nice)
-	icon = "ICON FILENAME" 			(defaults to areas.dmi)
-	icon_state = "NAME OF ICON" 	(defaults to "unknown" (blank))
-	requires_power = FALSE 			(defaults to TRUE)
-	music = "music/music.ogg"		(defaults to "music/music.ogg")
+/area/CATEGORY/OR/DESCRIPTOR/NAME (you can make as many subdivisions as you want)
+	name = "NICE NAME" (not required but makes things really nice)
+	icon = "ICON FILENAME" (defaults to areas.dmi)
+	icon_state = "NAME OF ICON" (defaults to "unknown" (blank))
+	requires_power = FALSE (defaults to TRUE)
+	music = "music/music.ogg" (defaults to "music/music.ogg")
+	sound_environment = SOUND_ENVIRONMENT_NONE (defaults to SOUND_AREA_STANDARD_STATION. Look _DEFINES/sound.dm)
 
 NOTE: there are two lists of areas in the end of this file: centcom and station itself. Please maintain these lists valid. --rastaf0
 
@@ -634,10 +635,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/atmos
  	name = "Atmospherics"
  	icon_state = "atmos"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/atmos/control
  	name = "Atmospherics Control Room"
  	icon_state = "atmos"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/atmos/distribution
  	name = "Atmospherics Distribution Loop"
@@ -850,6 +853,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/bridge/vip
 	name = "\improper VIP Area"
 	icon_state = "meeting"
+
+/area/crew_quarters
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/crew_quarters/captain
 	name = "\improper Captain's Office"
