@@ -2,12 +2,13 @@ name: 'Merge Conflict Detection'
 on:
   push:
     branches:
-      - master
+      - master220
 jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
       - uses: mschilde/auto-label-merge-conflicts@master
         with:
-          CONFLICT_LABEL_NAME: 'Merge Conflict'
+          CONFLICT_LABEL_NAME: 'invalid'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WAIT_MS: 10000
