@@ -17,7 +17,7 @@
 	projectiletype = /obj/item/projectile/energy/electrode
 	projectilesound = 'sound/weapons/taser.ogg'
 
-/mob/living/simple_animal/hostile/shitcur_goblin/New()
+/mob/living/simple_animal/hostile/shitcur_goblin/Initialize()
 	. = ..()
 	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, 1, -1)
 
