@@ -184,7 +184,7 @@
 			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
 			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
 		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2)
+		explosion(loc, -1, 0, 2, 2, cause = "Electrocuted [src.name]")
 
 	if(override)
 		return override

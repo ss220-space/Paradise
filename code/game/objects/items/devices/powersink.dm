@@ -145,7 +145,7 @@
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)
-		explosion(src.loc, 4,8,16,32)
+		explosion(src.loc, 4,8,16,32, cause = "Power sink overload")
 		qdel(src)
 
 #undef DISCONNECTED

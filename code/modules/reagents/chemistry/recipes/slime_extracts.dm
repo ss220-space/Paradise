@@ -500,7 +500,7 @@
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
 	spawn(50)
 		if(holder && holder.my_atom)
-			explosion(get_turf(holder.my_atom), 1 ,3, 6)
+			explosion(get_turf(holder.my_atom), 1 ,3, 6, cause = src)
 
 //Light Pink
 /datum/chemical_reaction/slimepotion2

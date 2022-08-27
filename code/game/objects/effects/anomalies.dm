@@ -172,7 +172,7 @@
 
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
-		explosion(src, 1, 4, 16, 18) //Low devastation, but hits a lot of stuff.
+		explosion(src, 1, 4, 16, 18, cause = src) //Low devastation, but hits a lot of stuff.
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 

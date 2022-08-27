@@ -1311,9 +1311,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emagged)
 		if(mmi)
 			qdel(mmi)
-		explosion(src.loc,1,2,4,flame_range = 2)
+		explosion(src.loc,1,2,4,flame_range = 2, cause = src)
 	else
-		explosion(src.loc,-1,0,2)
+		explosion(src.loc,-1,0,2, cause = src)
 	gib()
 	return
 

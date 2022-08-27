@@ -273,7 +273,7 @@
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
 					L.adjustBruteLoss(300)
-			explosion(loc, 0, 0, 2)
+			explosion(loc, 0, 0, 2, cause = src)
 			robogibs(loc)
 			robogibs(loc)
 			qdel(src)

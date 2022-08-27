@@ -144,7 +144,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location,0,0,3)
+		explosion(location,0,0,3, cause = src)
 		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -176,11 +176,11 @@
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3)
-			explosion(T,0,2,0)
+			explosion(get_step(T, aim_dir),0,0,3, cause = "Dir. X4")
+			explosion(T,0,2,0, cause = src)
 			location.ex_act(2, target)
 		else
-			explosion(location, 0, 2, 3)
+			explosion(location, 0, 2, 3, cause = src)
 			location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -210,10 +210,10 @@
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3)
+			explosion(get_step(T, aim_dir),0,0,3, cause = src)
 			location.ex_act(2, target)
 		else
-			explosion(location, 0, 0, 3)
+			explosion(location, 0, 0, 3, cause = src)
 			location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target

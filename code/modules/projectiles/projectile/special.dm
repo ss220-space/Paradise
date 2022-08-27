@@ -237,7 +237,7 @@
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 1)
+	explosion(target, -1, 0, 1, cause = src)
 	return 1
 
 /obj/item/projectile/plasma

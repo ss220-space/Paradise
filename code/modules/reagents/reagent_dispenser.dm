@@ -251,7 +251,7 @@
 	var/has_lid = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
-	explosion(loc, 0, 3, 5, 7, 10)
+	explosion(loc, 0, 3, 5, 7, 10, cause = "[src.name] got blobbed")
 	if(!QDELETED(src))
 		qdel(src)
 

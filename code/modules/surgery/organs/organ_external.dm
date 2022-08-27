@@ -762,7 +762,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(owner),-1,-1,2,3)
+		explosion(get_turf(owner),-1,-1,2,3, cause = "Organ Sabotage")
 		do_sparks(5, 0, victim)
 		qdel(src)
 
