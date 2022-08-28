@@ -101,12 +101,6 @@
 	if(!required_blood)
 		return
 
-	// enforce blood
-	var/datum/vampire/vampire = usr.mind.vampire
-
-	if(targets.len)
-		to_chat(usr, "<span class='notice'><b>У вас осталось [vampire.bloodusable] единиц крови.</b></span>")
-
 /datum/vampire_passive
 	var/gain_desc
 
