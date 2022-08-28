@@ -40,7 +40,7 @@
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
 	if(damaging)
-		target.electrocute_act(energy, "Lightning Bolt", flags = TRUE)
+		target.electrocute_act(energy, "Lightning Bolt", safety = TRUE)
 	else
 		target.AdjustJitter(1000) //High numbers for violent convulsions
 		target.do_jitter_animation(target.jitteriness)

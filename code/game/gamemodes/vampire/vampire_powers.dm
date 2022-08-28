@@ -7,6 +7,13 @@
 	charge_max = 1800
 	action_background_icon_state = "bg_vampire"
 	var/required_blood = 0
+	var/deduct_blood_on_cast = TRUE
+
+/obj/effect/proc_holder/spell/vampire/create_new_handler()
+	var/datum/spell_handler/vampire/H = new
+	H.required_blood = required_blood
+	H.deduct_blood_on_cast = deduct_blood_on_cast
+	return H
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
@@ -85,6 +92,7 @@
 	return M in oview_or_orange(range, usr, selection_type)*/
 
 /obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
+	.=..()
 	// sanity check before we cast
 	if(!usr.mind || !usr.mind.vampire)
 		targets.Cut()
@@ -96,17 +104,8 @@
 	// enforce blood
 	var/datum/vampire/vampire = usr.mind.vampire
 
-	if(required_blood <= vampire.bloodusable)
-		vampire.bloodusable -= required_blood
-	else
-		// stop!!
-		targets.Cut()
-
 	if(targets.len)
 		to_chat(usr, "<span class='notice'><b>У вас осталось [vampire.bloodusable] единиц крови.</b></span>")
-
-/obj/effect/proc_holder/spell/vampire/self/choose_targets(mob/user = usr)
-	perform(list(user))
 
 /datum/vampire_passive
 	var/gain_desc
@@ -401,21 +400,6 @@
 /obj/effect/proc_holder/spell/vampire/bats/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
-	var/list/turf/locs = new
-	for(var/direction in GLOB.alldirs) //looking for bat spawns
-		if(locs.len == num_bats) //we found 2 locations and thats all we need
-			break
-		var/turf/T = get_step(usr, direction) //getting a loc in that direction
-		if(AStar(user, T, /turf/proc/Distance, 1, simulated_only = 0)) // if a path exists, so no dense objects in the way its valid salid
-			locs += T
-
-	// pad with player location
-	for(var/i = locs.len + 1 to num_bats)
-		locs += user.loc
-
-	perform(locs, user = user)
-
 /obj/effect/proc_holder/spell/vampire/bats/cast(list/targets, mob/user = usr)
 	for(var/T in targets)
 		new /mob/living/simple_animal/hostile/scarybat(T, user)
@@ -489,35 +473,6 @@
 
 /obj/effect/proc_holder/spell/vampire/shadowstep/create_new_targeting()
 	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/vampire/shadowstep/choose_targets(mob/user = usr)
-	var/list/turfs = new/list()
-	for(var/turf/T in range(user, outer_tele_radius))
-		if(T in range(user, inner_tele_radius))
-			continue
-		if(istype(T, /turf/space))
-			continue
-		if(T.density)
-			continue
-		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
-			continue	//putting them at the edge is dumb
-		if(T.y > world.maxy-outer_tele_radius || T.y < outer_tele_radius)
-			continue
-
-		var/lightingcount = T.get_lumcount(0.5) * 10
-
-		// LIGHTING CHECK
-		if(lightingcount > max_lum)
-			continue
-		turfs += T
-
-	if(!turfs.len)
-		revert_cast(user)
-		to_chat(user, "<span class='warning'>Поблизости нет теней, куда можно было бы шагнуть.</span>")
-		return
-
-	turfs = list(pick(turfs)) // Pick a single turf for the vampire to jump to.
-	perform(turfs, user = user)
 
 // `targets` should only ever contain the 1 valid turf we're jumping to, even though its a list, that's just how the cast() proc works.
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
