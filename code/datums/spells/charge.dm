@@ -1,21 +1,22 @@
-/obj/effect/proc_holder/spell/targeted/charge
+/obj/effect/proc_holder/spell/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
 	school = "transmutation"
 	charge_max = 600
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "DIRI CEL"
 	invocation_type = "whisper"
-	range = -1
 	cooldown_min = 400 //50 deciseconds reduction per rank
-	include_user = 1
 	action_icon_state = "charge"
 
-/obj/effect/proc_holder/spell/targeted/charge/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/charge/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
 		var/list/hand_items = list(L.get_active_hand(),L.get_inactive_hand())
 		var/charged_item = null
-		var/burnt_out = 0
+		var/burnt_out = FALSE
 
 		if(L.pulling && (istype(L.pulling, /mob/living)))
 			var/mob/living/M =	L.pulling
@@ -28,7 +29,7 @@
 				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
 			else
 				to_chat(M, "<span class='notice'>You feel very strange for a moment, but then it passes.</span>")
-				burnt_out = 1
+				burnt_out = TRUE
 			charged_item = M
 			break
 		for(var/obj/item in hand_items)
@@ -39,20 +40,20 @@
 						L.visible_message("<span class='warning'>[I] catches fire!</span>")
 						qdel(I)
 					else
-						I.used = 0
+						I.used = TRUE
 						charged_item = I
 						break
 				else
 					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
 					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
-					burnt_out = 1
+					burnt_out = TRUE
 			else if(istype(item, /obj/item/gun/magic))
 				var/obj/item/gun/magic/I = item
 				if(prob(80) && !I.can_charge)
 					I.max_charges--
 				if(I.max_charges <= 0)
 					I.max_charges = 0
-					burnt_out = 1
+					burnt_out = TRUE
 				I.charges = I.max_charges
 				if(istype(item,/obj/item/gun/magic/wand) && I.max_charges != 0)
 					var/obj/item/gun/magic/W = item
@@ -66,7 +67,7 @@
 						C.maxcharge -= 200
 					if(C.maxcharge <= 1) //Div by 0 protection
 						C.maxcharge = 1
-						burnt_out = 1
+						burnt_out = TRUE
 				C.charge = C.maxcharge
 				charged_item = C
 				break
@@ -80,7 +81,7 @@
 								C.maxcharge -= 200
 							if(C.maxcharge <= 1) //Div by 0 protection
 								C.maxcharge = 1
-								burnt_out = 1
+								burnt_out = TRUE
 						C.charge = C.maxcharge
 						item.update_icon()
 						charged_item = item

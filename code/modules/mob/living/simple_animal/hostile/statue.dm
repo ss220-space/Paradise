@@ -57,7 +57,7 @@
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(null))
+	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
 
 	// Set creator
 	if(creator)
@@ -161,7 +161,11 @@
 
 	charge_max = 300
 	clothes_req = 0
-	range = 14
+
+/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 14
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
@@ -177,7 +181,11 @@
 	message = "<span class='notice'>You glare your eyes.</span>"
 	charge_max = 600
 	clothes_req = 0
-	range = 10
+
+/obj/effect/proc_holder/spell/aoe_turf/blindness/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 10
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in GLOB.alive_mob_list)

@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/touch/mime_malaise
+/obj/effect/proc_holder/spell/touch/mime_malaise
 	name = "Mime Malaise"
 	desc = "A spell popular with theater nerd wizards and contrarian pranksters, this spell will put on a mime costume on the target, \
 		stun them so that they may contemplate Art, and silence them. \
@@ -7,7 +7,7 @@
 	school = "transmutation"
 
 	charge_max = 300
-	clothes_req = 1
+	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "mime"
 

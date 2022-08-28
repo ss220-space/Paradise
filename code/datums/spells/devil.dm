@@ -1,17 +1,17 @@
-/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork
+/obj/effect/proc_holder/spell/conjure_item/pitchfork
 	name = "Summon Pitchfork"
 	desc = "A devil's weapon of choice.  Use this to summon/unsummon your pitchfork."
 	item_type = /obj/item/twohanded/pitchfork/demonic
 	action_icon_state = "pitchfork"
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater
+/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater
 	item_type = /obj/item/twohanded/pitchfork/demonic/greater
 
-/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended
+/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
-/obj/effect/proc_holder/spell/targeted/conjure_item/violin
+/obj/effect/proc_holder/spell/conjure_item/violin
 	item_type = /obj/item/instrument/violin/golden
 	desc = "A devil's instrument of choice.  Use this to summon/unsummon your golden violin."
 	invocation_type = "whisper"
@@ -21,18 +21,18 @@
 	action_background_icon_state = "bg_demon"
 
 
-/obj/effect/proc_holder/spell/targeted/click/summon_contract
+/obj/effect/proc_holder/spell/summon_contract
 	name = "Summon infernal contract"
 	desc = "Skip making a contract by hand, just do it by magic."
 	invocation_type = "whisper"
 	invocation = "Just sign on the dotted line."
 	selection_activated_message = "<span class='notice'>You prepare a detailed contract. Click on a target to summon the contract in his hands.</span>"
 	selection_deactivated_message = "<span class='notice'>You archive the contract for later use.</span>"
-	include_user = FALSE
+	/*include_user = FALSE
 	range = 5
 	auto_target_single = FALSE	// Prevent an accidental contract from summoning
 	click_radius = -1 // Precision clicking required
-	allowed_type = /mob/living/carbon
+	allowed_type = /mob/living/carbon*/
 	clothes_req = FALSE
 	school = "conjuration"
 	charge_max = 150
@@ -40,7 +40,7 @@
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/targeted/click/summon_contract/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)
 	for(var/target in targets)
 		var/mob/living/carbon/C = target
 		if(C.mind && user.mind)
@@ -69,7 +69,7 @@
 			to_chat(user,"<span class='notice'>[C] seems to not be sentient. You are unable to summon a contract for them.</span>")
 
 
-/obj/effect/proc_holder/spell/targeted/click/fireball/hellish
+/obj/effect/proc_holder/spell/fireball/hellish
 	name = "Hellfire"
 	desc = "This spell launches hellfire at the target."
 	school = "evocation"
@@ -80,25 +80,25 @@
 	fireball_type = /obj/item/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/targeted/click/fireball/hellish/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/fireball/hellish/cast(list/targets, mob/living/user = usr)
 	add_attack_logs(user, targets, "has fired a Hellfire ball", ATKLOG_FEW)
 	.=..()
 
 
-/obj/effect/proc_holder/spell/targeted/infernal_jaunt
+/obj/effect/proc_holder/spell/infernal_jaunt
 	name = "Infernal Jaunt"
 	desc = "Use hellfire to phase out of existence."
 	charge_max = 200
 	clothes_req = FALSE
-	selection_type = "range"
-	range = -1
 	cooldown_min = 0
 	overlay = null
-	include_user = TRUE
 	action_icon_state = "jaunt"
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/targeted/infernal_jaunt/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/infernal_jaunt/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/infernal_jaunt/cast(list/targets, mob/living/user = usr)
 	if(istype(user))
 		if(istype(user.loc, /obj/effect/dummy/slaughter))
 			var/continuing = 0
@@ -153,31 +153,39 @@
 	spawn(15)
 		fakefireextinguish(TRUE)
 
-/obj/effect/proc_holder/spell/targeted/sintouch
+/obj/effect/proc_holder/spell/sintouch
 	name = "Sin Touch"
 	desc = "Subtly encourage someone to sin."
 	charge_max = 1800
 	clothes_req = FALSE
-	selection_type = "range"
-	range = 2
 	cooldown_min = 0
 	overlay = null
-	include_user = FALSE
 	action_icon_state = "sintouch"
 	action_background_icon_state = "bg_demon"
-	random_target = TRUE
-	random_target_priority = TARGET_RANDOM
-	max_targets = 3
 	invocation = "TASTE SIN AND INDULGE!!"
 	invocation_type = "shout"
 
-/obj/effect/proc_holder/spell/targeted/sintouch/ascended
+/obj/effect/proc_holder/spell/sintouch/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.random_target = TRUE
+	T.range = 2
+	T.max_targets = 3
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/sintouch/ascended
 	name = "Greater sin touch"
 	charge_max = 100
-	range = 7
-	max_targets = 10
 
-/obj/effect/proc_holder/spell/targeted/sintouch/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/sintouch/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.random_target = TRUE
+	T.range = 7
+	T.max_targets = 10
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/sintouch/cast(list/targets, mob/living/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
 		if(!H.mind)
 			continue
@@ -187,11 +195,9 @@
 		H.Weaken(2)
 		H.Stun(2)
 
-/obj/effect/proc_holder/spell/targeted/summon_dancefloor
+/obj/effect/proc_holder/spell/summon_dancefloor
 	name = "Summon Dancefloor"
 	desc = "When what a Devil really needs is funk."
-	include_user = TRUE
-	range = -1
 	clothes_req = FALSE
 
 	school = "conjuration"
@@ -205,8 +211,10 @@
 	var/dancefloor_exists = FALSE
 //	var/datum/effect_system/smoke_spread/transparent/dancefloor_devil/smoke
 
+/obj/effect/proc_holder/spell/summon_dancefloor/create_new_targeting()
+	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/targeted/summon_dancefloor/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/summon_dancefloor/cast(list/targets, mob/user = usr)
 	LAZYINITLIST(dancefloor_turfs)
 	LAZYINITLIST(dancefloor_turfs_types)
 

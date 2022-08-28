@@ -123,13 +123,13 @@
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = CRYO
 
-	spelltype = /obj/effect/proc_holder/spell/targeted/click/cryokinesis
+	spelltype = /obj/effect/proc_holder/spell/cryokinesis
 
 /datum/dna/gene/basic/grant_spell/cryo/New()
 	..()
 	block = GLOB.cryoblock
 
-/obj/effect/proc_holder/spell/targeted/click/cryokinesis
+/obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
@@ -140,20 +140,23 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	click_radius = 0
-	auto_target_single = FALSE	// Give the clueless geneticists a way out and to have them not target themselves
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
-	allowed_type = /mob/living/carbon
 	invocation_type = "none"
-	range = 7
-	selection_type = "range"
-	include_user = TRUE
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
 
-/obj/effect/proc_holder/spell/targeted/click/cryokinesis/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/cryokinesis/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.allowed_type = /mob/living/carbon
+	T.click_radius = 0
+	T.try_auto_target = FALSE // Give the clueless geneticists a way out and to have them not target themselves
+	T.selection_type = SPELL_SELECTION_RANGE
+	T.include_user = TRUE
+	return T
+
+/obj/effect/proc_holder/spell/cryokinesis/cast(list/targets, mob/user = usr)
 
 	var/mob/living/carbon/C = targets[1]
 
@@ -212,13 +215,13 @@
 	instability = GENE_INSTABILITY_MINOR
 	mutation = EATER
 
-	spelltype=/obj/effect/proc_holder/spell/targeted/eat
+	spelltype=/obj/effect/proc_holder/spell/eat
 
 /datum/dna/gene/basic/grant_spell/mattereater/New()
 	..()
 	block = GLOB.eatblock
 
-/obj/effect/proc_holder/spell/targeted/eat
+/obj/effect/proc_holder/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
 	panel = "Abilities"
@@ -229,34 +232,25 @@
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
-	range = 1
-	selection_type = "view"
 
 	action_icon_state = "genetic_eat"
 
-	var/list/types_allowed = list(
-		/obj/item,
-		/mob/living/simple_animal/pet,
-		/mob/living/simple_animal/hostile,
-		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/crab,
-		/mob/living/simple_animal/mouse,
-		/mob/living/carbon/human,
-		/mob/living/simple_animal/slime,
-		/mob/living/carbon/alien/larva,
-		/mob/living/simple_animal/slime,
-		/mob/living/simple_animal/chick,
-		/mob/living/simple_animal/chicken,
-		/mob/living/simple_animal/lizard,
-		/mob/living/simple_animal/cow,
-		/mob/living/simple_animal/spiderbot
-	)
-	var/list/own_blacklist = list(
-		/obj/item/organ,
-		/obj/item/implant
-	)
+/obj/effect/proc_holder/spell/eat/create_new_targeting()
+	return new /datum/spell_targeting/matter_eater
 
-/obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(mob/user)
+/obj/effect/proc_holder/spell/eat/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	. = ..()
+	if(!.)
+		return
+	var/can_eat = TRUE
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon = user
+		if((carbon.head && (carbon.head.flags_cover & HEADCOVERSMOUTH)) || (carbon.wear_mask && (carbon.wear_mask.flags_cover & MASKCOVERSMOUTH) && !carbon.wear_mask.mask_adjusted))
+			to_chat(carbon, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			can_eat = FALSE
+		return can_eat
+
+/obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		for(var/name in H.bodyparts_by_name)
@@ -270,46 +264,7 @@
 		H.UpdateDamageIcon()
 		H.updatehealth()
 
-/obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	var/list/possible_targets = new /list()
-
-	if(!check_mouth(user))
-		revert_cast(user)
-		return
-
-	for(var/atom/movable/O in view_or_range(range, user, selection_type))
-		if((O in user) && is_type_in_list(O,own_blacklist))
-			continue
-		if(is_type_in_list(O,types_allowed))
-			if(isanimal(O))
-				var/mob/living/simple_animal/SA = O
-				if(!SA.gold_core_spawnable)
-					continue
-			possible_targets += O
-
-	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
-
-	if(!targets.len || !targets[1]) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	if(!check_mouth(user))
-		revert_cast(user)
-		return
-
-	perform(targets, user = user)
-
-/obj/effect/proc_holder/spell/targeted/eat/proc/check_mouth(mob/user = usr)
-	var/can_eat = TRUE
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
-			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
-			can_eat = FALSE
-	return can_eat
-
-/obj/effect/proc_holder/spell/targeted/eat/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
@@ -364,18 +319,16 @@
 	instability = GENE_INSTABILITY_MINOR
 	mutation = JUMPY
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/leap
+	spelltype =/obj/effect/proc_holder/spell/leap
 
 /datum/dna/gene/basic/grant_spell/jumpy/New()
 	..()
 	block = GLOB.jumpblock
 
-/obj/effect/proc_holder/spell/targeted/leap
+/obj/effect/proc_holder/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
 	panel = "Abilities"
-	range = -1
-	include_user = 1
 
 	charge_type = "recharge"
 	charge_max = 60
@@ -386,7 +339,10 @@
 
 	action_icon_state = "genetic_jump"
 
-/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/leap/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/user = usr)
 	var/failure = FALSE
 	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
@@ -454,7 +410,7 @@
 	name = "Polymorphism"
 	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/click/polymorph
+	spelltype =/obj/effect/proc_holder/spell/polymorph
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
@@ -465,7 +421,7 @@
 	..()
 	block = GLOB.polymorphblock
 
-/obj/effect/proc_holder/spell/targeted/click/polymorph
+/obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
 	panel = "Abilities"
@@ -474,19 +430,22 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	click_radius = -1			// Precision required
-	auto_target_single = FALSE	// Safety to not turn into monkey (420)
 	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
-	allowed_type = /mob/living/carbon/human
 
 	invocation_type = "none"
-	range = 1
-	selection_type = "range"
 
 	action_icon_state = "genetic_poly"
 
-/obj/effect/proc_holder/spell/targeted/click/polymorph/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/polymorph/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.try_auto_target = FALSE
+	T.click_radius = -1
+	T.range = 1
+	T.selection_type = SPELL_SELECTION_RANGE
+	return T
+
+/obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
 	user.visible_message("<span class='warning'>[user]'s body shifts and contorts.</span>")
@@ -506,7 +465,7 @@
 	name = "Empathic Thought"
 	desc = "The subject becomes able to read the minds of others for certain information."
 
-	spelltype = /obj/effect/proc_holder/spell/targeted/empath
+	spelltype = /obj/effect/proc_holder/spell/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability = GENE_INSTABILITY_MINOR
@@ -516,7 +475,7 @@
 	..()
 	block = GLOB.empathblock
 
-/obj/effect/proc_holder/spell/targeted/empath
+/obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
 	charge_max = 180
@@ -524,24 +483,16 @@
 	human_req = TRUE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
-	range = -2
-	selection_type = "range"
 
 	action_icon_state = "genetic_empath"
 
-/obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
-	var/list/possible_targets = list()
-	for(var/mob/living/carbon/C in range(7, user))
-		possible_targets += C
-	var/target = input("Choose the target to spy on.", "Targeting") as null|mob in possible_targets
+/obj/effect/proc_holder/spell/empath/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living/carbon
+	T.selection_type = SPELL_SELECTION_RANGE
+	return T
 
-	if(!target) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	perform(list(target), user = user)
-
-/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
 			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
@@ -616,5 +567,5 @@
 
 		if(EMPATH in M.mutations)
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
-		else if(prob(5) || M.mind.assigned_role=="Chaplain")
+		else if(prob(5) || M?.mind.assigned_role=="Chaplain") //just in case of admin-a-bus
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")

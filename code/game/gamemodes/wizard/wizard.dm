@@ -117,7 +117,7 @@
 		wizard_mob.verbs += /client/proc/jaunt
 		wizard_mob.mind.special_verbs += /client/proc/jaunt
 	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
+		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/ethereal_jaunt(usr)
 */
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)

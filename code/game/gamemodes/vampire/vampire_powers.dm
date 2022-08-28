@@ -4,11 +4,9 @@
 	panel = "Vampire"
 	school = "vampire"
 	clothes_req = 0
-	range = 1
 	charge_max = 1800
 	action_background_icon_state = "bg_vampire"
 	var/required_blood = 0
-	var/gain_desc = null
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
@@ -81,10 +79,10 @@
 		return 0
 	return 1
 
-/obj/effect/proc_holder/spell/vampire/proc/can_reach(mob/M as mob)
+/*/obj/effect/proc_holder/spell/vampire/proc/can_reach(mob/M as mob)
 	if(M.loc == usr.loc)
 		return 1 //target and source are in the same thing
-	return M in oview_or_orange(range, usr, selection_type)
+	return M in oview_or_orange(range, usr, selection_type)*/
 
 /obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
 	// sanity check before we cast
@@ -107,31 +105,8 @@
 	if(targets.len)
 		to_chat(usr, "<span class='notice'><b>У вас осталось [vampire.bloodusable] единиц крови.</b></span>")
 
-/obj/effect/proc_holder/spell/vampire/targetted/choose_targets(mob/user = usr)
-	var/list/possible_targets[0]
-	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
-		possible_targets += C
-	var/mob/living/carbon/T = input(user, "Выберите жертву.", name) as null|mob in possible_targets
-
-	if(!T || !can_reach(T))
-		revert_cast(user)
-		return
-
-	perform(list(T), user = user)
-
 /obj/effect/proc_holder/spell/vampire/self/choose_targets(mob/user = usr)
 	perform(list(user))
-
-/obj/effect/proc_holder/spell/vampire/mob_aoe/choose_targets(mob/user = usr)
-	var/list/targets[0]
-	for(var/mob/living/carbon/C in oview_or_orange(range, user, selection_type))
-		targets += C
-
-	if(!targets.len)
-		revert_cast(user)
-		return
-
-	perform(targets, user = user)
 
 /datum/vampire_passive
 	var/gain_desc
@@ -141,7 +116,11 @@
 	if(!gain_desc)
 		gain_desc = "Вы получили способность «[src]»."
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Восстановление"
@@ -169,13 +148,19 @@
 				U.adjustStaminaLoss(-10)
 				sleep(35)
 
-/obj/effect/proc_holder/spell/vampire/targetted/hypnotise
+/obj/effect/proc_holder/spell/vampire/hypnotise
 	name = "Гипноз (25)"
 	desc= "Пронзающий взгляд, ошеломляющий жертву на довольно долгое время"
 	action_icon_state = "vampire_hypnotise"
 	required_blood = 25
 
-/obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/hypnotise/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/vampire/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
 		if(do_mob(user, target, 60))
@@ -190,14 +175,19 @@
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>Вы смотрите в никуда.</span>")
 
-/obj/effect/proc_holder/spell/vampire/targetted/disease
+/obj/effect/proc_holder/spell/vampire/disease
 	name = "Заражающее касание (50)"
 	desc = "Ваше касание инфицирует кровь жертвы, заражая её могильной лихорадкой. Пока лихорадку не вылечат, жертва будет с трудом держаться на ногах, а её кровь будет наполняться токсинами."
 	gain_desc = "Вы получили способность «Заражающее касание». Она позволит вам ослаблять тех, кого вы коснётесь до тех пор, пока их не вылечат."
 	action_icon_state = "vampire_disease"
 	required_blood = 50
 
-/obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/disease/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.selection_type = SPELL_SELECTION_RANGE
+	return T
+
+/obj/effect/proc_holder/spell/vampire/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
 		to_chat(user, "<span class='warning'>Вы незаметно инфицируете [target] заражающим касанием.</span>")
 		target.help_shake_act(user)
@@ -213,6 +203,11 @@
 	action_icon_state = "vampire_glare"
 	charge_max = 300
 	stat_allowed = 1
+
+/obj/effect/proc_holder/spell/vampire/mob_aoe/glare/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new
+	T.range = 1
+	return T
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>Глаза [user] ослепительно вспыхивают!</span>")
@@ -284,14 +279,20 @@
 /proc/isvampirethrall(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall
+/obj/effect/proc_holder/spell/vampire/enthrall
 	name = "Порабощение (300)"
 	desc = "Вы используете большую часть своей силы, вынуждая тех, кто ещё никому не служит, служить только вам."
 	gain_desc = "Вы получили способность «Порабощение», которая тратит много крови, но позволяет вам поработить человека, который ещё никому не служит, на случайный период времени."
 	action_icon_state = "vampire_enthrall"
 	required_blood = 300
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/enthrall/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] кусает [target] в шею!</span>", "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
 		to_chat(target, "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
@@ -305,7 +306,7 @@
 				revert_cast(user)
 				to_chat(user, "<span class='warning'>Вы или цель сдвинулись, или вам не хватило запаса крови.</span>")
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
 	for(var/obj/item/implant/mindshield/L in C)
 		if(L && L.implanted)
@@ -332,7 +333,7 @@
 		return 0
 	return 1
 
-/obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H as mob)
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H as mob)
 	if(!istype(H))
 		return 0
 	var/ref = "\ref[user.mind]"
@@ -396,6 +397,9 @@
 	charge_max = 1200
 	required_blood = 50
 	var/num_bats = 2
+
+/obj/effect/proc_holder/spell/vampire/bats/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
 	var/list/turf/locs = new
@@ -483,6 +487,9 @@
 	// Maximum lighting_lumcount.
 	var/max_lum = 1
 
+/obj/effect/proc_holder/spell/vampire/shadowstep/create_new_targeting()
+	return new /datum/spell_targeting/self
+
 /obj/effect/proc_holder/spell/vampire/shadowstep/choose_targets(mob/user = usr)
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
@@ -540,7 +547,7 @@
 /datum/vampire_passive/full
 	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires
+/obj/effect/proc_holder/spell/raise_vampires
 	name = "Поднятие вампиров"
 	desc = "Призовите смертоносных вампиров из блюспейса"
 	school = "transmutation"
@@ -549,13 +556,16 @@
 	human_req = 1
 	invocation = "none"
 	invocation_type = "none"
-	max_targets = 0
-	range = 3
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
 	sound = 'sound/magic/wandodeath.ogg'
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/raise_vampires/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new
+	T.range = 3
+	return T
+
+/obj/effect/proc_holder/spell/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
 	to_chat(user, "<span class='warning'>Ваш зов расходится в блюспейсе, на помощь созывая других вампирских духов!</span>")

@@ -344,8 +344,8 @@
 		real_name = "Holy [real_name]"
 
 		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone)
+		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new

@@ -9,6 +9,9 @@
 	charge_max = 100
 	clothes_req = 0
 
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_transform/create_new_targeting()
+	return new /datum/spell_targeting/aoe/turf
+
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_transform/cast(list/targets, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>Not enough angry power")
@@ -50,7 +53,11 @@
 	action_background_icon_state = "bg_hulk"
 	charge_max = 130
 	clothes_req = 0
-	range = 5
+
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash/cast(list/targets, mob/user)
 	var/turf/T = get_turf(get_step(user,user.dir))
@@ -216,7 +223,11 @@
 	action_background_icon_state = "bg_hulk"
 	charge_max = 130
 	clothes_req = 0
-	range = 5
+
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump/cast(list/targets , mob/user)
 	//for(var/turf/T in targets)
@@ -327,7 +338,11 @@
 	action_background_icon_state = "bg_hulk"
 	charge_max = 250
 	clothes_req = 0
-	range = 2
+
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_honk/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 2
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_honk/cast(list/target,mob/user)
 	if (user.incapacitated())
@@ -361,7 +376,11 @@
 	action_background_icon_state = "bg_hulk"
 	charge_max = 350
 	clothes_req = 0
-	range = 2
+
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_joke/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 2
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_joke/cast(list/targets,mob/user)
 	if (user.incapacitated())
@@ -392,7 +411,11 @@
 	action_background_icon_state = "bg_hulk"
 	charge_max = 200
 	clothes_req = 0
-	range = 2
+
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_mill/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 2
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_mill/cast(list/targets,mob/user = user)
 	if (user.lying || user.incapacitated())
@@ -436,19 +459,22 @@
 		M.adjust_fire_stacks(20)
 		M.IgniteMob()
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_spit
+/obj/effect/proc_holder/spell/hulk/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
 	panel = "Hulk"
 	invocation_type = "shout"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	allowed_type = /atom
 	charge_max = 250
 	clothes_req = 0
-	range = 20
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_spit/cast(list/targets,mob/user)
+/obj/effect/proc_holder/spell/hulk/hulk_spit/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/C = new()
+	C.range = 20
+	return C
+
+/obj/effect/proc_holder/spell/hulk/hulk_spit/cast(list/targets,mob/user)
 	var/target = targets[1]
 	if (user.lying || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
@@ -468,19 +494,22 @@
 
 //Laser
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_lazor
+/obj/effect/proc_holder/spell/hulk/hulk_lazor
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	panel = "Hulk"
 	invocation_type = "shout"
 	action_icon_state = "lazer_hulk"
 	action_background_icon_state = "bg_hulk"
-	allowed_type = /atom
 	charge_max = 70
 	clothes_req = 0
-	range = 20
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_lazor/cast(list/targets,mob/user)
+/obj/effect/proc_holder/spell/hulk/hulk_lazor/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/C = new()
+	C.range = 20
+	return C
+
+/obj/effect/proc_holder/spell/hulk/hulk_lazor/cast(list/targets,mob/user)
 	var/target = targets[1]
 	if (user.lying || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't right now!</span>")
