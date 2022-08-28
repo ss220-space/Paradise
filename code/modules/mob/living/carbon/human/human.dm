@@ -37,6 +37,8 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -1588,7 +1590,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard/shielded))
 		threatcount += 2
 
 
@@ -1713,7 +1715,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return md5(dna.uni_identity)
 
 /mob/living/carbon/human/can_see_reagents()
-	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
+	var/slots_to_see = src.get_all_slots() - l_store - r_store
+	for(var/obj/item/clothing/C in slots_to_see) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
 			return 1
 
@@ -1949,7 +1952,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
 	var/obj_count = 1
-	to_chat(src, "<span class='notice> Your current objectives:")
+	to_chat(src, "<span class='notice'> Your current objectives:")
 	for(var/datum/objective/objective in src.mind.objectives)
 		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++

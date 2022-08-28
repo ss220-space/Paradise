@@ -43,7 +43,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
+	. += "<span class='notice'>There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.</span>"
 
 /obj/machinery/computer/telescience/Initialize()
 	..()
@@ -225,7 +225,7 @@
 				dest = target
 
 			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 50, TRUE)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through
 				if(ROI.anchored)

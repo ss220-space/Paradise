@@ -78,7 +78,7 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
-	set name = "View Variables"
+	set name = "\[Admin\] View Variables"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
@@ -679,7 +679,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
-		var/selected_job = input("Select a job", "Hud Job Selection") as null|anything in all_taipan_jobs
+		var/selected_job = input("Select a job", "Hud Job Selection") as null|anything in GLOB.all_taipan_jobs
 
 		if(!selected_job)
 			to_chat(usr, "No job selected!")

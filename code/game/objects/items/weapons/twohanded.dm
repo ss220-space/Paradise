@@ -68,6 +68,9 @@
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return FALSE
+	if(!user.has_both_hands())
+		to_chat(user, "<span class='warning'>You need both hands to wield this!</span>")
+		return FALSE
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
@@ -88,6 +91,11 @@
 	O.desc = "Your second grip on the [name]"
 	user.put_in_inactive_hand(O)
 	return TRUE
+
+/obj/item/twohanded/mob_can_equip(mob/M, slot) //Unwields twohanded items when they're attempted to be equipped to another slot
+	if(wielded)
+		unwield(M)
+	return ..()
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
@@ -736,7 +744,7 @@
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
-		playsound(loc, "sparks", 50, 1)
+		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
 			M.Stun(2)
 			shock(M)
