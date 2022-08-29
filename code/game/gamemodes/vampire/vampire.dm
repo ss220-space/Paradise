@@ -309,7 +309,7 @@
 		old_bloodusable = bloodusable
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner, "<span class='warning'>Вы поглотили всю жизненную эссенцию [H], дальнейшее питьё крови будет только утолять голод</span>")
+				to_chat(owner, "<span class='warning'>[H] отдал вам всю свою жизненную эсссенцию. Теперь его кровь может только утолить ваш голод</span>")
 				blood_limit_exceeded = TRUE
 		if(H.stat < DEAD)
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
