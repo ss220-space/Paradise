@@ -251,6 +251,7 @@
 	var/synth_speed = 5 //[num] reagent units per cycle
 	energy_drain = 10
 	var/mode = 0 //0 - fire syringe, 1 - analyze reagents.
+	var/emagged = FALSE
 	range = MECHA_MELEE | MECHA_RANGED
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4"
@@ -391,6 +392,11 @@
 		return
 	return
 
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
 	var/output = {"<html>
 						<meta charset="UTF-8">
@@ -482,7 +488,7 @@
 		return 0
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if(R.can_synth && add_known_reagent(R.id, R.name))
+		if((R.can_synth || emagged) && add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
 	occupant_message("Analyzis complete.")
