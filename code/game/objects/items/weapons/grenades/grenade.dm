@@ -81,7 +81,8 @@
 				prime()
 
 
-/obj/item/grenade/proc/prime()
+/obj/item/grenade/proc/prime(mob/user)
+	testing("Prime [user]")
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))

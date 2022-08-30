@@ -109,7 +109,7 @@
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
 			spawn(det_time)
-				prime()
+				prime(user)
 
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
@@ -230,8 +230,8 @@
 
 
 //assembly stuff
-/obj/item/grenade/chem_grenade/receive_signal()
-	prime()
+/obj/item/grenade/chem_grenade/receive_signal(datum/signal/signal)
+	prime(signal?.user)
 
 /obj/item/grenade/chem_grenade/HasProximity(atom/movable/AM)
 	if(nadeassembly)
@@ -274,7 +274,8 @@
 		nadeassembly.process_movement()
 
 
-/obj/item/grenade/chem_grenade/prime()
+/obj/item/grenade/chem_grenade/prime(mob/user)
+	testing("Chem [user]")
 	if(stage != READY)
 		return
 
@@ -295,10 +296,9 @@
 	if(nadeassembly)
 		var/mob/M = get_mob_by_ckey(assemblyattacher)
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
-		var/turf/T = get_turf(src)
-		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
-		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
+		testing("Log [user]")
+		message_admins("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name_admin(M)] [last ? "and last touched by [key_name_admin(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [ADMIN_JMP(src)]</a>. [contained]")
+		log_game("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name(M)] [last ? "and last touched by [key_name(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [COORD(src)] [contained]")
 
 	update_mob()
 
@@ -336,7 +336,7 @@
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
 	threatscale = 1.1	// 10% more effective.
 
-/obj/item/grenade/chem_grenade/large/prime()
+/obj/item/grenade/chem_grenade/large/prime(mob/user)
 	if(stage != READY)
 		return
 
@@ -356,7 +356,7 @@
 				else
 					S.forceMove(get_turf(src))
 					no_splash = TRUE
-	..()
+	..(user)
 
 
 	//I tried to just put it in the allowed_containers list but
@@ -406,7 +406,7 @@
 			unit_spread = 5
 	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
 
-/obj/item/grenade/chem_grenade/adv_release/prime()
+/obj/item/grenade/chem_grenade/adv_release/prime(mob/user)
 	if(stage != READY)
 		return
 
@@ -427,10 +427,8 @@
 	if(nadeassembly)
 		var/mob/M = get_mob_by_ckey(assemblyattacher)
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
-		var/turf/T = get_turf(src)
-		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
-		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
+		message_admins("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name_admin(M)] [last ? "and last touched by [key_name_admin(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [ADMIN_JMP(src)]</a>. [contained]")
+		log_game("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name(M)] [last ? "and last touched by [key_name(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [COORD(src)] [contained]")
 	else
 		addtimer(CALLBACK(src, .proc/prime), det_time)
 	var/turf/DT = get_turf(src)

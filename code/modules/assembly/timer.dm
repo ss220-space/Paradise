@@ -13,6 +13,7 @@
 	var/time = 10
 	var/repeat = FALSE
 	var/set_time = 10
+	var/mob/user // for logging
 
 /obj/item/assembly/timer/describe()
 	if(timing)
@@ -39,11 +40,10 @@
 /obj/item/assembly/timer/proc/timer_end()
 	if(!secured || cooldown > 0)
 		return FALSE
+	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	cooldown = 2
-	pulse(FALSE)
-	if(loc)
-		loc.visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	pulse(FALSE, user)
 
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))
@@ -100,6 +100,7 @@
 
 	if(href_list["time"])
 		timing = !timing
+		user = usr
 		if(timing && istype(holder, /obj/item/transfer_valve))
 			investigate_log("[key_name(usr)] activated [src] attachment for [loc]", INVESTIGATE_BOMB)
 			add_attack_logs(usr, holder, "activated [src] attachment on", ATKLOG_FEW)

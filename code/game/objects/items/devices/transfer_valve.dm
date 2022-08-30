@@ -19,9 +19,6 @@
 	attacher = null
 	return ..()
 
-/obj/item/transfer_valve/IsAssemblyHolder()
-	return 1
-
 /obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
