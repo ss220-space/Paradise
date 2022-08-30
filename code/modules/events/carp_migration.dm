@@ -13,10 +13,10 @@
 /datum/event/carp_migration/announce()
 	var/announcement = ""
 	if(severity == EVENT_LEVEL_MAJOR)
-		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
+		announcement = "Massive migration of unknown biological entities has been detected near [station_name()], please stand-by."
 	else
-		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
-	GLOB.event_announcement.Announce(announcement, "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
+		announcement = "Unknown biological entities have been detected near [station_name()], please stand-by."
+	GLOB.event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
 
