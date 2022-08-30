@@ -203,7 +203,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_EPSILON)
 			return "ЭПСИЛОН"
 		if(SEC_LEVEL_DELTA)
-			return "ДЭЛЬТА"
+			return "ДЕЛЬТА"
 
 
 /proc/get_security_level_ru_colors()
