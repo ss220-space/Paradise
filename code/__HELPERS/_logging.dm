@@ -208,6 +208,10 @@ GLOBAL_PROTECT(log_end)
  * They intended that way the write down log into game.log
  * AND create_log record_log for Log Viewer
  * also messages admins with specific level(or custom level)
+ *
+ * Also recommend to check Investigation logging (__DEFINES/logs.dm) (modules/admin/admin_investigate.dm)
+ * It's a misc logs that haven't got own place in game.log
+ * most common INVESTIGATE_BOMB and INVESTIGATE_ENGINE
  */
 
 // Proc for attack log creation

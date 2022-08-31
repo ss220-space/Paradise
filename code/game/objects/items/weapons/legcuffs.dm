@@ -101,7 +101,7 @@
 			if(IED && isturf(src.loc))
 				IED.active = 1
 				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-				add_game_logs("[key_name(usr)] has triggered an IED-rigged [name].", user)
+				add_game_logs("[key_name(usr)] has triggered an IED-rigged [name].", usr)
 				spawn(IED.det_time)
 					IED.prime()
 

@@ -114,7 +114,6 @@
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
-		var/turf/T = get_turf(src)
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
 		return 1 //It hit the grenade, not them
@@ -153,7 +152,6 @@
 						contained = "\[[cores]; [contained]\]"
 					else
 						contained = "\[ [contained]\]"
-				var/turf/bombturf = get_turf(loc)
 				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_FEW)
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
