@@ -33,3 +33,11 @@
 /datum/sprite_accessory/body_markings/head/vulpkanin/points_sharp_vulp //Companion marking for Vulpkanin Points Sharp.
 	name = "Vulpkanin Points Head 2"
 	icon_state = "points_sharp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_earsr_vulp //reversed
+	name = "Vulpkanin Reverse Muzzle and Ears"
+	icon_state = "muzzle_earsr"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_r_vulp //reversed
+	name = "Vulpkanin Reverse Muzzle"
+	icon_state = "muzzle_r"
