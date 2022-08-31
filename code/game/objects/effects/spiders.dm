@@ -40,7 +40,7 @@
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	if(height == 0)
 		return TRUE

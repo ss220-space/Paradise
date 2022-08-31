@@ -35,7 +35,7 @@
 	T.air_update_turf(TRUE)
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	else
 		return FALSE
@@ -116,7 +116,7 @@
 	return TryToSwitchState(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity

@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/check_cryo = TRUE
+	var/check_cryo = TRUE				 //if the objective goes cryo, do we check for a new objective or ignore it
 
 /datum/objective/New(text)
 	GLOB.all_objectives += src

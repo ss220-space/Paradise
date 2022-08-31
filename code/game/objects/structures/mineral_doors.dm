@@ -55,7 +55,7 @@
 		SwitchState()
 
 /obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
-	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity

@@ -114,8 +114,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 	var/increased_storage = FALSE
 
-	var/module_override_protected = FALSE // Флаг запрещающий Ниндзя взломать этого киборга и сделать из него своего.
-
 /mob/living/silicon/robot/get_cell()
 	return cell
 
@@ -1568,6 +1566,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	see_reagents = TRUE
+	drain_act_protected = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)

@@ -47,7 +47,7 @@
 	return TRUE
 
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
-	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	else if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE

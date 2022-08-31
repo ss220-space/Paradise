@@ -476,7 +476,6 @@
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
-		SEND_SIGNAL(user, COMSIG_PARENT_ATTACK)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())

@@ -582,32 +582,16 @@
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
-		var/list/objective_types = list(	"assassinate",
-											"blood",
-											"debrain",
-											"protect",
-											"prevent",
-											"brig",
-											"hijack",
-											"escape",
-											"survive",
-											"steal",
-											"download",
-											"nuclear",
-											"capture",
-											"absorb",
-											"destroy",
-											"maroon",
-											"identity theft",
-											// Цели для ниндзя //
-											"get money",
-											"find and scan",
-											"set up",
-											"research corrupt",
-											"ai corrupt",
-											"plant explosive",
-											"cyborg hijack",
-											"custom")
+		var/list/objective_types = list(
+			"assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack",
+			"escape", "survive", "steal", "download", "nuclear", "capture", "absorb",
+			"destroy", "maroon", "identity theft",
+			// Цели для ниндзя //
+			"get money", "find and scan", "set up",
+			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
+			// Кастомная цель//
+			"custom")
+
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in objective_types
 		if(!new_obj_type)
 			return

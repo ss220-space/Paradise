@@ -476,7 +476,7 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(istype(mover) && mover.checkpass(PASSEVERYTHINGELSE))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	if(mover in buckled_mobs)
 		return 1

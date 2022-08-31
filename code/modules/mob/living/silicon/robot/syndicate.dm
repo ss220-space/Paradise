@@ -16,7 +16,7 @@
 	burn_mod = 0.7
 	can_lock_cover = TRUE
 	lawchannel = "State"
-	module_override_protected = TRUE
+	drain_act_protected = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/hyper	//Не очень понимаю почему вместо замены типа батареи тут, какого то чёрта вставляли новую батарею, оставляя старую валяться в contents борга...
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \

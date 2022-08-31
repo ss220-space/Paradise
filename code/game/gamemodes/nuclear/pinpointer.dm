@@ -356,11 +356,8 @@
 					nearest_ninja = potential_ninja
 
 /obj/item/pinpointer/ninja/proc/workninja()
-	if(mode == MODE_NINJA)
-		scan_for_ninja()
-		point_at(nearest_ninja, FALSE)
-	else
-		return FALSE
+	scan_for_ninja()
+	point_at(nearest_ninja, FALSE)
 
 /obj/item/pinpointer/ninja/examine(mob/user)
 	. = ..()
