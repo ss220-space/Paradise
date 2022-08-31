@@ -36,7 +36,7 @@
 	return 1
 
 /atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
-	return istype(mover) && mover.checkpass(PASS_OTHER_THINGS) ? TRUE : (!density || !height)
+	return (istype(mover) && mover.checkpass(PASS_OTHER_THINGS)) || !density || !height
 
 
 /turf/CanPass(atom/movable/mover, turf/target, height=1.5)
