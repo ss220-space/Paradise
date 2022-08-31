@@ -365,6 +365,11 @@ BLIND     // can't see anything
 
 	var/can_toggle = null
 
+///obj/item/clothing/head/equipped(var/mob/living/carbon/human/monkey/user, var/slot) //Смещаем шапки у обезьян
+//	..()
+//	if(!issmall(user))
+//		return
+
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
@@ -458,7 +463,12 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi',
-		"Drask" = 'icons/mob/species/drask/shoes.dmi'
+		"Drask" = 'icons/mob/species/drask/shoes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/shoes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/shoes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/shoes.dmi',
+		"Neara" = 'icons/mob/species/monkey/shoes.dmi',
+		"Stok" = 'icons/mob/species/monkey/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
@@ -638,7 +648,12 @@ BLIND     // can't see anything
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi'
+		"Grey" = 'icons/mob/species/grey/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/species/monkey/uniform.dmi'
+		//"Stok" = 'icons/mob/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
