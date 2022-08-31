@@ -497,6 +497,17 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+/datum/language/headcrab
+	name = "Headcrab Hivemind"
+	desc = "Headcrabs have a limited ability to commune over a psychic hivemind, similar to xenomorphs and terror spiders."
+	speech_verb = "hisses"
+	ask_verb = "hisses"
+	exclaim_verbs = list("hisses")
+	colour = "terrorspider"
+	key = "he"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."

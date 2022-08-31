@@ -7,8 +7,9 @@
 #define HEADCRAB_SPAWNER 6
 
 /datum/event/headcrabs
-	announceWhen = 10
-	endWhen = 11
+	announceWhen = 60
+	endWhen = 61
+	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 	var/locstring
 	var/headcrab_type
 
@@ -55,18 +56,27 @@
 		num--
 		var/spawn_type = pick(spawn_types)
 		new spawn_type(T)
+		successSpawn = TRUE
 
-	var/i = 0
-	var/c = rand(2,6)
+	var/c = rand(2,4)
 
-	while(i > c)
-		var/turf/simulated/floor/T = pick(turfs)
+	while(turfs.len > 0 && c > 0)
+		var/turf/simulated/floor/T = pick(availableareas)
 		turfs.Remove(T)
-		i++
-		new /obj/structure/spawner/headcrab(T)
+		c--
+		var/spawn_type = /obj/structure/spawner/headcrab
+		new spawn_type(T)
+
+	if(successSpawn)
+		var/list/spawners = list()
+		for(var/obj/structure/spawner/headcrab/he in world)
+			spawners += he
+		var/obj/structure/spawner/headcrab/spawner = pick(spawners)
+		notify_ghosts("Появились хедкрабы.", source = spawner, action = NOTIFY_ATTACK, flashwindow = FALSE)
+
 
 /datum/event/headcrabs/announce()
-	if(prob(50))
+	if(successSpawn)
 		GLOB.event_announcement.Announce("Биосканеры фиксируют размножение хедкрабов на борту станции. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
 #undef HEADCRAB_NORMAL
