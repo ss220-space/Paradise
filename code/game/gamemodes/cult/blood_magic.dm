@@ -482,11 +482,9 @@
 
 	if(!length(potential_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-		log_game("Teleport spell failed - no other teleport runes")
 		return
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-		log_game("Teleport spell failed - user in away mission")
 		return
 
 	var/mob/living/L = target

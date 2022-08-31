@@ -77,8 +77,8 @@
 			else
 				set_mode(CLAMPED_OFF)
 				visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
-				message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-				log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
+				message_admins("Power sink attached by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				add_game_logs("Power sink attached by [key_name(user)] at ([x],[y],[z])", user)
 		else
 			to_chat(user, "Device must be placed over an exposed cable to attach to it.")
 	else
@@ -98,7 +98,7 @@
 				"<span class='notice'>You activate \the [src].</span>",
 				"<span class='italics'>You hear a click.</span>")
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
-			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
+			add_game_logs("Power sink activated by [key_name(user)] at [AREACOORD(src)]", user)
 			set_mode(OPERATING)
 
 		if(OPERATING)
@@ -106,6 +106,7 @@
 				"[user] deactivates \the [src]!", \
 				"<span class='notice'>You deactivate \the [src].</span>",
 				"<span class='italics'>You hear a click.</span>")
+			add_game_logs("Power sink deactivated by [key_name(user)] at [AREACOORD(src)]", user)
 			set_mode(CLAMPED_OFF)
 
 /obj/item/powersink/process()

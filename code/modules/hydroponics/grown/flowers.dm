@@ -195,7 +195,7 @@
 		M.adjust_fire_stacks(seed.potency / 20)
 		if(M.IgniteMob())
 			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-			log_game("[key_name(user)] set [key_name(M)] on fire")
+			add_attack_logs(user, M, "set on fire")
 
 /obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)

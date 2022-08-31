@@ -51,14 +51,13 @@ SUBSYSTEM_DEF(afk)
 					if(A.fast_despawn)
 						toRemove += H.ckey
 						warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area.</span>")
-						log_afk_action(H, mins_afk, T, "despawned", "AFK in a fast despawn area")
+						add_misc_logs(H, "despawned by AFK subsystem in a fast despawn area(AFK for [mins_afk])")
 						force_cryo_human(H)
 					else
 						if(!(H.mind.special_role in non_cryo_antags))
 							if(cryo_ssd(H))
-								H.create_log(MISC_LOG, "Put into cryostorage by the AFK subsystem")
 								afk_players[H.ckey] = AFK_CRYOD
-								log_afk_action(H, mins_afk, T, "put into cryostorage")
+								add_misc_logs(H, "Put into cryostorage by the AFK subsystem(AFK for [mins_afk])")
 								warn(H, "<span class='danger'>You are AFK for [mins_afk] minutes and have been moved to cryostorage. \
 									After being AFK for another [config.auto_despawn_afk] minutes you will be fully despawned. \
 									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
@@ -67,7 +66,7 @@ SUBSYSTEM_DEF(afk)
 							afk_players[H.ckey] = AFK_ADMINS_WARNED
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= config.auto_despawn_afk)
-				log_afk_action(H, mins_afk, T, "despawned")
+				add_misc_logs(H, "despawned by AFK subsystem(AFK for [mins_afk])")
 				warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes.</span>")
 				toRemove += H.ckey
 				force_cryo_human(H)
@@ -79,9 +78,6 @@ SUBSYSTEM_DEF(afk)
 	SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
 	if(H.client)
 		window_flash(H.client)
-
-/datum/controller/subsystem/afk/proc/log_afk_action(mob/living/carbon/human/H, mins_afk, turf/location, action, info)
-	log_admin("[key_name(H)] has been [action] by the AFK Watcher subsystem after being AFK for [mins_afk] minutes.[info ? " Extra info:" + info : ""]")
 
 /datum/controller/subsystem/afk/proc/removeFromWatchList(list/toRemove)
 	for(var/C in toRemove)

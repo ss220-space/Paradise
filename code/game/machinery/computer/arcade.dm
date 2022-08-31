@@ -184,7 +184,7 @@
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
+				add_game_logs("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.", usr)
 				Reset()
 				emagged = 0
 			else
@@ -448,6 +448,7 @@
 					if(prob(50))
 						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
 						M.AdjustHallucinate(30)
+						M.last_hallucinator_log = "Emagged Orion Trail"
 					else
 						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
 						M.take_organ_damage(30)
@@ -949,7 +950,7 @@
 	if(emagged)
 		new /obj/item/orion_ship(get_turf(src))
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
-		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
+		add_game_logs("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.", usr)
 	else
 		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
 		prizevend(score)
@@ -993,7 +994,7 @@
 		return
 
 	message_admins("[key_name_admin(usr)] primed an explosive Orion ship for detonation.")
-	log_game("[key_name(usr)] primed an explosive Orion ship for detonation.")
+	add_game_logs("[key_name(usr)] primed an explosive Orion ship for detonation.", usr)
 
 	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
 	active = 1

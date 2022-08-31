@@ -77,7 +77,7 @@
 			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Administrators have been informed."
-				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
+				add_game_logs("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return

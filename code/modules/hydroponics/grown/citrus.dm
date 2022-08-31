@@ -118,7 +118,6 @@
 	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
-	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()

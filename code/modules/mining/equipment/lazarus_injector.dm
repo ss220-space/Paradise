@@ -34,7 +34,7 @@
 						H.robust_searching = 1
 						H.friends += user
 						H.attack_same = 1
-						log_game("[user] has revived hostile mob [target] with a malfunctioning lazarus injector")
+						add_game_logs("[user] has revived hostile mob [target] with a malfunctioning lazarus injector", user)
 					else
 						H.attack_same = 0
 				loaded = 0

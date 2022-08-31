@@ -283,7 +283,7 @@
 		return ..()
 	if(lit && M.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-		log_game("[key_name(user)] set [key_name(M)] on fire")
+		add_game_logs("[key_name(user)] set [key_name(M)] on fire", user)
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 	if(lit && cig && user.a_intent == INTENT_HELP)
 		if(cig.lit)

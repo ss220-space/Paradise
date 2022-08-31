@@ -24,6 +24,7 @@
 	var/log_whisper = 0					// log client whisper
 	var/log_emote = 0					// log emotes
 	var/log_attack = 0					// log attack messages
+	var/log_conversion = 0				// log conversion mob
 	var/log_adminchat = 0				// log admin chat messages
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
@@ -439,6 +440,9 @@
 
 				if("log_attack")
 					config.log_attack = 1
+
+				if("log_conversion")
+					config.log_conversion = 1
 
 				if("log_emote")
 					config.log_emote = 1

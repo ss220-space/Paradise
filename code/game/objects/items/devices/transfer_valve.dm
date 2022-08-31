@@ -64,7 +64,7 @@
 
 		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
-		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
+		add_game_logs("[key_name_admin(user)] attached [A] to a transfer valve.", user)
 		attacher = user
 		SStgui.update_uis(src) // update all UIs attached to src
 
@@ -206,7 +206,7 @@
 
 		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", INVESTIGATE_BOMB)
 		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
-		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
+		add_game_logs("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		if(user)
 			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", ATKLOG_FEW)
 		merge_gases()

@@ -263,8 +263,8 @@
 	if(is_hot(W) > 300)
 		var/turf/T = locate(user)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		add_game_logs("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]", user)
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
 	else
 		return ..()

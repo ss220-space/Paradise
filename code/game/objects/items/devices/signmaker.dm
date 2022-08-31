@@ -129,7 +129,6 @@
 				visible_message("<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
 
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
-				user.create_attack_log("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
 				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")

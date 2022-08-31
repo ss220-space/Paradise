@@ -104,7 +104,6 @@
 		if(timing && istype(holder, /obj/item/transfer_valve))
 			investigate_log("[key_name(usr)] activated [src] attachment for [loc]", INVESTIGATE_BOMB)
 			add_attack_logs(usr, holder, "activated [src] attachment on", ATKLOG_FEW)
-			log_game("[key_name(usr)] activated [src] attachment for [loc]")
 		update_icon()
 	if(href_list["reset"])
 		time = set_time

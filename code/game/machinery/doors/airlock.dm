@@ -287,7 +287,6 @@ About the new airlock wires panel:
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
 			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
-			user.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 			add_attack_logs(user, src, "Electrified", ATKLOG_ALL)
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
@@ -904,7 +903,7 @@ About the new airlock wires panel:
 
 	if(lock()) // Trying to bolt
 		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-		user.create_log(MISC_LOG, "Bolted", src)
+		add_misc_logs(user, "Bolted [src]")
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
@@ -966,7 +965,7 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
 			return
 		C.add_fingerprint(user)
-		user.create_log(MISC_LOG, "put [C] on", src)
+		add_misc_logs(user, "put [C] on", src)
 		C.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
@@ -1454,7 +1453,7 @@ About the new airlock wires panel:
 		user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 		playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 	note.add_fingerprint(user)
-	user.create_log(MISC_LOG, "removed [note] from", src)
+	add_misc_logs(user, "removed [note] from", src)
 	user.put_in_hands(note)
 	note = null
 	update_icon()

@@ -188,6 +188,7 @@
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
 		M.AdjustHallucinate(20)
+		M.last_hallucinator_log = name
 
 /obj/item/projectile/clown
 	name = "snap-pop"

@@ -80,7 +80,7 @@
 		loc = null
 
 		message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse",0,1)
-		log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
+		add_game_logs("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse", user)
 
 		target.overlays += image_overlay
 		if(!nadeassembly)
@@ -89,7 +89,7 @@
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
-	log_game("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
+	add_game_logs("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])", user)
 	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)

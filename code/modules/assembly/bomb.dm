@@ -56,7 +56,6 @@
 	if(!status)
 		status = TRUE
 		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
 		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
 		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
 	else

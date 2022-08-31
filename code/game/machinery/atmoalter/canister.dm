@@ -271,9 +271,9 @@ update_flag
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", "atmos")
+			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", INVESTIGATE_ATMOS)
 		else if(valve_open && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
+			investigate_log("[key_name(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
 	add_hiddenprint(user)
@@ -343,7 +343,7 @@ update_flag
 				pressure = text2num(pressure)
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
@@ -359,7 +359,7 @@ update_flag
 						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding || "air"].<br>"
-			investigate_log(logmsg, "atmos")
+			investigate_log(logmsg, INVESTIGATE_ATMOS)
 			release_log += logmsg
 		if("eject")
 			if(holding)

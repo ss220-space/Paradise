@@ -228,7 +228,7 @@
 			if(!record_general)
 				return
 			message_admins("[key_name_admin(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted [record_general.fields["name"]]'s general, security and medical records")
+			add_misc_logs(usr, "deleted [record_general.fields["name"]]'s general, security and medical records")
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -243,7 +243,7 @@
 			if(!record_security)
 				return
 			message_admins("[key_name_admin(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted [record_security.fields["name"]]'s security record")
+			add_misc_logs(usr, "deleted [record_security.fields["name"]]'s security record")
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
@@ -253,7 +253,7 @@
 			for(var/datum/data/record/S in GLOB.data_core.security)
 				qdel(S)
 			message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all security records")
+			add_misc_logs(usr, "deleted all security records")
 			update_all_mob_security_hud()
 			set_temp("All security records deleted.")
 		if("delete_cell_logs") // Delete All Cell Logs
@@ -263,7 +263,7 @@
 				set_temp("There are no cell logs to delete.")
 				return
 			message_admins("[key_name_admin(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all cell logs")
+			add_misc_logs(usr, "deleted all cell logs")
 			GLOB.cell_logs.Cut()
 			set_temp("All cell logs deleted.")
 		if("comment_delete") // Delete Comment

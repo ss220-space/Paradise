@@ -101,7 +101,7 @@
 		for(var/mob/M in viewers(T.loc))
 			M.show_message(rendered, 2)
 
-		log_emote("(HPAD) [message]", src)
+		add_emote_logs(src, "(HPAD) [message]")
 	else //This shouldn't occur, but better safe then sorry.
 		to_chat(src, "No holopad connected.")
 		return

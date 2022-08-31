@@ -990,8 +990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
-//			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
-			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
+			add_attack_logs(user, src, "emagged", ATKLOG_FEW)
 			clear_supplied_laws()
 			clear_inherent_laws()
 			laws = new /datum/ai_laws/syndicate_override

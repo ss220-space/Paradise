@@ -52,7 +52,7 @@
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		SSticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been made into a revenant by an event.")
-		log_game("[key_of_revenant] was spawned as a revenant by an event.")
+		add_game_logs("[key_of_revenant] was spawned as a revenant by an event.", revvie)
 
 /datum/event/revenant/start()
 	get_revenant()

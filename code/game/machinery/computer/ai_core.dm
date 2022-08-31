@@ -151,7 +151,7 @@
 		if(GLASS_CORE)
 			var/area/R = get_area(src)
 			message_admins("[key_name_admin(usr)] has completed an AI core in [R]: [ADMIN_COORDJMP(loc)].")
-			log_game("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].")
+			add_game_logs("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].", usr)
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			if(!brain)
 				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"

@@ -732,7 +732,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
-	set name = "Show Traitor Panel"
+	set name = "\[Admin\] Show Traitor Panel"
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return

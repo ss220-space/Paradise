@@ -231,8 +231,7 @@
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
 		explosion(get_turf(H), 1, 2, 4, flame_range = 5, cause = H)
-		msg_admin_attack("[key_name_admin(H)] exploded at ([H.x],[H.y],[H.z]).", ATKLOG_FEW)
-		log_game("[key_name_admin(H)] exploded at ([H.x],[H.y],[H.z]).", ATKLOG_FEW)
+		add_attack_logs(H, null, "exploded", ATKLOG_FEW)
 		if(H)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable

@@ -805,24 +805,24 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
 		return
 
-	log_game("[key_name(usr)] has respawned.")
+	add_game_logs("[key_name(usr)] has respawned.", usr)
 
 	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
 
 	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		add_game_logs("[key_name(usr)] respawn failed due to disconnect.", usr)
 		return
 	client.screen.Cut()
 	client.screen += client.void
 
 	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		add_game_logs("[key_name(usr)] respawn failed due to disconnect.", usr)
 		return
 
 	GLOB.respawnable_list -= usr
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		add_game_logs("[key_name(usr)] respawn failed due to disconnect.", usr)
 		qdel(M)
 		return
 
@@ -1310,15 +1310,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
 
-/mob/proc/create_attack_log(text, collapse = TRUE)
-	LAZYINITLIST(attack_log_old)
-	create_log_in_list(attack_log_old, text, collapse, last_log)
-	last_log = world.timeofday
-
-/mob/proc/create_debug_log(text, collapse = TRUE)
-	LAZYINITLIST(debug_log)
-	create_log_in_list(debug_log, text, collapse, world.timeofday)
-
+/*
+ * * Creates Log Record for Log Viewer
+ * log_type - look __DEFINES/logs.dm (example: ATTACK_LOG, SAY_LOG, MISC_LOGS)
+ * what - happened that got logged a mob. Someone screamed or planted an explosion
+ * target - who targeted
+ * where(optional) - at what placed
+ */
 /mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
 	if(!ckey)
 		return
@@ -1327,41 +1325,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		real_ckey = copytext(ckey, 2)
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
 	GLOB.logging.add_log(real_ckey, record)
-
-/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
-	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
-	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
-	var/new_log = "\[[time_stamp()]] [text]"
-
-	if(target.len)//if there are other logs already present
-		var/previous_log = target[target.len]//get the latest log
-		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
-		var/x_sign_position = findtext(previous_log, "x")
-
-		if(world.timeofday - last_log > 100)//if more than 10 seconds from last log
-			collapse = 0//don't collapse anyway
-
-		//the following checks if the last log has the same contents as the new one
-		if(last_log_is_range)
-			if(!(copytext(previous_log, x_sign_position + 13) == text))//the 13 is there because of span classes; you won't see those normally in-game
-				collapse = 0
-		else
-			if(!(copytext(previous_log, 12) == text))
-				collapse = 0
-
-
-		if(collapse == 1)
-			var/rep = 0
-			var/old_timestamp = copytext(previous_log, 2, 10)//copy the first time value. This one doesn't move when it's a timespan, so no biggie
-			//An attack log entry can either be a time range with multiple occurences of an action or a single one, with just one time stamp
-			if(last_log_is_range)
-
-				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
-
-			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			target -= target[target.len]//remove the last log
-
-	target += new_log
 
 /mob/vv_get_dropdown()
 	. = ..()

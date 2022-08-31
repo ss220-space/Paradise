@@ -260,7 +260,7 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
-				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]")
+				add_game_logs("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", user)
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
 				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
@@ -349,7 +349,7 @@
 /obj/item/bombcore/proc/detonate()
 	if(adminlog)
 		message_admins(adminlog)
-		log_game(adminlog)
+		add_game_logs(adminlog)
 	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
@@ -471,7 +471,7 @@
 /obj/item/bombcore/emp/detonate()
 	if(adminlog && !adminlogged)
 		message_admins(adminlog)
-		log_game(adminlog)
+		add_game_logs(adminlog)
 		adminlogged = TRUE
 	empulse(src, heavy_emp, light_emp, 1)
 	if(pulse_number <= 1)
@@ -539,7 +539,7 @@
 
 	if(adminlog)
 		message_admins(adminlog)
-		log_game(adminlog)
+		add_game_logs(adminlog)
 
 	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)
 
@@ -689,7 +689,6 @@
 			detonated--
 			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
-			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
 		detonated =	0
 		existant =	0
 		timer = world.time + BUTTON_COOLDOWN

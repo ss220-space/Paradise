@@ -727,6 +727,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			logmsg = "a honk tumor."
 		if("Hallucinate")
 			H.Hallucinate(1000)
+			H.last_hallucinator_log = "Hallucination smite"
 			logmsg = "hallucinations."
 		if("Cold")
 			H.reagents.add_reagent("frostoil", 40)

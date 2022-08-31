@@ -37,7 +37,7 @@
 	)
 	if(!query_watchadd.Execute())
 		var/err = query_watchadd.ErrorMsg()
-		log_game("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
+		add_game_logs("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
 		return
 	log_admin("[key_name(usr)] has added [target_ckey] to the watchlist - Reason: [reason]")
 	message_admins("[key_name_admin(usr)] has added [target_ckey] to the watchlist - Reason: [reason]", 1)

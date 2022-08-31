@@ -380,7 +380,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
-	set name = "Grant Full Access"
+	set name = "\[Admin\] Grant Full Access"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -414,7 +414,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
-	set name = "Assume direct control"
+	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
 
 	if(!check_rights(R_DEBUG|R_ADMIN))

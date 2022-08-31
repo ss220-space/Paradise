@@ -65,7 +65,7 @@
 	set_security_level(tmp_alertlevel)
 	if(GLOB.security_level != old_level)
 		//Only notify the admins if an actual change happened
-		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
+		add_game_logs("[key_name(usr)] has changed the security level to [get_security_level()].", usr)
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	tmp_alertlevel = 0
 
@@ -232,7 +232,7 @@
 					return
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
-				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
+				add_game_logs("[key_name(usr)] has requested the nuclear codes from Centcomm: [input]", usr)
 				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
@@ -251,7 +251,7 @@
 				Centcomm_announce(input, usr)
 				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
 				to_chat(usr, "Message transmitted.")
-				log_game("[key_name(usr)] has made a Centcomm announcement: [input]")
+				add_game_logs("[key_name(usr)] has made a Centcomm announcement: [input]", usr)
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -269,7 +269,7 @@
 					return
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				log_game("[key_name(usr)] has made a Syndicate announcement: [input]")
+				add_game_logs("[key_name(usr)] has made a Syndicate announcement: [input]", usr)
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -429,7 +429,7 @@
 		return
 
 	SSshuttle.requestEvac(user, reason)
-	log_game("[key_name(user)] has called the shuttle.")
+	add_game_logs("[key_name(user)] has called the shuttle: [reason]", user)
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
 	return
@@ -460,7 +460,7 @@
 		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
 		SSshuttle.emergency.canRecall = FALSE
 	if(user)
-		log_game("[key_name(user)] has called the shuttle.")
+		add_game_logs("[key_name(user)] has called the shuttle.", user)
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
@@ -470,11 +470,11 @@
 		return
 
 	if(SSshuttle.cancelEvac(user))
-		log_game("[key_name(user)] has recalled the shuttle.")
+		add_game_logs("[key_name(user)] has recalled the shuttle.", user)
 		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 	else
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
-		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
+		add_game_logs("[key_name(user)] has tried and failed to recall the shuttle.", user)
 		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)

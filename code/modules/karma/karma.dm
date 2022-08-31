@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		return FALSE
 	if(client.address == M.client.address)
 		message_admins("<span class='warning'>Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!</span>")
-		log_game("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
+		add_game_logs("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return FALSE
 	if(M.get_preference(PREFTOGGLE_DISABLE_KARMA))

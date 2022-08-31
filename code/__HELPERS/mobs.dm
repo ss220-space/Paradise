@@ -272,63 +272,6 @@
 	update_all_mob_security_hud()
 	return 1
 
-/*
-Proc for attack log creation, because really why not
-1 argument is the actor
-2 argument is the target of action
-3 is the full description of the action
-4 is whether or not to message admins
-This is always put in the attack log.
-*/
-
-/proc/add_attack_logs(atom/user, target, what_done, custom_level)
-	if(islist(target)) // Multi-victim adding
-		var/list/targets = target
-		for(var/t in targets)
-			add_attack_logs(user, t, what_done, custom_level)
-		return
-
-	var/user_str = key_name_log(user) + COORD(user)
-	var/target_str
-	var/target_info
-	if(isatom(target))
-		var/atom/AT = target
-		target_str = key_name_log(AT) + COORD(AT)
-		target_info = key_name_admin(target)
-	else
-		target_str = target
-		target_info = target
-	var/mob/MU = user
-	var/mob/MT = target
-	if(istype(MU))
-		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
-		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
-	if(istype(MT))
-		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
-		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
-	log_attack(user_str, target_str, what_done)
-
-	var/loglevel = ATKLOG_MOST
-	if(!isnull(custom_level))
-		loglevel = custom_level
-	else if(istype(MT))
-		if(istype(MU))
-			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
-				loglevel = ATKLOG_ALL
-			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
-				loglevel = ATKLOG_ALMOSTALL
-		else
-			var/area/A = get_area(MT)
-			if(A && A.hide_attacklogs)
-				loglevel = ATKLOG_ALMOSTALL
-	else
-		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
-	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
-		loglevel = ATKLOG_FEW
-
-
-	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
-
 /proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
 		return 0

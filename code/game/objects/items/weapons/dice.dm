@@ -191,7 +191,7 @@
 	var/area/A = get_area(epicenter)
 	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped, cause = key_name(user)+" E20")
 	investigate_log("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
-	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
+	add_game_logs("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", user)
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 
 /obj/item/dice/update_icon()

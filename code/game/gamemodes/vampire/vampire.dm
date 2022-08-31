@@ -49,7 +49,7 @@
 	if(config.traitor_scaling)
 		vampire_scale = config.traitor_scaling
 	vampire_amount = 1 + round(num_players() / vampire_scale)
-	log_game("Number of vampires chosen: [vampire_amount]")
+	add_game_logs("Number of vampires chosen: [vampire_amount]")
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)
@@ -363,8 +363,7 @@
 	if(vampire_mind in vampires)
 		SSticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
-		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
-		vampire_mind.current.create_log(CONVERSION_LOG, "De-vampired")
+		add_conversion_logs(vampire_mind.current, "De-vampired")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			QDEL_NULL(vampire_mind.vampire)

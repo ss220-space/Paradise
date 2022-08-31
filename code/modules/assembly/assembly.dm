@@ -81,7 +81,6 @@
  * var/mob/user for logging
  */
 /obj/item/assembly/proc/pulse(radio = FALSE, mob/user)
-	testing("Pulse [user]")
 	if(connected && wires)
 		connected.pulse_assembly(src)
 		return TRUE

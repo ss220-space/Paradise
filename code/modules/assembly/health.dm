@@ -54,7 +54,6 @@
 	if(M)
 		health_scan = M.health
 		if(health_scan <= alarm_health)
-			testing("Health [M]")
 			pulse(FALSE, M)
 			audible_message("[bicon(src)] *beep* *beep*")
 			toggle_scan()

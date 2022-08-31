@@ -98,7 +98,6 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained].", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
@@ -116,7 +115,6 @@
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
 		var/turf/T = get_turf(src)
-		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
 		return 1 //It hit the grenade, not them
@@ -157,7 +155,6 @@
 						contained = "\[ [contained]\]"
 				var/turf/bombturf = get_turf(loc)
 				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_FEW)
-				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
 		else if(stage == READY && !nadeassembly)
@@ -275,7 +272,6 @@
 
 
 /obj/item/grenade/chem_grenade/prime(mob/user)
-	testing("Chem [user]")
 	if(stage != READY)
 		return
 
@@ -296,9 +292,8 @@
 	if(nadeassembly)
 		var/mob/M = get_mob_by_ckey(assemblyattacher)
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
-		testing("Log [user]")
 		message_admins("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name_admin(M)] [last ? "and last touched by [key_name_admin(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [ADMIN_JMP(src)]</a>. [contained]")
-		log_game("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name(M)] [last ? "and last touched by [key_name(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [COORD(src)] [contained]")
+		add_game_logs("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name(M)] [last ? "and last touched by [key_name(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [COORD(src)] [contained]", user)
 
 	update_mob()
 
@@ -428,12 +423,12 @@
 		var/mob/M = get_mob_by_ckey(assemblyattacher)
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		message_admins("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name_admin(M)] [last ? "and last touched by [key_name_admin(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [ADMIN_JMP(src)]</a>. [contained]")
-		log_game("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name(M)] [last ? "and last touched by [key_name(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [COORD(src)] [contained]")
+		add_game_logs("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name(M)] [last ? "and last touched by [key_name(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)] [COORD(src)] [contained]", user)
 	else
 		addtimer(CALLBACK(src, .proc/prime), det_time)
 	var/turf/DT = get_turf(src)
 	var/area/DA = get_area(DT)
-	log_game("A grenade detonated at [DA.name] ([DT.x], [DT.y], [DT.z])")
+	add_game_logs("A grenade detonated at [DA.name] ([DT.x], [DT.y], [DT.z])")
 
 /obj/item/grenade/chem_grenade/metalfoam
 	payload_name = "metal foam"

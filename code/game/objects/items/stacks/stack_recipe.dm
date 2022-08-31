@@ -44,7 +44,7 @@
 /datum/stack_recipe/dangerous/post_build(obj/item/stack/S, obj/result)
 	var/turf/targ = get_turf(usr)
 	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [get_area(usr)] [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)] at [get_area(usr)] [targ.x], [targ.y], [targ.z].")
+	add_game_logs("[title] made by [key_name_admin(usr)] at [get_area(usr)] [targ.x], [targ.y], [targ.z].", usr)
 	..()
 
 /datum/stack_recipe/rods

@@ -26,7 +26,7 @@
 		player_mind.transfer_to(morph)
 		morph.make_morph_antag()
 		message_admins("[key_of_morph] has been made into morph by an event.")
-		log_game("[key_of_morph] was spawned as a morph by an event.")
+		add_game_logs("[key_of_morph] was spawned as a morph by an event.", morph)
 
 /datum/event/spawn_morph/start()
 	get_morph()
