@@ -280,7 +280,7 @@
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
-	species_restricted = list("exclude", "Wryn", "Unathi", "Tajaran", "Skrell", "Vox", "Vulpkanin", "Drask", "Grey")
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
