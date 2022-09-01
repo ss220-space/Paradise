@@ -231,11 +231,12 @@
 /obj/structure/glowshroom/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src, 'sound/weapons/slash.ogg', 50, TRUE)
+			if(damage_amount)
+				playsound(src, 'sound/weapons/slash.ogg', 50, TRUE)
+			else
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
-		else
-			playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 
 /obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
