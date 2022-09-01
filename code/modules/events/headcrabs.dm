@@ -58,19 +58,19 @@
 		new spawn_type(T)
 		successSpawn = TRUE
 
-	var/c = rand(2,4)
+	var/how_many_spawners = rand(2,4)
 
-	while(turfs.len > 0 && c > 0)
-		var/turf/simulated/floor/T = pick(availableareas)
-		turfs.Remove(T)
-		c--
+	while(turfs.len > 0 && how_many_spawners > 0)
+		var/turf/simulated/floor/where_spawner = pick(availableareas)
+		turfs.Remove(where_spawner)
+		how_many_spawners--
 		var/spawn_type = /obj/structure/spawner/headcrab
-		new spawn_type(T)
+		new spawn_type(where_spawner)
 
 	if(successSpawn)
 		var/list/spawners = list()
-		for(var/obj/structure/spawner/headcrab/he in world)
-			spawners += he
+		for(var/obj/structure/spawner/headcrab/headcrab_spawners in world)
+			spawners += headcrab_spawners
 		var/obj/structure/spawner/headcrab/spawner = pick(spawners)
 		notify_ghosts("Появились хедкрабы.", source = spawner, action = NOTIFY_ATTACK, flashwindow = FALSE)
 

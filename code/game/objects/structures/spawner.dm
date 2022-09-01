@@ -94,7 +94,7 @@
 	icon = 'icons/mob/headcrab.dmi'
 	max_integrity = 200
 	max_mobs = 30
-	spawn_time = 600
+	spawn_time = 800
 	mob_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
 	spawn_text = "crawls out of"
 	faction = list("hostile")

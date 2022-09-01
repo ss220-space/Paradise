@@ -18,22 +18,21 @@
 	var/jumpspeed = 2
 	turns_per_move = 4
 	attacktext = "грызёт"
+	pass_flags = PASSTABLE
+	a_intent = INTENT_HARM
 	attack_sound = list('sound/creatures/headcrab_attack1.ogg', 'sound/creatures/headcrab_attack2.ogg')
 	speak_emote = list("hisses")
 	var/is_zombie = 0
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
-	var/poison_headcrabs = 0
 	var/host_species = ""
 	var/list/human_overlays = list()
-	var/neurotoxin_per_jump = 0
 	var/revive_cooldown = 0
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/vent_cooldown = 20
 	var/building = FALSE
 	var/hiding = FALSE
-	var/ai = TRUE
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -45,19 +44,18 @@
 		M.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		ai = FALSE
 		if(!is_zombie)
 			to_chat(src, "<span class='notice'>You are a headcrab!</span>")
 			to_chat(src, "To jump, try to use ranged attack.")
 		else
 			to_chat(src, "<span class='notice'>You are a zombie!</span>")
-			to_chat(src, "Maybe you will try to kill humans for bodys for your little brothers?")
+			to_chat(src, "Maybe you will try to kill humans for bodies for your little brothers?")
 
-/proc/create_headcrab_mind(key)
-	var/datum/mind/M = new /datum/mind(key)
-	M.assigned_role = "Headcrab"
-	M.special_role = "Headcrab"
-	return M
+/mob/living/simple_animal/hostile/headcrab/proc/create_headcrab_mind(key)
+	var/datum/mind/user = new /datum/mind(key)
+	user.assigned_role = "Headcrab"
+	user.special_role = "Headcrab"
+	return user
 
 /mob/living/simple_animal/hostile/headcrab/attack_ghost(mob/user)
 	if(cannotPossess(user))
@@ -85,7 +83,7 @@
 			return
 		transfer_personality(user.client)
 
-/mob/living/simple_animal/hostile/headcrab/verb/built_a_nest()
+/mob/living/simple_animal/hostile/headcrab/verb/build_a_nest()
 	set category = "Headcrab"
 	set name = "Build a nest"
 	set desc = "Sacrifice yourself after a big time to build a nest."
@@ -118,10 +116,6 @@
 	set name = "Hide"
 	set desc = "Become invisible to the common eye."
 
-	if(is_zombie)
-		to_chat(usr, "<span class='warning'>You cannot do this while you're a zombie.</span>")
-		return
-
 	if(stat != CONSCIOUS)
 		return
 
@@ -136,7 +130,6 @@
 
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-
 	if(!is_zombie)
 		revive_cooldown--
 
@@ -144,26 +137,26 @@
 
 	if(..() && !stat)
 		if(!is_zombie && isturf(src.loc))
-			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
+			for(var/mob/living/carbon/human/H in oview(src, 2)) //Only for corpse right next to/on same tile
 				if(H.stat == DEAD /*|| (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD)*/) //по неизвестной причине мартышки похоже до убирания этого условия не хотели зомбифицироваться
 					Zombify(H)
 					break
 		if(times_fired % 4 == 0)
-			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
+			for(var/mob/living/simple_animal/K in oview(src, 2)) //Only for corpse right next to/on same tile
 				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
 					visible_message("<span class='danger'>[src] consumes [K] whole!</span>")
 					if(health < maxHealth)
 						health += 10
 					qdel(K)
 					break
-	if(!ai)
+	if(mind.active)
 		return
 
 	if(prob(1)) //it was a proc with a name its_time_to_kill_yourself
 
-		var/turf/T2 = get_turf(src) //как тебе такое, волмат? двухбуквенная переменная!
+		var/turf/probably_nest = get_turf(src)
 
-		for(var/obj/structure/spawner/headcrab in orange(60, T2))
+		for(var/obj/structure/spawner/headcrab in orange(60, probably_nest))
 			return
 
 		qdel(src)
@@ -172,14 +165,14 @@
 
 	if(prob(15) && vent_cooldown <= 0)
 		if(!is_zombie || is_zombie && host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-			for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(4,src))
-				if(!v.welded)
-					entry_vent = v
+			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in view(4,src))
+				if(!ventilation.welded)
+					entry_vent = ventilation
 					walk_to(src, entry_vent, 1)
 					break
 
 	if(travelling_in_vent)
-		if(istype(loc, /turf))
+		if(isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
 			vent_cooldown += 60
@@ -194,7 +187,7 @@
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(75))
-				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
+				audible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
 								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 
 			spawn(rand(20,60))
@@ -266,8 +259,12 @@
 	else
 		name = "zombie"
 	desc = "A corpse animated by the alien being on its head."
+	name += " ([rand(1, 1000)])"
+	real_name = name
 	melee_damage_lower = 20
 	melee_damage_upper = 25
+	H.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab
+	H.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest
 	ranged = 0
 	dodging = 0
 	if(host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
@@ -278,7 +275,7 @@
 	icon = H.icon
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
-	obj_damage += 40
+	obj_damage += 40 //используя мышечную массу тела хедкраб бъет сильнее объекты
 	speak_emote = list("groans")
 	attacktext = "кромсает"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
@@ -387,7 +384,8 @@
 	melee_damage_upper = 20
 	attack_sound = list('sound/creatures/poison_headcrab_attack1.ogg', 'sound/creatures/poison_headcrab_attack2.ogg', 'sound/creatures/poison_headcrab_attack3.ogg')
 	speak_emote = list("hollers")
-	neurotoxin_per_jump = 5
+	var/neurotoxin_per_jump = 5
+	var/poison_headcrabs = 0
 
 /mob/living/simple_animal/hostile/headcrab/poison/update_icons()
 	. = ..()
@@ -403,51 +401,80 @@
 
 /mob/living/simple_animal/hostile/headcrab/poison/Zombify(mob/living/carbon/human/H)
 	. = ..()
+
 	speak = list('sound/creatures/poison_zombie_idle1.ogg','sound/creatures/poison_zombie_idle2.ogg','sound/creatures/poison_zombie_idle3.ogg', 'sound/creatures/poison_zombie_idle4.ogg')
 
 	poison_headcrabs = 3
-
 	desc += " It's [src.poison_headcrabs] [src.poison_headcrabs == 1 ? "headcrab" : "headcrabs" ] on it's back."
 
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 
-	speed = 2.45
+	to_chat(src, "There are [poison_headcrabs] on your back. Use ranged attack to throw them at enemies.")
 
-	obj_damage += 40
+	speed = 2.85
+	ranged = 1
+	maxHealth += 25
+	health = maxHealth //как никак, танк
+	obj_damage += 40 //ядовитый зомби выступает что-то вроде танка, поэтому и здоровья с уроном побольше.
+
+/mob/living/simple_animal/hostile/headcrab/poison/Stat()
+	..()
+
+	if(!is_zombie)
+		return
+
+	statpanel("Status")
+
+	show_stat_emergency_shuttle_eta()
+
+	if(client.statpanel == "Status")
+		stat("Headcrabs", poison_headcrabs)
 
 /mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
 	. = ..()
 
 	if(. && neurotoxin_per_jump > 0 && iscarbon(target) && target.reagents && !is_zombie)
 		var/inject_target = pick("chest", "head")
-		var/mob/living/carbon/C = target
-		if(C.stunned || C.can_inject(null, FALSE, inject_target, FALSE))
-			if(C.eye_blurry < 60)
-				C.AdjustEyeBlurry(10)
+		var/mob/living/carbon/victim = target
+		if(victim.stunned || victim.can_inject(null, FALSE, inject_target, FALSE))
+			if(victim.eye_blurry < 60)
+				victim.AdjustEyeBlurry(10)
 				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
-			C.reagents.add_reagent("headcrabneurotoxin", neurotoxin_per_jump)
+			victim.reagents.add_reagent("headcrabneurotoxin", neurotoxin_per_jump)
+
+/mob/living/simple_animal/hostile/headcrab/poison/OpenFire(atom/target)
+	. = ..()
+
+	if(!src.mind.active && prob(65))
+		return
 
 	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0)
-		for(var/mob/living/carbon/human/H in oview(src, 4)) //Only for carbons on poison headcrab jumping distance
-				//if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
-			if(src.poison_headcrabs != 0 && src.is_zombie)
-				src.poison_headcrabs--
-				var/turf/Y = get_turf(src)
-				var/mob/living/simple_animal/hostile/headcrab/poison/E = new(Y)
-				E.poison_headcrabs = 0
-				desc = "A corpse animated by the alien being on its head. It's [src.poison_headcrabs] [src.poison_headcrabs == 1 ? "headcrab" : "headcrabs" ] on it's back."
-				if(src.poison_headcrabs == 0)
-					desc = "A corpse animated by the alien being on its head."
-				visible_message("<span class='danger'><b>[src]</b> throwing [E] at [target]!</span>")
-				playsound(src, list('sound/effects/poison_headcrab_throw1.ogg', 'sound/effects/poison_headcrab_throw2.ogg'), 40, 1)
-				E.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
-
+		if(src.poison_headcrabs != 0 && src.is_zombie)
+			src.poison_headcrabs--
+			if(check_friendly_fire)
+				for(var/turf/loc in getline(src,target)) // Not 100% reliable but this is faster than simulating actual trajectory
+					for(var/mob/living/victim in loc)
+						if(victim == src || victim == target)
+							continue
+						if(faction_check_mob(victim) && !attack_same)
+							return
+			var/turf/zombie_loc = get_turf(src)
+			var/mob/living/simple_animal/hostile/headcrab/poison/headcrab = new(zombie_loc)
+			headcrab.poison_headcrabs = 0 //был баг с мгновенным размножением. нет. нельзя.
+			desc = "A corpse animated by the alien being on its head. It's [src.poison_headcrabs] [src.poison_headcrabs == 1 ? "headcrab" : "headcrabs" ] on it's back."
+			if(src.poison_headcrabs == 0)
+				desc = "A corpse animated by the alien being on its head."
+				ranged = 0
+				to_chat(src, "No more headcrabs on your back, pal!")
+			visible_message("<span class='danger'><b>[src]</b> throwing [headcrab] at [target]!</span>")
+			playsound(src, list('sound/effects/poison_headcrab_throw1.ogg', 'sound/effects/poison_headcrab_throw2.ogg'), 45, 1)
+			headcrab.throw_at(target, headcrab.jumpdistance, headcrab.jumpspeed, spin = FALSE, diagonals_first = TRUE)
 /*
 
 =================================================
 (                                               )
-(       NOT SPRITES, BUT CODED                  )
+(       NO SPRITES, BUT CODED                   )
 (                                               )
 =================================================
 
@@ -488,7 +515,7 @@
 
 /mob/living/simple_animal/hostile/headcrab/reviver //no sprites, but coded //x2
 	name = "reviver headcrab"
-	desc = "A strange parasitic creature that would like to connect with your brain stem through your upper body. It's looks like, that it can shock you."
+	desc = "A strange parasitic creature that would like to connect with your brain stem through your upper body. It looks like, that it can shock you."
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab"
 	icon_living = "headcrab"
@@ -519,8 +546,6 @@
 
 	playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
 
-	..()
-
 /mob/living/simple_animal/hostile/headcrab/reviver/update_icons()
 	. = ..()
 	if(is_zombie)
@@ -537,16 +562,14 @@
 	. = ..()
 
 	H.shock_internal_organs(100)
-	H.set_heartattack(FALSE)
+	H.set_heartattack(FALSE) //уподобление оригиналу, что-то вроде оживления.
 	src.revive_cooldown += 15
 
 /mob/living/simple_animal/hostile/headcrab/reviver/Destroy()
 	. = ..()
 
-	var/turf/T = get_turf(src)
+	var/turf/death_loc = get_turf(src)
 
-	var/mob/living/simple_animal/hostile/headcrab/reviver/R = new /mob/living/simple_animal/hostile/headcrab/reviver(T)
+	var/mob/living/simple_animal/hostile/headcrab/reviver/headcrab = new /mob/living/simple_animal/hostile/headcrab/reviver(death_loc) //уподобление оригиналу, этот вид хедкраба должен быть убит вне тела.
 
-	R.revive_cooldown += 30
-
-	return ..()
+	headcrab.revive_cooldown += 30
