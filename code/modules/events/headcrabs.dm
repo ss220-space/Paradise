@@ -17,6 +17,7 @@
 	var/list/availableareas = list()
 	for(var/area/maintenance/A in world)
 		availableareas += A
+		availableareas -= /area/maintenance/turbine // ввиду отсутствия каких либо вентиляций, это просто точка, откуда выходит 30 хедкрабов и все. так еще кучкуются в трех тайлах
 	var/area/randomarea = pick(availableareas)
 	var/list/turf/simulated/floor/turfs = list()
 	for(var/turf/simulated/floor/F in randomarea)

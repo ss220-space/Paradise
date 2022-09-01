@@ -149,7 +149,8 @@
 						health += 10
 					qdel(K)
 					break
-	if(mind.active)
+
+	if(src.ckey in GLOB.clients)
 		return
 
 	if(prob(1)) //it was a proc with a name its_time_to_kill_yourself
@@ -165,7 +166,7 @@
 
 	if(prob(15) && vent_cooldown <= 0)
 		if(!is_zombie || is_zombie && host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in view(4,src))
+			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in view(16,src))
 				if(!ventilation.welded)
 					entry_vent = ventilation
 					walk_to(src, entry_vent, 1)
@@ -383,7 +384,7 @@
 	melee_damage_lower = 8
 	melee_damage_upper = 20
 	attack_sound = list('sound/creatures/poison_headcrab_attack1.ogg', 'sound/creatures/poison_headcrab_attack2.ogg', 'sound/creatures/poison_headcrab_attack3.ogg')
-	speak_emote = list("hollers")
+	speak_emote = list("shrilly squeaks")
 	var/neurotoxin_per_jump = 5
 	var/poison_headcrabs = 0
 
@@ -446,11 +447,11 @@
 /mob/living/simple_animal/hostile/headcrab/poison/OpenFire(atom/target)
 	. = ..()
 
-	if(!src.mind.active && prob(65))
+	if(!src.ckey in GLOB.clients && prob(65))
 		return
 
-	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0)
-		if(src.poison_headcrabs != 0 && src.is_zombie)
+	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0) // в оригинале несколько хедркабов было на спине у ядовитого, и еще... он ими кидался. у нас же он их внезапно рожает и умеет кидаться
+		if(src.poison_headcrabs != 0 && src.is_zombie) //игрок кидаться может всегда, а ИИ лишь с шансом.
 			src.poison_headcrabs--
 			if(check_friendly_fire)
 				for(var/turf/loc in getline(src,target)) // Not 100% reliable but this is faster than simulating actual trajectory
@@ -510,7 +511,7 @@
 /mob/living/simple_animal/hostile/headcrab/armored/Zombify(mob/living/carbon/human/H)
 	. = ..()
 
-	maxHealth += 50
+	maxHealth += 60 //armored? armored.
 	health = maxHealth
 
 /mob/living/simple_animal/hostile/headcrab/reviver //no sprites, but coded //x2
