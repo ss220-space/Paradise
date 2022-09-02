@@ -451,7 +451,7 @@
 		return
 
 	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0) // в оригинале несколько хедркабов было на спине у ядовитого, и еще... он ими кидался. у нас же он их внезапно рожает и умеет кидаться
-		if(src.poison_headcrabs != 0 && src.is_zombie) //игрок кидаться может всегда, а ИИ лишь с шансом.
+		if(src.poison_headcrabs != 0) //игрок кидаться может всегда, а ИИ лишь с шансом.
 			src.poison_headcrabs--
 			if(check_friendly_fire)
 				for(var/turf/loc in getline(src,target)) // Not 100% reliable but this is faster than simulating actual trajectory
