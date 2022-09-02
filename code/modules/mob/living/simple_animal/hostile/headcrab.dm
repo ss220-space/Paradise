@@ -451,15 +451,15 @@
 		return
 
 	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0) // в оригинале несколько хедркабов было на спине у ядовитого, и еще... он ими кидался. у нас же он их внезапно рожает и умеет кидаться
-		if(src.poison_headcrabs != 0) //игрок кидаться может всегда, а ИИ лишь с шансом.
-			src.poison_headcrabs--
-			if(check_friendly_fire)
-				for(var/turf/loc in getline(src,target)) // Not 100% reliable but this is faster than simulating actual trajectory
-					for(var/mob/living/victim in loc)
-						if(victim == src || victim == target)
-							continue
-						if(faction_check_mob(victim) && !attack_same)
-							return
+        //игрок кидаться может всегда, а ИИ лишь с шансом.
+		src.poison_headcrabs--
+		if(check_friendly_fire)
+			for(var/turf/loc in getline(src,target)) // Not 100% reliable but this is faster than simulating actual trajectory
+				for(var/mob/living/victim in loc)
+					if(victim == src || victim == target)
+						continue
+					if(faction_check_mob(victim) && !attack_same)
+						return
 			var/turf/zombie_loc = get_turf(src)
 			var/mob/living/simple_animal/hostile/headcrab/poison/headcrab = new(zombie_loc)
 			headcrab.poison_headcrabs = 0 //был баг с мгновенным размножением. нет. нельзя.
