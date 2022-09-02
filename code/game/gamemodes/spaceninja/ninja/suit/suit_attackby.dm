@@ -32,16 +32,30 @@
 	else if(istype(I, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/new_cell = I
 		var/obj/item/stock_parts/cell/old_cell = cell
+		if(cell.maxcharge == 100000)
+			to_chat(ninja, span_danger("Upgrade limit reached! Further cell upgrade's aren't possible."))
+			return
 		if(new_cell.maxcharge > old_cell.maxcharge)
 			to_chat(ninja, span_notice("Higher maximum capacity detected.\nUpgrading..."))
 			if(do_after(ninja,s_delay, target = src))
-				if(!ninja.drop_item()) 			// Отбираем батарейку у игрока
+				// Отбираем батарейку у игрока
+				if(!ninja.drop_item())
 					return
-				new_cell.forceMove(src) 		// Запихиваем её в костюм
-				new_cell.self_recharge = FALSE 	// На случай если вдруг, как то, игроки умудрятся запихать туда самозарядную батарейку
+				// Запихиваем её в костюм
+				new_cell.forceMove(src)
+				// На случай если вдруг, как то, игроки умудрятся запихать туда самозарядную батарейку
+				new_cell.self_recharge = FALSE
+				// Ограничиваем возможный максимальный заряд батареи
+				new_cell.maxcharge = min(new_cell.maxcharge, 100000)
+				if(new_cell.maxcharge == 100000)
+					to_chat(ninja, span_danger("Upgrade limit reached! Further cell upgrade's won't be possible."))
+				// Складываем новый заряд со старым не превышая лимита
 				new_cell.charge = min(new_cell.charge+old_cell.charge, new_cell.maxcharge)
-				cell = new_cell 				// Сохраняем чтобы потом к ней обращаться
-				ninja.mind.ninja.cell = cell	// Обновляем батарейку и на экране статуса
+				// Сохраняем чтобы потом к ней обращаться
+				cell = new_cell
+				// Обновляем батарейку и на экране статуса
+				ninja.mind.ninja.cell = cell
+				// Последние шаги со старой батареей
 				old_cell.charge = 0
 				ninja.put_in_hands(old_cell)
 				old_cell.add_fingerprint(ninja)

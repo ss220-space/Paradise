@@ -13388,11 +13388,14 @@
 	color = "#99ff99";
 	name = "table"
 	},
-/obj/item/storage/box/handcuffs{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/storage/box/manacles{
+	pixel_x = 1;
+	pixel_y = 5
 	},
-/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/manacles{
+	pixel_x = -3;
+	pixel_y = 2
+	},
 /turf/unsimulated/floor{
 	icon_state = "floorgrime"
 	},

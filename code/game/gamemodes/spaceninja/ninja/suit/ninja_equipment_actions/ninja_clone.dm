@@ -15,7 +15,7 @@
 		return
 	if(!ninjacost(400))
 		playsound(ninja, 'sound/effects/clone jutsu.ogg', 50, TRUE)
-		s_coold = 1 SECONDS
+		s_coold = 2 SECONDS
 		sleep(15)
 		do_sparks(3, FALSE, ninja)
 		for(var/i=0, i<2, i++)

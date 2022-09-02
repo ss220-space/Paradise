@@ -1,6 +1,6 @@
 /datum/action/item_action/ninja_smoke_bomb
 	check_flags = AB_CHECK_CONSCIOUS
-	name = "Integrated smoke bomb(5E)"
+	name = "Integrated smoke bomb"
 	desc = "Generates a big cloud of smoke to hide yourself from enemies. Use with your mask's thermal mode for the killer combination. Energy cost: 1000"
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'

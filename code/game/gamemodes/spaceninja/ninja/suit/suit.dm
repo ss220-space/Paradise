@@ -74,6 +74,7 @@
 	/// Удаляются полностью при убирании из руки
 	var/obj/item/gun/energy/shuriken_emitter/shuriken_emitter
 	var/obj/item/ninja_chameleon_scanner/chameleon_scanner
+	var/obj/item/ninja_net_emitter/net_emitter
 	var/obj/item/gun/magic/johyo/integrated_harpoon
 
 	/// Референс для компьютера шатла
@@ -308,6 +309,7 @@
 	n_headset = null
 	QDEL_NULL(shuriken_emitter)
 	QDEL_NULL(chameleon_scanner)
+	QDEL_NULL(net_emitter)
 	QDEL_NULL(integrated_harpoon)
 	shuttle_controller = null
 	cloning_ref = null
@@ -408,7 +410,7 @@
 			ninjapulse()
 			return TRUE
 		if(/datum/action/item_action/ninjanet)
-			ninjanet()
+			toggle_ninja_net_emitter()
 			return TRUE
 		if(/datum/action/item_action/ninja_sword_recall)
 			ninja_sword_recall()
