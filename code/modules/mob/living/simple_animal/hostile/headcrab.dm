@@ -447,12 +447,10 @@
 /mob/living/simple_animal/hostile/headcrab/poison/OpenFire(atom/target)
 	. = ..()
 
-	if(!src.ckey in GLOB.clients && prob(65))
+	if(!src.ckey in GLOB.clients && prob(65)) //игрок кидаться может всегда, а ИИ лишь с шансом.
 		return
 
 	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0) // в оригинале несколько хедркабов было на спине у ядовитого, и еще... он ими кидался. у нас же он их внезапно рожает и умеет кидаться
-        //игрок кидаться может всегда, а ИИ лишь с шансом.
-		src.poison_headcrabs--
 		if(check_friendly_fire)
 			for(var/turf/loc in getline(src,target)) // Not 100% reliable but this is faster than simulating actual trajectory
 				for(var/mob/living/victim in loc)
@@ -462,6 +460,7 @@
 						return
 			var/turf/zombie_loc = get_turf(src)
 			var/mob/living/simple_animal/hostile/headcrab/poison/headcrab = new(zombie_loc)
+			src.poison_headcrabs--
 			headcrab.poison_headcrabs = 0 //был баг с мгновенным размножением. нет. нельзя.
 			desc = "A corpse animated by the alien being on its head. It's [src.poison_headcrabs] [src.poison_headcrabs == 1 ? "headcrab" : "headcrabs" ] on it's back."
 			if(src.poison_headcrabs == 0)
