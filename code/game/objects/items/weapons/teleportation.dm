@@ -140,6 +140,7 @@ Frequency:
 	var/T = L[t1]
 	user.show_message("<span class='notice'>Locked In.</span>", 2)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(src), T, src)
+	investigate_log("was used by [key_name(user)] to create a portal with destination to [COORD(T)].", INVESTIGATE_TELEPORTATION)
 	try_move_adjacent(P)
 	active_portals++
 	add_fingerprint(user)

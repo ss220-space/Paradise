@@ -761,6 +761,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					add_attack_logs(M, M, "delay gib by [name]")
 					M.delayed_gib()
 					return
 				if(!M.ghost_can_reenter())

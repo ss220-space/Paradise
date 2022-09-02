@@ -19,7 +19,9 @@
 	var/turf/T = get_turf(target)
 	if(T)
 		chassis.use_power(energy_drain)
+		var/turf/user_turf = get_turf(src)
 		do_teleport(chassis, T, tele_precision)
+		chassis.investigate_log("[key_name(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(get_turf(chassis))].", INVESTIGATE_TELEPORTATION)
 		return 1
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
@@ -71,6 +73,8 @@
 	P.name = "wormhole"
 	message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)]([ADMIN_QUE(chassis.occupant,"?")]) ([ADMIN_FLW(chassis.occupant,"FLW")]) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
 	add_game_logs("[key_name(chassis.occupant)] used a Wormhole Generator in ([loc.x],[loc.y],[loc.z])", chassis.occupant)
+	chassis.investigate_log("[key_name(chassis.occupant)] used a Wormhole Generator in [COORD(get_turf(loc))].", INVESTIGATE_TELEPORTATION)
+
 	src = null
 	spawn(rand(150,300))
 		qdel(P)

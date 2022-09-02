@@ -26,6 +26,10 @@ GLOBAL_PROTECT(log_end)
 #define testing(msg)
 #endif
 
+// All the log_type() procs are used for writing down into game.log
+// don't use this for logging. We have add_type_logs() for this situation
+// you can look all the way down in this file for those procs
+
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
 	if(config.log_admin)
@@ -248,7 +252,7 @@ GLOBAL_PROTECT(log_end)
 		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
 	var/mob/living/alive = target
 	if(istype(alive))
-		newhp += "\[HP: [alive.health]: [alive.getOxyLoss()] - [alive.getToxLoss()] - [alive.getFireLoss()] - [alive.getBruteLoss()]\]"
+		newhp += "\[HP: [alive.health]: [alive.getOxyLoss()] - [alive.getToxLoss()] - [alive.getFireLoss()] - [alive.getBruteLoss()] - [alive.getStaminaLoss()] - [alive.getBrainLoss()] - [alive.getCloneLoss()] \]"
 	log_attack(user_str, target_str, what_done, newhp)
 
 	//Setting up log level of how important this log.
@@ -325,3 +329,21 @@ GLOBAL_PROTECT(log_end)
 	if(istype(user))
 		user.create_log(MISC_LOG, what, target)
 	log_misc("[user ? "[user]: " : null][what][target ? " against [target]" : null]")
+// Proc for deadchat log creation
+// * user is the ghooost
+// * text that he whined after death
+/proc/add_deadchat_logs(mob/user, text)
+	user.create_log(DEADCHAT_LOG, text)
+	log_ghostsay(text, user)
+
+// Proc for ooc log creation
+// * user is the user
+// * text that is definetely a meta
+// * local is boolean of looc or ooc type of proc
+/proc/add_ooc_logs(mob/user, text, local = FALSE)
+	if(local)
+		user.create_log(LOOC_LOG, text)
+		log_looc(text, user)
+	else
+		user.create_log(OOC_LOG, text)
+		log_ooc(text, user)

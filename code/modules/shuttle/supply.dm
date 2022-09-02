@@ -77,10 +77,13 @@
 		var/errors = 0
 		if(prob(5))
 			errors |= MANIFEST_ERROR_COUNT
+			investigate_log("Supply order #[order_id] generated a manifest with packages incorrectly counted.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_NAME
+			investigate_log("Supply order #[order_id] generated a manifest with destination station incorrect.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_ITEM
+			investigate_log("Supply order #[order_id] generated a manifest with package incomplete.", INVESTIGATE_CARGO)
 		SO.createObject(T, errors)
 
 	SSshuttle.shoppinglist.Cut()
@@ -551,6 +554,7 @@
 			else if(issilicon(usr))
 				idname = usr.real_name
 
+			investigate_log("[key_name(usr)] made an order for [P.name] with amount [amount]. Points: [SSshuttle.points].", INVESTIGATE_CARGO)
 			//make our supply_order datums
 			for(var/i = 1; i <= amount; i++)
 				var/datum/supply_order/O = SSshuttle.generateSupplyOrder(params["crate"], idname, idrank, reason, amount)

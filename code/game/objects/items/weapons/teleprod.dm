@@ -14,6 +14,10 @@
 								"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 			user.Weaken(stunforce*3)
 			deductcharge(hitcost)
+			var/turf/T = get_turf(user)
 			do_teleport(user, get_turf(user), 50)//honk honk
+			investigate_log("[key_name(user)] teleprodded himself from [COORD(T)].", INVESTIGATE_TELEPORTATION)
 		else if(iscarbon(M) && !M.anchored)
+			var/turf/T = get_turf(M)
 			do_teleport(M, get_turf(M), 15)
+			investigate_log("[key_name(user)] teleprodded [key_name(M)] from [COORD(T)] to [COORD(get_turf(M))].", INVESTIGATE_TELEPORTATION)

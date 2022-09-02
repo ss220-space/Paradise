@@ -113,6 +113,7 @@
 
 	if(ismegafauna(M))
 		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
+		investigate_log("[M] has used a portal, made by [key_name_log(usr)].", INVESTIGATE_TELEPORTATION)
 
 	if(prob(failchance))
 		icon_state = fail_icon

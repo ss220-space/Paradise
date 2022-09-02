@@ -266,6 +266,7 @@
 		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
 		return FALSE
 	new effect_path(user.loc, seed)
+	investigate_log("was planted by [key_name(user)] at [AREACOORD(user)]", INVESTIGATE_BOTANY)
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
 	qdel(src)
 	return TRUE

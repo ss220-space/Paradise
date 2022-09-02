@@ -1,8 +1,9 @@
-/atom/proc/investigate_log(message, subject)
+/atom/movable/proc/investigate_log(message, subject)
 	if(!message || !subject)
 		return
 	var/F = file("[GLOB.log_directory]/[subject].html")
-	WRITE_FILE(F, "[time_stamp()] [src.UID()] ([x],[y],[z]) || [src] [message]<br>")
+	var/turf/T = get_turf(src)
+	WRITE_FILE(F, "[time_stamp()] [src.UID()] ([T.x],[T.y],[T.z]) || [src] [message]<br>")
 
 //ADMINVERBS
 /client/proc/investigate_show()
@@ -22,9 +23,7 @@
 		INVESTIGATE_EXPERIMENTOR,
 		INVESTIGATE_GRAVITY,
 		INVESTIGATE_HALLUCINATIONS,
-		INVESTIGATE_HYPERTORUS,
-		INVESTIGATE_PORTAL,
-		INVESTIGATE_PRESENTS,
+		INVESTIGATE_TELEPORTATION,
 		INVESTIGATE_RADIATION,
 		INVESTIGATE_RECORDS,
 		INVESTIGATE_RESEARCH,
