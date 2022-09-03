@@ -7,7 +7,8 @@
 	opacity = 0
 	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "glowshroom" //replaced in New
+	//replaced in Initialize()
+	icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	/// Time interval between glowshroom "spreads"
 	var/delay_spread = 1 MINUTES
@@ -18,7 +19,7 @@
 	/// Mushroom generation number
 	var/generation = 1
 	/// Chance to spread into adjacent tiles (0-100)
-	var/adjacent_spread_chance = 75
+	var/adjacent_spread_chance = 80
 	/// If we fail to spread this many times we stop trying to spread
 	var/max_failed_spreads = 5
 	/// Turfs where the glowshroom cannot spread to
