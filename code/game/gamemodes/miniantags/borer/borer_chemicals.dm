@@ -1,7 +1,7 @@
 /datum/borer_chem
 	var/chemname
 	var/chemdesc = "This is a chemical"
-	var/chemuse = 30
+	var/chemuse = 20
 	var/quantity = 10
 
 /datum/borer_chem/capulettium_plus
@@ -42,9 +42,20 @@
 	chemname = "salbutamol"
 	chemdesc = "Heals suffocation damage."
 
-/datum/borer_chem/salglu_solution
-	chemname = "salglu_solution"
-	chemdesc = "Slowly heals brute and burn damage, also slowly restores blood."
+/datum/borer_chem/bicaridine
+	chemname = "bicaridines"
+	chemdesc = "Heals brute damage."
+	chemuse = 30
+
+/datum/borer_chem/kelotane
+	chemname = "kelotane"
+	chemdesc = "Heals burn damage."
+	chemuse = 30
+
+/datum/borer_chem/iron
+	chemname = "iron"
+	chemdesc = "Slowly restores blood in organism."
+	chemuse = 40
 
 /datum/borer_chem/spaceacillin
 	chemname = "spaceacillin"

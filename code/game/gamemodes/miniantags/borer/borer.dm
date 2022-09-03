@@ -110,6 +110,7 @@
 	var/datum/action/innate/borer/give_back_control/give_back_control_action = new
 	var/datum/action/innate/borer/leave_body/leave_body_action = new
 	var/datum/action/innate/borer/make_chems/make_chems_action = new
+	var/datum/action/innate/borer/make_scan/make_scan_action = new
 	var/datum/action/innate/borer/make_larvae/make_larvae_action = new
 	var/datum/action/innate/borer/freeze_victim/freeze_victim_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
@@ -377,6 +378,7 @@
 
 	RemoveBorerActions()
 	GrantInfestActions()
+	GrantMedicalHud()
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
@@ -589,6 +591,7 @@
 		detach()
 	GrantBorerActions()
 	RemoveInfestActions()
+	RemoveMedicalHud()
 	forceMove(get_turf(host))
 	machine = null
 
@@ -657,6 +660,8 @@
 		var/h2b_ip= host.lastKnownIP
 		host.computer_id = null
 		host.lastKnownIP = null
+
+		RemoveMedicalHud()
 
 		qdel(host_brain)
 		host_brain = new(src)
@@ -783,6 +788,7 @@
 	host.verbs -= /mob/living/proc/trapped_mind_comm
 
 	RemoveControlActions()
+	GrantMedicalHud()
 	talk_to_borer_action.Grant(host)
 	host.med_hud_set_status()
 
@@ -859,12 +865,14 @@
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
+	make_scan_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
+	make_scan_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -877,6 +885,14 @@
 	make_larvae_action.Remove(host)
 	give_back_control_action.Remove(host)
 	torment_action.Remove(host)
+
+/mob/living/simple_animal/borer/proc/GrantMedicalHud()
+	var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	A.add_hud_to(src)
+
+/mob/living/simple_animal/borer/proc/RemoveMedicalHud()
+	var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	A.remove_hud_from(src)
 
 /datum/action/innate/borer
 	background_icon_state = "bg_alien"
@@ -962,11 +978,21 @@
 	name = "Secrete Chemicals"
 	desc = "Push some chemicals into your host's bloodstream."
 	icon_icon = 'icons/obj/chemical.dmi'
-	button_icon_state = "minidispenser"
+	button_icon_state = "dispenser"
 
 /datum/action/innate/borer/make_chems/Activate()
 	var/mob/living/simple_animal/borer/B = owner
 	B.secrete_chemicals()
+
+/datum/action/innate/borer/make_scan
+	name = "Perform Scan"
+	desc = "Scans the host's body."
+	icon_icon = 'icons/obj/device.dmi'
+	button_icon_state = "health"
+
+/datum/action/innate/borer/make_scan/Activate()
+	var/mob/living/simple_animal/borer/B = owner
+	healthscan(B, B.host, 1)
 
 /datum/action/innate/borer/make_larvae
 	name = "Reproduce"
