@@ -12,8 +12,9 @@
 	belt = /obj/item/melee/energy_katana
 
 /datum/outfit/ninja/pre_equip(mob/living/carbon/human/ninja)
-	if(ninja.dna.species.name != "Human")					// Это можно считать временным решением, пока у ниндзи нет спрайтов одежды для других рас
-		ninja.set_species(/datum/species/human)				// В прочем, все мы знаем, что временные решения обычно самые постоянные...
+	ninja.set_species(/datum/species/human) // Это можно считать временным решением, пока у ниндзи нет спрайтов одежды для других рас
+	ninja.revive()							// В прочем, все мы знаем, что временные решения обычно самые постоянные...
+											// revive - тут, чтобы оставались робоконечности (вместо замены конечностей кодом set_species)
 
 /datum/outfit/ninja/post_equip(mob/living/carbon/human/ninja)
 	if(istype(ninja.wear_suit, suit))

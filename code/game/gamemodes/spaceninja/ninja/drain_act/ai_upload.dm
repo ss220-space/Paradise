@@ -26,16 +26,20 @@
 
 	to_chat(ninja, span_notice("Заготовленный бэкдор обнаружен. Установка вируса..."))
 	AI_notify_hack()
-	if(!do_after(ninja, 30 SECONDS, target = src))
-		return
+	if(do_after(ninja, 30 SECONDS, target = src))
+		if(src.stat & NOPOWER)
+			to_chat(usr, "The upload computer has no power!")
+			return
+		if(src.stat & BROKEN)
+			to_chat(usr, "The upload computer is broken!")
+			return
+		for(var/mob/living/silicon/ai/currentAI in GLOB.alive_mob_list)
+			if(currentAI.stat != DEAD && currentAI.see_in_dark != FALSE)
+				currentAI.laws.clear_inherent_laws()
 
-	for(var/mob/living/silicon/ai/currentAI in GLOB.alive_mob_list)
-		if(currentAI.stat != DEAD && currentAI.see_in_dark != FALSE)
-			currentAI.laws.clear_inherent_laws()
+		new /datum/event/ion_storm(0, 1)
+		new /datum/event/ion_storm(0, -1)
+		new /datum/event/ion_storm(0, -1)
 
-	new /datum/event/ion_storm(0, 1)
-	new /datum/event/ion_storm(0, -1)
-	new /datum/event/ion_storm(0, -1)
-
-	to_chat(ninja, span_notice("Искусственный интеллект станции успешно взломан!"))
-	objective.completed = TRUE
+		to_chat(ninja, span_notice("Искусственный интеллект станции успешно взломан!"))
+		objective.completed = TRUE
