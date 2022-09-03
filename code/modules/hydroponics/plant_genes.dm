@@ -234,7 +234,7 @@
 	var/power = G.seed.potency*rate
 	if(prob(power))
 		add_attack_logs(G, C, "shocked for [round(power)] for slipping on")
-		C.investigate_log("got shocked for [round(power)] while slipped on [G](last touched: [G.fingerprintslast")", INVESTIGATE_BOTANY)
+		C.investigate_log("got shocked for [round(power)] while slipped on [G](last touched: [G.fingerprintslast])", INVESTIGATE_BOTANY)
 		C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
@@ -321,8 +321,8 @@
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
-		add_attack_logs(target, T, "tele-slipped on [G](max radius: [teleport_radius])")
-		target.investigate_log("teleported to [T], slipping on [G](max radius: [teleport_radius]")
+		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
+		C.investigate_log("teleported to [T], slipping on [G](max radius: [teleport_radius]", INVESTIGATE_BOTANY)
 		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)

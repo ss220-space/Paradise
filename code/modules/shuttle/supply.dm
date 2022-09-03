@@ -77,13 +77,13 @@
 		var/errors = 0
 		if(prob(5))
 			errors |= MANIFEST_ERROR_COUNT
-			investigate_log("Supply order #[order_id] generated a manifest with packages incorrectly counted.", INVESTIGATE_CARGO)
+			investigate_log("Supply order #[SO] generated a manifest with packages incorrectly counted.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_NAME
-			investigate_log("Supply order #[order_id] generated a manifest with destination station incorrect.", INVESTIGATE_CARGO)
+			investigate_log("Supply order #[SO] generated a manifest with destination station incorrect.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_ITEM
-			investigate_log("Supply order #[order_id] generated a manifest with package incomplete.", INVESTIGATE_CARGO)
+			investigate_log("Supply order #[SO] generated a manifest with package incomplete.", INVESTIGATE_CARGO)
 		SO.createObject(T, errors)
 
 	SSshuttle.shoppinglist.Cut()

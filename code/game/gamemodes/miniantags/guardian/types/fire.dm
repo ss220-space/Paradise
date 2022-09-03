@@ -41,7 +41,7 @@
 					new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 					var/turf/T = get_turf(M)
 					do_teleport(M, M, 10)
-					investigate_log("[key_name(src)] teleported [key_name(target)] from [COORD(T)] to [COORD(get_turf(M))].", INVESTIGATE_TELEPORTATION)
+					investigate_log("[key_name_log(src)] teleported [key_name_log(target)] from [COORD(T)] to ([M.x],[M.y],[M.z]).", INVESTIGATE_TELEPORTATION)
 					new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 
 /mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj, oldloc)
