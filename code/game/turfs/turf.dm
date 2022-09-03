@@ -36,10 +36,10 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/footstep = FOOTSTEP_FLOOR
-	var/barefootstep = FOOTSTEP_HARD_BAREFOOT
-	var/clawfootstep = FOOTSTEP_HARD_CLAW
-	var/heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	var/footstep = null
+	var/barefootstep = null
+	var/clawfootstep = null
+	var/heavyfootstep = null
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -470,14 +470,6 @@
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
 
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

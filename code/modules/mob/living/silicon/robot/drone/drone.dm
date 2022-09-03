@@ -20,7 +20,6 @@
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
-	ionpulse = 1
 	modules_break = FALSE
 
 	// We need to keep track of a few module items so we don't need to do list operations
@@ -80,7 +79,6 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-	module += new /obj/item/borg/upgrade/thrusters(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -237,6 +235,17 @@
 	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
 
+/mob/living/silicon/robot/drone/ratvar_act(weak)
+	if(client)
+		var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+		if(mind)
+			SSticker.mode.add_clocker(mind)
+			mind.transfer_to(cog)
+		else
+			cog.key = client.key
+	spawn_dust()
+	gib()
+
 //DRONE LIFE/DEATH
 
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.
@@ -373,7 +382,7 @@
 		return ..()
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!client && istype(user, /mob/living/silicon/robot/drone))
+	if(!client && isdrone(user))
 		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
 		if(!do_after(user, 5 SECONDS, target = loc))
 			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
