@@ -272,7 +272,7 @@
 		return
 	SSticker.mode.remove_revolutionary(usr.mind)
 	SSticker.mode.black_list_revolutionaries += usr.mind
-	log_admin("[key_name(usr)] quit the revolution.", usr)
+	log_admin("[key_name(usr)] left the revolution.", usr)
 	src.Remove(usr)
 	qdel(src)
 
