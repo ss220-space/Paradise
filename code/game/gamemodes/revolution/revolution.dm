@@ -267,7 +267,7 @@
 	if(!(usr && usr.mind && usr.stat == CONSCIOUS))
 		to_chat(usr, "<span class='danger'>You must be conscious.</span>")
 		return
-	var/confirm = alert(usr,"Would you like quit from revolution? You cant became after confirmed","Quiting revolution","Yes","No")
+	var/confirm = alert(usr, "Would you like to quit the Revolution? You won't be able to join the Revolution again!","Quit the Revolution","Yes","No")
 	if(confirm == "No")
 		return
 	SSticker.mode.remove_revolutionary(usr.mind)
