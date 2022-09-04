@@ -92,7 +92,7 @@
 
 /datum/action/innate/revolution_quit
 	name = "Quit the Revolution"
-	button_icon_state = "genetic_mindscan"
+	button_icon_state = "quit_revolution"
 	background_icon_state = "bg_vampire"
 
 /datum/action/innate/revolution_quit/Activate()
