@@ -1,41 +1,23 @@
-/mob/living/carbon/human/monkey
-	var/mob/living/carbon/human/master_commander = null //переменная хранящая владельца "животного"
+/mob/living/carbon/human/lesser/monkey
+	var/master_commander = null //переменная хранящая владельца "животного"
+	fire_dmi = 'icons/mob/species/monkey/OnFire.dmi'
 
-/mob/living/carbon/human/monkey/Initialize(mapload)
+/mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 
-/mob/living/carbon/human/farwa/Initialize(mapload)
+/mob/living/carbon/human/lesser/farwa/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/tajaran)
 
-/mob/living/carbon/human/wolpin/Initialize(mapload)
+/mob/living/carbon/human/lesser/wolpin/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/vulpkanin)
 
-/mob/living/carbon/human/neara/Initialize(mapload)
+/mob/living/carbon/human/lesser/neara/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/skrell)
 
-/mob/living/carbon/human/stok/Initialize(mapload)
+/mob/living/carbon/human/lesser/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
 
-/mob/living/carbon/human/monkey/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
 	. = ..()
-	drop_shoes()
-
-/mob/living/carbon/human/farwa/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
-	. = ..()
-	drop_shoes()
-
-/mob/living/carbon/human/wolpin/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
-	. = ..()
-	drop_shoes()
-
-/mob/living/carbon/human/neara/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
-	. = ..()
-	drop_shoes()
-
-/mob/living/carbon/human/stok/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
-	. = ..()
-	drop_shoes()
-
-/mob/living/carbon/human/proc/drop_shoes()
 	if(prob(50))
 		unEquip(shoes, 1)

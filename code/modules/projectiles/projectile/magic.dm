@@ -282,7 +282,7 @@
 					briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
 					но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
 				else
-					new_mob = new /mob/living/carbon/human/monkey(M.loc)
+					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
 
 					briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
 					но у вас по прежнему память о своей прошлой жизни..."

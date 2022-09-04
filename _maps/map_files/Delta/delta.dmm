@@ -27021,7 +27021,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cyt" = (
-/mob/living/carbon/human/monkey/punpun,
+/mob/living/carbon/human/lesser/monkey/punpun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -34317,7 +34317,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37605,7 +37605,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "dlz" = (
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "dlA" = (
@@ -44158,7 +44158,7 @@
 "dKA" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
@@ -71972,7 +71972,7 @@
 "jAL" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreencorner"
@@ -119456,7 +119456,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -121018,7 +121018,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -129235,7 +129235,7 @@
 /area/crew_quarters/captain)
 "xdP" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},

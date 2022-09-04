@@ -231,7 +231,7 @@
 
 	//обработка низших форм: Обезьяны, стока, фарвы, неары, вульпина
 	if (ismonkeybasic(M))
-		var/mob/living/carbon/human/monkey/LF = M
+		var/mob/living/carbon/human/lesser/monkey/LF = M
 
 		to_chat(user, "<span class='notice'>Вы предлагаете [src] зелье разума [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = 1
