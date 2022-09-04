@@ -74,7 +74,8 @@
 	C.update()
 	C.anchored = 0
 	C.density = 1
-	qdel(src)
+	if(!QDELING(src))
+		qdel(src)
 
 /obj/machinery/disposal/Destroy()
 	eject()
