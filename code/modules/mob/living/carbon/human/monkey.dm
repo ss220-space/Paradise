@@ -1,6 +1,7 @@
 /mob/living/carbon/human/lesser/monkey
 	var/master_commander = null //переменная хранящая владельца "животного"
 	fire_dmi = 'icons/mob/species/monkey/OnFire.dmi'
+	genetic_mutable = 'icons/mob/species/monkey/genetics.dmi'
 
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
