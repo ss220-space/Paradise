@@ -15,3 +15,8 @@
 
 /mob/living/carbon/human/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
+
+/mob/living/carbon/human/monkey/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+	. = ..()
+	if(prob(50))
+		unEquip(shoes, 1)
