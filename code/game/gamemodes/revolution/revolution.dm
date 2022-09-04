@@ -8,7 +8,7 @@
 /datum/game_mode
 	var/list/datum/mind/head_revolutionaries = list()
 	var/list/datum/mind/revolutionaries = list()
-	var/list/datum/mind/black_list_revolutionaries = list()
+	var/list/datum/mind/banned_revolutionaries = list()
 
 /datum/game_mode/revolution
 	name = "revolution"
@@ -73,7 +73,7 @@
 		to_chat(recruit, "<span class='danger'><FONT size = 4>You were asked to join the revolution, but for reasons you did not know, you refused.")
 		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
 		return
-	if(recruit.mind in SSticker.mode.black_list_revolutionaries)
+	if(recruit.mind in SSticker.mode.banned_revolutionaries)
 		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
 		return
 	var/choice = alert(recruit, "Do you want to join the revolution?", "Join the revolution", "Yes", "No")
@@ -85,6 +85,29 @@
 	if(choice == "No")
 		to_chat(recruit, "<span class='danger'>You reject this traitorous cause!")
 		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
+
+///////////////////////////////////////////
+/////Выход из режима революции смердам/////
+///////////////////////////////////////////
+
+/datum/action/innate/revolution_quit
+	name = "Quit the Revolution"
+	button_icon_state = "genetic_mindscan"
+	background_icon_state = "bg_vampire"
+
+/datum/action/innate/revolution_quit/Activate()
+	if(!(usr && usr.mind && usr.stat == CONSCIOUS))
+		to_chat(usr, "<span class='danger'>You must be conscious.</span>")
+		return
+	var/confirm = alert(usr, "Would you like to quit the Revolution? You won't be able to join the Revolution again!","Quit the Revolution","Yes","No")
+	if(confirm == "No")
+		return
+	SSticker.mode.remove_revolutionary(usr.mind)
+	SSticker.mode.banned_revolutionaries += usr.mind
+	log_admin("[key_name(usr)] left the revolution.", usr)
+	src.Remove(usr)
+	qdel(src)
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
@@ -257,24 +280,6 @@
 	var/datum/action/innate/revolution_quit/C = new()
 	C.Grant(rev_mind.current)
 	return 1
-
-/datum/action/innate/revolution_quit
-	name = "Quit the Revolution"
-	button_icon_state = "genetic_mindscan"
-	background_icon_state = "bg_vampire"
-
-/datum/action/innate/revolution_quit/Activate()
-	if(!(usr && usr.mind && usr.stat == CONSCIOUS))
-		to_chat(usr, "<span class='danger'>You must be conscious.</span>")
-		return
-	var/confirm = alert(usr, "Would you like to quit the Revolution? You won't be able to join the Revolution again!","Quit the Revolution","Yes","No")
-	if(confirm == "No")
-		return
-	SSticker.mode.remove_revolutionary(usr.mind)
-	SSticker.mode.black_list_revolutionaries += usr.mind
-	log_admin("[key_name(usr)] left the revolution.", usr)
-	src.Remove(usr)
-	qdel(src)
 
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
