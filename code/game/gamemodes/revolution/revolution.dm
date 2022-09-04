@@ -259,7 +259,7 @@
 	return 1
 
 /datum/action/innate/revolution_quit
-	name = "Recruitment"
+	name = "Quit the Revolution"
 	button_icon_state = "genetic_mindscan"
 	background_icon_state = "bg_vampire"
 
