@@ -38,7 +38,14 @@
 /obj/item/cartridge/atmos
 	name = "BreatheDeep Cartridge"
 	icon_state = "cart-a"
-	programs = list(new/datum/data/pda/utility/scanmode/gas)
+	programs = list(
+		new/datum/data/pda/utility/scanmode/gas,
+		new /datum/data/pda/app/atmos_alert)
+
+/obj/item/cartridge/atmos/Initialize(mapload)
+	. = ..()
+	radio = new /obj/item/integrated_radio/atmosia(src)
+
 
 /obj/item/cartridge/medical
 	name = "Med-U Cartridge"
@@ -180,7 +187,14 @@
 
 		new/datum/data/pda/utility/scanmode/gas,
 
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+		
+		new /datum/data/pda/app/atmos_alert)
+
+/obj/item/cartridge/ce/Initialize(mapload)
+	. = ..()
+	radio = new /obj/item/integrated_radio/atmosia(src)
+
 
 /obj/item/cartridge/cmo
 	name = "Med-U DELUXE"

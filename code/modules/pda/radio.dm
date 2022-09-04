@@ -13,7 +13,7 @@
 	var/bot_filter				//Determines which radio filter to use.
 
 	var/control_freq = 1447
-
+	var/datum/radio_frequency/radio_connection
 	var/on = 0 //Are we currently active??
 	var/menu_message = ""
 
@@ -155,7 +155,6 @@
 	var/frequency = RSD_FREQ
 	var/code = 30.0
 	var/last_transmission
-	var/datum/radio_frequency/radio_connection
 
 /obj/item/integrated_radio/signal/Destroy()
 	if(SSradio)
@@ -194,3 +193,34 @@
 
 	spawn(0)
 		radio_connection.post_signal(src, signal)
+
+/obj/item/integrated_radio/atmosia
+	var/list/priority_alarms = list()
+	var/list/minor_alarms = list()
+	var/receive_frequency = ATMOS_FIRE_FREQ
+
+/obj/item/integrated_radio/atmosia/Initialize(mapload)
+	. = ..()
+	if (!SSradio)
+		return
+	set_frequency(receive_frequency)
+
+/obj/item/integrated_radio/atmosia/proc/set_frequency(new_frequency)
+	SSradio.remove_object(src, receive_frequency)
+	receive_frequency = new_frequency
+	radio_connection = SSradio.add_object(src, receive_frequency, RADIO_ATMOSIA)
+
+/obj/item/integrated_radio/atmosia/receive_signal(datum/signal/signal)
+	var/zone = signal.data["zone"]
+	var/severity = signal.data["alert"]
+
+	if(!zone || !severity)
+		return
+
+	minor_alarms -= zone
+	priority_alarms-= zone
+	if(severity == "severe")
+		priority_alarms += zone
+	else if(severity == "minor")
+		minor_alarms += zone
+

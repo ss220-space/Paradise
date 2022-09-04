@@ -114,6 +114,53 @@
 	// Observe
 	pm.ui_act(action, params, ui, state)
 
+/datum/data/pda/app/atmos_alert
+	name = "Atmos Alert Monitor"
+	icon = "bolt"
+	template = "pda_atmos_alert"
+	category = "Atmos"
+	update = PDA_APP_UPDATE_SLOW
+
+/datum/data/pda/app/atmos_alert/ui_data(mob/user as mob, list/data)
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/atmosia))
+		var/obj/item/integrated_radio/atmosia/A = pda.cartridge.radio
+		data["priority_alarms"] = A.priority_alarms
+		data["minor_alarms"] = A.minor_alarms
+		
+		var/list/datas = list()
+
+		datas["priority"] = list()
+		for(var/zone in A.priority_alarms)
+			datas["priority"] |= zone
+		datas["minor"] = list()
+		for(var/zone in A.minor_alarms)
+			datas["minor"] |= zone
+
+		return datas
+
+/datum/data/pda/app/atmos_alert/ui_act(action, list/params, list/data)
+	if(..())
+		return
+
+	. = TRUE
+
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/atmosia))
+		var/obj/item/integrated_radio/atmosia/A = pda.cartridge.radio
+		data["priority_alarms"] = A.priority_alarms
+		data["minor_alarms"] = A.minor_alarms
+
+		switch(action)
+			if("clear")
+				var/zone = params["zone"]
+				if(zone in A.priority_alarms)
+					to_chat(usr, "<span class='notice'>Priority alarm for [zone] cleared.</span>")
+					A.priority_alarms -= zone
+					. = TRUE
+				if(zone in A.minor_alarms)
+					to_chat(usr, "<span class='notice'>Minor alarm for [zone] cleared.</span>")
+					A.minor_alarms -= zone
+					. = TRUE
+
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null
 
