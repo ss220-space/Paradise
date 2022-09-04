@@ -32,6 +32,8 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANPARALYSE | CANPUSH
 
+	footstep_type = FOOTSTEP_MOB_SLIME
+
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
 
@@ -424,7 +426,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>*---------*\nThis is [bicon(src)] \a <EM>[src]</EM>!"
+	. += "<span class='notice'>This is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
@@ -451,7 +453,7 @@
 			if(10)
 				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
 
-	. += "*---------*</span>"
+	. += "</span>"
 
 /mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
 	if(stat)

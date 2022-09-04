@@ -221,6 +221,8 @@
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
 ///from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
+///fomr base of atom/movable/Moved(): (/atom, dir)
+#define COMSIG_MOVABLE_HOLDER_MOVED "movable_holder_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS "movable_cross"
 ///from base of atom/movable/Crossed(): (/atom/movable)
@@ -493,7 +495,7 @@
 
 // /obj/item/clothing signals
 
-///from base of obj/item/clothing/shoes/proc/step_action(): ()
+///from [/mob/living/carbon/human/Move]: ()
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"
 ///from base of /obj/item/clothing/suit/space/proc/toggle_spacesuit(): (obj/item/clothing/suit/space/suit)
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"

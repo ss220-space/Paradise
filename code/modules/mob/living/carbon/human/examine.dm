@@ -25,7 +25,7 @@
 		skipface |= wear_mask.flags_inv & HIDEFACE
 		skipeyes |= wear_mask.flags_inv & HIDEEYES
 
-	var/msg = "<span class='info'>This is "
+	var/msg = "This is "
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated

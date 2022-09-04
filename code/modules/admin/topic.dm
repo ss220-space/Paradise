@@ -450,9 +450,6 @@
 				alert(usr, "This ban has already been lifted / does not exist.", "Error", "Ok")
 				unbanpanel()
 
-	else if(href_list["warn"])
-		usr.client.warn(href_list["warn"])
-
 	else if(href_list["unbane"])
 		if(!check_rights(R_BAN))	return
 
@@ -1262,46 +1259,6 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] attempting to monkeyize [key_name_admin(H)]</span>", 1)
 		H.monkeyize()
 
-
-	else if(href_list["corgione"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["corgione"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-			return
-
-		if(alert(usr, "Confirm make corgi?",, "Yes", "No") != "Yes")
-			return
-
-		log_admin("[key_name(usr)] attempting to corgize [key_name(H)]")
-		message_admins("<span class='notice'>[key_name_admin(usr)] attempting to corgize [key_name_admin(H)]</span>", 1)
-		H.corgize()
-
-	else if(href_list["makePAI"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-			return
-		if(alert(usr, "Confirm make pai?",, "Yes", "No") != "Yes")
-			return
-
-		var/painame = "Default"
-		var/name = ""
-		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
-			name = sanitize(copytext_char(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
-		else
-			name = sanitize(copytext_char(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
-
-		if(!name)
-			name = painame
-
-		log_admin("[key_name(usr)] attempting to pAIze [key_name(H)]")
-		message_admins("<span class='notice'>[key_name_admin(usr)] attempting to pAIze [key_name_admin(H)]</span>", 1)
-		H.paize(name)
-
 	else if(href_list["forcespeech"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1445,6 +1402,66 @@
 		// Save that random name for next rounds
 		M.client.prefs.real_name = random_name
 		M.client.prefs.save_character(M.client)
+
+	else if(href_list["cma_admin"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["cma_admin"])
+		if(!ishuman(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /human</span>")
+			return
+		usr.client.change_human_appearance_admin(M)
+
+	else if(href_list["cma_self"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["cma_self"])
+		if(!ishuman(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /human</span>")
+			return
+		usr.client.change_human_appearance_self(M)
+
+	else if(href_list["check_contents"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["check_contents"])
+		if(!isliving(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /living</span>")
+			return
+		usr.client.cmd_admin_check_contents(M)
+
+	else if(href_list["man_up"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["man_up"])
+		if(!ismob(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+		usr.client.man_up(M)
+
+	else if(href_list["select_equip"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["select_equip"])
+		if(!ishuman(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /human</span>")
+			return
+		usr.client.cmd_admin_dress(M)
+
+	else if(href_list["update_mob_sprite"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["update_mob_sprite"])
+		if(!ishuman(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /human</span>")
+			return
+		usr.client.update_mob_sprite(M)
 
 	else if(href_list["asays"])
 		if(!check_rights(R_ADMIN))
@@ -1703,30 +1720,6 @@
 		var/mob/living/silicon/ai/ai_character = H.AIize()
 		ai_character.moveToAILandmark()
 
-	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-			return
-		if(alert(usr, "Confirm make alien?",, "Yes", "No") != "Yes")
-			return
-
-		usr.client.cmd_admin_alienize(H)
-
-	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-			return
-		if(alert(usr, "Confirm make slime?",, "Yes", "No") != "Yes")
-			return
-
-		usr.client.cmd_admin_slimeize(H)
-
 	else if(href_list["makesuper"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1821,7 +1814,7 @@
 			return
 
 		var/mob/dead/observer/A = C.mob
-		sleep(2)
+		sleep(5)
 		A.ManualFollow(M)
 
 	else if(href_list["check_antagonist"])
@@ -2144,259 +2137,15 @@
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/btypes = list("To Arrivals", "Moderate Heal")
-		var/mob/living/carbon/human/H
-		if(ishuman(M))
-			H = M
-			btypes += "Heal Over Time"
-			btypes += "Permanent Regeneration"
-			btypes += "Super Powers"
-			btypes += "Scarab Guardian"
-			btypes += "Human Protector"
-			btypes += "Sentient Pet"
-			btypes += "All Access"
-		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
-		if(!(blessing in btypes))
-			return
-		var/logmsg = null
-		switch(blessing)
-			if("To Arrivals")
-				M.forceMove(pick(GLOB.latejoin))
-				to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-				logmsg = "a teleport to arrivals."
-			if("Moderate Heal")
-				M.adjustBruteLoss(-25)
-				M.adjustFireLoss(-25)
-				M.adjustToxLoss(-25)
-				M.adjustOxyLoss(-25)
-				to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
-				logmsg = "a moderate heal."
-			if("Heal Over Time")
-				H.reagents.add_reagent("salglu_solution", 30)
-				H.reagents.add_reagent("salbutamol", 20)
-				H.reagents.add_reagent("spaceacillin", 20)
-				logmsg = "a heal over time."
-			if("Permanent Regeneration")
-				H.dna.SetSEState(GLOB.regenerateblock, 1)
-				genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
-				H.update_mutations()
-				H.gene_stability = 100
-				logmsg = "permanent regeneration."
-			if("Super Powers")
-				var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
-				for(var/gene in default_genes)
-					H.dna.SetSEState(gene, 1)
-					genemutcheck(H, gene,  null, MUTCHK_FORCED)
-					H.update_mutations()
-				H.gene_stability = 100
-				logmsg = "superpowers."
-			if("Scarab Guardian")
-				var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)
-				var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
-				var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
-				if(isnull(typechoice))
-					return
-				if(typechoice != "Random")
-					possible_guardians -= "Random"
-					scarab.possible_guardians = list()
-					scarab.possible_guardians += typechoice
-				scarab.attack_self(H)
-				spawn(700)
-					qdel(scarab)
-				logmsg = "scarab guardian."
-			if("Sentient Pet")
-				var/pets = subtypesof(/mob/living/simple_animal)
-				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
-				if(isnull(petchoice))
-					return
-				var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
-				var/mob/dead/observer/theghost = null
-				if(candidates.len)
-					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
-					theghost = pick(candidates)
-					P.key = theghost.key
-					P.master_commander = H
-					P.universal_speak = 1
-					P.universal_understand = 1
-					P.can_collar = 1
-					P.faction = list("neutral")
-					var/obj/item/clothing/accessory/petcollar/C = new
-					P.add_collar(C)
-					var/obj/item/card/id/I = H.wear_id
-					if(I)
-						var/obj/item/card/id/D = new /obj/item/card/id(C)
-						D.access = I.access
-						D.registered_name = P.name
-						D.assignment = "Pet"
-						C.access_id = D
-					spawn(30)
-						var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
-						if(newname && newname != P.name)
-							P.name = newname
-							if(P.mind)
-								P.mind.name = newname
-					logmsg = "pet ([P])."
-				else
-					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>")
-					logmsg = "pet (no volunteers)."
-			if("Human Protector")
-				usr.client.create_eventmob_for(H, 0)
-				logmsg = "syndie protector."
-			if("All Access")
-				var/obj/item/card/id/I = H.wear_id
-				if(I)
-					var/list/access_to_give = get_all_accesses()
-					for(var/this_access in access_to_give)
-						if(!(this_access in I.access))
-							// don't have it - add it
-							I.access |= this_access
-				else
-					to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
-				logmsg = "all access."
-		if(logmsg)
-			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
-			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
+		usr.client.bless(M)
 	else if(href_list["Smite"])
 		if(!check_rights(R_EVENT))
 			return
 		var/mob/living/M = locateUID(href_list["Smite"])
-		var/mob/living/carbon/human/H
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
-		if(ishuman(M))
-			H = M
-			ptypes += "Brain Damage"
-			ptypes += "Honk Tumor"
-			ptypes += "Hallucinate"
-			ptypes += "Cold"
-			ptypes += "Hunger"
-			ptypes += "Cluwne"
-			ptypes += "Mutagen Cookie"
-			ptypes += "Hellwater Cookie"
-			ptypes += "Hunter"
-			ptypes += "Crew Traitor"
-			ptypes += "Floor Cluwne"
-			ptypes += "Shamebrero"
-			ptypes += "Dust"
-		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
-		if(!(punishment in ptypes))
-			return
-		var/logmsg = null
-		switch(punishment)
-			// These smiting types are valid for all living mobs
-			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
-				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
-				M.adjustFireLoss(75)
-				M.Weaken(5)
-				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
-				logmsg = "a lightning bolt."
-			if("Fire Death")
-				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
-				var/turf/simulated/T = get_turf(M)
-				new /obj/effect/hotspot(T)
-				M.adjustFireLoss(150)
-				logmsg = "a firey death."
-			if("Gib")
-				M.gib(FALSE)
-				logmsg = "gibbed."
-
-			// These smiting types are only valid for ishuman() mobs
-			if("Brain Damage")
-				H.adjustBrainLoss(75)
-				logmsg = "75 brain damage."
-			if("Honk Tumor")
-				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
-					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
-					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
-					organ.insert(H)
-				logmsg = "a honk tumor."
-			if("Hallucinate")
-				H.Hallucinate(1000)
-				logmsg = "hallucinations."
-			if("Cold")
-				H.reagents.add_reagent("frostoil", 40)
-				H.reagents.add_reagent("ice", 40)
-				logmsg = "cold."
-			if("Hunger")
-				H.set_nutrition(NUTRITION_LEVEL_CURSED)
-				logmsg = "starvation."
-			if("Cluwne")
-				H.makeCluwne()
-				H.mutations |= NOCLONE
-				logmsg = "cluwned."
-			if("Mutagen Cookie")
-				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-				evilcookie.reagents.add_reagent("mutagen", 10)
-				evilcookie.desc = "It has a faint green glow."
-				evilcookie.bitesize = 100
-				evilcookie.flags = NODROP | DROPDEL
-				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
-				logmsg = "a mutagen cookie."
-			if("Hellwater Cookie")
-				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-				evilcookie.reagents.add_reagent("hell_water", 25)
-				evilcookie.desc = "Sulphur-flavored."
-				evilcookie.bitesize = 100
-				evilcookie.flags = NODROP | DROPDEL
-				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
-				logmsg = "a hellwater cookie."
-			if("Hunter")
-				H.mutations |= NOCLONE
-				usr.client.create_eventmob_for(H, 1)
-				logmsg = "hunter."
-			if("Crew Traitor")
-				if(!H.mind)
-					to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
-					return
-				var/list/possible_traitors = list()
-				for(var/mob/living/player in GLOB.alive_mob_list)
-					if(player.client && player.mind && player.stat != DEAD && player != H)
-						if(ishuman(player) && !player.mind.special_role)
-							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
-								possible_traitors += player.mind
-				for(var/datum/mind/player in possible_traitors)
-					if(player.current)
-						if(ismindshielded(player.current))
-							possible_traitors -= player
-				if(possible_traitors.len)
-					var/datum/mind/newtraitormind = pick(possible_traitors)
-					var/datum/objective/assassinate/kill_objective = new()
-					kill_objective.target = H.mind
-					kill_objective.owner = newtraitormind
-					kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
-					newtraitormind.objectives += kill_objective
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
-					newtraitormind.add_antag_datum(T)
-				else
-					to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
-					return
-				logmsg = "crew traitor."
-			if("Floor Cluwne")
-				var/turf/T = get_turf(M)
-				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
-				FC.smiting = TRUE
-				FC.Acquire_Victim(M)
-				logmsg = "floor cluwne"
-			if("Shamebrero")
-				if(H.head)
-					H.unEquip(H.head, TRUE)
-				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-				H.equip_to_slot_or_del(S, slot_head)
-				logmsg = "shamebrero"
-			if("Dust")
-				H.dust()
-				logmsg = "dust"
-		if(logmsg)
-			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
-			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
+		usr.client.smite(M)
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -3397,7 +3146,7 @@
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
-					
+
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
 				message_admins("[key_name_admin(usr)] moved the gamma armory")
