@@ -18,5 +18,24 @@
 
 /mob/living/carbon/human/monkey/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
 	. = ..()
+	drop_shoes()
+
+/mob/living/carbon/human/farwa/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+	. = ..()
+	drop_shoes()
+
+/mob/living/carbon/human/wolpin/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+	. = ..()
+	drop_shoes()
+
+/mob/living/carbon/human/neara/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+	. = ..()
+	drop_shoes()
+
+/mob/living/carbon/human/stok/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+	. = ..()
+	drop_shoes()
+
+/mob/living/carbon/human/proc/drop_shoes()
 	if(prob(50))
 		unEquip(shoes, 1)
