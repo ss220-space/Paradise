@@ -43,7 +43,7 @@
 	chemdesc = "Heals suffocation damage."
 
 /datum/borer_chem/bicaridine
-	chemname = "bicaridines"
+	chemname = "bicaridine"
 	chemdesc = "Heals brute damage."
 	chemuse = 30
 
