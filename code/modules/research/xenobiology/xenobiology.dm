@@ -191,6 +191,7 @@
 		return ..()
 	if (isanimal(M))
 		var/mob/living/simple_animal/SM = M
+
 		if(SM.sentience_type != sentience_type)
 			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
 			return ..()
@@ -219,6 +220,13 @@
 			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
 			qdel(src)
+
+			var/new_name = sanitize(copytext_char(input(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name) as null|text,1,MAX_NAME_LEN))
+			if(new_name)
+				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
+				to_chat(SM, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				SM.real_name = new_name
+				SM.name = new_name
 
 			SM.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			log_game("[key_name(SM)] стал питомцем игрока [key_name(user)]")
@@ -251,6 +259,13 @@
 			to_chat(LF, "<span class='userdanger'>Вы самоосознались благодаря [user]. В качестве благодарности, теперь вы служите [user], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!</span>")
 			to_chat(user, "<span class='notice'>[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!</span>")
 			qdel(src)
+
+			var/new_name = sanitize(copytext_char(input(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name) as null|text,1,MAX_NAME_LEN))
+			if(new_name)
+				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
+				to_chat(LF, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				LF.real_name = new_name
+				LF.name = new_name
 
 			LF.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			log_game("[key_name(LF)] стал питомцем игрока [key_name(user)]")
