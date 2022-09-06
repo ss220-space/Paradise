@@ -11,7 +11,7 @@
 	icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	/// Time interval between glowshroom "spreads"
-	var/delay_spread = 1 MINUTES
+	var/delay_spread = 2 MINUTES
 	/// Time interval between glowshroom decay checks
 	var/delay_decay = 30 SECONDS
 	/// Boolean to indicate if the shroom is on the floor/wall
@@ -75,7 +75,7 @@
 	//In case production is varedited to -1 or less which would cause unlimited or negative delay.
 	if(myseed.production >= 1)
 		//Because lower production speed stat gives faster production speed, which should give faster mushroom spread. Range 200-1100 deciseconds.
-		delay_spread = delay_spread - (11 - myseed.production) * 100
+		delay_spread = delay_spread ^ (1 / (2 - myseed.production) / 10)
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
@@ -276,4 +276,3 @@
 		// Hacky I guess
 		return myseed.attackby(analyzer, user, params)
 	return ..()
-
