@@ -10,7 +10,7 @@
 //количества тепла, рассеиваемого резервной системой охлаждения каждый вызов Life()
 #define AI_RESERVE_COOLDOWN_RATE		5
 //мультипликатор охлаждения при перегреве
-#define AI_OVERHEAT_COOLDOWN_MULTIPLIER	2
+#define AI_OVERHEAT_COOLDOWN_MULTIPLIER	5
 
 //использование топиков (все действия во всех консолях)
 #define AI_USE_TOPIC_HEAT				30
@@ -30,7 +30,7 @@
 #define AI_DOOR_BOLTS_LIGHTS_HEAT		250
 
 //движение камеры
-#define AI_MOVE_HEAT					15
+#define AI_MOVE_HEAT					2
 //текстовый анонс
 #define AI_ANNOUNCEMENT_HEAT			200
 //голосовой анонс
@@ -41,7 +41,7 @@
 //попытка отследить человека
 #define AI_TRY_TRACK_HEAT				250
 //дополнительное тепло к передвижению во время отслеживания
-#define AI_IN_TRACKING_HEAT				25
+#define AI_IN_TRACKING_HEAT				10
 
 //сохранение локации для камеры
 #define AI_LOCATION_STORAGE_HEAT		200
