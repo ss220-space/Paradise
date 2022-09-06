@@ -74,8 +74,8 @@
 
 	//In case production is varedited to -1 or less which would cause unlimited or negative delay.
 	if(myseed.production >= 1)
-		//Because lower production speed stat gives faster production speed, which should give faster mushroom spread. Range 200-1100 deciseconds.
-		delay_spread = delay_spread ^ (1 / (2 - myseed.production) / 10)
+		//Because lower production speed stat gives faster production speed, which should give faster mushroom spread. Range 0 — idk-how-many deciseconds.
+		delay_spread = delay_spread ** (1 / (2 - myseed.production / 10))
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
