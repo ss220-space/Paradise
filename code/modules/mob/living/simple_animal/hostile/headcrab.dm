@@ -33,6 +33,9 @@
 	var/vent_cooldown = 20
 	var/building = FALSE
 	var/hiding = FALSE
+	var/gonome = FALSE
+	var/can_be_gonomed = TRUE
+	var/gonome_time = 246
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -133,7 +136,23 @@
 	if(!is_zombie)
 		revive_cooldown--
 
+	if(is_zombie && !gonome && can_be_gonomed)
+		gonome_time--
+
 	vent_cooldown--
+
+	if(gonome_time <= 0)
+		gonome = TRUE
+		to_chat(src, "<span class='notice'>You are evolved to gonome!</span>")
+		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health.")
+		ranged = 1
+		ranged_cooldown_time = 125
+		health += 25
+		maxHealth += 50
+		health = maxHealth
+		projectiletype = /obj/item/projectile/toxinvomit
+		projectilesound = 'sound/weapons/pierce.ogg'
+		desc += " This individual seems to have evolved, and it has been around for quite a long time."
 
 	if(..() && !stat)
 		if(!is_zombie && isturf(src.loc))
@@ -246,7 +265,7 @@
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	//var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
@@ -281,9 +300,9 @@
 	attacktext = "кромсает"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
-	if(head_organ)
-		head_organ.h_style = null
-	H.update_hair()
+	/*if(head_organ)
+		head_organ.h_style = null //ладно, сжалимся над игроками, пусть остается прическа.
+	H.update_hair()*/
 	host_species = H.dna.species.name
 	human_overlays = H.overlays
 	update_icons()
@@ -331,6 +350,41 @@
 			return FALSE
 	return ..()
 
+//GONOME STUFF
+
+/mob/living/simple_animal/hostile/headcrab/Stat()
+	..()
+
+	if(!is_zombie && !gonome)
+		return
+
+	statpanel("Status")
+
+	show_stat_emergency_shuttle_eta()
+
+	if(client.statpanel == "Status")
+		stat("Time until Evolution", gonome_time)
+
+/obj/item/projectile/toxinvomit
+	name = "toxic vomit" // for gonome
+	damage = 15
+	damage_type = BURN
+	stamina = 15
+	drowsy = 5
+	jitter = 5
+	eyeblur = 2
+	slur = 5
+	icon_state = "toxinvomit" //gonome gomosek
+
+/obj/item/projectile/toxinvomit/on_hit(mob/living/target)
+	. = ..()
+
+	var/mob/living/victim = target
+
+	victim.adjustToxLoss(rand(0,6))
+
+//NOT GONOME STUFF
+
 /mob/living/simple_animal/hostile/headcrab/fast
 	name = "fast headcrab"
 	desc = "A fast parasitic creature that would like to connect with your brain stem."
@@ -366,6 +420,9 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 
+	maxHealth -= 20
+	health = maxHealth //быстрые обычно менее жирные по хп. сделеам так же.
+
 	speed = 0.55
 
 /mob/living/simple_animal/hostile/headcrab/poison
@@ -387,6 +444,7 @@
 	speak_emote = list("shrilly squeaks")
 	var/neurotoxin_per_jump = 5
 	var/poison_headcrabs = 0
+	can_be_gonomed = FALSE
 
 /mob/living/simple_animal/hostile/headcrab/poison/update_icons()
 	. = ..()
@@ -415,6 +473,7 @@
 
 	speed = 2.85
 	ranged = 1
+	ranged_cooldown_time = 100
 	maxHealth += 25
 	health = maxHealth //как никак, танк
 	obj_damage += 40 //ядовитый зомби выступает что-то вроде танка, поэтому и здоровья с уроном побольше.
@@ -466,7 +525,9 @@
 			if(src.poison_headcrabs == 0)
 				desc = "A corpse animated by the alien being on its head."
 				ranged = 0
-				to_chat(src, "No more headcrabs on your back, pal!")
+				to_chat(src, "No more headcrabs on your back, pal! But... You can be gonome now!")
+				can_be_gonomed = TRUE
+				gonome_time -= 40
 			visible_message("<span class='danger'><b>[src]</b> throwing [headcrab] at [target]!</span>")
 			playsound(src, list('sound/effects/poison_headcrab_throw1.ogg', 'sound/effects/poison_headcrab_throw2.ogg'), 45, 1)
 			headcrab.throw_at(target, headcrab.jumpdistance, headcrab.jumpspeed, spin = FALSE, diagonals_first = TRUE)
@@ -512,6 +573,8 @@
 
 	maxHealth += 60 //armored? armored.
 	health = maxHealth
+
+	speed = 1.2
 
 /mob/living/simple_animal/hostile/headcrab/reviver //no sprites, but coded //x2
 	name = "reviver headcrab"
@@ -560,6 +623,8 @@
 
 /mob/living/simple_animal/hostile/headcrab/reviver/Zombify(mob/living/carbon/human/H)
 	. = ..()
+
+	speed = 0.80
 
 	H.shock_internal_organs(100)
 	H.set_heartattack(FALSE) //уподобление оригиналу, что-то вроде оживления.
