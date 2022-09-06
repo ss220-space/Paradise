@@ -261,6 +261,46 @@
 			busy = 0
 			stop_automated_movement = 0
 
+//CHANGELING SPIDER
+/mob/living/simple_animal/hostile/poison/changelingspider
+	name = "strange giant spider"
+	desc = "Giant and purple, it makes you shudder to look at it. This one has deep purple eyes."
+	icon_state = "changelingspider"
+	icon_living = "changelingspider"
+	icon_dead = "changelingspiderdead"
+	speak_emote = list("chitters")
+	emote_hear = list("chitters")
+	emote_see = list("chitters")
+	turns_per_move = 7
+	see_in_dark = 15
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "hits"
+	maxHealth = 145
+	health = 145
+	obj_damage = 100
+	melee_damage_lower = 20
+	melee_damage_upper = 15
+	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
+	cold_damage_per_tick = 20	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
+	faction = list("spiders")
+	move_to_delay = 4
+	speed = 1.8
+	attacktext = "кусает"
+	attack_sound = 'sound/weapons/bite.ogg'
+	gold_core_spawnable = NO_SPAWN
+	var/venom_per_bite = 6
+
+/mob/living/simple_animal/hostile/poison/changelingspider/AttackingTarget()
+	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
+	. = ..()
+	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
+		var/mob/living/carbon/C = target
+		var/inject_target = pick("chest", "head")
+		if(C.can_inject(null, FALSE, inject_target, FALSE))
+			C.reagents.add_reagent("spidertoxin", venom_per_bite)
+
 #undef SPINNING_WEB
 #undef LAYING_EGGS
 #undef MOVING_TO_TARGET
