@@ -355,7 +355,7 @@
 /mob/living/simple_animal/hostile/headcrab/Stat()
 	..()
 
-	if(!is_zombie && !gonome)
+	if(!is_zombie && gonome)
 		return
 
 	statpanel("Status")
@@ -481,7 +481,7 @@
 /mob/living/simple_animal/hostile/headcrab/poison/Stat()
 	..()
 
-	if(!is_zombie)
+	if(!is_zombie && poison_headcrabs != 0)
 		return
 
 	statpanel("Status")
