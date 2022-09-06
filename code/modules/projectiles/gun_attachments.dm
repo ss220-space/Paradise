@@ -200,19 +200,10 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(var/mob/living/carbon/human/H, var/obj/item/card/id/card)
 	ASSERT(istype(H))
 	ASSERT(istype(card))
-
-	var/list/places = list(H.wear_id, H.wear_pda, H.l_hand, H.r_hand)
-	for(var/place in places)
-		var/obj/item/card/id/C = place
-		if(istype(C, /obj/item/pda))
-			var/obj/item/pda/pda = C
-			C = pda.id
-		if(istype(C, /obj/item/storage/wallet))
-			var/obj/item/storage/wallet/wallet = C
-			C = wallet.front_id
-		if(istype(C) && C.registered_name == card.registered_name)
+	for(var/obj/item/place in H.get_access_locations())
+		var/obj/item/card/id/found_id = place.GetID()
+		if(istype(found_id) && found_id.registered_name == found_id.registered_name)
 			return TRUE
-
 	return FALSE
 
 /obj/item/sibyl_system_mod/proc/process_fire()
