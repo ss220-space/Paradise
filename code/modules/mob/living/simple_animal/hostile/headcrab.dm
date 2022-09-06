@@ -355,7 +355,7 @@
 /mob/living/simple_animal/hostile/headcrab/Stat()
 	..()
 
-	if(!is_zombie && gonome)
+	if(!gonome)
 		return
 
 	statpanel("Status")
@@ -374,7 +374,7 @@
 	jitter = 5
 	eyeblur = 2
 	slur = 5
-	icon_state = "toxinvomit" //gonome gomosek
+	icon_state = "toxinvomit"
 
 /obj/item/projectile/toxinvomit/on_hit(mob/living/target)
 	. = ..()
