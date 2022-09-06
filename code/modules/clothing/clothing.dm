@@ -107,8 +107,6 @@
 			if(!wearable)
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
 				return 0
-
-	log_admin("Пройдено 5")
 	return 1
 
 /obj/item/clothing/proc/refit_for_species(var/target_species)
@@ -677,7 +675,7 @@ BLIND     // can't see anything
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
 
-//  clothing
+// Under clothing
 /obj/item/clothing/under
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
@@ -849,6 +847,7 @@ BLIND     // can't see anything
 	else
 		..()
 
+// Neck clothing
 /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
