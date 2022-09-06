@@ -13,8 +13,9 @@
 	var/datum/mind/owner = null			//владелец амбиции
 	var/completed = 0					//завершение амбиции для конца раунда
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
-	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции, оптимальный 30, если бы у всех отделов было бы достаточно амбиций, но это нивелируется пустыми строками
+	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции
 	var/chance_other_departament_ambition = 30	//шанс выпадения амбиции чужого департамента
+	var/list/choose_list = list()		//список повторов рандома у амбиции
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
@@ -31,8 +32,6 @@
 		if (!result)
 			result = pick_list("ambition_objectives_generic.json", "Общий")
 
-	//message = replacetextEx_char(message,"ого ","аго ")
-
 	return ambition_code(result)
 
 /datum/ambition_objective/proc/get_job_departament_ambition()
@@ -43,7 +42,7 @@
 	if(prob(chance_generic_ambition))
 		job = "Общий"
 
-	//Проверяем работы не в позициях и вынесенные в отдельный документ
+	//Проверяем работы не в позициях и вынесенные в отдельный файл
 	switch(owner.assigned_role)
 		if("Magistrate", "Internal Affairs Agent")
 			if("Magistrate" && (prob(chance_other_departament_ambition))) //шанс что магистрат возьмёт общую амбицию глав.
@@ -101,7 +100,8 @@
 			result = pick_list("ambition_objectives_command.json", job)
 		return result
 
-	if(owner.assigned_role in GLOB.support_positions)
+	var/list/non_support_roles = list("Magistrate", "Internal Affairs Agent", "Blueshield", "Nanotrasen Representative")
+	if(owner.assigned_role in (GLOB.support_positions - GLOB.supply_positions - non_support_roles))
 		result = pick_list("ambition_objectives_support.json", job)
 		if (!result)
 			return result
@@ -126,7 +126,7 @@
 		if (!result)
 			return result
 
-	if(owner.assigned_role in GLOB.security_positions)
+	if(owner.assigned_role in (GLOB.security_positions - GLOB.support_positions))
 		if("Brig Physician" && (prob(chance_other_departament_ambition)))	//шанс что бригмедик возьмёт амбицию мед. отдела.
 			job = pick(GLOB.medical_positions)
 			result = pick_list("ambition_objectives_medical.json", job)
@@ -138,15 +138,40 @@
 	return result
 
 /datum/ambition_objective/proc/ambition_code(var/text)
+	choose_list = list()
 
-	text = replacetextEx_char(text, "\[random_crew\]", random_player()) //[random_crew] - случайный член экипажа
-	text = replacetextEx_char(text, "\[random_departament\]", pick_list("ambition_randoms.json", "отдел"))//[random_departament] - случайный отдел
-	text = replacetextEx_char(text, "\[random_departament_crew\]", pick_list("ambition_randoms.json", "отдел_наименования"))//[random_departament_crew] - наименования членов отдела
-	text = replacetextEx_char(text, "\[random_pet\]", pick_list("ambition_randoms.json", "питомец"))//[random_pet] - случайный питомец
-	text = replacetextEx_char(text, "\[random_food\]", pick_list("ambition_randoms.json", "еда"))//[random_food] - случайная еда
-	text = replacetextEx_char(text, "\[random_drink\]", pick_list("ambition_randoms.json", "напиток"))//[random_drink] - случайный напиток
-	text = replacetextEx_char(text, "\[random_holiday\]", pick_list("ambition_randoms.json", "праздник")) //[random_holiday] - случайный праздник
-	return text
+	var/list/random_codes = list(
+		"random_crew",
+		"random_departament",
+		"random_departament_crew",
+		"random_pet",
+		"random_food",
+		"random_drink",
+		"random_holiday"
+	)
+
+	var/list/items = splittext(text, "\[")
+	text = ""
+	for(var/item in items)
+		for (var/code in random_codes)
+			item = replacetextEx_char(item, "[code]\]", random_choose(code))
+		text += item
+
+	return uppertext(copytext_char(text, 1, 2)) + copytext_char(text, 2)	//переводим первым символ в верхний регистр
+
+//выдача рандома, проверка на повторы
+/datum/ambition_objective/proc/random_choose(var/list_for_pick)
+	if (list_for_pick == "random_crew")
+		return random_player()
+
+	var/picked = pick_list("ambition_randoms.json", list_for_pick)
+
+	//избавляемся от повтора
+	while(picked in choose_list)
+		picked = pick_list("ambition_randoms.json", list_for_pick)
+
+	choose_list.Add(picked)
+	return picked
 
 /datum/ambition_objective/proc/random_player()
 	var/list/players = list()
@@ -188,7 +213,6 @@
 
 		if(ambitions_completed)
 			text += "<br>&nbsp;<font color='green'><B>[employee.name] считает, что реализовал свои амбиции!</B></font>"
-			//text += "<br>&nbsp;<font color='green'><B>[employee.name] счита[pluralize_ru(usr.gender,"ет","ют")], что реализовал[genderize_ru(usr.gender,"","а","о","и")] свои амбиции!</B></font>"
 			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
 		else
 			SSblackbox.record_feedback("tally", "employee_success", 1, "FAIL")
