@@ -43,8 +43,8 @@
 		return
 
 	if(!QDELETED(candidate) || !QDELETED(candidate.mob))
-		var/datum/mind/M = create_headcrab_mind(candidate.ckey)
-		M.transfer_to(src)
+		var/datum/mind/user = create_headcrab_mind(candidate.ckey)
+		user.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
 		if(!is_zombie)
