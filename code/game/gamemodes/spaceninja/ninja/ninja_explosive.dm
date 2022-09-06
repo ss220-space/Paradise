@@ -14,7 +14,9 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "spider_charge0"
 	item_state = "spider_charge"
-	boom_sizes = list(4, 8, 12)
+	devastation_range = 4
+	heavy_impact_range = 8
+	light_impact_range = 12
 	///Weakref to the mob that has planted the charge
 	var/mob/living/carbon/human/detonator
 	///Reference to the objective that will be completed after da bang!

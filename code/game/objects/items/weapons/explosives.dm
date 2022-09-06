@@ -131,7 +131,10 @@
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
-	var/boom_sizes = list(0, 0, 3)
+	var/devastation_range = 0
+	var/heavy_impact_range = 0
+	var/light_impact_range = 3
+	var/flash_range = 0
 
 /obj/item/grenade/plastic/c4/prime()
 	var/turf/location
@@ -145,7 +148,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3])
+		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range)
 		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target

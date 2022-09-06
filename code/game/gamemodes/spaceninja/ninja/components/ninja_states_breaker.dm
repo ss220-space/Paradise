@@ -48,9 +48,5 @@
 		my_suit.cancel_stealth()
 	if(my_suit.disguise_active)
 		my_suit.restore_form()
-/*
-	if(my_suit.spirited)
-		my_suit.cancel_spirit_form()
-*/
 
 

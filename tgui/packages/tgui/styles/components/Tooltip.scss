@@ -1,12 +1,8 @@
-@use 'sass:color';
-@use '../colors.scss';
 @use '../base.scss';
 @use '../functions.scss' as *;
 
 $color-background: #000000 !default;
 $border-radius: base.$border-radius !default;
-$color-title: #ffffff !default;
-$color-separator: colors.$primary  !default;
 
 .Tooltip {
   position: absolute;
