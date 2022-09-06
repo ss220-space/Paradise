@@ -1765,18 +1765,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_age_pitch(var/tolerance = 5)
 	return 1.0 + 0.5*(30 - age)/80 + (0.01*rand(-tolerance,tolerance))
 
-/mob/living/carbon/human/get_access()
+/mob/living/carbon/human/get_access_locations()
 	. = ..()
-
-	if(wear_id)
-		. |= wear_id.GetAccess()
-	if(wear_pda)
-		. |= wear_pda.GetAccess()
-	if(istype(w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/U = w_uniform
-		if(U.accessories)
-			for(var/obj/item/clothing/accessory/A in U.accessories)
-				. |= A.GetAccess()
+	. |= list(wear_id, wear_pda, w_uniform)
 
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
