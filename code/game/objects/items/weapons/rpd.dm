@@ -198,6 +198,7 @@
 	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
+	data["auto_wrench"] = auto_wrench
 	return data
 
 /obj/item/rpd/ui_act(action, list/params)
@@ -217,6 +218,8 @@
 			pipe_category = text2num(sanitize(params["pipe_category"]))
 		if("mode")
 			mode = text2num(sanitize(params["mode"]))
+		if("auto_wrench")
+			auto_wrench = !auto_wrench
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
