@@ -70,10 +70,10 @@
 
 	if(successSpawn)
 		var/list/spawners = list()
-		for(var/obj/structure/spawner/headcrab/headcrab_spawners in world)
+		for(var/obj/structure/spawner/headcrab/headcrab_spawners in availableareas)
 			spawners += headcrab_spawners
 		var/obj/structure/spawner/headcrab/spawner = pick(spawners)
-		notify_ghosts("Появились хедкрабы.", source = spawner, action = NOTIFY_ATTACK, flashwindow = FALSE)
+		notify_ghosts("Появились хедкрабы", source = spawner, action = NOTIFY_ATTACK, flashwindow = FALSE)
 
 
 /datum/event/headcrabs/announce()

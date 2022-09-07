@@ -150,6 +150,10 @@
 		ranged_cooldown_time = 125
 		health += 25
 		maxHealth += 50
+		melee_damage_lower += 5
+		melee_damage_upper += 10
+		obj_damage += 20
+		speed -= 0.2
 		projectiletype = /obj/item/projectile/toxinvomit
 		projectilesound = 'sound/weapons/pierce.ogg'
 		ranged_message = "блюет"
