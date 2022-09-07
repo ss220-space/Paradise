@@ -156,7 +156,7 @@
 		speed -= 0.2
 		projectiletype = /obj/item/projectile/toxinvomit
 		projectilesound = 'sound/weapons/pierce.ogg'
-		ranged_message = "puking"
+		ranged_message = "pukes"
 		desc += " This individual seems to have evolved, and it has been around for quite a long time."
 
 	if(..() && !stat)
