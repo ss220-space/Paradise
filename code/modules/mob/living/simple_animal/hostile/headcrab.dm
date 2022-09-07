@@ -12,7 +12,7 @@
 	melee_damage_upper = 10
 	ranged = 1
 	ventcrawler = 2
-	ranged_message = "бросается"
+	ranged_message = "leaps"
 	ranged_cooldown_time = 40
 	var/jumpdistance = 4
 	var/jumpspeed = 2
@@ -156,7 +156,7 @@
 		speed -= 0.2
 		projectiletype = /obj/item/projectile/toxinvomit
 		projectilesound = 'sound/weapons/pierce.ogg'
-		ranged_message = "блюет"
+		ranged_message = "puking"
 		desc += " This individual seems to have evolved, and it has been around for quite a long time."
 
 	if(..() && !stat)
@@ -247,7 +247,7 @@
 					continue
 				if(faction_check_mob(L) && !attack_same)
 					return
-	visible_message("<span class='danger'><b>[src]</b> [ranged_message] на [A]!</span>")
+	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	vent_cooldown += 5
