@@ -123,7 +123,7 @@
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/jackboot1.ogg' = 1, 'sound/effects/jackboot2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/jackboots)
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -257,7 +257,7 @@
 		var/obj/item/stack/tape_roll/TR = I
 		if((!silence_steps) && TR.use(4))
 			silence_steps = TRUE
-			GetComponent(/datum/component/squeak)?.RemoveComponent()
+			GetComponent(/datum/component/jackboots)?.RemoveComponent()
 			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else
 		return ..()
