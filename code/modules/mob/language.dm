@@ -503,7 +503,7 @@
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
-	colour = "terrorspider"
+	colour = "headcrab"
 	key = "he"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE

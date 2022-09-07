@@ -12,7 +12,7 @@
 	melee_damage_upper = 10
 	ranged = 1
 	ventcrawler = 2
-	ranged_message = "leaps"
+	ranged_message = "бросается"
 	ranged_cooldown_time = 40
 	var/jumpdistance = 4
 	var/jumpspeed = 2
@@ -30,12 +30,12 @@
 	var/revive_cooldown = 0
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/vent_cooldown = 20
+	var/vent_cooldown = 10
 	var/building = FALSE
 	var/hiding = FALSE
 	var/gonome = FALSE
 	var/can_be_gonomed = TRUE
-	var/gonome_time = 246
+	var/gonome_time = 468
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -139,7 +139,8 @@
 	if(is_zombie && !gonome && can_be_gonomed)
 		gonome_time--
 
-	vent_cooldown--
+	if(!is_zombie)
+		vent_cooldown--
 
 	if(gonome_time <= 0)
 		gonome = TRUE
@@ -149,9 +150,9 @@
 		ranged_cooldown_time = 125
 		health += 25
 		maxHealth += 50
-		health = maxHealth
 		projectiletype = /obj/item/projectile/toxinvomit
 		projectilesound = 'sound/weapons/pierce.ogg'
+		ranged_message = "блюет"
 		desc += " This individual seems to have evolved, and it has been around for quite a long time."
 
 	if(..() && !stat)
@@ -242,7 +243,7 @@
 					continue
 				if(faction_check_mob(L) && !attack_same)
 					return
-	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+	visible_message("<span class='danger'><b>[src]</b> [ranged_message] на [A]!</span>")
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	vent_cooldown += 5
@@ -250,7 +251,30 @@
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
 	. = ..()
 
-	vent_cooldown += 5
+	var/mob/living/carbon/body = target
+
+	if(body.stat != DEAD)
+		vent_cooldown += 5
+
+	if(src.health < src.maxHealth && iscarbon(body) & body.stat == DEAD)
+		to_chat(src, "You start to eating body...")
+		src.visible_message("<span class='danger'><b>[src]</b> started to eating <b>[target]</b>!</span>")
+		if(is_zombie)
+			if(do_after(src, 80, target = body, progress=TRUE))
+				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
+					var/gained_health = rand(5,25)
+					//body.adjustBruteLoss(rand(5,30))
+					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
+					health += gained_health
+					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
+		else //а вообще, атакуя все равно наносится урон, уберем те, что комментированы.
+			if(do_after(src, 40, target = body, progress=TRUE))
+				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
+					var/gained_health = rand(5,10)
+					//body.adjustBruteLoss(rand(1,10))
+					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
+					health += gained_health
+					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
 
 /mob/living/simple_animal/hostile/headcrab/New()
 
@@ -355,7 +379,7 @@
 /mob/living/simple_animal/hostile/headcrab/Stat()
 	..()
 
-	if(!gonome)
+	if(gonome)
 		return
 
 	statpanel("Status")
@@ -554,6 +578,7 @@
 	speed = 1.1
 	jumpdistance = 2
 	jumpspeed = 0.5
+	speak_emote = list("slowly hisses")
 	damage_coeff = list(BRUTE = 0.88, BURN = 0.88)
 
 /mob/living/simple_animal/hostile/headcrab/armored/update_icons()
