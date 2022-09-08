@@ -1,4 +1,8 @@
 //separate dm since hydro is getting bloated already
+/// Time interval between glowshroom "spreads". Made it as a constant for better control.
+#define SPREAD_DELAY 13 SECONDS
+/// Time interval between glowshroom decay checks.
+#define DECAY_DELAY 60 SECONDS
 
 /obj/structure/glowshroom
 	name = "glowshroom"
@@ -10,12 +14,8 @@
 	//replaced in Initialize()
 	icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
-	/// Time interval between glowshroom "spreads". Made it as a constant for better control.
-	var/delay_spread = 13 SECONDS
-	/// Time interval between glowshroom decay checks
-	var/delay_decay = 60 SECONDS
 	/// Boolean to indicate if the shroom is on the floor/wall
-	var/floor = FALSE
+	var/is_floor_turf = FALSE
 	/// Mushroom generation number
 	var/generation = 1
 	/// Chance to spread into adjacent tiles (0-100)
@@ -46,7 +46,7 @@
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
-	. += "This is a [generation]\th generation [name]!"
+	. += SPAN_NOTICE("This is a [generation]\th generation [name]!")
 
 /**
   *	Creates a new glowshroom structure.
@@ -77,7 +77,7 @@
 		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color)
 	setDir(calc_dir())
 	var/base_icon_state = initial(icon_state)
-	if(!floor)
+	if(!is_floor_turf)
 		//offset to make it be on the wall rather than on the floor
 		switch(dir)
 			if(NORTH)
@@ -93,8 +93,8 @@
 		//if on the floor, glowshroom on-floor sprite
 		icon_state = "[base_icon_state]f"
 
-	addtimer(CALLBACK(src, .proc/Spread), delay_spread, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
-	addtimer(CALLBACK(src, .proc/Decay), delay_decay, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
+	addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
+	addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
 
 /obj/structure/glowshroom/proc/Spread()
 	//We could be deleted at any point and the timers might not be cleaned up
@@ -166,7 +166,7 @@
 	if((shrooms_planted <= myseed.yield) && (max_failed_spreads >= 0))
 		myseed.adjust_yield(-shrooms_planted)
 		//Lets make this a unique hash
-		addtimer(CALLBACK(src, .proc/Spread), delay_spread, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 
 /obj/structure/glowshroom/proc/calc_dir(turf/location = loc)
 	var/direction = 16
@@ -180,7 +180,7 @@
 		if(shroom == src)
 			continue
 		//special
-		if(shroom.floor)
+		if(shroom.is_floor_turf)
 			direction &= ~16
 		else
 			direction &= ~shroom.dir
@@ -191,14 +191,14 @@
 		if(direction & i)
 			dir_list += i
 
-	if(dir_list.len)
+	if(length(dir_list))
 		var/new_dir = pick(dir_list)
 		if(new_dir == 16)
-			floor = 1
+			is_floor_turf = TRUE
 			new_dir = 1
 		return new_dir
 
-	floor = 1
+	is_floor_turf = TRUE
 	return 1
 
 /**
@@ -216,7 +216,7 @@
 		// Timed decay
 		myseed.endurance -= 1
 		if(myseed.endurance > 0)
-			addtimer(CALLBACK(src, .proc/Decay), delay_decay, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
+			addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
 			return
 	// Plant is gone
 	if(myseed.endurance < 1)
@@ -264,8 +264,11 @@
 	take_damage(damage_dealt, tool.damtype, "melee", 1)
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/analyzer, mob/living/user, params)
-	if(istype(analyzer, /obj/item/plant_analyzer))
+/obj/structure/glowshroom/attackby(obj/item/plant_analyzer, mob/living/user, params)
+	if(istype(plant_analyzer))
 		// Hacky I guess
-		return myseed.attackby(analyzer, user, params)
+		return myseed.attackby(plant_analyzer, user, params)
 	return ..()
+
+#undef SPREAD_DELAY
+#undef DECAY_DELAY
