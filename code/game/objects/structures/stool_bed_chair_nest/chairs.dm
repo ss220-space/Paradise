@@ -133,9 +133,6 @@
 	handle_rotation()
 
 /obj/structure/chair/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
 		return
 	rotate()
