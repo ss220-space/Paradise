@@ -37,8 +37,8 @@
 	if(!LAZYLEN(records))
 		return
 
-	for(var/datum/dna2/record/ninja_dna_record in records)
-		if(!(ninja))
+	if(!(ninja))
+		for(var/datum/dna2/record/ninja_dna_record in records)
 			if(revive_ninja(ninja_dna_record))
 //				message_admins("[src] message: removed record: [ninja_dna_record.ckey]")
 				records.Remove(ninja_dna_record)

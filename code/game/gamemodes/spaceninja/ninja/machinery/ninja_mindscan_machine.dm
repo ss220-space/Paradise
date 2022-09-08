@@ -189,16 +189,15 @@
 /obj/machinery/ninja_mindscan_machine/proc/teleport_out()
 	if(!occupant)
 		return
-	occupant.forceMove(get_turf(src))
-	occupant.loc.loc.Exited(ninja)
-	occupant.loc = pick(GLOB.ninja_teleport)
-
-	playsound(occupant.loc, 'sound/effects/phasein.ogg', 25, TRUE)
-	playsound(occupant.loc, 'sound/effects/sparks2.ogg', 50, TRUE)
-	new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(occupant), occupant.dir)
-	new /obj/item/radio/headset(get_turf(occupant))	//Если парня запрёт в техах, без средства связи... будет не круто, не так ли?
+	occupant.forceMove(pick(GLOB.ninja_teleport))
+	var/teleport_loc = occupant.loc
+	var/effect_dir = occupant.dir
 	occupant = null
-	to_chat(ninja, "<span class='boldnotice'>VOID-Shift</span> occupant translocation successful")
+	playsound(teleport_loc, 'sound/effects/phasein.ogg', 25, TRUE)
+	playsound(teleport_loc, 'sound/effects/sparks2.ogg', 50, TRUE)
+	new /obj/effect/temp_visual/dir_setting/ninja/phase(teleport_loc, effect_dir)
+	new /obj/item/radio/headset(teleport_loc)	//Если парня запрёт в техах, без средства связи... будет не круто, не так ли?
+	to_chat(ninja, "[span_boldnotice("VOID-Shift")] occupant translocation successful")
 	update_state_icon()
 
 /obj/machinery/ninja_mindscan_machine/proc/update_state_icon()
@@ -246,7 +245,4 @@
 			go_out()
 		if("teleport_out")
 			teleport_out()
-		if("test")
-			message_admins("test")
-
 

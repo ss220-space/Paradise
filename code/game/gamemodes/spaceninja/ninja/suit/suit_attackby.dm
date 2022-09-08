@@ -15,13 +15,13 @@
 
 	if(istype(I, /obj/item/stack/sheet/mineral/uranium))
 		var/obj/item/stack/sheet/mineral/uranium/uranium_stack = I
-		if(uranium_stack.amount >= a_transfer  && a_boost != TRUE)
+		if(uranium_stack.amount >= a_transfer && !a_boost)
 			a_boost = TRUE
 			uranium_stack.use(a_transfer)
 			for(var/datum/action/item_action/ninjaboost/ninja_action in actions)
 				toggle_ninja_action_active(ninja_action, TRUE)
 			to_chat(ninja, span_notice("The suit's adrenaline boost is now reloaded."))
-		else if(uranium_stack.amount >= a_transfer  && heal_available != TRUE)
+		else if(uranium_stack.amount >= a_transfer && !heal_available)
 			heal_available = TRUE
 			uranium_stack.use(a_transfer)
 			for(var/datum/action/item_action/ninjaheal/ninja_action in actions)

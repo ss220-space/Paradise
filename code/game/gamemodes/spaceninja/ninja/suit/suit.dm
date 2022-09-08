@@ -14,7 +14,10 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "ninja_suit"
 	item_state = "ninja_suit"
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank, /obj/item/stock_parts/cell)
+	allowed = list(
+		/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing,
+		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
+		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 30, "fire" = 100, "acid" = 100)
 	strip_delay = 12

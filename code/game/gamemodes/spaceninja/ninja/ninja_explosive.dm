@@ -17,7 +17,7 @@
 	devastation_range = 4
 	heavy_impact_range = 8
 	light_impact_range = 12
-	///Weakref to the mob that has planted the charge
+	///Mob that has planted the charge
 	var/mob/living/carbon/human/detonator
 	///Reference to the objective that will be completed after da bang!
 	var/datum/objective/plant_explosive/detonation_objective
@@ -41,14 +41,14 @@
 	return ..()
 
 /obj/item/grenade/plastic/c4/ninja/prime(mob/living/lanced_by)
+	//Since we already did the checks in afterattack, the denonator must be a ninja with the bomb objective.
+	if(!detonator || !detonation_objective)
+		return
 	if(!check_loc(detonator)) // if its moved, deactivate the c4
 		var/obj/item/grenade/plastic/c4/ninja/new_c4 = new /obj/item/grenade/plastic/c4/ninja(target.loc)
 		new_c4.detonation_objective = detonation_objective
 		to_chat(lanced_by, span_warning("Invalid location!"))
 		qdel(src)
-		return
-	//Since we already did the checks in afterattack, the denonator must be a ninja with the bomb objective.
-	if(!detonator || !detonation_objective)
 		return
 	detonation_objective.completed = TRUE
 	..()

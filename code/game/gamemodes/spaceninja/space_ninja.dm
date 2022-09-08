@@ -59,8 +59,9 @@
 	var/datum/ninja/nin_datum = new
 	var/mob/living/carbon/human/ninja = ninja_mind.current
 	var/list/ninja_contents = ninja.get_contents()
-	// Удаляем старый датум - если есть
+	// Удаляем старый датум - если есть и переносим с него важные данные
 	if(ninja_mind.ninja)
+		nin_datum.purchased_abilities = ninja_mind.ninja.purchased_abilities
 		qdel(ninja_mind.ninja)
 	// Вписываем сам датум
 	ninja_mind.ninja = nin_datum
@@ -500,7 +501,8 @@
 
 /datum/ninja/Destroy()
 	..()
-	owner.hud_used.remove_ninja_hud()
+	if(owner.hud_used)
+		owner.hud_used.remove_ninja_hud()
 	owner = null
 	creeping_widow = null
 	my_suit = null

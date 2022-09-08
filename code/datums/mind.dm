@@ -733,11 +733,10 @@
 					bomb_objective.explanation_text = "Взорвите выданную вам бомбу в [bomb_objective.detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
 					bomb_objective.owner = src
 					//Выдача бомбы
-					if(!locate(/obj/item/grenade/plastic/c4/ninja) in current.get_contents()) //Если уже есть бомба, не надо делать вторую
-						var/obj/item/grenade/plastic/c4/ninja/charge = new
-						var/mob/living/carbon/human/bomber = current
-						bomber.equip_or_collect(charge, slot_l_store)
-						charge.detonation_objective = bomb_objective
+					var/obj/item/grenade/plastic/c4/ninja/charge = new
+					var/mob/living/carbon/human/bomber = current
+					bomber.equip_or_collect(charge, slot_l_store)
+					charge.detonation_objective = bomb_objective
 
 			if("set up")
 				new_objective = new /datum/objective/set_up
