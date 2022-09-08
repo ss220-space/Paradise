@@ -10,10 +10,10 @@
 	//replaced in Initialize()
 	icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
-	/// Time interval between glowshroom "spreads"
-	var/delay_spread = 2 MINUTES
+	/// Time interval between glowshroom "spreads". Made it as a constant for better control.
+	var/delay_spread = 13 SECONDS
 	/// Time interval between glowshroom decay checks
-	var/delay_decay = 30 SECONDS
+	var/delay_decay = 60 SECONDS
 	/// Boolean to indicate if the shroom is on the floor/wall
 	var/floor = FALSE
 	/// Mushroom generation number
@@ -70,12 +70,7 @@
 		myseed.adjust_yield(rand(-3, 2))
 		myseed.adjust_production(rand(-3, 3))
 		// adjust_endurance has a min value of 10, need to edit directly
-		myseed.endurance = clamp(myseed.endurance + rand(-3, 2), 0, 100)
-
-	//In case production is varedited to -1 or less which would cause unlimited or negative delay.
-	if(myseed.production >= 1)
-		//Because lower production speed stat gives faster production speed, which should give faster mushroom spread. Range 0 — idk-how-many deciseconds.
-		delay_spread = delay_spread ** (1 / (2 - myseed.production / 10))
+		myseed.endurance = clamp(myseed.endurance, 30, 30)
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
@@ -124,12 +119,12 @@
 
 	for(var/i in 1 to myseed.yield)
 		// Chance of generating a new mushroom based on stats
-		var/chance_stats = ((myseed.potency + myseed.endurance * 2) * 0.2)
+		// var/chance_stats = ((myseed.potency + myseed.endurance * 2) * 0.2)
 		// This formula gives you diminishing returns based on generation. 100% with 1st gen, decreasing to 25%, 11%, 6, 4, 2...
-		var/chance_generation = (100 / (generation * generation))
+		var/chance_generation = 100 / generation - 10
 
 		// Whatever is the higher chance we use it (this is really stupid as the diminishing returns are effectively pointless???)
-		if(prob(max(chance_stats, chance_generation)))
+		if(prob(chance_generation))
 			var/spread_to_adjacent = prob(adjacent_spread_chance)
 			var/turf/new_loc = null
 			//Try three random locations to spawn before giving up tradeoff
