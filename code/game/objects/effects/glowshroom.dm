@@ -69,7 +69,7 @@
 		myseed.adjust_potency(rand(-4, 3))
 		myseed.adjust_yield(rand(-3, 2))
 		myseed.adjust_production(rand(-3, 3))
-		// adjust_endurance has a min value of 10, need to edit directly
+		// babies endurance has a min/max value of 30 to prevent endurance loss/boost by botany department
 		myseed.endurance = clamp(myseed.endurance, 30, 30)
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
@@ -118,9 +118,7 @@
 		return
 
 	for(var/i in 1 to myseed.yield)
-		// Chance of generating a new mushroom based on stats
-		// var/chance_stats = ((myseed.potency + myseed.endurance * 2) * 0.2)
-		// This formula gives you diminishing returns based on generation. 100% with 1st gen, decreasing to 25%, 11%, 6, 4, 2...
+		// This formula gives you diminishing returns based on generation. 90% with 1st gen, decreasing to 40%, 23.3(3)%, 15, 10, 6...
 		var/chance_generation = 100 / generation - 10
 
 		// Whatever is the higher chance we use it (this is really stupid as the diminishing returns are effectively pointless???)
