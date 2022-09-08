@@ -6231,6 +6231,7 @@
 /area/syndicate_mothership)
 "eMC" = (
 /obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
 	frequency = 1331;
 	id_tag = "ninja_outer";
 	name = "Ship External Access"
@@ -16740,6 +16741,7 @@
 /area/holodeck/source_snowfield)
 "lGX" = (
 /obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
 	frequency = 1331;
 	id_tag = "ninja_inner";
 	locked = 1;
@@ -16962,6 +16964,7 @@
 /area/ninja/outpost)
 "lRc" = (
 /obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
 	frequency = 1331;
 	id_tag = "ninja_outer";
 	name = "Ship External Access"
@@ -28497,7 +28500,9 @@
 	},
 /area/admin)
 "tmH" = (
-/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
@@ -29887,7 +29892,9 @@
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "umC" = (
-/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
 /obj/effect/turf_decal/sand{
 	alpha = 128
 	},
@@ -30451,6 +30458,7 @@
 "uKm" = (
 /obj/machinery/door/window/brigdoor{
 	color = "#00f700";
+	drain_act_protected = 1;
 	name = "Riot Control"
 	},
 /obj/machinery/light/spot{
@@ -31431,6 +31439,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#00f700";
 	dir = 8;
+	drain_act_protected = 1;
 	name = "Riot Control"
 	},
 /turf/unsimulated/floor{
@@ -31685,6 +31694,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#00f700";
 	dir = 8;
+	drain_act_protected = 1;
 	icon_state = "rightsecure";
 	name = "Riot Control"
 	},
@@ -32382,7 +32392,9 @@
 	},
 /area/centcom/blops)
 "vXm" = (
-/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/plating.dmi';
 	icon_state = "asteroidwarning"
@@ -33769,6 +33781,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#00f700";
 	dir = 8;
+	drain_act_protected = 1;
 	name = "Riot Control"
 	},
 /obj/machinery/light/spot{
@@ -34771,7 +34784,9 @@
 	},
 /area/syndicate_mothership)
 "xBv" = (
-/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
 /turf/unsimulated/floor{
 	icon_state = "floorgrime"
 	},
