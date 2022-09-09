@@ -403,6 +403,7 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000,)
 	build_path = /obj/item/encryptionkey/syndicate
 	locked = 1
+	taipan_restricted = TRUE
 	category = list("ILLEGAL")
 
 /datum/design/aiModule_syndicate
