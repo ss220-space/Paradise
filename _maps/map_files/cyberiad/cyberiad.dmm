@@ -6289,6 +6289,11 @@
 	name = "old sink";
 	pixel_y = 28
 	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "amL" = (
@@ -17128,6 +17133,11 @@
 "aGn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "aGo" = (
@@ -17433,6 +17443,11 @@
 "aGR" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -55627,6 +55642,11 @@
 "cfr" = (
 /obj/item/clothing/head/soft/blue,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cfs" = (
@@ -81007,6 +81027,11 @@
 "dbm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dbn" = (
@@ -89952,6 +89977,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"hFe" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "hHo" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -90472,6 +90505,16 @@
 	icon_state = "swall12"
 	},
 /area/shuttle/administration)
+"jrA" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/civilian/vacantoffice)
 "jtw" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall11"
@@ -91169,6 +91212,15 @@
 	icon_state = "swall_f10"
 	},
 /area/shuttle/escape)
+"lgs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "lkw" = (
 /obj/machinery/light{
 	dir = 8
@@ -91678,6 +91730,18 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"myN" = (
+/obj/docking_port/stationary{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_away";
+	name = "southwest of station";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "mzq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -92041,6 +92105,14 @@
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel,
 /area/security/customs)
+"nBk" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "nBZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -92753,6 +92825,14 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/security/range)
+"pFr" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "pFU" = (
 /obj/structure/door_assembly{
 	anchored = 1
@@ -93660,6 +93740,16 @@
 	tag = "icon-whitebluefull"
 	},
 /area/security/medbay)
+"rDu" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/maintenance/fpmaint)
 "rEw" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall1";
@@ -94390,6 +94480,21 @@
 	tag = "icon-whiteblue (NORTH)"
 	},
 /area/shuttle/escape)
+"tIA" = (
+/obj/structure/toilet,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/library/abandoned)
 "tIT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
@@ -95674,6 +95779,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"xgf" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "xgN" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -95687,6 +95800,14 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"xgX" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "xhE" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -95820,6 +95941,14 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
+"xzS" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "xAk" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
@@ -95991,6 +96120,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
+"xVx" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "xWg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6;
@@ -107360,7 +107498,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+myN
 aaa
 aaa
 aaa
@@ -110882,7 +111020,7 @@ bqr
 bvc
 btH
 bzL
-bBI
+jrA
 byj
 bqr
 bGb
@@ -115256,7 +115394,7 @@ aYO
 bfO
 bua
 blM
-bnK
+pFr
 bvJ
 bxb
 bxb
@@ -115739,7 +115877,7 @@ aaa
 aaa
 aMA
 aMA
-aMQ
+rDu
 aOn
 aMA
 aMA
@@ -115811,7 +115949,7 @@ cII
 cEY
 cRG
 cLp
-cNB
+xgf
 cPu
 cOx
 aaa
@@ -116504,7 +116642,7 @@ aAr
 aAr
 aCE
 aPi
-aPi
+xgX
 aGb
 aSu
 aaa
@@ -117340,7 +117478,7 @@ cgQ
 cCH
 cqF
 coL
-coL
+nBk
 coL
 cng
 aaa
@@ -135084,7 +135222,7 @@ cyM
 chf
 czj
 czq
-cAv
+lgs
 cMo
 cBO
 chf
@@ -139639,7 +139777,7 @@ aNg
 aGY
 aGX
 aQI
-aGY
+xzS
 aGX
 aNi
 aGY
@@ -140767,7 +140905,7 @@ aaa
 aaa
 bZZ
 dlC
-dmb
+xVx
 dmn
 bZZ
 aaa
@@ -144778,7 +144916,7 @@ aAf
 xkN
 aLc
 wxz
-kTK
+tIA
 nSi
 dGK
 wxz
@@ -147699,7 +147837,7 @@ dfc
 bGG
 bGG
 cjA
-bGG
+hFe
 bGG
 bGH
 aab
