@@ -1488,15 +1488,15 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/vox)
 "afY" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "synd_pump"
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
+/turf/simulated/floor/plating,
+/area/maintenance/storage{
+	name = "Perma Maintenance"
+	})
 "afZ" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l";
@@ -19788,6 +19788,11 @@
 	pixel_x = -26;
 	pixel_y = -2
 	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -26576,6 +26581,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/sw)
+"cwO" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard{
+	name = "Engineering Maintenance"
+	})
 "cwP" = (
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -44391,6 +44406,11 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den/casino)
 "dLx" = (
@@ -59575,9 +59595,9 @@
 /area/chapel/office)
 "gGF" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
 	frequency = 1331;
-	id_tag = "vox_east_vent";
-	dir = 1
+	id_tag = "vox_east_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -62662,6 +62682,18 @@
 	icon_state = "darkred"
 	},
 /area/security/processing)
+"hpq" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/fsmaint2{
+	name = "Tourist Area Maintenance"
+	})
 "hpE" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -68379,6 +68411,18 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
+"iHD" = (
+/obj/docking_port/stationary{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_away";
+	name = "southwest of station";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "iHE" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -85156,6 +85200,11 @@
 	icon_state = "plant-22";
 	tag = "icon-plant-22"
 	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -89228,6 +89277,14 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
+"nNB" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/fitness)
 "nNJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -90374,6 +90431,25 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/ne)
+"odC" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "odT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -94985,6 +95061,19 @@
 /area/maintenance/fsmaint2{
 	name = "Tourist Area Maintenance"
 	})
+"phe" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard{
+	name = "Engineering Maintenance"
+	})
 "phf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -95887,8 +95976,8 @@
 	},
 /obj/item/gun/energy/gun/advtaser,
 /obj/item/gun/energy/gun/advtaser{
-	pixel_y = 3;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -103822,9 +103911,9 @@
 /area/bridge/checkpoint/south)
 "reZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
 	frequency = 1331;
-	id_tag = "vox_west_vent";
-	dir = 1
+	id_tag = "vox_west_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -105994,6 +106083,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "rEt" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -122713,9 +122807,9 @@
 	})
 "vDG" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
 	frequency = 1331;
-	id_tag = "synd_pump";
-	dir = 1
+	id_tag = "synd_pump"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -124163,6 +124257,11 @@
 	},
 /obj/structure/sign/poster/contraband/power_people{
 	pixel_y = 32
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -126467,6 +126566,11 @@
 /area/bridge/vip)
 "wwu" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "wwI" = (
@@ -142347,7 +142451,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+iHD
 aaa
 aaa
 aaa
@@ -142431,7 +142535,7 @@ aaa
 anx
 vDG
 afq
-afY
+vDG
 anx
 akA
 abB
@@ -143202,7 +143306,7 @@ aaa
 aeT
 aft
 aoX
-afY
+vDG
 anx
 akJ
 abB
@@ -152827,7 +152931,7 @@ bXU
 nGj
 avX
 uFo
-uFo
+hpq
 lvo
 hsp
 pxR
@@ -160517,7 +160621,7 @@ fsL
 dBt
 aYC
 bXU
-npT
+phe
 vWF
 utt
 wUC
@@ -166442,7 +166546,7 @@ eRS
 bYj
 cbC
 cbC
-cbC
+cwO
 cbC
 yhX
 ugg
@@ -181094,7 +181198,7 @@ hHL
 bEa
 cnP
 jdn
-xWh
+odC
 xWS
 xWS
 uJx
@@ -188240,7 +188344,7 @@ aru
 aru
 hsI
 hZW
-iCk
+afY
 iCk
 kfc
 aru
@@ -192144,7 +192248,7 @@ aaa
 aaa
 aaa
 csj
-gYX
+nNB
 gtS
 cCb
 gYX
