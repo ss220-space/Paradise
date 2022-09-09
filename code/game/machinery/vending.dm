@@ -512,7 +512,7 @@
 	data["user"] = null
 	if(ishuman(user))
 		H = user
-		C = H.get_idcard(TRUE)
+		C = H.get_id_card()
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
@@ -665,7 +665,7 @@
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 
 			var/mob/living/carbon/human/H = usr
-			var/obj/item/card/id/C = H.get_idcard(TRUE)
+			var/obj/item/card/id/C = H.get_id_card()
 
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				to_chat(usr, "Vendor account offline. Unable to process transaction.")
@@ -680,8 +680,8 @@
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = pay_with_cash(S)
 			else if(istype(C, /obj/item/card))
-				// Because this uses H.get_idcard(TRUE), it will attempt to use:
-				// active hand, inactive hand, pda.id, and then wear_id ID in that order
+				// Because this uses H.get_id_card(), it will attempt to use:
+				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
 				paid = pay_with_card(C, usr)
 			else if(usr.can_advanced_admin_interact())

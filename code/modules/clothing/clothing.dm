@@ -355,7 +355,6 @@ BLIND     // can't see anything
 		for(var/obj/item/clothing/accessory/accessory in accessories)
 			if(accessory.GetID())
 				return accessory.GetID()
-			break
 	return ..()
 
 /obj/item/clothing/under/GetAccess()

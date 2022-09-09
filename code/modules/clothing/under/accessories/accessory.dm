@@ -287,19 +287,11 @@
 		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-
-		var/obj/item/card/id/id_card = null
-
-		if(istype(I, /obj/item/card/id))
-			id_card = I
-		else
-			var/obj/item/pda/pda = I
-			id_card = pda.id
-
-		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+	if(I.GetID())
+		var/obj/item/card/id/id = I.GetID()
+		if(ACCESS_SEC_DOORS in id.access || emagged)
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
-			stored_name = id_card.registered_name
+			stored_name = id.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else

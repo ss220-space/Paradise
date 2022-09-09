@@ -25,7 +25,8 @@
 	// Get account
 	account = user.get_worn_id_account()
 	if(!account)
-		if(istype(user.get_active_hand(), /obj/item/card/id))
+		var/obj/item/active_hand = user.get_active_hand()
+		if(istype(active_hand) && active_hand.GetID())
 			account = get_card_account(user.get_active_hand())
 		else
 			account = null
