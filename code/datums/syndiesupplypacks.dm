@@ -2095,7 +2095,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 					/obj/item/camera_bug, // 1TC
 					/obj/item/multitool/ai_detect, // 1TC
-					/obj/item/encryptionkey/syndicate, // 2TC
+					/obj/item/encryptionkey/syndicate/taipan, // 2TC
 					/obj/item/twohanded/garrote, // 10TC
 					/obj/item/pinpointer/advpinpointer, // 4TC
 					/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
@@ -2116,7 +2116,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/card/id/syndicate, // 2TC
 					/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 					/obj/item/storage/backpack/satchel_flat, // 2TC
-					/obj/item/encryptionkey/syndicate // 2TC
+					/obj/item/encryptionkey/syndicate/taipan // 2TC
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2131,7 +2131,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/under/suit_jacket/really_black, // 0TC
 					/obj/item/card/id/syndicate, // 2TC
 					/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
-					/obj/item/encryptionkey/syndicate, // 2TC
+					/obj/item/encryptionkey/syndicate/taipan, // 2TC
 					/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
 					/obj/item/dnascrambler, // 4TC
 					/obj/item/storage/box/syndie_kit/emp, // 2TC
@@ -2154,7 +2154,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/grenade/syndieminibomb, // 6TC
 					/obj/item/grenade/clusterbuster/n2o, // 4TC
 					/obj/item/storage/box/syndie_kit/space, // 4TC
-					/obj/item/encryptionkey/syndicate
+					/obj/item/encryptionkey/syndicate/taipan
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2173,7 +2173,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/gloves/color/latex/nitrile, //0 TC
 					/obj/item/clothing/mask/gas/clown_hat, // 0TC
 					/obj/item/thermal_drill/diamond_drill, // 1TC
-					/obj/item/encryptionkey/syndicate// 2TC
+					/obj/item/encryptionkey/syndicate/taipan// 2TC
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2188,7 +2188,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/implanter/adrenalin, // 8TC
 					/obj/item/implanter/explosive, // 2TC
 					/obj/item/implanter/storage, // 8TC
-					/obj/item/encryptionkey/syndicate // 2TC
+					/obj/item/encryptionkey/syndicate/taipan // 2TC
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2198,7 +2198,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'Hacker' Bundle"
 	contains = list(/obj/item/aiModule/syndicate, // 12TC
 					/obj/item/card/emag, // 6TC
-					/obj/item/encryptionkey/syndicate, // 2TC
+					/obj/item/encryptionkey/syndicate/taipan, // 2TC
 					/obj/item/encryptionkey/binary, // 5TC
 					/obj/item/aiModule/toyAI, // 0TC
 					/obj/item/clothing/glasses/chameleon/thermal, // 6TC
@@ -2220,7 +2220,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/card/id/syndicate, // 2TC
 					/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 					/obj/item/clothing/mask/chameleon, // 2TC
-					/obj/item/encryptionkey/syndicate // 2TC
+					/obj/item/encryptionkey/syndicate/taipan // 2TC
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2236,7 +2236,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/under/suit_jacket/really_black, // 0 TC
 					/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
 					/obj/item/pen/edagger, // 2TC
-					/obj/item/encryptionkey/syndicate // 2TC
+					/obj/item/encryptionkey/syndicate/taipan // 2TC
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
