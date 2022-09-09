@@ -409,6 +409,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
 		return
 
+	if(being_built.taipan_restricted && is_taipan(z))
+		to_chat(usr, "<span class='danger'>This design is incompatible with your R&D Console.</span>")
+		return
+
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return
