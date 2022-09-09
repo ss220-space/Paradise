@@ -106,7 +106,7 @@
 	//Lets collect a list of possible viewable turfs BEFORE we iterate for yield so we don't call view multiple
 	//times when there's no real chance of the viewable range changing, really you could do this once on item
 	//spawn and most people probably would not notice.
-	for(var/turf/simulated/floor/earth in view(1, src))
+	for(var/turf/simulated/floor/earth in RANGE_TURFS(1, src))
 		if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 			continue
 		if(!ownturf.CanAtmosPass(earth))
