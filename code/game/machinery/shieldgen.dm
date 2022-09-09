@@ -478,7 +478,7 @@
 			anchored = 0
 			return
 
-	if(I.GetID())
+	if(I.GetID() || ispda(I))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")

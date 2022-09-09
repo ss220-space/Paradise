@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			connect_to_network()
 		else
 			disconnect_from_network()
-	else if(W.GetID())
+	else if(W.GetID() || ispda(W))
 		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked

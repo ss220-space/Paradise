@@ -114,7 +114,7 @@
 	if(stat & BROKEN)
 		return
 
-	if(I.GetID())
+	if(I.GetID() || ispda(I))
 		if(src.allowed(usr))
 			if(emagged)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")

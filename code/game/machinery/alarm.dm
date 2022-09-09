@@ -952,7 +952,7 @@
 
 	switch(buildstage)
 		if(2)
-			if(I.GetID()) // trying to unlock the interface
+			if(I.GetID() || ispda(I)) // trying to unlock the interface
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return

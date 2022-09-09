@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				update_icon()
 		wrenching = FALSE
 
-	else if(I.GetID())
+	else if(I.GetID() || ispda(I))
 		if(HasController())
 			to_chat(user, "<span class='notice'>Turrets regulated by a nearby turret controller are not unlockable.</span>")
 		else if(allowed(user))
