@@ -109,6 +109,8 @@
 			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
 
 /obj/machinery/portable_atmospherics/pump/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	add_hiddenprint(user)
 	return attack_hand(user)
 

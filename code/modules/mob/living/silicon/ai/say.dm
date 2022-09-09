@@ -136,6 +136,9 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
+	if(!add_heat(AI_VOICE_ANNOUNCEMENT_HEAT))
+		return
+
 	GLOB.announcing_vox = world.time + VOX_DELAY
 
 	log_game("[key_name(src)] made a vocal announcement: [message].")
@@ -143,7 +146,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	var/i = 0
 	for(var/word in words)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
 		i++
 
 	ai_voice_announcement_to_text(words)
