@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_BLOB = 3,
 	ROLE_REVENANT = 3,
 	ROLE_BORER = 3,
-	ROLE_NINJA = 3,
+	ROLE_NINJA = 5,
 	ROLE_MORPH = 3,
 	ROLE_DEMON = 3,
 
