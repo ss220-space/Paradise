@@ -10,6 +10,8 @@
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/syndie = FALSE
+	var/taipan = FALSE
+	var/list/syndie_blacklist = list()	//list of frequencies syndicate headset can't hear
 	var/change_voice = FALSE
 	var/list/channels = list()
 
@@ -22,6 +24,7 @@
 	channels = list("Syndicate" = 1)
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
+	syndie_blacklist = list(SPY_SPIDER_FREQ)
 	change_voice = TRUE
 	var/fake_name = "Agent ALERT_A_CODER"
 	var/static/list/fakename_list
@@ -38,6 +41,8 @@
 
 /obj/item/encryptionkey/syndicate/taipan
 	change_voice = FALSE
+	syndie_blacklist = list(SPY_SPIDER_FREQ, SEC_FREQ, SEC_I_FREQ, ERT_FREQ, COMM_FREQ)
+	taipan = TRUE
 	icon_state = "taipan_cypherkey"
 	channels = list("SyndTaipan" = 1)
 
