@@ -68,13 +68,12 @@
 		return
 	if(!freeplay)
 		if(I.GetID())
-			var/obj/item/card/id/id = I.GetID()
-			if(pay_with_card(id))
+			if(pay_with_card(user, token_price, name))
 				tokens += 1
 			return
 		else if(istype(I, /obj/item/stack/spacecash))
 			var/obj/item/stack/spacecash/cash = I
-			if(pay_with_cash(cash, user))
+			if(pay_with_cash(cash, user, token_price, name))
 				tokens += 1
 		return
 	if(panel_open && component_parts && istype(I, /obj/item/crowbar))
@@ -84,37 +83,6 @@
 
 /obj/machinery/arcade/update_icon()
 	return
-
-/obj/machinery/arcade/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
-	if(cashmoney.amount < token_price)
-		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
-		return 0
-	visible_message("<span class='notice'>[usr] inserts a credit chip into [src].</span>")
-	cashmoney.use(token_price)
-	return 1
-
-/obj/machinery/arcade/proc/pay_with_card(var/obj/item/card/id/I, var/mob/user)
-	visible_message("<span class='notice'>[usr] swipes a card through [src].</span>")
-	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
-	if(!customer_account)
-		to_chat(user, "Error: Unable to access account. Please contact technical support if problem persists.")
-		return 0
-
-	if(customer_account.suspended)
-		to_chat(user, "Unable to access account: account suspended.")
-		return 0
-
-	// Have the customer punch in the PIN before checking if there's enough money. Prevents people from figuring out acct is
-	// empty at high security levels
-	if(customer_account.security_level != 0) //If card requires pin authentication (ie seclevel 1 or 2)
-		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		customer_account = attempt_account_access(I.associated_account_number, attempt_pin, 2)
-
-		if(!customer_account)
-			to_chat(user, "Unable to access account: incorrect credentials.")
-			return 0
-
-	return customer_account.charge(token_price, null, "Purchase of [name] credit", name, name)
 
 /obj/machinery/arcade/proc/start_play(mob/user as mob)
 	user.set_machine(src)
