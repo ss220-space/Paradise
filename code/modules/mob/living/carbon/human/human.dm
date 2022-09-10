@@ -1494,8 +1494,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 		return threatcount
 
-	//Check for ID
-	var/obj/item/card/id/idcard = get_id_card()
+	//Check for ID. Counting only in wear_id (for SecHUDs) and in hands. Empty PDAs don't count.
+	var/obj/item/card/id/idcard = null
+	if(wear_id)
+		idcard = wear_id.GetID()
+	else
+		idcard = get_id_from_hands()
 	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
