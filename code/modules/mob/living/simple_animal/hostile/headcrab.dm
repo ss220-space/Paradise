@@ -37,7 +37,7 @@
 	var/gonome = FALSE
 	var/can_be_gonomed = TRUE
 	var/gonome_time = 468
-	var/is_gonarch = 1 // кажется уже какой-то спагетти код, прямо как писал американец ниже.
+	var/is_gonarch = TRUE // кажется уже какой-то спагетти код, прямо как писал американец ниже.
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -266,7 +266,7 @@
 	if(src.health < src.maxHealth && iscarbon(body) & body.stat == DEAD)
 		to_chat(src, "You start to eating body...")
 		src.visible_message("<span class='danger'><b>[src]</b> started to eating <b>[target]</b>!</span>")
-		if(is_zombie)
+		if(is_zombie || is_gonarch)
 			if(do_after(src, 80, target = body, progress=TRUE))
 				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
 					var/gained_health = rand(5,25)
@@ -684,7 +684,7 @@
 	desc = "The highest stage of the evolution of the Headcrab. It generates even more of its own kind and is better than some nest. And it's definitely not a parasite that would like to connect with your brain stem. Strange."
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab"
-	icon_living = "headcrab"
+	icon_living = "headcrab" //да-да, опять без спрайтов, но накодировано, понадеемся, что появится спрайтер.
 	icon_dead = "headcrab_dead"
 	gender = FEMALE
 	health = 400
@@ -699,11 +699,11 @@
 	obj_damage = 264
 	armour_penetration = 15
 	environment_smash = 3
-	attacktext = "пронзает"
+	attacktext = "pierces" //по просьбе ларентоун отменил перевод. вообще не логично, это я создал этого моба, и я по-русски написал его аттак текст. где перевод? я вообще мог подшутить и оставить наследование attacktext от хедкраба. однако грызть гонарх не может...
 	pass_flags = LETPASSTHROW //огромная хервоина на четырех ногах, очевидно, что через нее можно пролететь снизу.
 	attack_sound = list()
 	speak_emote = list("howling")
-	is_gonarch = 1
+	is_gonarch = TRUE
 	stat_attack = CONSCIOUS // бесит это наследование, когда не надо, не убрать.
 	robust_searching = 1
 	damage_coeff = list(BRUTE = 0.80, BURN = 0.80)

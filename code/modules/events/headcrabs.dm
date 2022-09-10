@@ -126,8 +126,8 @@
 		if(turf_clear(thefloor))
 			turfs += thefloor
 
-	while(turfs.len > 0 && how_many_capsules > 0)
-		sleep(2)
+	while(length(turfs) > 0 && how_many_capsules > 0)
+		sleep(rand(0,4)) // не, я пожалуй откажусь от таймера.
 		how_many_capsules--
 		var/turf/simulated/floor/where_capsule = pick(turfs)
 		//explosion(where_capsule, 0.2, 0.2,0.2) // взрыв все ломает. пожалуй откажемся
@@ -136,24 +136,24 @@
 		var/sound/explosion_sound = sound(get_sfx("explosion"))
 		var/sound/global_boom = sound('sound/weapons/mortar_long_whistle.ogg')
 
-		for(var/P in GLOB.player_list)
-			var/mob/M = P
-			if(M && M.client)
-				var/turf/M_turf = get_turf(M)
-				if(M_turf && M_turf.z == where_capsule.z)
-					var/dist = get_dist(M_turf, where_capsule)
+		for(var/player in GLOB.player_list)
+			var/mob/hear = player
+			if(hear && hear.client)
+				var/turf/hear_turf = get_turf(hear)
+				if(hear_turf && hear_turf.z == where_capsule.z)
+					var/dist = get_dist(hear_turf, where_capsule)
 					if(dist <= round(2 + world.view - 2, 1))
-						M.playsound_local(where_capsule, null, 100, 1, frequency, falloff = 5, S = explosion_sound)
-					else if(M.can_hear() && !isspaceturf(M.loc))
-						M << global_boom
+						hear.playsound_local(where_capsule, null, 100, 1, frequency, falloff = 5, S = explosion_sound)
+					else if(hear.can_hear() && !isspaceturf(hear.loc))
+						hear << global_boom
 
 		var/datum/effect_system/explosion/smoke/smoky = new/datum/effect_system/explosion/smoke()
 		smoky.set_up(where_capsule)
 		smoky.start()
 		var/obj/structure/crabmissile/capsule = new /obj/structure/crabmissile(where_capsule)
-		headcrabs_release(null, capsule, rand(0,1)/*, TRUE*/)
+		headcrabs_release(null, capsule, rand(0,1))
 
-/datum/event/crabmissiles/proc/headcrabs_release(var/mob/living/simple_animal/hostile/headcrab/headcrab_type, var/obj/structure/crabmissile/capsule, var/randomized_headcrabs/*, var/admin_log*/)
+/datum/event/crabmissiles/proc/headcrabs_release(var/mob/living/simple_animal/hostile/headcrab/headcrab_type, var/obj/structure/crabmissile/capsule, var/randomized_headcrabs)
 	var/headcrabs_in_capsule = rand(4,10)
 	var/mixed
 
@@ -163,11 +163,6 @@
 	if(headcrab_type == null)
 		headcrab_type = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
 	var/capsule_position = get_turf(capsule)
-
-	//выдает ошибку про координаты. отказался.
-	//if(admin_log)
-		//message_admins("Crabmissile has been landed in area [capsule_position.loc.name] [ADMIN_COORDJMP(capsule_position)] ")
-		//log_game("Crabmissile has been landed in area [capsule_position.loc.name] ")
 
 	while(headcrabs_in_capsule > 0)
 		headcrabs_in_capsule--
@@ -199,7 +194,7 @@
 	for(var/turf/simulated/floor/nest_probably_position in range(capsule, 4))
 		nest_probably_position -= capsule_position
 		var/turf/simulated/floor/nest_position = pick(nest_probably_position)
-		new/obj/structure/spawner/headcrab/(nest_position)
+		new /obj/structure/spawner/headcrab/(nest_position)
 
 /datum/event/crabmissiles/end()
 
@@ -233,10 +228,9 @@
 	notify_ghosts("Появились хедкрабы", source = thecapsule, action = NOTIFY_ATTACK, flashwindow = FALSE)
 
 /datum/event/crabmissiles/announce()
-	//GLOB.event_announcement.Announce("Внимание, [station_name()]. Было зафиксировано приближение к вам [how_many_capsules == 1 ? "[how_many_capsules]" : " "] [how_many_capsules == 1 ? "капсулы" : "капсул" ], содержащие паразитов Хедкрабы. Готовьтесь к обороне и ремонту. Слава НаноТрейзен!", "Сообщение от ОСН 'Фаланга'") //йуху, ивент, прошедший на веге. ссылается на какую-то ошибку про двоеточие.
 	if(prob(85))
 		var/phalanx_report = "Внимание, [station_name()]. Было зафиксировано приближение к вам нескольких капсул, содержащих многочисленное количество паразитов 'Хедкрабы'. Готовьтесь к обороне. Слава НаноТрейзен!"
-		GLOB.event_announcement.Announce(phalanx_report, "Отчет от ОСН 'Фаланга'", 'sound/AI/commandreport.ogg')
+		GLOB.event_announcement.Announce(phalanx_report, "Отчет от ОСН 'Фаланга'", 'sound/AI/commandreport.ogg') //йуху, ивент, прошедший на веге. Военный Инженер...
 	else if(prob(45))
 		var/syndie_message
 		if(prob(60))
