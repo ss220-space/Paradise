@@ -465,22 +465,15 @@
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/storage/wallet/wallet = wear_id
-	if(istype(pda))
-		if(pda.id)
-			. = pda.id.registered_name
-		else
-			. = pda.owner
-	else if(istype(id))
-		. = id.registered_name
-	else if(istype(wallet))
-		if(istype(wallet.front_id, /obj/item/card/id))
-			. = wallet.front_id.registered_name
-	else
-		return if_no_id
-	return
+	var/name = if_no_id
+	if(wear_id)
+		if(wear_id.GetID())
+			var/obj/item/card/id/id = wear_id.GetID()
+			name = id.registered_name
+		else if(ispda(wear_id))
+			var/obj/item/pda/pda = wear_id
+			name = pda.owner
+	return name
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(var/id_override = FALSE)

@@ -35,7 +35,7 @@
 			var/mob/M = usr
 			var/obj/item/I = M.get_id_card()
 			if(istype(I) && I.GetID())
-				if(src.check_access(I.GetID()) || src.emagged==1)
+				if(src.check_access(I.GetID()) || src.emagged == 1)
 					authenticated = 1
 		if("logout")
 			authenticated = 0

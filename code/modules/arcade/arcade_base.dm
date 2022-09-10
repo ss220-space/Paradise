@@ -59,26 +59,26 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, O.usesound, 50, 1)
+/obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/screwdriver) && anchored)
+		playsound(src.loc, I.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(!freeplay)
-		if(istype(O, /obj/item/card/id))
-			var/obj/item/card/id/C = O
-			if(pay_with_card(C))
+		if(I.GetID())
+			var/obj/item/card/id/id = I.GetID()
+			if(pay_with_card(id))
 				tokens += 1
 			return
-		else if(istype(O, /obj/item/stack/spacecash))
-			var/obj/item/stack/spacecash/C = O
-			if(pay_with_cash(C, user))
+		else if(istype(I, /obj/item/stack/spacecash))
+			var/obj/item/stack/spacecash/cash = I
+			if(pay_with_cash(cash, user))
 				tokens += 1
 		return
-	if(panel_open && component_parts && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
+	if(panel_open && component_parts && istype(I, /obj/item/crowbar))
+		default_deconstruction_crowbar(user, I)
 		return
 	return ..()
 
@@ -89,12 +89,12 @@
 	if(cashmoney.amount < token_price)
 		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
 		return 0
-	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
+	visible_message("<span class='notice'>[usr] inserts a credit chip into [src].</span>")
 	cashmoney.use(token_price)
 	return 1
 
 /obj/machinery/arcade/proc/pay_with_card(var/obj/item/card/id/I, var/mob/user)
-	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
+	visible_message("<span class='notice'>[usr] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
 	if(!customer_account)
 		to_chat(user, "Error: Unable to access account. Please contact technical support if problem persists.")

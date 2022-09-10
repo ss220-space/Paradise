@@ -691,12 +691,7 @@
 	if(W.GetID())
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
-				var/obj/item/card/id/id_card
-				if(istype(W, /obj/item/card/id))
-					id_card = W
-				else
-					var/obj/item/pda/pda = W
-					id_card = pda.id
+				var/obj/item/card/id/id_card = W.GetID()
 				output_maintenance_dialog(id_card, user)
 				return
 			else
