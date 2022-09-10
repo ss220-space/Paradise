@@ -197,12 +197,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return FALSE
 	return TRUE
 
-/obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(var/mob/living/carbon/human/H, var/obj/item/card/id/card)
+/obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(mob/living/carbon/human/H, obj/item/card/id/registered_id)
 	ASSERT(istype(H))
-	ASSERT(istype(card))
-	for(var/obj/item/place in H.get_access_locations())
-		var/obj/item/card/id/found_id = place.GetID()
-		if(istype(found_id) && found_id.registered_name == found_id.registered_name)
+	ASSERT(istype(registered_id))
+	for(var/obj/item/card/id/found_id in H.get_all_id_cards())
+		if(found_id == registered_id)
 			return TRUE
 	return FALSE
 
