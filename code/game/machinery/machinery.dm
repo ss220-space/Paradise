@@ -603,11 +603,13 @@ Class Procs:
 		threatcount += 4
 
 	if(auth_weapons && (!id || !(ACCESS_WEAPONS in perp.get_access())))
-		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
+		if(check_for_weapons(perp.l_hand))
 			threatcount += 4
-		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
+		if(check_for_weapons(perp.r_hand))
 			threatcount += 4
-		if(isitem(perp.belt) && perp.belt.needs_permit)
+		if(check_for_weapons(perp.belt))
+			threatcount += 4
+		if(check_for_weapons(perp.s_store))
 			threatcount += 4
 
 	if(check_records || check_arrest)
@@ -626,6 +628,10 @@ Class Procs:
 
 	return threatcount
 
+/obj/machinery/proc/check_for_weapons(obj/item/slot_item)
+	if(istype(slot_item) && slot_item.needs_permit)
+		return TRUE
+	return FALSE
 
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
