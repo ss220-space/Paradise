@@ -91,10 +91,10 @@
 	name = "headcrab nest"
 	desc = "A living nest for headcrabs. It is moving ominously."
 	icon_state = "headcrab_nest"
-	icon = 'icons/mob/headcrab.dmi'
+	icon = 'icons/mob/headcrab.dmi' //были идеи о добавлении Гонарха... Нет спрайтов. //09.09.2022 наверное накодю, без спрайтов будет.
 	max_integrity = 200
-	max_mobs = 30
-	spawn_time = 800
+	max_mobs = 20
+	spawn_time = 1000
 	mob_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
 	spawn_text = "crawls out of"
 	faction = list("hostile")

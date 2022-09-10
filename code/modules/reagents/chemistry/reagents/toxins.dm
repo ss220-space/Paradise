@@ -38,12 +38,12 @@
 	if(M.reagents.has_reagent("diphenhydramine"))
 		M.reagents.remove_reagent("headcrabneurotoxin",5)
 		return
-	else
-		update_flags |= M.adjustToxLoss(6, FALSE)
-		update_flags |= M.adjustOxyLoss(2, FALSE)
-		update_flags |= M.adjustFireLoss(0.1, FALSE)
-		update_flags |= M.adjustStaminaLoss(0.5, FALSE)
-		update_flags |= M.adjustBrainLoss(1, FALSE)
+
+	update_flags |= M.adjustToxLoss(6, FALSE)
+	update_flags |= M.adjustOxyLoss(2, FALSE)
+	update_flags |= M.adjustFireLoss(0.1, FALSE)
+	update_flags |= M.adjustStaminaLoss(0.5, FALSE)
+	update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/minttoxin

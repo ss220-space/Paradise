@@ -17,6 +17,7 @@
 	var/jumpdistance = 4
 	var/jumpspeed = 2
 	turns_per_move = 4
+	speed = 1.25
 	attacktext = "грызёт"
 	pass_flags = PASSTABLE
 	a_intent = INTENT_HARM
@@ -36,6 +37,7 @@
 	var/gonome = FALSE
 	var/can_be_gonomed = TRUE
 	var/gonome_time = 468
+	var/is_gonarch = 1 // кажется уже какой-то спагетти код, прямо как писал американец ниже.
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -133,19 +135,21 @@
 
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(!is_zombie)
-		revive_cooldown--
+
+	if(is_gonarch)
+		return
 
 	if(is_zombie && !gonome && can_be_gonomed)
 		gonome_time--
 
 	if(!is_zombie)
 		vent_cooldown--
+		revive_cooldown--
 
 	if(gonome_time <= 0)
 		gonome = TRUE
 		to_chat(src, "<span class='notice'>You are evolved to gonome!</span>")
-		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health.")
+		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health of maximum.")
 		ranged = 1
 		ranged_cooldown_time = 125
 		health += 25
@@ -153,7 +157,6 @@
 		melee_damage_lower += 5
 		melee_damage_upper += 10
 		obj_damage += 20
-		speed -= 0.2
 		projectiletype = /obj/item/projectile/toxinvomit
 		projectilesound = 'sound/weapons/pierce.ogg'
 		ranged_message = "pukes"
@@ -177,20 +180,20 @@
 	if(src.ckey in GLOB.clients)
 		return
 
-	if(prob(1)) //it was a proc with a name its_time_to_kill_yourself
+	if(prob(4)) //it was a proc with a name its_time_to_kill_yourself
 
 		var/turf/probably_nest = get_turf(src)
 
-		for(var/obj/structure/spawner/headcrab in orange(60, probably_nest))
+		for(var/obj/structure/spawner/headcrab in orange(20, probably_nest))
 			return
 
 		qdel(src)
 		new /obj/structure/spawner/headcrab(src.loc)
 
 
-	if(prob(15) && vent_cooldown <= 0)
+	if(prob(14) && vent_cooldown <= 0)
 		if(!is_zombie || is_zombie && host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in view(16,src))
+			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in oview(2,src))
 				if(!ventilation.welded)
 					entry_vent = ventilation
 					walk_to(src, entry_vent, 1)
@@ -200,7 +203,7 @@
 		if(isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
-			vent_cooldown += 60
+			vent_cooldown += 80
 
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 1)
@@ -240,7 +243,7 @@
 						new_area.Entered(src)
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
-	if(check_friendly_fire && !is_zombie)
+	if(check_friendly_fire && !is_zombie && !is_gonarch)
 		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
 				if(L == src || L == A)
@@ -315,10 +318,6 @@
 	H.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest
 	ranged = 0
 	dodging = 0
-	if(host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-		ventcrawler = 2
-	else
-		ventcrawler = 0
 	stat_attack = CONSCIOUS // Disables their targeting of dead mobs once they're already a zombie
 	icon = H.icon
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
@@ -332,11 +331,18 @@
 		head_organ.h_style = null //ладно, сжалимся над игроками, пусть остается прическа.
 	H.update_hair()*/
 	host_species = H.dna.species.name
+	if(host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
+		ventcrawler = 2
+	else
+		ventcrawler = 0
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
 
-	visible_message("<span class='warning'>[H.name]'s body suddenly rises!")
+	if(!istype(src, /mob/living/simple_animal/hostile/headcrab/reviver))
+		visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	else
+		visible_message("<span class='warning'>The corpse of [H.name] convulses a bit and suddenly rises!</span>")
 
 	to_chat(src, "<span class='notice'>You are a zombie now!</span>")
 	to_chat(src, "No ventcrawling now (if you are not monkey and etc). But more health.")
@@ -383,7 +389,7 @@
 /mob/living/simple_animal/hostile/headcrab/Stat()
 	..()
 
-	if(gonome)
+	if(gonome || !is_zombie)
 		return
 
 	statpanel("Status")
@@ -411,6 +417,10 @@
 
 	victim.adjustToxLoss(rand(0,6))
 
+	if(istype(firer, /mob/living/simple_animal/hostile/headcrab/poison))
+		victim.adjustToxLoss(rand(2,8))
+		victim.reagents.add_reagent("headcrabneurotoxin", rand(2,4))
+
 //NOT GONOME STUFF
 
 /mob/living/simple_animal/hostile/headcrab/fast
@@ -424,7 +434,7 @@
 	maxHealth = 40
 	ranged_cooldown_time = 30
 	turns_per_move = 2
-	speed = 0.5
+	speed = 0.55
 	jumpdistance = 8
 	jumpspeed = 4
 	speak_emote = list("screech")
@@ -466,11 +476,12 @@
 	jumpdistance = 3
 	jumpspeed = 1
 	ranged = 1
+	speed = 1.4
 	melee_damage_lower = 8
 	melee_damage_upper = 20
 	attack_sound = list('sound/creatures/poison_headcrab_attack1.ogg', 'sound/creatures/poison_headcrab_attack2.ogg', 'sound/creatures/poison_headcrab_attack3.ogg')
 	speak_emote = list("shrilly squeaks")
-	var/neurotoxin_per_jump = 5
+	var/neurotoxin_per_jump = 6
 	var/poison_headcrabs = 0
 	can_be_gonomed = FALSE
 
@@ -509,7 +520,7 @@
 /mob/living/simple_animal/hostile/headcrab/poison/Stat()
 	..()
 
-	if(!is_zombie && poison_headcrabs != 0)
+	if(!is_zombie || poison_headcrabs == 0)
 		return
 
 	statpanel("Status")
@@ -667,3 +678,89 @@
 	var/mob/living/simple_animal/hostile/headcrab/reviver/headcrab = new /mob/living/simple_animal/hostile/headcrab/reviver(death_loc) //уподобление оригиналу, этот вид хедкраба должен быть убит вне тела.
 
 	headcrab.revive_cooldown += 30
+
+/mob/living/simple_animal/hostile/headcrab/gonarch
+	name = "gonarch"
+	desc = "The highest stage of the evolution of the Headcrab. It generates even more of its own kind and is better than some nest. And it's definitely not a parasite that would like to connect with your brain stem. Strange."
+	icon = 'icons/mob/headcrab.dmi'
+	icon_state = "headcrab"
+	icon_living = "headcrab"
+	icon_dead = "headcrab_dead"
+	gender = FEMALE
+	health = 400
+	maxHealth = 400
+	dodging = 0
+	melee_damage_lower = 40
+	melee_damage_upper = 60
+	ranged = 0
+	ventcrawler = 0
+	turns_per_move = 8
+	speed = 0.25
+	obj_damage = 264
+	armour_penetration = 15
+	environment_smash = 3
+	attacktext = "пронзает"
+	pass_flags = LETPASSTHROW //огромная хервоина на четырех ногах, очевидно, что через нее можно пролететь снизу.
+	attack_sound = list()
+	speak_emote = list("howling")
+	is_gonarch = 1
+	stat_attack = CONSCIOUS // бесит это наследование, когда не надо, не убрать.
+	robust_searching = 1
+	damage_coeff = list(BRUTE = 0.80, BURN = 0.80)
+
+	var/max_mobs = 10
+	var/spawn_time = 600 //ходячий спавнер.
+	var/mob_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+	var/spawn_text = "birthing from"
+	var/spawner_type = /datum/component/spawner
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/CanAttack(atom/the_target)
+	var/mob/living/L = the_target
+	if(L.stat == CONSCIOUS || L.stat == UNCONSCIOUS) //никого не щадить.
+		return TRUE //никого не щадить
+	return ..()
+
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/Initialize(mapload)
+	. = ..()
+	AddComponent(spawner_type, mob_types, spawn_time, faction, spawn_text, max_mobs)
+
+/*
+
+=================================================
+(                                               )
+(                SPRITED                        )
+(                                               )
+=================================================
+
+*/
+
+/obj/structure/crabmissile
+	name = "crab missile"
+	desc = "A small black capsule, which previously contained parasitic creatures Headcrabs. Death to NanoTrasen. Glory to Syndicate."
+	icon_state = "crabmissile"
+	density = TRUE
+	anchored = TRUE
+	max_integrity = 1000
+	integrity_failure = 60
+
+/obj/structure/crabmissile/examine(mob/user)
+	. = ..()
+	. += deconstruction_hints(user)
+
+/obj/structure/crabmissile/proc/deconstruction_hints(mob/user)
+	return "<span class='notice'>The main <b>bolts</b> are visible.</span>"
+
+/obj/structure/crabmissile/wrench_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 100, volume = I.tool_volume))
+		var/turf/dismantle_location = get_turf(src)
+		var/obj/item/stack/sheet/metal/materials = new /obj/item/stack/sheet/metal(dismantle_location)
+		qdel(src)
+		materials.amount = 26
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
