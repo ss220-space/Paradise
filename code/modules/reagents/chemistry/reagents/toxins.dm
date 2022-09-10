@@ -35,12 +35,8 @@
 
 /datum/reagent/headcrab_poison/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.reagents.has_reagent("diphenhydramine"))
-		M.reagents.remove_reagent("headcrabneurotoxin",5)
-		return
-
 	update_flags |= M.adjustToxLoss(6, FALSE)
-	update_flags |= M.adjustOxyLoss(2, FALSE)
+	update_flags |= M.adjustOxyLoss(2, FALSE) //какого хрена не работает?!
 	update_flags |= M.adjustFireLoss(0.1, FALSE)
 	update_flags |= M.adjustStaminaLoss(0.5, FALSE)
 	update_flags |= M.adjustBrainLoss(1, FALSE)

@@ -31,7 +31,7 @@
 	var/revive_cooldown = 0
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/vent_cooldown = 10
+	var/vent_cooldown = 6
 	var/building = FALSE
 	var/hiding = FALSE
 	var/gonome = FALSE
@@ -191,9 +191,9 @@
 		new /obj/structure/spawner/headcrab(src.loc)
 
 
-	if(prob(14) && vent_cooldown <= 0)
+	if(prob(16) && vent_cooldown <= 0)
 		if(!is_zombie || is_zombie && host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in oview(2,src))
+			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in oview(4,src))
 				if(!ventilation.welded)
 					entry_vent = ventilation
 					walk_to(src, entry_vent, 1)
@@ -253,7 +253,7 @@
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	vent_cooldown += 5
+	vent_cooldown += 15
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
 	. = ..()
@@ -261,7 +261,7 @@
 	var/mob/living/carbon/body = target
 
 	if(body.stat != DEAD)
-		vent_cooldown += 5
+		vent_cooldown += 15
 
 	if(src.health < src.maxHealth && iscarbon(body) & body.stat == DEAD)
 		to_chat(src, "You start to eating body...")
@@ -434,7 +434,7 @@
 	maxHealth = 40
 	ranged_cooldown_time = 30
 	turns_per_move = 2
-	speed = 0.55
+	speed = 0.75
 	jumpdistance = 8
 	jumpspeed = 4
 	speak_emote = list("screech")

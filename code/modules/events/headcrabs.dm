@@ -93,7 +93,7 @@
 
 /datum/event/crabmissiles/setup()
 
-	how_many_capsules = rand(4,10)
+	how_many_capsules = rand(4,12)
 
 /datum/event/crabmissiles/start()
 
@@ -134,7 +134,7 @@
 
 		var/frequency = get_rand_frequency()
 		var/sound/explosion_sound = sound(get_sfx("explosion"))
-		var/sound/global_boom = sound('sound/weapons/mortar_long_whistle.ogg')
+		var/sound/global_boom = sound('sound/effects/explosionfar.ogg') //звук оказался не очень. оставил взрыв.
 
 		for(var/player in GLOB.player_list)
 			var/mob/hear = player
@@ -154,7 +154,7 @@
 		headcrabs_release(null, capsule, rand(0,1))
 
 /datum/event/crabmissiles/proc/headcrabs_release(var/mob/living/simple_animal/hostile/headcrab/headcrab_type, var/obj/structure/crabmissile/capsule, var/randomized_headcrabs)
-	var/headcrabs_in_capsule = rand(4,10)
+	var/headcrabs_in_capsule = rand(4,12)
 	var/mixed
 
 	if(!randomized_headcrabs)
@@ -166,7 +166,7 @@
 
 	while(headcrabs_in_capsule > 0)
 		headcrabs_in_capsule--
-		sleep(40)
+		sleep(60)
 		if(randomized_headcrabs)
 			headcrab_type = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
 			new headcrab_type(capsule_position)
@@ -193,8 +193,8 @@
 
 	for(var/turf/simulated/floor/nest_probably_position in range(capsule, 4))
 		nest_probably_position -= capsule_position
-		var/turf/simulated/floor/nest_position = pick(nest_probably_position)
-		new /obj/structure/spawner/headcrab/(nest_position)
+		var/turf/simulated/floor/nest_position = pick(nest_probably_position) //почему не спавнится? (по моей идее где-то на расстоянии 4 тайлов от капсулы (кроме самого турфа капсулы) спавнится гнездо. где?
+		new /obj/structure/spawner/headcrab(nest_position)
 
 /datum/event/crabmissiles/end()
 
@@ -229,7 +229,7 @@
 
 /datum/event/crabmissiles/announce()
 	if(prob(85))
-		var/phalanx_report = "Внимание, [station_name()]. Было зафиксировано приближение к вам нескольких капсул, содержащих многочисленное количество паразитов 'Хедкрабы'. Готовьтесь к обороне. Слава НаноТрейзен!"
+		var/phalanx_report = "Внимание, [station_name()]. Было зафиксировано приближение к вам нескольких капсул, содержащих многочисленное количество паразитов 'Хедкрабы'. Слава НаноТрейзен!"
 		GLOB.event_announcement.Announce(phalanx_report, "Отчет от ОСН 'Фаланга'", 'sound/AI/commandreport.ogg') //йуху, ивент, прошедший на веге. Военный Инженер...
 	else if(prob(45))
 		var/syndie_message
