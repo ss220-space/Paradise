@@ -122,42 +122,44 @@
 		var/chance_generation = 100 / generation - 10
 
 		// Whatever is the higher chance we use it (this is really stupid as the diminishing returns are effectively pointless???)
-		if(prob(chance_generation))
-			var/spread_to_adjacent = prob(adjacent_spread_chance)
-			var/turf/new_loc = null
-			//Try three random locations to spawn before giving up tradeoff
-			//between running view(1, earth) on every single collected possibleLoc
-			//and failing to spread if we get 3 bad picks, which should only be a problem
-			//if there's a lot of glow shroom clustered about
-			for(var/idx in 1 to 3)
-				var/turf/possible_loc = pick(possible_locs)
-				if(spread_to_adjacent || !locate(/obj/structure/glowshroom) in view(1, possible_loc))
-					new_loc = possible_loc
-					break
-			//We failed to find any location, skip trying to yield
-			if(new_loc == null)
+		if(!prob(chance_generation))
+			continue
+			
+		var/spread_to_adjacent = prob(adjacent_spread_chance)
+		var/turf/new_loc = null
+		//Try three random locations to spawn before giving up tradeoff
+		//between running view(1, earth) on every single collected possibleLoc
+		//and failing to spread if we get 3 bad picks, which should only be a problem
+		//if there's a lot of glow shroom clustered about
+		for(var/idx in 1 to 3)
+			var/turf/possible_loc = pick(possible_locs)
+			if(spread_to_adjacent || !locate(/obj/structure/glowshroom) in view(1, possible_loc))
+				new_loc = possible_loc
 				break
-			var/shroom_count = 0
-			var/place_count = 1
-			for(var/obj/structure/glowshroom/shroom in new_loc)
-				shroom_count++
-			for(var/wall_dir in GLOB.cardinal)
-				var/turf/is_wall = get_step(new_loc, wall_dir)
-				if(is_wall.density)
-					place_count++
-			if(shroom_count >= place_count)
-				continue
+		//We failed to find any location, skip trying to yield
+		if(new_loc == null)
+			break
+		var/shroom_count = 0
+		var/place_count = 1
+		for(var/obj/structure/glowshroom/shroom in new_loc)
+			shroom_count++
+		for(var/wall_dir in GLOB.cardinal)
+			var/turf/is_wall = get_step(new_loc, wall_dir)
+			if(is_wall.density)
+				place_count++
+		if(shroom_count >= place_count)
+			continue
 
-			// Decay before spawning new mushrooms to reduce their endurance
-			Decay(TRUE, 3)
+		// Decay before spawning new mushrooms to reduce their endurance
+		Decay(TRUE, 3)
 
-			//Decay can end us
-			if(QDELETED(src))
-				return
+		//Decay can end us
+		if(QDELETED(src))
+			return
 
-			var/obj/structure/glowshroom/child = new type(new_loc, myseed, TRUE, TRUE)
-			child.generation = generation + 1
-			shrooms_planted++
+		var/obj/structure/glowshroom/child = new type(new_loc, myseed, TRUE, TRUE)
+		child.generation = generation + 1
+		shrooms_planted++
 
 	if(!shrooms_planted)
 		max_failed_spreads--
