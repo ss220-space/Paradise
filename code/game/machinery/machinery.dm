@@ -588,21 +588,15 @@ Class Procs:
 		return threatcount
 
 	//Agent cards lower threatlevel.
-	var/obj/item/card/id/id = null
-	if(perp.wear_id)
-		id = perp.wear_id.GetID()
-	else
-		id = perp.get_id_from_hands()
-	if(id && istype(id, /obj/item/card/id/syndicate))
+	if(locate(/obj/item/card/id/syndicate) in perp.get_all_id_cards())
 		threatcount -= 2
 	// A proper	CentCom id is hard currency.
-	else if(id && istype(id, /obj/item/card/id/centcom))
+	else if(locate(/obj/item/card/id/centcom) in perp.get_all_id_cards())
 		threatcount -= 2
 
 	if(check_access && !allowed(perp))
 		threatcount += 4
-
-	if(auth_weapons && (!id || !(ACCESS_WEAPONS in perp.get_access())))
+	if(auth_weapons && !(ACCESS_WEAPONS in perp.get_access()))
 		if(check_for_weapons(perp.l_hand))
 			threatcount += 4
 		if(check_for_weapons(perp.r_hand))

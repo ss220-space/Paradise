@@ -1494,26 +1494,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 		return threatcount
 
-	//Check for ID. Counting only in wear_id (for SecHUDs) and in hands. Empty PDAs don't count.
-	var/obj/item/card/id/idcard = null
-	if(wear_id)
-		idcard = wear_id.GetID()
-	else
-		idcard = get_id_from_hands()
-	if(judgebot.idcheck && !idcard)
+	//Check for ID
+	if(judgebot.idcheck && !length(get_all_id_cards()))
 		threatcount += 4
 
 	//Check for weapons
-	if(judgebot.weaponscheck)
-		if(!idcard || !(ACCESS_WEAPONS in get_access()))
-			if(judgebot.check_for_weapons(l_hand))
-				threatcount += 4
-			if(judgebot.check_for_weapons(r_hand))
-				threatcount += 4
-			if(judgebot.check_for_weapons(belt))
-				threatcount += 4
-			if(judgebot.check_for_weapons(s_store))
-				threatcount += 4
+	if(judgebot.weaponscheck && !(ACCESS_WEAPONS in get_access()))
+		if(judgebot.check_for_weapons(l_hand))
+			threatcount += 4
+		if(judgebot.check_for_weapons(r_hand))
+			threatcount += 4
+		if(judgebot.check_for_weapons(belt))
+			threatcount += 4
+		if(judgebot.check_for_weapons(s_store))
+			threatcount += 4
 
 
 	//Check for arrest warrant
@@ -1541,7 +1535,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.
-	if(istype(idcard, /obj/item/card/id/syndicate))
+	if(locate(/obj/item/card/id/syndicate) in get_all_id_cards())
 		threatcount -= 5
 
 	return threatcount
