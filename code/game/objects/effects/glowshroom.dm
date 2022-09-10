@@ -15,7 +15,7 @@
 	icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	/// Boolean to indicate if the shroom is on the floor/wall
-	var/is_floor_turf = FALSE
+	var/is_on_floor = FALSE
 	/// Mushroom generation number
 	var/generation = 1
 	/// Chance to spread into adjacent tiles (0-100)
@@ -77,7 +77,7 @@
 		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color)
 	setDir(calc_dir())
 	var/base_icon_state = initial(icon_state)
-	if(!is_floor_turf)
+	if(!is_on_floor)
 		//offset to make it be on the wall rather than on the floor
 		switch(dir)
 			if(NORTH)
@@ -149,7 +149,7 @@
 				continue
 
 			// Decay before spawning new mushrooms to reduce their endurance
-			Decay(TRUE, 1)
+			Decay(TRUE, 3)
 
 			//Decay can end us
 			if(QDELETED(src))
@@ -169,7 +169,7 @@
 		addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 
 /obj/structure/glowshroom/proc/calc_dir(turf/location = loc)
-	var/direction = 16
+	var/direction = (1<<4)
 
 	for(var/wall_dir in GLOB.cardinal)
 		var/turf/new_turf = get_step(location, wall_dir)
@@ -180,27 +180,26 @@
 		if(shroom == src)
 			continue
 		//special
-		if(shroom.is_floor_turf)
-			direction &= ~16
+		if(shroom.is_on_floor)
+			direction &= ~(1<<4)
 		else
 			direction &= ~shroom.dir
 
 	var/list/dir_list = list()
 
-	for(var/i = 1, i <= 16, i <<= 1)
-		if(direction & i)
-			dir_list += i
+	for(var/dir_to_check in (GLOB.cardinal + (1<<4)))
+		if(direction & dir_to_check)
+			dir_list += dir_to_check
 
 	if(length(dir_list))
 		var/new_dir = pick(dir_list)
-		if(new_dir == 16)
-			is_floor_turf = TRUE
-			new_dir = 1
+		if(new_dir == (1<<4))
+			is_on_floor = TRUE
+			new_dir = NORTH
 		return new_dir
 
-	is_floor_turf = TRUE
-	return 1
-
+	is_on_floor = TRUE
+	return NORTH
 /**
   * Causes the glowshroom to decay by decreasing its endurance.
   *
@@ -248,7 +247,6 @@
 	var/damage_dealt = tool.force
 	if(istype(tool, /obj/item/scythe))
 		var/obj/item/scythe/weapon = tool
-
 		//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
 		if(weapon.extend)
 			damage_dealt *= 10
@@ -256,15 +254,13 @@
 				shroom.take_damage(damage_dealt, tool.damtype, "melee", 1)
 			return
 
-	if(is_sharp(tool))
-		damage_dealt *= 4
-	if(tool.damtype == BURN)
+	if(is_sharp(tool) || tool.damtype == BURN)
 		damage_dealt *= 4
 
 	take_damage(damage_dealt, tool.damtype, "melee", 1)
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/plant_analyzer, mob/living/user, params)
+/obj/structure/glowshroom/attackby(obj/item/plant_analyzer/plant_analyzer, mob/living/user, params)
 	if(istype(plant_analyzer))
 		// Hacky I guess
 		return myseed.attackby(plant_analyzer, user, params)
