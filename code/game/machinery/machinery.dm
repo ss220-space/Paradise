@@ -602,7 +602,7 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
+	if(auth_weapons && (!id || !(ACCESS_WEAPONS in perp.get_access())))
 		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
 			threatcount += 4
 		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
