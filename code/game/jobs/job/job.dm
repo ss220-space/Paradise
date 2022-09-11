@@ -66,8 +66,6 @@
 	var/required_objectives=list() // Objectives that are ALWAYS added.
 	var/optional_objectives=list() // Objectives that are SOMETIMES added.
 
-	var/ambitions_objectives=list() // Список амбиций
-
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 

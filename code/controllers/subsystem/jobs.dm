@@ -105,10 +105,6 @@ SUBSYSTEM_DEF(jobs)
 				if(prob(50))
 					new objectiveType(player.mind)
 
-			// амбиции
-			for(var/objectiveType in job.ambitions_objectives)
-				new objectiveType(player.mind)
-
 			unassigned -= player
 			job.current_positions++
 			log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")

@@ -68,7 +68,7 @@
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] выполнил[genderize_ru(usr.gender,"","а","о","и")] свою чёртову работу!</B></font>"
+			text += "<br>&nbsp;<font color='green'><B>[employee.name] сделал свою чёртову работу!</B></font>"
 			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
 
 		else

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian", "Silicon", "Law", "Representative", "Antag", "Central"))
+GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian"))
 
 // The department the job belongs to.
 /datum/job/var/department = null
@@ -6,55 +6,41 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 // Whether this is a head position
 /datum/job/var/head_position = 0
 
-
-//============КОМАНДОВАНИЕ============
-
 /datum/job/captain/department = "Command"
 /datum/job/captain/head_position = 1
 
-//============ПРЕДСТАВИТЕЛЬСТВО============
+/datum/job/hop/department = "Support"
+/datum/job/hop/head_position = 1
 
-/datum/job/nanotrasenrep/department = "Representative"
-/datum/job/nanotrasenrep/head_position = 1
+/datum/job/civilian/department = "Civilian"
 
-/datum/job/blueshield/department = "Representative"
+/datum/job/bartender/department = "Support"
 
+/datum/job/chef/department = "Support"
 
-//============ЗАКОН============
+/datum/job/hydro/department = "Support"
 
-/datum/job/judge/department = "Law"
-/datum/job/judge/head_position = 1
+/datum/job/mining/department = "Support"
 
-/datum/job/lawyer/department = "Law"
+/datum/job/janitor/department = "Support"
 
+/datum/job/librarian/department = "Support"
 
-//============РНД============
+/datum/job/lawyer/department = "Support"
 
-/datum/job/rd/department = "Science"
-/datum/job/rd/head_position = 1
+/datum/job/chaplain/department = "Support"
 
-/datum/job/scientist/department = "Science"
+/datum/job/qm/department = "Cargo"
+/datum/job/qm/head_position = 1
 
-/datum/job/roboticist/department = "Science"
+/datum/job/cargo_tech/department = "Cargo"
 
+/datum/job/chief_engineer/department = "Engineering"
+/datum/job/chief_engineer/head_position = 1
 
-//============СБ============
+/datum/job/engineer/department = "Engineering"
 
-/datum/job/hos/department = "Security"
-/datum/job/hos/head_position = 1
-
-/datum/job/warden/department = "Security"
-
-/datum/job/detective/department = "Security"
-
-/datum/job/officer/department = "Security"
-
-/datum/job/brigdoc/department = "Security"
-
-/datum/job/pilot/department = "Security"
-
-
-//============МЕДИЦИНА============
+/datum/job/atmos/department = "Engineering"
 
 /datum/job/cmo/department = "Medical"
 /datum/job/cmo/head_position = 1
@@ -67,81 +53,18 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/psychiatrist/department = "Medical"
 
-/datum/job/coroner/department = "Medical"
+/datum/job/rd/department = "Science"
+/datum/job/rd/head_position = 1
 
-/datum/job/virologist/department = "Medical"
+/datum/job/scientist/department = "Science"
 
-/datum/job/paramedic/department = "Medical"
+/datum/job/roboticist/department = "Science"
 
+/datum/job/hos/department = "Security"
+/datum/job/hos/head_position = 1
 
-//============ИНЖЕНЕРИЯ============
+/datum/job/warden/department = "Security"
 
-/datum/job/chief_engineer/department = "Engineering"
-/datum/job/chief_engineer/head_position = 1
+/datum/job/detective/department = "Security"
 
-/datum/job/engineer/department = "Engineering"
-
-/datum/job/atmos/department = "Engineering"
-
-/datum/job/mechanic/department = "Engineering"
-
-
-//============СЕРВИС============
-
-/datum/job/hop/department = "Support"
-/datum/job/hop/head_position = 1
-
-/datum/job/bartender/department = "Support"
-
-/datum/job/chef/department = "Support"
-
-/datum/job/hydro/department = "Support"
-
-/datum/job/janitor/department = "Support"
-
-/datum/job/librarian/department = "Support"
-
-/datum/job/chaplain/department = "Support"
-
-/datum/job/clown/department = "Support"
-
-/datum/job/mime/department = "Support"
-
-/datum/job/barber/department = "Support"
-
-/datum/job/explorer/department = "Support"
-
-//============СНАБЖЕНИЕ============
-
-/datum/job/qm/department = "Cargo"
-/datum/job/qm/head_position = 1
-
-/datum/job/cargo_tech/department = "Cargo"
-
-/datum/job/mining/department = "Cargo"
-
-
-//============ОБЩИЙ============
-
-/datum/job/civilian/department = "Civilian"
-
-
-//============АНТАГОНИЗМ============
-
-/datum/job/syndicateofficer/department = "Antag"
-
-
-//============СИНТЕТИКИ============
-
-/datum/job/ai/department = "Silicon"
-/datum/job/ai/head_position = 1
-
-/datum/job/cyborg/department = "Silicon"
-
-//============ЦЕНТРАЛЬНОЕ КОМАНДОВАНИЕ============
-
-/datum/job/ntnavyofficer/department = "Central"
-/datum/job/ntnavyofficer/head_position = 1
-
-/datum/job/ntspecops/department = "Central"
-/datum/job/ntspecops/head_position = 1
+/datum/job/officer/department = "Security"
