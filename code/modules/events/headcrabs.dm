@@ -6,6 +6,8 @@
 #define HEADCRAB_MEGAMIX 5
 #define HEADCRAB_SPAWNER 6
 
+#define TS_HIGHPOP_TRIGGER 80
+
 /datum/event/headcrabs
 	announceWhen = 60
 	endWhen = 61
@@ -49,6 +51,9 @@
 			spawn_types = list(/obj/structure/spawner/headcrab)
 			max_number = 2
 
+	if((length(GLOB.clients)) > TS_HIGHPOP_TRIGGER)
+		max_number += rand(2,4)
+
 	var/num = rand(2,max_number)
 
 	while(turfs.len > 0 && num > 0)
@@ -60,6 +65,9 @@
 		successSpawn = TRUE
 
 	var/how_many_spawners = rand(2,4)
+
+	if((length(GLOB.clients)) > TS_HIGHPOP_TRIGGER)
+		how_many_spawners += rand(1,2)
 
 	while(turfs.len > 0 && how_many_spawners > 0)
 		var/turf/simulated/floor/where_spawner = pick(availableareas)
@@ -93,7 +101,10 @@
 
 /datum/event/crabmissiles/setup()
 
-	how_many_capsules = rand(4,12)
+	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
+		how_many_capsules = rand(4,14)
+	else
+		how_many_capsules = rand(6,20)
 
 /datum/event/crabmissiles/start()
 
@@ -154,7 +165,13 @@
 		headcrabs_release(null, capsule, rand(0,1))
 
 /datum/event/crabmissiles/proc/headcrabs_release(var/mob/living/simple_animal/hostile/headcrab/headcrab_type, var/obj/structure/crabmissile/capsule, var/randomized_headcrabs)
-	var/headcrabs_in_capsule = rand(4,12)
+	var/headcrabs_in_capsule
+
+	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
+		headcrabs_in_capsule = rand(4,14)
+	else
+		headcrabs_in_capsule = rand(8,18)
+
 	var/mixed
 
 	if(!randomized_headcrabs)
@@ -191,7 +208,7 @@
 
 	sleep(100)
 
-	for(var/turf/simulated/floor/nest_probably_position in range(capsule, 4))
+	for(var/turf/simulated/floor/nest_probably_position in range(capsule_position, 4))
 		nest_probably_position -= capsule_position
 		var/turf/simulated/floor/nest_position = pick(nest_probably_position) //почему не спавнится? (по моей идее где-то на расстоянии 4 тайлов от капсулы (кроме самого турфа капсулы) спавнится гнездо. где?
 		new /obj/structure/spawner/headcrab(nest_position)
@@ -248,3 +265,5 @@
 #undef HEADCRAB_POISON
 #undef HEADCRAB_MEGAMIX
 #undef HEADCRAB_SPAWNER
+
+#undef TS_HIGHPOP_TRIGGER

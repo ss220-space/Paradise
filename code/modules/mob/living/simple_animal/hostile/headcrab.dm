@@ -73,20 +73,12 @@
 		return
 	if(stat != CONSCIOUS)
 		return
-	if(!is_zombie)
-		var/be_headcrab = alert("Become a headcrab? (Warning, You can no longer be cloned!)",,"Yes","No")
-		if(be_headcrab == "No" || !src || QDELETED(src))
-			return
-		if(key)
-			return
-		transfer_personality(user.client)
-	else
-		var/be_headcrab = alert("Become a zombie? (Warning, You can no longer be cloned!)" ,,"Yes","No")
-		if(be_headcrab == "No" || !src || QDELETED(src))
-			return
-		if(key)
-			return
-		transfer_personality(user.client)
+	var/be_headcrab = alert("Become a [is_zombie ? "zombie" : "headcrab"]? (Warning, You can no longer be cloned!)",,"Yes","No")
+	if(be_headcrab == "No" || !src || QDELETED(src))
+		return
+	if(key)
+		return
+	transfer_personality(user.client)
 
 /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest()
 	set category = "Headcrab"
@@ -502,7 +494,7 @@
 
 	speak = list('sound/creatures/poison_zombie_idle1.ogg','sound/creatures/poison_zombie_idle2.ogg','sound/creatures/poison_zombie_idle3.ogg', 'sound/creatures/poison_zombie_idle4.ogg')
 
-	poison_headcrabs = 3
+	poison_headcrabs = rand(3,4)
 	desc += " It's [src.poison_headcrabs] [src.poison_headcrabs == 1 ? "headcrab" : "headcrabs" ] on it's back."
 
 	melee_damage_lower = 25
@@ -764,3 +756,7 @@
 		qdel(src)
 		materials.amount = 26
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		if(prob(25))
+			var/which_one = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+			new which_one(dismantle_location)
+			visible_message(src, "<span class='danger'>Inside [src] was hiding a headcrab!</span>")
