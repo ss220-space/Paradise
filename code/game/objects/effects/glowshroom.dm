@@ -123,18 +123,8 @@
 		if(!prob(chance_generation))
 			continue
 
-		var/turf/new_loc = null
-		//Try three random locations to spawn before giving up tradeoff
-		//between running view(1, earth) on every single collected possibleLoc
-		//and failing to spread if we get 3 bad picks, which should only be a problem
-		//if there's a lot of glow shroom clustered about
-		for(var/idx in 1 to 3)
-			var/turf/possible_loc = pick(possible_locs)
-			new_loc = possible_loc
-			break
+		var/turf/new_loc = pick(possible_locs)
 		//We failed to find any location, skip trying to yield
-		if(new_loc == null)
-			break
 		var/shroom_count = 0
 		var/place_count = 1
 		for(var/obj/structure/glowshroom/shroom in new_loc)
