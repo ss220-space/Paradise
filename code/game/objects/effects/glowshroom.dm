@@ -18,8 +18,6 @@
 	var/is_on_floor = FALSE
 	/// Mushroom generation number
 	var/generation = 1
-	/// Chance to spread into adjacent tiles (0-100)
-	var/adjacent_spread_chance = 80
 	/// If we fail to spread this many times we stop trying to spread
 	var/max_failed_spreads = 5
 	/// Turfs where the glowshroom cannot spread to
@@ -70,7 +68,7 @@
 		myseed.adjust_yield(rand(-3, 2))
 		myseed.adjust_production(rand(-3, 3))
 		// babies endurance has a min/max value of 30 to prevent endurance loss/boost by botany department
-		myseed.endurance = clamp(myseed.endurance, 30, 30)
+		myseed.endurance = clamp(myseed.endurance, 45, 45)
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
@@ -124,8 +122,7 @@
 		// Whatever is the higher chance we use it (this is really stupid as the diminishing returns are effectively pointless???)
 		if(!prob(chance_generation))
 			continue
-			
-		var/spread_to_adjacent = prob(adjacent_spread_chance)
+
 		var/turf/new_loc = null
 		//Try three random locations to spawn before giving up tradeoff
 		//between running view(1, earth) on every single collected possibleLoc
@@ -133,9 +130,8 @@
 		//if there's a lot of glow shroom clustered about
 		for(var/idx in 1 to 3)
 			var/turf/possible_loc = pick(possible_locs)
-			if(spread_to_adjacent || !locate(/obj/structure/glowshroom) in view(1, possible_loc))
-				new_loc = possible_loc
-				break
+			new_loc = possible_loc
+			break
 		//We failed to find any location, skip trying to yield
 		if(new_loc == null)
 			break
@@ -151,7 +147,7 @@
 			continue
 
 		// Decay before spawning new mushrooms to reduce their endurance
-		Decay(TRUE, 3)
+		Decay(TRUE, 2)
 
 		//Decay can end us
 		if(QDELETED(src))
@@ -215,7 +211,7 @@
 		myseed.endurance -= amount
 	else
 		// Timed decay
-		myseed.endurance -= 1
+		myseed.endurance -= 2
 		if(myseed.endurance > 0)
 			addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
 			return
