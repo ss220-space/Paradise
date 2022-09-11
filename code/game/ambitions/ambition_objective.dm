@@ -1,14 +1,5 @@
 /datum/mind/var/list/ambition_objectives = list()
 
-#define FINDAMBITIONTASK_DEFAULT_NEW 1 // Make a new task of this type if one can't be found.
-/datum/mind/proc/findambitionTask(var/typepath, var/options = 0)
-	var/datum/ambition_objective/task = locate(typepath) in ambition_objectives
-	if(!istype(task,typepath))
-		if(options & FINDAMBITIONTASK_DEFAULT_NEW)
-			task = new typepath()
-			ambition_objectives += task
-	return task
-
 /datum/ambition_objective
 	var/datum/mind/owner = null			//владелец амбиции
 	var/completed = 0					//завершение амбиции для конца раунда
