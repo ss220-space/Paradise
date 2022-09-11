@@ -508,7 +508,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				var/mob/living/silicon/S = src
 				unEquip(S.inventory_head)
 				S.inventory_head = null
-				to_chat(src, "<span class='warning'></span>")
 				visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 
 			visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
