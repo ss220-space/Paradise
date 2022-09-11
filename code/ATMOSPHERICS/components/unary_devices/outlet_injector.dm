@@ -19,8 +19,6 @@
 	var/volume_rate = 50
 
 	var/id
-	Mtoollink = 1
-	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = 1
@@ -35,6 +33,9 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
+
+/obj/machinery/atmospherics/unary/outlet_injector/init_multitool_menu()
+	multitool_menu = new /datum/multitool_menu/idtag/freq/outlet_injector(src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
 	..()
@@ -159,26 +160,15 @@
 			on = 0
 		return*/
 
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
-	</ul>
-"}
-
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/multitool))
-		interact(user)
+		multitool_menu.interact(user, W)
 		return 1
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return 1
 	return ..()
-
-/obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
-	update_multitool_menu(user)
 
 /obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
 	update_underlays()

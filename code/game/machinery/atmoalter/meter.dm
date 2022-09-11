@@ -18,8 +18,6 @@
 	idle_power_usage = 2
 	active_power_usage = 5
 	req_one_access_txt = "24;10"
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
 
 /obj/machinery/meter/New()
 	..()
@@ -121,10 +119,6 @@
 	return ..()
 
 /obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
@@ -161,11 +155,3 @@
 
 /obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	return
-
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<b>Main</b>
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag")]</li>
-	</ul>"}

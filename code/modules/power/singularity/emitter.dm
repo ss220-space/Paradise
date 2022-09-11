@@ -5,7 +5,7 @@
 	icon_state = "emitter"
 	anchored = 0
 	density = 1
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access_txt = "11"
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 10
@@ -209,10 +209,6 @@
 	return P
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
 	if(istype(W, /obj/item/wrench))
 		if(active)
 			to_chat(user, "Turn off the [src] first.")

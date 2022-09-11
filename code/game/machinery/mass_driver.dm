@@ -11,13 +11,15 @@
 	var/power = 1.0
 	var/code = 1.0
 	var/id_tag = "default"
-	settagwhitelist = list("id_tag")
 	var/drive_range = 50 //this is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
+
+/obj/machinery/mass_driver/init_multitool_menu()
+	multitool_menu = new /datum/multitool_menu/idtag/mass_driver(src)
 
 /obj/machinery/mass_driver/attackby(obj/item/W, mob/user as mob)
 
 	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
+		multitool_menu.interact(user, W)
 		return 1
 
 	if(istype(W, /obj/item/screwdriver))
@@ -33,12 +35,6 @@
 		return 1
 
 	return ..()
-
-/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<ul>
-	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
-	</ul>"}
 
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
