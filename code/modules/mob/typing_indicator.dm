@@ -51,7 +51,24 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	hud_typing = 0
 	set_typing_indicator(FALSE)
 	if(message)
+		say_ui_interact(usr)
 		say_verb(message)
+
+/mob/proc/say_ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "Cryo", "Криокапсула", 300, 300, master_ui, state)
+		ui.open()
+
+/mob/ui_data(mob/user)
+	var/list/data = list()
+	data["channels"] = user.get_available_channels()
+	return data
+
+/mob/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
 
 /mob/verb/me_wrapper()
 	set name = ".Me"

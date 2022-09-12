@@ -207,6 +207,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(.)
 		add_fingerprint(usr)
 
+/obj/item/radio/proc/list_enabled_channels(mob/user)
+	var/list/dat = list()
+	for(var/channel in channels)
+		if(channels[channel] == FREQ_LISTENING)
+			dat[channel] = channels[channel]
+	return dat
+
 /obj/item/radio/proc/list_secure_channels(mob/user)
 	var/list/dat = list()
 	for(var/channel in channels)
