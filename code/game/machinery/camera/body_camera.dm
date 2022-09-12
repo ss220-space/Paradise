@@ -60,7 +60,7 @@
 	if(length(new_name) > 24)
 		to_chat(usr, "<span class='warning'>Название слишком длинное!</span>")
 		return
-	if(findtext(new_name, "BodyCam " != 1))
+	if(findtext(new_name, "BodyCam ") != 1)
 		new_name = addtext("BodyCam ", new_name)
 	camera.c_tag = new_name
 
