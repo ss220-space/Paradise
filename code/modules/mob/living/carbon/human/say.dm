@@ -250,3 +250,13 @@
 		R = r_ear
 		if(R.translate_binary)
 			. = TRUE
+
+/mob/living/carbon/human/get_available_channels()
+	var/list/available_channels = list()
+	if(isradio(l_ear))
+		var/obj/item/radio/radio = l_ear
+		available_channels += radio.list_enabled_channels()
+	if(isradio(r_ear))
+		var/obj/item/radio/radio = l_ear
+		available_channels += radio.list_enabled_channels()
+	return available_channels
