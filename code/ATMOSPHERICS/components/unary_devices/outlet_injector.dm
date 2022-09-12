@@ -13,6 +13,8 @@
 
 	req_one_access_txt = "24;10"
 
+	frequency = ATMOS_TANKS_FREQ
+
 	var/on = 0
 	var/injecting = 0
 

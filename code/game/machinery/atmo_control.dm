@@ -10,7 +10,7 @@
 	var/bolts = 1
 
 	var/id_tag
-	frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_TANKS_FREQ
 
 	var/on = 1
 	var/output = 3
@@ -124,7 +124,7 @@
 
 	name = "Computer"
 
-	frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_TANKS_FREQ
 	var/show_sensors=1
 	var/list/sensors
 	var/list/sensor_information

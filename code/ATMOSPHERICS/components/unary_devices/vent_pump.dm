@@ -132,6 +132,9 @@
 		return FALSE
 	if(!node)
 		on = FALSE
+		// The state has changed, do some updates
+		broadcast_status()
+		update_icon()
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
 		return FALSE
@@ -184,8 +187,15 @@
 /obj/machinery/atmospherics/unary/vent_pump/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
+
 	if(frequency)
+
+		//some vents work his own special way
+		radio_filter_in = frequency == ATMOS_VENTSCRUB ? RADIO_FROM_AIRALARM : RADIO_ATMOSIA
+		radio_filter_out = frequency == ATMOS_VENTSCRUB ? RADIO_TO_AIRALARM : RADIO_ATMOSIA
+
 		radio_connection = SSradio.add_object(src, frequency, radio_filter_in)
+
 	if(frequency != ATMOS_VENTSCRUB)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
@@ -227,10 +237,6 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/atmos_init()
 	..()
-
-	//some vents work his own special way
-	radio_filter_in = frequency==ATMOS_VENTSCRUB?(RADIO_FROM_AIRALARM):null
-	radio_filter_out = frequency==ATMOS_VENTSCRUB?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
 		broadcast_status()

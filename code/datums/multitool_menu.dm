@@ -550,6 +550,12 @@
 		if("clear_label")
 			var/sensor_tag = params["sensor_tag"]
 			change_label(sensor_tag, "")
+		if("set_frequency")
+			// vent pumps on ATMOS_VENTSCRUB frequency use a different radio filter and cannot communicate with air_control consoles
+			if(text2num(params["frequency"]) == ATMOS_VENTSCRUB)
+				holder.visible_message("<span class='warning'>This frequency is reserved. Try another one.</span>")
+				return FALSE
+			return ..()
 		else
 			return ..()
 
