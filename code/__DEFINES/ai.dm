@@ -8,7 +8,7 @@
 //количества тепла, рассеиваемого основной системой охлаждения каждый вызов Life()
 #define AI_COOLDOWN_RATE				30
 //количества тепла, рассеиваемого резервной системой охлаждения каждый вызов Life()
-#define AI_RESERVE_COOLDOWN_RATE		5
+#define AI_RESERVE_COOLDOWN_RATE		1
 //мультипликатор охлаждения при перегреве
 #define AI_OVERHEAT_COOLDOWN_MULTIPLIER	5
 
@@ -30,7 +30,7 @@
 #define AI_DOOR_BOLTS_LIGHTS_HEAT		250
 
 //движение камеры
-#define AI_MOVE_HEAT					2
+#define AI_MOVE_HEAT					5
 //текстовый анонс
 #define AI_ANNOUNCEMENT_HEAT			200
 //голосовой анонс
