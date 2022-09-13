@@ -1,0 +1,25 @@
+.say {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  &-channels {
+    display: flex;
+    align-items: flex-end;
+    min-height: 32px;
+
+    .say-active-channel {
+      padding-bottom: 10px;
+    }
+
+    .say-buttons:nth-child(1) {
+      margin-right: 20px;
+    }
+
+    .say-buttons {
+      transition: padding-bottom 0.15s ease-out;
+    }
+  }
+}

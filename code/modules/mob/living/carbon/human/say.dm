@@ -256,7 +256,11 @@
 	if(isradio(l_ear))
 		var/obj/item/radio/radio = l_ear
 		available_channels += radio.list_enabled_channels()
+		if (radio.frequency == PUB_FREQ)
+			available_channels += list("Common" = 1)
 	if(isradio(r_ear))
-		var/obj/item/radio/radio = l_ear
+		var/obj/item/radio/radio = r_ear
 		available_channels += radio.list_enabled_channels()
+		if (radio.frequency == PUB_FREQ)
+			available_channels += list("Common" = 1)
 	return available_channels

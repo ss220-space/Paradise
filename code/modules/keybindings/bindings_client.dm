@@ -63,7 +63,7 @@
 			return
 		if("F3", "T")
 			if(keys_held["Shift"])
-				mob.whisper_wrapper()
+				mob.test()
 			else
 				mob.say_wrapper()
 			return
