@@ -22,6 +22,7 @@ export class Window extends Component {
       resizable,
       theme,
       children,
+      title,
     } = this.props;
     const {
       config,
@@ -37,7 +38,7 @@ export class Window extends Component {
         theme={theme}>
         <TitleBar
           className="Window__titleBar"
-          title={decodeHtmlEntities(config.title)}
+          title={title || decodeHtmlEntities(config.title)}
           status={config.status}
           fancy={config.fancy}
           onDragStart={dragStartHandler}
