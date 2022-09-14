@@ -15,10 +15,7 @@ export const Multitool = (props, context) => {
     attachedName,
   } = data;
 
-  const isAllowed = !(
-    multitoolMenuId === "default_no_machine"
-    || multitoolMenuId === "access_denied"
-  );
+  const addableToBuffer = !(multitoolMenuId === "default_no_machine");
 
   const decideTabConfigurationMenu = menuID => {
     switch (menuID) {
@@ -109,7 +106,7 @@ export const Multitool = (props, context) => {
                     content={isAttachedAlreadyInBuffer ? "Added" : "Add machine"}
                     icon="save"
                     color="blue"
-                    disabled={!isAllowed || isAttachedAlreadyInBuffer}
+                    disabled={!addableToBuffer || isAttachedAlreadyInBuffer}
                     onClick={() => act('buffer_add')}
                   />
                   <Button

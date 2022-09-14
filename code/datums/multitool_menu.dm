@@ -37,7 +37,7 @@
 	if(attached_menu.inoperable())
 		disconnect()
 		return "default_no_machine"
-	if(attached_menu.allowed_to_be_configured(user))
+	if(multitool.allowed(user))
 		return attached_menu.menu_id
 	else
 		return "access_denied"
@@ -45,6 +45,12 @@
 /datum/multitool_menu_host/proc/interact(mob/user, datum/multitool_menu/attached_menu)
 	src.attached_menu = attached_menu
 	ui_interact(user)
+
+/datum/multitool_menu_host/proc/notify_if_no_access(mob/user)
+	if(!multitool.allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return TRUE
+	return FALSE
 
 /datum/multitool_menu_host/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -55,6 +61,8 @@
 
 /datum/multitool_menu_host/ui_act(action, list/params)
 	if(..())
+		return
+	if(notify_if_no_access(usr))
 		return
 	. = TRUE
 	switch(action)
@@ -106,10 +114,6 @@
 	/// The multitool that is currently attached to the object.
 	/// Do not apply any changes while this is null.
 	var/obj/item/multitool/multitool
-	/// This allows to have a separate access to open the multitool menu.
-	var/use_alt_access = FALSE
-	var/list/req_access_alt
-	var/list/req_one_access_alt
 
 /datum/multitool_menu/New(obj/holder)
 	..()
@@ -122,23 +126,6 @@
 	multitool = null
 	holder = null
 	return ..()
-
-/datum/multitool_menu/proc/allowed_to_be_configured(mob/user)
-	if(!user)
-		return FALSE
-	if(!use_alt_access)
-		return holder.allowed(user)
-	var/user_access = user.get_access()
-	if(user_access == IGNORE_ACCESS || user.can_admin_interact())
-		// Mob ignores access
-		return TRUE
-	if(!user_access)
-		return FALSE
-	if(!istype(user_access, /list))
-		return FALSE
-	var/list/my_req_access = req_access_alt ? req_access_alt : list()
-	var/list/my_req_one_access = req_one_access_alt ? req_one_access_alt : list()
-	return has_access(my_req_access, my_req_one_access, user_access)
 
 /datum/multitool_menu/proc/inoperable()
 	if(!ismachinery(holder))
