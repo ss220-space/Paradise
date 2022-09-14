@@ -165,6 +165,9 @@
 		return TRUE
 	return FALSE
 
+/datum/multitool_menu/proc/service_message(txt, class="warning")
+	multitool?.visible_message("<span class=[class]>[multitool] beeps: [txt]</span>")
+
 ////////////////////////////////
 //	Multitool menu "tag_only"
 //  ABSTRACT
@@ -297,7 +300,7 @@
 
 /datum/multitool_menu/idtag/freq/vent_pump/set_tag(new_tag)
 	if(!new_tag)
-		holder.visible_message("<span class='warning'>The ID tag of [holder] cannot be null.</span>")
+		service_message("The ID tag of [holder] cannot be null.")
 		return
 	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
 	if(my_holder.id_tag == new_tag)
@@ -330,7 +333,7 @@
 
 /datum/multitool_menu/idtag/freq/vent_scrubber/set_tag(new_tag)
 	if(!new_tag)
-		holder.visible_message("<span class='warning'>The ID tag of [holder] cannot be null.</span>")
+		service_message("The ID tag of [holder] cannot be null.")
 		return
 	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
 	if(my_holder.id_tag == new_tag)
@@ -453,7 +456,7 @@
 	if(my_holder.id_tag == new_tag)
 		return
 	if(!is_the_tag_unique(new_tag, my_holder.frequency))
-		my_holder.visible_message("<span class='warning'>There is already the same ID tag on this frequency.</span>")
+		service_message("There is already the same ID tag on this frequency.")
 		return
 	my_holder.id_tag = new_tag
 
@@ -470,7 +473,7 @@
 	if(my_holder.frequency == new_frequency)
 		return
 	if(!is_the_tag_unique(my_holder.id_tag, new_frequency))
-		my_holder.visible_message("<span class='warning'>There is already the same ID tag on this frequency.</span>")
+		service_message("There is already the same ID tag on this frequency.")
 		return
 	my_holder.set_frequency(new_frequency)
 
@@ -519,7 +522,7 @@
 			var/frequency = get_frequency()
 			var/list/sensors = get_all_air_sensor_tags(frequency) - my_holder.sensors
 			if(!sensors.len)
-				holder.visible_message("<span class='warning'>No sensors on this frequency.</span>")
+				service_message("No sensors on this frequency.")
 				return FALSE
 			var/sensor_tag = input(user, "Select a sensor", "Sensors on the frequency") as null|anything in sensors
 			if(!sensor_tag || notify_if_it_is_not_ok_to_apply_changes(user))
@@ -540,7 +543,7 @@
 		if("set_frequency")
 			// vent pumps on ATMOS_VENTSCRUB frequency use a different radio filter and cannot communicate with air_control consoles
 			if(text2num(params["frequency"]) == ATMOS_VENTSCRUB)
-				holder.visible_message("<span class='warning'>This frequency is reserved. Try another one.</span>")
+				service_message("This frequency is reserved. Try another one.")
 				return FALSE
 			return ..()
 		else
@@ -641,10 +644,10 @@
 
 /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/notify_if_the_buffer_is_not_ok()
 	if(is_null_idtag())
-		holder.visible_message("<span class='warning'>The ID tag of the device must not be null.</span>")
+		service_message("The ID tag of the device must not be null.")
 		return TRUE
 	if(is_idtag_already_linked())
-		holder.visible_message("<span class='warning'>A device with the same ID tag is already connected to [holder].</span>")
+		service_message("A device with the same ID tag is already connected to [holder].")
 		return TRUE
 	return FALSE
 
@@ -655,4 +658,4 @@
 	var/obj/machinery/computer/general_air_control/large_tank_control/my_holder = holder
 	if(my_holder.frequency == menu_linked.get_frequency())
 		return
-	holder.visible_message("<span class='notice'>[holder] and [device_linked] are not on the same frequency, so they will not be able to communicate until the frequency is adjusted.</span>")
+	service_message("[holder] and [device_linked] are not on the same frequency, so they will not be able to communicate until the frequency is adjusted.", class="notice")
