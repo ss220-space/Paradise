@@ -88,35 +88,69 @@
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 5 * REAGENTS_METABOLISM
-	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_description = "sweetness"
 	taste_mult = 1.5
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
-	if(current_cycle >= 90)
-		M.AdjustJitter(2)
-	if(prob(25))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
-	if(prob(4))
-		M.reagents.add_reagent("epinephrine", 1.2)
+	if(volume < 80)
+		M.AdjustDrowsy(-5)
+		if(current_cycle >= 90)
+			M.AdjustJitter(2)
+		if(prob(25))
+			update_flags |= M.AdjustParalysis(-1, FALSE)
+			update_flags |= M.AdjustStunned(-1, FALSE)
+			update_flags |= M.AdjustWeakened(-1, FALSE)
+		if(prob(4))
+			M.reagents.add_reagent("epinephrine", 1.2)
+	else // Isn't overdose, because only this should work. Не в передозе, что бы работала только эта часть
+		var/obj/item/organ/internal/liver/L = M.get_int_organ(/obj/item/organ/internal/liver)
+		var/obj/item/organ/internal/kidneys/K = M.get_int_organ(/obj/item/organ/internal/kidneys)
+		switch(current_cycle)
+			if(1 to 8)
+				if(prob(25))
+					to_chat(M, pick("<span class='warning'>Я чуствую себя не очень.</span>", "<span class='warning'>Я чуствую неприятные ощущения в нижней части тела.</span>", "<span class='warning'>Я чуствую неприятные ощущения в своих почках.</span>"))
+				if(prob(50))
+					M.adjustToxLoss(0.5)
+				else
+					M.adjustToxLoss(0.25)
+			if(9 to 15)
+				if(prob(25))
+					to_chat(M, pick("<span class='warning'>Я чуствую сильный голод!</span>", "<span class='warning'>У меня будто перед глазами туман!</span>"))
+				if(prob(25))
+					L.receive_damage(1)
+					K.receive_damage(0.25)
+				M.adjustToxLoss(1)
+			if(16 to INFINITY)
+				if(volume <= 119)
+					if(prob(50))
+						M.adjustToxLoss(1.5)
+					else
+						M.adjustToxLoss(1)
+					if(prob(25))
+						L.receive_damage(0.25)
+						K.receive_damage(0.25)
+					if(prob(25))
+						update_flags |= M.AdjustStunned(2, FALSE)
+						update_flags |= M.AdjustParalysis(2, FALSE)
+				if((volume > 119) && !("insulin" in M.reagents))
+					update_flags |= M.Paralyse(3, FALSE)
+					update_flags |= M.Weaken(4, FALSE)
+					if(prob(50))
+						M.adjustToxLoss(2.5)
+					else
+						M.adjustToxLoss(1.5)
+					if(prob(50))
+						L.receive_damage(1)
+						K.receive_damage(1)
+				else
+					M.adjustToxLoss(1)
+					if(prob(25))
+						update_flags |= M.AdjustStunned(2, FALSE)
+					if(prob(25))
+						L.receive_damage(0.25)
+						K.receive_damage(0.25)
 	return ..() | update_flags
-
-/datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-	M.emote("collapse")
-	..()
-
-/datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Paralyse(3 * severity, FALSE)
-	update_flags |= M.Weaken(4 * severity, FALSE)
-	if(prob(8))
-		update_flags |= M.adjustToxLoss(severity, FALSE)
-	return list(0, update_flags)
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
