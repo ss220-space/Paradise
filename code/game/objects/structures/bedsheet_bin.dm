@@ -19,7 +19,7 @@ LINEN BINS
 	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_NECK
 
-	dog_fashion = /datum/dog_fashion/head/ghost
+	dog_fashion = /datum/fashion/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5

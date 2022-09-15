@@ -20,7 +20,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	attack_verb = list("bapped")
-	dog_fashion = /datum/dog_fashion/head
+	dog_fashion = /datum/fashion/dog_fashion/head
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer 	//The bottom stuff before the stamp but after the body

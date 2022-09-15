@@ -87,7 +87,6 @@
 	var/rest = FALSE
 	response_disarm = "shoos"
 	response_harm   = "steps on"
-	var/obj/item/inventory_head
 	faction = list("neutral", "syndicate")
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
@@ -244,8 +243,7 @@
 	else
 		return ..()
 
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/place_on_head(obj/item/item_to_add, mob/user)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/place_on_head(obj/item/item_to_add, mob/user) //!!!!
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing she ever wears, I guess
 		item_to_add.afterattack(src,user,1)
@@ -266,7 +264,7 @@
 		return 0
 
 	var/valid = FALSE
-	if(ispath(item_to_add.snake_fashion, /datum/snake_fashion/head))
+	if(ispath(item_to_add.snake_fashion, /datum/fashion/snake_fashion/head))
 		valid = TRUE
 
 	if(valid)
@@ -309,14 +307,17 @@
 	minbodytemp = initial(minbodytemp)
 */
 	if(inventory_head?.snake_fashion)
-		var/datum/snake_fashion/SF = new inventory_head.snake_fashion(src)
+		var/datum/fashion/snake_fashion/SF = new inventory_head.snake_fashion(src)
 		SF.apply(src)
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/regenerate_hat_icon()
+	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/regenerate_icons() // оверлей
 	..()
 	if(inventory_head)
 		var/image/head_icon
-		var/datum/snake_fashion/SF = new inventory_head.snake_fashion(src)
+		var/datum/fashion/snake_fashion/SF = new inventory_head.snake_fashion(src)
 
 		if(!SF.obj_icon_state)
 			SF.obj_icon_state = inventory_head.icon_state

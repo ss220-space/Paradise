@@ -391,7 +391,7 @@
 /obj/item/clothing/accessory/scarf // No overlay
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
-	dog_fashion = /datum/dog_fashion/head
+	dog_fashion = /datum/fashion/dog_fashion/head
 
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"

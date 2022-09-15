@@ -110,7 +110,6 @@
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
-	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
@@ -145,7 +144,6 @@
 	if(user.incapacitated() || !Adjacent(user))
 		return
 	user.set_machine(src)
-
 
 	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
 	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
@@ -275,7 +273,7 @@
 
 					//The objects that corgis can wear on their backs.
 					var/allowed = FALSE
-					if(ispath(item_to_add.dog_fashion, /datum/dog_fashion/back))
+					if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/back))
 						allowed = TRUE
 
 					if(!allowed)
@@ -302,8 +300,7 @@
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 // > some will probably be removed
 
-/mob/living/simple_animal/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user)
-
+/mob/living/simple_animal/pet/dog/corgi/place_on_head(obj/item/item_to_add, mob/user) //!!!!
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
 		item_to_add.afterattack(src,user,1)
 		return
@@ -323,8 +320,9 @@
 		return 0
 
 	var/valid = FALSE
-	if(ispath(item_to_add.dog_fashion, /datum/dog_fashion/head))
+	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/head))
 		valid = TRUE
+		item_to_add.fashion = item_to_add.dog_fashion
 
 	//Various hats and items (worn on his head) change Ian's behaviour. His attributes are reset when a hat is removed.
 
@@ -366,18 +364,23 @@
 	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
-		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		var/datum/fashion/dog_fashion/DF = new inventory_head.dog_fashion(src)
 		DF.apply(src)
 
 	if(inventory_back && inventory_back.dog_fashion)
-		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		var/datum/fashion/dog_fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
+	//message_admins("Тест 0")
+/mob/living/simple_animal/pet/dog/corgi/regenerate_hat_icon()
+	return FALSE
 
 /mob/living/simple_animal/pet/dog/corgi/regenerate_icons()
 	..()
+	//message_admins("Тест 1")
 	if(inventory_head)
+		//message_admins("Тест 2")
 		var/image/head_icon
-		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		var/datum/fashion/dog_fashion/DF = new inventory_head.dog_fashion(src)
 
 		if(!DF.obj_icon_state)
 			DF.obj_icon_state = inventory_head.icon_state
@@ -397,7 +400,7 @@
 
 	if(inventory_back)
 		var/image/back_icon
-		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		var/datum/fashion/dog_fashion/DF = new inventory_back.dog_fashion(src)
 
 		if(!DF.obj_icon_state)
 			DF.obj_icon_state = inventory_back.icon_state

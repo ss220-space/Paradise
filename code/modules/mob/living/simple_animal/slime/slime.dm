@@ -123,6 +123,7 @@
 /mob/living/simple_animal/slime/proc/random_colour()
 	set_colour(pick(slime_colours))
 
+//!!!!!!!!!! сюда бы еще установить для слаймов
 /mob/living/simple_animal/slime/regenerate_icons()
 	..()
 	var/icon_text = "[colour] [is_adult ? "adult" : "baby"] slime"

@@ -12,7 +12,6 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 8
 	attacktext = "кусает"
-	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	footstep_type = FOOTSTEP_MOB_CLAW
 
@@ -185,7 +184,7 @@
 
 					//The objects that secdogs can wear on their faces.
 					var/allowed = FALSE
-					if(ispath(item_to_add.muhtar_fashion, /datum/muhtar_fashion/mask))
+					if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/mask))
 						allowed = TRUE
 
 					if(!allowed)
@@ -207,7 +206,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/pet/dog/security/proc/place_on_head(obj/item/item_to_add, mob/user)
+/mob/living/simple_animal/pet/dog/security/place_on_head(obj/item/item_to_add, mob/user) //!!!!!!!
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
 		item_to_add.afterattack(src,user,1)
@@ -228,7 +227,7 @@
 		return 0
 
 	var/valid = FALSE
-	if(ispath(item_to_add.muhtar_fashion, /datum/muhtar_fashion/head))
+	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/head))
 		valid = TRUE
 
 	//Various hats and items (worn on his head) change muhtar's behaviour. His attributes are reset when a hat is removed.
@@ -267,18 +266,21 @@
 	desc = initial(desc)
 
 	if(inventory_head && inventory_head.muhtar_fashion)
-		var/datum/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
+		var/datum/fashion/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
 		DF.apply(src)
 
 	if(inventory_mask && inventory_mask.muhtar_fashion)
-		var/datum/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
+		var/datum/fashion/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
 		DF.apply(src)
+
+/mob/living/simple_animal/pet/dog/security/regenerate_hat_icon()
+	return FALSE
 
 /mob/living/simple_animal/pet/dog/security/regenerate_icons()
 	..()
 	if(inventory_head)
 		var/image/head_icon
-		var/datum/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
+		var/datum/fashion/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
 
 		if(!DF.obj_icon_state)
 			DF.obj_icon_state = inventory_head.icon_state
@@ -303,7 +305,7 @@
 
 	if(inventory_mask)
 		var/image/mask_icon
-		var/datum/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
+		var/datum/fashion/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
 
 		if(!DF.obj_icon_state)
 			DF.obj_icon_state = inventory_mask.icon_state

@@ -470,12 +470,16 @@
 			return new childspawn(target)
 
 /mob/living/simple_animal/show_inv(mob/user as mob)
-	if(!can_collar)
+	if(user.incapacitated() || !Adjacent(user))
 		return
-
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
-	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
+
+	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
+	if (canBeHatted)
+		dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'><font color=grey>Empty</font>"]</A>"
+	if (can_collar)
+		dat += {"<meta charset="UTF-8"><table><tr><br><B>Collar:</B><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></tr></table>"}
+	dat += "<br><A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
 	popup.set_content(dat)
@@ -641,6 +645,9 @@
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+	if (inventory_head)
+		regenerate_hat_icon()
 
 /mob/living/simple_animal/Login()
 	..()

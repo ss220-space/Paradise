@@ -63,7 +63,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 130
-	dog_fashion = /datum/dog_fashion/back/deathsquad
+	dog_fashion = /datum/fashion/dog_fashion/back/deathsquad
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -112,7 +112,7 @@
 		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
-	dog_fashion = /datum/dog_fashion/head/santa
+	dog_fashion = /datum/fashion/dog_fashion/head/santa
 
 /obj/item/clothing/head/helmet/space/santahat/attack_self(mob/user as mob)
 	if(src.icon_state == "santahat")

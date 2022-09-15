@@ -69,9 +69,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
-	var/datum/dog_fashion/dog_fashion = null
-	var/datum/muhtar_fashion/muhtar_fashion = null
-	var/datum/snake_fashion/snake_fashion = null
+	var/datum/fashion/fashion = null //общий для проверок
+	var/datum/fashion/dog_fashion/dog_fashion = null
+	var/datum/fashion/muhtar_fashion/muhtar_fashion = null
+	var/datum/fashion/snake_fashion/snake_fashion = null
 
 	var/mob/thrownby = null
 

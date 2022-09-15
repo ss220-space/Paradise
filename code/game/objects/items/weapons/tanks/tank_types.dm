@@ -17,7 +17,7 @@
 	icon_state = "oxygen"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/fashion/dog_fashion/back
 
 /obj/item/tank/internals/oxygen/populate_gas()
 	air_contents.oxygen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
@@ -216,7 +216,7 @@
 	item_state = "generic"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/fashion/dog_fashion/back
 
 /obj/item/tank/internals/generic/populate_gas()
 	return
