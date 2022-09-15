@@ -12,7 +12,6 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 8
 	attacktext = "кусает"
-	var/obj/item/inventory_mask
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/dog/security/ranger
@@ -32,35 +31,6 @@
 	icon_living = "german_shep2"
 	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
-
-/mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Mask:</B> <A href='?src=[UID()];[inventory_mask ? "remove_inv=mask'>[inventory_mask]" : "add_inv=mask'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/simple_animal/pet/dog/security/ranger/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Mask:</B> <A href='?src=[UID()];[inventory_mask ? "remove_inv=mask'>[inventory_mask]" : "add_inv=mask'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
 
 /mob/living/simple_animal/pet/dog/security/StartResting(updating = 1)
 	..()
@@ -106,126 +76,15 @@
 /mob/living/simple_animal/pet/dog/security/death(gibbed)
 	..(gibbed)
 	regenerate_icons()
-/mob/living/simple_animal/pet/dog/security/Topic(href, href_list)
-	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
 
-	//Removing from inventory
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				if(inventory_head)
-					if(inventory_head.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					usr.put_in_hands(inventory_head)
-					inventory_head = null
-					update_muhtar_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
-			if("mask")
-				if(inventory_mask)
-					if(inventory_mask.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					usr.put_in_hands(inventory_mask)
-					inventory_mask = null
-					update_muhtar_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
-			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					unEquip(pcollar)
-					usr.put_in_hands(the_collar)
-					pcollar = null
-					update_muhtar_fluff()
-					regenerate_icons()
+//The objects that secdogs can wear on their faces.
+/mob/living/simple_animal/pet/dog/security/place_on_mask_fashion(obj/item/item_to_add, mob/user)
+	var/allowed = FALSE
+	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/mask))
+		allowed = TRUE
+	return allowed
 
-		show_inv(usr)
-
-	//Adding things to inventory
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-
-		switch(add_to)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-				update_muhtar_fluff()
-
-			if("head")
-				place_on_head(usr.get_active_hand(),usr)
-
-			if("mask")
-				if(inventory_mask)
-					to_chat(usr, "<span class='warning'>It's already wearing something!</span>")
-					return
-				else
-					var/obj/item/item_to_add = usr.get_active_hand()
-
-					if(!item_to_add)
-						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s face for a moment.</span>")
-						return
-
-					if(!usr.unEquip(item_to_add))
-						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s face!</span>")
-						return
-
-					if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
-						item_to_add.afterattack(src,usr,1)
-						return
-
-					//The objects that secdogs can wear on their faces.
-					var/allowed = FALSE
-					if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/mask))
-						allowed = TRUE
-
-					if(!allowed)
-						to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s face, but it falls off!</span>")
-						item_to_add.forceMove(drop_location())
-						if(prob(25))
-							step_rand(item_to_add)
-						for(var/i in list(1,2,4,8,4,8,4,dir))
-							setDir(i)
-							sleep(1)
-						return
-
-					item_to_add.forceMove(src)
-					inventory_mask = item_to_add
-					update_muhtar_fluff()
-					regenerate_icons()
-
-		show_inv(usr)
-	else
-		return ..()
-
-/mob/living/simple_animal/pet/dog/security/place_on_head(obj/item/item_to_add, mob/user) //!!!!!!!
-
-	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
-		item_to_add.afterattack(src,user,1)
-		return
-
-	if(inventory_head)
-		if(user)
-			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
-		return
-	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
-			return
-		return
-
-	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
-		return 0
-
+/mob/living/simple_animal/pet/dog/security/place_on_head_fashion(obj/item/item_to_add, mob/user) //!!!!!!!
 	var/valid = FALSE
 	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/head))
 		valid = TRUE
@@ -241,20 +100,16 @@
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
-		update_muhtar_fluff()
+		update_fluff()
 		regenerate_icons()
 	else
 		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
 		item_to_add.forceMove(drop_location())
-		if(prob(25))
-			step_rand(item_to_add)
-		for(var/i in list(1,2,4,8,4,8,4,dir))
-			setDir(i)
-			sleep(1)
+		wrong_item(item_to_add)
 
 	return valid
 
-/mob/living/simple_animal/pet/dog/security/proc/update_muhtar_fluff()
+/mob/living/simple_animal/pet/dog/security/update_fluff()
 	// First, change back to defaults
 	name = real_name
 	desc = initial(desc)
@@ -273,11 +128,7 @@
 		var/datum/fashion/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
 		DF.apply(src)
 
-/mob/living/simple_animal/pet/dog/security/regenerate_hat_icon()
-	return FALSE
-
-/mob/living/simple_animal/pet/dog/security/regenerate_icons()
-	..()
+/mob/living/simple_animal/pet/dog/security/regenerate_fashion_icon()
 	if(inventory_head)
 		var/image/head_icon
 		var/datum/fashion/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)

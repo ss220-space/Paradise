@@ -67,11 +67,6 @@
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide    = 0
 
-	var/obj/item/clothing/accessory/petcollar/pcollar = null
-	var/collar_type //if the mob has collar sprites, define them.
-	var/unique_pet = FALSE // if the mob can be renamed
-	var/can_collar = FALSE // can add collar to mob or not
-
 	//Hot simple_animal baby making vars
 	var/list/childtype = null
 	var/next_scan_time = 0
@@ -121,6 +116,8 @@
 		verbs -= /mob/living/simple_animal/verb/hide
 	if(pcollar)
 		pcollar = new(src)
+		regenerate_icons()
+	else if(inventory_head || inventory_mask || inventory_back)
 		regenerate_icons()
 	if(footstep_type)
 		AddComponent(/datum/component/footstep, footstep_type)
@@ -469,68 +466,6 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/show_inv(mob/user as mob)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	if (canBeHatted)
-		dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'><font color=grey>Empty</font>"]</A>"
-	if (can_collar)
-		dat += {"<meta charset="UTF-8"><table><tr><br><B>Collar:</B><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></tr></table>"}
-	dat += "<br><A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/simple_animal/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(slot_collar)
-			return pcollar
-	. = ..()
-
-/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
-	// . = ..() // Do not call parent. We do not want animals using their hand slots.
-	switch(slot)
-		if(slot_collar)
-			if(pcollar)
-				return FALSE
-			if(!can_collar)
-				return FALSE
-			if(!istype(I, /obj/item/clothing/accessory/petcollar))
-				return FALSE
-			return TRUE
-
-/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
-	if(!istype(W))
-		return FALSE
-
-	if(!slot)
-		return FALSE
-
-	W.layer = ABOVE_HUD_LAYER
-	W.plane = ABOVE_HUD_PLANE
-
-	switch(slot)
-		if(slot_collar)
-			add_collar(W)
-
-/mob/living/simple_animal/unEquip(obj/item/I, force)
-	. = ..()
-	if(!. || !I)
-		return
-
-	if(I == pcollar)
-		pcollar = null
-		regenerate_icons()
-
-/mob/living/simple_animal/get_access()
-	. = ..()
-	if(pcollar)
-		. |= pcollar.GetAccess()
-
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || IsWeakened() || stat || resting)
 		drop_r_hand()
@@ -624,30 +559,6 @@
 	if(AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
-
-/mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(!istype(P) || QDELETED(P) || pcollar)
-		return
-	if(user && !user.unEquip(P))
-		return
-	P.forceMove(src)
-	P.equipped(src)
-	pcollar = P
-	regenerate_icons()
-	if(user)
-		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
-	if(P.tagname && !unique_pet)
-		name = P.tagname
-		real_name = P.tagname
-
-/mob/living/simple_animal/regenerate_icons()
-	cut_overlays()
-	if(pcollar && collar_type)
-		add_overlay("[collar_type]collar")
-		add_overlay("[collar_type]tag")
-
-	if (inventory_head)
-		regenerate_hat_icon()
 
 /mob/living/simple_animal/Login()
 	..()
