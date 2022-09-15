@@ -88,6 +88,7 @@
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 5 * REAGENTS_METABOLISM
+	overdose_threshold = 80
 	taste_description = "sweetness"
 	taste_mult = 1.5
 
@@ -102,6 +103,7 @@
 		update_flags |= M.AdjustWeakened(-1, FALSE)
 	if(prob(4) && !overdosed)
 		M.reagents.add_reagent("epinephrine", 1.2)
+	return ..() | update_flags
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, pick("<span class='warning'>Я чуствую себя не очень.</span>", "<span class='warning'>Я чуствую неприятные ощущения в нижней части тела.</span>", "<span class='warning'>Я чуствую неприятные ощущения в своих почках.</span>"))
