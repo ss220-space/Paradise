@@ -257,7 +257,7 @@
 			visible_message("<span class='danger'>[src] malfunctions and destroys [exp_on], lashing its arms out at nearby people!</span>")
 			for(var/mob/living/m in oview(1, src))
 				m.apply_damage(15,BRUTE,pick("head","chest","groin"))
-				investigate_log("Experimentor dealt minor brute to [m].", INVESTIGATE_EXPERIMENTOR)
+				investigate_log("Experimentor dealt minor brute to [key_name_log(m)].", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions!</span>")
@@ -267,7 +267,7 @@
 			var/mob/living/target = locate(/mob/living) in oview(7,src)
 			if(target)
 				var/obj/item/throwing = loaded_item
-				investigate_log("Experimentor has thrown [loaded_item] at [target]", INVESTIGATE_EXPERIMENTOR)
+				investigate_log("Experimentor has thrown [loaded_item] at [key_name_log(target)]", INVESTIGATE_EXPERIMENTOR)
 				ejectItem()
 				if(throwing)
 					throwing.throw_at(target, 10, 1)
@@ -284,7 +284,7 @@
 			visible_message("<span class='danger'>[src] malfunctions, melting [exp_on] and leaking radiation!</span>")
 			for(var/mob/living/m in oview(1, src))
 				m.apply_effect(25,IRRADIATE)
-				investigate_log("Experimentor has irradiated [m]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
+				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")
@@ -363,7 +363,7 @@
 			var/turf/MT = get_turf(M)
 			if(MT)
 				visible_message("<span class='danger'>[src] dangerously overheats, launching a flaming fuel orb!</span>")
-				investigate_log("Experimentor has launched a <font color='red'>fireball</font> at [M]!", INVESTIGATE_EXPERIMENTOR)
+				investigate_log("Experimentor has launched a <font color='red'>fireball</font> at [key_name_log(M)]!", INVESTIGATE_EXPERIMENTOR)
 				var/obj/item/projectile/magic/fireball/FB = new /obj/item/projectile/magic/fireball(start)
 				FB.original = MT
 				FB.current = start
@@ -394,7 +394,7 @@
 			throwSmoke(src.loc)
 			for(var/mob/living/m in oview(1, src))
 				m.apply_damage(5,BURN,pick("head","chest","groin"))
-				investigate_log("Experimentor has dealt minor burn damage to [m]", INVESTIGATE_EXPERIMENTOR)
+				investigate_log("Experimentor has dealt minor burn damage to [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR)
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_COLD)
@@ -494,7 +494,7 @@
 		for(var/mob/living/m in view(4,src))
 			to_chat(m, "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>")
 			m.take_overall_damage(50)
-			investigate_log("Experimentor has taken 50 brute a blood sacrifice from [m]", INVESTIGATE_EXPERIMENTOR)
+			investigate_log("Experimentor has taken 50 brute a blood sacrifice from [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR)
 
 	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff) && prob(87))
 		var/globalMalf = rand(1,87)
@@ -731,7 +731,7 @@
 //Admin Warning proc for relics
 /obj/item/relic/proc/warn_admins(mob/user, RelicType, priority = 1)
 	var/turf/T = get_turf(src)
-	var/log_msg = "[RelicType] relic used by [key_name(user)] in ([T.x],[T.y],[T.z])"
+	var/log_msg = "[RelicType] relic used by [key_name_log(user)] in [COORD(T)]"
 	if(priority) //For truly dangerous relics that may need an admin's attention. BWOINK!
 		message_admins("[RelicType] relic activated by [key_name_admin(user)] in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
 	add_game_logs(log_msg)

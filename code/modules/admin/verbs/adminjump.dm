@@ -74,9 +74,9 @@
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
 		O.force_eject_occupant(usr)
-	log_admin("[key_name(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]")
+	log_admin("[key_name(usr)] jumped to [COORD(T)] in [T.loc]")
 	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
+		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]", 1)
 	admin_forcemove(usr, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
@@ -117,7 +117,7 @@
 			O.ManualFollow(T)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
+		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
 
 /client/proc/jumptokey(client/C)
 	if(!C?.mob || !check_rights(R_ADMIN))

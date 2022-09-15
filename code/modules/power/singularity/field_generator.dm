@@ -71,7 +71,7 @@ field_generator power level display
 					"<span class='notice'>You turn on the [name].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
-				investigate_log("<font color='green'>activated</font> by [user.key].", INVESTIGATE_ENGINE)
+				investigate_log("<font color='green'>activated</font> by [key_name_log(user)].", INVESTIGATE_ENGINE)
 
 				add_fingerprint(user)
 	else

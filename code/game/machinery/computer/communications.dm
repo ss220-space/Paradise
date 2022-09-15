@@ -65,7 +65,7 @@
 	set_security_level(tmp_alertlevel)
 	if(GLOB.security_level != old_level)
 		//Only notify the admins if an actual change happened
-		add_game_logs("[key_name(usr)] has changed the security level to [get_security_level()].", usr)
+		add_game_logs("[key_name_log(usr)] has changed the security level to [get_security_level()].", usr)
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	tmp_alertlevel = 0
 
@@ -429,7 +429,7 @@
 		return
 
 	SSshuttle.requestEvac(user, reason)
-	add_game_logs("[key_name(user)] has called the shuttle: [reason]", user)
+	add_game_logs("[key_name_log(user)] has called the shuttle: [reason]", user)
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
 	return
@@ -460,7 +460,7 @@
 		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
 		SSshuttle.emergency.canRecall = FALSE
 	if(user)
-		add_game_logs("[key_name(user)] has called the shuttle.", user)
+		add_game_logs("[key_name_log(user)] has called the shuttle.", user)
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
@@ -470,11 +470,11 @@
 		return
 
 	if(SSshuttle.cancelEvac(user))
-		add_game_logs("[key_name(user)] has recalled the shuttle.", user)
+		add_game_logs("[key_name_log(user)] has recalled the shuttle.", user)
 		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 	else
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
-		add_game_logs("[key_name(user)] has tried and failed to recall the shuttle.", user)
+		add_game_logs("[key_name_log(user)] has tried and failed to recall the shuttle.", user)
 		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
@@ -491,7 +491,7 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
-			log_admin("STATUS: [user] set status screen message: [data1] [data2]")
+			log_admin("STATUS: [key_name_log(user)] set status screen message: [data1] [data2]")
 			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
 		if("alert")
 			status_signal.data["picture_state"] = data1

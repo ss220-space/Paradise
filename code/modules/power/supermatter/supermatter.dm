@@ -405,7 +405,7 @@
 		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
-		investigate_log("has consumed [key_name(user)].", INVESTIGATE_ENGINE)
+		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
 	else if(isobj(AM) && !istype(AM, /obj/effect))
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)

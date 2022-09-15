@@ -48,13 +48,13 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
-			log_admin("[key_name(src)] has attempted to advertise in OOC: [msg]")
+			log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 			message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 			return
 		if(findtext(msg, "https://") || findtext(msg, "http://"))
 			if(!findtext(msg, "ss220.space"))
 				to_chat(src, "<B>Advertising other sites is not allowed.</B>")
-				log_admin("[key_name(src)] has attempted to advertise in OOC: [msg]")
+				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
 
@@ -122,7 +122,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	GLOB.normal_ooc_colour = newColor
 	message_admins("[key_name_admin(usr)] has set the default player OOC color to [newColor]")
-	log_admin("[key_name(usr)] has set the default player OOC color to [newColor]")
+	log_admin("[key_name_log(usr)] has set the default player OOC color to [newColor]")
 
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Player OOC")
@@ -136,7 +136,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	GLOB.normal_ooc_colour = initial(GLOB.normal_ooc_colour)
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
-	log_admin("[key_name(usr)] has reset the default player OOC color")
+	log_admin("[key_name_log(usr)] has reset the default player OOC color")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Player OOC")
 
@@ -206,13 +206,13 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 		if(findtext(msg, "byond://"))
 			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
-			log_admin("[key_name(src)] has attempted to advertise in LOOC: [msg]")
+			log_admin("[key_name_log(src)] has attempted to advertise in LOOC: [msg]")
 			message_admins("[key_name_admin(src)] has attempted to advertise in LOOC: [msg]")
 			return
 		if(findtext(msg, "https://") || findtext(msg, "http://"))
 			if(!findtext(msg, "ss220.space"))
 				to_chat(src, "<B>Advertising other sites is not allowed.</B>")
-				log_admin("[key_name(src)] has attempted to advertise in OOC: [msg]")
+				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
 

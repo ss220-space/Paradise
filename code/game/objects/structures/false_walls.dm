@@ -261,10 +261,9 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
-		var/turf/T = locate(user)
-		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
-		add_game_logs("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]", user)
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
+		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_COORDJMP(user)]")
+		add_attack_logs(user, src, "Ignited using [W]")
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
 	else
 		return ..()

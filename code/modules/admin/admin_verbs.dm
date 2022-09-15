@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-					log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(usr)].")
+					log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name_log(usr)].")
 					message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(usr)].")
 					return
 				else
@@ -664,7 +664,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
 			logmsg = "all access."
 	if(logmsg)
-		log_admin("[key_name(usr)] blessed [key_name(M)] with: [logmsg]")
+		log_admin("[key_name(usr)] blessed [key_name_log(M)] with: [logmsg]")
 		message_admins("[key_name(usr)] blessed [key_name(M)] with: [logmsg]")
 
 /client/proc/smite(mob/living/M as mob)
@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			H.dust()
 			logmsg = "dust"
 	if(logmsg)
-		log_admin("[key_name(usr)] smited [key_name(M)] with: [logmsg]")
+		log_admin("[key_name(usr)] smited [key_name_log(M)] with: [logmsg]")
 		message_admins("[key_name_admin(usr)] smited [key_name_admin(M)] with: [logmsg]")
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
@@ -833,7 +833,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		T.AddSpell(new S)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
+	log_admin("[key_name(usr)] gave [key_name_log(T)] the spell [S].")
 	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
@@ -844,7 +844,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!D) return
 	T.ForceContractDisease(new D)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
+	log_admin("[key_name(usr)] gave [key_name_log(T)] the disease [D].")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
 
 /client/proc/make_sound(var/obj/O in view()) // -- TLE
@@ -862,7 +862,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		for(var/mob/V in hearers(O))
 			V.show_message(admin_pencode_to_html(message), 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
+		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [COORD(O)] make a sound</span>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/togglebuildmodeself()
@@ -1246,7 +1246,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	to_chat(T, "<span class='notice'>Move on.</span>")
 	T << 'sound/voice/manup1.ogg'
 
-	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
+	log_admin("[key_name(usr)] told [key_name_log(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
 
 /client/proc/global_man_up()

@@ -246,8 +246,8 @@
 		var/area/area = get_area(src)
 		if(area)
 			message_admins("SMES deleted at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
-			add_game_logs("SMES deleted at ([area.name])")
-			investigate_log("<font color='red'>deleted</font> at ([area.name])", INVESTIGATE_ENGINE)
+			add_game_logs("SMES deleted at [AREACOORD(src)]")
+			investigate_log("<font color='red'>deleted</font> at [AREACOORD(src)]", INVESTIGATE_ENGINE)
 	if(terminal)
 		disconnect_terminal()
 	return ..()
@@ -427,7 +427,7 @@
 		log_smes(usr)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)
-		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", INVESTIGATE_ENGINE)
+		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name_log(user) : "outside forces"]", INVESTIGATE_ENGINE)
 
 /obj/machinery/power/smes/proc/ion_act()
 	if(is_station_level(src.z))

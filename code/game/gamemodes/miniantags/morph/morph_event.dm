@@ -25,8 +25,8 @@
 		var/mob/living/simple_animal/hostile/morph/morph = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 		player_mind.transfer_to(morph)
 		morph.make_morph_antag()
-		message_admins("[key_of_morph] has been made into morph by an event.")
-		add_game_logs("[key_of_morph] was spawned as a morph by an event.", morph)
+		message_admins("[key_name_admin(morph)] has been made into morph by an event.")
+		add_game_logs("[key_name_log(morph)] was spawned as a morph by an event.", morph)
 
 /datum/event/spawn_morph/start()
 	get_morph()

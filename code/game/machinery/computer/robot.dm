@@ -171,8 +171,8 @@
 			if(safety)
 				to_chat(usr, "<span class='danger'>Self-destruct aborted - safety active</span>")
 				return
-			message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
-			add_game_logs("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>", usr)
+			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated all cyborgs!</span>")
+			add_game_logs("\<span class='notice'>[key_name_log(usr)] detonated all cyborgs!</span>", usr)
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(istype(R, /mob/living/silicon/robot/drone))
 					continue
@@ -194,8 +194,8 @@
 				. = TRUE
 				return
 			var/turf/T = get_turf(R)
-			message_admins("<span class='notice'>[key_name_admin(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!</span>")
-			add_game_logs("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>", usr)
+			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!</span>")
+			add_game_logs("\<span class='notice'>[key_name_log(usr)] detonated [key_name_log(R)]!</span>", usr)
 			to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
 			if(R.connected_ai)
 				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
@@ -222,8 +222,8 @@
 			var/choice = input("Really hack [R.name]? This cannot be undone.") in list("Yes", "No")
 			if(choice != "Yes")
 				return
-			add_game_logs("[key_name(usr)] emagged [key_name(R)] using robotic console!", usr)
-			message_admins("<span class='notice'>[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
+			add_game_logs("[key_name_log(usr)] emagged [key_name(R)] using robotic console!", usr)
+			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
 			R.emagged = TRUE
 			to_chat(R, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
 			. = TRUE

@@ -309,7 +309,7 @@
 		if("door_type")
 			var/new_door_type = text2path(params["door_type"])
 			if(!(new_door_type in current_rcd_door_types))
-				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
+				message_admins("<span class='warning'>RCD Door HREF exploit</span> attempted by [ADMIN_FULLMONTY(usr)]!")
 				return FALSE
 			door_type = new_door_type
 

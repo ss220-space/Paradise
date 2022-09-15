@@ -186,9 +186,9 @@
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
 	if(is_hot(W))
-		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
-		add_game_logs("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])", user)
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
+		message_admins("Plasma mineral door ignited by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
+		add_attack_logs(user, src, "Ignited using [W]")
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(100)
 	else
 		return ..()

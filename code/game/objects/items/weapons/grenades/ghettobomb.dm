@@ -45,9 +45,7 @@
 			overlays -= "improvised_grenade_filled"
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
+			investigate_log("[key_name_log(user)] has primed a [name] for detonation", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user

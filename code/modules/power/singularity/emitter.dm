@@ -76,7 +76,7 @@
 /obj/machinery/power/emitter/Destroy()
 	message_admins("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]")
 	add_game_logs("Emitter deleted at ([x],[y],[z])")
-	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]", INVESTIGATE_ENGINE)
+	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name_log(usr)]" : ""]", INVESTIGATE_ENGINE)
 	QDEL_NULL(sparks)
 	return ..()
 
@@ -98,16 +98,16 @@
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
 				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				add_game_logs("Emitter turned off by [key_name(user)] in [x], [y], [z]")
-				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]", INVESTIGATE_ENGINE)
+				add_game_logs("Emitter turned off by [key_name_log(user)] in [x], [y], [z]")
+				investigate_log("turned <font color='red'>off</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			else
 				src.active = 1
 				to_chat(user, "You turn on the [src].")
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
 				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				add_game_logs("Emitter turned on by [key_name(user)] in [x], [y], [z]")
-				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]", INVESTIGATE_ENGINE)
+				add_game_logs("Emitter turned on by [key_name_log(user)] in [x], [y], [z]")
+				investigate_log("turned <font color='green'>on</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")

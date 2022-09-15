@@ -189,12 +189,12 @@
 	..()
 	for(var/mob/living/M in range(1, src))
 		do_teleport(M, M, 4)
-		investigate_log("teleported [M] to ([M.x],[M.y],[M.z])", INVESTIGATE_TELEPORTATION)
+		investigate_log("teleported [key_name_log(M)] to [COORD(M)]", INVESTIGATE_TELEPORTATION)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
 	if(isliving(AM))
 		do_teleport(AM, AM, 8)
-		investigate_log("teleported [AM] to ([AM.x],[AM.y],[AM.z])", INVESTIGATE_TELEPORTATION)
+		investigate_log("teleported [key_name_log(AM)] to [COORD(AM)]", INVESTIGATE_TELEPORTATION)
 
 /obj/effect/anomaly/bluespace/detonate()
 	var/turf/T = pick(get_area_turfs(impact_area))

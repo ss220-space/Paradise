@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 		else
 			to_chat(usr, "You have unlocked [job].")
-			message_admins("[key_name(usr)] has unlocked [job].") // why do we admin log this
+			log_admin("[key_name(usr)] has unlocked [job].") // why do we admin log this
 			karmacharge(cost)
 
 		qdel(insert_query)
@@ -423,7 +423,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				return
 			else
 				to_chat(usr, "You have unlocked [job].")
-				message_admins("[key_name(usr)] has unlocked [job].")
+				log_admin("[key_name(usr)] has unlocked [job].")
 				karmacharge(cost)
 				qdel(update_query)
 		else
@@ -454,7 +454,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 		else
 			to_chat(usr, "You have unlocked [species].")
-			message_admins("[key_name(usr)] has unlocked [species].")
+			log_admin("[key_name(usr)] has unlocked [species].")
 			qdel(insert_query)
 			karmacharge(cost)
 
@@ -472,7 +472,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				return
 			else
 				to_chat(usr, "You have unlocked [species].")
-				message_admins("[key_name(usr)] has unlocked [species].")
+				log_admin("[key_name(usr)] has unlocked [species].")
 				qdel(update_query)
 				karmacharge(cost)
 		else
@@ -503,7 +503,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
-			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			log_admin("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			qdel(select_query)
 			qdel(update_query)
 			return
@@ -561,7 +561,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				return
 			else
 				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
-				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
+				log_admin("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
 				qdel(update_query)
 				karmacharge(text2num(cost),1)
 		else

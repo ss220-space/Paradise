@@ -357,9 +357,8 @@
 	if(is_hot(I) && !active)
 		active = 1
 		var/turf/bombturf = get_turf(src)
-		var/area/bombarea = get_area(bombturf)
-		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
-		add_game_logs("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).", user)
+		message_admins("[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
+		add_game_logs("[key_name_log(user)] has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
 		overlays += GLOB.fire_overlay

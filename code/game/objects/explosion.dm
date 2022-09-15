@@ -51,8 +51,8 @@
 			else
 				log_runtime("Bad type of cause for logging explosion.")
 
-			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause_str] [cause_vv])" : ""] [ADMIN_COORDJMP(epicenter)] ")
-			add_game_logs("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause_str])" : ""] [COORD(epicenter)] ")
+			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) [cause ? "(Cause: [cause_str] [cause_vv])" : ""] [ADMIN_VERBOSEJMP(epicenter)] ")
+			add_game_logs("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) [cause ? "(Cause: [cause_str])" : ""] [AREACOORD(epicenter)] ")
 
 		var/x0 = epicenter.x
 		var/y0 = epicenter.y

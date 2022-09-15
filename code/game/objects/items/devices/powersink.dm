@@ -77,8 +77,9 @@
 			else
 				set_mode(CLAMPED_OFF)
 				visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
-				message_admins("Power sink attached by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-				add_game_logs("Power sink attached by [key_name(user)] at ([x],[y],[z])", user)
+				message_admins("Power sink attached by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
+				add_game_logs("Power sink attached by [key_name(user)] at [COORD(src)]", user)
+				investigate_log("attached by [key_name_log(user)]", INVESTIGATE_ENGINE)
 		else
 			to_chat(user, "Device must be placed over an exposed cable to attach to it.")
 	else
@@ -99,6 +100,7 @@
 				"<span class='italics'>You hear a click.</span>")
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			add_game_logs("Power sink activated by [key_name(user)] at [AREACOORD(src)]", user)
+			investigate_log("activated by [key_name_log(user)]", INVESTIGATE_ENGINE)
 			set_mode(OPERATING)
 
 		if(OPERATING)
@@ -141,7 +143,7 @@
 	if(power_drained > max_power * 0.98)
 		if (!admins_warned)
 			admins_warned = TRUE
-			message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
+			message_admins("Power sink at [ADMIN_VERBOSEJMP(src)] is 95% full. Explosion imminent.")
 		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
 
 	if(power_drained >= max_power)
