@@ -190,6 +190,12 @@
 	popup.open()
 
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
+	if(!item_to_add)
+		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
+		if(flags_2 & HOLOGRAM_2)
+			return 0
+		return 0
+
 	if(!istype(item_to_add, /obj/item/clothing/head/))
 		to_chat(user, "<span class='warning'>[item_to_add] нельзя надеть на голову [src]!</span>")
 		return 0
@@ -201,12 +207,6 @@
 	if(inventory_head)
 		if(user)
 			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src]!</span>")
-		return 0
-
-	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
-		if(flags_2 & HOLOGRAM_2)
-			return 0
 		return 0
 
 	if(user && !user.unEquip(item_to_add))
