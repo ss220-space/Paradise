@@ -169,7 +169,7 @@
 					qdel(K)
 					break
 
-	if(src.ckey in GLOB.clients)
+	if(key)
 		return
 
 	if(prob(4)) //it was a proc with a name its_time_to_kill_yourself
@@ -538,7 +538,7 @@
 /mob/living/simple_animal/hostile/headcrab/poison/OpenFire(atom/target)
 	. = ..()
 
-	if(!src.ckey in GLOB.clients && prob(65)) //игрок кидаться может всегда, а ИИ лишь с шансом.
+	if(!key && prob(45)) //игрок кидаться может всегда, а ИИ лишь с шансом.
 		return
 
 	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0) // в оригинале несколько хедркабов было на спине у ядовитого, и еще... он ими кидался. у нас же он их внезапно рожает и умеет кидаться
