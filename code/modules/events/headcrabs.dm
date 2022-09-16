@@ -141,7 +141,7 @@
 		sleep(rand(0,4)) // не, я пожалуй откажусь от таймера.
 		how_many_capsules--
 		var/turf/simulated/floor/where_capsule = pick(turfs)
-		//explosion(where_capsule, 0.2, 0.2,0.2) // взрыв все ломает. пожалуй откажемся
+		explosion(where_capsule, 0, 0,1,1) // взрыв все ломает. пожалуй откажемся
 
 		var/frequency = get_rand_frequency()
 		var/sound/explosion_sound = sound(get_sfx("explosion"))
@@ -162,6 +162,8 @@
 		smoky.set_up(where_capsule)
 		smoky.start()
 		var/obj/structure/crabmissile/capsule = new /obj/structure/crabmissile(where_capsule)
+		message_admins("Headcrab capsule has been landed in [where_capsule.loc.name] [ADMIN_COORDJMP(where_capsule)] ")
+		log_game("Headcrab capsule has been landed in [where_capsule.loc.name]")
 		headcrabs_release(null, capsule, rand(0,1))
 
 /datum/event/crabmissiles/proc/headcrabs_release(var/mob/living/simple_animal/hostile/headcrab/headcrab_type, var/obj/structure/crabmissile/capsule, var/randomized_headcrabs)
