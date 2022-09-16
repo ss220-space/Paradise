@@ -154,3 +154,9 @@
 		mask_icon.transform = turn(mask_icon.transform, 180)
 
 	add_overlay(mask_icon)
+
+//Обновление уникальных анимированных фешинов
+/mob/living/simple_animal/pet/dog/security/Life(seconds, times_fired)
+	. = ..()
+	if(is_wear_fashion_head || is_wear_fashion_mask || is_wear_fashion_back)
+		regenerate_icons()

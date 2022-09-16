@@ -511,12 +511,6 @@
 	if(inventory_collar)
 		. |= inventory_collar.GetAccess()
 
-//Обновление уникальных анимированных фешинов
-/mob/living/simple_animal/Life(seconds, times_fired)
-	. = ..()
-	if(is_wear_fashion_head || is_wear_fashion_mask || is_wear_fashion_back)
-		regenerate_icons()
-
 //Моб получает броню от надетой одежды
 /mob/living/simple_animal/getarmor(def_zone, type)
 	var/armorval = 0
