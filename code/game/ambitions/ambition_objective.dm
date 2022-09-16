@@ -36,12 +36,12 @@
 	//Проверяем работы не в позициях и вынесенные в отдельный файл
 	switch(owner.assigned_role)
 		if("Magistrate", "Internal Affairs Agent")
-			if("Magistrate" && (prob(chance_other_departament_ambition))) //шанс что магистрат возьмёт общую амбицию глав.
+			if(owner.assigned_role == "Magistrate" && (prob(chance_other_departament_ambition))) //шанс что магистрат возьмёт общую амбицию глав.
 				return pick_list_weight("ambition_objectives_command.json", "Common")
 			return pick_list_weight("ambition_objectives_law.json", job)
 
 		if("Nanotrasen Representative", "Blueshield")
-			if("Nanotrasen Representative" && (prob(chance_other_departament_ambition))) //шанс что НТР возьмёт общую амбицию закона.
+			if(owner.assigned_role == "Nanotrasen Representative" && (prob(chance_other_departament_ambition))) //шанс что НТР возьмёт общую амбицию закона.
 				return pick_list_weight("ambition_objectives_law.json", "Common")
 			return pick_list_weight("ambition_objectives_representative.json", job)
 
@@ -97,7 +97,7 @@
 		return pick_list_weight("ambition_objectives_supply.json", job)
 
 	if(owner.assigned_role in (GLOB.security_positions - GLOB.support_positions))
-		if("Brig Physician" && (prob(chance_other_departament_ambition)))	//шанс что бригмедик возьмёт амбицию мед. отдела.
+		if(owner.assigned_role == "Brig Physician" && (prob(chance_other_departament_ambition)))	//шанс что бригмедик возьмёт амбицию мед. отдела.
 			job = pick(GLOB.medical_positions)
 			return pick_list_weight("ambition_objectives_medical.json", job)
 		return pick_list_weight("ambition_objectives_security.json", job)
