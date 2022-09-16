@@ -113,46 +113,6 @@
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 
-/mob/living/simple_animal/pet/dog/corgi/Destroy()
-	QDEL_NULL(inventory_head)
-	QDEL_NULL(inventory_back)
-	return ..()
-
-/mob/living/simple_animal/pet/dog/corgi/handle_atom_del(atom/A)
-	if(A == inventory_head)
-		inventory_head = null
-		regenerate_icons()
-	if(A == inventory_back)
-		inventory_back = null
-		regenerate_icons()
-	return ..()
-
-/mob/living/simple_animal/pet/dog/corgi/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/death(gibbed)
-	..(gibbed)
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
-	var/armorval = 0
-
-	if(def_zone)
-		if(def_zone == "head")
-			if(inventory_head)
-				armorval = inventory_head.armor.getRating(type)
-		else
-			if(inventory_back)
-				armorval = inventory_back.armor.getRating(type)
-		return armorval
-	else
-		if(inventory_head)
-			armorval += inventory_head.armor.getRating(type)
-		if(inventory_back)
-			armorval += inventory_back.armor.getRating(type)
-	return armorval * 0.5
-
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/razor))
 		if(shaved)

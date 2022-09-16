@@ -151,31 +151,20 @@
 	else
 		custom_emote(1, "hisses angrily!")
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Destroy()
-	QDEL_NULL(inventory_head)
-	return ..()
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/update_fluff()
+	// First, change back to defaults
+	name = real_name
+	desc = initial(desc)
+	// BYOND/DM doesn't support the use of initial on lists.
+	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
+	speak_emote = list("hisses")
+	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
+	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/handle_atom_del(atom/A)
-	if(A == inventory_head)
-		inventory_head = null
-		regenerate_icons()
-	return ..()
+	if(inventory_head?.snake_fashion)
+		var/datum/fashion/SF = new inventory_head.snake_fashion(src)
+		SF.apply(src)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/death(gibbed)
-	..(gibbed)
-	regenerate_icons()
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, type)
-	var/armorval = inventory_head?.armor.getRating(type)
-	if(!def_zone)
-		armorval *= 0.5
-	else if(def_zone != "head")
-		armorval = 0
-	return armorval
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/place_on_head_fashion(obj/item/item_to_add, mob/user)
 	is_wear_fashion_head = FALSE
@@ -197,20 +186,6 @@
 		. = ..()
 
 	return is_wear_fashion_head
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/update_fluff()
-	// First, change back to defaults
-	name = real_name
-	desc = initial(desc)
-	// BYOND/DM doesn't support the use of initial on lists.
-	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
-	speak_emote = list("hisses")
-	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
-	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
-
-	if(inventory_head?.snake_fashion)
-		var/datum/fashion/SF = new inventory_head.snake_fashion(src)
-		SF.apply(src)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/regenerate_head_icon()
 	if (!is_wear_fashion_head)

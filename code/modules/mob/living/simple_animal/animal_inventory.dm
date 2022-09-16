@@ -1,17 +1,16 @@
 /mob/living/simple_animal
-	var/obj/item/inventory_head	//шапка
-	var/obj/item/inventory_back	//корги могут носить риги
-	var/obj/item/inventory_mask	//возможность впихнуть сигарету в рот, например собака-рейнджер
+	var/obj/item/clothing/head/inventory_head	//шапка
+	var/obj/item/clothing/mask/inventory_mask	//маски (сигареты)
+	var/obj/item/clothing/inventory_back		//костюмы (на корги можно надеть броню, космокостюм)
+	var/obj/item/clothing/accessory/petcollar/inventory_collar = null
 
-	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
-	var/unique_pet = FALSE // if the mob can be renamed
 
-	//Что может носить
-	var/can_collar = FALSE 	// can add collar to mob or not
-	var/can_mask = FALSE	// сигарены
-	var/can_head = TRUE 	// шапки //!!!!!!!!!!УСТАНОВИТЬ НА FALSE НЕ ЗАБЫТЬ
-	var/can_back = FALSE	// одежда, костюмы
+	//Что может и не может носить
+	var/can_collar = FALSE
+	var/can_mask = FALSE
+	var/can_head = TRUE 	//!!!!!!!!!!УСТАНОВИТЬ НА FALSE НЕ ЗАБЫТЬ
+	var/can_back = FALSE
 
 	//Если животное носит FASHION одежду. Может ли оно носить и уже ли носит
 	var/can_wear_fashion_head = FALSE
@@ -115,7 +114,7 @@
 	if (can_back || can_wear_fashion_back)
 		dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[inventory_back]" : "add_inv=back'><font color=grey>Empty</font>"]</A>"
 	if (can_collar)
-		dat += "<br><B>Collar:</B><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A>"
+		dat += "<br><B>Collar:</B><A href='?src=[UID()];item=[slot_collar]'>[(inventory_collar && !(inventory_collar.flags & ABSTRACT)) ? inventory_collar : "<font color=grey>Empty</font>"]</A>"
 	dat += "<br><A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -149,37 +148,11 @@
 			if("head")
 				remove_from_head(usr)
 			if("back")
-				if(inventory_back)
-					if(inventory_back.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					usr.put_in_hands(inventory_back)
-					inventory_back = null
-					update_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
+				remove_from_back(usr)
 			if("mask")
-				if(inventory_mask)
-					if(inventory_mask.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					usr.put_in_hands(inventory_mask)
-					inventory_mask = null
-					update_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
+				remove_from_mask(usr)
 			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					unEquip(pcollar)
-					usr.put_in_hands(the_collar)
-					pcollar = null
-					update_fluff()
-					regenerate_icons()
+				remove_from_collar(usr)
 
 		show_inv(usr)
 
@@ -190,14 +163,10 @@
 		switch(add_to)
 			if("collar")
 				add_collar(usr.get_active_hand(), usr)
-				update_fluff()
-
 			if("head")
 				place_on_head(usr.get_active_hand(), usr)
-
 			if("back")
 				place_on_back(usr.get_active_hand(), usr)
-
 			if("mask")
 				place_on_mask(usr.get_active_hand(), usr)
 
@@ -214,7 +183,7 @@
 		regenerate_mask_icon()
 	if (inventory_back)
 		regenerate_back_icon()
-	if (pcollar && collar_type)
+	if (inventory_collar && collar_type)
 		regenerate_collar_icon()
 
 /mob/living/simple_animal/proc/regenerate_head_icon()
@@ -378,19 +347,20 @@
 	return 0
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(!istype(P) || QDELETED(P) || pcollar)
+	if(!istype(P) || QDELETED(P) || inventory_collar)
 		return
 	if(user && !user.unEquip(P))
 		return
 	P.forceMove(src)
 	P.equipped(src)
-	pcollar = P
+	inventory_collar = P
 	regenerate_icons()
 	if(user)
 		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname
+	update_fluff()
 
 //Анимация прокручивания моба при нацеплении неправильного предмета
 /mob/living/simple_animal/proc/wrong_item(obj/item/item_to_add, mob/user)
@@ -425,21 +395,72 @@
 
 	return 1
 
+/mob/living/simple_animal/proc/remove_from_back(mob/user)
+	if(inventory_back)
+		if(inventory_back.flags & NODROP)
+			to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+			return
+		usr.put_in_hands(inventory_back)
+		inventory_back = null
+		update_fluff()
+		regenerate_icons()
+	else
+		to_chat(usr, "<span class='danger'>There is nothing to remove from its back.</span>")
+		return
+
+/mob/living/simple_animal/proc/remove_from_mask(mob/user)
+	if(inventory_mask)
+		if(inventory_mask.flags & NODROP)
+			to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+			return
+		usr.put_in_hands(inventory_mask)
+		inventory_mask = null
+		update_fluff()
+		regenerate_icons()
+	else
+		to_chat(usr, "<span class='danger'>There is nothing to remove from its mask.</span>")
+		return
+
+/mob/living/simple_animal/proc/remove_from_collar(mob/user)
+	if(inventory_collar)
+		var/the_collar = inventory_collar
+		unEquip(inventory_collar)
+		usr.put_in_hands(the_collar)
+		inventory_collar = null
+		update_fluff()
+		regenerate_icons()
+
 ///Имена, эмоции и описания
 /mob/living/simple_animal/proc/update_fluff()
 	return 0
 
+/mob/living/simple_animal/StartResting(updating = 1)
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_resting
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_rest"
+			regenerate_icons()
+
+/mob/living/simple_animal/StopResting(updating = 1)
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_living
+		if(collar_type)
+			collar_type = "[initial(collar_type)]"
+			regenerate_icons()
+
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(slot_collar)
-			return pcollar
+			return inventory_collar
 	. = ..()
 
 /mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
 		if(slot_collar)
-			if(pcollar)
+			if(inventory_collar)
 				return FALSE
 			if(!can_collar)
 				return FALSE
@@ -466,12 +487,122 @@
 	if(!. || !I)
 		return
 
-	if(I == pcollar)
-		pcollar = null
+	var/is_need_regen = FALSE
+
+	//switch(I) не работает, он запрашивает constant expression
+	if(I == inventory_collar)
+		inventory_collar = null
+		is_need_regen = TRUE
+	if(I == inventory_head)
+		inventory_head = null
+		is_need_regen = TRUE
+	if(I == inventory_mask)
+		inventory_mask = null
+		is_need_regen = TRUE
+	if(I == inventory_back)
+		inventory_back = null
+		is_need_regen = TRUE
+
+	if(is_need_regen)
 		regenerate_icons()
 
 /mob/living/simple_animal/get_access()
 	. = ..()
-	if(pcollar)
-		. |= pcollar.GetAccess()
+	if(inventory_collar)
+		. |= inventory_collar.GetAccess()
 
+//Обновление уникальных анимированных фешинов
+/mob/living/simple_animal/Life(seconds, times_fired)
+	. = ..()
+	if(is_wear_fashion_head || is_wear_fashion_mask || is_wear_fashion_back)
+		regenerate_icons()
+
+//Моб получает броню от надетой одежды
+/mob/living/simple_animal/getarmor(def_zone, type)
+	var/armorval = 0
+
+	if(def_zone)
+		if(def_zone == "head")
+			if(inventory_head)
+				armorval = inventory_head.armor.getRating(type)
+		else
+			if(inventory_back)
+				armorval = inventory_back.armor.getRating(type)
+		return armorval
+	else
+		if(inventory_head)
+			armorval += inventory_head.armor.getRating(type)
+		if(inventory_back)
+			armorval += inventory_back.armor.getRating(type)
+	return armorval * 0.5
+
+//прок по местоположению, вызываемый при Destroy()
+/mob/living/simple_animal/handle_atom_del(atom/A)
+	var/is_need_regen = FALSE
+
+	//switch(I) не работает, он запрашивает constant expression
+	if(A == inventory_collar)
+		inventory_collar = null
+		is_need_regen = TRUE
+	if(A == inventory_head)
+		inventory_head = null
+		is_need_regen = TRUE
+	if(A == inventory_mask)
+		inventory_mask = null
+		is_need_regen = TRUE
+	if(A == inventory_back)
+		inventory_back = null
+		is_need_regen = TRUE
+
+	if(is_need_regen)
+		regenerate_icons()
+
+	return ..()
+
+//proc для Destroy(), очищающий элементы инвентаря
+/mob/living/simple_animal/proc/destroy_inventory()
+	QDEL_NULL(inventory_collar)
+	QDEL_NULL(inventory_head)
+	QDEL_NULL(inventory_mask)
+	QDEL_NULL(inventory_back)
+
+/mob/living/simple_animal/proc/gib_inventory()
+	if(inventory_collar)
+		inventory_collar = null
+		inventory_collar.forceMove(drop_location())
+	if(inventory_head)
+		inventory_head = null
+		inventory_head.forceMove(drop_location())
+	if(inventory_mask)
+		inventory_mask = null
+		inventory_mask.forceMove(drop_location())
+	if(inventory_back)
+		inventory_back = null
+		inventory_back.forceMove(drop_location())
+
+/mob/living/simple_animal/proc/death_inventory()
+	if(collar_type)
+		collar_type = "[initial(collar_type)]_dead"
+		regenerate_icons()
+
+/mob/living/simple_animal/proc/revive_inventory()
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
+		regenerate_icons()
+
+/mob/living/simple_animal/proc/initialize_inventory()
+	var/is_need_regen = FALSE
+	if(inventory_collar)
+		inventory_collar = new(src)
+		is_need_regen = TRUE
+	if(inventory_head)
+		inventory_head = new(src)
+		is_need_regen = TRUE
+	if(inventory_mask)
+		inventory_mask = new(src)
+		is_need_regen = TRUE
+	if(inventory_back)
+		inventory_back = new(src)
+		is_need_regen = TRUE
+	if(is_need_regen)
+		regenerate_icons()

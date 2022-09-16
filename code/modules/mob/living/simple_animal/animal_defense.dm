@@ -1,5 +1,5 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
+	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !inventory_collar)
 		add_collar(O, user)
 		return
 	else

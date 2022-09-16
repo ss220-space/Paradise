@@ -15,6 +15,8 @@
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
 
+	var/unique_pet = FALSE // if the mob can be renamed
+
 	var/list/speak = list()
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
@@ -114,16 +116,12 @@
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
-	if(pcollar)
-		pcollar = new(src)
-		regenerate_icons()
-	else if(inventory_head || inventory_mask || inventory_back)
-		regenerate_icons()
+	initialize_inventory()
 	if(footstep_type)
 		AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/Destroy()
-	QDEL_NULL(pcollar)
+	destroy_inventory()
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
@@ -139,11 +137,6 @@
 
 	return ..()
 
-/mob/living/simple_animal/handle_atom_del(atom/A)
-	if(A == pcollar)
-		pcollar = null
-	return ..()
-
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
@@ -153,22 +146,6 @@
 	..(reason)
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
-
-/mob/living/simple_animal/StartResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_resting
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
-
-/mob/living/simple_animal/StopResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_living
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
 
 /mob/living/simple_animal/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
@@ -299,9 +276,7 @@
 		for(var/path in butcher_results)
 			for(var/i in 1 to butcher_results[path])
 				new path(Tsec)
-	if(pcollar)
-		pcollar.forceMove(drop_location())
-		pcollar = null
+	gib_inventory()
 	..()
 
 /mob/living/simple_animal/emote(act, m_type = 1, message = null, force)
@@ -375,9 +350,7 @@
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		density = 0
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_dead"
-			regenerate_icons()
+		death_inventory()
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -434,9 +407,7 @@
 	density = initial(density)
 	update_canmove()
 	flying = initial(flying)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
+	revive_inventory()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())

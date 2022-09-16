@@ -50,27 +50,24 @@
 			collar_type = "[initial(collar_type)]"
 			regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/security/Destroy()
-	QDEL_NULL(inventory_head)
-	QDEL_NULL(inventory_mask)
-	return ..()
+/mob/living/simple_animal/pet/dog/security/update_fluff()
+	// First, change back to defaults
+	name = real_name
+	desc = initial(desc)
+	// BYOND/DM doesn't support the use of initial on lists.
+	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
+	speak_emote = list("barks", "woofs")
+	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
+	emote_see = list("shakes its head.", "chases its tail.","shivers.")
+	desc = initial(desc)
 
-/mob/living/simple_animal/pet/dog/security/handle_atom_del(atom/A)
-	if(A == inventory_head)
-		inventory_head = null
-		regenerate_icons()
-	if(A == inventory_mask)
-		inventory_mask = null
-		regenerate_icons()
-	return ..()
+	if(inventory_head && inventory_head.muhtar_fashion)
+		var/datum/fashion/DF = new inventory_head.muhtar_fashion(src)
+		DF.apply(src)
 
-/mob/living/simple_animal/pet/dog/security/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/security/death(gibbed)
-	..(gibbed)
-	regenerate_icons()
+	if(inventory_mask && inventory_mask.muhtar_fashion)
+		var/datum/fashion/DF = new inventory_mask.muhtar_fashion(src)
+		DF.apply(src)
 
 //The objects that secdogs can wear on their faces.
 /mob/living/simple_animal/pet/dog/security/place_on_mask_fashion(obj/item/item_to_add, mob/user)
@@ -101,25 +98,6 @@
 		. = ..()
 
 	return is_wear_fashion_head
-
-/mob/living/simple_animal/pet/dog/security/update_fluff()
-	// First, change back to defaults
-	name = real_name
-	desc = initial(desc)
-	// BYOND/DM doesn't support the use of initial on lists.
-	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
-	emote_see = list("shakes its head.", "chases its tail.","shivers.")
-	desc = initial(desc)
-
-	if(inventory_head && inventory_head.muhtar_fashion)
-		var/datum/fashion/DF = new inventory_head.muhtar_fashion(src)
-		DF.apply(src)
-
-	if(inventory_mask && inventory_mask.muhtar_fashion)
-		var/datum/fashion/DF = new inventory_mask.muhtar_fashion(src)
-		DF.apply(src)
 
 /mob/living/simple_animal/pet/dog/security/regenerate_head_icon()
 	if (!is_wear_fashion_head)
