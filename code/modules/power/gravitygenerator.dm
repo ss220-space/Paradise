@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(gravity_in_level() == 0)
 			alert = 1
 			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
-			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
+			message_admins("The gravity generator was brought online. [ADMIN_VERBOSEJMP(src)]")
 			for(var/area/A in world)
 				if(!is_station_level(A.z)) continue
 				A.gravitychange(1,A)
@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(gravity_in_level() == 1)
 			alert = 1
 			investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
-			message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
+			message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
 			for(var/area/A in world)
 				if(!is_station_level(A.z)) continue
 				A.gravitychange(0,A)

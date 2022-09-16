@@ -129,8 +129,8 @@
 		if(strength > strength_upper_limit)
 			strength = strength_upper_limit
 		else
-			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-			add_game_logs("PA Control Computer increased to [strength] by [key_name(usr)] in ([x],[y],[z])")
+			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
+			add_game_logs("PA Control Computer increased to [strength] by [key_name_log(usr)] in [COORD(src)]")
 			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
 
@@ -143,8 +143,8 @@
 		if(strength < 0)
 			strength = 0
 		else
-			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-			add_game_logs("PA Control Computer decreased to [strength] by [key_name(usr)] in ([x],[y],[z])")
+			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
+			add_game_logs("PA Control Computer decreased to [strength] by [key_name_log(usr)] in [COORD(src)]")
 			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")
 
@@ -236,7 +236,7 @@
 	if(active)
 		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
 		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
-		add_game_logs("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
+		add_game_logs("PA Control Computer turned ON by [key_name(usr)] in [COORD(src)]")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
 	if(active)
 		use_power = ACTIVE_POWER_USE

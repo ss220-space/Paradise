@@ -403,7 +403,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
-		message_admins("[machine] exploit attempted by [key_name(usr, TRUE)]!")
+		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return
 
 	if(being_built.make_reagents.len) // build_type should equal BIOGENERATOR though..

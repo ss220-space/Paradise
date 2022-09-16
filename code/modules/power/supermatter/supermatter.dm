@@ -168,7 +168,7 @@
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
-					message_admins("[src] has reached the emergency point <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+					message_admins("[src] has reached the emergency point [ADMIN_COORDJMP(src)].")
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
@@ -292,7 +292,7 @@
 		power += Proj.damage * config_bullet_energy
 		if(!has_been_powered)
 			investigate_log("has been powered for the first time.", INVESTIGATE_ENGINE)
-			message_admins("[src] has been powered for the first time <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+			message_admins("[src] has been powered for the first time [ADMIN_COORDJMP(src)].")
 			has_been_powered = 1
 	else
 		damage += Proj.damage * config_bullet_energy
@@ -301,8 +301,8 @@
 
 /obj/machinery/power/supermatter_shard/singularity_act()
 	var/gain = 100
-	investigate_log("Supermatter shard consumed by singularity.","singulo")
-	message_admins("Singularity has consumed a supermatter shard and can now become stage six.<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+	investigate_log("consumed by singularity.", INVESTIGATE_ENGINE)
+	message_admins("<span class='danger'>Singularity has consumed a supermatter shard and can now become stage six</span> [ADMIN_COORDJMP(src)].")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in GLOB.mob_list)
 		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
@@ -404,7 +404,7 @@
 		var/mob/living/user = AM
 		user.gib()
 		power += 200
-		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_COORDJMP(src)].")
 		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
 	else if(isobj(AM) && !istype(AM, /obj/effect))
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
