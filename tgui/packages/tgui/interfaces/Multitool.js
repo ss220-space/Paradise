@@ -105,7 +105,6 @@ export const Multitool = (props, context) => {
                   <Button
                     content={isAttachedAlreadyInBuffer ? "Added" : "Add machine"}
                     icon="save"
-                    color="blue"
                     disabled={!addableToBuffer || isAttachedAlreadyInBuffer}
                     onClick={() => act('buffer_add')}
                   />
@@ -365,7 +364,6 @@ const TagMtoolMenu = (props, context) => {
           <Button
             content="Set"
             icon="wrench"
-            color="blue"
             onClick={() => act('set_tag')}
           />
           <Button
@@ -410,7 +408,6 @@ const FrequencyMtoolMenu = (props, context) => {
           <Button
             icon="undo"
             content=""
-            color="blue"
             disabled={!canReset}
             tooltip="Reset"
             onClick={() => act('reset_frequency')}
@@ -451,7 +448,6 @@ const AirSensorMtoolMenu = (props, context) => {
             icon={bolts ? "check" : "times"}
             selected={bolts}
             content={bolts ? "YES" : "NO"}
-            color="blue"
             onClick={() => act('toggle_bolts')}
           />
         }
@@ -494,7 +490,6 @@ const AirControlMtoolMenu = (props, context) => {
           content="Add sensor"
           icon="plus"
           iconRight
-          color="blue"
           onClick={() => act('add_sensor')}
         />
       }>
@@ -577,7 +572,6 @@ const AirControlMtoolMenu = (props, context) => {
                 <Button
                   content="Label"
                   icon="edit"
-                  color="blue"
                   onClick={() => act('change_label', {
                     sensor_tag: sensorTag,
                   })}
@@ -643,7 +637,6 @@ const TankControlMtoolMenu = (props, context) => {
               confirmColor="orange"
               content="Link buffer"
               icon="link"
-              color="blue"
               selected={inputTag && bufferTag === inputTag}
               disabled={!bufferFitsInput}
               onClick={() => act('link_input')}
@@ -678,7 +671,6 @@ const TankControlMtoolMenu = (props, context) => {
               confirmColor="orange"
               content="Link buffer"
               icon="link"
-              color="blue"
               selected={outputTag && bufferTag === outputTag}
               disabled={!bufferFitsOutput}
               onClick={() => act('link_output')}
