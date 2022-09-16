@@ -19,7 +19,7 @@
 	turns_per_move = 4
 	speed = 1.25
 	attacktext = "грызёт"
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
 	a_intent = INTENT_HARM
 	attack_sound = list('sound/creatures/headcrab_attack1.ogg', 'sound/creatures/headcrab_attack2.ogg')
 	speak_emote = list("hisses")
@@ -37,7 +37,7 @@
 	var/gonome = FALSE
 	var/can_be_gonomed = TRUE
 	var/gonome_time = 468
-	var/is_gonarch = TRUE // кажется уже какой-то спагетти код, прямо как писал американец ниже.
+	var/is_gonarch = FALSE // кажется уже какой-то спагетти код, прямо как писал американец ниже.
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -143,7 +143,7 @@
 		to_chat(src, "<span class='notice'>You are evolved to gonome!</span>")
 		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health of maximum.")
 		ranged = 1
-		ranged_cooldown_time = 125
+		ranged_cooldown_time = 666
 		health += 25
 		maxHealth += 50
 		melee_damage_lower += 5
@@ -325,6 +325,7 @@
 	host_species = H.dna.species.name
 	if(host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
 		ventcrawler = 2
+		maxHealth -= 50 //взамен на пользанье по вентам
 	else
 		ventcrawler = 0
 	human_overlays = H.overlays
@@ -353,7 +354,7 @@
 /mob/living/simple_animal/hostile/headcrab/Destroy()
 	if(contents)
 		for(var/mob/M in contents)
-			M.loc = get_turf(src)
+			M.forceMove(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
@@ -395,7 +396,7 @@
 	name = "toxic vomit" // for gonome
 	damage = 15
 	damage_type = BURN
-	stamina = 15
+	stamina = 25
 	drowsy = 5
 	jitter = 5
 	eyeblur = 2
@@ -579,6 +580,7 @@
 	icon_state = "headcrab"
 	icon_living = "headcrab"
 	icon_dead = "headcrab_dead"
+	harm_intent_damage = 2
 	health = 125
 	maxHealth = 125
 	ranged_cooldown_time = 45
@@ -636,6 +638,7 @@
 	if(prob(95))
 		var/mob/living/carbon/C = target
 		C.adjustFireLoss(12)
+		C.adjustStaminaLoss(5) //stuncrab
 	else
 		target.reagents.add_reagent("teslium", 6)
 
@@ -687,7 +690,7 @@
 	ranged = 0
 	ventcrawler = 0
 	turns_per_move = 8
-	speed = 0.25
+	speed = 0.28
 	obj_damage = 264
 	armour_penetration = 15
 	environment_smash = 3
