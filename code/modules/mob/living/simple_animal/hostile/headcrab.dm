@@ -152,7 +152,7 @@
 		projectiletype = /obj/item/projectile/toxinvomit
 		projectilesound = 'sound/weapons/pierce.ogg'
 		ranged_message = "pukes"
-		desc += " This individual seems to have evolved, and it has been around for quite a long time."
+		desc += " This individual seems to have evolved, and it has been alive around for quite a long time."
 
 	if(..() && !stat)
 		if(!is_zombie && isturf(src.loc))
@@ -589,6 +589,14 @@
 	jumpspeed = 0.5
 	speak_emote = list("slowly hisses")
 	damage_coeff = list(BRUTE = 0.88, BURN = 0.88)
+
+/mob/living/simple_animal/hostile/headcrab/armored/attack_hand(mob/living/carbon/human/M)
+	var/mob/living/carbon/idiot = M
+	if(!(PIERCEIMMUNE in idiot.dna.species.species_traits))
+		var/obj/item/organ/external/affecting = idiot.get_organ("[idiot.hand ? "l" : "r" ]_hand")
+		to_chat(idiot, "<span class='danger'>Ouch! That was a bad idea, his spikes are painful and armor so strong!</span>")
+		if(affecting.receive_damage(10 * 2))
+			idiot.UpdateDamageIcon()
 
 /mob/living/simple_animal/hostile/headcrab/armored/update_icons()
 	. = ..()
