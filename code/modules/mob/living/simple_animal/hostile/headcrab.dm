@@ -143,7 +143,7 @@
 		to_chat(src, "<span class='notice'>You are evolved to gonome!</span>")
 		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health of maximum.")
 		ranged = 1
-		ranged_cooldown_time = 666
+		ranged_cooldown_time = 111
 		health += 25
 		maxHealth += 50
 		melee_damage_lower += 5
@@ -646,7 +646,7 @@
 	if(prob(95))
 		var/mob/living/carbon/C = target
 		C.adjustFireLoss(12)
-		C.adjustStaminaLoss(5) //stuncrab
+		C.adjustStaminaLoss(2) //stuncrab
 	else
 		target.reagents.add_reagent("teslium", 6)
 
