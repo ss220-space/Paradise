@@ -154,7 +154,7 @@
 				if(hear_turf && hear_turf.z == where_capsule.z)
 					var/dist = get_dist(hear_turf, where_capsule)
 					if(dist <= round(2 + world.view - 2, 1))
-						hear.playsound_local(where_capsule, null, 100, 1, frequency, falloff = 5, S = explosion_sound)
+						hear.playsound_local(where_capsule, null, 100, 1, frequency, S = explosion_sound)
 					else if(hear.can_hear() && !isspaceturf(hear.loc))
 						hear << global_boom
 
