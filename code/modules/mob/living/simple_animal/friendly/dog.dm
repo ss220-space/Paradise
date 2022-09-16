@@ -113,10 +113,6 @@
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 
-/mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
-	. = ..()
-	regenerate_icons()
-
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
 	QDEL_NULL(inventory_back)
@@ -181,24 +177,23 @@
 	update_fluff()
 
 /mob/living/simple_animal/pet/dog/corgi/place_on_back_fashion(obj/item/item_to_add, mob/user)
-	var/allowed = FALSE
+	var/is_wear_fashion_back = FALSE
 	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/back))
-		allowed = TRUE
-	return allowed
+		is_wear_fashion_back = TRUE
+	return is_wear_fashion_back
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 // > some will probably be removed
 /mob/living/simple_animal/pet/dog/corgi/place_on_head_fashion(obj/item/item_to_add, mob/user)
-	var/valid = FALSE
+	is_wear_fashion_head = FALSE
 	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/head))
-		valid = TRUE
-		item_to_add.fashion = item_to_add.dog_fashion
+		is_wear_fashion_head = TRUE
 
 	//Various hats and items (worn on his head) change Ian's behaviour. His attributes are reset when a hat is removed.
 
-	if(valid)
+	if(is_wear_fashion_head)
 		if(health <= 0)
 			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
 		else if(user)
@@ -210,11 +205,9 @@
 		update_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
-		item_to_add.forceMove(drop_location())
-		wrong_item(item_to_add)
+		. = ..()
 
-	return valid
+	return is_wear_fashion_head
 
 /mob/living/simple_animal/pet/dog/corgi/update_fluff()
 	// First, change back to defaults
@@ -232,53 +225,59 @@
 	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
-		var/datum/fashion/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		var/datum/fashion/DF = new inventory_head.dog_fashion(src)
 		DF.apply(src)
 
 	if(inventory_back && inventory_back.dog_fashion)
-		var/datum/fashion/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		var/datum/fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
 	//message_admins("Тест 0")
 
-/mob/living/simple_animal/pet/dog/corgi/regenerate_fashion_icon()
-	if(inventory_head)
-		var/image/head_icon
-		var/datum/fashion/dog_fashion/DF = new inventory_head.dog_fashion(src)
+/mob/living/simple_animal/pet/dog/corgi/regenerate_head_icon()
+	if (!is_wear_fashion_head)
+		return ..()
 
-		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_head.icon_state
-		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_head.alpha
-		if(!DF.obj_color)
-			DF.obj_color = inventory_head.color
+	var/image/head_icon	//Возникло исключение: Cannot create objects of type null.
+	var/datum/fashion/DF = new inventory_head.dog_fashion(src)	//!!!!!!!Не видит (null) когда надеваем что-то вне
 
-		if(health <= 0)
-			head_icon = DF.get_overlay(dir = EAST)
-			head_icon.pixel_y = -8
-			head_icon.transform = turn(head_icon.transform, 180)
-		else
-			head_icon = DF.get_overlay()
+	if(!DF.obj_icon_state)
+		DF.obj_icon_state = inventory_head.icon_state
+	if(!DF.obj_alpha)
+		DF.obj_alpha = inventory_head.alpha
+	if(!DF.obj_color)
+		DF.obj_color = inventory_head.color
 
-		add_overlay(head_icon)
+	if(health <= 0)
+		head_icon = DF.get_overlay(dir = EAST)
+		head_icon.pixel_y = -8
+		head_icon.transform = turn(head_icon.transform, 180)
+	else
+		head_icon = DF.get_overlay()
 
-	if(inventory_back)
-		var/image/back_icon
-		var/datum/fashion/dog_fashion/DF = new inventory_back.dog_fashion(src)
+	add_overlay(head_icon)
 
-		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_back.icon_state
-		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_back.alpha
-		if(!DF.obj_color)
-			DF.obj_color = inventory_back.color
 
-		if(health <= 0)
-			back_icon = DF.get_overlay(dir = EAST)
-			back_icon.pixel_y = -11
-			back_icon.transform = turn(back_icon.transform, 180)
-		else
-			back_icon = DF.get_overlay()
-		add_overlay(back_icon)
+/mob/living/simple_animal/pet/dog/corgi/regenerate_back_icon()
+	if (!is_wear_fashion_back)
+		return ..()
+
+	var/image/back_icon
+	var/datum/fashion/DF = new inventory_back.dog_fashion(src)
+
+	if(!DF.obj_icon_state)
+		DF.obj_icon_state = inventory_back.icon_state
+	if(!DF.obj_alpha)
+		DF.obj_alpha = inventory_back.alpha
+	if(!DF.obj_color)
+		DF.obj_color = inventory_back.color
+
+	if(health <= 0)
+		back_icon = DF.get_overlay(dir = EAST)
+		back_icon.pixel_y = -11
+		back_icon.transform = turn(back_icon.transform, 180)
+	else
+		back_icon = DF.get_overlay()
+	add_overlay(back_icon)
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Ian

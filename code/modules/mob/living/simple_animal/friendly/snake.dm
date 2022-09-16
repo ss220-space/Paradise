@@ -151,10 +151,6 @@
 	else
 		custom_emote(1, "hisses angrily!")
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Initialize(mapload)
-	. = ..()
-	regenerate_icons()
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Destroy()
 	QDEL_NULL(inventory_head)
 	return ..()
@@ -182,11 +178,11 @@
 	return armorval
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/place_on_head_fashion(obj/item/item_to_add, mob/user)
-	var/valid = FALSE
+	is_wear_fashion_head = FALSE
 	if(ispath(item_to_add.snake_fashion, /datum/fashion/snake_fashion/head))
-		valid = TRUE
+		is_wear_fashion_head = TRUE
 
-	if(valid)
+	if(is_wear_fashion_head)
 		if(health <= 0)
 			to_chat(user, "<span class='notice'>Безжизненный взгляд в глазах [real_name] никак не меняется, когда вы надеваете [item_to_add] на неё.</span>")
 		else if(user)
@@ -198,11 +194,9 @@
 		update_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>Вы надеваете [item_to_add] на голову [src], но она скидывает [item_to_add] с себя!</span>")
-		item_to_add.forceMove(drop_location())
-		wrong_item(item_to_add)
+		. = ..()
 
-	return valid
+	return is_wear_fashion_head
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/update_fluff()
 	// First, change back to defaults
@@ -215,29 +209,31 @@
 	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
 
 	if(inventory_head?.snake_fashion)
-		var/datum/fashion/snake_fashion/SF = new inventory_head.snake_fashion(src)
+		var/datum/fashion/SF = new inventory_head.snake_fashion(src)
 		SF.apply(src)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/regenerate_fashion_icon()
-	if(inventory_head)
-		var/image/head_icon
-		var/datum/fashion/snake_fashion/SF = new inventory_head.snake_fashion(src)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/regenerate_head_icon()
+	if (!is_wear_fashion_head)
+		return ..()
 
-		if(!SF.obj_icon_state)
-			SF.obj_icon_state = inventory_head.icon_state
-			if(src.rest || stat == DEAD)
-				SF.obj_icon_state += "_rest"
-		if(!SF.obj_alpha)
-			SF.obj_alpha = inventory_head.alpha
-		if(!SF.obj_color)
-			SF.obj_color = inventory_head.color
+	var/image/head_icon
+	var/datum/fashion/SF = new inventory_head.snake_fashion(src)
 
-		if(stat || src.rest) //без сознания или отдыхает
-			head_icon = SF.get_overlay()
-			if(stat)
-				head_icon.pixel_y = -2
-				head_icon.pixel_x = -2
-		else
-			head_icon = SF.get_overlay()
+	if(!SF.obj_icon_state)
+		SF.obj_icon_state = inventory_head.icon_state
+		if(src.rest || stat == DEAD)
+			SF.obj_icon_state += "_rest"
+	if(!SF.obj_alpha)
+		SF.obj_alpha = inventory_head.alpha
+	if(!SF.obj_color)
+		SF.obj_color = inventory_head.color
 
-		add_overlay(head_icon)
+	if(stat || src.rest) //без сознания или отдыхает
+		head_icon = SF.get_overlay()
+		if(stat)
+			head_icon.pixel_y = -2
+			head_icon.pixel_x = -2
+	else
+		head_icon = SF.get_overlay()
+
+	add_overlay(head_icon)

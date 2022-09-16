@@ -6,12 +6,25 @@
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
 	var/unique_pet = FALSE // if the mob can be renamed
-	var/can_collar = FALSE // can add collar to mob or not
-	var/can_mask = FALSE
-	var/can_hat = TRUE //!!!!!!!!!!УСТАНОВИТЬ НА FALSE НЕ ЗАБЫТЬ
-	var/can_back = FALSE
 
+	//Что может носить
+	var/can_collar = FALSE 	// can add collar to mob or not
+	var/can_mask = FALSE	// сигарены
+	var/can_head = TRUE 	// шапки //!!!!!!!!!!УСТАНОВИТЬ НА FALSE НЕ ЗАБЫТЬ
+	var/can_back = FALSE	// одежда, костюмы
+
+	//Если животное носит FASHION одежду. Может ли оно носить и уже ли носит
+	var/can_wear_fashion_head = FALSE
+	var/can_wear_fashion_mask = FALSE
+	var/can_wear_fashion_back = FALSE
+
+	var/is_wear_fashion_head = FALSE
+	var/is_wear_fashion_mask = FALSE
+	var/is_wear_fashion_back = FALSE
+
+	//Расположения шляп при разных состояниях
 	var/hat_offset_y = -8
+	var/hat_offset_x = 0	//смещение при боковом просмотре !!! не всего объекта !!!
 	var/hat_offset_y_rest = -8
 	var/hat_offset_x_rest = 0
 	var/hat_offset_y_dead = -16
@@ -47,44 +60,46 @@
 
 /mob/living/simple_animal/pet/dog/corgi
 	isFashion = TRUE
-	can_back = TRUE
-	can_hat = TRUE
-	can_collar = TRUE
+
+	can_wear_fashion_head = TRUE
+	can_wear_fashion_back = TRUE
+
+/mob/living/simple_animal/pig
+	inventory_head = new /obj/item/clothing/head/hopcap //!!!!!!!!!!!!!!!!!
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	isFashion = FALSE
-	can_back = FALSE
-	can_hat = FALSE
-	can_collar = FALSE
+
+	can_wear_fashion_head = FALSE
+	can_wear_fashion_back = FALSE
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa
 	isFashion = FALSE
-	can_back = FALSE
-	can_hat = FALSE
-	can_collar = FALSE
+
+	can_wear_fashion_head = FALSE
+	can_wear_fashion_back = FALSE
 
 /mob/living/simple_animal/pet/dog/security
 	isFashion = TRUE
-	can_hat = TRUE
-	can_mask = TRUE
-	can_collar = TRUE
+
+	can_wear_fashion_head = TRUE
+	can_wear_fashion_mask = TRUE
 
 /mob/living/simple_animal/pet/dog/security/ranger //Почему-то у него была шапка отключена? У него уже встроенная?
 	isFashion = TRUE
-	//can_hat = TRUE
-	can_mask = TRUE
-	can_collar = TRUE
+
+	can_wear_fashion_mask = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge
 	isFashion = TRUE
-	can_hat = TRUE
-	can_collar = TRUE
+	//can_head = FALSE
+	can_wear_fashion_head = TRUE
 
 /mob/living/simple_animal/bot
-	//inventory_head = /obj/item/clothing/head/hopcap //!!!!!!!!!!!!!!!!!
+	//inventory_head = new /obj/item/clothing/head/hopcap //!!!!!!!!!!!!!!!!!
 	hat_offset_y = -15
 	isCentered = TRUE
-	can_hat = TRUE
+	can_head = TRUE
 	canWearBlacklistedHats = TRUE
 
 /mob/living/simple_animal/show_inv(mob/user as mob)
@@ -93,22 +108,21 @@
 	user.set_machine(src)
 
 	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	if (can_hat)
+	if (can_head || can_wear_fashion_head)
 		dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'><font color=grey>Empty</font>"]</A>"
-	if (can_mask)
+	if (can_mask || can_wear_fashion_mask)
 		dat += "<br><B>Mask:</B> <A href='?src=[UID()];[inventory_mask ? "remove_inv=mask'>[inventory_mask]" : "add_inv=mask'><font color=grey>Empty</font>"]</A>"
-	if (can_back)
+	if (can_back || can_wear_fashion_back)
 		dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[inventory_back]" : "add_inv=back'><font color=grey>Empty</font>"]</A>"
 	if (can_collar)
 		dat += "<br><B>Collar:</B><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A>"
-		//dat += {"<meta charset="UTF-8"><table><tr><br><B>Collar:</B><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></tr></table>"}
 	dat += "<br><A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
 	popup.set_content(dat)
 	popup.open()
 
-/mob/living/simple_animal/attackby(obj/item/W, mob/user, params)	//!!!!!!проверить можно ли будет пиздить предметами
+/mob/living/simple_animal/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
 		return
@@ -122,13 +136,8 @@
 
 	. = ..()
 
-
-/mob/living/simple_animal/proc/hat_icons()
-	if(inventory_head)
-		overlays += get_hat_overlay()
-
 /mob/living/simple_animal/Topic(href, href_list)
-	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr)) // || !can_hat) !!!!!!!!!!!!!!!!
+	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr)) // || !can_head) !!!!!!!!!!!!!!!!
 		usr << browse(null, "window=mob[UID()]")
 		usr.unset_machine()
 		return
@@ -198,32 +207,46 @@
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
-	if(pcollar && collar_type)
-		add_overlay("[collar_type]collar")
-		add_overlay("[collar_type]tag")
 
-	regenerate_fashion_icon()
+	if (inventory_head)
+		regenerate_head_icon()
+	if (inventory_mask)
+		regenerate_mask_icon()
+	if (inventory_back)
+		regenerate_back_icon()
+	if (pcollar && collar_type)
+		regenerate_collar_icon()
 
-/mob/living/simple_animal/proc/regenerate_fashion_icon()
-	if(inventory_head)
-		var/image/head_icon
+/mob/living/simple_animal/proc/regenerate_head_icon()
+	var/image/head_icon
 
-		if(!hat_icon_state)
-			hat_icon_state = inventory_head.icon_state
-		if(!hat_alpha)
-			hat_alpha = inventory_head.alpha
-		if(!hat_color)
-			hat_color = inventory_head.color
+	if(!hat_icon_state)
+		hat_icon_state = inventory_head.icon_state
+	if(!hat_alpha)
+		hat_alpha = inventory_head.alpha
+	if(!hat_color)
+		hat_color = inventory_head.color
 
-		if(health <= 0)
-			head_icon = get_hat_overlay(dir = hat_dir_dead)
-			head_icon.pixel_y = -8
-			if (hat_rotate_dead)
-				head_icon.transform = turn(head_icon.transform, 180)
-		else
-			head_icon = get_hat_overlay()
+	if(health <= 0)
+		head_icon = get_hat_overlay(dir = hat_dir_dead)
+		head_icon.pixel_y = -8
+		if (hat_rotate_dead)
+			head_icon.transform = turn(head_icon.transform, 180)
+	else
+		head_icon = get_hat_overlay()
 
-		add_overlay(head_icon)
+	add_overlay(head_icon)
+
+/mob/living/simple_animal/proc/regenerate_mask_icon()
+	return 0
+
+/mob/living/simple_animal/proc/regenerate_back_icon()
+	return 0
+
+/mob/living/simple_animal/proc/regenerate_collar_icon()
+	add_overlay("[collar_type]collar")
+	add_overlay("[collar_type]tag")
+
 
 /mob/living/simple_animal/proc/get_hat_overlay(var/dir)
 	if(hat_icon_file && hat_icon_state)
@@ -248,18 +271,13 @@
 
 	if(!istype(item_to_add, /obj/item/clothing/head/))
 		to_chat(user, "<span class='warning'>[item_to_add.name] нельзя надеть на [src.name]! Это не шляпа.</span>")
-		wrong_item(item_to_add)
-		return 0
-
-	if(!can_hat)
-		to_chat(user, "<span class='warning'>[item_to_add.name] нельзя надеть на [src.name]! Этот головной убор слетает.</span>")
-		wrong_item(item_to_add)
+		wrong_item(item_to_add, user)
 		return 0
 
 	if(inventory_head)
 		if(user)
 			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на [src.name]!</span>")
-			wrong_item(item_to_add)
+			wrong_item(item_to_add, user)
 		return 0
 
 	if(user && !user.unEquip(item_to_add))
@@ -271,9 +289,14 @@
 
 ///Текста, фешины для голов
 /mob/living/simple_animal/proc/place_on_head_fashion(obj/item/item_to_add, mob/user)
+	if(!can_head)
+		to_chat(user, "<span class='warning'>[item_to_add.name] нельзя надеть на [src.name]! Головные уборы слетают.</span>")
+		wrong_item(item_to_add, user)
+		return 0
+
 	if (!canWearBlacklistedHats && is_type_in_list(item_to_add, blacklisted_hats))
 		to_chat(user, "<span class='warning'>[item_to_add.name] не помещается на голову [src.name]!</span>")
-		wrong_item(item_to_add)
+		wrong_item(item_to_add, user)
 		return 0
 
 	if(health <= 0)
@@ -287,7 +310,7 @@
 	regenerate_icons()
 
 	//Если каска инженера, то даем свет
-	if(istype(item_to_add, /obj/item/clothing/head/))
+	if(istype(item_to_add, /obj/item/clothing/head/hardhat))
 		set_light(4)
 
 	return 1
@@ -311,8 +334,7 @@
 
 		if(!place_on_mask_fashion(item_to_add, user))
 			to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s face, but it falls off!</span>")
-			item_to_add.forceMove(drop_location())
-			wrong_item(item_to_add, usr)
+			wrong_item(item_to_add, user)
 			return
 
 		item_to_add.forceMove(src)
@@ -344,8 +366,7 @@
 		//The objects that mobs can wear on their backs.
 		if(!place_on_back_fashion(item_to_add, user))
 			to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s back, but it falls off!</span>")
-			item_to_add.forceMove(drop_location())
-			wrong_item(item_to_add)
+			wrong_item(item_to_add, user)
 			return
 
 		item_to_add.forceMove(src)
@@ -372,8 +393,10 @@
 		real_name = P.tagname
 
 //Анимация прокручивания моба при нацеплении неправильного предмета
-/mob/living/simple_animal/proc/wrong_item(obj/item/item_to_add)
-	//item_to_add.forceMove(drop_location())
+/mob/living/simple_animal/proc/wrong_item(obj/item/item_to_add, mob/user)
+	//unEquip(user.get_active_hand())
+	user.drop_item()
+	item_to_add.forceMove(drop_location())
 	if(prob(25))
 		step_rand(item_to_add)
 	for(var/i in list(1,2,4,8,4,8,4,dir))

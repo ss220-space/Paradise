@@ -50,11 +50,6 @@
 			collar_type = "[initial(collar_type)]"
 			regenerate_icons()
 
-
-/mob/living/simple_animal/pet/dog/security/Initialize(mapload)
-	. = ..()
-	regenerate_icons()
-
 /mob/living/simple_animal/pet/dog/security/Destroy()
 	QDEL_NULL(inventory_head)
 	QDEL_NULL(inventory_mask)
@@ -79,19 +74,19 @@
 
 //The objects that secdogs can wear on their faces.
 /mob/living/simple_animal/pet/dog/security/place_on_mask_fashion(obj/item/item_to_add, mob/user)
-	var/allowed = FALSE
+	is_wear_fashion_mask = FALSE
 	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/mask))
-		allowed = TRUE
-	return allowed
+		is_wear_fashion_mask = TRUE
+	return is_wear_fashion_mask
 
-/mob/living/simple_animal/pet/dog/security/place_on_head_fashion(obj/item/item_to_add, mob/user) //!!!!!!!
-	var/valid = FALSE
+/mob/living/simple_animal/pet/dog/security/place_on_head_fashion(obj/item/item_to_add, mob/user)
+	is_wear_fashion_head = FALSE
 	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/head))
-		valid = TRUE
+		is_wear_fashion_head = TRUE
 
 	//Various hats and items (worn on his head) change muhtar's behaviour. His attributes are reset when a hat is removed.
 
-	if(valid)
+	if(is_wear_fashion_head)
 		if(health <= 0)
 			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
 		else if(user)
@@ -103,11 +98,9 @@
 		update_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
-		item_to_add.forceMove(drop_location())
-		wrong_item(item_to_add)
+		. = ..()
 
-	return valid
+	return is_wear_fashion_head
 
 /mob/living/simple_animal/pet/dog/security/update_fluff()
 	// First, change back to defaults
@@ -121,59 +114,65 @@
 	desc = initial(desc)
 
 	if(inventory_head && inventory_head.muhtar_fashion)
-		var/datum/fashion/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
+		var/datum/fashion/DF = new inventory_head.muhtar_fashion(src)
 		DF.apply(src)
 
 	if(inventory_mask && inventory_mask.muhtar_fashion)
-		var/datum/fashion/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
+		var/datum/fashion/DF = new inventory_mask.muhtar_fashion(src)
 		DF.apply(src)
 
-/mob/living/simple_animal/pet/dog/security/regenerate_fashion_icon()
-	if(inventory_head)
-		var/image/head_icon
-		var/datum/fashion/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
+/mob/living/simple_animal/pet/dog/security/regenerate_head_icon()
+	if (!is_wear_fashion_head)
+		return ..()
 
-		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_head.icon_state
-		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_head.alpha
-		if(!DF.obj_color)
-			DF.obj_color = inventory_head.color
+	var/image/head_icon
+	var/datum/fashion/DF = new inventory_head.muhtar_fashion(src)
+
+	if(!DF.obj_icon_state)
+		DF.obj_icon_state = inventory_head.icon_state
+	if(!DF.obj_alpha)
+		DF.obj_alpha = inventory_head.alpha
+	if(!DF.obj_color)
+		DF.obj_color = inventory_head.color
 
 
-		if (icon_state == icon_resting)
-			head_icon = DF.get_overlay()
-			head_icon.pixel_y = -2
-		else
-			head_icon = DF.get_overlay()
+	if (icon_state == icon_resting)
+		head_icon = DF.get_overlay()
+		head_icon.pixel_y = -2
+	else
+		head_icon = DF.get_overlay()
 
-		if(health <= 0)
-			head_icon = DF.get_overlay(dir = EAST)
-			head_icon.pixel_y = -8
-			head_icon.transform = turn(head_icon.transform, 180)
+	if(health <= 0)
+		head_icon = DF.get_overlay(dir = EAST)
+		head_icon.pixel_y = -8
+		head_icon.transform = turn(head_icon.transform, 180)
 
-		add_overlay(head_icon)
+	add_overlay(head_icon)
 
-	if(inventory_mask)
-		var/image/mask_icon
-		var/datum/fashion/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
 
-		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_mask.icon_state
-		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_mask.alpha
-		if(!DF.obj_color)
-			DF.obj_color = inventory_mask.color
+/mob/living/simple_animal/pet/dog/security/regenerate_mask_icon()
+	if (!is_wear_fashion_mask)
+		return ..()
 
-		if(icon_state == icon_resting)
-			mask_icon = DF.get_overlay()
-			mask_icon.pixel_y = -2
-		else
-			mask_icon = DF.get_overlay()
+	var/image/mask_icon
+	var/datum/fashion/DF = new inventory_mask.muhtar_fashion(src)
 
-		if(health <= 0)
-			mask_icon = DF.get_overlay(dir = EAST)
-			mask_icon.pixel_y = -11
-			mask_icon.transform = turn(mask_icon.transform, 180)
+	if(!DF.obj_icon_state)
+		DF.obj_icon_state = inventory_mask.icon_state
+	if(!DF.obj_alpha)
+		DF.obj_alpha = inventory_mask.alpha
+	if(!DF.obj_color)
+		DF.obj_color = inventory_mask.color
 
-		add_overlay(mask_icon)
+	if(icon_state == icon_resting)
+		mask_icon = DF.get_overlay()
+		mask_icon.pixel_y = -2
+	else
+		mask_icon = DF.get_overlay()
+
+	if(health <= 0)
+		mask_icon = DF.get_overlay(dir = EAST)
+		mask_icon.pixel_y = -11
+		mask_icon.transform = turn(mask_icon.transform, 180)
+
+	add_overlay(mask_icon)
