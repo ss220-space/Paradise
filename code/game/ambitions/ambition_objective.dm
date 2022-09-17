@@ -6,7 +6,6 @@
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
 	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции
 	var/chance_other_departament_ambition = 30	//шанс выпадения амбиции чужого департамента
-	var/list/choose_list = list()		//список повторов рандома у амбиции
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner
@@ -105,7 +104,7 @@
 	return result
 
 /datum/ambition_objective/proc/ambition_code(var/text)
-	choose_list = list()
+	var/list/choose_list = list()		//список повторов рандома у амбиции !(Приготовлю сегодня ПИВО и ПИВО)
 
 	var/list/random_codes = list(
 		"random_crew",
@@ -121,13 +120,15 @@
 	text = ""
 	for(var/item in items)
 		for (var/code in random_codes)
-			item = replacetextEx_char(item, "[code]\]", random_choose(code))
+			var/choosen = random_choose(code)
+			choose_list.Add(choosen)
+			item = replacetextEx_char(item, "[code]\]", choosen)
 		text += item
 
 	return uppertext(copytext_char(text, 1, 2)) + copytext_char(text, 2)	//переводим первым символ в верхний регистр
 
 //выдача рандома, проверка на повторы
-/datum/ambition_objective/proc/random_choose(var/list_for_pick)
+/datum/ambition_objective/proc/random_choose(var/list_for_pick, var/list/choose_list)
 	if (list_for_pick == "random_crew")
 		return random_player()
 
@@ -137,7 +138,6 @@
 	while(picked in choose_list)
 		picked = pick_list_weight("ambition_randoms.json", list_for_pick)
 
-	choose_list.Add(picked)
 	return picked
 
 /datum/ambition_objective/proc/random_player()
