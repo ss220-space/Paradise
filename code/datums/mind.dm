@@ -236,9 +236,13 @@
 		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
 		if(objectives.len==0)
 			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
+	else if(src in SSticker.mode.apprentices)
+		. += "<b><font color='red'>WIZARD APPRENTICE</font></b>|<a href='?src=[UID()];wizard=clear'>no</a>"
+		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
+		if(objectives.len==0)
+			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='?src=[UID()];wizard=wizard'>wizard</a>|<b>NO</b>"
-
+		. += "<b>NO</b>|<a href='?src=[UID()];wizard=wizard'>wizard</a>|<a href='?src=[UID()];wizard=apprentice'>apprentice</a>"
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
@@ -887,8 +891,17 @@
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
+				if(src in SSticker.mode.apprentices)
+					SSticker.mode.apprentices -= src
+					special_role = null
+					current.spellremove(current)
+					current.faction = list("Station")
+					SSticker.mode.update_wiz_icons_removed(src)
+					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a apprentice wizard!</B></FONT></span>")
+					log_admin("[key_name(usr)] has de-apprentice-wizarded [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-apprentice-wizarded [key_name_admin(current)]")
 			if("wizard")
-				if(!(src in SSticker.mode.wizards))
+				if(!(src in SSticker.mode.wizards) && !(src in SSticker.mode.apprentices))
 					SSticker.mode.wizards += src
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
@@ -898,23 +911,48 @@
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
+			if("apprentice")
+				if(!(src in SSticker.mode.wizards) && !(src in SSticker.mode.apprentices))
+					SSticker.mode.apprentices += src
+					special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+					SSticker.mode.update_wiz_icons_added(src)
+					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
+					to_chat(current, "<span class='danger'>You are a Apprentice of Space Wizard!</span>")
+					current.faction = list("wizard")
+					log_admin("[key_name(usr)] has apprentice-wizarded [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has apprentice-wizarded [key_name_admin(current)]")
 			if("lair")
 				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the wizard's lair")
 			if("dressup")
-				SSticker.mode.equip_wizard(current)
-				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
-				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
+				if(src in SSticker.mode.wizards)
+					SSticker.mode.equip_wizard(current)
+					log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
+					message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
+				else if(src in SSticker.mode.apprentices)
+					SSticker.mode.equip_wizard_apprentice(current)
+					log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard apprentice")
+					message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard apprentice")
 			if("name")
 				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
-				SSticker.mode.forge_wizard_objectives(src)
-				to_chat(usr, "<span class='notice'>The objectives for wizard [key] have been generated. You can edit them and announce manually.</span>")
-				log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
+				if(src in SSticker.mode.wizards)
+					SSticker.mode.forge_wizard_objectives(src)
+					to_chat(usr, "<span class='notice'>The objectives for wizard [key] have been generated. You can edit them and announce manually.</span>")
+					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
+				else if(src in SSticker.mode.apprentices)
+					if (SSticker.mode.wizards.len)
+						var/datum/mind/wizard = pick(SSticker.mode.wizards)
+						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
+					else
+						SSticker.mode.forge_wizard_objectives(src)
+					to_chat(usr, "<span class='notice'>The objectives for wizard apprentice [key] have been generated. You can edit them and announce manually.</span>")
+					log_admin("[key_name(usr)] has automatically forged wizard apprentice objectives for [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has automatically forged wizard apprentice objectives for [key_name_admin(current)]")
 
 
 	else if(href_list["changeling"])

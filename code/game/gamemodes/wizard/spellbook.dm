@@ -539,7 +539,7 @@
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
-	item_path = /obj/item/contract
+	item_path = /obj/item/contract/apprentice
 	log_name = "CT"
 	category = "Summons"
 
@@ -633,8 +633,8 @@
 	initialize()
 
 /obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/contract))
-		var/obj/item/contract/contract = O
+	if(istype(O, /obj/item/contract/apprentice))
+		var/obj/item/contract/apprentice/contract = O
 		if(contract.used)
 			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
 		else
