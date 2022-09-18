@@ -355,3 +355,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
+
+/client/verb/toggle_say_modal()
+	set name = "Toggle Say Modal"
+	set category = "Preferences"
+	set desc = "Toggle say modal design"
+	prefs.toggles2 ^= PREFTOGGLE_2_SAY_CHAT_OLD
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_SAY_CHAT_OLD) ? "no longer" : "now"] see new SAY modal.")

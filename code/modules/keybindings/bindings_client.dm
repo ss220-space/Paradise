@@ -63,9 +63,12 @@
 			return
 		if("F3", "T")
 			if(keys_held["Shift"])
-				mob.say_new()
+				mob.whisper_wrapper()
 			else
-				mob.say_wrapper()
+				if (mob.client.prefs.toggles2 & PREFTOGGLE_2_SAY_CHAT_OLD)
+					mob.say_wrapper()
+				else
+					mob.say_new_wrapper()
 			return
 		if("F4", "M")
 			mob.me_wrapper()

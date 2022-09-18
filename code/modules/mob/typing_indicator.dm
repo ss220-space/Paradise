@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	if(message)
 		say_verb(message)
 
-/mob/verb/say_new()
+/mob/verb/say_new_wrapper()
 	set name = ".SayNew"
 	set hidden = 1
 
@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 /mob/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "SayInterface", " ", 350, 125, master_ui, state)
+		ui = new(user, src, ui_key, "SayInterface", " ", 350, 135, master_ui, state)
 		ui.open()
 
 /mob/ui_data(mob/user)

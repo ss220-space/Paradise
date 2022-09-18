@@ -1,5 +1,6 @@
 .say {
   &-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 5px 10px 10px;
@@ -43,5 +44,11 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+  }
+
+  &-helpers {
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 }
