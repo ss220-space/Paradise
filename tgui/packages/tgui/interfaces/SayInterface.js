@@ -3,8 +3,9 @@ import { Box, Button, Input } from '../components';
 import { Window } from "../layouts";
 import { RADIO_CHANNELS } from "../constants";
 import { classes } from "common/react";
-import { KEY_1, KEY_9, KEY_Q, KEY_E } from "../hotkeys";
-import { logger } from "../logging";
+import { KEY_1, KEY_9 } from "../hotkeys";
+
+const tooltipText = "Включить старое окно можно в Preferences. Детали использования этого окна в дискорде. #игровые-оповещения";
 
 const channelsNamesMap = {
   Common: {
@@ -147,6 +148,9 @@ export const SayInterface = (properties, context) => {
         </div>
         <div className="say-buttons">
           <Button content="Ok" onClick={() => handleSay()} />
+        </div>
+        <div className="say-helpers">
+          <Button content="?" tooltip={tooltipText} tooltipPosition="top-left" />
         </div>
       </Box>
     </Window>
