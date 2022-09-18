@@ -2,24 +2,40 @@
   &-container {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 5px 10px 10px;
+    height: 100%;
   }
 
   &-channels {
     display: flex;
     align-items: flex-end;
     min-height: 32px;
+    margin-bottom: -3px;
 
     .say-active-channel {
       padding-bottom: 10px;
     }
 
-    .say-buttons:nth-child(1) {
-      margin-right: 20px;
-    }
+    //.say-buttons:nth-child(1) {
+    //  margin-right: 20px;
+    //}
 
     .say-buttons {
       transition: padding-bottom 0.15s ease-out;
+    }
+
+    &-special {
+      margin-left: auto;
+    }
+  }
+
+  &-input {
+    flex: 1;
+    height: 25px;
+
+    .Input,
+    .Input__input {
+      height: 25px;
     }
   }
 }

@@ -1,70 +1,146 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Input } from '../components';
+import { Box, Button, Input } from '../components';
 import { Window } from "../layouts";
 import { RADIO_CHANNELS } from "../constants";
-import { createLogger } from "common/logging";
+import { classes } from "common/react";
+import { KEY_1, KEY_9 } from "../hotkeys";
 import { logger } from "../logging";
-import { winset } from "../byond";
-import { classes, pureComponentHooks, shallowDiffers } from "common/react";
-import { KEY_1, KEY_8 } from "../hotkeys";
 
 const channelsNamesMap = {
-  Common: ";",
-  Command: ":c",
-  Security: ":s",
-  Engineering: ":e",
-  Science: ":n",
-  Medical: ":m",
-  Supply: ":u",
-  Service: ":z",
-  Procedure: ":x",
+  Common: {
+    text: ";",
+    icon: "users",
+  },
+  Command: {
+    text: ":c",
+    icon: "star",
+  },
+  Security: {
+    text: ":s",
+    icon: "shield-alt",
+  },
+  Engineering: {
+    text: ":e",
+    icon: "wrench",
+  },
+  Science: {
+    text: ":n",
+    icon: "flask",
+  },
+  Medical: {
+    text: ":m",
+    icon: "heartbeat",
+  },
+  Supply: {
+    text: ":u",
+    icon: "cubes",
+  },
+  Service: {
+    text: ":z",
+    icon: "concierge-bell",
+  },
+  Procedure: {
+    text: ":x",
+    icon: "gavel",
+  },
+};
+
+const specialChannelsNames = {
+  Syndicate: {
+    text: ":t",
+    icon: "strikethrough",
+  },
+  SyndTeam: {
+    text: ":_",
+    icon: "strikethrough",
+  },
+  SyndTaipan: {
+    text: ":,",
+    icon: "strikethrough",
+  },
+  ["Response Team"]: {
+    text: ":$",
+    icon: "registered",
+  },
+  ["Special Ops"]: {
+    text: ":-",
+    icon: "skull",
+  },
 };
 
 export const SayInterface = (properties, context) => {
-  const { store } = context;
-  const { data, act, dispatch } = useBackend(context);
+  const { data, act } = useBackend(context);
   const {
     channels,
   } = data;
-  const channelsArray = Object.keys(channels);
+  const availableChannels = Object.keys(channelsNamesMap).filter(channel => Object.keys(channels).includes(channel));
+  const enabledChannels = Object.entries(channels).filter(value => value[1]).map(channel => channel[0]);
+
+  const enabledSpecialChannels = Object.keys(specialChannelsNames).filter(channel => enabledChannels.includes(channel));
+
   const [text, setText] = useLocalState(context, "text", 0);
   const [chosenRadio, setChosenRadio] = useLocalState(context, "chosenRadio", " ");
 
   const handleRadioChosen = radio => {
+    if (!enabledChannels.includes(radio) && radio !== " ") {
+      return;
+    }
+
     setChosenRadio(radio === chosenRadio ? " " : radio);
   };
 
-  const test = () => {
-    logger.log('test232');
+  const handleHotkey = e => {
+    if (!e.ctrlKey) {
+      return;
+    }
+
+    const keyCode = window.event ? e.which : e.keyCode;
+    if (keyCode >= KEY_1 && keyCode <= KEY_9) {
+      handleRadioChosen(availableChannels[keyCode - 49]);
+    } else if (keyCode === 192) {
+      handleRadioChosen(" ");
+    }
   };
-  // test = e => {
-  //   logger.log('test');
-  //   const keyCode = window.event ? e.which : e.keyCode;
-  //   if (e.ctrlKey && keyCode >= KEY_1 && keyCode <= KEY_8) {
-  //     handleRadioChosen(Object.keys(channelsNamesMap)[keyCode - 49]);
-  //   }
-  // };
 
   const handleSay = () => {
     let modifiedText = text;
-    if (Object.keys(channelsNamesMap).includes(chosenRadio)) {
-      modifiedText = `${channelsNamesMap[chosenRadio]} ${text}`;
+    if (enabledChannels.includes(chosenRadio)) {
+      modifiedText = `${channelsNamesMap[chosenRadio]?.text} ${text}`;
     }
     act('Say', { text: modifiedText });
   };
 
   return (
-    <Window onComponentDidAppear={test} title={chosenRadio} theme="no-logo">
-      <div className="say-container">
+    <Window title={chosenRadio} theme="no-logo" icon="comment-dots">
+      <Box className="say-container" onKeyDown={handleHotkey}>
         <div className="say-channels">
-          {Object.keys(channelsNamesMap).map(channel => (
-            <ChannelButton activeChannel={chosenRadio} key={channel} channel={channel} onClick={() => handleRadioChosen(channel)} />
+          {availableChannels.map(channel => (
+            <ChannelButton
+              disabled={!enabledChannels.includes(channel)}
+              icon={channelsNamesMap[channel]?.icon}
+              activeChannel={chosenRadio}
+              key={channel}
+              channel={channel}
+              onClick={() => handleRadioChosen(channel)}
+            />
           ))}
+
+          <div className="say-channels-special">
+            {enabledSpecialChannels.map(channel => (
+              <ChannelButton
+                icon={specialChannelsNames[channel]?.icon}
+                activeChannel={chosenRadio}
+                key={channel}
+                channel={channel}
+                onClick={() => handleRadioChosen(channel)}
+              />
+            ))}
+          </div>
         </div>
         <div style={{ display: "flex" }}>
-          <Input style={{ flex: 1 }} onInput={(e, value) => setText(value)} onEnter={() => handleSay()} />
+          <Input className="say-input" autofocus fluid onInput={(e, value) => setText(value)} onEnter={() => handleSay()} />
         </div>
-      </div>
+      </Box>
     </Window>
   );
 };
@@ -75,10 +151,12 @@ const findChannelColor = channel => {
 
 const ChannelButton = props => {
   const {
+    icon,
     channel,
     style,
     onClick,
     activeChannel,
+    disabled,
   } = props;
 
   const isActive = () => {
@@ -86,6 +164,13 @@ const ChannelButton = props => {
   };
 
   return (
-    <Button style={{ ...style }} className={classes(["say-buttons", isActive() && 'say-active-channel'])} backgroundColor={findChannelColor(channel)} content={channel[0]} onClick={e => onClick(e)} />
+    <Button
+      icon={icon}
+      disabled={disabled}
+      style={{ ...style }}
+      className={classes(["say-buttons", isActive() && 'say-active-channel'])}
+      backgroundColor={findChannelColor(channel)}
+      onClick={e => onClick(e)}
+    />
   );
 };

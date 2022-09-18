@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(changelog)
 	. = FALSE
 	// Modify the code below to modify the header of the changelog
 	var/changelog_header = {"
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 		<title>ParadiseSS13 Changelog</title>
 		<link rel='styelsheet' href='fontawesome.min.css'>
 		<center>

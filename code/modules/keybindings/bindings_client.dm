@@ -63,7 +63,7 @@
 			return
 		if("F3", "T")
 			if(keys_held["Shift"])
-				mob.test()
+				mob.say_new()
 			else
 				mob.say_wrapper()
 			return
