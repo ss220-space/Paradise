@@ -1687,3 +1687,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
+
+/mob/living/silicon/robot/get_available_channels()
+	if (!common_radio)
+		return list()
+	return common_radio.list_available_channels()

@@ -64,12 +64,13 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 /mob/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "SayInterface", " ", 350, 100, master_ui, state)
+		ui = new(user, src, ui_key, "SayInterface", " ", 350, 125, master_ui, state)
 		ui.open()
 
 /mob/ui_data(mob/user)
 	var/list/data = list()
 	data["channels"] = user.get_available_channels()
+	data["languages"] = user.languages
 	return data
 
 /mob/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

@@ -207,8 +207,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/radio/proc/list_enabled_channels(mob/user)
+/obj/item/radio/proc/list_available_channels(mob/user)
 	var/list/dat = list()
+	if (frequency == PUB_FREQ)
+		dat += list("Common" = 1)
 	for(var/channel in channels)
 		dat[channel] = channels[channel]
 	return dat

@@ -111,6 +111,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/list/all_eyes = list()
 
+/mob/living/silicon/ai/get_available_channels()
+	if (!aiRadio)
+		return list()
+	return aiRadio.list_available_channels()
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems

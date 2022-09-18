@@ -3,67 +3,71 @@ import { Box, Button, Input } from '../components';
 import { Window } from "../layouts";
 import { RADIO_CHANNELS } from "../constants";
 import { classes } from "common/react";
-import { KEY_1, KEY_9 } from "../hotkeys";
+import { KEY_1, KEY_9, KEY_Q, KEY_E } from "../hotkeys";
 import { logger } from "../logging";
 
 const channelsNamesMap = {
   Common: {
-    text: ";",
+    key: ";",
     icon: "users",
   },
   Command: {
-    text: ":c",
+    key: ":c",
     icon: "star",
   },
   Security: {
-    text: ":s",
+    key: ":s",
     icon: "shield-alt",
   },
   Engineering: {
-    text: ":e",
+    key: ":e",
     icon: "wrench",
   },
   Science: {
-    text: ":n",
+    key: ":n",
     icon: "flask",
   },
   Medical: {
-    text: ":m",
+    key: ":m",
     icon: "heartbeat",
   },
   Supply: {
-    text: ":u",
+    key: ":u",
     icon: "cubes",
   },
   Service: {
-    text: ":z",
+    key: ":z",
     icon: "concierge-bell",
   },
   Procedure: {
-    text: ":x",
+    key: ":x",
     icon: "gavel",
+  },
+  ["AI Private"]: {
+    key: ":p",
+    icon: "laptop",
   },
 };
 
 const specialChannelsNames = {
   Syndicate: {
-    text: ":t",
+    key: ":t",
     icon: "strikethrough",
   },
   SyndTeam: {
-    text: ":_",
+    key: ":_",
     icon: "strikethrough",
   },
   SyndTaipan: {
-    text: ":,",
+    key: ":,",
     icon: "strikethrough",
   },
   ["Response Team"]: {
-    text: ":$",
+    key: ":$",
     icon: "registered",
   },
   ["Special Ops"]: {
-    text: ":-",
+    key: ":-",
     icon: "skull",
   },
 };
@@ -72,13 +76,14 @@ export const SayInterface = (properties, context) => {
   const { data, act } = useBackend(context);
   const {
     channels,
+    languages,
   } = data;
   const availableChannels = Object.keys(channelsNamesMap).filter(channel => Object.keys(channels).includes(channel));
   const enabledChannels = Object.entries(channels).filter(value => value[1]).map(channel => channel[0]);
 
   const enabledSpecialChannels = Object.keys(specialChannelsNames).filter(channel => enabledChannels.includes(channel));
 
-  const [text, setText] = useLocalState(context, "text", 0);
+  const [text, setText] = useLocalState(context, "text", "");
   const [chosenRadio, setChosenRadio] = useLocalState(context, "chosenRadio", " ");
 
   const handleRadioChosen = radio => {
@@ -105,7 +110,7 @@ export const SayInterface = (properties, context) => {
   const handleSay = () => {
     let modifiedText = text;
     if (enabledChannels.includes(chosenRadio)) {
-      modifiedText = `${channelsNamesMap[chosenRadio]?.text} ${text}`;
+      modifiedText = `${channelsNamesMap[chosenRadio]?.key} ${text}`;
     }
     act('Say', { text: modifiedText });
   };
@@ -140,6 +145,9 @@ export const SayInterface = (properties, context) => {
         <div style={{ display: "flex" }}>
           <Input className="say-input" autofocus fluid onInput={(e, value) => setText(value)} onEnter={() => handleSay()} />
         </div>
+        <div className="say-buttons">
+          <Button content="Ok" onClick={() => handleSay()} />
+        </div>
       </Box>
     </Window>
   );
@@ -168,7 +176,7 @@ const ChannelButton = props => {
       icon={icon}
       disabled={disabled}
       style={{ ...style }}
-      className={classes(["say-buttons", isActive() && 'say-active-channel'])}
+      className={classes(["say-channel-button", isActive() && 'say-active-channel'])}
       backgroundColor={findChannelColor(channel)}
       onClick={e => onClick(e)}
     />
