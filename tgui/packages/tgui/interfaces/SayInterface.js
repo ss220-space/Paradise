@@ -3,7 +3,7 @@ import { Box, Button, Input } from '../components';
 import { Window } from "../layouts";
 import { RADIO_CHANNELS } from "../constants";
 import { classes } from "common/react";
-import { KEY_1, KEY_9 } from "../hotkeys";
+import { KEY_1, KEY_9, KEY_ESCAPE } from "../hotkeys";
 
 const tooltipText = "Включить старое окно можно в Preferences. Детали использования этого окна в дискорде. #игровые-оповещения";
 
@@ -96,11 +96,16 @@ export const SayInterface = (properties, context) => {
   };
 
   const handleHotkey = e => {
+    const keyCode = window.event ? e.which : e.keyCode;
+
+    if (keyCode === KEY_ESCAPE) {
+      act('Say', { text: "" });
+    }
+
     if (!e.ctrlKey) {
       return;
     }
 
-    const keyCode = window.event ? e.which : e.keyCode;
     if (keyCode >= KEY_1 && keyCode <= KEY_9) {
       handleRadioChosen(availableChannels[keyCode - 49]);
     } else if (keyCode === 192) {

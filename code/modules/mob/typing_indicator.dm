@@ -77,7 +77,8 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	if(..())
 		return
 	if(action == "Say")
-		say_verb(params["text"])
+		if (params["text"])
+			say_verb(params["text"])
 		ui.close()
 		. = TRUE
 
