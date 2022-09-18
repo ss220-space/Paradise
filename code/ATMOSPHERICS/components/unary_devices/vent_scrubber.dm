@@ -370,16 +370,17 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
+/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE

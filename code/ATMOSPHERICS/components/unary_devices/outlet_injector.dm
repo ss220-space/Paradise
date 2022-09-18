@@ -163,14 +163,15 @@
 		return*/
 
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return 1
 	return ..()
+
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
 
 /obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
 	update_underlays()

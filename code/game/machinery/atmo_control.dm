@@ -41,23 +41,21 @@
 	else
 		visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
 
-/obj/machinery/air_sensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
-	if(istype(W, /obj/item/wrench))
-		if(bolts)
-			to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
-			return 1
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
-			new /obj/item/pipe_gsensor(src.loc)
-			qdel(src)
-			return 1
+/obj/machinery/air_sensor/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
+
+/obj/machinery/air_sensor/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(bolts)
+		to_chat(user, "[src] is bolted to the floor! You can't detach it like this.")
 		return
-	return ..()
+	playsound(loc, I.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	if(do_after(user, 40 * I.toolspeed, target = src))
+		user.visible_message("[user] unfastens [src].", "<span class='notice'>You have unfastened [src].</span>", "You hear ratchet.")
+		new /obj/item/pipe_gsensor(loc)
+		qdel(src)
 
 /obj/machinery/air_sensor/process_atmos()
 	if(on)
@@ -163,11 +161,9 @@
 		sensors = list()
 	src.updateUsrDialog()
 
-/obj/machinery/computer/general_air_control/attackby(I as obj, user as mob, params)
-	if(istype(I, /obj/item/multitool))
-		multitool_menu.interact(user, I)
-		return 1
-	return ..()
+/obj/machinery/computer/general_air_control/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
 
 /obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption) return
@@ -285,11 +281,9 @@
 /obj/machinery/computer/general_air_control/large_tank_control/init_multitool_menu()
 	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control(src)
 
-/obj/machinery/computer/general_air_control/large_tank_control/attackby(I as obj, user as mob)
-	if(istype(I, /obj/item/multitool))
-		multitool_menu.interact(user, I)
-		return 1
-	return ..()
+/obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/can_link_to_input(obj/device_to_link)
 	if(is_type_in_list(device_to_link, input_linkable))

@@ -236,9 +236,6 @@
 		broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
-
-	return ..()
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)

@@ -339,21 +339,6 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/screwdriver))
-		if(!welded)
-			if(open)
-				to_chat(user, "<span class='notice'>Now closing the vent.</span>")
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					playsound(loc, W.usesound, 100, 1)
-					open = 0
-					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
-			else
-				to_chat(user, "<span class='notice'>Now opening the vent.</span>")
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					playsound(loc, W.usesound, 100, 1)
-					open = 1
-					user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
-		return
 	if(istype(W, /obj/item/paper))
 		if(!welded)
 			if(open)
@@ -364,15 +349,33 @@
 		else
 			to_chat(user, "The vent is welded.")
 		return 1
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
+
+/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
+	if(welded)
+		return FALSE
+	. = TRUE
+	if(open)
+		to_chat(user, "<span class='notice'>Now closing the vent.</span>")
+		if(do_after(user, 20 * I.toolspeed, target = src))
+			playsound(loc, I.usesound, 100, 1)
+			open = 0
+			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
+	else
+		to_chat(user, "<span class='notice'>Now opening the vent.</span>")
+		if(do_after(user, 20 * I.toolspeed, target = src))
+			playsound(loc, I.usesound, 100, 1)
+			open = 1
+			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
 
 /obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
 	. = TRUE

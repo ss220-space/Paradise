@@ -16,25 +16,21 @@
 /obj/machinery/mass_driver/init_multitool_menu()
 	multitool_menu = new /datum/multitool_menu/idtag/mass_driver(src)
 
-/obj/machinery/mass_driver/attackby(obj/item/W, mob/user as mob)
+/obj/machinery/mass_driver/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
 
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
-
-	if(istype(W, /obj/item/screwdriver))
-		to_chat(user, "You begin to unscrew the bolts off the [src]...")
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
-			F.dir = src.dir
-			F.anchored = 1
-			F.build = 4
-			F.update_icon()
-			qdel(src)
-		return 1
-
-	return ..()
+/obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "You begin to unscrew the bolts off [src]...")
+	playsound(get_turf(src), I.usesound, 50, 1)
+	if(do_after(user, 30 * I.toolspeed, target = src))
+		var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
+		F.dir = dir
+		F.anchored = 1
+		F.build = 4
+		F.update_icon()
+		qdel(src)
 
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))

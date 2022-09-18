@@ -64,22 +64,22 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
+/obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
+
+/obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	playsound(get_turf(src), I.usesound, 50, 1)
+	if(do_after(user, 30 * I.toolspeed, target = src))
+		to_chat(user, "<span class='notice'>You detach [src] from the wall.</span>")
+		new/obj/item/mounted/frame/driver_button(get_turf(src))
+		qdel(src)
+
 /obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
 
 	if(istype(W, /obj/item/detective_scanner))
 		return
-
-	if(istype(W, /obj/item/multitool))
-		multitool_menu.interact(user, W)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/driver_button(get_turf(src))
-			qdel(src)
-		return 1
 
 	return ..()
 
