@@ -489,7 +489,7 @@
 		return 0
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if((R.can_synth || (emagged && R.id in strings("chemistry_tools.json", "traitor_poison_bottle"))) && add_known_reagent(R.id, R.name))
+		if((emagged && (R.id in strings("chemistry_tools.json", "traitor_poison_bottle")) || R.can_synth) && add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
 	occupant_message("Analyzis complete.")
