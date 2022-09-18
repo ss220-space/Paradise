@@ -133,19 +133,19 @@
 	var/obj/machinery/my_holder = holder
 	return my_holder.inoperable()
 
-/datum/multitool_menu/proc/interact(mob/user, obj/item/multitool/my_multitool)
+/datum/multitool_menu/proc/interact(mob/user, obj/item/multitool/multitool)
 	if(!menu_id)
 		return
-	if(!(user && istype(user)))
+	if(!istype(user))
 		return
-	if(!(my_multitool && istype(my_multitool)))
+	if(!istype(multitool))
 		return
 	holder.add_fingerprint(user)
 	if(inoperable())
-		to_chat(user, "<span class='warning'>You attach [my_multitool] to [holder], but nothing happens. [holder] seems to be inoperable.</span>")
+		to_chat(user, "<span class='warning'>You attach [multitool] to [holder], but nothing happens. [holder] seems to be inoperable.</span>")
 		return
-	multitool = my_multitool
-	multitool.menu.interact(user, src)
+	src.multitool = multitool
+	src.multitool.menu.interact(user, src)
 
 /datum/multitool_menu/proc/_ui_act(mob/user, action, list/params)
 	return FALSE
@@ -156,7 +156,7 @@
 /datum/multitool_menu/proc/get_tag()
 	return
 
-/datum/multitool_menu/proc/notify_if_it_is_not_ok_to_apply_changes(mob/user)
+/datum/multitool_menu/proc/notify_if_cannot_apply(mob/user)
 	/*!
 	Used to check if we still need to apply changes (returns true if we don't), e.g. after input() call.
 	*/
@@ -187,8 +187,8 @@
 	. = TRUE
 	switch(action)
 		if("set_tag")
-			var/new_tag = enter_a_new_tag(user)
-			if(!new_tag || notify_if_it_is_not_ok_to_apply_changes(user))
+			var/new_tag = enter_new_tag(user)
+			if(!new_tag || notify_if_cannot_apply(user))
 				return FALSE
 			set_tag(new_tag)
 		if("clear_tag")
@@ -199,7 +199,7 @@
 /datum/multitool_menu/idtag/proc/set_tag(new_tag)
 	return
 
-/datum/multitool_menu/idtag/proc/enter_a_new_tag(mob/user)
+/datum/multitool_menu/idtag/proc/enter_new_tag(mob/user)
 	var/title = "ID Tag"
 	var/message = "Enter an ID tag"
 	var/current_tag = get_tag()
@@ -455,7 +455,7 @@
 	var/obj/machinery/air_sensor/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
-	if(!is_the_tag_unique(new_tag, my_holder.frequency))
+	if(!is_unique_tag(new_tag, my_holder.frequency))
 		service_message("There is already the same ID tag on this frequency.")
 		return
 	my_holder.id_tag = new_tag
@@ -472,7 +472,7 @@
 	var/obj/machinery/air_sensor/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
-	if(!is_the_tag_unique(my_holder.id_tag, new_frequency))
+	if(!is_unique_tag(my_holder.id_tag, new_frequency))
 		service_message("There is already the same ID tag on this frequency.")
 		return
 	my_holder.set_frequency(new_frequency)
@@ -485,7 +485,7 @@
 	var/obj/machinery/air_sensor/my_holder = holder
 	my_holder.toggle_bolts()
 
-/datum/multitool_menu/idtag/freq/air_sensor/proc/is_the_tag_unique(tag, frequency)
+/datum/multitool_menu/idtag/freq/air_sensor/proc/is_unique_tag(tag, frequency)
 	/*!
 	The id_tag of an air_sensor must be unique.
 	If there are two identical tags, it is undefined which sensor data will be output to the console.
@@ -521,11 +521,11 @@
 			var/obj/machinery/computer/general_air_control/my_holder = holder
 			var/frequency = get_frequency()
 			var/list/sensors = get_all_air_sensor_tags(frequency) - my_holder.sensors
-			if(!sensors.len)
+			if(!length(sensors))
 				service_message("No sensors on this frequency.")
 				return FALSE
 			var/sensor_tag = input(user, "Select a sensor", "Sensors on the frequency") as null|anything in sensors
-			if(!sensor_tag || notify_if_it_is_not_ok_to_apply_changes(user))
+			if(!sensor_tag || notify_if_cannot_apply(user))
 				return FALSE
 			add_sensor(sensor_tag)
 		if("del_sensor")
@@ -533,8 +533,8 @@
 			del_sensor(sensor_tag)
 		if("change_label")
 			var/sensor_tag = params["sensor_tag"]
-			var/new_label = enter_a_new_label(user, sensor_tag)
-			if(!new_label || notify_if_it_is_not_ok_to_apply_changes(user))
+			var/new_label = enter_new_label(user, sensor_tag)
+			if(!new_label || notify_if_cannot_apply(user))
 				return FALSE
 			change_label(sensor_tag, new_label)
 		if("clear_label")
@@ -549,7 +549,7 @@
 		else
 			return ..()
 
-/datum/multitool_menu/idtag/freq/general_air_control/proc/enter_a_new_label(mob/user, sensor_tag)
+/datum/multitool_menu/idtag/freq/general_air_control/proc/enter_new_label(mob/user, sensor_tag)
 	var/obj/machinery/computer/general_air_control/my_holder = holder
 	var/title = "Sensor label"
 	var/message = "Choose a sensor label"
@@ -607,14 +607,14 @@
 	. = TRUE
 	switch(action)
 		if("link_input")
-			if(notify_if_the_buffer_is_not_ok())
+			if(notify_if_bad_buffer())
 				return FALSE
 			var/obj/machinery/computer/general_air_control/large_tank_control/my_holder = holder
 			if(!my_holder.link_input(multitool.buffer))
 				return FALSE
 			frequency_change_reminder(multitool.buffer)
 		if("link_output")
-			if(notify_if_the_buffer_is_not_ok())
+			if(notify_if_bad_buffer())
 				return FALSE
 			var/obj/machinery/computer/general_air_control/large_tank_control/my_holder = holder
 			if(!my_holder.link_output(multitool.buffer))
@@ -642,7 +642,7 @@
 		return TRUE
 	return FALSE
 
-/datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/notify_if_the_buffer_is_not_ok()
+/datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/notify_if_bad_buffer()
 	if(is_null_idtag())
 		service_message("The ID tag of the device must not be null.")
 		return TRUE

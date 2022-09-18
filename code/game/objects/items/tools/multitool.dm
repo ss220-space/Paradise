@@ -25,10 +25,10 @@
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 	var/datum/multitool_menu_host/menu
-	req_one_access_txt = "19;32" // ACCESS_HEADS; ACCESS_CONSTRUCTION
 
 /obj/item/multitool/Initialize()
 	. = ..()
+	req_one_access_txt = "[ACCESS_HEADS];[ACCESS_CONSTRUCTION]" // initialize it here to be able to use our macros
 	menu = new(src)
 
 /obj/item/multitool/proc/IsBufferA(typepath)

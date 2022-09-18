@@ -481,12 +481,6 @@
 	var/cutoff_temperature = 2000
 	var/on_temperature = 1200
 
-/obj/machinery/computer/general_air_control/fuel_injection/attackby(I as obj, user as mob, params)
-	if(istype(I, /obj/item/multitool))
-		//update_multitool_menu(user)
-		return 1
-	return ..()
-
 /obj/machinery/computer/general_air_control/fuel_injection/process()
 	if(automation)
 		if(!radio_connection)
