@@ -61,6 +61,7 @@
 
 /obj/item/storage/lockbox/emag_act(user as mob)
 	if(!broken)
+		add_attack_logs(user, src, "emagged")
 		broken = 1
 		locked = 0
 		desc = "It appears to be broken."

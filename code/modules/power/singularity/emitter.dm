@@ -264,6 +264,7 @@
 
 /obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		locked = 0
 		emagged = 1
 		if(user)

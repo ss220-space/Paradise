@@ -294,6 +294,7 @@
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		src.emagged = 1
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)

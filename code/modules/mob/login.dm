@@ -4,7 +4,7 @@
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access_in(client)
-	add_misc_logs(src, "Logged in")
+	add_game_logs("OWNERSHIP: Client [key_name(src)] has taken ownership of mob [src]([src.type])", src)
 	if(config.log_access)
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue

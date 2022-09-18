@@ -219,6 +219,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
 
 	else if(cult_players >= ascend_number)
@@ -228,6 +229,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 

@@ -971,6 +971,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!is_emaggable)
 			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
 		else if(locked)
+			add_attack_logs(user, src, "emagged cover")
 			to_chat(user, "You emag the cover lock.")
 			locked = 0
 		else
@@ -983,6 +984,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "You must close the panel first")
 			return
 		else
+			add_attack_logs(user, src, "emag converted")
+			add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
 			sleep(6)
 			SetEmagged(TRUE)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown

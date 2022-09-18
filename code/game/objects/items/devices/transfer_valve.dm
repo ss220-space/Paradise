@@ -145,10 +145,10 @@
 		add_fingerprint(usr)
 
 
-/obj/item/transfer_valve/proc/process_activation(obj/item/D)
+/obj/item/transfer_valve/proc/process_activation(obj/item/D, normal = TRUE, special = TRUE, mob/user)
 	if(toggle)
 		toggle = 0
-		toggle_valve()
+		toggle_valve(user)
 		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
 			toggle = 1
 
@@ -203,9 +203,9 @@
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
-		investigate_log("Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)]", INVESTIGATE_BOMB)
-		message_admins("Bomb valve opened at [ADMIN_COORDJMP(bombturf)] with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
-		add_game_logs("Bomb valve opened at [AREACOORD(bombturf)] with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)]")
+		investigate_log("Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]", INVESTIGATE_BOMB)
+		message_admins("Bomb valve opened at [ADMIN_COORDJMP(bombturf)] with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)][user ? ". Activated by [key_name_admin(user)]" : null]")
+		add_game_logs("Bomb valve opened at [AREACOORD(bombturf)] with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]")
 		if(user)
 			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_log(mob)]", ATKLOG_FEW)
 		merge_gases()

@@ -51,6 +51,7 @@
 
 /obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
+		add_attack_logs(user, src, "emagged")
 		malfunctioning = 1
 		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 

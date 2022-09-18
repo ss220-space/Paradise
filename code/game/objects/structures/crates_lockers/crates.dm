@@ -251,6 +251,7 @@
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
+		add_attack_logs(user, src, "emagged")
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

@@ -72,7 +72,7 @@
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
-		add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)], [uppertext(damtype)], DMG: [force])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+		add_attack_logs(user, M, "Attacked with [name] to [def_zone] ([uppertext(user.a_intent)], [uppertext(damtype)], DMG: [force])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 

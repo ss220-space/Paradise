@@ -164,11 +164,11 @@
 
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
 		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
 		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
-		add_game_logs("[key_name(usr)] emagged the Holodeck Control Computer", usr)
 		src.updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()

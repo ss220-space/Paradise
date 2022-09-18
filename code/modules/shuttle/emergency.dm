@@ -68,6 +68,7 @@
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
+		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		add_game_logs("[key_name_log(user)] has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
 		GLOB.minor_announcement.Announce("Запуск эвакуационного шаттла через 10 секунд", "СИСТЕМНАЯ ОШИБКА:")

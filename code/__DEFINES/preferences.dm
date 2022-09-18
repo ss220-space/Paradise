@@ -71,7 +71,7 @@
 
 
 
-// Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
+// Admin attack logs filter system, see /proc/add_attack_logs
 #define ATKLOG_ALL	0
 #define ATKLOG_ALMOSTALL	1
 #define ATKLOG_MOST	2

@@ -24,7 +24,6 @@
 #define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HALLUCINATIONS "hallucinations"
 #define INVESTIGATE_TELEPORTATION "teleportation"
-#define INVESTIGATE_RADIATION "radiation"
 #define INVESTIGATE_RECORDS "records"
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_SYNDIE_CARGO "syndicate_cargo"

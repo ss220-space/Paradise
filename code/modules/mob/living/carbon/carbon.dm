@@ -1044,9 +1044,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		else
 			if(!selfFeed(toEat, fullness))
 				return 0
+		if(toEat.log_eating)
+			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
+			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]")
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
+		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
+		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	GLOB.score_foodeaten++
 	return 1
@@ -1084,12 +1089,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!toEat.instant_application)
 		if(!do_mob(user, src))
 			return 0
-	forceFedAttackLog(toEat, user)
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1
-
-/mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach

@@ -230,7 +230,12 @@ GLOBAL_PROTECT(log_end)
 			add_attack_logs(user, t, what_done, custom_level)
 		return
 
-	var/user_str = key_name_log(user) + COORD(user)
+	var/user_str
+	if(ismecha(user.loc) || isspacepod(user.loc))
+		var/obj/vehicle = user.loc
+		user_str = key_name_log(user) + COORD(vehicle)
+	else
+		user_str = key_name_log(user) + COORD(user)
 	var/target_str
 	var/target_info
 	if(isatom(target))

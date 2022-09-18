@@ -417,6 +417,7 @@
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
 	if(!hacked)
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
 		return

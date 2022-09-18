@@ -830,6 +830,7 @@
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")

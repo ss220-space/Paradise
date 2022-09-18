@@ -2,7 +2,6 @@
 	name = "ion bolt"
 	icon_state = "ion"
 	damage = 0
-	alwayslog = TRUE
 	damage_type = BURN
 	nodamage = 1
 	var/emp_range = 1
@@ -25,7 +24,6 @@
 	name ="explosive bolt"
 	icon_state= "bolter"
 	damage = 50
-	alwayslog = TRUE
 	flag = "bullet"
 
 /obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
@@ -37,7 +35,6 @@
 	name ="40mm grenade"
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
-	alwayslog = TRUE
 	damage = 60
 	flag = "bullet"
 
@@ -234,7 +231,6 @@
 	name ="explosive slug"
 	damage = 25
 	weaken = 5
-	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
@@ -272,7 +268,6 @@
 	icon_state = "bluespace"
 	damage = 0
 	nodamage = 1
-	alwayslog = TRUE
 	var/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)

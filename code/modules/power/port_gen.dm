@@ -269,6 +269,7 @@
 		explode() //if they're foolish enough to emag while it's running
 
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		return 1
 

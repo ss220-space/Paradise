@@ -298,7 +298,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	// Sound the alert if gravity was just enabled or disabled.
 	var/alert = 0
-	var/area/area = get_area(src)
 	if(new_state) // If we turned on
 		if(gravity_in_level() == 0)
 			alert = 1

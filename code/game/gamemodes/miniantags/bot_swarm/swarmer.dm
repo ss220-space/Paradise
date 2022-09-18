@@ -551,6 +551,7 @@
 		N.pixel_z = target.pixel_z
 		target.dropContents()
 		if(istype(target, /obj/machinery/computer))
+			add_attack_logs(src, target, "Swarm-dismantled [target]")
 			var/obj/machinery/computer/C = target
 			if(C.circuit)
 				new C.circuit(Tsec)

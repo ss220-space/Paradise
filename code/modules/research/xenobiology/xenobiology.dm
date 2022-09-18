@@ -217,6 +217,7 @@
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
 		after_success(user, SM)
+		add_attack_logs(user, SM, "Gave sentience potion", ATKLOG_ALMOSTALL)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
@@ -260,6 +261,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
+	add_attack_logs(user, SM, "mind transference potion")
 	user.mind.transfer_to(SM)
 	SM.universal_speak = 1
 	SM.faction = user.faction

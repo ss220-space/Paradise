@@ -574,8 +574,13 @@
 		if(dotype != FAIL)
 			if(process && process.origin_tech)
 				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
+				var/tech_log
 				for(var/T in temp_tech)
-					linked_console.files.UpdateTech(T, temp_tech[T])
+					var/new_level = linked_console.files.UpdateTech(T, temp_tech[T])
+					if(new_level)
+						tech_log += "[T] [new_level], "
+				if(tech_log)
+					investigate_log("[usr] increased tech experimentoring [loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 	src.updateUsrDialog()
 	return
 

@@ -692,12 +692,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
-						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Equipped with [place_item]")
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -706,7 +706,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]")
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -721,7 +721,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
+				add_attack_logs(usr, src, "Stripped of headpocket items")
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))

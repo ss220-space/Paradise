@@ -383,6 +383,7 @@ emp_act
 	if(affecting.sabotaged)
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
+		add_attack_logs(user, src, "emagged [p_their()] [affecting.name]")
 		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = 1
 	return 1
