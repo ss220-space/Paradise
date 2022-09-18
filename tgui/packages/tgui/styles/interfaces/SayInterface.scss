@@ -20,7 +20,7 @@
     //  margin-right: 20px;
     //}
 
-    .say-buttons {
+    .say-channel-button {
       transition: padding-bottom 0.15s ease-out;
     }
 
@@ -37,5 +37,11 @@
     .Input__input {
       height: 25px;
     }
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   }
 }
