@@ -395,7 +395,8 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You short out the safeties on[src].</span>")
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
 	var/output = {"<html>
