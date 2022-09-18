@@ -20,10 +20,10 @@
 
 	if(teacher.stat || teacher.restrained())
 		return
-	if(!istype(teacher, /mob/living/carbon/human))
+	if(!ishuman(teacher))
 		return 1
 
-	if(loc == teacher || (in_range(src, teacher) && istype(loc, /turf)))
+	if(loc == teacher || (in_range(src, teacher) && isturf(loc)))
 		teacher.set_machine(src)
 		if(href_list["school"])
 			if(used)
@@ -33,7 +33,7 @@
 			to_chat(teacher, "apprentice waiting...")
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
@@ -90,10 +90,10 @@
 
 	if(apprentice.stat || apprentice.restrained())
 		return
-	if(!istype(apprentice, /mob/living/carbon/human))
+	if(!ishuman(apprentice))
 		return 1
 
-	if(loc == apprentice || (in_range(src, apprentice) && istype(loc, /turf)))
+	if(loc == apprentice || (in_range(src, apprentice) && isturf(loc)))
 		apprentice.set_machine(src)
 		if(href_list["school"])
 			if(used)
@@ -106,7 +106,7 @@
 
 /////////Choose Spells Pack//////////
 
-/obj/item/contract/proc/school_href_choose(href_list, var/mob/living/carbon/human/teacher, var/mob/living/carbon/human/apprentice)
+/obj/item/contract/proc/school_href_choose(href_list, mob/living/carbon/human/teacher, mob/living/carbon/human/apprentice)
 	switch(href_list["school"])
 		if("destruction")
 			apprentice.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
@@ -177,3 +177,4 @@
 
 /obj/item/contract/apprentice_choose_book/used_contract()
 	return "<B>Вами уже был изучен учебник.</B><BR>"
+

@@ -24,7 +24,7 @@
 	if(!..())
 		return 0
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
-	if(possible_wizards.len==0)
+	if(!length(possible_wizards))
 		return 0
 	var/datum/mind/wizard = pick(possible_wizards)
 
@@ -46,7 +46,7 @@
 	possible_wizards.Remove(wizard)
 	if(playerC >= required_min_players_for_apprentice)
 		for(var/i in 0 to ((playerC - required_min_players_for_apprentice) / required_num_players_for_apprentice))
-			if(possible_wizards.len==0)
+			if(!length(possible_wizards))
 				return 1
 			var/datum/mind/apprentice = pick(possible_wizards)
 			apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
@@ -190,6 +190,9 @@
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
 	else
+		if(isvox(wizard_mob))
+			wizard_mob.internal = wizard_mob.r_hand
+			wizard_mob.update_action_buttons_icon()
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
@@ -236,6 +239,9 @@
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
 	else
+		if(isvox(wizard_mob))
+			wizard_mob.internal = wizard_mob.r_hand
+			wizard_mob.update_action_buttons_icon()
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), slot_head)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
