@@ -264,9 +264,9 @@
 
 
 
-	to_chat(wizard_mob, "Вы найдёте набор из доступных закинаний в вашем магическом учебнике.")
-	to_chat(wizard_mob, "Магический учебник привязан к вам, другие не могут ей воспользоваться.")
-	to_chat(wizard_mob, "В карманах вы найдёте свиток телепортации. Используйте его при необходимости.")
+	to_chat(wizard_mob, "<span class='notice'>Вы найдёте набор из доступных закинаний в вашем магическом учебнике.</span>")
+	to_chat(wizard_mob, "<span class='notice'>Магический учебник привязан к вам, другие не могут ей воспользоваться.</span>")
+	to_chat(wizard_mob, "<span class='notice'>В карманах вы найдёте свиток телепортации. Используйте его при необходимости.</span>")
 	wizard_mob.mind.store_memory("<B>Помните:</B> не забудьте выбрать предпочитаемый набор.")
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic

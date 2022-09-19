@@ -20,19 +20,20 @@
 	var/mob/living/carbon/human/teacher = usr
 
 	if(teacher.stat || teacher.restrained())
-		return
+		return 0
 	if(!ishuman(teacher))
-		return 1
+		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
+		return 0
 
 	if(loc == teacher || (in_range(src, teacher) && isturf(loc)))
 		teacher.set_machine(src)
 		if(href_list["school"])
 			if(used)
-				to_chat(teacher, "You already used this contract!")
+				to_chat(teacher, "<span class='notice'>You already used this contract!</span>")
 				return
 			if (!infinity_uses)
 				used = 1
-			to_chat(teacher, "apprentice waiting...")
+			to_chat(teacher, "<span class='notice'>Apprentice waiting...</span>")
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
 			if(length(candidates))
@@ -40,7 +41,7 @@
 				new /obj/effect/particle_effect/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
 				apprentice.key = C.key
-				to_chat(apprentice, "<B>You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals.")
+				to_chat(apprentice, "<span class='notice'>You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals.</span>")
 
 				school_href_choose(href_list, teacher, apprentice)
 
@@ -63,8 +64,8 @@
 				apprentice.real_name = newname
 				apprentice.name = newname
 				var/datum/objective/protect/new_objective = new /datum/objective/protect
-				new_objective.owner = apprentice:mind
-				new_objective:target = teacher:mind
+				new_objective.owner = apprentice.mind
+				new_objective:target = teacher.mind
 				new_objective.explanation_text = "Protect [teacher.real_name], the wizard teacher."
 				apprentice.mind.objectives += new_objective
 				SSticker.mode.apprentices += apprentice.mind
@@ -73,7 +74,7 @@
 				apprentice.faction = list("wizard")
 			else
 				used = 0
-				to_chat(teacher, "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.")
+				to_chat(teacher, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
 	return
 
 /////////Apprentice Choose Book//////////
@@ -96,15 +97,16 @@
 	var/mob/living/carbon/human/apprentice = usr
 
 	if(apprentice.stat || apprentice.restrained())
-		return
+		return 0
 	if(!ishuman(apprentice))
-		return 1
+		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
+		return 0
 
 	if(loc == apprentice || (in_range(src, apprentice) && isturf(loc)))
 		apprentice.set_machine(src)
 		if(href_list["school"])
 			if(used)
-				to_chat(apprentice, "Учебник уже был изучен!")
+				to_chat(apprentice, "<span class='notice'>Учебник уже был изучен!</span>")
 				return
 			if (!infinity_uses)
 				used = 1
@@ -161,15 +163,15 @@
 	dat += "<I>Перед тем как выбрать один из путей, хорошо подумайте и поговорите со своим учителем для получении рекомендаций.</I><BR>"
 	dat += "<I>Если учитель не настроен на разговор - ничего страшного! В данном учебнике приведено краткое описание возможных путей.</I><BR>"
 
-	dat += "<B>Какую школу магии вы хотели бы изучать?:</B><BR>"
+	dat += "<BR><B>Какую школу магии вы хотели бы изучать?:</B><BR>"
 	return dat
 
 ///Сообщение выдаваемое при использовании использованных контрактов
 /obj/item/contract/proc/used_contract()
-	return "<B>You have already summoned your apprentice.</B><BR>"
+	return "<span class='notice'>You have already summoned your apprentice.</span><BR>"
 
 /obj/item/contract/apprentice_choose_book/used_contract()
-	return "<B>Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.</B><BR>"
+	return "<span class='notice'>Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.</span><BR>"
 
 /////////Magick Schools//////////
 
