@@ -667,6 +667,16 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+/datum/language/hivebot
+	name = "Hivebot"
+	desc = "Communication protocol of Hivebots Synthetics."
+	colour = "hivebot"
+	speech_verb = "states"
+	ask_verb = "queries"
+	exclaim_verbs = list("declares")
+	key = "hb"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+
 // Language handling.
 /mob/proc/add_language(language)
 	var/datum/language/new_language = GLOB.all_languages[language]

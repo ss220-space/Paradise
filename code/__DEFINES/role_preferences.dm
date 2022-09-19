@@ -36,6 +36,7 @@
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
+#define ROLE_HIVEBOT			"hivebot"
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
@@ -57,6 +58,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
+	ROLE_HIVEBOT, 										// Hivebot
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
 	ROLE_PAI, 											// PAI
