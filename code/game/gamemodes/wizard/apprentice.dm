@@ -44,14 +44,14 @@
 
 				school_href_choose(href_list, teacher, apprentice)
 
-				apprentice.equip_to_slot_or_del(new /obj/item/radio/headset(apprentice), slot_l_ear)
-				apprentice.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(apprentice), slot_w_uniform)
-				apprentice.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(apprentice), slot_shoes)
-				apprentice.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(apprentice), slot_wear_suit)
-				apprentice.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(apprentice), slot_head)
-				apprentice.equip_to_slot_or_del(new /obj/item/storage/backpack(apprentice), slot_back)
-				apprentice.equip_to_slot_or_del(new /obj/item/storage/box(apprentice), slot_in_backpack)
-				apprentice.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(apprentice), slot_r_store)
+				apprentice.equip_or_collect(new /obj/item/radio/headset(apprentice), slot_l_ear)
+				apprentice.equip_or_collect(new /obj/item/clothing/under/color/lightpurple(apprentice), slot_w_uniform)
+				apprentice.equip_or_collect(new /obj/item/clothing/shoes/sandal(apprentice), slot_shoes)
+				apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), slot_wear_suit)
+				apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), slot_head)
+				apprentice.equip_or_collect(new /obj/item/storage/backpack(apprentice), slot_back)
+				apprentice.equip_or_collect(new /obj/item/storage/box(apprentice), slot_in_backpack)
+				apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), slot_r_store)
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
@@ -85,6 +85,11 @@
 	icon_state = "book15"
 
 	var/mob/living/carbon/human/owner
+
+/obj/item/contract/apprentice_choose_book/infinity_book
+	name = "магический учебник полукровки"
+	desc = "Магический учебник с яркой выраженной подписью какой-то полукровки. Похоже он как-то переписал магию, из-за которой учебник не стирает буквы после использования. Откуда он у вас?!"
+	infinity_uses = 1
 
 /obj/item/contract/apprentice_choose_book/Topic(href, href_list)
 	..()
@@ -171,7 +176,7 @@
 /datum/possible_schools
 	var/list/datum/schools_list = list (
 		new /datum/magick_school.fire,
-		new /datum/magick_school.heal,
+		new /datum/magick_school.healer,
 		new /datum/magick_school.motion,
 		new /datum/magick_school.defense,
 		new /datum/magick_school.stand,
@@ -197,7 +202,7 @@
 	return 0
 
 
-/datum/magick_school/heal
+/datum/magick_school/healer
 	name = "Школа Исцеления"
 	id = "healer"
 	desc = "Школа, практикующие заклинания для выживания и исцеления травм, с созданием защитного барьера для самозащиты."
@@ -206,19 +211,19 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
-	owner.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), slot_r_hand)
 
 	//Нацепляем белый балахон
 	var/obj/item/clothing/suit/storage/mercy_hoodie/suit = new (owner)
 	suit.magical = TRUE
 	suit.name = "Роба целителя"
 	suit.desc = "Магическая роба прислужника-целителя, оберегающая от проказы."
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
 	var/obj/item/clothing/head/mercy_hood/head = new (owner)
 	head.magical = TRUE
 	head.name = "Капюшон целителя"
 	head.desc = "Магический капюшон робы прислужника-целителя, оберегающий от проказы."
-	owner.equip_to_slot_or_del(head, slot_head)
+	owner.equip_or_collect(head, slot_head)
 
 
 /datum/magick_school/motion
@@ -237,13 +242,13 @@
 	suit.icon_state = "psyamp"
 	suit.name = "Роба межпространства"
 	suit.desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
 	var/obj/item/clothing/head/helmet/space/head = new
 	head.magical = TRUE
 	head.icon_state = "amp"
 	head.name = "Капюшон Межпространства"
 	head.desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
-	owner.equip_to_slot_or_del(head, slot_head)
+	owner.equip_or_collect(head, slot_head)
 
 
 /datum/magick_school/sabotage
@@ -255,13 +260,19 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
-	owner.equip_to_slot_or_del(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
 
 	var/obj/item/clothing/suit/blacktrenchcoat/suit = new
 	suit.magical = TRUE
 	suit.name = "Роба саботёра"
 	suit.desc = "Магическая роба-саботёра. Стильная и приталенная!"
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
+
+	var/obj/item/clothing/head/fedora/head = new
+	suit.magical = TRUE
+	suit.name = "Ведора саботёра"
+	suit.desc = "Магическая ведора-саботёра. Стильная и уважаемая!"
+	owner.equip_or_collect(head, slot_head)
 
 
 /datum/magick_school/defense
@@ -274,10 +285,11 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall/greater(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/sacred_flame(null))
+	ADD_TRAIT(owner, RESISTHOT, SUMMON_MAGIC)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
 
 	//Стандартный костюм мага-воителя, который есть в башне волшебника и так.
-	owner.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)
-	owner.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/magus(owner), slot_head)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), slot_head)
 
 
 /datum/magick_school/fire
@@ -289,13 +301,14 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/sacred_flame(null))
+	ADD_TRAIT(owner, RESISTHOT, SUMMON_MAGIC)
 
 	//Надеваем красный балахон
 	var/obj/item/clothing/suit/victcoat/red/suit = new
 	suit.name = "Роба огня"
 	suit.desc = "Магическая роба последователей школы огня."
 	suit.magical = 1
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
 
 
 /datum/magick_school/sculpt
@@ -305,19 +318,19 @@
 
 /datum/magick_school/sculpt/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone(null))
-	owner.equip_to_slot_or_del(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
 
 	//Костюм настоящего художника-скульптора.
 	var/obj/item/clothing/suit/chef/classic/suit = new
 	suit.magical = TRUE
 	suit.name = "Фартук скульптора-волшебника"
 	suit.desc = "Классический фартук последователей школы ваяния, хорошо защищает от разлетающейся глины."
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
 	var/obj/item/clothing/head/beret/ce/head = new
 	head.magical = TRUE
 	head.name = "Берет скульптора-волшебника"
 	head.desc = "Классический берет последователей школы ваяния, позволяет выглядеть как настоящий художник."
-	owner.equip_to_slot_or_del(head, slot_head)
+	owner.equip_or_collect(head, slot_head)
 
 
 /datum/magick_school/stand
@@ -327,7 +340,7 @@
 
 /datum/magick_school/stand/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall/greater(null))
-	owner.equip_to_slot_or_del(new /obj/item/guardiancreator(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/guardiancreator(owner), slot_r_hand)
 
 
 /datum/magick_school/instability
@@ -338,8 +351,8 @@
 /datum/magick_school/instability/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse(null))
-	owner.equip_to_slot_or_del(new /obj/item/gun/magic/staff/slipping(owner), slot_r_hand)
-	owner.equip_to_slot_or_del(new /obj/item/bikehorn, slot_belt)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/bikehorn, slot_belt)
 
 
 /datum/magick_school/blood
@@ -348,19 +361,19 @@
 	desc = "Запретная школа, вызывающая опасения у архимагов, но допущенная к изучению. Юный последователь крови получает собственную робу, цепь и камни душ."
 
 /datum/magick_school/blood/kit()
-	owner.equip_to_slot_or_del(new /obj/item/storage/belt/soulstone/full(owner), slot_belt)
+	owner.equip_or_collect(new /obj/item/storage/belt/soulstone/full(owner), slot_belt)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
 
 	var/obj/item/melee/chainofcommand/chain = new
 	chain.name = "Жертвенная Цепь"
 	chain.desc = "Цепь последователя школы крови для нанесения увечий и пускания крови."
 	chain.force = 15
-	owner.equip_to_slot_or_del(chain, slot_r_hand)
+	owner.equip_or_collect(chain, slot_r_hand)
 
 	var/obj/item/clothing/suit/hooded/cultrobes/suit = new
 	suit.name = "Жертвенная роба"
 	suit.desc = "Магическая роба последователей школы крови."
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
 
 
 /datum/magick_school/necromantic
@@ -370,8 +383,8 @@
 
 /datum/magick_school/necromantic/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lichdom(null))
-	owner.equip_to_slot_or_del(new /obj/item/necromantic_stone(owner), slot_l_store)
-	owner.equip_to_slot_or_del(new /obj/item/necromantic_stone(owner), slot_r_store)
+	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), slot_l_store)
+	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), slot_r_store)
 
 
 /datum/magick_school/vision
@@ -381,11 +394,18 @@
 
 /datum/magick_school/vision/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/trigger/blind(null))
-	owner.equip_to_slot_or_del(new /obj/item/scrying(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/scrying(owner), slot_r_hand)
+	//Выдаем трейты ОРБа
+	if(!(XRAY in owner.mutations))
+		owner.mutations.Add(XRAY)
+		owner.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+		owner.see_in_dark = 8
+		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
 
 	//Нацепляем простой фиолетовый балахон
-	owner.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/psypurple(owner), slot_wear_suit)
-	owner.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/amp(owner), slot_head)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), slot_head)
 
 
 /datum/magick_school/singulo
@@ -394,7 +414,7 @@
 	desc = "Древняя школа, практикующая древние познания владения сингулярности."
 
 /datum/magick_school/singulo/kit()
-	owner.equip_to_slot_or_del(new /obj/item/twohanded/singularityhammer(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/twohanded/singularityhammer(owner), slot_r_hand)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
 
@@ -405,14 +425,14 @@
 	suit.item_state = "singuloth_hardsuit"
 	suit.name = "Роба межпространства"
 	suit.desc = "Древняя броня последователя школы сингулярности."
-	owner.equip_to_slot_or_del(suit, slot_wear_suit)
+	owner.equip_or_collect(suit, slot_wear_suit)
 	var/obj/item/clothing/head/wizard/magus/head = new
 	head.magical = TRUE
 	head.icon_state = "hardsuit0-singuloth"
 	head.item_state = "singuloth_helm"
-	head.name = "Капюшон Межпространства"
+	head.name = "Капюшон межпространства"
 	head.desc = "Древний шлем последователя школы сингулярности."
-	owner.equip_to_slot_or_del(head, slot_head)
+	owner.equip_or_collect(head, slot_head)
 
 
 /datum/magick_school/replace
@@ -425,8 +445,8 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/mind_transfer(null))
 
 	//Нацепляем простой фиолетовый балахон
-	owner.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/psypurple(owner), slot_wear_suit)
-	owner.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/amp(owner), slot_head)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), slot_head)
 
 
 /datum/magick_school/destruction
@@ -440,6 +460,6 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lightning(null))
 
 	//Стандартный костюм мага-воителя, который есть в башне волшебника и так.
-	owner.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)
-	owner.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/magus(owner), slot_head)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), slot_head)
 
