@@ -504,7 +504,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				var/mob/living/simple_animal/hostile/swarmer/S = src
 				if(S.light_range)
 					S.ToggleLight()
-			if(issilicon(src))
+			if(issilicon(src) && S.inventory_head)
 				var/mob/living/silicon/S = src
 				unEquip(S.inventory_head)
 				S.inventory_head = null
