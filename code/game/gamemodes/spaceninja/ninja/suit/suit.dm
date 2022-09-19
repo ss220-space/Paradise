@@ -372,6 +372,12 @@
 	if(!ninja || !ishuman(ninja) || !(ninja.wear_suit == src))
 		return
 
+	// Проверка во избежание потенциальных абузов инвиза
+	// Как например если после сканирования t-ray сканером сразу выключить инвиз...
+	// Что приводило к бесплатному инвизу.
+	if(ninja.alpha != 255 || ninja.alpha != 64)
+		if(!stealth && !spirited)
+			ninja.alpha = 255
 	//Safe checks to prevent potential abuse of power.
 	if(!is_teleport_allowed(ninja.z) && spirited)
 		to_chat(ninja, span_warning("This place forcibly stabilizes your body somehow! You can't use \"Spirit Form\" there!"))

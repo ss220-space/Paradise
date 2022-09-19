@@ -451,7 +451,9 @@
 				text += "Тело уничтожено"
 			text += ")"
 			text += "<br>"
-			text += "Выбранные способности: [ninja.ninja.purchased_abilities]"
+			var/datum/ninja/ninja_datum = ninja.ninja
+			if(ninja_datum && istype(ninja_datum)) // Защита от рантаймов в случае если по какой то причине он не прочитает датум
+				text += "Выбранные способности: [ninja_datum.purchased_abilities]"
 
 			var/count = 1
 			var/ninjawin = 1
