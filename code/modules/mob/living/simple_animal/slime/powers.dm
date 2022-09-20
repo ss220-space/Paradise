@@ -125,24 +125,48 @@
 
 /mob/living/simple_animal/slime/verb/Evolve()
 	set category = "Slime"
-	set desc = "This will let you evolve from baby to adult slime."
+	set desc = "This will let you evolve slime."
 
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
-	if(!is_adult)
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			is_adult = 1
-			maxHealth = 200
-			amount_grown = 0
-			for(var/datum/action/innate/slime/evolve/E in actions)
-				E.Remove(src)
-			regenerate_icons()
-			update_name()
+
+	if(amount_grown >= age_state.amount_grown && nutrition >= age_state.grow_nutrition)
+		switch(age_state.age)
+			if(SLIME_BABY)
+				age_state = new /datum/slime_age/adult
+			if(SLIME_ADULT)
+				age_state = new /datum/slime_age/old
+			if(SLIME_OLD)
+				age_state = new /datum/slime_age/elder
+			if(SLIME_ELDER)
+				age_state = new /datum/slime_age/slimeman
+		maxHealth = age_state.health
+		harm_intent_damage = age_state.damage
+		amount_grown = 0
+		transform = age_state.matrix_size
+		regenerate_icons()
+		update_name()
+	else
+		to_chat(src, "<i>I am not ready to evolve yet...</i>")
+
+	if(age_state.age == SLIME_SLIMEMAN)
+		if(amount_grown >= age_state.amount_grown && nutrition >= get_grow_nutrition())
+			var/mob/living/carbon/human/slime/new_slime = src.change_mob_type(/mob/living/carbon/human/slime, null, null, TRUE)
+			//var/datum/species/slime/S = new_slime.dna.species
+			//var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
+			var/new_colour = colour_rgb(colour)
+			new_slime.skin_colour = new_colour
+			for(var/organname in new_slime.bodyparts_by_name)
+				var/obj/item/organ/external/E = new_slime.bodyparts_by_name[organname]
+				//if(istype(E) && E.dna && istype(E.dna.species, /datum/species/slime))
+				E.sync_colour_to_human(new_slime)
+			new_slime.update_hair()
+			new_slime.update_body()
+			new_slime.blood_color = new_colour
+			new_slime.dna.species.blood_color = new_slime.blood_color
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
-	else
-		to_chat(src, "<i>I have already evolved...</i>")
 
 /datum/action/innate/slime/evolve
 	name = "Evolve"
@@ -152,7 +176,7 @@
 /datum/action/innate/slime/evolve/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
-	if(S.is_adult)
+	if(S.age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in S.actions))
 		var/datum/action/innate/slime/reproduce/A = new
 		A.Grant(S)
 
@@ -164,16 +188,16 @@
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
 
-	if(is_adult)
+	if(age_state.age != SLIME_BABY)
 		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
 			if(stat)
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
 
 			var/list/babies = list()
-			var/new_nutrition = round(nutrition * 0.9)
-			var/new_powerlevel = round(powerlevel / 4)
-			for(var/i=1,i<=4,i++)
+			var/new_nutrition = clamp(round(nutrition * 0.9 / age_state.baby_counts), 0, 1000)
+			var/new_powerlevel = round(powerlevel / age_state.baby_counts)
+			for(var/i=1,i<=age_state.baby_counts,i++)
 				var/child_colour
 				if(mutation_chance >= 100)
 					child_colour = "rainbow"

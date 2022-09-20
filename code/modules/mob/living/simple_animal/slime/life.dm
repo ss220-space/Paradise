@@ -225,20 +225,20 @@
 		return
 
 	if(prob(15))
-		adjust_nutrition(-(1 + is_adult))
+		adjust_nutrition(-(1 + age_state.nutrition_handle))
 
 	if(nutrition <= 0)
 		set_nutrition(0)
 		if(prob(75))
 			adjustBruteLoss(rand(0, 5))
 
-	else if(nutrition >= get_grow_nutrition() && amount_grown < SLIME_EVOLUTION_THRESHOLD)
+	else if(nutrition >= get_grow_nutrition() && amount_grown < age_state.amount_grown)
 		adjust_nutrition(-20)
 		amount_grown++
 		update_action_buttons_icon()
 
-	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD && !buckled && !Target && !ckey)
-		if(is_adult)
+	if(amount_grown >= age_state.amount_grown && !buckled && !Target && !ckey)
+		if(age_state.age != SLIME_BABY)
 			Reproduce()
 		else
 			Evolve()
@@ -253,9 +253,6 @@
 		if(powerlevel<5)
 			if(prob(25-powerlevel*5))
 				powerlevel++
-
-
-
 
 /mob/living/simple_animal/slime/proc/handle_targets()
 	update_canmove()
@@ -354,7 +351,7 @@
 
 			if (Target)
 				target_patience = rand(5, 7)
-				if(is_adult)
+				if(age_state.age != SLIME_BABY)
 					target_patience += 3
 
 		if(!Target) // If we have no target, we are wandering or following orders
@@ -582,28 +579,16 @@
 				say (pick(phrases))
 
 /mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
-	if(is_adult)
-		return 1200
-	else
-		return 1000
+	return age_state.max_nutrition
 
 /mob/living/simple_animal/slime/proc/get_grow_nutrition() // Above it we grow, below it we can eat
-	if(is_adult)
-		return 1000
-	else
-		return 800
+	return age_state.grow_nutrition
 
 /mob/living/simple_animal/slime/proc/get_hunger_nutrition() // Below it we will always eat
-	if(is_adult)
-		return 600
-	else
-		return 500
+	return age_state.hunger_nutrition
 
 /mob/living/simple_animal/slime/proc/get_starve_nutrition() // Below it we will eat before everything else
-	if(is_adult)
-		return 300
-	else
-		return 200
+	return age_state.starve_nutrition
 
 /mob/living/simple_animal/slime/proc/will_hunt(hunger = -1) // Check for being stopped from feeding and chasing
 	if(docile)
