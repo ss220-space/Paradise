@@ -24,9 +24,6 @@
 	e_cost = 65
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
-
 /obj/item/ammo_casing/energy/laser/blueshield
 	e_cost = 83
 
@@ -81,6 +78,11 @@
 	fire_sound = 'sound/weapons/laser3.ogg'
 	e_cost = 125
 
+/obj/item/ammo_casing/energy/immolator/medium
+	projectile_type = /obj/item/projectile/beam/immolator/medium
+	fire_sound = 'sound/weapons/marauder.ogg'
+	e_cost = 65
+
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
 	e_cost = 125
@@ -112,9 +114,6 @@
 
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	e_cost = 100
-
-/obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/blueshield
