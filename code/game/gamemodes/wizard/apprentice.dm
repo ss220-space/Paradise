@@ -17,12 +17,13 @@
 
 /obj/item/contract/apprentice/Topic(href, href_list)
 	..()
+	if(!ishuman(usr))
+		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
+		return 0
+
 	var/mob/living/carbon/human/teacher = usr
 
 	if(teacher.stat || teacher.restrained())
-		return 0
-	if(!ishuman(teacher))
-		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
 		return 0
 
 	if(loc == teacher || (in_range(src, teacher) && isturf(loc)))
@@ -94,12 +95,13 @@
 
 /obj/item/contract/apprentice_choose_book/Topic(href, href_list)
 	..()
+	if(!ishuman(usr))
+		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
+		return 0
+
 	var/mob/living/carbon/human/apprentice = usr
 
 	if(apprentice.stat || apprentice.restrained())
-		return 0
-	if(!ishuman(apprentice))
-		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
 		return 0
 
 	if(loc == apprentice || (in_range(src, apprentice) && isturf(loc)))

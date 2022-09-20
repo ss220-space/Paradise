@@ -208,7 +208,7 @@
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives security HUD and spray can)."
-		if(!length(objectives.len))
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(src in SSticker.mode.revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
@@ -234,12 +234,12 @@
 	if(src in SSticker.mode.wizards)
 		. += "<b><font color='red'>WIZARD</font></b>|<a href='?src=[UID()];wizard=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
-		if(!length(objectives.len))
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
 	else if(src in SSticker.mode.apprentices)
 		. += "<b><font color='red'>WIZARD APPRENTICE</font></b>|<a href='?src=[UID()];wizard=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
-		if(!length(objectives.len))
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];wizard=wizard'>wizard</a>|<a href='?src=[UID()];wizard=apprentice'>apprentice</a>"
@@ -249,7 +249,7 @@
 	. = _memory_edit_header("changeling", list("traitorchan"))
 	if(src in SSticker.mode.changelings)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
-		if(!length(objectives.len))
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
 		if(changeling && changeling.absorbed_dna.len && (current.real_name != changeling.absorbed_dna[1]))
 			. += "<br><a href='?src=[UID()];changeling=initialdna'>Transform to initial appearance.</a>"
@@ -262,7 +262,7 @@
 	. = _memory_edit_header("vampire", list("traitorvamp"))
 	if(src in SSticker.mode.vampires)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
-		if(!length(objectives.len))
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];vampire=vampire'>vampire</a>|<b>NO</b>"
@@ -340,7 +340,7 @@
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
 	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
-		if(!length(objectives.len))
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
