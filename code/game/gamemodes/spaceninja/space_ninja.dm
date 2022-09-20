@@ -452,7 +452,7 @@
 			text += ")"
 			text += "<br>"
 			var/datum/ninja/ninja_datum = ninja.ninja
-			if(ninja_datum && istype(ninja_datum)) // Защита от рантаймов в случае если по какой то причине он не прочитает датум
+			if(istype(ninja_datum)) // Защита от рантаймов в случае если по какой то причине он не прочитает датум
 				text += "Выбранные способности: [ninja_datum.purchased_abilities]"
 
 			var/count = 1

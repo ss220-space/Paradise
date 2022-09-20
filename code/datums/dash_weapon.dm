@@ -55,7 +55,7 @@
 			owner.update_action_buttons_icon()
 		addtimer(CALLBACK(src, .proc/charge), charge_rate)
 		last_used = world.time
-		if(pulled_mob && istype(pulled_mob))
+		if(istype(pulled_mob))
 			pulled_mob.forceMove(target_turf)
 //			user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
