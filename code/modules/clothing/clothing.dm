@@ -33,6 +33,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -350,6 +351,18 @@ BLIND     // can't see anything
 	set src in usr
 	set_sensors(usr)
 
+/obj/item/clothing/under/GetID()
+	if(accessories)
+		for(var/obj/item/clothing/accessory/accessory in accessories)
+			if(accessory.GetID())
+				return accessory.GetID()
+	return ..()
+
+/obj/item/clothing/under/GetAccess()
+	. = ..()
+	if(accessories)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			. |= A.GetAccess()
 //Head
 /obj/item/clothing/head
 	name = "head"

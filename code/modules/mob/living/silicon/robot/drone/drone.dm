@@ -147,10 +147,8 @@
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-
+	else if(W.GetID())
 		if(stat == DEAD)
-
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
@@ -305,11 +303,13 @@
 
 	if(!player) return
 
-	if(player.mob && player.mob.mind)
-		player.mob.mind.transfer_to(src)
-		player.mob.mind.assigned_role = "Drone"
-	else
-		ckey = player.ckey
+	mind = new
+	mind.current = src
+	mind.original = src
+	mind.assigned_role = "Drone"
+	SSticker.minds += mind
+	mind.key = player.key
+	key = player.key
 
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
