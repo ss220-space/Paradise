@@ -153,7 +153,7 @@
 	if(..())
 		return
 	. = FALSE
-	if(!is_authenticated(usr))
+	if(!is_authenticated(usr) || (GLOB.robot_factory && iscarbon(usr)))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
 	switch(action)
