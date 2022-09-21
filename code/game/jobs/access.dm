@@ -585,8 +585,6 @@
 	if(rankName in solgov)
 		return "solgov"
 
-	if(assignmentName	in job_icons) //Check if the job has a hud icon
-
 	if(assignmentName in job_icons) //Check if the job has a hud icon
 
 		return assignmentName
