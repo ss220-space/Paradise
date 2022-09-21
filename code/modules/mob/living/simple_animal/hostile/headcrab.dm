@@ -248,7 +248,6 @@
 	vent_cooldown += 15
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
-	. = ..()
 
 	var/mob/living/carbon/body = target
 
@@ -261,19 +260,22 @@
 		if(is_zombie || is_gonarch)
 			if(do_after(src, 80, target = body, progress=TRUE))
 				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
-					var/gained_health = rand(5,25)
-					//body.adjustBruteLoss(rand(5,30))
+					var/gained_health = rand(5,30)
+					body.adjustBruteLoss(rand(5,30))
 					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
 					health += gained_health
 					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
-		else //а вообще, атакуя все равно наносится урон, уберем те, что комментированы.
+		else
 			if(do_after(src, 40, target = body, progress=TRUE))
 				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
 					var/gained_health = rand(5,10)
-					//body.adjustBruteLoss(rand(1,10))
+					body.adjustBruteLoss(rand(1,10))
 					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
 					health += gained_health
 					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
+
+		if(body.stat != DEAD)
+			return ..()
 
 /mob/living/simple_animal/hostile/headcrab/New()
 
@@ -642,15 +644,14 @@
 
 	if(prob(50))
 		do_sparks(1, 1, src)
+		playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
 
-	if(prob(95))
-		var/mob/living/carbon/C = target
-		C.adjustFireLoss(12)
-		C.adjustStaminaLoss(2) //stuncrab
+	if(prob(85))
+		var/mob/living/carbon/victim = target
+		victim.adjustFireLoss(12)
+		victim.adjustStaminaLoss(12.5) //stuncrab
 	else
 		target.reagents.add_reagent("teslium", 6)
-
-	playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
 
 /mob/living/simple_animal/hostile/headcrab/reviver/update_icons()
 	. = ..()
