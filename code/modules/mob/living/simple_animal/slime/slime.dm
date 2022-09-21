@@ -1,5 +1,6 @@
 /mob/living/simple_animal/slime
 	name = "grey baby slime (123)"
+	var/rename = FALSE //если слайм был заранее переименован
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -115,6 +116,9 @@
 	regenerate_icons()
 
 /mob/living/simple_animal/slime/proc/update_name()
+	if(rename)
+		return
+
 	if(slime_name_regex.Find(name))
 		number = rand(1, 1000)
 		name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
