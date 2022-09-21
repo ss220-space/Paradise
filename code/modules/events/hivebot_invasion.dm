@@ -23,7 +23,10 @@
 		if(turf_clear(F))
 			turfs += F
 
-	spawncount = rand(4,6)
+	spawncount = rand(1,2)
+
+	if(highpop_trigger > (length(GLOB.clients)))
+		spawncount = rand(3,4)
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Хотите ли Вы занять роль Хайвбота?", ROLE_HIVEBOT, TRUE, source = /mob/living/simple_animal/hostile/hivebot)
 
@@ -40,6 +43,9 @@
 			successSpawn = TRUE
 
 	botcount = rand(2,4)
+
+	if(highpop_trigger > (length(GLOB.clients)))
+		botcount = rand(6,8)
 
 	while(botcount > 0)
 		botcount--
