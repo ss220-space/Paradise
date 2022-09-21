@@ -87,9 +87,8 @@
 	E.Grant(src)
 
 	age_state = age_state_new
-	harm_intent_damage = age_state.damage
 	health = age_state.health
-	maxHealth = age_state.health
+	update_state()
 
 	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
 		var/datum/action/innate/slime/reproduce/R = new
@@ -118,6 +117,15 @@
 	var/sanitizedcolour = replacetext(colour, " ", "")
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
+
+/mob/living/simple_animal/slime/proc/update_state()
+	harm_intent_damage = age_state.damage
+	maxHealth = age_state.health
+	transform = age_state.matrix_size
+	if ((cores - age_state.cores) > 0)
+		cores += age_state.cores
+	else
+		cores = age_state.cores
 
 /mob/living/simple_animal/slime/proc/update_name()
 	if(slime_name_regex.Find(name))
@@ -456,8 +464,17 @@
 	if(..())
 		return 3
 
-/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(slime_colours), prob(50))
+/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), prob(50) ? age_state_new = new /datum/slime_age/baby : age_state_new = new /datum/slime_age/adult)
+
+/mob/living/simple_animal/slime/adult/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/adult)
+
+/mob/living/simple_animal/slime/old/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/old)
+
+/mob/living/simple_animal/slime/elder/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder)
 
 /mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
 	if(buckled)

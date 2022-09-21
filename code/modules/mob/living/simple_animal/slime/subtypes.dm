@@ -11,8 +11,9 @@
 	var/starve_nutrition	//Below it we will eat before everything else
 	var/nutrition_steal		//сколько ворует нутриентов у других слаймов
 	var/nutrition_handle	//корректировка питания
-	var/matrix_size = matrix(1, 0, 0, 0, 1, 0)	//изменения размера под матрицу
+	var/matrix_size			//изменения размера под матрицу
 	var/baby_counts			//Количество возможных детей
+	var/cores				//Дополнительное число ядер
 
 /datum/slime_age/baby
 	age = SLIME_BABY
@@ -27,7 +28,9 @@
 	starve_nutrition = 200
 	nutrition_steal = 0
 	nutrition_handle = 0
+	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 0
+	cores = 1
 
 /datum/slime_age/adult
 	age = SLIME_ADULT
@@ -42,7 +45,9 @@
 	starve_nutrition = 300
 	nutrition_steal = 40
 	nutrition_handle = 1
+	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 4
+	cores = 1
 
 /datum/slime_age/old
 	age = SLIME_OLD
@@ -59,6 +64,7 @@
 	nutrition_handle = 2
 	matrix_size = matrix(1.25, 0, 0, 0, 1.25, 2)
 	baby_counts	= 8
+	cores = 3
 
 /datum/slime_age/elder
 	age = SLIME_ELDER
@@ -73,8 +79,9 @@
 	starve_nutrition = 800
 	nutrition_steal = 100
 	nutrition_handle = 3
-	matrix_size = matrix(2, 0, 0, 0, 2, 5)
+	matrix_size = matrix(1.75, 0, 0, 0, 1.75, 4)
 	baby_counts	= 10
+	cores = 5
 
 /datum/slime_age/slimeman
 	age = SLIME_SLIMEMAN

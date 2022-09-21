@@ -141,10 +141,8 @@
 				age_state = new /datum/slime_age/elder
 			if(SLIME_ELDER)
 				age_state = new /datum/slime_age/slimeman
-		maxHealth = age_state.health
-		harm_intent_damage = age_state.damage
 		amount_grown = 0
-		transform = age_state.matrix_size
+		update_state()
 		regenerate_icons()
 		update_name()
 	else
@@ -153,18 +151,16 @@
 	if(age_state.age == SLIME_SLIMEMAN)
 		if(amount_grown >= age_state.amount_grown && nutrition >= get_grow_nutrition())
 			var/mob/living/carbon/human/slime/new_slime = src.change_mob_type(/mob/living/carbon/human/slime, null, null, TRUE)
-			//var/datum/species/slime/S = new_slime.dna.species
-			//var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
 			var/new_colour = colour_rgb(colour)
 			new_slime.skin_colour = new_colour
 			for(var/organname in new_slime.bodyparts_by_name)
 				var/obj/item/organ/external/E = new_slime.bodyparts_by_name[organname]
-				//if(istype(E) && E.dna && istype(E.dna.species, /datum/species/slime))
 				E.sync_colour_to_human(new_slime)
 			new_slime.update_hair()
 			new_slime.update_body()
 			new_slime.blood_color = new_colour
 			new_slime.dna.species.blood_color = new_slime.blood_color
+		real_name = name
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 

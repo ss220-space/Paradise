@@ -287,7 +287,7 @@
 	if(M.stat)
 		to_chat(user, "<span class='warning'>The slime is dead!</span>")
 		return ..()
-	if(M.cores >= 5)
+	if(M.cores >= 5 + M.age_state.cores)
 		to_chat(user, "<span class='warning'>The slime already has the maximum amount of extract!</span>")
 		return ..()
 

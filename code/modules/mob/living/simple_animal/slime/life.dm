@@ -239,7 +239,10 @@
 
 	if(amount_grown >= age_state.amount_grown && !buckled && !Target && !ckey)
 		if(age_state.age != SLIME_BABY)
-			Reproduce()
+			if(prob(20) && age_state.age != SLIME_ELDER)
+				Evolve()
+			else
+				Reproduce()
 		else
 			Evolve()
 
