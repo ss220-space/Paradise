@@ -21,19 +21,12 @@
 	/// The AI who placed this factory.
 	var/mob/living/silicon/ai/masterAI
 
-GLOBAL_DATUM(robot_factory, /obj/machinery/transformer)
-
 /obj/machinery/transformer/Initialize(mapload, mob/living/silicon/ai/_ai = null)
 	. = ..()
 	if(_ai)
 		masterAI = _ai
 	initialize_belts()
-	GLOB.robot_factory = src
-
-/obj/machinery/transformer/Destroy()
-	. = ..()
-	if(GLOB.robot_factory == src)
-		GLOB.robot_factory = null
+	GLOB.disable_robotics_consoles = TRUE
 
 /// Used to create all of the belts the transformer will be using. All belts should be pushing `WEST`.
 /obj/machinery/transformer/proc/initialize_belts()
