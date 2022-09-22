@@ -81,10 +81,12 @@
 	//for(var/A in actions)
 	//	var/datum/action/AC = A
 	//	AC.Remove(src)
-	var/datum/action/innate/slime/feed/F = new
-	F.Grant(src)
-	var/datum/action/innate/slime/evolve/E = new
-	E.Grant(src)
+	if (!(locate(/datum/action/innate/slime/feed) in actions))
+		var/datum/action/innate/slime/feed/F = new
+		F.Grant(src)
+	if (!(locate(/datum/action/innate/slime/evolve) in actions))
+		var/datum/action/innate/slime/evolve/E = new
+		E.Grant(src)
 
 	age_state = age_state_new
 	health = age_state.health
@@ -369,7 +371,7 @@
 		S.use(1)
 		return
 	if(I.force > 0)
-		attacked += 10
+		attacked += 10 - age_state.attacked
 		if(prob(25))
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -465,7 +467,7 @@
 		return 3
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new)
-	. = ..(mapload, pick(slime_colours), prob(50) ? age_state_new = new /datum/slime_age/baby : age_state_new = new /datum/slime_age/adult)
+	. = ..(mapload, pick(slime_colours), prob(50) ? (age_state_new = new /datum/slime_age/baby) : (age_state_new = new /datum/slime_age/adult))
 
 /mob/living/simple_animal/slime/adult/Initialize(mapload, new_colour, age_state_new)
 	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/adult)

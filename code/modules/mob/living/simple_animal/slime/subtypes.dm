@@ -2,7 +2,7 @@
 	var/age
 	var/health
 	var/damage
-	var/attacked
+	var/attacked			//доп. урон наносимый слайму
 	var/stat_text
 	var/amount_grown
 	var/max_nutrition		//Can't go above it
@@ -12,14 +12,15 @@
 	var/nutrition_steal		//сколько ворует нутриентов у других слаймов
 	var/nutrition_handle	//корректировка питания
 	var/matrix_size			//изменения размера под матрицу
-	var/baby_counts			//Количество возможных детей
-	var/cores				//Дополнительное число ядер
+	var/baby_counts			//Количество возможных детей. Распределение: 1 = BABY, 2 = ADULT, 3 = OLD
+	var/cores				//Число ядер
+	var/feed				//дополнительные максимум значения для кормежки, урон и доп. нутриенты
 
 /datum/slime_age/baby
 	age = SLIME_BABY
 	health = 150
 	damage = 3
-	attacked = 0
+	attacked = -2
 	stat_text = "You can evolve!"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD
 	max_nutrition = 1000
@@ -31,12 +32,13 @@
 	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 0
 	cores = 1
+	feed = 0
 
 /datum/slime_age/adult
 	age = SLIME_ADULT
 	health = 200
 	damage = 5
-	attacked = 1
+	attacked = 0
 	stat_text = "You can reproduce and evolve!"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_OLD
 	max_nutrition = 2000
@@ -48,12 +50,13 @@
 	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 4
 	cores = 1
+	feed = 1
 
 /datum/slime_age/old
 	age = SLIME_OLD
 	health = 300
 	damage = 7
-	attacked = 3
+	attacked = 2
 	stat_text = "You can reproduce and evolve to elder form!"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE
 	max_nutrition = 4000
@@ -63,8 +66,9 @@
 	nutrition_steal = 70
 	nutrition_handle = 2
 	matrix_size = matrix(1.25, 0, 0, 0, 1.25, 2)
-	baby_counts	= 8
-	cores = 3
+	baby_counts	= 9
+	cores = 4
+	feed = 2
 
 /datum/slime_age/elder
 	age = SLIME_ELDER
@@ -75,13 +79,14 @@
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN
 	max_nutrition = 8000
 	grow_nutrition = 6400
-	hunger_nutrition = 1000
+	hunger_nutrition = 1200
 	starve_nutrition = 800
 	nutrition_steal = 100
 	nutrition_handle = 3
 	matrix_size = matrix(1.75, 0, 0, 0, 1.75, 4)
-	baby_counts	= 10
-	cores = 5
+	baby_counts	= 18
+	cores = 8
+	feed = 4
 
 /datum/slime_age/slimeman
 	age = SLIME_SLIMEMAN
