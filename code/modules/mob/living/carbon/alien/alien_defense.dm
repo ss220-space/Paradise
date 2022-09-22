@@ -77,7 +77,7 @@ In all, this is a lot like the monkey code. /N
 	if(..()) //successful slime attack
 		var/damage = rand(5, 35)
 		if(M.age_state.age != SLIME_BABY)
-			damage = rand(10, 40)
+			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
 		updatehealth("slime attack")
