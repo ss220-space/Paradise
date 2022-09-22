@@ -241,7 +241,7 @@
 		if(!docile)
 			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 
-		if(amount_grown >= age_state.amount_grown && nutrition >= age_state.grow_nutrition)
+		if(amount_grown >= age_state.amount_grown)
 			stat(null, age_state.stat_text)
 
 		if(stat == UNCONSCIOUS)
