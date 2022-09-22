@@ -85,7 +85,7 @@ REAGENT SCANNER
 
 		var/mob/living/in_turf_mob = locate() in scan_turf
 
-		if(in_turf_mob && in_turf_mob.invisibility == 2)
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
 			in_turf_mob.invisibility = 0
 			spawn(2)
 				if(in_turf_mob)
@@ -114,7 +114,6 @@ REAGENT SCANNER
 	spark_system.attach(src)
 
 /obj/item/t_scanner/security/attack_self(mob/user)
-
 	if(!burnt)
 		on = !on
 		icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
@@ -136,23 +135,16 @@ REAGENT SCANNER
 
 	new /obj/effect/temp_visual/scan(get_turf(src))
 
-	for(var/turf/scan_turf in range(scan_range, src.loc) )
-
-		if(!scan_turf.intact)
-			continue
-
-		for(var/mob/living/in_turf_mob in scan_turf.contents)
-			var/oldalpha = in_turf_mob.alpha
-			if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
-				in_turf_mob.alpha = 255
-				alert_searchers(in_turf_mob)
-				spawn(pulse_duration)
-					if(in_turf_mob)
-						in_turf_mob.alpha = oldalpha
-
-		var/mob/living/in_turf_mob = locate() in scan_turf
-
-		if(in_turf_mob && in_turf_mob.invisibility == 2)
+	var/list/mobs_in_range = viewers(scan_range, src.loc)
+	for(var/mob/living/in_turf_mob in mobs_in_range)
+		var/oldalpha = in_turf_mob.alpha
+		if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+			in_turf_mob.alpha = 255
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.alpha = oldalpha
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
 			in_turf_mob.invisibility = 0
 			alert_searchers(in_turf_mob)
 			spawn(pulse_duration)
