@@ -229,7 +229,7 @@
 				SM.name = new_name
 				if(isslime(SM))
 					var/mob/living/simple_animal/slime/SM_slime = SM
-					SM_slime.rename = TRUE
+					SM_slime.is_renamed = TRUE
 
 			SM.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			log_game("[key_name(SM)] стал питомцем игрока [key_name(user)]")
