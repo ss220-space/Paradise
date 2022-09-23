@@ -205,7 +205,7 @@
 		if(!src)
 			return
 
-		if(candidates.len)
+		if(length(candidates))
 			var/mob/C = pick(candidates)
 			SM.key = C.key
 			SM.universal_speak = 1
@@ -253,7 +253,7 @@
 		if(!src)
 			return
 
-		if(candidates.len)
+		if(length(candidates))
 			var/mob/C = pick(candidates)
 			LF.key = C.key
 			LF.faction = user.faction
@@ -275,7 +275,7 @@
 		else
 			to_chat(user, "<span class='notice'>[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже.</span>")
 			being_used = 0
-			..()
+			. = ..()
 
 		return
 
