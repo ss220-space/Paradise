@@ -115,7 +115,7 @@
 /obj/attack_slime(mob/living/simple_animal/slime/user)
 	if(user.age_state.age == SLIME_BABY )
 		return
-	attack_generic(user, rand(5 + M.age_state.damage, 10 + M.age_state.damage), BRUTE, "melee", 1)
+	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, "melee", 1)
 
 /obj/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
