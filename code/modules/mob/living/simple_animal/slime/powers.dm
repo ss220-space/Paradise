@@ -207,16 +207,16 @@
 			//Определяем количество детей и будущее набольшее тело
 			var/mob/living/simple_animal/slime/new_slime
 			if (baby_counts_old)
-				for(var/i=1,i<=baby_counts_old,i++)
+				for(var/i in 1 to baby_counts_old)
 					reproduce_baby_stats(babies, /datum/slime_age/old, new_nutrition, new_powerlevel)
 				new_slime = pick(babies)
 			if (baby_counts_adult)
-				for(var/i=1,i<=baby_counts_adult,i++)
+				for(var/i in 1 to baby_counts_adult)
 					reproduce_baby_stats(babies, /datum/slime_age/adult, new_nutrition, new_powerlevel)
 				if (!new_slime)
 					new_slime = pick(babies)
 			if (baby_counts)
-				for(var/i=1,i<=baby_counts,i++)
+				for(var/i in 1 to baby_counts)
 					reproduce_baby_stats(babies, /datum/slime_age/baby, new_nutrition, new_powerlevel)
 
 			if (!new_slime)
@@ -241,9 +241,7 @@
 		child_colour = slime_mutation[rand(1,4)]
 	else
 		child_colour = colour
-	var/mob/living/simple_animal/slime/M
-
-	M = new(loc, child_colour, new baby_type)
+	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type)
 
 	if(ckey)
 		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!

@@ -78,9 +78,6 @@
 
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby)
-	//for(var/A in actions)
-	//	var/datum/action/AC = A
-	//	AC.Remove(src)
 	if (!(locate(/datum/action/innate/slime/feed) in actions))
 		var/datum/action/innate/slime/feed/F = new
 		F.Grant(src)
