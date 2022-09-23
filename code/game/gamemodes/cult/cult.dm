@@ -121,6 +121,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		ascend_percent = CULT_ASCENDANT_LOW
 		rise_number = round(CULT_RISEN_LOW * (players - cultists))
 		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
+	add_game_logs("Blood Cult rise/ascend numbers: [rise_number]/[ascend_number].")
 
 /**
   * Returns the current number of cultists and constructs.

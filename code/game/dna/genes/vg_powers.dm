@@ -240,7 +240,6 @@
 	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
-		log_say("(TPATH to [key_name(target)]) [say]", user)
 		add_say_logs(user, say, target, "[src]")
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
@@ -316,7 +315,6 @@
 		say = strip_html(say)
 		say = pencode_to_html(say, target, format = 0, fields = 0)
 		add_say_logs(user, say, target, "[src] respond")
-		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
 		else

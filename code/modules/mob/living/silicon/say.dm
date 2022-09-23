@@ -1,5 +1,5 @@
 /mob/living/silicon/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
-	log_say(multilingual_to_message(message_pieces), src)
+	add_say_logs(src, multilingual_to_message(message_pieces))
 	if(..())
 		return 1
 
@@ -71,7 +71,7 @@
 
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(list/message_pieces, verb)
-	log_say("(HPAD) [multilingual_to_message(message_pieces)]", src)
+	add_say_logs(src, multilingual_to_message(message_pieces), language = "HPAD")
 
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])

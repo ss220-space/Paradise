@@ -100,7 +100,7 @@
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
-	log_say(message, src)
+	add_say_logs(src, message)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
 	for(var/mob/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))

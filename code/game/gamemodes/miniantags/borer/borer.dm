@@ -14,7 +14,7 @@
 		message = trim(sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN)))
 		if(!message)
 			return
-		log_say(message, src)
+		add_say_logs(src, message)
 		if(stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = loc
@@ -181,7 +181,7 @@
 		var/say_string = (docile) ? "slurs" :"states"
 		if(host)
 			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
-			log_say("(BORER to [key_name(host)]) [input]", src)
+			add_say_logs(src, input, host, "BORER")
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
 					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
@@ -216,7 +216,7 @@
 		return
 
 	to_chat(B, "<span class='changeling'><i>[src] says:</i> [input]</span>")
-	log_say("(BORER to [key_name(B)]) [input]", src)
+	add_say_logs(src, input, B, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
@@ -238,7 +238,7 @@
 		return
 
 	to_chat(CB, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
-	log_say("(BORER to [key_name(CB)]) [input]", B)
+	add_say_logs(B, input, CB, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
