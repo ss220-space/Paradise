@@ -504,11 +504,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				var/mob/living/simple_animal/hostile/swarmer/S = src
 				if(S.light_range)
 					S.ToggleLight()
-			if(issilicon(src) && S.inventory_head)
+			if(issilicon(src))
 				var/mob/living/silicon/S = src
-				unEquip(S.inventory_head)
-				S.inventory_head = null
-				visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+				if (S.inventory_head)
+					unEquip(S.inventory_head)
+					S.inventory_head = null
+					visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 
 			visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
 			src.loc = vent_found
