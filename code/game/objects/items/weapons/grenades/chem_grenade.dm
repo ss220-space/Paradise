@@ -34,7 +34,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	if(no_splash == FALSE)
+	if (!no_splash)
 		QDEL_LIST(beakers)
 	return ..()
 
@@ -356,7 +356,7 @@
 						S.reagents.trans_to(G, S.reagents.total_volume)
 				else
 					S.forceMove(get_turf(src))
-					no_splash = FALSE
+					no_splash = TRUE
 	..()
 
 
