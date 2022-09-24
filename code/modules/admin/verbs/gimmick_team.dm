@@ -47,16 +47,7 @@
 		if(!themission)
 			alert("No mission specified. Aborting.")
 			return
-	/*
-	var/admin_outfits = subtypesof(/datum/outfit/admin) + list(/datum/outfit/naked)
-	var/outfit_list = list()
-	for(var/type in admin_outfits)
-		var/datum/outfit/admin/O = type
-		outfit_list[initial(O.name)] = type
-	var/dresscode = input("Select Outfit", "Dress-a-mob") as null|anything in outfit_list
-	if(isnull(dresscode))
-		return
-	*/
+
 	var/dresscode = robust_dress_shop()
 	if(!dresscode)
 		return
@@ -65,7 +56,6 @@
 	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
 		is_syndicate = 1
 
-	//var/datum/outfit/O = outfit_list[dresscode]
 	var/list/players_to_spawn = list()
 	if(pick_manually)
 		var/list/possible_ghosts = list()
