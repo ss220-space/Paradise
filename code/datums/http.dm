@@ -43,6 +43,7 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   * * _url - The URL to send the request to
   * * _body - The body of the request, if applicable
   * * _headers - Associative list of HTTP headers to send, if applicab;e
+  * * _output_file - name or path of file to save
   */
 /datum/http_request/proc/prepare(_method, _url, _body = "", list/_headers, _output_file)
 	if(!length(_headers))
