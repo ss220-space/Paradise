@@ -60,9 +60,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/list/listeners = GLOB.player_list
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance, turf_source)
-	for(var/P in listeners)
-		var/mob/M = P
-		if(!M || !M.client)
+	for(var/mob/M in listeners)
+		if(!M.client)
 			continue
 
 		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
@@ -76,14 +75,37 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
+/proc/playsound_tts(mob/source, list/target_mobs, voice, voice_scrambled, datum/language/language, is_local = TRUE)
+	var/turf/turf_source = get_turf(source)
+	var/maxdistance = SOUND_RANGE
+
+	if(source)
+		if(!LAZYLEN(target_mobs))
+			target_mobs = hearers(maxdistance, turf_source)
+
+	if(!LAZYLEN(target_mobs))
+		return
+
+	for(var/mob/listener as anything in target_mobs)
+		if(!listener.client || listener.stat)
+			continue
+
+		var/volume = 100
+		if(!volume)
+			continue
+
+		var/sound/output = sound(voice_scrambled ? (listener.say_understands(null, language) ? voice : voice_scrambled) : voice)
+
+		listener.playsound_local(turf_source, output, volume, wait = TRUE)
+
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
 		return
 
 	if(!S)
 		S = sound(get_sfx(soundin))
 
-	S.wait = 0 //No queue
+	S.wait = wait //No queue
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
 	S.environment = -1

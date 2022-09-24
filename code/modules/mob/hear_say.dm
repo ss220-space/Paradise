@@ -117,6 +117,8 @@
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
 			create_chat_message(speaker.runechat_msg_location, message_clean,FALSE, italics)
 
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, src?.client?.prefs.tts_seed, src.get_default_language())
+
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)

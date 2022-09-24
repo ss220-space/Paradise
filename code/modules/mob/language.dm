@@ -127,6 +127,7 @@
 
 		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
+			//INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, player, message, player?.client?.prefs.tts_seed, src)
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
 	return TRUE

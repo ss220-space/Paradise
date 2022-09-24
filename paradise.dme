@@ -2601,6 +2601,7 @@
 #include "code\modules\telesci\rcs.dm"
 #include "code\modules\telesci\telepad.dm"
 #include "code\modules\telesci\telesci_computer.dm"
+#include "code\modules\text_to_speech\tts.dm"
 #include "code\modules\tgs\includes.dm"
 #include "code\modules\tgui\external.dm"
 #include "code\modules\tgui\states.dm"

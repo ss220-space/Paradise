@@ -1851,6 +1851,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //Increases delay as the server gets more overloaded,
 //as sleeps aren't cheap and sleeping only to wake up and sleep again is wasteful
 #define DELTA_CALC max(((max(TICK_USAGE, world.cpu) / 100) * max(Master.sleep_delta-1,1)), 1)
+#define UNTIL(X) while(!X) stoplag()
 
 //returns the number of ticks slept
 /proc/stoplag(initial_delay)
