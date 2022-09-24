@@ -57,9 +57,11 @@
 	if(!new_name)
 		return
 	new_name = sanitize(new_name)
-	if(length(new_name) > 32)
+	if(length(new_name) > 24)
 		to_chat(usr, "<span class='warning'>Название слишком длинное!</span>")
 		return
+	if(findtext(new_name, "BodyCam ") != 1)
+		new_name = addtext("BodyCam ", new_name)
 	camera.c_tag = new_name
 
 /obj/item/body_camera/on_enter_storage(obj/item/storage/S)
