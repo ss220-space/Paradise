@@ -375,9 +375,9 @@
 	// Проверка во избежание потенциальных абузов инвиза
 	// Как например если после сканирования t-ray сканером сразу выключить инвиз...
 	// Что приводило к бесплатному инвизу.
-	if(ninja.alpha == 0 || ninja.alpha == 64)
+	if(ninja.alpha == NINJA_ALPHA_INVISIBILITY || ninja.alpha == NINJA_ALPHA_SPIRIT_FORM)
 		if(!stealth && !spirited)
-			ninja.alpha = 255
+			ninja.alpha = NINJA_ALPHA_NORMAL
 	//Safe checks to prevent potential abuse of power.
 	if(!is_teleport_allowed(ninja.z) && spirited)
 		to_chat(ninja, span_warning("This place forcibly stabilizes your body somehow! You can't use \"Spirit Form\" there!"))
