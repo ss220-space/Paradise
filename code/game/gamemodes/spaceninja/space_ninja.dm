@@ -20,7 +20,7 @@
 	if(!..())
 		return FALSE
 	var/list/datum/mind/possible_ninjas = get_players_for_role(ROLE_NINJA)
-	if(possible_ninjas.len == 0)
+	if(!length(possible_ninjas))
 		return FALSE
 	var/datum/mind/space_ninja = pick(possible_ninjas)
 
@@ -29,7 +29,7 @@
 	space_ninja.assigned_role = SPECIAL_ROLE_SPACE_NINJA //So they aren't chosen for other jobs.
 	space_ninja.special_role = SPECIAL_ROLE_SPACE_NINJA
 	space_ninja.original = space_ninja.current
-	if(GLOB.ninjastart.len == 0)
+	if(!length(GLOB.ninjastart))
 		to_chat(space_ninja.current, span_danger("A starting location for you could not be found, please report this bug!"))
 		return FALSE
 	return TRUE

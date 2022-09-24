@@ -135,7 +135,7 @@ REAGENT SCANNER
 
 	new /obj/effect/temp_visual/scan(get_turf(src))
 
-	var/list/mobs_in_range = viewers(scan_range, src.loc)
+	var/list/mobs_in_range = viewers(scan_range, get_turf(src))
 	for(var/mob/living/in_turf_mob in mobs_in_range)
 		var/oldalpha = in_turf_mob.alpha
 		if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
