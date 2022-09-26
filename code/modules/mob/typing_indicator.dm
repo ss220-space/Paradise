@@ -53,6 +53,40 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	if(message)
 		say_verb(message)
 
+/mob/verb/say_new_wrapper()
+	set name = ".SayNew"
+	set hidden = 1
+
+	set_typing_indicator(TRUE)
+	hud_typing = 1
+	ui_interact(usr)
+
+/mob/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "SayInterface", " ", 350, 135, master_ui, state)
+		ui.open()
+
+/mob/ui_data(mob/user)
+	var/list/data = list()
+	data["channels"] = user.get_available_channels()
+	data["languages"] = user.languages
+	return data
+
+/mob/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+	if(action == "Say")
+		if (params["text"])
+			say_verb(params["text"])
+		ui.close()
+		. = TRUE
+
+/mob/ui_close(mob/user)
+	. = ..()
+	hud_typing = 0
+	set_typing_indicator(FALSE)
+
 /mob/verb/me_wrapper()
 	set name = ".Me"
 	set hidden = 1

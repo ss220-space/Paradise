@@ -1516,3 +1516,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/update_runechat_msg_location()
 	return
+
+/mob/proc/get_available_channels()
+	return list()

@@ -22,6 +22,8 @@ export class Window extends Component {
       resizable,
       theme,
       children,
+      title,
+      icon,
     } = this.props;
     const {
       config,
@@ -37,9 +39,10 @@ export class Window extends Component {
         theme={theme}>
         <TitleBar
           className="Window__titleBar"
-          title={decodeHtmlEntities(config.title)}
+          title={title || decodeHtmlEntities(config.title)}
           status={config.status}
           fancy={config.fancy}
+          icon={icon}
           onDragStart={dragStartHandler}
           onClose={() => {
             logger.log('pressed close');
@@ -103,6 +106,7 @@ const TitleBar = props => {
     fancy,
     onDragStart,
     onClose,
+    icon,
   } = props;
   return (
     <div
@@ -113,7 +117,7 @@ const TitleBar = props => {
       <Icon
         className="TitleBar__statusIcon"
         color={statusToColor(status)}
-        name="eye" />
+        name={icon || "eye"} />
       <div className="TitleBar__title">
         {title === title.toLowerCase()
           ? toTitleCase(title)
