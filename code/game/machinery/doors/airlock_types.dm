@@ -198,8 +198,8 @@
 
 /obj/machinery/door/airlock/plasma/attackby(obj/C, mob/user, params)
 	if(is_hot(C) > 300)
-		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-		add_game_logs("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])", user)
+		message_admins("Plasma airlock ignited by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
+		add_game_logs("Plasma airlock ignited by [key_name(user)] in [COORD(src)]", user)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)]", INVESTIGATE_ATMOS)
 		ignite(is_hot(C))
 	else

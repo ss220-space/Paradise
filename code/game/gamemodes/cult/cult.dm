@@ -268,6 +268,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.remove_overlay(HALO_LAYER)
 			H.update_body()
 		check_cult_size()
+		add_conversion_logs(cultist, "deconverted from the cult.")
 		if(show_message)
 			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")

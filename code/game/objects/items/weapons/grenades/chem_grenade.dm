@@ -424,7 +424,7 @@
 		addtimer(CALLBACK(src, .proc/prime), det_time)
 	var/turf/DT = get_turf(src)
 	var/area/DA = get_area(DT)
-	add_game_logs("A grenade detonated at [DA.name] ([DT.x], [DT.y], [DT.z])")
+	add_game_logs("A grenade detonated at [DA.name] [COORD(DT)]")
 
 /obj/item/grenade/chem_grenade/metalfoam
 	payload_name = "metal foam"

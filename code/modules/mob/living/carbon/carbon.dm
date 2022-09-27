@@ -1046,7 +1046,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return 0
 		if(toEat.log_eating)
 			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
-			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]")
+			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]", src)
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0

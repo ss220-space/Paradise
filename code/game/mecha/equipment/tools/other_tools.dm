@@ -135,7 +135,7 @@
 						sleep(2)
 			var/turf/T = get_turf(target)
 			cooldown_timer = world.time + 3 SECONDS
-			add_game_logs("[key_name(chassis.occupant)] used a Gravitational Catapult in ([T.x],[T.y],[T.z])", chassis.occupant)
+			add_game_logs("[key_name(chassis.occupant)] used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
 			return 1
 
 
