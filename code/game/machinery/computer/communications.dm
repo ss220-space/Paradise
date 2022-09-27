@@ -492,7 +492,7 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
-			log_admin("STATUS: [key_name_log(user)] set status screen message: [data1] [data2]")
+			add_misc_logs(user, "STATUS: [key_name_log(user)] set status screen message: [data1] [data2]")
 			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
 		if("alert")
 			status_signal.data["picture_state"] = data1

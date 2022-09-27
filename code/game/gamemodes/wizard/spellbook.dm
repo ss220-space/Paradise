@@ -901,7 +901,7 @@
 
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = owner)
+	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = "Recoiled fireball book")
 	qdel(src)
 
 /obj/item/spellbook/oneuse/smoke
