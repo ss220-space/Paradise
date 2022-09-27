@@ -423,9 +423,9 @@ GLOBAL_VAR(bomb_set)
 		var/holder = get(src, /mob)
 		var/turf/diskturf = get_turf(src)
 		if(holder)
-			add_game_logs("[holder] lost [src] in ([diskturf.x], [diskturf.y], [diskturf.z])!", holder)
+			add_game_logs("[holder] lost [src] in [COORD(diskturf)]!", holder)
 			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
-		add_game_logs("[fingerprintslast] who touched the lost [src] in ([diskturf.x], [diskturf.y], [diskturf.z]).")
+		add_game_logs("[fingerprintslast] who touched the lost [src] in [COORD(diskturf)].")
 		qdel(src)
 
  //station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise

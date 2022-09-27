@@ -21,7 +21,7 @@
 		chassis.use_power(energy_drain)
 		var/turf/user_turf = get_turf(src)
 		do_teleport(chassis, T, tele_precision)
-		chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to ([chassis.x],[chassis.y],[chassis.z]).", INVESTIGATE_TELEPORTATION)
+		chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
 		return 1
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
