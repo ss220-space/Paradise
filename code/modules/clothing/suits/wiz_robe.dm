@@ -40,7 +40,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 		)
 
 /obj/item/clothing/head/wizard/fake
@@ -115,7 +120,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/wizrobe/marisa
@@ -201,49 +211,16 @@
 	actions_types = list() //No inbuilt light
 	magical = TRUE
 
-//Shielded Armour
-
-/obj/item/clothing/suit/space/hardsuit/wizard/shielded
-	shielded = TRUE
-	recharge_rate = 0
-	current_charges = 15
-	recharge_cooldown = INFINITY
-	shield_state = "shield-red"
-	shield_on = "shield-red"
-
-/obj/item/clothing/head/helmet/space/hardsuit/wizard/shielded/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return
 
-/obj/item/clothing/suit/space/hardsuit/wizard/shielded/arch
+/obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
-	recharge_rate = 1
-	recharge_cooldown = 0
-	max_charges = 15
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard/shielded/arch
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 
-/obj/item/clothing/head/helmet/space/hardsuit/wizard/shielded/arch
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 	desc = "A truly protective helmet."
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-
-/obj/item/wizard_armour_charge
-	name = "battlemage shield charges"
-	desc = "A powerful rune that will increase the number of hits a suit of battlemage armour can take before failing.."
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "electricity2"
-
-/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/wizard/shielded/W, mob/user)
-	. = ..()
-	if(!istype(W))
-		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
-		return
-	if(W == user.get_item_by_slot(slot_wear_suit))
-		to_chat(user, "<span class='warning'>You cannot replenish charges to [W] while wearing it.</span>")
-		return
-	W.current_charges += 8
-	W.shield_state = "[W.shield_on]"
-	playsound(loc, 'sound/magic/charge.ogg', 50, TRUE)
-	to_chat(user, "<span class='notice'>You charge [W]. It can now absorb [W.current_charges] hits.</span>")
-	qdel(src)

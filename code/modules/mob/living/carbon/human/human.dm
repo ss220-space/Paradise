@@ -349,84 +349,86 @@
 
 		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
+	if(slot_glasses in obscured)
+		dat += "<tr><td><font color=grey><B>Eyes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+	else
+		dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? glasses : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	if(slot_l_ear in obscured)
+		dat += "<tr><td><font color=grey><B>Left Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+	else
+		dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? l_ear		: "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	if(slot_r_ear in obscured)
+		dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+	else
+		dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? r_ear		: "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	dat += "<tr><td>&nbsp;</td></tr>"
+
+	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
+	if(wear_suit)
+		dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[slot_s_store]'>[(s_store && !(s_store.flags&ABSTRACT)) ? s_store : "<font color=grey>Empty</font>"]</A>"
+		if(has_breathable_mask && istype(s_store, /obj/item/tank))
+			dat += "&nbsp;<A href='?src=[UID()];internal=[slot_s_store]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "</td></tr>"
+	else
+		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Storage:</B></font></td></tr>"
+
+	if(slot_shoes in obscured)
+		dat += "<tr><td><font color=grey><B>Shoes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+	else
+		dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[slot_shoes]'>[(shoes && !(shoes.flags&ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
+
 	if(!issmall(src))
-		if(slot_glasses in obscured)
-			dat += "<tr><td><font color=grey><B>Eyes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? glasses : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-		if(slot_l_ear in obscured)
-			dat += "<tr><td><font color=grey><B>Left Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? l_ear		: "<font color=grey>Empty</font>"]</A></td></tr>"
-
-		if(slot_r_ear in obscured)
-			dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? r_ear		: "<font color=grey>Empty</font>"]</A></td></tr>"
-
-		dat += "<tr><td>&nbsp;</td></tr>"
-
-		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
-		if(wear_suit)
-			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[slot_s_store]'>[(s_store && !(s_store.flags&ABSTRACT)) ? s_store : "<font color=grey>Empty</font>"]</A>"
-			if(has_breathable_mask && istype(s_store, /obj/item/tank))
-				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_s_store]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
-			dat += "</td></tr>"
-		else
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Storage:</B></font></td></tr>"
-
-		if(slot_shoes in obscured)
-			dat += "<tr><td><font color=grey><B>Shoes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[slot_shoes]'>[(shoes && !(shoes.flags&ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
-
 		if(slot_gloves in obscured)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
 			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? gloves	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_w_uniform in obscured)
-			dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
+	if(slot_w_uniform in obscured)
+		dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+	else
+		dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (slot_w_uniform in obscured))
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
+	if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (slot_w_uniform in obscured))
+		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
+		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
+		if(!issmall(src))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
-		else
+		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
+		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
+	else
+		if(!issmall(src))
 			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[slot_belt]'>[(belt && !(belt.flags&ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A>"
-			if(has_breathable_mask && istype(belt, /obj/item/tank))
-				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
-			dat += "</td></tr>"
-			// Pockets
-			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
-			if(l_store && internal && l_store == internal)
-				dat += "[l_store]"
-			else if(l_store && !(l_store.flags&ABSTRACT))
-				dat += "Left (Full)"
-			else
-				dat += "<font color=grey>Left (Empty)</font>"
-			dat += "</A>&nbsp;<A href='?src=[UID()];pockets=right'>"
-			if(r_store && internal && r_store == internal)
-				dat += "[r_store]"
-			else if(r_store && !(r_store.flags&ABSTRACT))
-				dat += "Right (Full)"
-			else
-				dat += "<font color=grey>Right (Empty)</font>"
-			dat += "</A></td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? wear_pda : "<font color=grey>Empty</font>"]</A></td></tr>"
+		if(has_breathable_mask && istype(belt, /obj/item/tank))
+			dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "</td></tr>"
+		// Pockets
+		dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
+		if(l_store && internal && l_store == internal)
+			dat += "[l_store]"
+		else if(l_store && !(l_store.flags&ABSTRACT))
+			dat += "Left (Full)"
+		else
+			dat += "<font color=grey>Left (Empty)</font>"
+		dat += "</A>&nbsp;<A href='?src=[UID()];pockets=right'>"
+		if(r_store && internal && r_store == internal)
+			dat += "[r_store]"
+		else if(r_store && !(r_store.flags&ABSTRACT))
+			dat += "Right (Full)"
+		else
+			dat += "<font color=grey>Right (Empty)</font>"
+		dat += "</A></td></tr>"
+		dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? wear_pda : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-			if(istype(w_uniform, /obj/item/clothing/under))
-				var/obj/item/clothing/under/U = w_uniform
-				dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[UID()];set_sensor=1'>[U.has_sensor >= 2 ? "</a><font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
+		if(istype(w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/U = w_uniform
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[UID()];set_sensor=1'>[U.has_sensor >= 2 ? "</a><font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
 
-				if(U.accessories.len)
-					dat += "<tr><td>&nbsp;&#8627;<A href='?src=[UID()];strip_accessory=1'>Remove Accessory</a></td></tr>"
+			if(U.accessories.len)
+				dat += "<tr><td>&nbsp;&#8627;<A href='?src=[UID()];strip_accessory=1'>Remove Accessory</a></td></tr>"
 
 
 	if(handcuffed)
@@ -442,65 +444,38 @@
 	popup.set_content(dat)
 	popup.open()
 
-// Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
+// Get rank from ID from hands, wear_id, pda, and then from uniform
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
-	var/obj/item/pda/pda = wear_id
-	if(istype(pda))
-		if(pda.id)
-			return pda.id.rank
-		return pda.ownrank
-	var/obj/item/storage/wallet/wallet = get_idcard()
-	if(istype(wallet))
-		if(wallet.front_id)
-			return wallet.front_id.rank ? wallet.front_id.rank : if_no_job
-		return if_no_id
-	else
-		var/obj/item/card/id/id = get_idcard()
-		if(id)
-			return id.rank ? id.rank : if_no_job
-		return if_no_id
+	var/obj/item/card/id/id = get_id_card()
+	if(id)
+		return id.rank ? id.rank : if_no_job
+	return if_no_id
 
-//gets assignment from ID or ID inside PDA or PDA itself
+//gets assignment from wear_id ID or PDA itself
 //Useful when player do something with computers
-/mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/storage/wallet/wallet = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))
-		if(pda.id && istype(pda.id, /obj/item/card/id))
-			. = pda.id.assignment
-		else
-			. = pda.ownjob
-	else if(istype(id))
-		. = id.assignment
-	else if(istype(wallet))
-		if(istype(wallet.front_id, /obj/item/card/id))
-			. = wallet.front_id.assignment
-	else
+/mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
+	if(!wear_id)
 		return if_no_id
-	if(!.)
-		. = if_no_job
-	return
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id))
+		return id.assignment
+	var/obj/item/pda/pda = wear_id
+	if(istype(pda))
+		return pda.ownjob
+	return if_no_job
 
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/storage/wallet/wallet = wear_id
-	if(istype(pda))
-		if(pda.id)
-			. = pda.id.registered_name
-		else
-			. = pda.owner
-	else if(istype(id))
-		. = id.registered_name
-	else if(istype(wallet))
-		if(istype(wallet.front_id, /obj/item/card/id))
-			. = wallet.front_id.registered_name
-	else
-		return if_no_id
-	return
+	var/name = if_no_id
+	if(wear_id)
+		if(wear_id.GetID())
+			var/obj/item/card/id/id = wear_id.GetID()
+			name = id.registered_name
+		else if(ispda(wear_id))
+			var/obj/item/pda/pda = wear_id
+			name = pda.owner
+	return name
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
@@ -535,58 +510,16 @@
 	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 
-//gets ID card object from special clothes slot or, if applicable, hands as well
-/mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/storage/wallet/wallet = wear_id
-	if(istype(pda) && pda.id)
-		id = pda.id
-	if(istype(wallet))
-		if(istype(wallet.front_id, /obj/item/card/id))
-			id = wallet.front_id
-	if(check_hands)
-		if(istype(get_active_hand(), /obj/item/card/id))
-			id = get_active_hand()
-		else if(istype(get_inactive_hand(), /obj/item/card/id))
-			id = get_inactive_hand()
-	if(istype(id))
-		return id
-
 //Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
-	var/obj/item/card/id/ID
-	var/obj/item/pda/PDA
-	var/obj/item/storage/wallet/W
-	var/active_hand = get_active_hand()
-	var/inactive_hand = get_inactive_hand()
-
-	//ID
-	if(istype(active_hand, /obj/item/card/id) || istype(inactive_hand, /obj/item/card/id))
-		if(istype(active_hand, ID))
-			ID = active_hand
-		else
-			ID = inactive_hand
-
-	//PDA
-	else if(istype(active_hand, /obj/item/pda) || istype(inactive_hand, /obj/item/pda))
-		if(istype(active_hand, PDA))
-			PDA = active_hand
-		else
-			PDA = inactive_hand
-		if(PDA.id)
-			ID = PDA.id
-
-	//Wallet
-	else if(istype(active_hand, /obj/item/storage/wallet) || istype(inactive_hand, /obj/item/storage/wallet))
-		if(istype(active_hand, W))
-			W = active_hand
-		else
-			W = inactive_hand
-		if(W.front_id)
-			ID = W.front_id
-
-	return ID
+	var/obj/item/card/id/id = null
+	var/obj/item/active_hand = get_active_hand()
+	var/obj/item/inactive_hand = get_inactive_hand()
+	if(istype(active_hand) && active_hand.GetID())
+		id = active_hand.GetID()
+	else if(istype(inactive_hand) && inactive_hand.GetID())
+		id = inactive_hand.GetID()
+	return id
 
 /mob/living/carbon/human/update_sight()
 	if(!client)
@@ -1557,21 +1490,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return threatcount
 
 	//Check for ID
-	var/obj/item/card/id/idcard = get_idcard()
-	if(judgebot.idcheck && !idcard)
+	if(judgebot.idcheck && !length(get_all_id_cards()))
 		threatcount += 4
 
 	//Check for weapons
-	if(judgebot.weaponscheck)
-		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
-			if(judgebot.check_for_weapons(l_hand))
-				threatcount += 4
-			if(judgebot.check_for_weapons(r_hand))
-				threatcount += 4
-			if(judgebot.check_for_weapons(belt))
-				threatcount += 4
-			if(judgebot.check_for_weapons(s_store))
-				threatcount += 4
+	if(judgebot.weaponscheck && !(ACCESS_WEAPONS in get_access()))
+		if(judgebot.check_for_weapons(l_hand))
+			threatcount += 4
+		if(judgebot.check_for_weapons(r_hand))
+			threatcount += 4
+		if(judgebot.check_for_weapons(belt))
+			threatcount += 4
+		if(judgebot.check_for_weapons(s_store))
+			threatcount += 4
 
 
 	//Check for arrest warrant
@@ -1590,7 +1521,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard/shielded))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 		threatcount += 2
 
 
@@ -1599,7 +1530,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.
-	if(istype(idcard, /obj/item/card/id/syndicate))
+	if(locate(/obj/item/card/id/syndicate) in get_all_id_cards())
 		threatcount -= 5
 
 	return threatcount
@@ -1765,18 +1696,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_age_pitch(var/tolerance = 5)
 	return 1.0 + 0.5*(30 - age)/80 + (0.01*rand(-tolerance,tolerance))
 
-/mob/living/carbon/human/get_access()
+/mob/living/carbon/human/get_access_locations()
 	. = ..()
-
-	if(wear_id)
-		. |= wear_id.GetAccess()
-	if(wear_pda)
-		. |= wear_pda.GetAccess()
-	if(istype(w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/U = w_uniform
-		if(U.accessories)
-			for(var/obj/item/clothing/accessory/A in U.accessories)
-				. |= A.GetAccess()
+	. |= list(wear_id, wear_pda, w_uniform)
 
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0

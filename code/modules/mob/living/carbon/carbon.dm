@@ -504,7 +504,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				var/mob/living/simple_animal/hostile/swarmer/S = src
 				if(S.light_range)
 					S.ToggleLight()
-			visible_message("<b>[src.name] лез[pluralize_ru(src.gender,"ет","ют")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
+			if(issilicon(src))
+				var/mob/living/silicon/S = src
+				if (S.inventory_head)
+					S.drop_hat()
+					visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+
+			visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
 			src.loc = vent_found
 			add_ventcrawl(vent_found)
 
@@ -1011,7 +1017,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 
 	if(!(slipAny))
-		if(istype(src, /mob/living/carbon/human))
+		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return FALSE
@@ -1112,16 +1118,9 @@ so that different stomachs can handle things in different ways VB*/
 			toEat.reagents.reaction(src, toEat.apply_type, fraction)
 			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
-/mob/living/carbon/get_access()
+/mob/living/carbon/get_access_locations()
 	. = ..()
-
-	var/obj/item/RH = get_active_hand()
-	if(RH)
-		. |= RH.GetAccess()
-
-	var/obj/item/LH = get_inactive_hand()
-	if(LH)
-		. |= LH.GetAccess()
+	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
 	if(!wear_mask)

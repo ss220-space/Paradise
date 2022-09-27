@@ -16,7 +16,7 @@
 	density = 0
 	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
@@ -124,6 +124,8 @@
 	else
 		overlays -= "eyes"
 
+	hat_icons()
+
 /mob/living/silicon/robot/drone/choose_icon()
 	return
 
@@ -138,7 +140,6 @@
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
-
 	if(istype(W, /obj/item/borg/upgrade/))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
@@ -147,10 +148,8 @@
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-
+	else if(W.GetID())
 		if(stat == DEAD)
-
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
@@ -306,11 +305,13 @@
 
 	if(!player) return
 
-	if(player.mob && player.mob.mind)
-		player.mob.mind.transfer_to(src)
-		player.mob.mind.assigned_role = "Drone"
-	else
-		ckey = player.ckey
+	mind = new
+	mind.current = src
+	mind.original = src
+	mind.assigned_role = "Drone"
+	SSticker.minds += mind
+	mind.key = player.key
+	key = player.key
 
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")

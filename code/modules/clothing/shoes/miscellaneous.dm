@@ -123,7 +123,7 @@
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/jackboot1.ogg' = 1, 'sound/effects/jackboot2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/jackboots)
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -257,7 +257,7 @@
 		var/obj/item/stack/tape_roll/TR = I
 		if((!silence_steps) && TR.use(4))
 			silence_steps = TRUE
-			GetComponent(/datum/component/squeak)?.RemoveComponent()
+			GetComponent(/datum/component/jackboots)?.RemoveComponent()
 			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else
 		return ..()
@@ -377,21 +377,28 @@
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
-	if(!isliving(user))
+	if(!ishuman(user))
 		return
-
+	var/mob/living/carbon/human/jumper = user
+	if(jumper.shoes != src)
+		to_chat(user, "<span class='warning'>You need to wear \the [src] to use them!</span>")
+		return
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/after_jump, user)))
+		user.flying = TRUE
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/bhop/proc/after_jump(mob/user)
+	user.flying = initial(user.flying)
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"

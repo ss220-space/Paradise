@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	var/i = 0
 	for(var/word in words)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
 		i++
 
 	ai_voice_announcement_to_text(words)
@@ -180,6 +180,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
+						voice.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_VOX)
 						M << voice
 		else
 			only_listener << voice
