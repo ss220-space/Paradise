@@ -58,6 +58,7 @@
 	icon_state = "amanita"
 	tastes = list("amanita" = 1)
 	filling_color = "#FF0000"
+	log_eating = TRUE
 
 
 // Destroying Angel
@@ -89,7 +90,7 @@
 	filling_color = "#C0C0C0"
 	tastes = list("destroying angel" = 1)
 	wine_power = 0.6
-
+	log_eating = TRUE
 
 // Liberty Cap
 /obj/item/seeds/liberty
