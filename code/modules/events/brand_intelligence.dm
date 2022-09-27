@@ -17,16 +17,15 @@
 	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС")
 
 /datum/event/brand_intelligence/start()
-	var/list/obj/machinery/vending/unrefillables = list()
+	var/list/obj/machinery/vending/leaderables = list()
 	for(var/obj/machinery/vending/V in GLOB.machines)
 		if(!is_station_level(V.z))
 			continue
 		RegisterSignal(V, COMSIG_PARENT_QDELETING, .proc/vendor_destroyed)
 		vendingMachines.Add(V)
-		if(!V.refill_canister)
-			unrefillables.Add(V)
+		if(V.refill_canister)
+			leaderables.Add(V)
 
-	var/list/obj/machinery/vending/leaderables = vendingMachines - unrefillables
 	if(!length(leaderables))
 		kill()
 		return
