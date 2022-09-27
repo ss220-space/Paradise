@@ -110,7 +110,6 @@
 		return FALSE
 
 	add_say_logs(speaker, message, language = "([name]-HIVE)")
-	speaker.create_log(SAY_LOG, log_message)
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
