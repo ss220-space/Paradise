@@ -8,12 +8,12 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = "Galactic Common"	//бореры теперь "не забывают" всегалактический, а разумные мартышки понимают что им говорят. Они по прежнему общаются на обезьянем/фарванском
+	language = null
 	default_language = "Chimpanzee"
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = null
+	no_equip = list(slot_belt, slot_gloves)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
