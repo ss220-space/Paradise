@@ -27614,7 +27614,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cyt" = (
-/mob/living/carbon/human/monkey/punpun,
+/mob/living/carbon/human/lesser/monkey/punpun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -38111,7 +38111,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "dlz" = (
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "dlA" = (
@@ -39194,7 +39194,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -98576,7 +98576,7 @@
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -118186,7 +118186,7 @@
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -127682,7 +127682,7 @@
 	name = "south bump";
 	pixel_y = -26
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -127716,7 +127716,7 @@
 /area/hallway/primary/central/west)
 "vom" = (
 /obj/machinery/light,
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
