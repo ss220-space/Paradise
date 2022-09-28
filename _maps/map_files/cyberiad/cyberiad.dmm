@@ -707,8 +707,7 @@
 /obj/structure/table,
 /obj/item/storage/box/prisoner,
 /obj/machinery/camera{
-	c_tag = "Brig Labor Camp Airlock North";
-	network = list("SS13")
+	c_tag = "Brig Labor Camp Airlock North"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -772,7 +771,6 @@
 	id_tag = "synd_inner";
 	locked = 1;
 	name = "Ship External Access";
-	req_access = null;
 	req_access_txt = "150"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1059,7 +1057,6 @@
 	icon_state = "door_locked";
 	id_tag = "synd_outer";
 	name = "Ship External Access";
-	req_access = null;
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
@@ -1078,7 +1075,6 @@
 	icon_state = "door_locked";
 	id_tag = "synd_outer";
 	name = "Ship External Access";
-	req_access = null;
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
@@ -1340,8 +1336,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_southwest_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -1548,8 +1543,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_southeast_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -1667,9 +1661,7 @@
 /area/security/warden)
 "aez" = (
 /obj/machinery/camera{
-	c_tag = "Brig Medbay";
-	dir = 2;
-	network = list("SS13")
+	c_tag = "Brig Medbay"
 	},
 /obj/machinery/newscaster{
 	pixel_y = 34;
@@ -1808,7 +1800,6 @@
 "aeL" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
 	pixel_x = 11
 	},
 /obj/machinery/power/apc{
@@ -1879,7 +1870,6 @@
 	id_tag = "synd_inner";
 	locked = 1;
 	name = "Ship External Access";
-	req_access = null;
 	req_access_txt = "150"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -2229,7 +2219,6 @@
 /area/security/medbay)
 "afs" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -2499,9 +2488,7 @@
 "afY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Brig Medical Bay";
-	req_access_txt = "0";
 	req_one_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2530,8 +2517,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_northwest_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -2575,8 +2561,7 @@
 	icon_state = "door_locked";
 	id_tag = "vox_northeast_lock";
 	locked = 1;
-	req_access_txt = "152";
-	req_one_access = null
+	req_access_txt = "152"
 	},
 /obj/docking_port/mobile{
 	dir = 2;
@@ -5053,7 +5038,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command/glass{
 	id = "hos_room";
-	id_tag = null;
 	name = "Head of Security Room";
 	req_access_txt = "58"
 	},
@@ -5098,7 +5082,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -5770,7 +5753,6 @@
 "alL" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -10825,7 +10807,6 @@
 	id_tag = "dorms_maint_inner";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -11770,7 +11751,6 @@
 "awa" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -11860,7 +11840,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Prisoner Processing";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -12379,7 +12358,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Execution Room";
-	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/structure/cable{
@@ -12423,7 +12401,6 @@
 	id_tag = "dorms_maint_inner";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden,
@@ -12648,7 +12625,6 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -12746,7 +12722,6 @@
 "axI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -12819,7 +12794,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Prisoner Processing";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -13624,7 +13598,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Interrogation";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -14097,7 +14070,6 @@
 	id_tag = "dorms_maint_outer";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -14251,7 +14223,6 @@
 	id_tag = "solar_tool_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /obj/structure/cable{
@@ -15418,7 +15389,6 @@
 	id_tag = "solar_tool_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/structure/cable{
@@ -15983,7 +15953,6 @@
 	id_tag = "solar_chapel_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
@@ -17067,7 +17036,6 @@
 	id_tag = "eva_outer";
 	locked = 1;
 	name = "EVA External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating/airless,
@@ -17084,7 +17052,6 @@
 	id_tag = "solar_chapel_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -18060,7 +18027,6 @@
 	id_tag = "eva_inner";
 	locked = 1;
 	name = "EVA Internal Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -18245,7 +18211,6 @@
 	id_tag = "arrivals_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
@@ -18648,7 +18613,6 @@
 	id_tag = "bar_maint_outer";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -18685,7 +18649,6 @@
 	id_tag = "eva_inner";
 	locked = 1;
 	name = "EVA Internal Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -19309,7 +19272,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Detective";
-	req_access = null;
 	req_access_txt = "4"
 	},
 /turf/simulated/floor/plasteel{
@@ -19503,7 +19465,6 @@
 	id_tag = "arrivals_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -19786,7 +19747,6 @@
 	id_tag = "bar_maint_inner";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -21967,8 +21927,7 @@
 	icon_state = "door_locked";
 	id_tag = "sol_outer";
 	locked = 1;
-	name = "Arrivals External Access";
-	req_access = null
+	name = "Arrivals External Access"
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -24366,8 +24325,7 @@
 	icon_state = "door_locked";
 	id_tag = "sol_inner";
 	locked = 1;
-	name = "Arrivals External Access";
-	req_access = null
+	name = "Arrivals External Access"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -27747,7 +27705,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
-	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -29019,7 +28976,6 @@
 	id_tag = "ai_outer";
 	locked = 1;
 	name = "MiniSat External Access";
-	req_access = null;
 	req_access_txt = "75;13"
 	},
 /turf/simulated/floor/plating,
@@ -30012,7 +29968,6 @@
 	id_tag = "ai_inner";
 	locked = 1;
 	name = "MiniSat External Access";
-	req_access = null;
 	req_access_txt = "75;13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -38174,14 +38129,11 @@
 /area/bridge/meeting_room)
 "byJ" = (
 /obj/machinery/status_display{
-	density = 0;
 	layer = 4;
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Bridge Conference Room";
-	dir = 2;
-	network = list("SS13")
+	c_tag = "Bridge Conference Room"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -39798,7 +39750,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -39843,7 +39794,6 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
 	name = "Captain's Office";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -41458,7 +41408,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Paramedic";
 	req_access_txt = "66"
 	},
@@ -43965,7 +43914,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -44783,12 +44731,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bMD" = (
-/obj/machinery/computer/account_database{
-	anchored = 1
-	},
+/obj/machinery/computer/account_database,
 /obj/structure/window/reinforced/tinted{
-	dir = 4;
-	icon_state = "twindow"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -45914,8 +45859,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Accounts Uplink Terminal";
-	dir = 8;
-	network = list("SS13")
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -45974,7 +45918,6 @@
 "bOx" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/structure/cable{
@@ -45993,9 +45936,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/command{
-	id_tag = null;
 	name = "Captain's Office";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -46934,16 +46875,13 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
-	dir = 4;
 	icon_state = "rightsecure";
 	name = "Head of Personnel's Desk";
 	req_access_txt = "57"
 	},
 /obj/machinery/door/window/northleft{
 	dir = 8;
-	icon_state = "left";
-	name = "Head of Personnel's Desk";
-	req_access_txt = "0"
+	name = "Head of Personnel's Desk"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -47016,7 +46954,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -47248,7 +47185,6 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -47264,7 +47200,6 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -47274,7 +47209,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -47328,7 +47262,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Paramedic";
 	req_access_txt = "66"
 	},
@@ -48159,7 +48092,6 @@
 "bSt" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Medbay Reception";
 	req_access_txt = "5"
 	},
@@ -48209,7 +48141,6 @@
 "bSx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Chemistry Lab";
 	req_access_txt = "33"
 	},
@@ -50876,9 +50807,7 @@
 	},
 /area/crew_quarters/heads)
 "bXb" = (
-/obj/machinery/computer/security/mining{
-	network = list("Mining Outpost")
-	},
+/obj/machinery/computer/security/mining,
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
@@ -51919,8 +51848,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Head of Personnel's Office";
-	dir = 1;
-	network = list("SS13")
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
@@ -52684,7 +52612,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	dir = 4;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
@@ -54571,7 +54498,6 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -54636,7 +54562,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	dir = 4;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
@@ -54673,7 +54598,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	dir = 4;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
 	name = "Research Director Office Shutters";
@@ -54847,7 +54771,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access = null;
 	req_access_txt = "30"
 	},
 /obj/structure/cable{
@@ -55100,7 +55023,6 @@
 "cee" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Observation Room"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -55118,7 +55040,6 @@
 "cef" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Observation Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -56692,13 +56613,11 @@
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
 	icon_state = "rightsecure";
-	name = "Server Exterior Door";
-	req_access = null
+	name = "Server Exterior Door"
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	name = "Server Interior Door";
-	req_access = null
+	name = "Server Interior Door"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -59444,7 +59363,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
 /turf/simulated/floor/plasteel{
@@ -60034,7 +59952,6 @@
 "cnw" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
 /turf/simulated/floor/plasteel{
@@ -63360,7 +63277,6 @@
 "csX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Monkey Pen";
 	req_access_txt = "39"
 	},
@@ -64643,8 +64559,7 @@
 /area/toxins/mixing)
 "cvf" = (
 /obj/machinery/atmospherics/trinary/mixer{
-	dir = 8;
-	req_access = null
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -64953,7 +64868,6 @@
 "cvO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Isolation B";
 	req_access_txt = "39"
 	},
@@ -64971,7 +64885,6 @@
 "cvQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Isolation B";
 	req_access_txt = "39"
 	},
@@ -65046,7 +64959,6 @@
 "cvX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Secondary Storage";
 	req_access_txt = "5"
 	},
@@ -65163,7 +65075,6 @@
 "cwh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Isolation A";
 	req_access_txt = "39"
 	},
@@ -70622,7 +70533,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westright{
 	name = "Mechanic's Desk";
-	req_access = null;
 	req_access_txt = "70"
 	},
 /obj/machinery/cell_charger,
@@ -73225,7 +73135,6 @@
 "cLo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mechanic Workshop Maintenance";
-	req_access = null;
 	req_access_txt = "70"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76027,7 +75936,6 @@
 	id_tag = "engineering_west_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /obj/structure/cable/yellow{
@@ -76130,7 +76038,6 @@
 	id_tag = "engineering_east_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /obj/structure/cable/yellow{
@@ -76850,7 +76757,6 @@
 	id_tag = "engineering_west_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /obj/structure/cable/yellow{
@@ -76876,7 +76782,6 @@
 	id_tag = "engineering_east_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /obj/structure/cable/yellow{
@@ -77669,7 +77574,6 @@
 	id_tag = "robotics_solar_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
@@ -77711,7 +77615,6 @@
 	id_tag = "robotics_solar_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -82954,7 +82857,6 @@
 	id_tag = "solar_xeno_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -83180,7 +83082,6 @@
 	id_tag = "solar_xeno_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access = null;
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
@@ -85559,7 +85460,6 @@
 	id_tag = "south_maint_outer";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -86840,7 +86740,6 @@
 	id_tag = "south_maint_inner";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -86875,7 +86774,6 @@
 	id_tag = "sci_inner";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -87102,7 +87000,6 @@
 	id_tag = "sci_outer";
 	locked = 1;
 	name = "External Access";
-	req_access = null;
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -87953,7 +87850,6 @@
 /obj/machinery/door/window/southright{
 	dir = 1;
 	name = "AI Core Door";
-	req_access = null;
 	req_access_txt = "16"
 	},
 /turf/simulated/floor/bluegrid,
@@ -90250,12 +90146,10 @@
 "hNI" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	id = null;
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
 /obj/machinery/door/window/brigdoor{
-	id = null;
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
@@ -90659,7 +90553,6 @@
 /area/crew_quarters/dorms)
 "iPr" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -91995,7 +91888,6 @@
 /area/mimeoffice)
 "msR" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -92267,7 +92159,6 @@
 /area/library/abandoned)
 "nel" = (
 /obj/machinery/status_display{
-	density = 0;
 	layer = 4;
 	pixel_x = 32
 	},
@@ -93350,7 +93241,6 @@
 "pSJ" = (
 /obj/structure/sink{
 	dir = 8;
-	icon_state = "sink";
 	pixel_x = -12;
 	pixel_y = 2
 	},
