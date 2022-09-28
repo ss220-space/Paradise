@@ -10,6 +10,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_TRADER = 40, // Very high, because they're an admin-spawned event with powerful items
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
+	// MISC
+	ROLE_HEADCRAB = 2,
+
 	// SOLO ANTAGS
 	ROLE_TRAITOR = 30,
 	ROLE_CHANGELING = 30,

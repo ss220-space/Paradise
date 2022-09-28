@@ -44,6 +44,7 @@
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
+#define ROLE_HEADCRAB			"headcrab"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

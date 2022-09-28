@@ -249,6 +249,8 @@
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
 
+	..()
+
 	var/mob/living/carbon/body = target
 
 	if(body.stat != DEAD)
@@ -261,7 +263,7 @@
 			if(do_after(src, 80, target = body, progress=TRUE))
 				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
 					var/gained_health = rand(5,30)
-					body.adjustBruteLoss(rand(5,30))
+					//body.adjustBruteLoss(rand(5,30))
 					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
 					src.heal_overall_damage(gained_health, gained_health)
 					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
@@ -270,13 +272,10 @@
 				if(do_after(src, 40, target = body, progress=TRUE))
 					if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
 						var/gained_health = rand(5,10)
-						body.adjustBruteLoss(rand(1,10))
+						//body.adjustBruteLoss(rand(1,10))
 						to_chat(src, "You finished to eating body. You restored [gained_health] health!")
 						src.heal_overall_damage(gained_health, gained_health)
 						to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
-
-		if(body.stat != DEAD)
-			return ..()
 
 /mob/living/simple_animal/hostile/headcrab/New()
 

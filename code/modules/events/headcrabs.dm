@@ -206,7 +206,7 @@
 					new type2(capsule_position)
 					headcrab_type = type2
 
-		step(headcrab_type, pick(NORTH, SOUTH, EAST, WEST))
+	step(headcrab_type, pick(NORTH, SOUTH, EAST, WEST))
 
 	sleep(100)
 
@@ -253,7 +253,7 @@
 	else if(prob(45))
 		var/syndie_message
 		if(prob(60))
-			syndie_message = "Эй, [station_name()], мы из НИУС 'Кобра', прислали к вам парочку подарочков, удачи разгребать последствия после них!" //Тайпан назван в честь змеи. Хиасса Галао (Со) унати. Почему бы не сделать отсылочку на ее капюшон? (йуху, вега, Вердж Галао)
+			syndie_message = "Эй, [station_name()], мы из НИС 'Кобра', прислали к вам парочку подарочков, удачи разгребать последствия после них!" //Тайпан назван в честь змеи. Хиасса Галао (Со) унати. Почему бы не сделать отсылочку на ее капюшон? (йуху, вега, Вердж Галао)
 		else
 			syndie_message = "Ой. Мы случайно отправили к вам несколько капсул с хедкрабами. Ну, объект хотя бы не наш. Да, [station_name()]?"
 		GLOB.event_announcement.Announce(syndie_message, "Оповещение Синдиката", 'sound/AI/intercept2.ogg')

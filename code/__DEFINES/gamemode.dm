@@ -57,3 +57,4 @@
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
+#define SPECIAL_ROLE_HEADCRAB "Headcrab"
