@@ -1790,6 +1790,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/garden/north
+	name = "North Old Garden"
+	icon_state = "hydro"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
+
 /area/maintenance/kitchen
 	name = "Old Restaurant"
 	icon_state = "kitchen"
