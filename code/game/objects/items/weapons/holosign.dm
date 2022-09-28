@@ -64,7 +64,10 @@
 	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = FALSE
 
-/obj/item/holosign_creator/janitor/AltClick(mob/user)
+/obj/item/holosign_creator/janitor/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)
@@ -74,8 +77,7 @@
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
-
+	. += "<span class='info'>Alt-Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
 	var/obj/structure/holosign/wetsign/WS = ..()

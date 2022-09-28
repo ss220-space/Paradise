@@ -72,21 +72,8 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	var/datum/action/innate/tail_lash/lash
-
 	disliked_food = VEGETABLES | FRUIT | GRAIN
 	liked_food = MEAT | RAW | EGG
-
-
-/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
-	..()
-	lash = new
-	lash.Grant(H)
-
-/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
-	..()
-	if(lash)
-		lash.Remove(H)
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
@@ -147,16 +134,33 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NO_BREATHE, NOGUNS)
+	species_traits = list(NOGUNS)
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
 	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	if(!lash)
+		lash = new
+		lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	if(lash)
+		lash.Remove(H)

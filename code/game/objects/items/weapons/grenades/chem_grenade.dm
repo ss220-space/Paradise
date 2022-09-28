@@ -34,14 +34,13 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	QDEL_LIST(beakers)
+	if (!no_splash)
+		QDEL_LIST(beakers)
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
 	. = ..()
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
-
-
 
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
@@ -49,7 +48,6 @@
 		if(!O || istype(O,/obj/item/assembly/igniter)) continue
 		return O
 	return null
-
 
 /obj/item/grenade/chem_grenade/proc/update_overlays()
 	underlays = list()

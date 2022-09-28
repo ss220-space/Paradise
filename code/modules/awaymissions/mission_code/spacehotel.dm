@@ -122,7 +122,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
 	. = ..()
-	. += "This room is currently [occupant ? "" : "un"]occupied."
+	. += "<span class='notice'>This room is currently [occupant ? "" : "un"]occupied.</span>"
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())
@@ -217,14 +217,14 @@
 	return ..()
 
 // to check a person into a room; no financial stuff; returns the keycard
-/obj/effect/hotel_controller/proc/checkin(roomid, mob/living/carbon/occupant, obj/item/card/id/id)
+/obj/effect/hotel_controller/proc/checkin(roomid, mob/living/carbon/occupant)
 	if(!istype(occupant))
 		return null
 	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
 	if(!D || D.occupant || (occupant in guests))
 		return null
 
-	D.account = get_card_account(id, occupant)
+	D.account = get_card_account(occupant)
 	if(!D.account)
 		return null
 	if(!D.account.charge(100, null, "10 minutes hotel stay", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))

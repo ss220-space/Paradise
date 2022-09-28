@@ -179,6 +179,30 @@
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
 
+/datum/design/webbing
+	name = "Webbing"
+	id = "webbing"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 500)
+	build_path = /obj/item/clothing/accessory/storage/webbing
+	category = list("initial","Leather and Cloth")
+
+/datum/design/brown_vest
+	name = "Brown vest"
+	id = "brown_vest"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 800)
+	build_path = /obj/item/clothing/accessory/storage/brown_vest
+	category = list("initial","Leather and Cloth")
+
+/datum/design/black_vest
+	name = "Black vest"
+	id = "black_vest"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 800)
+	build_path = /obj/item/clothing/accessory/storage/black_vest
+	category = list("initial","Leather and Cloth")
+
 /datum/design/rice_hat
 	name = "Rice hat"
 	id = "rice_hat"
@@ -186,3 +210,11 @@
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/clothing/head/rice_hat
 	category = list("initial","Leather and Cloth")
+
+/datum/design/rollingpapers
+	name = "Rolling paper pack"
+	id = "rolling_paper_pack"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/storage/fancy/rollingpapers
+	category = list("initial","Organic Materials")

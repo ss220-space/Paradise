@@ -69,9 +69,9 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
-		. += "<b>Name:</b> [cultist_name]"
-		. += "<b>Effects:</b> [capitalize(cultist_desc)]"
-		. += "<b>Required Acolytes:</b> [req_cultists]"
+		. += "<span class='info'><b>Name:</b> [cultist_name]</span>"
+		. += "<span class='info'><b>Effects:</b> [capitalize(cultist_desc)]</span>"
+		. += "<span class='info'><b>Required Acolytes:</b> [req_cultists]</span>"
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
@@ -291,6 +291,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
+	if(!config.can_cult_convert && !is_sacrifice_target(L.mind))
+		fail_invoke()
+		for(var/I in invokers)
+			to_chat(I, "<span class='warning'>You can not convert new cultists!</span>")
+		rune_in_use = FALSE
+		return
+
 	if(L.mind in GLOB.sacrificed)
 		fail_invoke()
 		rune_in_use = FALSE

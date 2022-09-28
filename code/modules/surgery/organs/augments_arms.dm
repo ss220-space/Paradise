@@ -31,7 +31,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
+	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration.</span>"
+	. += "<span class='info'>You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -211,6 +212,18 @@
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
+
+/obj/item/organ/internal/cyberimp/arm/atmostoolset
+	name = "integrated atmos toolset implant"
+	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
+	contents = newlist(/obj/item/holosign_creator/atmos, /obj/item/rpd, /obj/item/analyzer, /obj/item/destTagger, /obj/item/extinguisher/mini,
+		/obj/item/pipe_painter, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/tools.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "rpd")
+
+/obj/item/organ/internal/cyberimp/arm/atmostoolset/l
+	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/hacking
 	name = "hacking arm implant"

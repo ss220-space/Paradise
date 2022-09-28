@@ -85,7 +85,9 @@
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Nanotrasen Navy Captain")
+	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Nanotrasen Navy Captain", "Solar Federation General")
+	/// List of SolGov Marine jobs
+	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Marine")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
@@ -245,9 +247,13 @@
 	if(toggle_command_bold)
 		var/rank = tcm.sender_rank
 		if((rank in ert_jobs) || (rank in heads) || (rank in cc_jobs))
-			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.message)
-					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+			for(var/I in 1 to length(message_pieces))
+				var/datum/multilingual_say_piece/S = message_pieces[I]
+				if(!S.message)
+					continue
+				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+					S.message = "[capitalize(S.message)]"
+				S.message = "<b>[S.message]</b>" // Make everything bolded
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])

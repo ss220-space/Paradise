@@ -33,7 +33,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
 		return
-	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	if(W.GetID())
 		if(check_access(W))
 			if(active)
 				//This is not the device that made the initial request. It is the device confirming the request.
@@ -105,6 +105,9 @@
 			reset()
 		if("triggerevent")
 			event = params["triggerevent"]
+			if(GLOB.security_level > SEC_LEVEL_RED && event == "Red Alert") //if gamma, epsilon or delta
+				to_chat(usr, "<span class='warning'>CentCom security measures prevent you from changing the alert level.</span>")
+				return
 			swiping = TRUE
 
 	add_fingerprint(usr)

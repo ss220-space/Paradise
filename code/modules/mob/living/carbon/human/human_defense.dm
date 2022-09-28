@@ -469,7 +469,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							apply_effect(2, WEAKEN, armor)
 							AdjustConfused(15)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
@@ -686,9 +686,9 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing))
-		var/obj/item/clothing/S = shoes
-		if (S.flags & NOSLIP)
+	if(shoes && istype(shoes, /obj/item/clothing/shoes/magboots))
+		var/obj/item/clothing/shoes/magboots/S = shoes
+		if(S.flags & NOSLIP)
 			return FALSE
 	return ..()
 

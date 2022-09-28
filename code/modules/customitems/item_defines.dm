@@ -346,7 +346,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+			"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+			"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+			"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+			"Neara" = 'icons/mob/species/monkey/mask.dmi',
+			"Stok" = 'icons/mob/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -627,7 +632,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "polarbearpelt"
 
-/obj/item/clothing/head/fluff/sparkyninja_beret // Sparkyninja: Neil Wilkinson
+/*/obj/item/clothing/head/fluff/sparkyninja_beret // Sparkyninja: Neil Wilkinson
 	name = "royal marines commando beret"
 	desc = "Dark Green beret with an old insignia on it."
 	icon = 'icons/obj/custom_items.dmi'
@@ -637,7 +642,7 @@
 	name = "Lieutenant Starsong's beret"
 	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
 	icon_state = "beret_hos"
-	item_state = "beret_hos"
+	item_state = "beret_hos" */
 
 /obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
 	name = "The Sobriety Skullcap"
@@ -719,11 +724,11 @@
 			user.update_inv_head()
 			return 1
 
-/obj/item/clothing/head/beret/fluff/elo	//V-Force_Bomber: E.L.O.
+/*/obj/item/clothing/head/beret/fluff/elo	//V-Force_Bomber: E.L.O.
 	name = "E.L.O.'s medical beret"
 	desc = "E.L.O.s personal medical beret, issued by Nanotrassen and awarded along with her medal."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elo-beret"
+	icon_state = "elo-beret" */
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
@@ -941,7 +946,14 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		)
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0

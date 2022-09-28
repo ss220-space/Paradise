@@ -562,7 +562,6 @@
 	var/turf/old_loc = loc
 	. = ..()
 	if(.)
-		handle_footstep(loc)
 		step_count++
 		pull_pulled(old_loc, pullee, movetime)
 		pull_grabbed(old_loc, direct, movetime)
@@ -604,6 +603,8 @@
 		var/mob/M = grabbing[i]
 		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
 			continue
+		if(!isturf(M.loc))
+			continue
 		// compile a list of turfs we can maybe move them towards
 		// importantly, this should happen before actually trying to move them to either of those
 		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
@@ -632,11 +633,6 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in grabbed_by)
 		G.adjust_position()
-
-/mob/living/proc/handle_footstep(turf/T)
-	if(istype(T))
-		return 1
-	return 0
 
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))

@@ -188,6 +188,8 @@
  	max_ammo = 10
 
 ///////////EXTERNAL MAGAZINES////////////////
+/obj/item/ammo_box/magazine
+	materials = list(MAT_METAL = 2000)
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
@@ -230,7 +232,6 @@
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
-	materials = list(MAT_METAL=7200)
 	multiple_sprites = 1
 	caliber = "9mm"
 
@@ -245,7 +246,7 @@
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets."//only can see the topmost one.
+		. += "<span class='notice'>It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.</span>"//only can see the topmost one.
 
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
@@ -258,7 +259,6 @@
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
-	materials = list(MAT_METAL=10000)
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
@@ -300,22 +300,18 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 21
-	materials = list(MAT_METAL = 2000)
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
 	name = "SMG magazine (Toxin Tipped 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/tox
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
 	name = "SMG Magazine (Incendiary 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()

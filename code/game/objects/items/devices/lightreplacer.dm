@@ -69,7 +69,7 @@
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
-	. += status_string()
+	. += "<span class='notice'>[status_string()]</span>"
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -223,7 +223,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else

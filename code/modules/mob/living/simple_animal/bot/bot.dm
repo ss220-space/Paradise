@@ -236,11 +236,11 @@
 	. = ..()
 	if(health < maxHealth)
 		if(health > maxHealth/3)
-			. += "[src]'s parts look loose."
+			. += "<span class='notice'>[src]'s parts look loose.</span>"
 		else
-			. += "[src]'s parts look very loose!"
+			. += "<span class='warning'>[src]'s parts look very loose!</span>"
 	else
-		. += "[src] is in pristine condition."
+		. += "<span class='notice'>[src] is in pristine condition.</span>"
 
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
 	if(amount > 0 && prob(10))
@@ -319,7 +319,7 @@
 			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	else if(W.GetID() || ispda(W))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")

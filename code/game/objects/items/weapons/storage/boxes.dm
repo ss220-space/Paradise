@@ -771,21 +771,6 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
-/obj/item/storage/box/erttaserproof
-	name = "Taser Proof Upgrade Box"
-	desc = "A Exclusive and Expencive upgrade for HardSuit ."
-	icon_state = "box_ert"
-
-/obj/item/storage/box/erttaserproof/New()
-	..()
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-
 /obj/item/storage/box/bartender_rare_ingredients_kit
 	name = "bartender rare reagents kit"
 	desc = "A box intended for experienced bartenders."
@@ -1212,7 +1197,7 @@
 /obj/item/storage/box/wizard/hardsuit/New()
 	. = ..()
 	contents = list()
-	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 #undef NODESIGN
