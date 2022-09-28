@@ -263,8 +263,7 @@
 					var/gained_health = rand(5,30)
 					body.adjustBruteLoss(rand(5,30))
 					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
-					body.adjustBruteLoss(gained_health/2 * -1)
-					body.adjustFireLoss(gained_health/2 * -1)
+					src.heal_overall_damage(gained_health, gained_health)
 					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
 		else
 			if(istype(body, /mob/living/simple_animal/))
@@ -273,8 +272,7 @@
 						var/gained_health = rand(5,10)
 						body.adjustBruteLoss(rand(1,10))
 						to_chat(src, "You finished to eating body. You restored [gained_health] health!")
-						body.adjustBruteLoss(gained_health/2 * -1)
-						body.adjustFireLoss(gained_health/2 * -1)
+						src.heal_overall_damage(gained_health, gained_health)
 						to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
 
 		if(body.stat != DEAD)
@@ -284,7 +282,7 @@
 
 	..()
 
-	add_language("Headcrab Hivemind")
+	add_language("Headcrab Hivemind") // в каждом раунде наверняка будет фраза "Штурмуем морг"
 	default_language = GLOB.all_languages["Headcrab Hivemind"]
 
 	name += " ([rand(1, 1000)])"
