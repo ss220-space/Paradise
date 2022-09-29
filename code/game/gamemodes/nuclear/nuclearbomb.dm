@@ -218,6 +218,28 @@ GLOBAL_VAR(bomb_set)
 	else
 		return FALSE
 
+/obj/machinery/nuclearbomb/proc/deploy()
+	if(removal_stage != NUKE_MOBILE)
+		anchored = TRUE
+		visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
+	else
+		visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+	if(!lighthack)
+		flick("nuclearbombc", src)
+		icon_state = "nuclearbomb1"
+	extended = TRUE
+	return
+
+/obj/machinery/nuclearbomb/proc/force_arm()
+	message_admins("[key_name_admin(usr)] forced an engagement of a nuclear bomb [ADMIN_JMP(src)]")
+	deploy()
+	safety = FALSE
+	timing = TRUE
+	GLOB.bomb_set = TRUE
+	if(!lighthack)
+		icon_state = "nuclearbomb2"
+	set_security_level("delta")
+
 /obj/machinery/nuclearbomb/ui_act(action, params)
 	if(..())
 		return
@@ -226,16 +248,7 @@ GLOBAL_VAR(bomb_set)
 		return
 	switch(action)
 		if("deploy")
-			if(removal_stage != NUKE_MOBILE)
-				anchored = TRUE
-				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
-			else
-				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-			if(!lighthack)
-				flick("nuclearbombc", src)
-				icon_state = "nuclearbomb1"
-			extended = TRUE
-			return
+			deploy()
 		if("auth")
 			if(auth)
 				if(!usr.get_active_hand() && Adjacent(usr))
