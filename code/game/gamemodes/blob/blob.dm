@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		update_blob_icons_added(blob)
 
 	if(SSshuttle)
-		SSshuttle.emergencyNoEscape = 1
+		SSshuttle.emergencyNoEscape = TRUE
 
 	spawn(0)
 

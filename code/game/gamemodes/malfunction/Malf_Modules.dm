@@ -276,18 +276,14 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = 0
-	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-		SSshuttle.emergency.mode = SHUTTLE_DOCKED
-		SSshuttle.emergency.timer = world.time
-		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+	resolve_win_condition()
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
 	timing = 1
 	START_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = 1
+	SSshuttle.emergencyNoEscape = TRUE
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
 	. = max(0, (round(detonation_timer - world.time) / 10))
@@ -296,11 +292,7 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		GLOB.minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
-		SSshuttle.emergencyNoEscape = 0
-		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		resolve_win_condition()
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
