@@ -310,8 +310,8 @@ var/global/hctypes = "/mob/living/simple_animal/hostile/headcrab, /mob/living/si
 	real_name = name
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	H.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab
-	H.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest
+	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab
+	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest
 	ranged = 0
 	dodging = 0
 	stat_attack = CONSCIOUS // Disables their targeting of dead mobs once they're already a zombie
@@ -335,6 +335,21 @@ var/global/hctypes = "/mob/living/simple_animal/hostile/headcrab, /mob/living/si
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
+
+	var/shoes = H.get_item_by_slot(slot_shoes)
+	var/obj/item/clothing/shoes/clown_shoes/clown_shoess
+
+	if(istype(shoes, clown_shoess) && clown_shoess.enabled_waddle)
+		src.AddElement(/datum/element/waddling)
+
+	var/uniform = H.get_item_by_slot(slot_w_uniform)
+	var/obj/item/clothing/under/rank/clown/clown_uniform
+
+	if(istype(uniform, clown_uniform))
+		attacked_sound = 'sound/items/bikehorn.ogg'
+		attack_sound = 'sound/items/bikehorn.ogg'
+		attacktext = "DEADLY HONKING"
+		death_sound = 'sound/misc/sadtrombone.ogg'
 
 	if(!istype(src, /mob/living/simple_animal/hostile/headcrab/reviver))
 		visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
