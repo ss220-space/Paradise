@@ -141,7 +141,7 @@
 		sleep(rand(0,4)) // не, я пожалуй откажусь от таймера.
 		how_many_capsules--
 		var/turf/simulated/floor/where_capsule = pick(turfs)
-		explosion(where_capsule, 0, 0,1,1) // взрыв все ломает. пожалуй откажемся
+		explosion(where_capsule, 0, 0,4,2) // поидее тряска камеры и стан близлежащих карбонов.
 
 		var/frequency = get_rand_frequency()
 		var/sound/explosion_sound = sound(get_sfx("explosion"))
@@ -180,24 +180,24 @@
 		mixed = rand(0,1)
 
 	if(headcrab_type == null)
-		headcrab_type = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+		headcrab_type = pick(hctypes)
 	var/capsule_position = get_turf(capsule)
 
 	while(headcrabs_in_capsule > 0)
 		headcrabs_in_capsule--
 		sleep(60)
 		if(randomized_headcrabs)
-			headcrab_type = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+			headcrab_type = pick(hctypes)
 			new headcrab_type(capsule_position)
 		else
 			if(!mixed)
 				new headcrab_type(capsule_position)
 			else
-				var/type1 = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
-				var/type2 = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+				var/type1 = pick(hctypes)
+				var/type2 = pick(hctypes)
 
 				while(type1 == type2)
-					type2 = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+					type2 = pick(hctypes)
 
 				if(prob(50))
 					new type1(capsule_position)

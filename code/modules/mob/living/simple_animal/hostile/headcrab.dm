@@ -1,3 +1,6 @@
+
+var/global/hctypes = "/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison"
+
 /mob/living/simple_animal/hostile/headcrab
 	name = "headcrab"
 	desc = "A small parasitic creature that would like to connect with your brain stem."
@@ -98,7 +101,7 @@
 		return
 	building = TRUE
 	to_chat(src, "<span class='notice'>You start to falling apart...</span>")
-	if(do_after(src, 500, target = src, progress=TRUE))
+	if(do_after(src, 600, target = src, progress=TRUE))
 		for(var/obj/structure/spawner/headcrab in orange(60, T))
 			to_chat(src, "There is a nest nearby, move more than 60 tiles away from it!")
 			return
@@ -143,9 +146,8 @@
 		to_chat(src, "<span class='notice'>You are evolved to gonome!</span>")
 		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health of maximum.")
 		ranged = 1
-		ranged_cooldown_time = 111
-		health += 25
-		maxHealth += 50
+		ranged_cooldown_time = 60
+		src.heal_overall_damage(25,25)
 		melee_damage_lower += 5
 		melee_damage_upper += 10
 		obj_damage += 20
@@ -183,9 +185,9 @@
 		new /obj/structure/spawner/headcrab(src.loc)
 
 
-	if(prob(16) && vent_cooldown <= 0)
+	if(prob(24) && vent_cooldown <= 0)
 		if(!is_zombie || is_zombie && host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in oview(4,src))
+			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in oview(6,src))
 				if(!ventilation.welded)
 					entry_vent = ventilation
 					walk_to(src, entry_vent, 1)
@@ -245,7 +247,7 @@
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	vent_cooldown += 15
+	vent_cooldown += 40
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
 
@@ -254,7 +256,7 @@
 	var/mob/living/carbon/body = target
 
 	if(body.stat != DEAD)
-		vent_cooldown += 15
+		vent_cooldown += 20
 
 	if(src.health < src.maxHealth && iscarbon(body) & body.stat == DEAD)
 		to_chat(src, "You start to eating body...")
@@ -327,7 +329,7 @@
 	host_species = H.dna.species.name
 	if(host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
 		ventcrawler = 2
-		maxHealth -= 50 //взамен на пользанье по вентам
+		maxHealth -= 100 //взамен на пользанье по вентам
 	else
 		ventcrawler = 0
 	human_overlays = H.overlays
@@ -562,6 +564,7 @@
 				to_chat(src, "No more headcrabs on your back, pal! But... You can be gonome now!")
 				can_be_gonomed = TRUE
 				gonome_time -= 40
+				speed = 2.70 // больше нет ноши на спине... да и компенсация отсутсвия дальней атаки
 			visible_message("<span class='danger'><b>[src]</b> throwing [headcrab] at [target]!</span>")
 			playsound(src, list('sound/effects/poison_headcrab_throw1.ogg', 'sound/effects/poison_headcrab_throw2.ogg'), 45, 1)
 			headcrab.throw_at(target, headcrab.jumpdistance, headcrab.jumpspeed, spin = FALSE, diagonals_first = TRUE)
@@ -769,6 +772,6 @@
 		materials.amount = 26
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		if(prob(25))
-			var/which_one = pick(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+			var/which_one = pick(hctypes)
 			new which_one(dismantle_location)
 			visible_message(src, "<span class='danger'>Inside [src] was hiding a headcrab!</span>")
