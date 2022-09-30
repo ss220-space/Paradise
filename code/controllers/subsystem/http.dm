@@ -75,6 +75,7 @@ SUBSYSTEM_DEF(http)
 		log_data += "\tRequest body: [req.body]"
 		log_data += "\tRequest headers: [req.headers]"
 		log_data += "END ASYNC REQUEST (ID: [req.id])"
+		log_data = replacetext_char(log_data, tts_token_silero, "TOKEN")
 
 		// Write the log data
 		WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
