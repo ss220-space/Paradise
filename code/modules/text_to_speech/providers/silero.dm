@@ -19,8 +19,8 @@
 	req_body["symbol_durs"] = list()
 	req_body["format"] = "ogg"
 	req_body["word_ts"] = FALSE
-	var/json_body = json_encode(req_body)
-	log_debug(json_body)
+	// var/json_body = json_encode(req_body)
+	// log_debug(json_body)
 
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, api_url, json_encode(req_body), list("content-type" = "application/json"), proc_callback)
 
