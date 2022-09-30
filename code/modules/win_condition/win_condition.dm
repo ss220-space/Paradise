@@ -1,18 +1,12 @@
 GLOBAL_VAR(win_condition_timer_id)
 GLOBAL_VAR(win_condition_forced_stop)
 
-GLOBAL_VAR_INIT(win_condition_terror_spider, 2) // amount of terror spiders to win
-GLOBAL_LIST_EMPTY(terror_spider_alive_station)
+#define WIN_CONDITION_TIME 15 SECONDS
+#define WIN_ROUND_END_TIME 15 SECONDS
 
 GLOBAL_VAR_INIT(win_condition_blob, 2) // amount of blob structures to win
 GLOBAL_VAR_INIT(blob_structures_station, 0)
 GLOBAL_LIST_EMPTY(blob_cores_station)
-
-GLOBAL_VAR_INIT(win_condition_alien, 2) // amount of aliens to win
-GLOBAL_LIST_EMPTY(alien_alive_station)
-
-#define WIN_CONDITION_TIME 15 SECONDS
-#define WIN_ROUND_END_TIME 15 SECONDS
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
@@ -39,6 +33,9 @@ GLOBAL_LIST_EMPTY(alien_alive_station)
 		if(!length(GLOB.blob_cores_station))
 			resolve_win_condition()
 
+GLOBAL_VAR_INIT(win_condition_terror_spider, 2) // amount of terror spiders to win
+GLOBAL_LIST_EMPTY(terror_spider_alive_station)
+
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
 	if(is_station_level(z))
@@ -61,6 +58,9 @@ GLOBAL_LIST_EMPTY(alien_alive_station)
 		if(!length(GLOB.terror_spider_alive_station))
 			resolve_win_condition()
 
+/* Waiting for aliens to be completed first
+GLOBAL_VAR_INIT(win_condition_alien, 2) // amount of aliens to win
+GLOBAL_LIST_EMPTY(alien_alive_station)
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	if(is_station_level(z))
@@ -82,6 +82,7 @@ GLOBAL_LIST_EMPTY(alien_alive_station)
 		GLOB.alien_alive_station -= src
 		if(!length(GLOB.alien_alive_station))
 			resolve_win_condition()
+*/
 
 /proc/start_win_condition(hostile_name = "hostile environment")
 	if(GLOB.win_condition_timer_id || GLOB.win_condition_forced_stop)
