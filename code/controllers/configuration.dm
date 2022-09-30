@@ -863,11 +863,11 @@
 				if("topic_filtering_whitelist")
 					config.topic_filtering_whitelist = splittext(value, " ")
 
-				if("tts_token")
-					tts_token = value
+				if("tts_token_silero")
+					tts_token_silero = value
 
 				if("tts_enabled")
-					config.tts_enabled = tts_token ? TRUE : FALSE
+					config.tts_enabled = tts_token_silero ? TRUE : FALSE
 
 				if("tts_cache")
 					config.tts_cache = TRUE

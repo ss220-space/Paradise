@@ -280,6 +280,12 @@
 		autohiss_mode = text2num(query.item[52])
 		uplink_pref = query.item[53]
 
+		//TTS
+		if("Kael" in SStts.tts_seeds)
+			tts_seed = SStts.tts_seeds["Kael"]
+		else
+			tts_seed = SStts.tts_seeds["Arthas"]
+
 		saved = TRUE
 
 	qdel(query)

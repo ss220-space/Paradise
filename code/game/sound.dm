@@ -75,7 +75,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
-/proc/playsound_tts(mob/source, list/target_mobs, voice, voice_scrambled, datum/language/language, is_local = TRUE)
+/proc/playsound_tts(mob/source, list/target_mobs, voice, is_local = TRUE)
 	var/turf/turf_source = get_turf(source)
 	var/maxdistance = SOUND_RANGE
 
@@ -94,7 +94,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(!volume)
 			continue
 
-		var/sound/output = sound(voice_scrambled ? (listener.say_understands(null, language) ? voice : voice_scrambled) : voice)
+		var/sound/output = sound(voice)
 
 		listener.playsound_local(turf_source, output, volume, wait = TRUE)
 
