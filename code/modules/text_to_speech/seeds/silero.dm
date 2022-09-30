@@ -120,3 +120,9 @@
 	value = "villagerm"
 	category = TTS_CATEGORY_ANY
 	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/xenia
+	name= "Xenia"
+	value = "xenia"
+	category = TTS_CATEGORY_ANY
+	gender = TTS_GENDER_FEMALE
