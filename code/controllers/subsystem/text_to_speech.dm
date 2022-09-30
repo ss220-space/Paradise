@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds[seed.name] = seed
 	return ..()
 
-/datum/controller/subsystem/tts/proc/get_tts(mob/speaker = null, mob/listener = null, message, datum/tts_seed/seed = /datum/tts_seed)
+/datum/controller/subsystem/tts/proc/get_tts(mob/speaker = null, mob/listener = null, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE)
 	if(!is_enabled)
 		return
 
@@ -51,19 +51,20 @@ SUBSYSTEM_DEF(tts)
 	var/dirty_text = message
 	var/text = sanitize_tts_input(dirty_text)
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
-	var/filename = "sound/tts_cache/[seed.name]/[hash].ogg"
+	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
-	if(fexists(filename))
+	if(fexists("[filename].ogg"))
 		tts_reused++
-		playsound_tts(speaker, listener ? list(listener) : null, filename, TRUE)
+		playsound_tts(speaker, listener ? list(listener) : null, filename, is_local)
+
 		return
 
-	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed)
+	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local)
 	provider.request(text, seed, cb)
 
 	return
 
-/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, datum/http_response/response)
+/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
 
 	// Bail if it errored
@@ -89,12 +90,12 @@ SUBSYSTEM_DEF(tts)
 	if(!voice)
 		return
 
-	rustg_file_write(voice, filename, "true")
+	rustg_file_write(voice, "[filename].ogg", "true")
 
 	if(!config.tts_cache)
-		addtimer(CALLBACK(src, .proc/cleanup_tts_file, filename), 30 SECONDS)
+		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
 
-	playsound_tts(speaker, listener ? list(listener) : null, filename, TRUE)
+	playsound_tts(speaker, listener ? list(listener) : null, filename, is_local)
 
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
 	fdel(filename)
@@ -108,5 +109,5 @@ SUBSYSTEM_DEF(tts)
 /proc/tts_cast(mob/listener, message, datum/tts_seed/seed)
 	SStts.get_tts(null, listener, message, seed)
 
-/proc/tts_broadcast(mob/speaker, message, datum/tts_seed/seed)
-	SStts.get_tts(speaker, null, message, seed)
+/proc/tts_broadcast(mob/speaker, message, datum/tts_seed/seed, is_local = TRUE)
+	SStts.get_tts(speaker, null, message, seed, is_local)

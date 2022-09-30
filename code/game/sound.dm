@@ -75,7 +75,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
-/proc/playsound_tts(mob/source, list/target_mobs, voice, is_local = TRUE)
+/proc/playsound_tts(mob/source, list/target_mobs, filename, is_local = TRUE)
 	var/turf/turf_source = get_turf(source)
 	var/maxdistance = SOUND_RANGE
 
@@ -86,6 +86,14 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if(!LAZYLEN(target_mobs))
 		return
 
+	var/voice = "[filename].ogg"
+	var/suffix = "_radio"
+	var/voice_radio = "[filename][suffix].ogg"
+
+	if(!is_local)
+		if(!fexists(voice_radio))
+			apply_sound_effect_radio(voice, voice_radio)
+
 	for(var/mob/listener as anything in target_mobs)
 		if(!listener.client || listener.stat)
 			continue
@@ -94,7 +102,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(!volume)
 			continue
 
-		var/sound/output = sound(voice)
+		var/sound/output = sound(is_local ? voice : voice_radio)
 
 		listener.playsound_local(turf_source, output, volume, wait = TRUE)
 
