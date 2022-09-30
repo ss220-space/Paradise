@@ -278,7 +278,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	return soundin
 
 /proc/apply_sound_effect_radio(filename_input, filename_output)
-	var/list/output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=400, lowpass=f=6000" [filename_output]"})
+	var/list/output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
