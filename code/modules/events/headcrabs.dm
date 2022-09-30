@@ -91,6 +91,15 @@
 		else
 			GLOB.event_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая трубопроводы и вентиляцию.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
+/*
+
+==================================
+=                                =
+=        CRABMISSILES            =
+=                                =
+==================================
+
+*/
 
 /datum/event/crabmissiles
 	startWhen = 12
@@ -180,24 +189,24 @@
 		mixed = rand(0,1)
 
 	if(headcrab_type == null)
-		headcrab_type = pick(hctypes)
+		headcrab_type = pick(GLOB.hctypes)
 	var/capsule_position = get_turf(capsule)
 
 	while(headcrabs_in_capsule > 0)
 		headcrabs_in_capsule--
 		sleep(60)
 		if(randomized_headcrabs)
-			headcrab_type = pick(hctypes)
+			headcrab_type = pick(GLOB.hctypes)
 			new headcrab_type(capsule_position)
 		else
 			if(!mixed)
 				new headcrab_type(capsule_position)
 			else
-				var/type1 = pick(hctypes)
-				var/type2 = pick(hctypes)
+				var/type1 = pick(GLOB.hctypes)
+				var/type2 = pick(GLOB.hctypes)
 
 				while(type1 == type2)
-					type2 = pick(hctypes)
+					type2 = pick(GLOB.hctypes)
 
 				if(prob(50))
 					new type1(capsule_position)

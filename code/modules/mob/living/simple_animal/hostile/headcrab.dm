@@ -1,5 +1,7 @@
 
-var/global/hctypes = "/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison"
+GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison))
+
+//со временем наверное появятся воскрешающий и бронированный. наверное. если спрайтер еще хочет...
 
 /mob/living/simple_animal/hostile/headcrab
 	name = "headcrab"
@@ -787,6 +789,6 @@ var/global/hctypes = "/mob/living/simple_animal/hostile/headcrab, /mob/living/si
 		materials.amount = 26
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		if(prob(25))
-			var/which_one = pick(hctypes)
+			var/which_one = pick(GLOB.hctypes)
 			new which_one(dismantle_location)
 			visible_message(src, "<span class='danger'>Inside [src] was hiding a headcrab!</span>")
