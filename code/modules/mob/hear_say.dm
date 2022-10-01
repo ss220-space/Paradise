@@ -177,14 +177,16 @@
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE)
-		log_debug("hear_radio(): [message_clean]")
+		if(src != speaker)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE)
+			log_debug("hear_radio(): [message_clean]")
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE)
-		log_debug("hear_radio(): [message_clean]")
+		if(src != speaker)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE)
+			log_debug("hear_radio(): [message_clean]")
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
