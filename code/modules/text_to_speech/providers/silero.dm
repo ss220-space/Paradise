@@ -9,7 +9,7 @@
 	var/list/req_body = list()
 	req_body["api_token"] = tts_token_silero
 	req_body["text"] = ssml_text
-	req_body["sample_rate"] = 48000
+	req_body["sample_rate"] = 24000
 	req_body["ssml"] = TRUE
 	req_body["speaker"] = seed.value
 	req_body["lang"] = "ru"
