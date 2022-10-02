@@ -9,11 +9,13 @@
 #define CHANNEL_SIBYL_SYSTEM 1017 //В данный момент он не используется, но удалять нельзя! -BeebBeebBoob
 #define CHANNEL_GENERAL 1016 //Sound channel for playsound(), most of the sounds
 #define CHANNEL_JUSTICAR_ARK 1015
+#define CHANNEL_TTS_LOCAL 1014
+#define CHANNEL_TTS_RADIO 1013
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1014
+#define CHANNEL_HIGHEST_AVAILABLE 1012
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 

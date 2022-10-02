@@ -99,12 +99,12 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			continue
 
 		var/volume = 100
-		if(!volume)
-			continue
+		var/channel = is_local ? CHANNEL_TTS_LOCAL : CHANNEL_TTS_RADIO
 
 		var/sound/output = sound(is_local ? voice : voice_radio)
+		output.status = SOUND_STREAM
 
-		listener.playsound_local(turf_source, output, volume, wait = TRUE)
+		listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
@@ -113,7 +113,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if(!S)
 		S = sound(get_sfx(soundin))
 
-	S.wait = wait //No queue
+	S.wait = wait
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
 	S.environment = -1
