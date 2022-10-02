@@ -240,7 +240,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		return ..()
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
-	var/turf/T = get_turf(src)
 	add_attack_logs(user, src, "Ignited [amount] amount, using [I]", ATKLOG_FEW)
 	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)] in [amount] amount.", INVESTIGATE_ATMOS)
 	fire_act()

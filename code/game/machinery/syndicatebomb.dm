@@ -258,10 +258,9 @@
 			add_fingerprint(user)
 
 			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
 				investigate_log("[key_name_log(user)] has has primed a [name] ([payload]) for detonation at [AREACOORD(bombturf)]", INVESTIGATE_BOMB)
- 				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
+				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
 
 ///Bomb Subtypes///
