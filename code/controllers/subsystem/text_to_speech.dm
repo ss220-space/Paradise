@@ -42,6 +42,9 @@ SUBSYSTEM_DEF(tts)
 	if(!is_enabled)
 		return
 
+	if(!message)
+		return
+
 	tts_wanted++
 
 	var/datum/tts_provider/provider = seed.provider
