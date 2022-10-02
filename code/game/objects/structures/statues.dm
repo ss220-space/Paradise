@@ -119,8 +119,7 @@
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
-				message_admins("[key_name_admin(P.firer)] ignited a plasma statue with [P.name] at [ADMIN_COORDJMP(loc)]")
-				add_attack_logs(P.firer, src, "Ignited by firing with [P.name]")
+				add_attack_logs(P.firer, src, "Ignited by firing with [P.name]", ATKLOG_FEW)
 				investigate_log("was <span class='warning'>ignited</span> by [key_name_log(P.firer)] with [P.name]",INVESTIGATE_ATMOS)
 			else
 				message_admins("A plasma statue was ignited with [P.name] at [ADMIN_COORDJMP(loc)]. No known firer.")
@@ -130,8 +129,7 @@
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("[key_name_admin(user)] ignited a plasma statue at [ADMIN_COORDJMP(loc)]")
-		add_attack_logs(user, src, "Ignited using [W]")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
 		return
@@ -144,8 +142,7 @@
 	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
 						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
-	message_admins("[key_name_admin(user)] ignited a plasma statue at [ADMIN_COORDJMP(loc)]")
-	add_game_logs("[key_name(user)] ignited plasma a statue at [COORD(loc)]", user)
+	add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
 	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(2500)
 

@@ -94,8 +94,7 @@
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
-		add_attack_logs(user, src, "Ignited using [W]")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
 		return
@@ -107,8 +106,7 @@
 		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
 							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
-		message_admins("Plasma wall ignited by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
-		add_attack_logs(user, src, "Ignited using [I]")
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)

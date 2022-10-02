@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			holder.fakekey = new_key
 			createStealthKey()
 		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
+		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/big_brother()
@@ -840,7 +840,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name_log(T)] the spell [S].")
-	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
+	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].")
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
 	set category = "Event"
@@ -914,7 +914,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	S.forceHijacked = !S.forceHijacked
 	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
 	log_admin("[key_name(usr)] [admin_verb] forced shuttle hijack.")
-	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.", 1)
+	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "[admin_verb] forced shuttle hijack")
 
 /client/proc/deadmin_self()

@@ -55,6 +55,7 @@
 			else if(istext(cause))
 				cause_str = cause
 			else if(isnull(cause))
+				pass()
 			else
 				log_runtime("Bad type of cause for logging explosion.")
 

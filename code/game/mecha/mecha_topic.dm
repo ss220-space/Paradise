@@ -305,7 +305,7 @@
 		var/newname = strip_html_simple(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
 		if(newname && trim(newname))
 			name = newname
-			add_game_logs("[key_name(occupant)] has renamed an exosuit [newname]", occupant)
+			add_misc_logs(occupant, "has renamed an exosuit [newname]")
 		else
 			alert(occupant, "nope.avi")
 		return

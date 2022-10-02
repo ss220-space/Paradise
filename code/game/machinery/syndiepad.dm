@@ -152,7 +152,6 @@
 		if(S == src)
 			continue
 		if(S.id == target_id)
-			investigate_log("self-linked to [S] at ([S.x],[S.y],[S.z]).", INVESTIGATE_TELEPORTATION)
 			linked_pad = S
 			break
 

@@ -235,7 +235,6 @@
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
 	if(active)
 		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
-		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
 		add_game_logs("PA Control Computer turned ON by [key_name(usr)] in [COORD(src)]")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
 	if(active)

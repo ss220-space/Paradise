@@ -13,8 +13,7 @@
 		atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5)
 		user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
 							"<span class='warning'>You set the plasma tiles on fire!</span>")
-		message_admins("Plasma tiles ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(src)]")
-		add_attack_logs(user, src, "Ignited [amount] of [src] using [I]")
+		add_attack_logs(user, src, "Ignited [amount], using [I]", ATKLOG_FEW)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)] in [amount] amount.", INVESTIGATE_ATMOS)
 		qdel(src)
 

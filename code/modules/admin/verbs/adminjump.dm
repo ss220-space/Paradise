@@ -76,7 +76,7 @@
 		O.force_eject_occupant(usr)
 	log_admin("[key_name(usr)] jumped to [COORD(T)] in [T.loc]")
 	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]", 1)
+		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]")
 	admin_forcemove(usr, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
@@ -89,7 +89,7 @@
 
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
 	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]")
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
 		O.force_eject_occupant(usr)
@@ -125,7 +125,7 @@
 	var/mob/M = C.mob
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
 	if(!isobserver(usr))
-		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]")
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
 		O.force_eject_occupant(usr)
@@ -142,7 +142,7 @@
 		return
 
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]", 1)
+	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]")
 
 	if(isobj(M.loc))
 		var/obj/O = M.loc
@@ -169,7 +169,7 @@
 	if(!M)
 		return
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name(M)]", 1)
+	message_admins("[key_name_admin(usr)] teleported [key_name(M)]")
 	if(M)
 		if(isobj(M.loc))
 			var/obj/O = M.loc
@@ -195,7 +195,7 @@
 	admin_forcemove(M, pick(get_area_turfs(A)))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")
-	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]", 1)
+	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]")
 
 /proc/admin_forcemove(mob/mover, atom/newloc)
 	mover.forceMove(newloc)

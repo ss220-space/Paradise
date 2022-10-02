@@ -261,8 +261,7 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
-		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_COORDJMP(user)]")
-		add_attack_logs(user, src, "Ignited using [W]")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
 	else

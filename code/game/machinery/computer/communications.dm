@@ -431,7 +431,7 @@
 
 	SSshuttle.requestEvac(user, reason)
 	add_game_logs("[key_name_log(user)] has called the shuttle: [reason]", user)
-	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
+	message_admins("[key_name_admin(user)] has called the shuttle.")
 
 	return
 
@@ -462,7 +462,7 @@
 		SSshuttle.emergency.canRecall = FALSE
 	if(user)
 		add_game_logs("[key_name_log(user)] has called the shuttle.", user)
-		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
+		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].")
 	return
 
 
@@ -472,11 +472,11 @@
 
 	if(SSshuttle.cancelEvac(user))
 		add_game_logs("[key_name_log(user)] has recalled the shuttle.", user)
-		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
+		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle .")
 	else
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
 		add_game_logs("[key_name_log(user)] has tried and failed to recall the shuttle.", user)
-		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
+		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
 
 /proc/post_status(command, data1, data2, mob/user = null)
 

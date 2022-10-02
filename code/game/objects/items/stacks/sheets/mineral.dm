@@ -241,10 +241,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
-	message_admins("Plasma sheets ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(T)]")
-	add_attack_logs(user, src, "Ignited [amount] of [src] using [I]")
+	add_attack_logs(user, src, "Ignited [amount] amount, using [I]", ATKLOG_FEW)
 	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)] in [amount] amount.", INVESTIGATE_ATMOS)
-	add_misc_logs(user, "Plasma sheets ignited using [I]", src)
 	fire_act()
 
 /obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
