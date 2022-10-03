@@ -522,18 +522,24 @@ emp_act
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
-					var/obj/item/organ/external/L = pick(bodyparts)
-					L.embedded_objects |= I
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					I.forceMove(src)
-					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					embed_item_inside(I)
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
 	if(!blocked)
 		dna.species.spec_hitby(AM, src)
 	return ..()
+
+/mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
+	if(ismob(I.loc))
+		var/mob/M = I.loc
+		M.remove_from_mob(I)
+	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+	var/obj/item/organ/external/L = pick(bodyparts)
+	L.embedded_objects |= I
+	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+	I.forceMove(src)
+	L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
+	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
@@ -632,8 +638,8 @@ emp_act
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 25)
-		if(M.is_adult)
-			damage = rand(10, 35)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(10 + M.age_state.damage, 35 + M.age_state.damage)
 
 		if(check_shields(M, damage, "the [M.name]"))
 			return FALSE
