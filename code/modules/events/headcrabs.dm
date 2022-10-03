@@ -102,9 +102,9 @@
 */
 
 /datum/event/crabmissiles
-	startWhen = 12
-	announceWhen = 2
-	endWhen = 36
+	startWhen = 14
+	announceWhen = 4
+	endWhen = 40
 	var/locstring
 	var/how_many_capsules
 
@@ -143,17 +143,19 @@
 	for(var/area/crew_quarters/bar/atrium/A7 in world)
 		availableareas += A7
 
-	var/area/randomarea = pick(availableareas)
-	var/list/turf/simulated/floor/turfs = list()
-	for(var/turf/simulated/floor/thefloor in randomarea)
-		if(turf_clear(thefloor))
-			turfs += thefloor
-
-	while(length(turfs) > 0 && how_many_capsules > 0)
-		sleep(rand(0,4)) // не, я пожалуй откажусь от таймера.
+	while(how_many_capsules > 0)
+		sleep(rand(0,10)) // не, я пожалуй откажусь от таймера.
 		how_many_capsules--
+
+		var/area/randomarea = pick(availableareas)
+		var/list/turf/simulated/floor/turfs = list()
+
+		for(var/turf/simulated/floor/thefloor in randomarea)
+			if(turf_clear(thefloor))
+				turfs += thefloor
+
 		var/turf/simulated/floor/where_capsule = pick(turfs)
-		explosion(where_capsule, 0, 0,4,2) // поидее тряска камеры и стан близлежащих карбонов.
+		explosion(where_capsule, 0, 0,1,1) // поидее тряска камеры и стан близлежащих карбонов.
 
 		var/frequency = get_rand_frequency()
 		var/sound/explosion_sound = sound(get_sfx("explosion"))
@@ -220,44 +222,13 @@
 
 	step(headcrab_type, pick(NORTH, SOUTH, EAST, WEST))
 
-	sleep(100)
-
-	for(var/turf/simulated/floor/nest_probably_position in range(capsule_position, 4))
-		nest_probably_position -= capsule_position
-		var/turf/simulated/floor/nest_position = pick(nest_probably_position) //почему не спавнится? (по моей идее где-то на расстоянии 4 тайлов от капсулы (кроме самого турфа капсулы) спавнится гнездо. где?
-		new /obj/structure/spawner/headcrab(nest_position)
-
 /datum/event/crabmissiles/end()
 
-	var/list/availableareas = list()
-
-	for(var/area/security/A in world)
-		availableareas += A
-		availableareas -= /area/security/checkpoint
-
-	for(var/area/bridge/A2 in world)
-		availableareas += A2
-		availableareas -= /area/bridge/checkpoint
-
-	for(var/area/quartermaster/A3 in world)
-		availableareas += A3
-
-	for(var/area/medical/A4 in world)
-		availableareas += A4
-
-	for(var/area/engine/A5 in world)
-		availableareas += A5
-		availableareas -= /area/engine/mechanic_workshop
-
-	for(var/area/hallway/primary/A6 in world)
-		availableareas += A6
-
-	for(var/area/crew_quarters/bar/atrium/A7 in world)
-		availableareas += A7
-
 	var/list/capsules = list()
-	for(var/obj/structure/crabmissile/thecapsules in availableareas)
-		capsules += thecapsules
+	for(var/obj/structure/crabmissile/thecapsules in world)
+		var/turf/T = get_turf(thecapsules)
+		if(is_station_level(T.z))
+			capsules += thecapsules
 	var/obj/structure/crabmissile/thecapsule = pick(capsules)
 	notify_ghosts("Появились хедкрабы", source = thecapsule, action = NOTIFY_ATTACK, flashwindow = FALSE)
 

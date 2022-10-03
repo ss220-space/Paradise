@@ -133,6 +133,8 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
 
+	src.heal_overall_damage(0.1)
+
 	if(is_gonarch)
 		return
 
@@ -250,49 +252,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	vent_cooldown += 40
-
-/mob/living/simple_animal/hostile/headcrab/death(gibbed)
-	. = ..()
-
-	if(prob(65 && is_zombie))
-		return
-
-	var/turf/death_loc = get_turf(src)
-
-	var/mob/living/simple_animal/hostile/headcrab/headcrabb = new src(death_loc) //уподобление оригиналу, этот вид хедкраба должен быть убит вне тела.
-
-	headcrabb.revive_cooldown += 40
-	headcrabb.vent_cooldown = 0
-
-/mob/living/simple_animal/hostile/headcrab/AttackingTarget()
-
-	..()
-
-	var/mob/living/carbon/body = target
-
-	if(body.stat != DEAD)
-		vent_cooldown += 20
-
-	if(src.health < src.maxHealth && iscarbon(body) & body.stat == DEAD)
-		to_chat(src, "You start to eating body...")
-		src.visible_message("<span class='danger'><b>[src]</b> started to eating <b>[target]</b>!</span>")
-		if(is_zombie || is_gonarch)
-			if(do_after(src, 80, target = body, progress=TRUE))
-				if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
-					var/gained_health = rand(5,30)
-					//body.adjustBruteLoss(rand(5,30))
-					to_chat(src, "You finished to eating body. You restored [gained_health] health!")
-					src.heal_overall_damage(gained_health, gained_health)
-					to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
-		else
-			if(istype(body, /mob/living/simple_animal/))
-				if(do_after(src, 40, target = body, progress=TRUE))
-					if(body.get_damage_amount(BRUTE) + body.get_damage_amount(BURN) <= 155)
-						var/gained_health = rand(5,10)
-						//body.adjustBruteLoss(rand(1,10))
-						to_chat(src, "You finished to eating body. You restored [gained_health] health!")
-						src.heal_overall_damage(gained_health, gained_health)
-						to_chat(src, "<span class='danger'>Body is too damaged to eat something.</span>")
 
 /mob/living/simple_animal/hostile/headcrab/New()
 
@@ -684,7 +643,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		victim.adjustFireLoss(12)
 		victim.adjustStaminaLoss(12.5) //stuncrab
 	else
-		target.reagents.add_reagent("teslium", 6)
+		target.reagents.add_reagent("teslium", 4)
 
 /mob/living/simple_animal/hostile/headcrab/reviver/update_icons()
 	. = ..()
