@@ -104,7 +104,7 @@
 /datum/event/crabmissiles
 	startWhen = 12
 	announceWhen = 2
-	endWhen = 40
+	endWhen = 36
 	var/locstring
 	var/how_many_capsules
 
@@ -139,6 +139,9 @@
 
 	for(var/area/hallway/primary/A6 in world)
 		availableareas += A6
+
+	for(var/area/crew_quarters/bar/atrium/A7 in world)
+		availableareas += A7
 
 	var/area/randomarea = pick(availableareas)
 	var/list/turf/simulated/floor/turfs = list()
@@ -249,6 +252,9 @@
 	for(var/area/hallway/primary/A6 in world)
 		availableareas += A6
 
+	for(var/area/crew_quarters/bar/atrium/A7 in world)
+		availableareas += A7
+
 	var/list/capsules = list()
 	for(var/obj/structure/crabmissile/thecapsules in availableareas)
 		capsules += thecapsules
@@ -256,12 +262,12 @@
 	notify_ghosts("Появились хедкрабы", source = thecapsule, action = NOTIFY_ATTACK, flashwindow = FALSE)
 
 /datum/event/crabmissiles/announce()
-	if(prob(85))
+	if(prob(76))
 		var/phalanx_report = "Внимание, [station_name()]. Было зафиксировано приближение к вам нескольких капсул, содержащих многочисленное количество паразитов 'Хедкрабы'. Слава НаноТрейзен!"
 		GLOB.event_announcement.Announce(phalanx_report, "Отчет от ОСН 'Фаланга'", 'sound/AI/commandreport.ogg') //йуху, ивент, прошедший на веге. Военный Инженер...
-	else if(prob(45))
+	else if(prob(30))
 		var/syndie_message
-		if(prob(60))
+		if(prob(40))
 			syndie_message = "Эй, [station_name()], мы из НИС 'Кобра', прислали к вам парочку подарочков, удачи разгребать последствия после них!" //Тайпан назван в честь змеи. Хиасса Галао (Со) унати. Почему бы не сделать отсылочку на ее капюшон? (йуху, вега, Вердж Галао)
 		else
 			syndie_message = "Ой. Мы случайно отправили к вам несколько капсул с хедкрабами. Ну, объект хотя бы не наш. Да, [station_name()]?"

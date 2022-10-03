@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	var/revive_cooldown = 0
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/vent_cooldown = 6
+	var/vent_cooldown = 20
 	var/building = FALSE
 	var/hiding = FALSE
 	var/gonome = FALSE
@@ -250,6 +250,19 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	vent_cooldown += 40
+
+/mob/living/simple_animal/hostile/headcrab/death(gibbed)
+	. = ..()
+
+	if(prob(65 && is_zombie))
+		return
+
+	var/turf/death_loc = get_turf(src)
+
+	var/mob/living/simple_animal/hostile/headcrab/headcrabb = new src(death_loc) //уподобление оригиналу, этот вид хедкраба должен быть убит вне тела.
+
+	headcrabb.revive_cooldown += 40
+	headcrabb.vent_cooldown = 0
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
 
@@ -694,7 +707,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	H.set_heartattack(FALSE) //уподобление оригиналу, что-то вроде оживления.
 	src.revive_cooldown += 15
 
-/mob/living/simple_animal/hostile/headcrab/reviver/Destroy()
+/mob/living/simple_animal/hostile/headcrab/reviver/death(gibbed)
 	. = ..()
 
 	var/turf/death_loc = get_turf(src)
