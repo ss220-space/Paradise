@@ -6,7 +6,14 @@
 #define SHELLEO_NAME "data/shelleo."
 #define SHELLEO_ERR ".err"
 #define SHELLEO_OUT ".out"
+
 /world/proc/shelleo(command)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
+		return
+
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""
 	var/stderr = ""
@@ -42,6 +49,7 @@
 	else
 		CRASH("Operating System: [world.system_type] not supported") // If you encounter this error, you are encouraged to update this proc with support for the new operating system
 	. = list(errorcode, stdout, stderr)
+
 #undef SHELLEO_NAME
 #undef SHELLEO_ERR
 #undef SHELLEO_OUT
