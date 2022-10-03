@@ -57,7 +57,7 @@
 	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
 	strip_delay = 130
-	slowdown = 0
+	slowdown = 1
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
@@ -290,6 +290,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	taser_proof = TRUE
 	strip_delay = 130
-	slowdown = 0
+	slowdown = 1
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
