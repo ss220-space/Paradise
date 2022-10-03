@@ -9,6 +9,8 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 3
+	var/force_enabled = 15
+	var/force_disabled = 3
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -78,7 +80,7 @@
 	if(tool_enabled)
 		START_PROCESSING(SSobj, src)
 		damtype = BURN
-		force = 15
+		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
@@ -86,7 +88,7 @@
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
-		force = 3
+		force = force_disabled
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
@@ -239,3 +241,4 @@
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	force_enabled = 10
