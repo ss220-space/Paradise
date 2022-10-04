@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(tts)
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
 	. = message
 	. = trim_strip_html_properly(.)
-	. = replace_characters(., tts_replacement_list)
+	. = replace_characters(., tts_replacement_list, TRUE)
 	. = rustg_latin_to_cyrillic(.)
 
 /proc/tts_cast(mob/speaker, mob/listener, message, datum/tts_seed/seed, is_local = TRUE, effect = SOUND_EFFECT_NONE)
