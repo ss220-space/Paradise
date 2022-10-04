@@ -237,9 +237,12 @@
  * Text modification
  */
 // See bygex.dm
-/proc/replace_characters(var/t,var/list/repl_chars)
+/proc/replace_characters(var/t,var/list/repl_chars, case_sensitive = FALSE)
 	for(var/char in repl_chars)
-		t = replacetext_char(t, char, repl_chars[char])
+		if(case_sensitive)
+			t = replacetextEx_char(t, char, repl_chars[char])
+		else
+			t = replacetext_char(t, char, repl_chars[char])
 	return t
 
 //Strips the first char and returns it and the new string as a list
