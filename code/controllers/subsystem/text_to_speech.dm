@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
-	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_DEFAULT
+	wait = 1 SECONDS
 
 	var/tts_wanted = 0
 	var/tts_request_failed = 0
@@ -9,6 +9,18 @@ SUBSYSTEM_DEF(tts)
 	var/tts_reused = 0
 	var/list/tts_errors = list()
 	var/tts_error_raw = ""
+
+	// RPS - Requests per Second, only real API requests
+	var/tts_rps = 0
+	var/tts_rps_counter = 0
+
+	// TRPS - Total Request per Second, all TTS request, even reused
+	var/tts_trps = 0
+	var/tts_trps_counter = 0
+
+	// RRPS - Reused Request per Second, only reused requests
+	var/tts_rrps = 0
+	var/tts_rrps_counter = 0
 
 	var/is_enabled = TRUE
 
@@ -29,6 +41,9 @@ SUBSYSTEM_DEF(tts)
 	var/list/tts_local_channels_by_owner = list()
 
 /datum/controller/subsystem/tts/stat_entry(msg)
+	msg += "TRPS:[tts_trps] "
+	msg += "RRPS:[tts_rrps] | "
+	msg += "RPS:[tts_rps] "
 	msg += "W:[tts_wanted] "
 	msg += "F:[tts_request_failed] "
 	msg += "S:[tts_request_succeeded] "
@@ -41,6 +56,14 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds[seed.name] = seed
 	return ..()
 
+/datum/controller/subsystem/tts/fire()
+	tts_rps = tts_rps_counter
+	tts_rps_counter = 0
+	tts_trps = tts_trps_counter
+	tts_trps_counter = 0
+	tts_rrps = tts_rrps_counter
+	tts_rrps_counter = 0
+
 /datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE, effect = SOUND_EFFECT_NONE)
 	if(isnull(listener) || !listener.client || listener.stat)
 		return
@@ -52,6 +75,7 @@ SUBSYSTEM_DEF(tts)
 		return
 
 	tts_wanted++
+	tts_trps_counter++
 
 	var/datum/tts_provider/provider = seed.provider
 	if(!provider.is_enabled)
@@ -64,11 +88,13 @@ SUBSYSTEM_DEF(tts)
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
+		tts_rrps_counter++
 		play_tts(speaker, listener, filename, is_local, effect)
 		return
 
 	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect)
 	provider.request(text, seed, cb)
+	tts_rps_counter++
 
 /datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
