@@ -3,6 +3,9 @@
 	is_enabled = TRUE
 
 /datum/tts_provider/silero/request(text, datum/tts_seed/silero/seed, datum/callback/proc_callback)
+	if(throttle_check())
+		return FALSE
+
 	var/api_url = "https://api-tts.silero.ai/voice"
 	var/ssml_text = {"<speak><prosody rate="fast">[text]</prosody></speak>"}
 
@@ -29,6 +32,10 @@
 /datum/tts_provider/silero/process_response(datum/http_response/response)
 	var/data = json_decode(response.body)
 	// log_debug(response.body)
+
+	if(data["timings"]["003_tts_time"] > 3)
+		is_throttled = TRUE
+		throttled_until = world.time + 15 SECONDS
 
 	return data["results"][1]["audio"]
 

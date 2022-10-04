@@ -80,6 +80,8 @@ SUBSYSTEM_DEF(tts)
 	var/datum/tts_provider/provider = seed.provider
 	if(!provider.is_enabled)
 		return
+	if(provider.throttle_check())
+		return
 
 	var/dirty_text = message
 	var/text = sanitize_tts_input(dirty_text)
