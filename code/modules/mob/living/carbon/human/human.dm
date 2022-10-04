@@ -142,21 +142,6 @@
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
-/mob/living/carbon/human/monkey/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey)
-
-/mob/living/carbon/human/farwa/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/tajaran)
-
-/mob/living/carbon/human/wolpin/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/vulpkanin)
-
-/mob/living/carbon/human/neara/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/skrell)
-
-/mob/living/carbon/human/stok/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/unathi)
-
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")
@@ -192,6 +177,8 @@
 			if(mind.vampire)
 				stat("Всего крови", "[mind.vampire.bloodtotal]")
 				stat("Доступная кровь", "[mind.vampire.bloodusable]")
+			if(isclocker(mind.current))
+				stat("Total Power", "[GLOB.clockwork_power]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc

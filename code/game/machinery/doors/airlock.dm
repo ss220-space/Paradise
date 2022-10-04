@@ -635,6 +635,13 @@ About the new airlock wires panel:
 	data["wires"] = wire
 	return data
 
+/obj/machinery/door/airlock/ui_status(mob/user, datum/ui_state/state)
+	if((aiControlDisabled == AICONTROLDISABLED_ON) && (isAI(user) || isrobot(user)))
+		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		if(!canAIControl() && canAIHack())
+			hack(user)
+		return STATUS_CLOSE
+	. = ..()
 
 /obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0
@@ -646,9 +653,9 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking=0
+			aiHacking = FALSE
 			return
 		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
 		sleep(20)
@@ -658,7 +665,7 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
 			aiHacking = FALSE
 			return
@@ -668,7 +675,7 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
 			aiHacking = FALSE
 			return
@@ -784,7 +791,7 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
-		if(canAIHack(user))
+		if(canAIHack())
 			hack(user)
 		else
 			if(isAllPowerLoss())
@@ -1483,6 +1490,18 @@ About the new airlock wires panel:
 	A.stealth_opacity = opacity
 	A.stealth_glass = glass
 	A.stealth_airlock_material = airlock_material
+	qdel(src)
+
+/obj/machinery/door/airlock/ratvar_act(weak = FALSE)
+	var/obj/machinery/door/airlock/clockwork/A
+	if(weak)
+		A = new/obj/machinery/door/airlock/clockwork/weak(get_turf(src))
+	else
+		if(glass)
+			A = new/obj/machinery/door/airlock/clockwork/glass(get_turf(src))
+		else
+			A = new/obj/machinery/door/airlock/clockwork(get_turf(src))
+	A.name = name
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/ai_control_callback()

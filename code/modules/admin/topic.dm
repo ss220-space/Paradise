@@ -59,18 +59,22 @@
 				if(!makeCult())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("5")
+				log_admin("[key_name(usr)] has spawned a clockers.")
+				if(!makeClockwork())
+					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+			if("6")
 				log_admin("[key_name(usr)] has spawned a wizard.")
 				if(!makeWizard())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-			if("6")
+			if("7")
 				log_admin("[key_name(usr)] has spawned vampires.")
 				if(!makeVampires())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-			if("7")
+			if("8")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!makeVoxRaiders())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-			if("8")
+			if("9")
 				log_admin("[key_name(usr)] has spawned an abductor team.")
 				if(!makeAbductorTeam())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
@@ -418,7 +422,7 @@
 				if(posttransformoutfit && istype(newmob))
 					newmob.equipOutfit(posttransformoutfit)
 			if("slime")				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1 )
-			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1 )
+			if("monkey")			M.change_mob_type( /mob/living/carbon/human/lesser/monkey , null, null, delmob, 1 )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1 )
 			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1 )
@@ -1959,6 +1963,71 @@
 		gamemode.cult_objs.ready_to_summon()
 		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
+
+	else if(href_list["clock_mindspeak"])
+		var/input = stripped_input(usr, "Communicate to all the clockers with the voice of Ratvar", "Voice of Ratvar")
+		if(!input)
+			return
+
+		for(var/datum/mind/H in SSticker.mode.clockwork_cult)
+			if(H.current)
+				to_chat(H.current, "<span class='clock'>Ratvar murmurs,</span> <span class='clocklarge'>\"[input]\"</span>")
+
+		for(var/mob/dead/observer/O in GLOB.player_list)
+			to_chat(O, "<span class='clock'>Ratvar murmurs,</span> <span class='clocklarge'>\"[input]\"</span>")
+
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of Ratvar.")
+		log_admin("[key_name(usr)] Voice of Ratvar: [input]")
+
+	else if(href_list["clock_adjustpower"])
+		var/amount = input("Adjust the amount of power required before summoning Ratvar", "Power Adjustment", 50000) as null | num
+		if(amount > 0)
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.clocker_objs.power_goal
+			gamemode.clocker_objs.power_goal = amount
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of clock cult power required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult power required before summoning from [old] to [amount]")
+
+	else if(href_list["clock_adjustbeacon"])
+		var/amount = input("Adjust the amount of beacon required before summoning Ratvar", "Beacon Adjustment", 10) as null | num
+		if(amount > 0)
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.clocker_objs.beacon_goal
+			gamemode.clocker_objs.beacon_goal = amount
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of clock cult beacon required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult beacon required before summoning from [old] to [amount]")
+
+	else if(href_list["clock_adjustclocker"])
+		var/amount = input("Adjust the amount of clockers required before summoning Ratvar", "Clockers Adjustment", 10) as null | num
+		if(amount > 0)
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.clocker_objs.clocker_goal
+			gamemode.clocker_objs.clocker_goal = amount
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of clock cult clocker required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult clocker required before summoning from [old] to [amount]")
+
+	else if(href_list["clock_newsummonlocations"])
+		if(alert(usr, "Reroll the Clock cult's summoning locations?", "Clock Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.clocker_objs.obj_summon.find_summon_locations(TRUE)
+		if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+			for(var/datum/mind/clock_mind in gamemode.clockwork_cult)
+				if(clock_mind && clock_mind.current)
+					to_chat(clock_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
+					to_chat(clock_mind.current, "<span class='cult'>Current goal : [gamemode.clocker_objs.obj_summon.explanation_text]</span>")
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Clock Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Clock Cult's sacrifice target.")
+
+	else if(href_list["clock_unlockratvar"])
+		if(alert(usr, "Unlock the ability to summon Ratvar?", "Clock Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		SSticker.mode.clocker_objs.ratvar_is_ready()
+		message_admins("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
+		log_admin("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
