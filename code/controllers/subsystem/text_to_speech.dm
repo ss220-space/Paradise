@@ -27,7 +27,6 @@ SUBSYSTEM_DEF(tts)
 	var/list/tts_seeds = list()
 
 	var/list/tts_local_channels_by_owner = list()
-	// var/list/tts_radio_channels_by_owner = list()
 
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "W:[tts_wanted] "
