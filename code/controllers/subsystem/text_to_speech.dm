@@ -142,14 +142,11 @@ SUBSYSTEM_DEF(tts)
 		else
 			CRASH("Invalid sound effect chosen.")
 
-	var/volume
-	var/channel
+	var/volume = 100
+	var/channel = CHANNEL_TTS_RADIO
 	if(is_local)
 		volume = 100 * listener.client.prefs.get_channel_volume(CHANNEL_TTS_LOCAL)
 		channel = get_local_channel_by_owner(speaker)
-	else
-		volume = 100
-		channel = CHANNEL_TTS_RADIO
 
 	var/sound/output = sound(voice)
 	output.status = SOUND_STREAM
