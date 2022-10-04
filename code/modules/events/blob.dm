@@ -25,7 +25,8 @@
 	if(!length(vents))
 		return
 
-	for(var/i in 1 to round((length(candidates) / for_players)))
+	var/num_blobs = round((length(candidates) / for_players)) + 1
+	for(var/i in 1 to num_blobs)
 		var/obj/vent = pick(vents)
 		var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
 		var/mob/M = pick(candidates)
