@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(tts)
 	var/list/tts_seeds = list()
 
 	var/list/tts_local_channels_by_owner = list()
+	// var/list/tts_radio_channels_by_owner = list()
 
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "W:[tts_wanted] "
@@ -41,10 +42,13 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds[seed.name] = seed
 	return ..()
 
-/datum/controller/subsystem/tts/proc/get_tts(mob/speaker = null, mob/listener = null, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE)
+/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE, effect = SOUND_EFFECT_NONE)
+	if(isnull(listener) || !listener.client || listener.stat)
+		return
+	if(isnull(speaker))
+		return
 	if(!is_enabled)
 		return
-
 	if(!message)
 		return
 
@@ -61,16 +65,16 @@ SUBSYSTEM_DEF(tts)
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
-		playsound_tts(speaker, listener ? list(listener) : null, filename, is_local)
+		play_tts(speaker, listener, filename, is_local, effect)
 
 		return
 
-	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local)
+	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect)
 	provider.request(text, seed, cb)
 
 	return
 
-/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, datum/http_response/response)
+/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
 
 	// Bail if it errored
@@ -101,6 +105,56 @@ SUBSYSTEM_DEF(tts)
 	if(!config.tts_cache)
 		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
 
+	play_tts(speaker, listener, filename, is_local, effect)
+
+/datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE)
+	if(isnull(listener) || !listener.client || listener.stat)
+		return
+	if(isnull(speaker))
+		return
+
+	var/turf/turf_source = get_turf(speaker)
+
+	var/voice
+	switch(effect)
+		if(SOUND_EFFECT_NONE)
+			voice = "[filename].ogg"
+		if(SOUND_EFFECT_RADIO)
+			voice = "[filename]_radio.ogg"
+			if(!fexists(voice))
+				apply_sound_effect(effect, "[filename].ogg", voice)
+		if(SOUND_EFFECT_ROBOT)
+			voice = "[filename]_robot.ogg"
+			if(!fexists(voice))
+				apply_sound_effect(effect, "[filename].ogg", voice)
+		if(SOUND_EFFECT_RADIO_ROBOT)
+			voice = "[filename]_radio_robot.ogg"
+			if(!fexists(voice))
+				apply_sound_effect(effect, "[filename].ogg", voice)
+		if(SOUND_EFFECT_MEGAPHONE)
+			voice = "[filename]_megaphone.ogg"
+			if(!fexists(voice))
+				apply_sound_effect(effect, "[filename].ogg", voice)
+		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
+			voice = "[filename]_megaphone_robot.ogg"
+			if(!fexists(voice))
+				apply_sound_effect(effect, "[filename].ogg", voice)
+		else
+			CRASH("Invalid sound effect chosen.")
+
+	var/volume
+	var/channel
+	if(is_local)
+		volume = 100 * listener.client.prefs.get_channel_volume(CHANNEL_TTS_LOCAL)
+		channel = get_local_channel_by_owner(speaker)
+	else
+		volume = 100
+		channel = CHANNEL_TTS_RADIO
+
+	var/sound/output = sound(voice)
+	output.status = SOUND_STREAM
+
+	listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
 
 /datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
 	if(!ismob(owner))
@@ -121,8 +175,5 @@ SUBSYSTEM_DEF(tts)
 	. = replace_characters(., tts_replacement_list)
 	. = rustg_latin_to_cyrillic(.)
 
-/proc/tts_cast(mob/listener, message, datum/tts_seed/seed)
-	SStts.get_tts(null, listener, message, seed)
-
-/proc/tts_broadcast(mob/speaker, message, datum/tts_seed/seed, is_local = TRUE)
-	SStts.get_tts(speaker, null, message, seed, is_local)
+/proc/tts_cast(mob/speaker, mob/listener, message, datum/tts_seed/seed, is_local = TRUE, effect = SOUND_EFFECT_NONE)
+	SStts.get_tts(speaker, listener, message, seed, is_local, effect)

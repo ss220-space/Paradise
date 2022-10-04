@@ -117,7 +117,10 @@
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
 			create_chat_message(speaker.runechat_msg_location, message_clean,FALSE, italics)
 
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, speaker, message_clean, speaker.client?.prefs?.tts_seed, TRUE)
+		var/effect = SOUND_EFFECT_NONE
+		if(isrobot(speaker))
+			effect = SOUND_EFFECT_ROBOT
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, TRUE, effect)
 		log_debug("hear_say(): [message_clean]")
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
@@ -178,14 +181,20 @@
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
 		if(src != speaker)
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE)
+			var/effect = SOUND_EFFECT_RADIO
+			if(isrobot(speaker))
+				effect = SOUND_EFFECT_RADIO_ROBOT
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE, effect)
 			log_debug("hear_radio(): [message_clean]")
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
 		if(src != speaker)
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_broadcast, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE)
+			var/effect = SOUND_EFFECT_RADIO
+			if(isrobot(speaker))
+				effect = SOUND_EFFECT_RADIO_ROBOT
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE, effect)
 			log_debug("hear_radio(): [message_clean]")
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
@@ -242,6 +251,12 @@
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed, TRUE, FALSE)
+
+	var/effect = SOUND_EFFECT_RADIO
+	if(isrobot(speaker))
+		effect = SOUND_EFFECT_RADIO_ROBOT
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_unverbed, speaker.client?.prefs?.tts_seed, TRUE, effect)
+	log_debug("hear_holopad_talk(): [message]")
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)

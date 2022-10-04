@@ -103,8 +103,12 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 /datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers)
 	for(var/mob/M in receivers)
 		to_chat(M, message)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, M, M, message, SStts.tts_seeds["Xenia"], FALSE, SOUND_EFFECT_NONE)
+		log_debug("announcement.Message: [message]")
 	for(var/mob/M in garbled_receivers)
 		to_chat(M, garbled_message)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, M, M, garbled_message, SStts.tts_seeds["Xenia"], FALSE, SOUND_EFFECT_NONE)
+		log_debug("announcement.Message: [garbled_message]")
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
