@@ -9,6 +9,8 @@
 
 /obj/item/clothing/under/syndicate/combat
 	name = "combat turtleneck"
+	desc = "A worn-out and slightly suspicious-looking special forces turtleneck with digital camouflage cargo pants. Born to kill."
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 20,"energy" = 20, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 40)
 
 /obj/item/clothing/under/syndicate/tacticool
 	name = "tacticool turtleneck"
