@@ -10,7 +10,6 @@
 	slot_flags = SLOT_BELT
 	force = 3
 	var/force_enabled = 15
-	var/force_disabled = 3
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -88,7 +87,7 @@
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
-		force = force_disabled
+		force = initial(force)
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
