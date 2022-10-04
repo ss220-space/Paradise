@@ -318,6 +318,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/ab_stimulant/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
 	to_chat(M, "<span class='warning'>Ваша кожа лопается!</span>")
 	M.adjustBruteLoss(4)
 	M.adjustFireLoss(-6)
