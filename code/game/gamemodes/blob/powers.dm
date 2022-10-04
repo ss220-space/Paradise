@@ -219,34 +219,37 @@
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
 		to_chat(src, "You must be on a blob!")
-		return
+		return FALSE
 
 	if(!istype(B, /obj/structure/blob/factory))
 		to_chat(src, "Unable to use this blob, find a factory blob.")
-		return
+		return FALSE
 
 	if(!can_buy(60))
-		return
+		return FALSE
 
-	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
-	if(blobber)
-		qdel(B)
-	blobber.color = blob_reagent_datum.complementary_color
-	blobber.overmind = src
-	blob_mobs.Add(blobber)
-	blobber.AIStatus = AI_OFF
-	blobber.LoseTarget()
+	var/mob/C
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
-		if(candidates.len)
-			var/mob/C = pick(candidates)
-			if(C)
-				blobber.key = C.key
-				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
-				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
-		if(!blobber.ckey)
-			blobber.AIStatus = AI_ON
-	return
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = /mob/living/simple_animal/hostile/blob/blobbernaut)
+		if(length(candidates))
+			C = pick(candidates)
+
+		if(!C)
+			add_points(60)
+
+		if(B)	//Если фабрика цела и её не разрушили во время голосования
+			var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
+			qdel(B)
+			blobber.key = C.key
+			to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
+			to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
+
+			blobber.color = blob_reagent_datum.complementary_color
+			blobber.overmind = src
+			blob_mobs.Add(blobber)
+			blobber.AIStatus = AI_OFF
+			blobber.LoseTarget()
+	return TRUE
 
 
 /mob/camera/blob/verb/relocate_core()
