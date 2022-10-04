@@ -277,14 +277,36 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 					CRASH("No sound file were found for \'[soundin]\' input!")
 	return soundin
 
-/proc/apply_sound_effect_radio(filename_input, filename_output)
-	var/list/output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+/proc/apply_sound_effect(effect, filename_input, filename_output)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>apply_sound_effect blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to call apply_sound_effect via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to call apply_sound_effect via advanced proc-call")
+		return
+
+	if(!effect)
+		CRASH("Invalid sound effect chosen.")
+
+	var/list/output
+	switch(effect)
+		if(SOUND_EFFECT_RADIO)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+		if(SOUND_EFFECT_ROBOT)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, volume=volume=1.5" [filename_output]"})
+		if(SOUND_EFFECT_RADIO_ROBOT)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, volume=volume=1.5, highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MEGAPHONE)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		else
+			CRASH("Invalid sound effect chosen.")
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
 	if(errorlevel)
-		error("Error: apply_sound_effect_radio([filename_input], [filename_output]) - See debug logs.")
-		log_debug("apply_sound_effect_radio([filename_input], [filename_output]) STDOUT: [stdout]")
-		log_debug("apply_sound_effect_radio([filename_input], [filename_output]) STDERR: [stderr]")
+		error("Error: apply_sound_effect([effect], [filename_input], [filename_output]) - See debug logs.")
+		log_debug("apply_sound_effect([effect], [filename_input], [filename_output]) STDOUT: [stdout]")
+		log_debug("apply_sound_effect([effect], [filename_input], [filename_output]) STDERR: [stderr]")
 		return FALSE
 	return TRUE
