@@ -65,13 +65,10 @@ SUBSYSTEM_DEF(tts)
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		play_tts(speaker, listener, filename, is_local, effect)
-
 		return
 
 	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect)
 	provider.request(text, seed, cb)
-
-	return
 
 /datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
