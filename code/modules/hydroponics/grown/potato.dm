@@ -14,7 +14,6 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "potato-grow"
 	icon_dead = "potato-dead"
-	genes = list(/datum/plant_gene/trait/battery)
 	mutatelist = list(/obj/item/seeds/potato/sweet)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
