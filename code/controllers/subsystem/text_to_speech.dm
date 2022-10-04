@@ -25,6 +25,8 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_seeds = list()
 
+	var/list/tts_local_channels_by_owner = list()
+
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "W:[tts_wanted] "
 	msg += "F:[tts_request_failed] "
@@ -98,7 +100,16 @@ SUBSYSTEM_DEF(tts)
 	if(!config.tts_cache)
 		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
 
-	playsound_tts(speaker, listener ? list(listener) : null, filename, is_local)
+
+/datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
+	if(!ismob(owner))
+		CRASH("Invalid channel owner given.")
+	var/owner_ref = "\ref[owner]"
+	var/channel = tts_local_channels_by_owner[owner_ref]
+	if(isnull(channel))
+		channel = SSsounds.reserve_sound_channel_datumless()
+		tts_local_channels_by_owner[owner_ref] = channel
+	return channel
 
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
 	fdel(filename)
