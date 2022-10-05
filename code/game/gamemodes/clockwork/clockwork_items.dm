@@ -86,11 +86,9 @@
 			possible_altars[result_name] = altar
 		if(!length(possible_altars))
 			to_chat(user, "<span class='warning'>You have no altars teleport to!</span>")
-			log_game("Teleport spell failed - no other teleport runes")
 			return
 		if(!is_level_reachable(user.z))
 			to_chat(user, "<span class='warning'>You are not in the right dimension!</span>")
-			log_game("Teleport spell failed - user in away mission")
 			return
 
 		var/selected_altar = input(user, "Pick a credence teleport to...", "Teleporation") as null|anything in possible_altars

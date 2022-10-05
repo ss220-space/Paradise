@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
-		add_conversion_logs(cult_mind.current, "converted to the cult")
+		add_conversion_logs(cult_mind.current, "converted to the blood cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.remove_overlay(HALO_LAYER)
 			H.update_body()
 		check_cult_size()
-		add_conversion_logs(cultist, "deconverted from the cult.")
+		add_conversion_logs(cultist, "deconverted from the blood cult.")
 		if(show_message)
 			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")

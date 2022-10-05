@@ -100,7 +100,7 @@
 			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
 		else
 			to_chat(usr, "<span class='warning'>Количество амбиций переполнено, избавьтесь от неосуществимых.</span>")
-		log_misc("[key_name(usr)] has added [key_name(current)]'s ambition.")
+		add_misc_logs(usr, "has added [key_name(current)]'s ambition.")
 
 
 	else if(href_list["amb_delete"])
@@ -110,7 +110,7 @@
 			return
 		ambition_objectives.Remove(objective)
 
-		log_misc("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
+		add_misc_logs(usr, "has removed one of [key_name(current)]'s ambitions: [objective]")
 		qdel(objective)
 
 	else if(href_list["amb_completed"])
