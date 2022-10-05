@@ -402,7 +402,7 @@
 				if(istype(ninja.r_hand, /obj/item/grab))
 					ninja.unEquip(ninja.r_hand, TRUE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
-				else if(istype(ninja.l_hand, /obj/item/grab))
+				if(istype(ninja.l_hand, /obj/item/grab))
 					ninja.unEquip(ninja.l_hand, TRUE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
