@@ -18,6 +18,8 @@
 /area/shuttle/vox)
 "aae" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Carp";
 	name = "carpspawn"
 	},
 /turf/space,
@@ -1929,6 +1931,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/item/radio/beacon,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -2616,6 +2620,8 @@
 	dir = 4
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/structure/cable{
@@ -2661,6 +2667,8 @@
 "amp" = (
 /obj/machinery/light,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "HONK";
 	name = "HONKsquad"
 	},
 /turf/simulated/shuttle/floor,
@@ -3780,6 +3788,8 @@
 "arR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blob"
 	},
 /turf/simulated/floor/plasteel,
@@ -4796,6 +4806,8 @@
 /area/hallway/secondary/entry/additional)
 "aym" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Janitor";
 	name = "Janitor"
 	},
 /turf/simulated/floor/plasteel,
@@ -4925,6 +4937,8 @@
 /area/janitor)
 "azk" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Janitor";
 	name = "Janitor"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5572,6 +5586,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel,
@@ -5765,6 +5781,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel,
@@ -6318,6 +6336,8 @@
 /area/crew_quarters/bar)
 "aGp" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Bartender";
 	name = "Bartender"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -6390,6 +6410,8 @@
 /area/crew_quarters/bar)
 "aGx" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Bartender";
 	name = "Bartender"
 	},
 /turf/simulated/floor/plasteel{
@@ -6443,6 +6465,8 @@
 "aGI" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -7489,6 +7513,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel,
@@ -8700,6 +8726,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -9274,6 +9302,8 @@
 /area/quartermaster/miningdock)
 "aUG" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chef";
 	name = "Chef"
 	},
 /turf/simulated/floor/plasteel{
@@ -9605,6 +9635,8 @@
 /area/quartermaster/qm)
 "aWB" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Mechanic";
 	name = "Mechanic"
 	},
 /turf/simulated/floor/plasteel,
@@ -10401,6 +10433,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
@@ -10963,6 +10997,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chef";
 	name = "Chef"
 	},
 /turf/simulated/floor/plasteel{
@@ -11301,6 +11337,8 @@
 "bgE" = (
 /obj/effect/turf_decal/box,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
@@ -13671,6 +13709,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -16280,6 +16320,8 @@
 	pixel_x = 28
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Coroner";
 	name = "Coroner"
 	},
 /turf/simulated/floor/plasteel{
@@ -17671,6 +17713,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Quartemaster";
 	name = "Quartermaster"
 	},
 /turf/simulated/floor/plasteel{
@@ -19546,6 +19590,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Captain";
 	name = "Captain"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -21279,6 +21325,8 @@
 "bXN" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel,
@@ -21503,6 +21551,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Captain";
 	name = "Captain"
 	},
 /turf/simulated/floor/plasteel{
@@ -21799,6 +21849,8 @@
 /area/maintenance/bar)
 "bZY" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Barber";
 	name = "Barber"
 	},
 /obj/machinery/light/small{
@@ -22302,6 +22354,8 @@
 /area/bridge/vip)
 "cbI" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Roboticist";
 	name = "Roboticist"
 	},
 /turf/simulated/floor/plasteel{
@@ -22503,6 +22557,8 @@
 	dir = 1
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -25369,6 +25425,8 @@
 /area/turret_protected/ai)
 "cpd" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "AI";
 	name = "AI"
 	},
 /obj/item/radio/intercom{
@@ -25701,6 +25759,8 @@
 /area/engine/engineering)
 "cqT" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Janitor";
 	name = "Janitor"
 	},
 /turf/simulated/floor/plasteel{
@@ -25910,6 +25970,8 @@
 /area/hydroponics)
 "crW" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Clown";
 	name = "Clown"
 	},
 /turf/simulated/floor/plasteel{
@@ -25929,9 +25991,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Botanist"
-	},
-/obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Botanist";
 	name = "Botanist"
 	},
 /obj/structure/disposalpipe/segment{
@@ -26210,6 +26271,8 @@
 	})
 "ctv" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -28504,6 +28567,8 @@
 "cBI" = (
 /obj/machinery/light/small,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -30302,6 +30367,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/light/small,
@@ -30723,6 +30790,8 @@
 "cJc" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -31021,6 +31090,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -31112,6 +31183,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Security";
 	name = "Head of Security"
 	},
 /turf/simulated/floor/plasteel{
@@ -31563,6 +31636,8 @@
 /area/medical/biostorage)
 "cMy" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -33820,6 +33895,8 @@
 "cVs" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /turf/simulated/floor/plasteel{
@@ -34331,6 +34408,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chemist";
 	name = "Chemist"
 	},
 /obj/machinery/hologram/holopad,
@@ -34548,6 +34627,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chief Engineer";
 	name = "Chief Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -34637,6 +34718,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -35457,6 +35540,8 @@
 	icon_state = "1-4"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -36917,6 +37002,8 @@
 	icon_state = "2-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chief Engineer";
 	name = "Chief Engineer"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -37071,6 +37158,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -37331,6 +37420,8 @@
 "diy" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Geneticist";
 	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
@@ -38063,6 +38154,8 @@
 "dlk" = (
 /obj/structure/chair/wood,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet,
@@ -38544,6 +38637,8 @@
 /area/maintenance/asmaint2)
 "dmP" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Quartemaster";
 	name = "Quartermaster"
 	},
 /turf/simulated/floor/plasteel{
@@ -38634,6 +38729,8 @@
 	dir = 1
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -39231,6 +39328,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Geneticist";
 	name = "Geneticist"
 	},
 /obj/structure/cable{
@@ -39371,6 +39470,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Psychiatrist";
 	name = "Psychiatrist"
 	},
 /turf/simulated/floor/carpet,
@@ -40751,6 +40852,8 @@
 /area/atmos)
 "dvP" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Mime";
 	name = "Mime"
 	},
 /turf/simulated/floor/plasteel{
@@ -41285,6 +41388,8 @@
 "dyd" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -41900,6 +42005,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Captain";
 	name = "Captain"
 	},
 /obj/item/storage/secure/safe{
@@ -42081,6 +42188,8 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -42299,6 +42408,8 @@
 "dCc" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -43818,6 +43929,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Botanist";
 	name = "Botanist"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -44167,6 +44280,8 @@
 /area/medical/genetics)
 "dIN" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Magistrate";
 	name = "Magistrate"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -44317,6 +44432,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
@@ -44652,6 +44769,8 @@
 /area/atmos)
 "dKE" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /turf/simulated/floor/plating,
@@ -44680,6 +44799,8 @@
 "dKU" = (
 /obj/effect/decal/remains/human,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -44742,6 +44863,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /obj/structure/cable{
@@ -45097,6 +45220,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -46131,6 +46256,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -47194,6 +47321,8 @@
 	sortType = 17
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -47584,6 +47713,8 @@
 	layer = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -48238,6 +48369,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
@@ -48996,6 +49129,8 @@
 /area/engine/engineering)
 "dZe" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/structure/chair/office/dark{
@@ -49564,6 +49699,8 @@
 /area/maintenance/starboard)
 "eci" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /obj/structure/cable/yellow{
@@ -50082,6 +50219,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -50155,6 +50294,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -50481,6 +50622,8 @@
 	dir = 1
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -51484,6 +51627,8 @@
 /obj/structure/morgue,
 /obj/effect/decal/warning_stripes/southwest,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -51507,6 +51652,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Pod Pilot";
 	name = "Security Pod Pilot"
 	},
 /turf/simulated/floor/plasteel{
@@ -52086,6 +52233,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Mime";
 	name = "Mime"
 	},
 /obj/machinery/hologram/holopad,
@@ -54074,6 +54223,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -54175,6 +54326,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Geneticist";
 	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
@@ -55015,6 +55168,8 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -56914,6 +57069,8 @@
 	})
 "fKI" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -57062,6 +57219,8 @@
 /area/chapel/main)
 "fMJ" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -57861,6 +58020,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -57931,6 +58092,8 @@
 /area/maintenance/aft)
 "fVX" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/structure/chair/office/light{
@@ -58319,6 +58482,8 @@
 /area/crew_quarters/kitchen)
 "fYZ" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /turf/simulated/floor/plating,
@@ -58962,6 +59127,8 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Roboticist";
 	name = "Roboticist"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -59261,6 +59428,8 @@
 /area/security/processing)
 "glR" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -59600,6 +59769,8 @@
 "gpI" = (
 /obj/structure/chair/sofa/right,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /turf/simulated/floor/plasteel{
@@ -59836,6 +60007,8 @@
 	})
 "gtv" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -60204,6 +60377,8 @@
 "gxv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -60911,6 +61086,8 @@
 "gFN" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cargo Technician";
 	name = "Cargo Technician"
 	},
 /turf/simulated/floor/plasteel{
@@ -61688,6 +61865,8 @@
 /area/security/permabrig)
 "gLS" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Carp";
 	name = "carpspawn"
 	},
 /obj/structure/lattice,
@@ -61735,6 +61914,8 @@
 /area/space)
 "gMw" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -62476,6 +62657,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /turf/simulated/floor/plasteel{
@@ -62998,6 +63181,8 @@
 /obj/structure/morgue,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -63463,6 +63648,8 @@
 /area/medical/genetics)
 "hfU" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -64233,6 +64420,8 @@
 	icon_state = "1-4"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Warden";
 	name = "Warden"
 	},
 /turf/simulated/floor/plasteel{
@@ -64801,6 +64990,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -65297,6 +65488,8 @@
 "hBX" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /turf/simulated/floor/plasteel{
@@ -65536,6 +65729,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Librarian";
 	name = "Librarian"
 	},
 /turf/simulated/floor/plasteel{
@@ -65650,6 +65845,8 @@
 /area/hallway/primary/central/nw)
 "hFn" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -65702,6 +65899,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Roboticist";
 	name = "Roboticist"
 	},
 /turf/simulated/floor/plasteel{
@@ -66707,6 +66906,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
@@ -66760,6 +66961,8 @@
 "hSs" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Detective";
 	name = "Detective"
 	},
 /obj/structure/cable{
@@ -66959,6 +67162,8 @@
 	icon_state = "2-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68853,6 +69058,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -68905,6 +69112,8 @@
 "irC" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chef";
 	name = "Chef"
 	},
 /obj/structure/sink{
@@ -69005,6 +69214,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -69944,6 +70155,8 @@
 /area/hallway/secondary/exit)
 "iFc" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -70352,6 +70565,8 @@
 	})
 "iHV" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -71434,6 +71649,8 @@
 /area/maintenance/electrical)
 "iWC" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chef";
 	name = "Chef"
 	},
 /turf/simulated/floor/plasteel{
@@ -72078,6 +72295,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -72302,6 +72521,8 @@
 /area/toxins/lab)
 "jhm" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -72367,6 +72588,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -72593,6 +72816,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Brig Physician";
 	name = "Brig Physician"
 	},
 /turf/simulated/floor/plasteel{
@@ -73233,6 +73458,8 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chemist";
 	name = "Chemist"
 	},
 /obj/structure/cable{
@@ -73303,6 +73530,8 @@
 /area/atmos)
 "jsw" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/light/small{
@@ -74386,6 +74615,8 @@
 "jFH" = (
 /obj/structure/chair/comfy/lime,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /obj/machinery/alarm{
@@ -75183,6 +75414,8 @@
 	pixel_y = -32
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -75214,6 +75447,8 @@
 "jPw" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -75607,6 +75842,8 @@
 /area/medical/genetics)
 "jTZ" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -75656,6 +75893,8 @@
 	dir = 1
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -76189,6 +76428,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Atmospheric Technician";
 	name = "Life Support Specialist"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -77322,6 +77563,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Captain";
 	name = "Captain"
 	},
 /turf/simulated/floor/carpet,
@@ -77369,6 +77612,8 @@
 	})
 "krB" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
@@ -77984,6 +78229,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -78094,6 +78341,8 @@
 	icon_state = "2-4"
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -78708,6 +78957,8 @@
 "kIA" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chef";
 	name = "Chef"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -79125,6 +79376,8 @@
 /area/crew_quarters/cabin4)
 "kNy" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel,
@@ -80044,6 +80297,8 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -80379,6 +80634,8 @@
 	layer = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -80537,6 +80794,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/structure/disposalpipe/segment,
@@ -80781,6 +81040,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /turf/simulated/floor/plasteel{
@@ -80806,6 +81067,8 @@
 /area/engine/gravitygenerator)
 "lkL" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Atmospheric Technician";
 	name = "Life Support Specialist"
 	},
 /turf/simulated/floor/plasteel{
@@ -81186,6 +81449,8 @@
 	},
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Personnel";
 	name = "Head of Personnel"
 	},
 /turf/simulated/floor/wood,
@@ -82171,6 +82436,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -82271,6 +82538,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/structure/disposalpipe/segment,
@@ -82309,6 +82578,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chaplain";
 	name = "Chaplain"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -82479,6 +82750,8 @@
 "lFu" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -83242,6 +83515,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chief Medical Officer";
 	name = "Chief Medical Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -84563,6 +84838,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -84763,6 +85040,8 @@
 	icon_state = "2-4"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Warden";
 	name = "Warden"
 	},
 /turf/simulated/floor/plasteel{
@@ -86443,6 +86722,8 @@
 "mwf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -86517,6 +86798,8 @@
 	icon_state = "2-8"
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -86948,6 +87231,8 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chemist";
 	name = "Chemist"
 	},
 /obj/structure/cable{
@@ -86992,6 +87277,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -87131,6 +87418,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -88174,6 +88463,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -88475,6 +88766,8 @@
 /area/medical/reception)
 "mQp" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -88636,6 +88929,8 @@
 /area/bridge/checkpoint/south)
 "mRM" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -88754,6 +89049,8 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Research Director";
 	name = "Research Director"
 	},
 /turf/simulated/floor/plasteel{
@@ -89106,6 +89403,8 @@
 /area/bridge)
 "mYk" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -90111,6 +90410,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -90163,6 +90464,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -90288,6 +90591,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -90747,6 +91052,8 @@
 /obj/structure/chair/sofa,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet,
@@ -91537,6 +91844,8 @@
 /area/library/abandoned)
 "nyk" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Atmospheric Technician";
 	name = "Life Support Specialist"
 	},
 /turf/simulated/floor/plasteel{
@@ -91862,6 +92171,8 @@
 "nCH" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet,
@@ -92102,6 +92413,8 @@
 "nFB" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Librarian";
 	name = "Librarian"
 	},
 /turf/simulated/floor/plasteel{
@@ -92394,6 +92707,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Botanist";
 	name = "Botanist"
 	},
 /turf/simulated/floor/plasteel{
@@ -94401,6 +94716,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -94573,6 +94890,8 @@
 	dir = 4
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -94747,6 +95066,8 @@
 	},
 /obj/structure/curtain/open,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -96597,6 +96918,8 @@
 	})
 "oEz" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -96862,6 +97185,8 @@
 "oIk" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -97082,6 +97407,8 @@
 "oKl" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -97239,6 +97566,8 @@
 	},
 /obj/structure/cable,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -97653,6 +97982,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -97895,6 +98226,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -98548,6 +98881,8 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /mob/living/carbon/human/lesser/monkey,
@@ -98620,6 +98955,8 @@
 "pcb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chaplain";
 	name = "Chaplain"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -99276,6 +99613,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -99313,6 +99652,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Pod Pilot";
 	name = "Security Pod Pilot"
 	},
 /obj/structure/cable{
@@ -99333,6 +99674,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet/black,
@@ -99586,6 +99929,8 @@
 	dir = 1
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -99960,6 +100305,8 @@
 /area/assembly/showroom)
 "prm" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -100441,6 +100788,8 @@
 	},
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -100472,6 +100821,8 @@
 /area/crew_quarters/courtroom)
 "pxm" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -100495,6 +100846,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Security";
 	name = "Head of Security"
 	},
 /turf/simulated/floor/wood,
@@ -100606,6 +100959,8 @@
 "pzH" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Magistrate";
 	name = "Magistrate"
 	},
 /obj/structure/cable{
@@ -100638,6 +100993,8 @@
 	pixel_y = 32
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
@@ -100835,6 +101192,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -100989,6 +101348,8 @@
 /area/toxins/mixing)
 "pCn" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -102451,6 +102812,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Captain";
 	name = "Captain"
 	},
 /turf/simulated/floor/plasteel{
@@ -102824,6 +103187,8 @@
 	pixel_y = 26
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Personnel";
 	name = "Head of Personnel"
 	},
 /turf/simulated/floor/plasteel{
@@ -103246,6 +103611,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /turf/simulated/floor/plasteel{
@@ -104417,6 +104784,8 @@
 	name = "Труба на фильтрацию"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Atmospheric Technician";
 	name = "Life Support Specialist"
 	},
 /turf/simulated/floor/plasteel{
@@ -104511,6 +104880,8 @@
 /area/crew_quarters/bar/atrium)
 "qlP" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blueshield";
 	name = "Blueshield"
 	},
 /obj/structure/chair/comfy/black{
@@ -104899,6 +105270,8 @@
 	dir = 4
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -105032,6 +105405,8 @@
 	pixel_y = 22
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/wood,
@@ -106266,6 +106641,8 @@
 /area/space/nearstation)
 "qEm" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -106985,6 +107362,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Clown";
 	name = "Clown"
 	},
 /obj/machinery/hologram/holopad,
@@ -107120,6 +107499,8 @@
 	dir = 6
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/plasteel{
@@ -107835,6 +108216,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Personnel";
 	name = "Head of Personnel"
 	},
 /obj/machinery/door_control/ticket_machine_button{
@@ -107954,6 +108337,8 @@
 /area/medical/genetics)
 "qXy" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "NanoTrasen Representative";
 	name = "Nanotrasen Representative"
 	},
 /obj/structure/chair/comfy/black{
@@ -108455,6 +108840,8 @@
 /area/medical/medbay2)
 "rcm" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blob"
 	},
 /turf/simulated/floor/plating,
@@ -108771,6 +109158,8 @@
 /obj/machinery/hologram/holopad,
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Scientist";
 	name = "Scientist"
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -108929,6 +109318,8 @@
 /area/hallway/primary/central/nw)
 "rhy" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -109017,6 +109408,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/wood,
@@ -109324,6 +109717,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /obj/structure/cable{
@@ -109349,6 +109744,8 @@
 	req_access_txt = "58"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Security";
 	name = "Head of Security"
 	},
 /obj/machinery/light_switch{
@@ -112598,6 +112995,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /turf/simulated/floor/plasteel,
@@ -113493,6 +113892,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Atmospheric Technician";
 	name = "Life Support Specialist"
 	},
 /turf/simulated/floor/plasteel{
@@ -114876,6 +115277,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -115818,6 +116221,8 @@
 "sHp" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "IAA";
 	name = "Internal Affairs Agent"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -117220,6 +117625,8 @@
 	network = list("Medical","SS13")
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -117691,6 +118098,8 @@
 	layer = 4
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -118170,6 +118579,8 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /mob/living/carbon/human/lesser/monkey,
@@ -118767,6 +119178,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/wood,
@@ -121017,6 +121430,8 @@
 "tPj" = (
 /obj/structure/chair/sofa,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet,
@@ -121045,6 +121460,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "IAA";
 	name = "Internal Affairs Agent"
 	},
 /obj/structure/cable{
@@ -121085,6 +121502,8 @@
 /area/engine/engineering/monitor)
 "tQq" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Detective";
 	name = "Detective"
 	},
 /obj/structure/cable{
@@ -121332,6 +121751,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chaplain";
 	name = "Chaplain"
 	},
 /turf/simulated/floor/plasteel{
@@ -121665,6 +122086,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Shaft Miner";
 	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
@@ -122581,6 +123004,8 @@
 /area/maintenance/starboard)
 "ugW" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "HONK";
 	name = "HONKsquad"
 	},
 /turf/simulated/shuttle/floor,
@@ -123660,6 +124085,8 @@
 	icon_state = "pipe-y"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Geneticist";
 	name = "Geneticist"
 	},
 /obj/structure/chair/office/light{
@@ -124052,6 +124479,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -125243,6 +125672,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -125514,6 +125945,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -125891,6 +126324,8 @@
 "uRQ" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Geneticist";
 	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
@@ -126741,11 +127176,13 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
 "vbR" = (
-/obj/item/bikehorn/rubberducky,
-/obj/structure/curtain/open/shower,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
+/obj/item/bikehorn/rubberducky,
+/obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 8;
 	tag = "icon-shower (WEST)"
@@ -126764,6 +127201,8 @@
 "vcj" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/item/flag/syndi,
@@ -126874,6 +127313,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Paramedic";
 	name = "Paramedic"
 	},
 /turf/simulated/floor/plasteel{
@@ -126985,6 +127426,8 @@
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /turf/simulated/floor/plasteel{
@@ -127200,6 +127643,8 @@
 	dir = 9
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Research Director";
 	name = "Research Director"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -127941,6 +128386,8 @@
 	pixel_x = 32
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chief Medical Officer";
 	name = "Chief Medical Officer"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -128536,6 +128983,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Librarian";
 	name = "Librarian"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -128697,6 +129146,8 @@
 	})
 "vyq" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -128748,6 +129199,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -129203,6 +129656,8 @@
 	icon_state = "brokengrille"
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/effect/spawner/lootdrop/maintenance,
@@ -129706,6 +130161,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Brig Physician";
 	name = "Brig Physician"
 	},
 /turf/simulated/floor/plasteel{
@@ -131028,6 +131485,8 @@
 	dir = 4
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Xeno";
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
@@ -131309,6 +131768,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -132173,6 +132634,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /obj/structure/extinguisher_cabinet{
@@ -132906,6 +133369,8 @@
 "wsG" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /turf/simulated/floor/plasteel{
@@ -133393,6 +133858,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "IAA";
 	name = "Internal Affairs Agent"
 	},
 /obj/structure/cable{
@@ -133682,6 +134149,8 @@
 "wBW" = (
 /obj/structure/chair/sofa/left,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /turf/simulated/floor/plasteel{
@@ -134527,6 +134996,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Head of Security";
 	name = "Head of Security"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -134669,6 +135140,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Paramedic";
 	name = "Paramedic"
 	},
 /turf/simulated/floor/plasteel{
@@ -135294,6 +135767,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Station Engineer";
 	name = "Station Engineer"
 	},
 /turf/simulated/floor/plasteel{
@@ -135450,6 +135925,8 @@
 	})
 "wWu" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -135547,6 +136024,8 @@
 "wXp" = (
 /obj/structure/morgue,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -136693,6 +137172,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
@@ -137158,6 +137639,8 @@
 	icon_state = "1-4"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Coroner";
 	name = "Coroner"
 	},
 /turf/simulated/floor/plasteel{
@@ -137861,6 +138344,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Chaplain";
 	name = "Chaplain"
 	},
 /obj/structure/disposalpipe/segment,
@@ -137896,6 +138381,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Warden";
 	name = "Warden"
 	},
 /turf/simulated/floor/plasteel{
@@ -138852,6 +139339,8 @@
 /obj/structure/morgue,
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -138907,6 +139396,8 @@
 /obj/structure/chair,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Security Officer";
 	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
@@ -139041,6 +139532,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -139160,6 +139653,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Medical Doctor";
 	name = "Medical Doctor"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -139247,6 +139742,8 @@
 "xIW" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Virologist";
 	name = "Virologist"
 	},
 /obj/structure/cable{
@@ -139344,6 +139841,8 @@
 	dir = 4
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Blob";
 	name = "blobstart"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -140671,6 +141170,8 @@
 	dir = 8
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /obj/machinery/light/small,
@@ -140736,6 +141237,8 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /obj/machinery/light/small,
@@ -140985,6 +141488,8 @@
 /obj/structure/morgue,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Revenant";
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plasteel{
@@ -141489,6 +141994,8 @@
 /area/medical/surgery/north)
 "yeB" = (
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Cyborg";
 	name = "Cyborg"
 	},
 /obj/structure/cable{
@@ -141871,6 +142378,8 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Assistant";
 	name = "Civilian"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -142080,6 +142589,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Coroner";
 	name = "Coroner"
 	},
 /turf/simulated/floor/plasteel{
