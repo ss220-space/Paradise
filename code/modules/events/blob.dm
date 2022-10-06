@@ -27,7 +27,7 @@
 
 	var/num_blobs = round((length(GLOB.clients) / for_players)) + 1
 	for(var/i in 1 to num_blobs)
-		if (candidates)
+		if (length(candidates))
 			var/obj/vent = pick(vents)
 			var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
 			var/mob/M = pick(candidates)
