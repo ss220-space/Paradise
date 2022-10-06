@@ -25,16 +25,17 @@
 	if(!length(vents))
 		return
 
-	var/num_blobs = round((length(candidates) / for_players)) + 1
+	var/num_blobs = round((length(GLOB.clients) / for_players)) + 1
 	for(var/i in 1 to num_blobs)
-		var/obj/vent = pick(vents)
-		var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
-		var/mob/M = pick(candidates)
-		candidates.Remove(M)
-		B.key = M.key
-		SSticker.mode.update_blob_icons_added(B.mind)
+		if (candidates)
+			var/obj/vent = pick(vents)
+			var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
+			var/mob/M = pick(candidates)
+			candidates.Remove(M)
+			B.key = M.key
+			SSticker.mode.update_blob_icons_added(B.mind)
 
-		to_chat(B, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
-		notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
+			to_chat(B, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
+			notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
 	successSpawn = TRUE
 	processing = TRUE // Let it naturally end, if it runs successfully
