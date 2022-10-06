@@ -59,6 +59,11 @@ SUBSYSTEM_DEF(tts)
 	for(var/path in subtypesof(/datum/tts_seed))
 		var/datum/tts_seed/seed = new path
 		tts_seeds[seed.name] = seed
+
+	is_enabled = config.tts_enabled
+	if(!is_enabled)
+		flags |= SS_NO_FIRE
+
 	return ..()
 
 /datum/controller/subsystem/tts/fire()
@@ -78,14 +83,21 @@ SUBSYSTEM_DEF(tts)
 		rps_sum += rps
 	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
 
+/datum/controller/subsystem/tts/Recover()
+	is_enabled = SStts.is_enabled
+	tts_wanted = SStts.tts_wanted
+	tts_request_failed = SStts.tts_request_failed
+	tts_request_succeeded = SStts.tts_request_succeeded
+	tts_reused = SStts.tts_reused
+
 /datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE, effect = SOUND_EFFECT_NONE)
-	if(isnull(listener) || !listener.client || listener.stat)
-		return
-	if(isnull(speaker))
-		return
 	if(!is_enabled)
 		return
 	if(!message)
+		return
+	if(isnull(listener) || !listener.client || listener.stat)
+		return
+	if(isnull(speaker))
 		return
 
 	tts_wanted++
