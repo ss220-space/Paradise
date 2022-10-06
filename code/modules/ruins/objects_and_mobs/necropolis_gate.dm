@@ -326,9 +326,9 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 /obj/structure/stone_tile/slab/bone
 	name = "stone bone slab"
-	icon_state = "cracked_slab_bone1"
+	icon_state = "cracked_slab_bone"
 	tile_key = "cracked_slab_bone"
-	tile_random_sprite_max = 8
+	tile_random_sprite_max = 1
 	color = "#fffff0"
 
 /obj/structure/stone_tile/center
@@ -362,7 +362,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 /obj/structure/stone_tile/slab/cracked
 	name = "cracked stone slab"
-	icon_state = "cracked_slab1"
+	icon_state = "cracked_slab"
 	tile_key = "cracked_slab"
 	tile_random_sprite_max = 1
 
