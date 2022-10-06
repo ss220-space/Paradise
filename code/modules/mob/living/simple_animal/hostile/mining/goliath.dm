@@ -32,6 +32,7 @@
 	pull_force = MOVE_FORCE_VERY_STRONG
 	var/pre_attack = FALSE
 	var/pre_attack_icon = "Goliath_preattack"
+	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 	footstep_type = FOOTSTEP_MOB_HEAVY
 
