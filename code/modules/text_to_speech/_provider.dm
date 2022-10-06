@@ -17,3 +17,9 @@
 		return TRUE
 	is_throttled = FALSE
 	return FALSE
+
+/datum/tts_provider/proc/whisper(text)
+	return text
+
+/datum/tts_provider/proc/faster(text)
+	return text

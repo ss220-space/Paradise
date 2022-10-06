@@ -1,3 +1,6 @@
+#define TTS_TRAIT_WHISPER (1<<1)
+#define TTS_TRAIT_FASTER (1<<2)
+
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT
@@ -90,7 +93,7 @@ SUBSYSTEM_DEF(tts)
 	tts_request_succeeded = SStts.tts_request_succeeded
 	tts_reused = SStts.tts_reused
 
-/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE, effect = SOUND_EFFECT_NONE)
+/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
 	if(!is_enabled)
 		return
 	if(!message)
@@ -111,6 +114,13 @@ SUBSYSTEM_DEF(tts)
 
 	var/dirty_text = message
 	var/text = sanitize_tts_input(dirty_text)
+
+	if(traits & TTS_TRAIT_FASTER)
+		text = provider.faster(text)
+
+	if(traits & TTS_TRAIT_WHISPER)
+		text = provider.whisper(text)
+
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
@@ -222,5 +232,5 @@ SUBSYSTEM_DEF(tts)
 	. = replace_characters(., tts_replacement_list, TRUE)
 	. = rustg_latin_to_cyrillic(.)
 
-/proc/tts_cast(mob/speaker, mob/listener, message, datum/tts_seed/seed, is_local = TRUE, effect = SOUND_EFFECT_NONE)
-	SStts.get_tts(speaker, listener, message, seed, is_local, effect)
+/proc/tts_cast(mob/speaker, mob/listener, message, datum/tts_seed/seed, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
+	SStts.get_tts(speaker, listener, message, seed, is_local, effect, traits)

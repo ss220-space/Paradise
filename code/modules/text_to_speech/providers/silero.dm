@@ -7,7 +7,7 @@
 		return FALSE
 
 	var/api_url = "https://api-tts.silero.ai/voice"
-	var/ssml_text = {"<speak><prosody rate="fast">[text]</prosody></speak>"}
+	var/ssml_text = {"<speak>[text]</speak>"}
 
 	var/list/req_body = list()
 	req_body["api_token"] = tts_token_silero
@@ -41,3 +41,8 @@
 
 	//var/sha1 = data["original_sha1"]
 
+/datum/tts_provider/silero/whisper(text)
+	return {"<prosody pitch="x-low">[text]</prosody>"}
+
+/datum/tts_provider/silero/faster(text)
+	return {"<prosody rate="fast">[text]</prosody>"}

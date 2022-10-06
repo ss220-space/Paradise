@@ -52,6 +52,8 @@
 	if(!client)
 		return 0
 
+	var/is_whisper = italics
+
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
@@ -120,7 +122,10 @@
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
 			effect = SOUND_EFFECT_ROBOT
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, TRUE, effect)
+		var/traits = TTS_TRAIT_FASTER
+		if(is_whisper)
+			traits |= TTS_TRAIT_WHISPER
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, TRUE, effect, traits)
 		log_debug("hear_say(): [message_clean]")
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
