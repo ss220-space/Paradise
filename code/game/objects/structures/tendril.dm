@@ -1,6 +1,6 @@
 /obj/structure/tendril
-	name = "bone tendril"
-	desc = "A bone tendril."
+	name = "tendril"
+	desc = "A tendril."
 	max_integrity = 300
 	climbable = FALSE
 	anchored = TRUE
@@ -15,6 +15,8 @@
 	. = ..()
 
 /obj/structure/tendril_bone/small
+	name = "small tendril"
+	desc = "A small tendril."
 	max_integrity = 200
 	icon = 'icons/obj/tendril.dmi'
 	icon_state = "tendril_small"
