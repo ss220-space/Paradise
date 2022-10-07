@@ -175,6 +175,7 @@
 	return
 
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
+	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_FIRE)
 	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
@@ -321,6 +322,7 @@
 	visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>", \
 					"<span class='userdanger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>")
 	add_attack_logs(M, src, "Animal attacked")
+	SEND_SIGNAL(src, COMSIG_SIMPLE_ANIMAL_ATTACKEDBY, M)
 	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
