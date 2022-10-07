@@ -100,7 +100,7 @@ SUBSYSTEM_DEF(tts)
 		return
 	if(!message)
 		return
-	if(isnull(listener) || !listener.client || listener.stat)
+	if(isnull(listener) || !listener.client)
 		return
 	if(!(seed_name in tts_seeds))
 		return
@@ -123,6 +123,8 @@ SUBSYSTEM_DEF(tts)
 
 	if(traits & TTS_TRAIT_WHISPER)
 		text = provider.whisper(text)
+
+	world.log << text
 
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
@@ -171,7 +173,7 @@ SUBSYSTEM_DEF(tts)
 	play_tts(speaker, listener, filename, is_local, effect)
 
 /datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE)
-	if(isnull(listener) || !listener.client || listener.stat)
+	if(isnull(listener) || !listener.client)
 		return
 
 	var/turf/turf_source = get_turf(speaker)
@@ -211,6 +213,15 @@ SUBSYSTEM_DEF(tts)
 
 	var/sound/output = sound(voice)
 	output.status = SOUND_STREAM
+
+	if(isnull(speaker))
+		output.wait = TRUE
+		output.channel = channel
+		output.volume = volume  * listener.client.prefs.get_channel_volume(CHANNEL_GENERAL)
+		output.environment = -1
+
+		SEND_SOUND(listener, output)
+		return
 
 	listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
 
