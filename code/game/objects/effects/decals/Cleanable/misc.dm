@@ -27,24 +27,23 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
-	canSmoothWith = list(/obj/effect/decal/cleanable/dirt, /turf/simulated/wall, /obj/structure/falsewall)
-	smooth = SMOOTH_MORE
+	base_icon_state = "dirt"
+	smoothing_flags = NONE
+	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
+	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize(mapload)
+/obj/effect/decal/cleanable/dirt/Initialize()
 	. = ..()
-	icon_state = ""
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
-/obj/effect/decal/cleanable/dust
-	name = "dust"
-	desc = "It's a little dusty. Someone should clean that up."
-	gender = PLURAL
-	density = FALSE
-	anchored = TRUE
-	layer = TURF_LAYER
-	icon = 'icons/effects/dirt.dmi'
-	icon_state = "dust"
-	mouse_opacity = FALSE
+/obj/effect/decal/cleanable/dirt/Destroy()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
+	return ..()
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"

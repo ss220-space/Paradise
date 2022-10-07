@@ -29,7 +29,7 @@
 			bloodiness -= add_blood
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
 			if(blood_DNA && blood_DNA.len)
-				S.add_blood(blood_DNA, basecolor)
+				S.add_blood(H.blood_DNA, basecolor)
 			S.blood_state = blood_state
 			S.blood_color = basecolor
 			update_icon()
@@ -63,11 +63,11 @@
 					return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
-	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/effect/decal/cleanable/Destroy()
-	if(smooth)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()

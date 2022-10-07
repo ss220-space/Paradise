@@ -8,11 +8,12 @@
 
 /obj/structure/New()
 	..()
-	if(smooth)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
-			queue_smooth(src)
-			queue_smooth_neighbors(src)
-		icon_state = ""
+			QUEUE_SMOOTH(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
+		if(smoothing_flags & SMOOTH_CORNERS)
+			icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
@@ -26,10 +27,10 @@
 /obj/structure/Destroy()
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
-	if(smooth)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
 		spawn(0)
-			queue_smooth_neighbors(T)
+			QUEUE_SMOOTH_NEIGHBORS(T)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -58,31 +59,30 @@
 
 /obj/structure/proc/do_climb(var/mob/living/user)
 	if(!can_touch(user) || !climbable)
-		return FALSE
+		return
 	var/blocking_object = density_check()
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
-		return FALSE
+		return
 
 	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
+	if(!T || !istype(T)) return
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
-		return FALSE
+		return
 
 	if(!can_touch(user) || !climbable)
 		climber = null
-		return FALSE
+		return
 
 	usr.loc = get_turf(src)
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	climber = null
-	return TRUE
 
 /obj/structure/proc/structure_shaken()
 

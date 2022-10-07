@@ -37,11 +37,11 @@
 	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
+	base_icon_state = "darkmatter"
 
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0
