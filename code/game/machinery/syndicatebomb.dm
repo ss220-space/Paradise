@@ -471,7 +471,7 @@
 		message_admins(adminlog)
 		add_game_logs(adminlog)
 		adminlogged = TRUE
-	empulse(src, heavy_emp, light_emp, 1)
+	empulse(src, heavy_emp, light_emp, TRUE, name)
 	if(pulse_number <= 1)
 		src.visible_message("<span class='warning'>The bomb's core burns out, and the bomb disintegrates into ash.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))

@@ -1117,6 +1117,7 @@
 		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
+				add_attack_logs(user, user, "Clock EMP with [src]")
 				empulse(src, 4, 6, cause="clock")
 				qdel(src)
 			if(TIME_SPELL)

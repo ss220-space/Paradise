@@ -324,7 +324,9 @@ GLOBAL_PROTECT(log_end)
 /proc/add_game_logs(text, mob/user)
 	if(user && istype(user))
 		user.create_log(GAME_LOG, text)
-	log_game(text)
+		log_game(key_name_log(user)+" "+text)
+	else
+		log_game(text)
 
 // Proc for misc log creation
 // * user is the actor of this miserable log

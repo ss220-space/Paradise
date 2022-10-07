@@ -240,7 +240,7 @@
 
 /obj/item/organ/internal/heart/gland/emp/activate()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
-	empulse(get_turf(owner), 2, 5, 1)
+	empulse(get_turf(owner), 2, 5, TRUE, "Alien EMP Organ")
 
 /obj/item/organ/internal/heart/gland/spiderman
 	cooldown_low = 450

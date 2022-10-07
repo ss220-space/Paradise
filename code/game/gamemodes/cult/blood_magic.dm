@@ -181,6 +181,7 @@
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
+	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)
 	charges--

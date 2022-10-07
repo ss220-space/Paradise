@@ -323,7 +323,7 @@
 
 /datum/chemical_reaction/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	empulse(get_turf(holder.my_atom), 3, 7, 1)
+	empulse(get_turf(holder.my_atom), 3, 7, TRUE, "Slime core")
 
 
 /datum/chemical_reaction/slimecell
