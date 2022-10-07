@@ -125,7 +125,7 @@
 		var/traits = TTS_TRAIT_FASTER
 		if(is_whisper)
 			traits |= TTS_TRAIT_WHISPER
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, TRUE, effect, traits)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, TRUE, effect, traits)
 		log_debug("hear_say(): [message_clean]")
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
@@ -189,7 +189,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE, effect)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect)
 			log_debug("hear_radio(): [message_clean]")
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
@@ -199,7 +199,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.client?.prefs?.tts_seed, FALSE, effect)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect)
 			log_debug("hear_radio(): [message_clean]")
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
@@ -260,7 +260,7 @@
 	var/effect = SOUND_EFFECT_RADIO
 	if(isrobot(speaker))
 		effect = SOUND_EFFECT_RADIO_ROBOT
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_unverbed, speaker.client?.prefs?.tts_seed, TRUE, effect)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_unverbed, speaker.tts_seed, TRUE, effect)
 	log_debug("hear_holopad_talk(): [message]")
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
