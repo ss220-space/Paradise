@@ -34,14 +34,14 @@
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter_shard"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	light_range = 4
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
+	base_icon_state = "darkmatter"
 
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0
@@ -126,7 +126,7 @@
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
-			SSdiscord.send2discord_simple_noadmins(message)
+			// SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
 		return FALSE
@@ -335,9 +335,42 @@
 	return
 
 /obj/machinery/power/supermatter_shard/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
+		if(!anchored)
+			anchored = !anchored
+			WRENCH_ANCHOR_MESSAGE
+			playsound(src.loc,W.usesound, 75, 1)
+			if(isrobot(user))
+				var/mob/living/silicon/robot/U = user
+				var/datum/robot_component/A = U.get_armour()
+				if(A)
+					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+					A.destroy()
+				else
+					Consume(U)
+			else
+				consume_wrench(W)
+			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
+		else if (anchored)
+			anchored = !anchored
+			WRENCH_UNANCHOR_MESSAGE
+			playsound(src.loc,W.usesound, 75, 1)
+			if(isrobot(user))
+				var/mob/living/silicon/robot/U = user
+				var/datum/robot_component/A = U.get_armour()
+				if(A)
+					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+					A.destroy()
+				else
+					Consume(U)
+			else
+				consume_wrench(W)
+			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
+	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
-	if(user.drop_item(W))
+	else if(user.drop_item(W))
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
@@ -366,7 +399,7 @@
 /obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
 	if(istype(AM, /mob/living))
 		var/mob/living/user = AM
-		user.dust()
+		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
@@ -377,6 +410,8 @@
 	power += 200
 	supermatter_zap()
 
+/obj/machinery/power/supermatter_shard/proc/consume_wrench(atom/movable/AM)
+	qdel(AM) //destroys wrench when anchored\unanchored supermatter
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
 	for(var/mob/living/L in range(10))
@@ -419,11 +454,11 @@
 /obj/machinery/power/supermatter_shard/proc/alarm()
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
-			playsound(src, 'sound/misc/bloblarm.ogg', 100)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(SUPERMATTER_EMERGENCY)
-			playsound(src, 'sound/machines/engine_alert1.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_DANGER)
-			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 

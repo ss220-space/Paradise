@@ -1,3 +1,11 @@
+// Падежи русского языка
+#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
+#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
+#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
+#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
+#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
+#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
+
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -52,6 +60,29 @@
 	var/chat_color_name
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
 	var/chat_color
+	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
+	var/chat_color_darkened
+	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
+	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	var/list/ru_names
+	///Icon-smoothing behavior.
+	var/smoothing_flags = NONE
+	///Smoothing variable
+	var/top_left_corner
+	///Smoothing variable
+	var/top_right_corner
+	///Smoothing variable
+	var/bottom_left_corner
+	///Smoothing variable
+	var/bottom_right_corner
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself.
+	var/list/canSmoothWith = null
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -101,6 +132,15 @@
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	ComponentInitialize()
+
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -197,13 +237,6 @@
 ///Handle melee attack by a mech
 /atom/proc/mech_melee_attack(obj/mecha/M)
 	return
-
-/atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
-	if(does_attack_animation)
-		user.changeNext_move(CLICK_CD_MELEE)
-		add_attack_logs(user, src, "Punched with hulk powers")
-		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -767,6 +800,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
+	if(neck)
+		if(neck.clean_blood())
+			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -861,8 +897,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
-			M.create_chat_message(src, message)
+			if((M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
+				M.create_chat_message(src, message, FALSE, TRUE)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -991,7 +1027,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!use_prefix)
 		default_value = name
 	else if(findtext(name, prefix) != 0)
-		default_value = copytext(name, length(prefix) + 1)
+		default_value = copytext_char(name, length_char(prefix) + 1)
 	else
 		// Either the thing has a non-conforming name due to being set in the map
 		// OR (much more likely) the thing is unlabeled yet.
@@ -1018,10 +1054,30 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 
 
-	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+	t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 	if(actually_rename)
 		if(t == "")
 			name = "[initial(name)]"
 		else
 			name = "[prefix][t]"
 	return t
+
+/*
+	Setter for the `density` variable.
+	Arguments:
+	* new_value - the new density you would want it to set.
+	Returns: Either null if identical to existing density, or the new density if different.
+*/
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
+
+// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
+// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+/atom/proc/declent_ru(case_id, list/ru_names_override)
+	var/list/list_to_use = ru_names_override || ru_names
+	if(length(list_to_use))
+		return list_to_use[case_id] || name
+	return name

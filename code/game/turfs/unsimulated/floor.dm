@@ -2,10 +2,18 @@
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "Floor3"
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/unsimulated/floor/grass
 	name = "grass patch"
 	icon_state = "grass1"
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/unsimulated/floor/grass/Initialize(mapload)
 	. = ..()
@@ -15,6 +23,10 @@
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/unsimulated/floor/abductor
 	name = "alien floor"
@@ -32,34 +44,40 @@
 /turf/unsimulated/floor/carpet
 	name = "Carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
-
-	footstep_sounds = list(
-		"human" = list('sound/effects/footstep/carpet_human.ogg'),
-		"xeno"  = list('sound/effects/footstep/carpet_xeno.ogg')
-	)
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
+	footstep = FOOTSTEP_CARPET
+	barefootstep = FOOTSTEP_CARPET_BAREFOOT
+	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/unsimulated/floor/wood
 	icon_state = "wood"
-
-	footstep_sounds = list(
-		"human" = list('sound/effects/footstep/wood_all.ogg'), //@RonaldVanWonderen of Freesound.org
-		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
-	)
+	footstep = FOOTSTEP_WOOD
+	barefootstep = FOOTSTEP_WOOD_BAREFOOT
+	clawfootstep = FOOTSTEP_WOOD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/unsimulated/floor/lava
 	name = "lava"
 	desc = "That looks... a bit dangerous"
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/unsimulated/floor/lava)
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 	var/lava_damage = 250
 	var/lava_fire = 20
 	light_range = 2
 	light_color = "#FFC040"
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
 /turf/unsimulated/floor/lava/Entered(mob/living/M, atom/OL, ignoreRest = 0)
 	if(istype(M))
