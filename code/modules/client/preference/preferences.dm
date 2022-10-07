@@ -1844,7 +1844,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_tts_seed = input(user, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
 					if(new_tts_seed)
 						tts_seed = new_tts_seed
-						INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, pick(SSticker.randomtips), tts_seed, FALSE)
+						INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, pick(SSticker.randomtips.Copy(1,10)), tts_seed, FALSE)
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
