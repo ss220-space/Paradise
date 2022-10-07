@@ -32,6 +32,8 @@ SUBSYSTEM_DEF(tts)
 	var/is_enabled = TRUE
 
 	var/list/tts_replacement_list = list(\
+		{"""} = "",
+		"'" = "",
 		"Тесла" = "Тэсла",
 		"тесла" = "тэсла",
 		"НТ" = "Эн Тэ",
@@ -43,7 +45,7 @@ SUBSYSTEM_DEF(tts)
 		"СРП" = "Эс Эр Пэ",
 	)
 
-	var/list/tts_seeds = list()
+	var/list/datum/tts_seed/tts_seeds = list()
 
 	var/list/tts_local_channels_by_owner = list()
 
@@ -93,15 +95,16 @@ SUBSYSTEM_DEF(tts)
 	tts_request_succeeded = SStts.tts_request_succeeded
 	tts_reused = SStts.tts_reused
 
-/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, datum/tts_seed/seed = SStts.tts_seeds["Arthas"], is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
+/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, seed_name = "Arthas", is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
 	if(!is_enabled)
 		return
 	if(!message)
 		return
 	if(isnull(listener) || !listener.client || listener.stat)
 		return
-	if(isnull(speaker))
+	if(!(seed_name in tts_seeds))
 		return
+	var/datum/tts_seed/seed = tts_seeds[seed_name]
 
 	tts_wanted++
 	tts_trps_counter++
@@ -170,8 +173,6 @@ SUBSYSTEM_DEF(tts)
 /datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE)
 	if(isnull(listener) || !listener.client || listener.stat)
 		return
-	if(isnull(speaker))
-		return
 
 	var/turf/turf_source = get_turf(speaker)
 
@@ -232,5 +233,5 @@ SUBSYSTEM_DEF(tts)
 	. = replace_characters(., tts_replacement_list, TRUE)
 	. = rustg_latin_to_cyrillic(.)
 
-/proc/tts_cast(mob/speaker, mob/listener, message, datum/tts_seed/seed, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
-	SStts.get_tts(speaker, listener, message, seed, is_local, effect, traits)
+/proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
+	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits)

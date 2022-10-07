@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
-	var/datum/tts_seed/tts_seed = null
+	var/tts_seed = "Xenia"
 
 	var/body_accessory = null
 
@@ -375,6 +375,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Special Role</h2>"
 			dat += "<b>Uplink Location:</b> <a href='?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
+
+			if(config.tts_enabled)
+				dat += "<h2>Text-to-Speech</h2>"
+				dat += "<b>Voice:</b> <a href='?_src_=prefs;preference=tts_seed;task=input'>[tts_seed]</a><br>"
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
@@ -1831,6 +1835,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_uplink_pref = input(user, "Choose your preferred uplink location:", "Character Preference") as null|anything in list("pda", "headset")
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
+
+				if("tts_seed")
+					var/list/tts_seeds = list()
+					for(var/_seed in SStts.tts_seeds)
+						var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
+						tts_seeds += _tts_seed.name
+					var/new_tts_seed = input(user, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
+					if(new_tts_seed)
+						tts_seed = new_tts_seed
+						INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, pick(SSticker.randomtips), tts_seed, FALSE)
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
