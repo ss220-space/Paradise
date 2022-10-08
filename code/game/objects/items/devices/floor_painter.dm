@@ -23,7 +23,7 @@
 		"orangefull", "podfloor", "podfloor_dark", "podfloor_light", "podhatch", "podhatchcorner", "purple", "purplecorner", "purplefull",
 		"rcircuit", "rampbottom", "ramptop", "recharge_floor", "recharge_floor_dark", "red", "redblue", "redbluefull",
 		"redcorner", "redfull", "redgreen", "redgreenfull", "darkredgreen", "darkredgreenfull", "redyellow", "redyellowfull",
-		"darkredyellow", "darkredyellowfull", "stage_bleft", "stage_bottom", "stage_left", "stage_stairs", "vault", "warning", "warningcorner",
+		"darkredyellow", "darkredyellowfull", "stage_bleft", "stage_left", "stage_stairs", "vault", "warning", "warningcorner",
 		"warnwhite", "warnwhitecorner", "white", "whiteblue", "whitebluecorner", "whitebluefull", "whitebot", "whitecorner", "whitedelivery",
 		"whitegreen", "whitegreencorner", "whitegreenfull", "whitehall", "whitepurple", "whitepurplecorner", "whitepurplefull",
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
