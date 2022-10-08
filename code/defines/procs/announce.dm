@@ -117,7 +117,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h2 class='alert'>[message_title]</h2>"
+	formatted_message += "<h2 class='alert'>[message_title].</h2>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
@@ -126,14 +126,14 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/minor/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<b><font size=3><font color=red>[message_title]</font color></font></b>"
+	formatted_message += "<b><font size=3><font color=red>[message_title].</font color></font></b>"
 	formatted_message += "<br><b><font size=3>[message]</font size></font></b>"
 
 	return formatted_message
 
 /datum/announcement/priority/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h1 class='alert'>[message_title]</h1>"
+	formatted_message += "<h1 class='alert'>[message_title].</h1>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
