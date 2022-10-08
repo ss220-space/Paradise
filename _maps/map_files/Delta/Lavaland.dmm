@@ -1522,12 +1522,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"eu" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center,
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
-/area/lavaland/surface/outdoors)
 "ev" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -1965,8 +1959,10 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "go" = (
 /obj/structure/stone_tile/block,
@@ -2196,8 +2192,10 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "hd" = (
 /obj/structure/stone_tile/block,
@@ -2848,8 +2846,10 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "ky" = (
 /obj/structure/stone_tile/cracked{
@@ -3318,8 +3318,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "mj" = (
 /obj/item/clothing/under/color/orange,
@@ -3728,8 +3730,10 @@
 	dir = 8
 	},
 /obj/structure/stone_tile,
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "no" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -3980,8 +3984,10 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "pT" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -4014,8 +4020,10 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "qa" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4141,8 +4149,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "qS" = (
 /obj/structure/clockwork/wall_gear,
@@ -4171,8 +4181,10 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "rc" = (
 /obj/structure/stone_tile{
@@ -4347,8 +4359,10 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "sF" = (
 /obj/machinery/door/airlock,
@@ -5144,8 +5158,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "zl" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -5571,8 +5587,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "CS" = (
 /obj/machinery/camera{
@@ -5676,8 +5694,10 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "Dw" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -6011,17 +6031,18 @@
 	rune_blood_color = "#DAA520";
 	desc = "An odd collection of symbols."
 	},
-/obj/effect/clockwork/overlay/floor,
 /mob/living/simple_animal/hostile/megafauna/dragon{
 	melee_damage_lower = 60;
 	melee_damage_upper = 65;
 	name = "ancient drake";
 	health = 5000;
 	color = "#C2B015";
-	maxHealth = 5000;
-	move_speed = 12
+	maxHealth = 5000
 	},
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "Gi" = (
 /obj/structure/stone_tile/surrounding,
@@ -6125,8 +6146,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "GD" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
@@ -6262,8 +6285,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "HA" = (
 /obj/machinery/atmospherics/binary/pump/on,
@@ -6609,11 +6634,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"KW" = (
-/obj/structure/stone_tile/block,
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
-/area/lavaland/surface/outdoors)
 "La" = (
 /turf/simulated/wall/r_wall,
 /area/mine/maintenance)
@@ -6807,8 +6827,10 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "MJ" = (
 /obj/item/stack/ore/titanium,
@@ -7025,8 +7047,10 @@
 /area/lavaland/surface/outdoors)
 "OX" = (
 /obj/structure/stone_tile/surrounding_tile,
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "PF" = (
 /obj/machinery/shower{
@@ -7279,8 +7303,10 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "Sb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7624,9 +7650,11 @@
 /area/mine/production)
 "TW" = (
 /obj/structure/stone_tile/surrounding,
-/obj/effect/clockwork/overlay/floor,
 /obj/structure/stone_tile/center,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "Ub" = (
 /obj/machinery/computer/shuttle/mining{
@@ -7655,10 +7683,10 @@
 /area/mine/living_quarters)
 "Up" = (
 /obj/structure/stone_tile/block,
-/obj/effect/clockwork/overlay/floor,
-/obj/effect/clockwork/overlay/floor,
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "Ut" = (
 /obj/structure/extinguisher_cabinet{
@@ -8054,8 +8082,10 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/obj/effect/clockwork/overlay/floor,
-/turf/space,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
 /area/lavaland/surface/outdoors)
 "YI" = (
 /obj/structure/stone_tile/cracked{
@@ -50382,12 +50412,12 @@ Fy
 AS
 GW
 MI
-eu
+TW
 Up
 Gg
 MI
-eu
-KW
+TW
+Up
 OU
 QO
 Fy
@@ -50898,7 +50928,7 @@ tE
 UI
 du
 Dv
-eu
+TW
 gn
 CB
 UI
