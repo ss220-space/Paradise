@@ -4,6 +4,7 @@
 	name = "rock"
 	icon = 'icons/turf/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
 	transform = matrix(1, 0, -4, 0, 1, -4) //Yes, these sprites are 50x50px, big grass control the industry
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
