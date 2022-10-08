@@ -1182,6 +1182,13 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"dp" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/window/reinforced/clockwork{
+	max_integrity = 180
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "dq" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1350,7 +1357,6 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "dU" = (
-/obj/structure/fluff/drake_statue/falling,
 /obj/structure/stone_tile/slab/cracked{
 	dir = 10
 	},
@@ -1358,6 +1364,9 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dW" = (
@@ -1572,11 +1581,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"eY" = (
-/obj/structure/stone_tile/slab,
-/obj/structure/window/reinforced/clockwork,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "eZ" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery,
@@ -4576,8 +4580,10 @@
 	},
 /area/mine/maintenance)
 "us" = (
-/obj/structure/fluff/drake_statue/falling,
 /obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "uw" = (
@@ -5347,7 +5353,9 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Bh" = (
-/obj/structure/fluff/drake_statue,
+/obj/structure/fluff/drake_statue{
+	move_resist = 40000
+	},
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -5459,7 +5467,8 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/clockwork{
-	dir = 4
+	dir = 4;
+	max_integrity = 180
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -6004,11 +6013,13 @@
 	},
 /obj/effect/clockwork/overlay/floor,
 /mob/living/simple_animal/hostile/megafauna/dragon{
-	melee_damage_lower = 50;
-	melee_damage_upper = 55;
+	melee_damage_lower = 60;
+	melee_damage_upper = 65;
 	name = "ancient drake";
-	health = 4500;
-	color = "#C2B015"
+	health = 5000;
+	color = "#C2B015";
+	maxHealth = 5000;
+	move_speed = 12
 	},
 /turf/space,
 /area/lavaland/surface/outdoors)
@@ -6262,7 +6273,9 @@
 /area/mine/laborcamp)
 "HE" = (
 /obj/structure/stone_tile/slab/burnt,
-/obj/structure/fluff/drake_statue/falling,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "HF" = (
@@ -6927,7 +6940,8 @@
 "NS" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/window/reinforced/clockwork{
-	dir = 1
+	dir = 1;
+	max_integrity = 180
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -7413,7 +7427,8 @@
 	},
 /obj/structure/stone_tile/cracked,
 /obj/structure/window/reinforced/clockwork{
-	dir = 4
+	dir = 4;
+	max_integrity = 180
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -7663,7 +7678,8 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced/clockwork{
-	dir = 4
+	dir = 4;
+	max_integrity = 180
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -52165,7 +52181,7 @@ aa
 aa
 aa
 qS
-eY
+dp
 kF
 VE
 pt
