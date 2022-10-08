@@ -8,7 +8,6 @@
 #define SHELLEO_OUT ".out"
 
 /world/proc/shelleo(command)
-
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""
 	var/stderr = ""
