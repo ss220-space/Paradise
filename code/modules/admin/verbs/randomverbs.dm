@@ -604,7 +604,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Enemy Communications" = "Unknown Message",
 		"Custom" = "Cryptic Message")
 
-	var/list/MsgSound = list("Beep" = 'sound/misc/notice2.ogg',
+	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
 		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
