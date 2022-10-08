@@ -68,12 +68,13 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/formatted_message = Format_Message(message, message_title, message_announcer, from)
 	var/garbled_formatted_message = Format_Message(message_language.scramble(message), message_language.scramble(message_title), message_language.scramble(message_announcer), message_language.scramble(from))
 
-	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
+	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
 
 	if(do_newscast)
 		NewsCast(message, message_title)
 
-	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
+	if(!config.tts_enabled)
+		Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
 /datum/announcement/proc/Get_Receivers(var/datum/language/message_language)
@@ -100,14 +101,18 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 	return list(receivers, garbled_receivers)
 
-/datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers)
+/datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers, message_sound)
+	var/tts_seed = "Xenia"
+	if(GLOB.ai_list.len)
+		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
+		tts_seed = AI.tts_seed
 	for(var/mob/M in receivers)
 		to_chat(M, message)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, M, M, message, pick(GLOB.ai_list)?.tts_seed || "Xenia", FALSE, SOUND_EFFECT_NONE)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 		log_debug("announcement.Message: [message]")
 	for(var/mob/M in garbled_receivers)
 		to_chat(M, garbled_message)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, M, M, garbled_message,  pick(GLOB.ai_list)?.tts_seed || "Xenia", FALSE, SOUND_EFFECT_NONE)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 		log_debug("announcement.Message: [garbled_message]")
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)

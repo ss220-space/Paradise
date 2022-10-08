@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(tts)
 	tts_request_succeeded = SStts.tts_request_succeeded
 	tts_reused = SStts.tts_reused
 
-/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, seed_name = "Arthas", is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
+/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, seed_name = "Arthas", is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	if(!is_enabled)
 		return
 	if(!message)
@@ -136,14 +136,14 @@ SUBSYSTEM_DEF(tts)
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		tts_rrps_counter++
-		play_tts(speaker, listener, filename, is_local, effect)
+		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 		return
 
-	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect)
+	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
 	provider.request(text, seed, cb)
 	tts_rps_counter++
 
-/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, datum/http_response/response)
+/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
 
 	// Bail if it errored
@@ -174,9 +174,9 @@ SUBSYSTEM_DEF(tts)
 	if(!config.tts_cache)
 		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
 
-	play_tts(speaker, listener, filename, is_local, effect)
+	play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
-/datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE)
+/datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null)
 	if(isnull(listener) || !listener.client)
 		return
 
@@ -221,13 +221,30 @@ SUBSYSTEM_DEF(tts)
 	if(isnull(speaker))
 		output.wait = TRUE
 		output.channel = channel
-		output.volume = volume  * listener.client.prefs.get_channel_volume(CHANNEL_GENERAL)
+		output.volume = volume * listener.client.prefs.get_channel_volume(CHANNEL_GENERAL) * listener.client.prefs.get_channel_volume(channel)
 		output.environment = -1
 
+		if(preSFX)
+			play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 		SEND_SOUND(listener, output)
 		return
 
-	listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
+	if(preSFX)
+		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
+
+	output = listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
+
+	if(postSFX)
+		play_sfx(listener, postSFX, output.channel, output.volume, output.environment)
+
+/datum/controller/subsystem/tts/proc/play_sfx(mob/listener, sfx, channel, volume, environment)
+	var/sound/output = sound(sfx)
+	output.status = SOUND_STREAM
+	output.wait = TRUE
+	output.channel = channel
+	output.volume = volume
+	output.environment = environment
+	SEND_SOUND(listener, output)
 
 /datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
 	if(!ismob(owner))
@@ -248,5 +265,5 @@ SUBSYSTEM_DEF(tts)
 	. = replace_characters(., tts_replacement_list, TRUE)
 	. = rustg_latin_to_cyrillic(.)
 
-/proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_FASTER)
-	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits)
+/proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
+	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
