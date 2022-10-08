@@ -54,6 +54,11 @@
 	return html_encode(sanitize_simple(t,repl_chars))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
+/proc/filename_sanitize(t)
+	var/regex/alphanum_only = regex("\[^a-zA-Z0-9._-/]", "g")
+	return alphanum_only.Replace(t, "")
+
+// Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")

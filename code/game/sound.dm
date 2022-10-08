@@ -247,6 +247,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	return soundin
 
 /proc/apply_sound_effect(effect, filename_input, filename_output)
+	filename_input = filename_sanitize(filename_input)
+	filename_output = filename_sanitize(filename_output)
 
 	if(!effect)
 		CRASH("Invalid sound effect chosen.")
