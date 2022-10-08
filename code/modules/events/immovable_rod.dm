@@ -74,12 +74,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		x = clong.x
 		y = clong.y
 
-	if(istype(clong, /turf) || istype(clong, /obj))
+	if(isturf(clong) || isobj(clong))
 		if(clong.density)
 			clong.ex_act(EXPLODE_HEAVY)
 
-	else if(istype(clong, /mob))
-		if(istype(clong, /mob/living/carbon/human))
+	else if(ismob(clong))
+		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
 			H.visible_message("<span class='danger'>[H.name] пронизан незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает тебя!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
 			H.adjustBruteLoss(160)
