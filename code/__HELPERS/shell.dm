@@ -8,11 +8,6 @@
 #define SHELLEO_OUT ".out"
 
 /world/proc/shelleo(command)
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
-		return
 
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""

@@ -247,11 +247,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	return soundin
 
 /proc/apply_sound_effect(effect, filename_input, filename_output)
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>apply_sound_effect blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to call apply_sound_effect via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to call apply_sound_effect via advanced proc-call")
-		return
 
 	if(!effect)
 		CRASH("Invalid sound effect chosen.")
