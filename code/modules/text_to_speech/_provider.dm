@@ -18,8 +18,11 @@
 	is_throttled = FALSE
 	return FALSE
 
-/datum/tts_provider/proc/whisper(text)
+/datum/tts_provider/proc/pitch_whisper(text)
 	return text
 
-/datum/tts_provider/proc/faster(text)
+/datum/tts_provider/proc/rate_faster(text)
+	return text
+
+/datum/tts_provider/proc/rate_medium(text)
 	return text

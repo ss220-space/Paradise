@@ -52,7 +52,7 @@
 	if(!client)
 		return 0
 
-	var/is_whisper = italics
+	var/is_whisper = verb == "whispers"
 
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
@@ -122,9 +122,9 @@
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
 			effect = SOUND_EFFECT_ROBOT
-		var/traits = TTS_TRAIT_FASTER
+		var/traits = TTS_TRAIT_RATE_FASTER
 		if(is_whisper)
-			traits |= TTS_TRAIT_WHISPER
+			traits |= TTS_TRAIT_PITCH_WHISPER
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, TRUE, effect, traits)
 		log_debug("hear_say(): [message_clean]")
 
@@ -189,7 +189,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
 			log_debug("hear_radio(): [message_clean]")
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
@@ -199,7 +199,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
 			log_debug("hear_radio(): [message_clean]")
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)

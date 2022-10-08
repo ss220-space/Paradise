@@ -1,5 +1,6 @@
-#define TTS_TRAIT_WHISPER (1<<1)
-#define TTS_TRAIT_FASTER (1<<2)
+#define TTS_TRAIT_PITCH_WHISPER (1<<1)
+#define TTS_TRAIT_RATE_FASTER (1<<2)
+#define TTS_TRAIT_RATE_MEDIUM (1<<3)
 
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
@@ -118,11 +119,14 @@ SUBSYSTEM_DEF(tts)
 	var/dirty_text = message
 	var/text = sanitize_tts_input(dirty_text)
 
-	if(traits & TTS_TRAIT_FASTER)
-		text = provider.faster(text)
+	if(traits & TTS_TRAIT_RATE_FASTER)
+		text = provider.rate_faster(text)
 
-	if(traits & TTS_TRAIT_WHISPER)
-		text = provider.whisper(text)
+	if(traits & TTS_TRAIT_RATE_MEDIUM)
+		text = provider.rate_medium(text)
+
+	if(traits & TTS_TRAIT_PITCH_WHISPER)
+		text = provider.pitch_whisper(text)
 
 	world.log << text
 

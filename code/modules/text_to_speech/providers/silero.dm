@@ -41,8 +41,11 @@
 
 	//var/sha1 = data["original_sha1"]
 
-/datum/tts_provider/silero/whisper(text)
+/datum/tts_provider/silero/pitch_whisper(text)
 	return {"<prosody pitch="x-low">[text]</prosody>"}
 
-/datum/tts_provider/silero/faster(text)
+/datum/tts_provider/silero/rate_faster(text)
 	return {"<prosody rate="fast">[text]</prosody>"}
+
+/datum/tts_provider/silero/rate_medium(text)
+	return {"<prosody rate="medium">[text]</prosody>"}
