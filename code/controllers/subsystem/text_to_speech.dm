@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_replacement_list = list(\
 		{"""} = "",
-		"'" = "",
+		"\'" = "",
 		"Тесла" = "Тэсла",
 		"тесла" = "тэсла",
 		"НТ" = "Эн Тэ",
