@@ -33,8 +33,6 @@ SUBSYSTEM_DEF(tts)
 	var/is_enabled = TRUE
 
 	var/list/tts_replacement_list = list(\
-		{"""} = "",
-		"\'" = "",
 		"Тесла" = "Тэсла",
 		"тесла" = "тэсла",
 		"НТ" = "Эн Тэ",
@@ -259,8 +257,11 @@ SUBSYSTEM_DEF(tts)
 
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
 	. = message
-	. = trim_strip_html_properly(.)
+	. = trim(.)
+	. = regex("<\[^>]*>", "g").Replace(., "")
+	. = html_decode(.)
 	. = replace_characters(., tts_replacement_list, TRUE)
+	. = regex("\[^a-zA-Z0-9а-яА-ЯёЁ,!?+./\\s:—()-]", "g").Replace(., "")
 	. = rustg_latin_to_cyrillic(.)
 
 /proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
