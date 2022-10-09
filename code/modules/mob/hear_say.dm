@@ -126,7 +126,6 @@
 		if(is_whisper)
 			traits |= TTS_TRAIT_PITCH_WHISPER
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, TRUE, effect, traits)
-		log_debug("hear_say(): [message_clean]")
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
@@ -190,7 +189,6 @@
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
 			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
-			log_debug("hear_radio(): [message_clean]")
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
@@ -200,7 +198,6 @@
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
 			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_clean, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
-			log_debug("hear_radio(): [message_clean]")
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
@@ -261,7 +258,6 @@
 	if(isrobot(speaker))
 		effect = SOUND_EFFECT_RADIO_ROBOT
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_unverbed, speaker.tts_seed, TRUE, effect)
-	log_debug("hear_holopad_talk(): [message]")
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)
