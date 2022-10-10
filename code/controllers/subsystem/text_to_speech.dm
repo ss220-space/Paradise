@@ -48,6 +48,8 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_local_channels_by_owner = list()
 
+	var/list/datum/callback/tts_queue = list()
+
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "tRPS:[tts_trps] "
 	msg += "rRPS:[tts_rrps] "
@@ -132,14 +134,23 @@ SUBSYSTEM_DEF(tts)
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
+	var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
+
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		tts_rrps_counter++
 		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 		return
 
+	if(LAZYLEN(tts_queue[filename]))
+		tts_reused++
+		tts_rrps_counter++
+		LAZYADD(tts_queue[filename], play_tts_cb)
+		return
+
 	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
 	provider.request(text, seed, cb)
+	LAZYADD(tts_queue[filename], play_tts_cb)
 	tts_rps_counter++
 
 /datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
@@ -173,7 +184,9 @@ SUBSYSTEM_DEF(tts)
 	if(!config.tts_cache)
 		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
 
-	play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
+	for(var/datum/callback/cb in tts_queue[filename])
+		cb.InvokeAsync()
+		tts_queue[filename] -= cb
 
 /datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null)
 	if(isnull(listener) || !listener.client)
