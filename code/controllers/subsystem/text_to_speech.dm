@@ -63,11 +63,13 @@ SUBSYSTEM_DEF(tts)
 	..(msg)
 
 /datum/controller/subsystem/tts/Initialize(start_timeofday)
-	for(var/path in typesof(/datum/tts_provider))
+	for(var/path in subtypesof(/datum/tts_provider))
 		var/datum/tts_provider/provider = new path
 		tts_providers[provider.name] += provider
-	for(var/path in typesof(/datum/tts_seed))
+	for(var/path in subtypesof(/datum/tts_seed))
 		var/datum/tts_seed/seed = new path
+		if(seed.value == "STUB")
+			continue
 		seed.provider = tts_providers[initial(seed.provider.name)]
 		tts_seeds[seed.name] = seed
 
