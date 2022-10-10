@@ -195,6 +195,8 @@ SUBSYSTEM_DEF(tts)
 		cb.InvokeAsync()
 		tts_queue[filename] -= cb
 
+	tts_queue -= filename
+
 /datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null)
 	if(isnull(listener) || !listener.client)
 		return
