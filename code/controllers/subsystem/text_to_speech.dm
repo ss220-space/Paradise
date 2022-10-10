@@ -82,6 +82,8 @@ SUBSYSTEM_DEF(tts)
 		"СССП" = "Эс Эс Эс Пэ",
 		"КРБ" = "Ка Эр Бэ",
 		"БД" = "Бэ Дэ",
+		"ССТ" = "Эс Эс Тэ",
+		"СКС" = "Эс Ка Эс",
 	)
 
 	var/list/datum/tts_seed/tts_seeds = list()
