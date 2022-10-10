@@ -211,6 +211,8 @@
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
+		harmbaton = 1
+		arrest_type = 1
 		icon_state = "[base_icon][on]"
 
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
