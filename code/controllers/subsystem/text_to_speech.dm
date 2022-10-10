@@ -92,6 +92,7 @@ SUBSYSTEM_DEF(tts)
 	var/list/tts_local_channels_by_owner = list()
 
 	var/list/datum/callback/tts_queue = list()
+	var/list/datum/callback/tts_effects_queue = list()
 
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "tRPS:[tts_trps] "
@@ -243,34 +244,36 @@ SUBSYSTEM_DEF(tts)
 	if(isnull(listener) || !listener.client)
 		return
 
-	var/turf/turf_source = get_turf(speaker)
-
 	var/voice
 	switch(effect)
 		if(SOUND_EFFECT_NONE)
 			voice = "[filename].ogg"
 		if(SOUND_EFFECT_RADIO)
 			voice = "[filename]_radio.ogg"
-			if(!fexists(voice))
-				apply_sound_effect(effect, "[filename].ogg", voice)
 		if(SOUND_EFFECT_ROBOT)
 			voice = "[filename]_robot.ogg"
-			if(!fexists(voice))
-				apply_sound_effect(effect, "[filename].ogg", voice)
 		if(SOUND_EFFECT_RADIO_ROBOT)
 			voice = "[filename]_radio_robot.ogg"
-			if(!fexists(voice))
-				apply_sound_effect(effect, "[filename].ogg", voice)
 		if(SOUND_EFFECT_MEGAPHONE)
 			voice = "[filename]_megaphone.ogg"
-			if(!fexists(voice))
-				apply_sound_effect(effect, "[filename].ogg", voice)
 		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
 			voice = "[filename]_megaphone_robot.ogg"
-			if(!fexists(voice))
-				apply_sound_effect(effect, "[filename].ogg", voice)
 		else
 			CRASH("Invalid sound effect chosen.")
+	if(effect != SOUND_EFFECT_NONE)
+		if(!fexists(voice))
+			var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
+			if(LAZYLEN(tts_effects_queue[voice]))
+				LAZYADD(tts_effects_queue[voice], play_tts_cb)
+				return
+			LAZYADD(tts_effects_queue[voice], play_tts_cb)
+			apply_sound_effect(effect, "[filename].ogg", voice)
+			for(var/datum/callback/cb in tts_effects_queue[voice])
+				cb.InvokeAsync()
+				tts_effects_queue[voice] -= cb
+			tts_effects_queue -= voice
+
+	var/turf/turf_source = get_turf(speaker)
 
 	var/volume = 100
 	var/channel = CHANNEL_TTS_RADIO
