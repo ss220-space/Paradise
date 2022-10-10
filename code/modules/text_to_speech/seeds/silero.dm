@@ -1,5 +1,5 @@
 /datum/tts_seed/silero
-	provider = new /datum/tts_provider/silero
+	provider = /datum/tts_provider/silero
 
 /datum/tts_seed/silero/arthas
 	name= "Arthas"

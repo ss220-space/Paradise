@@ -9,7 +9,7 @@
 	var/value = "STUB"
 	var/category = TTS_CATEGORY_ANY
 	var/gender = TTS_GENDER_ANY
-	var/datum/tts_provider/provider = new /datum/tts_provider
+	var/datum/tts_provider/provider = /datum/tts_provider
 
 /datum/tts_seed/vv_edit_var(var_name, var_value)
 	return FALSE
