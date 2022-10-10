@@ -117,6 +117,9 @@ SUBSYSTEM_DEF(tts)
 	var/dirty_text = message
 	var/text = sanitize_tts_input(dirty_text)
 
+	if(!text)
+		return
+
 	if(traits & TTS_TRAIT_RATE_FASTER)
 		text = provider.rate_faster(text)
 
