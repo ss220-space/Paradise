@@ -269,8 +269,10 @@ SUBSYSTEM_DEF(tts)
 			LAZYADD(tts_effects_queue[voice], play_tts_cb)
 			apply_sound_effect(effect, "[filename].ogg", voice)
 			for(var/datum/callback/cb in tts_effects_queue[voice])
-				cb.InvokeAsync()
 				tts_effects_queue[voice] -= cb
+				if(cb == play_tts_cb)
+					continue
+				cb.InvokeAsync()
 			tts_effects_queue -= voice
 
 	var/turf/turf_source = get_turf(speaker)
