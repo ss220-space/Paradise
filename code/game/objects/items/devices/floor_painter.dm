@@ -20,7 +20,7 @@
 		"cafeteria", "caution", "cautioncorner", "cautionfull", "chapel", "cmo", "dark", "delivery", "escape", "escapecorner", "floor", "floor4",
 		"freezerfloor", "gcircuit", "green", "greenblue", "greenbluefull", "greencorner", "greenfull", "greenyellow",
 		"greenyellowfull", "grimy", "loadingarea", "neutral", "neutralcorner", "neutralfull", "orange", "orangecorner",
-		"orangefull", "podfloor", "podfloor_dark", "podfloor_light", "podhatch", "podhatchcorner", "purple", "purplecorner", "purplefull",
+		"orangefull", "podfloor", "podfloor_dark", "podfloor_light", "solarpanel", "podhatch", "podhatchcorner", "purple", "purplecorner", "purplefull",
 		"rcircuit", "rampbottom", "ramptop", "recharge_floor", "recharge_floor_dark", "red", "redblue", "redbluefull",
 		"redcorner", "redfull", "redgreen", "redgreenfull", "darkredgreen", "darkredgreenfull", "redyellow", "redyellowfull",
 		"darkredyellow", "darkredyellowfull", "stage_bleft", "stage_left", "stage_stairs", "vault", "warning", "warningcorner",
