@@ -243,8 +243,12 @@ SUBSYSTEM_DEF(tts)
 		output.volume = volume * listener.client.prefs.get_channel_volume(CHANNEL_GENERAL) * listener.client.prefs.get_channel_volume(channel)
 		output.environment = -1
 
+		if(output.volume <= 0)
+			return
+
 		if(preSFX)
 			play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
+
 		SEND_SOUND(listener, output)
 		return
 
@@ -252,6 +256,9 @@ SUBSYSTEM_DEF(tts)
 		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
 	output = listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
+
+	if(output.volume <= 0)
+		return
 
 	if(postSFX)
 		play_sfx(listener, postSFX, output.channel, output.volume, output.environment)
