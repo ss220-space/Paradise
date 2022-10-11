@@ -184,7 +184,7 @@
 		return
 
 	if(age_state.age != SLIME_BABY)
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+		if(amount_grown >=	age_state.amount_grown_for_split)
 			if(stat)
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
@@ -241,10 +241,10 @@
 		child_colour = slime_mutation[rand(1,4)]
 	else
 		child_colour = colour
-	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type)
+	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type, new_nutrition)
 
 	if(ckey)
-		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+		M.set_nutrition(new_nutrition * 1.25) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
 	M.powerlevel = new_powerlevel
 	M.Friends = Friends.Copy()
 	babies += M

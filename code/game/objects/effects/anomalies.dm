@@ -279,9 +279,9 @@
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
 	var/new_colour = pick("red", "orange")
-	var/mob/living/simple_animal/slime/S = new(T, new_colour)
+	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
 	S.rabid = TRUE
-	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
+	S.amount_grown = S.age_state.amount_grown_for_split
 	S.Evolve()
 	var/datum/action/innate/slime/reproduce/A = new
 	A.Grant(S)
