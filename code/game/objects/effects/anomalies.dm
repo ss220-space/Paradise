@@ -281,10 +281,7 @@
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
 	S.rabid = TRUE
-	S.amount_grown = S.age_state.amount_grown_for_split
-	S.Evolve()
-	var/datum/action/innate/slime/reproduce/A = new
-	A.Grant(S)
+	S.set_nutrition(S.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
 	if(LAZYLEN(candidates))
