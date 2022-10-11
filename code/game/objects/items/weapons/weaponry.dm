@@ -313,7 +313,10 @@
 
 /obj/item/melee/baseball_bat/homerun/central_command
 	name = "тактическая бита Флота NanoTrasen"
-	desc = "Выдвижная тактическая бита Центрального Командования Nanotrasen. В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса и инструментом высшего правосудия."
+	description_info = "Выдвижная тактическая бита Центрального Командования Nanotrasen. \
+	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
+	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
+	и инструментом высшего правосудия."
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "centcom_bat_0"
@@ -354,7 +357,7 @@
 		attack_verb_off = list("hit", "poked")
 		attack_verb_on = list("smacked", "struck", "cracked", "beaten")
 	icon_state = on ? icon_state_on : icon_state_off
-	force = on ? force_on : force_off
+	force = on ? initial(force_on) : initial(force_off)
 	attack_verb = on ? attack_verb_on : attack_verb_off
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
@@ -366,7 +369,7 @@
 		to_chat(user, "<span class='warning'>Вы выдвинули [src.name].</span>")
 		item_state = item_state_on
 		w_class = WEIGHT_CLASS_HUGE //doesnt fit in backpack when its on for balance
-		force = force_on //stunbaton damage
+		force = initial(force_on) //stunbaton damage
 		attack_verb = attack_verb_on
 		homerun_able = 1
 	else
@@ -374,7 +377,7 @@
 		item_state = item_state_off
 		slot_flags = SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
-		force = force_off //not so robust now
+		force = initial(force_off) //not so robust now
 		attack_verb = attack_verb_off
 		homerun_ready = 0
 		homerun_able = 0
