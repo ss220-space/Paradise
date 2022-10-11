@@ -278,7 +278,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/survival/pod
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
 
 //undeconstructable type for derelict
 //these walls are undeconstructable/unthermitable

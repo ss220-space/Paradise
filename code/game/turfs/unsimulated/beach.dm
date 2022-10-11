@@ -87,10 +87,6 @@
 	water_overlay_image = null
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
-	canSmoothWith = list(
-		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
-		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,
-		/turf/unsimulated/beach/water/edge_drop)
 	var/obj/effect/beach_drop_overlay/water_overlay
 
 /turf/unsimulated/beach/water/drop/Initialize(mapload)

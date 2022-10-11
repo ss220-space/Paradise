@@ -656,7 +656,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 50
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(/obj/structure/window/full/paperframe)
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
