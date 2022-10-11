@@ -214,12 +214,12 @@
 		return
 
 	//Передача нутриентов, + небольшое поедание внутренних запасов, не смотря на поедание плоти (урон)
-	var/nutrition_rand = rand(7 + age_state.feed, 15 + age_state.feed * 2)
+	var/nutrition_rand = rand(7 + age_state.feed * 2, 15 + age_state.feed * 4)
 	add_nutrition(nutrition_rand)
-	M.adjust_nutrition(round(nutrition_rand / 3))
+	M.adjust_nutrition(round(nutrition_rand / 4))
 
 	//Heal yourself.
-	adjustBruteLoss(-(3 + round(nutrition_rand / 3)))
+	adjustBruteLoss(-(3 + round(nutrition_rand / 4)))
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 
