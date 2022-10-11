@@ -479,7 +479,9 @@
 	else if (prob(50))
 		age_state_new = new /datum/slime_age/adult
 		new_set_nutrition = 900
-	. = ..(mapload, pick(slime_colours), age_state_new, new_set_nutrition)
+	if (!new_colour)
+		new_colour = pick(slime_colours)
+	. = ..(mapload, new_colour, age_state_new, new_set_nutrition)
 
 /mob/living/simple_animal/slime/adult/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
 	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/adult, new_set_nutrition = 900)
