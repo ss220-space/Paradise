@@ -82,6 +82,9 @@
 	if (!(locate(/datum/action/innate/slime/feed) in actions))
 		var/datum/action/innate/slime/feed/F = new
 		F.Grant(src)
+	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
+		var/datum/action/innate/slime/reproduce/R = new
+		R.Grant(src)
 	if (!(locate(/datum/action/innate/slime/evolve) in actions))
 		var/datum/action/innate/slime/evolve/E = new
 		E.Grant(src)
@@ -89,10 +92,6 @@
 	age_state = age_state_new
 	health = age_state.health
 	update_state()
-
-	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
-		var/datum/action/innate/slime/reproduce/R = new
-		R.Grant(src)
 
 	create_reagents(100)
 	set_colour(new_colour)
