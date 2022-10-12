@@ -527,6 +527,15 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
+"azI" = (
+/obj/structure/closet/crate,
+/obj/item/toy/plushie/blue_fox,
+/obj/item/radio/off,
+/obj/item/extinguisher,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "aAA" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
@@ -613,6 +622,20 @@
 	icon_state = "wood"
 	},
 /area/event_zone)
+"aEE" = (
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "aEO" = (
 /obj/structure/table/wood,
 /obj/item/paper/form/NT_COM_05,
@@ -1968,6 +1991,14 @@
 	icon_state = "grimy"
 	},
 /area/trader_station/sol)
+"bGr" = (
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "bGJ" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -2959,6 +2990,12 @@
 	tag = "icon-fakewindows (NORTHEAST)"
 	},
 /area/wizard_station)
+"cCk" = (
+/obj/machinery/cryopod,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "cCm" = (
 /obj/structure/window/plasmareinforced{
 	color = "#00f700";
@@ -3048,13 +3085,15 @@
 	},
 /area/centcom/specops)
 "cDm" = (
-/obj/item/tank/internals/nitrogen,
-/obj/structure/table/wood,
-/obj/item/tank/internals/nitrogen,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/tank/internals/nitrogen,
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	layer = 3.0
+	},
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
+	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -4331,6 +4370,12 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"dvB" = (
+/obj/structure/chair,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "dvF" = (
 /obj/structure/closet/secure_closet/contractor,
 /turf/unsimulated/floor{
@@ -4464,10 +4509,12 @@
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
 "dAs" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
+	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -4564,6 +4611,21 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
+"dCt" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "dCC" = (
 /obj/effect/turf_decal/tile{
 	alpha = 128;
@@ -4810,7 +4872,10 @@
 	},
 /area/centcom/ferry)
 "dKN" = (
-/obj/structure/bed,
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -5745,6 +5810,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/ninja/holding)
+"euu" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "evr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/candy/cotton/blue,
@@ -6502,6 +6574,15 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"eSH" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/book/manual/nuclear{
+	pixel_x = 5
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "eSX" = (
 /obj/structure/sign/goldenplaque{
 	desc = "Лучший сотрудник века";
@@ -6713,9 +6794,8 @@
 	},
 /area/centcom/zone1)
 "fbe" = (
-/obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "voxstart"
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
 	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
@@ -7565,6 +7645,17 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"fwH" = (
+/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/reagent_containers/food/snacks/spaghetti{
+	pixel_x = 3
+	},
+/obj/item/storage/box/donkpockets,
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "fxa" = (
 /obj/machinery/sleeper/syndie,
 /turf/unsimulated/floor{
@@ -7790,7 +7881,13 @@
 /turf/unsimulated/wall,
 /area/admin)
 "fEx" = (
-/obj/item/flag/species/vox,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/tank/internals/nitrogen,
+/obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -7851,7 +7948,7 @@
 	},
 /area/centcom/zone1)
 "fGT" = (
-/obj/structure/table/reinforced/brass,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -7996,6 +8093,19 @@
 	},
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
+"fND" = (
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "fNO" = (
 /obj/structure/mineral_door/wood,
 /turf/unsimulated/floor{
@@ -9914,6 +10024,16 @@
 /obj/machinery/hydroponics/constructable,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"hhZ" = (
+/obj/machinery/cryopod,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1;
+	layer = 3.0
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "hic" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone3"
@@ -10269,6 +10389,13 @@
 	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
+"huT" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/book/manual/engineering_hacking,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "hvs" = (
 /obj/machinery/camera{
 	c_tag = "CentComm ERT GYM";
@@ -11252,9 +11379,8 @@
 	},
 /area/centcom/jail)
 "igW" = (
-/obj/machinery/door/airlock/centcom{
-	opacity = 1;
-	req_access_txt = "152"
+/obj/effect/mapping_helpers/light{
+	light_power = 3
 	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
@@ -12577,8 +12703,8 @@
 	},
 /area/centcom/zone1)
 "iXH" = (
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/structure/chair{
+	dir = 4
 	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
@@ -13507,6 +13633,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"jDy" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/stealth,
+/obj/item/clothing/suit/space/vox/stealth,
+/obj/item/clothing/head/helmet/space/vox/stealth,
+/obj/item/clothing/head/helmet/space/vox/stealth,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "jDO" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/junglebush/c,
@@ -15152,16 +15288,6 @@
 	icon_state = "carpet7-3"
 	},
 /area/wizard_station)
-"kIj" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/medic,
-/obj/item/clothing/suit/space/vox/medic,
-/obj/item/clothing/head/helmet/space/vox/medic,
-/obj/item/clothing/head/helmet/space/vox/medic,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
-/area/vox_station)
 "kID" = (
 /turf/unsimulated/wall{
 	icon_state = "rwall0"
@@ -15863,6 +15989,14 @@
 	icon_state = "green"
 	},
 /area/tdome/arena)
+"lfx" = (
+/obj/structure/closet/secure_closet/freezer/meat{
+	broken = 1
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "lfA" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -16024,6 +16158,13 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
+"llv" = (
+/obj/item/flashlight/lamp,
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "lmc" = (
 /obj/item/flag/syndi,
 /obj/structure/sign/poster/contraband/random{
@@ -16742,6 +16883,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
+"lFY" = (
+/obj/machinery/cryopod/right,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1;
+	layer = 3.0
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "lGp" = (
 /obj/machinery/atmospherics/unary/tank/air/ninja{
 	dir = 1
@@ -16837,11 +16988,7 @@
 	},
 /area/trader_station/sol)
 "lIO" = (
-/obj/machinery/door/window{
-	dir = 1;
-	panel_open = 1;
-	req_access_txt = "152"
-	},
+/obj/machinery/door/firedoor,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -17501,7 +17648,9 @@
 	},
 /area/centcom/evac)
 "mgR" = (
-/obj/machinery/vox_win_button,
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -17707,6 +17856,17 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"mne" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "mnf" = (
 /obj/structure/table,
 /obj/item/mop,
@@ -17964,6 +18124,14 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"mxg" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "mxk" = (
 /obj/structure/window/reinforced{
 	layer = 2.9
@@ -18115,7 +18283,10 @@
 	},
 /area/centcom/zone1)
 "mDD" = (
-/obj/structure/kitchenspike,
+/obj/structure/table/reinforced/brass,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/stack/tape_roll,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -19035,6 +19206,14 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"niG" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "niJ" = (
 /obj/structure/flora/bush,
 /turf/unsimulated/floor{
@@ -19319,11 +19498,7 @@
 	},
 /area/ussp_ship)
 "nrv" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/stealth,
-/obj/item/clothing/suit/space/vox/stealth,
-/obj/item/clothing/head/helmet/space/vox/stealth,
-/obj/item/clothing/head/helmet/space/vox/stealth,
+/obj/structure/reagent_dispensers/watertank,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -19831,6 +20006,17 @@
 	icon_state = "carpet"
 	},
 /area/centcom/jail)
+"nIb" = (
+/obj/item/pipe,
+/obj/item/pipe{
+	pixel_x = 6
+	},
+/obj/item/stack/packageWrap,
+/obj/item/assembly/igniter,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "nIc" = (
 /obj/machinery/computer/med_data,
 /turf/unsimulated/floor{
@@ -20134,11 +20320,8 @@
 	},
 /area/centcom/srtops)
 "nSw" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/pressure,
-/obj/item/clothing/suit/space/vox/pressure,
-/obj/item/clothing/head/helmet/space/vox/pressure,
-/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -20337,11 +20520,10 @@
 	},
 /area/centcom/zone3)
 "oeN" = (
+/obj/item/pizzabox{
+	icon_state = "pizzabox_open"
+	},
 /obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/carapace,
-/obj/item/clothing/suit/space/vox/carapace,
-/obj/item/clothing/head/helmet/space/vox/carapace,
-/obj/item/clothing/head/helmet/space/vox/carapace,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -21490,7 +21672,7 @@
 	},
 /area/centcom/evac)
 "pbl" = (
-/obj/structure/closet/crate,
+/obj/item/flag/species/vox,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -21824,8 +22006,8 @@
 	},
 /area/ussp_ship)
 "piw" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "152"
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
@@ -22801,27 +22983,8 @@
 	},
 /area/syndicate_mothership)
 "pHT" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood/old,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -23242,6 +23405,13 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"pVf" = (
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "pVm" = (
 /obj/machinery/computer/card/centcom,
 /obj/structure/sign/poster/official/random{
@@ -23573,6 +23743,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"qdN" = (
+/obj/structure/ore_box,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "qdY" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -23613,17 +23789,7 @@
 	},
 /area/holodeck/source_basketball)
 "qfe" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -25490,6 +25656,16 @@
 	icon_state = "vault"
 	},
 /area/centcom/srtops)
+"rqS" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/toy/plushie/voxplushie{
+	desc = "Он хоть и прималис, но обязательно вырастет";
+	name = "Кикитаячи"
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "rrf" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "syndicate_away";
@@ -25922,6 +26098,17 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"rCd" = (
+/obj/structure/closet/crate,
+/obj/item/firelock_electronics,
+/obj/item/firealarm_electronics,
+/obj/item/soap,
+/obj/item/soap/ducttape,
+/obj/item/storage/backpack,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "rCL" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -25997,6 +26184,20 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
+"rFK" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "rFQ" = (
 /obj/effect/decal/warning_stripes/east{
 	layer = 50;
@@ -26837,6 +27038,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"shG" = (
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "shN" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
@@ -27080,8 +27287,9 @@
 	},
 /area/ussp_ship)
 "smW" = (
-/turf/unsimulated/wall{
-	icon_state = "rrust10"
+/obj/item/stack/sheet/mineral/sandbags,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
 	},
 /area/vox_station)
 "snW" = (
@@ -27259,6 +27467,16 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"ssW" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "std" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot/short,
@@ -27655,6 +27873,16 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"sGv" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/carapace,
+/obj/item/clothing/suit/space/vox/carapace,
+/obj/item/clothing/head/helmet/space/vox/carapace,
+/obj/item/clothing/head/helmet/space/vox/carapace,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "sGP" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -27764,6 +27992,20 @@
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/centcom)
+"sLM" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "sLQ" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -28147,6 +28389,16 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/unsimulated/floor/snow,
 /area/ninja/outside)
+"sWI" = (
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "sWK" = (
 /turf/simulated/floor/light,
 /area/secret/gaybar)
@@ -28487,16 +28739,8 @@
 	},
 /area/centcom/zone3)
 "tlX" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -30978,6 +31222,14 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"vdv" = (
+/obj/item/pizzabox{
+	icon_state = "pizzabox_open"
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "vea" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -31681,6 +31933,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vCH" = (
+/obj/item/target,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "vCS" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -31981,6 +32239,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vJi" = (
+/obj/item/pizzabox/meat,
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "vKb" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
@@ -32067,7 +32335,7 @@
 	},
 /area/wizard_station)
 "vLs" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/vending/dinnerware,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -32964,6 +33232,16 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
+"wqz" = (
+/obj/structure/closet/crate,
+/obj/item/emptysandbag,
+/obj/item/emptysandbag,
+/obj/item/emptysandbag,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "wqK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
@@ -34058,6 +34336,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"wZd" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/glasses/welding,
+/obj/item/multitool,
+/obj/item/t_scanner,
+/obj/item/storage/belt/chameleon,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "wZp" = (
 /obj/structure/rack,
 /obj/item/gun/medbeam,
@@ -34387,10 +34675,11 @@
 	},
 /area/centcom/zone1)
 "xlW" = (
-/obj/structure/chair/comfy/red,
-/obj/effect/landmark{
-	name = "voxstart"
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
 	},
+/obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -35322,6 +35611,12 @@
 	tag = "icon-asteroid7"
 	},
 /area/holodeck/source_knightarena)
+"xQD" = (
+/obj/machinery/cryopod/right,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "xQT" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ASSAULT1";
@@ -35396,6 +35691,16 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"xWx" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/medic,
+/obj/item/clothing/suit/space/vox/medic,
+/obj/item/clothing/head/helmet/space/vox/medic,
+/obj/item/clothing/head/helmet/space/vox/medic,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "xWD" = (
 /obj/machinery/door/airlock/centcom{
 	name = "ERT Service Room";
@@ -53940,17 +54245,17 @@ fiK
 gXj
 xoS
 nSw
-kIj
-oeN
-xoS
+qfe
+qAW
+qAW
 mDD
-mDD
-mDD
-mDD
-mDD
-mDD
+huT
+llv
 kID
-xoS
+qdN
+euu
+dKN
+smW
 smW
 xoS
 jyD
@@ -54199,17 +54504,17 @@ kID
 nrv
 qAW
 qAW
+igW
+qAW
+dvB
+wZd
+kID
+euu
+sWI
+qAW
+qAW
+qAW
 xoS
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-xoS
-qAW
-qAW
-qAW
 jyD
 jyD
 jyD
@@ -54456,17 +54761,17 @@ xoS
 fGT
 qAW
 qAW
-piw
 qAW
-qAW
-qAW
-qAW
-qAW
-qAW
+pVf
+nIb
+mne
+kID
+wqz
+sWI
 igW
 qAW
 qAW
-qAW
+mxg
 jyD
 jyD
 jyD
@@ -54713,16 +55018,16 @@ xoS
 fGT
 qAW
 qAW
+qAW
 xoS
+xoS
+xoS
+xoS
+azI
+rCd
 qAW
 qAW
-dAs
-fGT
 qAW
-fEx
-xoS
-smW
-xoS
 xoS
 jyD
 jyD
@@ -54969,17 +55274,17 @@ gXj
 xoS
 tlX
 qfe
-pHT
-kID
 qAW
 qAW
-fGT
-fGT
+lFY
+xQD
+xQD
+xoS
+qdN
 qAW
 qAW
 qAW
 qAW
-vLs
 kID
 jyD
 jyD
@@ -55224,19 +55529,19 @@ eIt
 fWB
 gXj
 xoS
+fEx
+qAW
+qAW
+igW
+qAW
+qAW
+qAW
 xoS
-kID
-xoS
-xoS
-qAW
-qAW
-fGT
-fGT
+vCH
 qAW
 qAW
 qAW
 qAW
-vLs
 kID
 jyD
 jyD
@@ -55485,15 +55790,15 @@ fEx
 qAW
 qAW
 qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-vLs
+hhZ
+cCk
+cCk
+kID
+kID
+lIO
+lIO
+lIO
+xoS
 kID
 jyD
 jyD
@@ -55738,19 +56043,19 @@ eNw
 gva
 gXj
 xoS
+kID
+kID
+kID
+qAW
+kID
+xoS
+xoS
+kID
 qAW
 qAW
 qAW
-fbe
 qAW
 qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-cDm
 kID
 jyD
 jyD
@@ -55995,19 +56300,19 @@ fBQ
 fWB
 gXj
 xoS
-qAW
-qAW
-fGT
-fGT
-fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
 cDm
+qAW
+qAW
+qAW
+qAW
+qAW
+lIO
+qAW
+qAW
+qAW
+qAW
+qAW
+qAW
 xoS
 jyD
 jyD
@@ -56252,19 +56557,19 @@ gXj
 gXj
 gXj
 xoS
-qAW
-xlW
-fGT
-fGT
-fbe
+dAs
 qAW
 qAW
+igW
+qAW
+qAW
+lIO
 qAW
 qAW
 qAW
-xoS
-kID
-xoS
+igW
+qAW
+qAW
 kID
 jyD
 jyD
@@ -56509,19 +56814,19 @@ eIt
 fWB
 gXj
 xoS
-qAW
-qAW
-fGT
-fGT
 fbe
 qAW
 qAW
 qAW
 qAW
 qAW
-iXH
-dKN
-dKN
+lIO
+qAW
+qAW
+qAW
+qAW
+qAW
+qAW
 xoS
 jyD
 jyD
@@ -56766,17 +57071,17 @@ eNw
 gmR
 gXj
 xoS
+kID
+kID
+kID
+qAW
+kID
+kID
+xoS
+xoS
 qAW
 qAW
 qAW
-fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-iXH
 qAW
 qAW
 xoS
@@ -57023,19 +57328,19 @@ eNw
 gva
 gXj
 kID
-fEx
+iXH
+iXH
 qAW
 qAW
 qAW
 qAW
-qAW
-qAW
-qAW
-qAW
-qAW
+pbl
+xoS
+xoS
 lIO
-qAW
-qAW
+lIO
+lIO
+xoS
 kID
 jyD
 jyD
@@ -57280,19 +57585,19 @@ fBQ
 fWB
 gXj
 kID
-xoS
-kID
-xoS
-kID
-qAW
-qAW
-fGT
-fGT
-qAW
+oeN
+aEE
+niG
+igW
 qAW
 iXH
 qAW
+xoS
+sGv
 qAW
+qAW
+qAW
+dKN
 xoS
 jyD
 jyD
@@ -57537,18 +57842,18 @@ gXj
 gXj
 gXj
 kID
+piw
+piw
 qAW
 qAW
+dvB
+eSH
 qAW
 kID
+xWx
 qAW
 qAW
-fGT
-fGT
 qAW
-qAW
-iXH
-dKN
 dKN
 kID
 jyD
@@ -57794,19 +58099,19 @@ eIt
 fWB
 gXj
 xoS
+pHT
 qAW
 qAW
 qAW
+dvB
+shG
+bGr
 kID
+ssW
 qAW
 qAW
-fGT
-fGT
 qAW
-fEx
-xoS
-xoS
-xoS
+qAW
 xoS
 jyD
 jyD
@@ -58051,20 +58356,20 @@ eNw
 gmR
 gXj
 kID
-qAW
+vLs
 mgR
+lfx
 qAW
-piw
+dvB
+rqS
 qAW
-qAW
-qAW
-qAW
-qAW
+kID
+jDy
 qAW
 igW
 qAW
 qAW
-qAW
+mxg
 wed
 jyD
 jyD
@@ -58308,20 +58613,20 @@ eNw
 gva
 gXj
 kID
+xlW
+mgR
+vJi
+igW
+qAW
+piw
+qAW
+kID
+rFK
+qAW
 qAW
 qAW
 qAW
 xoS
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-xoS
-qAW
-qAW
-qAW
 jyD
 jyD
 jyD
@@ -58565,19 +58870,19 @@ fBQ
 fWB
 gXj
 xoS
+fwH
+dCt
+fND
+vdv
 qAW
 qAW
-qAW
-xoS
 pbl
-pbl
-pbl
-pbl
-pbl
-pbl
-xoS
 kID
-xoS
+sLM
+qAW
+qAW
+qAW
+qAW
 xoS
 jyD
 jyD
