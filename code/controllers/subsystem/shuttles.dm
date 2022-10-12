@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/cancelEvac(mob/user)
 	if(canRecall())
 		emergency.cancel(get_area(user))
-		add_game_logs("[key_name(user)] has recalled the shuttle.", user)
+		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[key_name_admin(user)] has recalled the shuttle.")
 		return 1
 

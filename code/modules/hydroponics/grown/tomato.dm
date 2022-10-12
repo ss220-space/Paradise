@@ -183,5 +183,5 @@
 			if(user)
 				user.unEquip(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
-			add_game_logs("[key_name_log(user)] released a killer tomato at [COORD(T)]", user)
+			add_game_logs("released a killer tomato at [COORD(T)]", user)
 			qdel(src)

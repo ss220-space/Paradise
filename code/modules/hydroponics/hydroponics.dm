@@ -485,7 +485,7 @@
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
-		add_game_logs("[key_name_log(user)] caused spiderling pests to spawn in a hydro tray", user)
+		add_game_logs("caused spiderling pests to spawn in a hydro tray", user)
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))

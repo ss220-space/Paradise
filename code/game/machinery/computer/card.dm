@@ -468,7 +468,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
 					modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"."
 					modify.assignment = temp_t
-					add_game_logs("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".", usr)
+					add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".", usr)
 					investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"." , INVESTIGATE_ACCESSCHANGES)
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
@@ -496,7 +496,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				add_game_logs("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
+				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
 				investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
 				if(t1 == "Civilian")
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
@@ -539,7 +539,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/m_ckey = modify.getPlayerCkey()
 			var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
-			add_game_logs("[key_name_log(usr)] ([scan.assignment]) has demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".", usr)
+			add_game_logs("([scan.assignment]) has demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".", usr)
 			investigate_log("[key_name_log(usr)] ([scan.assignment]) has demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".", INVESTIGATE_ACCESSCHANGES)
 			message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
@@ -562,7 +562,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()
 			var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
-			add_game_logs("[key_name_log(usr)] ([scan.assignment]) has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".", usr)
+			add_game_logs("([scan.assignment]) has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".", usr)
 			investigate_log("[key_name_log(usr)] ([scan.assignment]) has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".", INVESTIGATE_ACCESSCHANGES)
 			message_admins("[key_name_admin(usr)] has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
@@ -585,7 +585,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions++
 			opened_positions[edit_job_target]++
-			add_game_logs("[key_name_log(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".", usr)
+			add_game_logs("([scan.assignment]) has opened a job slot for job \"[j.title]\".", usr)
 			investigate_log("[key_name_log(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".", INVESTIGATE_ACCESSCHANGES)
 			message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
 			return
@@ -603,7 +603,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions--
 			opened_positions[edit_job_target]--
-			add_game_logs("[key_name_log(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".", usr)
+			add_game_logs("([scan.assignment]) has closed a job slot for job \"[j.title]\".", usr)
 			investigate_log("[key_name_log(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".", INVESTIGATE_ACCESSCHANGES)
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
@@ -628,7 +628,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
 								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command", list(z))
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
-								add_game_logs("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", usr)
+								add_game_logs("([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", usr)
 								investigate_log("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", INVESTIGATE_RECORDS)
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
@@ -716,7 +716,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				SSjobs.prioritized_jobs += j
 			else
 				return FALSE
-			add_game_logs("[key_name_log(usr)] ([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", usr)
+			add_game_logs("([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", usr)
 			investigate_log("[key_name_log(usr)] ([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", INVESTIGATE_ACCESSCHANGES)
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			return

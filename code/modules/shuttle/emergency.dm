@@ -44,11 +44,11 @@
 					authorized += id.registered_name
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
-						add_game_logs("[key_name(user)] has authorized early shuttle launch in [COORD(src)]", user)
+						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.Announce("Осталась получить [auth_need - authorized.len] авторизацию(-й) для досрочного запуска шаттла.")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
-						add_game_logs("[key_name(user)] has launched the emergency shuttle in [COORD(src)] [seconds] seconds before launch.", user)
+						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds] seconds before launch.", user)
 						GLOB.minor_announcement.Announce("До запуска эвакуационного шаттла осталось 10 секунд.")
 						SSshuttle.emergency.setTimer(100)
 
@@ -66,7 +66,7 @@
 		var/time = SSshuttle.emergency.timeLeft()
 		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
-		add_game_logs("[key_name_log(user)] has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
+		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
 		GLOB.minor_announcement.Announce("Запуск эвакуационного шаттла через 10 секунд", "СИСТЕМНАЯ ОШИБКА:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1

@@ -521,8 +521,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	if(!client)
 		return
 	if(!client.next_mouse_macro_warning) // Log once
-		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
-		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
+		log_and_message_admins("attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		usr << 'sound/misc/sadtrombone.ogg'
 		client.next_mouse_macro_warning = world.time + 600

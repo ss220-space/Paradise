@@ -117,11 +117,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
 			if(!check_rights(R_SERVER))
-				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
-				log_admin("[key_name(usr)] attempted to restart the server via the Profiler, without access.")
+				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
 				return
-			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
-			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
+			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot

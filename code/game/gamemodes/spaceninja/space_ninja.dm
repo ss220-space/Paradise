@@ -87,7 +87,7 @@
 		QDEL_NULL(ninja_mind.ninja)
 		ninja_mind.current.faction = list("Station")
 		if(admin_removed)
-			log_and_message_admins("[key_name_admin(caller)] has removed special role \"Ninja\" from [key_name_admin(ninja_mind.current)]")
+			log_and_message_admins("has removed special role \"Ninja\" from [key_name_admin(ninja_mind.current)]")
 		add_conversion_logs(ninja_mind.current, "De-ninjad")
 		if(issilicon(ninja_mind.current))
 			to_chat(ninja_mind.current, span_userdanger("Вы стали Роботом! И годы ваших тренировок становятся пылью..."))

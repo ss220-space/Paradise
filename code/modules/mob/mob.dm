@@ -805,24 +805,24 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
 		return
 
-	add_game_logs("[key_name(usr)] has respawned.", usr)
+	add_game_logs("has respawned.", usr)
 
 	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
 
 	if(!client)
-		add_game_logs("[key_name(usr)] respawn failed due to disconnect.", usr)
+		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 	client.screen.Cut()
 	client.screen += client.void
 
 	if(!client)
-		add_game_logs("[key_name(usr)] respawn failed due to disconnect.", usr)
+		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 
 	GLOB.respawnable_list -= usr
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
-		add_game_logs("[key_name(usr)] respawn failed due to disconnect.", usr)
+		add_game_logs("respawn failed due to disconnect.", usr)
 		qdel(M)
 		return
 
