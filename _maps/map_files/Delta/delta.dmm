@@ -57709,7 +57709,7 @@
 /area/maintenance/kitchen)
 "fRj" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "temporary holding cell";
+	name = "Temporary Holding Cell";
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
