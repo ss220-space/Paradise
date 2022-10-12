@@ -77,12 +77,12 @@
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.offstation_role = TRUE
-	add_game_logs("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.", scientist)
+	add_game_logs("has been selected as an abductor team [team_number] scientist.", scientist)
 
 	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.offstation_role = TRUE
-	add_game_logs("[key_name(agent)] has been selected as an abductor team [team_number] agent.", agent)
+	add_game_logs("has been selected as an abductor team [team_number] agent.", agent)
 
 	abductors |= agent
 	abductors |= scientist

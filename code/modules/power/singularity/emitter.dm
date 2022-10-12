@@ -98,7 +98,7 @@
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
 				message_admins("Emitter turned off by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
-				add_game_logs("Emitter turned off by [key_name_log(user)] in [COORD(src)]")
+				add_game_logs("turned off emitter in [COORD(src)]", user)
 				investigate_log("turned <font color='red'>off</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			else
 				src.active = 1
@@ -106,7 +106,7 @@
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
 				message_admins("Emitter turned on by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
-				add_game_logs("Emitter turned on by [key_name_log(user)] in [COORD(src)]")
+				add_game_logs("turned on emitter in [COORD(src)]", user)
 				investigate_log("turned <font color='green'>on</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			update_icon()
 		else

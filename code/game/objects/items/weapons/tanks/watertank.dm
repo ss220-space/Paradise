@@ -291,7 +291,7 @@
 		nanofrost_cooldown = 1
 		R.remove_any(100)
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
-		add_game_logs("[key_name_log(user)] used Nanofrost at [AREACOORD(user)].", user)
+		add_game_logs("used Nanofrost at [AREACOORD(user)].", user)
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		for(var/a=0, a<5, a++)
 			step_towards(A, target)

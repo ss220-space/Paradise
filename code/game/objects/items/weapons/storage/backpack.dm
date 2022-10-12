@@ -76,16 +76,15 @@
 					qdel(W)
 					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 					singulo.energy = 300 //To give it a small boost
-					message_admins("[ADMIN_FULLMONTY(user)] detonated a bag of holding at [ADMIN_COORDJMP(singulo)]")
-					add_game_logs("[key_name_log(user)] detonated a bag of holding", user)
+					message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
+					add_game_logs("created singularity using two bag of holding!", user)
 					qdel(src)
 				else
 					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
 			else
 				user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
-				investigate_log("could potentially become a singularity (feature disabled for non-special roles). Attempt by [key_name_log(user)]", INVESTIGATE_ENGINE)
-				message_admins("[ADMIN_LOOKUPFLW(user)] tried to detonate a bag of holding (feature disabled for non-special roles)")
-				add_game_logs("[key_name_log(user)] tried to detonate a bag of holding (feature disabled for non-special roles)", user)
+				message_admins("[ADMIN_LOOKUPFLW(user)] tried to create a singularity with bag of holding (feature disabled for non-special roles)")
+				add_game_logs("tried to create a singularity with bag of holding (feature disabled for non-special roles)", user)
 	else
 		. = ..()
 

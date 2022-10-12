@@ -39,8 +39,7 @@
 		var/err = query_watchadd.ErrorMsg()
 		add_game_logs("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
 		return
-	log_admin("[key_name(usr)] has added [target_ckey] to the watchlist - Reason: [reason]")
-	message_admins("[key_name_admin(usr)] has added [target_ckey] to the watchlist - Reason: [reason]")
+	log_and_message_admins("has added [target_ckey] to the watchlist - Reason: [reason]")
 	if(browse)
 		watchlist_show(target_ckey)
 
@@ -54,8 +53,7 @@
 		qdel(query_watchdel)
 		return
 	qdel(query_watchdel)
-	log_admin("[key_name(usr)] has removed [target_ckey] from the watchlist")
-	message_admins("[key_name_admin(usr)] has removed [target_ckey] from the watchlist")
+	log_and_message_admins("has removed [target_ckey] from the watchlist")
 	if(browse)
 		watchlist_show()
 

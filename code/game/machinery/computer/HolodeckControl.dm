@@ -150,10 +150,10 @@
 		emagged = !emagged
 		if(emagged)
 			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
-			add_game_logs("[key_name_log(usr)] overrode the holodeck's safeties", usr)
+			add_game_logs("overrode the holodeck's safeties", usr)
 		else
 			message_admins("[key_name_admin(usr)] restored the holodeck's safeties")
-			add_game_logs("[key_name_log(usr)] restored the holodeck's safeties", usr)
+			add_game_logs("restored the holodeck's safeties", usr)
 
 	add_fingerprint(usr)
 	updateUsrDialog()

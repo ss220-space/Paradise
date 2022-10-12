@@ -150,7 +150,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(user) //in this case either someone holding a spellbook or a badmin
 		to_chat(user, "<span class='warning'>You summoned [summon_type]!</span>")
 		message_admins("[ADMIN_LOOKUPFLW(user)] summoned [summon_type]!")
-		add_game_logs("[key_name(user)] summoned [summon_type]!", user)
+		add_game_logs("summoned [summon_type]!", user)
 
 	if(summon_type == SUMMON_MAGIC)
 		GLOB.summon_magic_triggered = survivor_probability

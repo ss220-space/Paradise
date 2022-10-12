@@ -295,8 +295,7 @@
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
-		log_admin("Cryopod in [COORD(src)] could not find control computer!")
-		message_admins("Cryopod in [ADMIN_COORDJMP(src)] could not find control computer!")
+		log_and_message_admins("Cryopod in [COORD(src)] could not find control computer!")
 		last_no_computer_message = world.time
 
 	return control_computer != null

@@ -72,7 +72,7 @@
 	P.icon_state = "anom"
 	P.name = "wormhole"
 	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] used a Wormhole Generator in [ADMIN_COORDJMP(loc)]")
-	add_game_logs("[key_name_log(chassis.occupant)] used a Wormhole Generator in [COORD(loc)]", chassis.occupant)
+	add_game_logs("used a Wormhole Generator in [COORD(loc)]", chassis.occupant)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] used a Wormhole Generator at [COORD(loc)].", INVESTIGATE_TELEPORTATION)
 
 	src = null
@@ -135,7 +135,7 @@
 						sleep(2)
 			var/turf/T = get_turf(target)
 			cooldown_timer = world.time + 3 SECONDS
-			add_game_logs("[key_name(chassis.occupant)] used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
+			add_game_logs("used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
 			return 1
 
 

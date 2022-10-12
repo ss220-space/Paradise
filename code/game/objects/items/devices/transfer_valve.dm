@@ -64,7 +64,7 @@
 
 		investigate_log("[key_name_log(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
-		add_game_logs("[key_name_log(user)] attached [A] to a transfer valve.", user)
+		add_game_logs("attached [A] to a transfer valve.", user)
 		attacher = user
 		SStgui.update_uis(src) // update all UIs attached to src
 

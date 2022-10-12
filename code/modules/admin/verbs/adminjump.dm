@@ -141,8 +141,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]")
+	log_and_message_admins("teleported [key_name_admin(M)]")
 
 	if(isobj(M.loc))
 		var/obj/O = M.loc
@@ -168,8 +167,7 @@
 
 	if(!M)
 		return
-	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name(M)]")
+	log_and_message_admins("teleported [key_name(M)]")
 	if(M)
 		if(isobj(M.loc))
 			var/obj/O = M.loc
@@ -194,8 +192,7 @@
 		O.force_eject_occupant(M)
 	admin_forcemove(M, pick(get_area_turfs(A)))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")
-	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]")
+	log_and_message_admins("teleported [key_name_admin(M)] to [A]")
 
 /proc/admin_forcemove(mob/mover, atom/newloc)
 	mover.forceMove(newloc)

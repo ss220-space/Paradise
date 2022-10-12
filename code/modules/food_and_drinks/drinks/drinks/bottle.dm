@@ -358,7 +358,7 @@
 		active = 1
 		var/turf/bombturf = get_turf(src)
 		message_admins("[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
-		add_game_logs("[key_name_log(user)] has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
+		add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
 		overlays += GLOB.fire_overlay

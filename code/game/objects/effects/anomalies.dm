@@ -293,7 +293,7 @@
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
-		add_game_logs("[key_name_log(S)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
+		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
 
 /////////////////////
 

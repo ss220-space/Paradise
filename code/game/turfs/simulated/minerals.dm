@@ -446,7 +446,7 @@
 				message_admins("An explosion has triggered a gibtonite deposit reaction at [ADMIN_VERBOSEJMP(bombturf)].")
 
 		if(!triggered_by_explosion)
-			add_game_logs("[key_name(user)] has triggered a gibtonite deposit reaction at [AREACOORD(bombturf)].", user)
+			add_game_logs("has triggered a gibtonite deposit reaction at [AREACOORD(bombturf)].", user)
 		else
 			add_game_logs("An explosion has triggered a gibtonite deposit reaction at [AREACOORD(bombturf)]")
 

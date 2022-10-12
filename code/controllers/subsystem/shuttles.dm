@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(shuttle)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
 
-	add_game_logs("[key_name_log(user)] has called the shuttle.", user)
+	add_game_logs("has called the shuttle.", user)
 	message_admins("[key_name_admin(user)] has called the shuttle.")
 
 	return

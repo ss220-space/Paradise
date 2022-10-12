@@ -80,7 +80,7 @@
 		loc = null
 
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time] second fuse")
-		add_game_logs("[key_name_log(user)] planted [name] on [target.name] at [COORD(target)] with [det_time] second fuse", user)
+		add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time] second fuse", user)
 
 		target.overlays += image_overlay
 		if(!nadeassembly)
@@ -89,7 +89,7 @@
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
-	add_game_logs("[key_name_log(user)] suicided with [name] at [COORD(user)]", user)
+	add_game_logs("suicided with [name] at [COORD(user)]", user)
 	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)

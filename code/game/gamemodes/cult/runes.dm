@@ -998,9 +998,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
-		add_game_logs("Summon Narsie rune erased by [key_name(user)] with a cult dagger", user)
+		add_game_logs("erased Summon Narsie rune with a cult dagger", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-		add_game_logs("Summon Narsie rune erased by [key_name(user)] using a null rod", user)
+		add_game_logs("erased Summon Narsie rune using a null rod", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 	return ..()

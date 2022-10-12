@@ -43,7 +43,7 @@
 
 /datum/game_mode/wizard/post_setup()
 	for(var/datum/mind/wizard in wizards)
-		add_game_logs("[key_name(wizard)] has been selected as a Wizard", wizard.current)
+		add_game_logs("has been selected as a Wizard", wizard.current)
 		forge_wizard_objectives(wizard)
 		equip_wizard(wizard.current)
 		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)

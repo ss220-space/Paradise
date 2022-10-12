@@ -428,7 +428,7 @@
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		SSticker.mode.traitors |= player_mind
 		message_admins("[key_name_admin(R)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
-		add_game_logs("[key_name_log(R)] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", R)
+		add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", R)
 		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")
 		qdel(src)
 		if(src) //Should never happen, but just in case

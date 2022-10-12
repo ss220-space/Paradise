@@ -169,7 +169,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/proc/Log(message as text, message_title as text)
 	if(log)
-		add_game_logs("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]", usr)
+		add_game_logs("has made \a [announcement_type]: [message_title] - [message] - [announcer]", usr)
 		message_admins("[key_name_admin(usr)] has made \a [announcement_type].")
 
 /proc/GetNameAndAssignmentFromId(var/obj/item/card/id/I)

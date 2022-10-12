@@ -121,7 +121,7 @@
 	heads_to_kill += heads
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
-		add_game_logs("[key_name(rev_mind)] has been selected as a head rev", rev_mind.current)
+		add_game_logs("has been selected as a head rev", rev_mind.current)
 		forge_revolutionary_objectives(rev_mind)
 
 		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
@@ -231,7 +231,7 @@
 			var/datum/mind/stalin = pick(promotable_revs)
 			revolutionaries -= stalin
 			head_revolutionaries += stalin
-			add_game_logs("[key_name(stalin)] has been promoted to a head rev", stalin.current)
+			add_game_logs("has been promoted to a head rev", stalin.current)
 			equip_revolutionary(stalin.current)
 			forge_revolutionary_objectives(stalin)
 			greet_revolutionary(stalin)

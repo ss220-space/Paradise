@@ -29,4 +29,4 @@
 	var/left_click = pa.Find("left")
 
 	if(left_click)
-		explosion(object, devastation, heavy, light, flash, null, TRUE, flames, cause = user)
+		explosion(object, devastation, heavy, light, flash, null, TRUE, flames, cause = "build mode")
