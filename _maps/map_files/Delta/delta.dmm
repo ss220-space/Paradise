@@ -3168,6 +3168,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 8;
+	name = "Security Checkpoint";
+	pixel_x = -8;
+	req_access_txt = "1"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair/office/dark{
@@ -5058,10 +5064,10 @@
 /area/hallway/secondary/entry/additional)
 "aAh" = (
 /obj/effect/decal/warning_stripes/blue,
+/obj/effect/decal/warning_stripes/southwest,
 /obj/structure/sink{
 	pixel_y = 22
 	},
-/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
@@ -8193,7 +8199,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "aOV" = (
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
@@ -9470,7 +9478,9 @@
 "aVo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "aVz" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -9686,7 +9696,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "aXc" = (
 /obj/machinery/light{
 	dir = 4
@@ -10240,9 +10250,7 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "baf" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -12657,7 +12665,9 @@
 	dir = 9;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "bmG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13385,7 +13395,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "bru" = (
 /obj/structure/closet,
 /obj/item/toy/crayon/spraycan,
@@ -18919,6 +18931,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 8;
+	name = "Customs Desk";
+	pixel_x = 32;
+	req_access_txt = "19"
+	},
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -20254,7 +20272,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "bTR" = (
 /obj/structure/sign/pods,
 /turf/simulated/wall,
@@ -20523,9 +20541,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "bUH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -23063,9 +23079,7 @@
 "ceu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "cew" = (
 /obj/machinery/camera{
 	c_tag = "Arrivals Hall Center"
@@ -23269,9 +23283,7 @@
 "cfs" = (
 /obj/item/wirecutters,
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "cft" = (
 /obj/machinery/camera{
 	c_tag = "Supermatter Pump Airlock";
@@ -24672,9 +24684,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "cmh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -26627,7 +26637,9 @@
 "cvi" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "cvj" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -27158,7 +27170,9 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "cxb" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/emcloset,
@@ -27329,9 +27343,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "cxP" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -29558,7 +29570,9 @@
 "cET" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "cFb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	name = "Из скрабберов на фильтрацию"
@@ -29572,7 +29586,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "cFd" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -30956,9 +30972,7 @@
 "cJM" = (
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "cJN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -31592,7 +31606,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "cMP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -31681,7 +31697,7 @@
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "cNB" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -33061,7 +33077,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "cSp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/closet/crate,
@@ -36148,9 +36164,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "deA" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -36768,9 +36782,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "dgv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -39229,9 +39241,7 @@
 	pixel_x = 26
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "dpa" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/grown/banana{
@@ -42996,9 +43006,7 @@
 /area/security/prisonershuttle)
 "dEP" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "dEV" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -43018,9 +43026,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "dFa" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -43070,7 +43076,7 @@
 /area/civilian/barber)
 "dFg" = (
 /turf/simulated/wall,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFh" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "Труба содержит газ для обработки и после возвращает его обратно в трубу смешивания";
@@ -43255,13 +43261,15 @@
 /area/crew_quarters/courtroom)
 "dFG" = (
 /turf/simulated/wall/rust,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "dFK" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFM" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -43397,7 +43405,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dGD" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet,
@@ -43714,7 +43722,7 @@
 "dHt" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dHx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -44684,7 +44692,7 @@
 	name = "blobstart"
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dKM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -45050,7 +45058,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dMg" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -48679,7 +48687,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dYa" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -49456,7 +49464,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "eaZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50295,9 +50303,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "ejN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50450,9 +50456,7 @@
 	dir = 10;
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "ekW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -50904,7 +50908,7 @@
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "erJ" = (
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -51848,10 +51852,6 @@
 /area/maintenance/asmaint{
 	name = "Virology Maintenance"
 	})
-"eBY" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/maintenance/storage)
 "eCf" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
@@ -52883,9 +52883,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "eNt" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -53689,16 +53687,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
-"eWD" = (
-/obj/item/clothing/mask/facehugger/toy,
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
-	})
 "eWN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -54319,11 +54307,15 @@
 "fdc" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fdB" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/rust,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fdD" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
@@ -54382,7 +54374,9 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fed" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -54771,7 +54765,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fju" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -54857,7 +54853,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fjY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -54990,7 +54988,9 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "flH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -55095,7 +55095,9 @@
 "fmV" = (
 /obj/structure/closet/l3closet/virology,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fnm" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -55283,9 +55285,7 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "fpN" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/disposalpipe/segment{
@@ -55589,9 +55589,7 @@
 /area/hallway/primary/central/west)
 "ftc" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "ftj" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/firedoor,
@@ -55633,9 +55631,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "ftP" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -55855,7 +55851,7 @@
 	},
 /area/bridge/vip)
 "fvQ" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/virology/lab)
 "fvU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -55897,7 +55893,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "fwt" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -56990,7 +56986,9 @@
 	name = "2maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fKQ" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor{
@@ -57647,7 +57645,9 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fTd" = (
 /turf/simulated/floor/wood/fancy/birch{
 	icon_state = "fancy-wood-birch-broken3"
@@ -57825,7 +57825,9 @@
 /obj/structure/rack,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fUO" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
@@ -57975,7 +57977,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "fVX" = (
 /obj/effect/landmark/start{
 	name = "Scientist"
@@ -58171,9 +58175,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "fXt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -59667,7 +59669,9 @@
 	name = "3maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "gpV" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light,
@@ -59770,7 +59774,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "grm" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -59790,7 +59794,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "grQ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -60116,7 +60122,9 @@
 	},
 /mob/living/simple_animal/mouse/brown,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "gwx" = (
 /obj/structure/table,
 /obj/item/pen{
@@ -60257,7 +60265,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "gxI" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -60917,7 +60925,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "gFf" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
@@ -62498,7 +62508,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "gTh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -62930,7 +62942,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "gXM" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/item/radio/intercom{
@@ -63515,7 +63527,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "hgg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63643,7 +63655,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "hhq" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood/fancy/light,
@@ -64608,9 +64622,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "hsQ" = (
 /obj/machinery/light{
 	dir = 8
@@ -64734,7 +64746,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "huw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -65650,9 +65664,7 @@
 /obj/item/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "hEY" = (
 /obj/machinery/door/morgue{
 	name = "Private Study";
@@ -67087,7 +67099,9 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "hVC" = (
 /obj/effect/turf_decal/bot/left,
 /turf/simulated/floor/plasteel{
@@ -67352,10 +67366,6 @@
 /area/maintenance/starboard{
 	name = "Engineering Maintenance"
 	})
-"hYI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/storage)
 "hYL" = (
 /obj/machinery/door/morgue{
 	name = "Chapel Morgue";
@@ -67421,9 +67431,7 @@
 	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "iaa" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -67578,7 +67586,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "ibM" = (
 /obj/machinery/light{
 	dir = 1;
@@ -67695,7 +67703,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "idt" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
@@ -68482,7 +68490,9 @@
 	req_one_access_txt = "5;12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "imH" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -68563,7 +68573,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "inl" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -69758,9 +69768,7 @@
 "iBE" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "iBT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -69796,9 +69804,7 @@
 /area/chapel/main)
 "iCk" = (
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "iCu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -69939,15 +69945,11 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "iEb" = (
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "iEi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70004,7 +70006,7 @@
 "iFi" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "iFq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -70672,15 +70674,14 @@
 	},
 /area/shuttle/syndicate)
 "iLn" = (
-/obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
-	},
-/turf/simulated/floor/plasteel,
-/area/medical/virology/lab{
-	name = "\improper Virology Lobby"
+/obj/item/clothing/mask/facehugger/toy,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint{
+	name = "Virology Maintenance"
 	})
 "iLo" = (
 /turf/simulated/floor/wood,
@@ -71027,7 +71028,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "iPD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -71510,7 +71511,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "iWM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -71898,7 +71901,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "jaP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -71951,7 +71954,13 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "jbE" = (
-/turf/simulated/wall/r_wall,
+/obj/effect/decal/warning_stripes/blue,
+/obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/shower{
+	dir = 4;
+	tag = "icon-shower (EAST)"
+	},
+/turf/simulated/floor/plasteel,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -72542,7 +72551,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "jjA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -72911,9 +72922,7 @@
 /obj/item/clothing/shoes/orange,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "jot" = (
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -74708,7 +74717,9 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "jIv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -74968,7 +74979,9 @@
 	},
 /obj/item/storage/briefcase/inflatable,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "jKj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/snacks/candy/gummyworm,
@@ -76061,7 +76074,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "jZj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -76397,9 +76410,7 @@
 /obj/structure/table,
 /obj/item/multitool,
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "keL" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -76418,9 +76429,7 @@
 "kfc" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "kff" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -76466,9 +76475,7 @@
 	dir = 1;
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "kfn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -76545,9 +76552,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "kgk" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -76557,9 +76562,7 @@
 "kgz" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "kgB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -76758,9 +76761,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "kjT" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -76886,9 +76887,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "klw" = (
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -77945,7 +77944,9 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "kyY" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -78432,7 +78433,7 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "kEg" = (
 /obj/structure/closet/l3closet/scientist,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -78459,9 +78460,7 @@
 	name = "Странные записи"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "kEp" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -79219,9 +79218,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "kNU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
@@ -79848,7 +79845,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "kZv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -80707,9 +80704,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "liE" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -81271,7 +81266,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "loX" = (
 /obj/machinery/chem_master{
 	pixel_x = -1
@@ -82517,7 +82512,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "lER" = (
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
@@ -83611,12 +83608,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "lQa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "lQm" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -84579,7 +84578,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "mbJ" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -85736,7 +85735,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "mnh" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
@@ -86296,9 +86297,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "mto" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86645,7 +86644,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "mxH" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/apc_electronics,
@@ -86736,7 +86735,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "myO" = (
 /obj/item/radio/intercom{
 	pixel_y = 22
@@ -87043,7 +87042,7 @@
 	pixel_x = -26
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "mBj" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -87089,9 +87088,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "mBu" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -87343,9 +87340,7 @@
 	dir = 9;
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "mDw" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -87367,7 +87362,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "mDI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -87885,7 +87880,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "mJH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -87936,7 +87931,7 @@
 "mJU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "mJY" = (
 /obj/structure/grille,
 /obj/machinery/meter,
@@ -88471,7 +88466,9 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "mPC" = (
 /obj/machinery/light{
 	dir = 4
@@ -89115,9 +89112,7 @@
 "mXt" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "mXF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -89226,7 +89221,9 @@
 	tag = "plant-dead"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "mYW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -89266,7 +89263,9 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "mZk" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -89449,7 +89448,7 @@
 	layer = 2.8;
 	pixel_y = 3
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -89711,7 +89710,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "ndp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
@@ -90204,7 +90203,9 @@
 "njy" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "njF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90753,7 +90754,9 @@
 "npC" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "npH" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -91171,9 +91174,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "nsR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -91469,7 +91470,7 @@
 "nvU" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "nvV" = (
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -91486,7 +91487,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "nwh" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -91614,7 +91615,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "nyk" = (
 /obj/effect/landmark/start{
 	name = "Life Support Specialist"
@@ -91956,9 +91957,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
-"nCP" = (
-/turf/simulated/wall,
-/area/maintenance/storage)
 "nCX" = (
 /obj/structure/bed,
 /obj/item/radio/intercom{
@@ -92166,7 +92164,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "nFf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -92264,7 +92262,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "nGj" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -92394,7 +92394,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "nHu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -93102,7 +93104,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "nOT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -93192,9 +93194,7 @@
 "nQv" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "nQx" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
@@ -93290,9 +93290,7 @@
 /obj/item/wrench,
 /obj/item/crowbar,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "nRp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -93441,9 +93439,7 @@
 	dir = 6;
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "nSA" = (
 /obj/structure/table,
 /obj/item/paicard,
@@ -94468,13 +94464,13 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "ogi" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "ogj" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/decal/cleanable/dirt,
@@ -94667,7 +94663,7 @@
 	pixel_x = -1
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "oht" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -94749,7 +94745,9 @@
 	dir = 4;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "oiF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95294,7 +95292,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "opx" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1
@@ -95369,7 +95367,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "oqa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -96698,7 +96696,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "oET" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=A31";
@@ -97001,7 +96999,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "oIy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -97247,9 +97247,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "oLb" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -98036,10 +98034,9 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
-"oTm" = (
-/turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "oTu" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -98181,7 +98178,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "oVl" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -99163,9 +99162,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "phA" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -100076,7 +100073,7 @@
 "prs" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "prC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -101706,9 +101703,7 @@
 "pIb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "pId" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -102452,9 +102447,7 @@
 "pOi" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "pOC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -102516,7 +102509,7 @@
 "pPp" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -102913,7 +102906,9 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "pUz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -103077,7 +103072,9 @@
 	dir = 6;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "pWo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -103167,12 +103164,12 @@
 "pWR" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "pWT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "pXd" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -103756,7 +103753,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "qdI" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -104500,7 +104499,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "qkv" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -105124,7 +105123,7 @@
 "qqV" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "qqW" = (
 /obj/structure/chair/comfy/red,
 /obj/item/radio/intercom{
@@ -105315,7 +105314,7 @@
 	})
 "qsF" = (
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "qsX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -105464,9 +105463,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "qug" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -105685,7 +105682,9 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "qwo" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/palebush,
@@ -105834,7 +105833,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "qxo" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -106232,7 +106231,9 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "qCl" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
@@ -106296,9 +106297,7 @@
 	dir = 4;
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "qDm" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -107375,7 +107374,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "qPr" = (
 /obj/machinery/door/airlock/security/glass{
 	id = "execution";
@@ -107664,7 +107663,9 @@
 	dir = 6;
 	icon_state = "yellow"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "qTt" = (
 /obj/structure/girder,
 /obj/structure/disposalpipe/segment{
@@ -108955,9 +108956,7 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "rgA" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -109717,7 +109716,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "rpb" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -110287,7 +110286,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "rwB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -111880,7 +111881,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "rMN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -112169,11 +112170,6 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/machinery/door/window/brigdoor/southright{
-	dir = 4;
-	name = "Security Checkpoint";
-	req_access_txt = "1"
-	},
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint)
 "rQI" = (
@@ -112512,7 +112508,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "rUC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -113387,7 +113383,9 @@
 "seJ" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "seM" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
@@ -113536,7 +113534,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "shu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -115016,9 +115016,7 @@
 	glass = 1
 	},
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "sxk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -115765,9 +115763,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "sEK" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -116184,7 +116180,9 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "sLl" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -116644,7 +116642,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "sQt" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -116981,7 +116979,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "sUb" = (
 /obj/structure/target_stake,
 /obj/machinery/magnetic_module,
@@ -117358,7 +117358,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "sZN" = (
 /obj/structure/chair/sofa/pew/left,
 /turf/simulated/floor/plasteel{
@@ -117505,7 +117507,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "tbX" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -118222,7 +118224,9 @@
 	name = "2maintenance loot spawner"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "tiJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -118251,7 +118255,7 @@
 "tiU" = (
 /obj/item/flag/cult,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "tja" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel/airless,
@@ -119599,7 +119603,9 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "tAG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -120046,9 +120052,7 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "tGd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
@@ -120058,7 +120062,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "tGi" = (
 /obj/structure/closet/chefcloset,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -120514,9 +120518,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "tKW" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Electrical Maintenance";
@@ -120945,11 +120947,6 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
 /obj/item/pen,
-/obj/machinery/door/window/brigdoor/southright{
-	dir = 8;
-	name = "Customs Desk";
-	req_access_txt = "19"
-	},
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/north)
 "tNI" = (
@@ -121231,7 +121228,9 @@
 	},
 /mob/living/simple_animal/mouse/gray,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "tQF" = (
 /obj/machinery/light{
 	dir = 4
@@ -121794,7 +121793,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "tXQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -122165,7 +122164,9 @@
 "ubV" = (
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "ucf" = (
 /obj/machinery/disposal,
 /obj/machinery/alarm{
@@ -122190,9 +122191,7 @@
 	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/storage{
-	name = "Perma Maintenance"
-	})
+/area/maintenance/perma)
 "ucJ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -122795,7 +122794,9 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "uhP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -122931,7 +122932,9 @@
 /area/maintenance/starboard)
 "ujB" = (
 /turf/simulated/wall,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "ujV" = (
 /obj/structure/toilet/secret{
 	dir = 1
@@ -123264,7 +123267,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "uob" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -123669,9 +123674,7 @@
 	dir = 5;
 	icon_state = "escape"
 	},
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "utI" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall/r_wall,
@@ -124845,7 +124848,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "uGu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -125481,7 +125484,7 @@
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "uMD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -126101,7 +126104,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "uTp" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -126579,7 +126582,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "uYS" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -126878,7 +126881,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "vcb" = (
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -126982,7 +126987,9 @@
 "vdW" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "vdX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -127397,7 +127404,7 @@
 /area/library)
 "vjf" = (
 /obj/structure/sign/biohazard,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -128322,9 +128329,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "vtR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -128339,9 +128344,7 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "vtW" = (
 /obj/machinery/atmospherics/trinary/filter{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
@@ -128553,9 +128556,7 @@
 	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "vwH" = (
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
@@ -128652,9 +128653,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "vxk" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -128816,9 +128815,7 @@
 /area/security/processing)
 "vyk" = (
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "vyq" = (
 /obj/effect/landmark/start{
 	name = "Security Officer"
@@ -129351,9 +129348,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "vCL" = (
 /obj/structure/safe/floor,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
@@ -129563,7 +129558,9 @@
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "vEZ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -129673,7 +129670,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "vGv" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -130198,9 +130197,7 @@
 "vNP" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "vNU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/multi_tile/glass{
@@ -130430,7 +130427,7 @@
 /area/solar/starboard)
 "vQl" = (
 /obj/effect/landmark/burnturf,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -131397,7 +131394,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "vZo" = (
 /obj/structure/ore_box,
 /obj/machinery/newscaster/security_unit{
@@ -131527,9 +131524,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "waS" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -131659,9 +131654,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wcl" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -131807,7 +131800,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "wdz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -132193,7 +132186,7 @@
 /area/quartermaster/storage)
 "wjj" = (
 /turf/simulated/wall/rust,
-/area/library/abandoned)
+/area/maintenance/library)
 "wjl" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/chair/comfy/brown{
@@ -132357,9 +132350,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wlx" = (
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
@@ -132464,15 +132455,13 @@
 /obj/item/wrench,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wmL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "wmW" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -132626,7 +132615,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "woE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -132940,7 +132931,9 @@
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "wsa" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -133377,7 +133370,7 @@
 	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "wwI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -133548,7 +133541,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "wyv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -134140,7 +134133,9 @@
 /area/quartermaster/storage)
 "wEP" = (
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "wEY" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -134231,7 +134226,9 @@
 "wGm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "wGp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -134475,15 +134472,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"wJC" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "MiniSat Maintenance";
-	req_access_txt = "75"
-	},
-/turf/simulated/floor/plating,
-/area/aisat/maintenance{
-	name = "\improper AI Satellite Service"
-	})
 "wJG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -134550,9 +134538,7 @@
 	req_access_txt = "75"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wKe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134931,9 +134917,7 @@
 /area/engine/engineering/monitor)
 "wOp" = (
 /turf/simulated/wall,
-/area/hallway/secondary/exit{
-	name = "\improper Abandoned scape Shuttle Hallway"
-	})
+/area/hallway/secondary/exit/maint)
 "wOF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -135019,9 +135003,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wQj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -135314,7 +135296,9 @@
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "wSW" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/plasteel{
@@ -135349,9 +135333,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wTs" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/warning_stripes/yellow,
@@ -135380,7 +135362,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "wTX" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -135570,9 +135552,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "wWn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -136159,7 +136139,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "xdb" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
@@ -136335,7 +136315,7 @@
 	pixel_x = -22
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "xeE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -137233,7 +137213,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "xpr" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -137489,7 +137471,9 @@
 "xrA" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "xrC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -137747,7 +137731,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/cult/archives,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "xuj" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -138144,7 +138128,7 @@
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "xwX" = (
 /obj/machinery/suit_storage_unit/captain,
 /obj/machinery/light{
@@ -138769,7 +138753,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "xDp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -139285,9 +139269,7 @@
 /area/crew_quarters/chief)
 "xHS" = (
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "xHT" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -139329,9 +139311,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint{
-	name = "AI Maintenance"
-	})
+/area/maintenance/ai)
 "xIo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
@@ -139423,7 +139403,9 @@
 "xJc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
-/area/maintenance/aft)
+/area/maintenance/aft{
+	name = "Medbay Maintenance"
+	})
 "xJf" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/hologram/holopad,
@@ -140740,7 +140722,7 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse/gray,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "xVg" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -141140,7 +141122,7 @@
 /area/medical/reception)
 "xZc" = (
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "xZk" = (
 /obj/structure/morgue,
 /obj/effect/decal/warning_stripes/south,
@@ -141532,7 +141514,7 @@
 /obj/structure/table/wood,
 /obj/item/paper/deltainfo,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "ydL" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -141749,7 +141731,7 @@
 "yfs" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
-/area/library/abandoned)
+/area/maintenance/library)
 "yfA" = (
 /obj/item/trash/syndi_cakes{
 	pixel_y = 7
@@ -149251,7 +149233,7 @@ dEP
 dEP
 vtR
 xHS
-wJC
+wJR
 xuL
 uty
 yeB
@@ -187613,8 +187595,8 @@ iQw
 naz
 bzb
 vjf
-eWD
-wTz
+vLr
+iLn
 fSq
 eSP
 vLr
@@ -187864,14 +187846,14 @@ mDI
 evk
 lvv
 lvv
-nCP
+ujB
 imF
-jbE
-jbE
+xFw
+xFw
 xGb
 jbE
-jbE
-jbE
+xFw
+vLr
 xtb
 xtb
 vLr
@@ -188122,13 +188104,13 @@ jJn
 eMN
 lvv
 gpT
-hYI
-jbE
+wGm
+xFw
 xxH
 bLY
 duV
 act
-jbE
+xFw
 abj
 abj
 aaa
@@ -188379,13 +188361,13 @@ kEp
 hPb
 lvv
 oVf
-eBY
-jbE
+fdc
+xFw
 xcN
 vfC
 evI
 uFl
-jbE
+xFw
 ngA
 snF
 abj
@@ -188636,18 +188618,18 @@ feD
 xYy
 lvv
 fSZ
-oTm
-jbE
+wEP
+xFw
 aAh
 mBu
 bXA
 egU
-jbE
+xFw
 qsZ
 gVU
-jbE
-jbE
-jbE
+xFw
+xFw
+xFw
 abj
 aaa
 aaa
@@ -188892,14 +188874,14 @@ elW
 eUt
 xYM
 lvv
-hYI
+wGm
 tiG
-jbE
-iLn
+xFw
+xFw
 tvZ
 uLW
-jbE
-jbE
+xFw
+xFw
 lbP
 qmz
 isF
@@ -189150,12 +189132,12 @@ xKL
 lvv
 lvv
 lEG
-nCP
-jbE
+ujB
+xFw
 vjf
 vpb
-jbE
-jbE
+xFw
+xFw
 dHg
 dLd
 dMx
@@ -189408,7 +189390,7 @@ lvv
 bmz
 fjt
 vEU
-jbE
+xFw
 jFH
 wGp
 xOy
@@ -189665,7 +189647,7 @@ pUl
 aOU
 xpo
 pWn
-jbE
+xFw
 erJ
 eaz
 lfv
@@ -189921,8 +189903,8 @@ jjv
 gFe
 sZC
 qTn
-ltW
-ltW
+ylm
+ylm
 sqB
 bWB
 xYw
@@ -190176,9 +190158,9 @@ rFn
 npC
 oiv
 jKh
-ltW
-ltW
-ltW
+ylm
+ylm
+ylm
 miT
 sVx
 wWW
@@ -190429,11 +190411,11 @@ sMH
 sxp
 mDP
 uSB
-nCP
-nCP
-nCP
-nCP
-ltW
+ujB
+ujB
+ujB
+ujB
+ylm
 rUO
 dbT
 qIo
@@ -190686,7 +190668,7 @@ cTg
 cTg
 cTg
 cTg
-nCP
+ujB
 ubV
 hVw
 fmV
@@ -191200,11 +191182,11 @@ xqk
 ygQ
 oxi
 ygQ
-nCP
-nCP
-nCP
-nCP
-ltW
+ujB
+ujB
+ujB
+ujB
+ylm
 dBO
 lGF
 dBO
@@ -191461,7 +191443,7 @@ abj
 abj
 abj
 abj
-ltW
+ylm
 hvy
 rvd
 fey
@@ -191975,7 +191957,7 @@ aaa
 aaa
 aaa
 aaa
-ltW
+ylm
 hpO
 jgk
 suu
@@ -191986,9 +191968,9 @@ ylm
 ylm
 umx
 sXT
-jbE
-jbE
-jbE
+xFw
+xFw
+xFw
 abj
 abj
 aaa
@@ -192232,7 +192214,7 @@ aaa
 aaa
 aaa
 aaa
-jbE
+xFw
 xFw
 xFw
 xFw
@@ -192243,7 +192225,7 @@ nAa
 eef
 nXf
 vCn
-jbE
+xFw
 vLh
 abj
 abj
@@ -192489,7 +192471,7 @@ aaa
 aaa
 aaa
 aaa
-jbE
+xFw
 vPn
 qgZ
 xPj
@@ -192500,7 +192482,7 @@ rZF
 tdh
 nmd
 dFA
-jbE
+xFw
 aaa
 aaa
 abj
@@ -192746,7 +192728,7 @@ aaa
 aaa
 aaa
 aaa
-jbE
+xFw
 pGk
 tjA
 kBk
@@ -192756,8 +192738,8 @@ qLz
 gTH
 ehT
 lKI
-jbE
-jbE
+xFw
+xFw
 aaa
 aaa
 aaa
@@ -193003,7 +192985,7 @@ aaa
 aaa
 aaa
 aaa
-jbE
+xFw
 dBr
 iiS
 cZf
@@ -193260,7 +193242,7 @@ aaa
 aaa
 aaa
 aaa
-jbE
+xFw
 uVl
 pbv
 qHl
@@ -193517,7 +193499,7 @@ abj
 aaa
 aaa
 abj
-jbE
+xFw
 tmt
 vai
 qxe
@@ -193774,17 +193756,17 @@ xZu
 abj
 abj
 abj
-jbE
-jbE
-jbE
+xFw
+xFw
+xFw
 pPp
 pPp
 vQl
 pwa
 qsE
 gLx
-jbE
-jbE
+xFw
+xFw
 abj
 abj
 aaa
