@@ -56348,6 +56348,22 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/closet,
+/obj/item/roller,
+/obj/item/roller{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/masks{
+	pixel_x = 2
+	},
+/obj/item/storage/box/gloves{
+	pixel_y = 2
+	},
+/obj/item/storage/box/bodybags{
+	pixel_x = -2;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitered"
@@ -81995,26 +82011,11 @@
 	},
 /area/medical/medbay2)
 "luw" = (
-/obj/structure/closet,
-/obj/item/roller,
-/obj/item/roller{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/masks{
-	pixel_x = 2
-	},
-/obj/item/storage/box/gloves{
-	pixel_y = 2
-	},
-/obj/item/storage/box/bodybags{
-	pixel_x = -2;
-	pixel_y = 4
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 27
 	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitered"
