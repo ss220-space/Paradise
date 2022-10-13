@@ -40702,16 +40702,6 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
-"dvy" = (
-/obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "tranquillite"
-	},
-/area/maintenance/kitchen)
 "dvA" = (
 /obj/machinery/power/terminal,
 /obj/effect/decal/warning_stripes/south,
@@ -93317,7 +93307,7 @@
 	},
 /area/crew_quarters/locker)
 "nRD" = (
-/obj/machinery/vending/dinnerware,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -116872,10 +116862,13 @@
 	},
 /area/bridge/checkpoint/south)
 "sSC" = (
-/obj/machinery/gibber,
 /obj/item/reagent_containers/food/snacks/meat/human,
 /obj/item/reagent_containers/food/snacks/meat/human,
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/constructable_frame/machine_frame{
+	icon = 'icons/obj/kitchen.dmi';
+	icon_state = "grinder"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -198398,7 +198391,7 @@ gPp
 sQB
 lWT
 fUR
-dvy
+nRD
 pyh
 sbp
 hwq
