@@ -467,8 +467,6 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for a vox raiding party arriving on the station?", ROLE_RAIDER)
 
-	message_admins("[candidates.len] aaaaaaa")
-
 	if(!length(candidates))
 		return 0
 
