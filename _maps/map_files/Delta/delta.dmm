@@ -118622,6 +118622,9 @@
 	pixel_x = -22;
 	pixel_y = -8
 	},
+/obj/item/key/security{
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -137422,6 +137425,13 @@
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
+"xqE" = (
+/obj/vehicle/secway,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/securearmory)
 "xqJ" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/blood,
@@ -196536,7 +196546,7 @@ xmw
 tsW
 vuE
 urn
-vuE
+xqE
 vYt
 wCH
 myZ
