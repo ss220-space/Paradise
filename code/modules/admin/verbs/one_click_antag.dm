@@ -469,7 +469,7 @@
 
 	message_admins("[candidates.len] aaaaaaa")
 
-	if(!candidates.len)
+	if(!length(candidates))
 		return 0
 
 	var/raider_num = min(antnum, candidates.len)
