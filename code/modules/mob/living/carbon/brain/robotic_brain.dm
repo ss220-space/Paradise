@@ -174,7 +174,7 @@
 		return
 	var/deathtime = world.time - O.timeofdeath
 	if(ROBOTIC_BRAIN_COOLDOWN && deathtime < ROBOTIC_BRAIN_COOLDOWN && O.started_as_observer == 0)
-		var/deathtimeminutes = round(deathtime / 600)
+		var/deathtimeminutes = round(deathtime / (60 SECONDS))
 		var/pluralcheck = "minute"
 		if(deathtimeminutes == 0)
 			pluralcheck = ""
