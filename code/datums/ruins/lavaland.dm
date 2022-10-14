@@ -226,3 +226,12 @@
 	suffix = "lavaland_BFL_crack.dmm"
 	always_place = TRUE
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/headcrab_lab
+	name = "Headcrab Syndicate Lab"
+	id = "hclab"
+	description = "Abandoned Syndicate's lab which was researching parasits - headcrabs... Sadly, Syndicate lost that lab and tried to get it back..."
+	suffix = "lavaland_ruin_headcrab_lab.dmm"
+	allow_duplicates = FALSE
+	cost = 10 // nanomed, guns, security autolathe, atmos, plasma and fat loot.
+	//always_place = TRUE // tests

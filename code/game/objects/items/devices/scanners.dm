@@ -388,6 +388,12 @@ REAGENT SCANNER
 	if(H.has_brain_worms())
 		. += "<span class='warning'>Обнаружено отклонение в мозговой активности."
 		. += "&emsp;Рекомендуется подробное сканирование.</span>"
+	if(H.reagents.has_reagent("headcrab_neurotoxin"))
+		. += "<span class='warning'><b>Внимание: Критическое состояние</b>"
+		. += "&emsp;Название: Отравление нейротоксином"
+		. += "&emsp;Тип: Нейротоксин хедкрабов"
+		. += "&emsp;Стадия: 1/1"
+		. += "&emsp;Лечение: Diphenhydramine</span>"
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)

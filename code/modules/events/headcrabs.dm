@@ -95,6 +95,39 @@
 
 ==================================
 =                                =
+=        LONELY HEADCRAB         =
+=                                =
+==================================
+
+*/
+
+/datum/event/headcrab
+	endWhen = 1
+	var/headcrab_type
+
+/datum/event/headcrab/setup()
+	headcrab_type = pick(GLOB.hctypes)
+
+/datum/event/headcrab/start()
+	processing = 0
+
+	var/list/candidates = SSghost_spawns.poll_candidates("Хотите стать одиноким хедкрабом?", ROLE_HEADCRAB, TRUE, poll_time = 100, source = headcrab_type)
+
+	if(!candidates.len)
+		return // yeah, thats it.
+
+	var/mob/picked = pick(candidates)
+
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/obj/vent = pick(vents)
+
+	var/mob/living/simple_animal/hostile/headcrab/lnhc = new headcrab_type(vent.loc)
+	lnhc.key = picked.key
+
+/*
+
+==================================
+=                                =
 =        CRABMISSILES            =
 =                                =
 ==================================

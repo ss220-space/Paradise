@@ -27,19 +27,82 @@
 
 /datum/reagent/headcrab_neurotoxin
 	name = "Headcrab Neurotoxin"
-	id = "headcrabneurotoxin"
+	id = "headcrab_neurotoxin"
 	description = "Neurotoxin from black headcrab's sting."
 	reagent_state = LIQUID
-	color = "#000000" // rgb: 0, 0, 0
+	color = "#CF0012" // rgb: 0, 0, 0 (idk now??)
 	taste_description = "weakness and bitterness"
+	metabolization_rate = 0.2
 
-/datum/reagent/headcrab_poison/on_mob_life(mob/living/M)
+/datum/reagent/headcrab_neurotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(6, FALSE)
-	update_flags |= M.adjustOxyLoss(2, FALSE) //какого хрена не работает?!
-	update_flags |= M.adjustFireLoss(0.1, FALSE)
-	update_flags |= M.adjustStaminaLoss(0.5, FALSE)
-	update_flags |= M.adjustBrainLoss(1, FALSE)
+
+	if(M.reagents.has_reagent("epinephrine"))
+		M.reagents.remove_reagent("headcrab_neurotoxin", 0.2)
+
+	if(M.reagents.has_reagent("diphenhydramine"))
+		M.reagents.remove_reagent("headcrab_neurotoxin", 4)
+		return
+
+	update_flags |= M.adjustToxLoss(2, FALSE)
+	update_flags |= M.adjustOxyLoss(1, FALSE)
+	update_flags |= M.adjustFireLoss(0.2, FALSE)
+	update_flags |= M.adjustBruteLoss(0.1, FALSE)
+	update_flags |= M.adjustStaminaLoss(0.4, FALSE)
+	update_flags |= M.adjustBrainLoss(2, FALSE)
+
+	var/chance = 4.8
+
+	if(prob(chance))
+		var/turf/T = get_turf(M)
+		T.add_vomit_floor()
+
+	if(prob(chance))
+		M.emote("choke")
+
+	if(prob(chance))
+		M.emote("groan")
+
+	if(prob(chance))
+		var/mob/living/carbon/human/M2 = M
+		M2.set_heartattack(TRUE)
+
+	if(prob(chance))
+		M.AdjustLoseBreath(10)
+
+	if(prob(chance))
+		M.AdjustConfused(10)
+
+	if(prob(chance))
+		M.AdjustDizzy(20)
+
+	if(prob(chance))
+		M.AdjustHallucinate(40)
+
+	if(prob(chance))
+		M.AdjustJitter(10)
+
+	if(prob(chance))
+		M.AdjustParalysis(10)
+
+	if(prob(chance))
+		M.AdjustSleeping(16)
+
+	if(prob(chance))
+		M.AdjustSlowed(10)
+
+	if(prob(chance))
+		M.AdjustSlur(20)
+
+	if(prob(chance))
+		M.AdjustStunned(19)
+
+	if(prob(chance))
+		M.AdjustStuttering(30)
+
+	if(prob(chance))
+		M.AdjustWeakened(26)
+
 	return ..() | update_flags
 
 /datum/reagent/minttoxin

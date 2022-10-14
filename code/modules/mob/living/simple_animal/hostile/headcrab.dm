@@ -22,13 +22,17 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	var/jumpdistance = 4
 	var/jumpspeed = 2
 	turns_per_move = 4
+	bubble_icon = "alien"
+	move_to_delay = 4.8
 	speed = 1.25
+	mob_size = MOB_SIZE_SMALL
+	see_in_dark = 20
 	attacktext = "грызёт"
 	pass_flags = PASSTABLE | PASSMOB
 	a_intent = INTENT_HARM
 	attack_sound = list('sound/creatures/headcrab_attack1.ogg', 'sound/creatures/headcrab_attack2.ogg')
 	speak_emote = list("hisses")
-	var/is_zombie = 0
+	var/is_zombie = FALSE
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
 	var/host_species = ""
@@ -36,13 +40,18 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	var/revive_cooldown = 0
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/vent_cooldown = 20
+	var/vent_cooldown = 40
 	var/building = FALSE
 	var/hiding = FALSE
 	var/gonome = FALSE
 	var/can_be_gonomed = TRUE
+	var/infest = TRUE
 	var/gonome_time = 468
 	var/is_gonarch = FALSE // кажется уже какой-то спагетти код, прямо как писал американец ниже.
+	var/is_monkey_type = FALSE
+
+/mob/living/simple_animal/hostile/headcrab/Move(atom/newloc, dir, step_x, step_y)
+	. = ..()
 
 /mob/living/simple_animal/hostile/headcrab/proc/transfer_personality(var/client/candidate)
 
@@ -90,10 +99,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	set name = "Build a nest"
 	set desc = "Sacrifice yourself after a big time to build a nest."
 
-	if(is_zombie)
-		to_chat(src, "You cant use this, when zombie.")
-		return
-
 	var/turf/T = get_turf(src)
 	for(var/obj/structure/spawner/headcrab in orange(60, T))
 		to_chat(src, "There is a nest nearby, move more than 60 tiles away from it!")
@@ -113,6 +118,18 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		qdel(src)
 	building = FALSE
 
+/mob/living/simple_animal/hostile/headcrab/verb/infest_disable()
+	set category = "Headcrab"
+	set name = "Disable Infestation"
+	set desc = "Disabling or enabling infestation of body."
+
+	if(infest)
+		infest = FALSE
+	else
+		infest = TRUE
+
+	to_chat(src, "<span class=notice'>You are [infest ? "toggled" : "disabled" ] infestation of body.</span>")
+
 /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab()
 	set category = "Headcrab"
 	set name = "Hide"
@@ -130,10 +147,15 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		to_chat(src, "<span class=notice'>You stop hiding.</span>")
 		hiding = FALSE
 
+/mob/living/simple_animal/hostile/headcrab/adjustHealth(damage)
+	..()
+
+	if(damage > 0)
+		vent_cooldown += 40
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
 
-	src.heal_overall_damage(0.1)
+	src.heal_overall_damage(0.2, 0.2)
 
 	if(is_gonarch)
 		return
@@ -145,13 +167,14 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		vent_cooldown--
 		revive_cooldown--
 
-	if(gonome_time <= 0)
+	if(gonome_time == 0)
+		gonome_time = -10 // предотвращаем постоянно пополняющих себе хп зомби с атакой в 1000 урона
 		gonome = TRUE
 		to_chat(src, "<span class='notice'>You are evolved to gonome!</span>")
-		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health of maximum.")
+		to_chat(src, "Now you can shoot toxic vomit, healed for 25 health and have additional 50 health of maximum with additional 10 damage.")
 		ranged = 1
 		ranged_cooldown_time = 60
-		src.heal_overall_damage(25,25)
+		src.heal_overall_damage(25, 25)
 		melee_damage_lower += 5
 		melee_damage_upper += 10
 		obj_damage += 20
@@ -161,7 +184,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		desc += " This individual seems to have evolved, and it has been alive around for quite a long time."
 
 	if(..() && !stat)
-		if(!is_zombie && isturf(src.loc))
+		if(!is_zombie && isturf(src.loc) && infest)
 			for(var/mob/living/carbon/human/H in oview(src, 2)) //Only for corpse right next to/on same tile
 				if(H.stat == DEAD /*|| (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD)*/) //по неизвестной причине мартышки похоже до убирания этого условия не хотели зомбифицироваться
 					Zombify(H)
@@ -170,28 +193,28 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 			for(var/mob/living/simple_animal/K in oview(src, 2)) //Only for corpse right next to/on same tile
 				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
 					visible_message("<span class='danger'>[src] consumes [K] whole!</span>")
-					if(health < maxHealth)
-						health += 10
+					src.heal_overall_damage(10, 10)
 					qdel(K)
 					break
 
 	if(key)
 		return
 
-	if(prob(4)) //it was a proc with a name its_time_to_kill_yourself
+	if(prob(2) && !is_zombie) //it was a proc with a name its_time_to_kill_yourself
 
 		var/turf/probably_nest = get_turf(src)
 
-		for(var/obj/structure/spawner/headcrab in orange(20, probably_nest))
+		for(var/obj/structure/spawner/headcrab in orange(40, probably_nest))
 			return
 
+		visible_message("<span class='danger'>[src] are falled apart in headcrab's nest!</span>")
 		qdel(src)
-		new /obj/structure/spawner/headcrab(src.loc)
+		new /obj/structure/spawner/headcrab(probably_nest)
 
 
-	if(prob(24) && vent_cooldown <= 0)
-		if(!is_zombie || is_zombie && host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
-			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in oview(6,src))
+	if(prob(26) && vent_cooldown <= 0 && !approaching_target && !in_melee)
+		if(!is_zombie || is_monkey_type)
+			for(var/obj/machinery/atmospherics/unary/vent_pump/ventilation in orange(4,src))
 				if(!ventilation.welded)
 					entry_vent = ventilation
 					walk_to(src, entry_vent, 1)
@@ -201,7 +224,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		if(isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
-			vent_cooldown += 80
 
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 1)
@@ -236,22 +258,31 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 						return
 					loc = exit_vent.loc
 					entry_vent = null
+					vent_cooldown += 200
+					step(src, pick(NORTH, SOUTH, EAST, WEST))
 					var/area/new_area = get_area(loc)
 					if(new_area)
 						new_area.Entered(src)
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
-	if(check_friendly_fire && !is_zombie && !is_gonarch)
+	if(check_friendly_fire)
 		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
 				if(L == src || L == A)
 					continue
 				if(faction_check_mob(L) && !attack_same)
 					return
-	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
-	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
-	ranged_cooldown = world.time + ranged_cooldown_time
-	vent_cooldown += 40
+
+	if(!is_zombie && !is_gonarch)
+		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+		throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
+		ranged_cooldown = world.time + ranged_cooldown_time
+		vent_cooldown += 60
+
+/mob/living/simple_animal/hostile/headcrab/AttackingTarget()
+	..()
+
+	vent_cooldown += 80
 
 /mob/living/simple_animal/hostile/headcrab/New()
 
@@ -259,9 +290,10 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	add_language("Headcrab Hivemind") // в каждом раунде наверняка будет фраза "Штурмуем морг"
 	default_language = GLOB.all_languages["Headcrab Hivemind"]
-
 	name += " ([rand(1, 1000)])"
 	real_name = name
+	if(!is_zombie)
+		verbs -= /mob/living/verb/pulled
 
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
@@ -274,8 +306,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
 	maxHealth += 200
 	health = maxHealth
-	var/rank = H.get_assignment()
-	if(rank == "Security Officer" || "Security Pod Pilot" || "Warden" || "Head Of Security") //аналог зомбайна
+	if(H.job in list("Security Officer", "Head of Security", "Security Pod Pilot", "Warden", "Detective", "Brig Physician", "Blueshield") || H.job in get_all_centcom_jobs()) //аналог зомбайна
 		name = "zomcur" // Хм-мм. Щиткуры-зомби. щи...ку...зомкуры! Как тебе?.. Ха. Зомкуры. Дошло? Хе-хе. О...кей.
 	else
 		name = "zombie"
@@ -286,10 +317,16 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	melee_damage_upper = 25
 	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab
 	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest
+	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/infest_disable
+	src.verbs += /mob/living/verb/pulled
 	ranged = 0
 	dodging = 0
+	pass_flags |= PASSTABLE | PASSMOB | LETPASSTHROW
 	stat_attack = CONSCIOUS // Disables their targeting of dead mobs once they're already a zombie
 	icon = H.icon
+	mob_size = MOB_SIZE_HUMAN
+	pass_flags = null
+	move_to_delay = 5.6
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
 	obj_damage += 40 //используя мышечную массу тела хедкраб бъет сильнее объекты
@@ -301,29 +338,17 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		head_organ.h_style = null //ладно, сжалимся над игроками, пусть остается прическа.
 	H.update_hair()*/
 	host_species = H.dna.species.name
-	if(host_species == "Monkey" || "Farwa" || "Neara" || "Stok" || "Wolpin")
+	if(ismonkeybasic(H) || isfarwa(H) || iswolpin(H) || isneara(H) || isstok(H))
 		ventcrawler = 2
-		maxHealth -= 100 //взамен на пользанье по вентам
+		maxHealth -= 100 //взамен на пользанье по вентам и скорость
+		is_monkey_type = TRUE
+		speed += 0.16
+		move_to_delay -= 1.4
 	else
 		ventcrawler = 0
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
-
-	var/shoes = H.get_item_by_slot(slot_shoes)
-	var/obj/item/clothing/shoes/clown_shoes/clown_shoess
-
-	if(istype(shoes, clown_shoess) && clown_shoess.enabled_waddle)
-		src.AddElement(/datum/element/waddling)
-
-	var/uniform = H.get_item_by_slot(slot_w_uniform)
-	var/obj/item/clothing/under/rank/clown/clown_uniform
-
-	if(istype(uniform, clown_uniform))
-		attacked_sound = 'sound/items/bikehorn.ogg'
-		attack_sound = 'sound/items/bikehorn.ogg'
-		attacktext = "DEADLY HONKING"
-		death_sound = 'sound/misc/sadtrombone.ogg'
 
 	if(!istype(src, /mob/living/simple_animal/hostile/headcrab/reviver))
 		visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
@@ -375,7 +400,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 /mob/living/simple_animal/hostile/headcrab/Stat()
 	..()
 
-	if(gonome || !is_zombie)
+	if(gonome || !is_zombie || !can_be_gonomed)
 		return
 
 	statpanel("Status")
@@ -405,7 +430,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	if(istype(firer, /mob/living/simple_animal/hostile/headcrab/poison))
 		victim.adjustToxLoss(rand(2,8))
-		victim.reagents.add_reagent("headcrabneurotoxin", rand(2,4))
+		target.reagents.add_reagent("headcrab_neurotoxin", rand(2,4))
 
 //NOT GONOME STUFF
 
@@ -420,6 +445,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	maxHealth = 40
 	ranged_cooldown_time = 30
 	turns_per_move = 2
+	move_to_delay = 3.8
 	speed = 0.75
 	jumpdistance = 8
 	jumpspeed = 4
@@ -443,8 +469,13 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	move_to_delay = 5.6
 
-	maxHealth -= 20
+	var/newname = "fast [name]"
+
+	name = newname
+
+	maxHealth -= 40
 	health = maxHealth //быстрые обычно менее жирные по хп. сделеам так же.
 
 	speed = 0.55
@@ -463,6 +494,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	jumpspeed = 1
 	ranged = 1
 	speed = 1.4
+	move_to_delay = 6.5
 	melee_damage_lower = 8
 	melee_damage_upper = 20
 	attack_sound = list('sound/creatures/poison_headcrab_attack1.ogg', 'sound/creatures/poison_headcrab_attack2.ogg', 'sound/creatures/poison_headcrab_attack3.ogg')
@@ -493,15 +525,23 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	melee_damage_lower = 25
 	melee_damage_upper = 30
+	move_to_delay = 22
+
+	var/newname = "poison [name]"
+
+	name = newname
 
 	to_chat(src, "There are [poison_headcrabs] on your back. Use ranged attack to throw them at enemies.")
 
 	speed = 2.85
-	ranged = 1
 	ranged_cooldown_time = 100
 	maxHealth += 25
 	health = maxHealth //как никак, танк
 	obj_damage += 40 //ядовитый зомби выступает что-то вроде танка, поэтому и здоровья с уроном побольше.
+
+	sleep(20)
+
+	ranged = 1
 
 /mob/living/simple_animal/hostile/headcrab/poison/Stat()
 	..()
@@ -519,19 +559,23 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 /mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
 	. = ..()
 
-	if(. && neurotoxin_per_jump > 0 && iscarbon(target) && target.reagents && !is_zombie)
+	if(iscarbon(target) && !src.is_zombie)
 		var/inject_target = pick("chest", "head")
 		var/mob/living/carbon/victim = target
-		if(victim.stunned || victim.can_inject(null, FALSE, inject_target, FALSE))
+		if(neurotoxin_per_jump > 0 && iscarbon(victim))
+			victim.reagents.add_reagent("headcrab_neurotoxin", neurotoxin_per_jump + rand(0,2))
 			if(victim.eye_blurry < 60)
 				victim.AdjustEyeBlurry(10)
 				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
-			victim.reagents.add_reagent("headcrabneurotoxin", neurotoxin_per_jump)
+
+	if(iscarbon(target) && src.is_zombie && prob(46))
+		var/mob/living/carbon/victim = target
+		victim.reagents.add_reagent("headcrab_neurotoxin", rand(1,2) + rand(0,2))
 
 /mob/living/simple_animal/hostile/headcrab/poison/OpenFire(atom/target)
 	. = ..()
 
-	if(!key && prob(45)) //игрок кидаться может всегда, а ИИ лишь с шансом.
+	if(!key && prob(26) && src.is_zombie) //игрок кидаться может всегда, а ИИ лишь с шансом.
 		return
 
 	if(src.is_zombie && isturf(src.loc) && src.poison_headcrabs != 0) // в оригинале несколько хедркабов было на спине у ядовитого, и еще... он ими кидался. у нас же он их внезапно рожает и умеет кидаться
@@ -554,6 +598,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 				can_be_gonomed = TRUE
 				gonome_time -= 40
 				speed = 2.70 // больше нет ноши на спине... да и компенсация отсутсвия дальней атаки
+				move_to_delay = 20.4
 			visible_message("<span class='danger'><b>[src]</b> throwing [headcrab] at [target]!</span>")
 			playsound(src, list('sound/effects/poison_headcrab_throw1.ogg', 'sound/effects/poison_headcrab_throw2.ogg'), 45, 1)
 			headcrab.throw_at(target, headcrab.jumpdistance, headcrab.jumpspeed, spin = FALSE, diagonals_first = TRUE)
@@ -575,6 +620,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	icon_living = "headcrab"
 	icon_dead = "headcrab_dead"
 	harm_intent_damage = 2
+	move_to_delay = 7
 	health = 125
 	maxHealth = 125
 	ranged_cooldown_time = 45
@@ -582,14 +628,15 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	jumpdistance = 2
 	jumpspeed = 0.5
 	speak_emote = list("slowly hisses")
-	damage_coeff = list(BRUTE = 0.88, BURN = 0.88)
+	damage_coeff = list(BRUTE = 0.88, BURN = 0.88, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 
 /mob/living/simple_animal/hostile/headcrab/armored/attack_hand(mob/living/carbon/human/M)
 	var/mob/living/carbon/idiot = M
 	if(!(PIERCEIMMUNE in idiot.dna.species.species_traits))
 		var/obj/item/organ/external/affecting = idiot.get_organ("[idiot.hand ? "l" : "r" ]_hand")
+		M.emote("scream")
 		to_chat(idiot, "<span class='danger'>Ouch! That was a bad idea, his spikes are painful and armor so strong!</span>")
-		if(affecting.receive_damage(10 * 2))
+		if(affecting.receive_damage(4 * 2))
 			idiot.UpdateDamageIcon()
 
 /mob/living/simple_animal/hostile/headcrab/armored/update_icons()
@@ -609,6 +656,11 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	maxHealth += 60 //armored? armored.
 	health = maxHealth
+	move_to_delay = 16
+
+	var/newname = "armored [name]"
+
+	name = newname
 
 	speed = 1.2
 
@@ -623,27 +675,32 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	maxHealth = 45
 	ranged_cooldown_time = 35
 	speed = 0.75
+	move_to_delay = 4.6
+	turns_per_move = 1
 	melee_damage_lower = 4
 	melee_damage_upper = 8
 	jumpdistance = 6
 	jumpspeed = 3
 	speak_emote = list("buzzing like an electricity")
-	damage_coeff = list(BURN = 0.95)
+	damage_coeff = list(BRUTE = 1, BURN = 0.94, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	revive_cooldown = 30
 
 /mob/living/simple_animal/hostile/headcrab/reviver/AttackingTarget()
 	. = ..()
 
+	var/mob/living/carbon/victim = target
+
 	if(prob(50))
 		do_sparks(1, 1, src)
 		playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
 
-	if(prob(85))
-		var/mob/living/carbon/victim = target
-		victim.adjustFireLoss(12)
-		victim.adjustStaminaLoss(12.5) //stuncrab
+	if(prob(86))
+		victim.adjustFireLoss(rand(0,4))
 	else
-		target.reagents.add_reagent("teslium", 4)
+		target.reagents.add_reagent("teslium", rand(2,4))
+
+	if(prob(66))
+		victim.adjustStaminaLoss(rand(6.5,12.5)) //stuncrab 12.5
 
 /mob/living/simple_animal/hostile/headcrab/reviver/update_icons()
 	. = ..()
@@ -661,6 +718,11 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	. = ..()
 
 	speed = 0.80
+
+	var/newname = "revived [name]"
+
+	name = newname
+	move_to_delay = 6.8
 
 	H.shock_internal_organs(100)
 	H.set_heartattack(FALSE) //уподобление оригиналу, что-то вроде оживления.
@@ -691,18 +753,19 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	ranged = 0
 	ventcrawler = 0
 	turns_per_move = 8
+	move_to_delay = 18
 	speed = 0.28
 	obj_damage = 264
 	armour_penetration = 15
 	environment_smash = 3
 	attacktext = "pierces" //по просьбе ларентоун отменил перевод. вообще не логично, это я создал этого моба, и я по-русски написал его аттак текст. где перевод? я вообще мог подшутить и оставить наследование attacktext от хедкраба. однако грызть гонарх не может...
-	pass_flags = LETPASSTHROW //огромная хервоина на четырех ногах, очевидно, что через нее можно пролететь снизу.
+	pass_flags = PASSTABLE | PASSMOB | LETPASSTHROW //огромная хервоина на четырех ногах, очевидно, что через нее можно пролететь снизу, пройти. И еще по столам может идти.
 	attack_sound = list()
 	speak_emote = list("howling")
 	is_gonarch = TRUE
 	stat_attack = CONSCIOUS // бесит это наследование, когда не надо, не убрать.
 	robust_searching = 1
-	damage_coeff = list(BRUTE = 0.80, BURN = 0.80)
+	damage_coeff = list(BRUTE = 0.80, BURN = 0.80, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 
 	var/max_mobs = 10
 	var/spawn_time = 600 //ходячий спавнер.
@@ -760,7 +823,17 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		qdel(src)
 		materials.amount = 26
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		if(prob(25))
+		if(prob(24))
 			var/which_one = pick(GLOB.hctypes)
 			new which_one(dismantle_location)
 			visible_message(src, "<span class='danger'>Inside [src] was hiding a headcrab!</span>")
+
+/datum/action/changeling/revive/sting_action(mob/living/carbon/user)
+
+	for(var/mob/living/simple_animal/hostile/headcrab/hc in orange(user, 1))
+		hc.adjustBruteLoss(1000)
+
+	for(var/mob/living/simple_animal/hostile/blob/blobspore/bs in orange(user, 1))
+		bs.adjustBruteLoss(1000)
+
+	..()
