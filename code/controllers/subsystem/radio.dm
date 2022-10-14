@@ -34,7 +34,6 @@ SUBSYSTEM_DEF(radio)
 	// Taipan!
 	if(frequency == SYND_TAIPAN_FREQ)
 		return "taipan"
-	if(frequency == SYND_TAIPAN_FREQ)
 		return "syndiecom"
 	// Antags!
 	if(frequency in ANTAG_FREQS)
