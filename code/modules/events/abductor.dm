@@ -22,7 +22,7 @@
 		var/num_teams = round((length(GLOB.clients) / for_players)) + 1
 		for(var/i in 1 to num_teams)
 			//Oh god why we can't have static functions
-			if (!length(candidates) && ((length(candidates) % 2) != 0))
+			if (length(candidates) < 2)
 				break
 
 			var/number =  SSticker.mode.abductor_teams + 1
