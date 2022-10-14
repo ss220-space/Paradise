@@ -130,6 +130,40 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	to_chat(src, "<span class=notice'>You are [infest ? "toggled" : "disabled" ] infestation of body.</span>")
 
+/mob/living/simple_animal/hostile/headcrab/verb/targeted_infest()
+	set category = "Headcrab"
+	set name = "Targeted Infest"
+	set desc = "Infest a selected by you humanoid host."
+
+	if(stat)
+		to_chat(src, "You cannot infest a target in your current state.")
+		return
+
+	var/list/choices = list()
+	for(var/mob/living/carbon/human/H in view(2,src))
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head.is_robotic())
+			continue
+		if(H.stat == DEAD)
+			choices += H
+
+	var/mob/living/carbon/human/M = input(src,"Who do you wish to infest?") in null|choices
+
+	if(!M || !src)
+		return
+
+	if(M.revive_cooldown > 0)
+		to_chat(src ,"You must wait [revive_cooldown/10] seconds! Body is too warm after last infestation.")
+
+	if(!do_after(src, 16, target = M))
+		return
+
+	if(M in orange(2, src))
+		Zombify(M)
+	else
+		to_chat(src, "They are no longer in range!")
+		return
+
 /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab()
 	set category = "Headcrab"
 	set name = "Hide"
@@ -186,7 +220,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	if(..() && !stat)
 		if(!is_zombie && isturf(src.loc) && infest)
 			for(var/mob/living/carbon/human/H in oview(src, 2)) //Only for corpse right next to/on same tile
-				if(H.stat == DEAD /*|| (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD)*/) //по неизвестной причине мартышки похоже до убирания этого условия не хотели зомбифицироваться
+				if(H.stat == DEAD /*|| (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD)*/ && H.revive_cooldown <= 0) //по неизвестной причине мартышки похоже до убирания этого условия не хотели зомбифицироваться
 					Zombify(H)
 					break
 		if(times_fired % 4 == 0)
@@ -196,6 +230,8 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 					src.heal_overall_damage(10, 10)
 					qdel(K)
 					break
+		if(H.revive_cooldown > 0)
+			to_chat(src ,"You must wait [revive_cooldown/10] seconds! Body is too warm after last infestation.")
 
 	if(key)
 		return
@@ -318,6 +354,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/hide_headcrab
 	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/build_a_nest
 	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/infest_disable
+	src.verbs -= /mob/living/simple_animal/hostile/headcrab/verb/targeted_infest
 	src.verbs += /mob/living/verb/pulled
 	ranged = 0
 	dodging = 0
@@ -759,7 +796,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	armour_penetration = 15
 	environment_smash = 3
 	attacktext = "pierces" //по просьбе ларентоун отменил перевод. вообще не логично, это я создал этого моба, и я по-русски написал его аттак текст. где перевод? я вообще мог подшутить и оставить наследование attacktext от хедкраба. однако грызть гонарх не может...
-	pass_flags = PASSTABLE | PASSMOB | LETPASSTHROW //огромная хервоина на четырех ногах, очевидно, что через нее можно пролететь снизу, пройти. И еще по столам может идти.
+	pass_flags = PASSTABLE | PASSMOB | LETPASSTHROW //огромная хервоина на четырех ногах, очевидно, что через нее можно пролететь снизу, пройти.
 	attack_sound = list()
 	speak_emote = list("howling")
 	is_gonarch = TRUE
