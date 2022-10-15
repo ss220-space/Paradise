@@ -158,8 +158,11 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
-					continue
-			listeners += L
+					return
+				else
+					listeners += L
+			else
+				listeners += L
 
 	if(!listeners.len)
 		next_command = world.time + cooldown_none
