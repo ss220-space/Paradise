@@ -307,21 +307,21 @@
 /area/centcom/specops)
 "aqH" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
 	req_access = null;
@@ -854,6 +854,12 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"aMB" = (
+/obj/structure/janitorialcart,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "aMD" = (
 /obj/item/flag/syndi,
 /obj/machinery/light{
@@ -923,15 +929,15 @@
 /area/centcom/zone1)
 "aOX" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -1070,11 +1076,11 @@
 "aSW" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -1343,7 +1349,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/unsimulated/floor{
@@ -2053,7 +2059,7 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -2157,15 +2163,15 @@
 	req_access = null
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -3513,7 +3519,7 @@
 "cNX" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -3666,7 +3672,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
@@ -3898,7 +3904,7 @@
 /obj/machinery/vending/hydroseeds{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/seeds/aloe = 3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3, /obj/item/seeds/cabbage = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3, /obj/item/seeds/chili = 3, /obj/item/seeds/cocoapod = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/comfrey = 3, /obj/item/seeds/corn = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/nymph = 3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/garlic = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/grass = 3, /obj/item/seeds/lemon = 3, /obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/peanuts = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/poppy = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/pumpkin = 3, /obj/item/seeds/replicapod = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sugarcane = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tomato = 3, /obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3, /obj/item/seeds/cannabis = 3, /obj/item/seeds/amanita = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2, /obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/starthistle = 2, /obj/item/seeds/random = 2)
+	products = list(/obj/item/seeds/aloe=3,/obj/item/seeds/ambrosia=3,/obj/item/seeds/apple=3,/obj/item/seeds/banana=3,/obj/item/seeds/berry=3,/obj/item/seeds/cabbage=3,/obj/item/seeds/carrot=3,/obj/item/seeds/cherry=3,/obj/item/seeds/chanter=3,/obj/item/seeds/chili=3,/obj/item/seeds/cocoapod=3,/obj/item/seeds/coffee=3,/obj/item/seeds/comfrey=3,/obj/item/seeds/corn=3,/obj/item/seeds/cotton=3,/obj/item/seeds/nymph=3,/obj/item/seeds/eggplant=3,/obj/item/seeds/garlic=3,/obj/item/seeds/grape=3,/obj/item/seeds/grass=3,/obj/item/seeds/lemon=3,/obj/item/seeds/lime=3,/obj/item/seeds/onion=3,/obj/item/seeds/orange=3,/obj/item/seeds/peanuts=3,/obj/item/seeds/pineapple=3,/obj/item/seeds/poppy=3,/obj/item/seeds/potato=3,/obj/item/seeds/pumpkin=3,/obj/item/seeds/replicapod=3,/obj/item/seeds/wheat/rice=3,/obj/item/seeds/soya=3,/obj/item/seeds/sugarcane=3,/obj/item/seeds/sunflower=3,/obj/item/seeds/tea=3,/obj/item/seeds/tobacco=3,/obj/item/seeds/tomato=3,/obj/item/seeds/tower=3,/obj/item/seeds/watermelon=3,/obj/item/seeds/wheat=3,/obj/item/seeds/whitebeet=3,/obj/item/seeds/cannabis=3,/obj/item/seeds/amanita=2,/obj/item/seeds/fungus=3,/obj/item/seeds/glowshroom=2,/obj/item/seeds/liberty=2,/obj/item/seeds/nettle=2,/obj/item/seeds/plump=2,/obj/item/seeds/reishi=2,/obj/item/seeds/starthistle=2,/obj/item/seeds/random=2)
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3943,7 +3949,7 @@
 /obj/machinery/vending/hydronutrients{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20, /obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4, /obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez=20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z=13,/obj/item/reagent_containers/glass/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/glass/bottle/ammonia=10,/obj/item/reagent_containers/glass/bottle/diethylamine=5)
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -5147,6 +5153,15 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"dXH" = (
+/obj/structure/rack,
+/obj/item/crowbar/large,
+/obj/item/wrench,
+/obj/item/screwdriver,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "dXI" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/wood,
@@ -5188,7 +5203,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/unsimulated/floor{
@@ -5842,10 +5857,10 @@
 "ewl" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -5990,7 +6005,7 @@
 	pixel_y = 30
 	},
 /obj/mecha/combat/marauder/seraph/loaded{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 80, "bomb" = 80, "bio" = 80, "rad" = 80, "fire" = 100, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
 	name = "D2";
 	operation_req_access = list(109)
 	},
@@ -6234,7 +6249,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
@@ -6385,15 +6400,15 @@
 /area/centcom/evac)
 "eMY" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -6564,7 +6579,7 @@
 /area/admin)
 "eSq" = (
 /obj/machinery/door/airlock/hatch{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	desc = "For all your shady business needs";
 	name = "Special Shuttle";
 	req_access_txt = "114"
@@ -7703,7 +7718,7 @@
 /area/ninja/outpost)
 "fyH" = (
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	name = "security checkpoint"
 	},
@@ -8015,7 +8030,7 @@
 /area/centcom/specops)
 "fJO" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -8094,14 +8109,22 @@
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
 "fND" = (
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/table/reinforced/brass,
+/obj/item/trash/plate,
+/obj/item/reagent_containers/food/snacks/grown/grapes{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/apple,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -8340,7 +8363,7 @@
 /area/shuttle/ninja)
 "fXw" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -8419,6 +8442,14 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"gbC" = (
+/obj/machinery/computer/cryopod{
+	pixel_y = -32
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "gbP" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/structure/window/reinforced{
@@ -9137,16 +9168,16 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/item/gun/projectile/automatic/wt550{
@@ -9198,6 +9229,15 @@
 	tag = "icon-floor"
 	},
 /area/centcom/evac)
+"gDX" = (
+/obj/structure/chair,
+/obj/effect/landmark{
+	name = "voxstart"
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "gEE" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
@@ -9219,11 +9259,11 @@
 /area/centcom/jail)
 "gFy" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -9236,7 +9276,7 @@
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -10230,7 +10270,7 @@
 /area/centcom/zone1)
 "hnU" = (
 /obj/machinery/door/airlock/hatch{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	desc = "For all your shady business needs";
 	name = "Special Shuttle";
 	req_access_txt = "114"
@@ -10457,11 +10497,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /turf/unsimulated/floor{
 	dir = 1;
@@ -10696,7 +10736,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/unsimulated/floor{
@@ -11224,11 +11264,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -11896,7 +11936,7 @@
 /area/ninja/outpost)
 "ivN" = (
 /obj/mecha/combat/durand{
-	armor = list("melee" = 60, "bullet" = 50, "laser" = 20, "energy" = 25, "bomb" = 50, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80);
+	armor = list("melee"=60,"bullet"=50,"laser"=20,"energy"=25,"bomb"=50,"bio"=0,"rad"=50,"fire"=80,"acid"=80);
 	color = "#CCCCFF";
 	desc = "A heavyweight exosuit, painted in a gray scheme. This model appears to have some modifications for ERT.";
 	name = "Nanotrasen Special Durand Mk. II";
@@ -11910,7 +11950,7 @@
 "ivP" = (
 /obj/item/gun/projectile/automatic/ar,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -11922,11 +11962,11 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/item/gun/projectile/automatic/ar,
@@ -12182,7 +12222,7 @@
 "iEK" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -12540,7 +12580,7 @@
 /area/abductor_ship)
 "iSr" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -12665,7 +12705,7 @@
 /area/ussp_ship)
 "iVD" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -13088,11 +13128,11 @@
 /area/ninja/outside)
 "jly" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -13104,7 +13144,7 @@
 	},
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -13232,7 +13272,7 @@
 /area/centcom/evac)
 "jpl" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -13499,7 +13539,7 @@
 /area/centcom/zone2)
 "jyt" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -13620,7 +13660,7 @@
 /area/ninja/outpost)
 "jDd" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -13757,7 +13797,7 @@
 	network = list("CentComm")
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	icon_state = "open";
 	id_tag = "ERT_turret_shutters";
@@ -14189,7 +14229,7 @@
 /area/admin)
 "jVT" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen{
@@ -14956,16 +14996,16 @@
 "kxA" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -15089,7 +15129,7 @@
 /area/holodeck/source_snowfield)
 "kBV" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -15991,8 +16031,15 @@
 /area/tdome/arena)
 "lfx" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	broken = 1
+	broken = 1;
+	locked = 0;
+	icon_off = "fridgebroken";
+	icon_state = "fridgebroken"
 	},
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -16110,6 +16157,13 @@
 	tag = "icon-asteroid5"
 	},
 /area/holodeck/source_desert)
+"liH" = (
+/obj/structure/rack,
+/obj/item/toolbox_tiles,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "lju" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent{
 	maximum_pressure = 50000
@@ -16178,7 +16232,7 @@
 "lmi" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -16418,7 +16472,7 @@
 /area/syndicate_mothership)
 "lub" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	icon_state = "open";
 	id_tag = "ERT_turret_shutters";
@@ -16436,7 +16490,7 @@
 	pixel_y = 30
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/unsimulated/floor{
@@ -16515,7 +16569,7 @@
 	pixel_y = 30
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -16605,21 +16659,21 @@
 /area/centcom/jail)
 "lBX" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = null;
@@ -16932,7 +16986,7 @@
 	req_access_txt = "109"
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 1;
 	icon_state = "open";
@@ -17594,7 +17648,7 @@
 "mfo" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -17706,7 +17760,7 @@
 "mhF" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/unsimulated/floor{
@@ -17904,6 +17958,17 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
+"mpa" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/landmark{
+	name = "voxstart"
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "mph" = (
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/palebush,
@@ -18871,7 +18936,7 @@
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -18899,21 +18964,21 @@
 /area/chrono_ship)
 "mZi" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Grenade launcher";
 	req_access = null;
@@ -19003,7 +19068,7 @@
 "ndc" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -19456,7 +19521,7 @@
 "nqE" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/unsimulated/floor{
@@ -19506,7 +19571,7 @@
 "nrD" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -19599,6 +19664,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
+"nvy" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/landmark{
+	name = "voxstart"
+	},
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "nvB" = (
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/unsimulated/floor/snow,
@@ -20155,7 +20231,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -20165,11 +20241,11 @@
 /area/centcom/evac)
 "nMB" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -20180,7 +20256,7 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -20728,7 +20804,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/machinery/door/window/brigdoor{
@@ -22143,16 +22219,16 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -22449,21 +22525,21 @@
 /area/admin)
 "prr" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "ML IC";
 	req_access = null;
@@ -22512,6 +22588,12 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"psI" = (
+/obj/structure/closet/firecloset/full,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "psQ" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -22686,15 +22768,15 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -24332,7 +24414,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	icon_state = "open";
 	id_tag = "ERT_turret_shutters";
@@ -24504,11 +24586,11 @@
 "qBg" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -24574,7 +24656,7 @@
 "qEU" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	lootcount = 20;
 	name = "Food CC Spawner #2"
 	},
@@ -24602,11 +24684,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -25074,7 +25156,7 @@
 "qXR" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -25451,7 +25533,7 @@
 /area/centcom)
 "rms" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/storage/box/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -25605,7 +25687,7 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/reagent_containers/food/snacks/candy/donor{
 	apply_type = 3;
-	list_reagents = list("nutriment" = 30, "sugar" = 3);
+	list_reagents = list("nutriment"=30,"sugar"=3);
 	name = "MRE"
 	},
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
@@ -25659,7 +25741,7 @@
 "rqS" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/toy/plushie/voxplushie{
-	desc = "Он хоть и прималис, но обязательно вырастет";
+	desc = "Он хоть и прималис, но еще обязательно вырастет";
 	name = "Кикитаячи"
 	},
 /turf/unsimulated/floor/vox{
@@ -25776,7 +25858,7 @@
 /area/centcom/court)
 "rtj" = (
 /obj/machinery/computer/shuttle/ert{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
@@ -26003,7 +26085,7 @@
 	req_access_txt = "109"
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 1;
 	icon_state = "open";
@@ -26594,7 +26676,7 @@
 /area/centcom/evac)
 "rSv" = (
 /obj/machinery/door/airlock/centcom{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	name = "Supreme Commander";
 	opacity = 1;
 	req_access_txt = "113"
@@ -26736,7 +26818,7 @@
 /area/ninja/outpost)
 "rWO" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -27339,7 +27421,7 @@
 /area/ninja/outside)
 "spt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/storage/box/centcomofficer,
@@ -27487,7 +27569,7 @@
 /area/admin)
 "stq" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -27568,7 +27650,7 @@
 "swC" = (
 /obj/structure/table/abductor,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -27691,15 +27773,15 @@
 /area/shuttle/ninja)
 "sBu" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -27981,7 +28063,7 @@
 /area/ninja/outpost)
 "sKF" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -28622,7 +28704,7 @@
 /area/centcom/zone2)
 "tjg" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -28983,15 +29065,15 @@
 /area/chrono_ship)
 "tuM" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -29319,16 +29401,16 @@
 "tKq" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -29354,21 +29436,21 @@
 /area/centcom/specops)
 "tKP" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = null;
@@ -29395,43 +29477,43 @@
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /turf/unsimulated/floor{
@@ -29710,21 +29792,21 @@
 /area/syndicate_mothership)
 "uah" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
 	req_access = null;
@@ -30462,7 +30544,7 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -30634,7 +30716,7 @@
 "uHi" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/toy/cards/deck/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
 	},
 /turf/unsimulated/floor{
 	dir = 8;
@@ -31607,11 +31689,11 @@
 /area/centcom/specops)
 "vpF" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -31634,7 +31716,7 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -31744,7 +31826,7 @@
 /area/centcom)
 "vvt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/clothing/head/beret/centcom/officer,
@@ -31884,6 +31966,19 @@
 	},
 /turf/unsimulated/floor/snow,
 /area/ninja/outside)
+"vzE" = (
+/obj/structure/closet/crate,
+/obj/item/bucket_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/toy/crayon,
+/obj/item/toy/crayon/blue,
+/obj/item/toy/crayon/red,
+/obj/item/toy/crayon/green,
+/obj/item/storage/backpack,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "vzH" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -32395,7 +32490,7 @@
 /area/centcom/zone2)
 "vMK" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/clothing/suit/judgerobe{
@@ -32430,7 +32525,7 @@
 /area/centcom/zone2)
 "vMT" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -33025,7 +33120,7 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -34412,7 +34507,7 @@
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -34532,7 +34627,7 @@
 /area/centcom/specops)
 "xfi" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -34701,12 +34796,12 @@
 	pixel_y = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -34717,7 +34812,7 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/item/gun/projectile/automatic/m90{
@@ -34918,7 +35013,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/machinery/door/window/brigdoor{
@@ -35146,7 +35241,7 @@
 "xCC" = (
 /obj/structure/table/abductor,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /obj/structure/sign/poster/official/random{
@@ -35180,6 +35275,12 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"xDW" = (
+/obj/structure/closet/emcloset,
+/turf/unsimulated/floor/vox{
+	icon_state = "plastitanium"
+	},
+/area/vox_station)
 "xEk" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/mineral/sandbags{
@@ -55535,7 +55636,7 @@ qAW
 igW
 qAW
 qAW
-qAW
+gbC
 xoS
 vCH
 qAW
@@ -56055,7 +56156,7 @@ qAW
 qAW
 qAW
 qAW
-qAW
+psI
 kID
 jyD
 jyD
@@ -56301,13 +56402,13 @@ fWB
 gXj
 xoS
 cDm
-qAW
+vzE
+liH
 qAW
 qAW
 qAW
 qAW
 lIO
-qAW
 qAW
 qAW
 qAW
@@ -56558,13 +56659,13 @@ gXj
 gXj
 xoS
 dAs
-qAW
-qAW
+xDW
+vCH
 igW
 qAW
 qAW
-lIO
 qAW
+lIO
 qAW
 qAW
 igW
@@ -56815,13 +56916,13 @@ fWB
 gXj
 xoS
 fbe
+aMB
 qAW
 qAW
 qAW
 qAW
 qAW
 lIO
-qAW
 qAW
 qAW
 qAW
@@ -57083,7 +57184,7 @@ qAW
 qAW
 qAW
 qAW
-qAW
+dXH
 xoS
 jyD
 jyD
@@ -57590,7 +57691,7 @@ aEE
 niG
 igW
 qAW
-iXH
+nvy
 qAW
 xoS
 sGv
@@ -57846,7 +57947,7 @@ piw
 piw
 qAW
 qAW
-dvB
+gDX
 eSH
 qAW
 kID
@@ -58103,7 +58204,7 @@ pHT
 qAW
 qAW
 qAW
-dvB
+gDX
 shG
 bGr
 kID
@@ -58360,7 +58461,7 @@ vLs
 mgR
 lfx
 qAW
-dvB
+gDX
 rqS
 qAW
 kID
@@ -58618,7 +58719,7 @@ mgR
 vJi
 igW
 qAW
-piw
+mpa
 qAW
 kID
 rFK
