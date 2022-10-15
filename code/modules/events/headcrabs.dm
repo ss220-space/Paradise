@@ -91,16 +91,6 @@
 		else
 			GLOB.event_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая трубопроводы и вентиляцию.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
-/*
-
-==================================
-=                                =
-=        LONELY HEADCRAB         =
-=                                =
-==================================
-
-*/
-
 /datum/event/headcrab
 	endWhen = 1
 	var/headcrab_type
@@ -113,7 +103,7 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Хотите стать одиноким хедкрабом?", ROLE_HEADCRAB, TRUE, poll_time = 100, source = headcrab_type)
 
-	if(!candidates.len)
+	if(!length(candidates))
 		return // yeah, thats it.
 
 	var/mob/picked = pick(candidates)

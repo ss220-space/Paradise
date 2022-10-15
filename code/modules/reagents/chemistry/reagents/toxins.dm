@@ -57,11 +57,11 @@
 		var/turf/T = get_turf(M)
 		T.add_vomit_floor()
 
-	if(prob(chance))
-		M.emote("choke")
-
-	if(prob(chance))
-		M.emote("groan")
+	if(prob(chance) + 3.2)
+		if(prob(50))
+			M.emote("choke")
+		else
+			M.emote("groan")
 
 	if(prob(chance))
 		var/mob/living/carbon/human/M2 = M

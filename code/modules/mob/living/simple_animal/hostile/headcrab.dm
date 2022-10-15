@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	else
 		infest = TRUE
 
-	to_chat(src, "<span class=notice'>You are [infest ? "toggled" : "disabled" ] infestation of body.</span>")
+	to_chat(src, "<span class=notice'>You have [infest ? "toggled" : "disabled" ] automatic infestation of body.</span>")
 
 /mob/living/simple_animal/hostile/headcrab/verb/targeted_infest()
 	set category = "Headcrab"
