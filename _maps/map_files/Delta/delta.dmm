@@ -110839,6 +110839,7 @@
 	},
 /area/security/prison/cell_block/A)
 "rCy" = (
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -141490,13 +141491,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
-"ydi" = (
-/obj/machinery/vending/medical,
-/obj/structure/falsewall,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/surgery/south)
 "ydj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -184765,7 +184759,7 @@ vNi
 tyJ
 vNi
 qsc
-ydi
+qwC
 qwC
 gJf
 mtL
