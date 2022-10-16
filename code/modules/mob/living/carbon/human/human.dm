@@ -11,7 +11,7 @@
 	if(src.stat == DEAD)
 		revive_cooldown--
 
-/mob/living/carbon/humandeath(gibbed)
+/mob/living/carbon/human/death(gibbed)
 	revive_cooldown = 200
 
 /mob/living/carbon/human/New(loc)

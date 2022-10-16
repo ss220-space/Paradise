@@ -182,10 +182,11 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		hiding = FALSE
 
 /mob/living/simple_animal/hostile/headcrab/adjustHealth(damage)
-	..()
 
 	if(damage > 0)
 		vent_cooldown += 40
+
+	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
 
@@ -230,8 +231,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 					src.heal_overall_damage(10, 10)
 					qdel(K)
 					break
-		if(H.revive_cooldown > 0)
-			to_chat(src ,"You must wait [revive_cooldown/10] seconds! Body is too warm after last infestation.")
 
 	if(key)
 		return
@@ -719,7 +718,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	jumpdistance = 6
 	jumpspeed = 3
 	speak_emote = list("buzzing like an electricity")
-	damage_coeff = list(BRUTE = 1, BURN = 0.94, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
+	damage_coeff = list(BRUTE = 1, BURN = 0.92, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	revive_cooldown = 30
 
 /mob/living/simple_animal/hostile/headcrab/reviver/AttackingTarget()

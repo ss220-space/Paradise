@@ -37,7 +37,7 @@
 /datum/reagent/headcrab_neurotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 
-	if(M.reagents.has_reagent("epinephrine"))
+	if(M.reagents.has_reagent("epinephrine") || M.reagents.has_reagent("atropine") || M.reagents.has_reagent("heparine"))
 		M.reagents.remove_reagent("headcrab_neurotoxin", 0.2)
 
 	if(M.reagents.has_reagent("diphenhydramine"))
@@ -51,57 +51,52 @@
 	update_flags |= M.adjustStaminaLoss(0.4, FALSE)
 	update_flags |= M.adjustBrainLoss(2, FALSE)
 
-	var/chance = 4.8
+	var/chance = 6.8
 
 	if(prob(chance))
 		var/turf/T = get_turf(M)
 		T.add_vomit_floor()
 
-	if(prob(chance) + 3.2)
+	if(prob(chance))
 		if(prob(50))
 			M.emote("choke")
 		else
 			M.emote("groan")
 
-	if(prob(chance))
+	if(prob(chance) && !M.reagents.has_reagent("epinephrine") || !M.reagents.has_reagent("atropine") || !M.reagents.has_reagent("heparine"))
 		var/mob/living/carbon/human/M2 = M
 		M2.set_heartattack(TRUE)
 
-	if(prob(chance))
-		M.AdjustLoseBreath(10)
+	var/which_effect = 0
 
 	if(prob(chance))
-		M.AdjustConfused(10)
+		which_effect = rand(1,12)
 
-	if(prob(chance))
-		M.AdjustDizzy(20)
-
-	if(prob(chance))
-		M.AdjustHallucinate(40)
-
-	if(prob(chance))
-		M.AdjustJitter(10)
-
-	if(prob(chance))
-		M.AdjustParalysis(10)
-
-	if(prob(chance))
-		M.AdjustSleeping(16)
-
-	if(prob(chance))
-		M.AdjustSlowed(10)
-
-	if(prob(chance))
-		M.AdjustSlur(20)
-
-	if(prob(chance))
-		M.AdjustStunned(19)
-
-	if(prob(chance))
-		M.AdjustStuttering(30)
-
-	if(prob(chance))
-		M.AdjustWeakened(26)
+	switch(which_effect)
+		if(1)
+			M.AdjustLoseBreath(10)
+		if(2)
+			M.AdjustConfused(10)
+		if(3)
+			M.AdjustDizzy(20)
+		if(4)
+			M.AdjustHallucinate(40)
+		if(5)
+			M.AdjustJitter(10)
+		if(6)
+			M.AdjustParalysis(10)
+		if(7)
+			M.AdjustSleeping(16)
+		if(8)
+			M.AdjustSlowed(10)
+		if(9)
+			M.AdjustSlur(20)
+		if(10)
+			M.AdjustStunned(19)
+		if(11)
+			M.AdjustStuttering(30)
+		if(12)
+			M.AdjustWeakened(26)
 
 	return ..() | update_flags
 
