@@ -54810,6 +54810,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"fib" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/security/evidence)
 "fif" = (
 /obj/structure/dresser,
 /obj/item/radio/intercom{
@@ -57629,6 +57635,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -61868,11 +61877,8 @@
 	},
 /area/hallway/primary/central/west)
 "gMv" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "gMw" = (
 /obj/effect/landmark{
@@ -67770,12 +67776,12 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "icl" = (
-/obj/structure/disposalpipe/trunk,
-/obj/structure/disposaloutlet{
-	dir = 1
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
 	},
-/turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/space)
 "icp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75560,8 +75566,10 @@
 	},
 /area/bridge/vip)
 "jPC" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/space)
 "jPK" = (
 /obj/structure/window/reinforced{
@@ -75773,10 +75781,8 @@
 	},
 /area/medical/medbay2)
 "jSk" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "jSs" = (
 /obj/machinery/camera{
@@ -78898,8 +78904,8 @@
 	},
 /area/crew_quarters/kitchen)
 "kGY" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plating/airless,
+/obj/structure/lattice,
+/turf/simulated/wall/rust,
 /area/space)
 "kHa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -82565,8 +82571,7 @@
 /area/medical/ward)
 "lAU" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/security/processing)
@@ -96455,11 +96460,12 @@
 	name = "Virology Maintenance"
 	})
 "ozX" = (
-/obj/structure/disposalpipe/segment{
-	name = "Sorting Office"
+/obj/structure/disposaloutlet{
+	dir = 1
 	},
-/turf/simulated/wall/r_wall,
-/area/security/processing)
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "oAa" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -104317,8 +104323,7 @@
 	},
 /area/security/brig)
 "qgX" = (
-/obj/structure/lattice,
-/turf/simulated/wall/rust,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "qgZ" = (
 /obj/machinery/iv_drip,
@@ -106531,6 +106536,9 @@
 /obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -110944,8 +110952,12 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin3)
 "rzA" = (
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/r_wall,
+/area/security/evidence)
 "rzM" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -128905,6 +128917,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "vur" = (
@@ -138902,6 +138917,13 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
+"xyQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/r_wall,
+/area/security/evidence)
 "xyS" = (
 /obj/machinery/computer/teleporter,
 /obj/effect/decal/warning_stripes/southeast,
@@ -193995,8 +194017,8 @@ aaa
 aaa
 aaa
 aaa
-acF
-acF
+bvh
+abj
 vMK
 nJx
 iGx
@@ -194252,14 +194274,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-icl
-ozX
-ozX
-ozX
-ozX
-ozX
+bvh
+abj
+abj
+vMK
+vMK
+vMK
+vMK
+vMK
 lAU
 qHb
 ubg
@@ -194509,9 +194531,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-acF
-acF
+bCI
+bvh
+abj
 nJR
 wHu
 lBw
@@ -195260,7 +195282,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+coE
 aaa
 aaa
 aaa
@@ -195287,8 +195309,8 @@ vMK
 vMK
 vMK
 vMK
-sCb
-sCb
+rzA
+xyQ
 fnM
 iAK
 jnn
@@ -195513,11 +195535,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
 coE
+coE
+cCE
+coE
+kGY
 aaa
 aaa
 aaa
@@ -195542,9 +195564,9 @@ bvh
 abj
 abj
 abj
-abj
-abj
-sCb
+acF
+acF
+fib
 fsq
 qlW
 oDN
@@ -195771,10 +195793,11 @@ aaa
 aaa
 aaa
 coE
-coE
 cCE
-coE
+icl
+gMv
 qgX
+coE
 aaa
 aaa
 aaa
@@ -195796,12 +195819,11 @@ aaa
 aaa
 aaa
 aaa
-abj
-bCI
-bCI
-bCI
-abj
-sCb
+aaa
+aaa
+aaa
+ozX
+xyQ
 jRh
 skC
 qfc
@@ -196027,11 +196049,11 @@ aaa
 aaa
 aaa
 aaa
-coE
 cCE
+gKd
 gMv
 jPC
-rzA
+cCE
 coE
 aaa
 aaa
@@ -196056,8 +196078,8 @@ abj
 abj
 abj
 abj
-abj
-abj
+acF
+acF
 sCb
 jch
 tFf
@@ -196284,12 +196306,12 @@ aaa
 aaa
 aaa
 aaa
+aaa
 cCE
-gKd
-jPC
+cCE
 jSk
 cCE
-coE
+cCE
 aaa
 aaa
 aaa
@@ -196542,12 +196564,12 @@ aaa
 aaa
 aaa
 aaa
-cCE
-cCE
-kGY
-cCE
-cCE
 aaa
+aaa
+cCE
+coE
+cCE
+coE
 aaa
 aaa
 aaa
@@ -196801,9 +196823,9 @@ aaa
 aaa
 aaa
 aaa
-cCE
+aaa
+aaa
 coE
-cCE
 coE
 aaa
 aaa
@@ -197060,8 +197082,8 @@ aaa
 aaa
 aaa
 aaa
-coE
-coE
+aaa
+aaa
 aaa
 aaa
 aaa
