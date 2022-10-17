@@ -315,9 +315,108 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		vent_cooldown += 60
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
-	..()
 
 	vent_cooldown += 80
+
+	return ..()
+
+/mob/living/simple_animal/hostile/headcrab/attack_hand(mob/living/carbon/human/M as mob)
+	..()
+
+	if(M.a_intent == INTENT_HELP && src.stat == DEAD)
+		scoop_up_headcrab(M)
+	return ..()
+
+/obj/item/reagent_containers/food/snacks/headcrab
+
+	icon_state = "headcrab" //by default
+	icon = 'icons/mob/headcrab.dmi'
+	bitesize = 2
+	list_reagents = list("protein" = 2, "nutriment" = 1)
+	tastes = list("meat" = 1)
+	foodtype = MEAT
+	var/armored = FALSE
+
+/obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
+	..()
+
+	var/obj/item/reagent_containers/food/snacks/headcrab/hc = In
+
+	if(hc.armored)
+		to_chat(chef, "<span class='notice'>Break his armor first!</span>")
+		return
+
+	if(istype(In, /obj/item/reagent_containers/food/snacks/headcrab) && !hc.armored)
+		sleep(148)
+		hc.list_reagents += list("nutriment" = 1)
+
+	..()
+
+/obj/item/reagent_containers/food/snacks/headcrab/attack(mob/M, mob/user, def_zone)
+	..()
+
+	if(istype(src, /obj/item/reagent_containers/food/snacks/headcrab) && src.armored)
+		if(armored)
+			to_chat(M, "<span class='notice'>Break his armor first!</span>")
+		return
+
+/obj/item/reagent_containers/food/snacks/headcrab/attack_self(mob/user)
+	..()
+
+	if(istype(src, /obj/item/reagent_containers/food/snacks/headcrab) && src.armored)
+		if(do_after(src, 40, target = user, progress=TRUE))
+			src.armored = FALSE
+			to_chat(user, "<span class='notice'>His armor was breaked! Time to eat!</span>")
+
+/obj/item/reagent_containers/food/snacks/headcrab/Post_Consume(mob/living/M)
+	..()
+
+	qdel(src)
+
+	if(prob(6))
+		to_chat(M, "<span class='notice'>Strange... Headcrab tastes not like crab...</span>")
+
+/mob/living/simple_animal/hostile/headcrab/proc/scoop_up_headcrab(var/mob/living/carbon/grabber)
+
+	var/obj/item/reagent_containers/food/snacks/headcrab/H = new /obj/item/reagent_containers/food/snacks/headcrab(loc)
+	H.name = name
+	H.icon_state = icon_state
+	H.desc = desc
+
+	if(istype(H, /mob/living/simple_animal/hostile/headcrab/poison) || istype(H, /mob/living/simple_animal/hostile/headcrab/reviver))
+		desc += " Eating and/or cooking this - a very bad idea."
+
+	if(istype(H, /mob/living/simple_animal/hostile/headcrab/poison))
+		H.list_reagents += list("headcrab_neurotoxin" = 2)
+		H.bitesize = 4
+
+	if(istype(H, /mob/living/simple_animal/hostile/headcrab/reviver))
+		H.list_reagents += list("teslium" = 2)
+		H.bitesize = 1
+
+	if(istype(H, /mob/living/simple_animal/hostile/headcrab/armored))
+		H.armored = TRUE
+		H.list_reagents += list("protein" = 1, "nutriment" = 2)
+		H.bitesize = 3
+
+	if(istype(H, /mob/living/simple_animal/hostile/headcrab/fast))
+		H.bitesize = 1
+
+	src.forceMove(H)
+
+	H.attack_hand(grabber)
+
+	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
+	return H
+
+/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+	..()
+
+	if(istype(src, /mob/living/simple_animal/hostile/headcrab) && src.stat == DEAD && istype(I, /obj/item/storage/bag/trash/))
+		var/mob/living/simple_animal/hostile/headcrab/hcproc = src
+		var/obj/item/storage/bag/trash/trash_bag = I
+		var/obj/item/hold = hcproc.scoop_up_headcrab(user)
+		trash_bag.handle_item_insertion(hold, prevent_warning = FALSE)
 
 /mob/living/simple_animal/hostile/headcrab/New()
 
@@ -667,6 +766,10 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	damage_coeff = list(BRUTE = 0.88, BURN = 0.88, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 
 /mob/living/simple_animal/hostile/headcrab/armored/attack_hand(mob/living/carbon/human/M)
+
+	if(src.stat == DEAD)
+		return
+
 	var/mob/living/carbon/idiot = M
 	if(!(PIERCEIMMUNE in idiot.dna.species.species_traits))
 		var/obj/item/organ/external/affecting = idiot.get_organ("[idiot.hand ? "l" : "r" ]_hand")

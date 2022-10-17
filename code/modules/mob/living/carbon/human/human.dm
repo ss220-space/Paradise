@@ -8,10 +8,14 @@
 	var/revive_cooldown = 200
 
 /mob/living/carbon/human/Life(seconds, times_fired)
+	..()
+
 	if(src.stat == DEAD)
 		revive_cooldown--
 
 /mob/living/carbon/human/death(gibbed)
+	..()
+
 	revive_cooldown = 200
 
 /mob/living/carbon/human/New(loc)

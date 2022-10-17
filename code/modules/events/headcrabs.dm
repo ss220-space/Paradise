@@ -91,6 +91,8 @@
 		else
 			GLOB.event_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая трубопроводы и вентиляцию.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
 
+//
+
 /datum/event/headcrab
 	endWhen = 1
 	var/headcrab_type
@@ -112,6 +114,8 @@
 	var/obj/vent = pick(vents)
 
 	var/mob/living/simple_animal/hostile/headcrab/lnhc = new headcrab_type(vent.loc)
+	lnhc.forceMove(vent)
+	lnhc.add_ventcrawl(vent)
 	lnhc.key = picked.key
 
 /*
