@@ -194,7 +194,7 @@
 		if (!isanimal(M))
 			to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 			return
-		var/response = alert("Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
+		var/response = alert(M, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
 
 		if (response == "Нет")
 			to_chat(user, "<span class='warning'>[M.name] отказался от зелья!</span>")
@@ -206,8 +206,12 @@
 
 			var/mob/living/simple_animal/SM = M
 
+			if (!SM.master_commander)
+				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
+				return
+
 			if(SM.sentience_type != sentience_type)
-				to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+				to_chat(user, "<span class='warning'>[SM] не разумное животное!.</span>")
 				return ..()
 
 			SM.universal_speak = 1
