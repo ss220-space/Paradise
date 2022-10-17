@@ -64,6 +64,13 @@
 	flash_protect = 1
 	tint = 1
 
+/obj/item/clothing/glasses/hud/health/patch
+	name = "medical HUD eyepatch"
+	desc = "A heads-up eyepatch that scans the humans in view and provides accurate data about their health status."
+	icon_state = "medhudpatch"
+	item_state = "medhudpatch"
+	prescription_upgradable = 0
+
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "Diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
@@ -99,6 +106,13 @@
 	item_state = "glasses"
 	flash_protect = 1
 	tint = 1
+
+/obj/item/clothing/glasses/hud/diagnostic/patch
+	name = "diagnostic HUD eyepatch"
+	desc = "A heads-up eyepatch capable of analyzing the integrity and status of robotics and exosuits."
+	icon_state = "diaghudpatch"
+	item_state = "diaghudpatch"
+	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security
 	name = "\improper Security HUD"
@@ -170,6 +184,13 @@
 	desc = "A aviators with a HUD."
 	icon_state = "aviators"
 
+/obj/item/clothing/glasses/hud/security/patch
+	name = "security HUD eyepatch"
+	desc = "A heads-up eyepatch that scans the humans in view and provides accurate data about their ID status and security records."
+	icon_state = "sechudpatch"
+	item_state = "sechudpatch"
+	prescription_upgradable = 0
+
 /obj/item/clothing/glasses/hud/hydroponic
 	name = "Hydroponic HUD"
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
@@ -204,6 +225,13 @@
 	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
+
+/obj/item/clothing/glasses/hud/hydroponic/patch
+	name = "hydroponic HUD eyepatch"
+	desc = "A heads-up eyepatch capable of analyzing the health and status of plants growing in hydro trays and soil."
+	icon_state = "hydrohudpatch"
+	item_state = "hydrohudpatch"
+	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security/tajblind
 	name = "sleek veil"
@@ -285,3 +313,9 @@
 		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 	)
+
+/obj/item/clothing/glasses/hud/skills/patch
+	name = "skills HUD eyepatch"
+	desc = "A heads-up eyepatch capable of showing the employment history records of NT crew members."
+	icon_state = "skillhudpatch"
+	item_state = "skillhudpatch"
