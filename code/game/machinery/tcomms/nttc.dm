@@ -44,6 +44,7 @@
 		"Nanotrasen Navy Officer" = "dsquadradio",
 		"Nanotrasen Navy Field Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
+		"Syndicate Officer" = "syndiecom",
 		"Supreme Commander" = "dsquadradio",
 		// Medical
 		"Chemist" = "medradio",
