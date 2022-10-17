@@ -215,10 +215,12 @@
 	},
 /area/ussp_ship)
 "akN" = (
-/obj/effect/turf_decal,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "alv" = (
@@ -523,12 +525,11 @@
 	},
 /area/syndicate_mothership)
 "azc" = (
-/obj/effect/turf_decal{
-	dir = 6
-	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "azj" = (
@@ -550,7 +551,9 @@
 /obj/item/extinguisher,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "aAA" = (
@@ -655,7 +658,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "aEO" = (
@@ -878,10 +883,15 @@
 /area/syndicate_mothership)
 "aMB" = (
 /obj/structure/rack,
-/obj/item/toolbox_tiles,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "aMD" = (
@@ -2022,12 +2032,14 @@
 	},
 /area/trader_station/sol)
 "bGn" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 4
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "bGr" = (
@@ -2036,7 +2048,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "bGJ" = (
@@ -2617,12 +2631,19 @@
 	},
 /area/ninja/outpost)
 "cfP" = (
-/obj/effect/turf_decal{
-	dir = 4
-	},
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/tank/internals/nitrogen,
+/obj/structure/table/reinforced/brass,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "cfS" = (
@@ -3041,9 +3062,12 @@
 /area/wizard_station)
 "cCk" = (
 /obj/machinery/cryopod,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "cCm" = (
@@ -3144,8 +3168,11 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 3.1
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "cDn" = (
@@ -3726,12 +3753,12 @@
 	},
 /area/centcom/specops)
 "cVb" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
+/obj/effect/turf_decal/caution/stand_clear/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "cVo" = (
@@ -4433,7 +4460,9 @@
 /obj/structure/chair,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dvF" = (
@@ -4575,8 +4604,11 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 3.1
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dAx" = (
@@ -4682,10 +4714,12 @@
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
 	},
-/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/box/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dCC" = (
@@ -4743,13 +4777,12 @@
 /turf/unsimulated/wall,
 /area/centcom/evac)
 "dEN" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
+/obj/effect/turf_decal/stripes/red/line,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dFy" = (
@@ -4952,9 +4985,12 @@
 	pixel_x = -32
 	},
 /obj/item/radio/off,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dLs" = (
@@ -5229,10 +5265,12 @@
 /obj/item/crowbar/large,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dXI" = (
@@ -5705,9 +5743,16 @@
 /area/centcom/zone1)
 "elA" = (
 /obj/item/trash/tapetrash,
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "elZ" = (
@@ -5848,12 +5893,12 @@
 	opened = 1
 	},
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/turf_decal{
-	dir = 9
-	},
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "erc" = (
@@ -5870,10 +5915,11 @@
 /area/centcom/zone2)
 "erL" = (
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/turf_decal/box,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "esd" = (
@@ -5930,9 +5976,12 @@
 "euu" = (
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "evr" = (
@@ -6699,7 +6748,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "eSX" = (
@@ -6916,8 +6967,11 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 3.1
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fbq" = (
@@ -7744,9 +7798,12 @@
 "fwx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fwA" = (
@@ -7781,7 +7838,9 @@
 /obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fxa" = (
@@ -8018,7 +8077,9 @@
 /obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fFH" = (
@@ -8078,9 +8139,12 @@
 /area/centcom/zone1)
 "fGT" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fGU" = (
@@ -8242,7 +8306,9 @@
 /obj/item/reagent_containers/food/snacks/grown/apple,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fNO" = (
@@ -8562,9 +8628,12 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -32
 	},
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "gbP" = (
@@ -9353,7 +9422,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "gEE" = (
@@ -9978,10 +10049,12 @@
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
 "hcZ" = (
-/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/box/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "hdm" = (
@@ -10197,7 +10270,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "hic" = (
@@ -10474,11 +10549,13 @@
 	},
 /area/centcom/evac)
 "hsO" = (
-/obj/effect/turf_decal/delivery,
 /obj/item/trash/chips,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "htO" = (
@@ -10566,10 +10643,11 @@
 "huT" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/book/manual/engineering_hacking,
-/obj/effect/turf_decal/box,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "hvs" = (
@@ -11560,7 +11638,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "iic" = (
@@ -12885,7 +12965,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "iYd" = (
@@ -13817,9 +13899,12 @@
 /obj/item/clothing/suit/space/vox/stealth,
 /obj/item/clothing/head/helmet/space/vox/stealth,
 /obj/item/clothing/head/helmet/space/vox/stealth,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "jDO" = (
@@ -16181,7 +16266,9 @@
 /obj/item/reagent_containers/food/snacks/meat/meatwheat,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "lfA" = (
@@ -16298,11 +16385,12 @@
 	},
 /area/holodeck/source_desert)
 "liH" = (
-/obj/effect/turf_decal,
-/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "lju" = (
@@ -16358,7 +16446,9 @@
 /obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "lmc" = (
@@ -17087,7 +17177,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "lGp" = (
@@ -17186,9 +17278,12 @@
 /area/trader_station/sol)
 "lIO" = (
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "lJL" = (
@@ -17851,7 +17946,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mgY" = (
@@ -17988,9 +18085,14 @@
 	opened = 1
 	},
 /obj/item/newspaper,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 5
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mjS" = (
@@ -18075,7 +18177,9 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mnf" = (
@@ -18124,7 +18228,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mph" = (
@@ -18351,8 +18457,11 @@
 /obj/machinery/door/airlock/hatch{
 	req_access_txt = "152"
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mxk" = (
@@ -18512,7 +18621,9 @@
 /obj/item/stack/tape_roll,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mDX" = (
@@ -19436,7 +19547,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "niJ" = (
@@ -19724,9 +19837,12 @@
 /area/ussp_ship)
 "nrv" = (
 /obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nrD" = (
@@ -19834,7 +19950,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nvB" = (
@@ -20245,12 +20363,12 @@
 	},
 /area/centcom/jail)
 "nHQ" = (
-/obj/effect/turf_decal{
-	dir = 5
-	},
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nIb" = (
@@ -20262,7 +20380,9 @@
 /obj/item/assembly/igniter,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nIc" = (
@@ -20572,7 +20692,9 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nTc" = (
@@ -20624,12 +20746,13 @@
 	},
 /area/syndicate_mothership)
 "nUQ" = (
-/obj/effect/turf_decal{
-	dir = 9
-	},
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/stripes/red/line,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nVZ" = (
@@ -20721,12 +20844,13 @@
 	},
 /area/ninja/outpost)
 "ocy" = (
-/obj/effect/turf_decal{
-	dir = 10
-	},
+/obj/item/flag/species/vox,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "ocX" = (
@@ -20794,7 +20918,9 @@
 /obj/item/trash/can,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "ofb" = (
@@ -21944,7 +22070,9 @@
 /obj/item/flag/species/vox,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "pbA" = (
@@ -22281,7 +22409,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "piH" = (
@@ -22784,11 +22914,14 @@
 	},
 /area/syndicate_mothership)
 "psI" = (
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/closet/firecloset/full,
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "psQ" = (
@@ -23269,7 +23402,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "pIm" = (
@@ -23694,7 +23829,9 @@
 /obj/item/trash/raisins,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "pVm" = (
@@ -24032,7 +24169,9 @@
 /obj/structure/ore_box,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qdY" = (
@@ -24076,9 +24215,12 @@
 /area/holodeck/source_basketball)
 "qfe" = (
 /obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qfy" = (
@@ -24499,9 +24641,12 @@
 "qtE" = (
 /obj/item/shard,
 /obj/item/trash/sosjerky,
+/obj/effect/turf_decal/delivery/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qtF" = (
@@ -24772,9 +24917,14 @@
 	},
 /area/centcom/court)
 "qAW" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 9
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qBc" = (
@@ -25252,10 +25402,11 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/box,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qUd" = (
@@ -25970,7 +26121,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "rrf" = (
@@ -26412,12 +26565,12 @@
 /obj/item/soap,
 /obj/item/soap/ducttape,
 /obj/item/storage/backpack,
-/obj/effect/turf_decal{
-	dir = 1
-	},
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "rCL" = (
@@ -26505,9 +26658,12 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "rFQ" = (
@@ -27354,7 +27510,9 @@
 /obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "shN" = (
@@ -27601,9 +27759,12 @@
 /area/ussp_ship)
 "smW" = (
 /obj/item/stack/sheet/mineral/sandbags,
+/obj/effect/turf_decal/stripes/red/line,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "snW" = (
@@ -27787,9 +27948,12 @@
 /obj/item/clothing/suit/space/vox/pressure,
 /obj/item/clothing/head/helmet/space/vox/pressure,
 /obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "std" = (
@@ -28194,9 +28358,12 @@
 /obj/item/clothing/suit/space/vox/carapace,
 /obj/item/clothing/head/helmet/space/vox/carapace,
 /obj/item/clothing/head/helmet/space/vox/carapace,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "sGP" = (
@@ -28318,9 +28485,12 @@
 /obj/item/clothing/shoes/magboots/vox,
 /obj/item/clothing/shoes/magboots/vox,
 /obj/item/clothing/shoes/magboots/vox,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "sLQ" = (
@@ -28480,12 +28650,18 @@
 /turf/unsimulated/wall,
 /area/centcom/evac)
 "sPN" = (
-/obj/effect/turf_decal{
-	dir = 8
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	welded = 1
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "sQl" = (
@@ -28721,12 +28897,11 @@
 	opened = 1
 	},
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/turf_decal{
-	dir = 1
-	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "sWK" = (
@@ -29071,9 +29246,12 @@
 "tlX" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "tmb" = (
@@ -29687,10 +29865,12 @@
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "tKP" = (
@@ -29831,6 +30011,15 @@
 	tag = "icon-wood_siding1"
 	},
 /area/holodeck/source_picnicarea)
+"tPp" = (
+/obj/machinery/cryopod,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "tPs" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -30500,9 +30689,13 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "umC" = (
@@ -30638,12 +30831,15 @@
 	},
 /area/holodeck/source_picnicarea)
 "usI" = (
-/obj/effect/turf_decal/loading_area{
+/obj/effect/turf_decal/stripes/red/line,
+/obj/effect/turf_decal/arrows/red{
 	dir = 1
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "usK" = (
@@ -30943,6 +31139,15 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"uFQ" = (
+/obj/item/trash/tastybread,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "uFS" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -31548,10 +31753,12 @@
 	},
 /area/centcom/specops)
 "vbN" = (
-/obj/effect/turf_decal/delivery,
+/obj/item/stack/sheet/mineral/sandbags,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vcj" = (
@@ -31592,10 +31799,12 @@
 /obj/item/pizzabox{
 	icon_state = "pizzabox_open"
 	},
-/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/box/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vea" = (
@@ -32261,9 +32470,14 @@
 /obj/item/toy/crayon/red,
 /obj/item/toy/crayon/green,
 /obj/item/storage/backpack,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vzH" = (
@@ -32317,9 +32531,12 @@
 /area/centcom/specops)
 "vCH" = (
 /obj/item/target,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vCS" = (
@@ -32346,12 +32563,13 @@
 	},
 /area/syndicate_mothership)
 "vDb" = (
-/obj/effect/turf_decal{
-	dir = 1
-	},
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vDc" = (
@@ -32639,7 +32857,9 @@
 /obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vKb" = (
@@ -32672,7 +32892,9 @@
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vKp" = (
@@ -32740,7 +32962,9 @@
 /obj/machinery/vending/dinnerware,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vLx" = (
@@ -33645,7 +33869,9 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "wqK" = (
@@ -34089,12 +34315,14 @@
 	},
 /area/centcom/evac)
 "wCm" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 8
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "wCx" = (
@@ -34759,7 +34987,9 @@
 /obj/item/storage/belt/chameleon,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "wZp" = (
@@ -35098,7 +35328,9 @@
 /obj/structure/table/reinforced/brass,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "xlZ" = (
@@ -35599,9 +35831,15 @@
 /area/syndicate_mothership)
 "xDW" = (
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "xEk" = (
@@ -36039,7 +36277,9 @@
 /obj/machinery/cryopod/right,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "xQT" = (
@@ -36122,9 +36362,12 @@
 /obj/item/clothing/suit/space/vox/medic,
 /obj/item/clothing/head/helmet/space/vox/medic,
 /obj/item/clothing/head/helmet/space/vox/medic,
+/obj/effect/turf_decal/bot_red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
-	tag = "icon-dark"
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "xWD" = (
@@ -54672,7 +54915,7 @@ gXj
 xoS
 nSw
 erL
-qAW
+azc
 qTS
 mDD
 huT
@@ -54681,7 +54924,7 @@ kID
 qdN
 euu
 dKN
-smW
+vbN
 smW
 xoS
 jyD
@@ -54928,18 +55171,18 @@ fOf
 gXj
 kID
 nrv
-qAW
-qAW
+nHQ
+azc
 igW
-qAW
+azc
 dvB
 wZd
 kID
-euu
+vDb
 eqZ
-sPN
-ocy
-qAW
+nHQ
+azc
+nUQ
 xoS
 jyD
 jyD
@@ -55185,9 +55428,9 @@ gXj
 gXj
 xoS
 fGT
-qAW
-qAW
-qAW
+nHQ
+azc
+azc
 pVf
 nIb
 mne
@@ -55195,7 +55438,7 @@ kID
 wqz
 sWI
 igW
-akN
+azc
 usI
 mxg
 jyD
@@ -55441,20 +55684,20 @@ gXj
 gXj
 gXj
 xoS
-fGT
-qAW
-qAW
-qAW
+akN
+azc
+azc
+azc
 xoS
 xoS
 xoS
 xoS
 azI
 rCd
-qAW
-liH
+nHQ
+azc
 usI
-xoS
+sPN
 jyD
 jyD
 jyD
@@ -55700,17 +55943,17 @@ gXj
 xoS
 tlX
 qfe
-qAW
-qAW
+azc
+azc
 lFY
 xQD
 xQD
 xoS
 qdN
 nHQ
-cfP
+nHQ
 azc
-qAW
+dEN
 kID
 jyD
 jyD
@@ -55955,12 +56198,12 @@ eIt
 fWB
 gXj
 xoS
-fEx
-qAW
-qAW
+cfP
+nHQ
+azc
 igW
-qAW
-qAW
+azc
+azc
 gbC
 xoS
 vCH
@@ -56213,11 +56456,11 @@ gmR
 gXj
 kID
 fEx
-qAW
-qAW
-qAW
+azc
+azc
+azc
 hhZ
-cCk
+tPp
 cCk
 kID
 kID
@@ -56478,10 +56721,10 @@ xoS
 xoS
 kID
 qtE
-qAW
-qAW
-qAW
-psI
+azc
+cVb
+azc
+nHQ
 kID
 jyD
 jyD
@@ -56728,17 +56971,17 @@ gXj
 xoS
 cDm
 vzE
-qAW
-qAW
-qAW
-cVb
-qAW
+azc
+azc
+azc
+qTS
+azc
 lIO
-qAW
-qAW
-qAW
-qAW
-vbN
+azc
+azc
+azc
+azc
+qfe
 xoS
 jyD
 jyD
@@ -56985,16 +57228,16 @@ gXj
 xoS
 dAs
 xDW
-qAW
+azc
 igW
-qAW
-qAW
-qAW
+azc
+azc
+azc
 lIO
-qAW
-qAW
+azc
+azc
 igW
-qAW
+azc
 tKG
 kID
 jyD
@@ -57242,16 +57485,16 @@ gXj
 xoS
 fbe
 aMB
-qAW
-qAW
-qAW
+azc
+azc
+uFQ
 vKm
-qAW
+azc
 lIO
-qAW
-qAW
-qAW
-qAW
+azc
+azc
+azc
+azc
 hsO
 xoS
 jyD
@@ -57505,10 +57748,10 @@ kID
 kID
 xoS
 xoS
-qAW
-qAW
-qAW
-qAW
+psI
+azc
+cVb
+azc
 dXH
 xoS
 jyD
@@ -57756,11 +57999,11 @@ gXj
 kID
 iXH
 iXH
-qAW
-qAW
-qAW
-qAW
-pbl
+azc
+azc
+azc
+azc
+ocy
 xoS
 xoS
 lIO
@@ -58015,9 +58258,9 @@ oeN
 aEE
 niG
 igW
-qAW
+azc
 nvy
-qAW
+liH
 xoS
 sGv
 bGn
@@ -58270,16 +58513,16 @@ gXj
 kID
 piw
 piw
-qAW
-qAW
+azc
+azc
 gDX
 eSH
-qAW
+azc
 kID
 xWx
-nUQ
-sPN
-ocy
+nHQ
+nHQ
+azc
 dEN
 kID
 jyD
@@ -58526,19 +58769,19 @@ fWB
 gXj
 xoS
 pHT
-qAW
-qAW
-qAW
+azc
+azc
+azc
 gDX
 shG
 bGr
 kID
 ssW
-vDb
-qAW
-liH
+nHQ
+nHQ
+azc
 usI
-xoS
+sPN
 jyD
 jyD
 jyD
@@ -58785,15 +59028,15 @@ kID
 vLs
 mgR
 lfx
-qAW
+azc
 gDX
 rqS
-qAW
+azc
 kID
 jDy
-vDb
+azc
 igW
-akN
+azc
 usI
 mxg
 wed
@@ -59043,15 +59286,15 @@ xlW
 mgR
 vJi
 igW
-qAW
+azc
 mpa
-qAW
+azc
 kID
 rFK
 nHQ
-cfP
+nHQ
 azc
-qAW
+dEN
 xoS
 jyD
 jyD
@@ -59300,14 +59543,14 @@ fwH
 dCt
 fND
 vdv
-qAW
+azc
 hcZ
 pbl
 kID
 sLM
-qAW
+nHQ
 umu
-qAW
+azc
 elA
 xoS
 jyD
