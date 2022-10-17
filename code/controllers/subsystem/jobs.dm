@@ -107,7 +107,8 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
-			add_game_logs("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])", player)
+			log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
+			player.create_log(MISC_LOG, "Вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")

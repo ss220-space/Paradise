@@ -364,7 +364,6 @@
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
-		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."

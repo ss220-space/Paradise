@@ -61,11 +61,12 @@
 
 
 	if(message)
-		add_emote_logs(src, message)
+		log_emote(message, src)
 		if(isliving(src)) //isliving because these are defined on the mob/living level not mob
 			var/mob/living/L = src
 			L.say_log += "EMOTE: [input]" //say log too so it is easier on admins instead of having to merge the two with timestamps etc
 			L.emote_log += input //emote only log if an admin wants to search just for emotes they don't have to sift through the say
+			create_log(EMOTE_LOG, input) // TODO after #13047: Include the channel
 		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
 		// Maybe some people are okay with that.
 		for(var/mob/M in GLOB.player_list)
@@ -173,7 +174,7 @@
 
 	var/message = "<B>[src]</b> [input]"
 
-	add_emote_logs(src, message)
+	log_emote(message, src)
 
 	// Coloring text for runechat
 	var/speaker_name = src.name

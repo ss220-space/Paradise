@@ -321,9 +321,9 @@
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
-			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
+			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
-			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: NO_DATA")
+			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
 		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
 		if(faction)
 			creature.faction = faction

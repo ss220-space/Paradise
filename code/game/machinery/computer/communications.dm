@@ -65,7 +65,7 @@
 	set_security_level(tmp_alertlevel)
 	if(GLOB.security_level != old_level)
 		//Only notify the admins if an actual change happened
-		add_game_logs("has changed the security level to [get_security_level()].", usr)
+		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	tmp_alertlevel = 0
 
@@ -232,7 +232,7 @@
 					return
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
-				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
+				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
 				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
@@ -251,7 +251,7 @@
 				Centcomm_announce(input, usr)
 				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
 				to_chat(usr, "Message transmitted.")
-				add_game_logs("has made a Centcomm announcement: [input]", usr)
+				log_game("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -269,7 +269,7 @@
 					return
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				add_game_logs("has made a Syndicate announcement: [input]", usr)
+				log_game("[key_name(usr)] has made a Syndicate announcement: [input]")
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -294,7 +294,6 @@
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
-		add_attack_logs(user, src, "emagged")
 		src.emagged = 1
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)
@@ -430,8 +429,8 @@
 		return
 
 	SSshuttle.requestEvac(user, reason)
-	add_game_logs("has called the shuttle: [reason]", user)
-	message_admins("[key_name_admin(user)] has called the shuttle.")
+	log_game("[key_name(user)] has called the shuttle.")
+	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
 	return
 
@@ -461,8 +460,8 @@
 		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
 		SSshuttle.emergency.canRecall = FALSE
 	if(user)
-		add_game_logs("has called the shuttle.", user)
-		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].")
+		log_game("[key_name(user)] has called the shuttle.")
+		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
 
@@ -471,12 +470,12 @@
 		return
 
 	if(SSshuttle.cancelEvac(user))
-		add_game_logs("has recalled the shuttle.", user)
-		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle .")
+		log_game("[key_name(user)] has recalled the shuttle.")
+		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 	else
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
-		add_game_logs("has tried and failed to recall the shuttle.", user)
-		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
+		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
@@ -492,7 +491,7 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
-			add_misc_logs(user, "STATUS: [key_name_log(user)] set status screen message: [data1] [data2]")
+			log_admin("STATUS: [user] set status screen message: [data1] [data2]")
 			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
 		if("alert")
 			status_signal.data["picture_state"] = data1

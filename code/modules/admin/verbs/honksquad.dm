@@ -70,7 +70,8 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 			honksquad_number--
 
 
-	log_and_message_admins("used Spawn HONKsquad.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a HONKsquad.</span>", 1)
+	log_admin("[key_name(usr)] used Spawn HONKsquad.")
 	return 1
 
 /client/proc/create_honksquad(obj/spawn_location, honk_leader_selected = 0)

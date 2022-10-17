@@ -615,12 +615,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]")
+						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
-						add_attack_logs(usr, src, "Equipped with [place_item]")
+						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -629,7 +629,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]")
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -644,7 +644,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items")
+				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1846,25 +1846,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/datum/objective/sintouched/O
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
-			add_game_logs("[src] was influenced by the sin of Acedia.", src)
+			log_game("[src] was influenced by the sin of Acedia.")
 			O = new /datum/objective/sintouched/acedia
 		if(2) // Gluttony
-			add_game_logs("[src] was influenced by the sin of gluttony.", src)
+			log_game("[src] was influenced by the sin of gluttony.")
 			O = new /datum/objective/sintouched/gluttony
 		if(3) // Greed
-			add_game_logs("[src] was influenced by the sin of greed.", src)
+			log_game("[src] was influenced by the sin of greed.")
 			O = new /datum/objective/sintouched/greed
 		if(4) // sloth
-			add_game_logs("[src] was influenced by the sin of sloth.", src)
+			log_game("[src] was influenced by the sin of sloth.")
 			O = new /datum/objective/sintouched/sloth
 		if(5) // Wrath
-			add_game_logs("[src] was influenced by the sin of wrath.", src)
+			log_game("[src] was influenced by the sin of wrath.")
 			O = new /datum/objective/sintouched/wrath
 		if(6) // Envy
-			add_game_logs("[src] was influenced by the sin of envy.", src)
+			log_game("[src] was influenced by the sin of envy.")
 			O = new /datum/objective/sintouched/envy
 		if(7) // Pride
-			add_game_logs("[src] was influenced by the sin of pride.", src)
+			log_game("[src] was influenced by the sin of pride.")
 			O = new /datum/objective/sintouched/pride
 	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
@@ -1921,9 +1921,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		runechat_msg_location = loc
 	else
 		runechat_msg_location = src
-
-/mob/living/carbon/human/limb_attack_self()
-	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)
-	if(arm)
-		arm.attack_self(src)
-	return ..()

@@ -28,9 +28,9 @@
 				total_antagonists[temprole] += ": [Mind.name]([Mind.key])"
 
 	//Now print them all into the log!
-	add_game_logs("Antagonists at round end were...")
+	log_game("Antagonists at round end were...")
 	for(var/i in total_antagonists)
-		add_game_logs("[i]s[total_antagonists[i]].")
+		log_game("[i]s[total_antagonists[i]].")
 
 	//log antags and their objectives
 	for(var/datum/mind/Mind in SSticker.minds)

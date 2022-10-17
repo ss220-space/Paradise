@@ -129,12 +129,12 @@
 		if(strength > strength_upper_limit)
 			strength = strength_upper_limit
 		else
-			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
-			add_game_logs("increased PA Control Computer to [strength] in [COORD(src)]", usr)
-			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("PA Control Computer increased to [strength] by [key_name(usr)] in ([x],[y],[z])")
+			investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)]","singulo")
 			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
 
-			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+			investigate_log("increased to <font color='red'>[strength]</font> by [usr.key]","singulo")
 		strength_change()
 
 /obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
@@ -143,9 +143,9 @@
 		if(strength < 0)
 			strength = 0
 		else
-			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
-			add_game_logs("decreased PA Control Computer to [strength] in [COORD(src)]", usr)
-			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("PA Control Computer decreased to [strength] by [key_name(usr)] in ([x],[y],[z])")
+			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)]","singulo")
 			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")
 
 		strength_change()
@@ -171,7 +171,7 @@
 	if(active)
 		//a part is missing!
 		if(length(connected_parts) < 6)
-			investigate_log("lost a connected part; It <font color='red'>powered down</font>.", INVESTIGATE_ENGINE)
+			investigate_log("lost a connected part; It <font color='red'>powered down</font>.","singulo")
 			toggle_power()
 			return
 		//emit some particles
@@ -232,10 +232,11 @@
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
-	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
+	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
 	if(active)
-		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
-		add_game_logs("turned ON PA Control Computer in [COORD(src)]", usr)
+		msg_admin_attack("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
+		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
+		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
 	if(active)
 		use_power = ACTIVE_POWER_USE

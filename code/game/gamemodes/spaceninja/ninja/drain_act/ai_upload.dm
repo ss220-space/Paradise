@@ -37,7 +37,6 @@
 			if(currentAI.stat != DEAD && currentAI.see_in_dark != FALSE)
 				currentAI.laws.clear_inherent_laws()
 
-		add_attack_logs(ninja, null, "hacked AI upload, causing Ion storms!", ATKLOG_FEW)
 		new /datum/event/ion_storm(0, 1)
 		new /datum/event/ion_storm(0, -1)
 		new /datum/event/ion_storm(0, -1)

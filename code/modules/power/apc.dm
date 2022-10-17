@@ -787,7 +787,6 @@
 		else if(stat & (BROKEN|MAINT))
 			to_chat(user, "Nothing happens.")
 		else
-			add_attack_logs(user, src, "emagged")
 			flick("apc-spark", src)
 			emagged = 1
 			locked = 0

@@ -347,7 +347,7 @@
 
 		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
 		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
-		add_say_logs(user, message, L, "Mind device")
+		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"

@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		infected_crew += blob
 		blob.special_role = SPECIAL_ROLE_BLOB
 		blob.restricted_roles = restricted_jobs
-		add_game_logs("has been selected as a Blob", blob)
+		log_game("[key_name(blob)] has been selected as a Blob")
 		possible_blobs -= blob
 
 	if(!infected_crew.len)
@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	blobmind.special_role = SPECIAL_ROLE_BLOB
 	update_blob_icons_added(blobmind)
 
-	add_game_logs("has been selected as a Blob", blob)
+	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
 	spawn(600)

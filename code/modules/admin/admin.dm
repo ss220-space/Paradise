@@ -400,16 +400,19 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 				// These are pasted each time so that they dont false send if reboot is cancelled
-				log_and_message_admins("has initiated a server restart of type [result]")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
 				SSticker.delay_end = FALSE // We arent delayed anymore
 				SSticker.reboot_helper(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
 
 			if("Hard Restart")
-				log_and_message_admins("has initiated a server restart of type [result]")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
 				world.Reboot(fast_track = TRUE)
 
 			if("Terminate Process (Kill and restart DD)")
-				log_and_message_admins("has initiated a server restart of type [result]")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
 /datum/admins/proc/end_round()
@@ -424,7 +427,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 	if(SSticker.force_ending)
 		return
-	log_and_message_admins("has admin ended the round with message: '[input]'")
+	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
+	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
 	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -488,7 +492,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
-	log_and_message_admins("toggled deadchat.")
+	log_admin("[key_name(usr)] toggled deadchat.")
+	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
 
 /datum/admins/proc/toggleoocdead()
@@ -504,7 +509,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>Dead OOC has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Dead OOC has been globally disabled!</B>")
-	log_and_message_admins("toggled Dead OOC.")
+	log_admin("[key_name(usr)] toggled Dead OOC.")
+	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/togglevotedead()
@@ -520,7 +526,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>Dead Vote has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Dead Vote has been globally disabled!</B>")
-	log_and_message_admins("toggled Dead Vote.")
+	log_admin("[key_name(usr)] toggled Dead Vote.")
+	message_admins("[key_name_admin(usr)] toggled Dead Vote.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead Vote") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleemoji()
@@ -532,7 +539,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
-	log_and_message_admins("toggled OOC Emoji.")
+	log_admin("[key_name(usr)] toggled OOC Emoji.")
+	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
@@ -577,7 +585,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")
-	log_and_message_admins("toggled new player game entering.")
+	log_admin("[key_name(usr)] toggled new player game entering.")
+	message_admins("[key_name_admin(usr)] toggled new player game entering.", 1)
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -594,7 +603,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")
-	log_and_message_admins("toggled AI allowed.")
+	message_admins("[key_name_admin(usr)] toggled AI allowed.")
+	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -611,7 +621,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>You may now respawn.</B>")
 	else
 		to_chat(world, "<B>You may no longer respawn :(</B>")
-	log_and_message_admins("toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
+	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].", 1)
+	log_admin("[key_name(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -625,7 +636,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
-		log_and_message_admins("[SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
+		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
+		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		if(SSticker.delay_end)
 			SSticker.real_reboot_time = 0 // Immediately show the "Admin delayed round end" message
 		return //alert("Round end delayed", null, null, null, null, null)
@@ -713,13 +725,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/atom/A = new chosen(usr.loc)
 		A.admin_spawned = TRUE
 
-	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
+	message_admins("[key_name_admin(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
+	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
-	set name = "\[Admin\] Show Traitor Panel"
+	set name = "Show Traitor Panel"
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
@@ -747,7 +760,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_and_message_admins("toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
+	log_admin("[key_name(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.</span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
@@ -777,7 +791,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, "<b>No AI's located.</b>")//Just so you know the thing is actually working and not just ignoring you.
 
 
-	log_and_message_admins("checked the AI laws")
+	log_admin("[key_name(usr)] checked the AI laws")
+	message_admins("[key_name_admin(usr)] checked the AI laws")
 
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 

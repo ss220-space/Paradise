@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/medium/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 0, 1, 2, 3, 0, cause = src)
+	explosion(src.loc, 0, 1, 2, 3, 0)
 
 //Large-sized
 /obj/effect/meteor/big
@@ -218,7 +218,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/big/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0, cause = src)
+	explosion(src.loc, 1, 2, 3, 4, 0)
 
 //Flaming meteor
 /obj/effect/meteor/flaming
@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0, 0, flame_range = 5, cause = src)
+	explosion(src.loc, 1, 2, 3, 4, 0, 0, flame_range = 5)
 
 //Radiation meteor
 /obj/effect/meteor/irradiated
@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 0, 0, 4, 3, 0, cause = src)
+	explosion(src.loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(40, IRRADIATE)
@@ -261,12 +261,12 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 5, 10, 15, 20, 0, cause = src)
+	explosion(src.loc, 5, 10, 15, 20, 0)
 
 /obj/effect/meteor/tunguska/Bump()
 	..()
 	if(prob(20))
-		explosion(src.loc,2,4,6,8, cause = src)
+		explosion(src.loc,2,4,6,8)
 
 
 //Gore

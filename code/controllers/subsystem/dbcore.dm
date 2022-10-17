@@ -250,7 +250,8 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
-		log_and_message_admins("attempted to create a DB query via advanced proc-call")
+		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		return FALSE
 	return new /datum/db_query(connection, sql_query, arguments)
 
@@ -505,9 +506,11 @@ SUBSYSTEM_DEF(dbcore)
 			return
 
 		SSdbcore.Disconnect()
-		log_and_message_admins("has <b>forced</b> the database to disconnect!!!")
+		log_admin("[key_name(usr)] has forced the database to disconnect")
+		message_admins("[key_name_admin(usr)] has <b>forced</b> the database to disconnect!!!")
 
-	log_and_message_admins("is attempting to re-establish the DB Connection")
+	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
+	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Force Reconnect DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	SSdbcore.failed_connections = 0 // Reset this

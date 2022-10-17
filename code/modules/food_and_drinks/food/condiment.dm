@@ -191,7 +191,6 @@
 	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
 	list_reagents = list("amanitin" = 50)
 	possible_states = list()
-	log_eating = TRUE
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 

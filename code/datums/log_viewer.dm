@@ -290,8 +290,6 @@ if(!result || result.ckey != __ckey){\
 			return "teal"
 		if(EMOTE_LOG)
 			return "deepskyblue"
-		if(GAME_LOG)
-			return "green"
 		if(MISC_LOG)
 			return "gray"
 		if(DEADCHAT_LOG)

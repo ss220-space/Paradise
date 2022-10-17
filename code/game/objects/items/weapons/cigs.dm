@@ -46,8 +46,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	)
 
 
-/obj/item/clothing/mask/cigarette/Initialize(mapload)
-	. = ..()
+/obj/item/clothing/mask/cigarette/New()
+	..()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
@@ -67,12 +67,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		return ..()
 
-/obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
-	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
-		return FALSE
-	else
-		return TRUE
 
 /obj/item/clothing/mask/cigarette/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -176,10 +170,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
-		if(iscarbon(loc))
-			var/mob/living/carbon/C = loc
-			if(C.wear_mask == src) // Don't update if it's just in their hand
-				C.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
 
@@ -267,8 +257,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	throw_speed = 0.5
 	item_state = "spliffoff"
 
-/obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
-	. = ..()
+/obj/item/clothing/mask/cigarette/rollie/New()
+	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -278,8 +268,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
-/obj/item/cigbutt/roach/Initialize(mapload)
-	. = ..()
+/obj/item/cigbutt/roach/New()
+	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -326,8 +316,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 
-/obj/item/cigbutt/Initialize(mapload)
-	. = ..()
+/obj/item/cigbutt/New()
+	..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))

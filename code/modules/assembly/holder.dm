@@ -19,6 +19,9 @@
 /obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
 	return
 
+/obj/item/assembly_holder/IsAssemblyHolder()
+	return TRUE
+
 /obj/item/assembly_holder/Destroy()
 	if(a_left)
 		a_left.holder = null
@@ -113,42 +116,32 @@
 	if(a_right)
 		a_right.hear_message(M, msg)
 
-/obj/item/assembly_holder/proc/process_movement(mob/user) // infrared beams and prox sensors
+/obj/item/assembly_holder/proc/process_movement() // infrared beams and prox sensors
 	if(a_left && a_right)
-		a_left.holder_movement(user)
-		a_right.holder_movement(user)
+		a_left.holder_movement()
+		a_right.holder_movement()
 
 /obj/item/assembly_holder/Move()
 	. = ..()
 	process_movement()
 	return
 
-/obj/item/assembly_holder/pickup(mob/user)
+/obj/item/assembly_holder/pickup()
 	. = ..()
-	process_movement(user)
+	process_movement()
 
-/obj/item/assembly_holder/Bump(atom/A)
+/obj/item/assembly_holder/Bump()
 	..()
-	var/triggered
-	if(ismob(A) || isobj(A))
-		var/atom/movable/AM = A
-		if(AM.throwing?.thrower)
-			triggered = AM.throwing.thrower
-		else if(ismob(AM))
-			triggered = AM
-	process_movement(triggered)
+	process_movement()
 
 /obj/item/assembly_holder/throw_impact() // called when a throw stops
 	..()
-	var/triggered
-	if(throwing?.thrower)
-		triggered = throwing.thrower
-	process_movement(triggered)
+	process_movement()
 
-/obj/item/assembly_holder/attack_hand(mob/user)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
+/obj/item/assembly_holder/attack_hand()//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
 	if(a_left && a_right)
-		a_left.holder_movement(user)
-		a_right.holder_movement(user)
+		a_left.holder_movement()
+		a_right.holder_movement()
 	..()
 	return
 
@@ -197,7 +190,7 @@
 		qdel(src)
 
 
-/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
+/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE)
 	if(!D)
 		return FALSE
 	if(normal && a_right && a_left)
@@ -206,8 +199,5 @@
 		if(a_left != D)
 			a_left.pulsed(0)
 	if(master)
-		var/datum/signal/signal = new
-		signal.source = src
-		signal.user = user
-		master.receive_signal(signal)
+		master.receive_signal()
 	return TRUE

@@ -63,7 +63,8 @@
 			return
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
-	add_deadchat_logs(src, message)
+	create_log(DEADCHAT_LOG, message)
+	log_ghostsay(message, src)
 
 /mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
 	if(stat == DEAD)

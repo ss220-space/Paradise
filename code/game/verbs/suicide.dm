@@ -79,7 +79,7 @@
 
 	if(forced || (confirm == "Yes"))
 		suiciding = TRUE
-		add_attack_logs(src, null, "Attempted suicide")
+		create_log(ATTACK_LOG, "Attempted suicide")
 		var/obj/item/held_item = get_active_hand()
 		if(held_item)
 			var/damagetype = held_item.suicide_act(src)

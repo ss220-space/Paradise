@@ -350,7 +350,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/superheroes/S = GLOB.all_superheroes[type]
 		if(S)
 			S.create(M)
-		log_and_message_admins("<span class='notice'>made [key_name(M)] into a Superhero.</span>")
+		log_admin("[key_name(src)] has turned [M.key] into a Superhero.")
+		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a Superhero.</span>", 1)
 	else
 		alert("Invalid mob")
 
@@ -371,7 +372,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!is_level_reachable(S.z))
 			continue
 		qdel(S)
-	log_and_message_admins("has deleted all Singularities and Tesla orbs.")
+	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
+	message_admins("[key_name_admin(src)] has deleted all Singularities and Tesla orbs.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_debug_make_powernets()
@@ -382,12 +384,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	SSmachines.makepowernets()
-	log_and_message_admins("has remade the powernets. makepowernets() called.")
+	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
+	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
-	set name = "\[Admin\] Grant Full Access"
+	set name = "Grant Full Access"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -415,11 +418,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_and_message_admins("<span class='notice'>has granted [M.key] full access.</span>")
+	log_admin("[key_name(src)] has granted [M.key] full access.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
-	set name = "\[Admind\] Assume direct control"
+	set name = "Assume direct control"
 	set desc = "Direct intervention"
 
 	if(!check_rights(R_DEBUG|R_ADMIN))
@@ -431,7 +435,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
 			ghost.ckey = M.ckey
-	log_and_message_admins("<span class='notice'>assumed direct control of [M].</span>")
+	message_admins("<span class='notice'>[key_name_admin(usr)] assumed direct control of [M].</span>", 1)
+	log_admin("[key_name(usr)] assumed direct control of [M].")
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
@@ -589,7 +594,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	H.regenerate_icons()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_and_message_admins("<span class='notice'>changed the equipment of [key_name_admin(M)] to [dresscode].</span>")
+	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
+	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
 /client/proc/robust_dress_shop()
 	var/list/outfits = list(
@@ -838,7 +844,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
 		if(!isobserver(usr))
-			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]")
+			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]", 1)
 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

@@ -78,7 +78,6 @@
 
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)
-		add_attack_logs(user, src, "emagged")
 		broken = TRUE
 		locked = FALSE
 		icon_state = icon_off

@@ -3,7 +3,8 @@
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
 		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
-		log_and_message_admins("attempted to load files via advanced proc-call")
+		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
 		return
 
 	return file(filepath)
@@ -12,7 +13,8 @@
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
 		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
-		log_and_message_admins("attempted to load files via advanced proc-call")
+		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
 		return
 
 	return file2text(filepath)
@@ -35,7 +37,8 @@
 /client/proc/getFiles()
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
-		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
+		message_admins("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
 		return
 
 	for(var/file in args)
@@ -44,7 +47,8 @@
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list(".txt",".log",".htm"))
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
-		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
+		message_admins("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to call Shelleo via advanced proc-call")
 		return
 
 	// wow why was this ever a parameter

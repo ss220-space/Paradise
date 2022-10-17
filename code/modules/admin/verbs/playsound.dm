@@ -8,7 +8,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
 
-	log_and_message_admins("stopped admin sounds.")
+	log_admin("[key_name(src)] stopped admin sounds.")
+	message_admins("[key_name_admin(src)] stopped admin sounds.", 1)
 	for(var/mob/M in GLOB.player_list)
 		M << awful_sound
 
@@ -25,7 +26,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
 		return
 
-	log_and_message_admins("played sound [S]")
+	log_admin("[key_name(src)] played sound [S]")
+	message_admins("[key_name_admin(src)] played sound [S]", 1)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
@@ -42,7 +44,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	log_and_message_admins("played a local sound [S]")
+	log_admin("[key_name(src)] played a local sound [S]")
+	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

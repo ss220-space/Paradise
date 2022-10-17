@@ -16,8 +16,5 @@
 		src.visible_message(span_warning("[src] begins to glow... But then stops!"))
 		return
 	if(!ninjacost(150))
-		var/turf/T = get_turf(ninja)
-		do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg')
-		add_attack_logs(ninja, null, "Emergency blinked from [COORD(T)] to [COORD(ninja)].")
-		investigate_log("[key_name_log(ninja)] Emergency blinked from [COORD(T)] to [COORD(ninja)].", INVESTIGATE_TELEPORTATION)
+		do_teleport(ninja, get_turf(ninja), 8, asoundin = 'sound/effects/phasein.ogg')
 		s_coold = 3 SECONDS

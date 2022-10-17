@@ -12,7 +12,6 @@
 	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "brains" = 2)
 	foodtype = GRAIN | MEAT
-	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/ghostburger
 	name = "ghost burger"
@@ -72,7 +71,6 @@
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 	foodtype = GRAIN | GROSS
-	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/roburgerbig
 	name = "roburger"
@@ -84,7 +82,6 @@
 	list_reagents = list("nutriment" = 6, "nanomachines" = 70, "vitamin" = 5)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 2)
 	foodtype = GRAIN | GROSS
-	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/xenoburger
 	name = "xenoburger"

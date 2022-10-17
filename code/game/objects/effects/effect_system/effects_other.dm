@@ -61,7 +61,7 @@
 		for(var/mob/M in viewers(8, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 
-		explosion(location, devastation, heavy, light, flash, cause = "Reagent Explosion")
+		explosion(location, devastation, heavy, light, flash)
 
 /datum/effect_system/reagents_explosion/proc/holder_damage(atom/holder)
 	if(holder)

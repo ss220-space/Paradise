@@ -85,7 +85,7 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
 		return FALSE
-	add_game_logs("Blackbox sealed")
+	log_game("Blackbox sealed")
 	sealed = TRUE
 	return TRUE
 

@@ -135,7 +135,7 @@
 		return
 	if(health <= -maxHealth && stat != DEAD)
 		gib()
-		log_debug("died of damage, trigger reason: [reason]")
+		create_debug_log("died of damage, trigger reason: [reason]")
 		return
 	return ..(reason)
 

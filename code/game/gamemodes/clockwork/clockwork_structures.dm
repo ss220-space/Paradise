@@ -327,7 +327,8 @@
 		if(isgolem(target))
 			target.mind.wipe_memory()
 			target.set_species(/datum/species/golem/clockwork)
-		SSticker.mode.add_clocker(target.mind)
+		if(SSticker.mode.add_clocker(target.mind))
+			target.create_log(CONVERSION_LOG, "[target] been converted into clockwork cult by altar.")
 		target.Weaken(5) //Accept new power... and new information
 		target.EyeBlind(5)
 		stop_convert(TRUE)

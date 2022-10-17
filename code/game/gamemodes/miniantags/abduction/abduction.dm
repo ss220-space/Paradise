@@ -77,12 +77,12 @@
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.offstation_role = TRUE
-	add_game_logs("has been selected as an abductor team [team_number] scientist.", scientist)
+	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.offstation_role = TRUE
-	add_game_logs("has been selected as an abductor team [team_number] agent.", agent)
+	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
 
 	abductors |= agent
 	abductors |= scientist
@@ -266,7 +266,8 @@
 	if(abductor_mind in abductors)
 		SSticker.mode.abductors -= abductor_mind
 		abductor_mind.special_role = null
-		add_conversion_logs(abductor_mind.current, "No longer abductor")
+		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
+		abductor_mind.current.create_log(CONVERSION_LOG, "No longer abductor")
 		if(issilicon(abductor_mind.current))
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
 		else

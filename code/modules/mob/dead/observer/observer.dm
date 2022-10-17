@@ -54,6 +54,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
+		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -711,7 +712,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(invisibility) // Only show the button if the ghost is not visible to the living
 		follow_link = " ([ghost_follow_link(A, src)])"
 	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
-	add_deadchat_logs(src, "point to [key_name(A)] [COORD(A)]")
+	log_ghostsay("point to [key_name(A)] ([A.x],[A.y],[A.z])", src)
+	create_log(DEADCHAT_LOG, "point to [key_name(A)] ([A.x],[A.y],[A.z])")
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()

@@ -112,12 +112,11 @@
 
 
 
-/obj/machinery/power/bfl_emitter/emag_act(mob/user)
+/obj/machinery/power/bfl_emitter/emag_act()
 	. = ..()
 	if(!emag)
-		add_attack_logs(user, src, "emagged")
 		emag = TRUE
-		to_chat(user, "Emitter successfully sabotaged")
+		to_chat(usr, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)

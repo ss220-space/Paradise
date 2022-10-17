@@ -70,9 +70,6 @@ LOG_EMOTE
 ## log attack messages
 LOG_ATTACK
 
-## log conversion mobs
-LOG_CONVERSION
-
 ## log pda messages
 LOG_PDA
 

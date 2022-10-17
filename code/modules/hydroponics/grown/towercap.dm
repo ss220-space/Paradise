@@ -171,7 +171,7 @@
 		underlays += U
 	if(is_hot(W))
 		lighter = user.ckey
-		add_misc_logs(user, "lit a bonfire", src)
+		user.create_log(MISC_LOG, "lit a bonfire", src)
 		StartBurning()
 
 

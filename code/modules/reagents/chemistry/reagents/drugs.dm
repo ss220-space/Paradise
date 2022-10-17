@@ -26,7 +26,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.Druggy(15, FALSE)
 	M.AdjustHallucinate(10)
-	M.last_hallucinator_log = "LSD"
 	return ..() | update_flags
 
 /datum/reagent/space_drugs
@@ -399,7 +398,6 @@
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 	else if(check < 16)
 		M.AdjustHallucinate(30)
-		M.last_hallucinator_log = name
 	else if(check < 24)
 		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
 	else if(check < 28)

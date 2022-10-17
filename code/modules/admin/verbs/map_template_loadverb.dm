@@ -26,9 +26,9 @@
 	usr.client.images += preview
 	if(alert(usr,"Confirm location.","Template Confirm","Yes","No") == "Yes")
 		var/timer = start_watch()
-		log_and_message_admins("<span class='adminnotice'>has started to place the map template ([template.name]) at [ADMIN_COORDJMP(T)]</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started to place the map template ([template.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a></span>")
 		if(template.load(T, centered = TRUE))
-			log_and_message_admins("<span class='adminnotice'>has placed a map template ([template.name]) at [ADMIN_COORDJMP(T)]. Took [stop_watch(timer)]s.</span>")
+			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has placed a map template ([template.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>. Took [stop_watch(timer)]s.</span>")
 		else
 			to_chat(usr, "Failed to place map")
 	usr.client.images -= preview

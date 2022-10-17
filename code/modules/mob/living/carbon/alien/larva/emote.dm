@@ -114,7 +114,7 @@
 		else
 			to_chat(src, text("Invalid Emote: []", act))
 	if((message && src.stat == 0))
-		add_emote_logs(src, message)
+		log_emote(message, src)
 		if(m_type & 1)
 			for(var/mob/O in viewers(src, null))
 				O.show_message(message, m_type)

@@ -60,7 +60,7 @@
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
 
-	var/static/regex/slime_name_regex = new("\\w+ (baby|adult|old|elder) slime \\(\\d+\\)")
+	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
 
 	var/colour = "grey"
@@ -78,13 +78,10 @@
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
 
-/mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700)
+/mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby)
 	if (!(locate(/datum/action/innate/slime/feed) in actions))
 		var/datum/action/innate/slime/feed/F = new
 		F.Grant(src)
-	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
-		var/datum/action/innate/slime/reproduce/R = new
-		R.Grant(src)
 	if (!(locate(/datum/action/innate/slime/evolve) in actions))
 		var/datum/action/innate/slime/evolve/E = new
 		E.Grant(src)
@@ -93,10 +90,14 @@
 	health = age_state.health
 	update_state()
 
+	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
+		var/datum/action/innate/slime/reproduce/R = new
+		R.Grant(src)
+
 	create_reagents(100)
 	set_colour(new_colour)
 	. = ..()
-	set_nutrition(new_set_nutrition)
+	set_nutrition(700)
 	add_language("Bubblish")
 
 /mob/living/simple_animal/slime/Destroy()
@@ -241,8 +242,8 @@
 		if(!docile)
 			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 
-		if(amount_grown >= age_state.amount_grown_for_split)
-			stat(null, "You can [age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
+		if(amount_grown >= age_state.amount_grown)
+			stat(null, age_state.stat_text)
 
 		if(stat == UNCONSCIOUS)
 			stat(null,"You are knocked out by high levels of BZ!")
@@ -466,30 +467,17 @@
 	if(..())
 		return 3
 
-/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
-	age_state_new = new /datum/slime_age/baby
-	new_set_nutrition = 700
-	if (prob(10))
-		age_state_new = new /datum/slime_age/elder
-		new_set_nutrition = 2000
-	else if (prob(30))
-		age_state_new = new /datum/slime_age/old
-		new_set_nutrition = 1200
-	else if (prob(50))
-		age_state_new = new /datum/slime_age/adult
-		new_set_nutrition = 900
-	if (!new_colour)
-		new_colour = pick(slime_colours)
-	. = ..(mapload, new_colour, age_state_new, new_set_nutrition)
+/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), prob(50) ? (age_state_new = new /datum/slime_age/baby) : (age_state_new = new /datum/slime_age/adult))
 
-/mob/living/simple_animal/slime/adult/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
-	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/adult, new_set_nutrition = 900)
+/mob/living/simple_animal/slime/adult/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/adult)
 
-/mob/living/simple_animal/slime/old/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
-	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/old, new_set_nutrition = 1200)
+/mob/living/simple_animal/slime/old/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/old)
 
-/mob/living/simple_animal/slime/elder/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
-	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder, new_set_nutrition = 2000)
+/mob/living/simple_animal/slime/elder/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder)
 
 /mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
 	if(buckled)

@@ -315,7 +315,6 @@
 
 /obj/item/cartridge/mob_hunt_game/emag_act(mob/user)
 	if(!emagged)
-		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
 		my_game.hacked = 1

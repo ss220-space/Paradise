@@ -126,11 +126,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
 				if(limited_stock > 0)
-					add_game_logs("purchased [name]. [name] was discounted to [cost].", user)
+					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
 					if(!user.mind.special_role)
 						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 				else
-					add_game_logs("purchased [name].", user)
+					log_game("[key_name(user)] purchased [name].")
 					if(!user.mind.special_role)
 						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 				A.put_in_any_hand_if_possible(I)
@@ -1887,7 +1887,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	for(var/item in bought_items)
 		var/obj/purchased = new item(C)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", usr)
+	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
 
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "Raw Telecrystal"

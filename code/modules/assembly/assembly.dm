@@ -43,7 +43,7 @@
 /obj/item/assembly/proc/process_cooldown()							//Called via spawn(10) to have it count down the cooldown var
 	return
 
-/obj/item/assembly/proc/holder_movement(mob/user)							//Called when the holder is moved
+/obj/item/assembly/proc/holder_movement()							//Called when the holder is moved
 	return
 
 /obj/item/assembly/proc/describe()                  // Called by grenades to describe the state of the trigger (time left, etc)
@@ -76,21 +76,18 @@
 		activate()
 	return TRUE
 
-/* Called when this device attempts to act on another device,
- * var/radio determines if it was sent via radio or direct
- * var/mob/user for logging
- */
-/obj/item/assembly/proc/pulse(radio = FALSE, mob/user)
+//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
+/obj/item/assembly/proc/pulse(radio = FALSE)
 	if(connected && wires)
 		connected.pulse_assembly(src)
 		return TRUE
 	if(holder && (wires & WIRE_PULSE))
-		holder.process_activation(src, 1, 0, user)
+		holder.process_activation(src, 1, 0)
 	if(holder && (wires & WIRE_PULSE_SPECIAL))
-		holder.process_activation(src, 0, 1, user)
+		holder.process_activation(src, 0, 1)
 	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc
-		G.prime(user)                // Adios, muchachos
+		G.prime()                // Adios, muchachos
 	return TRUE
 
 /obj/item/assembly/activate()

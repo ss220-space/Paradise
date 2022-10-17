@@ -19,6 +19,9 @@
 	attacher = null
 	return ..()
 
+/obj/item/transfer_valve/IsAssemblyHolder()
+	return 1
+
 /obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
@@ -62,9 +65,9 @@
 		if(istype(attached_device, /obj/item/assembly/prox_sensor))
 			AddComponent(/datum/component/proximity_monitor)
 
-		investigate_log("[key_name_log(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
+		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
-		add_game_logs("attached [A] to a transfer valve.", user)
+		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
 		SStgui.update_uis(src) // update all UIs attached to src
 
@@ -145,10 +148,10 @@
 		add_fingerprint(usr)
 
 
-/obj/item/transfer_valve/proc/process_activation(obj/item/D, normal = TRUE, special = TRUE, mob/user)
+/obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
 		toggle = 0
-		toggle_valve(user)
+		toggle_valve()
 		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
 			toggle = 1
 
@@ -194,6 +197,7 @@
 	if(!valve_open && tank_one && tank_two)
 		valve_open = 1
 		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
 
 		var/attacher_name = ""
 		if(!attacher)
@@ -203,11 +207,11 @@
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
-		investigate_log("Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]", INVESTIGATE_BOMB)
-		message_admins("Bomb valve opened at [ADMIN_COORDJMP(bombturf)] with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)][user ? ". Activated by [key_name_admin(user)]" : null]")
-		add_game_logs("Bomb valve opened at [AREACOORD(bombturf)] with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]")
+		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", INVESTIGATE_BOMB)
+		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
+		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		if(user)
-			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_log(mob)]", ATKLOG_FEW)
+			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", ATKLOG_FEW)
 		merge_gases()
 		spawn(20) // In case one tank bursts
 			for(var/i in 1 to 5)
