@@ -319,3 +319,4 @@
 	desc = "A heads-up eyepatch capable of showing the employment history records of NT crew members."
 	icon_state = "skillhudpatch"
 	item_state = "skillhudpatch"
+	prescription_upgradable = 0
