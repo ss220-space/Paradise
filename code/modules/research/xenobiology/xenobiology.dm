@@ -237,7 +237,7 @@
 					SM_slime.is_renamed = TRUE
 
 			SM.mind.store_memory("<B>Ваш хозяин [user.name], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
-			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
+			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
 
 	if (isanimal(M))
 		var/mob/living/simple_animal/SM = M
