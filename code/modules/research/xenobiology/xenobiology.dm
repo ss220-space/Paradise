@@ -206,7 +206,7 @@
 
 			var/mob/living/simple_animal/SM = M
 
-			if (!SM.master_commander)
+			if (SM.master_commander)
 				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
 				return
 
