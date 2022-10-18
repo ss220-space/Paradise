@@ -35,6 +35,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	var/is_zombie = FALSE
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/host_species = ""
 	var/list/human_overlays = list()
 	var/revive_cooldown = 0
@@ -390,20 +391,21 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		H.foodtype += TOXIC
 
 	if(istype(src, /mob/living/simple_animal/hostile/headcrab/poison))
-		H.list_reagents += list("headcrab_neurotoxin" = 2)
+		H.list_reagents += list("headcrab_neurotoxin" = 2, "protein" = 1, "nutriment" = 1)
 		H.bitesize = 4
 
 	if(istype(src, /mob/living/simple_animal/hostile/headcrab/reviver))
-		H.list_reagents += list("teslium" = 2)
+		H.list_reagents += list("teslium" = 2, "protein" = 0.4, "nutriment" = 0.6)
 		H.bitesize = 1
 
 	if(istype(src, /mob/living/simple_animal/hostile/headcrab/armored))
 		H.armored = TRUE
-		H.list_reagents += list("protein" = 1, "nutriment" = 2)
+		H.list_reagents += list("protein" = 2, "nutriment" = 2)
 		H.bitesize = 3
 
 	if(istype(src, /mob/living/simple_animal/hostile/headcrab/fast))
 		H.bitesize = 1
+		H.list_reagents += list("protein" = 0.55, "nutriment" = 0.66)
 
 	src.forceMove(H)
 
@@ -413,13 +415,14 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	return H
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	..()
 
 	if(istype(src, /mob/living/simple_animal/hostile/headcrab) && src.stat == DEAD && istype(I, /obj/item/storage/bag/trash/))
 		var/mob/living/simple_animal/hostile/headcrab/hcproc = src
 		var/obj/item/storage/bag/trash/trash_bag = I
 		var/obj/item/hold = hcproc.scoop_up_headcrab(user)
 		trash_bag.handle_item_insertion(hold, prevent_warning = FALSE)
+
+	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/New()
 
@@ -897,6 +900,9 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	turns_per_move = 8
 	move_to_delay = 18
 	speed = 0.28
+	mob_size = MOB_SIZE_LARGE
+	pressure_resistance = 25
+	move_resist = MOVE_FORCE_OVERPOWERING
 	obj_damage = 264
 	armour_penetration = 15
 	environment_smash = 3
