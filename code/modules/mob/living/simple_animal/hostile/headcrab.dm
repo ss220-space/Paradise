@@ -362,7 +362,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	return ..()
 
 /obj/item/reagent_containers/food/snacks/headcrab/attack_self(mob/user)
-	..()
 
 	if(istype(src, /obj/item/reagent_containers/food/snacks/headcrab) && src.armored)
 		if(do_after(src, 40, target = user, progress=TRUE))
@@ -371,6 +370,8 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 			var/number = 0
 			number = rand(1,6)
 			playsound(user.loc, "sound/effects/bone_break[number].ogg", 25, TRUE, ignore_walls = FALSE, is_global = null)
+
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/headcrab/Post_Consume(mob/living/M)
 	..()
