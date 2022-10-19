@@ -529,6 +529,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2185,6 +2190,10 @@
 /area/security/main)
 "afo" = (
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "afp" = (
@@ -2199,6 +2208,16 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
@@ -92438,6 +92457,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	name = "east station intercom (General)";
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123010,7 +123033,7 @@ hhf
 fXx
 hkT
 apP
-afo
+atM
 acW
 adr
 adK
@@ -123018,7 +123041,7 @@ aeb
 aem
 adr
 aeZ
-afo
+atM
 afT
 agn
 aks
