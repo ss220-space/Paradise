@@ -172,6 +172,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
+		SSticker.mode.victims.Add(target.current)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -358,6 +359,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target = pick(possible_targets)
 	if(target && target.current)
 		target_real_name = target.current.real_name
+		SSticker.mode.victims.Add(target.current)
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
