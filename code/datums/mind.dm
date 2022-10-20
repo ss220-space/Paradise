@@ -658,7 +658,7 @@
 		var/list/objective_types = list(
 			"assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack",
 			"escape", "survive", "steal", "download", "nuclear", "capture", "absorb",
-			"destroy", "maroon", "pain", "identity theft",
+			"destroy", "maroon", "pain_hunter", "identity theft",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
@@ -672,7 +672,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "brig", "maroon", "pain")
+			if("assassinate","protect","debrain", "brig", "maroon", "pain_hunter")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.

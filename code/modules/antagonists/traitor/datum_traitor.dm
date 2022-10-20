@@ -203,7 +203,7 @@
 			add_objective(debrain_objective)
 
 		else if(prob(30))
-			var/datum/objective/pain/pain_objective = new
+			var/datum/objective/pain_hunter/pain_objective = new
 			pain_objective.owner = owner
 			pain_objective.find_target()
 			if("[pain_objective]" in assigned_targets)

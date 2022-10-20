@@ -469,7 +469,7 @@
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
 		message_admins("Наносим рукопашный урон [damage]")
-		if(target.mind && target.mind.hunter_target && user.mind == target.mind.hunter_target.hunter && damagetype == target.mind.hunter_target.damage_type)
+		if(target.mind && target.mind.hunter_target && user.mind == target.mind.hunter_target.hunter && BRUTE == target.mind.hunter_target.damage_type)
 			target.mind.hunter_target.take_damage(damage)
 			message_admins("Принимаем рукопашный урон [damage]")
 
