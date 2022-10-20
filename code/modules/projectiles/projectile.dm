@@ -147,8 +147,14 @@
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
+		message_admins("Наносим дальний урон [damage]")
+		if(L.mind && L.mind.hunter_target && firer.mind == L.mind.hunter_target.hunter && damage_type == L.mind.hunter_target.damage_type)
+			L.mind.hunter_target.take_damage(damage)
+			message_admins("Принимает дальний урон [damage]")
+
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
+
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).

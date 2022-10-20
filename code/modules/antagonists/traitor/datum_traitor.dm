@@ -202,6 +202,26 @@
 				assigned_targets.Add("[debrain_objective.target]")
 			add_objective(debrain_objective)
 
+		else if(prob(30))
+			var/datum/objective/pain/pain_objective = new
+			pain_objective.owner = owner
+			pain_objective.find_target()
+			if("[pain_objective]" in assigned_targets)
+				return 0
+			else if(pain_objective.target)
+				assigned_targets.Add("[pain_objective.target]")
+			add_objective(pain_objective)
+
+		else if(prob(10))
+			var/datum/objective/protect/protect_objective = new
+			protect_objective.owner = owner
+			protect_objective.find_target()
+			if("[protect_objective]" in assigned_targets)
+				return 0
+			else if(protect_objective.target)
+				assigned_targets.Add("[protect_objective.target]")
+			add_objective(protect_objective)
+
 		else
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner

@@ -54,6 +54,7 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/ninja/ninja				//ninja holder
+	var/datum/hunter_target/hunter_target	//Помеченная цель для "особых случаев", например избиения
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -657,7 +658,7 @@
 		var/list/objective_types = list(
 			"assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack",
 			"escape", "survive", "steal", "download", "nuclear", "capture", "absorb",
-			"destroy", "maroon", "identity theft",
+			"destroy", "maroon", "pain", "identity theft",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
@@ -671,7 +672,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "brig", "maroon")
+			if("assassinate","protect","debrain", "brig", "maroon", "pain")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.

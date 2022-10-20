@@ -160,7 +160,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 1
 
-
 /datum/objective/debrain //I want braaaainssss
 	martyr_compatible = 0
 
