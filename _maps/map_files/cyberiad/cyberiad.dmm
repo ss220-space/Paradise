@@ -89956,6 +89956,7 @@
 "gmX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "gmY" = (
