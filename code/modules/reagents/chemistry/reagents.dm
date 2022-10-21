@@ -210,7 +210,6 @@
 			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
 		else if(prob(4))
 			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
-			M.Jitter(80)
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
