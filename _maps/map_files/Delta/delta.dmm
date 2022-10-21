@@ -114550,9 +114550,7 @@
 	pixel_x = 9
 	},
 /obj/structure/window/reinforced,
-/obj/item/gun/energy/gun{
-	pixel_x = -7
-	},
+/obj/item/gun/energy/gun,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
