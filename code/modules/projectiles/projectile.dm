@@ -147,12 +147,10 @@
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
-		message_admins("Наносим дальний урон [damage]")
 		if(L.mind && length(L.mind.target_hunters))
 			for(var/datum/hunter_target/hunter_target in L.mind.target_hunters)
 				if(firer.mind == hunter_target.hunter && damage_type == hunter_target.damage_type)
 					hunter_target.take_damage(damage)
-					message_admins("Принимает дальний урон [damage]")
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")

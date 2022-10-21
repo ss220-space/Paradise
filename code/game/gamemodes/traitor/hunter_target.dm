@@ -32,19 +32,16 @@
 /datum/objective/pain_hunter/find_target()
 	..()
 	if(target && target.current)
-		message_admins("Дошел до таргета")
 		random_type()
 		target.target_hunters.Add(new /datum/hunter_target(owner, src, damage_type))
 		update_explain_text()
 		SSticker.mode.victims.Add(target)
 	else
-		message_admins("Дошел до элсе таргета")
 		explanation_text = "Free Objective"
 	return target
 
 
 /datum/objective/pain_hunter/proc/update_explain_text()
-	message_admins("Обновлен")
 	explanation_text = "Преподать урок и лично нанести [target.current.real_name], [target.assigned_role], не менее [damage_need] [damage_explain()] урона. Цель должна выжить. \nТекущий урон: [damage_target]/[damage_need]"
 
 /datum/objective/pain_hunter/check_completion()
