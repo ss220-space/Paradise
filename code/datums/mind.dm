@@ -54,7 +54,7 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/ninja/ninja				//ninja holder
-	var/datum/hunter_target/hunter_target	//Помеченная цель для "особых случаев", например избиения
+	var/list/datum/hunter_target/target_hunters = list()	//Помеченная цель для "особых случаев", например избиения
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -672,7 +672,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "brig", "maroon", "pain_hunter")
+			if("assassinate","protect", "debrain", "brig", "maroon", "pain_hunter")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
@@ -715,7 +715,8 @@
 					new_objective:target = new_target:mind
 					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
-
+					if(new_obj_type == "pain_hunter")	//ПРОВЕРИТЬ!!!
+						new_objective.find_target()
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
 				if(possible_targets.len)

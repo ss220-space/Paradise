@@ -8,6 +8,15 @@
 	objective.damage_target += damage
 	objective.update_explain_text()
 
+/datum/hunter_target/New(var/datum/mind/ref_hunter, var/datum/objective/pain_hunter/ref_objective, var/ref_damage_type = BRUTE)
+	hunter = ref_hunter
+	objective = ref_objective
+	damage_type = ref_damage_type
+
+/datum/hunter_target/Destroy()
+	objective.owner.target_hunters.Remove(src)
+	. = ..()
+
 //задача на принесение боли
 /datum/objective/pain_hunter
 	martyr_compatible = 1
@@ -15,23 +24,23 @@
 	var/damage_type = BRUTE
 	var/damage_target = 0
 
+/datum/objective/pain_hunter/Destroy()
+	GLOB.all_objectives -= src
+	SSticker.mode.victims.Remove(target)
+	return ..()
+
 /datum/objective/pain_hunter/find_target()
 	..()
 	if(target && target.current)
 		message_admins("Дошел до таргета")
 		random_type()
-		update_target_datum()
+		target.target_hunters.Add(new /datum/hunter_target(owner, src, damage_type))
 		update_explain_text()
+		SSticker.mode.victims.Add(target)
 	else
 		message_admins("Дошел до элсе таргета")
 		explanation_text = "Free Objective"
 	return target
-
-/datum/objective/pain_hunter/proc/update_target_datum()
-	target.hunter_target = new /datum/hunter_target
-	target.hunter_target.objective = src
-	target.hunter_target.hunter = owner
-	target.hunter_target.damage_type = damage_type
 
 
 /datum/objective/pain_hunter/proc/update_explain_text()
@@ -52,8 +61,8 @@
 				return body.getBruteLoss() >= damage_target
 			if(BURN)
 				return body.getFireLoss() >= damage_target
-			if(TOX)
-				return body.getToxLoss() >= damage_target
+			//if(TOX)
+			//	return body.getToxLoss() >= damage_target
 	return FALSE
 
 /datum/objective/pain_hunter/proc/random_type()
@@ -61,10 +70,12 @@
 	damage_type = BRUTE
 	if (prob(30))
 		damage_type = BURN
-		damage_need = (damage_need * 0.75) - (damage_need % 50)	//уменьшаем урон, так как его сделать сложнее. Также сокращяем для красивых цифр.
-		if (prob(30))
-			damage_type = TOX
-			damage_need = (damage_need * 0.5 > 100 ? damage_need * 0.5 : 100) - damage_need > 100 ? (damage_need % 50) : 0
+		var/damage_procent = damage_need * 0.75	//уменьшаем урон, так как данным тип уроне сделать сложнее.
+		damage_need = damage_procent - damage_procent % 50	//Вычитаем для красивых ровных чисел.
+		//if (prob(30))
+		//	damage_type = TOX
+		//	damage_procent = damage_need * 0.5
+		//	damage_need = (damage_procent > 100 ? damage_procent : 100) - (damage_procent > 100 ? (damage_procent % 50) : 0)
 
 /datum/objective/pain_hunter/proc/damage_explain()
 	var/damage_explain = damage_type

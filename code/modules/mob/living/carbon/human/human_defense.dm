@@ -448,9 +448,11 @@ emp_act
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
 	message_admins("Наносим ближний урон [I.force * weakness]")
-	if(mind && mind.hunter_target && user.mind == mind.hunter_target.hunter && I.damtype == mind.hunter_target.damage_type)
-		mind.hunter_target.take_damage(I.force * weakness)
-		message_admins("Принимает ближний урон [I.force * weakness]")
+	if(mind && length(mind.target_hunters))
+		for(var/datum/hunter_target/hunter_target in mind.target_hunters)
+			if(user.mind == hunter_target.hunter && I.damtype == hunter_target.damage_type)
+				hunter_target.take_damage(I.force * weakness)
+				message_admins("Принимает ближний урон [I.force * weakness]")
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))

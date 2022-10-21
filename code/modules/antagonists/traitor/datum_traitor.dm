@@ -165,6 +165,17 @@
 		assigned_targets.Add("[kill_objective.target]")
 		add_objective(kill_objective)
 		i += 1
+
+	if(prob(20))
+		var/datum/objective/protect/protect_objective = new
+		protect_objective.owner = owner
+		protect_objective.find_target()
+		if("[protect_objective]" in assigned_targets)
+			return 0
+		else if(protect_objective.target)
+			assigned_targets.Add("[protect_objective.target]")
+		add_objective(protect_objective)
+
 	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner
 	add_objective(survive_objective)
@@ -212,7 +223,7 @@
 				assigned_targets.Add("[pain_objective.target]")
 			add_objective(pain_objective)
 
-		else if(prob(10))
+		else if(prob(20))
 			var/datum/objective/protect/protect_objective = new
 			protect_objective.owner = owner
 			protect_objective.find_target()

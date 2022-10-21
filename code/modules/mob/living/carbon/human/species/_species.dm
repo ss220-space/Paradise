@@ -469,9 +469,11 @@
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
 		message_admins("Наносим рукопашный урон [damage]")
-		if(target.mind && target.mind.hunter_target && user.mind == target.mind.hunter_target.hunter && BRUTE == target.mind.hunter_target.damage_type)
-			target.mind.hunter_target.take_damage(damage)
-			message_admins("Принимаем рукопашный урон [damage]")
+		if(target.mind && length(target.mind.target_hunters))
+			for(var/datum/hunter_target/hunter_target in target.mind.target_hunters)
+				if(user.mind == hunter_target.hunter && BRUTE == hunter_target.damage_type)
+					hunter_target.take_damage(damage)
+					message_admins("Принимаем рукопашный урон [damage]")
 
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
