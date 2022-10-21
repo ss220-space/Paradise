@@ -836,14 +836,16 @@
 			our_gun.place_on_rack()
 
 /obj/structure/rack/gunrack/attackby(obj/item/W, mob/user, params)
-	if(!( istype(W, /obj/item/gun) ))
+	if(!(istype(W, /obj/item/gun)))
 		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
 		return
 	if(isrobot(user))
 		return
 	if(!user.drop_item())
 		return
-	if(user.a_intent != INTENT_HARM && !(W.flags & ABSTRACT))
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!(W.flags & ABSTRACT))
 		if(istype(W, /obj/item/gun))
 			var/obj/item/gun/our_gun = W
 			our_gun.place_on_rack()
@@ -855,6 +857,7 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			W.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			W.pixel_y = 0
+	return
 
 /obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
