@@ -822,7 +822,8 @@
 	icon_state = "gunrack"
 
 /obj/structure/rack/gunrack/MouseDrop_T(obj/O, mob/user)
-	if((!( istype(O, /obj/item) ) || user.get_active_hand() != O))
+	if((!( istype(O, /obj/item/gun) ) || user.get_active_hand() != O))
+		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
 		return
 	if(isrobot(user))
 		return
@@ -835,6 +836,9 @@
 			our_gun.place_on_rack()
 
 /obj/structure/rack/gunrack/attackby(obj/item/W, mob/user, params)
+	if(!( istype(W, /obj/item/gun) ))
+		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
+		return
 	if(isrobot(user))
 		return
 	if(!user.drop_item())
