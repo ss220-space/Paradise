@@ -254,7 +254,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("[station_name()], мы, к сожалению, не можем отправить к вам отряд быстрого реагирования в данный момент.", "ОБР недоступен")
+	GLOB.event_announcement.Announce("[station_name()], мы, к сожалению, не можем отправить к вам Отряд Быстрого Реагирования в данный момент.", "ОБР недоступен")
 
 /datum/response_team/proc/announce_team()
 	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы отправляем команду высококвалифицированных ассистентов, чтобы помочь(?) вам. Будьте наготове.", "ОБР в пути")
