@@ -21,17 +21,17 @@
 		return
 
 	declaring_war = TRUE
-	var/are_you_sure = alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? You have [-round((world.time-SSticker.round_start_time - CHALLENGE_TIME_LIMIT)/10)] seconds to decide.", "Declare war?", "Yes", "No")
+	var/are_you_sure = alert(user, "Тщательно проконсультируйтесь со своей командой, прежде чем объявлять войну [station_name()]. Вы уверены, что хотите предупредить вражеский экипаж? У вас есть [-round((world.time-SSticker.round_start_time - CHALLENGE_TIME_LIMIT)/10)] секунд, чтобы решить.", "Объявить войну?", "Да", "Нет")
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
 		return
 
 	if(are_you_sure == "No")
-		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
+		to_chat(user, "Если подумать, элемент неожиданности всё же не так плох.")
 		return
 
-	var/war_declaration = "[user.real_name] has declared [user.p_their()] intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them."
+	var/war_declaration = "[user.real_name] объяви[genderize_ru(user.gender,"л","ла","ло","ли")] о намерении полностью уничтожить [station_name()] с помощью ядерного устройства, и бросает вызов экипажу."
 
 	declaring_war = TRUE
 	var/custom_threat = alert(user, "Do you want to customize your declaration?", "Customize?", "Yes", "No")
@@ -48,10 +48,10 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
+	GLOB.event_announcement.Announce(war_declaration, "ОБЪЯВЛЕНИЕ ВОЙНЫ", 'sound/effects/siren.ogg')
 
-	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
-	to_chat(user, "<b>Your bonus telecrystals have been split between your team's uplinks.</b>")
+	to_chat(user, "Вы привлекли внимание влиятельных сил в Синдикате. Ваша команда получила бонусный пакет телекристаллов. Вас ждёт великая награда, если вы выполните задание.")
+	to_chat(user, "<b>Ваши бонусные телекристаллы были распределены между аплинками вашей команды.</b>")
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		S.challenge = TRUE
@@ -80,20 +80,20 @@
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
-		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
+		to_chat(user, "Вы уже находитесь в процессе объявления войны!")
 		return FALSE
 	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
-		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
+		to_chat(user, "Вражеский экипаж слишком мал, чтобы стоило объявлять ему войну.")
 		return FALSE
 	if(!is_admin_level(user.z))
-		to_chat(user, "You have to be at your base to use this.")
+		to_chat(user, "Чтобы использовать это, вы должны находиться на своей базе".")
 		return FALSE
 	if((world.time - SSticker.round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
-		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make  do with what you have on hand.")
+		to_chat(user, "Слишком поздно объявлять военные действия. Ваши благодетели уже заняты другими планами. Вам придется довольствоваться тем, что есть в наличии.")
 		return FALSE
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		if(S.moved)
-			to_chat(user, "The shuttle has already been moved! You have forfeit the right to declare war.")
+			to_chat(user, "Шаттл тронулся с места! Вы утратили право объявить войну.")
 			return FALSE
 	return TRUE
 
