@@ -88928,7 +88928,7 @@
 "eqg" = (
 /obj/machinery/camera{
 	c_tag = "Prison Cafeteria External";
-	dir = 9;
+	dir = 8;
 	network = list("Prison","SS13")
 	},
 /turf/space,
@@ -90850,7 +90850,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Prison Forestry South";
-	dir = 10;
+	dir = 1;
 	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel,
@@ -91639,7 +91639,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/machinery/camera{
 	c_tag = "Prison General South";
-	dir = 10;
+	dir = 1;
 	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel{
