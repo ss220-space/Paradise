@@ -910,7 +910,7 @@
 	if(do_after(user, 50, target = user, progress=TRUE))
 		if(!user.drop_item(src))
 			return
-		var/obj/structure/rack/GR = new /obj/structure/rack/gunrack(user.loc)
+		var/obj/structure/rack/gunrack/GR = new (user.loc)
 		user.visible_message("<span class='notice'>[user] assembles \a [GR].\
 			</span>", "<span class='notice'>You assemble \a [GR].</span>")
 		GR.add_fingerprint(user)
