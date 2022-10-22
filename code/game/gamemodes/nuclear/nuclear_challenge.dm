@@ -86,7 +86,7 @@
 		to_chat(user, "Вражеский экипаж слишком мал, чтобы стоило объявлять ему войну.")
 		return FALSE
 	if(!is_admin_level(user.z))
-		to_chat(user, "Чтобы использовать это, вы должны находиться на своей базе".")
+		to_chat(user, "Чтобы использовать это, вы должны находиться на своей базе.")
 		return FALSE
 	if((world.time - SSticker.round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
 		to_chat(user, "Слишком поздно объявлять военные действия. Ваши благодетели уже заняты другими планами. Вам придется довольствоваться тем, что есть в наличии.")
