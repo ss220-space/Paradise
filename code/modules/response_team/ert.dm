@@ -257,7 +257,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.event_announcement.Announce("[station_name()], мы, к сожалению, не можем отправить к вам Отряд Быстрого Реагирования в данный момент.", "ОБР недоступен")
 
 /datum/response_team/proc/announce_team()
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы отправляем команду высококвалифицированных ассистентов, чтобы помочь(?) вам. Будьте наготове.", "ОБР в пути")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы отправляем команду высококвалифицированных ассистентов, чтобы помочь(?) вам. Ожидайте.", "ОБР в пути")
 
 // -- AMBER TEAM --
 
