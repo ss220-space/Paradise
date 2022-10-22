@@ -322,7 +322,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/attack_hand(mob/living/carbon/human/M)
-
 	if(M.a_intent == INTENT_HELP && src.stat == DEAD && !is_zombie && !is_gonarch)
 		scoop_up_headcrab(M)
 	return ..()
@@ -337,7 +336,6 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	var/armored = FALSE
 
 /obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
-
 	var/obj/item/reagent_containers/food/snacks/headcrab/hc = In
 
 	if(hc.armored)
@@ -356,7 +354,7 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 
 	if(istype(src, /obj/item/reagent_containers/food/snacks/headcrab) && src.armored)
 		if(armored)
-			to_chat(M, "<span class='notice'>Break his armor first!</span>")
+			to_chat(user, "<span class='notice'>Break his armor first!</span>")
 		return
 
 	return ..()
@@ -415,12 +413,12 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
 	return H
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/bag/trash/attackby(obj/item/I, mob/user, params)
+	var/turf/turfy = get_turf(loc)
 
-	if(istype(src, /mob/living/simple_animal/hostile/headcrab) && src.stat == DEAD && istype(I, /obj/item/storage/bag/trash/))
-		var/mob/living/simple_animal/hostile/headcrab/hcproc = src
+	for(var/mob/living/simple_animal/hostile/headcrab/hc in turfy)
 		var/obj/item/storage/bag/trash/trash_bag = I
-		var/obj/item/hold = hcproc.scoop_up_headcrab(user)
+		var/obj/item/hold = hc.scoop_up_headcrab(user)
 		trash_bag.handle_item_insertion(hold, prevent_warning = FALSE)
 
 	return ..()
