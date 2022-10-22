@@ -5,18 +5,6 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
-	var/revive_cooldown = 200
-
-/mob/living/carbon/human/Life(seconds, times_fired)
-	..()
-
-	if(src.stat == DEAD)
-		revive_cooldown--
-
-/mob/living/carbon/human/death(gibbed)
-	..()
-
-	revive_cooldown = 200
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.

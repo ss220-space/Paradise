@@ -984,3 +984,20 @@ GLOBAL_LIST_INIT(hctypes, list(/mob/living/simple_animal/hostile/headcrab, /mob/
 		bs.adjustBruteLoss(1000)
 
 	..()
+
+/mob/living/carbon/human
+	..()
+
+	var/revive_cooldown = 200
+
+/mob/living/carbon/human/Life(seconds, times_fired)
+	..()
+
+	if(src.stat == DEAD)
+		revive_cooldown--
+
+/mob/living/carbon/human/death(gibbed)
+	..()
+
+	revive_cooldown = 200
+
