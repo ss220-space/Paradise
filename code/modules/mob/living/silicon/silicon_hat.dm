@@ -83,7 +83,7 @@
 			canBeHatted = TRUE
 			isCentered = TRUE
 			hat_offset_y = 1
-		if("Security", "janitorrobot", "medicalrobot") //Высотой: 29
+		if("Security", "janitorrobot", "medicalrobot", "Generalist") //Высотой: 29
 			canBeHatted = TRUE
 			isCentered = TRUE
 			canWearBlacklistedHats = TRUE

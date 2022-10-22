@@ -347,6 +347,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
+			module_sprites["Blue Knight"] = "Generalist"
 
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
