@@ -797,7 +797,7 @@
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
 
-/obj/item/gun/
+/obj/item/gun
 	var/on_rack = FALSE
 
 /obj/item/gun/proc/place_on_rack()
