@@ -46778,6 +46778,10 @@
 	icon_state = "dark"
 	},
 /area/chapel/office)
+"dSB" = (
+/obj/structure/spirit_board,
+/turf/simulated/floor/plating,
+/area/maintenance/library)
 "dSC" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -78525,6 +78529,7 @@
 	icon_state = "x_white";
 	name = "ninja_teleport"
 	},
+/obj/effect/decal/cleanable/crayon,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "kEg" = (
@@ -126268,6 +126273,10 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
+"uSU" = (
+/obj/effect/decal/cleanable/crayon,
+/turf/simulated/floor/plating,
+/area/maintenance/library)
 "uSY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -169857,7 +169866,7 @@ tkD
 err
 wdx
 cNA
-qsF
+dSB
 dGB
 fGj
 mfv
@@ -170114,7 +170123,7 @@ cSo
 dFg
 mJU
 wwu
-qsF
+uSU
 myH
 iqs
 eOt
