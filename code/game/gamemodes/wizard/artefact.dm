@@ -1,115 +1,3 @@
-/////////Apprentice Contract//////////
-
-/obj/item/contract
-	name = "contract"
-	desc = "A magic contract previously signed by an apprentice. In exchange for instruction in the magical arts, they are bound to answer your call for aid."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state ="scroll2"
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_TINY
-	var/used = 0
-
-
-/obj/item/contract/attack_self(mob/user as mob)
-	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
-	if(used)
-		dat += "<B>You have already summoned your apprentice.</B><BR>"
-	else
-		dat += "<B>Contract of Apprenticeship:</B><BR>"
-		dat += "<I>Using this contract, you may summon an apprentice to aid you on your mission.</I><BR>"
-		dat += "<I>If you are unable to establish contact with your apprentice, you can feed the contract back to the spellbook to refund your points.</I><BR>"
-		dat += "<B>Which school of magic is your apprentice studying?:</B><BR>"
-		dat += "<A href='byond://?src=[UID()];school=destruction'>Destruction</A><BR>"
-		dat += "<I>Your apprentice is skilled in offensive magic. They know Magic Missile and Fireball.</I><BR>"
-		dat += "<A href='byond://?src=[UID()];school=bluespace'>Bluespace Manipulation</A><BR>"
-		dat += "<I>Your apprentice is able to defy physics, melting through solid objects and travelling great distances in the blink of an eye. They know Teleport and Ethereal Jaunt.</I><BR>"
-		dat += "<A href='byond://?src=[UID()];school=healing'>Healing</A><BR>"
-		dat += "<I>Your apprentice is training to cast spells that will aid your survival. They know Forcewall and Charge and come with a Staff of Healing.</I><BR>"
-		dat += "<A href='byond://?src=[UID()];school=robeless'>Robeless</A><BR>"
-		dat += "<I>Your apprentice is training to cast spells without their robes. They know Knock and Mindswap.</I><BR>"
-	user << browse(dat, "window=radio")
-	onclose(user, "radio")
-	return
-
-
-/obj/item/contract/Topic(href, href_list)
-	..()
-	var/mob/living/carbon/human/H = usr
-
-	if(H.stat || H.restrained())
-		return
-	if(!istype(H, /mob/living/carbon/human))
-		return 1
-
-	if(loc == H || (in_range(src, H) && istype(loc, /turf)))
-		H.set_machine(src)
-		if(href_list["school"])
-			if(used)
-				to_chat(H, "You already used this contract!")
-				return
-			used = 1
-			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
-			if(candidates.len)
-				var/mob/C = pick(candidates)
-				new /obj/effect/particle_effect/smoke(H.loc)
-				var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
-				M.key = C.key
-				to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
-				switch(href_list["school"])
-					if("destruction")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball(null))
-						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
-					if("bluespace")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
-						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
-					if("healing")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
-						M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), slot_r_hand)
-						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
-					if("robeless")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/mind_transfer(null))
-						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
-
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), slot_back)
-				M.equip_to_slot_or_del(new /obj/item/storage/box(M), slot_in_backpack)
-				M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), slot_r_store)
-				var/wizard_name_first = pick(GLOB.wizard_first)
-				var/wizard_name_second = pick(GLOB.wizard_second)
-				var/randomname = "[wizard_name_first] [wizard_name_second]"
-				var/newname = sanitize(copytext_char(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
-
-				if(!newname)
-					newname = randomname
-				M.mind.name = newname
-				M.real_name = newname
-				M.name = newname
-				var/datum/objective/protect/new_objective = new /datum/objective/protect
-				new_objective.owner = M:mind
-				new_objective:target = H:mind
-				new_objective.explanation_text = "Protect [H.real_name], the wizard."
-				M.mind.objectives += new_objective
-				SSticker.mode.apprentices += M.mind
-				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-				SSticker.mode.update_wiz_icons_added(M.mind)
-				M.faction = list("wizard")
-			else
-				used = 0
-				to_chat(H, "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.")
-	return
-
-
 ///////////////////////////Veil Render//////////////////////
 
 /obj/item/veilrender
@@ -356,7 +244,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.")
+		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
 		new_objective.owner = M.mind
@@ -365,7 +253,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.")
+		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
 /obj/item/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
 
@@ -835,11 +723,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if("mouth")
 				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
 				target.say(wgw)
-				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
-				log_say("Wicker doll say to [target][target.key]: [wgw]", user)
-				log_admin("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
-				user.create_log(SAY_LOG, "forced [target] to say [wgw] through [src].", target)
-				target.create_log(SAY_LOG, "was forced to say [wgw] through [src] by [user].", user)
+				add_attack_logs(user, target, "force say ([wgw]) with a voodoo doll.")
+				add_say_logs(target, wgw, src)
 			if("eyes")
 				user.set_machine(src)
 				user.reset_perspective(target)
@@ -858,7 +743,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 						nearby_mobs |= L
 				if(nearby_mobs.len)
 					var/mob/living/T = pick(nearby_mobs)
-					log_game("[user][user.key] made [target][target.key] click on [T] with a voodoo doll.")
+					add_attack_logs(user, target, "force click on [T] with a voodoo doll.")
 					target.ClickOn(T)
 					GiveHint(target)
 			if("head")

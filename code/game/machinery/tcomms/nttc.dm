@@ -42,7 +42,10 @@
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
 		"Nanotrasen Navy Officer" = "dsquadradio",
+		"Nanotrasen Navy Field Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
+		"Syndicate Officer" = "syndiecom",
+		"Supreme Commander" = "dsquadradio",
 		// Medical
 		"Chemist" = "medradio",
 		"Chief Medical Officer" = "medradio",
@@ -85,7 +88,7 @@
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Nanotrasen Navy Captain", "Solar Federation General")
+	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Syndicate Officer", "Nanotrasen Navy Captain", "Solar Federation General", "Supreme Commander")
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Marine")
 	// Defined so code compiles and incase someone has a non-standard job

@@ -166,7 +166,7 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
-				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
+				add_attack_logs(usr, GM, "Disposal'ed")
 		return
 
 	if(!I)
@@ -254,7 +254,7 @@
 			target.LAssailant = null
 		else
 			target.LAssailant = user
-		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
+		add_attack_logs(user, target, "Disposal'ed")
 	else
 		return
 	target.forceMove(src)
@@ -807,7 +807,7 @@
 	damage_deflection = 10
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
-	var/base_icon_state	// initial icon state on map
+	base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
