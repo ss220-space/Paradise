@@ -836,7 +836,7 @@
 			our_gun.place_on_rack()
 
 /obj/structure/rack/gunrack/attackby(obj/item/W, mob/user, params)
-	if(isrobot(user))
+	if(!ishuman(user))
 		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
