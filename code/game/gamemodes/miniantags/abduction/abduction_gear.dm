@@ -347,7 +347,7 @@
 
 		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
 		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
-		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
+		add_say_logs(user, message, L, "Mind device")
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
@@ -715,12 +715,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
 	icon = 'icons/obj/smooth_structures/alien_table.dmi'
-	icon_state = "alien_table"
+	icon_state = "alien_table_0"
+	base_icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
 	framestackamount = 1
-	canSmoothWith = null
+	smoothing_groups = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
+	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
 	frame = /obj/structure/table_frame/abductor
 
 /obj/machinery/optable/abductor

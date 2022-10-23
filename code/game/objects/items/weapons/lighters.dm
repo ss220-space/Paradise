@@ -104,6 +104,13 @@
 	var/next_on_message
 	var/next_off_message
 
+/obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
 	if(world.time > next_on_message)
@@ -294,8 +301,7 @@
 	if(!isliving(M))
 		return ..()
 	if(lit && M.IgniteMob())
-		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-		log_game("[key_name(user)] set [key_name(M)] on fire")
+		add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 	if(lit && cig && user.a_intent == INTENT_HELP)
 		if(cig.lit)
