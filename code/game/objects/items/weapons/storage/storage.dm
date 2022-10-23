@@ -331,7 +331,11 @@
 	if(silent)
 		prevent_warning = TRUE
 	W.forceMove(src)
+	if(QDELING(I))
+		return FALSE
 	W.on_enter_storage(src)
+	if(QDELING(I))
+		return FALSE
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
