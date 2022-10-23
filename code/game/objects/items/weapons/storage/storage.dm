@@ -43,6 +43,8 @@
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
+	if(!destination)
+		return
 	if(!ismob(destination.loc))
 		for(var/mob/player in mobs_viewing)
 			if(player == destination)
