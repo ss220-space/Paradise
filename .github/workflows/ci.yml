@@ -83,6 +83,7 @@ jobs:
           bash tools/ci/install_rustg.sh
       - name: Install DMJIT
         run: |
+          sudo apt install libncurses6:i386
           bash tools/ci/install_dmjit.sh
       - name: Compile & Run Unit Tests
         run: |
