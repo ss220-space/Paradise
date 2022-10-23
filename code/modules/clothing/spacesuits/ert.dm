@@ -56,8 +56,9 @@
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
 	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
+	jetpack = /obj/item/tank/jetpack/suit
 	strip_delay = 130
-	slowdown = 1
+	slowdown = 0
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
@@ -326,8 +327,9 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
+	jetpack = /obj/item/tank/jetpack/suit
 	strip_delay = 130
-	slowdown = 1
+	slowdown = 0
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 	sprite_sheets = list(
