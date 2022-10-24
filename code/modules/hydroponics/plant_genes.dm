@@ -343,12 +343,12 @@
 	..()
 	G.reagents.set_reacting(FALSE)
 
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(G && G.reagents)
 		var/reglist = ""
 		for(var/datum/reagent/R in G.reagents.reagent_list)
 			reglist += "[R.name] [R.volume], "
-		if(throwing?.thrower)
+		if(thrower)
 			thrower.investigate_log("thrown [G] and started reaction on squash. [reglist]", INVESTIGATE_BOTANY)
 		else
 			target.investigate_log("squashed [G] starting a reaction. [reglist]", INVESTIGATE_BOTANY)
