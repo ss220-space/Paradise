@@ -221,7 +221,7 @@
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
-	jetpack = /obj/item/tank/jetpack/suit
+	jetpack = null
 	slowdown = 0
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
