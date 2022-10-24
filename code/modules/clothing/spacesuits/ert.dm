@@ -222,7 +222,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	jetpack = null
-	slowdown = 0
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
