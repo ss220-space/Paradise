@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+EXIT_CODE=0
 
 cp config/example/* config/
 
