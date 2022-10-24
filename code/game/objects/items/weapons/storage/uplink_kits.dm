@@ -398,7 +398,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/stack/nanopaste(src)
 	new /obj/item/encryptionkey/syndicate(src)
 	new /obj/item/robotanalyzer(src)
-	var/obj/item/paper/P = new /obj/item/paper(src)
+	var/obj/item/paper/P = new (src)
 	P.name = "Cyborg Repair Instruction"
 	P.info = {"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Краткая инструкция по пончинке роботов</B><HR></center><BR><BR>
