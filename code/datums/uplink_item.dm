@@ -1834,7 +1834,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 22 // normally 27
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-	/datum/uplink_item/bundles_TC/cyborg_maint
+/datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Cyborg maintenance crate"
 	desc = "A box containing all internal parts of cyborg for repair."
 	reference = "CYMT"
