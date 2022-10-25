@@ -95,3 +95,6 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		return
 
 	H.change_dna(D, TRUE)
+	if(H.dna.species.has_wings)
+		if(D.species.backed_up_wings)
+			H.change_body_accessory(D.species.backed_up_wings)
