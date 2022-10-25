@@ -1663,7 +1663,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								continue
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
-					if(active_character.species == "Moth")
+					if(S.species == "Moth")
 						possible_body_accessories.Remove(null, "None")
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories

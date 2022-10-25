@@ -1,5 +1,7 @@
-#define COCOON_WEAVE_DELAY 15 SECONDS
-#define COCOON_EMERGE_DELAY 45 SECONDS
+#define COCOON_WEAVE_DELAY 5 SECONDS
+#define COCOON_EMERGE_DELAY 25 SECONDS
+#define COCOON_HEAL_AMOUNT -50
+#define COCOON_HARM_AMOUNT 75
 
 /datum/species/moth
 	name = "Moth"
@@ -113,6 +115,33 @@
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
+/datum/species/moth/spec_flash_carbon(mob/living/carbon/H, user, power, targeted)
+	power *= 2
+	if(user)
+		add_attack_logs(user, H, "Flashed with [src]")
+		if(targeted)
+			H.AdjustConfused(power)
+			terrible_conversion_proc(H, user)
+			H.Stun(1)
+			visible_message("<span class='disarm'>[user] blinds [H] with the flash!</span>")
+			to_chat(user, "<span class='danger'>You blind [H] with the flash!</span>")
+			to_chat(H, "<span class='userdanger'>[user] blinds you with the flash!</span>")
+	else
+		H.AdjustConfused(power)
+	return TRUE
+
+/datum/species/moth/spec_thunk()
+	if(burnt_wings)
+		return TRUE
+
+/datum/species/moth/spec_rejuvenate(mob/living/carbon/human/H)
+	if(burnt_wings)
+		restorewings(H)
+
+/datum/species/moth/spec_movement_delay(mob/living/carbon/H)
+	return FALSE
+
+
 /**
  * Copies wing and antennae names to species datum vars
  */
@@ -175,8 +204,8 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
-		H.adjustBruteLoss(-55)
-		H.adjustFireLoss(-55)
+		H.adjustBruteLoss(COCOON_HEAL_AMOUNT)
+		H.adjustFireLoss(COCOON_HEAL_AMOUNT)
 		if(M.burnt_wings)
 			M.restorewings(H)
 	C.preparing_to_emerge = FALSE
@@ -187,7 +216,7 @@
 	desc = "Someone wrapped in a moth cocoon"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
-	color = COLOR_PALE_YELLOW
+	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
 	max_integrity = 60
 	var/preparing_to_emerge
 
@@ -201,8 +230,8 @@
 	else
 		visible_message("<span class='danger'>[src] is smashed open, harming the moth within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
-			H.adjustBruteLoss(75)
-			H.adjustFireLoss(75)
+			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
+			H.adjustFireLoss(COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(5)
 	for(var/mob/living/carbon/human/H in contents)
 		H.WakeUp()
