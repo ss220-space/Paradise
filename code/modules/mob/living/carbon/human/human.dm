@@ -142,6 +142,11 @@
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
+/mob/living/carbon/human/moth/Initialize(mapload)
+	. = ..(mapload, /datum/species/moth)
+	var/datum/species/moth/M = dna.species
+	M.backupwings(src)
+
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")

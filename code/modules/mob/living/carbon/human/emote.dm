@@ -312,6 +312,8 @@
 			m_type = 2
 
 		if("wag", "wags")
+			if(ismoth(src)) //no wagging moths, please!
+				return
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
 					message = "начинает махать хвостом."
