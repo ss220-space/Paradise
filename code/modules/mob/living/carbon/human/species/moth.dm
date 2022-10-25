@@ -14,7 +14,7 @@
 	species_traits = list(IS_WHITELISTED, NO_HAIR)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
-	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL
+	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING
 	reagent_tag = PROCESS_ORG
 	dietflags = DIET_HERB
 	tox_mod = 1.5
@@ -24,7 +24,7 @@
 	male_scream_sound = 'sound/voice/scream_moth.ogg'
 	female_scream_sound = 'sound/voice/scream_moth.ogg'
 	default_headacc = "Plain Antennae"
-	tail = "plain"
+	wing = "plain"
 	eyes = "moth_eyes_s"
 	butt_sprite = "kidan"
 	has_wings = TRUE

@@ -168,6 +168,7 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
+#define WING_LAYER				42
 #define UNDER_WING_LAYER		41
 #define BODY_LAYER				40
 #define MUTANTRACE_LAYER		39
@@ -209,7 +210,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			41
+#define TOTAL_LAYERS 			42
 
 ///Access Region Codes///
 #define REGION_ALL			0
