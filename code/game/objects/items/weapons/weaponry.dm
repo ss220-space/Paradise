@@ -195,7 +195,7 @@
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
-	var/cannot_deflect = 0
+	var/can_deflect = TRUE
 	var/homerun_always_charged = 0
 
 /obj/item/melee/baseball_bat/homerun
@@ -238,7 +238,7 @@
 				return TRUE
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
-	if(!homerun_able && !cannot_deflect)
+	if(!homerun_able && can_deflect)
 		if(!deflectmode && world.time >= lastdeflect)
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
 			deflectmode = TRUE
@@ -324,7 +324,7 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
-	cannot_deflect = TRUE
+	can_deflect = FALSE
 	homerun_always_charged = TRUE
 	var/on = FALSE
 	/// Force when concealed
