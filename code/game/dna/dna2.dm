@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
-		if(b<=DNA_UI_LENGTH)
+		if(b<=DNA_UI_LENGTH && b<=UI.len)
 			new_dna.UI[b]=UI[b]
 	new_dna.UpdateUI()
 	new_dna.UpdateSE()
