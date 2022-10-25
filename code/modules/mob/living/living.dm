@@ -494,7 +494,7 @@
 			human_mob.restore_blood()
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
-	dna.species.spec_rejuvenate(src) //Species level rejuv overrides
+	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)я
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)

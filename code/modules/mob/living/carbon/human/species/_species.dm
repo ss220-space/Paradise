@@ -893,14 +893,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
-/datum/species/proc/spec_handle_fire(mob/living/carbon/human/H)
-	return FALSE
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
 	return FALSE
 
-/datum/species/proc/spec_rejuvenate(mob/living/carbon/human/H)
-	return FALSE
 
 /datum/species/proc/spec_thunk()
 	return FALSE
