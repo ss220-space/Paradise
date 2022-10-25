@@ -1109,7 +1109,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(WING_UNDERLIMBS_LAYER)
 	remove_overlay(WING_LAYER)
 	if(!istype(body_accessory, /datum/body_accessory/wing))
-		return
+		if(dna.species.optional_body_accessory)
+			return
+		else
 	if(!body_accessory.try_restrictions(src))
 		return
 	var/mutable_appearance/wings = mutable_appearance(body_accessory.icon, body_accessory.icon_state, layer = -WING_LAYER)

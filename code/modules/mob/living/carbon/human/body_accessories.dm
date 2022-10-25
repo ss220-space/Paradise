@@ -1,5 +1,5 @@
 
-GLOBAL_LIST_INIT(body_accessory_by_name, list())
+GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
 GLOBAL_LIST_INIT(body_accessory_by_species, list())
 
 /proc/initialize_body_accessory_by_species()
@@ -133,6 +133,8 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	icon_state = "plain"
 	has_behind = TRUE
 	is_wing = TRUE
+
+/datum/body_accessory/wing/plain
 
 /datum/body_accessory/wing/monarch
 	name = "Monarch Wings"
