@@ -1415,10 +1415,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 
 						body_accessory = null //no vulptail on humans damnit
-						if(species == "Nian")
-							body_accessory = random_body_accessory("Nian") //wingless moths begone
-						else
-							body_accessory = null //no vulptail on humans damnit
+						body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
 
 						//Reset prosthetics.
 						organ_data = list()
@@ -1657,15 +1654,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(check_rights(R_ADMIN, 1, user))
 						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
+						if(S.optional_body_accessory)
+							possible_body_accessories += "None" //the only null entry should be the "None" option
 						for(var/B in GLOB.body_accessory_by_name)
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(!istype(accessory))
-								possible_body_accessories += "None" //the only null entry should be the "None" option
-								continue
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
-					if(NS.bodyflags & HAS_WING)
-						possible_body_accessories.Remove(null, "None")
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)

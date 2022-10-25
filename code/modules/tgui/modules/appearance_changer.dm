@@ -315,12 +315,12 @@
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
-		tailcheck = owner.bodypart_tail && (owner.bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS & HAS_WING)
+		tailcheck = owner.bodypart_tail && (owner.bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
 
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_tail & HAS_WING && check_rights(R_ADMIN, 0, owner)
+	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_tail & HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)
@@ -360,6 +360,6 @@
 	if(!length(valid_tail_marking_styles))
 		valid_tail_marking_styles = owner.generate_valid_markings("tail")
 	if(!length(valid_body_accessories))
-		valid_body_accessories = owner.generate_valid_body_accessories()
+		valid_body_accessories = owner.generate_valid_body_accessories(TRUE)
 	if(!length(valid_alt_head_styles))
 		valid_alt_head_styles = owner.generate_valid_alt_heads()
