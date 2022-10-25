@@ -1414,6 +1414,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 
 						body_accessory = null //no vulptail on humans damnit
+						if(species == "Moth")
+							body_accessory = random_body_accessory("Moth") //wingless moths begone
+						else
+							body_accessory = null //no vulptail on humans damnit
 
 						//Reset prosthetics.
 						organ_data = list()
@@ -1659,6 +1663,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								continue
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
+					if(active_character.species == "Moth")
+						possible_body_accessories.Remove(null, "None")
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
