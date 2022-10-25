@@ -1163,7 +1163,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			bodypart_tail.force_icon = accessory_s
 			bodypart_tail.icon_name = null
 
-		if(istype(body_accessory, /datum/body_accessory/tail/moth)) //Moth wings need special code for the "behind" part on south facing mobs
+		if(istype(body_accessory, /datum/body_accessory/tail/moth)) //Nian wings need special code for the "behind" part on south facing mobs
 				var/icon/accessory_wu = new/icon("icon" = body_accessory.icon, "icon_state" = "[body_accessory.icon_state]_BEHIND")
 				var/mutable_appearance/underlimbs = mutable_appearance(accessory_wu, layer = -UNDER_WING_LAYER)
 				overlays_standing[UNDER_WING_LAYER] = underlimbs

@@ -123,13 +123,13 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	icon_state = "wryntail"
 	allowed_species = list("Wryn")
 
-//Moth
+//Nian
 /datum/body_accessory/tail/moth
 	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
 	animated_icon = null
 	name = "Plain Wings"
 	icon_state = "plain"
-	allowed_species = list("Moth")
+	allowed_species = list("Nian")
 	is_wing = TRUE
 
 /datum/body_accessory/tail/moth/monarch
