@@ -85,8 +85,6 @@
 
 
 /obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
-	if(M.dna?.species?.spec_flash_carbon(M, user, power, targeted, src)) //species level overrides
-		return
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
