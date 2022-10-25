@@ -37,8 +37,13 @@
 
 	var/datum/action/innate/cocoon/cocoon
 	var/cocooned
+	/// Is the moth in a cocoon? When TRUE processes additional reagents on handle_reagents()
+	var/cocooned
+	/// Are the wings burnt off? Used to negate some buffs if TRUE
 	var/burnt_wings
-	var/pre_burn_antennae //keeps track of what wings where before being burnt off
+	/// Stores name of antennae when backupwings() is called
+	var/pre_burn_antennae
+	/// Stores name of wings when backupwings() is called
 	var/pre_burn_wings
 
 	suicide_messages = list(
@@ -62,6 +67,10 @@
 	. = ..()
 	addtimer(CALLBACK(src, .proc/get_lamp, H), 5 SECONDS, TIMER_UNIQUE)
 
+/**
+ * Checks for light levels on current turf and cause confusion if too high
+ */
+
 /datum/species/moth/proc/get_lamp(mob/living/carbon/human/H)
 	if(H.confused != 0)
 		return
@@ -69,7 +78,7 @@
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount(maxlum = 5) * 10
-	if(light_available > 3) //too close to lamp friend!
+	if(light_available > 3) //too close to lamp friends!
 		H.AdjustConfused(rand(4, 8))
 		to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
 
@@ -104,16 +113,28 @@
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
+/**
+ * Copies wing and antennae names to species datum vars
+ */
+
 /datum/species/moth/proc/backupwings(mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/A = H.get_organ("head")
 	pre_burn_antennae = A.ha_style
 	pre_burn_wings = H.body_accessory.name
+
+/**
+ * Sets wings and antennae to burnt variants, removing some species buffs
+ */
 
 /datum/species/moth/proc/destroywings(mob/living/carbon/human/H)
 	burnt_wings = TRUE
 	backupwings(H)
 	H.change_body_accessory("Burnt Off Wings")
 	H.change_head_accessory("Burnt Off Antennae")
+
+/**
+ * Restores wings and antennae from values in species datum vars
+ */
 
 /datum/species/moth/proc/restorewings(mob/living/carbon/human/H)
 	burnt_wings = FALSE
@@ -146,6 +167,9 @@
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+
+/**
+ * Removes moth from cocoon, heals moth and restores burnt wings */
 
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
