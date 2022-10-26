@@ -1120,35 +1120,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(killed_vermits >= length(changelings)/2)
 		return TRUE
 	return FALSE
-/*
-	if(issilicon(target.current))
-		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель боргизирована. Провал")
-		return 0
-	if(isbrain(target.current))
-		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - мозг. Провал")
-		return 0
-	if(!target.current || target.current.stat == DEAD)
-		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - труп. Провал")
-		return 0
-	// Проверка по наличию криминального статуса в консоли
-	var/datum/data/record/target_record = find_security_record("name", target.name)
-	if(target_record)
-		if(target_record.fields["criminal"] == SEC_RECORD_STATUS_INCARCERATED || target_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || target_record.fields["criminal"] == SEC_RECORD_STATUS_PAROLLED || target_record.fields["criminal"] == SEC_RECORD_STATUS_RELEASED)
-			log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - имеет подходящий охранный статус. Успех")
-			return 1
-	// Находится ли цель в карцере/камере/перме в конце раунда
-	if(istype(target.current.lastarea, /area/security/prison/cell_block) || istype(target.current.lastarea, /area/security/permabrig) || istype(target.current.lastarea, /area/security/processing))
-		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - за решёткой. Успех")
-		return 1
-	// Зона СБ на шатле эвакуации
-	var/turf/location = get_turf(target.current)
-	if(!location)
-		return 0
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
-		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - в зоне СБ на шаттле. Успех")
-		return 1
-	return 0
-*/
+
 /datum/objective/research_corrupt
 	explanation_text = "Используя свои перчатки, загрузите мощный вирус на любой научный сервер станции, тем самым саботировав все их исследования! \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
