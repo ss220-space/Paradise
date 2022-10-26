@@ -148,6 +148,7 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=5"
 	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
 	if(..())
@@ -169,6 +170,7 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
 	if(..())
@@ -188,6 +190,7 @@
 	icon_state = "abductor_mod"
 	origin_tech = "engineering=6;materials=6;abductor=3"
 	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
 
 /obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/R)
 	if(..())
@@ -279,6 +282,7 @@
 	icon_state = "ash_plating"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
 	if(..())
