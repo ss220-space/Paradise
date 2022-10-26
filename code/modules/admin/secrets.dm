@@ -32,6 +32,12 @@
 						<A href='?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</A><BR>
 						<A href='?src=[UID()];secretsadmin=DNA'>List DNA (Blood)</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=fingerprints'>List Fingerprints</A><BR>
+						<B>Win Condition</b><br>
+						<A href='?src=[UID()];secretsadmin=stopwincondition'>Stop/Disable Win Condition</A>&nbsp;&nbsp;
+						<A href='?src=[UID()];secretsadmin=enablewincondition'>Enable Win Condition</A><BR>
+						<A href='?src=[UID()];secretsadmin=startwincondition_blob'>Start for Blob</A>&nbsp;&nbsp;
+						<A href='?src=[UID()];secretsadmin=startwincondition_terrorspiders'>Start for Terror Spiders</A>&nbsp;&nbsp;
+						<A href='?src=[UID()];secretsadmin=startwincondition_aliens'>Start for Aliens</A><BR>
 						<B>Power</b><br>
 						<A href='?src=[UID()];secretsfun=blackout'>Break all lights</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsfun=whiteout'>Fix all lights</A><BR>

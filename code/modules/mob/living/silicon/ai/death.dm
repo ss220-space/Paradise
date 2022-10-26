@@ -26,11 +26,7 @@
 
 	if(doomsday_device)
 		doomsday_device.timing = 0
-		SSshuttle.emergencyNoEscape = 0
-		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		resolve_win_condition()
 		qdel(doomsday_device)
 
 	if(explosive)

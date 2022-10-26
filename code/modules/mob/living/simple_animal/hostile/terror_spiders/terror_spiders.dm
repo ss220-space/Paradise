@@ -1,7 +1,6 @@
 GLOBAL_LIST_EMPTY(ts_ckey_blacklist)
 GLOBAL_VAR_INIT(ts_count_dead, 0)
 GLOBAL_VAR_INIT(ts_count_alive_awaymission, 0)
-GLOBAL_VAR_INIT(ts_count_alive_station, 0)
 GLOBAL_VAR_INIT(ts_death_last, 0)
 GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes
 GLOBAL_LIST_EMPTY(ts_spiderlist)
@@ -287,8 +286,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				// these are static spiders, specifically for the UO71 away mission, make them stay in place
 				ai_ventcrawls = FALSE
 				spider_placed = 1
-	else
-		GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
@@ -342,8 +339,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		GLOB.ts_death_last = world.time
 		if(spider_awaymission)
 			GLOB.ts_count_alive_awaymission--
-		else
-			GLOB.ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())

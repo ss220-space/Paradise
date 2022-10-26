@@ -3277,7 +3277,62 @@
 						SSnightshift.can_fire = FALSE
 						SSnightshift.update_nightshift(FALSE, FALSE)
 						to_chat(usr, "<span class='notice'>Night shift forced off.</span>")
-			else
+			if("stopwincondition")
+				var/input
+				if(GLOB.win_condition_timer_id)
+					input = alert(usr, "Are you sure you want to stop Win Condition timer?", "Starting Win Condition", "Yes", "No")
+				else if(GLOB.win_condition_forced_stop)
+					to_chat(usr, "<span class='warning'>Win Conditions are already disabled!</span>")
+				else
+					input = alert(usr, "Are you sure you want to disable Win Conditions?", "Starting Win Condition", "Yes", "No")
+				if(input == "Yes")
+					log_and_message_admins("[usr] disabled Win Conditions.")
+					stop_win_condition()
+					GLOB.win_condition_forced_stop = TRUE
+			if("enablewincondition")
+				if(!GLOB.win_condition_forced_stop)
+					to_chat(usr, "<span class='warning'>Win Condition is already enabled!</span>")
+				else
+					var/input = alert(usr, "Are you sure you want to enable Win Condition?", "Win Condition", "Yes", "No")
+					if(input == "Yes")
+						GLOB.win_condition_forced_stop = FALSE
+						log_and_message_admins("[usr] enabled Win Conditions.")
+			if("startwincondition_blob")
+				if(GLOB.win_condition_forced_stop)
+					to_chat(usr, "<span class='warning'>Win Conditions are disabled!</span>")
+				else if(GLOB.win_condition_timer_id)
+					to_chat(usr, "<span class='warning'>There is already an active Win Condition timer!</span>")
+				else
+					var/input = alert(usr, "Are you sure you want to start Win Condition timer for Blob?", "Starting Win Condition", "Yes", "No")
+					if(input == "Yes")
+						if(!start_win_condition("Blob"))
+							to_chat(usr, "<span class='warning'>Unable to add Win Condition timer!</span>")
+						else
+							log_and_message_admins("[usr] started the win condition for: Blob")
+			if("startwincondition_terrorspiders")
+				if(GLOB.win_condition_forced_stop)
+					to_chat(usr, "<span class='warning'>Win Conditions are disabled!</span>")
+				else if(GLOB.win_condition_timer_id)
+					to_chat(usr, "<span class='warning'>There is already an active Win Condition timer!</span>")
+				else
+					var/input = alert(usr, "Are you sure you want to start Win Condition timer for Terror Spiders?", "Starting Win Condition", "Yes", "No")
+					if(input == "Yes")
+						if(!start_win_condition("Terror Spiders"))
+							to_chat(usr, "<span class='warning'>Unable to add Win Condition timer!</span>")
+						else
+							log_and_message_admins("[usr] started the win condition for: Terror Spiders")
+			if("startwincondition_aliens")
+				if(GLOB.win_condition_forced_stop)
+					to_chat(usr, "<span class='warning'>Win Conditions are disabled!</span>")
+				else if(GLOB.win_condition_timer_id)
+					to_chat(usr, "<span class='warning'>There is already an active Win Condition timer!</span>")
+				else
+					var/input = alert(usr, "Are you sure you want to start Win Condition timer for Aliens?", "Starting Win Condition", "Yes", "No")
+					if(input == "Yes")
+						if(!start_win_condition("Aliens"))
+							to_chat(usr, "<span class='warning'>Unable to add Win Condition timer!</span>")
+						else
+							log_and_message_admins("[usr] started the win condition for: Aliens")
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)

@@ -2634,6 +2634,7 @@
 #include "code\modules\vehicle\speedbike.dm"
 #include "code\modules\vehicle\sportscar.dm"
 #include "code\modules\vehicle\vehicle.dm"
+#include "code\modules\win_condition\win_condition.dm"
 #include "code\modules\world_topic\_spam_prevention_handler.dm"
 #include "code\modules\world_topic\_topic_base.dm"
 #include "code\modules\world_topic\adminmsg.dm"
