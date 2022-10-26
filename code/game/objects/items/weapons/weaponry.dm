@@ -365,7 +365,7 @@
 	
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	. = ..()
-	if(!(user.mind.offstation_role == TRUE))
+	if(!(isertmindshielded(user)))
 		user.Weaken(5)
 		user.unEquip(src, 1)
 		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
