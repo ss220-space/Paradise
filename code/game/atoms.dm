@@ -65,26 +65,9 @@
 	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
 	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/list/ru_names
-	///Icon-smoothing behavior.
-	var/smoothing_flags = NONE
-	///Smoothing variable
-	var/top_left_corner
-	///Smoothing variable
-	var/top_right_corner
-	///Smoothing variable
-	var/bottom_left_corner
-	///Smoothing variable
-	var/bottom_right_corner
-	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it.
-	var/list/smoothing_groups = null
-	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself.
-	var/list/canSmoothWith = null
-	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
-	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
-	///Used for changing icon states for different base sprites.
-	var/base_icon_state
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
+	var/list/description_holders = list("info" = null, "antag" = null, "fluff" = null)
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -134,15 +117,6 @@
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	ComponentInitialize()
-
-	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
-		SET_BITFLAG_LIST(smoothing_groups)
-	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
-		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
-			smoothing_flags |= SMOOTH_OBJ
-		SET_BITFLAG_LIST(canSmoothWith)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -379,7 +353,29 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	var/descriptions
+	description_holders["info"] = get_description_info()
+	description_holders["antag"] = (isAntag(user) || isobserver(user)) ? get_description_antag() : ""
+	description_holders["fluff"] = get_description_fluff()
+
+	if(description_holders["info"])
+		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
+	if(description_holders["antag"])
+		descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+	if(description_holders["fluff"])
+		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
+
+	. += descriptions
+
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/atom/Topic(href, href_list)
+	if(href_list["description_info"])
+		to_chat(usr, "<div class='examine'><span class='info'>[description_holders["info"]]</span></div>")
+	if(href_list["description_antag"])
+		to_chat(usr, "<div class='examine'><span class='syndradio'>[description_holders["antag"]]</span></div>")
+	if(href_list["description_fluff"])
+		to_chat(usr, "<div class='examine'><span class='notice'>[description_holders["fluff"]]</span></div>")
 
 /atom/proc/relaymove()
 	return

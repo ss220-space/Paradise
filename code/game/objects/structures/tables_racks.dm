@@ -16,8 +16,7 @@
 	name = "table"
 	desc = "A square piece of metal standing on four metal legs. It can not move."
 	icon = 'icons/obj/smooth_structures/table.dmi'
-	icon_state = "table-0"
-	base_icon_state = "table"
+	icon_state = "table"
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
@@ -25,9 +24,8 @@
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_TABLES)
-	canSmoothWith = list(SMOOTH_GROUP_TABLES)
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -50,10 +48,10 @@
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
 
 /obj/structure/table/update_icon()
-	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
+	if(smooth && !flipped)
 		icon_state = ""
-		QUEUE_SMOOTH(src)
-		QUEUE_SMOOTH_NEIGHBORS(src)
+		queue_smooth(src)
+		queue_smooth_neighbors(src)
 
 	if(flipped)
 		clear_smooth_overlays()
@@ -343,7 +341,7 @@
 	if(dir != NORTH)
 		layer = 5
 	flipped = 1
-	smoothing_flags = NONE
+	smooth = SMOOTH_FALSE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -369,7 +367,7 @@
 
 	layer = initial(layer)
 	flipped = 0
-	smoothing_flags = initial(smoothing_flags)
+	smooth = initial(smooth)
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -388,11 +386,9 @@
 	name = "glass table"
 	desc = "Looks fragile. You should totally flip it. It is begging for it."
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
-	icon_state = "glass_table-0"
-	base_icon_state = "glass_table"
+	icon_state = "glass_table"
 	buildstack = /obj/item/stack/sheet/glass
-	smoothing_groups = list(SMOOTH_GROUP_GLASS_TABLES)
-	canSmoothWith = list(SMOOTH_GROUP_GLASS_TABLES)
+	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
@@ -473,14 +469,12 @@
 	name = "wooden table"
 	desc = "Do not apply fire to this. Rumour says it burns easily."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
-	icon_state = "wood_table-0"
-	base_icon_state = "wood_table"
+	icon_state = "wood_table"
 	frame = /obj/structure/table_frame/wood
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
-	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
-	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
+	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
@@ -491,8 +485,7 @@
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon = 'icons/obj/smooth_structures/poker_table.dmi'
-	icon_state = "poker_table-0"
-	base_icon_state = "poker_table"
+	icon_state = "poker_table"
 	buildstack = /obj/item/stack/tile/carpet
 
 /obj/structure/table/wood/poker/narsie_act()
@@ -506,74 +499,82 @@
 	name = "fancy table"
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
 	icon = 'icons/obj/smooth_structures/fancy_table.dmi'
-	icon_state = "fancy_table-0"
-	base_icon_state = "fancy_table"
+	icon_state = "fancy_table"
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	smoothing_groups = list(SMOOTH_GROUP_FANCY_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES or SMOOTH_GROUP_WOOD_TABLES
-	canSmoothWith = list(SMOOTH_GROUP_FANCY_WOOD_TABLES)
+	canSmoothWith = list(/obj/structure/table/wood/fancy,
+						/obj/structure/table/wood/fancy/black,
+						/obj/structure/table/wood/fancy/blue,
+						/obj/structure/table/wood/fancy/cyan,
+						/obj/structure/table/wood/fancy/green,
+						/obj/structure/table/wood/fancy/orange,
+						/obj/structure/table/wood/fancy/purple,
+						/obj/structure/table/wood/fancy/red,
+						/obj/structure/table/wood/fancy/royalblack,
+						/obj/structure/table/wood/fancy/royalblue)
+	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 
 /obj/structure/table/wood/fancy/flip(direction)
 	return FALSE
 
-/obj/structure/table/wood/fancy/Initialize(mapload)
+/obj/structure/table/wood/fancy/Initialize()
 	. = ..()
-	QUEUE_SMOOTH(src)
+	icon = smooth_icon
 
 /obj/structure/table/wood/fancy/black
-	icon_state = "fancy_table_black-0"
-	base_icon_state = "fancy_table_black"
+	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
 /obj/structure/table/wood/fancy/blue
-	icon_state = "fancy_table_blue-0"
-	base_icon_state = "fancy_table_blue"
+	icon_state = "fancy_table_blue"
 	buildstack = /obj/item/stack/tile/carpet/blue
 	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
 
 /obj/structure/table/wood/fancy/cyan
-	icon_state = "fancy_table_cyan-0"
-	base_icon_state = "fancy_table_cyan"
+	icon_state = "fancy_table_cyan"
 	buildstack = /obj/item/stack/tile/carpet/cyan
 	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
 
 /obj/structure/table/wood/fancy/green
-	icon_state = "fancy_table_green-0"
-	base_icon_state = "fancy_table_green"
+	icon_state = "fancy_table_green"
 	buildstack = /obj/item/stack/tile/carpet/green
 	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
 
 /obj/structure/table/wood/fancy/orange
-	icon_state = "fancy_table_orange-0"
-	base_icon_state = "fancy_table_orange"
+	icon_state = "fancy_table_orange"
 	buildstack = /obj/item/stack/tile/carpet/orange
 	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
 
 /obj/structure/table/wood/fancy/purple
-	icon_state = "fancy_table_purple-0"
-	base_icon_state = "fancy_table_purple"
+	icon_state = "fancy_table_purple"
 	buildstack = /obj/item/stack/tile/carpet/purple
 	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
 
 /obj/structure/table/wood/fancy/red
-	icon_state = "fancy_table_red-0"
-	base_icon_state = "fancy_table_red"
+	icon_state = "fancy_table_red"
 	buildstack = /obj/item/stack/tile/carpet/red
 	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
 
 /obj/structure/table/wood/fancy/royalblack
-	icon_state = "fancy_table_royalblack-0"
-	base_icon_state = "fancy_table_royalblack"
+	icon_state = "fancy_table_royalblack"
 	buildstack = /obj/item/stack/tile/carpet/royalblack
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
 
 /obj/structure/table/wood/fancy/royalblue
-	icon_state = "fancy_table_royalblue-0"
-	base_icon_state = "fancy_table_royalblue"
+	icon_state = "fancy_table_royalblue"
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
 /*
  * Reinforced tables
@@ -582,11 +583,10 @@
 	name = "reinforced table"
 	desc = "A reinforced version of the four legged table."
 	icon = 'icons/obj/smooth_structures/reinforced_table.dmi'
-	icon_state = "reinforced_table-0"
-	base_icon_state = "reinforced_table"
+	icon_state = "r_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
-	canSmoothWith = list(SMOOTH_GROUP_TABLES)
+	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
@@ -616,16 +616,14 @@
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	icon_state = "brass_table-0"
-	base_icon_state = "brass_table"
+	icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 	buildstackamount = 1
-	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
-	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
+	canSmoothWith = list(/obj/structure/table/reinforced/brass)
 
 /obj/structure/table/reinforced/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)
@@ -641,9 +639,7 @@
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
 	anchored = FALSE
-	smoothing_flags = NONE
-	smoothing_groups = null
-	canSmoothWith = null
+	smooth = SMOOTH_FALSE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
@@ -697,13 +693,13 @@
 	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
 
 /obj/structure/table/tray/flip()
-	return 0
+	return
 
 /obj/structure/table/tray/narsie_act()
-	return 0
+	return
 
 /obj/structure/table/tray/ratvar_act()
-	return 0
+	return
 
 /*
  * Racks
@@ -800,6 +796,123 @@
 
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
+
+/obj/item/gun
+	var/on_rack = FALSE
+
+/obj/item/gun/proc/place_on_rack()
+	on_rack = TRUE
+	var/matrix/M = matrix()
+	M.Turn(-90)
+	transform = M
+
+/obj/item/gun/proc/remove_from_rack()
+	if(on_rack)
+		var/matrix/M = matrix()
+		transform = M
+		on_rack = FALSE
+
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	remove_from_rack()
+
+/obj/structure/rack/gunrack
+	name = "gun rack"
+	desc = "A gun rack for storing guns."
+	icon_state = "gunrack"
+
+/obj/structure/rack/gunrack/MouseDrop_T(obj/O, mob/user)
+	if(isrobot(user))
+		return
+	if(!user.drop_item())
+		return
+	if((!( istype(O, /obj/item/gun) ) || user.get_active_hand() != O))
+		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
+		return
+	if(O.loc != src.loc)
+		if(istype(O, /obj/item/gun))
+			var/obj/item/gun/our_gun = O
+			step(O, get_dir(O, src))
+			our_gun.place_on_rack()
+
+/obj/structure/rack/gunrack/attackby(obj/item/W, mob/user, params)
+	if(!ishuman(user))
+		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!(istype(W, /obj/item/gun)))
+		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
+		return
+	if(!(W.flags & ABSTRACT) && user.drop_item())
+		var/obj/item/gun/our_gun = W
+		our_gun.place_on_rack()
+		our_gun.Move(loc)
+		var/list/click_params = params2list(params)
+		//Center the icon where the user clicked.
+		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+			return
+		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+		W.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+		W.pixel_y = 0
+	else
+		return
+	return
+
+/obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+
+/obj/structure/rack/gunrack/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		for(var/obj/item/I in loc.contents)
+			if(istype(I, /obj/item/gun))
+				var/obj/item/gun/to_place = I
+				to_place.place_on_rack()
+
+/obj/structure/rack/gunrack/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		density = FALSE
+		var/obj/item/gunrack_parts/newparts = new(loc)
+		transfer_fingerprints_to(newparts)
+	for(var/obj/item/I in loc.contents)
+		if(istype(I, /obj/item/gun))
+			var/obj/item/gun/to_remove = I
+			to_remove.remove_from_rack()
+	qdel(src)
+
+/obj/item/gunrack_parts
+	name = "gun rack parts"
+	desc = "Parts of a gun rack."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "gunrack_parts"
+	flags = CONDUCT
+	materials = list(MAT_METAL=2000)
+	var/building = FALSE
+
+/obj/item/gunrack_parts/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/metal(user.loc)
+	qdel(src)
+
+/obj/item/gunrack_parts/attack_self(mob/user)
+	if(building)
+		return
+	building = TRUE
+	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
+	if(do_after(user, 50, target = user, progress=TRUE))
+		if(!user.drop_item(src))
+			return
+		var/obj/structure/rack/gunrack/GR = new (user.loc)
+		user.visible_message("<span class='notice'>[user] assembles \a [GR].\
+			</span>", "<span class='notice'>You assemble \a [GR].</span>")
+		GR.add_fingerprint(user)
+		qdel(src)
+	building = FALSE
 
 /*
  * Rack destruction
