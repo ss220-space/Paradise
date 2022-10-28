@@ -2384,7 +2384,6 @@
 #include "code\modules\projectiles\projectile\magic.dm"
 #include "code\modules\projectiles\projectile\reusable.dm"
 #include "code\modules\projectiles\projectile\special.dm"
-#include "code\modules\projectiles\sibyl\energy.dm"
 #include "code\modules\projectiles\sibyl\sibyl_system_mod.dm"
 #include "code\modules\projectiles\sibyl\sibyl_weapons.dm"
 #include "code\modules\reagents\chem_splash.dm"
