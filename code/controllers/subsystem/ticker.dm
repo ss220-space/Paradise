@@ -324,6 +324,10 @@ SUBSYSTEM_DEF(ticker)
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
+				if(issilicon(M) && override == "AI malfunction")
+					if(M && M.client) //Skips the dusting if it's a malf doings
+						M.client.screen += cinematic
+					continue
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
