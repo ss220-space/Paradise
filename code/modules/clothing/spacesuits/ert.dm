@@ -56,9 +56,8 @@
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
 	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
-	jetpack = /obj/item/tank/jetpack/suit
 	strip_delay = 130
-	slowdown = 0
+	slowdown = 1
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
@@ -221,7 +220,6 @@
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
-	jetpack = null
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
@@ -246,6 +244,8 @@
 	icon_state = "hardsuit-inquisitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	slowdown = 0
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
 	name = "champion's helmet"
@@ -260,6 +260,8 @@
 	icon_state = "hardsuit-berserker"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	slowdown = 0
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 
 // Solgov
 
@@ -326,9 +328,8 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
-	jetpack = /obj/item/tank/jetpack/suit
 	strip_delay = 130
-	slowdown = 0
+	slowdown = 1
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 	sprite_sheets = list(
