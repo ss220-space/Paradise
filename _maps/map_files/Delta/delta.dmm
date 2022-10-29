@@ -9677,7 +9677,7 @@
 	},
 /area/crew_quarters/fitness)
 "aWY" = (
-/obj/structure/spirit_board,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "aXc" = (
