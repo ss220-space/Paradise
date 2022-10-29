@@ -442,18 +442,8 @@
 		R.module.rebuild()
 		return TRUE
 
-	if(!H)
-		if(H2)
-			return
-		else
-			to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
-			return 0
-	else if(!H2)
-		if(H)
-			return
-		else
-			to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
-			return 0
+	to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
+	return 0
 
 /obj/item/borg/upgrade/syndie_rcd
 	name = "Syndicate cyborg RCD upgrade"
