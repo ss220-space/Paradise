@@ -37,6 +37,8 @@
 	var/min_hours = 0 //Минимальное количество часов для игры на гост роли
 	var/exp_type = EXP_TYPE_LIVING
 	var/respawn_cooldown = 0
+	var/mob_use_prefs = FALSE
+	var/mob/plr = null
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -75,11 +77,13 @@
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
 		return
-	if(!species_prompt())
-		return
+	if(!use_prefs_prompt(user))
+		if(!species_prompt())
+			return
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
+	plr = user
 	if(id_job == null)
 		add_game_logs("[user.ckey] became [mob_name]", user)
 	else
@@ -101,6 +105,9 @@
 	if(!LAZYLEN(spawners))
 		GLOB.mob_spawners -= name
 	return ..()
+
+/obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user)
+	return
 
 /obj/effect/mob_spawn/proc/species_prompt()
 	return TRUE
@@ -159,6 +166,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
+	var/allow_prefs_prompt = FALSE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -205,6 +213,20 @@
 	if(!mob_name)
 		mob_name = id_job
 	return ..()
+	
+/obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
+	if(allow_prefs_prompt)
+		if(!(user.client))
+			return FALSE
+		for (var/C in GLOB.human_names_list)
+			var/char_name = user.client.prefs.real_name
+			if(char_name == C)
+				return FALSE
+		var/get_slot = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
+		if(get_slot == "Yes")
+			mob_use_prefs = TRUE
+			return TRUE
+	return FALSE
 
 /obj/effect/mob_spawn/human/species_prompt()
 	if(allow_species_pick)
@@ -214,9 +236,15 @@
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
 	return TRUE
+	
+/obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
+	if(H.client && mob_use_prefs)
+		H.client.prefs.copy_to(H)
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
-	if(mob_species)
+	if(mob_use_prefs)
+		plr.client?.prefs.copy_to(H)
+	else if(mob_species)
 		H.set_species(mob_species)
 
 	if(husk)
@@ -227,22 +255,23 @@
 	H.undershirt = "Nude"
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
-	if(istype(D))
-		if(hair_style)
-			D.h_style = hair_style
+	if(!mob_use_prefs)
+		if(istype(D))
+			if(hair_style)
+				D.h_style = hair_style
+			else
+				D.h_style = random_hair_style(gender, D.dna.species.name)
+			D.hair_colour = rand_hex_color()
+			if(facial_hair_style)
+				D.f_style = facial_hair_style
+			else
+				D.f_style = random_facial_hair_style(gender, D.dna.species.name)
+			D.facial_colour = rand_hex_color()
+		if(skin_tone)
+			H.change_skin_tone(skin_tone)
 		else
-			D.h_style = random_hair_style(gender, D.dna.species.name)
-		D.hair_colour = rand_hex_color()
-		if(facial_hair_style)
-			D.f_style = facial_hair_style
-		else
-			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
-		D.facial_colour = rand_hex_color()
-	if(skin_tone)
-		H.change_skin_tone(skin_tone)
-	else
-		H.change_skin_tone(random_skin_tone())
-		H.change_skin_color(rand_hex_color())
+			H.change_skin_tone(random_skin_tone())
+			H.change_skin_color(rand_hex_color())
 	H.update_hair()
 	H.update_fhair()
 	H.update_body()
