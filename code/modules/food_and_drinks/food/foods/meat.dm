@@ -51,7 +51,7 @@
 /obj/item/reagent_containers/food/snacks/meat/security
 	name = "security meat"
 	desc = "Мясо наполненное чувством мужества и долга."
-	list_reagents = list("morphine" = 5)
+	list_reagents = list("epinephrine" = 5)
 
 /obj/item/reagent_containers/food/snacks/meat/ham
 	name = "ham"
