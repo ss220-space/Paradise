@@ -9677,7 +9677,7 @@
 	},
 /area/crew_quarters/fitness)
 "aWY" = (
-/obj/structure/spirit_board,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "aXc" = (
@@ -17646,12 +17646,9 @@
 	},
 /area/security/processing)
 "bHQ" = (
-/obj/machinery/hologram/holopad{
-	pixel_y = 16
-	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "redfull"
 	},
 /area/security/processing)
 "bHS" = (
@@ -47464,7 +47461,12 @@
 	})
 "dUK" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy/donut_box{
+	pixel_x = -13;
+	pixel_y = 3
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "dUN" = (
@@ -52880,6 +52882,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -59359,6 +59364,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"gmO" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/security/processing)
 "gnf" = (
 /turf/simulated/wall,
 /area/crew_quarters/cabin2)
@@ -65582,12 +65592,6 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "hEK" = (
-/obj/machinery/door_control{
-	id = "brig_detprivacy";
-	name = "Detective Privacy Shutters Control";
-	pixel_x = null;
-	pixel_y = 22
-	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -66486,10 +66490,16 @@
 /obj/item/folder/blue,
 /obj/item/pen/multi/fountain,
 /obj/item/paper/safe_code{
-	owner = "captain"
+	owner = "captain";
+	pixel_x = -6;
+	pixel_y = -6
 	},
 /obj/item/paper/monitorkey,
 /obj/item/lighter/zippo/cap,
+/obj/item/paper/rnd_logs_key{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -117829,6 +117839,12 @@
 /area/maintenance/portsolar)
 "tcH" = (
 /obj/machinery/computer/secure_data,
+/obj/machinery/door_control{
+	id = "brig_detprivacy";
+	name = "Detective Privacy Shutters Control";
+	pixel_x = null;
+	pixel_y = 22
+	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "tcK" = (
@@ -123263,6 +123279,10 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/item/paper/monitorkey,
+/obj/item/paper/rnd_logs_key{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -134190,9 +134210,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/paper_bin,
-/obj/structure/table/wood,
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -134201,6 +134218,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/spirit_board,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "wBq" = (
@@ -192882,7 +192900,7 @@ dqH
 ubg
 efg
 rGx
-iGn
+gmO
 bHQ
 pjT
 glQ
