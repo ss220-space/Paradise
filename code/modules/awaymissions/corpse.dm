@@ -218,7 +218,7 @@
 	if(allow_prefs_prompt)
 		if(!(user.client))
 			return FALSE
-		for (var/C in GLOB.human_names_list)
+		for(var/C in GLOB.human_names_list)
 			var/char_name = user.client.prefs.real_name
 			if(char_name == C)
 				return FALSE
