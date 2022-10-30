@@ -480,7 +480,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/obj/item/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
-				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
+				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.update_materials_coeff(coeff)
 				if(being_built.locked)
 					var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(machine.loc)
