@@ -50609,7 +50609,7 @@
 	})
 "enm" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -56661,7 +56661,7 @@
 /area/turret_protected/ai)
 "fGz" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 1
