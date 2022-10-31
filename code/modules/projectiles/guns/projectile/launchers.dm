@@ -61,7 +61,7 @@
 	force = 10
 	can_suppress = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/genhit.ogg'
 	burst_size = 1
 	fire_delay = 0
 	select = 0
