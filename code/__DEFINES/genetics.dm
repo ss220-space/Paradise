@@ -73,6 +73,7 @@
 #define EATER			"matter_eater"
 #define JUMPY			"jumpy"
 #define POLYMORPH		"polymorph"
+#define SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
 //disabilities
 #define NEARSIGHTED		"nearsighted"
 #define EPILEPSY		"epilepsy"
@@ -155,3 +156,4 @@
 #define NO_HUNGER		"no_hunger"
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
+#define RUNIC_MIND		"runic_mind"

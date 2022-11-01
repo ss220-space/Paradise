@@ -18,8 +18,8 @@ var/list/chatResources = list(
 //Should match the value set in the browser js
 #define MAX_COOKIE_LENGTH 5
 
-/var/savefile/iconCache = new /savefile("data/iconCache.sav")
-/var/chatDebug = file("data/chatDebug.log")
+var/savefile/iconCache = new /savefile("data/iconCache.sav")
+var/chatDebug = file("data/chatDebug.log")
 
 /datum/chatOutput
 	var/client/owner = null
@@ -66,7 +66,7 @@ var/list/chatResources = list(
 
 	for(var/attempts in 1 to 5)
 		for(var/asset in global.chatResources)
-			owner << browse_rsc(file(asset))
+			owner << browse_rsc(wrap_file(asset))
 
 		for(var/subattempts in 1 to 3)
 			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
@@ -169,7 +169,7 @@ var/list/chatResources = list(
 	if(cookie != "none")
 		var/regex/crashy_thingy = new /regex("(\\\[ *){5}")
 		if(crashy_thingy.Find(cookie))
-			message_admins("[key_name(src.owner)] tried to crash the server using malformed JSON")
+			message_admins("[ADMIN_LOOKUPFLW(src.owner)] tried to crash the server using malformed JSON")
 			log_admin("[key_name(owner)] tried to crash the server using malformed JSON")
 			return
 		var/list/connData = json_decode(cookie)
@@ -177,7 +177,7 @@ var/list/chatResources = list(
 			connectionHistory = connData["connData"]
 			var/list/found = new()
 			if(connectionHistory.len > MAX_COOKIE_LENGTH)
-				message_admins("[key_name(src.owner)] was kicked for an invalid ban cookie)")
+				message_admins("[ADMIN_LOOKUPFLW(src.owner)] was kicked for an invalid ban cookie)")
 				qdel(owner)
 				return
 			for(var/i = connectionHistory.len; i >= 1; i--)
@@ -194,7 +194,7 @@ var/list/chatResources = list(
 			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				message_admins("[ADMIN_LOOKUPFLW(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
 	cookieSent = 1
@@ -235,7 +235,7 @@ var/list/chatResources = list(
 	chatOutput.ehjax_send(data = list("firebug" = 1))
 
 
-/var/list/bicon_cache = list()
+var/list/bicon_cache = list()
 
 //Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
 // exporting it as text, and then parsing the base64 from that.

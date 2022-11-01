@@ -289,7 +289,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || iscogscarab(A) || isclocker(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -305,6 +305,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled == 1)
+			continue
+		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
 			continue
 		. += A
 	return .
@@ -984,10 +986,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
-
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -2055,3 +2053,28 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 
 	return contains(location.loc)
+
+/**
+  * Returns the clean name of an audio channel.
+  *
+  * Arguments:
+  * * channel - The channel number.
+  */
+/proc/get_channel_name(channel)
+	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
+		if(CHANNEL_LOBBYMUSIC)
+			return "Lobby Music"
+		if(CHANNEL_ADMIN)
+			return "Admin MIDIs"
+		if(CHANNEL_VOX)
+			return "AI Announcements"
+		if(CHANNEL_JUKEBOX)
+			return "Dance Machines"
+		if(CHANNEL_HEARTBEAT)
+			return "Heartbeat"
+		if(CHANNEL_BUZZ)
+			return "White Noise"
+		if(CHANNEL_AMBIENCE)
+			return "Ambience"

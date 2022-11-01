@@ -2,6 +2,7 @@
 #define AB_CHECK_STUNNED 2
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
+#define AB_TRANSFER_MIND 16
 
 
 /datum/action
@@ -127,6 +128,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+	var/action_initialisation_text = null	//Space ninja abilities only
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
@@ -167,6 +169,7 @@
 			I.appearance_flags = old_appearance_flags
 	else
 		..()
+
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
@@ -215,6 +218,18 @@
 			if(target == C.internal)
 				button.icon = 'icons/mob/actions/actions.dmi'
 				button.icon_state = "bg_default_on"
+
+/datum/action/item_action/set_internals_ninja
+	name = "Set Internals"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+
+/datum/action/item_action/set_internals_ninja/UpdateButtonIcon()
+	if(..()) //button available
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			if(target == C.internal)
+				button.icon_state = "[background_icon_state]_active"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
@@ -301,6 +316,18 @@
 	name = "Zip/Unzip [target.name]"
 	button.name = name
 
+/datum/action/item_action/activate
+
+/datum/action/item_action/activate/New(Target)
+	..()
+	name = "Activate [target.name]"
+	button.name = name
+
+/datum/action/item_action/activate/enchant
+
+/datum/action/item_action/activate/enchant/New(Target)
+	..()
+	UpdateButtonIcon()
 /datum/action/item_action/halt
 	name = "HALT!"
 
@@ -369,6 +396,32 @@
 	if(!istype(J) || !J.on)
 		return FALSE
 	return ..()
+
+/datum/action/item_action/toggle_jetpack/ninja
+	name = "Toggle Jetpack"
+
+/datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
+	return
+
+/datum/action/item_action/toggle_jetpack/ninja/UpdateButtonIcon()
+	. = ..()
+	var/obj/item/tank/jetpack/J = target
+	if(!istype(J) || !J.on)
+		button.icon_state = "[background_icon_state]"
+	else
+		button.icon_state = "[background_icon_state]_active"
+
+/datum/action/item_action/jetpack_stabilization/ninja
+	name = "Toggle Jetpack Stabilization"
+
+/datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
+	. = ..()
+	var/obj/item/tank/jetpack/J = target
+	if(!istype(J) || !J.stabilizers)
+		button.icon_state = "[background_icon_state]"
+	else
+		button.icon_state = "[background_icon_state]_active"
+
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
@@ -478,6 +531,8 @@
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
+/datum/action/item_action/accessory/petcollar
+	name = "Remove ID"
 
 //Preset for spells
 /datum/action/spell_action

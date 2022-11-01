@@ -68,6 +68,7 @@
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		overlays += image('icons/obj/storage.dmi', icon_sparking)
 		sleep(6)
@@ -77,13 +78,16 @@
 		if(istype(weapon, /obj/item/melee/energy/blade))
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
-			playsound(loc, "sparks", 50, 1)
+			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			to_chat(user, "You slice through the lock on [src].")
 		else
 			to_chat(user, "You short out the lock on [src].")
 		return
 
-/obj/item/storage/secure/AltClick(mob/user)
+/obj/item/storage/secure/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return ..()
 	if(!try_to_open())
 		return FALSE
 	return ..()

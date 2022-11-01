@@ -19,7 +19,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
-	species_restricted = list("exclude","Wryn")
+	species_restricted = list("exclude","Wryn", "lesser form")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -96,22 +96,13 @@
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75)
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
-	var/taser_proof = FALSE
-	var/shielded = FALSE
-	var/current_charges = 3
-	var/max_charges = 3 //How many charges total the shielding has
-	var/recharge_delay = 200 //How long after we've been shot before we can start recharging. 20 seconds here
-	var/recharge_cooldown = 0 //Time since we've last been shot
-	var/recharge_rate = 1 //How quickly the shield recharges once it starts charging
-	var/shield_state = "shield-old"
-	var/shield_on = "shield-old"
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
-	species_restricted = list("exclude", "Wryn")
+	species_restricted = list("exclude", "Wryn", "lesser form")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
@@ -151,30 +142,6 @@
 			jetpack = I
 			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
-	if(istype(I, /obj/item/taser_proof_upgrade))
-		if(taser_proof)
-			to_chat(user, "<span class='warning'>[src] already has a taser proof.</span>")
-			return
-		if(src == user.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
-			return
-		if(user.unEquip(I))
-			I.forceMove(src)
-			taser_proof = TRUE
-			to_chat(user, "<span class='notice'>You successfully install the taser proof upgrade into [src].</span>")
-			return
-	if(istype(I, /obj/item/hardsuit_shield_upgrade))
-		if(shielded)
-			to_chat(user, "<span class='warning'>[src] already has a shield installed.</span>")
-			return
-		if(src == user.get_item_by_slot(slot_wear_suit))
-			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
-			return
-		if(user.unEquip(I))
-			I.forceMove(src)
-			shielded = TRUE
-			to_chat(user, "<span class='notice'>You successfully install the shield upgrade into [src].</span>")
-			return
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/screwdriver_act(mob/user, obj/item/I)
@@ -210,52 +177,6 @@
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
 	if(slot == slot_wear_suit) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
-
-/obj/item/clothing/suit/space/hardsuit/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(shielded)
-		recharge_cooldown = world.time + recharge_delay
-		if(current_charges > 0)
-			do_sparks(2, 1, src)
-			owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
-			current_charges--
-			if(recharge_rate)
-				START_PROCESSING(SSobj, src)
-			if(current_charges <= 0)
-				owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
-				shield_state = "broken"
-				owner.update_inv_wear_suit()
-			return 1
-		return 0
-	if(taser_proof)								//Если костюм обладает защитой от слабых снарядов, то...
-		if(!suittoggled)						//Если костюм выключен, то проверка не пройдена
-			return 0
-		var/obj/item/projectile/P = hitby
-		if(P.shockbull)							//Если у снаряда есть shockbull = TRUE, то костюм поглотил энергию снаряда
-			return 1
-		return 0
-	. = ..()
-
-/obj/item/clothing/suit/space/hardsuit/Destroy()
-	if(shielded)
-		STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/clothing/suit/space/hardsuit/process()
-	if(shielded)
-		if(world.time > recharge_cooldown && current_charges < max_charges)
-			current_charges = clamp((current_charges + recharge_rate), 0, max_charges)
-			playsound(loc, 'sound/magic/charge.ogg', 50, TRUE)
-			if(current_charges == max_charges)
-				playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-				STOP_PROCESSING(SSobj, src)
-			shield_state = "[shield_on]"
-			if(ishuman(loc))
-				var/mob/living/carbon/human/C = loc
-				C.update_inv_wear_suit()
-
-/obj/item/clothing/suit/space/hardsuit/special_overlays()
-	if(shielded)
-		return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 //Engineering hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine
@@ -555,6 +476,19 @@
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 	item_color = "sec"
 
+/obj/item/clothing/head/helmet/space/hardsuit/security/warden
+	name = "warden's hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+	icon_state = "hardsuit0-warden"
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 30,"energy" = 20, "bomb" = 15, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 85)
+	item_color = "warden"
+
+/obj/item/clothing/suit/space/hardsuit/security/warden
+	name = "warden's hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+	icon_state = "hardsuit-warden"
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 30,"energy" = 20, "bomb" = 15, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 85)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/warden
 
 /obj/item/clothing/suit/space/hardsuit/security
 	name = "security hardsuit"
@@ -674,62 +608,6 @@
 	flags = STOPSPRESSUREDMAGE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
-
-
-/////////////SHIELDED//////////////////////////////////
-
-/obj/item/clothing/suit/space/hardsuit/shielded
-	name = "shielded hardsuit"
-	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
-	shielded = TRUE
-	current_charges = 3
-
-//////Syndicate Version
-
-/obj/item/clothing/suit/space/hardsuit/syndi/shielded
-	desc = "An advanced hardsuit with built in energy shielding and jetpack."
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
-	jetpack = /obj/item/tank/jetpack/suit
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 20, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
-	shielded = TRUE
-	current_charges = 3
-
-/obj/item/clothing/suit/space/hardsuit/syndi/shielded/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(shield_state == "broken")
-		to_chat(user, "<span class='warning'>You can't interface with the hardsuit's software if the shield's broken!</span>")
-		return
-
-	if(shield_state == "shield-red")
-		shield_state = "shield-old"
-		shield_on = "shield-old"
-		to_chat(user, "<span class='warning'>You roll back the hardsuit's software, changing the shield's color!</span>")
-
-	else
-		shield_state = "shield-red"
-		shield_on = "shield-red"
-		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
-	user.update_inv_wear_suit()
-
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
-	desc = "An advanced hardsuit helmet with built in energy shielding."
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 20, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
-
-//////Upgrades for hardsuits
-
-/obj/item/taser_proof_upgrade
-	name = "Набор улучшения ТПРГ-1"
-	desc = "Данное улучшение позволяет хардсьюту поглащать слабые энергетические снаряды."
-	icon = 'icons/obj/hardsuits_modules.dmi'
-	icon_state = "powersink"
-
-/obj/item/hardsuit_shield_upgrade
-	name = "Hardsuit Shield Upgrade module"
-	desc = "This upgrade grants shields to any hardsuit."
-	icon = 'icons/obj/hardsuits_modules.dmi'
-	icon_state = "powersink"
 
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm

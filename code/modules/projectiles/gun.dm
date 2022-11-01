@@ -35,6 +35,7 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
+	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 
 	var/spread = 0
 	var/randomspread = 1
@@ -73,6 +74,7 @@
 
 /obj/item/gun/New()
 	..()
+	appearance_flags |= KEEP_TOGETHER
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
@@ -119,12 +121,12 @@
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
-		playsound(user, fire_sound, 10, 1)
+		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 	else
-		playsound(user, fire_sound, 50, 1)
+		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
 				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")

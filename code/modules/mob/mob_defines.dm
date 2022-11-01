@@ -34,8 +34,6 @@
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
-	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
 
@@ -121,6 +119,8 @@
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()

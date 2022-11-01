@@ -147,6 +147,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
+	if(B?.clock || isclocker(B?.brainmob))
+		laws = new /datum/ai_laws/ratvar
+		overlays += "clockwork_frame"
 	if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
@@ -637,6 +640,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
+/mob/living/silicon/ai/ratvar_act()
+	if(isclocker(src))
+		return
+	SSticker.mode.add_clocker(mind)
+	laws = new /datum/ai_laws/ratvar
+	overlays += "clockwork_frame"
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
+		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
+		R.ratvar_act(TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)
@@ -714,8 +727,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			mech_has_controlbeacon = TRUE
 			break
 		if(!can_dominate_mechs && !mech_has_controlbeacon)
-			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
-			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			log_debug("Warning: possible href exploit by [key_name_log(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
 		if(controlled_mech)
@@ -985,8 +998,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in personnel_list
@@ -1235,6 +1248,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
+		drop_hat()
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.

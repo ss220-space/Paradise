@@ -49,7 +49,10 @@
 
 /obj/item/stock_parts/cell/process()
 	if(self_recharge)
-		give(chargerate * 0.25)
+		if(locate(/obj/item/clockwork/integration_cog) in loc)
+			return
+		else
+			give(chargerate * 0.25)
 	else
 		return PROCESS_KILL
 
@@ -133,7 +136,7 @@
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 
-	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range, cause = src)
 	qdel(src)
 
 /obj/item/stock_parts/cell/proc/corrupt()

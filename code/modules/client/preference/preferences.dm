@@ -155,6 +155,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/job_karma_med = 0
 	var/job_karma_low = 0
 
+	//Special role pref
+	var/uplink_pref = "pda"
+
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
 
@@ -184,8 +187,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/slot_name = ""
 	var/saved = FALSE // Indicates whether the character comes from the database or not
 
-	// jukebox volume
-	var/volume = 100
+	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
+	var/list/volume_mixer = list(
+		"1016" = 100, // CHANNEL_GENERAL
+		"1024" = 100, // CHANNEL_LOBBYMUSIC
+		"1023" = 100, // CHANNEL_ADMIN
+		"1022" = 100, // CHANNEL_VOX
+		"1021" = 100, // CHANNEL_JUKEBOX
+		"1020" = 100, // CHANNEL_HEARTBEAT
+		"1019" = 100, // CHANNEL_BUZZ
+		"1018" = 100, // CHANNEL_AMBIENCE
+	)
+	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
+	var/volume_mixer_saving = null
 
 	// BYOND membership
 	var/unlock_content = 0
@@ -352,6 +366,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
+
+			dat += "<h2>Special Role</h2>"
+			dat += "<b>Uplink Location:</b> <a href='?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
@@ -1798,6 +1815,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						msg = html_encode(msg)
 
 						flavor_text = msg
+
+				if("uplink_pref")
+					var/new_uplink_pref = input(user, "Choose your preferred uplink location:", "Character Preference") as null|anything in list("pda", "headset")
+					if(new_uplink_pref)
+						uplink_pref = new_uplink_pref
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")

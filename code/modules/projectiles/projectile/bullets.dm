@@ -123,10 +123,10 @@
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
- 	explosion(target, 0, 0, 2)
+ 	explosion(target, 0, 0, 2, cause = src)
 
 /obj/item/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2)
+ 	explosion(src, 0, 0, 2, cause = src)
  	do_sparks(3, 3, src)
  	..()
 
@@ -250,6 +250,7 @@
 		if(blocked != 100)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
+				reagents.reaction(M, REAGENT_INGEST)
 				reagents.trans_to(M, reagents.total_volume)
 				return 1
 			else

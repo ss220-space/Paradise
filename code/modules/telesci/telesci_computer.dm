@@ -225,7 +225,7 @@
 				dest = target
 
 			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 50, TRUE)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through
 				if(ROI.anchored)
@@ -267,7 +267,6 @@
 			else
 				log_msg += "nothing"
 			log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
-			investigate_log(log_msg, "telesci")
 			updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/teleport(mob/user)

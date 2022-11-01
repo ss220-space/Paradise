@@ -20,10 +20,10 @@
 				M.AdjustConfused(20)
 				M.Jitter(50)
 			else
-				M << sound('sound/effects/screech.ogg')
+				SEND_SOUND(M, sound('sound/effects/screech.ogg'))
 
 		if(issilicon(M))
-			M << sound('sound/weapons/flash.ogg')
+			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
 			M.Weaken(rand(5,10))
 
 	for(var/obj/machinery/light/L in range(4, user))
@@ -45,5 +45,5 @@
 	for(var/obj/machinery/light/L in range(5, usr))
 		L.on = 1
 		L.break_light_tube()
-	empulse(get_turf(user), 2, 4, 1)
+	empulse(get_turf(user), 2, 4, TRUE, "Changeling Shriek")
 	return 1

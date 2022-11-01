@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/standing = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
+	var/mutable_appearance/standing = mutable_appearance(genetic_mutable, layer = -MUTATIONS_LAYER)
 	var/add_image = 0
 	var/g = "m"
 	if(gender == FEMALE)
@@ -657,6 +657,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
 			bloodsies.color = hand_blood_color
 			overlays_standing[GLOVES_LAYER]	= bloodsies
+		else if(HAS_TRAIT(src, CLOCK_HANDS))
+			var/mutable_appearance/flashies = mutable_appearance(dna.species.blood_mask, "clockedhands", layer = -GLOVES_LAYER)
+			flashies.color = CLOCK_COLOR
+			overlays_standing[GLOVES_LAYER]	= flashies
 	apply_overlay(GLOVES_LAYER)
 
 
@@ -984,14 +988,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				neck.screen_loc = ui_neck
 			client.screen += neck
 
+		var/mutable_appearance/standing
 		if(neck.icon_override)
-			overlays_standing[NECK_LAYER] = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
+			standing = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
 		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.name])
-			overlays_standing[NECK_LAYER] = mutable_appearance(neck.sprite_sheets[dna.species.name], "[neck.icon_state]", layer = -NECK_LAYER)
+			standing = mutable_appearance(neck.sprite_sheets[dna.species.name], "[neck.icon_state]", layer = -NECK_LAYER)
 		else
-			overlays_standing[NECK_LAYER] = mutable_appearance('icons/mob/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
-	 overlays_standing[NECK_LAYER]?.alpha = neck.alpha
-	 overlays_standing[NECK_LAYER]?.color = neck.color
+			standing = mutable_appearance('icons/mob/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
+		standing.alpha = neck.alpha
+		standing.color = neck.color
+		overlays_standing[NECK_LAYER] = standing
 	apply_overlay(NECK_LAYER)
 
 /mob/living/carbon/human/update_inv_back()
@@ -1018,6 +1024,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
 			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "pinkcuff1", layer = -HANDCUFF_LAYER)
+		else if(istype(handcuffed, /obj/item/restraints/handcuffs/manacles))
+			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/obj/ninjaobjects.dmi', "manacle_hands", layer = -HANDCUFF_LAYER)
 		else
 			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
 	apply_overlay(HANDCUFF_LAYER)
@@ -1112,11 +1120,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(bodypart_tail.m_colours["tail"], ICON_ADD)
 
+
 	if(bodypart_tail.body_accessory)
 		if(bodypart_tail.body_accessory.try_restrictions(src))
 			var/icon/accessory_s = new/icon("icon" = bodypart_tail.body_accessory.icon, "icon_state" = bodypart_tail.body_accessory.icon_state)
 			if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
-				accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
+				if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+					accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
 			if(tail_marking_icon && (bodypart_tail.body_accessory.name in tail_marking_style.tails_allowed))
 				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1155,8 +1165,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_s")
+			switch(tail)
+				if("voxtail_azu") //Azure Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_azu_s")
+				if("voxtail_emrl") //Emerald Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_emrl_s")
+				if("voxtail_gry") //Grey Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_gry_s")
+				if("voxtail_brn") //Brown Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_brn_s")
+				if("voxtail_dgrn") //Dark Green Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_dgrn_s")
+				else  //Default behaviour
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_s")
 			if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
-				tail_s.Blend(bodypart_tail.s_col, ICON_ADD)
+				if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+					tail_s.Blend(bodypart_tail.s_col, ICON_ADD)
 			if(tail_marking_icon && !tail_marking_style.tails_allowed)
 				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1206,7 +1230,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(bodypart_tail.body_accessory)
 		var/icon/accessory_s = new/icon("icon" = bodypart_tail.body_accessory.get_animated_icon(), "icon_state" = bodypart_tail.body_accessory.get_animated_icon_state())
 		if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
-			accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
+			if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+				accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
 		if(tail_marking_icon && (bodypart_tail.body_accessory.name in tail_marking_style.tails_allowed))
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1237,8 +1262,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	else
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]w_s")
+		switch(tail)
+			if("voxtail_azu") //Azure Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_azuw_s")
+			if("voxtail_emrl") //Emerald Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_emrlw_s")
+			if("voxtail_gry") //Grey Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_gryw_s")
+			if("voxtail_brn") //Brown Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_brnw_s")
+			if("voxtail_dgrn") //Dark Green Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_dgrnw_s")
+			else  //Default behaviour
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]w_s")
 		if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
-			tailw_s.Blend(bodypart_tail.s_col, ICON_ADD)
+			if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+				tailw_s.Blend(bodypart_tail.s_col, ICON_ADD)
 		if(tail_marking_icon && !tail_marking_style.tails_allowed)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1327,6 +1366,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(iscultist(src) && SSticker.mode.cult_ascendant)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		new_halo_overlay.appearance_flags |= RESET_TRANSFORM
+		overlays_standing[HALO_LAYER] = new_halo_overlay
+	else if(isclocker(src) && SSticker.mode.crew_reveal)
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', "haloclock", -HALO_LAYER)
+		new_halo_overlay.appearance_flags |= RESET_TRANSFORM
 		overlays_standing[HALO_LAYER] = new_halo_overlay
 
 	apply_overlay(HALO_LAYER)

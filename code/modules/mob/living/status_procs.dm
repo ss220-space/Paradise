@@ -65,6 +65,8 @@
 			Your character cannot enunciate clearly.
 	*	CultSlurring			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
+	*	ClockSlurring			*
+			Your character cannot enunciate clearly while ciphering messages on eldritch code.
 	*	Stunned					*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
@@ -107,6 +109,7 @@
 /mob // On `/mob` for now, to support legacy code
 	var/confused = 0
 	var/cultslurring = 0
+	var/clockslurring = 0
 	var/dizziness = 0
 	var/drowsyness = 0
 	var/druggy = 0
@@ -367,8 +370,10 @@
 
 	if(slurring && drunk)
 		throw_alert("drunk", /obj/screen/alert/drunk)
+		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
 	else
 		clear_alert("drunk")
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
@@ -385,6 +390,18 @@
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
 	SetCultSlur(new_value)
+
+// CLOCKSLURRING
+
+/mob/living/ClockSlur(amount)
+	SetClockSlur(max(clockslurring, amount))
+
+/mob/living/SetClockSlur(amount)
+	clockslurring = max(amount, 0)
+
+/mob/living/AdjustClockSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+	var/new_value = directional_bounded_sum(clockslurring, amount, bound_lower, bound_upper)
+	SetClockSlur(new_value)
 
 // STUN
 

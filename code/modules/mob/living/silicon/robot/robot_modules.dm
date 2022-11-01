@@ -90,6 +90,9 @@
 		else if(istype(S, /obj/item/stack/tile/wood/cyborg))
 			S.cost = 1
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
+		else if(istype(S, /obj/item/stack/sheet/brass/cyborg))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
 
 /obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
@@ -587,12 +590,15 @@
 		/datum/action/innate/robot_sight/thermal/alien,
 	)
 
+/obj/item/robot_module/alien/hunter/add_default_robot_items()
+	return
+
 /obj/item/robot_module/alien/hunter/New()
 	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
-	S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
+	S.reagents.add_reagent("cryogenic_liquid",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S
 	var/obj/item/reagent_containers/spray/alien/smoke/A = new /obj/item/reagent_containers/spray/alien/smoke(src)
 	S.reagents.add_reagent("water",50) //Water is used as a dummy reagent for the smoke bombs. More of an ammo counter.
@@ -648,11 +654,127 @@
 	C.reagents.add_reagent("cleaner", 3)
 	..()
 
-
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/cogscarab
+	name = "cogscarab module"
+	module_type = "Cogscarab"
+
+/obj/item/robot_module/cogscarab/Initialize()
+	. = ..()
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/brass(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = null
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/cogscarab/add_default_robot_items()
+	return
+
+/obj/item/robot_module/cogscarab/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	G?.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/clockwork
+	name = "Ratvar module"
+	module_type = "Cogscarab" //icon_state
+
+/obj/item/robot_module/clockwork/Initialize()
+	. = ..()
+	modules += new /obj/item/clockwork/clockslab(src)
+	modules += new /obj/item/clock_borg_spear(src)
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/brass(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = new /obj/item/toy/carpplushie/gold(src)
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/clockwork/add_default_robot_items()
+	return
+
+/obj/item/robot_module/clockwork/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	G?.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/ninja
+	name = "service robot module"  //to disguise in examine
+	module_type = "ninja"
+
+/obj/item/robot_module/ninja/New()
+	..()
+	// Ниндзя штучки
+	modules += new /obj/item/gun/energy/shuriken_emitter/borg(src)
+	modules += new /obj/item/melee/energy_katana/borg(src)
+	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
+	// Инструменты
+	modules += new /obj/item/rcd/borg/syndicate(src)
+	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	// Наручники
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	// Мед. инструменты
+	modules += new /obj/item/scalpel/laser/laser1(src)
+	modules += new /obj/item/hemostat(src)
+	modules += new /obj/item/retractor(src)
+	modules += new /obj/item/bonegel(src)
+	modules += new /obj/item/FixOVein(src)
+	modules += new /obj/item/bonesetter(src)
+	modules += new /obj/item/circular_saw(src)
+	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
+	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
+	modules += new /obj/item/roller_holder(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+
+	var/obj/item/borg_chameleon/cham_proj = new /obj/item/borg_chameleon(src)
+	cham_proj.disguise = "maximillion"
+	modules += cham_proj
+	emag = null
+	fix_modules()
+	handle_storages()
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
@@ -701,6 +823,12 @@
 	max_energy = 50
 	recharge_rate = 2
 	name = "Wire Storage"
+
+/datum/robot_energy_storage/brass
+	max_energy = 10
+	recharge_rate = 0
+	energy = 1
+	name = "Brass Storage"
 
 /datum/robot_energy_storage/medical
 	max_energy = 12

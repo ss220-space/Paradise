@@ -92,7 +92,7 @@
 		if("deactivate")
 			if(emag)
 				visible_message("BFL software update, please wait.<br> 99% complete")
-				playsound(src, 'sound/BFL/prank.ogg', 100, 1, falloff = 1)
+				playsound(src, 'sound/BFL/prank.ogg', 100, TRUE)
 			else
 				emitter_deactivate()
 				deactivate_time = world.time
@@ -112,11 +112,12 @@
 
 
 
-/obj/machinery/power/bfl_emitter/emag_act()
+/obj/machinery/power/bfl_emitter/emag_act(mob/user)
 	. = ..()
 	if(!emag)
+		add_attack_logs(user, src, "emagged")
 		emag = TRUE
-		to_chat(usr, "Emitter successfully sabotaged")
+		to_chat(user, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
@@ -181,7 +182,7 @@
 /obj/machinery/power/bfl_emitter/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
-		playsound(src, 'sound/BFL/emitter.ogg', 100, 1, falloff = 1)
+		playsound(src, 'sound/BFL/emitter.ogg', 100, TRUE)
 		sleep(25)
 
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
@@ -191,7 +192,7 @@
 	.=..()
 	pixel_x = -32
 	pixel_y = 0
-	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
 
 	var/list/occupied = list()
 	for(var/direction in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
@@ -309,7 +310,7 @@
 	//it just works ¯\_(ツ)_/¯
 	internal = new internal_type(src)
 	receiver_light = new (loc)
-	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
 
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
@@ -401,7 +402,7 @@
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
-		playsound(src, 'sound/BFL/receiver.ogg', 100, 1, falloff = 1)
+		playsound(src, 'sound/BFL/receiver.ogg', 100, TRUE)
 		sleep(25)
 
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)

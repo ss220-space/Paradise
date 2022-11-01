@@ -64,6 +64,9 @@
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
+	///Sounds to override barefeet walking
+	var/list/special_step_sounds
+
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/list/species_traits = list()
@@ -229,8 +232,6 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	if(H.status_flags & IGNORE_SPEED_CHANGES)
-		return .
 
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
@@ -245,6 +246,9 @@
 		var/flight = H.flying	//Check for flight and flying items
 
 		ADD_SLOWDOWN(speed_mod)
+
+		if(H.status_flags & IGNORE_SPEED_CHANGES)
+			return .
 
 		if(H.wear_suit)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
@@ -440,7 +444,7 @@
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 			return FALSE
-		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+		add_attack_logs(user, target, "Melee attacked with fists")
 
 		if(!iscarbon(user))
 			target.LAssailant = null

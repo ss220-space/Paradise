@@ -296,6 +296,37 @@
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
+/datum/reagent/medicine/ab_stimulant
+	name = "Anti-burn Stimulant"
+	id = "antiburn_stimulant"
+	description = "Стимулятор регенеративных способностей клеток, способный излечить обугленную кожу в кратчайшие сроки."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1
+	overdose_threshold = 3
+	color = "#fab9b9"
+	taste_description = "bitterness"
+
+/datum/reagent/medicine/ab_stimulant/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	to_chat(M, "<span class='notice'>Вы чуствуете чесотку.</span>")
+	update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(volume > 1.9)
+		if((HUSK) in M.mutations)
+			var/mob/living/carbon/human/H = M
+			H.cure_husk()
+			to_chat(M, "<span class='warning'>Ваша обугленная кожа отпадает!</span>")
+	return ..() | update_flags
+
+/datum/reagent/medicine/ab_stimulant/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	to_chat(M, "<span class='warning'>Ваша кожа лопается!</span>")
+	M.adjustBruteLoss(4)
+	M.adjustFireLoss(-6)
+	if(prob(25) && !((NO_BLOOD) in M.mutations))
+		var/mob/living/carbon/human/H = M
+		H.bleed(20)
+	return ..() | update_flags
+
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
 	id = "charcoal"
@@ -632,11 +663,6 @@
 					ears.deaf = 0
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 		update_flags |= M.AdjustEarDamage(-1)
-	if(prob(50))
-		update_flags |= M.CureNearsighted(FALSE)
-	if(prob(30))
-		update_flags |= M.CureBlind(FALSE)
-		update_flags |= M.SetEyeBlind(0, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
@@ -761,6 +787,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					add_attack_logs(M, M, "delay gib by [name]")
 					M.delayed_gib()
 					return
 				if(!M.ghost_can_reenter())
@@ -1212,6 +1239,7 @@
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
+	M.last_hallucinator_log = "[name] overdose"
 	update_flags |= M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 

@@ -361,6 +361,8 @@
 		qdel(src)
 
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(height==0)
 		return 1
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
@@ -386,6 +388,11 @@
 /obj/structure/girder/narsie_act()
 	if(prob(25))
 		new /obj/structure/girder/cult(loc)
+		qdel(src)
+
+/obj/structure/girder/ratvar_act()
+	if(prob(25))
+		new /obj/structure/clockwork/wall_gear(loc)
 		qdel(src)
 
 /obj/structure/girder/displaced

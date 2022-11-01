@@ -12,6 +12,14 @@
 	density = 1
 	blocks_air = 1
 
+/turf/simulated/shuttle/wall/Initialize()
+	..()
+	var/obj/O
+	O = new()
+	O.underlays.Add(src)
+	underlays = O.underlays
+	qdel(O)
+
 /turf/simulated/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_DELETE_MODE)//No pipes on shuttles
 		our_rpd.delete_all_pipes(user, src)
@@ -20,8 +28,23 @@
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
+/turf/simulated/shuttle/ratvar_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/floor/clockwork)
+
 //sub-type to be used for interior shuttle walls
 //won't get an underlay of the destination turf on shuttle move
+/turf/simulated/shuttle/wall/interior
+	var/underlay_floor_icon = null
+	var/underlay_floor_icon_state = null
+
+/turf/simulated/shuttle/wall/interior/Initialize()
+	..()
+	if(underlay_floor_icon && underlay_floor_icon_state)
+		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state)
+		underlays.Cut()
+		underlays.Add(floor_underlay)
+
 /turf/simulated/shuttle/wall/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
@@ -52,27 +75,47 @@
 /turf/simulated/shuttle/floor
 	name = "floor"
 	icon_state = "floor"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/plating1.ogg','sound/effects/footstep/plating2.ogg','sound/effects/footstep/plating3.ogg','sound/effects/footstep/plating4.ogg','sound/effects/footstep/plating5.ogg'),
-	"xeno"  = list('sound/effects/footstep/plating1.ogg','sound/effects/footstep/plating2.ogg','sound/effects/footstep/plating3.ogg','sound/effects/footstep/plating4.ogg','sound/effects/footstep/plating5.ogg')
-	)
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/shuttle/plating
 	name = "plating"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/plating_human.ogg'),
-	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
-	)
+	footstep = FOOTSTEP_PLATING
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
+/turf/simulated/shuttle/floor/transparent_floor
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "transparent"
+
+/turf/simulated/shuttle/floor/transparent_floor/Initialize()
+	..()
+	var/obj/O
+	O = new()
+	O.underlays.Add(src)
+	underlays = O.underlays
+	qdel(O)
+
+/turf/simulated/shuttle/floor/transparent_floor/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform
+
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
 	name = "brig floor"        // Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/shuttle/floor4/vox	//Vox skipjack floors
 	name = "skipjack floor"

@@ -27,6 +27,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 ///////////////Sword and shield////////////
 
@@ -314,7 +315,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = 1

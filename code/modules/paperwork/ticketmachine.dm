@@ -34,6 +34,7 @@
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
 	if(emagged)
 		return
+	add_attack_logs(user, src, "emagged")
 	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
@@ -136,8 +137,8 @@
 			max_number = initial(max_number)
 			update_icon()
 			return
-	else if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/heldID = I
+	else if(I.GetID())
+		var/obj/item/card/id/heldID = I.GetID()
 		if(ACCESS_HOP in heldID.access)
 			dispense_enabled = !dispense_enabled
 			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")

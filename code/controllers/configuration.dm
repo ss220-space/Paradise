@@ -24,6 +24,7 @@
 	var/log_whisper = 0					// log client whisper
 	var/log_emote = 0					// log emotes
 	var/log_attack = 0					// log attack messages
+	var/log_conversion = 0				// log conversion mob
 	var/log_adminchat = 0				// log admin chat messages
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
@@ -253,6 +254,9 @@
 	//cube monkey limit
 	var/cubemonkeycap = 20
 
+	//Can cult convert or not
+	var/can_cult_convert = TRUE
+
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
@@ -315,8 +319,7 @@
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Config reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		log_and_message_admins("attempted to reload configuration via advanced proc-call")
 		return
 	var/list/Lines = file2list(filename)
 
@@ -439,6 +442,9 @@
 
 				if("log_attack")
 					config.log_attack = 1
+
+				if("log_conversion")
+					config.log_conversion = 1
 
 				if("log_emote")
 					config.log_emote = 1
@@ -916,14 +922,15 @@
 					config.lavaland_budget = text2num(value)
 				if("cubemonkey_cap")
 					config.cubemonkeycap = text2num(value)
+				if("can_cult_convert")
+					config.can_cult_convert = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		log_and_message_admins("attempted to reload SQL configuration via advanced proc-call")
 		return
 	var/list/Lines = file2list(filename)
 	for(var/t in Lines)

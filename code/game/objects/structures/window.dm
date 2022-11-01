@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 					M.apply_damage(20)
 					take_damage(50)
 				if(4)
-					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
+					M.visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(30)
 					take_damage(75)
@@ -648,6 +648,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
+/obj/structure/window/full/paperframe
+	name = "Paperframe Window"
+	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
+	icon = 'icons/obj/smooth_structures/paperframe.dmi'
+	icon_state = "paperframe"
+	max_integrity = 50
+	smooth = SMOOTH_TRUE
+	cancolor = FALSE
+	canSmoothWith = list(/obj/structure/window/full/paperframe)
+
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
@@ -740,7 +750,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
-	glass_type = /obj/item/stack/tile/brass
+	glass_type = /obj/item/stack/sheet/brass
 	reinf = FALSE
 	cancolor = FALSE
 	var/made_glow = FALSE
@@ -752,9 +762,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	QDEL_LIST(debris)
 	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-		debris += new/obj/item/stack/tile/brass(src, 2)
+		debris += new/obj/item/stack/sheet/brass(src, 2)
 	else
-		debris += new/obj/item/stack/tile/brass(src, 1)
+		debris += new/obj/item/stack/sheet/brass(src, 1)
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)

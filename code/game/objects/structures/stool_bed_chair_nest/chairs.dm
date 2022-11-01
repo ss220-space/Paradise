@@ -133,9 +133,6 @@
 	handle_rotation()
 
 /obj/structure/chair/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
 		return
 	rotate()
@@ -236,6 +233,12 @@
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
+
+/obj/structure/chair/comfy/shuttle/dark
+	icon_state = "shuttle_chair_dark"
+
+/obj/structure/chair/comfy/shuttle/dark/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest")
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
@@ -480,7 +483,7 @@
 	desc = "A spinny chair made of brass. It looks uncomfortable."
 	icon_state = "brass_chair"
 	max_integrity = 150
-	buildstacktype = /obj/item/stack/tile/brass
+	buildstacktype = /obj/item/stack/sheet/brass
 	buildstackamount = 1
 	item_chair = null
 	var/turns = 0
@@ -500,9 +503,12 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	turns = 0
-	if(!istype(user) || user.incapacitated() || !in_range(src, user))
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(!in_range(src, user))
+		return
+	turns = 0
 	if(!isprocessing)
 		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
 		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")

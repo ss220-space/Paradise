@@ -47,7 +47,7 @@ emp_act
 		return bullet_act(P, "chest") //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
-
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	return (..(P , def_zone))
 
 /mob/living/carbon/human/welder_act(mob/user, obj/item/I)
@@ -103,8 +103,7 @@ emp_act
 		bleed_rate = 0
 		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
 	if(IgniteMob())
-		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
-		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+		add_attack_logs(user, src, "set on fire with [I]")
 
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
@@ -384,6 +383,7 @@ emp_act
 	if(affecting.sabotaged)
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
+		add_attack_logs(user, src, "emagged [p_their()] [affecting.name]")
 		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = 1
 	return 1
@@ -469,7 +469,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							apply_effect(2, WEAKEN, armor)
 							AdjustConfused(15)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
@@ -514,6 +514,7 @@ emp_act
 		throwpower = I.throwforce
 		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
+	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE
 		skipcatch = TRUE
@@ -522,18 +523,24 @@ emp_act
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
-					var/obj/item/organ/external/L = pick(bodyparts)
-					L.embedded_objects |= I
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					I.forceMove(src)
-					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					embed_item_inside(I)
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
 	if(!blocked)
 		dna.species.spec_hitby(AM, src)
 	return ..()
+
+/mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
+	if(ismob(I.loc))
+		var/mob/M = I.loc
+		M.remove_from_mob(I)
+	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+	var/obj/item/organ/external/L = pick(bodyparts)
+	L.embedded_objects |= I
+	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+	I.forceMove(src)
+	L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
+	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
@@ -632,8 +639,8 @@ emp_act
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 25)
-		if(M.is_adult)
-			damage = rand(10, 35)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(10 + M.age_state.damage, 35 + M.age_state.damage)
 
 		if(check_shields(M, damage, "the [M.name]"))
 			return FALSE
@@ -686,9 +693,9 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing))
-		var/obj/item/clothing/S = shoes
-		if (S.flags & NOSLIP)
+	if(shoes && istype(shoes, /obj/item/clothing/shoes/magboots))
+		var/obj/item/clothing/shoes/magboots/S = shoes
+		if(S.flags & NOSLIP)
 			return FALSE
 	return ..()
 

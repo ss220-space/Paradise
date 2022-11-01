@@ -88,6 +88,8 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))
+		if(M.handle_emote_CD())
+			return
 		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else
@@ -113,9 +115,9 @@
 	take_damage(amt, BRUTE)
 
 /obj/attack_slime(mob/living/simple_animal/slime/user)
-	if(!user.is_adult)
+	if(user.age_state.age == SLIME_BABY )
 		return
-	attack_generic(user, rand(10, 15), BRUTE, "melee", 1)
+	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, "melee", 1)
 
 /obj/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)

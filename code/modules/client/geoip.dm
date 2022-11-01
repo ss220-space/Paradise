@@ -1,7 +1,3 @@
-var/global/geoip_query_counter = 0
-var/global/geoip_next_counter_reset = 0
-var/global/list/geoip_ckey_updated = list()
-
 /datum/geoip_data
 	var/holder = null
 	var/status = null
@@ -37,8 +33,8 @@ var/global/list/geoip_ckey_updated = list()
 	if(status == "updated")
 		var/msg = "[holder] connected from ([country], [regionName], [city]) using ISP: ([isp]) with IP: ([ip]) Proxy: ([proxy])"
 		log_admin(msg)
-		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in geoip_ckey_updated))
-			geoip_ckey_updated |= C.ckey
+		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in GLOB.geoip_ckey_updated))
+			GLOB.geoip_ckey_updated |= C.ckey
 			message_admins(msg)
 
 		if(proxy == "true")
@@ -116,12 +112,12 @@ var/global/list/geoip_ckey_updated = list()
 	return TRUE
 
 /proc/geoip_check(addr)
-	if(world.time > geoip_next_counter_reset)
-		geoip_next_counter_reset = world.time + 900
-		geoip_query_counter = 0
+	if(world.time > GLOB.geoip_next_counter_reset)
+		GLOB.geoip_next_counter_reset = world.time + 900
+		GLOB.geoip_query_counter = 0
 
-	geoip_query_counter++
-	if(geoip_query_counter > 130)
+	GLOB.geoip_query_counter++
+	if(GLOB.geoip_query_counter > 130)
 		return "limit reached"
 
 	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")
@@ -199,10 +195,10 @@ var/global/list/geoip_ckey_updated = list()
 		computerid = bancid
 		ip = banip
 	else if(ismob(banned_mob))
-		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.",1)
+		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.")
 		return
 	else
-		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.",1)
+		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.")
 		return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list(
@@ -216,7 +212,7 @@ var/global/list/geoip_ckey_updated = list()
 		validckey = TRUE
 	if(!validckey)
 		if(!banned_mob || (banned_mob && !IsGuestKey(banned_mob.key)))
-			message_admins("<font color='red'>SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>",1)
+			message_admins("<font color='red'>SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>")
 			qdel(query)
 			return
 	qdel(query)
@@ -264,7 +260,7 @@ var/global/list/geoip_ckey_updated = list()
 		return
 
 	qdel(query_insert)
-	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
+	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
 	if(announce_in_discord)
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")

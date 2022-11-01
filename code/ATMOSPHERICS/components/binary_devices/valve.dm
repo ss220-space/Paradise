@@ -38,13 +38,13 @@
 	parent1.update = 0
 	parent2.update = 0
 	parent1.reconcile_air()
-	investigate_log("was opened by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was opened by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
 	open = 0
 	update_icon()
-	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was closed by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return
 
 /obj/machinery/atmospherics/binary/valve/attack_ai(mob/user)
@@ -70,7 +70,6 @@
 
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
-	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/binary/valve/digital/Destroy()
 	if(SSradio)
@@ -134,17 +133,3 @@
 			else
 				if(open)
 					close()
-
-/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/W as obj, var/mob/user)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
-
-/obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-		<ul>
-			<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-			<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
-		</ul>
-		"}

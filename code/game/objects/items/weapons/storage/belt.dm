@@ -235,12 +235,18 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
-		/obj/item/forensics/sample_kit)
+		/obj/item/forensics/sample_kit,
+		/obj/item/eftpos/sec)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
-	new /obj/item/flashlight/seclite(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/flash(src)
+	new /obj/item/melee/baton/loaded(src)
 	update_icon()
+
 /obj/item/storage/belt/security/detective
 	name = "detective belt"
 	desc = "An old fashion security belt. Made of leather"
@@ -403,6 +409,25 @@
 	icon_state = "assaultbelt"
 	item_state = "assault"
 	storage_slots = 6
+
+/obj/item/storage/belt/military/assault/marines/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
+
+/obj/item/storage/belt/military/assault/marines/elite/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/m556(src)
+	new /obj/item/ammo_box/magazine/m556(src)
+	new /obj/item/ammo_box/magazine/m556(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"

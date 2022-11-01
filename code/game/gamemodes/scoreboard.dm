@@ -28,9 +28,9 @@
 				total_antagonists[temprole] += ": [Mind.name]([Mind.key])"
 
 	//Now print them all into the log!
-	log_game("Antagonists at round end were...")
+	add_game_logs("Antagonists at round end were...")
 	for(var/i in total_antagonists)
-		log_game("[i]s[total_antagonists[i]].")
+		add_game_logs("[i]s[total_antagonists[i]].")
 
 	//log antags and their objectives
 	for(var/datum/mind/Mind in SSticker.minds)
@@ -194,6 +194,7 @@
 			dat += "Никто не выжил!<br>"
 
 	dat += mode.declare_job_completion()
+	dat += mode.declare_ambition_completion()
 
 	dat += {"
 	<hr><br>

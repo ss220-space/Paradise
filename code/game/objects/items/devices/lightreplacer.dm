@@ -147,6 +147,7 @@
 
 /obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		Emag()
 
 /obj/item/lightreplacer/attack_self(mob/user)
@@ -223,7 +224,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else

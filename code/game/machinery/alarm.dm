@@ -796,7 +796,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged)
+	else if(isAI(user) || (isrobot(user) || emagged) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked
@@ -952,7 +952,7 @@
 
 	switch(buildstage)
 		if(2)
-			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(I.GetID() || ispda(I)) // trying to unlock the interface
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return

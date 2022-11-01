@@ -1,6 +1,6 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/combine_message(var/list/message_pieces, var/verb, var/mob/speaker, always_stars = FALSE)
+/mob/proc/combine_message(list/message_pieces, verb, mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
 	var/msg = "" // This is to make sure that the pieces have actually added something
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
@@ -70,7 +70,7 @@
 			italics = TRUE
 			sound_vol *= 0.5
 
-	if(sleeping || stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return 0
 
@@ -96,6 +96,12 @@
 			message = "<b>[message]</b>"
 
 	speaker_name = colorize_name(speaker, speaker_name)
+	// Ensure only the speaker is forced to emote, and that the spoken language is inname
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		if(SP.speaking && SP.speaking.flags & INNATE)
+			if(speaker == src)
+				custom_emote(EMOTE_SOUND, message_clean, TRUE)
+			return
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
@@ -144,11 +150,12 @@
 	if(!client)
 		return
 
-	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
+	if(stat == UNCONSCIOUS) //If unconscious or sleeping
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
 
-	var/message = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
+	var/message = combine_message(message_pieces, verb, speaker, always_stars = hard_to_hear)
+	var/message_clean = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
 	if(message == "")
 		return
 
@@ -164,13 +171,13 @@
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)
-		to_chat(src, "[part_a][track][part_b][verb], \"[message]\"</span></span>")
+		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message, TRUE, FALSE)
+			create_chat_message(speaker, message_clean, TRUE, FALSE)
 	else
-		to_chat(src, "[part_a][speaker_name][part_b][verb], \"[message]\"</span></span>")
+		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message, TRUE, FALSE)
+			create_chat_message(speaker, message_clean, TRUE, FALSE)
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
@@ -210,7 +217,7 @@
 	to_chat(src, heard)
 
 /mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
-	if(sleeping || stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
 

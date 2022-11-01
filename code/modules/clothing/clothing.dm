@@ -33,6 +33,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -101,10 +102,12 @@
 				if(H.dna.species.name in species_restricted)
 					wearable = 1
 
+			if (wearable && ("lesser form" in species_restricted) && issmall(H))
+				wearable = 0
+
 			if(!wearable)
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
 				return 0
-
 	return 1
 
 /obj/item/clothing/proc/refit_for_species(var/target_species)
@@ -139,9 +142,15 @@
 	throwforce = 2
 	slot_flags = SLOT_EARS
 	resistance_flags = NONE
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi',
+		"Monkey" = 'icons/mob/species/monkey/ears.dmi',
+		"Farwa" = 'icons/mob/species/monkey/ears.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/ears.dmi',
+		"Neara" = 'icons/mob/species/monkey/ears.dmi',
+		"Stok" = 'icons/mob/species/monkey/ears.dmi'
 		) //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
@@ -219,6 +228,13 @@
 	put_on_delay = 25
 	resistance_flags = NONE
 
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+		)
 /*
 SEE_SELF  // can see self, no matter what
 SEE_MOBS  // can see all mobs, no matter what
@@ -350,6 +366,18 @@ BLIND     // can't see anything
 	set src in usr
 	set_sensors(usr)
 
+/obj/item/clothing/under/GetID()
+	if(accessories)
+		for(var/obj/item/clothing/accessory/accessory in accessories)
+			if(accessory.GetID())
+				return accessory.GetID()
+	return ..()
+
+/obj/item/clothing/under/GetAccess()
+	. = ..()
+	if(accessories)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			. |= A.GetAccess()
 //Head
 /obj/item/clothing/head
 	name = "head"
@@ -365,6 +393,19 @@ BLIND     // can't see anything
 
 	var/can_toggle = null
 
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		)
+
+///obj/item/clothing/head/equipped(var/mob/living/carbon/human/lesser/monkey/user, var/slot) //Смещаем шапки у обезьян
+//	..()
+//	if(!issmall(user))
+//		return
+
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
@@ -375,6 +416,14 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
+
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		)
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -450,8 +499,6 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/silence_steps = 0
-	var/shoe_sound_footstep = 1
-	var/shoe_sound = null
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
@@ -460,7 +507,12 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi',
-		"Drask" = 'icons/mob/species/drask/shoes.dmi'
+		"Drask" = 'icons/mob/species/drask/shoes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/shoes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/shoes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/shoes.dmi',
+		"Neara" = 'icons/mob/species/monkey/shoes.dmi',
+		"Stok" = 'icons/mob/species/monkey/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
@@ -491,26 +543,6 @@ BLIND     // can't see anything
 	else
 		return ..()
 
-/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
-	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)
-	if(shoe_sound)
-		var/turf/T = get_turf(H)
-
-		if(!istype(H) || !istype(T))
-			return 0
-
-		if(H.m_intent == MOVE_INTENT_RUN)
-			if(shoe_sound_footstep >= 2)
-				if(T.shoe_running_volume)
-					playsound(src, shoe_sound, T.shoe_running_volume, 1)
-				shoe_sound_footstep = 0
-			else
-				shoe_sound_footstep++
-		else if(T.shoe_walking_volume)
-			playsound(src, shoe_sound, T.shoe_walking_volume, 1)
-
-	return 1
-
 /obj/item/proc/negates_gravity()
 	return 0
 
@@ -528,6 +560,14 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi'
+		//"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		)
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -615,7 +655,7 @@ BLIND     // can't see anything
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	species_restricted = list("exclude","Wryn")
+	species_restricted = list("exclude","Wryn", "lesser form")
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
@@ -645,10 +685,10 @@ BLIND     // can't see anything
 	put_on_delay = 80
 	resistance_flags = NONE
 	hide_tail_by_species = null
-	species_restricted = list("exclude","Wryn")
+	species_restricted = list("exclude", "Wryn", "lesser form")
 
 
-//Under clothing
+// Under clothing
 /obj/item/clothing/under
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
@@ -660,7 +700,12 @@ BLIND     // can't see anything
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi'
+		"Grey" = 'icons/mob/species/grey/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/species/monkey/uniform.dmi'
+		//"Stok" = 'icons/mob/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
@@ -815,8 +860,17 @@ BLIND     // can't see anything
 	else
 		..()
 
+// Neck clothing
 /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = SLOT_NECK
+
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		)

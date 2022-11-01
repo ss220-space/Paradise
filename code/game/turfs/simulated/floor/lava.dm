@@ -7,6 +7,10 @@
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
 /turf/simulated/floor/plating/lava/ex_act()
 	return
@@ -81,7 +85,7 @@
 		else if(isliving(thing))
 			. = 1
 			var/mob/living/L = thing
-			if(L.flying)
+			if(L.flying || L.incorporeal_move)
 				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)

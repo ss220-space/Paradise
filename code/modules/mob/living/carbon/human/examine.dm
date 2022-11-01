@@ -117,6 +117,8 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(gloves)] \a [gloves] on [p_their()] hands.\n"
 	else if(blood_DNA)
 		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+	else if(isclocker(src) && HAS_TRAIT(src, CLOCK_HANDS))
+		msg += "<span class='clockitalic'>[p_their(TRUE)] hands are sparkling with an unnatural amber!</span>\n"
 
 	//handcuffed?
 	if(handcuffed)
@@ -417,6 +419,7 @@
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)

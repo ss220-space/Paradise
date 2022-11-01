@@ -129,7 +129,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
 	var/travelling_in_vent = 0
-	var/list/enemies = list()
 	var/path_to_vent = 0
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
@@ -158,6 +157,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 
 // --------------------------------------------------------------------------------
@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
 		visible_message("<span class='danger'>[src] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, 1)
+		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else

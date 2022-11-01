@@ -15,6 +15,9 @@
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 
+	if(mind in SSticker.mode.traitors)
+		GLOB.disable_robotics_consoles = FALSE
+
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
@@ -32,7 +35,7 @@
 
 	if(explosive)
 		spawn(10)
-			explosion(src.loc, 3, 6, 12, 15)
+			explosion(src.loc, 3, 6, 12, 15, cause = "AI exploded")
 
 	for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
 		O.mode = 2

@@ -17,7 +17,7 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = GLOB.maploader.load_map(file(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
+	var/bounds = GLOB.maploader.load_map(wrap_file(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
@@ -63,14 +63,14 @@
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
 
-	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
+	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 
 /datum/map_template/proc/get_file()
 	if(mapfile)
 		. = mapfile
 	else if(mappath)
-		. = file(mappath)
+		. = wrap_file(mappath)
 
 	if(!.)
 		log_runtime(EXCEPTION("  The file of [src] appears to be empty/non-existent."), src)

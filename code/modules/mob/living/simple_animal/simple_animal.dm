@@ -104,6 +104,8 @@
 	var/tame = 0
 
 	var/my_z // I don't want to confuse this with client registered_z
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -120,6 +122,8 @@
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
+	if(footstep_type)
+		AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -175,10 +179,8 @@
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
-			create_debug_log("died of damage, trigger reason: [reason]")
 		else
 			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
@@ -388,6 +390,8 @@
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
+			return FALSE
+		if(L.incorporeal_move)
 			return FALSE
 	if(ismecha(the_target))
 		var/obj/mecha/M = the_target

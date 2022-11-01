@@ -113,10 +113,12 @@
 
 	return connected
 
-/obj/machinery/hydroponics/AltClick()
-	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
-		toggle_lid(usr)
+/obj/machinery/hydroponics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(wrenchable && !user.lying && Adjacent(user))
+		toggle_lid(user)
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
 	if(!user || user.stat || user.restrained())
@@ -483,7 +485,7 @@
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
-		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
+		add_game_logs("caused spiderling pests to spawn in a hydro tray", user)
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
@@ -811,7 +813,7 @@
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
+				investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
 			user.unEquip(O)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0

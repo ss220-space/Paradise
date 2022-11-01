@@ -25,6 +25,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound
+	var/stealthy_audio = FALSE //Whether or not we use stealthy audio levels for this item's attack sounds
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
@@ -43,6 +44,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
 
 	var/list/materials = list()
+	var/materials_coeff = 1
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
 	var/flags_inv //This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/item_color = null
@@ -112,6 +114,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/in_storage = FALSE
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
+
+	//Clockwork enchantment
+	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
+	var/list/enchants = null // List(datum)
+
 
 /obj/item/New()
 	..()
@@ -218,6 +225,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
 		. += msg
+
+	if(isclocker(user) && enchant_type)
+		if(enchant_type == CASTING_SPELL)
+			. += "<span class='notice'>The last spell hasn't expired yet!</span><BR>"
+		for(var/datum/spell_enchant/S in enchants)
+			if(S.enchantment == enchant_type)
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				break
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -416,6 +431,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	in_storage = TRUE
 	return
+
+/**
+  * Called to check if this item can be put into a storage item.
+  *
+  * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
+  * Arguments:
+  * * S - The [/obj/item/storage] that `src` is being inserted into.
+  * * user - The mob trying to insert the item.
+  */
+/obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
+	return TRUE
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder as mob)
@@ -746,3 +772,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/obj/item/proc/update_materials_coeff(new_coeff)
+	if(new_coeff <= 1)
+		materials_coeff = new_coeff
+	else
+		materials_coeff = 1 / new_coeff
+	for(var/material in materials)
+		materials[material] *= materials_coeff
+
+/obj/item/proc/deplete_spell()
+	enchant_type = NO_SPELL
+	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
+	if(enchant_action)
+		qdel(enchant_action)
+	update_icon()
