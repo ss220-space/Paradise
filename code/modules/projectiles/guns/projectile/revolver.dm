@@ -92,7 +92,7 @@
 	name = ".38 Mars Special"
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
-	fire_sound = 'sound/weapons/gunshots/1revolv.ogg'
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	unique_rename = 1
 	unique_reskin = 1
 

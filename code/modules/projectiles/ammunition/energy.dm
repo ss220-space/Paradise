@@ -6,7 +6,7 @@
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	var/alt_select_name = null
-	fire_sound = 'sound/weapons/gunshots/1laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	leaves_residue = 0
 
@@ -77,7 +77,7 @@
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	e_cost = 100
-	fire_sound = 'sound/weapons/gunshots/1laser6.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
@@ -133,7 +133,7 @@
 	projectile_type = /obj/item/projectile/energy/declone
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name = "declone"
-	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
+	fire_sound = 'sound/weapons/gunshots/1declone.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
 	projectile_type = /obj/item/projectile/beam/mindflayer
@@ -189,7 +189,7 @@
 	projectile_type = /obj/item/projectile/plasma
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/gunshots/1laser2.ogg'
+	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
 	e_cost = 25
 
@@ -223,7 +223,7 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	select_name = "bolt"
 	e_cost = 500
-	fire_sound = 'sound/weapons/genhit.ogg'
+	fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
 
 /obj/item/ammo_casing/energy/bolt/large
 	projectile_type = /obj/item/projectile/energy/bolt/large

@@ -123,7 +123,7 @@
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/xray
-	fire_sound = 'sound/weapons/gunshots/1laser6.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
@@ -394,7 +394,7 @@
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
