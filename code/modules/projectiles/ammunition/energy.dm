@@ -81,7 +81,7 @@
 
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
-	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	e_cost = 125
 
 /obj/item/ammo_casing/energy/immolator/strong
@@ -155,7 +155,7 @@
 
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
-	fire_sound = 'sound/weapons/gunshots/1tempgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
 	var/temp = 300
 
 /obj/item/ammo_casing/energy/temp/New()

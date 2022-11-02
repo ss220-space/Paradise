@@ -139,7 +139,7 @@
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
-	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
