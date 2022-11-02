@@ -520,11 +520,19 @@
 	category = list("initial", "Security")
 
 /datum/design/c38
-	name = "Speed Loader (.38)"
+	name = "Speed Loader (.38 Rubber)"
 	id = "c38"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 5900)
+	materials = list(MAT_METAL = 2900)
 	build_path = /obj/item/ammo_box/c38
+	category = list("initial", "Security")
+
+/datum/design/c38_lethal
+	name = "Speed Loader (.38 Lethal)"
+	id = "c38_lethal"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5900)
+	build_path = /obj/item/ammo_box/c38/lethal
 	category = list("initial", "Security")
 
 /datum/design/recorder

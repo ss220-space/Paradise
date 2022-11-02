@@ -35,13 +35,18 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/c38
-	desc = "A .38 bullet casing."
+	desc = "A .38 rubber bullet casing."
 	icon_state = "r-casing"
 	materials = list(MAT_METAL = 650)
 	caliber = ".38"
 	projectile_type = /obj/item/projectile/bullet/weakbullet2
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/c38/lethal
+	desc = "A .38 bullet casing."
+	materials = list(MAT_METAL = 1100)
+	projectile_type = /obj/item/projectile/bullet/midbullet2
 
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
