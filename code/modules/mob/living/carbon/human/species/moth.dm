@@ -11,12 +11,10 @@
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("moth")
-	species_traits = list(IS_WHITELISTED, NO_HAIR)
-	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
+	species_traits = list(IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING
 	reagent_tag = PROCESS_ORG
-	dietflags = DIET_HERB
 	tox_mod = 1.5
 	blood_color = "#b9ae9c"
 	unarmed_type = /datum/unarmed_attack/claws
@@ -28,7 +26,6 @@
 	wing = "plain"
 	eyes = "moth_eyes_s"
 	butt_sprite = "nian"
-	has_wings = TRUE
 	siemens_coeff = 1.5
 
 	has_organ = list(

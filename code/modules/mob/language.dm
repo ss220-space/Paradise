@@ -30,6 +30,7 @@
 	var/list/space_chance = 55                  // Likelihood of getting a space in the random scramble string.
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
+	var/list/scramble_cache = list()
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
 

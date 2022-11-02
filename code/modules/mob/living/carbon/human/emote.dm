@@ -440,7 +440,7 @@
 					to_chat(usr, "Тебе нужно две рабочих руки чтобы хлопать.")
 
 		if("flap", "flaps")
-			imessage = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
+			message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
 			m_type = 2
 			if(miming)
 				m_type = 1
@@ -506,7 +506,7 @@
 									SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
-			message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!""
+			message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
 			m_type = 2
 			if(miming)
 				m_type = 1

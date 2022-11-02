@@ -180,7 +180,6 @@
 		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
 			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
-		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
 		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
 			H.body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
 
