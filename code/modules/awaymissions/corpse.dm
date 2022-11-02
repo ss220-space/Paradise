@@ -236,10 +236,6 @@
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
 	return TRUE
-	
-/obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
-	if(H.client && mob_use_prefs)
-		H.client.prefs.copy_to(H)
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_use_prefs)
