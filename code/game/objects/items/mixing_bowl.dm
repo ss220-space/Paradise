@@ -21,10 +21,10 @@
 			if(do_after(user, 20 * I.toolspeed, target = src))
 				clean()
 				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
-			return 1
+			return 0
 		else
 			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
-		return 0
+			return 1
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
@@ -35,6 +35,8 @@
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
+				src.attack_self(user)// update dialog
+				return 0
 			else
 				return add_item(S, user)
 		else
@@ -46,6 +48,12 @@
 			if(!(R.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(R.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(R.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(R.id in GLOB.cooking_reagents[RECIPE_CANDY]))
 				to_chat(user, "<span class='alert'>Your [I] contains components unsuitable for cookery.</span>")
 				return 1
+		var/obj/item/reagent_containers/I_container = I
+		var/IS = "[I]"
+		var/transfered_amount = I_container.reagents.trans_to(src, I_container.amount_per_transfer_from_this)
+		user.visible_message("<span class='notice'>[user] transfer some solution from [IS] to [src].</span>", "<span class='notice'>You transfer [transfered_amount] units of the solution to [src].</span>")
+		src.attack_self(user)// update dialog
+		return 0
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [I].</span>")
 		return 1
@@ -53,10 +61,12 @@
 /obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
 		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
-		//return 0
+		return 1
 	else
 		I.forceMove(src)
 		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+		src.attack_self(user)// update dialog
+		return 0
 
 /obj/item/mixing_bowl/attack_self(mob/user)
 	var/dat = {"<meta charset="UTF-8">"}
@@ -118,18 +128,18 @@
 /obj/item/mixing_bowl/Topic(href, href_list)
 	if(..())
 		return
-	if(href_list["dispose"])
+	if(href_list["action"] == "dispose")
 		dispose()
 	return
 
 /obj/item/mixing_bowl/proc/dispose()
 	for(var/obj/O in contents)
-		O.forceMove(loc)
+		O.forceMove(usr.loc)
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
 	to_chat(usr, "<span class='notice'>You dispose of [src]'s contents.</span>")
-	updateUsrDialog()
+	src.attack_self(usr)// update dialog
 
 /obj/item/mixing_bowl/proc/make_dirty(chance)
 	if(!chance)
