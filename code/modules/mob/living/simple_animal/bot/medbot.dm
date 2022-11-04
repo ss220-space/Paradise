@@ -609,7 +609,7 @@
 	if(syndicate_aligned)
 		return
 	var/area/location = get_area(src)
-	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_channel)
+	speak("Требуется срочная медицинская помощь! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] в критическом состоянии в [location]!", radio_channel)
 	declare_cooldown = 1
 	spawn(200) //Twenty seconds
 		declare_cooldown = 0
