@@ -93,7 +93,7 @@
 		return FALSE
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		if(S.moved)
-			to_chat(user, "Шаттл тронулся с места! Вы утратили право объявить войну.")
+			to_chat(user, "Шаттл тронулся с места! Вы утратили право на объявление войны.")
 			return FALSE
 	return TRUE
 
