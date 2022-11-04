@@ -27,22 +27,22 @@
 	if(!check_allowed(user))
 		return
 
-	if(are_you_sure == "Нет")
+	if(are_you_sure == "No")
 		to_chat(user, "Если подумать, элемент неожиданности всё же не так уж и плох.")
 		return
 
-	var/war_declaration = "[user.real_name] объяви[genderize_ru(user.gender,"л","ла","ло","ли")] о намерении полностью уничтожить [station_name()] с помощью ядерного устройства, и броса[pluralize_ru(user.gender,"ет","ют")] вызов экипажу."
+	var/war_declaration = "[user.real_name] объяви[genderize_ru(user.gender,"л","ла","ло","ли")] о намерении полностью уничтожить [station_name()] с помощью ядерного устройства, и бросает вызов экипажу."
 
 	declaring_war = TRUE
-	var/custom_threat = alert(user, "Вы хотите изменить свою декларацию?", "Кастомизировать?", "Да", "Нет")
+	var/custom_threat = alert(user, "Do you want to customize your declaration?", "Customize?", "Yes", "No")
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
 		return
 
-	if(custom_threat == "Да")
+	if(custom_threat == "Yes")
 		declaring_war = TRUE
-		war_declaration = stripped_input(user, "Вставьте свою изменённую декларацию", "Декларация")
+		war_declaration = stripped_input(user, "Insert your custom declaration", "Declaration")
 		declaring_war = FALSE
 
 	if(!check_allowed(user) || !war_declaration)
