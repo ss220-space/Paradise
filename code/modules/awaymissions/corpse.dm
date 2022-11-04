@@ -38,7 +38,6 @@
 	var/exp_type = EXP_TYPE_LIVING
 	var/respawn_cooldown = 0
 	var/mob_use_prefs = FALSE
-	var/mob/plr_ghost = null //Сюда записывается гост, который тыкнул на спавнер, для передачи в функцию собственно спавна, где через него получаются префки из клиента. Реализация так себе, но как получилось.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -83,12 +82,11 @@
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
-	plr_ghost = user
 	if(id_job == null)
 		add_game_logs("[user.ckey] became [mob_name]", user)
 	else
 		add_game_logs("[user.ckey] became [mob_name]. Job: [id_job]", user)
-	create(ckey = user.ckey)
+	create(plr = user)
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -118,7 +116,7 @@
 /obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
+/obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -140,10 +138,13 @@
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
 	M.color = mob_color
+	if(plr)
+		if(mob_use_prefs)
+			plr.client?.prefs.copy_to(M)
 	equip(M, TRUE)
 
-	if(ckey)
-		M.ckey = ckey
+	if(plr)
+		M.ckey = plr.ckey
 		if(flavour)
 			to_chat(M, "[flavour_text]")
 		var/datum/mind/MM = M.mind
@@ -238,9 +239,7 @@
 	return TRUE
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
-	if(mob_use_prefs)
-		plr_ghost.client?.prefs.copy_to(H)
-	else if(mob_species)
+	if(mob_species && !mob_use_prefs)
 		H.set_species(mob_species)
 
 	if(husk)

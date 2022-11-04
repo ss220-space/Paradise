@@ -267,7 +267,7 @@
 
 		//Prevents people rejoining as same character.
 		if(!is_admin(usr)) //Админам можно всё
-			for (var/C in GLOB.human_names_list)
+			for(var/C in GLOB.human_names_list)
 				var/char_name = client.prefs.real_name
 				if(char_name == C)
 					to_chat (usr, "<span class='danger'>There is a character that already exists with the same name: <b>[C]</b>, please join with a different one.</span>")
