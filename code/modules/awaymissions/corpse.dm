@@ -37,7 +37,6 @@
 	var/min_hours = 0 //Минимальное количество часов для игры на гост роли
 	var/exp_type = EXP_TYPE_LIVING
 	var/respawn_cooldown = 0
-	var/mob_use_prefs = FALSE
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -76,7 +75,10 @@
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
 		return
-	if(!use_prefs_prompt(user))
+	var/mob_use_prefs = FALSE
+	if(use_prefs_prompt(user))
+		mob_use_prefs = TRUE
+	else
 		if(!species_prompt())
 			return
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
@@ -86,7 +88,7 @@
 		add_game_logs("[user.ckey] became [mob_name]", user)
 	else
 		add_game_logs("[user.ckey] became [mob_name]. Job: [id_job]", user)
-	create(plr = user)
+	create(plr = user, prefs = mob_use_prefs)
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -113,10 +115,10 @@
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/equip(mob/M)
+/obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE)
 	return
 
-/obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name)
+/obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -139,9 +141,9 @@
 	M.adjustFireLoss(burn_damage)
 	M.color = mob_color
 	if(plr)
-		if(mob_use_prefs)
+		if(prefs)
 			plr.client?.prefs.copy_to(M)
-	equip(M, TRUE)
+	equip(M, TRUE, use_prefs = prefs)
 
 	if(plr)
 		M.ckey = plr.ckey
@@ -225,7 +227,6 @@
 				return FALSE
 		var/get_slot = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
 		if(get_slot == "Yes")
-			mob_use_prefs = TRUE
 			return TRUE
 	return FALSE
 
@@ -238,8 +239,8 @@
 		mob_species = S.type
 	return TRUE
 
-/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
-	if(mob_species && !mob_use_prefs)
+/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H, use_prefs = FALSE)
+	if(mob_species && !use_prefs)
 		H.set_species(mob_species)
 
 	if(husk)
@@ -250,7 +251,7 @@
 	H.undershirt = "Nude"
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
-	if(!mob_use_prefs)
+	if(!use_prefs)
 		if(istype(D))
 			if(hair_style)
 				D.h_style = hair_style
@@ -391,7 +392,7 @@
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
-/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H, prefs = FALSE)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
