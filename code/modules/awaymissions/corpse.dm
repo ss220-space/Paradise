@@ -392,7 +392,7 @@
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
-/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H, prefs = FALSE)
+/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H, use_prefs = FALSE)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
