@@ -130,7 +130,9 @@
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 			if(ishuman(L))
-				L.heal_overall_damage(10, 10, TRUE)
+				L.heal_overall_damage(10, 10, TRUE, FALSE, TRUE)
+			if(isrobot(L))
+				L.heal_overall_damage(5, 5, TRUE)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
