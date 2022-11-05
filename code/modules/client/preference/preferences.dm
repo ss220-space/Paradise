@@ -379,6 +379,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(config.tts_enabled)
 				dat += "<h2>Text-to-Speech</h2>"
 				dat += "<b>Voice:</b> <a href='?_src_=prefs;preference=tts_seed;task=input'>[tts_seed]</a><br>"
+				dat += "В ближайшем будущем некоторая часть из 96 голосов будет доступна только по подписке. "
+				dat += "Ведётся работа над интеграцией озвучки в игру. "
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
