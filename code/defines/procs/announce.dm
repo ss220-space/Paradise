@@ -102,7 +102,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	return list(receivers, garbled_receivers)
 
 /datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers, message_sound)
-	var/tts_seed = "Xenia"
+	var/tts_seed = "Glados"
 	if(GLOB.ai_list.len)
 		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
 		tts_seed = AI.tts_seed
