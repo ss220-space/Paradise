@@ -115,7 +115,7 @@
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/equip(mob/M)
+/obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE)
 	return
 
 /obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE)
@@ -143,7 +143,7 @@
 	if(plr)
 		if(prefs)
 			plr.client?.prefs.copy_to(M)
-	equip(M, TRUE, use_prefs = prefs)
+	equip(M, use_prefs = prefs)
 
 	if(plr)
 		M.ckey = plr.ckey
