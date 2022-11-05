@@ -9,6 +9,7 @@
 	var/dirty = FALSE
 	var/clean_icon = "mixing_bowl"
 	var/dirty_icon = "mixing_bowl_dirty"
+	var/is_GUI_opened = FALSE
 
 /obj/item/mixing_bowl/New()
 	..()
@@ -21,6 +22,7 @@
 			if(do_after(user, 20 * I.toolspeed, target = src))
 				clean()
 				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
+				update_dialog(user)
 			return 0
 		else
 			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
@@ -35,7 +37,7 @@
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
-				src.attack_self(user)// update dialog
+				update_dialog(user)
 				return 0
 			else
 				return add_item(S, user)
@@ -52,7 +54,7 @@
 		var/IS = "[I]"
 		var/transfered_amount = I_container.reagents.trans_to(src, I_container.amount_per_transfer_from_this)
 		user.visible_message("<span class='notice'>[user] transfer some solution from [IS] to [src].</span>", "<span class='notice'>You transfer [transfered_amount] units of the solution to [src].</span>")
-		src.attack_self(user)// update dialog
+		update_dialog(user)
 		return 0
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [I].</span>")
@@ -65,7 +67,7 @@
 	else
 		I.forceMove(src)
 		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
-		src.attack_self(user)// update dialog
+		update_dialog(user)
 		return 0
 
 /obj/item/mixing_bowl/attack_self(mob/user)
@@ -119,10 +121,10 @@
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
 
-	var/datum/browser/popup = new(user, name, name, 400, 400)
+	var/datum/browser/popup = new(user, "[name][UID()]", "[name]", 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "[name]")
+	popup.open()
+	is_GUI_opened = TRUE
 	return
 
 /obj/item/mixing_bowl/Topic(href, href_list)
@@ -130,6 +132,8 @@
 		return
 	if(href_list["action"] == "dispose")
 		dispose()
+	if(href_list["close"] == "1")
+		is_GUI_opened = FALSE
 	return
 
 /obj/item/mixing_bowl/proc/dispose()
@@ -139,7 +143,11 @@
 		make_dirty(5)
 	reagents.clear_reagents()
 	to_chat(usr, "<span class='notice'>You dispose of [src]'s contents.</span>")
-	src.attack_self(usr)// update dialog
+	update_dialog(usr)
+
+/obj/item/mixing_bowl/proc/update_dialog(mob/user)
+	if(is_GUI_opened)
+		src.attack_self(user)
 
 /obj/item/mixing_bowl/proc/make_dirty(chance)
 	if(!chance)
@@ -157,6 +165,7 @@
 /obj/item/mixing_bowl/wash(mob/user, atom/source)
 	if(..())
 		clean()
+		update_dialog(user)
 
 /obj/item/mixing_bowl/proc/fail(obj/source)
 	if(!source)
