@@ -263,7 +263,8 @@
 			return
 		var/quantity = (candidate.amount - (candidate.amount % CLOCK_METAL_TO_BRASS)) / CLOCK_METAL_TO_BRASS
 		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
-			new /obj/item/stack/sheet/brass(turf_target, quantity)
+			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
+			user.put_in_hands(B)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
@@ -275,7 +276,8 @@
 		var/obj/item/stack/sheet/plasteel/candidate = target
 		var/quantity = candidate.amount
 		if(candidate.use(quantity))
-			new /obj/item/stack/sheet/brass(turf_target, quantity)
+			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
+			user.put_in_hands(B)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
