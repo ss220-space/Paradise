@@ -46,9 +46,7 @@
 	SSticker.mode.remove_clocker(mind, FALSE)
 
 /mob/living/simple_animal/hostile/clockwork/marauder/AttackingTarget()
-	if(isclocker(target))
-		to_chat(src, "<span class='danger'>You don't want to harm your allies!</span>")
-	if(a_intent == INTENT_HELP && isliving(target)) // yes i know, it's not a disarm
+	if(a_intent == INTENT_HELP && isliving(target) && !isclocker(target)) // yes i know, it's not a disarm
 		var/mob/living/L = target
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
 		L.adjustStaminaLoss(20)
