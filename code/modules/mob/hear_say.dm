@@ -184,7 +184,7 @@
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
-		if(src != speaker)
+		if(src != speaker || isrobot(src))
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
@@ -193,7 +193,7 @@
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
-		if(src != speaker)
+		if(src != speaker || isrobot(src))
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
