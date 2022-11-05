@@ -105,7 +105,8 @@ SUBSYSTEM_DEF(tts)
 	msg += "R:[tts_reused] "
 	..(msg)
 
-/datum/controller/subsystem/tts/Initialize(start_timeofday)
+/datum/controller/subsystem/tts/PreInit()
+	. = ..()
 	for(var/path in subtypesof(/datum/tts_provider))
 		var/datum/tts_provider/provider = new path
 		tts_providers[provider.name] += provider
@@ -116,6 +117,7 @@ SUBSYSTEM_DEF(tts)
 		seed.provider = tts_providers[initial(seed.provider.name)]
 		tts_seeds[seed.name] = seed
 
+/datum/controller/subsystem/tts/Initialize(start_timeofday)
 	is_enabled = config.tts_enabled
 	if(!is_enabled)
 		flags |= SS_NO_FIRE
