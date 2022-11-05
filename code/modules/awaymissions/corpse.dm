@@ -115,7 +115,7 @@
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE)
+/obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
 /obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE)
