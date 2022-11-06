@@ -84,7 +84,7 @@
 					return
 		if(QDELETED(src) || owner.incapacitated())
 			return
-	if(item?.enchants.len) // it just works
+	if(item?.enchants?.len) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
 			return
