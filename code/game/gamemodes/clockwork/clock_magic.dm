@@ -13,7 +13,7 @@
 /datum/spell_enchant
 	var/name = "Spell Item Enchanter"
 	var/enchantment = NO_SPELL
-	var/req_amount = 0
+	var/req_amount = 0 //this var is scraped (for now)
 	var/time = 3
 	var/spell_action = FALSE // If we item needs an action button
 

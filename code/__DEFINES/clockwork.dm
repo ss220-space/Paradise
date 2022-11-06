@@ -13,7 +13,7 @@
 #define TELEPORT_SPELL 4
 #define HEAL_SPELL 5
 #define HIDE_SPELL 6
-// Ratvarian spear enchant type
+// Ratvarian spear enchant type (borgs too)
 #define CONFUSE_SPELL 1
 #define DISABLE_SPELL 2
 // Clock hammer

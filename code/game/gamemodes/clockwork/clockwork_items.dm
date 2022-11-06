@@ -286,6 +286,45 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/clock_borg_spear/Initialize(mapload)
+	. = ..()
+	enchants = GLOB.spear_spells
+
+/obj/item/clock_borg_spear/update_icon()
+	icon_state = "ratvarian_spear[wielded]"
+	update_overlays()
+	return ..()
+
+/obj/item/clock_borg_spear/proc/update_overlays()
+	cut_overlays()
+	if(enchant_type)
+		overlays += "ratvarian_spear0_overlay_[enchant_type]"
+
+/obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!isliving(target))
+		return
+	var/mob/living/living = target
+	switch(enchant_type)
+		if(CONFUSE_SPELL)
+			if(living.mind.isholy)
+				to_chat(living, "span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
+				deplete_spell()
+				return
+			living.SetConfused(15)
+			to_chat(living, "<span class='danger'>Your mind blanks for a moment!</span>")
+			add_attack_logs(user, living, "Inflicted confusion with [src]")
+			deplete_spell()
+		if(DISABLE_SPELL)
+			new /obj/effect/temp_visual/emp/clock(get_turf(src))
+			if(issilicon(living))
+				var/mob/living/silicon/S = living
+				S.emp_act(EMP_LIGHT)
+			else
+				living.emp_act(EMP_HEAVY)
+			add_attack_logs(user, living, "Point-EMP with [src]")
+			deplete_spell()
+
 
 /obj/item/twohanded/clock_hammer
 	name = "hammer clock"
