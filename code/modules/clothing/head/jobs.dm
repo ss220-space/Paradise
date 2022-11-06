@@ -27,6 +27,16 @@
 	icon_state = "capcap"
 	dog_fashion = null
 
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	desc = "For Captains that are more inclined towards style."
+	icon_state = "captain_beret"
+
+/obj/item/clothing/head/caphat/beret/white
+	name = "captain's white beret"
+	desc = "For Captains that are more inclined towards style, and for the color white."
+	icon_state = "captain_beret_white"
+
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"

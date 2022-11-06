@@ -34,6 +34,8 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
+	new /obj/item/clothing/head/caphat/beret(src)
+	new /obj/item/clothing/head/caphat/beret/white(src)
 
 
 /obj/structure/closet/secure_closet/hop
