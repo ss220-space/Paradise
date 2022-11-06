@@ -127,7 +127,7 @@
 				continue
 			if(L.reagents.has_reagent("holywater"))
 				to_chat(L, "<span class='warning'>You feel a terrible liquid disappearing from your body.</span>")
-				M.reagents.del_reagent("holywater")
+				L.reagents.del_reagent("holywater")
 			if(!(L.health < L.maxHealth))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")

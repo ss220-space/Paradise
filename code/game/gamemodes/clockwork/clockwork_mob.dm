@@ -30,7 +30,7 @@
 	deathmessage = "shatters as the flames goes out."
 	light_range = 2
 	light_power = 1.1
-	var/deflect_chance = 40
+	var/deflect_chance = 30
 
 /mob/living/simple_animal/hostile/clockwork/marauder/hostile
 	AIStatus = AI_ON
@@ -86,7 +86,7 @@
 	var/energy_projectile = istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam)
 	if(P.nodamage || P.damage_type == STAMINA)
 		final_deflection_chance = 100
-	else if(!energy_projectile) //Flat 40% chance against energy projectiles; ballistic projectiles are 40% - (damage of projectile)%, min. 10%
+	else if(!energy_projectile) //Flat 30% chance against energy projectiles; ballistic projectiles are 30% - (damage of projectile)%, min. 10%
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
 		visible_message("<span class='danger'>[src] deflects [P] with their shield!</span>", \

@@ -291,7 +291,6 @@
 	enchants = GLOB.spear_spells
 
 /obj/item/clock_borg_spear/update_icon()
-	icon_state = "ratvarian_spear[wielded]"
 	update_overlays()
 	return ..()
 
@@ -476,7 +475,7 @@
 	throw_range = 3
 	attack_verb = list("bumped", "prodded", "shoved", "bashed")
 	hitsound = 'sound/weapons/smash.ogg'
-	block_chance = 50
+	block_chance = 30
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
 	. = ..()
