@@ -1220,8 +1220,8 @@
 			living.ratvar_act(TRUE)
 			if(!isclocker(living) && !ishuman(living))
 				continue
-			living.heal_overall_damage(100, 100, TRUE)
-			living.reagents.add_reagent("epinephrine", 5)
+			living.heal_overall_damage(60, 60, TRUE, FALSE, TRUE)
+			living.reagents?.add_reagent("epinephrine", 5)
 			var/mob/living/carbon/human/H = living
 			for(var/thing in H.bodyparts)
 				var/obj/item/organ/external/E = thing
