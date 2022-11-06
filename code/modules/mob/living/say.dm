@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return
 
 	if(sanitize)
-		message = trim_strip_html_properly(message)
+		message = trim_strip_html_properly(message, 512)
 
 	if(stat)
 		if(stat == DEAD)
@@ -214,6 +214,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			message = copytext_char(message, 3)
 
 	message = trim_left(message)
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
@@ -387,7 +391,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
-	message = trim_strip_html_properly(message)
+	message = trim_strip_html_properly(message, 512)
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)

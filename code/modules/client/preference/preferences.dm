@@ -129,6 +129,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
+	var/tts_seed = "Xenia"
+
 	var/body_accessory = null
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
@@ -197,6 +199,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1020" = 100, // CHANNEL_HEARTBEAT
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
+		"1014" = 50, // CHANNEL_TTS_LOCAL
+		"1013" = 20, // CHANNEL_TTS_RADIO
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -369,6 +373,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Special Role</h2>"
 			dat += "<b>Uplink Location:</b> <a href='?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
+
+			if(config.tts_enabled)
+				dat += "<h2>Text-to-Speech</h2>"
+				dat += "<b>Voice:</b> <a href='?_src_=prefs;preference=tts_seed;task=input'>[tts_seed]</a><br>"
+				dat += "В ближайшем будущем некоторая часть из 96 голосов будет доступна только по подписке. "
+				dat += "Ведётся работа над интеграцией озвучки в игру. "
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
@@ -1821,6 +1831,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
 
+				if("tts_seed")
+					var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
+					var/list/tts_seeds = list()
+					for(var/_seed in SStts.tts_seeds)
+						var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
+						tts_seeds += _tts_seed.name
+					var/new_tts_seed = input(user, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
+					if(new_tts_seed)
+						tts_seed = new_tts_seed
+						INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, tts_seed, FALSE)
+
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					if(S.bodyflags & ALL_RPARTS)
@@ -2206,6 +2227,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_gender(gender)
 	character.age = age
+
+	character.tts_seed = tts_seed
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
