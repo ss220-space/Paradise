@@ -17501,7 +17501,7 @@
 	dir = 4
 	},
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/detective,
+/mob/living/simple_animal/pet/dog/security/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -23346,7 +23346,7 @@
 /area/crew_quarters/dorms)
 "aTE" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
