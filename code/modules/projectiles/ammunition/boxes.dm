@@ -21,7 +21,6 @@
 
 /obj/item/ammo_box/c38/lethal
 	name = "speed loader (.38 lethal)"
-	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/c38/lethal
 
 /obj/item/ammo_box/c9mm

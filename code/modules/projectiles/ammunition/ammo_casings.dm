@@ -45,7 +45,7 @@
 
 /obj/item/ammo_casing/c38/lethal
 	desc = "A .38 bullet casing."
-	materials = list(MAT_METAL = 1100)
+	materials = list(MAT_METAL = 1500)
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 
 /obj/item/ammo_casing/c38/invisible
