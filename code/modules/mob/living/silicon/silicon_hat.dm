@@ -135,7 +135,7 @@
 	if(..())
 		return 1
 
-	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
+	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr))
 		usr << browse(null, "window=mob[UID()]")
 		usr.unset_machine()
 		return
