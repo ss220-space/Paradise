@@ -827,7 +827,7 @@
 	name = "Wire Storage"
 
 /datum/robot_energy_storage/brass
-	max_energy = 10
+	max_energy = 30
 	recharge_rate = 0
 	energy = 1
 	name = "Brass Storage"
