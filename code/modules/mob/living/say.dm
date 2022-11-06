@@ -219,6 +219,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	message = trim_left(message)
 
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
+
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
@@ -395,6 +399,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	if(!message)
 		return
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
