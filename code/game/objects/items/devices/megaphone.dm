@@ -66,8 +66,10 @@
 			spamcheck = 0
 
 /obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
-	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	add_say_logs(user, message, language = "Megaphone")
+	var/message_tts = message
+	message = replace_characters(message, list("+"))
+	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
 
@@ -77,7 +79,7 @@
 		var/effect = SOUND_EFFECT_MEGAPHONE
 		if(isrobot(user))
 			effect = SOUND_EFFECT_MEGAPHONE_ROBOT
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message, user.tts_seed, FALSE, effect)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
 		log_debug("megaphone.saymsg(): [message]")
 
 /obj/item/megaphone/emag_act(user as mob)

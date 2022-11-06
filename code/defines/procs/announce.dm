@@ -106,13 +106,17 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(GLOB.ai_list.len)
 		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
 		tts_seed = AI.tts_seed
+	var/message_tts = message
+	var/garbled_message_tts = garbled_message
+	message = replace_characters(message, list("+"))
+	garbled_message = replace_characters(garbled_message, list("+"))
 	for(var/mob/M in receivers)
 		to_chat(M, message)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 		log_debug("announcement.Message: [message]")
 	for(var/mob/M in garbled_receivers)
 		to_chat(M, garbled_message)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 		log_debug("announcement.Message: [garbled_message]")
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
@@ -165,7 +169,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/datum/news_announcement/news = new
 	news.channel_name = channel_name
 	news.author = announcer
-	news.message = message
+	news.message = replace_characters(message, list("+"))
 	news.message_type = announcement_type
 	news.can_be_redacted = 0
 	announce_newscaster_news(news)
