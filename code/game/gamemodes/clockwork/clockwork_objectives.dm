@@ -92,6 +92,8 @@
 
 // After all goals 've completed check this proc for start summoning
 /datum/clockwork_objectives/proc/ratvar_is_ready()
+	if(clock_status >= RATVAR_NEEDS_SUMMONING) //or already prepared or summoned
+		return
 	clock_status = RATVAR_NEEDS_SUMMONING
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 		if(clock_mind && clock_mind.current)

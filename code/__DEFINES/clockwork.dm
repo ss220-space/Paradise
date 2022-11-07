@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(shard_spells, list(
 /// Percent clockers to reveal (Lowpop)
 #define CLOCK_CREW_REVEAL_LOW 0.35
 /// Power per crew demand. (highpop)
-#define CLOCK_POWER_PER_CREW_LOW 180
+#define CLOCK_POWER_PER_CREW_HIGH 180
 /// Percent for power to reveal (Highpop)
 #define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)
