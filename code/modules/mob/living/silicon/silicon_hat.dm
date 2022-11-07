@@ -135,7 +135,7 @@
 	if(..())
 		return 1
 
-	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr))
+	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
 		usr << browse(null, "window=mob[UID()]")
 		usr.unset_machine()
 		return
@@ -189,6 +189,8 @@
 		return borgI
 
 /mob/living/silicon/show_inv(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 	user.set_machine(src)
 
 	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
