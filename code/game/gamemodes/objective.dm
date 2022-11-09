@@ -26,8 +26,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
+	for(var/datum/objective/objective in owner.objectives)
+		if(istype(objective) && objective.target == possible_target)
+			return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(possible_target.current.stat == DEAD)
@@ -296,6 +297,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
 		return 0
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	if(!owner.current)
@@ -415,23 +418,26 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return "an unknown area"
 
 /datum/objective/steal/find_target()
-	var/loop=50
-	while(!steal_target && loop > 0)
-		loop--
-		var/thefttype = pick(GLOB.potential_theft_objectives)
+	var/list/valid_theft_objectives = list()
+	for(var/thefttype in GLOB.potential_theft_objectives)
+		for(var/datum/objective/steal/objective in owner.objectives)
+			if(istype(objective) && istype(objective.steal_target, thefttype))
+				continue
 		var/datum/theft_objective/O = new thefttype
-		if(owner.assigned_role in O.protected_jobs)
-			continue
-		if(O in owner.targets)
-			continue
 		if(O.flags & 2)
 			continue
+		if(owner.assigned_role in O.protected_jobs)
+			continue
+		valid_theft_objectives += O
+	if(length(valid_theft_objectives))
+		var/datum/theft_objective/O = pick(valid_theft_objectives)
 		steal_target = O
 
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
 			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
 		return
+
 	explanation_text = "Free Objective."
 
 
@@ -1061,7 +1067,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return
 
 /datum/objective/find_and_scan/find_target()
-	var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
+	var/list/roles = list("Clown", "Mime", "Cargo Technician",
+	"Shaft Miner", "Scientist", "Roboticist",
+	"Medical Doctor", "Geneticist", "Security Officer",
+	"Chemist", "Station Engineer", "Civilian",
+	"Botanist", "Chemist", "Virologist",
+	"Life Support Specialist")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 	log_debug("Ninja_Objectives_Log: Генерация цели на Похищения")
@@ -1093,12 +1104,55 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!(target.assigned_role in possible_roles))
 			log_debug("Ninja_Objectives_Log: Подмена одной из ролей под роль цели!")
 			possible_roles[pick(1,2,3)] = target.assigned_role
-
+	scans_to_win = clamp(round(possible_targets.len/10),initial(scans_to_win), 6)
+	log_debug("Ninja_Objectives_Log: scans_to_win: [scans_to_win]")
 	//Даже если мы не нашли цель. Эту задачу всё ещё можно будет выполнить похитив достаточно разных человек с ролями
 	explanation_text = "Найдите обладающего важной информацией человека среди следующих профессий: [possible_roles[1]], [possible_roles[2]], [possible_roles[3]]. \
 		Для проверки и анализа памяти человека, вам придётся похитить его и просканировать в специальном устройстве на вашей базе."
 
 	return target
+
+/datum/objective/vermit_hunt
+	martyr_compatible = 1
+	// Лист разумов всех генокрадов.
+	var/list/changelings = list()
+
+/datum/objective/vermit_hunt/find_target()
+	generate_changelings()
+	explanation_text = "На объекте вашей миссии действуют паразиты так же известные как \"Генокрады\" истребите хотя бы [max(1, round(length(changelings)/2))] из них."
+	return changelings
+
+/datum/objective/vermit_hunt/proc/generate_changelings()
+	log_debug("Ninja_Objectives_Log: Начата генерация генокрадов.")
+	var/list/possible_changelings = list()
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(player.client && player.mind && player.stat != DEAD)
+			if((ishuman(player) && !player.mind.special_role))
+				if(player.client && (ROLE_CHANGELING in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_CHANGELING))
+					possible_changelings += player.mind
+	for(var/datum/mind/player in possible_changelings)
+		if(player.current)
+			if(ismindshielded(player.current))
+				possible_changelings -= player
+	log_debug("Ninja_Objectives_Log: Кол-во потенциальных генокрадов [possible_changelings.len]")
+	if(possible_changelings.len)
+		log_debug("Ninja_Objectives_Log: Успешно набраны потенциальные генокрады")
+		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling*2))+1)
+		log_debug("Ninja_Objectives_Log: Генокрадов: [changeling_num]")
+		for(var/j = 0, j < changeling_num, j++)
+			var/datum/mind/new_changeling_mind = pick(possible_changelings)
+			new_changeling_mind.make_Changeling()
+			possible_changelings.Remove(new_changeling_mind)
+			changelings += new_changeling_mind
+
+/datum/objective/vermit_hunt/check_completion()
+	var/killed_vermits = 0
+	for(var/datum/mind/player in changelings)
+		if(!player || !player.current || !player.current.ckey || player.current.stat == DEAD || issilicon(player.current) || isbrain(player.current))
+			killed_vermits += 1
+	if(killed_vermits >= length(changelings)/2)
+		return TRUE
+	return FALSE
 
 /datum/objective/research_corrupt
 	explanation_text = "Используя свои перчатки, загрузите мощный вирус на любой научный сервер станции, тем самым саботировав все их исследования! \

@@ -43,6 +43,8 @@
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
+	if(!destination)
+		return
 	if(!ismob(destination.loc))
 		for(var/mob/player in mobs_viewing)
 			if(player == destination)
@@ -192,6 +194,8 @@
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
+	if(!boxes)
+		return
 	var/cx = 4
 	var/cy = 2 + rows
 	boxes.screen_loc = "4:16,2:16 to [4 + cols]:16,[2 + rows]:16"
@@ -329,7 +333,11 @@
 	if(silent)
 		prevent_warning = TRUE
 	W.forceMove(src)
+	if(QDELING(W))
+		return FALSE
 	W.on_enter_storage(src)
+	if(QDELING(W))
+		return FALSE
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
