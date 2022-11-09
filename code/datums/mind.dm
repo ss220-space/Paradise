@@ -672,7 +672,9 @@
 
 		switch(new_obj_type)
 			if("assassinate", "protect", "steal brain", "prevent from escape", "pain_hunter")
-				var/obj_type = list("assassinate" = /datum/objective/assassinate, "protect" = /datum/objective/protect, "steal brain" = /datum/objective/debrain, "prevent from escape" = /datum/objective/maroon)[new_obj_type]
+				var/obj_type = list("assassinate" = /datum/objective/assassinate, "protect" = /datum/objective/protect,
+								"steal brain" = /datum/objective/debrain, "prevent from escape" = /datum/objective/maroon,
+								"pain_hunter" = /datum/objective/pain_hunter)[new_obj_type]
 				new_objective = new obj_type
 				new_objective.owner = src
 
