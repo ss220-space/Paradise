@@ -38,10 +38,7 @@
 		return 0
 
 
-	var/playerC = 0
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready))
-			playerC++
+	var/playerC = length(GLOB.clients)
 
 	possible_wizards.Remove(wizard)
 	if(playerC >= required_min_players_for_apprentice)
