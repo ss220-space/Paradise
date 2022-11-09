@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes", "roar", "threat")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -114,6 +114,30 @@
 
 		if("hisses")
 			if(istajaran(src)) //tajaran hissing(sounds like cat hissing)
+				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("roar")
+			if(isunathi(src))
+				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("threat")
+			if(isunathi(src))
+				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("whip")
+			if(isunathi(src))
+				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("breath")
+			if(isunathi(src))
 				on_CD = handle_emote_CD()
 			else
 				return
@@ -270,6 +294,44 @@
 				m_type = 2
 			else
 				message = "тихо шипит."
+				m_type = 2
+
+		if("roar")
+			var/M = handle_emote_param(param)
+
+			if(!muzzled)
+				message = "рычит[M ? " на [M]" : ""]."
+				playsound(src, pick('sound/goonstation/voice/unathi/roar.ogg', 'sound/goonstation/voice/unathi/roar2.ogg', 'sound/goonstation/voice/unathi/roar3.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+			else
+				message = "тихо рычит."
+				m_type = 2
+
+		if("whip")
+			if(HAS_TAIL)
+				message = "ударяет хвостом."
+				playsound(src, 'sound/goonstation/voice/unathi/whip_short.ogg', 100, 1)
+				m_type = 2
+			else
+				return
+
+		if("whips")
+			if(HAS_TAIL)
+				message = "хлестает хвостом."
+				playsound(src, 'sound/goonstation/voice/unathi/whip.ogg', 100, 1)
+				m_type = 2
+			else
+				return
+
+		if("threat")
+			var/M = handle_emote_param(param)
+
+			if(!muzzled)
+				message = "угрожающе раскрывает пасть[M ? " на [M]" : ""]."
+				playsound(src, pick('sound/goonstation/voice/unathi/threat.ogg', 'sound/goonstation/voice/unathi/threat2.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+			else
+				message = "издаёт громкий шум."
 				m_type = 2
 
 		if("hisses")
