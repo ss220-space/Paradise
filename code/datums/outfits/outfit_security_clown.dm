@@ -142,7 +142,7 @@
 /datum/outfit/admin/clown_security/physician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
-//=========== снаряжение клоуна службы безопасности ===========
+//=========== security clown equipment ===========
 /obj/item/pda/clown/security
 	default_cartridge = /obj/item/cartridge/clown
 	icon_state = "pda-security-clown"
@@ -181,7 +181,7 @@
 	name = "Личное ХОНК-ружье смотрителя"
 	desc = "Личное смертоносное оружие клоуна-смотрителя, выданное за заслуги перед НТ и \[ДАННЫЕ ХОНКНУТЫ\]. Ходят слухи что это один из первых экземпляров произведенных во время войны мимов и клоунов на родной планете клоунов.";
 
-//=========== одежда плазмаменов ===========
+//=========== plasmamet clothes ===========
 /obj/item/clothing/head/helmet/space/plasmaman/security/security/clown
 	name = "security clown plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the warden, a pair of white stripes being added to differentiate them from other members of security. HONK!"
