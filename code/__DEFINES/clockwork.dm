@@ -96,6 +96,8 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define COG_MAX_SIPHON_THRESHOLD 0.25 //The cog will not siphon power if the APC's cell is at this % of power
 // amount of metal per brass
 #define CLOCK_METAL_TO_BRASS 10
+//Cogscarab: a wind up timer of how long can droney live without beacon
+#define CLOCK_MAX_WIND_UP_TIMER 150
 
 // Clockwork Status
 /// At what population does it switch to highpop values

@@ -45,6 +45,7 @@
 		/obj/item/clockwork
 	)
 
+	var/wind_up_timer = CLOCK_MAX_WIND_UP_TIMER
 
 /mob/living/silicon/robot/cogscarab/Initialize()
 	. = ..()
@@ -76,6 +77,20 @@
 	additional_law_channels["Drone"] = ":d "
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+
+/mob/living/silicon/robot/cogscarab/Life(seconds, times_fired)
+	..()
+	if(wind_up_timer < 0)
+		wind_up_timer = 0
+	if(wind_up_timer == 0)
+		adjustBruteLoss(2)
+	else
+		wind_up_timer -= seconds
+
+/mob/living/silicon/robot/cogscarab/Stat()
+	..()
+	if(isclocker(mind?.current))
+		stat("Wind Up Timer:", "[wind_up_timer]")
 
 /mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
 	// force it to not actually change most things
@@ -210,8 +225,8 @@
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
 	set category = "Cogscarab"
 
-	if(layer != TURF_LAYER+0.2)
-		layer = TURF_LAYER+0.2
+	if(layer != LOW_OBJ_LAYER)
+		layer = LOW_OBJ_LAYER
 		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
 	else
 		layer = MOB_LAYER

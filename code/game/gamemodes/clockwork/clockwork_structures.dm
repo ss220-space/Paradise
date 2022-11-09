@@ -136,6 +136,9 @@
 				L.heal_overall_damage(10, 10, TRUE, FALSE, TRUE)
 			if(isrobot(L))
 				L.heal_overall_damage(5, 5, TRUE)
+				if(iscogscarab(L))
+					var/mob/living/silicon/robot/cogscarab/C = L
+					C.wind_up_timer = min(C.wind_up_timer + 5, CLOCK_MAX_WIND_UP_TIMER)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
