@@ -6,7 +6,7 @@
 /datum/surgery/amputation
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -26,7 +26,7 @@
 /datum/surgery/reattach
 	name = "Limb Reattachment"
 	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -42,7 +42,7 @@
 /datum/surgery/reattach_synth
 	name = "Synthetic Limb Reattachment"
 	steps = list(/datum/surgery_step/limb/attach/robo)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -57,7 +57,7 @@
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
 	steps = list(/datum/surgery_step/limb/mechanize)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 /datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))

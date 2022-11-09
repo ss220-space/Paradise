@@ -348,3 +348,32 @@
 	species_type = /datum/species/monkey/unathi
 	name = "stok tail"
 	icon_name = "stoktail_s"
+
+/obj/item/organ/external/wing
+	limb_name = "wing"
+	name = "wing"
+	force_icon = "icons/effects/species.dmi"
+	icon_name = "wing"
+	max_damage = 30
+	min_broken_damage = 15
+	w_class = WEIGHT_CLASS_SMALL
+	body_part = WING
+	parent_organ = "chest"
+	amputation_point = "spine"
+	var/datum/body_accessory/body_accessory
+	var/list/m_styles = list("wing" = "None")
+	var/list/m_colours = list("wing" = "#000000")
+	s_col = "#000000"
+
+/obj/item/organ/external/wing/sync_colour_to_human(var/mob/living/carbon/human/H)
+	..()
+	var/datum/sprite_accessory/wing_marking_style = GLOB.marking_styles_list[H.m_styles["wing"]]
+	if(body_accessory && (dna.species.name in body_accessory.allowed_species))
+		body_accessory = body_accessory
+	if(body_accessory)
+		m_styles["wing"] = H.m_styles["wing"]
+	else
+		if(dna.species.name in wing_marking_style.species_allowed)
+			m_styles["wing"] = H.m_styles["wing"]
+	if(dna.species.bodyflags & HAS_SKIN_COLOR)
+		m_colours["wing"] = H.m_colours["wing"]

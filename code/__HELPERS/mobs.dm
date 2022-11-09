@@ -138,6 +138,13 @@
 			else
 				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
 					continue
+		if(location == "wing")
+			if(!body_accessory)
+				if(S.wings_allowed)
+					continue
+			else
+				if(!S.wings_allowed || !(body_accessory in S.wings_allowed))
+					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...

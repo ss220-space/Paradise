@@ -278,6 +278,12 @@
 
 /obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)
+		if(5 to 10) // wing
+			switch(icon_x)
+				if (22 to 28)
+					return "wing"
+				if (4 to 10)
+					return "wing"
 		if(1 to 3) //Feet
 			switch(icon_x)
 				if(10 to 15)

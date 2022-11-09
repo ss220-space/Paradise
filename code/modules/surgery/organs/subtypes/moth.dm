@@ -23,3 +23,9 @@
 /obj/item/organ/internal/kidneys/nian
 	name = "nian kidneys"
 	icon = 'icons/obj/species_organs/nian.dmi'
+/obj/item/organ/external/wing/nian
+	species_type = /datum/species/vulpkanin
+	name = "Nian wing"
+	icon_name = "Nian_s"
+	max_damage = 25
+	min_broken_damage = 15

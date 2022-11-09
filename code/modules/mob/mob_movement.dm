@@ -442,6 +442,16 @@
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_TAIL, mob)
 
+/client/verb/body_wing()
+	set name = "body-wing"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
+	selector.set_selected_zone(BODY_ZONE_WING, mob)
+
 /client/verb/body_l_leg()
 	set name = "body-l-leg"
 	set hidden = 1
