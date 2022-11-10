@@ -1,3 +1,7 @@
+#define WINDUP_STATE_NONE 0
+#define WINDUP_STATE_WARNING 1
+#define WINDUP_STATE_DANGER 2
+
 // Little Coggy Droney!
 /mob/living/silicon/robot/cogscarab
 	name = "cogscarab"
@@ -46,6 +50,7 @@
 	)
 
 	var/wind_up_timer = CLOCK_MAX_WIND_UP_TIMER
+	var/warn_wind_up = WINDUP_STATE_NONE
 
 /mob/living/silicon/robot/cogscarab/Initialize()
 	. = ..()
@@ -80,16 +85,27 @@
 
 /mob/living/silicon/robot/cogscarab/Life(seconds, times_fired)
 	..()
-	if(wind_up_timer < 0)
-		wind_up_timer = 0
-	if(wind_up_timer == 0)
+	if(wind_up_timer > CLOCK_MAX_WIND_UP_TIMER/2)
+		warn_wind_up = WINDUP_STATE_NONE
+	else
+		if(!warn_wind_up)
+			to_chat(src, "<span class='warning'>You feel how your cogs inside slowing down! You need to find beacon to rewind yourself!</span>")
+			warn_wind_up = WINDUP_STATE_WARNING
+
+
+	if(wind_up_timer <= 0)
+		if(wind_up_timer < 0)
+			wind_up_timer = 0
+		if(warn_wind_up < WINDUP_STATE_DANGER)
+			to_chat(src, "<span class='userdanger'>The gears inside stopped to work! Find the beacon!</span>")
+			warn_wind_up = WINDUP_STATE_DANGER
 		adjustBruteLoss(2)
 	else
 		wind_up_timer -= seconds
 
 /mob/living/silicon/robot/cogscarab/Stat()
 	..()
-	if(isclocker(mind?.current))
+	if(mind?.current)
 		stat("Wind Up Timer:", "[wind_up_timer]")
 
 /mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
@@ -314,7 +330,11 @@
 	user.playsound_local(src, 'sound/machines/blender.ogg', 20, 1)
 	for(var/obj/item/A in grabbed_items)
 		if(A.materials[MAT_METAL])
-			metal_amount += A.materials[MAT_METAL]
+			if(istype(A, /obj/item/stack))
+				var/obj/item/stack/S = A
+				metal_amount += S.materials[MAT_METAL] * S.amount
+			else
+				metal_amount += A.materials[MAT_METAL]
 
 	user.changeNext_move(CLICK_CD_MELEE * melt_click_delay)
 	QDEL_LIST(grabbed_items)
@@ -326,3 +346,7 @@
 		if(!cog.stack_brass)
 			cog.stack_brass = new /obj/item/stack/sheet/brass/cyborg(cog.module)
 		cog.stack_brass.add(brass_melted)
+
+#undef WINDUP_STATE_NONE
+#undef WINDUP_STATE_WARNING
+#undef WINDUP_STATE_DANGER

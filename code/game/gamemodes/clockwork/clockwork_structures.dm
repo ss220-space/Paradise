@@ -100,7 +100,7 @@
 	max_integrity = 750 // A very important one
 	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
 	death_sound = 'sound/effects/creepyshriek.ogg'
-	var/heal_delay = 60
+	var/heal_delay = 6 SECONDS
 	var/last_heal = 0
 	var/area/areabeacon
 	var/areastring = null
@@ -125,7 +125,7 @@
 		for(var/mob/living/L in range(5, src))
 			if(!isclocker(L))
 				continue
-			if(L.reagents.has_reagent("holywater"))
+			if(L.reagents?.has_reagent("holywater"))
 				to_chat(L, "<span class='warning'>You feel a terrible liquid disappearing from your body.</span>")
 				L.reagents.del_reagent("holywater")
 			if(!(L.health < L.maxHealth))
@@ -138,7 +138,7 @@
 				L.heal_overall_damage(5, 5, TRUE)
 				if(iscogscarab(L))
 					var/mob/living/silicon/robot/cogscarab/C = L
-					C.wind_up_timer = min(C.wind_up_timer + 5, CLOCK_MAX_WIND_UP_TIMER)
+					C.wind_up_timer = min(C.wind_up_timer + 25, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 25 seconds. roughly, every second 5 to timer.
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
