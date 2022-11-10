@@ -13,7 +13,6 @@
 	var/finished = 0
 	var/but_wait_theres_more = 0
 
-	var/required_min_players_for_apprentice = 50	//Минимальное число игроков, после которого спавнится ученик
 	var/required_num_players_for_apprentice = 25	//Каждое доп. количество игроков сверх минимума, добавляется новый ученик
 
 /datum/game_mode/wizard/announce()
@@ -38,11 +37,11 @@
 		return 0
 
 
-	var/playerC = length(GLOB.clients)
+	var/playerC = num_players()
 
 	possible_wizards.Remove(wizard)
-	if(playerC >= required_min_players_for_apprentice)
-		for(var/i in 0 to ((playerC - required_min_players_for_apprentice) / required_num_players_for_apprentice))
+	if(playerC >= required_players)
+		for(var/i in 0 to ((playerC - required_players) / required_num_players_for_apprentice))
 			if(!length(possible_wizards))
 				return 1
 			var/datum/mind/apprentice = pick(possible_wizards)
