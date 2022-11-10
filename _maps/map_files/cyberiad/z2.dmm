@@ -25882,7 +25882,6 @@
 "rkr" = (
 /turf/unsimulated/wall{
 	icon_state = "iron12";
-	layer = 10
 	},
 /area/syndicate_mothership)
 "rlj" = (
