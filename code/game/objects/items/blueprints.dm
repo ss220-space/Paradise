@@ -379,11 +379,11 @@
 
 /obj/item/areaeditor/blueprints/ce
 
-//Чертежи для Теты,  такие же как и у големов
+//Blueprint for Theta station
 /obj/item/areaeditor/theta
 	name = "Theta Station blueprints"
 	desc = "Used to define new areas in space."
-	fluffnotice = "Не метиорито пробивная станция, даем гарантию на 200 лет!"
+	fluffnotice = "Метеорито-стойкая станция, даем гарантию на 200 лет!"
 
 /obj/item/areaeditor/theta/attack_self(mob/user)
 	. = ..()
