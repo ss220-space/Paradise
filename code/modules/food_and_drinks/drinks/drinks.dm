@@ -36,23 +36,26 @@
 
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
-		var/refill = reagents.get_master_reagent_id()
-		var/datum/reagent/refillName = reagents.get_master_reagent_name()
+		var/datum/reagent/masterReagent = reagents.get_master_reagent()
+		var/reagentAmountBeforeTransfer = reagents.get_reagent_amount(masterReagent.id) //master reagent amount before transfer
 		if(C.eat(src, user))
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				var/mob/living/silicon/robot/borg = user
-				var/chargeAmount = max(30,4*bitesize)
-				if(refill in GLOB.drinks) // Only synthesize drinks if not emagged
-					borg.cell.use(chargeAmount)
-					to_chat(user, "<span class='warning'>Now synthesizing [bitesize] units of [refillName]...</span>")
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 300)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='warning'>Cyborg [src] refilled.</span>"), 300)
-				else if((borg.emagged)||(borg.weapons_unlock)) // Only synthesize drinks
-					borg.cell.use(chargeAmount)
-					to_chat(user, "<span class='notice'>Now synthesizing [bitesize] units of [refillName]...</span>")
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 300)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
-				
+				var/transferredReagentAmount = reagentAmountBeforeTransfer - reagents.get_reagent_amount(masterReagent.id)  //master reagent amount that was transferred
+				if (transferredReagentAmount>0)
+					var/chargeAmount = 4*transferredReagentAmount
+					chargeAmount = round(chargeAmount)// math floor
+					if(borg.cell.use(chargeAmount)==1)
+						if(masterReagent.id in GLOB.drinks) // Only synthesize drinks if not emagged
+							to_chat(user, "<span class='notice'>Now synthesizing [transferredReagentAmount] units of [masterReagent.name]...</span>")
+							addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, masterReagent.id, transferredReagentAmount), 300)
+							addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+						else if((borg.emagged)||(borg.weapons_unlock))
+							to_chat(user, "<span class='warning'>Now synthesizing [transferredReagentAmount] units of [masterReagent.name]...</span>")
+							addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, masterReagent.id, transferredReagentAmount), 300)
+							addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='warning'>Cyborg [src] refilled.</span>"), 300)
+					else
+						to_chat(user, "<span class='warning'>Now enough energy to start synthesizing [transferredReagentAmount] units of [masterReagent.name]...</span>")
 			return TRUE
 	return FALSE
 
@@ -83,30 +86,34 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/datum/reagent/refill
-		var/datum/reagent/refillName
+		var/datum/reagent/masterReagent
+		var/reagentAmountBeforeTransfer //master reagent amount before transfer
 		if(isrobot(user))
-			refill = reagents.get_master_reagent_id()
-			refillName = reagents.get_master_reagent_name()
+			masterReagent = reagents.get_master_reagent()
+			reagentAmountBeforeTransfer = reagents.get_reagent_amount(masterReagent.id)
 
+		var/targetName = "[target]"
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [targetName].</span>")
 
 		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 			var/mob/living/silicon/robot/bro = user
-			if((refill in GLOB.drinks)||(bro.emagged)||(bro.weapons_unlock)) // Only synthesize drinks if not emaged
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				if(refill in GLOB.drinks) // Only synthesize drinks if not emagged
-					to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
-				else
-					to_chat(user, "<span class='warning'>Now synthesizing [trans] units of [refillName]...</span>")
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='warning'>Cyborg [src] refilled.</span>"), 300)
-					
-		
+			if((masterReagent.id in GLOB.drinks)||(bro.emagged)||(bro.weapons_unlock)) // Only synthesize drinks if not emaged
+				var/transferredReagentAmount = reagentAmountBeforeTransfer - reagents.get_reagent_amount(masterReagent.id)  //master reagent amount that was transferred
+				if (transferredReagentAmount>0)
+					var/chargeAmount = 4*transferredReagentAmount
+					chargeAmount = round(chargeAmount)// math floor
+					if(bro.cell.use(chargeAmount)==1)
+						if(masterReagent.id in GLOB.drinks) 
+							to_chat(user, "<span class='notice'>Now synthesizing [transferredReagentAmount] units of [masterReagent.name]...</span>")
+							addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, masterReagent.id, transferredReagentAmount), 300)
+							addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+						else
+							to_chat(user, "<span class='warning'>Now synthesizing [transferredReagentAmount] units of [masterReagent.name]...</span>")
+							addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, masterReagent.id, transferredReagentAmount), 300)
+							addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='warning'>Cyborg [src] refilled.</span>"), 300)
+					else
+						to_chat(user, "<span class='warning'>Now enough energy to start synthesizing [transferredReagentAmount] units of [masterReagent.name]...</span>")
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
