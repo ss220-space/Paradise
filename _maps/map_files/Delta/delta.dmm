@@ -71656,7 +71656,7 @@
 /area/maintenance/fpmaint)
 "iQu" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;47"
+	req_one_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
