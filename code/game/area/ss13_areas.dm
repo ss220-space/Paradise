@@ -2336,7 +2336,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "undersea"
 
 
-// Это зоны для гейта "moonoutpost19"
+// area for AWAY "moonoutpost19"
 /area/moonoutpost19
 	name = "moonoutpost"
 	has_gravity = TRUE
@@ -2354,11 +2354,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Khonsu 19"
 	icon_state = "awaycontent3"
 	always_unpowered = TRUE
-	ambientsounds = list('sound/ambience/ambimine.ogg')
+	ambientsounds = MOON_SOUNDS
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
 	poweralm = FALSE
+	outdoors = TRUE
 
 /area/moonoutpost19/syndicateoutpost
 	name = "Syndicate Outpost"
