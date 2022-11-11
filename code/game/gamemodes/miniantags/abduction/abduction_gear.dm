@@ -813,7 +813,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien_hscanner"
 	item_state = "alien_hscanner"
-	desc = "Why it's interface looks so familiar?"
+	desc = "Why its interface looks so familiar?"
 
 /obj/item/storage/firstaid_abductor
 	name = "alien medkit"
