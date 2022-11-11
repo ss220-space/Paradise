@@ -2354,7 +2354,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Khonsu 19"
 	icon_state = "awaycontent3"
 	always_unpowered = TRUE
-	ambientsounds = MOON_SOUNDS
+	ambientsounds = list('sound/ambience/ambimine.ogg')
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
