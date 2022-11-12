@@ -516,7 +516,7 @@ CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
 #DISABLE_RESPAWN
 
 ## Uncomment to allow players joined as observer respawning.
-#RESPAWN_OBSERVER
+RESPAWN_OBSERVER
 
 ## Respawn delay in minutes before one may respawn as a crew member.
 RESPAWN_DELAY 20
