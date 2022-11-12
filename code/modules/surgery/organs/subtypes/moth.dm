@@ -25,5 +25,5 @@
 	icon = 'icons/obj/species_organs/nian.dmi'
 /obj/item/organ/external/wing/nian
 	max_damage = 25
-	name = "nianwing_s"
+	name = "nian wings"
 	min_broken_damage = 15

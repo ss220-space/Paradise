@@ -353,7 +353,7 @@
 	limb_name = "wing"
 	name = "wing"
 	force_icon = "icons/effects/species.dmi"
-	icon_name = "wing_s"
+	icon_name = "wing"
 	max_damage = 30
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
@@ -361,15 +361,9 @@
 	parent_organ = "chest"
 	amputation_point = "spine"
 	var/datum/body_accessory/body_accessory
+	var/list/m_styles = list("tail" = "None")
+	var/list/m_colours = list("tail" = "#000000")
+	s_col = "#000000"
 
 /obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
 	..()
-	var/mob/living/carbon/human/H = holder
-	if(!H)
-		var/icon/tempicon = new/icon("icon" = icon, "icon_state" = icon_state)
-		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
-		tempicon2.Flip(SOUTH)
-		tempicon.Insert(tempicon2,dir=SOUTH)
-		force_icon = tempicon
-		icon_name = null
-		return

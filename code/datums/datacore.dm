@@ -258,6 +258,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	for(var/obj/item/organ/external/E in H.bodyparts)
 		if(istype(E,/obj/item/organ/external/tail))
 			continue
+		if(istype(E, /obj/item/organ/external/wing))
+			continue
 		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
 
 /* At this point all bodyparts already colored!

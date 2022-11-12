@@ -35,6 +35,9 @@
 		if(ismachineperson(target) && user.zone_selected != "tail")
 			// RIP bi-centennial man
 			return 0
+		if(ismachineperson(target) && user.zone_selected != "wing")
+			// RIP bi-centennial man
+			return 0
 		if(!affected)
 			return 1
 	return 0
@@ -78,6 +81,8 @@
 		return 0
 	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
 	if(target_zone == "tail")
+		return TRUE
+	if(target_zone == "wing")
 		return TRUE
 	return !isnull(organ_data)
 
