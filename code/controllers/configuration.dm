@@ -294,7 +294,7 @@
 	// Delay before respawning for players and drones (minutes)
 	var/respawn_delay = 20
 	var/respawn_delay_drone = 10
-	var/respawn_observer = FALSE
+	var/respawn_observer = TRUE
 
 	var/restrict_maint = 0
 

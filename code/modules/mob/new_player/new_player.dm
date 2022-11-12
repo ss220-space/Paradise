@@ -185,7 +185,7 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe?[(config.respawn_observer ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
+		if(alert(src,"Are you sure you wish to observe?[(config.respawn_observer ? "" : " You can normally join the round after waiting!")]","Player Setup","Yes","No") == "Yes")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
