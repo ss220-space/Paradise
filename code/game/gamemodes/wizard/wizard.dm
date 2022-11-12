@@ -13,7 +13,7 @@
 	var/finished = 0
 	var/but_wait_theres_more = 0
 
-	var/required_num_players_for_apprentice = 25	//Каждое доп. количество игроков сверх минимума, добавляется новый ученик
+	var/required_num_players_for_apprentice = 25	//Each additional number of players above the minimum, a new apprentice is added
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
@@ -38,10 +38,10 @@
 
 
 	var/playerC = num_players()
-
+	var/min_players = required_players + required_num_players_for_apprentice
 	possible_wizards.Remove(wizard)
-	if(playerC >= required_players)
-		for(var/i in 0 to ((playerC - required_players) / required_num_players_for_apprentice))
+	if(playerC >= min_players)
+		for(var/i in 0 to ((playerC - min_players) / required_num_players_for_apprentice))
 			if(!length(possible_wizards))
 				return 1
 			var/datum/mind/apprentice = pick(possible_wizards)
