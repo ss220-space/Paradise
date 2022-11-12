@@ -53,7 +53,6 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/ninja/ninja				//ninja holder
-	var/list/datum/hunter_target/target_hunters = list()	//Помеченная цель для "особых случаев", например избиения
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -655,9 +654,9 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "steal brain", "protect", "blood", "hijack",
-			"escape", "survive", "steal", "download", "nuclear", "capture", "absorb",
-			"destroy", "identity theft", "kill all humans", "pain_hunter",
+			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "hijack",
+			"escape", "survive", "steal", "download", "nuclear", "capture", "blood", "absorb",
+			"destroy", "identity theft", "kill all humans",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",

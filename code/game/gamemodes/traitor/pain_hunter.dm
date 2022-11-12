@@ -1,22 +1,3 @@
-/datum/hunter_target	//цель тритора для "особых случаев"
-	var/datum/mind/hunter = null	//ссылка на охотника
-	var/datum/objective/pain_hunter/objective = null	//ссылка на задачу с которой на него охотятся
-	var/damage_type = BRUTE
-	//var/damage_count = 0
-
-/datum/hunter_target/proc/take_damage(var/damage)
-	objective.damage_target += damage
-	objective.update_explain_text()
-
-/datum/hunter_target/New(var/datum/mind/ref_hunter, var/datum/objective/pain_hunter/ref_objective, var/ref_damage_type = BRUTE)
-	hunter = ref_hunter
-	objective = ref_objective
-	damage_type = ref_damage_type
-
-/datum/hunter_target/Destroy()
-	objective.owner.target_hunters.Remove(src)
-	. = ..()
-
 //задача на принесение боли
 /datum/objective/pain_hunter
 	martyr_compatible = 1
@@ -24,18 +5,33 @@
 	var/damage_type = BRUTE
 	var/damage_target = 0
 
+/datum/objective/pain_hunter/proc/take_damage(var/take_damage, var/take_damage_type)
+	if (damage_type != take_damage_type)
+		return
+	damage_target += take_damage
+	update_explain_text()
+
+/datum/objective/pain_hunter/New(text)
+	. = ..()
+	update_explain_text()
+
 /datum/objective/pain_hunter/Destroy()
-	GLOB.all_objectives -= src
-	SSticker.mode.victims.Remove(target)
-	return ..()
+	var/check_other_hunter = FALSE
+	for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
+		if (target == objective.target)
+			check_other_hunter = TRUE
+			break
+	if(!check_other_hunter)
+		SSticker.mode.victims.Remove(target)
+	. = ..()
 
 /datum/objective/pain_hunter/find_target()
 	..()
 	if(target && target.current)
 		random_type()
-		target.target_hunters.Add(new /datum/hunter_target(owner, src, damage_type))
 		update_explain_text()
-		SSticker.mode.victims.Add(target)
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -80,7 +76,7 @@
 		if(BRUTE)
 			damage_explain = "грубого"
 		if(BURN)
-			damage_explain = "жженого"
+			damage_explain = "ожогового"
 		if(TOX)
 			damage_explain = "токсичного"
 	return damage_explain

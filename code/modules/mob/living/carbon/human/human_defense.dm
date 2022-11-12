@@ -447,10 +447,10 @@ emp_act
 
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
-	if(mind && length(mind.target_hunters))
-		for(var/datum/hunter_target/hunter_target in mind.target_hunters)
-			if(user.mind == hunter_target.hunter && I.damtype == hunter_target.damage_type)
-				hunter_target.take_damage(I.force * weakness)
+	if(mind && stat != DEAD && user.mind?.objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+			if(mind == objective.target)
+				objective.take_damage(I.force * weakness, I.damtype)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))

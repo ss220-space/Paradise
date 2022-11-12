@@ -86,7 +86,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
-		SSticker.mode.victims.Add(target)
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -144,7 +145,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
-		SSticker.mode.victims.Add(target)
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -173,7 +175,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
-		SSticker.mode.victims.Add(target)
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -203,7 +206,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		..()
 	else
 		target = victim
-		SSticker.mode.victims.Remove(victim)
 
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
@@ -228,16 +230,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/proc/get_victim()
 	if(length(SSticker.mode.victims) > 0)
-		for(var/datum/mind/victim in SSticker.mode.victims)
-			var/is_need_continue = FALSE
-			for(var/datum/objective/obj in owner.objectives)
-				if(obj.owner == victim)
-					is_need_continue = TRUE
-					break
-
-			if(is_need_continue)
-				continue
-			return victim
+		var/datum/mind/victim = pick(SSticker.mode.victims)
+		return victim
 
 
 /datum/objective/hijack
@@ -359,7 +353,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target = pick(possible_targets)
 	if(target && target.current)
 		target_real_name = target.current.real_name
-		SSticker.mode.victims.Add(target)
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
