@@ -24,8 +24,6 @@
 	name = "nian kidneys"
 	icon = 'icons/obj/species_organs/nian.dmi'
 /obj/item/organ/external/wing/nian
-	species_type = /datum/species/vulpkanin
-	name = "Nian wing"
-	icon_name = "Nian_s"
 	max_damage = 25
+	name = "nianwing_s"
 	min_broken_damage = 15

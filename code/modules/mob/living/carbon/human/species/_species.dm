@@ -215,7 +215,7 @@
 		H.bodyparts |= H.bodyparts_by_name[name]
 
 	H.update_tail()
-
+	H.update_wing()
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 

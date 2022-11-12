@@ -279,6 +279,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail()
+	update_wing()
 	update_wing_layer()
 	update_tail_layer()
 	update_int_organs()
@@ -1108,20 +1109,23 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_wing_layer()
 	remove_overlay(WING_UNDERLIMBS_LAYER)
 	remove_overlay(WING_LAYER)
-	if(!istype(body_accessory, /datum/body_accessory/wing))
+
+	if(!bodypart_wing)
+		return
+	if(!istype(bodypart_wing.body_accessory, /datum/body_accessory/wing))
 		if(dna.species.optional_body_accessory)
 			return
 		else
 	if(!body_accessory.try_restrictions(src))
 		return
-	var/mutable_appearance/wings = mutable_appearance(body_accessory.icon, body_accessory.icon_state, layer = -WING_LAYER)
-	wings.pixel_x = body_accessory.pixel_x_offset
-	wings.pixel_y = body_accessory.pixel_y_offset
+	var/mutable_appearance/wings = mutable_appearance(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state, layer = -WING_LAYER)
+	wings.pixel_x = bodypart_wing.body_accessory.pixel_x_offset
+	wings.pixel_y = bodypart_wing.body_accessory.pixel_y_offset
 	overlays_standing[WING_LAYER] = wings
-	if(body_accessory.has_behind)
-		var/mutable_appearance/under_wing = mutable_appearance(body_accessory.icon, "[body_accessory.icon_state]_BEHIND", layer = -WING_UNDERLIMBS_LAYER)
-		under_wing.pixel_x = body_accessory.pixel_x_offset
-		under_wing.pixel_y = body_accessory.pixel_y_offset
+	if(bodypart_wing.body_accessory.has_behind)
+		var/mutable_appearance/under_wing = mutable_appearance(bodypart_wing.body_accessory.icon, "[bodypart_wing.body_accessory.icon_state]_BEHIND", layer = -WING_UNDERLIMBS_LAYER)
+		under_wing.pixel_x = bodypart_wing.body_accessory.pixel_x_offset
+		under_wing.pixel_y = bodypart_wing.body_accessory.pixel_y_offset
 		overlays_standing[WING_UNDERLIMBS_LAYER] = under_wing
 
 /mob/living/carbon/human/proc/update_tail_layer()

@@ -177,7 +177,6 @@ I use this to standardize shadowling dethrall code
 		bodypart_tail = bodyparts_by_name["tail"]
 	else
 		bodypart_tail = null
-
 /mob/living/carbon/human/proc/update_wing()
 	if(bodyparts_by_name["wing"])
 		bodypart_wing = bodyparts_by_name["wing"]

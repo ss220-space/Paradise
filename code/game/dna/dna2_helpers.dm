@@ -173,9 +173,11 @@
 			if(!body_acc)
 				H.body_accessory = null
 				H.bodypart_tail?.body_accessory = null
+				H.bodypart_wing?.body_accessory = null
 			else if(H.dna.species.name in body_acc.allowed_species)
 				H.body_accessory = body_acc
 				H.bodypart_tail?.body_accessory = body_acc
+				H.bodypart_wing?.body_accessory = body_acc
 		//Tail Markings
 		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))

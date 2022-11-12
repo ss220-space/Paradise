@@ -104,7 +104,7 @@
 
 /mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
 	var/found
-	if(!body_accessory_style || !bodypart_tail || (bodypart_tail.body_accessory && bodypart_tail.body_accessory.name == body_accessory_style))
+	if(!body_accessory_style || !bodypart_tail || !bodypart_wing || (bodypart_tail.body_accessory && bodypart_tail.body_accessory.name == body_accessory_style))
 		return
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, body_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
 		return FALSE
@@ -112,6 +112,7 @@
 	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
 			bodypart_tail.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
+			bodypart_wing.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
 			found = 1
 
 	if(!found)

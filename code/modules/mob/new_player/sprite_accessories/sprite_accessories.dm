@@ -53,6 +53,7 @@
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
+	var/list/wings_allowed
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
 	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
