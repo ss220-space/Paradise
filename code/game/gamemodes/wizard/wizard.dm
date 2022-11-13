@@ -38,10 +38,9 @@
 
 
 	var/playerC = num_players()
-	var/min_players = required_players + required_num_players_for_apprentice
 	possible_wizards.Remove(wizard)
-	if(playerC >= min_players)
-		for(var/i in 0 to ((playerC - min_players) / required_num_players_for_apprentice))
+	if(playerC >= required_players)
+		for(var/i in 0 to FLOOR(playerC - required_players, required_num_players_for_apprentice))
 			if(!length(possible_wizards))
 				return 1
 			var/datum/mind/apprentice = pick(possible_wizards)
