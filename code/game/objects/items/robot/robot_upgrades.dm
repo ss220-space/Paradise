@@ -40,7 +40,8 @@
 
 /obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
 	if(..())
-		R.reset_module()
+		if(!isclocker(R))
+			R.reset_module()
 
 	return TRUE
 
