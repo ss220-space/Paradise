@@ -201,21 +201,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 1
 
 /datum/objective/protect/find_target()
-	var/list/datum/mind/temp_victims = SSticker.mode.victims
-	for(var/datum/objective/protect/objective in GLOB.all_objectives)
-		temp_victims.Remove(objective.target)
+	var/list/datum/mind/temp_victims = SSticker.mode.victims.Copy()
 	for(var/datum/objective/objective in owner.objectives)
 		temp_victims.Remove(objective.target)
-	if (owner in temp_victims)
-		temp_victims.Remove(owner)
+	temp_victims.Remove(owner)
 
-	var/datum/mind/victim
-	if(length(temp_victims))
-		victim = pick(temp_victims)
-	if (!victim)
-		..()
+	if (length(temp_victims))
+		target = pick(temp_victims)
 	else
-		target = victim
+		..()
 
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
