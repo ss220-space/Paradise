@@ -201,7 +201,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 1
 
 /datum/objective/protect/find_target()
-	var/datum/mind/victim = get_victim()
+	var/list/datum/mind/temp_victims = SSticker.mode.victims
+	for(var/datum/objective/protect/objective in GLOB.all_objectives)
+		temp_victims.Remove(objective.target)
+	if (owner in temp_victims)
+		temp_victims.Remove(owner)
+
+	var/datum/mind/victim = temp_victims ? pick(temp_victims) : null
 	if (!victim)
 		..()
 	else
@@ -227,11 +233,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 /datum/objective/protect/mindslave //subtype for mindslave implants
-
-/datum/objective/protect/proc/get_victim()
-	if(length(SSticker.mode.victims) > 0)
-		var/datum/mind/victim = pick(SSticker.mode.victims)
-		return victim
 
 
 /datum/objective/hijack

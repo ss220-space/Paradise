@@ -707,7 +707,11 @@
 								description = "Steal the brain of"
 							if("prevent")
 								description = "Prevent from escaping alive or assassinate"
-						new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role]."
+							if("pain_hunter")
+								var/datum/objective/pain_hunter/choose_objective = new_objective
+								choose_objective.update_find_objective()
+						if(description)
+							new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role]."
 				else
 					new_objective.find_target()
 			if("destroy")

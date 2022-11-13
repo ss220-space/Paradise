@@ -4,6 +4,8 @@
 	var/damage_need = 200
 	var/damage_type = BRUTE
 	var/damage_target = 0
+	var/saved_target_name = "Безымянный"
+	var/saved_target_role = "без роли"
 
 /datum/objective/pain_hunter/proc/take_damage(var/take_damage, var/take_damage_type)
 	if (damage_type != take_damage_type)
@@ -28,17 +30,22 @@
 /datum/objective/pain_hunter/find_target()
 	..()
 	if(target && target.current)
-		random_type()
-		update_explain_text()
+		update_find_objective()
 		if (!(target in SSticker.mode.victims))
 			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
 
+/datum/objective/pain_hunter/proc/update_find_objective()
+	saved_target_name = target.current.real_name
+	saved_target_role = target.assigned_role
+	random_type()
+	update_explain_text()
 
 /datum/objective/pain_hunter/proc/update_explain_text()
-	explanation_text = "Преподать урок и лично нанести [target.current.real_name], [target.assigned_role], не менее [damage_need] [damage_explain()] урона. Цель должна выжить. \nТекущий урон: [damage_target]/[damage_need]"
+	if(target)
+		explanation_text = "Преподать урок и лично нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: [damage_target]/[damage_need]"
 
 /datum/objective/pain_hunter/check_completion()
 	if(target && target.current)
@@ -59,24 +66,23 @@
 	return FALSE
 
 /datum/objective/pain_hunter/proc/random_type()
-	damage_need = rand(2, 8) * 100
-	damage_type = BRUTE
-	if (prob(30))
+	if (prob(70))
+		damage_type = BRUTE
+		damage_need = rand(2, 8) * 100
+	else
 		damage_type = BURN
-		var/damage_procent = damage_need * 0.75	//уменьшаем урон, так как данным тип уроне сделать сложнее.
-		damage_need = damage_procent - damage_procent % 50	//Вычитаем для красивых ровных чисел.
+		damage_need = rand(3, 12) * 50
 		//if (prob(30))
 		//	damage_type = TOX
-		//	damage_procent = damage_need * 0.5
-		//	damage_need = (damage_procent > 100 ? damage_procent : 100) - (damage_procent > 100 ? (damage_procent % 50) : 0)
+		//	damage_need = rand(2, 6) * 50
 
 /datum/objective/pain_hunter/proc/damage_explain()
 	var/damage_explain = damage_type
 	switch(damage_type)
 		if(BRUTE)
-			damage_explain = "грубого"
+			damage_explain = "ушибов"
 		if(BURN)
-			damage_explain = "ожогового"
+			damage_explain = "ожогов"
 		if(TOX)
-			damage_explain = "токсичного"
+			damage_explain = "токсинов"
 	return damage_explain
