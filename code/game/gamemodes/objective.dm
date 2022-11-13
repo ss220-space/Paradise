@@ -207,7 +207,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if (owner in temp_victims)
 		temp_victims.Remove(owner)
 
-	var/datum/mind/victim = temp_victims ? pick(temp_victims) : null
+	var/datum/mind/victim
+	if(length(temp_victims))
+		victim = pick(temp_victims)
 	if (!victim)
 		..()
 	else
