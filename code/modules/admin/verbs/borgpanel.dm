@@ -46,7 +46,7 @@
 		"scrambledcodes" = borg.scrambledcodes
 	)
 	.["upgrades"] = list()
-	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade))
+	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-/obj/item/borg/upgrade/rename)
 		var/obj/item/borg/upgrade/upgrade = upgradetype
 		if(!borg.module && initial(upgrade.require_module)) //Borg needs to select a module first
 			continue

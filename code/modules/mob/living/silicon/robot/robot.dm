@@ -511,16 +511,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 	update_headlamp()
 
-	for(var/obj/item/borg/upgrade/upgrade in upgrades)
+	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
 
-	speed = 0 // Remove upgrades.
-	ionpulse = FALSE
-	magpulse = FALSE
 	add_language("Robot Talk", 1)
-	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
-		weather_immunities -= "lava"
-
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module

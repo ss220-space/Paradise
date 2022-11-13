@@ -96,11 +96,6 @@
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
-		if(R.speed < 0)
-			to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
-			to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
-			return
-
 		R.speed = -1 // Gotta go fast.
 
 		return TRUE
@@ -123,11 +118,6 @@
 		if(!T)
 			to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
 			return
-		if(T.charge_delay <= 2)
-			to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
-			to_chat(usr, "<span class='notice'>There's no room for another cooling unit!</span>")
-			return
-
 		T.charge_delay = max(2 , T.charge_delay - 4)
 
 		return TRUE
@@ -147,10 +137,6 @@
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
 	if(..())
-		if(R.ionpulse)
-			to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
-			return
-
 		R.ionpulse = 1
 		return TRUE
 
@@ -248,7 +234,7 @@
 	if(..())
 		return
 
-	for(var/obj/item/weldingtool/largetank/cyborg/W in R.module.modules)
+	for(var/obj/item/weldingtool/abductor/W in R.module.modules)
 		qdel(W)
 	for(var/obj/item/screwdriver/abductor/S in R.module.modules)
 		qdel(S)
@@ -350,15 +336,12 @@
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
 	if(..())
-		if(R.weapons_unlock)
-			to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have been disabled.</span>")
-			return
+		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have been disabled.</span>")
 		R.weapons_unlock = TRUE
 		return TRUE
 
 /obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
+	if(..())
 		to_chat(R, "<span class='notice'>Notice: Safety Overide Protocols have been restored.</span>")
 		R.weapons_unlock = FALSE
 
@@ -372,8 +355,7 @@
 
 /obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
 	if(..())
-		if(istype(R))
-			R.weather_immunities += "lava"
+		R.weather_immunities += "lava"
 		return TRUE
 
 /obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
@@ -395,12 +377,6 @@
 
 /obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R)
 	if(..())
-		var/obj/item/borg/upgrade/selfrepair/U = locate() in R
-		if(U)
-			to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-			return 0
-
-		cyborg = R
 		icon_state = "selfrepair_off"
 		var/datum/action/A = new /datum/action/item_action/toggle(src)
 		A.Grant(R)
@@ -522,7 +498,6 @@
 	if(..())
 		var/obj/item/reagent_containers/borghypo/basic/H2 = locate() in R.module.modules
 		if(H2)
-			R.module.modules.Remove(H2)
 			qdel(H2)
 			R.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(R.module)
 			R.module.rebuild()
@@ -530,7 +505,6 @@
 
 		var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
 		if(H)
-			R.module.modules.Remove(H)
 			qdel(H)
 			R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
 			R.module.rebuild()
@@ -543,13 +517,11 @@
 	if(..())
 		var/obj/item/reagent_containers/borghypo/basic/upgraded/H2 = locate() in R.module.modules
 		if(H2)
-			R.module.modules.Remove(H2)
 			qdel(H2)
 			R.module.modules += new /obj/item/reagent_containers/borghypo/basic(R.module)
 			R.module.rebuild()
 		var/obj/item/reagent_containers/borghypo/upgraded/H = locate() in R.module.modules
 		if(H)
-			R.module.modules.Remove(H)
 			qdel(H)
 			R.module.modules += new /obj/item/reagent_containers/borghypo(R.module)
 			R.module.rebuild()
