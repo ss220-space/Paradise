@@ -204,6 +204,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/list/datum/mind/temp_victims = SSticker.mode.victims
 	for(var/datum/objective/protect/objective in GLOB.all_objectives)
 		temp_victims.Remove(objective.target)
+	for(var/datum/objective/objective in owner.objectives)
+		temp_victims.Remove(objective.target)
 	if (owner in temp_victims)
 		temp_victims.Remove(owner)
 
