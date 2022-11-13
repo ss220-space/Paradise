@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(prisoncomputer_list, list())
 GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
 GLOBAL_LIST_INIT(cell_logs, list())
 GLOBAL_LIST_INIT(navigation_computers, list())
+GLOBAL_LIST_EMPTY(cyborg_model_list) /// To store all the different cyborg models, instead of creating that for each cyborg.
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(machines, list())
