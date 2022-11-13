@@ -9677,7 +9677,7 @@
 	},
 /area/crew_quarters/fitness)
 "aWY" = (
-/obj/structure/spirit_board,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "aXc" = (
@@ -13234,9 +13234,6 @@
 /turf/simulated/wall,
 /area/hallway/primary/central/nw)
 "bqv" = (
-/obj/item/storage/secure/safe{
-	pixel_x = 32
-	},
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -17646,12 +17643,9 @@
 	},
 /area/security/processing)
 "bHQ" = (
-/obj/machinery/hologram/holopad{
-	pixel_y = 16
-	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "redfull"
 	},
 /area/security/processing)
 "bHS" = (
@@ -35374,6 +35368,10 @@
 	name = "Brig Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SecPilotPriv"
+	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "dbu" = (
@@ -47464,7 +47462,12 @@
 	})
 "dUK" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy/donut_box{
+	pixel_x = -13;
+	pixel_y = 3
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "dUN" = (
@@ -50213,6 +50216,10 @@
 	pixel_x = 5;
 	pixel_y = -5
 	},
+/obj/item/storage/secure/safe{
+	pixel_x = 4;
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "ejm" = (
@@ -50588,7 +50595,7 @@
 	})
 "enm" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -52847,7 +52854,7 @@
 /area/crew_quarters/sleep)
 "eMZ" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/detective,
+/mob/living/simple_animal/pet/dog/security/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "eNh" = (
@@ -52880,6 +52887,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -56682,7 +56692,7 @@
 /area/turret_protected/ai)
 "fGz" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 1
@@ -57375,6 +57385,7 @@
 /obj/item/spacepod_equipment/weaponry/laser,
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
+/obj/item/spacepod_equipment/weaponry/burst_taser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59359,6 +59370,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"gmO" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/security/processing)
 "gnf" = (
 /turf/simulated/wall,
 /area/crew_quarters/cabin2)
@@ -63876,6 +63892,10 @@
 	name = "Brig Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SecPilotPriv"
+	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "hkF" = (
@@ -65582,12 +65602,6 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "hEK" = (
-/obj/machinery/door_control{
-	id = "brig_detprivacy";
-	name = "Detective Privacy Shutters Control";
-	pixel_x = null;
-	pixel_y = 22
-	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -66486,10 +66500,16 @@
 /obj/item/folder/blue,
 /obj/item/pen/multi/fountain,
 /obj/item/paper/safe_code{
-	owner = "captain"
+	owner = "captain";
+	pixel_x = -6;
+	pixel_y = -6
 	},
 /obj/item/paper/monitorkey,
 /obj/item/lighter/zippo/cap,
+/obj/item/paper/rnd_logs_key{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -117829,6 +117849,16 @@
 /area/maintenance/portsolar)
 "tcH" = (
 /obj/machinery/computer/secure_data,
+/obj/machinery/door_control{
+	id = "brig_detprivacy";
+	name = "Detective Privacy Shutters Control";
+	pixel_x = -6;
+	pixel_y = 22
+	},
+/obj/machinery/light_switch{
+	pixel_x = 6;
+	pixel_y = 24
+	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "tcK" = (
@@ -123263,6 +123293,10 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/item/paper/monitorkey,
+/obj/item/paper/rnd_logs_key{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -134190,9 +134224,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/paper_bin,
-/obj/structure/table/wood,
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -134201,6 +134232,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/spirit_board,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "wBq" = (
@@ -142647,6 +142679,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
@@ -192882,7 +192917,7 @@ dqH
 ubg
 efg
 rGx
-iGn
+gmO
 bHQ
 pjT
 glQ
