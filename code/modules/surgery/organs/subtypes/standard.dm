@@ -352,7 +352,6 @@
 /obj/item/organ/external/wing
 	limb_name = "wing"
 	name = "wings"
-	force_icon = "icons/effects/species.dmi"
 	icon_name = "wing"
 	max_damage = 30
 	min_broken_damage = 15
@@ -367,3 +366,12 @@
 
 /obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
 	..()
+	var/mob/living/carbon/human/H = holder
+	if(!H)
+		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
+		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
+		tempicon2.Flip(SOUTH)
+		tempicon.Insert(tempicon2,dir=SOUTH)
+		force_icon = tempicon
+		icon_name = null
+		return

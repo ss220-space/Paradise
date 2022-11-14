@@ -55,7 +55,7 @@
 
 	var/datum/action/innate/cocoon/cocoon
 	/// Are the wings burnt off? Used to negate some buffs if TRUE
-	var/burnt_wings
+
 	/// Stores name of antennae when backupwings() is called
 
 	suicide_messages = list(
@@ -103,7 +103,7 @@
 	var/turf/A = get_turf(H)
 	if(isspaceturf(A))
 		return FALSE
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !H.bodypart_wing)
 		return FALSE
 	var/datum/gas_mixture/current = A.return_air()
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
@@ -175,7 +175,6 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
-		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
@@ -216,8 +215,8 @@
 /datum/status_effect/burnt_wings/on_creation(mob/living/new_owner, ...)
 	var/mob/living/carbon/human/H = new_owner
 	if(istype(H))
-		H.change_body_accessory("Burnt Off Wings")
 		H.change_head_accessory("Burnt Off Antennae")
+		H.change_body_accessory("Burnt Off Wings", H)
 	return ..()
 
 /datum/status_effect/burnt_wings/on_remove()
