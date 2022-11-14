@@ -124,7 +124,6 @@
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
 
-
 /datum/species/moth/spec_movement_delay()
 	return FALSE
 
