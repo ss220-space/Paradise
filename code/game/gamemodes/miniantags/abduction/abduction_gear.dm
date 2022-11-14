@@ -752,6 +752,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/reagent_containers/applicator/abductor
 	name = "alien mender"
 	desc = "Aliens use such primitive technology to heal wounds?"
+	origin_tech = "materials=2;biotech=3;abductor=2"
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
 	icon = 'icons/obj/abductor.dmi'
@@ -784,6 +785,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien bottle"
 	desc = "A durable bottle, made from alien alloy"
 	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=4"
 	icon_state = "alien_bottle"
 	item_state = "alien_bottle"
 	volume = 50
@@ -811,6 +813,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/healthanalyzer/abductor
 	name = "alien health analyzer"
 	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=4;biotech=4;abductor=2"
+	advanced = TRUE
 	icon_state = "alien_hscanner"
 	item_state = "alien_hscanner"
 	desc = "Why its interface looks so familiar?"
