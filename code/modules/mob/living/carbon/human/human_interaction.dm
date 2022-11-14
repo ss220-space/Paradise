@@ -191,7 +191,7 @@
 				if (prob(30))
 					var/obj/item/organ/external/tail/O = P.get_organ("wing")
 					if (((O.brute_dam == O.max_damage)||(O.status & ORGAN_DEAD)||(O.status & ORGAN_BROKEN)) && prob(20))
-						H.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] крылья!</span>")
+						H.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] крылья [P]!</span>")
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] крылья!</span>")
 						O.droplimb()
