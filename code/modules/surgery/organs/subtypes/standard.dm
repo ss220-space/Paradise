@@ -351,7 +351,7 @@
 
 /obj/item/organ/external/wing
 	limb_name = "wing"
-	name = "wing"
+	name = "wings"
 	force_icon = "icons/effects/species.dmi"
 	icon_name = "wing"
 	max_damage = 30
@@ -361,8 +361,8 @@
 	parent_organ = "chest"
 	amputation_point = "spine"
 	var/datum/body_accessory/body_accessory
-	var/list/m_styles = list("tail" = "None")
-	var/list/m_colours = list("tail" = "#000000")
+	var/list/m_styles = list("wing" = "None")
+	var/list/m_colours = list("wing" = "#000000")
 	s_col = "#000000"
 
 /obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
