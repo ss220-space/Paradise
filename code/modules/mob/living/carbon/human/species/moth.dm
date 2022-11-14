@@ -18,9 +18,17 @@
 	tox_mod = 1.5
 	blood_color = "#b9ae9c"
 	unarmed_type = /datum/unarmed_attack/claws
-	scream_verb = "buzzes"
+	scream_verb = "жужжит"
+	female_giggle_sound = 'sound/voice/mothchitter.ogg'
+	male_giggle_sound = 'sound/voice/mothchitter.ogg'
 	male_scream_sound = 'sound/voice/scream_moth.ogg'
 	female_scream_sound = 'sound/voice/scream_moth.ogg'
+	male_sneeze_sound = 'sound/effects/mob_effects/mothsneeze.ogg'
+	female_sneeze_sound = 'sound/effects/mob_effects/mothsneeze.ogg'
+	female_laugh_sound = 'sound/voice/mothlaugh.ogg'
+	male_laugh_sound = 'sound/voice/mothlaugh.ogg'
+	female_cough_sounds = 'sound/effects/mob_effects/mothcough.ogg'
+	male_cough_sounds = 'sound/effects/mob_effects/mothcough.ogg'
 	default_headacc = "Plain Antennae"
 	default_bodyacc = "Plain Wings"
 	wing = "plain"
@@ -59,12 +67,15 @@
 	/// Stores name of antennae when backupwings() is called
 
 	suicide_messages = list(
-		"is attempting to nibble their antenna off!",
-		"is twisting their own abdomen!",
-		"is cracking their exoskeleton!",
-		"is ripping their wings off!",
-		"is holding their breath!"
+		"откусывает свои усики!",
+		"вспарывает себе живот!",
+		"отрывает себе крылья!",
+		"заддерживает своё дыхание!"
 	)
+
+	disliked_food = FRIED | MEAT | RAW | EGG
+	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
+
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	cocoon = new()

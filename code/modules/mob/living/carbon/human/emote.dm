@@ -623,9 +623,9 @@
 				if(!muzzled)
 					message = "хихика[pluralize_ru(src.gender,"ет","ют")]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.female_giggle_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.male_giggle_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -704,9 +704,9 @@
 				if(!muzzled)
 					message = "сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M]" : ""]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.female_laugh_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.male_laugh_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
