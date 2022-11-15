@@ -85,7 +85,6 @@
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
 
-
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	cocoon.Remove(H)
@@ -123,7 +122,6 @@
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
-
 
 /datum/species/moth/spec_movement_delay()
 	return FALSE

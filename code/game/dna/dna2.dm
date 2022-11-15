@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		new_dna.SE[b]=SE[b]
 		if(b <= DNA_UI_LENGTH)
 			if(b <= length(UI)) //We check index against the length of UI provided, because it may be shorter and thus be out of bounds
-				new_dna.UI[b]=UI[b]
+				new_dna.UI[b] = UI[b]
 				continue
 			new_dna.UI[b] = 0
 	new_dna.UpdateUI()
