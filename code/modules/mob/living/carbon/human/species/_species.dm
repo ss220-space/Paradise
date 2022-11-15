@@ -901,7 +901,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
 	return FALSE
 
-
 /datum/species/proc/spec_thunk(mob/living/carbon/human/H)
 	return FALSE
 
