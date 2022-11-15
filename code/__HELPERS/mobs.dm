@@ -178,7 +178,7 @@
 		valid_body_accessories += null
 	if(GLOB.body_accessory_by_species[species])
 		for(var/name in GLOB.body_accessory_by_species[species])
-			valid_body_accessories += name
+			valid_body_accessories.Add(name)
 	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
 /proc/random_name(gender, species = "Human")

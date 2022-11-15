@@ -1661,9 +1661,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
 					if(S.optional_body_accessory)
-						possible_body_accessories += "None" //the only null entry should be the "None" option
+						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
-						possible_body_accessories -= "None" // in case an admin is viewing it
+						possible_body_accessories.Remove("None") // in case an admin is viewing it
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)

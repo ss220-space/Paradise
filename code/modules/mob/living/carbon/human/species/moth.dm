@@ -72,8 +72,8 @@
 		"отрывает себе крылья!",
 		"заддерживает своё дыхание!"
 	)
-
-	disliked_food = FRIED | MEAT | RAW | EGG
+	toxic_food = MEAT
+	disliked_food = FRIED | RAW | EGG
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)

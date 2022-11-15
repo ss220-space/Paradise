@@ -189,7 +189,7 @@
 						P.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья КОТОРЫХ НЕТ!!!")
 					return
 				if (prob(30))
-					var/obj/item/organ/external/tail/O = P.get_organ("wing")
+					var/obj/item/organ/external/wing/O = P.get_organ("wing")
 					if (((O.brute_dam == O.max_damage)||(O.status & ORGAN_DEAD)||(O.status & ORGAN_BROKEN)) && prob(20))
 						H.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] крылья!</span>")
 						if (istype(P.loc, /obj/structure/closet))

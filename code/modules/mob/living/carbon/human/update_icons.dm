@@ -1120,9 +1120,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			bodypart_wing.body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
 
-	if(!bodypart_wing.body_accessory.try_restrictions(src))
-		return
-
 	var/icon/accessory_s = new/icon("icon" = bodypart_wing.body_accessory.icon, "icon_state" = bodypart_wing.body_accessory.icon_state)
 	var/mutable_appearance/wings = mutable_appearance(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state, layer = -WING_LAYER)
 	wings.pixel_x = bodypart_wing.body_accessory.pixel_x_offset
