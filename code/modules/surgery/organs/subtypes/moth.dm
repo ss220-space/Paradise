@@ -23,6 +23,7 @@
 /obj/item/organ/internal/kidneys/nian
 	name = "nian kidneys"
 	icon = 'icons/obj/species_organs/nian.dmi'
+
 /obj/item/organ/external/wing/nian
 	max_damage = 25
 	name = "nian wings"
