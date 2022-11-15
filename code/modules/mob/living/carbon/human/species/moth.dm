@@ -85,7 +85,6 @@
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
 
-
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	cocoon.Remove(H)
