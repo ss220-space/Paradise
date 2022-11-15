@@ -53,9 +53,7 @@
 	if(target && target.current)
 		if(target.current.stat == DEAD)
 			return FALSE
-		if(issilicon(target.current))
-			return FALSE
-		if(!iscarbon(target.current))
+		if(!ishuman(target.current))
 			return FALSE
 		return damage_target >= damage_need
 	return FALSE
