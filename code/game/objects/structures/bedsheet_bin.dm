@@ -279,15 +279,15 @@ LINEN BINS
 	update_icon()
 
 /obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/bedsheet))
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>Вы не можете положить [I] в [src]!</span>")
+		return
+	else if(istype(I, /obj/item/bedsheet))
 		user.drop_item()
 		I.loc = src
 		sheets.Add(I)
 		amount++
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>Вы не можете бросить этот предмет!</span>")
-		return
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		user.drop_item()
 		I.loc = src
