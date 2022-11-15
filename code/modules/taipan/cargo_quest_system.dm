@@ -12,7 +12,7 @@
 За выполнение квеста в награду даются кредиты и возможно другие безделушки.
 */
 
-//GLOBAL_LIST_INIT(all_syndie_quest_presets, list(/datum/cargo_quest/grenade/death_kiss,,,,,,,,,))
+//GLOBAL_LIST_INIT(premade_syndie_quests, list(/datum/cargo_quest/grenade/death_kiss,,,,,,,,,))
 
 //У сложностей такие значения потому, что она будет учитываться при подсчёте награды за квест
 #define QUEST_DIFFICULTY_EASY 	5000
@@ -572,6 +572,9 @@
 //Основной прок генерирующий 1 квест с посланным в него типом.
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_quest(var/quest_type = null)
+	if(!quest_type)
+		quest_type = pick(possible_quest_types)
+
 	var/datum/cargo_quest/quest
 	if(!quest_one)
 		quest_one = new /datum/cargo_quest
@@ -585,9 +588,7 @@
 	else
 		return
 
-	if(!quest_type)
-		quest_type = pick(possible_quest_types)
-
+	quest.generate_difficulty()
 	switch(quest_type)
 		if("virus")
 			quest.quest_type = "virus"
@@ -606,29 +607,65 @@
 //Прок генерирующий квест на вирус и необходимые симптомы для него
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_virus_info(var/datum/cargo_quest/quest)
-	var/symptom_count = pick(4,5,6)
-	var/difficulty_points = null
+	if(!quest)
+		log_debug("Quest generation attempted without a quest datum reference!")
+		return
+	if(!quest.quest_difficulty)
+		quest.generate_difficulty()
+	log_debug("Generating quest of type \"Virus\"")
 	quest.req_item = /datum/disease/advance
 	quest.current_list += (virus_simptoms)
-	var/total_simptoms_weight = summ_list_weight(quest.current_list)
+	var/symptom_count
+	switch(quest.quest_difficulty)
+		if(QUEST_DIFFICULTY_EASY)
+			symptom_count = 4
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] <= 2)	// Удаляем редкие симптомы
+					quest.current_list -= item
+		if(QUEST_DIFFICULTY_NORMAL)
+			symptom_count = 5
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] == 1)	// Удаляем самые редкие симптомы
+					quest.current_list -= item
+		if(QUEST_DIFFICULTY_HARD)
+			symptom_count = 6
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] >= 4)	// Удаляем самые частые симптомы
+					quest.current_list -= item
+
 	//вписать выбор нужной иконки
-	log_debug("Generating quest of type \"Virus\"")
 	for(var/i in 1 to symptom_count)
 		var/current_simptom = pickweight(quest.current_list)
-		difficulty_points += quest.current_list[current_simptom]
 		log_debug("Chosen simptoms: [current_simptom]")
 		quest.req_else += (current_simptom)
 		quest.current_list -= current_simptom
-//	quest.generate_difficulty(total_simptoms_weight, difficulty_points)
 	log_debug("Generation end")
 
 ////////////////////////////
 //Прок генерирующий квест на Меха и необходимый эквип для него
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_mecha_info(var/datum/cargo_quest/quest)
+	if(!quest)
+		log_debug("Quest generation attempted without a quest datum reference!")
+		return
+	if(!quest.quest_difficulty)
+		quest.generate_difficulty()
+	var/list/mecha_list = list(mechs)
+	switch(quest.quest_difficulty)
+		if(QUEST_DIFFICULTY_EASY)
+			for(var/item in mecha_list)
+				if(mecha_list[item] <= 15)	// Удаляем редких мехов
+					mecha_list -= item
+		if(QUEST_DIFFICULTY_NORMAL)
+			for(var/item in mecha_list)
+				if(mecha_list[item] <= 5)	// Удаляем самых редких мехов
+					mecha_list -= item
+		if(QUEST_DIFFICULTY_HARD)
+			for(var/item in mecha_list)
+				if(mecha_list[item] > 15)	// Удаляем самых частых мехов
+					mecha_list -= item
+
 	quest.req_item = pickweight(mechs)
-	var/difficulty_points = null
-	var/total_equipment_weight = null
 	var/req_mech = quest.req_item
 	var/list/mech_equipment_all_cut = list()
 	mech_equipment_all_cut.Add(mechs_equipment_all)
@@ -637,152 +674,177 @@
 	//вписать выбор нужной иконки
 	log_debug("Generating quest of type \"Mecha\"")
 	if(req_mech == /obj/mecha/combat/honker)
-		total_equipment_weight = 10
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_honk)
-		quest.current_list += (mechs_equipment_weapons)
+		if(quest.quest_difficulty == QUEST_DIFFICULTY_HARD)
+			quest.current_list += (mechs_equipment_weapons)
 		max_equip = 3
 		log_debug("Chosen mech: Honker")
 	else if(req_mech == /obj/mecha/combat/reticence)
-		total_equipment_weight = 10
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_reticence)
-		quest.current_list += (mechs_equipment_weapons)
+		if(quest.quest_difficulty == QUEST_DIFFICULTY_HARD)
+			quest.current_list += (mechs_equipment_weapons)
 		max_equip = 3
 		log_debug("Chosen mech: Reticence")
 	else if(req_mech == /obj/mecha/working/ripley || req_mech == /obj/mecha/working/ripley/firefighter)
-		total_equipment_weight = 20
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_working)
-		quest.current_list += (mechs_equipment_weapons)
+		if(quest.quest_difficulty == QUEST_DIFFICULTY_HARD)
+			quest.current_list += (mechs_equipment_weapons)
 		max_equip = 6
 		log_debug("Chosen mech: Ripley or Firefighter")
 	else if(req_mech == /obj/mecha/working/clarke)
-		total_equipment_weight = 30
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_working)
 		max_equip = 4
 		log_debug("Chosen mech: Clarke")
 	else if(req_mech == /obj/mecha/medical/odysseus)
-		total_equipment_weight = 10
 		quest.current_list += (mechs_equipment_medical)
 		max_equip = 3
 		log_debug("Chosen mech: Medical")
 	else if(req_mech == /obj/mecha/makeshift)
-		total_equipment_weight = 50
 		quest.current_list += (mech_equipment_all_cut)
 		max_equip = 2
 		log_debug("Chosen mech: Makeshift")
 	else
-		total_equipment_weight = 20
 		quest.current_list += (mechs_equipment_all)
 		quest.current_list += (mechs_equipment_weapons)
 		max_equip = 3
-		log_debug("Chosen mech: Some Battle Mech")
-	total_equipment_weight += summ_list_weight(quest.current_list)
+		log_debug("Chosen mech: Battle Mech")
 	for(var/i in 1 to max_equip)
 		var/current_equipment = pickweight(quest.current_list)
 		quest.req_else += (current_equipment)
-		difficulty_points += quest.current_list[current_equipment]
 		quest.current_list -= (current_equipment)
-//	quest.generate_difficulty(total_equipment_weight, difficulty_points)
 	log_debug("Generation end")
 
 ////////////////////////////
 //Прок генерирующий квест на гранаты и необходимые в гранатах химикаты
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_grenade_info(var/datum/cargo_quest/quest)
-	var/grenade_type = pick("explosive", "smoke", "foam", "unique")
+	if(!quest)
+		log_debug("Quest generation attempted without a quest datum reference!")
+		return
+	if(!quest.quest_difficulty)
+		quest.generate_difficulty()
+
+	var/grenade_type = pick("explosive", "smoke", "foam")
 	var/chem_type = pick("drugs","medical","toxin","misc")
-	var/difficulty_points = null
-	var/total_chem_weight = null
+
+	switch(quest.quest_difficulty)
+		if(QUEST_DIFFICULTY_EASY)
+			grenade_type = pick("explosive", "smoke")
+			chem_type = pick("drugs","medical","toxin")
+		if(QUEST_DIFFICULTY_NORMAL)
+			chem_type = pick("drugs","medical","toxin")
+		if(QUEST_DIFFICULTY_HARD)
+			grenade_type = pick("smoke", "foam")
+
 	quest.req_item = /obj/item/grenade/chem_grenade
 	log_debug("Generating quest of type \"Grenade\"")
 	switch(grenade_type)
 		if("explosive")
 			log_debug("Chosen grenade type: Explosive")
 			quest.req_item = /obj/item/grenade/chem_grenade/pyro
-			total_chem_weight = 10
 			//вписать выбор нужной иконки
 			quest.current_list += (pyrotech_chems)
 		if("smoke")
 			log_debug("Chosen grenade type: Smoke")
 			if(chem_type == "drugs")
 				quest.current_list += (drug_chems)
-				total_chem_weight = 20
 				//вписать выбор нужной иконки
 			else if(chem_type == "medical")
 				quest.current_list += (medical_chems)
-				total_chem_weight = 20
 				//вписать выбор нужной иконки
 			else if(chem_type == "toxin")
 				quest.current_list += (toxin_chems)
-				total_chem_weight = 30
 				//вписать выбор нужной иконки
 			else if(chem_type == "misc")
 				quest.current_list += (misc_chems)
-				total_chem_weight = 50
 				//вписать выбор нужной иконки
 			quest.req_else = list("smoke_powder" = 30)
 		if("foam")
 			log_debug("Chosen grenade type: Foam")
 			if(chem_type == "drugs")
 				quest.current_list += (drug_chems)
-				total_chem_weight = 20
 				//вписать выбор нужной иконки
 			else if(chem_type == "medical")
 				quest.current_list += (medical_chems)
-				total_chem_weight = 20
 				//вписать выбор нужной иконки
 			else if(chem_type == "toxin")
 				quest.current_list += (toxin_chems)
-				total_chem_weight = 30
 				//вписать выбор нужной иконки
 			else if(chem_type == "misc")
 				quest.current_list += (misc_chems)
-				total_chem_weight = 50
 				//вписать выбор нужной иконки
 			quest.req_else = list("fluorosurfactant" = 30)
-		if("unique")
-			log_debug("Chosen grenade type: Unique")
-			//Написать пару пресетов и тут вписать код который будет копировать с пресетов ебучие данные. и return, чтобы остальной код не выполнился
-			quest.current_list += (misc_chems)	//placeholder. Удалить после создания логики с коммента выше.
-			total_chem_weight = 0
 
-	var/max_chems = pick(3, 4, 5, 6, 7, 8, 9, 10)
-	total_chem_weight += summ_list_weight(quest.current_list)
+	var/max_chems // от 3 до 10 химикатов
+	switch(quest.quest_difficulty)
+		if(QUEST_DIFFICULTY_EASY)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] < 50)	// Удаляем редкие химикаты ("<" здесь и должно быть)
+					quest.current_list -= item
+			max_chems = pick(3, 4, 5, 6)
+		if(QUEST_DIFFICULTY_NORMAL)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] <= 30)	// Удаляем самые редкие химикаты
+					quest.current_list -= item
+			max_chems = pick(5, 6, 7, 8)
+		if(QUEST_DIFFICULTY_HARD)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] >= 70)	// Удаляем частые химикаты
+					quest.current_list -= item
+			max_chems = pick(7, 8, 9, 10)
+
 	for(var/i in 1 to max_chems)
 		var/current_chem = pickweight(quest.current_list)
 		var/current_value = (pick(10, 20, 30, 40, 50))
-		quest.req_else += list(trim(current_chem) = current_value) 	// trim() тут скорее для обхода логики листа по которой,
-		difficulty_points += quest.current_list[current_chem]		// вместо того текста, что хранит current_chem он просто писал current_chem
-		quest.current_list -= current_chem							// Если знаете вариант лучше, сообщите. Спасибо.
-//	quest.generate_difficulty(total_chem_weight, difficulty_points)
+		quest.req_else += list(trim(current_chem) = current_value) 	// trim() тут скорее для обхода логики листа по которой, вместо того текста,
+		quest.current_list -= current_chem							// что хранит current_chem он просто писал "current_chem" Если знаете вариант лучше, сообщите. Спасибо.
 	log_debug("Generation end")
 
 ////////////////////////////
 //Прок генерирующий квест на растение и необходимые трейты для него
 ////////////////////////////
 /datum/cargo_quests_storage/proc/generate_plants_info(var/datum/cargo_quest/quest)
-	var/traits_count = pick(2,3,4,5)
-	var/difficulty_points = null
-	var/total_traits_weight = null
-	quest.req_item = pickweight(plants)
-	quest.current_list += (plants_traits)
-	total_traits_weight += summ_list_weight(quest.current_list)
-	//вписать выбор нужной иконки
+	if(!quest)
+		log_debug("Quest generation attempted without a quest datum reference!")
+		return
+	if(!quest.quest_difficulty)
+		quest.generate_difficulty()
 	log_debug("Generating quest of type \"Plants\"")
+	var/traits_count = pick(2,3,4,5)
+	quest.current_list += plants
+	switch(quest.quest_difficulty)
+		if(QUEST_DIFFICULTY_EASY)
+			traits_count = pick(2,3)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] <= 85)	// Удаляем редкие растения
+					quest.current_list -= item
+		if(QUEST_DIFFICULTY_NORMAL)
+			traits_count = pick(3,4)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] <= 60)	// Удаляем самые редкие растения
+					quest.current_list -= item
+		if(QUEST_DIFFICULTY_HARD)
+			traits_count = pick(4,5)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] > 60)	// Удаляем частые растения
+					quest.current_list -= item
+
+	quest.req_item = pickweight(quest.current_list)
+	//вписать выбор нужной иконки
 	for(var/i in 1 to traits_count)
-		var/current_trait = pickweight(quest.current_list)
+		var/current_trait = pickweight(plants_traits)// Трейтов у растений довольно мало, а вот самих растений много, не вижу смысла резать список
 		log_debug("Chosen traits: [current_trait]")
 		quest.req_else += (current_trait)
-		difficulty_points += quest.current_list[current_trait]
 		quest.current_list -= current_trait
-//	quest.generate_difficulty(total_traits_weight, difficulty_points)
 	log_debug("Generation end")
-
+//TODO:
 /datum/cargo_quests_storage/proc/populate_quest_window()
 
+//TODO:
 /datum/cargo_quests_storage/proc/check_quest_completion()
 
 /datum/cargo_quest
@@ -802,22 +864,22 @@
 	var/list/req_else = list()						// Дополнительные штуки которые будут проверяться в зависимости от типа квеста
 	var/req_quantity = 0							// Требуемое количество предметов
 
-/*
-// Генерирует сложность квеста используя:
-// * Общий вес всех возможных обьектов из листа доп. требований
-// * Вес выбранных для квеста доп требований + наценка за основной требуемый предмет(если нужна)
-/datum/cargo_quest/proc/generate_difficulty(var/total_weight, var/else_weight)
-	if(!total_weight || !else_weight)
-		return
-	var/hard_difficulty_checker = total_weight/10
-	var/normal_difficulty_checker = hard_difficulty_checker*5
-	if(else_weight > normal_difficulty_checker)
+// Генерирует сложность квеста.
+/datum/cargo_quest/proc/generate_difficulty()
+	if(prob(50))
 		quest_difficulty = QUEST_DIFFICULTY_EASY
-	else if(else_weight > hard_difficulty_checker && else_weight <= normal_difficulty_checker)
+		log_debug("Quest difficulty: Easy")
+	else if(prob(50))
 		quest_difficulty = QUEST_DIFFICULTY_NORMAL
-	else if(else_weight <= hard_difficulty_checker)
+		log_debug("Quest difficulty: Normal")
+	else
 		quest_difficulty = QUEST_DIFFICULTY_HARD
-*/
+		log_debug("Quest difficulty: Hard")
+
+///////////////////////////////
+// Уникальные заранее созданные квесты. Со своим описанием, требованиями и т.д.
+///////////////////////////////
+
 /datum/cargo_quest/grenade
 	quest_type = "grenade"
 	req_item = /obj/item/grenade/chem_grenade
