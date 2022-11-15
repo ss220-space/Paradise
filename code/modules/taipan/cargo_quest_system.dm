@@ -16,8 +16,8 @@
 
 //У сложностей такие значения потому, что она будет учитываться при подсчёте награды за квест
 #define QUEST_DIFFICULTY_EASY 	5000
-#define QUEST_DIFFICULTY_NORMAL 15000
-#define QUEST_DIFFICULTY_HARD 	30000
+#define QUEST_DIFFICULTY_NORMAL 10000
+#define QUEST_DIFFICULTY_HARD 	15000
 
 /datum/cargo_quests_storage
 	//Активный квест выбранный в консоли
@@ -560,8 +560,107 @@
 	var/list/minerals = list(
 	/obj/item/bodybag = 10,
 	)
+
+	// В этом списке не должно быть органов которые обычно не достать.
+	// Всё должно быть более менее достижимо силами генетики, химии, ботаники и медицины
+	// А так же ничего механического
 	var/list/organs_and_bodyparts = list(
-	/obj/item/bodybag = 10,
+	//Внешние органы
+	//Встречаются в квестах чаще внутренних
+
+	//Обычные расы, в основном хуманы
+	/obj/item/organ/external/arm = 100,
+	/obj/item/organ/external/arm/right = 100,
+	/obj/item/organ/external/chest = 100,
+	/obj/item/organ/external/foot = 100,
+	/obj/item/organ/external/foot/right = 100,
+	/obj/item/organ/external/groin = 100,
+	/obj/item/organ/external/hand = 100,
+	/obj/item/organ/external/hand/right = 100,
+	/obj/item/organ/external/head = 100,
+	/obj/item/organ/external/leg = 100,
+	/obj/item/organ/external/leg/right = 100,
+	//Дионы
+	/obj/item/organ/external/arm/diona = 70,
+	/obj/item/organ/external/arm/right/diona = 70,
+	/obj/item/organ/external/chest/diona = 70,
+	/obj/item/organ/external/foot/diona = 70,
+	/obj/item/organ/external/foot/right/diona = 70,
+	/obj/item/organ/external/groin/diona = 70,
+	/obj/item/organ/external/hand/diona = 70,
+	/obj/item/organ/external/hand/right/diona = 70,
+	/obj/item/organ/external/head/diona = 70,
+	/obj/item/organ/external/leg/diona = 70,
+	/obj/item/organ/external/leg/right/diona = 70,
+	//Слаймы
+	/obj/item/organ/external/arm/unbreakable = 50,
+	/obj/item/organ/external/arm/right/unbreakable = 50,
+	/obj/item/organ/external/chest/unbreakable = 50,
+	/obj/item/organ/external/foot/unbreakable = 50,
+	/obj/item/organ/external/foot/right/unbreakable = 50,
+	/obj/item/organ/external/groin/unbreakable = 50,
+	/obj/item/organ/external/hand/unbreakable = 50,
+	/obj/item/organ/external/hand/right/unbreakable = 50,
+	/obj/item/organ/external/head/unbreakable = 50,
+	/obj/item/organ/external/leg/unbreakable = 50,
+	/obj/item/organ/external/leg/right/unbreakable = 50,
+	//Хвосты
+	/obj/item/organ/external/tail/monkey = 60,
+	/obj/item/organ/external/tail/monkey/tajaran = 60,
+	/obj/item/organ/external/tail/monkey/unathi = 60,
+	/obj/item/organ/external/tail/monkey/vulpkanin = 60,
+	/obj/item/organ/external/tail/tajaran = 60,
+	/obj/item/organ/external/tail/unathi = 60,
+	/obj/item/organ/external/tail/vox = 60,
+	/obj/item/organ/external/tail/vulpkanin = 60,
+	// Внутренние органы
+	// Квесты на них должны генериться реже
+
+	// Обычные расы, в основном хуманы
+	/obj/item/organ/internal/appendix = 50,
+	/obj/item/organ/internal/brain = 50,
+	/obj/item/organ/internal/ears = 50,
+	/obj/item/organ/internal/eyes = 50,
+	/obj/item/organ/internal/heart = 50,
+	/obj/item/organ/internal/kidneys = 50,
+	/obj/item/organ/internal/liver = 50,
+	/obj/item/organ/internal/lungs = 50,
+	//Дионы
+	/obj/item/organ/internal/appendix/diona = 30,
+	/obj/item/organ/internal/brain/diona = 30,
+	/obj/item/organ/internal/eyes/diona = 30,
+	/obj/item/organ/internal/kidneys/diona = 30,
+	/obj/item/organ/internal/liver/diona = 30,
+	/obj/item/organ/internal/lungs/diona = 30,
+	//Таяры
+	/obj/item/organ/internal/brain/tajaran = 40,
+	/obj/item/organ/internal/eyes/tajaran = 40,
+	/obj/item/organ/internal/heart/tajaran = 40,
+	/obj/item/organ/internal/kidneys/tajaran = 40,
+	/obj/item/organ/internal/liver/tajaran = 40,
+	/obj/item/organ/internal/lungs/tajaran = 40,
+	//Фарва
+	/obj/item/organ/internal/eyes/tajaran/farwa = 50,
+	//Унатхи
+	/obj/item/organ/internal/brain/unathi = 35,
+	/obj/item/organ/internal/eyes/unathi = 35,
+	/obj/item/organ/internal/heart/unathi = 35,
+	/obj/item/organ/internal/liver/unathi = 35,
+	/obj/item/organ/internal/kidneys/unathi = 35,
+	/obj/item/organ/internal/lungs/unathi = 35,
+	//Слаймы
+	/obj/item/organ/internal/brain/slime = 15,
+	/obj/item/organ/internal/heart/slime = 15,
+	/obj/item/organ/internal/lungs/slime= 15,
+	//Вульпы
+	/obj/item/organ/internal/brain/vulpkanin = 30,
+	/obj/item/organ/internal/eyes/vulpkanin = 30,
+	/obj/item/organ/internal/heart/vulpkanin = 30,
+	/obj/item/organ/internal/kidneys/vulpkanin = 30,
+	/obj/item/organ/internal/liver/vulpkanin = 30,
+	/obj/item/organ/internal/lungs/vulpkanin = 30,
+	//Вольпины
+	/obj/item/organ/internal/eyes/vulpkanin/wolpin = 50,
 	)
 
 /datum/cargo_quests_storage/proc/QuestStorageInitialize() //Вызывать сразу после создания хранилища квестов
@@ -875,6 +974,10 @@
 	else
 		quest_difficulty = QUEST_DIFFICULTY_HARD
 		log_debug("Quest difficulty: Hard")
+
+//TODO:
+/datum/cargo_quest/proc/generate_reward()
+
 
 ///////////////////////////////
 // Уникальные заранее созданные квесты. Со своим описанием, требованиями и т.д.
