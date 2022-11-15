@@ -35,6 +35,7 @@
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
@@ -45,10 +46,7 @@
 ///can_start()
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
-	var/playerC = 0
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready))
-			playerC++
+	var/playerC = num_players()
 
 	if(playerC < required_enemies)
 		return 0
