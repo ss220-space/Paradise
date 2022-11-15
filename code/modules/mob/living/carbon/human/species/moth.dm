@@ -78,6 +78,7 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_flap
 	cocoon = new()
 	cocoon.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
@@ -87,6 +88,7 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_flap
 	cocoon.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)

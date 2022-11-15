@@ -124,9 +124,10 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("flap", "flaps", "aflap", "aflaps","flutter", "flutters")
-			if(!ismoth(src))
+			if(ismoth(src))
+				on_CD = handle_emote_CD()
+			else								//Everyone else fails, skip the emote attempt
 				return
-			on_CD = handle_emote_CD()
 
 		if("warble", "warbles")
 			if(isskrell(src)) //Only Skrell can warble.
@@ -440,13 +441,15 @@
 					to_chat(usr, "Тебе нужно две рабочих руки чтобы хлопать.")
 
 		if("flap", "flaps")
-			message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
-			m_type = 2
-			if(miming)
-				m_type = 1
+			if(istype(body_accessory, /datum/body_accessory/wing))
+				if(body_accessory.try_restrictions(src))
+					message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
+					m_type = 2
+					if(miming)
+						m_type = 1
 
 		if("flutter", "flutters")
-			message = "<B>[src]</B> flutters [p_their()] wings."
+			message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
 			m_type = 2
 			if(miming)
 				m_type = 1
@@ -506,10 +509,12 @@
 									SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
-			message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
-			m_type = 2
-			if(miming)
-				m_type = 1
+			if(istype(body_accessory, /datum/body_accessory/tail))
+				if(body_accessory.try_restrictions(src))
+					message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
+					m_type = 2
+					if(miming)
+						m_type = 1
 
 		if("drool", "drools")
 			message = "неразборчиво бурч[pluralize_ru(src.gender,"ит","ат")]."
