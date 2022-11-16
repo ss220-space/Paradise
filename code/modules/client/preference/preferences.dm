@@ -1658,6 +1658,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 							if(!istype(accessory))
 								possible_body_accessories += "None" //the only null entry should be the "None" option
+								continue
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
 					if(S.optional_body_accessory)
