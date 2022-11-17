@@ -22,7 +22,7 @@
 	GLOB.command_announcement.Announce("Персональные посылки были отправлены на [station_name()] и будут доступны в отделе снабжения по прибытию грузового челнока.", pick("Планетарный экспресс", "Метеор Транспорт", "ТСФ Надежность", "Ко. Почтовые услоуги", "Курьеры Неподвижный Стержень"), zlevels = affecting_z)
 
 /datum/event/proc/tick()
-	var/datum/shuttle/docking_port/mobile/supply/supply = SSsupply.shuttle
+	var/obj/shuttle/docking_port/mobile/supply/supply = SSshuttle.supply
 
 	//Если шаттл не на станции и бездейдействует - спавним посылочки.
 	if(!is_station_level(SSshuttle.supply.z) && SSshuttle.supply.mode == SHUTTLE_IDLE)

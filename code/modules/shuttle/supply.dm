@@ -232,6 +232,11 @@
 
 	SSshuttle.centcom_message += "[msg]<hr>"
 
+/obj/controller/subsystem/supply/proc/get_emptyTurfs()
+	var/list/clear_turfs = list()
+
+	for(var/area/subarea in mobile.shuttle_areas)
+
 //По идее добавляет возможность запихивать предметы на шаттл. ToDo: дать возможность админам?//
 /obj/docking_port/mobile/supply/proc/addAtom(var/atom/movable/A)
 	var/list/emptyTurfs = get_emptyTurfs()
