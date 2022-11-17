@@ -216,5 +216,4 @@
 //Обновление уникальных анимированных фешинов
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Life(seconds, times_fired)
 	. = ..()
-	if(is_wear_fashion_head)
-		regenerate_icons()
+	regenerate_icons()

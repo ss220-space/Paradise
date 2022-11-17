@@ -242,8 +242,7 @@
 //Обновление уникальных анимированных фешинов
 /mob/living/simple_animal/pet/dog/corgi/Life(seconds, times_fired)
 	. = ..()
-	if(is_wear_fashion_head || is_wear_fashion_mask || is_wear_fashion_back)
-		regenerate_icons()
+	regenerate_icons()
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Ian

@@ -175,16 +175,23 @@
 		return ..()
 
 /mob/living/simple_animal/regenerate_icons()
+	var/testmsg = "Запущен regenerate для [src]([src.name]) == :"
 	cut_overlays()
 
 	if (inventory_head)
 		regenerate_head_icon()
+		testmsg += " *head*"
 	if (inventory_mask)
 		regenerate_mask_icon()
+		testmsg += " *mask*"
 	if (inventory_back)
 		regenerate_back_icon()
+		testmsg += " *back*"
 	if (inventory_collar && collar_type)
 		regenerate_collar_icon()
+		testmsg += " *collar*"
+
+	message_admins(testmsg)
 
 /mob/living/simple_animal/proc/regenerate_head_icon()
 	var/image/head_icon
