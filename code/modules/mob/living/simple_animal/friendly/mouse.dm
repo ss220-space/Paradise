@@ -52,7 +52,7 @@
 					toast() // mmmm toasty.
 				else
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
-				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
 				C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
@@ -98,6 +98,10 @@
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
+
+/mob/living/simple_animal/mouse/ratvar_act()
+	new/mob/living/simple_animal/mouse/clockwork(loc)
+	gib()
 
 /mob/living/simple_animal/mouse/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
@@ -234,7 +238,7 @@
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!(istype(user, /mob/living/silicon/robot/drone)))
+	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))

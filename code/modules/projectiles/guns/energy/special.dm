@@ -36,7 +36,6 @@
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
-	fire_sound = 'sound/weapons/pulse3.ogg'
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
@@ -145,7 +144,6 @@
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER
@@ -287,7 +285,8 @@
 /obj/item/gun/energy/clown
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
 	selfcharge = 1
@@ -297,8 +296,6 @@
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	icon_state = "toxgun"
-	fire_sound = 'sound/effects/stealthoff.ogg'
-
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
@@ -328,7 +325,6 @@
 	item_state = "tempgun_4"
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	fire_sound = 'sound/weapons/pulse3.ogg'
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
 	var/target_temperature = 300
@@ -364,6 +360,7 @@
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
@@ -546,13 +543,6 @@
 	flight_y_offset = 12
 
 	var/is_equipped = FALSE
-	var/is_sibylmod = TRUE
-
-/obj/item/gun/energy/dominator/New()
-	..()
-	if(is_sibylmod)
-		var/obj/item/sibyl_system_mod/M = new /obj/item/sibyl_system_mod
-		M.install(src)
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	..()
@@ -625,6 +615,3 @@
 			icon_state += "_lock"
 		else
 			icon_state += "_unlock"
-
-/obj/item/gun/energy/dominator/no_sibyl
-	is_sibylmod = FALSE

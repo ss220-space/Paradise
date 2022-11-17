@@ -13,6 +13,7 @@
 	melee_damage_upper = 8
 	attacktext = "кусает"
 	footstep_type = FOOTSTEP_MOB_CLAW
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
@@ -113,7 +114,6 @@
 	if(!DF.obj_color)
 		DF.obj_color = inventory_head.color
 
-
 	if (icon_state == icon_resting)
 		head_icon = DF.get_overlay()
 		head_icon.pixel_y = -2
@@ -159,3 +159,14 @@
 /mob/living/simple_animal/pet/dog/security/Life(seconds, times_fired)
 	. = ..()
 	regenerate_icons()
+
+/mob/living/simple_animal/pet/dog/security/detective
+	name = "Гав-Гавыч"
+	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
+	icon_state = "blackdog"
+	icon_living = "blackdog"
+	icon_dead = "blackdog_dead"
+	icon_resting = "blackdog_rest"
+
+/mob/living/simple_animal/pet/dog/security/detective/show_inv(mob/user)
+	return

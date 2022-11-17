@@ -60,37 +60,27 @@
 		update_icon()
 
 /obj/item/storage/wallet/update_icon()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.wear_id == src)
+			H.sec_hud_set_ID()
 	overlays -= front_id_overlay
-
 	if(!front_id)
 		front_id_overlay = null
 		return
-
 	var/front_id_icon_state_holder = front_id.icon_state
 	if (copytext(front_id_icon_state_holder,1,4) == "ERT")
 		front_id_icon_state_holder = "ERT"
 	else if(!(front_id_icon_state_holder in icon_states(src.icon)))
 		front_id_icon_state_holder = "id"
-
 	front_id_overlay = image('icons/obj/wallets.dmi', front_id_icon_state_holder)
 	overlays += front_id_overlay
 
-
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/H = loc
-	if(H.wear_id == src)
-		H.sec_hud_set_ID()
-
 /obj/item/storage/wallet/GetID()
-	return front_id
+	return front_id ? front_id : ..()
 
 /obj/item/storage/wallet/GetAccess()
-	var/obj/item/I = GetID()
-	if(I)
-		return I.GetAccess()
-	else
-		return ..()
+	return front_id ? front_id.GetAccess() : ..()
 
 /obj/item/storage/wallet/random/New()
 	..()

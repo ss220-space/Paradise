@@ -106,7 +106,7 @@
 			stop_pulling()
 			return
 		if(pullee && !isturf(pullee.loc) && pullee.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
-			log_game("DEBUG:[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+			log_debug("[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 			stop_pulling()
 			return
 		if(pulling.anchored || pulling.move_resist > move_force)
@@ -476,6 +476,8 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(mover in buckled_mobs)
 		return 1
 	return ..()

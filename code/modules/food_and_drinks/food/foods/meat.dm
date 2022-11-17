@@ -48,6 +48,11 @@
 	name = "pug meat"
 	desc = "Slightly less adorable in sliced form."
 
+/obj/item/reagent_containers/food/snacks/meat/security
+	name = "security meat"
+	desc = "Мясо наполненное чувством мужества и долга."
+	list_reagents = list("protein" = 3, "epinephrine" = 5)
+
 /obj/item/reagent_containers/food/snacks/meat/ham
 	name = "ham"
 	desc = "For when you need to go ham."
@@ -321,9 +326,9 @@
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
-			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
+			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
-			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
+			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: NO_DATA")
 		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
 		if(faction)
 			creature.faction = faction

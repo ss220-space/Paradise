@@ -295,8 +295,7 @@
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
-		log_admin("Cryopod in [loc.loc] could not find control computer!")
-		message_admins("Cryopod in [loc.loc] could not find control computer!")
+		log_and_message_admins("Cryopod in [COORD(src)] could not find control computer!")
 		last_no_computer_message = world.time
 
 	return control_computer != null
@@ -402,6 +401,8 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
+		if(occupant.mind in SSticker.mode.victims)
+			SSticker.mode.victims.Remove(occupant.mind)
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
@@ -561,7 +562,7 @@
 		return
 
 	if(!L.mind)
-		to_chat(user, "<span class='noitce'>Catatonic people are not allowed into cryo.</span>")
+		to_chat(user, "<span class='notice'>Catatonic people are not allowed into cryo.</span>")
 		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
@@ -620,8 +621,8 @@
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
-	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_admin("<span class='notice'>[key_name_log(E)] entered a stasis pod.</span>")
+	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)
 
 

@@ -17,7 +17,10 @@
 		/obj/item/clothing/head/hardhat/pumpkinhead,
 		/obj/item/clothing/head/radiation,
 		/obj/item/clothing/head/papersack,
-		/obj/item/clothing/head/human_head
+		/obj/item/clothing/head/human_head,
+		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/hardhat/reindeer,
+		/obj/item/clothing/head/cardborg
 	)
 
 	var/hat_icon_file = 'icons/mob/head.dmi'
@@ -33,6 +36,11 @@
 	isCentered = TRUE
 	canBeHatted = TRUE
 	canWearBlacklistedHats = TRUE
+
+/mob/living/silicon/robot/cogscarab
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
 
 /mob/living/silicon/ai
 	hat_offset_y = 3
@@ -117,11 +125,7 @@
 	if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
 		return
-
-/mob/living/silicon/attack_hand(mob/user)
 	. = ..()
-	if(ishuman(user) && (user.a_intent == INTENT_GRAB))
-		remove_from_head(user)
 
 /mob/living/silicon/proc/hat_icons()
 	if(inventory_head)
@@ -130,6 +134,11 @@
 /mob/living/silicon/Topic(href, href_list)
 	if(..())
 		return 1
+
+	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
+		usr << browse(null, "window=mob[UID()]")
+		usr.unset_machine()
+		return
 
 	if (!canBeHatted)
 		return 0
@@ -180,6 +189,8 @@
 		return borgI
 
 /mob/living/silicon/show_inv(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 	user.set_machine(src)
 
 	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
@@ -190,6 +201,12 @@
 	popup.open()
 
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
+	if(!item_to_add)
+		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
+		if(flags_2 & HOLOGRAM_2)
+			return 0
+		return 0
+
 	if(!istype(item_to_add, /obj/item/clothing/head/))
 		to_chat(user, "<span class='warning'>[item_to_add] нельзя надеть на голову [src]!</span>")
 		return 0
@@ -201,12 +218,6 @@
 	if(inventory_head)
 		if(user)
 			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src]!</span>")
-		return 0
-
-	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
-		if(flags_2 & HOLOGRAM_2)
-			return 0
 		return 0
 
 	if(user && !user.unEquip(item_to_add))
@@ -229,23 +240,33 @@
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(inventory_head.flags & NODROP)
-			to_chat(user, "<span class='warning'>[inventory_head] застрял на голове [src]! Его невозможно снять!</span>")
-			return 1
+			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
+			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы сняли [inventory_head] с головы [src].</span>")
+		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src].</span>")
 		user.put_in_hands(inventory_head)
 
-		inventory_head = null
-		hat_icon_state = null
-		hat_alpha = null
-		hat_color = null
+		null_hat()
 
 		regenerate_icons()
 	else
 		to_chat(user, "<span class='warning'>На голове [src] нет головного убора!</span>")
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
+
+/mob/living/silicon/proc/drop_hat()
+	if(inventory_head)
+		unEquip(inventory_head)
+		null_hat()
+		regenerate_icons()
+
+
+/mob/living/silicon/proc/null_hat()
+	inventory_head = null
+	hat_icon_state = null
+	hat_alpha = null
+	hat_color = null
 
 //Если вдруг кто-то захочет сразу спавнить боргов с шапками
 /mob/living/silicon/New()

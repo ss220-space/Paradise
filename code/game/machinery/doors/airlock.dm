@@ -287,7 +287,6 @@ About the new airlock wires panel:
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
 			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
-			user.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 			add_attack_logs(user, src, "Electrified", ATKLOG_ALL)
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
@@ -636,6 +635,13 @@ About the new airlock wires panel:
 	data["wires"] = wire
 	return data
 
+/obj/machinery/door/airlock/ui_status(mob/user, datum/ui_state/state)
+	if((aiControlDisabled == AICONTROLDISABLED_ON) && (isAI(user) || isrobot(user)))
+		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		if(!canAIControl() && canAIHack())
+			hack(user)
+		return STATUS_CLOSE
+	. = ..()
 
 /obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0
@@ -647,9 +653,9 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking=0
+			aiHacking = FALSE
 			return
 		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
 		sleep(20)
@@ -659,7 +665,7 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
 			aiHacking = FALSE
 			return
@@ -669,7 +675,7 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
 			aiHacking = FALSE
 			return
@@ -710,6 +716,8 @@ About the new airlock wires panel:
 		set_light(0)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
@@ -785,7 +793,7 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
-		if(canAIHack(user))
+		if(canAIHack())
 			hack(user)
 		else
 			if(isAllPowerLoss())
@@ -904,7 +912,7 @@ About the new airlock wires panel:
 
 	if(lock()) // Trying to bolt
 		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-		user.create_log(MISC_LOG, "Bolted", src)
+		add_misc_logs(user, "Bolted [src]")
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
@@ -966,7 +974,7 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
 			return
 		C.add_fingerprint(user)
-		user.create_log(MISC_LOG, "put [C] on", src)
+		add_misc_logs(user, "put [C] on", src)
 		C.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
@@ -1297,6 +1305,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
+		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		operating = TRUE
 		update_icon(AIRLOCK_EMAG, 1)
 		sleep(6)
@@ -1454,7 +1463,7 @@ About the new airlock wires panel:
 		user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 		playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 	note.add_fingerprint(user)
-	user.create_log(MISC_LOG, "removed [note] from", src)
+	add_misc_logs(user, "removed [note] from", src)
 	user.put_in_hands(note)
 	note = null
 	update_icon()
@@ -1483,6 +1492,18 @@ About the new airlock wires panel:
 	A.stealth_opacity = opacity
 	A.stealth_glass = glass
 	A.stealth_airlock_material = airlock_material
+	qdel(src)
+
+/obj/machinery/door/airlock/ratvar_act(weak = FALSE)
+	var/obj/machinery/door/airlock/clockwork/A
+	if(weak)
+		A = new/obj/machinery/door/airlock/clockwork/weak(get_turf(src))
+	else
+		if(glass)
+			A = new/obj/machinery/door/airlock/clockwork/glass(get_turf(src))
+		else
+			A = new/obj/machinery/door/airlock/clockwork(get_turf(src))
+	A.name = name
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/ai_control_callback()

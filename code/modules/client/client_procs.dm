@@ -77,7 +77,7 @@
 			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Administrators have been informed."
-				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
+				add_game_logs("has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
@@ -758,7 +758,7 @@
 	else
 		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
 			if (!cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] appears to have attempted to spoof a cid randomizer check.</span>")
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
 			tokens[ckey] = cid_check_reconnect()
@@ -775,7 +775,7 @@
 			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
 
 			if(!cidcheck_failedckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
@@ -788,11 +788,11 @@
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
 
@@ -1117,8 +1117,9 @@
 			keysend_tripped = TRUE
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			log_admin("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
-			message_admins("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
+			to_chat(usr, "<span class='warning'><big><b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b></big></span>")
+			log_admin("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
+			message_admins("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			qdel(src)
 			return
 
@@ -1233,7 +1234,8 @@
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
 	if(notify && (byondacc_age < config.byond_account_age_threshold))
-		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+		message_admins("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")

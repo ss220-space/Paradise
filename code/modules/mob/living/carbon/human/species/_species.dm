@@ -232,8 +232,6 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	if(H.status_flags & IGNORE_SPEED_CHANGES)
-		return .
 
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
@@ -248,6 +246,9 @@
 		var/flight = H.flying	//Check for flight and flying items
 
 		ADD_SLOWDOWN(speed_mod)
+
+		if(H.status_flags & IGNORE_SPEED_CHANGES)
+			return .
 
 		if(H.wear_suit)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
@@ -443,7 +444,7 @@
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 			return FALSE
-		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+		add_attack_logs(user, target, "Melee attacked with fists")
 
 		if(!iscarbon(user))
 			target.LAssailant = null
@@ -453,6 +454,7 @@
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
 
+		var/damage_type = BRUTE
 		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 		damage += attack.damage
 		if(!damage)
@@ -467,7 +469,12 @@
 
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
-		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		if(target.mind && target.stat != DEAD && user.mind?.objectives)
+			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+				if(target.mind == objective.target)
+					objective.take_damage(damage, damage_type)
+
+		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")

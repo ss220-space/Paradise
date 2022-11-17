@@ -43,6 +43,8 @@
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
+	if(!destination)
+		return
 	if(!ismob(destination.loc))
 		for(var/mob/player in mobs_viewing)
 			if(player == destination)
@@ -59,7 +61,7 @@
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
 			if(M.s_active)
 				M.s_active.close(M)
-			show_to(M)
+			open(M)
 			return
 
 		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
@@ -102,14 +104,12 @@
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
 			if(usr.s_active)
 				usr.s_active.close(usr)
-			show_to(usr)
+			open(usr)
 			return
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
-		add_fingerprint(user)
+		open(user)
 	else if(isobserver(user))
 		show_to(user)
 
@@ -164,10 +164,10 @@
 			continue
 		hide_from(M)
 
-/obj/item/storage/proc/open(mob/user as mob)
-	if(use_sound)
+/obj/item/storage/proc/open(mob/user)
+	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
-
+		add_fingerprint(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -194,6 +194,8 @@
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
+	if(!boxes)
+		return
 	var/cx = 4
 	var/cy = 2 + rows
 	boxes.screen_loc = "4:16,2:16 to [4 + cols]:16,[2 + rows]:16"
@@ -272,6 +274,10 @@
 
 	if(loc == W)
 		return FALSE //Means the item is already in the storage item
+
+	if(!W.can_enter_storage(src, usr))
+		return FALSE
+
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
@@ -327,7 +333,11 @@
 	if(silent)
 		prevent_warning = TRUE
 	W.forceMove(src)
+	if(QDELING(W))
+		return FALSE
 	W.on_enter_storage(src)
+	if(QDELING(W))
+		return FALSE
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
@@ -424,8 +434,6 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == src && !H.get_active_hand())	//Prevents opening if it's in a pocket.
@@ -441,7 +449,7 @@
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		show_to(user)
+		open(user)
 	else
 		..()
 	add_fingerprint(user)

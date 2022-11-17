@@ -68,6 +68,7 @@
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		overlays += image('icons/obj/storage.dmi', icon_sparking)
 		sleep(6)
@@ -83,7 +84,10 @@
 			to_chat(user, "You short out the lock on [src].")
 		return
 
-/obj/item/storage/secure/AltClick(mob/user)
+/obj/item/storage/secure/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return ..()
 	if(!try_to_open())
 		return FALSE
 	return ..()

@@ -184,7 +184,7 @@
 			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
 			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
 		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2)
+		explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
 
 	if(override)
 		return override
@@ -506,9 +506,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					S.ToggleLight()
 			if(issilicon(src))
 				var/mob/living/silicon/S = src
-				unEquip(S.inventory_head)
-				S.inventory_head = null
-				visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+				if (S.inventory_head)
+					S.drop_hat()
+					visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 
 			visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
 			src.loc = vent_found
@@ -1050,9 +1050,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		else
 			if(!selfFeed(toEat, fullness))
 				return 0
+		if(toEat.log_eating)
+			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
+			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]", src)
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
+		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
+		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	GLOB.score_foodeaten++
 	return 1
@@ -1090,12 +1095,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!toEat.instant_application)
 		if(!do_mob(user, src))
 			return 0
-	forceFedAttackLog(toEat, user)
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1
-
-/mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
@@ -1117,16 +1118,9 @@ so that different stomachs can handle things in different ways VB*/
 			toEat.reagents.reaction(src, toEat.apply_type, fraction)
 			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
-/mob/living/carbon/get_access()
+/mob/living/carbon/get_access_locations()
 	. = ..()
-
-	var/obj/item/RH = get_active_hand()
-	if(RH)
-		. |= RH.GetAccess()
-
-	var/obj/item/LH = get_inactive_hand()
-	if(LH)
-		. |= LH.GetAccess()
+	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
 	if(!wear_mask)

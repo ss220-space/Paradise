@@ -101,10 +101,16 @@
 	if(is_int_organ(tool))
 		current_type = "insert"
 		I = tool
+
 		if(I.requires_robotic_bodypart)
 			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
 			return -1
+
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			return -1
+
+		if((RUNIC_MIND in target.dna.species.species_traits) && istype(I, /obj/item/organ/internal/brain) && !istype(I, /obj/item/organ/internal/brain/golem))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 
@@ -293,6 +299,8 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
 		I.insert(target)
+		if(istype(I, /obj/item/organ/internal/cyberimp))
+			add_attack_logs(user, target, "Surgically inserted [I]([I.type])", ATKLOG_ALMOSTALL)
 		spread_germs_to_organ(I, user, tool)
 
 		if(affected)
@@ -354,7 +362,7 @@
 			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
 			"You notice there is not enough mitocholide in [tool].")
 			return 0
-			
+
 		var/ethanol = 0 //how much alcohol is in the thing
 		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 

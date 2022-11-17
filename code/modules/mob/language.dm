@@ -109,9 +109,7 @@
 	if(!check_can_speak(speaker))
 		return FALSE
 
-	var/log_message = "([name]-HIVE) [message]"
-	log_say(log_message, speaker)
-	speaker.create_log(SAY_LOG, log_message)
+	add_say_logs(speaker, message, language = "([name]-HIVE)")
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
@@ -603,9 +601,7 @@
 	if(!message)
 		return
 
-	var/log_message = "(ROBOT) [message]"
-	log_say(log_message, speaker)
-	speaker.create_log(SAY_LOG, log_message)
+	add_say_logs(speaker, message, language = "ROBOT")
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
@@ -616,7 +612,7 @@
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
+		if(drone_only && !(isdrone(S)||iscogscarab(S)))
 			continue
 		else if(isAI(S))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"

@@ -90,15 +90,6 @@
 				custom_emote(1, "growls!")
 
 //Corgis and pugs are now under one dog subtype
-
-/mob/living/simple_animal/pet/dog/detective
-	name = "Гав-Гавыч"
-	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
-	icon_state = "blackdog"
-	icon_living = "blackdog"
-	icon_dead = "blackdog_dead"
-	icon_resting = "blackdog_rest"
-
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
@@ -399,6 +390,12 @@
 	N.setDir(dir)
 	gib()
 
+/mob/living/simple_animal/pet/dog/corgi/Ian/ratvar_act()
+	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
+	var/mob/living/simple_animal/pet/dog/corgi/ratvar/N = new(loc)
+	N.setDir(dir)
+	gib()
+
 /mob/living/simple_animal/pet/dog/corgi/narsie
 	name = "Nars-Ian"
 	desc = "Ia! Ia!"
@@ -433,6 +430,28 @@
 	emote_see = list("communes with the unnameable.", "ponders devouring some souls.", "shakes.")
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
+	adjustBruteLoss(-maxHealth)
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar
+	name = "Cli-k"
+	desc = "It's a coolish Ian that clicks!"
+	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon_state = "clik"
+	icon_living = "clik"
+	icon_dead = "clik_dead"
+	faction = list("neutral", "clockwork_cult")
+	gold_core_spawnable = NO_SPAWN
+	nofur = TRUE
+	unique_pet = TRUE
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
+	..()
+	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
+	speak_emote = list("growls", "barks ominously")
+	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an judicial manner.", "mutters something unspeakable.")
+	emote_see = list("communes with the unnameable.", "seeks the light in souls.", "shakes.")
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/ratvar_act()
 	adjustBruteLoss(-maxHealth)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
@@ -530,7 +549,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7)
+	explosion(get_turf(src), 0, 1, 4, 7, cause = src)
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)

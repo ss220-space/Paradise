@@ -346,7 +346,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+			"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+			"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+			"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+			"Neara" = 'icons/mob/species/monkey/mask.dmi',
+			"Stok" = 'icons/mob/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -941,7 +946,14 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		)
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
@@ -1402,14 +1414,14 @@
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+/obj/item/clothing/head/wizard/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "classic_witch"
 	item_state = "classic_witch"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+/obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
 	options["Classic"] = "classic_witch"
 	options["Good"] = "good_witch"

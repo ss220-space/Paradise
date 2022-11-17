@@ -30,6 +30,8 @@
 		jobname = "No ID"
 	else if(isAI(speaker))
 		jobname = "AI"
+	else if(iscogscarab(speaker))
+		jobname = "Unknown"
 	else if(isrobot(speaker))
 		jobname = "Cyborg"
 	else if(ispAI(speaker))
@@ -138,7 +140,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	GLOB.announcing_vox = world.time + VOX_DELAY
 
-	log_game("[key_name(src)] made a vocal announcement: [message].")
+	add_game_logs("[key_name_log(src)] made a vocal announcement: [message].", src)
 	message_admins("[key_name_admin(src)] made a vocal announcement: [message].")
 
 	var/i = 0
@@ -180,6 +182,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
+						voice.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_VOX)
 						M << voice
 		else
 			only_listener << voice

@@ -72,7 +72,7 @@ Pipelines + Other Objects -> Pipe network
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = get_turf(loc)
-	if(T.transparent_floor)
+	if(T?.transparent_floor)
 		plane = FLOOR_PLANE
 	else
 		if(!T || level == 2 || !T.intact)
@@ -202,7 +202,7 @@ Pipelines + Other Objects -> Pipe network
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
 				"<span class='italics'>You hear ratcheting.</span>")
-			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+			investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
 				if(usermagboots.gustprotection && usermagboots.magpulse)
@@ -315,9 +315,12 @@ Pipelines + Other Objects -> Pipe network
 	spawn(1)
 		user.canmove = 1
 
-/obj/machinery/atmospherics/AltClick(var/mob/living/L)
+/obj/machinery/atmospherics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery))
-		L.handle_ventcrawl(src)
+		user.handle_ventcrawl(src)
 		return
 
 /obj/machinery/atmospherics/proc/can_crawl_through()

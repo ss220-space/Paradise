@@ -167,7 +167,7 @@
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
-	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
+	if(M.dna.species.bodyflags & HAS_SKIN_COLOR && !(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
@@ -240,8 +240,7 @@
 	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
-		log_say("(TPATH to [key_name(target)]) [say]", user)
-		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
+		add_say_logs(user, say, target, "[src]")
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
@@ -315,8 +314,7 @@
 			return
 		say = strip_html(say)
 		say = pencode_to_html(say, target, format = 0, fields = 0)
-		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
-		log_say("(TPATH to [key_name(target)]) [say]", user)
+		add_say_logs(user, say, target, "[src] respond")
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
 		else

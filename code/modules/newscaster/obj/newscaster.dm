@@ -79,7 +79,10 @@
 			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
+			/datum/job/ntnavyofficer/field,
+			/datum/job/ntspecops/supreme,
 			/datum/job/ntspecops,
+			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/syndicateofficer
 		)
@@ -616,14 +619,9 @@
 		if(!M.wear_id)
 			return
 		// Try to get the ID
-		var/obj/item/card/id/ID
-		if(istype(M.wear_id, /obj/item/pda))
-			var/obj/item/pda/P = M.wear_id
-			ID = P.id
-		else if(istype(M.wear_id, /obj/item/card/id))
-			ID = M.wear_id
-		if(istype(ID))
-			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
+		var/obj/item/card/id/id = M.wear_id.GetID()
+		if(istype(id))
+			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(), list(ACCESS_SECURITY), id.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
 		return list(name = "[ai_user.name] ([ai_user.job])", security = TRUE)

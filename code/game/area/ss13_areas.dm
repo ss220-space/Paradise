@@ -598,12 +598,23 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	no_teleportlocs = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
+	nad_allowed = TRUE
 
 /area/ninja/outpost
-	name = "\improper SpiderClan Outpost"
+	name = "\improper SpiderClan Dojo"
+	icon_state = "ninja_dojo"
 
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
+	icon_state = "ninja_holding"
+	ambientsounds = list('sound/ambience/ambifailure.ogg', 'sound/ambience/ambigen4.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambitech2.ogg')
+
+/area/ninja/outside
+	name = "\improper SpiderClan Territory"
+	icon_state = "ninja_outside"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	sound_environment = SOUND_AREA_ASTEROID
 
 /area/vox_station
 	name = "\improper Vox Base"
@@ -652,6 +663,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
+/area/maintenance/ai
+	name = "AI Maintenance"
+	icon_state = "green"
+
 /area/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
@@ -692,11 +707,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Locker Room Maintenance"
 	icon_state = "pmaint"
 
+/area/maintenance/perma
+	name = "Prison Maintenance"
+	icon_state = "green"
+
 /area/maintenance/aft
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
 
-/area/maintenance/storage
+/area/maintenance/atmospherics
 	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
@@ -716,10 +735,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Genetics Maintenance"
 	icon_state = "asmaint"
 
-
 /area/maintenance/electrical
 	name = "Electrical Maintenance"
 	icon_state = "yellow"
+
+/area/maintenance/engineering
+	name = "Engineering Maintenance"
+	icon_state = "green"
 
 /area/maintenance/bar
 	name = "Abandoned Bar"
@@ -736,7 +758,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Abandoned Fight Club"
 	icon_state = "yellow"
 
-/area/maintenance/gambling_den/casino
+/area/maintenance/casino
 	name = "Abandoned Casino"
 	icon_state = "yellow"
 
@@ -744,9 +766,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
 
+/area/maintenance/detectives_office
+	name = "\improper Abandoned Detective's Office"
+	icon_state = "detective"
+	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
+
 /area/maintenance/engrooms
 	name = "Abandoned Engineers Rooms"
 	icon_state = "yellow"
+
+/area/maintenance/library
+	name = "\improper Abandoned Library"
+	icon_state = "library"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/maintenance/xenozoo
 	name = "Maintenance Xeno Zoo"
@@ -758,6 +790,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/backstage
 	name = "Backstage"
+	icon_state = "yellow"
+
+/area/maintenance/server
+	name = "Abandoned Server Room"
 	icon_state = "yellow"
 
 //Hallway
@@ -807,6 +843,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
+	icon_state = "escape"
+
+/area/hallway/secondary/exit/maint
+	name = "\improper Abandoned Escape Shuttle Hallway"
 	icon_state = "escape"
 
 /area/hallway/secondary/construction
@@ -1046,11 +1086,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
-
-/area/library/abandoned
-	name = "\improper Abandoned Library"
-	icon_state = "library"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/chapel
 	icon_state = "chapel"
@@ -1781,6 +1816,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/garden/north
+	name = "North Old Garden"
+	icon_state = "hydro"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
+
 /area/maintenance/kitchen
 	name = "Old Restaurant"
 	icon_state = "kitchen"
@@ -2292,6 +2334,48 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/awaymission/undersea
 	name = "Undersea"
 	icon_state = "undersea"
+
+
+// Это зоны для гейта "moonoutpost19"
+/area/moonoutpost19
+	name = "moonoutpost"
+	has_gravity = TRUE
+	report_alerts = FALSE
+
+/area/moonoutpost19/mo19arrivals
+	name = "MO19 Arrivals"
+	icon_state = "awaycontent1"
+
+/area/moonoutpost19/mo19research
+	name = "MO19 Research"
+	icon_state = "awaycontent2"
+
+/area/moonoutpost19/khonsu19
+	name = "Khonsu 19"
+	icon_state = "awaycontent3"
+	always_unpowered = TRUE
+	ambientsounds = list('sound/ambience/ambimine.ogg')
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	poweralm = FALSE
+
+/area/moonoutpost19/syndicateoutpost
+	name = "Syndicate Outpost"
+	icon_state = "awaycontent4"
+
+/area/moonoutpost19/hive
+	name = "The Hive"
+	icon_state = "awaycontent5"
+	always_unpowered = TRUE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	poweralm = FALSE
+
+/area/moonoutpost19/mo19utilityroom
+	name = "MO19 Utility Room"
+	icon_state = "awaycontent6"
 
 
 ////////////////////////AWAY AREAS///////////////////////////////////

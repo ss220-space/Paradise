@@ -21,7 +21,12 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/redtag
@@ -36,7 +41,12 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /*
@@ -49,7 +59,12 @@
 	item_state = "pirate_old"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/pirate_black
@@ -59,7 +74,12 @@
 	item_state = "pirate"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hgpirate
@@ -122,7 +142,12 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/apron/overalls
@@ -344,7 +369,14 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
@@ -356,7 +388,14 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/head.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
@@ -382,6 +421,15 @@
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
 
+/obj/item/clothing/suit/hooded/wintercoat/security/hos
+	name = "head of securiry winter coat"
+	icon_state = "wintercoat_hos"
+	item_state = "coathos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/hos
+
+/obj/item/clothing/head/hooded/winterhood/security/hos
+	icon_state = "winterhood_hos"
+
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
 	icon_state = "wintercoat_med"
@@ -394,6 +442,15 @@
 /obj/item/clothing/head/hooded/winterhood/medical
 	icon_state = "winterhood_med"
 
+/obj/item/clothing/suit/hooded/wintercoat/medical/cmo
+	name = "chief medical officer winter coat"
+	icon_state = "wintercoat_cmo"
+	item_state = "coatcmo"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/cmo
+
+/obj/item/clothing/head/hooded/winterhood/medical/cmo
+	icon_state = "winterhood_cmo"
+
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
 	icon_state = "wintercoat_sci"
@@ -405,6 +462,15 @@
 
 /obj/item/clothing/head/hooded/winterhood/science
 	icon_state = "winterhood_sci"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/rd
+	name = "research director winter coat"
+	icon_state = "wintercoat_rd"
+	item_state = "coatrd"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/rd
+
+/obj/item/clothing/head/hooded/winterhood/science/rd
+	icon_state = "winterhood_rd"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering
 	name = "engineering winter coat"
@@ -426,6 +492,15 @@
 
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos
 	icon_state = "winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/ce
+	name = "chief engineer winter coat"
+	icon_state = "wintercoat_ce"
+	item_state = "coatce"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/ce
+
+/obj/item/clothing/head/hooded/winterhood/engineering/ce
+	icon_state = "winterhood_ce"
 
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
@@ -458,7 +533,23 @@
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
 
+/obj/item/clothing/suit/hooded/wintercoat/hop
+	name = "head of personel winter coat"
+	icon_state = "wintercoat_hop"
+	item_state = "coathop"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hop
 
+/obj/item/clothing/head/hooded/winterhood/hop
+	icon_state = "winterhood_hop"
+
+/obj/item/clothing/suit/hooded/wintercoat/qm
+	name = "quartermaster winter coat"
+	icon_state = "wintercoat_qm"
+	item_state = "coatqm"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
+
+/obj/item/clothing/head/hooded/winterhood/qm
+	icon_state = "winterhood_qm"
 /*
  * Misc
  */
@@ -473,7 +564,12 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/head/hooded/hood
@@ -486,7 +582,12 @@
 	flags_inv = HIDEEARS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 		)
 
 /obj/item/clothing/head/hooded/hood/blue
@@ -547,7 +648,12 @@
 	item_state = "ianshirt"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 
@@ -597,7 +703,12 @@
 	item_state = "brtrenchcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/blacktrenchcoat
@@ -607,7 +718,12 @@
 	item_state = "bltrenchcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 //trackjackets
@@ -624,7 +740,12 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/tracksuit/green
@@ -757,7 +878,12 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/jacket/pilot
@@ -799,7 +925,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
@@ -819,7 +950,12 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/soldiercoat
@@ -832,7 +968,12 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/lordadmiral

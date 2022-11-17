@@ -8,12 +8,12 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = null
+	language = "Galactic Common"
 	default_language = "Chimpanzee"
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda, slot_neck)
+	no_equip = list(slot_belt, slot_gloves)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0

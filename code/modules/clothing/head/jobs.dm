@@ -89,7 +89,12 @@
 	muhtar_fashion = /datum/fashion/muhtar_fashion/head/detective
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 //Mime
@@ -195,7 +200,12 @@
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/head.dmi'
+		"Drask" = 'icons/mob/species/drask/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 		)
 
 /obj/item/clothing/head/surgery/purple
@@ -213,3 +223,18 @@
 /obj/item/clothing/head/surgery/black
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers.  It is as dark than the coroner's humor."
 	icon_state = "surgcap_black"
+
+//SolGov
+/obj/item/clothing/head/beret/solgov/command
+	name = "\improper Trans-Solar Federation Lieutenant's beret"
+	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
+	icon_state = "solgov_beret"
+	dog_fashion = null
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	strip_delay = 80
+
+/obj/item/clothing/head/beret/solgov/command/elite
+	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
+	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	icon_state = "solgov_elite_beret"

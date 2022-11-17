@@ -20,8 +20,9 @@
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
-	ionpulse = 1
 	modules_break = FALSE
+
+	drain_act_protected = TRUE
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -80,7 +81,6 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-	module += new /obj/item/borg/upgrade/thrusters(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -148,10 +148,8 @@
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-
+	else if(W.GetID())
 		if(stat == DEAD)
-
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
@@ -214,8 +212,9 @@
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
-	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
-	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
+	message_admins("[ADMIN_LOOKUPFLW(H)] emagged drone [key_name_admin(src)].  Laws overridden.")
+	add_attack_logs(user, src, "emagged")
+	add_conversion_logs(src, "Converted as a slave to [key_name_log(H)]")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
@@ -238,15 +237,26 @@
 	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
 
+/mob/living/silicon/robot/drone/ratvar_act(weak)
+	if(client)
+		var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+		if(mind)
+			SSticker.mode.add_clocker(mind)
+			mind.transfer_to(cog)
+		else
+			cog.key = client.key
+	spawn_dust()
+	gib()
+
 //DRONE LIFE/DEATH
 
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
-		health = 35
+		health = maxHealth
 		stat = CONSCIOUS
 		return
-	health = 35 - (getBruteLoss() + getFireLoss())
+	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
 	update_stat("updatehealth([reason])")
 
 /mob/living/silicon/robot/drone/death(gibbed)
@@ -376,7 +386,7 @@
 		return ..()
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!client && istype(user, /mob/living/silicon/robot/drone))
+	if(!client && isdrone(user))
 		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
 		if(!do_after(user, 5 SECONDS, target = loc))
 			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")

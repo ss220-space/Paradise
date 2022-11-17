@@ -381,16 +381,15 @@
 	force = 13
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	hitsound = 'sound/weapons/bite.ogg'
-	var/used_blessing = FALSE
 
 /obj/item/nullrod/carp/attack_self(mob/living/user)
-	if(used_blessing)
+	if(user.mind && !(user.mind.isholy || user.mind.isblessed))
 		return
-	if(user.mind && !user.mind.isholy)
+	if ("carp" in user.faction)
+		to_chat(user, "You are already blessed by Carp-Sie.")
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
-	used_blessing = TRUE
 
 /obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
 	name = "monk's staff"
@@ -480,6 +479,10 @@
 			if(target.mind)
 				if(iscultist(target))
 					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					praying = FALSE
+					return
+				if(isclocker(target))
+					SSticker.mode.remove_clocker(target.mind)
 					praying = FALSE
 					return
 

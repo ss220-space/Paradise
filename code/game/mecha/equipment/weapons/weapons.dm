@@ -74,13 +74,14 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
 	origin_tech = "combat=3"
 	projectile = /obj/item/projectile/beam/disabler
+	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	projectiles_per_shot = 2
 	projectile_delay = 1
 	harmful = FALSE
@@ -92,7 +93,7 @@
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 40
@@ -101,7 +102,7 @@
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
@@ -122,7 +123,7 @@
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/xray
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
@@ -138,7 +139,7 @@
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
@@ -148,7 +149,7 @@
 	energy_drain = 120
 	origin_tech = "materials=3;combat=6;powerstorage=4"
 	projectile = /obj/item/projectile/beam/pulse/heavy
-	fire_sound = 'sound/weapons/marauder.ogg'
+	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 	harmful = TRUE
 
 
@@ -178,7 +179,7 @@
 	energy_drain = 20
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/energy/electrode
-	fire_sound = 'sound/weapons/taser.ogg'
+	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
@@ -222,7 +223,7 @@
 		///else the mousetraps are useless
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			if(isobj(H.shoes))
+			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
 				H.unEquip(H.shoes)
 				walk_away(thingy,chassis,15,2)
@@ -237,7 +238,7 @@
 	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
-	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [T.x], [T.y], [T.z]")
+	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
 	do_after_cooldown()
 	return
 
@@ -277,14 +278,14 @@
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
 	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
-	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
 	projectile = /obj/item/projectile/bullet/mime
@@ -303,7 +304,7 @@
 	origin_tech = "combat=4"
 	equip_cooldown = 20
 	projectile = /obj/item/projectile/bullet/midbullet
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
 	projectiles_per_shot = 4
@@ -316,7 +317,7 @@
 	origin_tech = "combat=4"
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/weakbullet3
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
 	projectiles_per_shot = 3
@@ -332,14 +333,13 @@
 	name = "SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	origin_tech = "combat=5;materials=4;engineering=4"
-	projectile = /obj/item/missile
-	fire_sound = 'sound/effects/bang.ogg'
+	projectile = /obj/item/missile/light
+	fire_sound = 'sound/weapons/gunshots/1launcher.ogg'
 	projectiles = 8
 	projectile_energy_cost = 1000
 	equip_cooldown = 60
 	var/missile_speed = 2
 	var/missile_range = 30
-	var/heavy_missile = 0
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
@@ -348,35 +348,42 @@
 	set_ready_state(0)
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
-	if(heavy_missile)
-		M.heavy_missile = 1
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
-	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
+	add_game_logs("fired a [src] in [COORD(T)]", chassis.occupant)
 	do_after_cooldown()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
-	heavy_missile = 1
+	projectile = /obj/item/missile/heavy
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
+	name = "SRM-8 Missile Rack"
+	projectile = /obj/item/missile
 
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	var/primed = null
-	var/heavy_missile = 0
 	throwforce = 15
+
+/obj/item/missile/proc/primed_explosion(atom/hit_atom)
+	explosion(hit_atom, 0, 2, 3, 4, 0)
+
+/obj/item/missile/heavy/primed_explosion(atom/hit_atom)
+	explosion(hit_atom, 2, 3, 4, 6, 0)
+
+/obj/item/missile/light/primed_explosion(atom/hit_atom)
+	explosion(hit_atom, 0, 0, 2, 4, 0)
 
 /obj/item/missile/throw_impact(atom/hit_atom)
 	if(primed)
-		if(heavy_missile)
-			explosion(hit_atom, 2, 3, 4, 6, 0)
-		else
-			explosion(hit_atom, 0, 2, 3, 4, 0)
+		primed_explosion(hit_atom)
 		qdel(src)
 	else
 		..()
@@ -387,7 +394,7 @@
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
-	fire_sound = 'sound/effects/bang.ogg'
+	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
@@ -489,7 +496,7 @@
 	icon_state = "mecha_bola"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/restraints/legcuffs/bola
-	fire_sound = 'sound/weapons/whip.ogg'
+	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	projectiles = 10
 	missile_speed = 1
 	missile_range = 30
@@ -526,7 +533,7 @@
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)

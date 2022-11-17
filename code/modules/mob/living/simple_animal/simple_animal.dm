@@ -153,10 +153,8 @@
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
-			create_debug_log("died of damage, trigger reason: [reason]")
 		else
 			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
@@ -362,6 +360,8 @@
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
+			return FALSE
+		if(L.incorporeal_move)
 			return FALSE
 	if(ismecha(the_target))
 		var/obj/mecha/M = the_target

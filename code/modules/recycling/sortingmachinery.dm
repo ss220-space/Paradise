@@ -5,6 +5,7 @@
 	icon_state = "deliverycloset"
 	density = 1
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	var/iconLabeled = "deliverycloset_labeled"
 	var/obj/wrapped = null
 	var/init_welded = 0
 	var/giftwrapped = 0
@@ -43,6 +44,8 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/shippingPackage))
@@ -51,6 +54,8 @@
 			return
 		else
 			sortTag = sp.sortTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			to_chat(user, "<span class='notice'>You rip the label off the shipping package and affix it to [src].</span>")
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -80,6 +85,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrateSmall"
 	item_state = "deliverypackage"
+	var/iconLabeled = null
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
@@ -114,6 +120,8 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/shippingPackage))
@@ -122,6 +130,8 @@
 			return
 		else
 			sortTag = sp.sortTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			to_chat(user, "<span class='notice'>You rip the label off the shipping package and affix it to [src].</span>")
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -176,6 +186,7 @@
 			var/i = round(O.w_class)
 			if(i in list(1,2,3,4,5))
 				P.icon_state = "deliverycrate[i]"
+				P.iconLabeled = "deliverycrate[i]_labeled"
 				P.w_class = i
 			P.add_fingerprint(usr)
 			O.add_fingerprint(usr)
@@ -191,6 +202,7 @@
 				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.icon_state = "deliverycrate"
+			P.iconLabeled = "deliverycrate_labeled"
 			P.wrapped = O
 			O.loc = P
 		else
@@ -216,7 +228,6 @@
 		return
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
-	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
 	add_attack_logs(user, target, "used [name]", ATKLOG_ALL)
 
 	if(amount <= 0 && !src.loc) //if we used our last wrapping paper, drop a cardboard tube
@@ -262,110 +273,6 @@
 		var/n = text2num(href_list["nextTag"])
 		src.currTag = n
 	openwindow(usr)
-
-/obj/machinery/disposal/deliveryChute
-	name = "Delivery chute"
-	desc = "A chute for big and small packages alike!"
-	density = 1
-	icon_state = "intake"
-	required_mode_to_deconstruct = 1
-	deconstructs_to = PIPE_DISPOSALS_CHUTE
-	var/can_deconstruct = FALSE
-
-/obj/machinery/disposal/deliveryChute/New()
-	..()
-	spawn(5)
-		trunk = locate() in src.loc
-		if(trunk)
-			trunk.linked = src	// link the pipe trunk to self
-
-/obj/machinery/disposal/deliveryChute/interact()
-	return
-
-/obj/machinery/disposal/deliveryChute/update()
-	return
-
-/obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile))  return
-	switch(dir)
-		if(NORTH)
-			if(AM.loc.y != src.loc.y+1) return
-		if(EAST)
-			if(AM.loc.x != src.loc.x+1) return
-		if(SOUTH)
-			if(AM.loc.y != src.loc.y-1) return
-		if(WEST)
-			if(AM.loc.x != src.loc.x-1) return
-
-	if(istype(AM, /obj))
-		var/obj/O = AM
-		O.loc = src
-	else if(istype(AM, /mob))
-		var/mob/M = AM
-		M.loc = src
-	src.flush()
-
-/obj/machinery/disposal/deliveryChute/flush()
-	flushing = 1
-	flick("intake-closing", src)
-	var/deliveryCheck = 0
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
-													// travels through the pipes.
-	for(var/obj/structure/bigDelivery/O in src)
-		deliveryCheck = 1
-		if(O.sortTag == 0)
-			O.sortTag = 1
-	for(var/obj/item/smallDelivery/O in src)
-		deliveryCheck = 1
-		if(O.sortTag == 0)
-			O.sortTag = 1
-	for(var/obj/item/shippingPackage/O in src)
-		deliveryCheck = 1
-		if(!O.sealed || O.sortTag == 0)		//unsealed or untagged shipping packages will default to disposals
-			O.sortTag = 1
-	if(deliveryCheck == 0)
-		H.destinationTag = 1
-
-	sleep(10)
-	playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
-	sleep(5) // wait for animation to finish
-
-	H.init(src)	// copy the contents of disposer to holder
-	air_contents = new() // The holder just took our gas; replace it
-	H.start(src) // start the holder processing movement
-	flushing = 0
-	// now reset disposal state
-	flush = 0
-	if(mode == 2)	// if was ready,
-		mode = 1	// switch to charging
-	update()
-	return
-
-/obj/machinery/disposal/deliveryChute/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	can_deconstruct = !can_deconstruct
-	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
-
-/obj/machinery/disposal/deliveryChute/welder_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!can_deconstruct)
-		return
-	if(contents.len > 0)
-		to_chat(user, "Eject the items first!")
-		return
-	if(!I.tool_use_check(user, 0))
-		return
-	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-		var/obj/structure/disposalconstruct/C = new (loc)
-		C.ptype = deconstructs_to
-		C.update()
-		C.anchored = TRUE
-		C.density = TRUE
-		qdel(src)
 
 /obj/item/shippingPackage
 	name = "Shipping package"

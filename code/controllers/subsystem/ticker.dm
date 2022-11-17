@@ -322,7 +322,7 @@ SUBSYSTEM_DEF(ticker)
 				M.client.screen += cinematic	//show every client the cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD)
+			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					var/mob/ghost = M.ghostize()
@@ -466,7 +466,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/living/silicon/robot/robo in GLOB.mob_list)
 
-		if(istype(robo,/mob/living/silicon/robot/drone))
+		if(isdrone(robo))
 			dronecount++
 			continue
 
@@ -508,9 +508,9 @@ SUBSYSTEM_DEF(ticker)
 	SSevents.RoundEnd()
 
 	//make big obvious note in game logs that round ended
-	log_game("///////////////////////////////////////////////////////")
-	log_game("///////////////////// ROUND ENDED /////////////////////")
-	log_game("///////////////////////////////////////////////////////")
+	add_game_logs("///////////////////////////////////////////////////////")
+	add_game_logs("///////////////////// ROUND ENDED /////////////////////")
+	add_game_logs("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
 	for(var/datum/atom_hud/antag/H in GLOB.huds)

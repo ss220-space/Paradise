@@ -92,7 +92,7 @@
 	return
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) && !iscogscarab(user) || isAI(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -110,11 +110,11 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby(obj/item/W, mob/user)
+/obj/machinery/turretid/attackby(obj/item/I, mob/user)
 	if(stat & BROKEN)
 		return
 
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+	if(I.GetID() || ispda(I))
 		if(src.allowed(usr))
 			if(emagged)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")

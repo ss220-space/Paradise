@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(HasController())
 		return TRUE
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) && !iscogscarab(user) || isAI(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				update_icon()
 		wrenching = FALSE
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	else if(I.GetID() || ispda(I))
 		if(HasController())
 			to_chat(user, "<span class='notice'>Turrets regulated by a nearby turret controller are not unlockable.</span>")
 		else if(allowed(user))
