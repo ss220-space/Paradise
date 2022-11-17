@@ -38,6 +38,7 @@
 
 	buy()
 	sell()
+	addAtom()
 
 /obj/docking_port/mobile/supply/proc/buy()
 	if(!is_station_level(z))		//we only buy when we are -at- the station
@@ -230,6 +231,18 @@
 		SSshuttle.points += pointsEarned
 
 	SSshuttle.centcom_message += "[msg]<hr>"
+
+//По идее добавляет возможность запихивать предметы на шаттл. ToDo: дать возможность админам?//
+/obj/docking_port/mobile/supply/proc/addAtom(var/atom/movable/A)
+	var/list/emptyTurfs = get_emptyTurfs()
+	if(!emptyTurfs.len)
+		return FALSE
+
+	var/turf/simulated/T = pick(emptyTurfs)
+
+	A.forceMove(pickedloc)
+
+	return TRUE
 
 /proc/forbidden_atoms_check(atom/A)
 	var/list/blacklist = list(
