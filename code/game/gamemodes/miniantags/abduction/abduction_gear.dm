@@ -751,7 +751,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor
 	name = "alien mender"
-	desc = "Aliens use such primitive technology to heal wounds?"
+	desc = "Hidden behind a high-tech look is a time-tested mechanism"
 	origin_tech = "materials=2;biotech=3;abductor=2"
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
