@@ -63,6 +63,9 @@
 /obj/item/storage/box/survival_machine
 	icon_state = "box_machine"
 
+/obj/item/storage/box/mail
+	icon_state = "mail-box"
+
 /obj/item/storage/box/survival_machine/New()
 	..()
 	contents = list()

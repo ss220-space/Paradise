@@ -11,7 +11,7 @@
 //Get a name and rank in out list
 /datum/event/mail/setup()
 	for(var/datum/data/record/G in GLOB.data_core.general)
-		to_receive.Add(G.fields["name"], G.fields["rank"])
+		to_receive.Add(G.fields["name"])
 
 	// No names, no gains.
 	if(!to_receive.len)
@@ -31,12 +31,12 @@
 /datum/event/proc/start()
 
 /datum/event/mail/proc/spawn_mail()
-	var/obj/structure/closet/crate/mail_crate = new()
-	mail_crate.SetName("Почтовый ящик")
+	var/obj/structure/largecrate/mail = new()
+	mail.SetName("Почтовый ящик")
 
 	for(var/name in to_receive)
-		var/obj/item/storage/box/large/mailbox = new()
-		mailbox.SetName("Ящик для [name]")
+		var/obj/item/storage/box/large/mail = new()
+		mail.SetName("Ящик для [name]")
 
 		if(prob(15))
 		if(prob(2))
@@ -44,11 +44,11 @@
 
 		var/obj/item/smallDelivery/parcel = new /obj/item/smallDelivery()
 		psrcel.SetName("normal-sized parcel (to [name])")
-		mailbox.forceMove(parcel)
+		mail.forceMove(parcel)
 
-	if(!supply.addAtom(mail_crate))
+	if(!supply.addAtom(mail))
 		log_debug("Failed to add mail crate to the supply shuttle!")
-		qdel(mail_crate)
+		qdel(mail)
 		return FALSE
 
 	return TRUE

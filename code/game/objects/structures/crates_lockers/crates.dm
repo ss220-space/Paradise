@@ -301,6 +301,13 @@
 	icon_opened = "trashcartopen"
 	icon_closed = "trashcart"
 
+/obj/structure/closet/crate/mail
+	name = "mail crate"
+	desc = "classic mail crate used by most delivery companies"
+	icon_state = "mailcrate"
+	icon_opened = "mailcrateopen"
+	icon_closed = "mailcrate"
+
 /*these aren't needed anymore
 /obj/structure/closet/crate/hat
 	desc = "A crate filled with Valuable Collector's Hats!."

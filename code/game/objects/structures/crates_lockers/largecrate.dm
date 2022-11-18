@@ -52,6 +52,10 @@
 
 /obj/structure/largecrate/mule
 
+/obj/structure/largecrate/mail
+	name = "mail crate"
+	desc = "classic mail crate used by most delivery companies"
+	icon_state = "mailcrate"
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"
 
