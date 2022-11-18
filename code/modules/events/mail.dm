@@ -1,19 +1,19 @@
-// Создает ящик с личными посылками для членов экипажа //
+// Creates boxes in cargo shuttle with mail for crew
 
 /datum/event/mail
 	endWhen = 3000
 
-	// Список получателей //
+
 	var/list/to_receive = list()
 
 
 
-//Добавляем имя получателей посылки из общего списка рекордсов в список//
+//Get a name and rank in out list
 /datum/event/mail/setup()
 	for(var/datum/data/record/G in GLOB.data_core.general)
 		to_receive.Add(G.fields["name"], G.fields["rank"])
 
-	// Никого нет. Значит и посылки не заслужили >:[ //
+	// No names, no gains.
 	if(!to_receive.len)
 		log_debug("Никто не получил посылку. Ивент прерван.")
 		kill(TRUE)
@@ -24,7 +24,6 @@
 /datum/event/proc/tick()
 	var/obj/shuttle/docking_port/mobile/supply/supply = SSshuttle.supply
 
-	//Если шаттл не на станции и бездейдействует - спавним посылочки.
 	if(!is_station_level(SSshuttle.supply.z) && SSshuttle.supply.mode == SHUTTLE_IDLE)
 		if(spawn_mail())
 			kill()
@@ -32,25 +31,24 @@
 /datum/event/proc/start()
 
 /datum/event/mail/proc/spawn_mail()
-	var/obj/structure/closet/crate/gift_crate = new()
-	gift_crate.SetName("Почтовый ящик")
+	var/obj/structure/closet/crate/mail_crate = new()
+	mail_crate.SetName("Почтовый ящик")
 
-	for(var/letter in to_receive)
+	for(var/name in to_receive)
+		var/obj/item/storage/box/large/mailbox = new()
+		mailbox.SetName("Ящик для [name]")
 
+		if(prob(15))
+		if(prob(2))
+		var/mail_path = pick(traitor_mail)*2
 
+		var/obj/item/smallDelivery/parcel = new /obj/item/smallDelivery()
+		psrcel.SetName("normal-sized parcel (to [name])")
+		mailbox.forceMove(parcel)
 
-
-
-
-
-
-
-
-
-
-	if(!supply.addAtom(gift_crate))
+	if(!supply.addAtom(mail_crate))
 		log_debug("Failed to add mail crate to the supply shuttle!")
-		qdel(gift_crate)
+		qdel(mail_crate)
 		return FALSE
 
 	return TRUE

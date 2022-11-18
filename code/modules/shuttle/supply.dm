@@ -38,7 +38,6 @@
 
 	buy()
 	sell()
-	addAtom()
 
 /obj/docking_port/mobile/supply/proc/buy()
 	if(!is_station_level(z))		//we only buy when we are -at- the station
@@ -232,12 +231,25 @@
 
 	SSshuttle.centcom_message += "[msg]<hr>"
 
-/obj/controller/subsystem/supply/proc/get_emptyTurfs()
-	var/list/clear_turfs = list()
+//We have a list of empty space for stuff
+/obj/docking_port/mobile/supply/proc/get_emptyTurfs()
+	var/list/emptyTurfs = list()
 
-	for(var/area/subarea in mobile.shuttle_areas)
+	for(var/turf/simulated/T in shuttle_areas)
+		if(T.density)
+			continue
+		var/occupied = 0
+		for(var/atom/A in T.contents)
+			if(!A.simulated)
+				continue
+			occupied = 1
+			break
+		if(!occupied)
+			emptyTurfs += T
 
-//По идее добавляет возможность запихивать предметы на шаттл. ToDo: дать возможность админам?//
+	return emptyTurfs
+
+//Should pick a place to spawn our stuff. ToDo: create admin tool for spawning on shuttle
 /obj/docking_port/mobile/supply/proc/addAtom(var/atom/movable/A)
 	var/list/emptyTurfs = get_emptyTurfs()
 	if(!emptyTurfs.len)
@@ -245,7 +257,7 @@
 
 	var/turf/simulated/T = pick(emptyTurfs)
 
-	A.forceMove(pickedloc)
+	A.forceMove(T)
 
 	return TRUE
 
