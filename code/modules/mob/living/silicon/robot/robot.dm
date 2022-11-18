@@ -329,7 +329,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
 	if(module)
 		return
-	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(limited_modules) && limited_modules.len)
 		modules = limited_modules.Copy()
 	if(mmi?.alien)
