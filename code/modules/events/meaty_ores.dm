@@ -29,7 +29,6 @@
 	if(A)
 		playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 		walk(src,0)
-		invisibility = 101
 		new /obj/effect/decal/cleanable/blood(get_turf(A))
 		if(ismob(A))
 			A.ex_act(strength)
@@ -37,8 +36,8 @@
 			spawn(0)
 				if(A)
 					A.ex_act(strength)
-				if(src)
-					walk_towards(src,goal,1)
+		if(src)
+			walk_towards(src,goal,1)
 		life--
 		if(!life)
 			if(prob(80))
