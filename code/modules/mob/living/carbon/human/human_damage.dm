@@ -190,7 +190,7 @@
 		amount = amount * dna.species.tox_mod
 	. = ..()
 
-	if(amount > 0 && mind && (mind in SSticker.mode.victims))
+	if(amount > 0 && mind)
 		for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
 			if (mind == objective.target)
 				objective.take_damage(amount, TOX)
