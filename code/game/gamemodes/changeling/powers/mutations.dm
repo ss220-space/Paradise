@@ -129,6 +129,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
 	force = 25
+	hitsound = "slice"
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0

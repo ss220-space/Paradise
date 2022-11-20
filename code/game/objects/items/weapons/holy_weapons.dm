@@ -147,7 +147,7 @@
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -221,7 +221,6 @@
 	slot_flags = SLOT_BELT
 	force = 4.13
 	throwforce = 1
-	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/nullrod/scythe
@@ -236,7 +235,7 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
-	hitsound = 'sound/weapons/rapierhit.ogg'
+	hitsound = "slice"
 
 /obj/item/nullrod/scythe/vibro
 	name = "high frequency blade"
@@ -251,7 +250,6 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	name = "dormant spellblade"
 	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
-	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/talking
 	name = "possessed blade"
@@ -259,7 +257,6 @@
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
-	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
@@ -371,6 +368,7 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
+	hitsound = "slice"
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -415,7 +413,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	slot_flags = null
 	flags = HANDSLOW
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/nullrod/tribal_knife/New()
@@ -436,7 +434,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "Holding this makes you look absolutely devilish."
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	sharp = TRUE
 
 /obj/item/nullrod/rosary

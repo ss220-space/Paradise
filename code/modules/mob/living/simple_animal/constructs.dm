@@ -104,7 +104,7 @@
 	attacktext = "бьёт тяжёлой бронированной перчаткой"
 	speed = 3
 	environment_smash = 2
-	attack_sound = 'sound/weapons/punch3.ogg'
+	attack_sound = "swing_hit"
 	status_flags = 0
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
@@ -150,7 +150,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "рубит"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = "slice"
 	construct_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
@@ -181,7 +181,7 @@
 	environment_smash = 2
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
-	attack_sound = 'sound/weapons/punch2.ogg'
+	attack_sound = "swing_hit"
 	construct_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
@@ -260,7 +260,7 @@
 	attacktext = "брутально сокрушает"
 	speed = 5
 	environment_smash = 2
-	attack_sound = 'sound/weapons/punch4.ogg'
+	attack_sound = "swing_hit"
 	force_threshold = 11
 	construct_type = "behemoth"
 	var/energy = 0

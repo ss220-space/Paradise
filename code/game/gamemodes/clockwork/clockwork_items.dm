@@ -213,7 +213,7 @@
 	embed_chance = 85
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("stabbed", "poked", "slashed")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
 
@@ -283,7 +283,7 @@
 	force = 20
 	armour_penetration = 30
 	sharp = TRUE
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 
 /obj/item/clock_borg_spear/Initialize(mapload)
 	. = ..()
@@ -397,7 +397,7 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_sword"
 	item_state = "clock_sword"
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	force = 20
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY

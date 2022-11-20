@@ -17,6 +17,7 @@
 	icon_state = "oxygen"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
+	hitsound = "swing_hit"
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/oxygen/populate_gas()

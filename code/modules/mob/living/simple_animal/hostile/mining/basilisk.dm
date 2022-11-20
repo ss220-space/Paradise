@@ -26,7 +26,7 @@
 	attacktext = "вгрызается в"
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = "slice"
 	vision_range = 2
 	aggro_vision_range = 9
 	turns_per_move = 5
@@ -73,7 +73,7 @@
 	attacktext = "пронзает"
 	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = "slice"
 	stat_attack = UNCONSCIOUS
 	flying = TRUE
 	robust_searching = 1

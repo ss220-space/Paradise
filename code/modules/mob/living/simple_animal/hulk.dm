@@ -25,7 +25,7 @@
 	status_flags = CANPUSH
 	universal_speak = 1
 	universal_understand = 1
-	attack_sound = list('sound/weapons/punch1.ogg')
+	attack_sound = "punch"
 	minbodytemp = 0
 	var/hulk_powers = list()
 	var/mob/living/original_body
@@ -72,6 +72,7 @@
 	harm_intent_damage = 30
 	melee_damage_lower = 30
 	melee_damage_upper = 30
+	attack_sound = "slice"
 
 	speak_emote = list("gnaw")
 	emote_hear = list("gnaw")

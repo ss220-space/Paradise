@@ -143,7 +143,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "beer"
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1

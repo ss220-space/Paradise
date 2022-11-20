@@ -9,7 +9,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	var/charged = 1
 	var/spawn_type = /obj/singularity/narsie/wizard
 	var/spawn_amt = 1
@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A weapon capable of conquering the universe and beyond. Activate it to summon copies of yourself from others dimensions to fight by your side."
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 20

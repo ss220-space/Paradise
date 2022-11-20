@@ -108,7 +108,7 @@
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	throw_speed = 3
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
@@ -146,6 +146,7 @@
 	flags = CONDUCT
 	force = 15
 	throwforce = 8
+	hitsound = "slice"
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 

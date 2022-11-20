@@ -15,7 +15,7 @@
 	pixel_y = -24
 
 	attacktext = "режет"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = "slice"
 	armour_penetration = 25
 	melee_damage_lower = 10
 	melee_damage_upper = 100
