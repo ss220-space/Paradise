@@ -1126,7 +1126,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	popup.open()
 
 /mob/living/silicon/robot/proc/install_upgrade(obj/item/borg/upgrade/upgrade)
-	if(!upgrade.one_use)
+	if(!upgrade.instant_use)
 		RegisterSignal(upgrade, COMSIG_PARENT_QDELETING, .proc/on_upgrade_deleted)
 		upgrades += upgrade
 		upgrade.forceMove(src)

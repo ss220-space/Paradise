@@ -11,7 +11,7 @@
 	var/installed = 0
 	var/require_module = FALSE
 	var/module_type = null
-	var/one_use = FALSE
+	var/instant_use = FALSE
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
@@ -36,7 +36,7 @@
 	desc = "Used to reset a cyborg's module. Destroys any other upgrades applied to the cyborg."
 	icon_state = "cyborg_upgrade1"
 	require_module = TRUE
-	one_use = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
 	if(..())
@@ -50,7 +50,7 @@
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
 	var/heldname = "default name"
-	one_use = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
@@ -72,7 +72,7 @@
 	name = "cyborg emergency reboot module"
 	desc = "Used to force a reboot of a disabled-but-repaired cyborg, bringing it back online."
 	icon_state = "cyborg_upgrade1"
-	one_use = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R)
 	if(R.health < 0)
@@ -138,7 +138,7 @@
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
 	if(..())
-		R.ionpulse = 1
+		R.ionpulse = TRUE
 		return TRUE
 
 /obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/R, user = usr)
