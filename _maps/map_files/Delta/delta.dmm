@@ -49487,13 +49487,7 @@
 /area/atmos)
 "edF" = (
 /obj/structure/barricade/wooden,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -53005,11 +52999,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"eQq" = (
-/turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
 "eQA" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -57981,9 +57970,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "fVO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -66005,9 +65992,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "hHa" = (
 /turf/simulated/wall,
 /area/hallway/primary/central/north)
@@ -71306,9 +71291,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "iOx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -73038,12 +73021,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
-"jjO" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
 "jjT" = (
 /obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
@@ -76691,9 +76668,7 @@
 /obj/structure/girder,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "jZI" = (
 /obj/structure/lattice,
 /turf/space,
@@ -79929,8 +79904,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/research{
@@ -85288,16 +85261,6 @@
 /obj/item/lighter,
 /turf/simulated/floor/engine,
 /area/security/execution)
-"mbO" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
 "mbR" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/structure/cable,
@@ -94425,9 +94388,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "nUI" = (
 /obj/docking_port/mobile/supply,
 /obj/docking_port/stationary{
@@ -104599,9 +104560,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "qbt" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -106539,9 +106498,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard{
-	name = "Engineering Maintenance"
-	})
+/area/maintenance/engineering)
 "qtv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -166954,14 +166911,14 @@ hSF
 wGU
 bXU
 hGZ
-eQq
-mbO
-jjO
-eQq
-eQq
+cbC
+kjT
+lGR
+cbC
+cbC
 fVN
-eQq
-eQq
+cbC
+cbC
 soZ
 jgq
 kfz
