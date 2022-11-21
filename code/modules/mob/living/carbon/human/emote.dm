@@ -1154,9 +1154,9 @@
 				if("Skrell")
 					emotelist += "\n<u>Специфические эмоуты расы Skrell</u> :- warble(s)"
 				if("Tajaran")
-					emotelist += "\n<u>Специфические эмоуты расы Tajaran</u> :- wag(s), swag(s)"
+					emotelist += "\n<u>Специфические эмоуты расы Tajaran</u> :- wag(s), swag(s), hisses"
 				if("Unathi")
-					emotelist += "\n<u>Специфические эмоуты расы Unathi</u> :- wag(s), swag(s), hiss(es)"
+					emotelist += "\n<u>Специфические эмоуты расы Unathi</u> :- wag(s), swag(s), hiss, roar, threat, whip, whips"
 				if("Vox")
 					emotelist += "\n<u>Специфические эмоуты расы Vox</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")
