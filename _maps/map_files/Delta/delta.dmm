@@ -66568,7 +66568,8 @@
 	pixel_y = 3
 	},
 /obj/item/lipstick/random{
-	step_x = -5
+	pixel_x = -3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
