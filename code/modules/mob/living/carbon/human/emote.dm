@@ -120,25 +120,25 @@
 
 		if("roar")
 			if(isunathi(src))
-				on_CD = handle_emote_CD()
+				on_CD = handle_emote_CD(50)
 			else
 				return
 
 		if("threat")
 			if(isunathi(src))
-				on_CD = handle_emote_CD()
+				on_CD = handle_emote_CD(50)
 			else
 				return
 
 		if("whip")
 			if(isunathi(src))
-				on_CD = handle_emote_CD()
+				on_CD = handle_emote_CD(20)
 			else
 				return
 
-		if("breath")
+		if("whips")
 			if(isunathi(src))
-				on_CD = handle_emote_CD()
+				on_CD = handle_emote_CD(40)
 			else
 				return
 
@@ -308,20 +308,24 @@
 				m_type = 2
 
 		if("whip")
-			if(HAS_TAIL)
-				message = "ударяет хвостом."
-				playsound(src, 'sound/goonstation/voice/unathi/whip_short.ogg', 100, 1)
-				m_type = 2
+			var/obj/item/organ/external/tail = src.get_organ("tail")
+			var/M = handle_emote_param(param)
+			m_type = 2
+			if(tail)
+				message = "ударяет хвостом[M ? " грозно смотря на [M]" : ""]."
+				playsound(loc, 'sound/goonstation/voice/unathi/whip_short.ogg', 100)
 			else
-				return
+				message = "пытается взмахнуть отсутствующим хвостом."
 
 		if("whips")
-			if(HAS_TAIL)
-				message = "хлестает хвостом."
-				playsound(src, 'sound/goonstation/voice/unathi/whip.ogg', 100, 1)
-				m_type = 2
+			var/obj/item/organ/external/tail = src.get_organ("tail")
+			var/M = handle_emote_param(param)
+			m_type = 2
+			if(tail)
+				message = "хлестает хвостом[M ? " грозно смотря на [M]" : ""]."
+				playsound(loc, 'sound/goonstation/voice/unathi/whip.ogg', 100)
 			else
-				return
+				message = "пытается взмахнуть отсутствующим хвостом."
 
 		if("threat")
 			var/M = handle_emote_param(param)
