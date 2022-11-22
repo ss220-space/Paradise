@@ -16,12 +16,12 @@ export const DestinationTagger = (_props, context) => {
           textAlign="center">
           <NoticeBox
             textAlign="center"
-            style={{ "font-style": "normal", }}>
+            style={{ "font-style": "normal" }}>
             Destination: {selected_destination.name ?? "None"}
           </NoticeBox>
           <Box>
             <Flex
-              style={{ "display": "flex", "flex-wrap": "wrap", "align-content": "flex-start", "justify-content": "center", }}>
+              style={{ "display": "flex", "flex-wrap": "wrap", "align-content": "flex-start", "justify-content": "center" }}>
               {destinations.map((destination, index) => (
                 <Flex.Item key={index} m="2px">
                   <Button
