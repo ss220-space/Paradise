@@ -10,6 +10,7 @@
 	name_plural = "Nianae"
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
+	deform = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("moth")
 	species_traits = list(IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
@@ -30,6 +31,7 @@
 	female_cough_sounds = 'sound/effects/mob_effects/mothcough.ogg'
 	male_cough_sounds = 'sound/effects/mob_effects/mothcough.ogg'
 	default_headacc = "Plain Antennae"
+	default_headacc_colour = "#F7D896"
 	default_bodyacc = "Plain Wings"
 	wing = "plain"
 	eyes = "moth_eyes_s"
@@ -62,9 +64,6 @@
 	optional_body_accessory = FALSE
 
 	var/datum/action/innate/cocoon/cocoon
-	/// Are the wings burnt off? Used to negate some buffs if TRUE
-
-	/// Stores name of antennae when backupwings() is called
 
 	suicide_messages = list(
 		"откусывает свои усики!",
@@ -79,8 +78,10 @@
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_flap
-	cocoon = new()
-	cocoon.Grant(H)
+	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
+	if(!cocoon)
+		cocoon = new
+		cocoon.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
@@ -89,7 +90,9 @@
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_flap
-	cocoon.Remove(H)
+	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
+	if(cocoon)
+		cocoon.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
@@ -166,7 +169,7 @@
 		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
-		if(H.incapacitated(ignore_lying = TRUE))
+		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
