@@ -42,6 +42,15 @@
 /turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/wall/indestructible/can_lay_cable()
+	return
+
+/turf/simulated/wall/indestructible/rpd_act()
+	return
+
+/turf/simulated/wall/indestructible/acid_act(acidpwr, acid_volume, acid_id)
+	return
+
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."
