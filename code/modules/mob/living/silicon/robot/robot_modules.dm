@@ -515,7 +515,7 @@
 
 /obj/item/robot_module/deathsquad
 	name = "Deathsquad"
-	name_disguise = "NT advanced combat module"
+	name_disguise = "NT advanced combat"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
