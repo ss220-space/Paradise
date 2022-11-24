@@ -12,12 +12,13 @@
 	var/require_module = FALSE
 	var/module_type = null
 	var/instant_use = FALSE
+	var/multiple_use = FALSE
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
 		return FALSE
-	if(src in R.upgrades)
+	if(src in R.upgrades && !multiple_use)
 		to_chat(R, "<span class='notice'>There is already [src] inside!</span>")
 		return FALSE
 	if(module_type && !istype(R.module, module_type))
@@ -379,13 +380,14 @@
 /obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R)
 	if(..())
 		icon_state = "selfrepair_off"
-		var/datum/action/A = new /datum/action/item_action/toggle(src)
-		A.Grant(R)
+		cyborg = R
+		toggle_action = new /datum/action/item_action/toggle(src)
+		toggle_action.Grant(R)
 		return TRUE
 
 /obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
+	if(..())
+		cyborg = null
 		toggle_action.Remove(R)
 		QDEL_NULL(toggle_action)
 		STOP_PROCESSING(SSobj, src)
@@ -393,17 +395,16 @@
 			qdel(src)
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
-	cyborg = null
 	on = 0
 	return ..()
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		to_chat(toggle_action.owner, "<span class='notice'>You activate the self-repair module.</span>")
 		activate_sr()
 	else
-		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
+		to_chat(toggle_action.owner, "<span class='notice'>You deactivate the self-repair module.</span>")
 		deactivate_sr()
 	update_icon()
 
@@ -431,7 +432,7 @@
 		repair_tick = 1
 		return
 
-	if(cyborg && (cyborg.stat != DEAD) && on)
+	if(istype(cyborg) && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
 			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
 			deactivate_sr()
