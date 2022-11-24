@@ -15,6 +15,7 @@
 	var/icon_dead
 	var/obj_alpha
 	var/obj_color
+	var/is_animated_fashion = FALSE
 
 /datum/fashion/New(mob/M)
 	name = replacetext(name, "REAL_NAME", M.real_name)

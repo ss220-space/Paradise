@@ -178,6 +178,10 @@
 			user.visible_message("<span class='notice'>[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит.</span>",
 				"<span class='notice'>Вы надеваете [item_to_add] на голову [real_name]. [src] озадачено смотрит на вас, пока другие головы смотрят на центральную с завистью.</span>",
 				"<span class='italics'>Вы слышите дружелюбное шипение.</span>")
+
+			if(item_to_add.snake_fashion.is_animated_fashion)
+				animated_fashion = TRUE
+
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_fluff()
@@ -212,8 +216,3 @@
 		head_icon = SF.get_overlay()
 
 	add_overlay(head_icon)
-
-//Обновление уникальных анимированных фешинов
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()

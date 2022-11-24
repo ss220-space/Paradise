@@ -131,6 +131,10 @@
 	var/is_wear_fashion_back = FALSE
 	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/back))
 		is_wear_fashion_back = TRUE
+
+		if(item_to_add.dog_fashion.is_animated_fashion)
+			animated_fashion = TRUE
+
 	return is_wear_fashion_back
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
@@ -142,6 +146,10 @@
 	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/head))
 		is_wear_fashion_head = TRUE
 
+		//Анимированная одежда
+		if(item_to_add.dog_fashion.is_animated_fashion)
+			animated_fashion = TRUE
+
 	//Various hats and items (worn on his head) change Ian's behaviour. His attributes are reset when a hat is removed.
 
 	if(is_wear_fashion_head)
@@ -151,6 +159,7 @@
 			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_fluff()
@@ -229,11 +238,6 @@
 	else
 		back_icon = DF.get_overlay()
 	add_overlay(back_icon)
-
-//Обновление уникальных анимированных фешинов
-/mob/living/simple_animal/pet/dog/corgi/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Ian
@@ -444,7 +448,7 @@
 	nofur = TRUE
 	unique_pet = TRUE
 
-/mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
+/mob/living/simple_animal/pet/dog/corgi/ratvar/update_fluff()
 	..()
 	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
 	speak_emote = list("growls", "barks ominously")

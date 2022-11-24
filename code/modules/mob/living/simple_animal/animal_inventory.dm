@@ -56,6 +56,7 @@
 	var/canWearBlacklistedHats = TRUE //= FALSE !!!!!!!
 
 	var/isFashion = FALSE
+	var/animated_fashion = FALSE
 
 /mob/living/simple_animal/pet/dog/corgi
 	isFashion = TRUE
@@ -173,8 +174,39 @@
 		show_inv(usr)
 	else
 		return ..()
+/mob/living/simple_animal/facedir(ndir)
+	. = ..()
+	message_admins("[src] Изменение faceDir [dir] [ndir]")
+
+///mob/living/simple_animal/Move(atom/newloc, direct, movetime)
+	//message_admins("[src] 1) Изменение Move [dir] [direct]")
+	//. = ..()
+	//message_admins("[src] 2) Изменение Move [dir] [direct]")
+
+/mob/living/simple_animal/forceMove(atom/destination)
+	message_admins("[src] 1) Изменение ForceMove [dir] [destination]")
+	. = ..()
+	message_admins("[src] 2) Изменение ForceMove [dir] [destination]")
+
+/mob/living/simple_animal/update_canmove(delay_action_updates)
+	. = ..()
+	message_admins("[src] Изменение canMove [dir]")
+
+///mob/living/simple_animal/Moved(atom/OldLoc, Dir, Forced)
+	//message_admins("[src] 1) Изменение Moved [dir] [Dir]")
+	//. = ..()
+	//message_admins("[src] 2) Изменение Moved [dir] [Dir]")
+
+
+/mob/living/simple_animal/setDir(new_dir)
+	message_admins("[src] Изменение setDir [dir] [new_dir]")
+	if (dir !- new_dir)
+		regenerate_icons()
+	. = ..()
 
 /mob/living/simple_animal/regenerate_icons()
+	//if(!(istype(src, /mob/living/simple_animal/pet/dog/corgi)))
+	//	return
 	var/testmsg = "Запущен regenerate для [src]([src.name]) == :"
 	cut_overlays()
 
@@ -393,6 +425,7 @@
 		hat_icon_state = null
 		hat_alpha = null
 		hat_color = null
+		animated_fashion = FALSE
 
 		update_fluff()
 		regenerate_icons()
@@ -409,6 +442,7 @@
 			return
 		usr.put_in_hands(inventory_back)
 		inventory_back = null
+		animated_fashion = FALSE
 		update_fluff()
 		regenerate_icons()
 	else
@@ -422,6 +456,7 @@
 			return
 		usr.put_in_hands(inventory_mask)
 		inventory_mask = null
+		animated_fashion = FALSE
 		update_fluff()
 		regenerate_icons()
 	else
@@ -606,4 +641,10 @@
 		inventory_back = new(src)
 		is_need_regen = TRUE
 	if(is_need_regen)
+		regenerate_icons()
+
+//Обновление уникальных анимированных фешинов
+/mob/living/simple_animal/Life(seconds, times_fired)
+	. = ..()
+	if(animated_fashion)
 		regenerate_icons()

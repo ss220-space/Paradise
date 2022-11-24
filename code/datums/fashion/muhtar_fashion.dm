@@ -14,6 +14,7 @@
 
 /datum/fashion/muhtar_fashion/mask/cigar
 	obj_icon_state = "cigar"
+	is_animated_fashion = TRUE
 
 /datum/fashion/muhtar_fashion/head/beret
 	name = "Лейтенант REAL_NAME"

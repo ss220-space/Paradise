@@ -75,12 +75,18 @@
 	is_wear_fashion_mask = FALSE
 	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/mask))
 		is_wear_fashion_mask = TRUE
+		if(item_to_add.muhtar_fashion.is_animated_fashion)
+			animated_fashion = TRUE
 	return is_wear_fashion_mask
 
 /mob/living/simple_animal/pet/dog/security/place_on_head_fashion(obj/item/item_to_add, mob/user)
 	is_wear_fashion_head = FALSE
 	if(ispath(item_to_add.muhtar_fashion, /datum/fashion/muhtar_fashion/head))
 		is_wear_fashion_head = TRUE
+
+		//Анимированная одежда
+		if(item_to_add.muhtar_fashion.is_animated_fashion)
+			animated_fashion = TRUE
 
 	//Various hats and items (worn on his head) change muhtar's behaviour. His attributes are reset when a hat is removed.
 
@@ -91,6 +97,7 @@
 			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_fluff()
@@ -154,11 +161,6 @@
 		mask_icon.transform = turn(mask_icon.transform, 180)
 
 	add_overlay(mask_icon)
-
-//Обновление уникальных анимированных фешинов
-/mob/living/simple_animal/pet/dog/security/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/security/detective
 	name = "Гав-Гавыч"

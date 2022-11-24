@@ -3,6 +3,7 @@
 
 /datum/fashion/snake_fashion/head
 	icon_file = 'icons/mob/syndie_snake_hats.dmi'
+	is_animated_fashion = TRUE
 
 /datum/fashion/snake_fashion/head/beret_hos_black
 	name = "Ля Руж"
