@@ -401,7 +401,7 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		to_chat(toggle_action.owner, "<span class='notice'>You activate the self-repair module.</span>")
+		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
 		activate_sr()
 	else
 		to_chat(toggle_action.owner, "<span class='notice'>You deactivate the self-repair module.</span>")
