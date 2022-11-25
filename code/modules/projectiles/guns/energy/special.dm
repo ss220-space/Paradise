@@ -614,8 +614,9 @@
 
 /obj/item/gun/energy/dominator/proc/set_drop_icon()
 	icon_state = initial(icon_state)
-	if(sibyl_mod)
-		if(sibyl_mod.lock)
-			icon_state += "_lock"
-		else
-			icon_state += "_unlock"
+	if(!sibyl_mod)
+		return
+	if(sibyl_mod.auth_id)
+		icon_state += "_unlock"
+	else
+		icon_state += "_lock"

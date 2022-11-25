@@ -1,14 +1,6 @@
 GLOBAL_LIST_EMPTY(sybsis_registry)
 GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
-#define SIBSYS_REGISTRY	0	// Guns registry table
-#define SIBSYS_DETAILS	1	// Show log for gun
-
-#define SIBSYS_STATE_UNINSTALLED 0 //0=uninstalled/crowbar_act
-#define SIBSYS_STATE_WELDER_ACT 1 //1=welder_act
-#define SIBSYS_STATE_SCREWDRIVER_ACT 2 //2=screwdriver_act
-#define SIBSYS_STATE_INSTALLED 3 //3=installed
-
 /obj/item/sibyl_system_mod
 	name = "модуль Sibyl System"
 	desc = "Проприетарный модуль от правоохранительной организации на энергетические оружия для подключения к системе Sibyl System"
