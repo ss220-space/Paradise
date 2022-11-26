@@ -56,7 +56,7 @@
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen_spider.dmi'
 	mymob.pullin.icon_state = "pull0"
-	mymob.pullin.name = "pull"
+	mymob.pullin.name = "pull_icon"
 	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_construct_pull
 	static_inventory += mymob.pullin
