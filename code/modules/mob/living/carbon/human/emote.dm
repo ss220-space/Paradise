@@ -37,6 +37,14 @@
 				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
+	switch(act)
+		if("growl", "growls","purr", "purrs","purrl","drone", "drones", "hum", "hums",\
+		"rumble", "rumbles","clack", "clacks","click", "clicks","warble", "warbles","salute",\
+		"salutes","clap", "claps","deathgasp", "deathgasps","moan", "moans","slap", "slaps","snap", "snaps")	//Если вы удавлены вы не сможете собраться с мыслями чтобы производить звуки или жесты,
+			if(garroted_by.len)																						//не говоря уже про салютование, шлепание и щелкание пальцами
+				on_CD = handle_emote_CD()
+				emote("twitch")	//делаем вид что жертва пытается что-то сделать, чтобы со стороны не выглядело как обнимашки
+				return
 
 	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
@@ -199,7 +207,6 @@
 					m_type = 2
 				else
 					message = "издает очень громкий шум[M ? " на [M]" : ""]."
-					playsound(loc, 'sound/goonstation/voice/howl.ogg', 25, 1, 10, frequency = get_age_pitch())
 					m_type = 2
 
 		if("growl", "growls")

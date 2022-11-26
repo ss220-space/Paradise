@@ -14,6 +14,7 @@
 	var/garrote_time
 
 /obj/item/twohanded/garrote/Destroy()
+	strangling.garroted_by.Remove(src)
 	strangling = null
 	return ..()
 
@@ -41,7 +42,7 @@
 	if(strangling)
 		user.visible_message("<span class='info'>[user] removes the [src] from [strangling]'s neck.</span>", \
 				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
-
+		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
@@ -138,6 +139,7 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
+		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
@@ -148,6 +150,7 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
+		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
@@ -161,6 +164,8 @@
 		return
 
 
+	if(!(src in strangling.garroted_by))
+		strangling.garroted_by+=src
 	strangling.Silence(3) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
