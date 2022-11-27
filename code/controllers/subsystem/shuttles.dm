@@ -58,13 +58,13 @@ SUBSYSTEM_DEF(shuttle)
 
 	// initial_load()
 
-	for(var/typepath in subtypesof(/datum/supply_packs))
-		var/datum/supply_packs/P = new typepath()
-		if(P.name == "HEADER") continue		// To filter out group headers
-		supply_packs["[P.type]"] = P
-	initial_move()
+	// for(var/typepath in subtypesof(/datum/supply_packs))
+	// 	var/datum/supply_packs/P = new typepath()
+	// 	if(P.name == "HEADER") continue		// To filter out group headers
+	// 	supply_packs["[P.type]"] = P
+	// initial_move()
 
-	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
+	// centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	// return ..()
 
