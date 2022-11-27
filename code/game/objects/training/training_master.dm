@@ -1,6 +1,5 @@
 /obj/training_master
-	icon = 'icons/mob/ai.dmi'
-	icon_state = "ai"
+	var/mob/living/silicon/trainer
 	var/mob/living/carbon/human/controlled_user
 	var/datum/training_task/current_task
 	var/current_task_type = "basic"
@@ -21,7 +20,6 @@
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
 			var/turf/turf = get_turf(locate(x, y, src.loc.z))
-			message_admins("TEST [turf]")
 			if (turf)
 				for(var/A in turf.contents)
 					if (A != src && A != controlled_user)
@@ -41,6 +39,7 @@
 			if (x == startX || x == endX || y == startY || y == endY)
 				new /turf/simulated/wall/indestructible(locate(x, y, src.loc.z))
 
+	trainer = new /mob/living/silicon(src.loc)
 	addtimer(CALLBACK(src, .proc/set_controlled_user, user), 1 SECONDS)
 	addtimer(CALLBACK(src, .proc/begin_task, user), 2 SECONDS)
 
@@ -84,10 +83,11 @@ datum/training_task/New(var/obj/training_master/master_ref, var/mob/living/carbo
 datum/training_task/proc/init_task()
 	for(var/index in 1 to description.len)
 		sleep(0.5 SECONDS)
-		if (index == description.len)
-			print_task_text("<strong>[description[index]]</strong>")
-		else
-			print_task_text(description[index])
+		master.trainer.say(description[index])
+		// if (index == description.len)
+		// 	print_task_text("<strong>[description[index]]</strong>")
+		// else
+		// 	print_task_text(description[index])
 	check_func()
 
 datum/training_task/proc/check_func()
