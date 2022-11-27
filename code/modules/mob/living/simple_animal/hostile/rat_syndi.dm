@@ -1,10 +1,11 @@
 /mob/living/simple_animal/hostile/retaliate/syndirat
 	name = "Синди-мышь"
 	desc = "Мышь на службе синдиката?"
+	icon = 'icons/mob/syndirat.dmi'
 	icon_state = "syndirat"
 	icon_living = "syndirat"
 	icon_dead = "syndirat-dead"
-	icon_resting = "syndirat-rest"
+	icon_resting = "syndirat-sleep"
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stamps on the"
@@ -36,8 +37,12 @@
 	melee_damage_upper = 10
 
 	/mob/living/simple_animal/hostile/retaliate/syndirat/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-		if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge & /obj/item/disk/nuclear & /obj/machinery/nuclearbomb))
+		if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
 			return ..() // Get dem
+		if(istype(AM, /obj/item/disk/nuclear))
+			return ..()
+		if(istype(AM, /obj/machinery/nuclearbomb))
+			return ..()
 		if(show_message)
 			to_chat(src, "<span class='warning'>You are too small to pull anything except cheese and nuclear device, bitch.</span>")
 		return
