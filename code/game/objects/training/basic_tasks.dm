@@ -1,4 +1,4 @@
-datum/training_task/basic_1_1
+/datum/training_task/basic_1_1
 	description = list("Добрый день",
 	"Вас приветствует программа обучения новых сотрудников НТР",
 	"Просьба в точности придерживаться указаний",
@@ -10,11 +10,11 @@ datum/training_task/basic_1_1
 	"Поменяйте активную руку с помощью клавиши <strong>X</strong>")
 	var/saved_hand
 
-datum/training_task/basic_1_1/init_task()
+/datum/training_task/basic_1_1/init_task()
 	saved_hand = user.hand
 	..()
 
-datum/training_task/basic_1_1/check_func()
+/datum/training_task/basic_1_1/check_func()
 	if (user.hand != saved_hand)
 		on_task_success("Отлично")
 		master.task_completed()

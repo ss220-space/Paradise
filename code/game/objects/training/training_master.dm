@@ -72,16 +72,16 @@
 
 // TEST TASKS
 
-datum/training_task
+/datum/training_task
 	var/obj/training_master/master
 	var/mob/living/carbon/human/user
 	var/list/description
 
-datum/training_task/New(var/obj/training_master/master_ref, var/mob/living/carbon/human/user_ref)
+/datum/training_task/New(var/obj/training_master/master_ref, var/mob/living/carbon/human/user_ref)
 		master = master_ref
 		user = user_ref
 
-datum/training_task/proc/init_task()
+/datum/training_task/proc/init_task()
 	for(var/index in 1 to description.len)
 		sleep(0.5 SECONDS)
 		master.trainer.say(description[index])
@@ -91,17 +91,17 @@ datum/training_task/proc/init_task()
 		// 	print_task_text(description[index])
 	check_func()
 
-datum/training_task/proc/check_func()
+/datum/training_task/proc/check_func()
 	addtimer(CALLBACK(src, .proc/check_func), 10)
 
-datum/training_task/proc/print_task_text(var/text)
+/datum/training_task/proc/print_task_text(var/text)
 	to_chat(user, "<span class ='info' style='font-size: 18px'>[text]</span>")
 
-datum/training_task/proc/on_task_success(var/text)
+/datum/training_task/proc/on_task_success(var/text)
 	var/success_text = text || "Задача выполнена"
 	to_chat(user, "<span class ='green' style='font-size: 18px'>[success_text]</span>")
 
-datum/training_task/proc/clear_room()
+/datum/training_task/proc/clear_room()
 	var/startX = master.loc.x - 4;
 	var/startY = master.loc.y - 4;
 	var/endX = master.loc.x + 4;
@@ -113,11 +113,11 @@ datum/training_task/proc/clear_room()
 				if (A != user)
 					qdel(A)
 
-datum/training_task/proc/reset_user_inventory()
+/datum/training_task/proc/reset_user_inventory()
 	user.delete_equipment()
 	user.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
 
-datum/training_task/proc/reset_room()
+/datum/training_task/proc/reset_room()
 	clear_room()
 	reset_user_inventory()
 	user.setLoc(locate(master.loc.x, master.loc.y - 2, master.loc.z), TRUE)
