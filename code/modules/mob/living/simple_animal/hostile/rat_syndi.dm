@@ -4,8 +4,8 @@
 	icon = 'icons/mob/syndirat.dmi'
 	icon_state = "syndirat"
 	icon_living = "syndirat"
-	icon_dead = "syndirat-dead"
-	icon_resting = "syndirat-sleep"
+	icon_dead = "syndirat_dead"
+	icon_resting = "syndirat_sleep"
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stamps on the"
@@ -34,7 +34,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 
 	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage_upper = 6
 
 	/mob/living/simple_animal/hostile/retaliate/syndirat/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
 		if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
