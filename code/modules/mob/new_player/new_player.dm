@@ -242,7 +242,7 @@
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
-		// LateChoices()
+		LateChoices()
 
 	if(href_list["manifest"])
 		ViewManifest()
@@ -273,11 +273,8 @@
 					to_chat (usr, "<span class='danger'>There is a character that already exists with the same name: <b>[C]</b>, please join with a different one.</span>")
 					return
 
-		create_character()	//creates the human and transfers vars and mind
-		qdel(src)
+		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 		return
-		// AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
-		// return
 
 	if(!ready && href_list["preference"])
 		if(client)
@@ -367,6 +364,8 @@
 	// SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	qdel(src)
+	return
 
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 

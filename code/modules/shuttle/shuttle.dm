@@ -246,15 +246,15 @@
 	#endif
 
 /obj/docking_port/mobile/Initialize()
-	// if(!timid)
-	// 	register()
-	// shuttle_areas = list()
-	// var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	// for(var/i in 1 to all_turfs.len)
-	// 	var/turf/curT = all_turfs[i]
-	// 	var/area/cur_area = curT.loc
-	// 	if(istype(cur_area, areaInstance))
-	// 		shuttle_areas[cur_area] = TRUE
+	if(!timid)
+		register()
+	shuttle_areas = list()
+	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
+	for(var/i in 1 to all_turfs.len)
+		var/turf/curT = all_turfs[i]
+		var/area/cur_area = curT.loc
+		if(istype(cur_area, areaInstance))
+			shuttle_areas[cur_area] = TRUE
 	..()
 
 /obj/docking_port/mobile/register()
