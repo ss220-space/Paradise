@@ -13,12 +13,13 @@ z4 = lavaland
 	#include "map_files\training\training.dmm"
 	#include "map_files\cyberiad\z2.dmm"
 	#include "map_files\generic\Lavaland.dmm"
+
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)))
 	#define USING_MAP_DATUM /datum/map/cyberiad
-	#define MAP_NAME "Training"
+	#define MAP_NAME "Cyberiad"
 
 #elif !defined(MAP_OVERRIDE)
 
