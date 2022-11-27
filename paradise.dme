@@ -11,7 +11,8 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
-#include "_maps\delta.dm"
+#include "_maps\training.dm"
+#include "_maps\map_files\training\training.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1274,6 +1275,8 @@
 #include "code\game\objects\structures\transit_tubes\station.dm"
 #include "code\game\objects\structures\transit_tubes\transit_tube.dm"
 #include "code\game\objects\structures\transit_tubes\transit_tube_pod.dm"
+#include "code\game\objects\training\basic_tasks.dm"
+#include "code\game\objects\training\training_master.dm"
 #include "code\game\turfs\simulated.dm"
 #include "code\game\turfs\turf.dm"
 #include "code\game\turfs\unsimulated.dm"
@@ -2026,6 +2029,7 @@
 #include "code\modules\mob\living\carbon\human\species\vox.dm"
 #include "code\modules\mob\living\carbon\human\species\vulpkanin.dm"
 #include "code\modules\mob\living\carbon\human\species\wryn.dm"
+#include "code\modules\mob\living\carbon\human\training\human_training.dm"
 #include "code\modules\mob\living\silicon\death.dm"
 #include "code\modules\mob\living\silicon\emote.dm"
 #include "code\modules\mob\living\silicon\laws.dm"
