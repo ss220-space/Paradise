@@ -1,6 +1,6 @@
 /obj/training_master
 	var/mob/living/silicon/trainer
-	var/mob/living/carbon/human/controlled_user
+	var/mob/living/carbon/human/human_training/controlled_user
 	var/datum/training_task/current_task
 	var/current_task_type = "basic"
 	var/current_task_block = 1
@@ -27,11 +27,13 @@
 				new /turf/space(locate(x, y, src.loc.z))
 	qdel(src)
 
-/obj/training_master/proc/spawn_room(var/mob/living/carbon/human/user)
-	var/startX = src.loc.x - 5;
-	var/startY = src.loc.y - 5;
-	var/endX = src.loc.x + 5;
-	var/endY = src.loc.y;
+/obj/training_master/proc/spawn_room(var/mob/living/carbon/human/human_training/user)
+	controlled_user = user
+
+	var/startX = src.loc.x;
+	var/startY = src.loc.y;
+	var/endX = src.loc.x + user.room_size_x;
+	var/endY = src.loc.y + user.room_size_y;
 
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
@@ -39,15 +41,14 @@
 			if (x == startX || x == endX || y == startY || y == endY)
 				new /turf/simulated/wall/indestructible(locate(x, y, src.loc.z))
 
-	trainer = new /mob/living/silicon(src.loc)
-	addtimer(CALLBACK(src, .proc/set_controlled_user, user), 1 SECONDS)
-	addtimer(CALLBACK(src, .proc/begin_task, user), 2 SECONDS)
+	trainer = new /mob/living/silicon(locate(src.loc.x + (controlled_user.room_size_x / 2), src.loc.y, src.loc.z))
+	addtimer(CALLBACK(src, .proc/begin_user), 1 SECONDS)
+	addtimer(CALLBACK(src, .proc/begin_task), 2 SECONDS)
 
-/obj/training_master/proc/set_controlled_user(var/mob/living/carbon/human/user)
-	controlled_user = user
-	controlled_user.setLoc(locate(src.loc.x, src.loc.y - 2, src.loc.z), TRUE)
-	user.delete_equipment()
-	user.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
+/obj/training_master/proc/begin_user()
+	controlled_user.setLoc(locate(src.loc.x + (controlled_user.room_size_x / 2), src.loc.y + (controlled_user.room_size_y / 2), src.loc.z), TRUE)
+	controlled_user.delete_equipment()
+	controlled_user.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
 
 /obj/training_master/proc/begin_task()
 	var/path = text2path("/datum/training_task/[current_task_type]_[current_task_block]_[current_task_id]")
