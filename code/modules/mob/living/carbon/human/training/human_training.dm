@@ -1,5 +1,7 @@
 /mob/living/carbon/human/human_training
 	var/obj/training_master/training_master
+	var/room_size_x = 10
+	var/room_size_y = 6
 
 /mob/living/carbon/human/human_training/Initialize(mapload, datum/species/new_species)
 	training_master = new(find_place_for_room(), src)
@@ -15,10 +17,10 @@
 
 /mob/living/carbon/human/human_training/proc/find_place_for_room()
 	var/place
-	for(var/x = 1, x <= world.maxx - 11, x += 11)
+	for(var/x = 1, x <= world.maxx - room_size_x, x += room_size_x)
 		if (place)
 			break
-		for(var/y = world.maxy, y >= 6, y -= 6)
+		for(var/y = 1, y <= world.maxy - room_size_y, y += room_size_y)
 			var/turf/turf = get_turf(locate(x, y, 1))
 			if (istype(turf, /turf/space))
 				place = locate(x, y, 1)
