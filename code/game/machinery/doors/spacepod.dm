@@ -11,8 +11,8 @@
 	..()
 	air_update_turf(1)
 
-/obj/structure/spacepoddoor/CanAtmosPass(turf/T)
-	return 0
+/obj/structure/spacepoddoor/CanAtmosPass(turf/target_turf)
+	return FALSE
 
 /obj/structure/spacepoddoor/Destroy()
 	var/turf/T = get_turf(src)

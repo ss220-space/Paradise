@@ -22,8 +22,8 @@
 	else
 		return ..()
 
-/obj/structure/shuttle/window/CanAtmosPass(turf/T)
-		return !density
+/obj/structure/shuttle/window/CanAtmosPass(turf/target_turf)
+	return !density
 
 /obj/structure/shuttle/engine
 	name = "engine"

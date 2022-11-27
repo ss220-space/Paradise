@@ -177,7 +177,7 @@
 //////////////////////////////
 
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
-/obj/machinery/fishtank/wall/CanAtmosPass(turf/T)
+/obj/machinery/fishtank/wall/CanAtmosPass(turf/target_turf)
 	return FALSE
 
 /obj/machinery/fishtank/process()

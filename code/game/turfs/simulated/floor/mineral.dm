@@ -56,7 +56,7 @@
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating()
-	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 20)
+	atmos_spawn_air("plasma=20;TEMP=1000")
 
 /turf/simulated/floor/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)

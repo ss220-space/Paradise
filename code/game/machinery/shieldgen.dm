@@ -33,7 +33,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(turf/target_turf)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)

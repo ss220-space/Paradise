@@ -685,7 +685,7 @@
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	..()
-	atmos_spawn_air(LINDA_SPAWN_HEAT)
+	atmos_spawn_air("TEMP=1000")
 
 /obj/machinery/smartfridge/drying_rack/ui_act(action, params)
 	. = ..()

@@ -79,10 +79,10 @@
 /obj/effect/mine/gas
 	name = "oxygen mine"
 	var/gas_amount = 360
-	var/gas_type = LINDA_SPAWN_OXYGEN
+	var/gas_type = "02"
 
 /obj/effect/mine/gas/mineEffect(mob/living/victim)
-	atmos_spawn_air(gas_type, gas_amount)
+	atmos_spawn_air("[gas_type]=[gas_amount]")
 
 /obj/effect/mine/gas/plasma
 	name = "plasma mine"

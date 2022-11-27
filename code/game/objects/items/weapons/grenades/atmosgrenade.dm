@@ -5,13 +5,14 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "flashbang"
-	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
+	var/spawn_content = "plasma"
+	var/spawn_temp = 1000
 	var/spawn_amount = 100
 
 /obj/item/grenade/gas/prime()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
-		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
+		target_turf.atmos_spawn_air("[spawn_content]=[spawn_amount];TEMP=[spawn_temp]")
 		target_turf.air_update_turf()
 	qdel(src)
 
@@ -21,13 +22,15 @@
 /obj/item/grenade/gas/knockout
 	name = "knockout grenade"
 	desc = "A grenade that releases pure N2O gas."
-	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_N2O
+	spawn_content = "n2o"
+	spawn_temp = T20C
 
 /obj/item/grenade/gas/oxygen
 	name = "oxygen grenade"
 	desc = "A grenade that releases pure O2 gas."
 	icon_state = "oxygen"
-	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_OXYGEN
+	spawn_content = "o2"
+	spawn_temp = T20C
 	spawn_amount = 500
 
 /obj/item/grenade/gluon

@@ -162,7 +162,7 @@
 //CANATMOSPASS
 #define ATMOS_PASS_YES 1
 #define ATMOS_PASS_NO 0
-/// ask can_atmos_pass()
+/// ask CanAtmosPass()
 #define ATMOS_PASS_PROC -1
 /// just check density
 #define ATMOS_PASS_DENSITY -2

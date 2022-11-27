@@ -10,7 +10,7 @@
 
 /obj/item/stack/tile/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5)
+		atmos_spawn_air("plasma=[amount*5];TEMP=1000")
 		user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
 							"<span class='warning'>You set the plasma tiles on fire!</span>")
 		add_attack_logs(user, src, "Ignited [amount], using [I]", ATKLOG_FEW)

@@ -294,11 +294,11 @@
 	else
 		return 1
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/target_turf)
+	if(get_dir(loc, target_turf) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"

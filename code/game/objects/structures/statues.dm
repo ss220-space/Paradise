@@ -147,7 +147,7 @@
 	ignite(2500)
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
-	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 160)
+	atmos_spawn_air("plasma=160;TEMP=1000")
 	deconstruct(FALSE)
 
 /obj/structure/statue/plasma/proc/ignite(exposed_temperature)

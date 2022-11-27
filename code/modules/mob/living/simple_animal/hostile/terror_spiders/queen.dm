@@ -372,7 +372,7 @@
 	. = ..()
 	air_update_turf(TRUE)
 
-/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
+/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/target_turf)
 	return FALSE
 
 /obj/structure/spider/terrorweb/queen/Destroy()

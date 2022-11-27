@@ -1,96 +1,87 @@
-/turf/proc/CanAtmosPass(var/turf/T)
-	if(!istype(T))	return 0
-	var/R
-	if(blocks_air || T.blocks_air)
-		R = 1
+/atom
+	///Check if atmos can pass in this atom (ATMOS_PASS_YES, ATMOS_PASS_NO, ATMOS_PASS_DENSITY, ATMOS_PASS_PROC)
+	var/can_atmos_pass = ATMOS_PASS_YES
 
-	for(var/obj/O in contents)
-		if(!O.CanAtmosPass(T))
-			R = 1
-			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
-				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
-				return 0						//no need to keep going, we got all we asked
+/atom/proc/CanAtmosPass(turf/target_turf, vertical = FALSE)
+	switch (can_atmos_pass)
+		if (ATMOS_PASS_PROC)
+			return ATMOS_PASS_YES
+		if (ATMOS_PASS_DENSITY)
+			return !density
+		else
+			return can_atmos_pass
 
-	for(var/obj/O in T.contents)
-		if(!O.CanAtmosPass(src))
-			R = 1
-			if(O.BlockSuperconductivity())
-				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
-				return 0
+/turf
+	can_atmos_pass = ATMOS_PASS_NO
 
-	var/D = get_dir(src, T)
-	atmos_supeconductivity &= ~D
-	D = get_dir(T, src)
-	T.atmos_supeconductivity &= ~D
 
-	if(!R)
-		return 1
+/turf/proc/CanAtmosPass(turf/target_turf)
+	if(!istype(target_turf))
+		return FALSE
+	var/direction = get_dir(src, target_turf)
+	var/opposite_direction = reverse_direction(direction)
+	var/can_pass = TRUE
+	if(blocks_air || target_turf.blocks_air)
+		can_pass = FALSE
+	//This path is a bit weird, if we're just checking with ourselves no sense asking objects on the turf
+	if (target_turf == src)
+		return can_pass
+
+	for(var/obj/checked_object in contents + target_turf.contents)
+		var/turf/other = (checked_object.loc == src ? target_turf : src)
+		if(CANATMOSPASS(checked_object, other))
+			continue
+		can_pass = FALSE
+		if(checked_object.BlockSuperconductivity())	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
+			atmos_supeconductivity |= direction
+			target_turf.atmos_supeconductivity |= opposite_direction
+			return FALSE //no need to keep going, we got all we asked
+
+	atmos_supeconductivity &= ~direction
+	target_turf.atmos_supeconductivity &= ~opposite_direction
+
+	return !can_pass
 
 /atom/movable/proc/CanAtmosPass()
-	return 1
-
-/atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
-	return (istype(mover) && mover.checkpass(PASS_OTHER_THINGS)) || !density || !height
-
-
-/turf/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(!target) return 0
-
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-
-	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
-		return !density
-
-	else // Now, doing more detailed checks for air movement and air group formation
-		if(target.blocks_air||blocks_air)
-			return 0
-
-		for(var/obj/obstacle in src)
-			if(!obstacle.CanPass(mover, target, height))
-				return 0
-		for(var/obj/obstacle in target)
-			if(!obstacle.CanPass(mover, src, height))
-				return 0
-
-		return 1
+	return TRUE
 
 /atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
-	return 0
+	return FALSE
 
 /turf/proc/CalculateAdjacentTurfs()
-	atmos_adjacent_turfs_amount = 0
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		if(!istype(T))
+	LAZYINITLIST(src.atmos_adjacent_turfs)
+	var/list/atmos_adjacent_turfs = src.atmos_adjacent_turfs
+	for(var/direction in GLOB.cardinals)
+		var/turf/current_turf = get_step(src, direction)
+		if(!current_turf)
 			continue
-		var/counterdir = get_dir(T, src)
-		if(CanAtmosPass(T))
-			atmos_adjacent_turfs_amount += 1
-			atmos_adjacent_turfs |= direction
-			if(!(T.atmos_adjacent_turfs & counterdir))
-				T.atmos_adjacent_turfs_amount += 1
-			T.atmos_adjacent_turfs |= counterdir
+		if( !(blocks_air || current_turf.blocks_air) && CANATMOSPASS(src, src) && CANATMOSPASS(current_turf, src) )
+			LAZYINITLIST(current_turf.atmos_adjacent_turfs)
+			atmos_adjacent_turfs[current_turf] = TRUE
+			current_turf.atmos_adjacent_turfs[src] = TRUE
 		else
-			atmos_adjacent_turfs &= ~direction
-			if(T.atmos_adjacent_turfs & counterdir)
-				T.atmos_adjacent_turfs_amount -= 1
-			T.atmos_adjacent_turfs &= ~counterdir
+			atmos_adjacent_turfs -= current_turf
+			if (current_turf.atmos_adjacent_turfs)
+				current_turf.atmos_adjacent_turfs -= src
+			UNSETEMPTY(current_turf.atmos_adjacent_turfs)
+	UNSETEMPTY(atmos_adjacent_turfs)
+	src.atmos_adjacent_turfs = atmos_adjacent_turfs
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
-/turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
+/turf/proc/GetAtmosAdjacentTurfs(alldir = FALSE)
 	if(!istype(src, /turf/simulated))
 		return list()
 
-	var/adjacent_turfs = list()
+	var/adjacent_turfs
+	if(atmos_adjacent_turfs)
+		adjacent_turfs = atmos_adjacent_turfs.Copy()
+	else
+		adjacent_turfs = list()
+
+	if (!alldir)
+		return adjacent_turfs
 
 	var/turf/simulated/curloc = src
 	for(var/direction in GLOB.cardinal)
@@ -103,16 +94,16 @@
 	if(!alldir)
 		return adjacent_turfs
 
-	for(var/direction in GLOB.diagonals)
+	for (var/direction in GLOB.diagonals)
 		var/matchingDirections = 0
 		var/turf/simulated/S = get_step(curloc, direction)
 
-		for(var/checkDirection in GLOB.cardinal)
-			if(!(S.atmos_adjacent_turfs & checkDirection))
+		for (var/checkDirection in GLOB.cardinals)
+			var/turf/checkTurf = get_step(S, checkDirection)
+			if(!S.atmos_adjacent_turfs || !S.atmos_adjacent_turfs[checkTurf])
 				continue
-			var/turf/simulated/checkTurf = get_step(S, checkDirection)
 
-			if(checkTurf in adjacent_turfs)
+			if(adjacent_turfs[checkTurf])
 				matchingDirections++
 
 			if(matchingDirections >= 2)
@@ -121,64 +112,47 @@
 
 	return adjacent_turfs
 
-/atom/movable/proc/air_update_turf(var/command = 0)
-	if(!istype(loc,/turf) && command)
+/atom/proc/air_update_turf(update = FALSE, remove = FALSE)
+	var/turf/local_turf = get_turf(loc)
+	if(!local_turf)
 		return
-	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
-		T.air_update_turf(command)
+	local_turf.air_update_turf(update, remove)
 
-/turf/proc/air_update_turf(var/command = 0)
-	if(command)
+/**
+ * A helper proc for dealing with atmos changes
+ *
+ * Ok so this thing is pretty much used as a catch all for all the situations someone might wanna change something
+ * About a turfs atmos. It's real clunky, and someone needs to clean it up, but not today.
+ * Arguments:
+ * * update - Has the state of the structures in the world changed? If so, update our adjacent atmos turf list, if not, don't.
+ * * remove - Are you removing an active turf (Read wall), or adding one
+*/
+/turf/air_update_turf(update = FALSE, remove = FALSE)
+	if(update)
 		CalculateAdjacentTurfs()
-	if(SSair)
-		SSair.add_to_active(src,command)
 
-/atom/movable/proc/move_update_air(var/turf/T)
-    if(istype(T,/turf))
-        T.air_update_turf(1)
-    air_update_turf(1)
+	if(remove)
+		SSair.remove_from_active(src)
+	else
+		SSair.add_to_active(src)
 
+/atom/movable/proc/move_update_air(turf/target_turf)
+	if(isturf(target_turf))
+		target_turf.air_update_turf(TRUE, FALSE) //You're empty now
+	air_update_turf(TRUE, TRUE) //You aren't
 
-
-/atom/movable/proc/atmos_spawn_air(var/text, var/amount) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
-	var/turf/simulated/T = get_turf(src)
-	if(!istype(T))
+/atom/proc/atmos_spawn_air(text) //because a lot of people loves to copy paste awful code lets just make an easy proc to spawn your plasma fires
+	var/turf/simulated/local_turf = get_turf(src)
+	if(!istype(local_turf))
 		return
-	T.atmos_spawn_air(text, amount)
+	local_turf.atmos_spawn_air(text)
 
-/turf/simulated/proc/atmos_spawn_air(flag, amount)
-	if(!text || !amount || !air)
+/turf/simulated/proc/atmos_spawn_air(text)
+	if(!text || !air)
 		return
 
-	var/datum/gas_mixture/G = new
+	var/datum/gas_mixture/turf_mixture = SSair.parse_gas_string(text, /datum/gas_mixture/turf)
 
-	if(flag & LINDA_SPAWN_20C)
-		G.temperature = T20C
-
-	if(flag & LINDA_SPAWN_HEAT)
-		G.temperature += 1000
-
-	if(flag & LINDA_SPAWN_TOXINS)
-		G.toxins += amount
-
-	if(flag & LINDA_SPAWN_OXYGEN)
-		G.oxygen += amount
-
-	if(flag & LINDA_SPAWN_CO2)
-		G.carbon_dioxide += amount
-
-	if(flag & LINDA_SPAWN_NITROGEN)
-		G.nitrogen += amount
-
-	if(flag & LINDA_SPAWN_N2O)
-		G.sleeping_agent += amount
-
-	if(flag & LINDA_SPAWN_AGENT_B)
-		G.agent_b += amount
-
-	if(flag & LINDA_SPAWN_AIR)
-		G.oxygen += MOLES_O2STANDARD * amount
-		G.nitrogen += MOLES_N2STANDARD * amount
-
-	air.merge(G)
-	SSair.add_to_active(src, 0)
+	air.merge(turf_mixture)
+	archive()
+	SSair.add_to_active(src)
