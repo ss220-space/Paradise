@@ -22,6 +22,11 @@
 	clawfootstep = null
 	heavyfootstep = null
 
+	var/static/datum/gas_mixture/immutable/space/space_gas = new
+	// We do NOT want atmos adjacent turfs
+	init_air = FALSE
+	run_later = TRUE
+
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -278,3 +283,16 @@
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
+
+/turf/space/TakeTemperature(temp)
+
+/turf/space/AfterChange()
+	..()
+	atmos_overlay_types = null
+
+/turf/space/Assimilate_Air()
+	return
+
+//IT SHOULD RETURN NULL YOU MONKEY, WHY IN TARNATION WHAT THE FUCKING FUCK
+/turf/space/remove_air(amount)
+	return null

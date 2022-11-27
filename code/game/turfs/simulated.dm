@@ -6,10 +6,17 @@
 	var/image/wet_overlay = null
 
 	var/thermite = 0
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+/turf/simulated/Initialize(mapload)
+	. = ..()
+	air = create_gas_mixture()
+	if(planetary_atmos)
+		if(!SSair.planetary[initial_gas_mix])
+			var/datum/gas_mixture/immutable/planetary/mix = new
+			mix.parse_string_immutable(initial_gas_mix)
+			SSair.planetary[initial_gas_mix] = mix
 
 /turf/simulated/proc/break_tile()
 	return

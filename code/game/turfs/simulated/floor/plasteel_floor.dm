@@ -12,9 +12,7 @@
 
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/plasteel/airless/Initialize(mapload)
 	. = ..()
@@ -42,9 +40,7 @@
 	icon_state = "darkfull"
 
 /turf/simulated/floor/plasteel/dark/telecomms
-	nitrogen = 100
-	oxygen = 0
-	temperature = 80
+	initial_gas_mix = TCOMMS_ATMOS
 
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"

@@ -35,9 +35,9 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "smatter"
 	temperature = T20C+80
-	density = 1
-	opacity = 1
-	blocks_air = 1
+	density = TRUE
+	opacity = TRUE
+	blocks_air = TRUE
 
 
 /turf/simulated/smatter/New()
@@ -48,9 +48,9 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "smatter"
 	temperature = T20C+80
-	density = 1
+	density = TRUE
 	set_opacity(1)
-	blocks_air = 1
+	blocks_air = TRUE
 
 	spawn(2)
 		var/list/step_overlays = list("s" = NORTH, "n" = SOUTH, "w" = EAST, "e" = WEST)

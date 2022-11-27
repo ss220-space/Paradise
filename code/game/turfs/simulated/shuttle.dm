@@ -2,7 +2,7 @@
 	name = "shuttle"
 	icon = 'icons/turf/shuttle.dmi'
 	thermal_conductivity = 0.05
-	heat_capacity = 0
+	heat_capacity = 325000
 	layer = 2
 
 /turf/simulated/shuttle/wall
@@ -10,7 +10,7 @@
 	icon_state = "wall1"
 	opacity = 1
 	density = 1
-	blocks_air = 1
+	blocks_air = TRUE
 
 /turf/simulated/shuttle/wall/Initialize()
 	..()
@@ -90,8 +90,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/shuttle/plating/vox	//Vox skipjack plating
-	oxygen = 0
-	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+	initial_gas_mix = "n2=100"
 
 /turf/simulated/shuttle/floor/transparent_floor
 	icon = 'icons/turf/shuttle.dmi'

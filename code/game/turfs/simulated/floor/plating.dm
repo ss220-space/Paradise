@@ -142,9 +142,7 @@
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/plating/airless/Initialize(mapload)
 	. = ..()
@@ -242,36 +240,29 @@
 
 /turf/simulated/floor/engine/n20
 	name = "\improper N2O floor"
-	sleeping_agent = 6000
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = ATMOS_TANK_N2O
 
 /turf/simulated/floor/engine/co2
 	name = "\improper CO2 floor"
-	carbon_dioxide = 50000
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = ATMOS_TANK_CO2
 
 /turf/simulated/floor/engine/plasma
 	name = "plasma floor"
-	toxins = 70000
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = ATMOS_TANK_PLASMA
 
 /turf/simulated/floor/engine/o2
 	name = "\improper O2 floor"
-	oxygen = 100000
-	nitrogen = 0
+	initial_gas_mix = ATMOS_TANK_O2
 
 /turf/simulated/floor/engine/n2
 	name = "\improper N2 floor"
-	nitrogen = 100000
-	oxygen = 0
+	initial_gas_mix = ATMOS_TANK_N2
 
 /turf/simulated/floor/engine/air
 	name = "air floor"
 	oxygen = 2644
 	nitrogen = 10580
+	initial_gas_mix = ATMOS_TANK_AIRMIX
 
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
@@ -287,9 +278,7 @@
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
 	icon_state = "engine"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/engine/insulated
 	name = "insulated reinforced floor"
@@ -300,8 +289,7 @@
 /turf/simulated/floor/engine/insulated/vacuum
 	name = "insulated vacuum floor"
 	icon_state = "engine"
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/plating/ironsand
 	name = "Iron Sand"
@@ -409,9 +397,7 @@
 	desc = "A sheet of solid ice. Looks slippery."
 	icon = 'icons/turf/floors/ice_turfs.dmi'
 	icon_state = "unsmooth"
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
+	initial_gas_mix = FROZEN_ATMOS
 	baseturf = /turf/simulated/floor/plating/ice
 	slowdown = TRUE
 	smooth = SMOOTH_TRUE

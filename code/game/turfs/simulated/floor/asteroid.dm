@@ -119,9 +119,7 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/plating/asteroid/basalt/Initialize(mapload)
 	. = ..()
@@ -141,16 +139,12 @@
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = AIRLESS_ATMOS
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
@@ -327,7 +321,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
 	icon_plating = "snow"
-	temperature = 180
+	initial_gas_mix = FROZEN_ATMOS
 	slowdown = 2
 	environment_type = "snow"
 	planetary_atmos = TRUE
@@ -344,15 +338,11 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	return FALSE
 
 /turf/simulated/floor/plating/asteroid/snow/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/plating/asteroid/snow/temperature
-	temperature = 255.37
+	initial_gas_mix = "TEMP=255.37"
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
+	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE

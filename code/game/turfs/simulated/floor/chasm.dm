@@ -138,9 +138,7 @@
 		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	light_range = 1.9 //slightly less range than lava
@@ -190,9 +188,7 @@
 		AM.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1, 10),rand(1, 10))
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
+	initial_gas_mix = DEFAULT_ATMOS
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1

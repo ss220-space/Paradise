@@ -38,9 +38,7 @@
 	return make_plating()
 
 /turf/simulated/floor/wood/cold
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
+	initial_gas_mix = FROZEN_ATMOS
 
 /turf/simulated/floor/wood/oak
 	icon_state = "wood-oak"

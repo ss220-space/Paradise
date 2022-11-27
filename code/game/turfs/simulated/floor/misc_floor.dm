@@ -13,9 +13,7 @@
 	icon_state = "bcircuit"
 
 /turf/simulated/floor/bluegrid/telecomms
-	nitrogen = 100
-	oxygen = 0
-	temperature = 80
+	initial_gas_mix = TCOMMS_ATMOS
 
 /turf/simulated/floor/bluegrid/telecomms/server
 	name = "server base"
@@ -27,9 +25,7 @@
 /turf/simulated/floor/greengrid/airless
 	icon_state = "gcircuit"
 	name = "airless floor"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/greengrid/airless/Initialize(mapload)
 	. = ..()
@@ -129,9 +125,7 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed

@@ -19,7 +19,7 @@
 	return
 
 /turf/simulated/floor/plating/lava/airless
-	temperature = TCMB
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/simulated/floor/plating/lava/Entered(atom/movable/AM)
 	if(burn_stuff(AM))
@@ -132,11 +132,9 @@
 	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/plating/lava/smooth/airless
-	temperature = TCMB
+	initial_gas_mix = AIRLESS_ATMOS
