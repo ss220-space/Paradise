@@ -6,10 +6,7 @@
 	armor = list(melee = 100, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70) //default + ignores melee
 
 /obj/structure/shuttle/shuttleRotate(rotation)
-	..()
-	var/matrix/M = transform
-	M.Turn(rotation)
-	transform = M
+	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
 
 /obj/structure/shuttle/window
 	name = "shuttle window"
@@ -35,6 +32,11 @@
 	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
 
+// Это временное решение, дабы движки были освещены. Я хотел сделать анимацию с перекрасом цветов света в синий при полёте, но не сделал. Надеюсь кто-то сделает.
+/obj/structure/shuttle/engine/Initialize(mapload)
+	. = ..()
+	set_light(2)
+
 /obj/structure/shuttle/engine/heater
 	name = "heater"
 	icon_state = "heater"
@@ -49,14 +51,11 @@
 	opacity = 1
 
 /obj/structure/shuttle/engine/propulsion/burst
-	name = "burst"
 
 /obj/structure/shuttle/engine/propulsion/burst/left
-	name = "left"
 	icon_state = "burst_l"
 
 /obj/structure/shuttle/engine/propulsion/burst/right
-	name = "right"
 	icon_state = "burst_r"
 
 /obj/structure/shuttle/engine/router

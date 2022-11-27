@@ -216,6 +216,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				soundin = pick('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
 			if("ricochet")
 				soundin = pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg','sound/weapons/effects/ric3.ogg','sound/weapons/effects/ric4.ogg','sound/weapons/effects/ric5.ogg')
+			if("bullet")
+				soundin = pick('sound/weapons/bullet.ogg', 'sound/weapons/bullet2.ogg', 'sound/weapons/bullet3.ogg')
 			if("terminal_type")
 				soundin = pick('sound/machines/terminal_button01.ogg', 'sound/machines/terminal_button02.ogg', 'sound/machines/terminal_button03.ogg',
 							  'sound/machines/terminal_button04.ogg', 'sound/machines/terminal_button05.ogg', 'sound/machines/terminal_button06.ogg',
@@ -227,4 +229,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				soundin = pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg', 'sound/effects/bone_break_3.ogg', 'sound/effects/bone_break_4.ogg', 'sound/effects/bone_break_5.ogg', 'sound/effects/bone_break_6.ogg')
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
+			if("u_fscream")
+				soundin = pick('sound/goonstation/voice/unathi/f_u_scream.ogg', 'sound/goonstation/voice/unathi/f_u_scream2.ogg')
+			if("u_mscream")
+				soundin = pick('sound/goonstation/voice/unathi/m_u_scream.ogg', 'sound/goonstation/voice/unathi/m_u_scream2.ogg')
 	return soundin
