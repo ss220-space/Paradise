@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)] in [amount] amount.", INVESTIGATE_ATMOS)
 	fire_act()
 
-/obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/stack/sheet/mineral/plasma/fire_act(exposed_temperature, exposed_volume)
 	..()
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, amount*10)
 	qdel(src)

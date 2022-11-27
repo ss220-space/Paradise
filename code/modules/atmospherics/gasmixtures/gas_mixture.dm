@@ -4,9 +4,6 @@ What are the archived variables for?
 	This prevents race conditions that arise based on the order of tile processing.
 */
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
-
 #define QUANTIZE(variable)		(round(variable, 0.0001))
 GLOBAL_LIST_INIT(meta_gas_info, meta_gas_list()) //see ATMOSPHERICS/gas_types.dm
 GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
@@ -154,9 +151,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	if(!length(reactions))
 		return
 
-	//Fuck you
-	if(cached_gases[/datum/gas/hypernoblium] && cached_gases[/datum/gas/hypernoblium][MOLES] >= REACTION_OPPRESSION_THRESHOLD && temperature > 20)
-		return STOP_REACTIONS
 
 	reaction_results = new
 	//It might be worth looking into updating these after each reaction, but that makes us care more about order of operations, so be careful
@@ -211,7 +205,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		ASSERT_GAS(giver_id, src)
 		cached_gases[giver_id][MOLES] += giver_gases[giver_id][MOLES]
 
-	SEND_SIGNAL(src, COMSIG_GASMIX_MERGED)
 	return TRUE
 
 ///Proportionally removes amount of gas from the gas_mixture.
@@ -234,7 +227,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		cached_gases[id][MOLES] -= removed_gases[id][MOLES]
 	garbage_collect()
 
-	SEND_SIGNAL(src, COMSIG_GASMIX_REMOVED)
 	return removed
 
 ///Proportionally removes amount of gas from the gas_mixture.
@@ -257,7 +249,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	garbage_collect()
 
-	SEND_SIGNAL(src, COMSIG_GASMIX_REMOVED)
 	return removed
 
 ///Removes an amount of a specific gas from the gas_mixture.
@@ -468,8 +459,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 					sharer.garbage_collect()
 	return sharer_temperature
 	//thermal energy of the system (self and sharer) is unchanged
-
-/datum/gas_mixture/proc/temperature_turf_share(turf/simulated/sharer, conduction_coefficient)
 
 ///Compares sample to self to see if within acceptable ranges that group processing may be enabled
 ///Returns: a string indicating what check failed, or "" if check passes

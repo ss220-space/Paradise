@@ -12,7 +12,7 @@
 	var/list/papers = list()	//List of papers put in the bin for reference.
 	var/letterhead_type
 
-/obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper_bin/fire_act(exposed_temperature, exposed_volume)
 	if(amount)
 		amount = 0
 		update_icon()

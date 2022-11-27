@@ -16,7 +16,7 @@
 	qdel(src)
 	return FALSE
 
-/obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/acid_act()
@@ -117,7 +117,7 @@
 			R.on_ex_act()
 	qdel(src)
 
-/obj/effect/decal/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/decal/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 	if(!(resistance_flags & FIRE_PROOF)) //non fire proof decal or being burned by lava

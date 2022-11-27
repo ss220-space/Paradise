@@ -74,7 +74,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		return TRUE
 
-/obj/item/clothing/mask/cigarette/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/clothing/mask/cigarette/fire_act(exposed_temperature, exposed_volume)
 	..()
 	light()
 
