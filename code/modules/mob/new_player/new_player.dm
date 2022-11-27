@@ -242,7 +242,7 @@
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
-		LateChoices()
+		// LateChoices()
 
 	if(href_list["manifest"])
 		ViewManifest()
@@ -273,8 +273,11 @@
 					to_chat (usr, "<span class='danger'>There is a character that already exists with the same name: <b>[C]</b>, please join with a different one.</span>")
 					return
 
-		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
+		create_character()	//creates the human and transfers vars and mind
+		qdel(src)
 		return
+		// AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
+		// return
 
 	if(!ready && href_list["preference"])
 		if(client)
@@ -361,9 +364,10 @@
 		alert(msg)
 		return FALSE
 
-	SSjobs.AssignRole(src, rank, 1)
+	// SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
@@ -585,7 +589,8 @@
 	close_spawn_windows()
 
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc)
+	var/mob/living/carbon/human/new_character = new /mob/living/carbon/human/human_training (loc)
+
 	new_character.lastarea = get_area(loc)
 
 	if(SSticker.random_players || appearance_isbanned(new_character))
