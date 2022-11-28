@@ -84,7 +84,7 @@
 /datum/training_task/proc/init_task()
 	for(var/index in 1 to description.len)
 		var/message = description[index]
-		var/sleep_duration = length(message) / 20
+		var/sleep_duration = length(message) / 26
 		message_admins(length(message))
 		message_admins(sleep_duration)
 		master.trainer.say(message)
