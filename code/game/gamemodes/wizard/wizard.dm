@@ -194,10 +194,10 @@
 		wizard_mob.equip_or_collect(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_or_collect(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
 	wizard_mob.equip_or_collect(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
 	wizard_mob.equip_or_collect(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_or_collect(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
 	if(wizard_mob.dna.species.speciesbox)
 		wizard_mob.equip_or_collect(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
 	else
