@@ -524,6 +524,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	origin_tech = "materials=2;biotech=2"
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
+	new /datum/stack_recipe("injector box", /obj/item/storage/boxinjector, 4, on_floor = 1), \
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
