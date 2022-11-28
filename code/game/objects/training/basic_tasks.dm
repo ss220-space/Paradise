@@ -43,63 +43,63 @@
 
 	user_start_x = 2
 
-datum/training_task/basic_2_1/init_task()
+/datum/training_task/basic_2_1/init_task()
 	chair = new /obj/structure/chair(locate(get_center().x, get_center().y, master.z))
 	..()
 
-datum/training_task/basic_2_1/check_func()
+/datum/training_task/basic_2_1/check_func()
 	if (user.buckled == chair)
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_2_2
+/datum/training_task/basic_2_2
 	description = list("Чтобы встать со стула достаточно нажать <strong>B</strong>",
 		"Помните, что если вы связаны и прикованы к стулу, то у вас не получится встать быстро",
 		"Встаньте со стула, нажав <strong>B</strong>")
 
-datum/training_task/basic_2_2/check_func()
+/datum/training_task/basic_2_2/check_func()
 	if (!user.buckled)
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_3_1
+/datum/training_task/basic_3_1
 	description = list("У вас есть 2 руки (иконки внизу по центру экрана). Одна из них - активная",
 	"Поменяйте активную руку с помощью клавиши <strong>X</strong>")
 	var/saved_hand
 
-datum/training_task/basic_3_1/init_task()
+/datum/training_task/basic_3_1/init_task()
 	saved_hand = user.hand
 	..()
 
-datum/training_task/basic_3_1/check_func()
+/datum/training_task/basic_3_1/check_func()
 	if (user.hand != saved_hand)
 		on_task_success("Отлично")
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_3_2
+/datum/training_task/basic_3_2
 	description = list("Вам выдан ваш ПДА. Он находится в вашем кармане (ячейка внизу справа)",
 		"В карманах своего персонажа вы можете носить самые разные вещи",
 		"Для того, чтобы достать предмет из кармана в руки вам требуется нажать ЛКМ по предмету, не имея вещей в активной руке",
 		"Возьмите ПДА в вашу руку нажатием на него ЛКМ")
 
-datum/training_task/basic_3_2/init_task()
+/datum/training_task/basic_3_2/init_task()
 	user.equip_to_slot_if_possible(new /obj/item/pda, slot_wear_pda)
 	..()
 
-datum/training_task/basic_3_2/check_func()
+/datum/training_task/basic_3_2/check_func()
 	if (istype(user.get_active_hand(), /obj/item/pda))
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_3_3
+/datum/training_task/basic_3_3
 	description = list("Имея в активной руке предмет вы можете его 'использовать'",
 		"К примеру, имея в руке ПДА, вы можете его открыть",
 		"Для этого используется клавиша <strong>Z</strong>",
@@ -109,7 +109,7 @@ datum/training_task/basic_3_3
 		"В первом случае используйте <strong>Z</strong>, во втором <strong>ЛКМ</strong> на персонажа",
 		"Попробуйте открыть ПДА с помощью клавиши <strong>Z</strong>, держа ПДА в активной руке")
 
-datum/training_task/basic_3_3/check_func()
+/datum/training_task/basic_3_3/check_func()
 	var/datum/tgui/active_ui = SStgui.get_open_ui(user, user.find_item(/obj/item/pda), "main")
 	if (active_ui)
 		on_task_success()
@@ -118,35 +118,35 @@ datum/training_task/basic_3_3/check_func()
 		..()
 
 
-datum/training_task/basic_3_4
+/datum/training_task/basic_3_4
 	description = list("Как видите, ПДА еще не активирован",
 		"На обычной смене вам изначально будет выдан ваш ПДА",
 		"Однако сейчас вам нужно будет активировать ПДА самому",
 		"Закройте окно ПДА и найдите свою новую ID карту в левом нижнем углу экрана",
 		"Возьмите ID карту в руку так, чтобы в активной руке лежала ваша ID карта, а в неактивной - PDA")
 
-datum/training_task/basic_3_4/init_task()
+/datum/training_task/basic_3_4/init_task()
 	user.equip_to_slot_if_possible(new /obj/item/card/id/captains_spare, slot_wear_id)
 	..()
 
-datum/training_task/basic_3_4/check_func()
+/datum/training_task/basic_3_4/check_func()
 	if (istype(user.get_inactive_hand(), /obj/item/pda) && istype(user.get_active_hand(), /obj/item/card/id/captains_spare))
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_3_5
+/datum/training_task/basic_3_5
 	description = list("А теперь, держа ID карту в активной руке, нажмите <strong>ЛКМ</strong> по ПДА, чтобы активировать его")
 
-datum/training_task/basic_3_5/check_func()
+/datum/training_task/basic_3_5/check_func()
 	if (user.find_item(/obj/item/pda)?.owner)
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_3_6
+/datum/training_task/basic_3_6
 	description = list("Теперь, держа карту в активной руке, нажмите клавишу <strong>Е</strong> для того, чтобы быстро экипировать ее в нужный слот",
 		"Горячая клавиша <strong>E</strong> подходит для почти любых предметов и позволяет быстро поместить их в нужное место",
 		"После этого снова возьмите ПДА в активную руку и 'используйте' его клавишей <strong>Z</strong>",
@@ -155,14 +155,14 @@ datum/training_task/basic_3_6
 		"Сейчас закройте окно ПДА и поместите ПДА в ваш слот для ПДА. Используйте клавишу <strong>E</strong>)",
 		"Для продолжения карта и ПДА должны лежать в соответствующих слотах")
 
-datum/training_task/basic_3_6/check_func()
+/datum/training_task/basic_3_6/check_func()
 	if (istype(user.get_item_by_slot(slot_wear_id), /obj/item/card/id) && istype(user.get_item_by_slot(slot_wear_pda), /obj/item/pda))
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_4_1
+/datum/training_task/basic_4_1
 	description = list("А сейчас жизненно важная задача",
 		"Иногда (почти всегда) на станции не все идет гладко",
 		"Если вы увидели космос там, где его быть не должно, совет один - бегите оттуда",
@@ -175,7 +175,7 @@ datum/training_task/basic_4_1
 	var/obj/item/tank/internals/emergency_oxygen/engi/oxygen
 	var/obj/item/storage/backpack/backpack
 
-datum/training_task/basic_4_1/init_task()
+/datum/training_task/basic_4_1/init_task()
 	mask = new()
 	oxygen = new()
 	backpack = new()
@@ -184,28 +184,28 @@ datum/training_task/basic_4_1/init_task()
 	backpack.contents.Add(oxygen)
 	. = ..()
 
-datum/training_task/basic_4_1/check_func()
+/datum/training_task/basic_4_1/check_func()
 	if (istype(user.get_active_hand(), /obj/item/clothing/mask/breath))
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_4_2
+/datum/training_task/basic_4_2
 	description = list("Хорошо, теперь наденьте маску на лицо",
 		"Сделать это можно двумя способами",
 		"1 - держа маску в активной руке нажмите <strong>E</strong>. Она автоматически наденется на лицо, если сейчас на нем ничего нет",
 		"2 - откойте панель экипировки нажав на значок сумки в левом нижнем углу и, держа маску в активной руке, нажмите на слот маски",
 		"Так или иначе, наденьте маску на лицо")
 
-datum/training_task/basic_4_2/check_func()
+/datum/training_task/basic_4_2/check_func()
 	if (istype(user.get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/breath))
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_4_3
+/datum/training_task/basic_4_3
 	description = list("Одной маски будет недостаточно",
 		"Достаньте из рюкзака баллон и наденьте его в подходящий слот (можно и с помощью клавиши <strong>E</strong>)",
 		"Данный баллон может поместиться и в карман, однако баллоны бывают разных размеров",
@@ -213,20 +213,20 @@ datum/training_task/basic_4_3
 	var/obj/item/storage/backpack/backpack
 	var/obj/item/tank/internals/emergency_oxygen/engi/oxygen
 
-datum/training_task/basic_4_3/init_task()
+/datum/training_task/basic_4_3/init_task()
 	backpack = user.get_item_by_slot(slot_back)
 	oxygen = user.find_item(/obj/item/tank/internals/emergency_oxygen/engi)
 	..()
 
 
-datum/training_task/basic_4_3/check_func()
+/datum/training_task/basic_4_3/check_func()
 	if (!user.get_active_hand() && !user.get_inactive_hand() && !backpack.contents.len)
 		on_task_success()
 		master.task_completed()
 	else
 		..()
 
-datum/training_task/basic_4_4
+/datum/training_task/basic_4_4
 	description = list("Осталось последнее - включить баллон",
 		"Конечно можно взять баллон в руку, нажать <strong>Z</strong>, чтобы открылось меню баллона, и там нажать 'Set internals', но можно и проще",
 		"Если у вас в руких или на себе есть баллон, в левом верхнем углу появляется иконка баллона",
@@ -234,11 +234,11 @@ datum/training_task/basic_4_4
 		"Включите подачу воздуха в маску")
 	var/obj/item/tank/internals/emergency_oxygen/engi/oxygen
 
-datum/training_task/basic_4_4/init_task()
+/datum/training_task/basic_4_4/init_task()
 	oxygen = user.find_item(/obj/item/tank/internals/emergency_oxygen/engi)
 	..()
 
-datum/training_task/basic_4_4/check_func()
+/datum/training_task/basic_4_4/check_func()
 	if (user.internal == oxygen)
 		on_task_success()
 		master.task_completed()
