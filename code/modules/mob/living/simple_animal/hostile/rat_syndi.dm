@@ -13,14 +13,14 @@
 	maxHealth = 50
 	speak_chance = 2
 	turns_per_move = 5
+	pull_force = 1000
 	density = 0
 	ventcrawler = 2
 	can_hide = 1
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	see_in_dark = 6
-	speak = list("Слава Синдикату!","Смерть НаноТрейзен!")
-	//speak = list("Squeek!","SQUEEK!","Squeek?")
+	speak = list("Слава Синдикату!","Смерть НаноТрейзен!", "У вас есть сыр?")
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
@@ -119,4 +119,3 @@
 			to_chat(src, "scream, squeak")
 
 	..()
-
