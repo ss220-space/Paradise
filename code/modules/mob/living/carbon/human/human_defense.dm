@@ -42,6 +42,23 @@ emp_act
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return FALSE
 
+	if(mind?.martial_art?.deflection_laser_chance) //Боевые искусства способны отражать лазер. А также фаерболл!
+		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_laser_chance)) //если они не лежат и не являются халками
+			var/static/list/deflection_list = list(/obj/item/projectile/beam, /obj/item/projectile/plasma, /obj/item/projectile/temp, /obj/item/projectile/magic/fireball)
+			for(var/pr in deflection_list)
+				if(P == pr)	//проверка на тип снаряда
+					break
+			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
+			visible_message("<span class='danger'>[src] отразил снаряд.</span>", "<span class='userdanger'>Вы отразили снаряд!</span>")
+			return FALSE
+
+	if(mind?.martial_art?.deflection_energy_chance) //Боевые искусства способны отражать энерго-оружие.
+		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_energy_chance)) //если они не лежат и не являются халками
+			if(P == /obj/item/projectile/energy)	//проверка на тип снаряда
+				add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
+				visible_message("<span class='danger'>[src] отразил снаряд.</span>", "<span class='userdanger'>Вы отразили снаряд!</span>")
+				return FALSE
+
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
 		return bullet_act(P, "chest") //act on chest instead

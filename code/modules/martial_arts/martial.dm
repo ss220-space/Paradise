@@ -8,10 +8,13 @@
 	var/temporary = FALSE
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
+	var/deflection_laser_chance = 0 //шанс отразить лазер и другое энерго оружие
+	var/deflection_energy_chance = 0 //шанс отразить энергетическое оружие (в том числе включенный станбатон и тазер)
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	var/fire_resistance = FALSE //сопротивление к огню. Ген огнестойкости с сокрытием ауры.
 
 	var/has_explaination_verb = FALSE	// If the martial art has it's own explaination verb
 
@@ -134,6 +137,10 @@
 			base = H.mind.martial_art.base
 	else
 		base = src
+	//сопротивление к огню
+	if (fire_resistance) //боевое искусство позволяет бегать в огне и буре.
+		H.weather_immunities += "ash"
+		H.mutations.Add(HEATRES)
 	H.mind.martial_art = src
 
 /datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
@@ -146,6 +153,10 @@
 	if(base)
 		base.teach(H)
 		base = null
+	//убираем ресисты
+	if (fire_resistance)
+		H.weather_immunities -= "ash"
+		H.mutations -= HEATRES
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -221,10 +232,10 @@
 	return
 
 /obj/item/plasma_fist_scroll
-	name = "frayed scroll"
-	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
+	name = "истлевший свиток"
+	desc = "Старый истлевший пергамент, исписаный выжжеными рунами с иллюстрациями приемов рукопашного боя."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state ="scroll2"
+	icon_state ="scroll_frayed"
 	var/used = 0
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
@@ -235,11 +246,11 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, "<span class='boldannounce'>Вы изучили древнее искусство Плазменного Кулака</span>")
 		used = 1
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+		desc = "Совершенно пустой рассыпающийся свиток."
+		name = "истлевший свиток"
+		icon_state = "blankscroll_frayed"
 
 /obj/item/sleeping_carp_scroll
 	name = "mysterious scroll"

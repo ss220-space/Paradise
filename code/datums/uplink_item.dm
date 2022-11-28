@@ -969,6 +969,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	refundable = TRUE
 	cant_discount = TRUE
 
+/datum/uplink_item/stealthy_weapons/martialarts_plasma_fist
+	name = "Истлевший Свиток"
+	desc = "Знания древней техники боевых искусств рукопашной борьбы огнём и плазмой, \
+			нацеленное на превосходящее число противников. \
+			В нём сокрыты секреты сопротивления лазеру и энергии. \
+			Свиток древнего клана, не приемлющего использование орудий дальнего боя."
+	reference = "PF"
+	item = /obj/item/plasma_fist_scroll
+	cost = 14
+
+	refundable = TRUE
+	cant_discount = TRUE
+
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
