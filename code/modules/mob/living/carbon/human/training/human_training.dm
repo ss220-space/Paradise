@@ -1,7 +1,7 @@
 /mob/living/carbon/human/human_training
 	var/obj/training_master/training_master
-	var/room_size_x = 10
-	var/room_size_y = 6
+	var/room_size_x = 11
+	var/room_size_y = 7
 
 /mob/living/carbon/human/human_training/Initialize(mapload, datum/species/new_species)
 	training_master = new(find_place_for_room(), src)
