@@ -1,5 +1,5 @@
 /obj/training_master
-	var/mob/living/silicon/trainer
+	var/mob/living/silicon/ai_room_trainer/trainer
 	var/mob/living/carbon/human/human_training/controlled_user
 	var/datum/training_task/current_task
 	var/current_task_type = "basic"
@@ -12,10 +12,10 @@
 	spawn_room(user)
 
 /obj/training_master/proc/destroy_room()
-	var/startX = src.loc.x - 5;
-	var/startY = src.loc.y - 5;
-	var/endX = src.loc.x + 5;
-	var/endY = src.loc.y;
+	var/startX = src.loc.x;
+	var/startY = src.loc.y;
+	var/endX = src.loc.x + controlled_user.room_size_x;
+	var/endY = src.loc.y + controlled_user.room_size_y;
 
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
@@ -32,8 +32,8 @@
 
 	var/startX = src.loc.x;
 	var/startY = src.loc.y;
-	var/endX = src.loc.x + user.room_size_x;
-	var/endY = src.loc.y + user.room_size_y;
+	var/endX = src.loc.x + controlled_user.room_size_x;
+	var/endY = src.loc.y + controlled_user.room_size_y;
 
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
@@ -41,7 +41,7 @@
 			if (x == startX || x == endX || y == startY || y == endY)
 				new /turf/simulated/wall/indestructible(locate(x, y, src.loc.z))
 
-	trainer = new /mob/living/silicon(locate(src.loc.x + (controlled_user.room_size_x / 2), src.loc.y, src.loc.z))
+	trainer = new /mob/living/silicon/ai_room_trainer(locate(src.loc.x + (controlled_user.room_size_x / 2), src.loc.y, src.loc.z))
 	addtimer(CALLBACK(src, .proc/begin_user), 1 SECONDS)
 	addtimer(CALLBACK(src, .proc/begin_task), 2 SECONDS)
 
@@ -83,19 +83,18 @@
 
 /datum/training_task/proc/init_task()
 	for(var/index in 1 to description.len)
-		sleep(0.5 SECONDS)
-		master.trainer.say(description[index])
-		// if (index == description.len)
-		// 	print_task_text("<strong>[description[index]]</strong>")
-		// else
-		// 	print_task_text(description[index])
+		var/message = description[index]
+		var/sleep_duration = length(message) / 20
+		message_admins(length(message))
+		message_admins(sleep_duration)
+		master.trainer.say(message)
+
+		if (index != description.len)
+			sleep(sleep_duration SECONDS)
 	check_func()
 
 /datum/training_task/proc/check_func()
 	addtimer(CALLBACK(src, .proc/check_func), 10)
-
-/datum/training_task/proc/print_task_text(var/text)
-	to_chat(user, "<span class ='info' style='font-size: 18px'>[text]</span>")
 
 /datum/training_task/proc/on_task_success(var/text)
 	var/success_text = text || "Задача выполнена"
