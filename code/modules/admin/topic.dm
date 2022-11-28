@@ -3127,7 +3127,7 @@
 				var/area/team1 = locate(/area/tdome/tdome1)
 				var/area/team2 = locate(/area/tdome/tdome2)
 				if(delete_mobs == "Yes")
-					var/clear_team_spawns = alert("Clear mobs on thunderdome spawns two?","Confirm","Yes","No")
+					var/clear_team_spawns = alert("Clear mobs on thunderdome spawns too?","Confirm","Yes","No")
 					if(clear_team_spawns == "Yes")
 						for(var/mob/living/mob in team1)
 							qdel(mob) //Clear mobs

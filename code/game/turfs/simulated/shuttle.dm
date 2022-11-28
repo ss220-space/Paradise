@@ -65,10 +65,6 @@
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
-/turf/simulated/wall/shuttle/ratvar_act()
-	if(prob(20))
-		ChangeTurf(/turf/simulated/floor/clockwork)
-
 
 // sub-type to be used for interior shuttle walls
 // won't get an underlay of the destination turf on shuttle move
@@ -118,6 +114,9 @@
 /turf/simulated/floor/shuttle/tool_act()
 	return
 
+/turf/simulated/floor/shuttle/ratvar_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/floor/clockwork)
 /turf/simulated/floor/shuttle/syndicate //Used only by buildmode generators
 	icon_state = "floor4"
 
