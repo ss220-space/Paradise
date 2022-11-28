@@ -82,7 +82,6 @@
 /datum/training_coords //Simple datum for storing coordinates.
 	var/x = 0
 	var/y = 0
-	var/z = 0
 
 /datum/training_coords/New(x_loc, y_loc)
 	x = x_loc
@@ -140,7 +139,6 @@
 	reset_user_inventory()
 	var/loc_x = user_start_x ? master.x + user_start_x : get_center().x
 	var/loc_y = user_start_y ? master.y + user_start_y : get_center().y
-	message_admins(user_start_x, loc_x)
 	user.setLoc(locate(loc_x, loc_y, master.z), TRUE)
 
 /datum/training_task/proc/get_center()
