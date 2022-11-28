@@ -54,7 +54,8 @@
 	var/path = text2path("/datum/training_task/[current_task_type]_[current_task_block]_[current_task_id]")
 	if (path)
 		current_task = new path(src, controlled_user)
-		current_task.reset_room()
+		if (current_task_id == 1)
+			current_task.reset_room()
 		current_task.init_task(src, controlled_user)
 	else
 		current_task_block += 1
@@ -114,9 +115,9 @@
 /datum/training_task/proc/check_func()
 	addtimer(CALLBACK(src, .proc/check_func), 10)
 
-/datum/training_task/proc/on_task_success(var/text)
-	var/success_text = text || "Задача выполнена"
-	to_chat(user, "<span class ='green' style='font-size: 18px'>[success_text]</span>")
+/datum/training_task/proc/on_task_success(var/text = "Отлично")
+	master.trainer.say(text)
+	to_chat(user, "<span class ='green' style='font-size: 18px'>---------------------------------------</span>")
 
 /datum/training_task/proc/clear_room()
 	var/startX = master.x + 1;
