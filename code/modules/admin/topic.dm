@@ -1452,6 +1452,23 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /human</span>")
 			return
 		usr.client.cmd_admin_dress(M)
+	else if(href_list["change_voice"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["change_voice"])
+		if(!isliving(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /living</span>")
+			return
+		var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
+		var/list/tts_seeds = list()
+		for(var/_seed in SStts.tts_seeds)
+			var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
+			tts_seeds += _tts_seed.name
+		var/new_tts_seed = input(usr, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
+		if(new_tts_seed)
+			M.tts_seed = new_tts_seed
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, usr, tts_test_str, new_tts_seed, FALSE)
 
 	else if(href_list["update_mob_sprite"])
 		if(!check_rights(R_ADMIN))
