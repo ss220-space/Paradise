@@ -3,12 +3,14 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 10
+	nutritional_value = 15
 
 /obj/item/clothing/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
 	max_bites = 10
 	integrity_bite = 20
+	nutritional_value = 5
 
 
 
@@ -18,6 +20,7 @@
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 10
 	integrity_bite = 40
+	nutritional_value = 10
 
 /obj/item/clothing/under/solgov/new_stat_eat()
 	. = ..()
@@ -47,6 +50,7 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 8
+	nutritional_value = 10
 
 
 
@@ -76,11 +80,13 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 2
+	nutritional_value = 10
 
 /obj/item/clothing/gloves/color/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 2
+	nutritional_value = 10
 
 /obj/item/clothing/gloves/color/yellow/new_stat_eat()
 	. = ..()
@@ -105,6 +111,7 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 4
+	nutritional_value = 10
 
 
 
@@ -113,10 +120,7 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 6
-
-/obj/item/clothing/head/hardhat/new_stat_eat()
-	. = ..()
-	material_type = MATERIAL_CLASS_TECH
+	nutritional_value = 10
 
 /obj/item/clothing/head/helmet/new_stat_eat()
 	. = ..()
@@ -168,6 +172,7 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 16
+	nutritional_value = 10
 
 /obj/item/clothing/suit/hooded/new_stat_eat()
 	. = ..()

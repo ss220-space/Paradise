@@ -2,7 +2,7 @@
 	material_type = MATERIAL_CLASS_NONE
 	max_bites = 1 			//The maximum amount of bites before item is depleted
 	integrity_bite = 10		// Integrity used
-	nutritional_value = 30 	// How much nutrition add
+	nutritional_value = 5 	// How much nutrition add
 	is_only_grab_intent = FALSE	//Grab if help_intent was used
 
 

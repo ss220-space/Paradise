@@ -7,33 +7,40 @@
 	nutritional_value = 5
 	is_only_grab_intent = TRUE	//всё-таки используется в подсвечивании глаз тенеморфам
 
+/obj/item/clothing/head/hardhat/new_stat_eat()
+	. = ..()
+	material_type = MATERIAL_CLASS_TECH
+	max_bites = 8
+	nutritional_value = 5
+
 /obj/item/holosign_creator/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 6
-	nutritional_value = 10
+	nutritional_value = 5
 
 /obj/item/signmaker/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 6
-	nutritional_value = 10
+	nutritional_value = 5
 
 /obj/item/pipe_painter/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 10
-	nutritional_value = 15
+	nutritional_value = 5
 
 /obj/item/airlock_painter/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 10
-	nutritional_value = 15
+	nutritional_value = 5
 
 /obj/item/laser_pointer/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
+	max_bites = 1
 	nutritional_value = 30
 	is_only_grab_intent = TRUE	//лазером можно светить в глаза
 
@@ -41,7 +48,7 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 10
-	nutritional_value = 15
+	nutritional_value = 10
 
 /obj/item/gps/new_stat_eat()
 	. = ..()
@@ -87,25 +94,25 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 3
-	nutritional_value = 40
+	nutritional_value = 20
 	is_only_grab_intent = TRUE
 
 /obj/item/bodyanalyzer/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 4
-	nutritional_value = 50
+	nutritional_value = 40
 	is_only_grab_intent = TRUE
 
 /obj/item/bodyanalyzer/advanced/new_stat_eat()
 	. = ..()
-	nutritional_value = 150
+	nutritional_value = 80
 
 /obj/item/autopsy_scanner/new_stat_eat()
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 6
-	nutritional_value = 50
+	nutritional_value = 30
 	is_only_grab_intent = TRUE
 
 /obj/item/reagent_scanner/new_stat_eat()
@@ -231,7 +238,7 @@
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 10
-	nutritional_value = 30
+	nutritional_value = 15
 
 
 
