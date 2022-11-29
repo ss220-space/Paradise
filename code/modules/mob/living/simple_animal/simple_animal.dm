@@ -391,14 +391,6 @@
 		return
 	return ..()
 
-
-/mob/living/simple_animal/update_fire()
-	if(!can_be_on_fire)
-		return
-	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
-	if(on_fire)
-		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
-
 /mob/living/simple_animal/revive()
 	..()
 	health = maxHealth

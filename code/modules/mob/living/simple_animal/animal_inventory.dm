@@ -1,3 +1,5 @@
+
+
 /mob/living/simple_animal
 	var/obj/item/clothing/head/inventory_head	//шапка
 	var/obj/item/clothing/mask/inventory_mask	//маски (сигареты)
@@ -21,17 +23,6 @@
 	var/is_wear_fashion_mask = FALSE
 	var/is_wear_fashion_back = FALSE
 
-	//Расположения шляп при разных состояниях
-	var/hat_offset_y = -8
-	var/hat_offset_x = 0	//смещение при боковом просмотре !!! не всего объекта !!!
-	var/hat_offset_y_rest = -8
-	var/hat_offset_x_rest = 0
-	var/hat_offset_y_dead = -16
-	var/hat_offset_x_dead = 0
-	var/hat_dir_dead = SOUTH //Указываем направление в которое будет смотреть шапка при смерти моба
-	var/hat_rotate_dead = FALSE //переворачиваем ли шапку при смерти моба
-	var/isCentered = TRUE //центрирован ли моб. Если нет(FALSE), то шляпа будет растянута матрицей
-
 	var/list/blacklisted_hats = list( //Запрещенные шляпы на ношение для больших голов
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/welding,
@@ -48,24 +39,13 @@
 		/obj/item/clothing/head/human_head
 	)
 
-	var/hat_icon_file = 'icons/mob/head.dmi'
-	var/hat_icon_state
-	var/hat_alpha
-	var/hat_color
-
 	var/canWearBlacklistedHats = TRUE //= FALSE !!!!!!!
-
-	var/isFashion = FALSE
-	var/animated_fashion = FALSE
 
 /mob/living/simple_animal/pet/dog/corgi
 	isFashion = TRUE
 
 	can_wear_fashion_head = TRUE
 	can_wear_fashion_back = TRUE
-
-/mob/living/simple_animal/pig
-	inventory_head = new /obj/item/clothing/head/hopcap //!!!!!!!!!!!!!!!!!
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	isFashion = FALSE
@@ -174,97 +154,10 @@
 		show_inv(usr)
 	else
 		return ..()
-/mob/living/simple_animal/facedir(ndir)
-	. = ..()
-	message_admins("[src] Изменение faceDir [dir] [ndir]")
-
-///mob/living/simple_animal/Move(atom/newloc, direct, movetime)
-	//message_admins("[src] 1) Изменение Move [dir] [direct]")
-	//. = ..()
-	//message_admins("[src] 2) Изменение Move [dir] [direct]")
-
-/mob/living/simple_animal/forceMove(atom/destination)
-	message_admins("[src] 1) Изменение ForceMove [dir] [destination]")
-	. = ..()
-	message_admins("[src] 2) Изменение ForceMove [dir] [destination]")
-
-/mob/living/simple_animal/update_canmove(delay_action_updates)
-	. = ..()
-	message_admins("[src] Изменение canMove [dir]")
-
-///mob/living/simple_animal/Moved(atom/OldLoc, Dir, Forced)
-	//message_admins("[src] 1) Изменение Moved [dir] [Dir]")
-	//. = ..()
-	//message_admins("[src] 2) Изменение Moved [dir] [Dir]")
 
 
-/mob/living/simple_animal/setDir(new_dir)
-	message_admins("[src] Изменение setDir [dir] [new_dir]")
-	if (dir !- new_dir)
-		regenerate_icons()
-	. = ..()
-
-/mob/living/simple_animal/regenerate_icons()
-	//if(!(istype(src, /mob/living/simple_animal/pet/dog/corgi)))
-	//	return
-	var/testmsg = "Запущен regenerate для [src]([src.name]) == :"
-	cut_overlays()
-
-	if (inventory_head)
-		regenerate_head_icon()
-		testmsg += " *head*"
-	if (inventory_mask)
-		regenerate_mask_icon()
-		testmsg += " *mask*"
-	if (inventory_back)
-		regenerate_back_icon()
-		testmsg += " *back*"
-	if (inventory_collar && collar_type)
-		regenerate_collar_icon()
-		testmsg += " *collar*"
-
-	message_admins(testmsg)
-
-/mob/living/simple_animal/proc/regenerate_head_icon()
-	var/image/head_icon
-
-	if(!hat_icon_state)
-		hat_icon_state = inventory_head.icon_state
-	if(!hat_alpha)
-		hat_alpha = inventory_head.alpha
-	if(!hat_color)
-		hat_color = inventory_head.color
-
-	if(health <= 0)
-		head_icon = get_hat_overlay(dir = hat_dir_dead)
-		head_icon.pixel_y = -8
-		if (hat_rotate_dead)
-			head_icon.transform = turn(head_icon.transform, 180)
-	else
-		head_icon = get_hat_overlay()
-
-	add_overlay(head_icon)
-
-/mob/living/simple_animal/proc/regenerate_mask_icon()
-	return 0
-
-/mob/living/simple_animal/proc/regenerate_back_icon()
-	return 0
-
-/mob/living/simple_animal/proc/regenerate_collar_icon()
-	add_overlay("[collar_type]collar")
-	add_overlay("[collar_type]tag")
 
 
-/mob/living/simple_animal/proc/get_hat_overlay(var/dir)
-	if(hat_icon_file && hat_icon_state)
-		var/image/animalI = image(hat_icon_file, hat_icon_state)
-		animalI.alpha = hat_alpha
-		animalI.color = hat_color
-		animalI.pixel_y = hat_offset_y
-		if (!isCentered)
-			animalI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
-		return animalI
 
 /mob/living/simple_animal/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
@@ -644,7 +537,7 @@
 		regenerate_icons()
 
 //Обновление уникальных анимированных фешинов
-/mob/living/simple_animal/Life(seconds, times_fired)
-	. = ..()
-	if(animated_fashion)
-		regenerate_icons()
+///mob/living/simple_animal/Life(seconds, times_fired)
+//	. = ..()
+//	if(animated_fashion)
+//		regenerate_icons()
