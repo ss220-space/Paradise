@@ -39,15 +39,15 @@
 
 //spiders
 /mob/living/simple_animal/hostile/poison/giant_spider/create_mob_hud()
-	if(client && !hud_used)
+	if(client & !hud_used)
 		hud_used = new /datum/hud/simple_animal/spider(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/create_mob_hud()
-	if(client && !hud_used)
+	if(client & !hud_used)
 		hud_used = new /datum/hud/simple_animal/spider(src)
 
 /mob/living/simple_animal/hostile/retaliate/araneus
-	if(client && !hud_used)
+	if(client & !hud_used)
 		hud_used = new /datum/hud/simple_animal/spider(src)
 
 /datum/hud/simple_animal/spider/New(mob/user)
