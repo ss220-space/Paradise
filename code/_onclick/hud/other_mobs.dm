@@ -46,7 +46,7 @@
 	if(client && !hud_used)
 		hud_used = new /datum/hud/simple_animal/spider(src)
 
-/mob/living/simple_animal/hostile/retaliate/araneus
+/mob/living/simple_animal/hostile/retaliate/araneus/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/simple_animal/spider(src)
 
