@@ -39,7 +39,7 @@
 		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
 		return
 	if(istype(I, /obj/item/melee/energy/cleaving_saw))
-		to_chat(user, "<span class = 'warning'>Когда вы подносите [src] к [I], нечто отталкивает его!</span>")
+		to_chat(user, "<span class = 'warning'>[I] уже остр, и не может быть заточен ещё сильнее!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	if(!requires_sharpness)
