@@ -1,11 +1,3 @@
-/obj/item/proc/new_stat_eat()
-	material_type = MATERIAL_CLASS_NONE
-	max_bites = 1 			//The maximum amount of bites before item is depleted
-	integrity_bite = 10		// Integrity used
-	nutritional_value = 5 	// How much nutrition add
-	is_only_grab_intent = FALSE	//Grab if help_intent was used
-
-
 /obj/item/proc/check_item_eat(mob/target, mob/user)
 	switch(material_type)
 		if(MATERIAL_CLASS_NONE)

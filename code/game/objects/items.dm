@@ -124,7 +124,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/max_bites = 1 			//The maximum amount of bites before item is depleted
 	var/current_bites = 0	//How many bites did
 	var/integrity_bite = 10		// Integrity used
-	var/nutritional_value = 30 	// How much nutrition add
+	var/nutritional_value = 20 	// How much nutrition add
 	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
 
 
@@ -140,8 +140,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			hitsound = "swing_hit"
 	if(!move_resist)
 		determine_move_resist()
-
-	new_stat_eat()
 
 /obj/item/Initialize(mapload)
 	. = ..()
