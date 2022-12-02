@@ -12,14 +12,16 @@
 	user_start_x = 2
 
 /datum/training_task/basic_1_1/init_task()
-	spawn_window(get_center().x, master.y + 1)
-	spawn_window(get_center().x, master.y + 2)
-	airlock = spawn_airlock(get_center().x, master.y + 3)
-	spawn_window(get_center().x, master.y + 4)
-	spawn_window(get_center().x, master.y + 5)
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	spawn_window(center.x, master.y + 1)
+	spawn_window(center.x, master.y + 2)
+	airlock = spawn_airlock(center.x, master.y + 3)
+	spawn_window(center.x, master.y + 4)
+	spawn_window(center.x, master.y + 5)
 	airlock.lock()
 
-	final_turf = get_turf(locate(master.get_max_coordinate().x - 2, master.get_center().y, master.z))
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
 	final_turf.icon = 'icons/turf/decals.dmi'
 	final_turf.icon_state = "delivery"
 	..()
@@ -44,7 +46,8 @@
 	user_start_x = 2
 
 /datum/training_task/basic_2_1/init_task()
-	chair = new /obj/structure/chair(locate(get_center().x, get_center().y, master.z))
+	var/datum/training_coords/center = get_center()
+	chair = new /obj/structure/chair(locate(center.x, center.y, master.z))
 	..()
 
 /datum/training_task/basic_2_1/check_func()
@@ -140,7 +143,8 @@
 	description = list("А теперь, держа ID карту в активной руке, нажмите <strong>ЛКМ</strong> по ПДА, чтобы активировать его")
 
 /datum/training_task/basic_3_5/check_func()
-	if (user.find_item(/obj/item/pda)?.owner)
+	var/obj/item/pda/pda = user.find_item(/obj/item/pda)
+	if (pda && pda.owner)
 		on_task_success()
 		master.task_completed()
 	else
