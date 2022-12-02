@@ -73,20 +73,22 @@
 	begin_task()
 
 /obj/training_master/proc/get_center()
-	return new /datum/training_coords(src.x + (controlled_user.room_size_x / 2), src.y + (controlled_user.room_size_y / 2))
+	return new /datum/training_coords(src.x + (controlled_user.room_size_x / 2), src.y + (controlled_user.room_size_y / 2), src.z)
 
 /obj/training_master/proc/get_max_coordinate()
-	return new /datum/training_coords(src.x + controlled_user.room_size_x - 1, src.y + controlled_user.room_size_y - 1)
+	return new /datum/training_coords(src.x + controlled_user.room_size_x - 1, src.y + controlled_user.room_size_y - 1, src.z)
 
 // TEST TASKS
 
 /datum/training_coords //Simple datum for storing coordinates.
 	var/x = 0
 	var/y = 0
+	var/z = 0
 
-/datum/training_coords/New(x_loc, y_loc)
+/datum/training_coords/New(x_loc, y_loc, z_loc)
 	x = x_loc
 	y = y_loc
+	z = z_loc
 /datum/training_task
 	var/obj/training_master/master
 	var/mob/living/carbon/human/human_training/user
@@ -138,7 +140,7 @@
 	var/datum/training_coords/center = get_center()
 	var/loc_x = user_start_x ? master.x + user_start_x : center.x
 	var/loc_y = user_start_y ? master.y + user_start_y : center.y
-	user.setLoc(locate(loc_x, loc_y, master.z), TRUE)
+	user.setLoc(locate(loc_x, loc_y, master.z), 1)
 
 /datum/training_task/proc/get_center()
 	return master.get_center()
