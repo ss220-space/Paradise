@@ -3,7 +3,7 @@
 	var/mob/living/carbon/human/human_training/controlled_user
 	var/datum/training_task/current_task
 	var/current_task_type = "basic"
-	var/current_task_block = 1
+	var/current_task_block = 5
 	var/current_task_id = 1
 
 /obj/training_master/Initialize(mapload, user)
@@ -127,7 +127,8 @@
 	var/endY = master.y + user.room_size_y - 2;
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
-			var/turf/turf = new /turf/unsimulated/floor(locate(x, y, master.z))
+			var/turf/turf = get_turf(locate(x, y, master.z))
+			turf.ChangeTurf(/turf/unsimulated/floor)
 			for(var/A in turf.contents)
 				if (A != user)
 					qdel(A)
