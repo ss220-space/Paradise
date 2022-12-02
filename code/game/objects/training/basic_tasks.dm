@@ -480,7 +480,7 @@
 
 /datum/training_task/basic_9_3
 	description = list("А теперь отправляйтесь в космос и долетите до правой двери",
-	"В космосе вы можете держаться за стены и полы"
+	"В космосе вы можете держаться за стены и полы",
 	"Но без объектов рядом с вами вы будете неспособны управлять своим движением")
 	var/turf/final_turf
 
@@ -496,6 +496,30 @@
 	..()
 
 /datum/training_task/basic_9_3/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y)
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_9_4
+	description = list("Например сейчас вы находитесь в невесомости и у вас не инерции, потому вы никуда не двигаетесь",
+	"Однако и начать двигаться вы не можете, так рядом не от чего оттолкнуться",
+	"Чтобы выйти из этого неловкого положения вы можете метнуть предмет, находящийся у вас в активной руке",
+	"Тогда и вы и этот предмет получите достаточно инерции, чтобы начать движение",
+	"Чтобы метнуть этот гаечный ключ у вас в руке, нажмите клавишу «R» и кликните ЛКМ слева от вас")
+	var/turf/final_turf
+
+/datum/training_task/basic_9_4/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	user.setLoc(locate(center.x, center.y, center.z), 1)
+	user.put_in_active_hand(new /obj/item/wrench)
+
+	final_turf = get_turf(locate(max_coordinate.x - 1, center.y, master.z))
+	..()
+
+/datum/training_task/basic_9_4/check_func()
 	if (user.x == final_turf.x && user.y == final_turf.y)
 		on_task_success("Отлично")
 		master.task_completed()
