@@ -14,7 +14,8 @@
 	var/garrote_time
 
 /obj/item/twohanded/garrote/Destroy()
-	strangling.garroted_by.Remove(src)
+	if(strangling)
+		strangling.garroted_by.Remove(src)
 	strangling = null
 	return ..()
 
