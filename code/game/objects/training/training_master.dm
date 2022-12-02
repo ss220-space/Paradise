@@ -100,15 +100,18 @@
 		master = master_ref
 		user = user_ref
 
+/datum/training_task/proc/calculate_say_duration(message)
+	return 0.5
+	// return length(message) / 26
+
 /datum/training_task/proc/init_task()
 	for(var/index in 1 to description.len)
 		var/message = description[index]
-		var/sleep_duration = length(message) / 26
+		var/sleep_duration = calculate_say_duration(message)
 		master.trainer.say(message)
 
 		if (index != description.len)
-			// sleep(sleep_duration SECONDS)
-			sleep(0.5 SECONDS)
+			sleep(sleep_duration SECONDS)
 	instruction_end()
 	check_func()
 
@@ -118,7 +121,9 @@
 	addtimer(CALLBACK(src, .proc/check_func), 10)
 
 /datum/training_task/proc/on_task_success(var/text = "Отлично")
+	var/sleep_duration = calculate_say_duration(text)
 	master.trainer.say(text)
+	sleep(sleep_duration SECONDS)
 	to_chat(user, "<span class ='green' style='font-size: 18px'>---------------------------------------</span>")
 
 /datum/training_task/proc/clear_room()
