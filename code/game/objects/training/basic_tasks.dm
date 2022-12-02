@@ -627,7 +627,7 @@
 
 	var/list/exp = list()
 	exp = params2list(exp_read.rows[1][1])
-	exp["bstutorial"] = TRUE
+	exp["trainbase"] = TRUE
 
 	var/datum/db_query/update_query = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
