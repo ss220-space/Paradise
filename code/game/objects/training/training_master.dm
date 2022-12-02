@@ -3,7 +3,7 @@
 	var/mob/living/carbon/human/human_training/controlled_user
 	var/datum/training_task/current_task
 	var/current_task_type = "basic"
-	var/current_task_block = 9
+	var/current_task_block = 1
 	var/current_task_id = 1
 
 /obj/training_master/Initialize(mapload, user)
