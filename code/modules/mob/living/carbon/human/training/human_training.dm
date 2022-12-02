@@ -6,6 +6,7 @@
 /mob/living/carbon/human/human_training/Initialize(mapload, datum/species/new_species)
 	training_master = new(find_place_for_room(), src)
 	status_flags |= GODMODE
+	add_language("Training Lang", 1)
 	. = ..()
 
 /mob/living/carbon/human/human_training/Logout()
