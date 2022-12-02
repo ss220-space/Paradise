@@ -156,7 +156,7 @@
 		"После этого снова возьмите ПДА в активную руку и 'используйте' его клавишей :tr Z",
 		"На этот раз у вас будет открыто меню ПДА",
 		"В ПДА есть немало полезных вещей, однако это вы узнаете позднее",
-		"Сейчас закройте окно ПДА и поместите ПДА в ваш слот для ПДА. Используйте клавишу :tr E)",
+		"Сейчас закройте окно ПДА и поместите ПДА в ваш слот для ПДА. Используйте клавишу :tr E :9 )",
 		"Для продолжения карта и ПДА должны лежать в соответствующих слотах")
 
 /datum/training_task/basic_3_6/check_func()
@@ -627,7 +627,7 @@
 
 	var/list/exp = list()
 	exp = params2list(exp_read.rows[1][1])
-	exp["base_training"] = TRUE
+	exp["bstutorial"] = TRUE
 
 	var/datum/db_query/update_query = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
