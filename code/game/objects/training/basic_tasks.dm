@@ -354,3 +354,153 @@
 		master.task_completed()
 	else
 		..()
+
+/datum/training_task/basic_8_1
+	description = list("И наконец, если уже ничего не помогает, вы можете попробовать сломать объект на вашем пути.",
+	"Возьмите эту монтировку и сломайте это стекло, чтобы проложить себе путь дальше..",
+	"Не волнуйтесь, мы не вычтем это из вашей зарплаты!",
+	"Возьмите монтировку в активную руку и нажмите ЛКМ по стеклу")
+	var/turf/final_turf
+	user_start_x = 2
+
+/datum/training_task/basic_8_1/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	spawn_window(center.x, master.y + 1)
+	spawn_window(center.x, master.y + 2)
+	new /obj/structure/window/full(locate(center.x, master.y + 3, master.z))
+	spawn_window(center.x, master.y + 4)
+	spawn_window(center.x, master.y + 5)
+	new /obj/item/crowbar/large(locate(center.x - 1, master.y + 3, master.z))
+
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf.icon = 'icons/turf/decals.dmi'
+	final_turf.icon_state = "delivery"
+	..()
+
+/datum/training_task/basic_8_1/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y)
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_9_1
+	description = list("Чтобы попасть в следующую комнату, вам нужно будет пройти через зону космического пространства.",
+	"Перед вами находится труп члена экипажа, который не смог пройти этот этап обучения, какая досада!",
+	"Вам нужно снять с него шлем, костюм EVA, маску и баллон.",
+	"Этот костюм даст вам достаточную защиту от столь агрессивной для вас среды",
+	"Подойдите поближе, зажмите ЛКМ на вульпу и перетащите ее на себя, чтобы открыть окно снаряжения вульпы",
+	"В открывшемся меню найдите нужные предметы и нажмите на кнопку рядом")
+	var/mob/living/carbon/human/vulpkanin/vulpkanin
+	var/obj/item/clothing/suit/space/eva/eva_suit
+	var/obj/item/clothing/head/helmet/space/eva/eva_helmet
+	var/obj/item/clothing/mask/breath/mask
+	var/obj/item/tank/internals/emergency_oxygen/engi/oxygen
+	var/obj/machinery/door/airlock/glass/airlock
+	user_start_x = 1
+
+/datum/training_task/basic_9_1/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+
+	vulpkanin = new(locate(master.x + 2, center.y + 2, master.z))
+	vulpkanin.death()
+
+	eva_helmet = new(vulpkanin.loc)
+	eva_suit = new(vulpkanin.loc)
+	mask = new(vulpkanin.loc)
+	oxygen = new(vulpkanin.loc)
+
+	vulpkanin.delete_equipment()
+	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/shoes/orange, slot_shoes)
+	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
+
+	vulpkanin.equip_to_appropriate_slot(eva_helmet)
+	vulpkanin.equip_to_appropriate_slot(eva_suit)
+	vulpkanin.equip_to_appropriate_slot(mask)
+	vulpkanin.equip_to_appropriate_slot(oxygen)
+
+	spawn_window(master.x + 3, master.y + 1)
+	spawn_window(master.x + 3, master.y + 2)
+	airlock = spawn_airlock(master.x + 3, master.y + 3)
+	spawn_window(master.x + 3, master.y + 4)
+	spawn_window(master.x + 3, master.y + 5)
+	airlock.lock()
+
+	spawn_window(max_coordinate.x - 3, master.y + 1)
+	spawn_window(max_coordinate.x - 3, master.y + 2)
+	spawn_airlock(max_coordinate.x - 3, master.y + 3)
+	spawn_window(max_coordinate.x - 3, master.y + 4)
+	spawn_window(max_coordinate.x - 3, master.y + 5)
+
+	for (var/x = master.x + 4, x <= max_coordinate.x - 4, x++)
+		for (var/y = master.y + 1, y <= max_coordinate.y - 1, y++)
+			var/turf/space/turf = get_turf(locate(x, y, master.z))
+			turf.ChangeTurf(/turf/space)
+			turf.destination_x = null
+			turf.destination_y = null
+			turf.destination_z = null
+
+	var/turf/final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf.icon = 'icons/turf/decals.dmi'
+	final_turf.icon_state = "delivery"
+	..()
+
+/datum/training_task/basic_9_1/check_func()
+	var/helmet_removed = !vulpkanin.find_item(/obj/item/clothing/head/helmet/space/eva)
+	var/suit_removed = !vulpkanin.find_item(/obj/item/clothing/suit/space/eva)
+	var/mask_removed = !vulpkanin.find_item(/obj/item/clothing/mask/breath)
+	var/tank_removed = !vulpkanin.find_item(/obj/item/tank/internals/emergency_oxygen/engi)
+	if (helmet_removed && suit_removed && mask_removed && tank_removed)
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_9_2
+	description = list("Теперь подберите шлем, костюм EVA, маску и баллон",
+	"Наденьте их на себя и включите подачу воздуха из баллона",
+	"Напоминаю, что это делается нажатием на иконку баллона в левом верхнем углу")
+
+/datum/training_task/basic_9_2/init_task()
+	..()
+
+/datum/training_task/basic_9_2/check_func()
+	var/list/equipped_item = user.get_equipped_items()
+	var/helmet = equipped_item.Find(user.find_item(/obj/item/clothing/head/helmet/space/eva))
+	var/suit = equipped_item.Find(user.find_item(/obj/item/clothing/suit/space/eva))
+	var/mask = equipped_item.Find(user.find_item(/obj/item/clothing/mask/breath))
+	var/tank = equipped_item.Find(user.find_item(/obj/item/tank/internals/emergency_oxygen/engi))
+	if (helmet && suit && mask && tank && user.internal == equipped_item[tank])
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_9_3
+	description = list("Чтобы попасть в следующую комнату, вам нужно будет пройти через зону космического пространства.",
+	"Перед вами находится труп члена экипажа, который не смог пройти этот этап обучения, какая досада!",
+	"Вам нужно снять с него шлем, костюм EVA, маску и баллон.",
+	"Этот костюм даст вам достаточную защиту от столь агрессивной для вас среды",
+	"Подойдите поближе, зажмите ЛКМ на вульпу и перетащите ее на себя, чтобы открыть окно снаряжения вульпы",
+	"В открывшемся меню найдите нужные предметы и нажмите на кнопку рядом")
+	var/turf/final_turf
+
+/datum/training_task/basic_9_3/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+
+	var/turf/airlock_turf = get_turf(locate(master.x + 3, master.y + 3, master.z))
+	for(var/obj/machinery/door/airlock/glass/airlock in airlock_turf.contents)
+		airlock.unlock()
+
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	..()
+
+/datum/training_task/basic_9_3/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y)
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
