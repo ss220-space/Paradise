@@ -41,12 +41,14 @@
 			if (x == startX || x == endX || y == startY || y == endY)
 				new /turf/simulated/wall/indestructible(locate(x, y, src.z))
 
-	trainer = new /mob/living/silicon/ai_room_trainer(locate(get_center().x, src.y, src.z))
+	var/datum/training_coords/center = get_center()
+	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, src.y, src.z))
 	addtimer(CALLBACK(src, .proc/begin_user), 1 SECONDS)
 	addtimer(CALLBACK(src, .proc/begin_task), 2 SECONDS)
 
 /obj/training_master/proc/begin_user()
-	controlled_user.setLoc(locate(src.x + 2, get_center().y, src.z), TRUE)
+	var/datum/training_coords/center = get_center()
+	controlled_user.setLoc(locate(src.x + 2, center.y, src.z), TRUE)
 	controlled_user.delete_equipment()
 	controlled_user.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
 
@@ -137,8 +139,9 @@
 /datum/training_task/proc/reset_room()
 	clear_room()
 	reset_user_inventory()
-	var/loc_x = user_start_x ? master.x + user_start_x : get_center().x
-	var/loc_y = user_start_y ? master.y + user_start_y : get_center().y
+	var/datum/training_coords/center = get_center()
+	var/loc_x = user_start_x ? master.x + user_start_x : center.x
+	var/loc_y = user_start_y ? master.y + user_start_y : center.y
 	user.setLoc(locate(loc_x, loc_y, master.z), TRUE)
 
 /datum/training_task/proc/get_center()
