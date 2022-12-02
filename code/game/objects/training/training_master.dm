@@ -45,6 +45,9 @@
 	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, src.y, src.z))
 	trainer.anchored = TRUE
 	trainer.status_flags |= GODMODE
+	trainer.add_language("Galactic Common", 1)
+	trainer.add_language("Sol Common", 1)
+	trainer.add_language("Training Lang", 1)
 	addtimer(CALLBACK(src, .proc/begin_user), 1 SECONDS)
 	addtimer(CALLBACK(src, .proc/begin_task), 2 SECONDS)
 
@@ -136,6 +139,8 @@
 		for(var/y = startY, y <= endY, y++)
 			var/turf/turf = get_turf(locate(x, y, master.z))
 			turf.ChangeTurf(/turf/unsimulated/floor)
+			turf.icon = 'icons/turf/floors.dmi'
+			turf.icon_state = "Floor3"
 			for(var/A in turf.contents)
 				if (A != user)
 					qdel(A)
