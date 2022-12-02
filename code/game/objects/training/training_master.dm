@@ -8,7 +8,7 @@
 
 /obj/training_master/Initialize(mapload, user)
 	. = ..()
-	src.setLoc(locate(src.x + 5, src.y, src.z), TRUE)
+	src.setLoc(locate(src.x, src.y, src.z), TRUE)
 	spawn_room(user)
 
 /obj/training_master/proc/destroy_room()
