@@ -2079,8 +2079,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "teleporter"
 	there_can_be_many = TRUE
 
-/area/derelict/eva
-	name = "Derelict EVA Storage"
+/area/derelict/annex
+	name = "Derelict Annex"
 	icon_state = "eva"
 
 /area/shuttle/derelict/ship/start
@@ -2359,7 +2359,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "away"
 
 /area/awaymission/desert
-	name = "Mars"
+	name = "Sudden Drop"
 	icon_state = "away"
 
 /area/awaymission/beach

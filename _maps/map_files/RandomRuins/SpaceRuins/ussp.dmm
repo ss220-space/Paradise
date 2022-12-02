@@ -8,9 +8,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cautionfull"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ab" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -1283,9 +1281,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "cT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1295,9 +1291,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "cU" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
@@ -1412,9 +1406,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1428,9 +1420,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dk" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
@@ -1523,9 +1513,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dv" = (
 /obj/item/bedsheet/blue,
 /obj/structure/bed,
@@ -1649,9 +1637,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dH" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -1795,9 +1781,7 @@
 /area/derelict/arrival)
 "dW" = (
 /turf/simulated/wall/mineral/titanium/nodecon,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dX" = (
 /obj/structure/sign/securearea,
 /obj/structure/cable{
@@ -1806,9 +1790,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1826,9 +1808,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "dZ" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
@@ -1876,9 +1856,7 @@
 /area/derelict/arrival)
 "eg" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eh" = (
 /obj/machinery/light/spot{
 	dir = 1;
@@ -1893,9 +1871,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ei" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1906,9 +1882,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ej" = (
 /obj/machinery/light/spot{
 	dir = 1;
@@ -1925,9 +1899,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ek" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Dormitories"
@@ -2012,24 +1984,18 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "es" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "et" = (
 /obj/structure/sign/science,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eu" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2042,9 +2008,7 @@
 	dir = 1;
 	icon_state = "whiteredfull"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ev" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2055,9 +2019,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2069,9 +2031,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ex" = (
 /obj/machinery/power/smes/engineering{
 	charge = 1e+006;
@@ -2088,9 +2048,7 @@
 	dir = 9;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ey" = (
 /obj/machinery/atmospherics/unary/tank/oxygen,
 /obj/structure/cable{
@@ -2102,15 +2060,11 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ez" = (
 /obj/structure/noticeboard,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eA" = (
 /obj/machinery/atmospherics/unary/passive_vent,
 /turf/simulated/floor/plating/airless,
@@ -2226,9 +2180,7 @@
 	name = "Central Annex Lockdown"
 	},
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -2237,9 +2189,7 @@
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "purplefull");
 	icon_state = "4-i"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eN" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray{
@@ -2249,9 +2199,7 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eO" = (
 /obj/structure/table/tray,
 /obj/item/scalpel{
@@ -2261,14 +2209,10 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eP" = (
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eQ" = (
 /obj/machinery/door/airlock/science{
 	name = "Science Wing"
@@ -2277,9 +2221,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2291,9 +2233,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2305,9 +2245,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2318,9 +2256,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eU" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
@@ -2329,9 +2265,7 @@
 	dir = 1;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eV" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -2342,9 +2276,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eW" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -2355,9 +2287,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eX" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -2368,9 +2298,7 @@
 	dir = 1;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eY" = (
 /obj/structure/engineeringcart,
 /obj/effect/decal/cleanable/dirt,
@@ -2378,9 +2306,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "eZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cautionfull"
@@ -2389,9 +2315,7 @@
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fa" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -2402,9 +2326,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fb" = (
 /obj/item/trash/spentcasing{
 	icon_state = "s-casing"
@@ -2471,9 +2393,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fj" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2481,9 +2401,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fk" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2491,9 +2409,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fl" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2506,9 +2422,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2525,9 +2439,7 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2543,9 +2455,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2561,9 +2471,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fp" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2576,9 +2484,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fq" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2591,9 +2497,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2606,9 +2510,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fs" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2616,9 +2518,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ft" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
@@ -2629,9 +2529,7 @@
 	dir = 1;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fu" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -2642,9 +2540,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fv" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,
@@ -2774,18 +2670,14 @@
 	dir = 5;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fI" = (
 /obj/structure/table/tray,
 /obj/item/circular_saw{
 	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2793,23 +2685,17 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fK" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fL" = (
 /obj/structure/sign/nosmoking_1,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2821,9 +2707,7 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2833,9 +2717,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2851,9 +2733,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fP" = (
 /obj/machinery/light/spot{
 	dir = 8;
@@ -2873,9 +2753,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2883,15 +2761,11 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/solar_control{
@@ -2907,9 +2781,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "fT" = (
 /obj/machinery/door_control{
 	id = "ruslock";
@@ -2995,9 +2867,7 @@
 	dir = 1;
 	icon_state = "purplecorner"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gb" = (
 /obj/machinery/door/window/eastleft{
 	locked = 1
@@ -3007,17 +2877,13 @@
 	dir = 4;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gc" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gd" = (
 /obj/structure/closet,
 /obj/item/clothing/under/retro/science,
@@ -3026,15 +2892,11 @@
 	dir = 6;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ge" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gf" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -3043,18 +2905,14 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gh" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -3066,18 +2924,14 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gi" = (
 /obj/machinery/floodlight,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3088,15 +2942,11 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gk" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gl" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
@@ -3164,17 +3014,13 @@
 	dir = 10;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gu" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gv" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3185,16 +3031,12 @@
 	dir = 6;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gw" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gx" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3207,15 +3049,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gy" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gz" = (
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
@@ -3230,17 +3068,13 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gA" = (
 /obj/machinery/vending/assist,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gB" = (
 /obj/machinery/power/solar/fake{
 	desc = "A broken solar panel. This one is beyond of any possible repair.";
@@ -3264,9 +3098,7 @@
 	dir = 1;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gD" = (
 /obj/structure/rack,
 /obj/item/t_scanner,
@@ -3280,9 +3112,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gE" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
@@ -3361,16 +3191,12 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gP" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gQ" = (
 /obj/structure/table,
 /obj/item/disk/data/demo{
@@ -3382,9 +3208,7 @@
 	name = "Experiment 432-A"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gR" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
@@ -3396,9 +3220,7 @@
 	amount = 1
 	},
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3411,9 +3233,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gU" = (
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/engineering,
@@ -3422,9 +3242,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "gV" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
@@ -3490,9 +3308,7 @@
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ha" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -3530,18 +3346,14 @@
 	dir = 8;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hf" = (
 /obj/structure/chair/office/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hg" = (
 /obj/structure/computerframe,
 /obj/effect/decal/cleanable/dirt,
@@ -3549,9 +3361,7 @@
 	dir = 6;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hi" = (
 /obj/effect/landmark/burnturf,
 /obj/structure/table/reinforced,
@@ -3566,9 +3376,7 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hj" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
@@ -3581,9 +3389,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3591,17 +3397,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hl" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hm" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -3696,17 +3498,13 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hx" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hy" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -3716,15 +3514,11 @@
 	dir = 6;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hz" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hA" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight,
@@ -3733,18 +3527,14 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hB" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hC" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
@@ -3753,9 +3543,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hD" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
@@ -3766,9 +3554,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3866,9 +3652,7 @@
 	dir = 8;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3879,9 +3663,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hQ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3895,18 +3677,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hR" = (
 /obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "hS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3988,22 +3766,16 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ic" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "id" = (
 /obj/structure/chair/office/light,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ie" = (
 /obj/structure/closet/secure_closet/chemical,
 /obj/item/paper/djstation{
@@ -4014,32 +3786,24 @@
 	dir = 6;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "if" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ig" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ih" = (
 /obj/item/stack/ore/iron,
 /turf/template_noop,
 /area/space/nearstation)
 "ii" = (
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ij" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/blood/oil,
@@ -4052,9 +3816,7 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ik" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/space/syndicate/black/engie{
@@ -4069,9 +3831,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "il" = (
 /obj/structure/sign/poster/contraband/communist_state,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -4163,9 +3923,7 @@
 	dir = 10;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/vials,
@@ -4175,9 +3933,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iC" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/beaker{
@@ -4194,9 +3950,7 @@
 	dir = 6;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iD" = (
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -4207,44 +3961,34 @@
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "engine");
 	icon_state = "4-i"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iE" = (
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iG" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iH" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iI" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4325,9 +4069,7 @@
 	dir = 8;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iX" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4346,16 +4088,12 @@
 	dir = 4;
 	icon_state = "purple"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iY" = (
 /obj/structure/lattice,
 /obj/item/stack/ore/iron,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "iZ" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/remains/human{
@@ -4363,15 +4101,11 @@
 	name = "Human remains"
 	},
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ja" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4385,9 +4119,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jc" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Wing"
@@ -4401,9 +4133,7 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jd" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4446,9 +4176,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
 	icon_state = "swall_f10"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jm" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "kc13_ussp";
@@ -4498,9 +4226,7 @@
 	dir = 9;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jt" = (
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/plasteel{
@@ -4508,9 +4234,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ju" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4521,17 +4245,13 @@
 	dir = 1;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jv" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jw" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
@@ -4547,9 +4267,7 @@
 	dir = 5;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jx" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -4559,20 +4277,14 @@
 "jy" = (
 /obj/structure/window/reinforced,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jz" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jA" = (
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jB" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
 	icon_state = "swall_f5"
@@ -4582,9 +4294,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jC" = (
 /obj/structure/closet/radiation,
 /obj/structure/sign/securearea{
@@ -4601,17 +4311,13 @@
 	dir = 9;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jD" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4622,9 +4328,7 @@
 	dir = 1;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4635,9 +4339,7 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4645,18 +4347,14 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jI" = (
 /obj/structure/table/wood/fancy,
 /obj/item/candle,
@@ -4691,9 +4389,7 @@
 	pixel_y = 5
 	},
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "jO" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
@@ -4794,9 +4490,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kd" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4805,9 +4499,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ke" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4819,9 +4511,7 @@
 	icon_state = "762-casing"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kf" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4830,9 +4520,7 @@
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kg" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4849,9 +4537,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4865,9 +4551,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ki" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4885,9 +4569,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kj" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4907,9 +4589,7 @@
 	dir = 8;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
@@ -4917,17 +4597,13 @@
 	dir = 4;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kl" = (
 /obj/machinery/door/airlock/external{
 	name = "External Airlock"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "km" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -4935,30 +4611,22 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kn" = (
 /obj/machinery/door/airlock/external{
 	name = "External Airlock"
 	},
 /turf/simulated/floor/engine,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ko" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kp" = (
 /obj/effect/landmark/damageturf,
 /obj/item/stack/ore/slag,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kq" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -4969,9 +4637,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4982,9 +4648,7 @@
 	name = "External Airlock"
 	},
 /turf/simulated/floor/engine,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ks" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -4997,9 +4661,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kt" = (
 /obj/machinery/door/airlock/external{
 	name = "External Airlock"
@@ -5015,9 +4677,7 @@
 	name = "Central Annex Lockdown"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ku" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5030,9 +4690,7 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5045,9 +4703,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5059,9 +4715,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5077,9 +4731,7 @@
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ky" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5088,9 +4740,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5299,41 +4949,31 @@
 	dir = 10;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kV" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kW" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kX" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "kZ" = (
 /obj/structure/closet/radiation,
 /obj/structure/sign/securearea{
@@ -5348,9 +4988,7 @@
 	dir = 6;
 	icon_state = "redblue"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "la" = (
 /obj/machinery/power/solar{
 	id = "russolar"
@@ -5368,16 +5006,12 @@
 	dir = 1
 	},
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lc" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
 	icon_state = "swallc2"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ld" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/engine{
@@ -5385,9 +5019,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "le" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
@@ -5402,9 +5034,7 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -5415,9 +5045,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5432,9 +5060,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5450,9 +5076,7 @@
 	dir = 6;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "li" = (
 /obj/machinery/light/small,
 /obj/structure/cable{
@@ -5465,9 +5089,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -5479,9 +5101,7 @@
 	dir = 6;
 	icon_state = "caution"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lk" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -5520,9 +5140,7 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5531,9 +5149,7 @@
 	},
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lp" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/decal/cleanable/dirt,
@@ -5573,9 +5189,7 @@
 	pixel_y = -5
 	},
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ls" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5625,9 +5239,7 @@
 "lz" = (
 /obj/structure/sign/botany,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lA" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
@@ -5637,9 +5249,7 @@
 	dir = 8;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lB" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
@@ -5649,9 +5259,7 @@
 	dir = 4;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5673,9 +5281,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5688,9 +5294,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lF" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Mess Hall"
@@ -5698,9 +5302,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lG" = (
 /obj/machinery/light/spot{
 	dir = 4;
@@ -5743,20 +5345,14 @@
 	dir = 9;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lN" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lO" = (
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lP" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -5764,18 +5360,14 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lQ" = (
 /obj/structure/closet/crate/hydroponics,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lR" = (
 /obj/structure/table/wood,
 /obj/item/newspaper{
@@ -5785,18 +5377,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lS" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5806,16 +5394,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lV" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -5829,9 +5413,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "lW" = (
 /obj/structure/closet/coffin,
 /obj/structure/window/reinforced{
@@ -5865,9 +5447,7 @@
 "ma" = (
 /obj/item/shard,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5898,61 +5478,45 @@
 	dir = 8;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mh" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mi" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mj" = (
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mk" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ml" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mo" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5963,18 +5527,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mq" = (
 /obj/machinery/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mr" = (
 /obj/structure/closet/coffin,
 /obj/machinery/door/window/eastleft,
@@ -6030,34 +5590,24 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mz" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mA" = (
 /obj/item/stack/ore/slag,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mB" = (
 /obj/structure/lattice,
 /obj/item/stack/ore/uranium,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mC" = (
 /obj/item/shovel,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mD" = (
 /obj/structure/closet/coffin,
 /obj/machinery/door/window/eastleft,
@@ -6124,18 +5674,14 @@
 	dir = 8;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mM" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mN" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6145,9 +5691,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6158,18 +5702,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mP" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mQ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
@@ -6217,9 +5757,7 @@
 "mW" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mX" = (
 /obj/structure/lattice,
 /obj/item/shard{
@@ -6234,17 +5772,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "mZ" = (
 /mob/living/simple_animal/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "na" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6262,9 +5796,7 @@
 	dir = 9;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6279,9 +5811,7 @@
 	dir = 1;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nc" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -6292,15 +5822,11 @@
 	dir = 1;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nd" = (
 /obj/item/stack/ore/iron,
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ne" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -6365,9 +5891,7 @@
 /obj/structure/flora/rock/pile,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "no" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6378,9 +5902,7 @@
 	dir = 9;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "np" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6390,17 +5912,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nr" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
@@ -6408,9 +5926,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ns" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -6475,16 +5991,12 @@
 	dir = 5;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nC" = (
 /obj/structure/sink{
 	dir = 4;
@@ -6495,9 +6007,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nD" = (
 /obj/structure/rack,
 /obj/item/soap,
@@ -6575,16 +6085,12 @@
 "nM" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nN" = (
 /obj/effect/landmark/damageturf,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nO" = (
 /obj/effect/landmark/damageturf,
 /obj/item/clothing/suit/tracksuit,
@@ -6596,26 +6102,20 @@
 	dir = 5;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nP" = (
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nQ" = (
 /obj/item/ashtray/plastic,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nR" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6628,18 +6128,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nS" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nT" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6663,9 +6159,7 @@
 	dir = 9;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "nU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -6736,16 +6230,12 @@
 /obj/effect/landmark/damageturf,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "of" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "og" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -6753,9 +6243,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oh" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6766,9 +6254,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6785,17 +6271,13 @@
 	dir = 8;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oj" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ok" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6828,17 +6310,13 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
 	icon_state = "swall_f10"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "op" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oq" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -6846,25 +6324,19 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "or" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "os" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ot" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
@@ -6874,9 +6346,7 @@
 	dir = 1;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ou" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6886,9 +6356,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ov" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6898,9 +6366,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ow" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6918,9 +6384,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ox" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6930,9 +6394,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6944,9 +6406,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oz" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -6957,9 +6417,7 @@
 	dir = 8;
 	icon_state = "whitered"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oA" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/flour,
@@ -6967,9 +6425,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oB" = (
 /obj/item/beach_ball/holoball,
 /turf/simulated/floor/plasteel{
@@ -7031,16 +6487,12 @@
 	dir = 10;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oL" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oM" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
@@ -7050,9 +6502,7 @@
 	dir = 0;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7062,9 +6512,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oO" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Mess Hall"
@@ -7077,9 +6525,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oP" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck/black,
@@ -7087,17 +6533,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oQ" = (
 /turf/template_noop,
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
 	icon_state = "swall_f5"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7118,9 +6560,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oU" = (
 /obj/structure/rack,
 /obj/item/cultivator,
@@ -7130,9 +6570,7 @@
 	dir = 6;
 	icon_state = "green"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oV" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -7142,9 +6580,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7156,26 +6592,20 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oX" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oY" = (
 /obj/structure/coatrack,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "oZ" = (
 /obj/structure/rack,
 /obj/item/newspaper{
@@ -7189,9 +6619,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "pa" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -7225,9 +6653,7 @@
 "pe" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "pf" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
@@ -7282,9 +6708,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "pl" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7296,9 +6720,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "pm" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -7337,9 +6759,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "pt" = (
 /obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel{
@@ -7414,9 +6834,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "pC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -7634,9 +7052,7 @@
 	tag = "icon-bulb1 (EAST)"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "qc" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -8630,9 +8046,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "ss" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
@@ -8866,9 +8280,7 @@
 	icon_state = "swall_f10"
 	},
 /turf/template_noop,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "yd" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
@@ -8966,9 +8378,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "AO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -9048,9 +8458,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "CZ" = (
 /obj/machinery/power/solar{
 	id = "russolar"
@@ -9137,9 +8545,7 @@
 	},
 /obj/item/stack/tile,
 /turf/simulated/floor/plating,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "EW" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light/built{
@@ -9475,9 +8881,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
+/area/derelict/annex)
 "PL" = (
 /obj/structure/cable{
 	d1 = 1;

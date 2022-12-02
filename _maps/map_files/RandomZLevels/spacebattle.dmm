@@ -3426,9 +3426,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret1{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret1)
 "np" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3715,9 +3713,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret4{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret4)
 "pp" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/cable{
@@ -3981,9 +3977,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret4{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret4)
 "rp" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4292,9 +4286,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret2{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret2)
 "sO" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4848,9 +4840,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret1{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret1)
 "wJ" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -4960,9 +4950,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret9{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret9)
 "xB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -5497,9 +5485,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret3{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret3)
 "By" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -5813,9 +5799,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret7{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret7)
 "DP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5850,9 +5834,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret10{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret10)
 "Ee" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6227,9 +6209,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret2{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret2)
 "GZ" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -6714,9 +6694,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret9{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret9)
 "Lu" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -7105,9 +7083,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret5{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret5)
 "Ov" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -7259,9 +7235,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret6{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret6)
 "Po" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -7418,9 +7392,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret3{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret3)
 "Qs" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -7772,9 +7744,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret8{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret8)
 "Ta" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8110,9 +8080,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret8{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret8)
 "Vz" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/cable{
@@ -8618,9 +8586,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret7{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/turret7)
 "Yz" = (
 /obj/effect/mob_spawn/human/engineer/hardsuit,
 /obj/effect/decal/cleanable/blood,

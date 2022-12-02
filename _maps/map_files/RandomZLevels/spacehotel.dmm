@@ -4,15 +4,10 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "ab" = (
 /turf/unsimulated/wall/metal,
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "ac" = (
 /turf/unsimulated/wall{
 	icon = 'icons/turf/mining.dmi';
@@ -24,25 +19,16 @@
 /area/awaymission)
 "ae" = (
 /turf/unsimulated/wall/metal,
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "af" = (
 /turf/unsimulated/wall{
 	dynamic_lighting = 0;
 	icon = null
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ag" = (
 /turf/template_noop,
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ah" = (
 /turf/template_noop,
 /area/template_noop)
@@ -52,9 +38,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "aj" = (
 /obj/machinery/light{
 	dir = 1
@@ -64,9 +48,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "ak" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -97,10 +79,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "an" = (
 /obj/effect/view_portal{
 	id = "mazeland_111"
@@ -108,10 +87,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ao" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -122,10 +98,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ap" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -136,10 +109,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aq" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -151,10 +121,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ar" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -165,10 +132,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "as" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -187,10 +151,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "av" = (
 /obj/effect/view_portal{
 	id = "mazeland_211"
@@ -198,10 +159,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aw" = (
 /obj/effect/view_portal{
 	id = "mazeland"
@@ -212,10 +170,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ax" = (
 /obj/effect/view_portal{
 	id = "mazeland_411"
@@ -223,10 +178,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ay" = (
 /mob/living/simple_animal/hostile/carp/sea,
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -234,9 +186,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "az" = (
 /obj/effect/view_portal{
 	id = "mazeland_112"
@@ -244,10 +194,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aA" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -258,10 +205,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aB" = (
 /obj/effect/view_portal{
 	id = "mazeland_31"
@@ -269,25 +213,16 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aC" = (
 /turf/unsimulated/wall/metal,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aD" = (
 /turf/unsimulated/wall{
 	dynamic_lighting = 0;
 	icon = null
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aE" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -328,10 +263,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aJ" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -339,10 +271,7 @@
 	id = "snowland_room"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aK" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -364,10 +293,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aL" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -392,10 +318,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aO" = (
 /obj/effect/view_portal{
 	id = "mazeland_121"
@@ -403,10 +326,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aP" = (
 /obj/machinery/light{
 	dir = 8
@@ -414,10 +334,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aQ" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -428,27 +345,18 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "aR" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	opacity = 1
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aS" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 4
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aT" = (
 /obj/effect/view_portal{
 	id = "snowland"
@@ -457,27 +365,18 @@
 	dir = 1
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aU" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aV" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 4;
 	opacity = 1
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aW" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -493,10 +392,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aX" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -512,10 +408,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "aY" = (
 /obj/machinery/light{
 	dir = 8
@@ -526,9 +419,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "aZ" = (
 /obj/structure/ladder/unbreakable/dive_point/anchor{
 	id = "weirddive";
@@ -539,9 +430,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "ba" = (
 /obj/machinery/light{
 	dir = 4
@@ -551,9 +440,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "bb" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4;
@@ -610,25 +497,16 @@
 	dir = 8
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bi" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bj" = (
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bk" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
@@ -642,10 +520,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bl" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -662,10 +537,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bm" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -679,10 +551,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bn" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4;
@@ -719,10 +588,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bs" = (
 /obj/effect/view_portal{
 	id = "mazeland_122"
@@ -730,10 +596,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bt" = (
 /obj/effect/view_portal{
 	id = "mazeland_212"
@@ -741,10 +604,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bu" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -757,10 +617,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bv" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -773,10 +630,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bw" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -784,10 +638,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bx" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -795,10 +646,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "by" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -860,10 +708,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bF" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -879,10 +724,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bG" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -895,10 +737,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bH" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -906,10 +745,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bI" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -922,10 +758,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bJ" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1;
@@ -980,10 +813,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bP" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -992,10 +822,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bQ" = (
 /obj/effect/view_portal{
 	id = "mazeland_413"
@@ -1003,10 +830,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bR" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1025,10 +849,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bS" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1041,24 +862,15 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bT" = (
 /obj/structure/flora/bush,
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bU" = (
 /obj/structure/flora/grass/green,
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "bV" = (
 /turf/unsimulated/floor{
 	icon_state = "asteroid";
@@ -1075,10 +887,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bX" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -1089,10 +898,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bY" = (
 /obj/effect/view_portal/visual{
 	dist = 2;
@@ -1102,10 +908,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "bZ" = (
 /obj/effect/view_portal{
 	id = "mazeland_331"
@@ -1113,10 +916,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ca" = (
 /obj/effect/view_portal{
 	id = "mazeland_332"
@@ -1124,10 +924,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "cb" = (
 /obj/effect/view_portal/visual{
 	dist = 2;
@@ -1137,10 +934,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "cc" = (
 /obj/structure/window/reinforced/tinted,
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -1148,9 +942,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "cd" = (
 /obj/machinery/door/window/southright,
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -1158,9 +950,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "ce" = (
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/light,
@@ -1169,9 +959,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "cf" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
@@ -1199,10 +987,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ci" = (
 /obj/effect/view_portal{
 	id = "mazeland_132"
@@ -1210,10 +995,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "cj" = (
 /obj/effect/view_portal/visual{
 	dist = 7;
@@ -1223,10 +1005,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ck" = (
 /obj/effect/view_portal/visual{
 	dist = 7;
@@ -1236,10 +1015,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "cl" = (
 /turf/unsimulated/wall/metal,
 /area/awaymission/spacehotel)
@@ -1319,10 +1095,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ct" = (
 /obj/machinery/light{
 	dir = 1
@@ -1330,10 +1103,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "cu" = (
 /obj/structure/mirror{
 	dir = 4;
@@ -1347,10 +1117,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "cv" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1372,17 +1139,11 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cw" = (
 /obj/structure/flora/tree/pine,
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cx" = (
 /obj/effect/view_portal{
 	id = "poolland"
@@ -1394,9 +1155,7 @@
 /area/awaymission/spacehotel)
 "cy" = (
 /turf/unsimulated/floor,
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "cz" = (
 /obj/effect/levelref{
 	id = "lavaland";
@@ -1428,10 +1187,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cB" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1442,17 +1198,11 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cC" = (
 /obj/structure/flora/grass/both,
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cD" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1481,10 +1231,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cG" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1496,10 +1243,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cH" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1573,16 +1317,11 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cR" = (
 /obj/machinery/poolcontroller/invisible/sea,
 /turf/unsimulated/wall/metal,
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "cS" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1628,10 +1367,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cX" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1639,10 +1375,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "cY" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1724,10 +1457,7 @@
 	name = "rock"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "df" = (
 /obj/item/mop,
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -1735,9 +1465,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "dg" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1754,10 +1482,7 @@
 "dh" = (
 /obj/effect/decal/snow/sand/edge,
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "di" = (
 /obj/structure/mopbucket,
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -1765,9 +1490,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "dj" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1779,16 +1502,10 @@
 	name = "rough sand"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dk" = (
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dl" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1800,10 +1517,7 @@
 	name = "rough sand"
 	},
 /turf/unsimulated/floor/snow,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dm" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1834,20 +1548,14 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dq" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
 	light_power = 2
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dr" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
@@ -1859,10 +1567,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "ds" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1902,10 +1607,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dx" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1918,10 +1620,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dy" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1934,10 +1633,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dz" = (
 /obj/machinery/light{
 	dir = 8
@@ -1947,9 +1643,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "dA" = (
 /obj/structure/ladder/unbreakable/dive_point/anchor{
 	layer = 4.5
@@ -1959,9 +1653,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "dB" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -2001,10 +1693,7 @@
 /area/awaymission)
 "dF" = (
 /turf/simulated/floor/plating/lava/smooth,
-/area/awaymission{
-	name = "Snowland";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/snowland)
 "dG" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -2020,9 +1709,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/undersea{
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/undersea)
 "dJ" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone2"
@@ -4552,19 +4239,13 @@
 /turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "lm" = (
 /obj/structure/curtain/open/shower,
 /turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission{
-	name = "Amazing Place";
-	requires_power = 0
-	})
+/area/awaymission/spacehotel/amazing_place)
 "ln" = (
 /obj/item/paper/hotel_scrap_8,
 /turf/unsimulated/floor{
