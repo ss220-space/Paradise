@@ -3,7 +3,7 @@
 	var/mob/living/carbon/human/human_training/controlled_user
 	var/datum/training_task/current_task
 	var/current_task_type = "basic"
-	var/current_task_block = 5
+	var/current_task_block = 9
 	var/current_task_id = 1
 
 /obj/training_master/Initialize(mapload, user)
@@ -49,8 +49,7 @@
 /obj/training_master/proc/begin_user()
 	var/datum/training_coords/center = get_center()
 	controlled_user.setLoc(locate(src.x + 2, center.y, src.z), TRUE)
-	controlled_user.delete_equipment()
-	controlled_user.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
+	controlled_user.reset_inventory()
 
 /obj/training_master/proc/begin_task()
 	var/path = text2path("/datum/training_task/[current_task_type]_[current_task_block]_[current_task_id]")
@@ -133,13 +132,9 @@
 				if (A != user)
 					qdel(A)
 
-/datum/training_task/proc/reset_user_inventory()
-	user.delete_equipment()
-	user.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
-
 /datum/training_task/proc/reset_room()
 	clear_room()
-	reset_user_inventory()
+	user.reset_inventory()
 	var/datum/training_coords/center = get_center()
 	var/loc_x = user_start_x ? master.x + user_start_x : center.x
 	var/loc_y = user_start_y ? master.y + user_start_y : center.y
