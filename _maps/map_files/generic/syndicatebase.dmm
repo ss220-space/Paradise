@@ -659,7 +659,8 @@
 	frequency = 1443;
 	icon_state = "on";
 	id = "air_in";
-	on = 1
+	on = 1;
+	req_one_access_txt = "159,156"
 	},
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
@@ -6476,6 +6477,7 @@
 	input_tag = "syndie_base_mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_mix_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6645,6 +6647,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "syndie_base_air_out";
 	pressure_setting = 2000;
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6692,6 +6695,7 @@
 	input_tag = "syndie_base_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6721,6 +6725,7 @@
 	input_tag = "syndie_base_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -8757,6 +8762,7 @@
 	input_tag = "syndie_base_n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_n2o_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -12732,6 +12738,7 @@
 	input_tag = "syndie_base_tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_tox_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -16425,6 +16432,7 @@
 	input_tag = "syndie_base_co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_co2_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
