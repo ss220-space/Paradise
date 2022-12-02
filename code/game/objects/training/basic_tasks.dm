@@ -248,3 +248,109 @@
 		master.task_completed()
 	else
 		..()
+
+/datum/training_task/basic_5_1
+	description = list("Теперь, когда вы здесь, единственный путь отсюда это пройти через этот огонь.",
+	"Пройдите через него и потушитесь, вы все-таки хотите сбить с себя огонь, дабы не умереть в адских муках и агонии!",
+	"Нажмите клавишу «B» или значок огня в правом верхнем углу. Возможно вам придется «потушиться» несколько раз.")
+	var/turf/final_turf
+	user_start_x = 2
+
+/datum/training_task/basic_5_1/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	spawn_window(center.x, master.y + 1)
+	new /turf/simulated/floor/plating/lava/smooth(locate(center.x, master.y + 2, master.z))
+	new /turf/simulated/floor/plating/lava/smooth(locate(center.x, master.y + 3, master.z))
+	new /turf/simulated/floor/plating/lava/smooth(locate(center.x, master.y + 4, master.z))
+	spawn_window(center.x, master.y + 5)
+
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf.icon = 'icons/turf/decals.dmi'
+	final_turf.icon_state = "delivery"
+	..()
+
+/datum/training_task/basic_5_1/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y && !user.on_fire)
+		on_task_success("Отлично. После такого рекомендуется обратиться за помощью в медицинский отдел, конечно если кто-то там будет свободен и жив")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_6_1
+	description = list("Иногда некоторые зоны куда вы хотите попасть закрыты препятствиями, некоторые можно убрать, а с некоторыми придется повозиться.",
+	"Сейчас перед вами коробка, попробуйте ее оттолкнуть с прохода.",
+	"Толкать легко, просто подвиньтесь вперед к коробке, и вы сможете ее оттолкнуть")
+	var/turf/final_turf
+	user_start_x = 2
+
+/datum/training_task/basic_6_1/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	spawn_window(center.x, master.y + 1)
+	spawn_window(center.x, master.y + 2)
+	new /obj/structure/ore_box(locate(center.x, master.y + 3, master.z))
+	spawn_window(center.x, master.y + 4)
+	spawn_window(center.x, master.y + 5)
+
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf.icon = 'icons/turf/decals.dmi'
+	final_turf.icon_state = "delivery"
+	..()
+
+/datum/training_task/basic_6_1/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y)
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_7_1
+	description = list("Если вы не можете оттолкнуть препятствие со своего пути, вы можете попробовать потянуть его.",
+	"Чтобы потянуть коробку, подойдите к ней и нажмите сочетание клавиш Ctrl+ЛКМ.!")
+	var/turf/final_turf
+	var/obj/structure/ore_box/ore_box
+	user_start_x = 2
+
+/datum/training_task/basic_7_1/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	spawn_window(center.x, master.y + 1)
+	spawn_window(center.x, master.y + 2)
+	spawn_window(center.x + 1, master.y + 2)
+	spawn_window(center.x + 1, master.y + 3)
+	ore_box = new (locate(center.x, master.y + 3, master.z))
+	spawn_window(center.x - 1, master.y + 4)
+	spawn_window(center.x, master.y + 5)
+	spawn_window(center.x - 1, master.y + 5)
+
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf.icon = 'icons/turf/decals.dmi'
+	final_turf.icon_state = "delivery"
+	..()
+
+/datum/training_task/basic_7_1/check_func()
+	if (user.pulling == ore_box)
+		on_task_success("Поздравляю, вы тащите коробку!")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_7_2
+	description = list("Теперь оттащите коробку чтобы освободить проход.",
+	"Что бы ее отпустить коробку нажмите клавишу «C»")
+	var/turf/final_turf
+	var/obj/structure/ore_box/ore_box
+
+/datum/training_task/basic_7_2/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	..()
+
+/datum/training_task/basic_7_2/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y)
+		on_task_success("Отлично")
+		master.task_completed()
+	else
+		..()
