@@ -442,7 +442,7 @@
 			turf.destination_y = null
 			turf.destination_z = null
 
-	var/turf/final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	var/turf/final_turf = get_turf(locate(max_coordinate.x - 1, center.y, master.z))
 	final_turf.icon = 'icons/turf/decals.dmi'
 	final_turf.icon_state = "delivery"
 	..()
@@ -479,12 +479,9 @@
 		..()
 
 /datum/training_task/basic_9_3
-	description = list("Чтобы попасть в следующую комнату, вам нужно будет пройти через зону космического пространства.",
-	"Перед вами находится труп члена экипажа, который не смог пройти этот этап обучения, какая досада!",
-	"Вам нужно снять с него шлем, костюм EVA, маску и баллон.",
-	"Этот костюм даст вам достаточную защиту от столь агрессивной для вас среды",
-	"Подойдите поближе, зажмите ЛКМ на вульпу и перетащите ее на себя, чтобы открыть окно снаряжения вульпы",
-	"В открывшемся меню найдите нужные предметы и нажмите на кнопку рядом")
+	description = list("А теперь отправляйтесь в космос и долетите до правой двери",
+	"В космосе вы можете держаться за стены и полы"
+	"Но без объектов рядом с вами вы будете неспособны управлять своим движением")
 	var/turf/final_turf
 
 /datum/training_task/basic_9_3/init_task()
@@ -495,7 +492,7 @@
 	for(var/obj/machinery/door/airlock/glass/airlock in airlock_turf.contents)
 		airlock.unlock()
 
-	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf = get_turf(locate(max_coordinate.x - 1, center.y, master.z))
 	..()
 
 /datum/training_task/basic_9_3/check_func()
