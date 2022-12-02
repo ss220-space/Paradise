@@ -40,10 +40,10 @@
 	switch(act)
 		if("growl", "growls","purr", "purrs","purrl","drone", "drones", "hum", "hums",\
 		"rumble", "rumbles","clack", "clacks","click", "clicks","warble", "warbles","salute",\
-		"salutes","clap", "claps","deathgasp", "deathgasps","moan", "moans","slap", "slaps","snap", "snaps")	//Если вы удавлены вы не сможете собраться с мыслями чтобы производить звуки или жесты,
-			if(garroted_by.len)																						//не говоря уже про салютование, шлепание и щелкание пальцами
+		"salutes","clap", "claps","deathgasp", "deathgasps","moan", "moans","slap", "slaps","snap", "snaps")	//If you are strangled you will not be able to gather your thoughts to make sounds or gestures,
+			if(garroted_by.len)																						//not to mention saluting, spanking and finger-snapping
 				on_CD = handle_emote_CD()
-				emote("twitch")	//делаем вид что жертва пытается что-то сделать, чтобы со стороны не выглядело как обнимашки
+				emote("twitch")	//we pretend that the victim is trying to do something so that it doesn't look like hugs from the outside
 				return
 
 	switch(act)		//This switch adds cooldowns to some emotes
