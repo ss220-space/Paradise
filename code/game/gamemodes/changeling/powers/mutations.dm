@@ -16,6 +16,7 @@
 	chemical_cost = 1000
 	dna_cost = -1
 	genetic_damage = 1000
+	DNApressure = TRUE
 
 	var/silent = FALSE
 	var/weapon_type
@@ -27,12 +28,14 @@
 		if(!silent)
 			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_l_hand()
+		user.mind.changeling.isDNApressured = FALSE
 		return
 	if(istype(user.r_hand, weapon_type))
 		qdel(user.r_hand)
 		if(!silent)
 			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_r_hand()
+		user.mind.changeling.isDNApressured = FALSE
 		return
 	..(user, target)
 
@@ -49,6 +52,7 @@
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
+	DNApressure = TRUE
 	chemical_cost = 1000
 	dna_cost = -1
 	genetic_damage = 1000
@@ -74,6 +78,7 @@
 		H.update_inv_head()
 		H.update_hair()
 		H.update_fhair()
+		user.mind.changeling.isDNApressured = FALSE
 
 		if(blood_on_castoff)
 			H.add_splatter_floor()

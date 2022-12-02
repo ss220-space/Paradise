@@ -13,6 +13,7 @@
 	var/req_dna = 0  //amount of dna needed to use this ability. Changelings always have atleast 1
 	var/req_human = 0 //if you need to be human to use this ability
 	var/req_stat = CONSCIOUS // CONSCIOUS, UNCONSCIOUS or DEAD
+	var/DNApressure = FALSE //Будет ли нагружать ДНК. Для проверки на возможность Readapt-а, Lesser form-а и т.д. При использовании не забывайте прописать возврат состояния.
 	var/genetic_damage = 0 // genetic damage caused by using the sting. Nothing to do with cloneloss.
 	var/max_genetic_damage = 100 // hard counter for spamming abilities. Not used/balanced much yet.
 	var/always_keep = 0 // important for abilities like regenerate that screw you if you lose them.
@@ -41,6 +42,8 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		return
 	if(!can_sting(user, target))
 		return
+	if(DNApressure)
+		user.mind.changeling.isDNApressured = TRUE
 	var/datum/changeling/c = user.mind.changeling
 	if(sting_action(user, target))
 		sting_feedback(user, target)

@@ -67,6 +67,9 @@
 		if("readapt")
 			if(!cling.lingRespec(owner))
 				return FALSE
+			if(cling.isDNApressured)
+				to_chat(cling, "<span class='warning'>Ваша структура ДНК слишком напряжена сейчас, выключите ваши способности!</span>")
+				return
 			purchased_abilities.Cut()
 			return TRUE
 

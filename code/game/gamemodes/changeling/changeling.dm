@@ -241,6 +241,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/geneticdamage = 0
 	var/isabsorbing = 0
 	var/islinking = 0
+	var/isDNApressured = FALSE //Находиться ли ДНК под "Давлением" (от некоторых способностей). Мешает Readapt-у и Lesser Form-е.
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
 	var/mimicing = ""

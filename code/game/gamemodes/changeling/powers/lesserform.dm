@@ -23,6 +23,10 @@
 		to_chat(user, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 
+	if(user.mind.changeling.isDNApressured)
+		to_chat(user, "<span class='warning'>Вы не можете использовать эту способность сейчас, когда ваше ДНК нестабильно! Выключите ваши способности!</span>")
+		return
+
 	user.visible_message("<span class='warning'>[user] transforms!</span>")
 
 	// Add genetic damage to add cooldown.
