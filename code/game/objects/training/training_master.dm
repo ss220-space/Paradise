@@ -101,8 +101,7 @@
 		user = user_ref
 
 /datum/training_task/proc/calculate_say_duration(message)
-	return 0.5
-	// return length(message) / 26
+	return length(message) / 26
 
 /datum/training_task/proc/init_task()
 	for(var/index in 1 to description.len)
