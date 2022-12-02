@@ -43,6 +43,8 @@
 
 	var/datum/training_coords/center = get_center()
 	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, src.y, src.z))
+	trainer.anchored = TRUE
+	trainer.status_flags |= GODMODE
 	addtimer(CALLBACK(src, .proc/begin_user), 1 SECONDS)
 	addtimer(CALLBACK(src, .proc/begin_task), 2 SECONDS)
 
@@ -153,9 +155,12 @@
 	return master.get_max_coordinate()
 
 /datum/training_task/proc/spawn_window(x, y)
-	return new /obj/structure/window/full/reinforced(locate(x, y, master.z))
+	var/obj/structure/window/full/reinforced/glass = new (locate(x, y, master.z))
+	glass.resistance_flags = INDESTRUCTIBLE
+	return glass
 
 /datum/training_task/proc/spawn_airlock(x, y)
-	var/obj/machinery/door/airlock/glass/airlock = new /obj/machinery/door/airlock/glass(locate(x, y, master.z))
+	var/obj/machinery/door/airlock/glass/airlock = new (locate(x, y, master.z))
 	airlock.stat = 0
+	airlock.resistance_flags = INDESTRUCTIBLE
 	return airlock
