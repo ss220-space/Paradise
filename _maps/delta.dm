@@ -12,10 +12,10 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\delta\delta.dmm"
+	#include "map_files\Delta\delta.dmm"
 	#include "map_files\generic\CentComm.dmm"
 	#include "map_files\generic\Admin_Zone.dmm"
-	#include "map_files\delta\lavaland.dmm"
+	#include "map_files\Delta\Lavaland.dmm"
 	#include "map_files\generic\syndicatebase.dmm"
 
 	#define MAP_FILE "delta.dmm"
