@@ -386,6 +386,89 @@
 		..()
 
 /datum/training_task/basic_9_1
+	description = list("Следующий пункт - датчики костюма",
+	"Датчики костюма - встроенное устройство, передающее данные о вашем здоровье и местоположении в зависимости от включенного режима",
+	"Всего есть 3 режима, не считая полного отключения датчиков",
+	"1 - только данные о вашем имени и должности с карты",
+	"2 - данные первого режима + состояние здоровья",
+	"3 - данные первого и второго режимов + местоположение",
+	"Вас часто будут просить 'переключить датчики в 3 режим'. Стоит узнать, как это сделать",
+	"Для начала нажмите на иконку сумки в левом нижнем углу экрана, так, чтобы вы увидели свою экипировку",
+	"Далее нужно нажать ПКМ на надетый костюм и выбрать Toggle Suit Sensors",
+	"В открывшемся окне выберите необходимый режим (обычно это или Off или нижний в списке режим)",
+	"Переключите датчики в 3 режим согласно инструкции выше")
+	var/obj/item/clothing/under/suit
+
+/datum/training_task/basic_9_1/init_task()
+	suit = user.get_item_by_slot(slot_w_uniform)
+	suit.sensor_mode = SENSOR_OFF
+	..()
+
+/datum/training_task/basic_9_1/check_func()
+	suit = user.get_item_by_slot(slot_w_uniform)
+	if (suit?.sensor_mode == SENSOR_COORDS)
+		on_task_success("Отлично, теперь вы будете видны медикам и ИИ на их панелях и они будут знать где вы. Вы же этого и хотели, верно?")
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_10_1
+	description = list("Далее по плану - общение",
+	"Самый простой способ что-то сказать - нажать клавишу T и написать там то, что вы хотите произнести",
+	"В таком случае вашу речь услышат все, кто вас видит и слышит",
+	"Если беседа более приватная, нажмите Shift+T чтобы прошептать что-нибудь",
+	"Шепот отчетливо слышен в паре клеток от вас",
+	"Все, кто находятся дальше пары клеток, услышат, что вы шепчете, но не смогут разобрать слов",
+	"Если у вас есть наушник, настроенный на определенные каналы, вы можете говорить непосредственно в него",
+	"Для этого необходимо также нажать T, но перед текстом сообщения добавить маркер нужного канала",
+	"Пример маркеров канала ; - Общий, .e - Инженерный, .c - Командный",
+	"Например, если вы хотите сказать что-то в общий канал, следует написать '; Привет персонал'",
+	"Заметьте, что вы не сможете написать в канал, к которому у вашего наушника нет доступа. Также и прослушать такие каналы вы тоже не сможете",
+	"Есть небольшой трюк с тем, чтобы писать в каналы не переключая раскладку",
+	"Можно нажимать ту же клавишу, что и на аглийской раскладке, находясь на русской, и все будет работать",
+	"К примеру, '.у' (русская У) в начале сообщения позволит вам написать в инженерный канал точно так же, как и '.e' (английская Е)",
+	"Когда будете готовы продолжить - зайдите на отмеченную клетку")
+	var/turf/final_turf
+
+/datum/training_task/basic_10_1/init_task()
+	var/datum/training_coords/center = get_center()
+	var/datum/training_coords/max_coordinate = get_max_coordinate()
+	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
+	final_turf.icon = 'icons/turf/decals.dmi'
+	final_turf.icon_state = "delivery"
+	..()
+
+/datum/training_task/basic_10_1/check_func()
+	if (user.x == final_turf.x && user.y == final_turf.y)
+		on_task_success()
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_11_1
+	description = list("И вот мы добрались до более интересной части обучения - интент (intension) или по-простому - инт",
+	"Инт - это режим взаимодействия вас с окружающим миром",
+	"Всего есть 4 инта",
+	"1 - Помощь. Интент выставлен по умолчанию. С этим интом вы будете поднимать людей, будить их, если у вас нет предметов в руках",
+	"Вы все еще будете бить людей большинством предметов, если держите их в активной руке, а так же вы БУДЕТЕ стрелять из оружия даже в этом инте",
+	"2 - Обезоруживание. Вы попытаетесь обезоружить кого-нибудь, выбив у него предмет из рук",
+	"3 - Захват. Позволяет захватить человека. Это всегда агрессия, не используйте это для перетаскивания людей",
+	"4 - Вред. Вы не будете бить сильнее с этим интом, но если у вас в руках дубинка, то в добавок к оглушению вы будете наносить урон",
+	"Во всех интах, кроме первого, люди НЕ смогут пройти через вас",
+	"Инты отображены на вашем экране в правом нижнем углу. Включенный инт подсвечивается",
+	"Инты можно переключать клавишами 1,2,3,4 согласно списку выше",
+	"На первых сменах рекомендуется использовать 1 инт подавляющую часть времени",
+	"Подробнее о боевой системе рекомендуется прочитать <a href='https://wiki.ss220.space/index.php/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B4%D0%BB%D1%8F_%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2'>ЗДЕСЬ</a>",
+	"А теперь, для продолжения, переключите ваш инт в 3 режим")
+
+/datum/training_task/basic_11_1/check_func()
+	if (user.a_intent == INTENT_GRAB)
+		on_task_success()
+		master.task_completed()
+	else
+		..()
+
+/datum/training_task/basic_12_1
 	description = list("Чтобы попасть в следующую комнату, вам нужно будет пройти через зону космического пространства.",
 	"Перед вами находится труп члена экипажа, который не смог пройти этот этап обучения, какая досада!",
 	"Вам нужно снять с него шлем, костюм EVA, маску и баллон.",
@@ -400,7 +483,7 @@
 	var/obj/machinery/door/airlock/glass/airlock
 	user_start_x = 1
 
-/datum/training_task/basic_9_1/init_task()
+/datum/training_task/basic_12_1/init_task()
 	var/datum/training_coords/center = get_center()
 	var/datum/training_coords/max_coordinate = get_max_coordinate()
 
@@ -447,7 +530,7 @@
 	final_turf.icon_state = "delivery"
 	..()
 
-/datum/training_task/basic_9_1/check_func()
+/datum/training_task/basic_12_1/check_func()
 	var/helmet_removed = !vulpkanin.find_item(/obj/item/clothing/head/helmet/space/eva)
 	var/suit_removed = !vulpkanin.find_item(/obj/item/clothing/suit/space/eva)
 	var/mask_removed = !vulpkanin.find_item(/obj/item/clothing/mask/breath)
@@ -458,15 +541,15 @@
 	else
 		..()
 
-/datum/training_task/basic_9_2
+/datum/training_task/basic_12_2
 	description = list("Теперь подберите шлем, костюм EVA, маску и баллон",
 	"Наденьте их на себя и включите подачу воздуха из баллона",
 	"Напоминаю, что это делается нажатием на иконку баллона в левом верхнем углу")
 
-/datum/training_task/basic_9_2/init_task()
+/datum/training_task/basic_12_2/init_task()
 	..()
 
-/datum/training_task/basic_9_2/check_func()
+/datum/training_task/basic_12_2/check_func()
 	var/list/equipped_item = user.get_equipped_items()
 	var/helmet = equipped_item.Find(user.find_item(/obj/item/clothing/head/helmet/space/eva))
 	var/suit = equipped_item.Find(user.find_item(/obj/item/clothing/suit/space/eva))
@@ -478,13 +561,13 @@
 	else
 		..()
 
-/datum/training_task/basic_9_3
+/datum/training_task/basic_12_3
 	description = list("А теперь отправляйтесь в космос и долетите до правой двери",
 	"В космосе вы можете держаться за стены и полы",
 	"Но без объектов рядом с вами вы будете неспособны управлять своим движением")
 	var/turf/final_turf
 
-/datum/training_task/basic_9_3/init_task()
+/datum/training_task/basic_12_3/init_task()
 	var/datum/training_coords/center = get_center()
 	var/datum/training_coords/max_coordinate = get_max_coordinate()
 
@@ -495,14 +578,14 @@
 	final_turf = get_turf(locate(max_coordinate.x - 1, center.y, master.z))
 	..()
 
-/datum/training_task/basic_9_3/check_func()
+/datum/training_task/basic_12_3/check_func()
 	if (user.x == final_turf.x && user.y == final_turf.y)
 		on_task_success("Отлично")
 		master.task_completed()
 	else
 		..()
 
-/datum/training_task/basic_9_4
+/datum/training_task/basic_12_4
 	description = list("Например сейчас вы находитесь в невесомости и у вас не инерции, потому вы никуда не двигаетесь",
 	"Однако и начать двигаться вы не можете, так рядом не от чего оттолкнуться",
 	"Чтобы выйти из этого неловкого положения вы можете метнуть предмет, находящийся у вас в активной руке",
@@ -510,7 +593,7 @@
 	"Чтобы метнуть этот гаечный ключ у вас в руке, нажмите клавишу «R» и кликните ЛКМ слева от вас")
 	var/turf/final_turf
 
-/datum/training_task/basic_9_4/init_task()
+/datum/training_task/basic_12_4/init_task()
 	var/datum/training_coords/center = get_center()
 	var/datum/training_coords/max_coordinate = get_max_coordinate()
 	user.setLoc(locate(center.x, center.y, center.z), 1)
@@ -519,7 +602,7 @@
 	final_turf = get_turf(locate(max_coordinate.x - 1, center.y, master.z))
 	..()
 
-/datum/training_task/basic_9_4/check_func()
+/datum/training_task/basic_12_4/check_func()
 	if (user.x == final_turf.x && user.y == final_turf.y)
 		on_task_success("Отлично")
 		master.task_completed()
