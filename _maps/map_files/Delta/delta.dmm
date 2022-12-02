@@ -443,7 +443,6 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -691,7 +690,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -730,20 +728,6 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
-"alF" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
 "alO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -2526,13 +2510,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/additional)
-"ayw" = (
-/turf/space,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
-	},
-/area/engine/mechanic_workshop/hangar)
 "ayA" = (
 /turf/simulated/wall,
 /area/quartermaster/sorting)
@@ -2988,19 +2965,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
-"aBm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/hallway/secondary/entry/additional)
 "aBn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3955,13 +3919,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
-"aGM" = (
-/turf/space,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
 "aGQ" = (
 /obj/machinery/light{
 	dir = 1
@@ -6678,12 +6635,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar/atrium)
-"aWf" = (
-/turf/space,
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "aWr" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/cargotech,
@@ -9101,7 +9052,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -15103,13 +15053,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/engrooms)
-"bLu" = (
-/turf/space,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
-/area/security/processing)
 "bLv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -15553,7 +15496,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18390,13 +18332,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
-"bZm" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
 "bZn" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -20000,7 +19935,6 @@
 /area/maintenance/fpmaint)
 "cfb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -27849,12 +27783,6 @@
 	icon_state = "white"
 	},
 /area/medical/chemistry)
-"cKQ" = (
-/turf/space,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/lobby)
 "cKR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -32339,7 +32267,6 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -34675,10 +34602,6 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "dlc" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
 /area/quartermaster/miningdock)
 "dld" = (
 /obj/machinery/alarm{
@@ -42040,7 +41963,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -51473,15 +51395,15 @@
 /area/chapel/office)
 "fmL" = (
 /obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
+	dwidth = 8;
 	height = 22;
 	id = "syndicate_s";
 	name = "south of station";
 	width = 18
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "fmO" = (
 /turf/simulated/floor/engine/co2,
@@ -63350,9 +63272,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/consarea_virology)
 "hRY" = (
-/turf/simulated/wall/shuttle{
-	dir = 4;
-	icon_state = "wall3"
+/turf/simulated/wall/shuttle/nosmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/toxins/test_area)
 "hSo" = (
@@ -98493,7 +98414,6 @@
 	},
 /obj/item/kitchen/utensil/fork,
 /obj/structure/table/wood/fancy,
-/turf/space,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -144793,7 +144713,7 @@ yhg
 yhg
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -145044,7 +144964,7 @@ yhg
 yhg
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -145808,11 +145728,11 @@ aaq
 aaq
 yhg
 yhg
-aWf
 yhg
 yhg
 yhg
-aWf
+yhg
+yhg
 yhg
 yhg
 yhg
@@ -167407,7 +167327,7 @@ yhg
 yhg
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -167663,7 +167583,7 @@ yhg
 yhg
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -167677,7 +167597,7 @@ aaq
 aaq
 aaq
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -167919,7 +167839,7 @@ yhg
 yhg
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -167935,7 +167855,7 @@ aaq
 aaq
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 aaq
@@ -168175,7 +168095,7 @@ yhg
 yhg
 yhg
 yhg
-aWf
+yhg
 yhg
 yhg
 yhg
@@ -169734,7 +169654,7 @@ aLG
 aDj
 aDj
 aAc
-aBm
+aIC
 aIC
 aIC
 aIC
@@ -170770,7 +170690,7 @@ abj
 abj
 abj
 acC
-bZm
+cfb
 czi
 aoo
 amL
@@ -171455,28 +171375,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -171712,28 +171632,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -171969,28 +171889,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -172226,28 +172146,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -172483,28 +172403,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -172740,28 +172660,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -172997,28 +172917,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -173254,28 +173174,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -173511,28 +173431,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+fmL
 aaq
 aaq
 aaq
@@ -173768,28 +173688,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -173854,7 +173774,7 @@ aII
 aII
 bEh
 bPr
-alF
+bgF
 cSy
 lZy
 lZy
@@ -174025,28 +173945,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -174282,28 +174202,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -174539,28 +174459,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -174796,28 +174716,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-fmL
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -175053,28 +174973,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -175310,28 +175230,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -175567,28 +175487,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -175824,28 +175744,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -179252,7 +179172,7 @@ aMB
 aNB
 beC
 bhP
-aGM
+bnj
 jWD
 aZx
 mwu
@@ -179751,7 +179671,7 @@ amN
 asE
 asH
 wBq
-ayw
+uGF
 aBn
 uGF
 wBq
@@ -187018,7 +186938,7 @@ gEL
 gEL
 swQ
 tle
-cKQ
+dcA
 dcA
 dcA
 dcA
@@ -188292,7 +188212,7 @@ jUM
 rWt
 xpz
 gsY
-bLu
+scn
 ubg
 wuf
 ojn

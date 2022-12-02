@@ -78,7 +78,6 @@
 /area/shuttle/supply)
 "p" = (
 /turf/simulated/floor/shuttle,
-/turf/space,
 /area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{

@@ -60,7 +60,6 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "o" = (
-/turf/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "p" = (
@@ -81,7 +80,6 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "r" = (
-/turf/template_noop,
 /turf/template_noop,
 /area/template_noop)
 "s" = (

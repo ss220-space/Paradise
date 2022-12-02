@@ -799,7 +799,6 @@
 /area/awaymission/wwmines)
 "cr" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "cs" = (

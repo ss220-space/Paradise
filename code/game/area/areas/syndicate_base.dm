@@ -73,7 +73,7 @@
 	name = "Syndicate Space Restroom"
 
 /area/syndicate/unpowered/syndicate_space_base/rnd/server
-	name = "Syndicate Space Server Room"
+	name = "ERR#UNKWN Server Room"
 
 /area/syndicate/unpowered/syndicate_space_base/virology
 	name = "Syndicate Space Virology"

@@ -188,7 +188,6 @@
 	},
 /area/centcom/zone1)
 "ajR" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "darkgreynavybluecorner"
@@ -1244,7 +1243,6 @@
 /turf/space,
 /area/space)
 "aYS" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "rampbottom"
@@ -1655,7 +1653,6 @@
 	},
 /area/centcom/zone1)
 "bqf" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows2";
@@ -2681,9 +2678,6 @@
 /turf/unsimulated/floor{
 	icon_state = "sepia"
 	},
-/turf/unsimulated/floor{
-	icon_state = "sepia"
-	},
 /area/ussp_ship)
 "cjs" = (
 /obj/structure/window/plasmareinforced{
@@ -3415,7 +3409,6 @@
 	},
 /area/centcom/evac)
 "cKm" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 9;
 	icon_state = "ninja_walls"
@@ -3632,14 +3625,12 @@
 	dir = 1;
 	switchcount = 50
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
 	},
 /area/centcom/evac)
 "cPV" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -3918,7 +3909,6 @@
 	},
 /area/centcom/bridge)
 "des" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall3";
 	tag = "icon-swall3"
@@ -4599,7 +4589,6 @@
 	desc = "Что делает такая прекрасная лиса в таком ужасном месте? Возможно она кого то символизирует, но скорее всего это лишь ваши фантазии. \n Вы замечаете небольшую заметку на бирке игрушки, однако все что удается вам разглядеть это Sl-end-er.";
 	name = "Лиса?"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -4910,7 +4899,6 @@
 	},
 /area/centcom/jail)
 "dJo" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -5638,7 +5626,6 @@
 	},
 /area/syndicate_mothership)
 "ehx" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -5718,7 +5705,6 @@
 	icon_state = "boxinggreen";
 	item_state = "boxinggreen"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -6106,7 +6092,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "floor4"
 	},
@@ -6859,7 +6844,6 @@
 	},
 /area/centcom/specops)
 "eZu" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkred"
@@ -6913,7 +6897,6 @@
 	},
 /area/vox_station)
 "fbq" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkred"
@@ -7523,10 +7506,6 @@
 	dir = 8;
 	icon_state = "grimy"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "grimy"
-	},
 /area/centcom/evac)
 "frL" = (
 /turf/simulated/wall/shuttle{
@@ -7890,10 +7869,6 @@
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
 "fAZ" = (
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -9065,10 +9040,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "gva" = (
 /obj/structure/dresser,
@@ -9095,7 +9066,6 @@
 	},
 /area/centcom/evac)
 "gvF" = (
-/turf/space,
 /turf/unsimulated/wall{
 	dir = 1;
 	icon = 'icons/turf/shuttle/shuttle.dmi';
@@ -9918,9 +9888,6 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
-	},
-/turf/unsimulated/floor{
-	icon_state = "sepia"
 	},
 /turf/unsimulated/floor{
 	icon_state = "sepia"
@@ -10986,9 +10953,6 @@
 	},
 /obj/structure/fans/tiny,
 /turf/unsimulated/floor{
-	icon_state = "darkgrey"
-	},
-/turf/unsimulated/floor{
 	icon_state = "dark"
 	},
 /area/centcom/specops)
@@ -11858,10 +11822,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "ipv" = (
 /turf/simulated/floor/holofloor{
@@ -11914,7 +11874,6 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkredfull"
@@ -12262,7 +12221,6 @@
 	},
 /area/centcom/specops)
 "iBB" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall12";
 	tag = "icon-swall12"
@@ -12684,7 +12642,6 @@
 /area/centcom/evac)
 "iPw" = (
 /obj/machinery/computer/station_alert,
-/turf/space,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -13714,7 +13671,6 @@
 	scan_range = 12;
 	shot_delay = 8
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -14430,7 +14386,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "sepia"
 	},
@@ -15030,7 +14985,6 @@
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
 "kty" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -15283,10 +15237,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "kBB" = (
 /obj/structure/flora/grass/green,
@@ -15303,7 +15253,6 @@
 	locked = 1;
 	name = "ERT Director office"
 	},
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 6;
 	tag = "icon-fakewindows (NORTHEAST)"
@@ -18243,7 +18192,6 @@
 	nightshift_light_range = 10;
 	throw_range = 6
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon = 'icons/turf/floors/carpet_black.dmi';
@@ -21118,7 +21066,6 @@
 	},
 /area/centcom/bridge)
 "osu" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "darkred"
@@ -21873,7 +21820,6 @@
 	opacity = 1;
 	req_access_txt = "114"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "navyblue"
@@ -23104,9 +23050,6 @@
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
 /area/centcom/specops)
 "pBW" = (
 /obj/structure/rack/holorack,
@@ -23466,7 +23409,6 @@
 	},
 /area/centcom/zone2)
 "pLD" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "vault";
@@ -24008,7 +23950,6 @@
 	max_integrity = 1500;
 	volume = 1500
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "darkpurple"
 	},
@@ -24342,7 +24283,6 @@
 /area/shuttle/assault_pod)
 "qlj" = (
 /obj/structure/table/wood/poker,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -25117,7 +25057,6 @@
 	},
 /area/centcom/zone3)
 "qLD" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -25453,10 +25392,6 @@
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
-	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
 	},
 /turf/unsimulated/floor{
 	dir = 8;
@@ -26162,9 +26097,6 @@
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
 /area/centcom/specops)
 "rtp" = (
 /obj/item/gun/rocketlauncher,
@@ -26365,7 +26297,6 @@
 	},
 /area/holodeck/source_knightarena)
 "ryw" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -27354,7 +27285,6 @@
 	locked = 1;
 	name = "Central Command Special Operations Forces"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -27566,7 +27496,6 @@
 /area/syndicate_mothership)
 "skq" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/space,
 /turf/unsimulated/floor{
 	name = "plating"
 	},
@@ -27931,7 +27860,6 @@
 	},
 /area/centcom/bridge)
 "sum" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows3";
@@ -28454,7 +28382,6 @@
 /area/centcom/specops)
 "sMn" = (
 /obj/effect/decal/warning_stripes/south,
-/turf/space,
 /turf/unsimulated/floor{
 	name = "plating"
 	},
@@ -28923,7 +28850,6 @@
 	name = "Port Solar Array"
 	},
 /obj/structure/cable,
-/turf/space,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -28966,7 +28892,6 @@
 	},
 /area/ussp_ship)
 "tfq" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows2";
@@ -29515,7 +29440,6 @@
 /area/centcom/zone3)
 "tyk" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -29760,7 +29684,6 @@
 	},
 /area/centcom/specops)
 "tKt" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "darkgrey"
 	},
@@ -30219,10 +30142,6 @@
 	req_access_txt = "102"
 	},
 /turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
-/turf/unsimulated/floor{
 	icon_state = "tranquillite"
 	},
 /area/centcom/specops)
@@ -30539,7 +30458,6 @@
 /area/centcom/specops)
 "uku" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -30554,7 +30472,6 @@
 	},
 /area/syndicate_mothership)
 "ukz" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -30812,7 +30729,6 @@
 	},
 /area/ninja/outpost)
 "uui" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "darkgreynavyblue"
@@ -30971,7 +30887,6 @@
 /obj/effect/landmark{
 	name = "Commando"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -31028,7 +30943,6 @@
 	pixel_x = -24;
 	pixel_y = 8
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "floor4"
 	},
@@ -32087,7 +32001,6 @@
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "vpr" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkgreynavyblue"
@@ -32224,7 +32137,6 @@
 	},
 /area/wizard_station)
 "vvn" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 5;
 	tag = "icon-fakewindows (NORTHEAST)"
@@ -32811,11 +32723,6 @@
 	icon_state = "catwalk";
 	name = "plating"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk";
-	name = "plating"
-	},
 /area/centcom/specops)
 "vKq" = (
 /obj/structure/bush,
@@ -32909,9 +32816,6 @@
 "vLT" = (
 /obj/effect/landmark{
 	name = "Marauder Exit"
-	},
-/turf/unsimulated/floor{
-	name = "plating"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
@@ -33055,7 +32959,6 @@
 	locked = 1;
 	name = "Armory level 3"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -33139,7 +33042,6 @@
 /area/tdome/arena)
 "vUG" = (
 /obj/structure/table/reinforced,
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -33232,7 +33134,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -33717,9 +33618,6 @@
 	},
 /obj/structure/fans/tiny,
 /turf/unsimulated/floor{
-	icon_state = "darkgrey"
-	},
-/turf/unsimulated/floor{
 	icon_state = "dark"
 	},
 /area/centcom/specops)
@@ -33913,10 +33811,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "wuP" = (
 /obj/effect/turf_decal/weather/snow/corner,
@@ -34003,9 +33897,6 @@
 	dir = 4;
 	id_tag = "ASSAULT2";
 	name = "gravpult"
-	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
 	},
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -36059,7 +35950,6 @@
 	},
 /area/shuttle/gamma/space)
 "xLW" = (
-/turf/space,
 /turf/unsimulated/wall{
 	dir = 4;
 	icon = 'icons/turf/shuttle/shuttle.dmi';
@@ -36076,10 +35966,6 @@
 /obj/item/kitchen/utensil/spork,
 /obj/item/kitchen/utensil/spork,
 /obj/item/kitchen/utensil/spork,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -36312,7 +36198,6 @@
 	},
 /area/admin)
 "xXr" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -36397,7 +36282,6 @@
 /obj/item/storage/briefcase/inflatable,
 /obj/item/storage/briefcase/inflatable,
 /obj/item/storage/briefcase/inflatable,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -36465,7 +36349,6 @@
 	},
 /area/syndicate_mothership)
 "yaG" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "darkgreynavyblue"
@@ -36512,7 +36395,6 @@
 /obj/item/grenade/clusterbuster/cleaner,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -36591,7 +36473,6 @@
 	},
 /area/centcom/zone3)
 "yeD" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "floor4"
 	},
