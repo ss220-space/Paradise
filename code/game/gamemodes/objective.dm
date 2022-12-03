@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				if(issilicon(player))
 					continue
 				if(get_area(player) == A)
-					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/shuttle/objective_check))
 						return 0
 
 	for(var/mob/living/player in GLOB.player_list) //Make sure at least one of you is onboard
@@ -280,7 +280,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				if(issilicon(player))
 					continue
 				if(get_area(player) == A)
-					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/shuttle/objective_check))
 						return 1
 	return 0
 
@@ -330,7 +330,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!location)
 		return 0
 
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
+	if(istype(location, /turf/simulated/floor/shuttle/objective_check) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
 		return 0
 
 	if(location.onCentcom() || location.onSyndieBase())
@@ -1041,7 +1041,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/turf/location = get_turf(target.current)
 	if(!location)
 		return 0
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
+	if(istype(location, /turf/simulated/floor/shuttle/objective_check) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
 		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - в зоне СБ на шаттле. Успех")
 		return 1
 
@@ -1109,13 +1109,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/vermit_hunt
 	martyr_compatible = 1
-	// Лист разумов всех генокрадов.
-	var/list/changelings = list()
+	var/req_kills
 
 /datum/objective/vermit_hunt/find_target()
 	generate_changelings()
-	explanation_text = "На объекте вашей миссии действуют паразиты так же известные как \"Генокрады\" истребите хотя бы [max(1, round(length(changelings)/2))] из них."
-	return changelings
+	req_kills = max(1, round(length(SSticker.mode.changelings)/2))
+	explanation_text = "На объекте вашей миссии действуют паразиты так же известные как \"Генокрады\" истребите хотя бы [req_kills] из них."
 
 /datum/objective/vermit_hunt/proc/generate_changelings()
 	log_debug("Ninja_Objectives_Log: Начата генерация генокрадов.")
@@ -1138,14 +1137,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			var/datum/mind/new_changeling_mind = pick(possible_changelings)
 			new_changeling_mind.make_Changeling()
 			possible_changelings.Remove(new_changeling_mind)
-			changelings += new_changeling_mind
 
 /datum/objective/vermit_hunt/check_completion()
 	var/killed_vermits = 0
-	for(var/datum/mind/player in changelings)
+	for(var/datum/mind/player in SSticker.mode.changelings)
 		if(!player || !player.current || !player.current.ckey || player.current.stat == DEAD || issilicon(player.current) || isbrain(player.current))
 			killed_vermits += 1
-	if(killed_vermits >= length(changelings)/2)
+	if(killed_vermits >= req_kills)
 		return TRUE
 	return FALSE
 
