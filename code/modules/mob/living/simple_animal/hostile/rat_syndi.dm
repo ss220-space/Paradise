@@ -83,11 +83,6 @@
 	else if(prob(0.5))
 		StartResting()
 
-/mob/living/simple_animal/hostile/retaliate/syndirat/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == INTENT_HELP)
-		get_scooped(M)
-	..()
-
 /mob/living/simple_animal/hostile/retaliate/syndirat/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
 		if(!stat)
