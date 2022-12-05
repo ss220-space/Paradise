@@ -11,7 +11,7 @@ z4 = lavaland
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\training\training.dmm"
-	#include "map_files\cyberiad\z2.dmm"
+	#include "map_files\generic\CentComm.dmm"
 	#include "map_files\generic\Lavaland.dmm"
 
 	#define MAP_TRANSITION_CONFIG list(\
