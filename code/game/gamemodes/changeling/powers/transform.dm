@@ -24,6 +24,10 @@
 
 	transform_dna(user,chosen_dna)
 
+	for(var/mob/M in GLOB.player_list)
+		if(M.dna == chosen_dna)
+			user.tts_seed = M.tts_seed
+
 	user.changeling_update_languages(changeling.absorbed_languages)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
