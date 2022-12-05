@@ -48,6 +48,8 @@
 /datum/training_task/basic_2_1/init_task()
 	var/datum/training_coords/center = get_center()
 	chair = new /obj/structure/chair(locate(center.x, center.y, master.z))
+	chair.anchored = TRUE
+	chair.resistance_flags = INDESTRUCTIBLE
 	..()
 
 /datum/training_task/basic_2_1/check_func()
