@@ -1,9 +1,7 @@
 //Updates the mob's health from organs and mob damage variables
 /mob/living/carbon/human/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
+		return ..(reason)
 
 	var/total_burn  = 0
 	var/total_brute = 0
@@ -18,7 +16,6 @@
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 	update_stat("updatehealth([reason])")
-	med_hud_set_health()
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
@@ -281,6 +278,7 @@
 // damage MANY external organs, in random order
 /mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
 	if(status_flags & GODMODE)
+		updatehealth("take overall damage but GODMODE")
 		return	//godmode
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
