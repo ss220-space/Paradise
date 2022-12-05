@@ -68,12 +68,16 @@
 
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/obj/item/organ/external/O in bodyparts)
 		amount += O.brute_dam
 	return amount
 
 /mob/living/carbon/human/getFireLoss()
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/obj/item/organ/external/O in bodyparts)
 		amount += O.burn_dam

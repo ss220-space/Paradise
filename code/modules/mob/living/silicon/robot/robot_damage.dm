@@ -3,6 +3,8 @@
 	check_module_damage()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
@@ -11,6 +13,8 @@
 	return amount
 
 /mob/living/silicon/robot/getFireLoss(repairable_only = FALSE)
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
