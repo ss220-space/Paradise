@@ -124,9 +124,9 @@
 /datum/training_task/proc/check_func()
 	addtimer(CALLBACK(src, .proc/check_func), 10)
 
-/datum/training_task/proc/on_task_success(var/text = "Отлично")
-	var/sleep_duration = calculate_say_duration(text)
-	master.trainer.say(text)
+/datum/training_task/proc/on_task_success(var/message = "Отлично")
+	var/sleep_duration = calculate_say_duration(message)
+	master.trainer.say(message)
 	sleep(sleep_duration SECONDS)
 	to_chat(user, "<span class ='green' style='font-size: 18px'>---------------------------------------</span>")
 
