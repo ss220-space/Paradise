@@ -1839,15 +1839,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						uplink_pref = new_uplink_pref
 
 				if("tts_seed")
-					var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
-					var/list/tts_seeds = list()
-					for(var/_seed in SStts.tts_seeds)
-						var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
-						tts_seeds += _tts_seed.name
-					var/new_tts_seed = input(user, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
+					var/new_tts_seed = user.select_voice()
 					if(new_tts_seed)
 						tts_seed = new_tts_seed
-						INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, tts_seed, FALSE)
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")

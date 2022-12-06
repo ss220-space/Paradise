@@ -1460,15 +1460,10 @@
 		if(!isliving(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /living</span>")
 			return
-		var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
-		var/list/tts_seeds = list()
-		for(var/_seed in SStts.tts_seeds)
-			var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
-			tts_seeds += _tts_seed.name
-		var/new_tts_seed = input(usr, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
-		if(new_tts_seed)
-			M.tts_seed = new_tts_seed
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, usr, tts_test_str, new_tts_seed, FALSE)
+		var/old_tts_seed = M.tts_seed
+		var/new_tts_seed = M.change_voice(usr)
+		to_chat(M, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>")
+		log_and_message_admins("has changed [key_name_admin(M)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["update_mob_sprite"])
 		if(!check_rights(R_ADMIN))

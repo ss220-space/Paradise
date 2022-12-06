@@ -624,14 +624,26 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		rename_character(oldname, newname)
 
-/mob/proc/change_voice()
+/mob/proc/select_voice(mob/user)
+	var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
 	var/list/tts_seeds = list()
 	for(var/_seed in SStts.tts_seeds)
 		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
 		tts_seeds += _tts_seed.name
-	var/new_tts_seed = input(src, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
-	if(new_tts_seed)
-		tts_seed = new_tts_seed
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
+	if(!new_tts_seed)
+		return null
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
+	if(user)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
+	return new_tts_seed
+
+/mob/proc/change_voice(mob/user)
+	var/new_tts_seed = select_voice(user)
+	if(!new_tts_seed)
+		return null
+	tts_seed = new_tts_seed
+	return new_tts_seed
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
