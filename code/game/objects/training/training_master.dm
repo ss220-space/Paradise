@@ -8,7 +8,6 @@
 
 /obj/training_master/Initialize(mapload, user)
 	. = ..()
-	src.setLoc(locate(src.x, src.y, src.z), TRUE)
 	spawn_room(user)
 
 /obj/training_master/proc/destroy_room()
@@ -37,12 +36,17 @@
 
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
-			new /turf/unsimulated/floor(locate(x, y, src.z))
+			var/turf/old_turf = get_turf(locate(x, y, src.y))
+			for(var/A in old_turf.contents)
+				if (A != src)
+					qdel(A)
 			if (x == startX || x == endX || y == startY || y == endY)
-				new /turf/simulated/wall/indestructible(locate(x, y, src.z))
+				old_turf.ChangeTurf(/turf/simulated/wall/indestructible)
+			else
+				old_turf.ChangeTurf(/turf/unsimulated/floor)
 
 	var/datum/training_coords/center = get_center()
-	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, src.y, src.z))
+	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, startY, src.y))
 	trainer.anchored = TRUE
 	trainer.status_flags |= GODMODE
 	trainer.add_language("Galactic Common", 1)
