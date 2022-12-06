@@ -101,69 +101,8 @@
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
-	var/obj/item/inventory_head
-	var/obj/item/inventory_back
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
-
-/mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
-	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/Destroy()
-	QDEL_NULL(inventory_head)
-	QDEL_NULL(inventory_back)
-	return ..()
-
-/mob/living/simple_animal/pet/dog/corgi/handle_atom_del(atom/A)
-	if(A == inventory_head)
-		inventory_head = null
-		regenerate_icons()
-	if(A == inventory_back)
-		inventory_back = null
-		regenerate_icons()
-	return ..()
-
-/mob/living/simple_animal/pet/dog/corgi/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/death(gibbed)
-	..(gibbed)
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[inventory_back]" : "add_inv=back'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
-	var/armorval = 0
-
-	if(def_zone)
-		if(def_zone == "head")
-			if(inventory_head)
-				armorval = inventory_head.armor.getRating(type)
-		else
-			if(inventory_back)
-				armorval = inventory_back.armor.getRating(type)
-		return armorval
-	else
-		if(inventory_head)
-			armorval += inventory_head.armor.getRating(type)
-		if(inventory_back)
-			armorval += inventory_back.armor.getRating(type)
-	return armorval * 0.5
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/razor))
@@ -186,162 +125,51 @@
 				icon_state = icon_dead
 		return
 	..()
-	update_corgi_fluff()
+	update_fluff()
 
-/mob/living/simple_animal/pet/dog/corgi/Topic(href, href_list)
-	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
+/mob/living/simple_animal/pet/dog/corgi/place_on_back_fashion(obj/item/item_to_add, mob/user)
+	var/is_wear_fashion_back = FALSE
+	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/back))
+		is_wear_fashion_back = TRUE
 
-	//Removing from inventory
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				if(inventory_head)
-					if(inventory_head.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					usr.put_in_hands(inventory_head)
-					inventory_head = null
-					update_corgi_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
-			if("back")
-				if(inventory_back)
-					if(inventory_back.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					usr.put_in_hands(inventory_back)
-					inventory_back = null
-					update_corgi_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
-			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					unEquip(pcollar)
-					usr.put_in_hands(the_collar)
-					pcollar = null
-					update_corgi_fluff()
-					regenerate_icons()
+		if(item_to_add.dog_fashion.is_animated_fashion)
+			animated_fashion = TRUE
 
-		show_inv(usr)
-
-	//Adding things to inventory
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-
-		switch(add_to)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-				update_corgi_fluff()
-
-			if("head")
-				place_on_head(usr.get_active_hand(),usr)
-
-			if("back")
-				if(inventory_back)
-					to_chat(usr, "<span class='warning'>It's already wearing something!</span>")
-					return
-				else
-					var/obj/item/item_to_add = usr.get_active_hand()
-
-					if(!item_to_add)
-						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s back for a moment.</span>")
-						return
-
-					if(!usr.unEquip(item_to_add))
-						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>")
-						return
-
-					if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
-						item_to_add.afterattack(src,usr,1)
-						return
-
-					//The objects that corgis can wear on their backs.
-					var/allowed = FALSE
-					if(ispath(item_to_add.dog_fashion, /datum/dog_fashion/back))
-						allowed = TRUE
-
-					if(!allowed)
-						to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s back, but it falls off!</span>")
-						item_to_add.forceMove(drop_location())
-						if(prob(25))
-							step_rand(item_to_add)
-						for(var/i in list(1,2,4,8,4,8,4,dir))
-							setDir(i)
-							sleep(1)
-						return
-
-					item_to_add.forceMove(src)
-					inventory_back = item_to_add
-					update_corgi_fluff()
-					regenerate_icons()
-
-		show_inv(usr)
-	else
-		return ..()
+	return is_wear_fashion_back
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 // > some will probably be removed
+/mob/living/simple_animal/pet/dog/corgi/place_on_head_fashion(obj/item/item_to_add, mob/user)
+	is_wear_fashion_head = FALSE
+	if(ispath(item_to_add.dog_fashion, /datum/fashion/dog_fashion/head))
+		is_wear_fashion_head = TRUE
 
-/mob/living/simple_animal/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user)
-
-	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
-		item_to_add.afterattack(src,user,1)
-		return
-
-	if(inventory_head)
-		if(user)
-			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
-		return
-	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
-			return
-		return
-
-	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
-		return 0
-
-	var/valid = FALSE
-	if(ispath(item_to_add.dog_fashion, /datum/dog_fashion/head))
-		valid = TRUE
+		//Анимированная одежда
+		if(item_to_add.dog_fashion.is_animated_fashion)
+			animated_fashion = TRUE
 
 	//Various hats and items (worn on his head) change Ian's behaviour. His attributes are reset when a hat is removed.
 
-	if(valid)
+	if(is_wear_fashion_head)
 		if(health <= 0)
 			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
 		else if(user)
 			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
-		update_corgi_fluff()
+		update_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
-		item_to_add.forceMove(drop_location())
-		if(prob(25))
-			step_rand(item_to_add)
-		for(var/i in list(1,2,4,8,4,8,4,dir))
-			setDir(i)
-			sleep(1)
+		. = ..()
 
-	return valid
+	return is_wear_fashion_head
 
-/mob/living/simple_animal/pet/dog/corgi/proc/update_corgi_fluff()
+/mob/living/simple_animal/pet/dog/corgi/update_fluff()
 	// First, change back to defaults
 	name = real_name
 	desc = initial(desc)
@@ -357,53 +185,59 @@
 	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
-		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		var/datum/fashion/DF = new inventory_head.dog_fashion(src)
 		DF.apply(src)
 
 	if(inventory_back && inventory_back.dog_fashion)
-		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		var/datum/fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
+	//message_admins("Тест 0")
 
-/mob/living/simple_animal/pet/dog/corgi/regenerate_icons()
-	..()
-	if(inventory_head)
-		var/image/head_icon
-		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+/mob/living/simple_animal/pet/dog/corgi/regenerate_head_icon()
+	if (!is_wear_fashion_head)
+		return ..()
 
-		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_head.icon_state
-		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_head.alpha
-		if(!DF.obj_color)
-			DF.obj_color = inventory_head.color
+	var/image/head_icon	//Возникло исключение: Cannot create objects of type null.
+	var/datum/fashion/DF = new inventory_head.dog_fashion(src)	//!!!!!!!Не видит (null) когда надеваем что-то вне
 
-		if(health <= 0)
-			head_icon = DF.get_overlay(dir = EAST)
-			head_icon.pixel_y = -8
-			head_icon.transform = turn(head_icon.transform, 180)
-		else
-			head_icon = DF.get_overlay()
+	if(!DF.obj_icon_state)
+		DF.obj_icon_state = inventory_head.icon_state
+	if(!DF.obj_alpha)
+		DF.obj_alpha = inventory_head.alpha
+	if(!DF.obj_color)
+		DF.obj_color = inventory_head.color
 
-		add_overlay(head_icon)
+	if(health <= 0)
+		head_icon = DF.get_overlay(dir = EAST)
+		head_icon.pixel_y = -8
+		head_icon.transform = turn(head_icon.transform, 180)
+	else
+		head_icon = DF.get_overlay()
 
-	if(inventory_back)
-		var/image/back_icon
-		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+	add_overlay(head_icon)
 
-		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_back.icon_state
-		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_back.alpha
-		if(!DF.obj_color)
-			DF.obj_color = inventory_back.color
 
-		if(health <= 0)
-			back_icon = DF.get_overlay(dir = EAST)
-			back_icon.pixel_y = -11
-			back_icon.transform = turn(back_icon.transform, 180)
-		else
-			back_icon = DF.get_overlay()
-		add_overlay(back_icon)
+/mob/living/simple_animal/pet/dog/corgi/regenerate_back_icon()
+	if (!is_wear_fashion_back)
+		return ..()
+
+	var/image/back_icon
+	var/datum/fashion/DF = new inventory_back.dog_fashion(src)
+
+	if(!DF.obj_icon_state)
+		DF.obj_icon_state = inventory_back.icon_state
+	if(!DF.obj_alpha)
+		DF.obj_alpha = inventory_back.alpha
+	if(!DF.obj_color)
+		DF.obj_color = inventory_back.color
+
+	if(health <= 0)
+		back_icon = DF.get_overlay(dir = EAST)
+		back_icon.pixel_y = -11
+		back_icon.transform = turn(back_icon.transform, 180)
+	else
+		back_icon = DF.get_overlay()
+	add_overlay(back_icon)
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Ian
@@ -592,7 +426,7 @@
 					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
 			P.gib()
 
-/mob/living/simple_animal/pet/dog/corgi/narsie/update_corgi_fluff()
+/mob/living/simple_animal/pet/dog/corgi/narsie/update_fluff()
 	..()
 	speak = list("Tari'karat-pasnar!", "IA! IA!", "BRRUUURGHGHRHR")
 	speak_emote = list("growls", "barks ominously")
@@ -614,7 +448,7 @@
 	nofur = TRUE
 	unique_pet = TRUE
 
-/mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
+/mob/living/simple_animal/pet/dog/corgi/ratvar/update_fluff()
 	..()
 	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
 	speak_emote = list("growls", "barks ominously")
@@ -635,13 +469,6 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
-
-//puppies cannot wear anything.
-/mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
-	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
-		return
-	..()
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
 	name = "\improper void puppy"
@@ -674,13 +501,6 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
-
-//Lisa already has a cute bow!
-/mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
-	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "<span class='danger'>[src] already has a cute bow!</span>")
-		return
-	..()
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()

@@ -65,7 +65,7 @@
 	icon_state = "fried_vox_empty"
 	item_state = "fried_vox_empty"
 	slot_flags = SLOT_HEAD
-	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
+	dog_fashion = /datum/fashion/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
 		"Skrell" = 'icons/mob/species/skrell/head.dmi',
 		"Drask" = 'icons/mob/species/drask/head.dmi',

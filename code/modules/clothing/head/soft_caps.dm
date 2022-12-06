@@ -6,7 +6,7 @@
 	item_color = "cargo"
 	var/flipped = 0
 	actions_types = list(/datum/action/item_action/flip_cap)
-	dog_fashion = /datum/dog_fashion/head/cargo_tech
+	dog_fashion = /datum/fashion/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',

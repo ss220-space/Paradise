@@ -317,7 +317,7 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
-	dog_fashion = /datum/dog_fashion/head
+	dog_fashion = /datum/fashion/dog_fashion/head
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',

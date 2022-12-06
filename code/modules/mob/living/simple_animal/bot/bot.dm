@@ -823,9 +823,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
 
-/mob/living/simple_animal/bot/show_inv()
-	return
-
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
 	var/dat = {"<meta charset="UTF-8">"}
@@ -844,6 +841,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return "PROTOBOT - NOT FOR USE"
 
 /mob/living/simple_animal/bot/Topic(href, href_list)
+	if(..())
+		return 1
+
 	if(href_list["close"])// HUE HUE
 		if(usr in users)
 			users.Remove(usr)

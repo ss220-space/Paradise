@@ -254,7 +254,7 @@
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
 	actions_types = list(/datum/action/item_action/pontificate)
-	dog_fashion = /datum/dog_fashion/head/not_ian
+	dog_fashion = /datum/fashion/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',

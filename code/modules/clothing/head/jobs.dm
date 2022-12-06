@@ -8,7 +8,7 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	put_on_delay = 10
-	dog_fashion = /datum/dog_fashion/head/chef
+	dog_fashion = /datum/fashion/dog_fashion/head/chef
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -18,7 +18,7 @@
 	item_state = "caphat"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/captain
+	dog_fashion = /datum/fashion/dog_fashion/head/captain
 
 //Captain: no longer space-worthy
 /obj/item/clothing/head/caphat/parade
@@ -33,7 +33,7 @@
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	dog_fashion = /datum/dog_fashion/head/hop
+	dog_fashion = /datum/fashion/dog_fashion/head/hop
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
@@ -85,8 +85,8 @@
 	icon_state = "detective"
 	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
-	dog_fashion = /datum/dog_fashion/head/detective
-	muhtar_fashion = /datum/muhtar_fashion/head/detective
+	dog_fashion = /datum/fashion/dog_fashion/head/detective
+	muhtar_fashion = /datum/fashion/muhtar_fashion/head/detective
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -102,7 +102,7 @@
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
-	dog_fashion = /datum/dog_fashion/head/beret
+	dog_fashion = /datum/fashion/dog_fashion/head/beret
 
 /obj/item/clothing/head/beret/durathread
 	name = "durathread beret"
@@ -123,7 +123,7 @@
 	name = "head of security beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
-	snake_fashion = /datum/snake_fashion/head/beret_hos_black
+	snake_fashion = /datum/fashion/snake_fashion/head/beret_hos_black
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -131,7 +131,7 @@
 	icon_state = "policehelm"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/warden
+	dog_fashion = /datum/fashion/dog_fashion/head/warden
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"
@@ -148,7 +148,7 @@
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 	dog_fashion = null
-	muhtar_fashion = /datum/muhtar_fashion/head/beret
+	muhtar_fashion = /datum/fashion/muhtar_fashion/head/beret
 
 /obj/item/clothing/head/beret/sec/black
 	name = "black security beret"

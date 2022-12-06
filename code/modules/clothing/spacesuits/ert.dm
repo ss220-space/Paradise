@@ -329,7 +329,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	strip_delay = 130
 	slowdown = 0
-	dog_fashion = /datum/dog_fashion/back/deathsquad
+	dog_fashion = /datum/fashion/dog_fashion/back/deathsquad
 
 	sprite_sheets = list(
 		"Monkey" = 'icons/mob/species/monkey/suit.dmi',

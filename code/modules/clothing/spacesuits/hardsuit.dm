@@ -196,7 +196,7 @@
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 100, "acid" = 75)
 	resistance_flags = FIRE_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
-	dog_fashion = /datum/dog_fashion/back/hardsuit
+	dog_fashion = /datum/fashion/dog_fashion/back/hardsuit
 
 //Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos

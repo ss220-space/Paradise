@@ -23,6 +23,8 @@
 
 	drop_hat()
 
+	unEquip(inventory_head)
+
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list -= src
 	QDEL_IN(animation, 15)

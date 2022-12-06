@@ -26,7 +26,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/fashion/dog_fashion/back
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"

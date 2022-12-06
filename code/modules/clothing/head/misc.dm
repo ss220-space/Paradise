@@ -40,7 +40,7 @@
 	desc = "It's an amish looking hat."
 	icon_state = "tophat"
 	item_state = "that"
-	dog_fashion = /datum/dog_fashion/head
+	dog_fashion = /datum/fashion/dog_fashion/head
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
@@ -69,7 +69,7 @@
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
-	dog_fashion = /datum/dog_fashion/head/nurse
+	dog_fashion = /datum/fashion/dog_fashion/head/nurse
 
 /obj/item/clothing/head/syndicatefake
 	name = "black and red space-helmet replica"
@@ -168,7 +168,7 @@
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
-	dog_fashion = /datum/dog_fashion/head/rabbit
+	dog_fashion = /datum/fashion/dog_fashion/head/rabbit
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
@@ -181,7 +181,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	dog_fashion = /datum/dog_fashion/head/pirate
+	dog_fashion = /datum/fashion/dog_fashion/head/pirate
 
 /obj/item/clothing/head/hgpiratecap
 	name = "pirate hat"
@@ -431,7 +431,7 @@
 	icon_state = "sombrero"
 	item_state = "sombrero"
 	desc = "You can practically taste the fiesta."
-	dog_fashion = /datum/dog_fashion/head/sombrero
+	dog_fashion = /datum/fashion/dog_fashion/head/sombrero
 
 /obj/item/clothing/head/sombrero/green
 	name = "green sombrero"
@@ -461,7 +461,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
-	dog_fashion = /datum/dog_fashion/head/cone
+	dog_fashion = /datum/fashion/dog_fashion/head/cone
 
 /obj/item/clothing/head/jester
 	name = "jester hat"

@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/fashion/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
@@ -773,7 +773,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/off
 	listening = 0
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/fashion/dog_fashion/back
 
 /obj/item/radio/phone
 	broadcasting = 0

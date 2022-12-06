@@ -11,7 +11,7 @@
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
-	dog_fashion = /datum/dog_fashion/head/hardhat
+	dog_fashion = /datum/fashion/dog_fashion/head/hardhat
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
@@ -87,7 +87,7 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/hardhat
+	dog_fashion = /datum/fashion/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/hardhat/dblue
 	icon_state = "hardhat0_dblue"

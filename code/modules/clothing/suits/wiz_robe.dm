@@ -10,13 +10,13 @@
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
-	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	dog_fashion = /datum/fashion/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
 	desc = "Strange-looking, red, hat-wear that most certainly belongs to a real magic user."
 	icon_state = "redwizard"
-	dog_fashion = /datum/dog_fashion/head/red_wizard
+	dog_fashion = /datum/fashion/dog_fashion/head/red_wizard
 
 /obj/item/clothing/head/wizard/black
 	name = "black wizard hat"
@@ -57,7 +57,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	magical = FALSE
 	resistance_flags = FLAMMABLE
-	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	dog_fashion = /datum/fashion/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/marisa
 	name = "Witch Hat"
