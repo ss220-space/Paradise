@@ -353,6 +353,8 @@ SUBSYSTEM_DEF(tts)
 	. = rustg_latin_to_cyrillic(.)
 	for(var/word in tts_replacement_list)
 		. = replacetext(., regex("(?<!\[\\wа-яё])[word](?!\[\\wа-яё])", "igm"), tts_replacement_list[word])
+	. = replacetext(., regex(@"(?<=[1-90])(\.|,)(?=[1-90])", "g"), " целых ")
+	. = replacetext(., regex(@"\d+", "g"), /proc/num_in_words)
 
 /proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
