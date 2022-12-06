@@ -624,7 +624,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		rename_character(oldname, newname)
 
-/mob/proc/select_voice(mob/user)
+/mob/proc/select_voice(mob/user, silent_target = FALSE)
 	var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
 	var/list/tts_seeds = list()
 	for(var/_seed in SStts.tts_seeds)
@@ -633,7 +633,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
 	if(!new_tts_seed)
 		return null
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
+	if(!silent_target)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
 	if(user)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
 	return new_tts_seed
