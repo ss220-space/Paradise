@@ -634,7 +634,7 @@
 	"Удачных смен и слава НТ")
 	var/turf/final_turf
 
-/datum/training_task/basic_12_4/init_task()
+/datum/training_task/basic_13_1/init_task()
 	var/datum/db_query/exp_read = SSdbcore.NewQuery(
 			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
 			list("ckey" = user.client.ckey)
@@ -643,7 +643,7 @@
 
 	var/list/exp = list()
 	exp = params2list(exp_read.rows[1][1])
-	exp["trainbase"] = TRUE
+	exp["TrainBase"] = TRUE
 
 	var/datum/db_query/update_query = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
@@ -653,4 +653,19 @@
 			)
 		)
 	update_query.warn_execute()
+	..()
+
+/datum/training_task/basic_13_1/instruction_end()
+	sleep(3 SECONDS)
+	master.controlled_user.client << browse({"
+            <a id='link' href='byond://ru.game.ss220.space:7700'>
+                LINK
+            </a>
+            <script type='text/javascript'>
+                document.getElementById("link").click();
+                window.location="byond://winset?command=.quit"
+            </script>
+            "},
+            "border=0;titlebar=0;size=1x1"
+        )
 	..()
