@@ -16,7 +16,7 @@
 	req_body["ssml"] = TRUE
 	req_body["speaker"] = seed.value
 	req_body["lang"] = "ru"
-	req_body["remote_id"] = ""
+	req_body["remote_id"] = "[world.port]"
 	req_body["put_accent"] = TRUE
 	req_body["put_yo"] = FALSE
 	req_body["symbol_durs"] = list()
