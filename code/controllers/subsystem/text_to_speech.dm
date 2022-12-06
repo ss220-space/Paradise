@@ -33,10 +33,10 @@ SUBSYSTEM_DEF(tts)
 	var/is_enabled = TRUE
 
 	var/list/tts_replacement_list = list(\
-		"Тесла" = "Тэсла",
 		"тесла" = "тэсла",
 		"НТ" = "Эн Тэ",
 		"трейзен" = "трэйзэн",
+		"нанотрейзен" = "нанотрэйзэн",
 		"СМО" = "Эс Мэ О",
 		"ГП" = "Гэ Пэ",
 		"РД" = "Эр Дэ",
@@ -84,6 +84,14 @@ SUBSYSTEM_DEF(tts)
 		"БД" = "Бэ Дэ",
 		"ССТ" = "Эс Эс Тэ",
 		"СКС" = "Эс Ка Эс",
+		"ИКН" = "И Ка Эн",
+		"НСС" = "Эн Эс Эс",
+		"ЕМП" = "Йе Эм Пэ",
+		"БС" = "Бэ Эс",
+		"ЦКС" = "Цэ Ка Эс",
+		"СРД" = "Эс Эр Дэ",
+		"ЖПС" = "Джи Пи Эс",
+		"ННКСС" = "Эн Эн Ка Эс Эс",
 	)
 
 	var/list/datum/tts_seed/tts_seeds = list()
@@ -339,11 +347,12 @@ SUBSYSTEM_DEF(tts)
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
 	. = message
 	. = trim(.)
-	. = regex("<\[^>]*>", "g").Replace(., "")
+	. = regex(@"<[^>]*>", "g").Replace(., "")
 	. = html_decode(.)
-	. = replace_characters(., tts_replacement_list, TRUE)
-	. = regex("\[^a-zA-Z0-9а-яА-ЯёЁ,!?+./ \\r\\n\\t:—()-]", "g").Replace(., "")
+	. = regex(@"[^a-zA-Z0-9а-яА-ЯёЁ,!?+./ \r\n\t:—()-]", "g").Replace(., "")
 	. = rustg_latin_to_cyrillic(.)
+	for(var/word in tts_replacement_list)
+		. = replacetext(., regex("(?<!\[\\wа-яё])[word](?!\[\\wа-яё])", "igm"), tts_replacement_list[word])
 
 /proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
