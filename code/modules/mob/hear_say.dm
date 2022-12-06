@@ -124,7 +124,7 @@
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
 			effect = SOUND_EFFECT_ROBOT
-		var/traits = TTS_TRAIT_RATE_FASTER
+		var/traits = TTS_TRAIT_RATE_MEDIUM
 		if(is_whisper)
 			traits |= TTS_TRAIT_PITCH_WHISPER
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
