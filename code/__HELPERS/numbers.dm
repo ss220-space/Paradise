@@ -1,5 +1,7 @@
 /proc/num_in_words(n)
-	var/static/datum/number/num = new /datum/number
+	var/static/datum/number/num
+	if(!num)
+		num = new /datum/number
 	n = text2num(n, 10)
 	if(ISINTEGER(n))
 		return num.int2words(n)
