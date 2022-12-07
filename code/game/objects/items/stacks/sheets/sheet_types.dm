@@ -544,7 +544,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("Plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Plastic flaps", /obj/structure/plasticflaps, 5, time = 40, one_per_turf = TRUE, on_floor = TRUE),
 	null,
-	new /datum/stack_recipe_list("Mould", list(
+	new /datum/stack_recipe_list("Moulds", list(
 		new /datum/stack_recipe("Ball mould", /obj/item/kitchen/mould/ball, on_floor = TRUE),
 		new /datum/stack_recipe("Bean mould", /obj/item/kitchen/mould/bean, on_floor = TRUE),
 		new /datum/stack_recipe("Bear mould", /obj/item/kitchen/mould/bear, on_floor = TRUE),
