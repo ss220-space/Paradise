@@ -268,7 +268,6 @@
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
-
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
