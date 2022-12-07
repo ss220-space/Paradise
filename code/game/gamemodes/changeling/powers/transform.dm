@@ -25,7 +25,7 @@
 	transform_dna(user,chosen_dna)
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.dna == chosen_dna)
+		if(M.real_name == chosen_dna.real_name)
 			user.tts_seed = M.tts_seed
 
 	user.changeling_update_languages(changeling.absorbed_languages)
