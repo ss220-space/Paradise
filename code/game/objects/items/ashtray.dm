@@ -13,7 +13,6 @@
 	allow_quick_gather = TRUE
 	allow_quick_empty = TRUE
 	use_to_pickup = TRUE
-	can_be_hit = TRUE
 	use_sound = ""
 	can_hold = list(
 		/obj/item/cigbutt,
