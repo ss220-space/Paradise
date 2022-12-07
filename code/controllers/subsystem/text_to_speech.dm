@@ -99,8 +99,12 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_local_channels_by_owner = list()
 
-	var/list/datum/callback/tts_queue = list()
-	var/list/datum/callback/tts_effects_queue = list()
+	var/list/tts_requests_queue = list()
+	var/tts_requests_queue_limit = 100
+	var/tts_rps_limit = 5
+
+	var/list/tts_queue = list()
+	var/list/tts_effects_queue = list()
 
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "tRPS:[tts_trps] "
@@ -149,12 +153,31 @@ SUBSYSTEM_DEF(tts)
 		rps_sum += rps
 	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
 
+	var/requests
+	if(LAZYLEN(tts_requests_queue) >= tts_rps_limit)
+		requests = tts_requests_queue.Cut(1,tts_rps_limit+1)
+	else
+		requests = tts_requests_queue.Copy()
+	for(var/request in requests)
+		var/text = request[1]
+		var/datum/tts_seed/seed = request[2]
+		var/datum/callback/proc_callback = request[3]
+		var/datum/tts_provider/provider = seed.provider
+		provider.request(text, seed, proc_callback)
+
 /datum/controller/subsystem/tts/Recover()
 	is_enabled = SStts.is_enabled
 	tts_wanted = SStts.tts_wanted
 	tts_request_failed = SStts.tts_request_failed
 	tts_request_succeeded = SStts.tts_request_succeeded
 	tts_reused = SStts.tts_reused
+
+/datum/controller/subsystem/tts/proc/queue_request(text, datum/tts_seed/seed, datum/callback/proc_callback)
+	if(LAZYLEN(tts_requests_queue) > tts_requests_queue_limit)
+		is_enabled = FALSE
+		return FALSE
+	tts_requests_queue += list(list(text, seed, proc_callback))
+	return TRUE
 
 /datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, seed_name = "Arthas", is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	if(!is_enabled)
@@ -218,10 +241,16 @@ SUBSYSTEM_DEF(tts)
 
 	// Bail if it errored
 	if(response.errored)
+		provider.failed_requests++
+		if(provider.failed_requests >= provider.failed_requests_limit)
+			provider.is_enabled = FALSE
 		message_admins("<span class='warning'>Error connecting to [provider.name] TTS API. Please inform a maintainer or server host.</span>")
 		return
 
 	if(response.status_code != 200)
+		provider.failed_requests++
+		if(provider.failed_requests >= provider.failed_requests_limit)
+			provider.is_enabled = FALSE
 		message_admins("<span class='warning'>Error performing [provider.name] TTS API request (Code: [response.status_code])</span>")
 		tts_request_failed++
 		if(response.status_code)
