@@ -9,6 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	var/nametag
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE

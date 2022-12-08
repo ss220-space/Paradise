@@ -2263,6 +2263,7 @@
 #include "code\modules\mob\new_player\sprite_accessories\vulpkanin\vulpkanin_head_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\vulpkanin\vulpkanin_tail_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\wryn\wryn_face.dm"
+#include "code\modules\nametags\nametag.dm"
 #include "code\modules\newscaster\datums.dm"
 #include "code\modules\newscaster\defines.dm"
 #include "code\modules\newscaster\obj\newscaster.dm"

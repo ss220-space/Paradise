@@ -33,6 +33,7 @@
 
 	client.images = null				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
+	instantiate_nametag(client)
 	if(client.click_intercept)
 		client.click_intercept.quit() // Let's not keep any old click_intercepts
 
