@@ -623,7 +623,7 @@
 	build_path = /obj/item/assembly/voice/noise
 	category = list("initial", "Miscellaneous")
 
-/datum/design/noise_analyser
+/datum/design/transporter
 	name = "Transporter"
 	id = "Transporter"
 	build_type = AUTOLATHE

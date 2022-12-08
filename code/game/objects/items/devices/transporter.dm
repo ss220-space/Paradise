@@ -61,20 +61,21 @@
 		/obj/structure/window,
 		/obj/structure/dresser,
 		/obj/machinery/suit_storage_unit,
-		/obj/structure/disposaloutlet
+		/obj/structure/disposaloutlet,
+		/obj/item/bedsheet
 	)
 
 /obj/item/transporter/attack_self(var/mob/user)
-	target_x = round(input(user, "Enter the target X-axis moving between -24 and 24") as null|num)
-	if (target_x > 24)
-		target_x = 24
-	else if (target_x < -24)
-		target_x = -24
-	target_y = round(input(user, "Enter the target Y-axis moving between -24 and 24") as null|num)
-	if (target_y > 24)
-		target_y = 24
-	else if (target_y < -24)
-		target_y = -24
+	target_x = round(input(user, "Enter the target X-axis moving between -32 and 32") as null|num)
+	if (target_x > 32)
+		target_x = 32
+	else if (target_x < -32)
+		target_x = -32
+	target_y = round(input(user, "Enter the target Y-axis moving between -32 and 232") as null|num)
+	if (target_y > 32)
+		target_y = 32
+	else if (target_y < -32)
+		target_y = -32
 
 /obj/item/transporter/afterattack(var/atom/A, var/mob/user, proximity, params)
 	if(user.a_intent == INTENT_HELP)
