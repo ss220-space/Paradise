@@ -1,6 +1,8 @@
 //Transporter
 //This item allow regular player to change value of pixel_x and pixel_y vars for some types of objects and items
 
+#define TRANSPORTER_RANGE 32
+
 /obj/item/transporter
 	name = "transporter"
 	icon = 'icons/obj/device.dmi'
@@ -22,6 +24,7 @@
 	var/target_x = 0
 	var/target_y = 0
 	var/ignore_type = 0 //For admin building
+	var/obj/target
 
 	var/static/list/allowed_types = list(
 		/obj/machinery/firealarm,
@@ -66,35 +69,48 @@
 	)
 
 /obj/item/transporter/attack_self(var/mob/user)
-	target_x = round(input(user, "Enter the target X-axis moving between -32 and 32") as null|num)
-	if (target_x > 32)
-		target_x = 32
-	else if (target_x < -32)
-		target_x = -32
-	target_y = round(input(user, "Enter the target Y-axis moving between -32 and 232") as null|num)
-	if (target_y > 32)
-		target_y = 32
-	else if (target_y < -32)
-		target_y = -32
+	target_x = clamp(round(input(user, "Enter the target X-axis moving between -[TRANSPORTER_RANGE] and [TRANSPORTER_RANGE]") as null|num), -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
+	target_y = clamp(round(input(user, "Enter the target Y-axis moving between -[TRANSPORTER_RANGE] and [TRANSPORTER_RANGE]") as null|num), -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
 
 /obj/item/transporter/afterattack(var/atom/A, var/mob/user, proximity, params)
-	if(user.a_intent == INTENT_HELP)
-		if(!proximity)
-			return
+	if(!proximity)
+		return
 
-		var/obj/target = A
-
-		if((is_type_in_list(target, allowed_types)) || ignore_type)
-			target.pixel_x = target_x
-			target.pixel_y = target_y
-			playsound(loc, usesound, 30, TRUE)
+	if(user.a_intent == INTENT_GRAB) //Choose a target
+		if((is_type_in_list(A, allowed_types)) || ignore_type)
+			target = A
+			to_chat(user, "<span class='notice'>Object Linked</span>")
 			return
 		else
 			to_chat(user, "<span class='warning'>\The [src] can't be used on this type of object</span>")
 			return
 
-/obj/item/transporter/attack_obj(mob/living/target, mob/living/user, def_zone)
-	if(user.a_intent == INTENT_HELP)
-		return FALSE
-	..()
+	if(user.a_intent == INTENT_HELP) //Move by values
+		if((is_type_in_list(A, allowed_types)) || ignore_type)
+			A.pixel_x = target_x
+			A.pixel_y = target_y
 
+	var/list/click_params = params2list(params)
+
+	if(user.a_intent == INTENT_DISARM) //Move by mouse
+		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+			return
+
+		if(!target)
+			to_chat(user, "<span class='warning'>Use grab intent to choose an object</span>")
+			return
+
+		if(abs((text2num(click_params["icon-x"]) - TRANSPORTER_RANGE/2) + ((A.x - target.x) * TRANSPORTER_RANGE)) > TRANSPORTER_RANGE || abs((text2num(click_params["icon-y"]) - TRANSPORTER_RANGE/2) + ((A.y - target.y) * TRANSPORTER_RANGE)) > TRANSPORTER_RANGE)
+			to_chat(user, "<span class='warning'>Linked object is too far away</span>")
+			return
+
+		to_chat(user, "<span class='warning'>[text2num(click_params["icon-x"])] [text2num(click_params["icon-y"])]</span>")
+		target.pixel_x = clamp((text2num(click_params["icon-x"]) - TRANSPORTER_RANGE/2) + ((A.x - target.x) * TRANSPORTER_RANGE), -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
+		target.pixel_y = clamp((text2num(click_params["icon-y"]) - TRANSPORTER_RANGE/2) + ((A.y - target.y) * TRANSPORTER_RANGE), -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
+		playsound(loc, usesound, 30, TRUE)
+		return
+
+/obj/item/transporter/attack_obj(mob/living/target, mob/living/user, def_zone)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	return FALSE
