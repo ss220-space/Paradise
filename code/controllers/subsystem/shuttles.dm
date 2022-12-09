@@ -51,19 +51,21 @@ SUBSYSTEM_DEF(shuttle)
 
 
 /datum/controller/subsystem/shuttle/Initialize()
+	flags |= SS_NO_FIRE
+	return
 	ordernum = rand(1,9000)
 
 	cargo_money_account = GLOB.department_accounts["Cargo"]
 
-	if(!emergency)
-		log_runtime(EXCEPTION("No /obj/docking_port/mobile/emergency placed on the map!"))
-		if(!backup_shuttle)
-			message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
-			log_runtime(EXCEPTION("AND NO /obj/docking_port/mobile/emergency/backup placed on the map!"))
-	if(!supply)
-		log_runtime(EXCEPTION("No /obj/docking_port/mobile/supply placed on the map!"))
+	//if(!emergency)
+	//	log_runtime(EXCEPTION("No /obj/docking_port/mobile/emergency placed on the map!"))
+	//	if(!backup_shuttle)
+	//		message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
+	//		log_runtime(EXCEPTION("AND NO /obj/docking_port/mobile/emergency/backup placed on the map!"))
+	//if(!supply)
+	//	log_runtime(EXCEPTION("No /obj/docking_port/mobile/supply placed on the map!"))
 
-	initial_load()
+	// initial_load()
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
@@ -90,8 +92,8 @@ SUBSYSTEM_DEF(shuttle)
 		if(!thing)
 			mobile.Remove(thing)
 			continue
-		var/obj/docking_port/mobile/P = thing
-		P.check()
+			var/obj/docking_port/mobile/P = thing
+			P.check()
 		CHECK_TICK
 	for(var/obj/docking_port/stationary/transit/T in transit)
 		if(!T.owner)
@@ -145,7 +147,7 @@ SUBSYSTEM_DEF(shuttle)
 		message_admins("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
 		if(!backup_shuttle)
 			message_admins("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable. This is possibly a mapping error. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
-			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle! \
+			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle!\
 			The game will be unresolvable.This is possibly a mapping error, \
 			more likely a bug with the shuttle \
 			manipulation system, or badminry. It is possible to manually \

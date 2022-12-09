@@ -1,6 +1,6 @@
 // DM Environment file for paradise.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
-// New source code should be placed in .dm files: choose File/New --> Code File.
+ // New source code should be placed in .dm files: choose File/New --> Code File.
 // interface\skin.dmf needs to be at the very end of the file.
 // BEGIN_INTERNALS
 // END_INTERNALS
@@ -1565,7 +1565,9 @@
 #include "code\game\objects\structures\transit_tubes\station.dm"
 #include "code\game\objects\structures\transit_tubes\transit_tube.dm"
 #include "code\game\objects\structures\transit_tubes\transit_tube_pod.dm"
+#include "code\game\objects\training\basic_tasks.dm"
 #include "code\game\turfs\baseturf.dm"
+#include "code\game\objects\training\training_master.dm"
 #include "code\game\turfs\simulated.dm"
 #include "code\game\turfs\turf.dm"
 #include "code\game\turfs\simulated\floor.dm"
@@ -2441,6 +2443,7 @@
 #include "code\modules\map_fluff\multiz.dm"
 #include "code\modules\map_fluff\nova.dm"
 #include "code\modules\maptext_alerts\text_blurbs.dm"
+#include "code\modules\map_fluff\training.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
 #include "code\modules\martial_arts\cqc.dm"
@@ -2698,6 +2701,9 @@
 #include "code\modules\mob\living\carbon\human\species\vox.dm"
 #include "code\modules\mob\living\carbon\human\species\vulpkanin.dm"
 #include "code\modules\mob\living\carbon\human\species\wryn.dm"
+#include "code\modules\mob\living\carbon\human\training\ai_room_trainer.dm"
+#include "code\modules\mob\living\carbon\human\training\human_training.dm"
+#include "code\modules\mob\living\carbon\human\training\ai_room_trainer.dm"
 #include "code\modules\mob\living\silicon\death.dm"
 #include "code\modules\mob\living\silicon\laws.dm"
 #include "code\modules\mob\living\silicon\login.dm"
