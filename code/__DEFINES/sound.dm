@@ -33,7 +33,7 @@
 ///The default exponent of sound falloff
 #define SOUND_FALLOFF_EXPONENT 6
 
-#define SOUND_MINIMUM_PRESSURE 10
+#define SOUND_MINIMUM_PRESSURE 0
 #define FALLOFF_SOUNDS 0.5
 
 //Ambience types

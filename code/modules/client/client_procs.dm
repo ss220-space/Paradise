@@ -642,6 +642,10 @@
 	else
 		//New player!! Need to insert all the stuff
 
+		var/client_address = address
+		if(!client_address) // Localhost can sometimes have no address set
+			client_address = "127.0.0.1"
+
 		// Check new peeps for panic bunker
 		if(GLOB.panic_bunker_enabled)
 			var/threshold = config.panic_bunker_threshold
@@ -653,7 +657,7 @@
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = address,
+			"ip" = client_address,
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))

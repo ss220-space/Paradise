@@ -388,6 +388,17 @@
 	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
+/datum/language/training
+	name = "Training Lang"
+	desc = "Training Lang"
+	speech_verb = "says"
+	exclaim_verbs = list("exclaims", "shouts", "yells")
+	whisper_verb = "whispers"
+	colour = "training"
+	key = "tr"
+	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
+	english_names = 1
+
 /datum/language/common
 	name = "Galactic Common"
 	desc = "The common galactic tongue."

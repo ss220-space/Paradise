@@ -38,9 +38,9 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	loadLavaland()
+	// loadLavaland()
 
-	loadTaipan()
+	// loadTaipan()
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
 		createRandomZlevel()
@@ -70,11 +70,11 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.space_manager.do_transition_setup()
 
 	// Spawn Lavaland ruins and rivers.
-	log_startup_progress("Populating lavaland...")
-	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-	spawn_rivers(level_name_to_num(MINING))
-	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	// log_startup_progress("Populating lavaland...")
+	// var/lavaland_setup_timer = start_watch()
+	// seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+	// spawn_rivers(level_name_to_num(MINING))
+	// log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs

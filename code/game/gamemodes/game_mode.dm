@@ -83,7 +83,7 @@
 		if(query_round_game_mode.warn_execute())
 			qdel(query_round_game_mode)
 
-	generate_station_goals()
+	// generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 	return 1
