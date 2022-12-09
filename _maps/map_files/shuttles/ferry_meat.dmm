@@ -136,8 +136,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/turf/space,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "t" = (
 /obj/structure/shuttle/engine/propulsion{
