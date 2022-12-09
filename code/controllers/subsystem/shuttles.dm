@@ -44,16 +44,19 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
 /datum/controller/subsystem/shuttle/Initialize(start_timeofday)
-	ordernum = rand(1,9000)
+	flags |= SS_NO_FIRE
+	return ..()
 
-	if(!emergency)
-		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
-	if(!backup_shuttle)
-		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
-	if(!supply)
-		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+	// ordernum = rand(1,9000)
 
-	initial_load()
+	// if(!emergency)
+	// 	WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
+	// if(!backup_shuttle)
+	// 	WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
+	// if(!supply)
+	// 	WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+
+	// initial_load()
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
@@ -63,7 +66,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
-	return ..()
+	// return ..()
 
 /datum/controller/subsystem/shuttle/stat_entry(msg)
 	..("M:[mobile.len] S:[stationary.len] T:[transit.len]")
