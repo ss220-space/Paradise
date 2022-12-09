@@ -112,7 +112,7 @@ SUBSYSTEM_DEF(tts)
 	var/list/tts_queue = list()
 	var/list/tts_effects_queue = list()
 
-	var/sanitized_messages_caching = FALSE
+	var/sanitized_messages_caching = TRUE
 	var/list/sanitized_messages_cache = list()
 	var/sanitized_messages_cache_hit = 0
 	var/sanitized_messages_cache_miss = 0
@@ -182,6 +182,8 @@ SUBSYSTEM_DEF(tts)
 		sanitized_messages_cache.Cut()
 		if(debug_mode_enabled)
 			world.log << "sanitized_messages_cache: HIT=[sanitized_messages_cache_hit] / MISS=[sanitized_messages_cache_miss]"
+		sanitized_messages_cache_hit = 0
+		sanitized_messages_cache_miss = 0
 
 /datum/controller/subsystem/tts/Recover()
 	is_enabled = SStts.is_enabled
@@ -398,7 +400,7 @@ SUBSYSTEM_DEF(tts)
 		if(sanitized_messages_cache[hash])
 			sanitized_messages_cache_hit++
 			return sanitized_messages_cache[hash]
-		sanitized_messages_cache_miss--
+		sanitized_messages_cache_miss++
 	. = message
 	. = trim(.)
 	. = regex(@"<[^>]*>", "g").Replace(., "")
