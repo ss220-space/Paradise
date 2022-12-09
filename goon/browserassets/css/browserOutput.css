@@ -323,6 +323,7 @@ h1.alert, h2.alert			{color: #000000;}
 .terrorspider				{color: #320E32;}
 
 
+.training				{color: #bd8700;	font-weight: bold;} /* /vg/ */
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
 .blob					{color: #006221;	font-weight: bold;	font-style: italic;}
 .confirm				{color: #00af3b;}
