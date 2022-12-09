@@ -33,10 +33,7 @@ SUBSYSTEM_DEF(tts)
 	var/is_enabled = TRUE
 
 	var/list/tts_replacement_list = list(\
-		"тесла" = "тэсла",
 		"НТ" = "Эн Тэ",
-		"трейзен" = "трэйзэн",
-		"нанотрейзен" = "нанотрэйзэн",
 		"СМО" = "Эс Мэ О",
 		"ГП" = "Гэ Пэ",
 		"РД" = "Эр Дэ",
@@ -91,7 +88,16 @@ SUBSYSTEM_DEF(tts)
 		"ЦКС" = "Цэ Ка Эс",
 		"СРД" = "Эс Эр Дэ",
 		"ЖПС" = "Джи Пи Эс",
+		"GPS" = "Джи Пи Эс",
 		"ННКСС" = "Эн Эн Ка Эс Эс",
+		"SS" = "Эс Эс",
+		"СС" = "Эс Эс",
+	)
+
+	var/list/tts_replacement_list_insensitive = list(\
+		"тесла" = "тэсла",
+		"трейзен" = "трэйзэн",
+		"нанотрейзен" = "нанотрэйзэн",
 	)
 
 	var/list/datum/tts_seed/tts_seeds = list()
@@ -214,7 +220,7 @@ SUBSYSTEM_DEF(tts)
 	if(traits & TTS_TRAIT_PITCH_WHISPER)
 		text = provider.pitch_whisper(text)
 
-	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
+	var/hash = rustg_hash_string(RUSTG_HASH_MD5, text)
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
 	var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
@@ -379,9 +385,11 @@ SUBSYSTEM_DEF(tts)
 	. = regex(@"<[^>]*>", "g").Replace(., "")
 	. = html_decode(.)
 	. = regex(@"[^a-zA-Z0-9а-яА-ЯёЁ,!?+./ \r\n\t:—()-]", "g").Replace(., "")
-	. = rustg_latin_to_cyrillic(.)
 	for(var/word in tts_replacement_list)
-		. = replacetext(., regex("(?<!\[\\wа-яё])[word](?!\[\\wа-яё])", "igm"), tts_replacement_list[word])
+		. = replacetext(., regex("(?<!\[\\wа-яё])[word](?!\[\\wа-яё])", "gm"), tts_replacement_list[word])
+	for(var/word in tts_replacement_list_insensitive)
+		. = replacetext(., regex("(?<!\[\\wа-яё])[word](?!\[\\wа-яё])", "igm"), tts_replacement_list_insensitive[word])
+	. = rustg_latin_to_cyrillic(.)
 	. = replacetext(., regex(@"(?<=[1-90])(\.|,)(?=[1-90])", "g"), " целых ")
 	. = replacetext(., regex(@"\d+", "g"), /proc/num_in_words)
 
