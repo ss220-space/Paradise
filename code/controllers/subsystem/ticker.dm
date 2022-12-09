@@ -124,13 +124,13 @@ SUBSYSTEM_DEF(ticker)
 				SSvote.autotransfer()
 				next_autotransfer = world.time + config.vote_autotransfer_interval
 
-			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-			if(config.continuous_rounds)
-				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
-			else
-				game_finished |= mode.check_finished()
-			if(game_finished || force_ending)
-				current_state = GAME_STATE_FINISHED
+			// var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
+			// if(config.continuous_rounds)
+			// 	mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
+			// else
+			// 	game_finished |= mode.check_finished()
+			// if(game_finished || force_ending)
+			// 	current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
