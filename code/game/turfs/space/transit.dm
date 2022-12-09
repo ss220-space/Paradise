@@ -1,11 +1,18 @@
-/turf/space/transit 			// A
-	icon_state = "black_ns"		// |
-	dir = SOUTH					// |
-	plane = PLANE_SPACE			// V
+/turf/space/transit
+	icon_state = "black_arrow"
+	plane = PLANE_SPACE
 
-/turf/space/transit/horizontal 	// <---->
-	icon_state = "black_ew"
+/turf/space/transit/north
+	dir = NORTH
+
+/turf/space/transit/east
 	dir = EAST
+
+/turf/space/transit/south
+	dir = SOUTH
+
+/turf/space/transit/west
+	dir = WEST
 
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
@@ -55,27 +62,22 @@
 
 /turf/space/transit/proc/update_icon()
 	var/p = 9
-	var/angle = 0
 	var/state = 1
 	switch(dir)
 		if(NORTH)
-			angle = 180
 			state = ((-p*x+y) % 15) + 1
 			if(state < 1)
 				state += 15
 		if(EAST)
-			angle = 90
 			state = ((x+p*y) % 15) + 1
 		if(WEST)
-			angle = -90
 			state = ((x-p*y) % 15) + 1
 			if(state < 1)
 				state += 15
 		else
 			state =	((p*x+y) % 15) + 1
 
-	icon_state = "speedspace_ns_[state]"
-	transform = turn(matrix(), angle)
+	icon_state = "speedspace_[state]"
 
 /turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
