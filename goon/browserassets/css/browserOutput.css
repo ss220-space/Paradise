@@ -333,6 +333,7 @@ h1.alert, h2.alert			{color: #000000;}
 .dantalion				{color: #1a7d5b;}
 
 
+.training				{color: #bd8700;	font-weight: bold;} /* /vg/ */
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
 .blob						{color: #006221;font-weight: bold;font-style: italic;}
 .blobteslium_paste			{color: #412968;font-weight: bold;font-style: italic;}

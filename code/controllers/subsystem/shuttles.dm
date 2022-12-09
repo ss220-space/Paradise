@@ -44,18 +44,20 @@ SUBSYSTEM_DEF(shuttle)
 
 
 /datum/controller/subsystem/shuttle/Initialize()
+	flags |= SS_NO_FIRE
+	return
 	ordernum = rand(1,9000)
 
 	cargo_money_account = GLOB.department_accounts["Cargo"]
 
-	if(!emergency)
-		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
-	if(!backup_shuttle)
-		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
-	if(!supply)
-		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+	// if(!emergency)
+	// 	WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
+	// if(!backup_shuttle)
+	// 	WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
+	// if(!supply)
+	// 	WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 
-	initial_load()
+	// initial_load()
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
