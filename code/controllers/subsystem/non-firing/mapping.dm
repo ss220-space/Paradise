@@ -50,15 +50,15 @@ SUBSYSTEM_DEF(mapping)
 	loadStation()
 
 	if(!CONFIG_GET(flag/disable_lavaland))
-		loadLavaland()
+		//loadLavaland()
 	if(!CONFIG_GET(flag/disable_taipan))
-		loadTaipan()
+		//loadTaipan()
 	// Pick a random away mission.
 	if(!CONFIG_GET(flag/disable_away_missions))
-		createRandomZlevel()
+		//createRandomZlevel()
 	// Seed space ruins
 	if(!CONFIG_GET(flag/disable_space_ruins))
-		handleRuins()
+		//handleRuins()
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
@@ -69,19 +69,19 @@ SUBSYSTEM_DEF(mapping)
 
 	if(!CONFIG_GET(flag/disable_lavaland))
 		// Spawn Lavaland ruins and rivers.
-		log_startup_progress("Populating lavaland...")
-		var/lavaland_setup_timer = start_watch()
-		seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-		if(lavaland_theme)
-			lavaland_theme.setup()
-		var/time_spent = stop_watch(lavaland_setup_timer)
-		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
-		if(time_spent >= 10)
-			log_startup_progress("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
-			WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
-			var/loud_annoying_alarm = sound('sound/machines/engine_alert1.ogg')
-			for(var/get_player_attention in GLOB.player_list)
-				SEND_SOUND(get_player_attention, loud_annoying_alarm)
+		//log_startup_progress("Populating lavaland...")
+		//var/lavaland_setup_timer = start_watch()
+		//seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		//if(lavaland_theme)
+		//	lavaland_theme.setup()
+		//var/time_spent = stop_watch(lavaland_setup_timer)
+		//log_startup_progress("Successfully populated lavaland in [time_spent]s.")
+		//if(time_spent >= 10)
+		//	log_startup_progress("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
+		//	WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
+		//	var/loud_annoying_alarm = sound('sound/machines/engine_alert1.ogg')
+		//	for(var/get_player_attention in GLOB.player_list)
+		//		SEND_SOUND(get_player_attention, loud_annoying_alarm)
 	else
 		log_startup_progress("Skipping lavaland ruins...")
 

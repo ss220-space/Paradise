@@ -179,6 +179,9 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
+		if(!is_admin(usr))
+			to_chat(usr, "<span class='warning'>Наблюдать за процессом обучения запрещено!</span>")
+			return FALSE
 		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
@@ -398,9 +401,12 @@
 		alert(msg)
 		return FALSE
 
-	SSjobs.AssignRole(src, rank, 1)
+	// SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	qdel(src)
+	return
+
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
@@ -629,7 +635,9 @@
 	close_spawn_windows()
 
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc)
+	client.prefs.species = "Human"
+	var/mob/living/carbon/human/new_character = new /mob/living/carbon/human/human_training (loc)
+
 	new_character.lastarea = get_area(loc)
 
 	if(SSticker.random_players || appearance_isbanned(new_character))
