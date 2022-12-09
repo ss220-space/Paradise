@@ -217,6 +217,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/warningmsg = null
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
+	return
 
 	if(frozen)
 		to_chat(src, span_warning("Вы не можете сделать этого, пока находитесь под действием админфриза."))
