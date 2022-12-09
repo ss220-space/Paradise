@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/fire()
 	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
 		return
-	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
+	// batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
