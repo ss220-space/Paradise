@@ -125,7 +125,7 @@
 		if(isrobot(speaker))
 			effect = SOUND_EFFECT_ROBOT
 		var/traits = TTS_TRAIT_RATE_FASTER
-		if(istype(speaker, /mob/living/carbon/human/human_training))
+		if(istype(speaker, /mob/living/silicon/ai_room_trainer))
 			traits = TTS_TRAIT_RATE_MEDIUM
 		if(is_whisper)
 			traits |= TTS_TRAIT_PITCH_WHISPER
