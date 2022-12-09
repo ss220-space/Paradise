@@ -112,6 +112,13 @@ SUBSYSTEM_DEF(tts)
 	var/list/tts_queue = list()
 	var/list/tts_effects_queue = list()
 
+	var/sanitized_messages_caching = FALSE
+	var/list/sanitized_messages_cache = list()
+	var/sanitized_messages_cache_hit = 0
+	var/sanitized_messages_cache_miss = 0
+
+	var/debug_mode_enabled = FALSE
+
 /datum/controller/subsystem/tts/stat_entry(msg)
 	msg += "tRPS:[tts_trps] "
 	msg += "rRPS:[tts_rrps] "
@@ -170,6 +177,11 @@ SUBSYSTEM_DEF(tts)
 		var/datum/callback/proc_callback = request[3]
 		var/datum/tts_provider/provider = seed.provider
 		provider.request(text, seed, proc_callback)
+
+	if(sanitized_messages_caching)
+		sanitized_messages_cache.Cut()
+		if(debug_mode_enabled)
+			world.log << "sanitized_messages_cache: HIT=[sanitized_messages_cache_hit] / MISS=[sanitized_messages_cache_miss]"
 
 /datum/controller/subsystem/tts/Recover()
 	is_enabled = SStts.is_enabled
@@ -380,6 +392,13 @@ SUBSYSTEM_DEF(tts)
 	fdel(filename)
 
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
+	var/hash
+	if(sanitized_messages_caching)
+		hash = rustg_hash_string(RUSTG_HASH_MD5, message)
+		if(sanitized_messages_cache[hash])
+			sanitized_messages_cache_hit++
+			return sanitized_messages_cache[hash]
+		sanitized_messages_cache_miss--
 	. = message
 	. = trim(.)
 	. = regex(@"<[^>]*>", "g").Replace(., "")
@@ -392,6 +411,8 @@ SUBSYSTEM_DEF(tts)
 	. = rustg_latin_to_cyrillic(.)
 	. = replacetext(., regex(@"(?<=[1-90])(\.|,)(?=[1-90])", "g"), " целых ")
 	. = replacetext(., regex(@"\d+", "g"), /proc/num_in_words)
+	if(sanitized_messages_caching)
+		sanitized_messages_cache[hash] = .
 
 /proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
