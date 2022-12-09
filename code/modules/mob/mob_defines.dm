@@ -69,7 +69,6 @@
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
-	var/shakecamera = 0
 	var/a_intent = INTENT_HELP //Living
 	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
@@ -92,6 +91,7 @@
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
 	var/list/obj/item/grab/grabbed_by = list()
+	var/list/obj/item/twohanded/garrote/garroted_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 

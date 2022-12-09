@@ -6,7 +6,7 @@
 #define CHANNEL_HEARTBEAT 1020 //sound channel for heartbeats
 #define CHANNEL_BUZZ 1019
 #define CHANNEL_AMBIENCE 1018
-#define CHANNEL_SIBYL_SYSTEM 1017
+#define CHANNEL_SIBYL_SYSTEM 1017 //В данный момент он не используется, но удалять нельзя! -BeebBeebBoob
 #define CHANNEL_GENERAL 1016 //Sound channel for playsound(), most of the sounds
 #define CHANNEL_JUSTICAR_ARK 1015
 
@@ -16,6 +16,9 @@
 #define CHANNEL_HIGHEST_AVAILABLE 1014
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
+
+/// Allowed file format by BYOND. Prefer using .ogg
+#define SOUND_ALLOWED_FILE_FORMATS list(".ogg", ".mid", ".midi", ".it", ".s3m", ".xm", ".oxm", ".wav", ".ogg", ".raw", ".wma", ".aiff")
 
 ///Default range of a sound.
 #define SOUND_RANGE 17

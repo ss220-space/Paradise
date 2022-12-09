@@ -147,6 +147,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return FALSE
 	if(A.tele_proof)
 		return TRUE
+	if(!is_teleport_allowed(O.z))
+		return TRUE
 	else
 		return FALSE
 
@@ -778,7 +780,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
-							X.icon = 'icons/turf/shuttle.dmi'
+							X.icon = 'icons/turf/shuttle/shuttle.dmi'
 							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking

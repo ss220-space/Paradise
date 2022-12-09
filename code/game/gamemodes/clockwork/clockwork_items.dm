@@ -185,7 +185,7 @@
 				return
 			var/mob/living/living = target
 			if(ishuman(living))
-				living.heal_overall_damage(30, 30, TRUE)
+				living.heal_overall_damage(30, 30, TRUE, FALSE, TRUE)
 			else if(isanimal(living))
 				var/mob/living/simple_animal/M = living
 				if(M.health < M.maxHealth)
@@ -1052,14 +1052,14 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
 	require_module = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-	R.ratvar_act() // weak false
-	R.opened = FALSE
-	R.locked = TRUE
-	return TRUE
+		R.ratvar_act() // weak false
+		R.opened = FALSE
+		R.locked = TRUE
+		return TRUE
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab
