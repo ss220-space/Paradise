@@ -79,6 +79,8 @@
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
 
+	client << link("byond://ru.game.ss220.space:7723")
+
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerDies(gibbed, src)
