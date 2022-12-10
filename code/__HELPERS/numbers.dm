@@ -4,7 +4,7 @@
 		num = new /datum/number
 	n = text2num(n, 10)
 	if(ISINTEGER(n))
-		return num.int2words(n)
+		return " [num.int2words(n)] "
 	return ""
 
 /datum/number
