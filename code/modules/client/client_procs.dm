@@ -569,7 +569,7 @@
 		if(!client_address) // Localhost can sometimes have no address set
 			client_address = "127.0.0.1"
 
-		if(config.training_server_url)
+		if(config.tutorial_server_url)
 			var/datum/db_query/exp_read = SSdbcore.NewQuery(
 				"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
 				list("ckey" = ckey)
@@ -590,7 +590,7 @@
 					)
 					update_query.warn_execute()
 				else
-					send_to_server_by_url(config.training_server_url)
+					send_to_server_by_url(config.tutorial_server_url)
 					return
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
@@ -625,7 +625,7 @@
 		))
 		if(!query_insert.warn_execute())
 			qdel(query_insert)
-			send_to_server_by_url(config.training_server_url)
+			send_to_server_by_url(config.tutorial_server_url)
 			return
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to nofiy admins
