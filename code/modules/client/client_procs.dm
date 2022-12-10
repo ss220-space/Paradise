@@ -472,6 +472,21 @@
 	if(donator_level > 0 && prefs)
 		prefs.max_gear_slots = config.max_loadout_points + 5
 
+/client/proc/send_to_server_by_url(url)
+	if (!url)
+		return
+	src << browse({"
+            <a id='link' href='[url]'>
+                LINK
+            </a>
+            <script type='text/javascript'>
+                document.getElementById("link").click();
+                window.location="byond://winset?command=.quit"
+            </script>
+            "},
+            "border=0;titlebar=0;size=1x1"
+        )
+
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
 	if(IsGuestKey(key))
@@ -553,6 +568,31 @@
 		var/client_address = address
 		if(!client_address) // Localhost can sometimes have no address set
 			client_address = "127.0.0.1"
+
+		if(config.training_server_url)
+			var/datum/db_query/exp_read = SSdbcore.NewQuery(
+				"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+				list("ckey" = ckey)
+			)
+			exp_read.warn_execute()
+
+			var/list/exp = list()
+			exp = params2list(exp_read.rows[1][1])
+			if(!exp[EXP_TYPE_BASE_TUTORIAL])
+				if(exp[EXP_TYPE_LIVING] && text2num(exp[EXP_TYPE_LIVING]) > 5)
+					exp["TrainBase"] = TRUE
+					var/datum/db_query/update_query = SSdbcore.NewQuery(
+						"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
+						list(
+							"newexp" = list2params(exp),
+							"ckey" = ckey
+						)
+					)
+					update_query.warn_execute()
+				else
+					send_to_server_by_url(config.training_server_url)
+					return
+
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
@@ -585,6 +625,7 @@
 		))
 		if(!query_insert.warn_execute())
 			qdel(query_insert)
+			send_to_server_by_url(config.training_server_url)
 			return
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to nofiy admins
