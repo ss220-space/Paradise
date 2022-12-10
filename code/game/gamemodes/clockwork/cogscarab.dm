@@ -334,11 +334,11 @@
 
 	if(isrobot(user))
 		var/mob/living/silicon/robot/robot = user
-		var/obj/item/stack/sheet/brass/cyborg/stack_brass = locate() in robot
+		var/obj/item/stack/sheet/brass/cyborg/stack_brass = locate() in robot.module
 		var/brass_melted = FLOOR(metal_amount / metal_need_per_brass, 1)
 		metal_amount -= brass_melted * metal_need_per_brass
 		if(!stack_brass)
-			stack_brass = new /obj/item/stack/sheet/brass/cyborg(robot.module)
+			stack_brass = new /obj/item/stack/sheet/brass/cyborg(robot.module, null, FALSE)
 			robot.module.modules += stack_brass
 			robot.module.fix_modules()
 			robot.module.handle_storages()
