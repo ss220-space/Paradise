@@ -33,6 +33,7 @@ SUBSYSTEM_DEF(events)
 
 
 /datum/controller/subsystem/events/Initialize()
+	flags |= SS_NO_FIRE
 	allEvents = subtypesof(/datum/event)
 
 
