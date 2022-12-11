@@ -3,7 +3,7 @@
 	title = "Chaplain"
 	flag = JOB_CHAPLAIN
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = TRUE
 	supervisors = "the head of personnel"
