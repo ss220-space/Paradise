@@ -118,11 +118,11 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
-			mode.process_job_tasks()
+			// mode.process_job_tasks()
 
-			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
-				next_autotransfer = world.time + config.vote_autotransfer_interval
+			// if(world.time > next_autotransfer)
+			// 	SSvote.autotransfer()
+			// 	next_autotransfer = world.time + config.vote_autotransfer_interval
 
 			// var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 			// if(config.continuous_rounds)
@@ -131,18 +131,18 @@ SUBSYSTEM_DEF(ticker)
 			// 	game_finished |= mode.check_finished()
 			// if(game_finished || force_ending)
 			// 	current_state = GAME_STATE_FINISHED
-		if(GAME_STATE_FINISHED)
-			current_state = GAME_STATE_FINISHED
-			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
-			auto_toggle_ooc(TRUE) // Turn it on
+		// if(GAME_STATE_FINISHED)
+		// 	current_state = GAME_STATE_FINISHED
+		// 	Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
+		// 	auto_toggle_ooc(TRUE) // Turn it on
 
-			declare_completion()
+		// 	declare_completion()
 
-			spawn(50)
-				if(mode.station_was_nuked)
-					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
-				else
-					reboot_helper("Round ended.", "proper completion")
+		// 	spawn(50)
+		// 		if(mode.station_was_nuked)
+		// 			reboot_helper("Station destroyed by Nuclear Device.", "nuke")
+		// 		else
+		// 			reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
