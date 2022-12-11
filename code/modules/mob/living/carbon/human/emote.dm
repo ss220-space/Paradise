@@ -1209,7 +1209,7 @@
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
 	set category = "IC"
 
-	pose = sanitize(copytext_char(input(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize(copytext_char(input(usr, "Это [src]. [p_they(TRUE)] ...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

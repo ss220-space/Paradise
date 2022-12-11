@@ -133,14 +133,14 @@
 /mob/p_they(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
-	. = "it"
+	. = "оно"
 	switch(temp_gender)
 		if(FEMALE)
-			. = "she"
+			. = "она"
 		if(MALE)
-			. = "he"
+			. = "он"
 		if(PLURAL)
-			. = "they"
+			. = "они"
 	if(capitalized)
 		. = capitalize(.)
 
