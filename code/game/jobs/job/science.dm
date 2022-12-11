@@ -2,7 +2,7 @@
 	title = JOB_TITLE_RD
 	flag = JOB_FLAG_RD
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_science = 1
 	supervisors = "the captain"
@@ -54,7 +54,7 @@
 	title = JOB_TITLE_SCIENTIST
 	flag = JOB_FLAG_SCIENTIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 6
+	total_positions = 0
 	spawn_positions = 6
 	is_science = 1
 	supervisors = "the research director"
@@ -134,7 +134,7 @@
 	title = JOB_TITLE_ROBOTICIST
 	flag = JOB_FLAG_ROBOTICIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	is_science = 1
 	supervisors = "the research director"

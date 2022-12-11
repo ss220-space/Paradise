@@ -3,7 +3,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	title = JOB_TITLE_CAPTAIN
 	flag = JOB_FLAG_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials"
 	department_head = list(JOB_TITLE_CCOFFICER)
@@ -62,7 +62,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	title = JOB_TITLE_HOP
 	flag = JOB_FLAG_HOP
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	supervisors = "the captain"
 	department_head = list(JOB_TITLE_CAPTAIN)
@@ -113,7 +113,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	title = JOB_TITLE_REPRESENTATIVE
 	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	supervisors = "the command staff"
 	department_head = list(JOB_TITLE_CAPTAIN)
@@ -163,7 +163,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	title = JOB_TITLE_BLUESHIELD
 	flag = JOB_FLAG_BLUESHIELD
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
 	department_head = list(JOB_TITLE_CAPTAIN)
@@ -217,7 +217,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	title = JOB_TITLE_JUDGE
 	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
 	department_head = list(JOB_TITLE_CAPTAIN)
@@ -269,7 +269,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	title = JOB_TITLE_LAWYER
 	flag = JOB_FLAG_LAWYER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	is_legal = 1
 	supervisors = "the magistrate"

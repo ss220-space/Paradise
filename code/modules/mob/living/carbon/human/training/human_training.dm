@@ -19,10 +19,10 @@
 
 /mob/living/carbon/human/human_training/proc/find_place_for_room()
 	var/place
-	for(var/x = 1, x <= world.maxx - room_size_x, x += room_size_x)
+	for(var/x = 1, x < world.maxx - room_size_x, x += room_size_x)
 		if (place)
 			break
-		for(var/y = 1, y <= world.maxy - room_size_y, y += room_size_y)
+		for(var/y = 1, y < world.maxy - room_size_y, y += room_size_y)
 			var/turf/turf = get_turf(locate(x, y, 1))
 			if (istype(turf, /turf/space))
 				place = locate(x, y, 1)

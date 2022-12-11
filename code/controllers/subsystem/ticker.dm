@@ -127,11 +127,11 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
-			mode.process_job_tasks()
+			//mode.process_job_tasks()
 
-			if(world.time > next_autotransfer)
-				SSvote.start_vote(new /datum/vote/crew_transfer)
-				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
+			//if(world.time > next_autotransfer)
+			//	SSvote.start_vote(new /datum/vote/crew_transfer)
+			//	next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			//var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 			//if(CONFIG_GET(flag/continuous_rounds))
@@ -141,13 +141,13 @@ SUBSYSTEM_DEF(ticker)
 			//if(game_finished || force_ending)
 			//	current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
-			current_state = GAME_STATE_FINISHED
-			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
-			auto_toggle_ooc(TRUE) // Turn it on
+			//current_state = GAME_STATE_FINISHED
+			//Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
+			//auto_toggle_ooc(TRUE) // Turn it on
 
-			declare_completion()
+			//declare_completion()
 
-			addtimer(CALLBACK(src, PROC_REF(call_reboot)), 5 SECONDS)
+			//addtimer(CALLBACK(src, PROC_REF(call_reboot)), 5 SECONDS)
 
 			if(!SSmapping.next_map) //Next map already selected by admin
 				var/list/all_maps = subtypesof(/datum/map)

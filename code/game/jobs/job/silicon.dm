@@ -24,7 +24,7 @@
 	title = JOB_TITLE_CYBORG
 	flag = JOB_FLAG_CYBORG
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	supervisors = "your laws and the AI"	//Nodrak
 	department_head = list(JOB_TITLE_AI)
