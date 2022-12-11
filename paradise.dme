@@ -1524,6 +1524,7 @@
 #include "code\modules\clothing\masks\boxing.dm"
 #include "code\modules\clothing\masks\breath.dm"
 #include "code\modules\clothing\masks\gasmask.dm"
+#include "code\modules\clothing\masks\hailer.dm"
 #include "code\modules\clothing\masks\miscellaneous.dm"
 #include "code\modules\clothing\neck\cloaks.dm"
 #include "code\modules\clothing\neck\mantles.dm"

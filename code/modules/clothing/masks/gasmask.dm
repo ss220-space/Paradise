@@ -221,7 +221,7 @@
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase, /datum/action/item_action/dispatch)
 	var/phrase_list = list(
 
 								"halt" 			= "HALT! HALT! HALT! HALT!",
@@ -249,7 +249,7 @@
 	icon_state = "hosmask"
 	aggressiveness = 3
 	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase, /datum/action/item_action/dispatch)
 
 /obj/item/clothing/mask/gas/sechailer/warden
 	name = "\improper Warden SWAT mask"
@@ -257,7 +257,7 @@
 	icon_state = "wardenmask"
 	aggressiveness = 3
 	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase, /datum/action/item_action/dispatch)
 
 
 /obj/item/clothing/mask/gas/sechailer/swat
@@ -266,7 +266,7 @@
 	icon_state = "officermask"
 	aggressiveness = 3
 	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase, /datum/action/item_action/dispatch)
 
 /obj/item/clothing/mask/gas/sechailer/blue
 	name = "\improper blue SWAT mask"
@@ -275,20 +275,22 @@
 	item_state = "blue_sechailer"
 	aggressiveness = 3
 	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase, /datum/action/item_action/dispatch)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase, /datum/action/item_action/dispatch)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/halt)
 		halt()
 	else if(actiontype == /datum/action/item_action/adjust)
 		adjustmask(user)
+	else if(actiontype == /datum/action/item_action/dispatch)
+		dispatch(user)
 	else if(actiontype == /datum/action/item_action/selectphrase)
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
