@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
-	var/tts_seed = "Xenia"
+	var/tts_seed = null
 
 	var/body_accessory = null
 
