@@ -580,7 +580,7 @@
 			exp = params2list(exp_read.rows[1][1])
 			if(!exp[EXP_TYPE_BASE_TUTORIAL])
 				if(exp[EXP_TYPE_LIVING] && text2num(exp[EXP_TYPE_LIVING]) > 300)
-					exp["TrainBase"] = TRUE
+					exp[EXP_TYPE_BASE_TUTORIAL] = TRUE
 					var/datum/db_query/update_query = SSdbcore.NewQuery(
 						"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
 						list(
