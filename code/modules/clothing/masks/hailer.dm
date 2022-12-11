@@ -7,7 +7,7 @@
 /obj/item/clothing/mask/gas/sechailer
 	var/obj/item/radio/headset/radio //For engineering alerts.
 	var/radio_key = /obj/item/encryptionkey/headset_sec
-	var/department = "Security"
+	var/channel = "Security"
 	var/dispatch_cooldown = 20
 	var/last_dispatch = 0
 
@@ -37,10 +37,8 @@
 	for(var/option in list("601 (Murder)", "101 (Resisting arrest)", "310 (Breaking and entering)", "306 (Riot)", "401 (Assault, Officer)"))
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
 	var/message = show_radial_menu(user, user, options)
-	if(!message)
-		return FALSE
-	radio.handle_message_mode(src, "Dispatch, code [message] in progress in [A], requesting assistance.", department)
 	last_dispatch = world.time
 	for(var/atom/movable/hailer in GLOB.sechailers)
 		if(hailer.loc &&ismob(hailer.loc))
 			playsound(hailer.loc, "sound/voice/dispatch_please_respond.ogg", 100, FALSE)
+			radio.talk_into(user, "Dispatch, code [message] in progress in [A], requesting assistance.", channel)
