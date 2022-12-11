@@ -2,7 +2,7 @@
 	title = JOB_TITLE_CMO
 	flag = JOB_FLAG_CMO
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the captain"
@@ -53,7 +53,7 @@
 	title = JOB_TITLE_DOCTOR
 	flag = JOB_FLAG_DOCTOR
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 5
+	total_positions = 0
 	spawn_positions = 3
 	is_medical = 1
 	supervisors = "the chief medical officer"
@@ -139,7 +139,7 @@
 	title = JOB_TITLE_CORONER
 	flag = JOB_FLAG_CORONER
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
@@ -205,7 +205,7 @@
 	title = JOB_TITLE_CHEMIST
 	flag = JOB_FLAG_CHEMIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer"
@@ -244,7 +244,7 @@
 	title = JOB_TITLE_GENETICIST
 	flag = JOB_FLAG_GENETICIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
@@ -282,7 +282,7 @@
 	title = JOB_TITLE_VIROLOGIST
 	flag = JOB_FLAG_VIROLOGIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
@@ -322,7 +322,7 @@
 	title = JOB_TITLE_PSYCHIATRIST
 	flag = JOB_FLAG_PSYCHIATRIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
@@ -365,7 +365,7 @@
 	title = JOB_TITLE_PARAMEDIC
 	flag = JOB_FLAG_PARAMEDIC
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
