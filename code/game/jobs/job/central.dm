@@ -4,7 +4,7 @@
 	title = JOB_TITLE_CCOFFICER
 	flag = JOB_FLAG_CENTCOM
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
-	total_positions = 5
+	total_positions = 0
 	spawn_positions = 5
 	supervisors = "the admins"
 	selection_color = "#6865B3"
@@ -67,7 +67,7 @@
 	title = JOB_TITLE_CCSPECOPS
 	flag = JOB_FLAG_CENTCOM
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
-	total_positions = 5
+	total_positions = 0
 	spawn_positions = 5
 	supervisors = "the admins"
 	selection_color = "#6865B3"

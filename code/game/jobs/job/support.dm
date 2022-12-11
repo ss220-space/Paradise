@@ -3,7 +3,7 @@
 	title = JOB_TITLE_QUARTERMASTER
 	flag = JOB_FLAG_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_supply = 1
 	supervisors = "the head of personnel"
@@ -40,7 +40,7 @@
 	title = JOB_TITLE_CARGOTECH
 	flag = JOB_FLAG_CARGOTECH
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	is_supply = 1
 	supervisors = "the quartermaster"
@@ -67,7 +67,7 @@
 	title = JOB_TITLE_MINER
 	flag = JOB_FLAG_MINER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 6
+	total_positions = 0
 	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
@@ -130,7 +130,7 @@
 	title = JOB_TITLE_BARTENDER
 	flag = JOB_FLAG_BARTENDER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -173,7 +173,7 @@
 	title = JOB_TITLE_CHEF
 	flag = JOB_FLAG_CHEF
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -222,7 +222,7 @@
 	title = JOB_TITLE_BOTANIST
 	flag = JOB_FLAG_BOTANIST
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 2
+	total_positions = 0
 	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -258,7 +258,7 @@
 	title = JOB_TITLE_CLOWN
 	flag = JOB_FLAG_CLOWN
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -349,7 +349,7 @@
 	title = JOB_TITLE_MIME
 	flag = JOB_FLAG_MIME
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -404,7 +404,7 @@
 	title = JOB_TITLE_JANITOR
 	flag = JOB_FLAG_JANITOR
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -431,7 +431,7 @@
 	title = JOB_TITLE_LIBRARIAN
 	flag = JOB_FLAG_LIBRARIAN
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -461,7 +461,7 @@
 	title = JOB_TITLE_BARBER
 	flag = JOB_FLAG_BARBER
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
