@@ -8255,10 +8255,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
 "esx" = (
 /obj/machinery/light{
@@ -14546,7 +14543,7 @@
 /area/syndicate_mothership/cargo)
 "hTP" = (
 /turf/space/transit{
-	icon_state = "speedspace_1"
+	icon_state = "speedspace_ns_1"
 	},
 /area/space)
 "hTU" = (
@@ -28456,7 +28453,7 @@
 /area/syndicate_mothership)
 "oFJ" = (
 /turf/space/transit/west{
-	icon_state = "speedspace_1"
+	icon_state = "speedspace_ew_1"
 	},
 /area/space)
 "oFM" = (
@@ -29957,7 +29954,7 @@
 /area/shuttle/ninja)
 "psf" = (
 /turf/space/transit/east{
-	icon_state = "speedspace_1"
+	icon_state = "speedspace_ew_1"
 	},
 /area/space)
 "psE" = (
@@ -30186,7 +30183,7 @@
 /area/centcom/specops)
 "pwa" = (
 /turf/space/transit/north{
-	icon_state = "speedspace_1"
+	icon_state = "speedspace_ns_1"
 	},
 /area/space)
 "pwb" = (
@@ -35674,6 +35671,8 @@
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"saJ" = (
+)
 "sbs" = (
 /obj/machinery/vending/shoedispenser{
 	req_access_txt = "150"
@@ -39937,7 +39936,7 @@
 /area/centcom/specops)
 "ubE" = (
 /turf/space/transit/south{
-	icon_state = "speedspace_1"
+	icon_state = "speedspace_ns_1"
 	},
 /area/space)
 "ubF" = (
@@ -45035,7 +45034,7 @@
 	turf_type = /turf/space/transit/south
 	},
 /turf/space/transit/south{
-	icon_state = "speedspace_1"
+	icon_state = "speedspace_ns_1"
 	},
 /area/space)
 "wxO" = (
@@ -83170,7 +83169,7 @@ jMD
 mVX
 mVX
 mVX
-lwf
+saJ
 mVX
 mVX
 mVX
@@ -83178,7 +83177,7 @@ jMD
 mVX
 mVX
 mVX
-lwf
+saJ
 mVX
 mVX
 mVX
@@ -83427,7 +83426,7 @@ jMD
 mVX
 mVX
 mVX
-lwf
+saJ
 mVX
 mVX
 mVX
@@ -83435,7 +83434,7 @@ jMD
 mVX
 mVX
 mVX
-lwf
+saJ
 mVX
 mVX
 mVX
@@ -83684,7 +83683,7 @@ jMD
 mVX
 mVX
 mVX
-lwf
+saJ
 mVX
 mVX
 mVX
@@ -83692,7 +83691,7 @@ jMD
 mVX
 mVX
 mVX
-lwf
+saJ
 mVX
 onc
 onc
