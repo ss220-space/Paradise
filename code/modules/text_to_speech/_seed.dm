@@ -1,4 +1,4 @@
-#define TTS_CATEGORY_OTHER 0
+#define TTS_CATEGORY_OTHER "Другое"
 #define TTS_CATEGORY_WARCRAFT3 "WarCraft 3"
 #define TTS_CATEGORY_HALFLIFE2 "Half-Life 2"
 #define TTS_CATEGORY_STARCRAFT "StarCraft"
@@ -7,9 +7,9 @@
 #define TTS_CATEGORY_DOTA2 "Dota 2"
 #define TTS_CATEGORY_LOL "League of Legends"
 
-#define TTS_GENDER_ANY 0
-#define TTS_GENDER_MALE 1
-#define TTS_GENDER_FEMALE 2
+#define TTS_GENDER_ANY "Любой"
+#define TTS_GENDER_MALE "Мужской"
+#define TTS_GENDER_FEMALE "Женский"
 
 /datum/tts_seed
 	var/name = "STUB"
