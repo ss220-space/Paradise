@@ -2,7 +2,7 @@
 	title = "Chief Engineer"
 	flag = JOB_CHIEF
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the captain"
@@ -51,7 +51,7 @@
 	title = "Station Engineer"
 	flag = JOB_ENGINEER
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 5
+	total_positions = 0
 	spawn_positions = 5
 	is_engineering = 1
 	supervisors = "the chief engineer"
@@ -134,7 +134,7 @@
 	title = "Life Support Specialist"
 	flag = JOB_ATMOSTECH
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 3
+	total_positions = 0
 	spawn_positions = 2
 	is_engineering = 1
 	supervisors = "the chief engineer"
@@ -169,7 +169,7 @@
 	title = "Mechanic"
 	flag = JOB_MECHANIC
 	department_flag = JOBCAT_KARMA
-	total_positions = 1
+	total_positions = 0
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the chief engineer"

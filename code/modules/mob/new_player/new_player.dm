@@ -142,6 +142,9 @@
 		return TRUE
 
 	if(href_list["ready"])
+		to_chat(usr, "<span class='warning'>Начинать обучение можно только после его полной инициализации!</span>")
+		return FALSE
+
 		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE

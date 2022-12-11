@@ -29,8 +29,10 @@ SUBSYSTEM_DEF(events)
 	var/datum/event_meta/new_event = new
 
 /datum/controller/subsystem/events/Initialize()
-	allEvents = subtypesof(/datum/event)
+	flags |= SS_NO_FIRE
 	return ..()
+	// allEvents = subtypesof(/datum/event)
+	// return ..()
 
 /datum/controller/subsystem/events/fire()
 	for(var/datum/event/E in active_events)

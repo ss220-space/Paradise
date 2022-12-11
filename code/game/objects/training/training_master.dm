@@ -36,7 +36,7 @@
 
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
-			var/turf/old_turf = get_turf(locate(x, y, src.y))
+			var/turf/old_turf = get_turf(locate(x, y, src.z))
 			for(var/A in old_turf.contents)
 				if (A != src)
 					qdel(A)
