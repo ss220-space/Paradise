@@ -630,7 +630,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	for(var/_seed in SStts.tts_seeds)
 		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
 		tts_seeds += _tts_seed.name
-	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in tts_seeds
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in sortTim(tts_seeds, /proc/cmp_text_asc)
 	if(!new_tts_seed)
 		return null
 	if(!silent_target)
