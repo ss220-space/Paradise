@@ -564,6 +564,8 @@
 		if(!isnum(sql_id))
 			return
 
+	var/is_tutorial_needed = FALSE
+
 	if(sql_id)
 		var/client_address = address
 		if(!client_address) // Localhost can sometimes have no address set
@@ -590,8 +592,7 @@
 					)
 					update_query.warn_execute()
 				else
-					send_to_server_by_url(config.tutorial_server_url)
-					return
+					is_tutorial_needed = TRUE
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
@@ -617,6 +618,8 @@
 			qdel(src)
 			return // Dont insert or they can just go in again
 
+		is_tutorial_needed = TRUE
+
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
 			"ip" = address,
@@ -625,7 +628,6 @@
 		))
 		if(!query_insert.warn_execute())
 			qdel(query_insert)
-			send_to_server_by_url(config.tutorial_server_url)
 			return
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to nofiy admins
@@ -642,6 +644,8 @@
 	// If you ever extend this proc below this point, please wrap these with an if() in the same way its done above
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
+	if(is_tutorial_needed)
+		send_to_server_by_url(config.tutorial_server_url)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
