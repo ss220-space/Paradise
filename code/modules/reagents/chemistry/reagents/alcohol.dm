@@ -1207,7 +1207,7 @@
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
 		metabolization_rate += 9 * REAGENTS_METABOLISM //gets removed from organics very fast
 		if(prob(25))
-			metabolization_rate += 39 * REAGENTS_METABOLISM
+			metabolization_rate += 40 * REAGENTS_METABOLISM
 			M.fakevomit()
 	return ..()
 
