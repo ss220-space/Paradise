@@ -168,6 +168,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
+	var/block_unequip = FALSE
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -361,7 +363,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(throwing)
 		throwing.finalize()
 
-	if(loc == user)
+	if(loc == user && !block_unequip)
 		if(!allow_attack_hand_drop(user))
 			return
 
