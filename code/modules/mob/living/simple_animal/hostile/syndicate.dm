@@ -37,7 +37,7 @@
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
 	attacktext = "рубит"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = "slice"
 	armour_penetration = 28
 	status_flags = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)

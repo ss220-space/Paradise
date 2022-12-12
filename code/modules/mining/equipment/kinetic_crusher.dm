@@ -15,7 +15,7 @@
 	throw_speed = 4
 	armour_penetration = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
 	sharp = TRUE
 	actions_types = list(/datum/action/item_action/toggle_light)

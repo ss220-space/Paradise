@@ -11,7 +11,7 @@
 	item_state = "shard-glass"
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
 	max_integrity = 40
 	resistance_flags = ACID_PROOF

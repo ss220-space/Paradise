@@ -48,7 +48,7 @@
 	icon_state = "claymore"
 	item_state = "claymore"
 	flags = CONDUCT
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	slot_flags = SLOT_BELT
 	force = 40
 	throwforce = 10
@@ -84,7 +84,7 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 	max_integrity = 200
@@ -362,7 +362,7 @@
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
-	
+
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	. = ..()
 	if(!(isertmindshielded(user)))

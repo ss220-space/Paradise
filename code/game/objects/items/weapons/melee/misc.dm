@@ -41,7 +41,7 @@
 	sharp = TRUE
 	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
-	hitsound = 'sound/weapons/rapierhit.ogg'
+	hitsound = "stab"
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 

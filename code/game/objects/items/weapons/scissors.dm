@@ -8,7 +8,7 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_SMALL
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
 	toolspeed = 1
 

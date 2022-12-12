@@ -10,7 +10,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 50
 	attacktext = "грызёт"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = "slice"
 	faction = list("creature")
 	speak_emote = list("screams")
 	gold_core_spawnable = HOSTILE_SPAWN

@@ -90,7 +90,7 @@
 	materials = list(MAT_METAL = 15000)
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "torn", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	sharp = 1
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -126,7 +126,7 @@
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	sharp = 1
 	embed_chance = 15
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -182,7 +182,7 @@
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
-		hitsound = 'sound/weapons/bladeslice.ogg'
+		hitsound = "slice"
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else

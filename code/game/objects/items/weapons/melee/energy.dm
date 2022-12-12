@@ -276,7 +276,7 @@
 	slot_flags = SLOT_BELT
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	faction_bonus_force = 30
@@ -311,7 +311,7 @@
 	if(active)
 		force = force_on
 		throwforce = throwforce_on
-		hitsound = 'sound/weapons/bladeslice.ogg'
+		hitsound = "slice"
 		throw_speed = 4
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on

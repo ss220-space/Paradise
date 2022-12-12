@@ -91,7 +91,7 @@
 	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",

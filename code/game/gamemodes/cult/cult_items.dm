@@ -21,7 +21,7 @@
 	force = 30
 	throwforce = 10
 	sharp = TRUE
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
@@ -550,7 +550,7 @@
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
 	no_spin_thrown = TRUE
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 

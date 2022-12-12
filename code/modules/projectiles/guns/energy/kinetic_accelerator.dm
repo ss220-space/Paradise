@@ -190,7 +190,6 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
-	hitsound = "bullet"
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3

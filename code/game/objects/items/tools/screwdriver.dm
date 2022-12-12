@@ -13,7 +13,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=75)
 	attack_verb = list("stabbed")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	usesound = 'sound/items/screwdriver.ogg'
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)

@@ -196,7 +196,7 @@
 	force_wielded = 24
 	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	usesound = 'sound/items/crowbar.ogg'
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
@@ -398,7 +398,7 @@
 	throw_speed = 4
 	armour_penetration = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = TRUE
 	embed_chance = 50
@@ -833,7 +833,7 @@
 	force_unwielded = 7
 	force_wielded = 15
 	attack_verb = list("attacked", "impaled", "pierced")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "slice"
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
@@ -908,7 +908,7 @@
 	throwforce = 22
 	throw_speed = 4
 	armour_penetration = 10
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = "stab"
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharp = TRUE
 	embed_chance = 50
