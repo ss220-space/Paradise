@@ -104,7 +104,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
     selectedProviders.some(provider => provider.name === seed.provider)
     && selectedGenders.includes(seed.gender)
     && selectedCategories.includes(seed.category)
-    && seed.name.includes(searchtext)
+    && seed.name.toLowerCase().includes(searchtext.toLowerCase())
   );
 
   let seedsRow = availableSeeds.map(seed => {
