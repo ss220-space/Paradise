@@ -12,7 +12,7 @@
 	use_itemicon = FALSE
 
 /obj/item/clothing/mask/gas/sechailer
-	var/obj/item/radio/headset/radio
+	var/obj/item/radio/headset/headset_sec/radio
 	var/radio_key = /obj/item/encryptionkey/headset_sec
 	var/channel = "Security"
 	var/dispatch_cooldown = 20
