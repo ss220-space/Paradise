@@ -1,17 +1,18 @@
-#define MURDER "601 (Murder)"
-#define RESISTING_ARREST "101 (Resisting arrest)"
-#define BREAKING_AND_ENTERING "310 (Breaking and entering)"
-#define RIOT "306 (Riot)"
-#define ASSAULT "401 (Assault, Officer)"
+#define MURDER                 "601 (Murder)"
+#define RESISTING_ARREST       "101 (Resisting arrest)"
+#define BREAKING_AND_ENTERING  "310 (Breaking and entering)"
+#define RIOT                   "306 (Riot)"
+#define ASSAULT                "401 (Assault, Officer)"
 
 /datum/action/item_action/dispatch
 	name = "Signal dispatch"
 	desc = "Opens up a quick select wheel for reporting crimes, including your current location, to your fellow security officers."
 	button_icon_state = "dispatch"
 	icon_icon = 'icons/mob/actions/actions.dmi'
+	use_itemicon = FALSE
 
 /obj/item/clothing/mask/gas/sechailer
-	var/obj/item/radio/headset/radio //For engineering alerts.
+	var/obj/item/radio/headset/radio
 	var/radio_key = /obj/item/encryptionkey/headset_sec
 	var/channel = "Security"
 	var/dispatch_cooldown = 20
