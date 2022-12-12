@@ -131,6 +131,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
 
+	var/block_unequip = FALSE
 
 /obj/item/New()
 	..()
@@ -338,7 +339,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(throwing)
 		throwing.finalize(FALSE)
 
-	if(loc == user)
+	if(loc == user && !block_unequip)
 		if(!allow_attack_hand_drop(user) || !user.temporarily_remove_item_from_inventory(src))
 			return
 	else if(isliving(loc))
