@@ -41,4 +41,4 @@
 	for(var/atom/movable/hailer in GLOB.sechailers)
 		if(hailer.loc &&ismob(hailer.loc))
 			playsound(hailer.loc, "sound/voice/dispatch_please_respond.ogg", 100, FALSE)
-			radio.talk_into(user, "Dispatch, code [message] in progress in [A], requesting assistance.", channel)
+			radio.autosay("Dispatch, code [message] in progress in [A], requesting assistance.", "Security Announcer", channel)
