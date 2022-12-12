@@ -89,7 +89,7 @@
 		if(!(loc == usr) || (loc && loc.loc == usr))
 			return
 		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
+		if(!(M.restrained()) && !(M.stat) && !block_unequip)
 			switch(over_object.name)
 				if("r_hand")
 					if(!M.unEquip(src))
