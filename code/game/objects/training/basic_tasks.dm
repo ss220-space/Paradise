@@ -189,6 +189,7 @@
 	mask = new()
 	oxygen = new()
 	backpack = new()
+	backpack.block_unequip = TRUE
 	user.equip_to_slot_if_possible(backpack, slot_back)
 	backpack.contents.Add(mask)
 	backpack.contents.Add(oxygen)
@@ -485,7 +486,8 @@
 
 /datum/training_task/basic_12_1
 	description = list("Чтобы попасть в следующую комнату, вам нужно будет пройти через зону космического пространства.",
-	"Перед вами находится труп члена экипажа, который не смог пройти этот этап обучения, какая досада!",
+	"Перед вами находится труп члена экипажа, который не смог пройти этот этап обучения.",
+	"Какая досада!",
 	"Вам нужно снять с него :tr шлем, костюм EVA, маску и баллон :9 .",
 	"Этот костюм даст вам достаточную защиту от столь агрессивной для вас среды",
 	"Подойдите поближе, зажмите :tr ЛКМ :9 на члена экипажа и перетащите его на себя, чтобы открыть окно его снаряжения",
@@ -569,8 +571,8 @@
 	var/helmet = equipped_item.Find(user.find_item(/obj/item/clothing/head/helmet/space/eva))
 	var/suit = equipped_item.Find(user.find_item(/obj/item/clothing/suit/space/eva))
 	var/mask = equipped_item.Find(user.find_item(/obj/item/clothing/mask/breath))
-	var/tank = equipped_item.Find(user.find_item(/obj/item/tank/internals/emergency_oxygen/engi))
-	if (helmet && suit && mask && tank && user.internal == equipped_item[tank])
+	var/tank = user.find_item(/obj/item/tank/internals/emergency_oxygen/engi)
+	if (helmet && suit && mask && tank && user.internal == tank)
 		on_task_success("Отлично")
 		master.task_completed()
 	else

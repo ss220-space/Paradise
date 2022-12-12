@@ -31,5 +31,9 @@
 
 /mob/living/carbon/human/human_training/proc/reset_inventory()
 	delete_equipment()
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/orange, slot_shoes)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
+	var/obj/item/clothing/shoes/orange/shoes = new()
+	shoes.block_unequip = TRUE
+	var/obj/item/clothing/under/color/orange/uniform = new()
+	uniform.block_unequip = TRUE
+	equip_to_slot_if_possible(shoes, slot_shoes)
+	equip_to_slot_if_possible(uniform, slot_w_uniform)
