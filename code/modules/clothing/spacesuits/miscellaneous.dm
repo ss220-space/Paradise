@@ -144,6 +144,10 @@
 	icon_state = "solgovcommander"
 	item_state = "solgovcommander"
 
+/obj/item/clothing/suit/space/deathsquad/officer/syndie
+	icon_state = "specops"
+	item_state = "specops"
+
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
