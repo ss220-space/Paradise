@@ -56,7 +56,7 @@
 
 	var/mob_attack_logs = list() //for hostiles and megafauna
 
-	tts_seed = "vort_e2"
+	tts_seed = "Vort_e2"
 
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()

@@ -1,7 +1,7 @@
 /mob/living/captive_brain
 	name = "host brain"
 	real_name = "host brain"
-	tts_seed = "gman"
+	tts_seed = "Gman"
 
 /mob/living/captive_brain/say(message)
 	if(client)
@@ -62,7 +62,7 @@
 	desc = "A small, quivering sluglike creature."
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
-	tts_seed = "gman_e2"
+	tts_seed = "Gman_e2"
 	response_help  = "pokes"
 	response_disarm = "prods the"
 	response_harm   = "stomps on the"

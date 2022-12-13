@@ -20,7 +20,7 @@
 	melee_damage_upper = 25
 	attacktext = "кромсает"
 	speak_emote = list("hisses")
-	tts_seed = "ladyvashj"
+	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -93,7 +93,7 @@
 	var/plants_off = 0
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
-	tts_seed = "queen"
+	tts_seed = "Queen"
 
 /mob/living/simple_animal/hostile/alien/queen/handle_automated_action()
 	if(!..())

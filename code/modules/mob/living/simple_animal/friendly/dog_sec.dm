@@ -16,7 +16,7 @@
 	var/obj/item/inventory_mask
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
-	tts_seed = "furion"
+	tts_seed = "Furion"
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
@@ -26,7 +26,7 @@
 	icon_living = "ranger"
 	icon_resting = "ranger_rest"
 	icon_dead = "ranger_dead"
-	tts_seed = "pudge"
+	tts_seed = "Pudge"
 
 /mob/living/simple_animal/pet/dog/security/warden
 	name = "Джульбарс"
@@ -36,7 +36,7 @@
 	icon_living = "german_shep2"
 	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
-	tts_seed = "pantheon"
+	tts_seed = "Pantheon"
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
@@ -337,7 +337,7 @@
 	icon_living = "blackdog"
 	icon_dead = "blackdog_dead"
 	icon_resting = "blackdog_rest"
-	tts_seed = "thrall"
+	tts_seed = "Thrall"
 
 /mob/living/simple_animal/pet/dog/security/detective/show_inv(mob/user)
 	return

@@ -2,7 +2,7 @@
 	name = "alien"
 	voice_name = "alien"
 	speak_emote = list("hisses")
-	tts_seed = "ladyvashj"
+	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER

@@ -6,23 +6,23 @@
 
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
-	tts_seed = "sniper"
+	tts_seed = "Sniper"
 
 /mob/living/carbon/human/lesser/farwa/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/tajaran)
-	tts_seed = "gyro"
+	tts_seed = "Gyro"
 
 /mob/living/carbon/human/lesser/wolpin/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/vulpkanin)
-	tts_seed = "bloodseeker"
+	tts_seed = "Bloodseeker"
 
 /mob/living/carbon/human/lesser/neara/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/skrell)
-	tts_seed = "bounty"
+	tts_seed = "Bounty"
 
 /mob/living/carbon/human/lesser/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
-	tts_seed = "witchdoctor"
+	tts_seed = "Witchdoctor"
 
 /mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
 	. = ..()

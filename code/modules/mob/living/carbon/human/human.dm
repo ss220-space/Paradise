@@ -108,12 +108,12 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
 	if (!tts_seed)
-		tts_seed = "priest"
+		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
 	if (!tts_seed)
-		tts_seed = "priest"
+		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
 	. = ..(mapload, /datum/species/machine)

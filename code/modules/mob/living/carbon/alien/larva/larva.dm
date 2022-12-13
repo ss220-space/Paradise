@@ -9,7 +9,7 @@
 	health = 25
 	density = 0
 
-	tts_seed = "templar"
+	tts_seed = "Templar"
 
 	var/amount_grown = 0
 	var/max_grown = 200
