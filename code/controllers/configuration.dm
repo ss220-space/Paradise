@@ -118,6 +118,7 @@
 	var/discordforumurl = "http://example.org"
 
 	var/overflow_server_url
+	var/tutorial_server_url
 	var/forbid_singulo_possession = 0
 
 	var/check_randomizer = 0
@@ -301,6 +302,9 @@
 	var/full_day_logs = FALSE
 
 	var/allow_head_of_departaments_assign_civilian = FALSE
+
+	var/tts_enabled = FALSE // Global switch
+	var/tts_cache = FALSE // Store generated tts files and reuse them, instead of always requesting new
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -751,6 +755,9 @@
 				if("overflow_server_url")
 					config.overflow_server_url = value
 
+				if("tutorial_server_url")
+					config.tutorial_server_url = value
+
 				if("disable_away_missions")
 					config.disable_away_missions = 1
 
@@ -855,6 +862,15 @@
 
 				if("topic_filtering_whitelist")
 					config.topic_filtering_whitelist = splittext(value, " ")
+
+				if("tts_token_silero")
+					tts_token_silero = value
+
+				if("tts_enabled")
+					config.tts_enabled = tts_token_silero ? TRUE : FALSE
+
+				if("tts_cache")
+					config.tts_cache = TRUE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")
