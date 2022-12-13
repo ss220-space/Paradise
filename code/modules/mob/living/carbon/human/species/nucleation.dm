@@ -47,7 +47,6 @@
 			if(H.radiation < 80)
 				H.apply_effect(4, IRRADIATE, negate_armor = 1)
 			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
-		return ..()
 	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
