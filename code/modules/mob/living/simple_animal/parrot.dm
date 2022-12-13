@@ -34,6 +34,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	can_collar = 1
+	tts_seed = "sniper"
 
 	var/list/clean_speak = list(
 		"Hi",
@@ -682,6 +683,7 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Поли"
 	desc = "Попугай Поли. Эксперт по квантовой теории крекеров."
+	tts_seed = "gyro"
 	clean_speak = list(
 		"Поли хочет крекер!",
 		"Проверьте сингу, долбоящеры!",

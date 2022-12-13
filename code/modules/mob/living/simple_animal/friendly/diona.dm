@@ -23,6 +23,7 @@
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
 	emote_see = list("chirrups")
+	tts_seed = "priest"
 
 	response_help  = "pets"
 	response_disarm = "pushes"

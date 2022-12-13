@@ -43,6 +43,7 @@ Difficulty: Medium
 	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("roars")
+	tts_seed = "mannoroth"
 	armour_penetration = 40
 	melee_damage_lower = 40
 	melee_damage_upper = 40
