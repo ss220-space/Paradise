@@ -372,7 +372,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "goose_dead"
 	speak = list("quack?","quack","QUACK")
 	speak_emote = list("quacks")
-	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
+	tts_seed = "Pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
 //	emote_hear = list("brays")
 	emote_see = list("flaps it's wings")
 	speak_chance = 1
