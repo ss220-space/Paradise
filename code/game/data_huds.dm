@@ -179,7 +179,6 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || (status_flags & FAKEDEATH))
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
@@ -191,8 +190,6 @@
 			holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
-	else if(B && B.controlling)
-		holder.icon_state = "hudhealthy"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
 	else if(has_virus())
