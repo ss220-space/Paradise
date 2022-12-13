@@ -36,7 +36,7 @@
 	icon_living = "german_shep2"
 	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
-	tts_seed = "Pantheon"
+	tts_seed = "pantheon"
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
