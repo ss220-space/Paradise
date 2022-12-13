@@ -175,7 +175,7 @@
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
-	tts_seed = "Meepo"
+	tts_seed = "Arthas"
 
 
 /mob/living/simple_animal/mouse/blobinfected
