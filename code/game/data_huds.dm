@@ -192,7 +192,7 @@
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
 	else if(B && B.controlling)
-		holder.icon_state = "hudbrainworm"
+		holder.icon_state = "hudhealthy"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
 	else if(has_virus())
