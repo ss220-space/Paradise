@@ -14,5 +14,5 @@
 
 /obj/item/storage/box/contractor/fulton_kit/New()
 	..()
-	new /obj/item/extraction_pack(src)
-	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack/syndie(src)
+	new /obj/item/fulton_core/syndie(src)

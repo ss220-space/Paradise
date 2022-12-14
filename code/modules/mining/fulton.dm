@@ -12,6 +12,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	var/can_use_indoors
 	var/safe_for_living_creatures = TRUE
 	var/max_force_fulton = MOVE_FORCE_STRONG
+	var/activation_time = 50
 
 /obj/item/extraction_pack/examine(mob/user)
 	. = ..()
@@ -61,7 +62,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
-		if(do_after(user, 50, target = A))
+		if(do_after(user, activation_time, target = A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
 			if(loc == user && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = user.back
@@ -193,3 +194,21 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/effect/extraction_holder/singularity_pull()
 	return
+
+
+/obj/item/extraction_pack/syndie
+	name = "quick escape system"
+	desc = "blah blah"
+	w_class = WEIGHT_CLASS_SMALL
+	beacon_networks = ("syndicate")
+	can_use_indoors = TRUE
+	activation_time = 5
+
+/obj/item/fulton_core/syndie
+	name = "suspicios extraction beacon signaller"
+	desc = "Emits a signal which quick escape system can lock onto. Activate in hand to create a beacon."
+
+/obj/structure/extraction_point/syndie
+	name = "quick escape system beacon"
+	desc = "A beacon for the quick escape system. Activate a pack in your hand to link it to a beacon."
+	beacon_network = "syndicate"
