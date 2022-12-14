@@ -2,10 +2,18 @@
 	var/static/datum/number/num
 	if(!num)
 		num = new /datum/number
-	n = text2num(n, 10)
-	if(ISINTEGER(n))
-		return " [num.int2words(n)] "
-	return ""
+
+	if(num.cache["[n]"])
+		return num.cache["[n]"]
+
+	var/result
+	if(findtext_char(n, "."))
+		result = num.decimal2words(n)
+	else
+		result = num.int2words(n)
+
+	num.cache["[n]"] = result
+	return " [result] "
 
 /datum/number
 	var/static/list/units = list(
@@ -107,9 +115,6 @@
 /datum/number/proc/int2words(textnum, list/main_units = list(list("", "", ""), "m"))
 //	http://ru.wikipedia.org/wiki/Gettext#.D0.9C.D0.BD.D0.BE.D0.B6.D0.B5.D1.81.D1.82.D0.B2.D0.B5.D0.BD.D0.BD.D1.8B.D0.B5_.D1.87.D0.B8.D1.81.D0.BB.D0.B0_2
 
-	//if(cache["[num]"])
-	//	return cache["[num]"]
-
 	var/list/_orders = list(main_units) + orders
 
 	var/num = text2num(textnum)
@@ -146,18 +151,13 @@
 		name += temp_name[i]
 
 	var/result = trim(jointext(name, " "))
-	//cache["[num]"] = result
 	return result
 
 /datum/number/proc/decimal2words(textvalue, places = 3)
-	//if(cache["[value]"])
-	//	return cache["[value]"]
-
 	var/pieces = splittext(textvalue, ".")
 	var/integral = pieces[1]
 	var/exp = copytext_char(pieces[2], 1, places + 1)
 	var/list/exp_units = decimal_exp_units[length_char(exp)]
 
 	var/result = trim("[int2words(integral, decimal_int_units)] [int2words(exp, exp_units)]")
-	//cache["[value]"] = result
 	return result
