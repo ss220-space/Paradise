@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/points_per_decisecond = 0.005	//points gained every decisecond
 	var/points_per_slip = 2				//points gained per slip returned
 	var/points_per_crate = 5			//points gained per crate returned
-	var/points_per_intel = 250			//points gained per intel returned
+	var/points_per_intel = 500			//points gained per intel returned
 	var/points_per_plasma = 5			//points gained per plasma returned
 	var/points_per_design = 25			//points gained per research design returned
 	var/centcom_message = null			//Remarks from Centcom on how well you checked the last order.
