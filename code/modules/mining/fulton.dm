@@ -197,18 +197,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 
 /obj/item/extraction_pack/syndie
-	name = "quick escape system"
-	desc = "blah blah"
+	name = "suspicious Fulton extraction pack"
+	desc = "A balloon that can be used to extract equipment or personnel to a Fulton Recovery Beacon. Anything not bolted down can be moved. Link the pack to a beacon by using the pack in hand. Faster than usual version."
 	w_class = WEIGHT_CLASS_SMALL
-	beacon_networks = ("syndicate")
 	can_use_indoors = TRUE
 	activation_time = 5
-
-/obj/item/fulton_core/syndie
-	name = "suspicios extraction beacon signaller"
-	desc = "Emits a signal which quick escape system can lock onto. Activate in hand to create a beacon."
-
-/obj/structure/extraction_point/syndie
-	name = "quick escape system beacon"
-	desc = "A beacon for the quick escape system. Activate a pack in your hand to link it to a beacon."
-	beacon_network = "syndicate"
