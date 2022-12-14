@@ -199,8 +199,19 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(RADIMMUNE in dna.species.species_traits))
-		if(radiation)
+	if(radiation)
+		if(isnucleation(src))
+			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так - что бы эффекты снизу вообще работали
+			switch(radiation)
+				if(1 to 399)
+					radiation = max(radiation-1, 0) // Что бы не копилась бесконечно малое кол-во, но все ещё можно было получать эффект снизу при достаточном облучении
+					return
+				if(400 to INFINITY)
+					if(prob(50))
+						reagents.add_reagent("radium", 1)
+						radiation = max(radiation-50, 0)
+						return
+		if(!(RADIMMUNE in dna.species.species_traits))
 			radiation = clamp(radiation, 0, 200)
 
 			var/autopsy_damage = 0
@@ -970,22 +981,23 @@
 	if(status_flags & FAKEDEATH)
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
-	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.heart_rate_decrease)
-			if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
-				temp--
-				break
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.heart_rate_decrease)
+				if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
+					temp--
+					break
 
-	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.heart_rate_increase)
-			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
-				temp++
-				break
+		for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
+			if(R.heart_rate_increase)
+				if(temp <= PULSE_FAST && temp >= PULSE_NONE)
+					temp++
+					break
 
-	for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-		if(R.heart_rate_stop)
-			temp = PULSE_NONE
-			break
+		for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
+			if(R.heart_rate_stop)
+				temp = PULSE_NONE
+				break
 
 	return temp
 
