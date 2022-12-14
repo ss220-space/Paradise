@@ -51,6 +51,14 @@
 		list(list("квинтиллион", "квинтиллиона", "квинтиллионов"), "m"),
 	)
 
+	var/static/list/decimal_int_units = list(list("целая", "целых", "целых"), "f")
+
+	var/static/list/decimal_exp_units = list(
+		list(list("десятая", "десятых", "десятых"), "f"),
+		list(list("сотая", "сотых", "сотых"), "f"),
+		list(list("тысячная", "тысячных", "тысячных"), "f"),
+	)
+
 	var/static/minus = "минус"
 
 	var/static/cache = list()
@@ -141,16 +149,15 @@
 	//cache["[num]"] = result
 	return result
 
-/datum/number/proc/decimal2words(value, places = 2, int_units=list(list("целых", "целых", "целых"), "m"), exp_units=list(list("", "", ""), "m"))
-	if(cache["[value]"])
-		return cache["[value]"]
+/datum/number/proc/decimal2words(textvalue, places = 3)
+	//if(cache["[value]"])
+	//	return cache["[value]"]
 
-	var/q = 10 ** -places
-
-	var/pieces = splittext("[round(value, q)]", ".")
+	var/pieces = splittext(textvalue, ".")
 	var/integral = pieces[1]
-	var/exp = pieces[2]
+	var/exp = copytext_char(pieces[2], 1, places + 1)
+	var/list/exp_units = decimal_exp_units[length_char(exp)]
 
-	var/result = trim("[int2words(integral, int_units)] [int2words(exp, exp_units)]")
-	cache["[value]"] = result
+	var/result = trim("[int2words(integral, decimal_int_units)] [int2words(exp, exp_units)]")
+	//cache["[value]"] = result
 	return result
