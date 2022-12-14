@@ -435,7 +435,7 @@ SUBSYSTEM_DEF(tts)
 	for(var/job in tts_job_replacements)
 		. = replacetext(., regex(job, "igm"), tts_job_replacements[job])
 	. = rustg_latin_to_cyrillic(.)
-	. = replacetext(., regex(@"-?\d+[.,]\d+", "g"), /proc/num_in_words)
+	. = replacetext(., regex(@"-?\d+\.\d+", "g"), /proc/dec_in_words)
 	. = replacetext(., regex(@"-?\d+", "g"), /proc/num_in_words)
 	if(sanitized_messages_caching)
 		sanitized_messages_cache[hash] = .

@@ -1,4 +1,10 @@
 /proc/num_in_words(n)
+	return get_num_in_words(n)
+
+/proc/dec_in_words(n)
+	return get_num_in_words(n, TRUE)
+
+/proc/get_num_in_words(n, decimal = FALSE)
 	var/static/datum/number/num
 	if(!num)
 		num = new /datum/number
@@ -7,13 +13,14 @@
 		return num.cache["[n]"]
 
 	var/result
-	if(findtext_char(n, "."))
+	if(decimal)
 		result = num.decimal2words(n)
 	else
 		result = num.int2words(n)
 
+	result = " [result] "
 	num.cache["[n]"] = result
-	return " [result] "
+	return result
 
 /datum/number
 	var/static/list/units = list(
@@ -154,7 +161,7 @@
 	return result
 
 /datum/number/proc/decimal2words(textvalue, places = 3)
-	var/pieces = splittext(textvalue, ".")
+	var/pieces = splittext_char(textvalue, ".")
 	var/integral = pieces[1]
 	var/exp = copytext_char(pieces[2], 1, places + 1)
 	var/list/exp_units = decimal_exp_units[length_char(exp)]
