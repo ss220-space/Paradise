@@ -8,7 +8,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "transporter"
 	item_state = "transporter"
-	desc = "A special device, that allow user to change a position of certain objects"
+	desc = "A special device, that allow user to change a position of certain objects\n\nUSE IN HAND - Change target values\nHELP - Move object to target values\nGRAB - Choose object to move using mouse\nDISARM - Move object using mouse"
 	usesound = 'sound/items/ratchet.ogg'
 	hitsound = "swing_hit"
 
@@ -89,6 +89,8 @@
 		if((is_type_in_list(A, allowed_types)) || ignore_type)
 			A.pixel_x = target_x
 			A.pixel_y = target_y
+			A.layer = max(A.layer, 3.3)
+			playsound(loc, usesound, 30, TRUE)
 
 	var/list/click_params = params2list(params)
 
@@ -104,9 +106,9 @@
 			to_chat(user, "<span class='warning'>Linked object is too far away</span>")
 			return
 
-		to_chat(user, "<span class='warning'>[text2num(click_params["icon-x"])] [text2num(click_params["icon-y"])]</span>")
-		target.pixel_x = clamp((text2num(click_params["icon-x"]) - TRANSPORTER_RANGE/2) + ((A.x - target.x) * TRANSPORTER_RANGE), -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
-		target.pixel_y = clamp((text2num(click_params["icon-y"]) - TRANSPORTER_RANGE/2) + ((A.y - target.y) * TRANSPORTER_RANGE), -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
+		target.pixel_x = clamp((text2num(click_params["icon-x"]) - TRANSPORTER_RANGE/2) + ((A.x - target.x) * TRANSPORTER_RANGE) + A.pixel_x, -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
+		target.pixel_y = clamp((text2num(click_params["icon-y"]) - TRANSPORTER_RANGE/2) + ((A.y - target.y) * TRANSPORTER_RANGE) + A.pixel_y, -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
+		target.layer = max(A.layer, 3.3)
 		playsound(loc, usesound, 30, TRUE)
 		return
 

@@ -587,6 +587,8 @@
 				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			pulling.pixel_x = 0
+			pulling.pixel_y = 0
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
