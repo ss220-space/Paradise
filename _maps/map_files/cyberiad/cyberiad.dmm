@@ -2000,6 +2000,10 @@
 	c_tag = "Brig HoS Bedroom";
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2979,13 +2983,14 @@
 /area/security/brig)
 "ajn" = (
 /obj/structure/dresser,
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /obj/machinery/light_switch{
 	name = "south light switch";
 	pixel_y = -24
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west fire alarm";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
