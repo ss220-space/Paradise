@@ -36,6 +36,22 @@ emp_act
 		P.on_hit(src, 100, def_zone)
 		return 2
 
+
+	if(mind?.martial_art?.reflection_chance) //Some martial arts users can even reflect projectiles!
+		if(!lying && !(HULK in mutations) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
+			var/checks_passed = TRUE
+			if(istype(mind.martial_art, /datum/martial_art/ninja_martial_art))
+				var/datum/martial_art/ninja_martial_art/creeping_widow = mind.martial_art
+				if(!creeping_widow.check_katana(mind.current))
+					checks_passed = FALSE
+			if(checks_passed)
+				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+			"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+				add_attack_logs(P.firer, src, "hit by [P.type] but got reflected by martial arts '[mind.martial_art]'")
+				P.reflect_back(src)
+				return -1
+			return FALSE
+
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_chance)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
@@ -446,6 +462,11 @@ emp_act
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
+
+	if(mind && user?.mind?.objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+			if(mind == objective.target)
+				objective.take_damage(I.force * weakness, I.damtype)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))

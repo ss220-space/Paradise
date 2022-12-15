@@ -133,7 +133,7 @@
 
 
 /*
- * Ushanka
+ * Soviet Hats
  */
 /obj/item/clothing/head/ushanka
 	name = "ushanka"
@@ -163,6 +163,24 @@
 		src.item_state = "ushankadown"
 		to_chat(user, "You lower the ear flaps on the ushanka.")
 
+/obj/item/clothing/head/sovietsidecap
+	name = "\improper Soviet side cap"
+	desc = "A simple military cap with a Soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
+	icon_state = "sovietsidecap"
+	item_state = "sovietsidecap"
+
+/obj/item/clothing/head/sovietofficerhat
+	name = "\improper Soviet officer hat"
+	desc = "A military officer hat designed to stand out so the conscripts know who is in charge."
+	icon_state = "sovietofficerhat"
+	item_state = "sovietofficerhat"
+
+/obj/item/clothing/head/sovietadmiralhat
+	name = "\improper Soviet admiral hat"
+	desc = "This hat clearly belongs to someone very important."
+	icon_state = "sovietadmiralhat"
+	item_state = "sovietadmiralhat"
+
 /*
  * Pumpkin head
  */
@@ -175,7 +193,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',

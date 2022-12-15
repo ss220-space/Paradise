@@ -2,6 +2,8 @@
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
+	hitsound = 'sound/weapons/magic.ogg'
+	hitsound_wall = 'sound/weapons/magic.ogg'
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100
@@ -166,7 +168,7 @@
 		if(isrobot(M))
 			var/mob/living/silicon/robot/Robot = M
 			QDEL_NULL(Robot.mmi)
-			Robot.notify_ai(1)
+			Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M

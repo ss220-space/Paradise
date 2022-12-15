@@ -19,6 +19,7 @@
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
+	tts_seed = "Chen"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -390,7 +391,7 @@
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
-	var/water_damage = rand(10, 15) * volume - age_state.attacked
+	var/water_damage = (rand(10, 15) - age_state.attacked) * volume
 
 	adjustBruteLoss(water_damage)
 	if(!client && Target && volume >= 3) // Like cats

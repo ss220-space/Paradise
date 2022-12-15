@@ -323,26 +323,22 @@
 		S.message = muffledspeech(S.message)
 
 
-/proc/shake_camera(mob/M, duration, strength=1)
-	if(!M || !M.client || M.shakecamera)
+/// Shake the camera of the person viewing the mob SO REAL!
+/proc/shake_camera(mob/M, duration, strength = 1)
+	if(!M || !M.client || duration < 1)
 		return
-	M.shakecamera = 1
-	spawn(1)
+	var/client/C = M.client
+	var/oldx = C.pixel_x
+	var/oldy = C.pixel_y
+	var/max = strength * world.icon_size
+	var/min = -(strength * world.icon_size)
 
-		var/atom/oldeye=M.client.eye
-		var/aiEyeFlag = 0
-		if(istype(oldeye, /mob/camera/aiEye))
-			aiEyeFlag = 1
-
-		var/x
-		for(x=0; x<duration, x++)
-			if(aiEyeFlag)
-				M.client.eye = locate(dd_range(1,oldeye.loc.x+rand(-strength,strength),world.maxx),dd_range(1,oldeye.loc.y+rand(-strength,strength),world.maxy),oldeye.loc.z)
-			else
-				M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
-			sleep(1)
-		M.client.eye=oldeye
-		M.shakecamera = 0
+	for(var/i in 0 to duration - 1)
+		if(i == 0)
+			animate(C, pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+		else
+			animate(pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+	animate(pixel_x = oldx, pixel_y = oldy, time = 1)
 
 
 /proc/findname(msg)
@@ -627,6 +623,28 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			return
 
 		rename_character(oldname, newname)
+
+/mob/proc/select_voice(mob/user, silent_target = FALSE)
+	var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
+	var/list/tts_seeds = list()
+	for(var/_seed in SStts.tts_seeds)
+		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
+		tts_seeds += _tts_seed.name
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in sortTim(tts_seeds, /proc/cmp_text_asc)
+	if(!new_tts_seed)
+		return null
+	if(!silent_target)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
+	if(user)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
+	return new_tts_seed
+
+/mob/proc/change_voice(mob/user)
+	var/new_tts_seed = select_voice(user)
+	if(!new_tts_seed)
+		return null
+	tts_seed = new_tts_seed
+	return new_tts_seed
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)

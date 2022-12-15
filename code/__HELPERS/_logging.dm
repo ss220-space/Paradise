@@ -53,7 +53,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_access_in(client/new_client)
 	if(config.log_access)
-		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version]"
+		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
@@ -299,8 +299,8 @@ GLOBAL_PROTECT(log_end)
 	else
 		log_runtime(EXCEPTION("Got non-mob variable [user] with arguments [what_said] [language] [target]"))
 		return
-	actor.create_log(SAY_LOG, "[language ? "([language])" : ""] [what_said]", target)
-	log_say("[language ? "([language])" : ""] [what_said] [target ? "to [target]" : null]", actor)
+	actor.create_log(SAY_LOG, "[language ? "([language]) " : ""][what_said]", target)
+	log_say("[language ? "([language]) " : ""][what_said][target ? " to [target]" : null]", actor)
 
 // Proc for conversion log creation
 // * user is who gets converted in something

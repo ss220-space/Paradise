@@ -12,8 +12,10 @@
 	melee_damage_upper = 18
 	obj_damage = 40
 	speed = 0
+	friendly = "pokes"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	tts_seed = "Earth"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	pressure_resistance = 100
@@ -29,19 +31,30 @@
 	deathmessage = "shatters as the flames goes out."
 	light_range = 2
 	light_power = 1.1
-	var/deflect_chance = 40
+	var/deflect_chance = 30
 
 /mob/living/simple_animal/hostile/clockwork/marauder/hostile
 	AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
 	. = ..()
-	if(!isclocker(src))
-		SSticker.mode.add_clocker(mind)
+	real_name = text("clockwork marauder ([rand(1, 1000)])")
 
 /mob/living/simple_animal/hostile/clockwork/marauder/death(gibbed)
 	. = ..()
 	SSticker.mode.remove_clocker(mind, FALSE)
+
+/mob/living/simple_animal/hostile/clockwork/marauder/AttackingTarget()
+	if(a_intent == INTENT_HELP && isliving(target) && !isclocker(target)) // yes i know, it's not a disarm
+		var/mob/living/L = target
+		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
+		L.adjustStaminaLoss(20)
+		src.do_attack_animation(target)
+		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
+						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")
+		add_attack_logs(src, target, "Knocks")
+	else
+		..()
 
 /mob/living/simple_animal/hostile/clockwork/marauder/FindTarget(list/possible_targets, HasTargetsList)
 	. = list()
@@ -70,9 +83,11 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/proc/deflect_projectile(obj/item/projectile/P)
 	var/final_deflection_chance = deflect_chance
 	var/energy_projectile = istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam)
+	if(GetOppositeDir(dir) != P.dir) //if projectile hits into his eyes, nor behind or side.
+		return FALSE
 	if(P.nodamage || P.damage_type == STAMINA)
 		final_deflection_chance = 100
-	else if(!energy_projectile) //Flat 40% chance against energy projectiles; ballistic projectiles are 40% - (damage of projectile)%, min. 10%
+	else if(!energy_projectile) //Flat 30% chance against energy projectiles; ballistic projectiles are 30% - (damage of projectile)%, min. 10%
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
 		visible_message("<span class='danger'>[src] deflects [P] with their shield!</span>", \
@@ -96,6 +111,7 @@
 	pressure_resistance = 100
 	universal_speak = 1
 	gold_core_spawnable = NO_SPAWN
+	tts_seed = "Earth"
 
 /mob/living/simple_animal/mouse/clockwork/handle_automated_action()
 	if(!isturf(loc))

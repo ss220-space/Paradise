@@ -36,7 +36,6 @@
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
-	fire_sound = 'sound/weapons/pulse3.ogg'
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
@@ -145,7 +144,6 @@
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER
@@ -287,7 +285,8 @@
 /obj/item/gun/energy/clown
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
 	selfcharge = 1
@@ -297,8 +296,6 @@
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	icon_state = "toxgun"
-	fire_sound = 'sound/effects/stealthoff.ogg'
-
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
@@ -328,7 +325,6 @@
 	item_state = "tempgun_4"
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	fire_sound = 'sound/weapons/pulse3.ogg'
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
 	var/target_temperature = 300
@@ -538,6 +534,7 @@
 
 	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator, /obj/item/ammo_casing/energy/dominator/slaughter)
 	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
+	var/sound_cd = null
 	cell_type = /obj/item/stock_parts/cell/dominator
 	can_charge = TRUE
 	charge_sections = 3
@@ -550,12 +547,15 @@
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	..()
-	if(sibyl_mod)
+	if(sibyl_mod && sibyl_mod.voice_is_enabled && !sound_cd)
 		var/temp_select = select
-		spawn(20)
-			if(!isnull(sound_voice[select]) && select == temp_select && sibyl_mod.voice_is_enabled)
-				user << sound(sound_voice[select], volume=50, wait=TRUE, channel=CHANNEL_SIBYL_SYSTEM)
+		if(sound_voice[select] && select == temp_select)
+			sound_cd = addtimer(CALLBACK(src, .proc/select_voice, user, temp_select), 2 SECONDS)
 	return
+
+/obj/item/gun/energy/dominator/proc/select_voice(mob/living/user, temp_select)
+	user.playsound_local(get_turf(src), sound_voice[select], 50, FALSE)
+	sound_cd = null
 
 /obj/item/gun/energy/dominator/update_icon()
 	if(isnull(cell))
@@ -614,8 +614,9 @@
 
 /obj/item/gun/energy/dominator/proc/set_drop_icon()
 	icon_state = initial(icon_state)
-	if(sibyl_mod)
-		if(sibyl_mod.lock)
-			icon_state += "_lock"
-		else
-			icon_state += "_unlock"
+	if(!sibyl_mod)
+		return
+	if(sibyl_mod.auth_id)
+		icon_state += "_unlock"
+	else
+		icon_state += "_lock"

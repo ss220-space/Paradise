@@ -76,6 +76,7 @@ CREATE TABLE `characters` (
   `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `autohiss` tinyint(1) NOT NULL,
   `uplink_pref` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tts_seed` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -265,7 +266,7 @@ CREATE TABLE `player` (
   `be_role` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
-  `toggles_2` int(11) DEFAULT '0',
+  `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
   `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',

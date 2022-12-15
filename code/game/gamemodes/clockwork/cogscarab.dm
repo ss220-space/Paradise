@@ -1,18 +1,22 @@
+#define WINDUP_STATE_NONE 0
+#define WINDUP_STATE_WARNING 1
+#define WINDUP_STATE_DANGER 2
+
 // Little Coggy Droney!
 /mob/living/silicon/robot/cogscarab
 	name = "cogscarab"
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "drone"
-	health = 50
-	maxHealth = 50
-	speed = 0
+	health = 35
+	maxHealth = 35
 	density = 0
 	ventcrawler = 2
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 
 	speak_emote = list("clanks", "clinks", "clunks", "clangs")
+	tts_seed = "Earth"
 	speak_statement = "clinks"
 	speak_exclamation = "proclaims"
 	speak_query = "requests"
@@ -44,6 +48,8 @@
 		/obj/item/clockwork
 	)
 
+	var/wind_up_timer = CLOCK_MAX_WIND_UP_TIMER
+	var/warn_wind_up = WINDUP_STATE_NONE
 
 /mob/living/silicon/robot/cogscarab/Initialize()
 	. = ..()
@@ -51,6 +57,7 @@
 	add_language("Drone Talk", 1)
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
+
 
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
@@ -71,6 +78,31 @@
 	additional_law_channels["Drone"] = ":d "
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+
+/mob/living/silicon/robot/cogscarab/Life(seconds, times_fired)
+	..()
+	if(wind_up_timer > CLOCK_MAX_WIND_UP_TIMER/2)
+		warn_wind_up = WINDUP_STATE_NONE
+	else
+		if(!warn_wind_up)
+			to_chat(src, "<span class='warning'>You feel how your cogs inside slowing down! You need to find beacon to rewind yourself!</span>")
+			warn_wind_up = WINDUP_STATE_WARNING
+
+
+	if(wind_up_timer <= 0)
+		if(wind_up_timer < 0)
+			wind_up_timer = 0
+		if(warn_wind_up < WINDUP_STATE_DANGER)
+			to_chat(src, "<span class='userdanger'>The gears inside stopped to work! Find the beacon!</span>")
+			warn_wind_up = WINDUP_STATE_DANGER
+		adjustBruteLoss(2)
+	else
+		wind_up_timer -= seconds
+
+/mob/living/silicon/robot/cogscarab/Stat()
+	..()
+	if(mind?.current)
+		stat("Wind Up Timer:", "[wind_up_timer]")
 
 /mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
 	// force it to not actually change most things
@@ -122,22 +154,21 @@
 /mob/living/silicon/robot/cogscarab/allowed(obj/item/I) //No opening cover
 	return FALSE
 
-/mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
+/mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = 50
-		stat = CONSCIOUS
-		return
-	health = 50 - (getBruteLoss() + getFireLoss())
-	update_stat("updatehealth([reason])")
+		return ..()
+	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
+	update_stat("updatehealth([reason])", should_log)
 
-/mob/living/silicon/robot/cogscarab/update_stat(reason = "none given")
+/mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 	if(health <= -maxHealth && stat != DEAD)
+		ghostize(TRUE)
 		gib()
 		log_debug("died of damage, trigger reason: [reason]")
 		return
-	return ..(reason)
+	return ..()
 
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
@@ -204,8 +235,8 @@
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
 	set category = "Cogscarab"
 
-	if(layer != TURF_LAYER+0.2)
-		layer = TURF_LAYER+0.2
+	if(layer != LOW_OBJ_LAYER)
+		layer = LOW_OBJ_LAYER
 		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
 	else
 		layer = MOB_LAYER
@@ -246,3 +277,74 @@
 		lamp_button.icon_state = "lamp[lamp_intensity*2]"
 
 	update_icons()
+
+/obj/item/clockwork/brassmaker
+	name = "Brassmaking melter"
+	desc = "A machine, spinning and whirring just to create out of thin metal into perfect brass."
+	icon_state = "brassmaker"
+
+	var/metal_amount = 0
+	var/metal_need_per_brass = 8000 //4 metal for one brass
+	var/melt_click_delay = 1.5 //multiplies usual delay of clicking
+	var/list/grabbed_items = list()
+	var/grab_limit = 30 // limits of how much you can take
+
+/obj/item/clockwork/brassmaker/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!proximity) return //Not adjacent.
+
+	//We only want to deal with using this on turfs. Specific items aren't important.
+	var/turf/T = get_turf(target)
+	if(!istype(T))
+		return
+
+	var/grabbed_something = FALSE
+	for(var/obj/item/A in T)
+		if(A.materials[MAT_METAL] && !anchored && (length(grabbed_items) < grab_limit))
+			grabbed_items += A
+			A.forceMove(src)
+			grabbed_something = TRUE
+
+	if(grabbed_something)
+		to_chat(user, "<span class='notice'>You deploy your melter and take some contents to melt from \the [T].</span>")
+	else
+		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
+
+	return
+
+/obj/item/clockwork/brassmaker/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It has [length(grabbed_items)] items ready to be melted, and [round(metal_amount/metal_need_per_brass, 0.01)] brass.</span>"
+
+/obj/item/clockwork/brassmaker/attack_self(mob/user)
+	. = ..()
+	if(!length(grabbed_items))
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
+	to_chat(user, "<span class='notice'>You begin to melt everything you've picked up.</span>")
+	user.playsound_local(src, 'sound/machines/blender.ogg', 20, 1)
+	for(var/obj/item/A in grabbed_items)
+		if(A.materials[MAT_METAL])
+			if(istype(A, /obj/item/stack))
+				var/obj/item/stack/S = A
+				metal_amount += S.materials[MAT_METAL] * S.amount
+			else
+				metal_amount += A.materials[MAT_METAL]
+
+	user.changeNext_move(CLICK_CD_MELEE * melt_click_delay)
+	QDEL_LIST(grabbed_items)
+
+	if(isrobot(user))
+		var/mob/living/silicon/robot/robot = user
+		var/obj/item/stack/sheet/brass/cyborg/stack_brass = locate() in robot.module
+		var/brass_melted = FLOOR(metal_amount / metal_need_per_brass, 1)
+		metal_amount -= brass_melted * metal_need_per_brass
+		if(!stack_brass)
+			stack_brass = new /obj/item/stack/sheet/brass/cyborg(robot.module, null, FALSE)
+			robot.module.modules += stack_brass
+			robot.module.fix_modules()
+			robot.module.handle_storages()
+		stack_brass.add(brass_melted)
+
+#undef WINDUP_STATE_NONE
+#undef WINDUP_STATE_WARNING
+#undef WINDUP_STATE_DANGER

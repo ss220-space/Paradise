@@ -10,7 +10,7 @@
 	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
 
@@ -83,6 +83,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
@@ -205,13 +206,13 @@
 
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
-	desc = "This piece of junk looks like something that could have been used 700 years ago."
+	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	var/bolt_open = 0
+	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
+	bolt_open = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
@@ -223,6 +224,7 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
+	icon_state = "moistnugget_open"
 	update_icon()	//I.E. fix the desc
 	return 1
 
@@ -308,6 +310,7 @@
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 
 //Dual Feed Shotgun
 
@@ -320,6 +323,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
+	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/New()
 	..()
