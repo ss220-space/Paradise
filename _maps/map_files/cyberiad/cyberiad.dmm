@@ -49194,7 +49194,6 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -51122,8 +51121,8 @@
 	},
 /obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 5
+	dir = 5;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "ceT" = (
@@ -52035,8 +52034,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 6
+	dir = 6;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "cgy" = (
@@ -52748,8 +52747,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 9
+	dir = 9;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "chQ" = (
@@ -52785,8 +52784,8 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "chS" = (
@@ -52805,8 +52804,8 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "chT" = (
@@ -52838,8 +52837,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "chW" = (
@@ -52847,8 +52846,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "chX" = (
@@ -53754,8 +53753,8 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple";
-	dir = 10
+	dir = 10;
+	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
 "cjP" = (
