@@ -19,6 +19,7 @@
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	tts_seed = "Kleiner"
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -59,7 +60,7 @@
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
-	var/attacktext = "attacks"
+	var/attacktext = "атакует"
 	var/attack_sound = null
 	var/friendly = "утыкается носом в" //If the mob does no damage with it's attack
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
@@ -104,6 +105,8 @@
 	var/tame = 0
 
 	var/my_z // I don't want to confuse this with client registered_z
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -120,6 +123,8 @@
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
+	if(footstep_type)
+		AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -148,8 +153,8 @@
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
-/mob/living/simple_animal/updatehealth(reason = "none given")
-	..(reason)
+/mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
+	..()
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
@@ -169,17 +174,15 @@
 			collar_type = "[initial(collar_type)]"
 			regenerate_icons()
 
-/mob/living/simple_animal/update_stat(reason = "none given")
+/mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
-			create_debug_log("died of damage, trigger reason: [reason]")
 		else
 			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
-	med_hud_set_status()
+	..()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -388,6 +391,8 @@
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
+			return FALSE
+		if(L.incorporeal_move)
 			return FALSE
 	if(ismecha(the_target))
 		var/obj/mecha/M = the_target

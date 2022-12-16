@@ -54,41 +54,115 @@ REAGENT SCANNER
 
 /obj/item/t_scanner/proc/scan()
 
-	for(var/turf/T in range(scan_range, src.loc) )
+	for(var/turf/scan_turf in range(scan_range, src.loc) )
 
-		if(!T.intact)
+		if(!scan_turf.intact)
 			continue
 
-		for(var/obj/O in T.contents)
+		for(var/obj/in_turf_object in scan_turf.contents)
 
-			if(O.level != 1)
+			if(in_turf_object.level != 1)
 				continue
 
-			if(O.invisibility == 101)
-				O.invisibility = 0
-				O.alpha = 128
+			if(in_turf_object.invisibility == 101)
+				in_turf_object.invisibility = 0
+				in_turf_object.alpha = 128
+				in_turf_object.drain_act_protected = TRUE
 				spawn(pulse_duration)
-					if(O)
-						var/turf/U = O.loc
-						if(U && U.intact)
-							O.invisibility = 101
-						O.alpha = 255
-		for(var/mob/living/M in T.contents)
-			var/oldalpha = M.alpha
-			if(M.alpha < 255 && istype(M))
-				M.alpha = 255
+					if(in_turf_object)
+						var/turf/objects_turf = in_turf_object.loc
+						if(objects_turf && objects_turf.intact)
+							in_turf_object.invisibility = 101
+						in_turf_object.alpha = 255
+						in_turf_object.drain_act_protected = FALSE
+		for(var/mob/living/in_turf_mob in scan_turf.contents)
+			var/oldalpha = in_turf_mob.alpha
+			if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+				in_turf_mob.alpha = 255
 				spawn(10)
-					if(M)
-						M.alpha = oldalpha
+					if(in_turf_mob)
+						in_turf_mob.alpha = oldalpha
 
-		var/mob/living/M = locate() in T
+		var/mob/living/in_turf_mob = locate() in scan_turf
 
-		if(M && M.invisibility == 2)
-			M.invisibility = 0
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
+			in_turf_mob.invisibility = 0
 			spawn(2)
-				if(M)
-					M.invisibility = INVISIBILITY_LEVEL_TWO
+				if(in_turf_mob)
+					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
 
+/obj/item/t_scanner/security
+	name = "Противо-маскировочное ТГц устройство"
+	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство уязвимо для ЭМИ излучения."
+	icon = 'icons/obj/device.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_state = "sb_t-ray"
+	icon_state = "sb_t-ray0"
+	scan_range = 2
+	pulse_duration = 30
+	var/was_alerted = FALSE // Защита от спама алёртов от этого сканера
+	var/burnt = FALSE // Сломало ли нас емп?
+	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
+	origin_tech = "combat=3;magnets=5;biotech=5"
+
+/obj/item/t_scanner/security/Initialize()
+	. = ..()
+	//Sets up a spark system
+	spark_system = new /datum/effect_system/spark_spread
+	spark_system.set_up(5, 0, src)
+	spark_system.attach(src)
+
+/obj/item/t_scanner/security/attack_self(mob/user)
+	if(!burnt)
+		on = !on
+		icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
+
+	if(on)
+		START_PROCESSING(SSobj, src)
+
+/obj/item/t_scanner/security/emp_act(severity)
+	. = ..()
+	if(prob(25) && !burnt)
+		burnt = TRUE
+		on = FALSE;
+		icon_state = copytext(icon_state, 1, length(icon_state))+"_burnt"
+		desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
+		playsound(loc, "sparks", 50, TRUE, 5)
+		spark_system.start()
+
+/obj/item/t_scanner/security/scan()
+
+	new /obj/effect/temp_visual/scan(get_turf(src))
+
+	var/list/mobs_in_range = viewers(scan_range, get_turf(src))
+	for(var/mob/living/in_turf_mob in mobs_in_range)
+		var/oldalpha = in_turf_mob.alpha
+		if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+			in_turf_mob.alpha = 255
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.alpha = oldalpha
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
+			in_turf_mob.invisibility = 0
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
+
+/obj/item/t_scanner/security/proc/alert_searchers(mob/living/found_mob)
+	var/list/alerted = viewers(7, found_mob)
+	if(alerted && !was_alerted)
+		for(var/mob/living/alerted_mob in alerted)
+			if(!alerted_mob.stat)
+				alerted_mob.do_alert_animation(alerted_mob)
+				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
+		was_alerted = TRUE
+		addtimer(CALLBACK(src, .proc/end_alert_cd), 1 MINUTES)
+
+/obj/item/t_scanner/security/proc/end_alert_cd()
+	was_alerted = FALSE
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(ishuman(M))
@@ -131,6 +205,11 @@ REAGENT SCANNER
 	var/window_height = 85
 	var/testlength
 
+	var/reports_printed = 0
+	var/reports_per_device = 20
+
+	var/isPrinting = FALSE
+
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 //	healthscan(user, M, mode, advanced)
 	add_fingerprint(user)
@@ -156,7 +235,8 @@ REAGENT SCANNER
 		return
 
 	if(href_list["print"])
-		print_report(user)
+		if(!isPrinting)
+			print_report(user)
 		return 1
 	if(href_list["mode"])
 		toggle_mode()
@@ -184,6 +264,18 @@ REAGENT SCANNER
 	if(!scan_data)
 		to_chat(user, "Нет данных для печати.")
 		return
+	isPrinting = TRUE
+	if(reports_printed > reports_per_device || GLOB.copier_items_printed >= GLOB.copier_max_items)
+		visible_message("<span class='warning'>Nothing happens. Printing device is broken?</span>")
+		if(!GLOB.copier_items_printed_logged)
+			message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers/printers are now disabled. This may be the cause of any lag.")
+			GLOB.copier_items_printed_logged = TRUE
+		sleep(3 SECONDS)
+		isPrinting = FALSE
+		return
+
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	sleep(3 SECONDS)
 	var/obj/item/paper/P = new(get_turf(src))
 	P.name = scan_title
 	P.header += "<center><b>[scan_title]</b></center><br>"
@@ -192,7 +284,10 @@ REAGENT SCANNER
 	P.info += "<br><br><b>Заметки:</b><br>"
 	if(in_range(user, src))
 		user.put_in_hands(P)
-		user.visible_message("<span class='notice'>[src] выдает лист с отчетом.</span>")
+		user.visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] [pluralize_ru(src.gender,"выдаёт","выдают")] лист с отчётом.</span>")
+	GLOB.copier_items_printed++
+	reports_printed++
+	isPrinting = FALSE
 
 /obj/item/healthanalyzer/proc/show_results(mob/user)
 	var/datum/browser/popup = new(user, "scanner", scan_title, window_width, window_height)
@@ -256,7 +351,11 @@ REAGENT SCANNER
 	if(!scan_subject)
 		return
 
-	user.visible_message("<span class='notice'>[user] анализирует жизненные показатели [target].</span>", "<span class='notice'>Вы анализировали жизненные показатели [target].</span>")
+	if(user == target)
+		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] свои жизненные показатели.</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] свои жизненные показатели.</span>")
+	else
+		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>")
+
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20
 	. = "<span class='highlight'>[jointext(., "<br>")]</span>"
@@ -558,50 +657,45 @@ REAGENT SCANNER
 
 	add_fingerprint(user)
 
-/obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	..()
-
-	if(!user.incapacitated() && Adjacent(user))
-
-		if(cooldown)
-			to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
+/obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(cooldown)
+		to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
+		return
+	var/turf/T = get_turf(user)
+	if(!T)
+		return
+	playsound(src, 'sound/effects/pop.ogg', 100)
+	var/area/user_area = T.loc
+	var/datum/weather/ongoing_weather = null
+	if(!user_area.outdoors)
+		to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
+		return
+	for(var/V in SSweather.processing)
+		var/datum/weather/W = V
+		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
+			ongoing_weather = W
+			break
+	if(ongoing_weather)
+		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
+			to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
 			return
-
-		var/turf/T = get_turf(user)
-		if(!T)
-			return
-
-		playsound(src, 'sound/effects/pop.ogg', 100)
-		var/area/user_area = T.loc
-		var/datum/weather/ongoing_weather = null
-
-		if(!user_area.outdoors)
-			to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
-			return
-
-		for(var/V in SSweather.processing)
-			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
-				ongoing_weather = W
-				break
-
-		if(ongoing_weather)
-			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
-				return
-
-			to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
-			if(ongoing_weather.aesthetic)
-				to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+		to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
+		if(ongoing_weather.aesthetic)
+			to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+	else
+		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
+		var/fixed = next_hit ? next_hit - world.time : -1
+		if(fixed < 0)
+			to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
 		else
-			var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
-			var/fixed = next_hit ? next_hit - world.time : -1
-			if(fixed < 0)
-				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
-			else
-				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
-		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+			to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
+	cooldown = TRUE
+	addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
@@ -723,7 +817,7 @@ REAGENT SCANNER
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
 	to_chat(user, "========================")
 	to_chat(user, "<b>Slime scan results:</b>")
-	to_chat(user, "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
+	to_chat(user, "<span class='notice'>[T.colour] [T.age_state.age] slime</span>")
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
 	if(T.nutrition < T.get_starve_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
@@ -746,7 +840,9 @@ REAGENT SCANNER
 			to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
 	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
-	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+	to_chat(user, "Growth progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown)]/[T.age_state.amount_grown]")
+	to_chat(user, "Split progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown_for_split)]/[T.age_state.amount_grown_for_split]")
+	to_chat(user, "Evolve: preparing for [(T.amount_grown < T.age_state.amount_grown_for_split) ? (T.age_state.stat_text) : (T.age_state.age != SLIME_ELDER ? T.age_state.stat_text_evolve : T.age_state.stat_text)]")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")

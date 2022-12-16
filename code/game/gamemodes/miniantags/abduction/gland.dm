@@ -55,8 +55,7 @@
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
 	message_admins("[key_name_admin(user)] sent an abductor mind control message to [key_name_admin(owner)]: [command]")
-	user.create_log(CONVERSION_LOG, "sent an abductor mind control message: '[command]'", owner)
-	owner.create_log(CONVERSION_LOG, "received an abductor mind control message: '[command]'", user)
+	add_say_logs(user, "to [owner]: [command]", "Abductor Mind Control")
 	update_gland_hud()
 
 	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
@@ -241,7 +240,7 @@
 
 /obj/item/organ/internal/heart/gland/emp/activate()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
-	empulse(get_turf(owner), 2, 5, 1)
+	empulse(get_turf(owner), 2, 5, TRUE, "Alien EMP Organ")
 
 /obj/item/organ/internal/heart/gland/spiderman
 	cooldown_low = 450
@@ -293,7 +292,7 @@
 /obj/item/organ/internal/heart/gland/electric/activate()
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
-	playsound(get_turf(owner), "sparks", 100, 1, -1)
+	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()

@@ -167,19 +167,19 @@
 	var/integrity = obj_integrity * 100 / max_integrity
 	switch(integrity)
 		if(85 to 100)
-			. += "It's fully intact."
+			. += "<span class='notice'>It's fully intact.</span>"
 		if(65 to 85)
-			. += "It's slightly damaged."
+			. += "<span class='notice'>It's slightly damaged.</span>"
 		if(45 to 65)
-			. += "It's badly damaged."
+			. += "<span class='notice'>It's badly damaged.</span>"
 		if(25 to 45)
-			. += "It's heavily damaged."
+			. += "<span class='notice'>It's heavily damaged.</span>"
 		else
-			. += "It's falling apart."
+			. += "<span class='warning'>It's falling apart.</span>"
 	if(equipment && equipment.len)
-		. += "It's equipped with:"
+		. += "<span class='notice'>It's equipped with:</span>"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
-			. += "[bicon(ME)] [ME]"
+			. += "<span class='notice'>[bicon(ME)] [ME]</span>"
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
 	if(M == occupant && radio.broadcasting)
@@ -678,25 +678,19 @@
 
 	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
 		var/obj/item/mecha_parts/mecha_equipment/E = W
-		spawn()
-			if(E.can_attach(src))
-				if(!user.drop_item())
-					return
-				E.attach(src)
-				user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
-			else
-				to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
+		if(E.can_attach(src))
+			if(!user.drop_item())
+				return
+			E.attach(src)
+			user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		else
+			to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
 		return
 
 	if(W.GetID())
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
-				var/obj/item/card/id/id_card
-				if(istype(W, /obj/item/card/id))
-					id_card = W
-				else
-					var/obj/item/pda/pda = W
-					id_card = pda.id
+				var/obj/item/card/id/id_card = W.GetID()
 				output_maintenance_dialog(id_card, user)
 				return
 			else
@@ -1226,6 +1220,8 @@
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
+	if(occupant && occupant.client)
+		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 	if(ishuman(occupant))
 		mob_container = occupant
 		RemoveActions(occupant, human_occupant = 1)
@@ -1293,36 +1289,33 @@
 /obj/mecha/proc/operation_allowed(mob/living/carbon/human/H)
 	if(!ishuman(H))
 		return 0
-	for(var/ID in list(H.get_active_hand(), H.wear_id, H.belt))
+	for(var/ID in H.get_access_locations())
 		if(check_access(ID, operation_req_access))
 			return 1
 	return 0
 
 
 /obj/mecha/proc/internals_access_allowed(mob/living/carbon/human/H)
-	for(var/atom/ID in list(H.get_active_hand(), H.wear_id, H.belt))
+	for(var/atom/ID in H.get_access_locations())
 		if(check_access(ID, internals_req_access))
 			return 1
 	return 0
 
 
-/obj/mecha/check_access(obj/item/card/id/I, list/access_list)
+/obj/mecha/check_access(obj/item/I, list/access_list)
 	if(!istype(access_list))
 		return 1
-	if(!access_list.len) //no requirements
+	if(!length(access_list)) //no requirements
 		return 1
-	if(istype(I, /obj/item/pda))
-		var/obj/item/pda/pda = I
-		I = pda.id
-	if(!istype(I) || !I.access) //not ID or no access
+	if(!I || !I.GetID() || !I.GetAccess()) //not ID or no access
 		return 0
 	if(access_list==operation_req_access)
 		for(var/req in access_list)
-			if(!(req in I.access)) //doesn't have this access
+			if(!(req in I.GetAccess())) //doesn't have this access
 				return 0
 	else if(access_list==internals_req_access)
 		for(var/req in access_list)
-			if(req in I.access)
+			if(req in I.GetAccess())
 				return 1
 	return 1
 
@@ -1522,7 +1515,7 @@
 		if(internal_tank)
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
-			cell = null
+			internal_tank = null
 	. = ..()
 
 /obj/mecha/CtrlClick(mob/living/L)

@@ -18,8 +18,9 @@
 	obj_damage = 60
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	attacktext = "slashes"
+	attacktext = "кромсает"
 	speak_emote = list("hisses")
+	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -34,7 +35,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
-
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
@@ -92,6 +93,7 @@
 	var/plants_off = 0
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
+	tts_seed = "Queen"
 
 /mob/living/simple_animal/hostile/alien/queen/handle_automated_action()
 	if(!..())

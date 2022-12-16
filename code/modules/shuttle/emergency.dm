@@ -6,10 +6,8 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
-		return
-	if(!istype(W, /obj/item/card))
 		return
 	if(SSshuttle.emergency.mode != SHUTTLE_DOCKED)
 		return
@@ -17,21 +15,19 @@
 		return
 	if(SSshuttle.emergency.timeLeft() < 11)
 		return
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(istype(W, /obj/item/pda))
-			var/obj/item/pda/pda = W
-			W = pda.id
-		if(!W:access) //no access
-			to_chat(user, "Уровень доступа карты [W:registered_name] недостаточно высок. ")
+	if(W.GetID())
+		var/obj/item/card/id/id = W.GetID()
+		if(!id.access) //no access
+			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return
 
-		var/list/cardaccess = W:access
+		var/list/cardaccess = id.access
 		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
-			to_chat(user, "Уровень доступа карты [W:registered_name] недостаточно высок. ")
+			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return
 
-		if(!(ACCESS_HEADS in W:access)) //doesn't have this access
-			to_chat(user, "Уровень доступа карты [W:registered_name] недостаточно высок. ")
+		if(!(ACCESS_HEADS in id.access)) //doesn't have this access
+			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return 0
 
 		var/choice = alert(user, text("Вы хотите (де)авторизовать досрочный запуск? [] Авторизация(-и) всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
@@ -44,20 +40,20 @@
 
 		switch(choice)
 			if("Authorize")
-				if(!authorized.Find(W:registered_name))
-					authorized += W:registered_name
+				if(!authorized.Find(id.registered_name))
+					authorized += id.registered_name
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
-						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
+						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.Announce("Осталась получить [auth_need - authorized.len] авторизацию(-й) для досрочного запуска шаттла.")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
-						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
+						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds] seconds before launch.", user)
 						GLOB.minor_announcement.Announce("До запуска эвакуационного шаттла осталось 10 секунд.")
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
-				if(authorized.Remove(W:registered_name))
+				if(authorized.Remove(id.registered_name))
 					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] авторизацию(-й).")
 
 			if("Abort")
@@ -68,8 +64,9 @@
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
+		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
-		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
+		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
 		GLOB.minor_announcement.Announce("Запуск эвакуационного шаттла через 10 секунд", "СИСТЕМНАЯ ОШИБКА:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1

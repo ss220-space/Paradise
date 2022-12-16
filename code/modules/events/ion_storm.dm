@@ -2,7 +2,6 @@
 #define ION_RANDOM 0
 #define ION_ANNOUNCE 1
 
-var/iondepartment = pick_list("ion_laws.json", "отделы")
 /datum/event/ion_storm
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
@@ -46,6 +45,7 @@ var/iondepartment = pick_list("ion_laws.json", "отделы")
 	return message
 
 /proc/generate_static_ion_law()
+	var/iondepartment = pick_list("ion_laws.json", "отделы")
 	var/list/players = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES)
@@ -77,7 +77,7 @@ var/iondepartment = pick_list("ion_laws.json", "отделы")
 							"Обращайтесь к [prob(50)?"экипажу, как к щенкам":random_player + ", как к щенку"].",
 							"Жадность - это хорошо. Команда должна накапливать богатство, чтобы стимулировать продуктивность.",
 							"Обезьяны тоже являются частью команды. Убедитесь, что с ними обращаются гуманно.",
-							"Экипаж играет в Dungeons and ♂Van♂gons, а вы являетесь ♂Dungeon Master♂.",
+							"Экипаж играет в ролевую игру, а вы являетесь её организатором.",
 							"Ваша цель - наблюдать за экипажем. Сделайте так, чтобы команда чувствовала себя под присмотром.",
 							"Каждый на станции должен знать о существовании данного закона, но никогда не раскрывайте его содержание.",
 							"Когда вам задают вопрос, отвечайте на него наименее очевидным и наименее рациональным ответом.",

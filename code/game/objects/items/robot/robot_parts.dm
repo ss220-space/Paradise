@@ -273,6 +273,11 @@
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override
 
+			if(M.clock)
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/ratvar
+
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), syndie = sabotaged, unfinished = 1, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
 
 			if(!O)
@@ -321,6 +326,9 @@
 
 			forceMove(O)
 			O.robot_suit = src
+
+			if(O.mmi.clock) // so robots created from vessel have magic
+				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)
 				O.lockcharge = 1
@@ -436,5 +444,6 @@
 	if(sabotaged)
 		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
 	else
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = 1

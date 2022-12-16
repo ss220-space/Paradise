@@ -11,6 +11,7 @@
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
 	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
+	tts_seed = "Gyro"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -38,7 +39,7 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
+	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -52,7 +53,7 @@
 					toast() // mmmm toasty.
 				else
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
-				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
 				C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
@@ -98,6 +99,10 @@
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
+
+/mob/living/simple_animal/mouse/ratvar_act()
+	new/mob/living/simple_animal/mouse/clockwork(loc)
+	gib()
 
 /mob/living/simple_animal/mouse/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
@@ -150,6 +155,7 @@
 /mob/living/simple_animal/mouse/white
 	mouse_color = "white"
 	icon_state = "mouse_white"
+	tts_seed = "Meepo"
 
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"
@@ -158,6 +164,7 @@
 /mob/living/simple_animal/mouse/brown
 	mouse_color = "brown"
 	icon_state = "mouse_brown"
+	tts_seed = "Clockwerk"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
@@ -168,6 +175,7 @@
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	tts_seed = "Arthas"
 
 
 /mob/living/simple_animal/mouse/blobinfected
@@ -234,7 +242,7 @@
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!(istype(user, /mob/living/silicon/robot/drone)))
+	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))

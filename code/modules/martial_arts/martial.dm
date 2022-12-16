@@ -8,6 +8,7 @@
 	var/temporary = FALSE
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
+	var/reflection_chance = 0 //Chance to reflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
@@ -17,7 +18,8 @@
 
 	var/list/combos = list()							// What combos can the user do? List of combo types
 	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
-	var/last_hit = 0									// When the last hit happened
+	var/last_hit = 0 									// When the last hit happened
+	var/in_stance = FALSE
 
 /datum/martial_art/New()
 	. = ..()

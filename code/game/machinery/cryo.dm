@@ -482,6 +482,8 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
+		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+			return
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
@@ -494,6 +496,11 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
 	light_color = LIGHT_COLOR_RED
+
+/obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
+	go_out()
+	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
+	qdel(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Залезть внутрь"

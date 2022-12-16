@@ -189,7 +189,7 @@
 		return
 
 	if(!is_item_accessible(I, user))
-		log_game("[user.simple_info_line()] tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]")
+		add_game_logs("tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]", user)
 		return
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
@@ -292,7 +292,7 @@
 					return "l_leg"
 				if(24 to 29)
 					return "tail"
-		if(10 to 13) //Hands and groin
+		if(10 to 13) //Hands,groin and wings
 			switch(icon_x)
 				if(8 to 11)
 					return "r_hand"
@@ -300,14 +300,22 @@
 					return "groin"
 				if(21 to 24)
 					return "l_hand"
-		if(14 to 22) //Chest and arms to shoulders
+				if(3 to 7)
+					return "wing"
+				if(25 to 28)
+					return "wing"
+		if(14 to 22) //Chest and arms to shoulders and wings
 			switch(icon_x)
+				if (3 to 7)
+					return "wing"
 				if(8 to 11)
 					return "r_arm"
 				if(12 to 20)
 					return "chest"
 				if(21 to 24)
 					return "l_arm"
+				if(24 to 28)
+					return "wing"
 		if(23 to 30) //Head, but we need to check for eye or mouth
 			if(icon_x in 12 to 20)
 				switch(icon_y)

@@ -1,3 +1,5 @@
+#define ROBOTIC_BRAIN_COOLDOWN 10 MINUTES
+
 /obj/item/mmi/robotic_brain
 	name = "robotic brain"
 	desc = "An advanced circuit, capable of housing a non-sentient synthetic intelligence."
@@ -170,16 +172,29 @@
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
 		return
+	var/deathtime = world.time - O.timeofdeath
+	if(ROBOTIC_BRAIN_COOLDOWN && deathtime < ROBOTIC_BRAIN_COOLDOWN && O.started_as_observer == 0)
+		var/deathtimeminutes = round(deathtime / (60 SECONDS))
+		var/pluralcheck = "minute"
+		if(deathtimeminutes == 0)
+			pluralcheck = ""
+		else if(deathtimeminutes == 1)
+			pluralcheck = " [deathtimeminutes] minute and"
+		else if(deathtimeminutes > 1)
+			pluralcheck = " [deathtimeminutes] minutes and"
+		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [ROBOTIC_BRAIN_COOLDOWN / 600] minutes to respawn as [src]!</span>")
+		return
 	to_chat(O, "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
 	ghost_volunteers.Add(O)
 
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
-	. += "Its speaker is turned [silenced ? "off" : "on"]."
-	. += "<span class='info'>*---------*</span>"
+	. += "<span class='notice'>Its speaker is turned [silenced ? "off" : "on"].</span>"
 	. = ..()
 
-	var/list/msg = list("<span class='info'>")
+	var/list/msg = list("<span class='notice'>")
 
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
@@ -192,7 +207,7 @@
 				msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
-	msg += "*---------*</span>"
+	msg += "</span>"
 	. += msg.Join("")
 
 /obj/item/mmi/robotic_brain/emp_act(severity)

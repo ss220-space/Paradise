@@ -54,6 +54,11 @@
 	return html_encode(sanitize_simple(t,repl_chars))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
+/proc/filename_sanitize(t)
+	var/regex/alphanum_only = regex("\[^a-zA-Z0-9._/-]", "g")
+	return alphanum_only.Replace(t, "")
+
+// Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
@@ -237,9 +242,12 @@
  * Text modification
  */
 // See bygex.dm
-/proc/replace_characters(var/t,var/list/repl_chars)
+/proc/replace_characters(var/t,var/list/repl_chars, case_sensitive = FALSE)
 	for(var/char in repl_chars)
-		t = replacetext_char(t, char, repl_chars[char])
+		if(case_sensitive)
+			t = replacetextEx_char(t, char, repl_chars[char])
+		else
+			t = replacetext_char(t, char, repl_chars[char])
 	return t
 
 //Strips the first char and returns it and the new string as a list
@@ -533,7 +541,9 @@
 		text = replacetext(text, "\[station\]", "[station_name()]")
 		if(!no_font)
 			if(P)
-				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+				if(P.fake_signing) //or this, or one string in Kmetres
+					text = "<I>[text]</I>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
 
@@ -670,3 +680,24 @@
 
 	// return the split html object to the caller
 	return s
+
+
+// Returns the rot13'ed text
+/proc/rot13(text = "")
+	var/lentext = length(text)
+	var/char = ""
+	var/ascii = 0
+	. = ""
+	for(var/i = 1, i <= lentext, i += length(char))
+		char = text[i]
+		ascii = text2ascii(char)
+		switch(ascii)
+			if(65 to 77, 97 to 109) //A to M, a to m
+				ascii += 13
+			if(78 to 90, 110 to 122) //N to Z, n to z
+				ascii -= 13
+			if(1072 to 1084, 1040 to 1052)
+				ascii += 13
+			if(1085 to 1097, 1053 to 1065)
+				ascii -= 13
+		. += ascii2text(ascii)

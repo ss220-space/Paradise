@@ -67,7 +67,8 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
-	var/sound_env = STANDARD_STATION
+	///Used to decide what kind of reverb the area makes sound have
+	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -478,7 +479,7 @@
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
 		L.client.ambience_playing = TRUE
-		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35, channel = CHANNEL_BUZZ))
+		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35 * L.client.prefs.get_channel_volume(CHANNEL_BUZZ), channel = CHANNEL_BUZZ))
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = FALSE
 
@@ -486,7 +487,7 @@
 		var/sound = pick(ambientsounds)
 
 		if(!L.client.played)
-			SEND_SOUND(L, sound(sound, repeat = FALSE, wait = FALSE, volume = 25, channel = CHANNEL_AMBIENCE))
+			SEND_SOUND(L, sound(sound, repeat = FALSE, wait = FALSE, volume = 25 * L.client.prefs.get_channel_volume(CHANNEL_AMBIENCE), channel = CHANNEL_AMBIENCE))
 			L.client.played = TRUE
 			addtimer(CALLBACK(L.client, /client/proc/ResetAmbiencePlayed), 600)
 
@@ -507,6 +508,9 @@
 	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
+
+	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
+		return
 
 	if(M.buckled) //Cam't fall down if you are buckled
 		return

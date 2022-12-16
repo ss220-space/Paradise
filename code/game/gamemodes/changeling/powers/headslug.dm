@@ -12,6 +12,18 @@
         return
     ..()
 
+/datum/action/changeling/headslug/can_sting(var/mob/user, var/mob/target)
+	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
+		return 0
+	if(req_human && (!ishuman(user) || issmall(user)))
+		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
+		return 0
+	var/datum/changeling/c = user.mind.changeling
+	if(c.chem_charges<chemical_cost)
+		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+		return 0
+	return 1
+
 /datum/action/changeling/headslug/sting_action(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
@@ -19,6 +31,7 @@
 	for(var/obj/item/organ/internal/I in organs)
 		I.remove(user, 1)
 
+	add_attack_logs(user, user, "Became headslug")
 	explosion(get_turf(user),0,0,2,0,silent=1)
 	for(var/mob/living/carbon/human/H in range(2,user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")

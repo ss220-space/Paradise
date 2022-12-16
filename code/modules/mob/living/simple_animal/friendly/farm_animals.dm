@@ -9,6 +9,7 @@
 	speak_emote = list("brays")
 	emote_hear = list("brays")
 	emote_see = list("shakes its head", "stamps a foot", "glares around")
+	tts_seed = "Muradin"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -18,7 +19,7 @@
 	response_harm   = "kicks"
 	faction = list("neutral")
 	attack_same = 1
-	attacktext = "kicks"
+	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
@@ -28,6 +29,7 @@
 	can_collar = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
@@ -111,6 +113,7 @@
 	speak_emote = list("moos","moos hauntingly")
 	emote_hear = list("brays")
 	emote_see = list("shakes its head")
+	tts_seed = "Cairne"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -118,7 +121,7 @@
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
@@ -127,6 +130,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 	gender = FEMALE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
@@ -177,6 +181,7 @@
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
+	tts_seed = "Meepo"
 	density = 0
 	speak_chance = 2
 	turns_per_move = 2
@@ -184,7 +189,7 @@
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "клюёт"
 	health = 3
 	maxHealth = 3
 	ventcrawler = 2
@@ -194,6 +199,7 @@
 	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -224,6 +230,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
+	tts_seed = "Windranger"
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
@@ -233,7 +240,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "клюёт"
 	health = 15
 	maxHealth = 15
 	ventcrawler = 2
@@ -249,6 +256,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -315,6 +323,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "pig_dead"
 	speak = list("oink?","oink","OINK")
 	speak_emote = list("oinks")
+	tts_seed = "Anubarak"
 //	emote_hear = list("brays")
 	emote_see = list("rolls around")
 	speak_chance = 1
@@ -324,7 +333,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "лягает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -348,11 +357,12 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "pecks"
+	attacktext = "клюёт"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -362,6 +372,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "goose_dead"
 	speak = list("quack?","quack","QUACK")
 	speak_emote = list("quacks")
+	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
 //	emote_hear = list("brays")
 	emote_see = list("flaps it's wings")
 	speak_chance = 1
@@ -371,11 +382,12 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "щипает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -385,6 +397,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "seal_dead"
 	speak = list("Urk?","urk","URK")
 	speak_emote = list("urks")
+	tts_seed = "Narrator"
 //	emote_hear = list("brays")
 	emote_see = list("flops around")
 	speak_chance = 1
@@ -394,12 +407,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "лягает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -409,6 +423,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "walrus_dead"
 	speak = list("Urk?","urk","URK")
 	speak_emote = list("urks")
+	tts_seed = "Tychus"
 //	emote_hear = list("brays")
 	emote_see = list("flops around")
 	speak_chance = 1
@@ -418,7 +433,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "лягает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1

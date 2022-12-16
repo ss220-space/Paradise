@@ -1,14 +1,20 @@
 /mob/living/carbon/alien/humanoid/empress
 	name = "alien empress"
 	caste = "q"
-	maxHealth = 700
-	health = 700
+	maxHealth = 900
+	health = 900
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
+	var/datum/action/innate/xeno_action/lay_egg/lay_egg_action
+
+/mob/living/carbon/alien/humanoid/empress/GrantAlienActions()
+	..()
+	lay_egg_action.Grant(src)
+	neurotoxin_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
@@ -49,18 +55,21 @@
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
-/mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
-	set name = "Lay Egg (250)"
-	set desc = "Lay an egg to produce huggers to impregnate prey with."
-	set category = "Alien"
+/datum/action/innate/xeno_action/lay_egg
+	name = "Lay Egg (250)"
+	desc = "Lay an egg to produce huggers to impregnate prey with."
+	button_icon_state = "alien_egg"
 
-	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
+/datum/action/innate/xeno_action/lay_egg/Activate()
+	var/mob/living/carbon/alien/humanoid/empress/host = owner
+
+	if(locate(/obj/structure/alien/egg) in get_turf(owner))
+		to_chat(owner, "<span class='noticealien'>There's already an egg here.</span>")
 		return
 
-	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustPlasma(-250)
-		for(var/mob/O in viewers(src, null))
+	if(plasmacheck(250,1))//Can't plant eggs on spess tiles. That's silly.
+		host.adjustPlasma(-250)
+		for(var/mob/O in viewers(owner, null))
 			O.show_message(text("<span class=notice'><B>[src] has laid an egg!</B></span>"), 1)
-		new /obj/structure/alien/egg(loc)
+		new /obj/structure/alien/egg(owner.loc)
 	return

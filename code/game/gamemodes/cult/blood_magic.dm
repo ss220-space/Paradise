@@ -181,6 +181,7 @@
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
+	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)
 	charges--
@@ -482,11 +483,9 @@
 
 	if(!length(potential_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-		log_game("Teleport spell failed - no other teleport runes")
 		return
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-		log_game("Teleport spell failed - user in away mission")
 		return
 
 	var/mob/living/L = target
@@ -578,10 +577,10 @@
 
 /obj/item/melee/blood_magic/construction/examine(mob/user)
 	. = ..()
-	. += {"<u>A sinister spell used to convert:</u>\n
-	Plasteel into runed metal\n
-	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
-	Airlocks into brittle runed airlocks after a delay (harm intent)"}
+	. += {"<span class='notice'><u>A sinister spell used to convert:</u>
+	Plasteel into runed metal
+	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell
+	Airlocks into brittle runed airlocks after a delay (harm intent)</span>"}
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
@@ -702,8 +701,8 @@
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
-	. += "Blood spear and blood barrage cost [BLOOD_SPEAR_COST] and [BLOOD_BARRAGE_COST] charges respectively."
-	. += "Blood orb and blood empower cost [BLOOD_ORB_COST] and [BLOOD_RECHARGE_COST] charges respectively."
+	. += "<span class='notice'>Blood spear and blood barrage cost [BLOOD_SPEAR_COST] and [BLOOD_BARRAGE_COST] charges respectively.</span>"
+	. += "<span class='notice'>Blood orb and blood empower cost [BLOOD_ORB_COST] and [BLOOD_RECHARGE_COST] charges respectively.</span>"
 	. += "<span class='cultitalic'>You have collected [uses] charge\s of blood.</span>"
 
 // This should really be split into multiple procs

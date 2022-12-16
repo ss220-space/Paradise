@@ -128,10 +128,13 @@
 			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
 			H.set_species(/datum/species/skeleton)
 		if(2)
-			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/D = new
-				user.mind.AddSpell(D)
+				if(locate(/obj/effect/proc_holder/spell/targeted/shapeshift/dragon) in user.mind.spell_list)
+					to_chat(user, "<span class='danger'>Familiar power courses through you! But you already can shift into dragons...")
+				else
+					to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
+					var/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/D = new
+					user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
@@ -183,7 +186,7 @@
 
 /obj/item/lava_staff/New()
 	. = ..()
-	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
+	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
@@ -212,8 +215,8 @@
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, target = T))
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
-				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
-				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
+				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
+				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)
 				T.TerraformTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown
 				qdel(L)

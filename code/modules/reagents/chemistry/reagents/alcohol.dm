@@ -6,9 +6,16 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
+	addiction_chance = 3
+	addiction_threshold = 150
+	minor_addiction = TRUE
+	addict_supertype = /datum/reagent/consumable/ethanol
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
+
+/datum/reagent/consumable/ethanol/New()
+	addict_supertype = /datum/reagent/consumable/ethanol
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc)
@@ -108,6 +115,7 @@
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
 	M.AdjustHallucinate(5)
+	M.last_hallucinator_log = name
 	return ..()
 
 /datum/reagent/consumable/ethanol/absinthe/overdose_process(mob/living/M, severity)
@@ -1197,9 +1205,9 @@
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
+		metabolization_rate += 9 * REAGENTS_METABOLISM //gets removed from organics very fast
 		if(prob(25))
-			metabolization_rate += 15
+			metabolization_rate += 40 * REAGENTS_METABOLISM
 			M.fakevomit()
 	return ..()
 

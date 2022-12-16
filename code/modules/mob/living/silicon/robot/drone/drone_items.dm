@@ -64,6 +64,22 @@
 		return
 	..()
 
+/obj/item/gripper/cogscarab
+	name = "ancient gripper"
+	desc = "A brass grasping tool for supporting workmates."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clock_gripper"
+
+/obj/item/gripper/cogscarab/New()
+	//Has a list of items that it can hold.
+	can_hold += list(
+		/obj/item/clockwork/integration_cog,
+		/obj/item/clockwork/shard,
+		/obj/item/stack/sheet,
+		/obj/item/mmi/robotic_brain/clockwork
+	)
+	..()
+
 
 /obj/item/gripper/New()
 	..()
@@ -82,12 +98,27 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 
+/obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
+	if(!gripped_item)
+		return
+	gripped_item.tool_act(user, tool, tool_type)
+	if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
+		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
+
+/obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
+	if(!gripped_item)
+		return
+	gripped_item.attackby(weapon, user, params)
+	if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
+		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
+
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
-	if(gripped_item)
-		if(!silent)
-			to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
-		gripped_item.forceMove(get_turf(src))
-		gripped_item = null
+	if(!gripped_item)
+		return
+	if(!silent)
+		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+	gripped_item.forceMove(get_turf(src))
+	gripped_item = null
 
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return

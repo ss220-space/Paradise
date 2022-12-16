@@ -23,7 +23,7 @@
 	obj_damage = 60
 	melee_damage_lower = 12
 	melee_damage_upper = 12
-	attacktext = "bites into"
+	attacktext = "вгрызается в"
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -33,6 +33,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
+	tts_seed = "Antimage"
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -70,7 +71,7 @@
 	throw_message = "bounces harmlessly off of"
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "impales"
+	attacktext = "пронзает"
 	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'

@@ -11,8 +11,8 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((other_mobs && moving_mob.other_mobs))
-			return TRUE
+		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
+			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || lying)
@@ -128,36 +128,8 @@
 
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-		var/list/L = mob.ret_grab()
-		if(istype(L, /list))
-			if(L.len == 2)
-				L -= mob
-				var/mob/M = L[1]
-				if(M)
-					if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
-						var/turf/prev_loc = mob.loc
-						. = mob.SelfMove(n, direct, delay)
-						if(M && isturf(M.loc)) // Mob may get deleted during parent call
-							var/diag = get_dir(mob, M)
-							if((diag - 1) & diag)
-							else
-								diag = null
-							if((get_dist(mob, M) > 1 || diag))
-								M.Move(prev_loc, get_dir(M.loc, prev_loc), delay)
-			else
-				for(var/mob/M in L)
-					M.other_mobs = 1
-					if(mob != M)
-						M.animate_movement = 3
-				for(var/mob/M in L)
-					spawn(0)
-						M.Move(get_step(M,direct), direct, delay)
-					spawn(1)
-						M.other_mobs = null
-						M.animate_movement = 2
-
 	else if(mob.confused)
-		var/newdir = 0
+		var/newdir = NONE
 		if(mob.confused > 40)
 			newdir = pick(GLOB.alldirs)
 		else if(prob(mob.confused * 1.5))
@@ -176,12 +148,8 @@
 
 	move_delay += delay
 
-	for(var/obj/item/grab/G in mob)
-		if(G.state == GRAB_NECK)
-			mob.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
-		G.adjust_position()
-	for(var/obj/item/grab/G in mob.grabbed_by)
-		G.adjust_position()
+	if(mob.pulledby)
+		mob.pulledby.stop_pulling()
 
 	moving = 0
 	if(mob && .)
@@ -245,10 +213,10 @@
 		return
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
-		if(1)
+		if(INCORPOREAL_NORMAL)
 			L.forceMove(get_step(L, direct))
 			L.dir = direct
-		if(2)
+		if(INCORPOREAL_NINJA)
 			if(prob(50))
 				var/locx
 				var/locy
@@ -288,7 +256,7 @@
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				L.forceMove(get_step(L, direct))
 			L.dir = direct
-		if(3) //Incorporeal move, but blocked by holy-watered tiles
+		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
 				to_chat(L, "<span class='warning'>Святые силы блокируют ваш путь.</span>")
@@ -418,9 +386,13 @@
 
 	if(!check_has_body_select())
 		return
-
+	var/next_in_line
+	if(mob.zone_selected == BODY_ZONE_CHEST)
+		next_in_line = BODY_ZONE_WING
+	else
+		next_in_line = BODY_ZONE_CHEST
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_CHEST, mob)
+	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_l_arm()
 	set name = "body-l-arm"

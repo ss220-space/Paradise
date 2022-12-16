@@ -17,7 +17,7 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 1
 	attack_same = 2
-	attacktext = "chomps"
+	attacktext = "грызёт"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("mushroom")
 	environment_smash = 0
@@ -38,9 +38,9 @@
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += "<span class='info'>It looks healthy.</span>"
+		. += "<span class='notice'>It looks healthy.</span>"
 	else
-		. += "<span class='info'>It looks like it's been roughed up.</span>"
+		. += "<span class='warning'>It looks like it's been roughed up.</span>"
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()

@@ -15,6 +15,7 @@
 
 	speak_emote = list("roars")
 	emote_hear = list("roars")
+	tts_seed = "Grunt"
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"
@@ -34,6 +35,7 @@
 /mob/living/simple_animal/hulk/human
 	hulk_powers = list(/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump,
 	/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash)
+	tts_seed = "Grunt"
 
 //Clown Hulk
 
@@ -52,6 +54,7 @@
 
 	speak_emote = list("honks")
 	emote_hear = list("honks")
+	tts_seed = "Bandit"
 	attack_sound = list('sound/items/bikehorn.ogg')
 	health_regen = 6
 
@@ -75,6 +78,7 @@
 
 	speak_emote = list("gnaw")
 	emote_hear = list("gnaw")
+	tts_seed = "Huskar"
 	attack_sound = list('sound/weapons/bite.ogg')
 	health_regen = 1.5
 
@@ -148,6 +152,7 @@
 
 	for(var/mob/M in contents)
 		M.loc = src.loc
+		M.status_flags &= ~GODMODE
 		if(istype(M, /mob/living))
 			var/mob/living/L = M
 			L.Paralyse(15)
@@ -162,7 +167,7 @@
 	original_body.update_mutations()		//update our mutation overlays
 	qdel(src)
 
-/mob/living/proc/hulk_scream(obj/target, chance = 75)
+/mob/living/proc/hulk_scream(obj/target, chance)
 	if(prob(chance))
 		visible_message("<span class='userdanger'>[src] has punched \the [target]!</span>",\
 		"<span class='userdanger'>You punch the [target]!</span>",\
@@ -183,15 +188,15 @@
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
-			hulk_scream(A)
-			A.deconstruct()
+			if(hulk_scream(A, 75))
+				A.deconstruct(src)
 			return
 	if(istype(D,/obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = D
-		if(F.density)
-			hulk_scream(F)
-			F.deconstruct()
-			return
+		if(F.welded || F.locked)
+			if(hulk_scream(F, 75))
+				F.deconstruct(src);
+				return
 	if(D.density)
 		to_chat(src, "<span class='userdanger'>You force your fingers between \
 		 the doors and begin to pry them open...</span>")

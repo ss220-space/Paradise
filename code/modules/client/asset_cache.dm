@@ -204,7 +204,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"large_stamp-ward.png"      = 'icons/paper_icons/large_stamp-ward.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
-		"syndielogo.png"		='icons/paper_icons/syndielogo.png'
+		"syndielogo.png"		    = 'icons/paper_icons/syndielogo.png',
+		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png'
 	)
 
 /datum/asset/simple/chess
@@ -236,6 +237,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/i = 1 to 20)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
+		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
+	for(var/i in list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])

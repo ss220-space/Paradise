@@ -54,6 +54,7 @@
 	holstered.loc = src
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
+	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
 	if(!holstered)
@@ -71,6 +72,7 @@
 		user.put_in_hands(holstered)
 		holstered.add_fingerprint(user)
 		holstered = null
+		playsound(user.loc, 'sound/weapons/gun_interactions/1unholster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user as mob)
 	if(has_suit)	//if we are part of a suit
@@ -91,9 +93,9 @@
 /obj/item/clothing/accessory/holster/examine(mob/user)
 	. = ..()
 	if(holstered)
-		. += "A [holstered] is holstered here."
+		. += "<span class='notice'>A [holstered] is holstered here.</span>"
 	else
-		. += "It is empty."
+		. += "<span class='notice'>It is empty.</span>"
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	..()

@@ -235,12 +235,23 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
-		/obj/item/forensics/sample_kit)
+		/obj/item/forensics/sample_kit,
+		/obj/item/eftpos/sec)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
-	new /obj/item/flashlight/seclite(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/flash(src)
+	new /obj/item/melee/baton/loaded(src)
 	update_icon()
+
+/obj/item/storage/belt/security/detective
+	name = "detective belt"
+	desc = "An old fashion security belt. Made of leather"
+	icon_state = "detective_belt"
+	item_state = "detective_belt"
 
 /obj/item/storage/belt/security/response_team/New()
 	..()
@@ -399,6 +410,34 @@
 	item_state = "assault"
 	storage_slots = 6
 
+/obj/item/storage/belt/military/assault/marines/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
+
+/obj/item/storage/belt/military/assault/marines/elite/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/m556(src)
+	new /obj/item/ammo_box/magazine/m556(src)
+	new /obj/item/ammo_box/magazine/m556(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
+
+/obj/item/storage/belt/military/assault/soviet/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/ak814(src)
+	new /obj/item/ammo_box/magazine/ak814(src)
+	new /obj/item/ammo_box/magazine/ak814(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/storage/pill_bottle/sovietstimulants(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -413,14 +452,14 @@
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
-		/obj/item/holosign_creator,
+		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
 		)
 
 /obj/item/storage/belt/janitor/full/New()
 	..()
 	new /obj/item/lightreplacer(src)
-	new /obj/item/holosign_creator(src)
+	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)

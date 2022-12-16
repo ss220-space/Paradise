@@ -142,10 +142,6 @@
 	description = "This is what makes chilis hot."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	addiction_chance = 1
-	addiction_chance_additional = 10
-	addiction_threshold = 2
-	minor_addiction = TRUE
 	taste_description = "<span class='warning'>HOTNESS</span>"
 	taste_mult = 1.5
 
@@ -588,7 +584,7 @@
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
+		if(M.mind.special_role == SPECIAL_ROLE_WIZARD || M.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -601,7 +597,7 @@
 	description = "A highly-radioactive pork byproduct first discovered in hotdogs."
 	reagent_state = LIQUID
 	color = "#AB5D5D"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 133
 	harmless = FALSE
 	taste_description = "bacon"
@@ -620,7 +616,7 @@
 	description = "An old household remedy for mild illnesses."
 	reagent_state = LIQUID
 	color = "#B4B400"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	taste_description = "broth"
 
@@ -648,10 +644,6 @@
 	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
-	addiction_chance = 2
-	addiction_chance_additional = 10
-	addiction_threshold = 5
-	minor_addiction = TRUE
 	harmless = FALSE
 	taste_description = "cheese?"
 
@@ -668,10 +660,6 @@
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#50FF00"
-	addiction_chance = 1
-	addiction_chance_additional = 10
-	addiction_threshold = 5
-	minor_addiction = TRUE
 	taste_description = "cheeeeeese...?"
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
@@ -720,7 +708,7 @@
 	description = "An oil derived from extra-terrestrial soybeans, with additional hydrogen atoms added to convert it into a saturated form."
 	reagent_state = LIQUID
 	color = "#B1B0B0"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 75
 	harmless = FALSE
 	taste_description = "oil"
@@ -731,9 +719,9 @@
 	if(prob(8))
 		M.reagents.add_reagent("porktonium", 5)
 	if(volume >= 75)
-		metabolization_rate = 0.4
+		metabolization_rate = 1 * REAGENTS_METABOLISM
 	else
-		metabolization_rate = 0.2
+		metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	return ..()
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/overdose_process(mob/living/M, severity)
@@ -812,7 +800,7 @@
 	description = "Monosodium Glutamate is a sodium salt known chiefly for its use as a controversial flavor enhancer."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "excellent cuisine"
 	taste_mult = 4
 

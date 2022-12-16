@@ -14,12 +14,15 @@
  * Glass sheets
  */
 
-GLOBAL_LIST_INIT(glass_recipes, list ( \
-	new/datum/stack_recipe/window("directional window", /obj/structure/window/basic, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 10), \
-	new/datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 20, on_floor = TRUE), \
-	new/datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
+GLOBAL_LIST_INIT(glass_recipes, list(
+	new /datum/stack_recipe/window("directional window", /obj/structure/window/basic, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, on_floor = TRUE, window_checks = TRUE),
+	null,
+	new /datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, time = 10),
+	new /datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 20, on_floor = TRUE),
+	new /datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE),
+	null,
+	new /datum/stack_recipe("glass ashtray", /obj/item/storage/ashtray/glass, 2, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/glass
@@ -132,7 +135,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
-	item_state = "sheet-rglass"
+	item_state = "sheet-pglass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 100)
 	resistance_flags = ACID_PROOF
@@ -175,7 +178,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	desc = "Plasma glass which seems to have rods or something stuck in them."
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
-	item_state = "sheet-rglass"
+	item_state = "sheet-prglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	resistance_flags = ACID_PROOF

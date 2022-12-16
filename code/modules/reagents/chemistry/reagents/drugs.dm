@@ -26,6 +26,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.Druggy(15, FALSE)
 	M.AdjustHallucinate(10)
+	M.last_hallucinator_log = "LSD"
 	return ..() | update_flags
 
 /datum/reagent/space_drugs
@@ -34,7 +35,7 @@
 	description = "An illegal chemical compound used as drug."
 	reagent_state = LIQUID
 	color = "#9087A2"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	addiction_chance = 15
 	addiction_threshold = 10
 	heart_rate_decrease = 1
@@ -90,7 +91,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
 	addiction_chance = 3
-	addiction_threshold = 80
+	addiction_threshold = 160
 	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "calm"
@@ -306,7 +307,7 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
-	metabolization_rate = 0.6
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	heart_rate_increase = 1
 	taste_description = "speed"
 
@@ -368,7 +369,7 @@
 	overdose_threshold = 20
 	addiction_chance = 15
 	addiction_threshold = 5
-	metabolization_rate = 0.6
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "WAAAAGH"
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
@@ -398,6 +399,7 @@
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 	else if(check < 16)
 		M.AdjustHallucinate(30)
+		M.last_hallucinator_log = name
 	else if(check < 24)
 		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
 	else if(check < 28)
@@ -557,7 +559,7 @@
 	description = "Do some flips!"
 	reagent_state = LIQUID
 	color = "#A42964"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
 	addiction_chance = 1
@@ -669,7 +671,7 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
-	metabolization_rate = 0.6
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "wiper fluid"
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)

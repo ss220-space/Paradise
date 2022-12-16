@@ -141,6 +141,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/necropolis_gate/legion_gate
 	desc = "A tremendous, impossibly large gateway, set into a massive tower of stone."
 	sight_blocker_distance = 2
+	var/legion_triggered = FALSE
 
 /obj/structure/necropolis_gate/legion_gate/Initialize()
 	. = ..()
@@ -168,6 +169,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/necropolis_gate/legion_gate/toggle_the_gate(mob/user, legion_damaged)
 	if(open)
 		return
+	GLOB.necropolis_gate.legion_triggered = TRUE
 	. = ..()
 	if(.)
 		locked = TRUE
@@ -175,10 +177,10 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
 		if(legion_damaged)
 			message_admins("Legion took damage while the necropolis gate was closed, and has released itself!")
-			log_game("Legion took damage while the necropolis gate was closed and released itself.")
+			add_game_logs("Legion took damage while the necropolis gate was closed and released itself.")
 		else
 			message_admins("[user ? ADMIN_LOOKUPFLW(user):"Unknown"] has released Legion!")
-			log_game("[user ? key_name(user) : "Unknown"] released Legion.")
+			add_game_logs("[user ? key_name_log(user) : "Unknown"] released Legion.", user)
 
 		var/sound/legion_sound = sound('sound/creatures/legion_spawn.ogg')
 		for(var/mob/M in GLOB.player_list)
@@ -239,7 +241,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 //stone tiles for boss arenas
 /obj/structure/stone_tile
 	name = "stone tile"
-	icon = 'icons/turf/boss_floors.dmi'
+	icon = 'icons/turf/floors/boss_floors.dmi'
 	icon_state = "pristine_tile1"
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
@@ -322,6 +324,13 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "pristine_slab"
 	tile_random_sprite_max = 4
 
+/obj/structure/stone_tile/slab/bone
+	name = "stone bone slab"
+	icon_state = "cracked_slab_bone1"
+	tile_key = "cracked_slab_bone"
+	tile_random_sprite_max = 1
+	color = "#fffff0"
+
 /obj/structure/stone_tile/center
 	name = "stone center tile"
 	icon_state = "pristine_center1"
@@ -403,6 +412,8 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	name = "burnt stone surrounding tile"
 	icon_state = "burnt_surrounding_tile1"
 	tile_key = "burnt_surrounding_tile"
+
+/obj/structure/stone_tile/bone
 
 #undef STABLE
 #undef COLLAPSE_ON_CROSS

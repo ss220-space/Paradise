@@ -61,11 +61,12 @@
 
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
-		playsound(T, "sparks", 50, 1)
+		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"

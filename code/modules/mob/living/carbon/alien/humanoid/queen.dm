@@ -1,14 +1,21 @@
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 	caste = "q"
-	maxHealth = 250
-	health = 250
+	maxHealth = 640
+	health = 640
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
+	var/datum/action/innate/xeno_action/lay_egg_queen/lay_egg_queen_action = new
+	tts_seed = "Queen"
+
+/mob/living/carbon/alien/humanoid/queen/GrantAlienActions()
+	. = ..()
+	lay_egg_queen_action.Grant(src)
+	neurotoxin_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	//there should only be one queen
@@ -22,6 +29,7 @@
 			break
 
 	real_name = src.name
+	grant_all_babel_languages()
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
@@ -37,22 +45,24 @@
 	return FALSE
 
 //Queen verbs
-/mob/living/carbon/alien/humanoid/queen/verb/lay_egg()
+/datum/action/innate/xeno_action/lay_egg_queen
+	name = "Lay Egg (75)"
+	desc = "Lay an egg to produce huggers to impregnate prey with."
+	button_icon_state = "alien_egg"
 
-	set name = "Lay Egg (75)"
-	set desc = "Lay an egg to produce huggers to impregnate prey with."
-	set category = "Alien"
-	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
+/datum/action/innate/xeno_action/lay_egg_queen/Activate()
+	var/mob/living/carbon/alien/humanoid/queen/host = owner
+
+	if(locate(/obj/structure/alien/egg) in get_turf(owner))
+		to_chat(host, "<span class='noticealien'>There's already an egg here.</span>")
 		return
 
-	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustPlasma(-75)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
-		new /obj/structure/alien/egg(loc)
+	if(plasmacheck(75,1))//Can't plant eggs on spess tiles. That's silly.
+		host.adjustPlasma(-75)
+		for(var/mob/O in viewers(host, null))
+			O.show_message(text("<span class=notice'><B>[host] has laid an egg!</B></span>"), 1)
+		new /obj/structure/alien/egg(host.loc)
 	return
-
 
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'

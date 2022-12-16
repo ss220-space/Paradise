@@ -26,7 +26,8 @@
 		"Parrot" = "parrot",
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Fairy" = "fairy",
+		"Espeon" = "pAIkemon_Espeon"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -94,6 +95,7 @@
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
+	verbs += /mob/living/silicon/pai/proc/pai_change_voice
 
 	//PDA
 	pda = new(src)
@@ -337,6 +339,11 @@
 
 	verbs -= /mob/living/silicon/pai/proc/choose_verbs
 
+/mob/living/silicon/pai/proc/pai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "pAI Commands"
+	change_voice()
 
 /mob/living/silicon/pai/lay_down()
 	set name = "Rest"
@@ -437,25 +444,25 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='info'>"
+	var/msg = "<span class='notice'>"
 
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
-				msg += "\nIt appears to be in stand-by mode." //afk
+				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
-			msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+			msg += "<span class='warning'>It doesn't seem to be responding.\n</span>"
 		if(DEAD)
-			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
+			msg += "<span class='deadsay'>It looks completely unsalvageable.\n</span>"
 
 	if(print_flavor_text())
-		msg += "\n[print_flavor_text()]"
+		msg += "[print_flavor_text()]\n"
 
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\nIt is [pose]"
-	msg += "\n*---------*</span>"
+		msg += "It is [pose]"
+	msg += "</span>"
 
 	. += msg
 

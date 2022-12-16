@@ -47,7 +47,9 @@
 	return TRUE
 
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
-	if(locate(/obj/structure/barricade) in get_turf(mover))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	else if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
 	else if(istype(mover, /obj/item/projectile))
 		if(!anchored)
@@ -88,7 +90,7 @@
 				var/turf/T = get_turf(src)
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
-				return
+			return
 	return ..()
 
 /obj/structure/barricade/wooden/crude

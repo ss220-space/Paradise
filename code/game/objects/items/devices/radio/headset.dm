@@ -6,8 +6,13 @@
 	item_state = "headset"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
-		) //We read you loud and skree-er.
+		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi',
+		"Monkey" = 'icons/mob/species/monkey/ears.dmi',
+		"Farwa" = 'icons/mob/species/monkey/ears.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/ears.dmi',
+		"Neara" = 'icons/mob/species/monkey/ears.dmi',
+		"Stok" = 'icons/mob/species/monkey/ears.dmi'
+	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
 
@@ -48,9 +53,8 @@
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) && radio_desc)
-		. += "The following channels are available:"
-		. += radio_desc
-
+		. += "<span class='notice'>The following channels are available:</span>"
+		. += "<span class='info'>[radio_desc]</span>"
 /obj/item/radio/headset/handle_message_mode(mob/living/M as mob, list/message_pieces, channel)
 	if(channel == "special")
 		if(translate_binary)
@@ -133,6 +137,17 @@
 	ks1type = /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
 	freerange = TRUE
 	freqlock = FALSE
+
+/obj/item/radio/headset/alt/soviet
+	name = "\improper Soviet bowman headset"
+	desc = "A headset linked to the soviet military frequency in this sector. Protects ears from flashbangs."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks1type = /obj/item/encryptionkey/soviet
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
 
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
@@ -335,11 +350,17 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/ert/alt/solgov
+	name = "\improper Trans-Solar Federation Marine's bowman headset"
+
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	requires_tcomms = FALSE
 	instant = TRUE
+
+/obj/item/radio/headset/ert/alt/commander/solgov
+	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
 
 /obj/item/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
@@ -350,6 +371,9 @@
 	ks2type = /obj/item/encryptionkey/centcom
 	requires_tcomms = FALSE
 	instant = TRUE
+
+/obj/item/radio/headset/centcom/solgov
+	name = "\improper Trans-Solar Federation General's bowman headset"
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"

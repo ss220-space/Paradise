@@ -132,6 +132,8 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	gender = FEMALE
+	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -254,31 +256,50 @@
 	..()
 
 /obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
+	if(!H)
+		return
 	if(H.in_throw_mode)
 		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
 
-/mob/proc/tentacle_grab(mob/living/carbon/C)
-	if(Adjacent(C))
-		var/obj/item/grab/G = C.grabbedby(src,1)
-		if(istype(G))
-			G.state = GRAB_PASSIVE
-			C.Weaken(2)
-
-/mob/proc/tentacle_stab(mob/living/carbon/C)
-	if(Adjacent(C))
-		var/obj/item/I = r_hand
-		if(!is_sharp(I))
-			I = l_hand
-		if(!is_sharp(I))
+/obj/item/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item)
+	reset_throw(firer)
+	if(!thrown_item || !firer)
+		return
+	if(thrown_item in firer.contents)
+		return
+	if(firer.get_active_hand())
+		return
+	if(istype(thrown_item, /obj/item/twohanded))
+		if(firer.get_inactive_hand())
 			return
+	firer.put_in_active_hand(thrown_item)
 
-		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
-		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
-		C.apply_damage(I.force, BRUTE, "chest")
-		do_item_attack_animation(C, used_item = I)
-		add_blood(C)
-		playsound(get_turf(src), I.hitsound, 75, 1)
+/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/C)
+	if(!firer || !C)
+		return
+	if(!firer.Adjacent(C))
+		return
+	var/obj/item/grab/G = C.grabbedby(firer, 1)
+	if(istype(G))
+		G.state = GRAB_PASSIVE
+		C.Weaken(2)
 
+/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/C)
+	if(!firer || !C)
+		return
+	if(!firer.Adjacent(C))
+		return
+	var/obj/item/I = firer.r_hand
+	if(!is_sharp(I))
+		I = firer.l_hand
+	if(!is_sharp(I))
+		return
+	C.visible_message("<span class='danger'>[firer] impales [C] with [I]!</span>", "<span class='userdanger'>[firer] impales you with [I]!</span>")
+	add_attack_logs(firer, C, "[firer] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
+	C.apply_damage(I.force, BRUTE, "chest")
+	do_item_attack_animation(C, used_item = I)
+	add_blood(C)
+	playsound(get_turf(firer), I.hitsound, 75, 1)
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	qdel(source.gun) //one tentacle only unless you miss
@@ -291,7 +312,7 @@
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
 			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
 			H.throw_mode_on()
-			I.throw_at(H, 10, 2)
+			I.throw_at(H, 10, 2, callback = CALLBACK(src, .proc/tentacle_disarm, I))
 			. = 1
 
 	else if(isliving(target))
@@ -303,6 +324,7 @@
 					if(INTENT_HELP)
 						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
+						C.client?.move_delay = world.time + 10
 						C.throw_at(get_step_towards(H,C), 8, 2)
 						return 1
 
@@ -325,12 +347,14 @@
 					if(INTENT_GRAB)
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
+						C.client?.move_delay = world.time + 10
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_grab, C))
 						return 1
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_stab, C))
+						C.client?.move_delay = world.time + 10
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_stab, C))
 						return 1
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
@@ -424,8 +448,9 @@
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
 	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/tank/oxygen)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
+	species_restricted = null
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
@@ -444,6 +469,7 @@
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	species_restricted = null
 
 
 /***************************************\

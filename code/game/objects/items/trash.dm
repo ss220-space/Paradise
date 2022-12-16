@@ -67,9 +67,14 @@
 	slot_flags = SLOT_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
-	"Skrell" = 'icons/mob/species/skrell/head.dmi',
-	"Drask" = 'icons/mob/species/drask/head.dmi',
-	"Kidan" = 'icons/mob/species/kidan/head.dmi'
+		"Skrell" = 'icons/mob/species/skrell/head.dmi',
+		"Drask" = 'icons/mob/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/species/kidan/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/trash/pistachios
@@ -124,3 +129,12 @@
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return
+
+/obj/item/trash/broken_ashtray
+	name = "ashtray shards"
+	icon = 'icons/ashtray.dmi'
+	icon_state = "ashtray_bork_bl"
+
+/obj/item/trash/broken_ashtray/Initialize(mapload)
+	. = ..()
+	icon_state = "ashtray_bork_" + pick(list("bl","br","gl"))

@@ -14,6 +14,8 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define ispda(A) (istype(A, /obj/item/pda))
+
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
@@ -44,14 +46,21 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
+//Assembly
+#define isassembly(O) (istype(O, /obj/item/assembly))
+#define isigniter(O) (istype(O, /obj/item/assembly/igniter))
+#define isinfared(O) (istype(O, /obj/item/assembly/infra))
+#define isprox(O) (istype(O, /obj/item/assembly/prox_sensor))
+#define issignaler(O) (istype(O, /obj/item/assembly/signaler))
+#define istimer(O) (istype(O, /obj/item/assembly/timer))
+
+
 //Turfs
 #define issimulatedturf(A) istype(A, /turf/simulated)
 
 #define isspaceturf(A) istype(A, /turf/space)
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
-
-#define isunsimulatedturf(A) istype(A, /turf/unsimulated)
 
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 

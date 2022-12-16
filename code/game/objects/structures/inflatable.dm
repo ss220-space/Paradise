@@ -35,7 +35,10 @@
 	T.air_update_turf(TRUE)
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	return 0
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	else
+		return FALSE
 
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
@@ -43,10 +46,11 @@
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 
-/obj/structure/inflatable/AltClick()
-	if(usr.stat || usr.restrained())
+/obj/structure/inflatable/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated() || user.restrained())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	deconstruct(TRUE)
 
@@ -113,6 +117,8 @@
 	return TryToSwitchState(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density

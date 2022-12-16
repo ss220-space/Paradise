@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 					M.apply_damage(20)
 					take_damage(50)
 				if(4)
-					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
+					M.visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(30)
 					take_damage(75)
@@ -606,6 +606,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	reinf = TRUE
+	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
@@ -646,6 +647,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+
+/obj/structure/window/full/paperframe
+	name = "Paperframe Window"
+	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
+	icon = 'icons/obj/smooth_structures/paperframe.dmi'
+	icon_state = "paperframe"
+	max_integrity = 50
+	smooth = SMOOTH_TRUE
+	cancolor = FALSE
+	canSmoothWith = list(/obj/structure/window/full/paperframe)
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -711,6 +722,25 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/shuttle/tinted
 	opacity = TRUE
 
+/obj/structure/window/full/shuttle/gray
+	name = "shuttle window"
+	desc = "A reinforced, air-locked shuttle window."
+	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
+	icon_state = "shuttle_window_gray"
+
+/obj/structure/window/full/shuttle/gray/tinted
+	opacity = TRUE
+
+/obj/structure/window/full/shuttle/ninja
+	name = "High-Tech shuttle window"
+	desc = "A reinforced, air-locked shuttle window."
+	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
+	icon_state = "shuttle_window_ninja"
+	armor = list("melee" = 50, "bullet" = 30, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/structure/window/full/shuttle/ninja/tinted
+	opacity = TRUE
+
 /obj/structure/window/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium."
@@ -734,12 +764,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
-	icon_state = "clockwork_window_single"
+	icon_state = "clockwork_window"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
-	glass_type = /obj/item/stack/tile/brass
+	glass_type = /obj/item/stack/sheet/brass
 	reinf = FALSE
 	cancolor = FALSE
 	var/made_glow = FALSE
@@ -751,9 +781,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	QDEL_LIST(debris)
 	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-		debris += new/obj/item/stack/tile/brass(src, 2)
+		debris += new/obj/item/stack/sheet/brass(src, 2)
 	else
-		debris += new/obj/item/stack/tile/brass(src, 1)
+		debris += new/obj/item/stack/sheet/brass(src, 1)
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)

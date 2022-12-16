@@ -113,11 +113,12 @@
 
 	return connected
 
-/obj/machinery/hydroponics/AltClick()
-	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
-		toggle_lid(usr)
+/obj/machinery/hydroponics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	return ..()
+	if(wrenchable && !user.lying && Adjacent(user))
+		toggle_lid(user)
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
 	if(!user || user.stat || user.restrained())
@@ -344,34 +345,34 @@
 /obj/machinery/hydroponics/examine(mob/living/carbon/human/H)
 	. = ..()
 	if(myseed)
-		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud/hydroponic))
 			. += myseed.get_analyzer_text()
-			. += "<span class='info'>Weed: [weedlevel] / 10</span>"
-			. += "<span class='info'>Pest: [pestlevel] / 10</span>"
-			. += "<span class='info'>Toxicity: [toxic] / 100</span>"
+			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
+			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"
+			. += "<span class='notice'>Toxicity: [toxic] / 100</span>"
 		if (dead)
 			. += "<span class='warning'>It's dead!</span>"
 		else if (harvest)
-			. += "<span class='info'>It's ready to harvest.</span>"
+			. += "<span class='notice'>It's ready to harvest.</span>"
 		else if (plant_health <= (myseed.endurance / 2))
 			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
-		. += "<span class='info'>[src] is empty.</span>"
+		. += "<span class='notice'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel] / [maxwater]</span>"
-		. += "<span class='info'>Nutrient: [nutrilevel] / [maxnutri]</span>"
+		. += "<span class='notice'>Water: [waterlevel] / [maxwater]</span>"
+		. += "<span class='notice'>Nutrient: [nutrilevel] / [maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
+			. += "<span class='notice'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
 	else
-		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
+		. += "<span class='notice'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
 		. += "<span class='warning'>[src] is filled with weeds!</span>"
 	if(pestlevel >= 5)
-		. += "<span class='warning'>[src] is filled with tiny worms!</span>"  	
+		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
 	. += "" // Empty line for readability.
 
 
@@ -484,7 +485,7 @@
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
-		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
+		add_game_logs("caused spiderling pests to spawn in a hydro tray", user)
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
@@ -812,7 +813,7 @@
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
+				investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
 			user.unEquip(O)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0

@@ -44,7 +44,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen( src )
+	new /obj/item/tank/internals/emergency_oxygen( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -56,7 +56,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/emergency_oxygen/nitrogen(src)
+	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -77,7 +77,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/plasma(src)
+	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -88,7 +88,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen/engi( src )
+	new /obj/item/tank/internals/emergency_oxygen/engi( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -100,7 +100,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
@@ -112,7 +112,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -728,6 +728,17 @@
 	for(var/i in 1 to 7)
 		new	/obj/item/restraints/handcuffs/alien(src)
 
+/obj/item/storage/box/manacles
+	name = "box of spare manacles"
+	desc = "A box full of manacles. Old but gold."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "box_manacle"
+
+/obj/item/storage/box/manacles/New()
+	..()
+	for(var/i in 1 to 7)
+		new	/obj/item/restraints/handcuffs/manacles(src)
+
 /obj/item/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."
@@ -770,21 +781,6 @@
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
-
-/obj/item/storage/box/erttaserproof
-	name = "Taser Proof Upgrade Box"
-	desc = "A Exclusive and Expencive upgrade for HardSuit ."
-	icon_state = "box_ert"
-
-/obj/item/storage/box/erttaserproof/New()
-	..()
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
-	new /obj/item/taser_proof_upgrade(src)
 
 /obj/item/storage/box/bartender_rare_ingredients_kit
 	name = "bartender rare reagents kit"
@@ -1072,7 +1068,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/double/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 
@@ -1091,13 +1087,29 @@
 /obj/item/storage/box/responseteam/New()
 	..()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/engi/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
+/obj/item/storage/box/soviet
+	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
+	icon_state = "box_soviet"
+
+/obj/item/storage/box/soviet/New()
+	..()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
@@ -1203,6 +1215,17 @@
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit
+	name = "Battlemage Armour Bundle"
+	desc = "This box contains a bundle of Battlemage Armour"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit/New()
+	. = ..()
+	contents = list()
+	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
+	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

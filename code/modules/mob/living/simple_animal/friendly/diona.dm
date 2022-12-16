@@ -23,6 +23,7 @@
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
 	emote_see = list("chirrups")
+	tts_seed = "Priest"
 
 	response_help  = "pets"
 	response_disarm = "pushes"
@@ -30,7 +31,7 @@
 
 	melee_damage_lower = 5
 	melee_damage_upper = 8
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 

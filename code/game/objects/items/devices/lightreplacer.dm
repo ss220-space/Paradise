@@ -45,7 +45,7 @@
 
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
-	item_state = "electronic"
+	item_state = "lightreplacer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -69,7 +69,7 @@
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
-	. += status_string()
+	. += "<span class='notice'>[status_string()]</span>"
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -147,6 +147,7 @@
 
 /obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		Emag()
 
 /obj/item/lightreplacer/attack_self(mob/user)
@@ -223,7 +224,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else

@@ -3,6 +3,7 @@
 /area/mine
 	icon_state = "mining"
 	has_gravity = TRUE
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/explored
 	name = "Mine"
@@ -49,6 +50,7 @@
 /area/mine/living_quarters
 	name = "Mining Station Port Wing"
 	icon_state = "mining_living"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/mine/eva
 	name = "Mining Station EVA"
@@ -56,6 +58,7 @@
 
 /area/mine/maintenance
 	name = "Mining Station Communications"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/mine/cafeteria
 	name = "Mining station Cafeteria"
@@ -90,6 +93,7 @@
 /area/lavaland
 	icon_state = "mining"
 	has_gravity = TRUE
+	sound_environment = SOUND_AREA_LAVALAND
 
 /area/lavaland/surface
 	name = "Lavaland"
@@ -121,7 +125,12 @@
 	icon_state = "unexplored"
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
-	icon_state = "danger"
+	icon_state = "cave"
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"
+
+/area/lavaland/surface/outdoors/necropolis
+	name = "Necropolis"
+	icon_state = "unexplored"
+	tele_proof = TRUE

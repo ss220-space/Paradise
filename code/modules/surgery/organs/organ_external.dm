@@ -144,6 +144,8 @@
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+	if(owner?.status_flags & GODMODE)
+		return
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -161,13 +163,16 @@
 #define LIMB_THRESH_INT_DMG 10
 	// Probability of taking internal damage from sufficient force, while otherwise healthy
 #define LIMB_DMG_PROB 5
-	// High brute damage or sharp objects may damage internal organs
-	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+	// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
+	if(!ignore_resists && internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
-			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.receive_damage(brute * 0.5)
-			brute -= brute * 0.5
+			var/obj/item/organ/internal/internal_organ = pick(internal_organs)
+			//Pass full damage if an internal organ is dead
+			var/internal_damage = min(internal_organ.max_damage - internal_organ.damage, brute * 0.5)
+			if(internal_damage)
+				internal_organ.receive_damage(internal_damage)
+				brute -= internal_damage
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
@@ -180,11 +185,17 @@
 	else
 		add_autopsy_data(null, brute + burn)
 
+	// See if internal bleeding has place; distributed damage doesn't inflict it
+	if(!ignore_resists)
+		check_for_internal_bleeding(brute)
+	// See if bones need to break; distributed damage doesn't inflict it
+	if(!ignore_resists)
+		check_fracture(brute)
+
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
 		brute_dam += brute
 		burn_dam += burn
-		check_for_internal_bleeding(brute)
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
@@ -198,7 +209,6 @@
 				can_inflict = max(0, can_inflict - brute)
 				//How much brute damage is left to inflict
 				brute = max(0, brute - temp)
-				check_for_internal_bleeding(brute)
 
 			if(burn > 0 && can_inflict)
 				//Inflict all burn damage we can
@@ -212,21 +222,33 @@
 			if(parent)
 				possible_points += parent
 			if(children)
+				var/all_child_forbidden = TRUE
 				for(var/organ in children)
-					if(organ)
+					if(organ && !(organ in forbidden_limbs))
+						all_child_forbidden = FALSE
 						possible_points += organ
-			if(forbidden_limbs.len)
+				if(all_child_forbidden)
+					forbidden_limbs += src
+			else
+				forbidden_limbs += src
+			if(length(forbidden_limbs))
 				possible_points -= forbidden_limbs
-			if(possible_points.len)
+			//If everything is damaged, no damage
+			var/can_distribute = TRUE
+			if(owner && length(forbidden_limbs) == length(owner.bodyparts_by_name))
+				can_distribute = FALSE
+			//Return damage to upper body if nothing is available
+			if(parent && !length(possible_points))
+				possible_points += parent
+
+			if(can_distribute && length(possible_points))
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
-				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
+				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
 
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
 
-	// See if bones need to break
-	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
@@ -402,18 +424,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.adjustToxLoss(1)
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
-/obj/item/organ/external/proc/check_fracture(var/damage_inflicted)
-	if(config.bones_can_break && brute_dam > min_broken_damage && !is_robotic())
-		if(prob(damage_inflicted))
+/obj/item/organ/external/proc/check_fracture(damage)
+	if(config.bones_can_break && brute_dam + burn_dam + damage > min_broken_damage && !is_robotic())
+		if(prob(damage))
 			fracture()
+			add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
-	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
-		internal_bleeding = TRUE
-		owner.custom_pain("You feel something rip in your [name]!")
+	if(owner.status_flags & GODMODE)
+		return
+	var/min_internal_bleeding_damage = 30
+	if(damage > 15 && brute_dam + burn_dam + damage > min_internal_bleeding_damage && !is_robotic())
+		if(prob(damage))
+			internal_bleeding = TRUE
+			owner.custom_pain("You feel something rip in your [name]!")
+			add_attack_logs(owner, null, "Suffered internal bleeding to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -461,6 +488,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(cannot_amputate || !owner)
 		return
+	if(owner.status_flags & GODMODE)
+		return
 
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
@@ -506,6 +535,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(victim)
 		victim.update_tail()
+		victim.update_wing()
 		victim.updatehealth("droplimb")
 		victim.UpdateDamageIcon()
 		victim.regenerate_icons()
@@ -608,10 +638,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fracture()
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
 	if(owner)
+		if(owner.status_flags & GODMODE)
+			return
 		owner.visible_message(\
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
@@ -741,7 +772,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(owner),-1,-1,2,3)
+		explosion(get_turf(owner),-1,-1,2,3, cause = "Organ Sabotage")
 		do_sparks(5, 0, victim)
 		qdel(src)
 
@@ -749,6 +780,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disfigured)
 		return
 	if(owner)
+		if(owner.status_flags & GODMODE)
+			return
 		owner.visible_message("<span class='warning'>You hear a sickening sound coming from \the [owner]'s [name] as it turns into a mangled mess!</span>",	\
 							  "<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 							  "<span class='warning'>You hear a sickening sound.</span>")
@@ -762,6 +795,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return src == O.bodyparts_by_name[limb_name]
 
 /obj/item/organ/external/proc/infection_check()
+	if(owner?.status_flags & GODMODE)
+		return FALSE
 	var/total_damage = brute_dam + burn_dam
 	if(total_damage)
 		if(total_damage < 10) //small amounts of damage aren't infectable

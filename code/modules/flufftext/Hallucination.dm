@@ -23,6 +23,9 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/hal_screwyhud = SCREWYHUD_NONE
 	var/handling_hal = FALSE
 
+	var/genetic_mutable = 'icons/effects/genetics.dmi'
+
+
 /mob/living/carbon/proc/handle_hallucinations()
 	if(handling_hal)
 		return
@@ -789,6 +792,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	qdel(src)
 
 /mob/living/carbon/proc/hallucinate(hal_type, specific) // specific is used to specify a particular hallucination
+	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(loc, src)
@@ -871,7 +875,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					to_chat(src, "<span class='warning'>You feel a tiny prick!</span>")
 				if(14)
 					to_chat(src, "<h1 class='alert'>Priority Announcement</h1>")
-					to_chat(src, "<br><br><span class='alert'>The Emergency Shuttle has docked with the station. You have 3 minutes to board the Emergency Shuttle.</span><br><br>")
+					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
 					playsound_local(null, 'sound/AI/shuttledock.ogg', 100)
 				if(15)
 					playsound_local(null, 'sound/items/welder.ogg', 15, 1)
@@ -889,8 +893,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(17)
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
 				if(18)
-					to_chat(src, "<h1 class='alert'>Biohazard Alert</h1>")
-					to_chat(src, "<br><br><span class='alert'>Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.</span><br><br>")
+					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА</h1>")
+					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой!.</span><br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)

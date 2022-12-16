@@ -21,7 +21,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message,
-	/mob/living/silicon/ai/proc/arrivals_announcement
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/ai_change_voice,
 ))
 
 //Not sure why this is necessary...
@@ -107,7 +108,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
-	var/arrivalmsg = "$name, $rank, has arrived on the station."
+	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
 	var/list/all_eyes = list()
 
@@ -121,8 +122,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
 	announcement = new()
-	announcement.title = "A.I. Announcement"
-	announcement.announcement_type = "A.I. Announcement"
+	announcement.title = "Оповещение ИИ"
+	announcement.announcement_type = "Оповещение ИИ"
 	announcement.announcer = name
 	announcement.newscast = 0
 
@@ -147,6 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
+	if(B?.clock || isclocker(B?.brainmob))
+		laws = new /datum/ai_laws/ratvar
+		overlays += "clockwork_frame"
 	if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
@@ -185,6 +189,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
+	add_language("Tkachi", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -637,6 +642,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
+/mob/living/silicon/ai/ratvar_act()
+	if(isclocker(src))
+		return
+	SSticker.mode.add_clocker(mind)
+	laws = new /datum/ai_laws/ratvar
+	overlays += "clockwork_frame"
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
+		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
+		R.ratvar_act(TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)
@@ -714,8 +729,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			mech_has_controlbeacon = TRUE
 			break
 		if(!can_dominate_mechs && !mech_has_controlbeacon)
-			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
-			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			log_debug("Warning: possible href exploit by [key_name_log(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
 		if(controlled_mech)
@@ -985,8 +1000,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in personnel_list
@@ -1130,6 +1145,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
+/mob/living/silicon/ai/proc/ai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "AI Commands"
+	change_voice()
+
 /mob/living/silicon/ai/proc/arrivals_announcement()
 	set name = "Toggle Arrivals Announcer"
 	set desc = "Change whether or not you wish to announce arrivals."
@@ -1235,6 +1256,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
+		drop_hat()
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.

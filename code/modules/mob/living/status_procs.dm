@@ -65,6 +65,8 @@
 			Your character cannot enunciate clearly.
 	*	CultSlurring			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
+	*	ClockSlurring			*
+			Your character cannot enunciate clearly while ciphering messages on eldritch code.
 	*	Stunned					*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
@@ -107,6 +109,7 @@
 /mob // On `/mob` for now, to support legacy code
 	var/confused = 0
 	var/cultslurring = 0
+	var/clockslurring = 0
 	var/dizziness = 0
 	var/drowsyness = 0
 	var/druggy = 0
@@ -152,6 +155,8 @@
 
 /mob/living/SetConfused(amount)
 	confused = max(amount, 0)
+	if(status_flags & GODMODE)
+		confused = 0
 
 /mob/living/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(confused, amount, bound_lower, bound_upper)
@@ -164,6 +169,8 @@
 
 /mob/living/SetDizzy(amount)
 	dizziness = max(amount, 0)
+	if(status_flags & GODMODE)
+		dizziness = 0
 
 /mob/living/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(dizziness, amount, bound_lower, bound_upper)
@@ -176,6 +183,8 @@
 
 /mob/living/SetDrowsy(amount)
 	drowsyness = max(amount, 0)
+	if(status_flags & GODMODE)
+		drowsyness = 0
 
 /mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
@@ -188,6 +197,8 @@
 
 /mob/living/SetDrunk(amount)
 	drunk = max(amount, 0)
+	if(status_flags & GODMODE)
+		drunk = 0
 
 /mob/living/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(drunk, amount, bound_lower, bound_upper)
@@ -204,6 +215,8 @@
 		. = STATUS_UPDATE_NONE
 		updating = FALSE
 	druggy = max(amount, 0)
+	if(status_flags & GODMODE)
+		druggy = 0
 	// We transitioned to/from 0, so update the druggy overlays
 	if(updating)
 		update_druggy_effects()
@@ -223,6 +236,8 @@
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	eye_blind = max(amount, 0)
+	if(status_flags & GODMODE)
+		eye_blind = 0
 	// We transitioned to/from 0, so update the eye blind overlays
 	if(updating)
 		update_blind_effects()
@@ -242,6 +257,8 @@
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	eye_blurry = max(amount, 0)
+	if(status_flags & GODMODE)
+		eye_blurry = 0
 	// We transitioned to/from 0, so update the eye blur overlays
 	if(updating)
 		update_blurry_effects()
@@ -257,6 +274,8 @@
 
 /mob/living/SetHallucinate(amount)
 	hallucination = max(amount, 0)
+	if(status_flags & GODMODE)
+		hallucination = 0
 
 /mob/living/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(hallucination, amount, bound_lower, bound_upper)
@@ -271,6 +290,8 @@
 	// Jitter is also associated with stun
 	if(status_flags & CANSTUN || force)
 		jitteriness = max(amount, 0)
+	if(status_flags & GODMODE)
+		jitteriness = 0
 
 /mob/living/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
 	var/new_value = directional_bounded_sum(jitteriness, amount, bound_lower, bound_upper)
@@ -286,6 +307,8 @@
 		losebreath = 0
 		return FALSE
 	losebreath = max(amount, 0)
+	if(status_flags & GODMODE)
+		losebreath = 0
 
 /mob/living/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(losebreath, amount, bound_lower, bound_upper)
@@ -303,6 +326,8 @@
 		. = STATUS_UPDATE_NONE
 	if(status_flags & CANPARALYSE || force)
 		paralysis = max(amount, 0)
+		if(status_flags & GODMODE)
+			paralysis = 0
 		if(updating)
 			update_canmove()
 			update_stat("paralysis")
@@ -318,6 +343,8 @@
 
 /mob/living/SetSilence(amount)
 	silent = max(amount, 0)
+	if(status_flags & GODMODE)
+		silent = 0
 
 /mob/living/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(silent, amount, bound_lower, bound_upper)
@@ -336,6 +363,8 @@
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	sleeping = max(amount, 0)
+	if(status_flags & GODMODE)
+		sleeping = 0
 	if(updating)
 		update_sleeping_effects(no_alert)
 		update_stat("sleeping")
@@ -352,6 +381,8 @@
 
 /mob/living/SetSlowed(amount, updating = 1)
 	slowed = max(amount, 0)
+	if(status_flags & GODMODE)
+		slowed = 0
 
 /mob/living/AdjustSlowed(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
 	var/new_value = directional_bounded_sum(slowed, amount, bound_lower, bound_upper)
@@ -364,11 +395,15 @@
 
 /mob/living/SetSlur(amount)
 	slurring = max(amount, 0)
+	if(status_flags & GODMODE)
+		slurring = 0
 
 	if(slurring && drunk)
 		throw_alert("drunk", /obj/screen/alert/drunk)
+		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
 	else
 		clear_alert("drunk")
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
@@ -381,10 +416,26 @@
 
 /mob/living/SetCultSlur(amount)
 	cultslurring = max(amount, 0)
+	if(status_flags & GODMODE)
+		cultslurring = 0
 
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
 	SetCultSlur(new_value)
+
+// CLOCKSLURRING
+
+/mob/living/ClockSlur(amount)
+	SetClockSlur(max(clockslurring, amount))
+
+/mob/living/SetClockSlur(amount)
+	clockslurring = max(amount, 0)
+	if(status_flags & GODMODE)
+		clockslurring = 0
+
+/mob/living/AdjustClockSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+	var/new_value = directional_bounded_sum(clockslurring, amount, bound_lower, bound_upper)
+	SetClockSlur(new_value)
 
 // STUN
 
@@ -402,6 +453,8 @@
 
 	if(status_flags & CANSTUN || force)
 		stunned = max(amount, 0)
+		if(status_flags & GODMODE)
+			stunned = 0
 		if(updating)
 			update_canmove()
 	else
@@ -421,6 +474,8 @@
 	//From mob/living/apply_effect: "Stuttering is often associated with Stun"
 	if(status_flags & CANSTUN || force)
 		stuttering = max(amount, 0)
+		if(status_flags & GODMODE)
+			stuttering = 0
 
 /mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
 	var/new_value = directional_bounded_sum(stuttering, amount, bound_lower, bound_upper)
@@ -441,6 +496,8 @@
 		. = STATUS_UPDATE_NONE
 	if(status_flags & CANWEAKEN || force)
 		weakened = max(amount, 0)
+		if(status_flags & GODMODE)
+			weakened = 0
 		if(updating)
 			update_canmove()	//updates lying, canmove and icons
 	else
@@ -450,22 +507,20 @@
 	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
 	return SetWeakened(new_value, updating, force)
 
+/mob/living/SetDisgust(amount)
+	if(amount >= 0)
+		disgust = amount
+	update_disgust_alert()
 
 /mob/living/AdjustDisgust(amount)
 	var/old_disgust = disgust
 	if(amount > 0)
 		disgust = min(disgust + amount, DISGUST_LEVEL_MAXEDOUT)
-
 	else if(old_disgust)
 		disgust = max(disgust + amount, 0)
-
 	update_disgust_alert()
 
-/mob/living/SetDisgust(amount)
-	if(amount >= 0)
-		disgust = amount
 
-	update_disgust_alert()
 
 /mob/living/proc/update_disgust_alert()
 	switch(disgust)

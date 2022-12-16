@@ -1,23 +1,31 @@
 /mob/living/carbon/alien/humanoid/sentinel
 	name = "alien sentinel"
 	caste = "s"
-	maxHealth = 150
-	health = 150
+	maxHealth = 250
+	health = 250
 	icon_state = "aliens_s"
+
+/mob/living/carbon/alien/humanoid/sentinel/GrantAlienActions()
+	plant_action.Grant(src)
+	whisper_action.Grant(src)
+	transfer_plasma_action.Grant(src)
+	neurotoxin_action.Grant(src)
+	regurgitate_action.Grant(src)
+	corrosive_acid_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "prat_s"
 	pixel_x = -16
-	maxHealth = 200
-	health = 200
+	maxHealth = 300
+	health = 300
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/praetorian
 	name = "alien praetorian"
-	maxHealth = 200
-	health = 200
+	maxHealth = 300
+	health = 300
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
@@ -47,7 +55,7 @@
 	set desc = "Become a Praetorian, Royal Guard to the Queen."
 	set category = "Alien"
 
-	if(powerc(250))
+	if(plasmacheck(250))
 		adjustToxLoss(-250)
 		to_chat(src, "<span class=notice'>You begin to evolve!</span>")
 		for(var/mob/O in viewers(src, null))

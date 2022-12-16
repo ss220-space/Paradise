@@ -1,13 +1,14 @@
 /mob/living/simple_animal/hostile/retaliate/araneus
-	name = "Сержант Арахний"
-	real_name = "Сержант Арахний"
+	name = "Сержант Аранеус"
+	real_name = "Сержант Аранеус"
 	voice_name = "неизвестный голос"
-	desc = "Свирепый компаньон любого влиятельного лица, этот паук был тщательно обучен специалистами NanoTrasen. От пристального взгляда его глаз-бусинок у вас по спине бегают мурашки."
+	desc = "Свирепый компаньон любого влиятельного лица, эта паучиха была тщательно обучена специалистами NanoTrasen. От пристального взгляда её глаз-бусинок у вас по спине бегают мурашки."
 	faction = list("spiders")
 	icon_state = "guard"
 	icon_living = "guard"
 	icon_dead = "guard_dead"
 	icon_gib = "guard_dead"
+	tts_seed = "Anubarak"
 	turns_per_move = 8
 	response_help = "pets"
 	emote_hear = list("chitters")

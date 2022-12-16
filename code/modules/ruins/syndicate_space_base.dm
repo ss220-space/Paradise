@@ -1,25 +1,3 @@
-#define TAIPAN_SCIENTIST	"Space Base Syndicate Scientist"
-#define TAIPAN_MEDIC 		"Space Base Syndicate Medic"
-#define TAIPAN_BOTANIST		"Space Base Syndicate Botanist"
-#define TAIPAN_CARGO		"Space Base Syndicate Cargo Technician"
-#define TAIPAN_CHEF			"Space Base Syndicate Chef"
-#define TAIPAN_ENGINEER		"Space Base Syndicate Engineer"
-#define TAIPAN_COMMS 		"Space Base Syndicate Comms Officer"
-#define TAIPAN_RD			"Space Base Syndicate Research Director"
-#define CYBORG				"Cyborg"
-
-var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD,CYBORG)
-
-#define TAIPAN_HUD_SCIENTIST	1
-#define TAIPAN_HUD_MEDIC 		2
-#define TAIPAN_HUD_BOTANIST		3
-#define TAIPAN_HUD_CARGO		4
-#define TAIPAN_HUD_CHEF			5
-#define TAIPAN_HUD_ENGINEER		6
-#define TAIPAN_HUD_COMMS 		7
-#define TAIPAN_HUD_RD			8
-#define TAIPAN_HUD_CYBORG		9
-
 /obj/item/paper/syndicate/code_words
 	name = "Code Words"
 
@@ -51,6 +29,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 	outfit = /datum/outfit/space_base_syndicate
 	assignedrole = TAIPAN_SCIENTIST
 	del_types = list() // Necessary to prevent del_types from removing radio!
+	allow_prefs_prompt = TRUE
 	allow_species_pick = TRUE
 	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn")
 	faction = list("syndicate")
@@ -103,11 +82,9 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 
 /datum/outfit/space_base_syndicate/pre_equip(mob/living/carbon/human/H)
 	if(H.dna.species)
-
 		var/race = H.dna.species.name
-
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				box = /obj/item/storage/box/survival_vox
 			if("Plasmaman")
 				box = /obj/item/storage/box/survival_plasmaman
@@ -121,9 +98,9 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 		var/race = H.dna.species.name
 
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
-				H.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(H), slot_l_hand)
+				H.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(H), slot_l_hand)
 				H.internal = H.l_hand
 
 			if("Plasmaman")
@@ -133,7 +110,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 				qdel(H.get_item_by_slot(slot_w_uniform))
 				qdel(H.get_item_by_slot(slot_head))
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
-				H.equip_to_slot(new /obj/item/tank/plasma/plasmaman/belt/full(H), slot_l_hand)
+				H.equip_to_slot(new /obj/item/tank/internals/plasmaman/belt/full(H), slot_l_hand)
 				H.equip_to_slot(I, slot_wear_id) // По непонятной мне причине другие методы считают что персонаж не может надеть предметы. Поэтому надеваем насильно!
 				H.equip_to_slot(R, slot_r_store)
 				H.equip_to_slot(L, slot_l_store)
@@ -151,7 +128,8 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 		H.change_dna(D, TRUE, TRUE)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/special(mob/living/carbon/human/H)
-	SEND_SOUND(H, 'sound/effects/contractstartup.ogg')
+	GLOB.human_names_list += H.real_name
+	SEND_SOUND(H, 'sound/effects/taipan_start.ogg')
 	H.give_taipan_hud()
 
 /obj/effect/mob_spawn/human/space_base_syndicate/medic

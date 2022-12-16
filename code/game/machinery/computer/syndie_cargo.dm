@@ -304,10 +304,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/i in 1 to length(recievingPads))
-			recievingPads[i].use_power(10000 / recievingPads[i].power_efficiency)
-			flick("sqpad-beam", recievingPads[i])
-			playsound(get_turf(recievingPads[i]), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
+			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
+			flick("sqpad-beam", recieving_pad )
+			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
@@ -608,10 +608,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			if(data_storage.telepads_status == "Pads ready")
 				sell()
 				//Телепорт
-				investigate_log("[key_name(usr)] has sold '[data_storage.sold_atoms]' using syndicate cargo. Remaining credits: [data_storage.cash]", "syndicate cargo")
+				investigate_log("[key_name_log(usr)] has sold '[data_storage.sold_atoms]' using syndicate cargo. Remaining credits: [data_storage.cash]", INVESTIGATE_SYNDIE_CARGO)
 				data_storage.sold_atoms = null
-				for(var/i in 1 to length(DSLP))
-					DSLP[i].checks(usr)
+				for(var/obj/machinery/syndiepad/linked_pad as anything in DSLP)
+					linked_pad.checks(usr)
 				data_storage.last_teleport = world.time
 				data_storage.is_cooldown = TRUE
 				buy()
@@ -670,7 +670,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						data_storage.requestlist.Cut(i,i+1)
 						data_storage.cash -= P.cost
 						data_storage.shoppinglist += O
-						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining credits: [data_storage.cash].", "syndicate cargo")
+						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining credits: [data_storage.cash].", INVESTIGATE_SYNDIE_CARGO)
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient credits for this request.</span>")
 					break
@@ -703,6 +703,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
 			message_admins("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			log_admin("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
+			usr.investigate_log("added [money2add] credits to the cargo console at [data_storage.cargoarea.name]", INVESTIGATE_SYNDIE_CARGO)
 			data_storage.cash += money2add
 			if(money2add > 0)
 				data_storage.blackmarket_message += "<span class='good'>+[money2add]</span>: We are pleased with your work. Here's your reward.<br>"

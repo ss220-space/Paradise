@@ -165,6 +165,7 @@
 		assigned_targets.Add("[kill_objective.target]")
 		add_objective(kill_objective)
 		i += 1
+
 	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner
 	add_objective(survive_objective)
@@ -203,6 +204,26 @@
 			add_objective(debrain_objective)
 
 		else if(prob(30))
+			var/datum/objective/pain_hunter/pain_objective = new
+			pain_objective.owner = owner
+			pain_objective.find_target()
+			if("[pain_objective]" in assigned_targets)
+				return 0
+			else if(pain_objective.target)
+				assigned_targets.Add("[pain_objective.target]")
+			add_objective(pain_objective)
+
+		else if(prob(20))
+			var/datum/objective/protect/protect_objective = new
+			protect_objective.owner = owner
+			protect_objective.find_target()
+			if("[protect_objective]" in assigned_targets)
+				return 0
+			else if(protect_objective.target)
+				assigned_targets.Add("[protect_objective.target]")
+			add_objective(protect_objective)
+
+		else
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
 			maroon_objective.find_target()
@@ -211,16 +232,6 @@
 			else if(maroon_objective.target)
 				assigned_targets.Add("[maroon_objective.target]")
 			add_objective(maroon_objective)
-
-		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
-				return 0
-			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
-			add_objective(kill_objective)
 
 	else
 		var/datum/objective/steal/steal_objective = new
@@ -316,11 +327,19 @@
 
 	if(traitor_kind == TRAITOR_HUMAN)
 		var/mob/living/carbon/human/traitor_mob = owner.current
-
+		var/uplink_pref = traitor_mob.client?.prefs?.uplink_pref
+		if(!uplink_pref)
+			uplink_pref = "pda"
+		var/obj/item/R = null
 		// find a radio! toolbox(es), backpack, belt, headset
-		var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
-		if(!R)
-			R = locate(/obj/item/radio) in traitor_mob.contents
+		if(uplink_pref == "pda")
+			R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
+			if(!R)
+				R = locate(/obj/item/radio) in traitor_mob.contents
+		else
+			R = locate(/obj/item/radio) in traitor_mob.contents //Hide the uplink in a radio if available, otherwise PDA
+			if(!R)
+				R = locate(/obj/item/pda) in traitor_mob.contents
 
 		if(!R)
 			to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")

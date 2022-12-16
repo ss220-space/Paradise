@@ -68,6 +68,9 @@
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return FALSE
+	if(!user.has_both_hands())
+		to_chat(user, "<span class='warning'>You need both hands to wield this!</span>")
+		return FALSE
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
@@ -88,6 +91,11 @@
 	O.desc = "Your second grip on the [name]"
 	user.put_in_inactive_hand(O)
 	return TRUE
+
+/obj/item/twohanded/mob_can_equip(mob/M, slot) //Unwields twohanded items when they're attempted to be equipped to another slot
+	if(wielded)
+		unwield(M)
+	return ..()
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
@@ -282,12 +290,12 @@
 	light_power = 2
 	needs_permit = TRUE
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
 	..()
 	if(!blade_color)
-		blade_color = pick("red", "blue", "green", "purple")
+		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
 /obj/item/twohanded/dualsaber/update_icon()
 	if(wielded)
@@ -302,8 +310,6 @@
 	..()
 	if((CLUMSY in user.mutations) && (wielded) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
-		if(!force)//so toy swords cannot kill clowns
-			return
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
@@ -332,6 +338,18 @@
 
 /obj/item/twohanded/dualsaber/blue
 	blade_color = "blue"
+
+/obj/item/twohanded/dualsaber/orange
+	blade_color = "orange"
+
+/obj/item/twohanded/dualsaber/darkblue
+	blade_color = "darkblue"
+
+/obj/item/twohanded/dualsaber/pink
+	blade_color = "pink"
+
+/obj/item/twohanded/dualsaber/yellow
+	blade_color = "yellow"
 
 /obj/item/twohanded/dualsaber/unwield()
 	. = ..()
@@ -726,7 +744,7 @@
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
-		playsound(loc, "sparks", 50, 1)
+		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
 			M.Stun(2)
 			shock(M)

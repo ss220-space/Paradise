@@ -532,6 +532,14 @@
 	loc = S1.loc
 	dir = S1.dir
 
+	// Update mining and labor shuttle ash storm audio
+	if(id in list("mining", "laborcamp"))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
+
 	unlockPortDoors(S1)
 
 
@@ -817,7 +825,7 @@
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")
-				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+				add_misc_logs(usr, "used [src] to call the [shuttleId] shuttle")
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
@@ -830,6 +838,7 @@
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
@@ -928,9 +937,12 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	access_tcomms = TRUE
-	access_construction = TRUE
-	access_mining = TRUE
+	space_turfs_only = FALSE
+	access_admin_zone = TRUE	//can we park on Admin z_lvls?
+	access_mining = TRUE		//can we park on Lavaland z_lvl?
+	access_taipan = TRUE 		//can we park on Taipan z_lvl?
+	access_away = TRUE 		//can we park on Away_Mission z_lvl?
+	access_derelict = TRUE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"

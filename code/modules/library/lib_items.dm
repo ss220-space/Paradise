@@ -95,7 +95,6 @@
 	else
 		icon_state = "book-5"
 
-
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 

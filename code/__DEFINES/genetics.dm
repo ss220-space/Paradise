@@ -8,18 +8,22 @@
 // mob/var/list/mutations
 
 // Used in preferences.
-#define DISABILITY_FLAG_NEARSIGHTED   1
-#define DISABILITY_FLAG_FAT           2
-#define DISABILITY_FLAG_BLIND         4
-#define DISABILITY_FLAG_MUTE          8
-#define DISABILITY_FLAG_COLOURBLIND   16
-#define DISABILITY_FLAG_WINGDINGS     32
-#define DISABILITY_FLAG_NERVOUS       64
-#define DISABILITY_FLAG_SWEDISH       128
-#define DISABILITY_FLAG_LISP          256
-#define DISABILITY_FLAG_DIZZY         512
-#define DISABILITY_FLAG_AULD_IMPERIAL 1024
-#define DISABILITY_FLAG_DEAF          2048
+#define DISABILITY_FLAG_NEARSIGHTED   (1<<0)
+#define DISABILITY_FLAG_FAT           (1<<1)
+#define DISABILITY_FLAG_BLIND         (1<<2)
+#define DISABILITY_FLAG_MUTE          (1<<3)
+#define DISABILITY_FLAG_COLOURBLIND   (1<<4)
+#define DISABILITY_FLAG_WINGDINGS     (1<<5)
+#define DISABILITY_FLAG_NERVOUS       (1<<6)
+#define DISABILITY_FLAG_SWEDISH       (1<<7)
+#define DISABILITY_FLAG_LISP          (1<<8)
+#define DISABILITY_FLAG_DIZZY         (1<<9)
+#define DISABILITY_FLAG_AULD_IMPERIAL (1<<10)
+#define DISABILITY_FLAG_DEAF          (1<<11)
+#define DISABILITY_FLAG_COFFEE_ADDICT (1<<12)
+#define DISABILITY_FLAG_TEA_ADDICT    (1<<13)
+#define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
+#define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -69,6 +73,7 @@
 #define EATER			"matter_eater"
 #define JUMPY			"jumpy"
 #define POLYMORPH		"polymorph"
+#define SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
 //disabilities
 #define NEARSIGHTED		"nearsighted"
 #define EPILEPSY		"epilepsy"
@@ -151,3 +156,4 @@
 #define NO_HUNGER		"no_hunger"
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
+#define RUNIC_MIND		"runic_mind"

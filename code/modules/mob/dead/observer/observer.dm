@@ -54,7 +54,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
-		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -91,6 +90,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
+	toggle_all_huds_off()
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -103,7 +103,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/examine(mob/user)
 	. = ..()
 	if(!invisibility)
-		. += "It seems extremely obvious."
+		. += "<span class='notice'>It seems extremely obvious.</span>"
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -156,6 +156,8 @@ Works together with spawning an observer, noted above.
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+		if(client)
+			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		GLOB.respawnable_list -= src
 		if(ghost.can_reenter_corpse)
@@ -337,7 +339,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
-	
+
+/**
+ * Toggles off all HUDs for the ghost player.
+ */
+/mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
+	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	antagHUD = FALSE
+	for(var/datum/atom_hud/antag/H in GLOB.huds)
+		H.remove_hud_from(src)
+
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
 	set category = "Ghost"
@@ -712,6 +725,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(invisibility) // Only show the button if the ghost is not visible to the living
 		follow_link = " ([ghost_follow_link(A, src)])"
 	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+	add_deadchat_logs(src, "point to [key_name(A)] [COORD(A)]")
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()

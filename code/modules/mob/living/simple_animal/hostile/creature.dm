@@ -2,6 +2,7 @@
 	name = "creature"
 	desc = "A sanity-destroying otherthing."
 	speak_emote = list("gibbers")
+	tts_seed = "Earth"
 	icon_state = "otherthing"
 	icon_living = "otherthing"
 	icon_dead = "otherthing-dead"
@@ -10,7 +11,7 @@
 	obj_damage = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 50
-	attacktext = "chomps"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	gold_core_spawnable = HOSTILE_SPAWN

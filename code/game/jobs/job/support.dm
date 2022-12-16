@@ -67,7 +67,6 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
-		/obj/item/eftpos=1,\
 		/obj/item/paper/chef=1,\
 		/obj/item/book/manual/chef_recipes=1)
 
@@ -92,6 +91,8 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/hydro
 
 /datum/outfit/job/hydro
@@ -138,7 +139,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/qm
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo
@@ -214,7 +215,7 @@
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
-	suit_store = /obj/item/tank/emergency_oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = slot_s_store
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\

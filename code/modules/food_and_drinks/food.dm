@@ -20,33 +20,40 @@
 	var/can_taste = TRUE//whether you can taste eating from this
 	var/antable = TRUE // Will ants come near it?
 	var/ant_location = null
-	var/ant_timer = null
+	// Time we last checked for ants
+	var/last_ant_time = 0
 	var/foodtype = NONE
 	var/last_check_time
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
+	var/log_eating = FALSE // do we log if someone eats us?
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5) //Randomizes postion
 	pixel_y = rand(-5, 5)
 	if(antable)
+		START_PROCESSING(SSobj, src)
 		ant_location = get_turf(src)
-		ant_timer = addtimer(CALLBACK(src, .proc/check_for_ants), 3000, TIMER_STOPPABLE)
+		last_ant_time = world.time
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null
-	if(ant_timer)
-		deltimer(ant_timer)
+	if(isprocessing)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/reagent_containers/food/process()
+	if(!antable)
+		return PROCESS_KILL
+	if(world.time > last_ant_time + 5 MINUTES)
+		check_for_ants()
 
 /obj/item/reagent_containers/food/set_APTFT()
 	set hidden = TRUE
 	..()
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
-	if(!antable)
-		return
 	var/turf/T = get_turf(src)
 	if(isturf(loc) && (T.temperature in 280 to 325) && !locate(/obj/structure/table) in T)
 		if(ant_location == T)
@@ -56,16 +63,13 @@
 					antable = FALSE
 					desc += " It appears to be infested with space ants. Yuck!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
-					if(ant_timer)
-						deltimer(ant_timer)
 		else
 			ant_location = T
-	if(ant_timer)
-		deltimer(ant_timer)
-	ant_timer = addtimer(CALLBACK(src, .proc/check_for_ants), 3000, TIMER_STOPPABLE)
+
+	last_ant_time = world.time
 
 /obj/item/reagent_containers/food/proc/check_liked(var/fraction, mob/M)
-	if(last_check_time + 5 SECONDS < world.time)
+	if(last_check_time + 2 SECONDS < world.time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(foodtype & H.dna.species.toxic_food)
@@ -73,16 +77,16 @@
 				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, H.dna.species)]</span>")
 
 				H.AdjustDisgust(25 + 30 * fraction)
-			else if(foodtype & H.dna.species.disliked_food)
+			if(foodtype & H.dna.species.disliked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
 				to_chat(H, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
 
-				H.AdjustDisgust(11 + 15 * fraction)
-			else if(foodtype & H.dna.species.liked_food)
+				H.AdjustDisgust(15 + 16 * fraction)
+			if(foodtype & H.dna.species.liked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
 				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
 
-				H.AdjustDisgust(-5 + -2.5 * fraction)
+				H.AdjustDisgust(-12 + -8 * fraction)
 			last_check_time = world.time
 
 /obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
@@ -123,3 +127,30 @@
 		return pick("toxic garbage", "toxins", "literally poison")
 	if(matching_flags & JUNKFOOD)
 		return "junk food"
+
+/obj/item/reagent_containers/food/examine(mob/user)
+	. = ..()
+	if(foodtype & MEAT)
+		. += "<span class='notice'>It contains meat.</span>"
+	if(foodtype & VEGETABLES)
+		. += "<span class='notice'>It contains vegetables.</span>"
+	if(foodtype & RAW)
+		. += "<span class='notice'>It is not properly cooked.</span>"
+	if(foodtype & JUNKFOOD)
+		. += "<span class='notice'>It is junkfood.</span>"
+	if(foodtype & GRAIN)
+		. += "<span class='notice'>It is made of grain.</span>"
+	if(foodtype & FRUIT)
+		. += "<span class='notice'>It contains fruits.</span>"
+	if(foodtype & DAIRY)
+		. += "<span class='notice'>It contains dairy.</span>"
+	if(foodtype & FRIED)
+		. += "<span class='notice'>It is fried.</span>"
+	if(foodtype & SUGAR)
+		. += "<span class='notice'>It is sugary.</span>"
+	if(foodtype & EGG)
+		. += "<span class='notice'>It contains eggs.</span>"
+	if(foodtype & GROSS)
+		. += "<span class='notice'>This is pure garbage.</span>"
+	if(foodtype & TOXIC)
+		. += "<span class='notice'>This is straight up poisonous.</span>"

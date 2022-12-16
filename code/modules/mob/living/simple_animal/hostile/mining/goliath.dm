@@ -14,6 +14,7 @@
 	ranged_cooldown_time = 120
 	friendly = "wails at"
 	speak_emote = list("bellows")
+	tts_seed = "Bloodseeker"
 	vision_range = 4
 	speed = 3
 	maxHealth = 300
@@ -22,7 +23,7 @@
 	obj_damage = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	attacktext = "pulverizes"
+	attacktext = "сокрушает"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
@@ -33,6 +34,7 @@
 	var/pre_attack = FALSE
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
+	footstep_type = FOOTSTEP_MOB_HEAVY
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()

@@ -5,6 +5,8 @@
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
+	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3')
+	speech_chance = 33
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
@@ -35,7 +37,10 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	brute_mod = 1.05
+	male_scream_sound = "u_mscream"
+	female_scream_sound = "u_fscream"
+	male_sneeze_sound = 'sound/goonstation/voice/unathi/m_u_sneeze.ogg'
+	female_sneeze_sound = 'sound/goonstation/voice/unathi/f_u_sneeze.ogg'
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -70,21 +75,8 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	var/datum/action/innate/tail_lash/lash
-
-	disliked_food = VEGETABLES | FRUIT | GRAIN
-	liked_food = MEAT | RAW | EGG
-
-
-/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
-	..()
-	lash = new
-	lash.Grant(H)
-
-/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
-	..()
-	if(lash)
-		lash.Remove(H)
+	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
+	liked_food = MEAT | RAW | EGG | GROSS
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
@@ -103,17 +95,9 @@
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 
-		var/E_ru //русифицируем орган
-		switch (E)
-			if ("l_leg") E_ru = "левую ногу"
-			if ("r_leg") E_ru = "правую ногу"
-			if ("l_foot") E_ru = "левую ступню"
-			if ("r_foot") E_ru = "правую ступню"
-			if ("groin") E_ru = "пах"
-
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
-			user.visible_message("<span class='danger'>[user] хлещет [C] в [E_ru] своим хвостом! </span>", "<span class='danger'>Вы хлестаете [C] в [E_ru] своим хвостом!</span>")
+			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
@@ -122,7 +106,7 @@
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(2)
-					user.visible_message("<span class='danger'>[user] теря[pluralize_ru(user.gender,"ет","ют")] [genderize_ru(user.gender,"его","её","свое","их")] равновесие!</span>", "<span class='danger'>Вы теряете равновесие!</span>")
+					user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
 				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
@@ -153,16 +137,42 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NO_BREATHE, NOGUNS)
+	species_traits = list(NOGUNS)
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
 	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs |= /mob/living/carbon/human/proc/emote_roar
+	H.verbs |= /mob/living/carbon/human/proc/emote_threat
+	H.verbs |= /mob/living/carbon/human/proc/emote_whip
+	H.verbs |= /mob/living/carbon/human/proc/emote_whips
+	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	if(!lash)
+		lash = new
+		lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs -= /mob/living/carbon/human/proc/emote_roar
+	H.verbs -= /mob/living/carbon/human/proc/emote_threat
+	H.verbs -= /mob/living/carbon/human/proc/emote_whip
+	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+
+	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	if(lash)
+		lash.Remove(H)

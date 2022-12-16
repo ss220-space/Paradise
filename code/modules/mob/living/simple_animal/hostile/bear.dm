@@ -10,6 +10,7 @@
 	speak_emote = list("growls", "roars")
 	emote_hear = list("rawrs","grumbles","grawls")
 	emote_see = list("stares ferociously", "stomps")
+	tts_seed = "Shaker"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -23,9 +24,10 @@
 	obj_damage = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30
-	attacktext = "mauls"
+	attacktext = "терзает"
 	friendly = "bear hugs"
 	attack_sound = 'sound/weapons/genhit3.ogg'
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 	//Space bears aren't affected by atmos.
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

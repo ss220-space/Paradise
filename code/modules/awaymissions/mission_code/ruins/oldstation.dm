@@ -68,7 +68,7 @@
 	item_state = "void"
 	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making is difficult to move around in."
 	slowdown = 4
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/multitool)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
@@ -224,8 +224,8 @@
 	icon_state = "hardsuit-ancient"
 	item_state = "anc_hardsuit"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75)
-	slowdown = 3
 	resistance_flags = FIRE_PROOF
+	slowdown = 3
 	sprite_sheets = null
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
@@ -341,18 +341,6 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
-
-// Engines
-/obj/structure/shuttle/engine/large
-	name = "engine"
-	opacity = 1
-	icon = 'icons/obj/2x2.dmi'
-	icon_state = "large_engine"
-	desc = "A very large bluespace engine used to propel very large ships."
-	bound_width = 64
-	bound_height = 64
-	appearance_flags = 0
-
 // areas
 //Ruin of ancient Space Station
 

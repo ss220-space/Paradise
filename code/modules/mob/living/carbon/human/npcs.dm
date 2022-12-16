@@ -6,8 +6,9 @@
 	species_restricted = list("Monkey")
 	species_exception = list(/datum/species/monkey)
 
-/mob/living/carbon/human/monkey/punpun/Initialize(mapload)
+/mob/living/carbon/human/lesser/monkey/punpun/Initialize(mapload)
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
 	equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)
+	tts_seed = "Chen"

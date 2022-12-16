@@ -20,10 +20,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/floor1.ogg','sound/effects/footstep/floor2.ogg','sound/effects/footstep/floor3.ogg','sound/effects/footstep/floor4.ogg','sound/effects/footstep/floor5.ogg'),
-	"xeno"  = list('sound/effects/footstep/floor1.ogg','sound/effects/footstep/floor2.ogg','sound/effects/footstep/floor3.ogg','sound/effects/footstep/floor4.ogg','sound/effects/footstep/floor5.ogg')
-	)
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
 	var/lava = 0
@@ -35,6 +31,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/list/burnt_states = list("floorscorched1", "floorscorched2")
 	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
+
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
@@ -83,6 +84,26 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	for(var/obj/structure/A in contents)
 		if(A.level == 3)
 			return 1
+
+// Checks if the turf is safe to be on
+/turf/simulated/floor/is_safe()
+	if(!air)
+		return FALSE
+	var/datum/gas_mixture/Z = air
+	var/pressure = Z.return_pressure()
+	// Can most things breathe and tolerate the temperature and pressure?
+	if(Z.oxygen < 16 || Z.toxins >= 0.05 || Z.carbon_dioxide >= 10 || Z.sleeping_agent >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
+		return FALSE
+	return TRUE
+
+// Checks if there is foothold over the turf
+/turf/simulated/floor/proc/find_safeties()
+	var/static/list/safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
+	var/list/found_safeties = typecache_filter_list(contents, safeties_typecache)
+	for(var/obj/structure/stone_tile/S in found_safeties)
+		if(S.fallen)
+			LAZYREMOVE(found_safeties, S)
+	return LAZYLEN(found_safeties)
 
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
@@ -241,9 +262,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(prob(20))
 		ChangeTurf(/turf/simulated/floor/engine/cult)
 
-/turf/simulated/floor/ratvar_act(force, ignore_mobs)
-	. = ..()
-	if(.)
+/turf/simulated/floor/ratvar_act()
+	if(prob(20))
 		ChangeTurf(/turf/simulated/floor/clockwork)
 
 /turf/simulated/floor/acid_melt()

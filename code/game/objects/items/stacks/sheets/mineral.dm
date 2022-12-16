@@ -178,6 +178,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
+	item_state = "sheet-diamond"
 	singular_name = "diamond"
 	origin_tech = "materials=6"
 	sheettype = "diamond"
@@ -195,6 +196,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
+	item_state = "sheet-uranium"
 	singular_name = "uranium sheet"
 	origin_tech = "materials=5"
 	sheettype = "uranium"
@@ -209,6 +211,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
+	item_state = "sheet-plasma"
 	singular_name = "plasma sheet"
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
@@ -237,11 +240,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		return ..()
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
-	var/turf/T = get_turf(src)
-	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
-	log_game("Plasma sheets ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
-	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
+	add_attack_logs(user, src, "Ignited [amount] amount, using [I]", ATKLOG_FEW)
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)] in [amount] amount.", INVESTIGATE_ATMOS)
 	fire_act()
 
 /obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -252,6 +252,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
+	item_state = "sheet-gold"
 	singular_name = "gold bar"
 	origin_tech = "materials=4"
 	sheettype = "gold"
@@ -266,6 +267,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
+	item_state = "sheet-silver"
 	singular_name = "silver bar"
 	origin_tech = "materials=4"
 	sheettype = "silver"
@@ -318,7 +320,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
 	icon_state = "sheet-titanium"
-	item_state = "sheet-metal"
+	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
 	force = 5
 	throwforce = 5
@@ -349,7 +351,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 /obj/item/stack/sheet/mineral/plastitanium
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
-	item_state = "sheet-metal"
+	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
 	force = 5
 	throwforce = 5
@@ -410,6 +412,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "alien alloy"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
+	item_state = "sheet-abductor"
 	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5
@@ -429,6 +432,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "adamantine"
 	desc = "A strange mineral used in the construction of sentient golems."
 	icon_state = "sheet-adamantine"
+	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	origin_tech = "materials=5"
 	merge_type = /obj/item/stack/sheet/mineral/adamantine

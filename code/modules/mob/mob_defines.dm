@@ -34,14 +34,11 @@
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
-	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
 
-	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/other_mobs = null
+	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
@@ -72,7 +69,6 @@
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
-	var/shakecamera = 0
 	var/a_intent = INTENT_HELP //Living
 	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
@@ -94,7 +90,8 @@
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
-	var/list/grabbed_by = list()
+	var/list/obj/item/grab/grabbed_by = list()
+	var/list/obj/item/twohanded/garrote/garroted_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
@@ -121,6 +118,8 @@
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
@@ -209,3 +208,5 @@
 
 	/// The location our runechat message should appear. Should be src by default.
 	var/atom/runechat_msg_location
+
+	var/tts_seed = null

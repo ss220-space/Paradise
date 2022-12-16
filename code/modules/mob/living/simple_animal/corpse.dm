@@ -39,7 +39,7 @@
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
 	back = /obj/item/tank/jetpack/oxygen
-	r_pocket = /obj/item/tank/emergency_oxygen
+	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
 
@@ -88,16 +88,15 @@
 	name = "Russian Corpse"
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
-
+	head = /obj/item/clothing/head/sovietsidecap
 
 /obj/effect/mob_spawn/human/corpse/russian/ranged
 	outfit = /datum/outfit/russiancorpse/ranged
 
 /datum/outfit/russiancorpse/ranged
 	name = "Ranged Russian Corpse"
-	head = /obj/item/clothing/head/ushanka
-
+	suit = /obj/item/clothing/suit/sovietcoat
+	gloves = /obj/item/clothing/gloves/color/black
 
 /obj/effect/mob_spawn/human/corpse/wizard
 	name = "Space Wizard Corpse"

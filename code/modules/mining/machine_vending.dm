@@ -96,12 +96,17 @@
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
+/obj/machinery/mineral/equipment_vendor/proc/remove_id()
+	if(inserted_id)
+		inserted_id.forceMove(get_turf(src))
+		inserted_id = null
+
 /obj/machinery/mineral/equipment_vendor/power_change()
 	..()
 	update_icon()
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
-		inserted_id.forceMove(loc)
+		remove_id()
 
 /obj/machinery/mineral/equipment_vendor/update_icon()
 	if(powered())
@@ -205,8 +210,7 @@
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
-			if(inserted_id)
-				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
+			remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(user, I)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
@@ -270,8 +274,7 @@
 		qdel(src)
 
 /obj/machinery/mineral/equipment_vendor/Destroy()
-	if(inserted_id)
-		inserted_id.forceMove(loc)
+	remove_id()
 	return ..()
 
 
@@ -376,9 +379,9 @@
 	var/points = 500
 
 /obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+	if(I.GetID())
 		if(points)
-			var/obj/item/card/id/C = I
+			var/obj/item/card/id/C = I.GetID()
 			C.mining_points += points
 			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
 			points = 0
@@ -388,7 +391,7 @@
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
-	. += "There's [points] points on the card."
+	. += "<span class='notice'>There's [points] points on the card.</span>"
 
 
 #undef EQUIPMENT

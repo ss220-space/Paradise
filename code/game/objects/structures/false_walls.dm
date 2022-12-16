@@ -26,8 +26,11 @@
 	canSmoothWith = list(
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
+	/turf/simulated/wall/indestructible/metal,
+	/turf/simulated/wall/indestructible/reinforced,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
+	/obj/structure/falsewall/clockwork,
 	/obj/structure/falsewall/reinforced,  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS. //because we do smooth with real r-walls now
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust)
@@ -261,10 +264,8 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
-		var/turf/T = locate(user)
-		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
 	else
 		return ..()
@@ -338,7 +339,7 @@
 
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
-	icon = 'icons/turf/walls/shuttle_wall.dmi'
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
@@ -364,10 +365,41 @@
 	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
 	walltype = /turf/simulated/wall/clockwork
-	mineral = /obj/item/stack/tile/brass
+	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
+
+/obj/structure/falsewall/clockwork/attack_hand(mob/user)
+	if(!isclocker(user))
+		user.changeNext_move(CLICK_CD_MELEE)
+		to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
+		playsound(src, 'sound/weapons/genhit.ogg', 25, 1) //sneaky
+		return FALSE
+	return ..()
+
+/obj/structure/falsewall/clockwork/welder_act(mob/user, obj/item/I)
+	if(!density)
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
+		dismantle(user, TRUE)
+
+/obj/structure/falsewall/clockwork/attackby(obj/item/W, mob/user, params)
+	if(opening)
+		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
+		return FALSE
+
+	if(density)
+		var/turf/T = get_turf(src)
+		if(T.density)
+			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
+			return FALSE
+
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
+		dismantle(user, TRUE)
+		return TRUE
+	return TRUE

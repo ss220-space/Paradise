@@ -250,20 +250,22 @@
 	var/obj/item/hand_item = get_active_hand()
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [A] with [hand_item]")
+			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
+			add_emote_logs(src, "point [hand_item] to [key_name(A)] [COORD(A)]")
 			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
-											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
+		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
+											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
 		A << 'sound/weapons/targeton.ogg'
+		add_emote_logs(src, "point [hand_item] HARM to [key_name(A)] [COORD(A)]")
 		return TRUE
-	visible_message("<b>[src]</b> points to [A]")
+	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
+	add_emote_logs(src, "point to [key_name(A)] [COORD(A)]")
 	return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
@@ -292,20 +294,26 @@
 		return
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
-		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+		add_attack_logs(user, src, "set on fire with [I]")
 
-/mob/living/proc/updatehealth(reason = "none given")
+/mob/living/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
-	update_stat("updatehealth([reason])")
+		if(stat != CONSCIOUS && stat != DEAD)
+			WakeUp()
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_damage_hud()
+	if(should_log)
+		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
 
+/mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
+	if(status_flags & GODMODE)
+		health = maxHealth
+		update_stat("updatehealth([reason])", should_log)
+		return
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	update_stat("updatehealth([reason])", should_log)
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -492,7 +500,7 @@
 			human_mob.restore_blood()
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
-
+	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
@@ -548,31 +556,17 @@
 	if(pullee && get_dist(src, pullee) > 1)
 		stop_pulling()
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
-		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+		log_debug("[src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
 	if(restrained())
 		stop_pulling()
 
-	var/turf/T = loc
+	var/turf/old_loc = loc
 	. = ..()
 	if(.)
-		handle_footstep(loc)
 		step_count++
-
-		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
-			if(pulling.anchored)
-				stop_pulling()
-				return
-
-			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
-				if(isliving(pulling))
-					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
-						M.makeTrail(T)
-				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
-				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
-					stop_pulling()
+		pull_pulled(old_loc, pullee, movetime)
+		pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
@@ -580,11 +574,67 @@
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
+/mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, movetime)
+	if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
+		if(pulling.anchored)
+			stop_pulling()
+			return
 
-/mob/living/proc/handle_footstep(turf/T)
-	if(istype(T))
-		return 1
-	return 0
+		var/pull_dir = get_dir(src, pulling)
+		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
+			if(isliving(pulling))
+				var/mob/living/M = pulling
+				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+					M.makeTrail(dest)
+			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
+				stop_pulling()
+
+/mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
+	if(!Adjacent(old_turf))
+		return
+	// yes, this is four distinct `for` loops. No, they can't be merged.
+	var/list/grabbing = list()
+	for(var/mob/M in ret_grab())
+		if(src != M)
+			grabbing |= M
+	for(var/mob/M in grabbing)
+		M.currently_grab_pulled = TRUE
+		M.animate_movement = SYNC_STEPS
+	for(var/i in 1 to length(grabbing))
+		var/mob/M = grabbing[i]
+		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
+			continue
+		if(!isturf(M.loc))
+			continue
+		// compile a list of turfs we can maybe move them towards
+		// importantly, this should happen before actually trying to move them to either of those
+		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
+		// *fully* move where you wanted it to; it can still move partially and return FALSE)
+		var/possible_dest = list()
+		for(var/turf/dest in orange(src, 1))
+			if(dest.Adjacent(M))
+				possible_dest |= dest
+		if(i == 1) // at least one of them should try to trail behind us, for aesthetics purposes
+			if(M.Move(old_turf, get_dir(M, old_turf), movetime))
+				continue
+		// By this time the `old_turf` is definitely occupied by something immovable.
+		// So try to move them into some other adjacent turf, in a believable way
+		if(Adjacent(M))
+			continue // they are already adjacent
+		for(var/turf/dest in possible_dest)
+			if(M.Move(dest, get_dir(M, dest), movetime))
+				break
+	for(var/mob/M in grabbing)
+		M.currently_grab_pulled = null
+		M.animate_movement = SLIDE_STEPS
+
+	for(var/obj/item/grab/G in src)
+		if(G.state == GRAB_NECK)
+			setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
+		G.adjust_position()
+	for(var/obj/item/grab/G in grabbed_by)
+		G.adjust_position()
 
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))
@@ -829,7 +879,7 @@
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
-	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
+	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
 	gib()
 	return 20
 
@@ -843,6 +893,36 @@
 /mob/living/narsie_act()
 	if(client)
 		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE)
+	spawn_dust()
+	gib()
+
+/mob/living/ratvar_act(weak = FALSE)
+	if(weak)
+		return //It's too weak to break a flesh!
+	if(client)
+		switch(rand(1,3))
+			if(1)
+				var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
+				if(mind)
+					SSticker.mode.add_clocker(mind)
+					mind.transfer_to(cog)
+				else
+					cog.key = client.key
+			if(2)
+				var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+				if(mind)
+					SSticker.mode.add_clocker(mind)
+					mind.transfer_to(cog)
+				else
+					cog.key = client.key
+			if(3)
+				var/mob/living/silicon/robot/cog = new (get_turf(src))
+				if(mind)
+					SSticker.mode.add_clocker(mind)
+					mind.transfer_to(cog)
+				else
+					cog.key = client.key
+				cog.ratvar_act()
 	spawn_dust()
 	gib()
 
@@ -976,6 +1056,7 @@
 		pullin.update_icon(src)
 	if(ismob(AM))
 		var/mob/M = AM
+		add_attack_logs(src, M, "pulls", ATKLOG_ALMOSTALL)
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else

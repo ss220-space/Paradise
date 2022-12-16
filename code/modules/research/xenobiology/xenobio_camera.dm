@@ -237,7 +237,7 @@
 			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
 			return
 		else if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(remote_eye.loc)
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
 			X.monkeys --
@@ -333,7 +333,6 @@
 //Feeds a potion to slime
 /mob/living/simple_animal/slime/AltClick(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, src)
-	..()
 
 //Picks up slime
 /mob/living/simple_animal/slime/ShiftClick(mob/user)
@@ -431,7 +430,7 @@
 
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
+			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(T)
 			food.LAssailant = C
 			X.monkeys --
 			X.monkeys = round(X.monkeys, 0.1)

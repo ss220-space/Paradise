@@ -11,7 +11,7 @@
 	maxHealth = 50
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	attacktext = "chomps"
+	attacktext = "грызёт"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	robust_searching = 1
@@ -29,7 +29,7 @@
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "It appears to be dead."
+		. += "<span class='deadsay'>It appears to be dead.</span>"
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
@@ -73,7 +73,7 @@
 		qdel(src)
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
-	var/mob/living/carbon/human/monkey/M = new(owner)
+	var/mob/living/carbon/human/lesser/monkey/M = new(owner)
 	LAZYADD(owner.stomach_contents, M)
 
 	for(var/obj/item/organ/internal/I in src)

@@ -3,6 +3,7 @@
 	real_name = "Construct"
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
+	tts_seed = "Acolyte"
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"
@@ -52,17 +53,11 @@
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
 
-	var/msg = ""
 	if(src.health < src.maxHealth)
-		msg += "<span class='warning'>"
 		if(src.health >= src.maxHealth/2)
-			msg += "It looks slightly dented.\n"
+			. += "<span class='notice'>It looks slightly dented.</span>"
 		else
-			msg += "<B>It looks severely dented!</B>\n"
-		msg += "</span>"
-	msg += "*---------*</span>"
-
-	. += msg
+			. += "<span class='warning'>It looks severely dented!</span>"
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
@@ -107,7 +102,7 @@
 	obj_damage = 90
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	attacktext = "smashes their armoured gauntlet into"
+	attacktext = "бьёт тяжёлой бронированной перчаткой"
 	speed = 3
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
@@ -155,12 +150,13 @@
 	health = 75
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	attacktext = "slashes"
+	attacktext = "рубит"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
+	tts_seed = "Kelthuzad"
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -183,7 +179,7 @@
 	obj_damage = 60
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	attacktext = "rams"
+	attacktext = "таранит"
 	environment_smash = 2
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
@@ -263,7 +259,7 @@
 	harm_intent_damage = 0
 	melee_damage_lower = 50
 	melee_damage_upper = 50
-	attacktext = "brutally crushes"
+	attacktext = "брутально сокрушает"
 	speed = 5
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch4.ogg'
@@ -294,7 +290,7 @@
 	health = 60
 	melee_damage_lower = 1
 	melee_damage_upper = 5
-	attacktext = "prods"
+	attacktext = "колет"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"

@@ -25,7 +25,7 @@
 
 	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
 
 	silent_steps = TRUE
 
@@ -112,11 +112,11 @@
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
-	var/obj/item/tank/internal_tank
+	var/obj/item/tank/internals/internal_tank
 	if(tank_pref)//Diseasel, here you go
-		internal_tank = new /obj/item/tank/nitrogen(H)
+		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
-		internal_tank = new /obj/item/tank/emergency_oxygen/vox(H)
+		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)

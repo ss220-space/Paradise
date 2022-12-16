@@ -33,12 +33,9 @@
 			src.state = STATE_DEFAULT
 		if("login")
 			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_active_hand()
-			if(istype(I, /obj/item/pda))
-				var/obj/item/pda/pda = I
-				I = pda.id
-			if(I && istype(I))
-				if(src.check_access(I) || src.emagged==1)
+			var/obj/item/I = M.get_id_card()
+			if(istype(I) && I.GetID())
+				if(src.check_access(I.GetID()) || src.emagged == 1)
 					authenticated = 1
 		if("logout")
 			authenticated = 0
@@ -53,7 +50,7 @@
 					return
 				HONK_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				log_game("[key_name(usr)] has made a HONKplanet announcement: [input]")
+				add_game_logs("has made a HONKplanet announcement: [input]", usr)
 				message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					message_cooldown = 0

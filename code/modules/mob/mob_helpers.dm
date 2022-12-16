@@ -323,26 +323,22 @@
 		S.message = muffledspeech(S.message)
 
 
-/proc/shake_camera(mob/M, duration, strength=1)
-	if(!M || !M.client || M.shakecamera)
+/// Shake the camera of the person viewing the mob SO REAL!
+/proc/shake_camera(mob/M, duration, strength = 1)
+	if(!M || !M.client || duration < 1)
 		return
-	M.shakecamera = 1
-	spawn(1)
+	var/client/C = M.client
+	var/oldx = C.pixel_x
+	var/oldy = C.pixel_y
+	var/max = strength * world.icon_size
+	var/min = -(strength * world.icon_size)
 
-		var/atom/oldeye=M.client.eye
-		var/aiEyeFlag = 0
-		if(istype(oldeye, /mob/camera/aiEye))
-			aiEyeFlag = 1
-
-		var/x
-		for(x=0; x<duration, x++)
-			if(aiEyeFlag)
-				M.client.eye = locate(dd_range(1,oldeye.loc.x+rand(-strength,strength),world.maxx),dd_range(1,oldeye.loc.y+rand(-strength,strength),world.maxy),oldeye.loc.z)
-			else
-				M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
-			sleep(1)
-		M.client.eye=oldeye
-		M.shakecamera = 0
+	for(var/i in 0 to duration - 1)
+		if(i == 0)
+			animate(C, pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+		else
+			animate(pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+	animate(pixel_x = oldx, pixel_y = oldy, time = 1)
 
 
 /proc/findname(msg)
@@ -628,6 +624,28 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		rename_character(oldname, newname)
 
+/mob/proc/select_voice(mob/user, silent_target = FALSE)
+	var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
+	var/list/tts_seeds = list()
+	for(var/_seed in SStts.tts_seeds)
+		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
+		tts_seeds += _tts_seed.name
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in sortTim(tts_seeds, /proc/cmp_text_asc)
+	if(!new_tts_seed)
+		return null
+	if(!silent_target)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
+	if(user)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
+	return new_tts_seed
+
+/mob/proc/change_voice(mob/user)
+	var/new_tts_seed = select_voice(user)
+	if(!new_tts_seed)
+		return null
+	tts_seed = new_tts_seed
+	return new_tts_seed
+
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
 	var/leng = length_char(phrase)
@@ -684,6 +702,70 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				pass()
 		newphrase+="[newletter]";counter-=1
 	return newphrase
+
+/mob/proc/clockslur(n)
+	var/phrase = html_decode(n)
+	var/leng = length_char(phrase)
+	var/counter=length_char(phrase)
+	var/newphrase=""
+	var/newletter=""
+	while(counter>=1)
+		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(rand(1,2)==2)
+			if(lowertext(newletter)=="o")
+				newletter="UL"
+			if(lowertext(newletter)=="n")
+				newletter="n-q"
+			if(lowertext(newletter)=="a")
+				newletter="aha"
+			if(lowertext(newletter)=="u")
+				newletter="u-"
+			if(lowertext(newletter)=="i")
+				newletter=" KI "
+			if(lowertext(newletter)=="r")
+				newletter=" RAT "
+			if(lowertext(newletter)=="t")
+				newletter=" TV "
+			if(lowertext(newletter)=="v")
+				newletter=" VAR "
+			if(lowertext(newletter)=="о")
+				newletter="УЛ"
+			if(lowertext(newletter)=="н")
+				newletter="н-к"
+			if(lowertext(newletter)=="а")
+				newletter="аха"
+			if(lowertext(newletter)=="у")
+				newletter="у-"
+			if(lowertext(newletter)=="и")
+				newletter=" КИ "
+			if(lowertext(newletter)=="р")
+				newletter=" РАТ "
+			if(lowertext(newletter)=="т")
+				newletter=" ТВ "
+			if(lowertext(newletter)=="в")
+				newletter=" ВАР "
+		if(rand(1,4)==4)
+			if(newletter==" ")
+				newletter=" light... "
+			if(newletter=="П")
+				newletter=" ПРОСНИСЬ... "
+			if(newletter=="К")
+				newletter=" УВИДЬ... "
+		switch(rand(1,15))
+			if(1)
+				newletter="'"
+			if(2)
+				newletter+="n-ta"
+			if(3)
+				newletter="sg-u"
+			if(4)
+				newletter="a'tyh"
+			if(5)
+				newletter="t,ybe"
+			else
+				pass()
+		newphrase+="[newletter]";counter-=1
+	return rot13(newphrase)
 
 /mob/proc/get_preference(toggleflag)
 	if(!client)

@@ -6,7 +6,6 @@
 	layer = OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
-	anchored = TRUE
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
@@ -67,7 +66,7 @@
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs())
+		if(!item_chair || has_buckled_mobs() || anchored)
 			return
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
@@ -133,14 +132,12 @@
 	handle_rotation()
 
 /obj/structure/chair/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
 		return
 	rotate()
 
-// Chair types
+// CHAIR TYPES
+
 /obj/structure/chair/wood
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
@@ -236,6 +233,12 @@
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
+/obj/structure/chair/comfy/shuttle/dark
+	icon_state = "shuttle_chair_dark"
+
+/obj/structure/chair/comfy/shuttle/dark/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest")
+
 /obj/structure/chair/office/Bump(atom/A)
 	..()
 	if(!has_buckled_mobs())
@@ -264,14 +267,40 @@
 	buildstackamount = 1
 	item_chair = null
 
-// Sofas
-
+// SOFAS
 /obj/structure/chair/sofa
 	name = "sofa"
 	icon_state = "sofamiddle"
 	anchored = TRUE
 	item_chair = null
 	buildstackamount = 1
+	var/image/armrest = null
+
+/obj/structure/chair/sofa/Initialize(mapload)
+	armrest = GetArmrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/sofa/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
+
+/obj/structure/chair/sofa/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
+
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/sofa/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
+	else
+		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
 	icon_state = "sofaend_left"
@@ -281,6 +310,33 @@
 
 /obj/structure/chair/sofa/corner
 	icon_state = "sofacorner"
+
+/obj/structure/chair/sofa/corp
+	name = "sofa"
+	desc = "Soft and cushy."
+	icon_state = "corp_sofamiddle"
+
+/obj/structure/chair/sofa/corp/left
+	icon_state = "corp_sofaend_left"
+
+/obj/structure/chair/sofa/corp/right
+	icon_state = "corp_sofaend_right"
+
+/obj/structure/chair/sofa/corp/corner
+	icon_state = "corp_sofacorner"
+
+/obj/structure/chair/sofa/pew
+	name = "pew"
+	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
+	icon_state = "pewmiddle"
+	buildstackamount = 1
+	buildstacktype = /obj/item/stack/sheet/wood
+
+/obj/structure/chair/sofa/pew/left
+	icon_state = "pewend_left"
+
+/obj/structure/chair/sofa/pew/right
+	icon_state = "pewend_right"
 
 /obj/structure/chair/stool
 	name = "stool"
@@ -312,6 +368,7 @@
 	materials = list(MAT_METAL = 2000)
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
+
 
 /obj/item/chair/stool
 	name = "stool"
@@ -425,7 +482,7 @@
 	desc = "A spinny chair made of brass. It looks uncomfortable."
 	icon_state = "brass_chair"
 	max_integrity = 150
-	buildstacktype = /obj/item/stack/tile/brass
+	buildstacktype = /obj/item/stack/sheet/brass
 	buildstackamount = 1
 	item_chair = null
 	var/turns = 0
@@ -445,9 +502,12 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	turns = 0
-	if(!istype(user) || user.incapacitated() || !in_range(src, user))
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(!in_range(src, user))
+		return
+	turns = 0
 	if(!isprocessing)
 		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
 		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")

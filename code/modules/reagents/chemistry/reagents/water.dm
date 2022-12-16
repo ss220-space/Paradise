@@ -63,7 +63,7 @@
 			qdel(O)
 	else
 		if(O.simulated)
-			O.color = initial(O.color)
+			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
@@ -75,7 +75,7 @@
 				floor_only = FALSE
 			else
 				qdel(C)
-		T.color = initial(T.color)
+		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		if(floor_only)
 			T.clean_blood()
 
@@ -91,7 +91,7 @@
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#770000" // rgb: 40, 0, 0
-	metabolization_rate = 5 //fast rate so it disappears fast.
+	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
@@ -241,6 +241,9 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
+		if(isclocker(M) && prob(5))
+			M.AdjustClockSlur(5)
+			M.say(pick("Via Ra'var!", "P'res Ni", "Nu'nce te Ren'", "Et Def'Fre", "RELO'JE AR SAGE", "Ric'gui'nea", "Uy'a Rad kos", "Uo Rom'tis!", "Rup'ru ge"))
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
@@ -270,6 +273,18 @@
 					if(is_type_in_list(I, CULT_CLOTHING))
 						H.unEquip(I)
 			return
+		if(isclocker(M))
+			SSticker.mode.remove_clocker(M.mind)
+			holder.remove_reagent(id, volume)
+			M.SetJitter(0)
+			M.SetStuttering(0)
+			M.SetConfused(0)
+			if(ishuman(M)) // Unequip all cult clothing
+				var/mob/living/carbon/human/H = M
+				for(var/I in H.contents - (H.bodyparts | H.internal_organs))
+					if(is_type_in_list(I, CLOCK_CLOTHING))
+						H.unEquip(I)
+
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
 		if(M.mind.vampire.bloodusable)
@@ -343,7 +358,7 @@
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_description = "sulfur"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
@@ -371,7 +386,7 @@
 	id = "hell_water"
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	taste_description = "burning"
 

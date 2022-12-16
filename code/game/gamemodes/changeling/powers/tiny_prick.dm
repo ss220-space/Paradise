@@ -117,6 +117,7 @@
 
 	spawn(10)
 		transform_dna(target,selected_dna)//target is always human so no problem here
+		target.tts_seed = user.tts_seed
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
@@ -187,6 +188,7 @@
 	spawn(rand(300,600))
 		if(target)
 			target.Hallucinate(400)
+			target.last_hallucinator_log = "Hallucination sting (changeling)"
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 

@@ -79,6 +79,7 @@
 	var/obj/machinery/bfl_receiver/receiver = FALSE
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
+	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 
 /obj/machinery/power/bfl_emitter/attack_hand(mob/user as mob)
 	var/response
@@ -92,7 +93,7 @@
 		if("deactivate")
 			if(emag)
 				visible_message("BFL software update, please wait.<br> 99% complete")
-				playsound(src, 'sound/BFL/prank.ogg', 100, 1, falloff = 1)
+				playsound(src, 'sound/BFL/prank.ogg', 100, TRUE)
 			else
 				emitter_deactivate()
 				deactivate_time = world.time
@@ -112,11 +113,12 @@
 
 
 
-/obj/machinery/power/bfl_emitter/emag_act()
+/obj/machinery/power/bfl_emitter/emag_act(mob/user)
 	. = ..()
 	if(!emag)
+		add_attack_logs(user, src, "emagged")
 		emag = TRUE
-		to_chat(usr, "Emitter successfully sabotaged")
+		to_chat(user, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
@@ -130,11 +132,11 @@
 		return
 
 	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
-		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), lavaland_z_lvl)
 		laser = new (rand_location)
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
-			if(mob_turf?.z == 3)
+			if(mob_turf?.z == lavaland_z_lvl)
 				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
 		laser.move = rand_location.x
 		if(receiver)
@@ -158,7 +160,7 @@
 	working_sound()
 
 	if(!receiver)
-		for(var/turf/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
+		for(var/turf/T as anything in block(locate(1, 1, lavaland_z_lvl), locate(world.maxx, world.maxy, lavaland_z_lvl)))
 			receiver = locate() in T
 			if(receiver)
 				break
@@ -181,7 +183,7 @@
 /obj/machinery/power/bfl_emitter/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
-		playsound(src, 'sound/BFL/emitter.ogg', 100, 1, falloff = 1)
+		playsound(src, 'sound/BFL/emitter.ogg', 100, TRUE)
 		sleep(25)
 
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
@@ -189,9 +191,10 @@
 //TODO: Replace this,bsa and gravgen with some big machinery datum
 /obj/machinery/power/bfl_emitter/Initialize()
 	.=..()
+	lavaland_z_lvl = level_name_to_num(MINING)
 	pixel_x = -32
 	pixel_y = 0
-	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
 
 	var/list/occupied = list()
 	for(var/direction in list(NORTH, NORTHWEST, NORTHEAST, EAST, WEST))
@@ -309,7 +312,7 @@
 	//it just works ¯\_(ツ)_/¯
 	internal = new internal_type(src)
 	receiver_light = new (loc)
-	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
 
 	var/turf/turf_under = get_turf(src)
 	if(locate(/obj/bfl_crack) in turf_under)
@@ -401,7 +404,7 @@
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
-		playsound(src, 'sound/BFL/receiver.ogg', 100, 1, falloff = 1)
+		playsound(src, 'sound/BFL/receiver.ogg', 100, TRUE)
 		sleep(25)
 
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
@@ -464,6 +467,7 @@
 	icon_state = "Laser_Red"
 	speed_process = TRUE
 	var/move = 0
+	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 
 /obj/singularity/bfl_red/move(force_move)
 	if(!move_self)
@@ -476,7 +480,7 @@
 		step(src, movement_dir)
 	else
 		move++
-		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, 3))
+		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, lavaland_z_lvl))
 
 /obj/singularity/bfl_red/expand()
 	. = ..()
@@ -491,4 +495,5 @@
 
 /obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
 	starting_energy = 250
+	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)

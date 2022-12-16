@@ -17,9 +17,10 @@
 	icon_living = "snake"
 	icon_dead = "snake_dead"
 	speak_emote = list("hisses")
+	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
-	attacktext = "bites"
+	attacktext = "кусает"
 	melee_damage_lower = 5
 	melee_damage_upper = 6
 	response_help  = "pets"
@@ -78,9 +79,10 @@
 	speak_emote = list("hisses")
 	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
 	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
+	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
-	attacktext = "bites"
+	attacktext = "кусает"
 	melee_damage_lower = 5
 	melee_damage_upper = 6
 	response_help  = "pets"
@@ -193,7 +195,7 @@
 		armorval *= 0.5
 	else if(def_zone != "head")
 		armorval = 0
-	return armorval 
+	return armorval
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Topic(href, href_list)
 	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))

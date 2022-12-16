@@ -17,7 +17,10 @@
 
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
-	var/tail                     // Name of tail image in species effects icon file.
+	/// Name of tail image in species effects icon file.
+	var/tail
+	/// like tail but wings
+	var/wing
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/silent_steps = 0          // Stops step noises
@@ -63,6 +66,9 @@
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+
+	///Sounds to override barefeet walking
+	var/list/special_step_sounds
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -114,8 +120,12 @@
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "кричит"
+	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
+	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/female_laugh_sound = list('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg')
+	var/male_laugh_sound = list('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg')
 	var/list/death_sounds = list('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg')
 	var/list/male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg', 'sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg')
 	var/list/female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg', 'sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg')
@@ -132,7 +142,8 @@
 	var/default_fhair_colour
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
-
+	/// Name of default body accessory if any.
+	var/default_bodyacc
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
@@ -165,6 +176,8 @@
 
 	// Species specific boxes
 	var/speciesbox
+	/// Whether the presence of a body accessory on this species is optional or not.
+	var/optional_body_accessory = TRUE
 
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
@@ -206,7 +219,7 @@
 		H.bodyparts |= H.bodyparts_by_name[name]
 
 	H.update_tail()
-
+	H.update_wing()
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 
@@ -229,8 +242,6 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	if(H.status_flags & IGNORE_SPEED_CHANGES)
-		return .
 
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
@@ -245,6 +256,9 @@
 		var/flight = H.flying	//Check for flight and flying items
 
 		ADD_SLOWDOWN(speed_mod)
+
+		if(H.status_flags & IGNORE_SPEED_CHANGES)
+			return .
 
 		if(H.wear_suit)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
@@ -271,7 +285,8 @@
 				. += (health_deficiency / 75)
 			else
 				. += (health_deficiency / 25)
-		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
+			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
@@ -391,7 +406,7 @@
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] попытку захвата [user]!</span>")
+		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
@@ -401,7 +416,7 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>Вы не хотите навредить [target]!</span>")
+		to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!</span>")
 		return FALSE
 	//Vampire code
 	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
@@ -409,7 +424,7 @@
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
-			to_chat(user, "<span class='warning'>Ваши клыки не могут пронзить холодную плоть [target.name].</span>")
+			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
@@ -420,7 +435,7 @@
 		return
 		//end vampire codes
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] атаку [user]!</span>")
+		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] атаку [user.declent_ru(GENITIVE)]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
@@ -431,16 +446,16 @@
 		//вносим проверку что это не диона, ведь у дионы свои атаки
 		//вносим проверку на тип атаки, иначе рвущие атаки будут рвать кулаками, а дионы хлестать кулаками.
 		switch (user.dna.species.unarmed_type)
-			if (/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
-			if (/datum/unarmed_attack/diona) attack_species += "[genderize_ru(user.gender,"","а","о","и")]"
+			if (/datum/unarmed_attack/diona) attack_species += ""
 			if (/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
+			if (/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] [attack_species] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 			return FALSE
-		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+		add_attack_logs(user, target, "Melee attacked with fists")
 
 		if(!iscarbon(user))
 			target.LAssailant = null
@@ -450,11 +465,12 @@
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
 
+		var/damage_type = BRUTE
 		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] попытал[genderize_ru(user.gender,"ся","ась","ось","ись")], но не [attack_species] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[pluralize_ru(user.gender,"ется","ются")]!</span>")
 			return FALSE
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
@@ -462,12 +478,17 @@
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
-		target.visible_message("<span class='danger'>[user] [attack_species] [target]!</span>")
+		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
-		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		if(target.mind && user?.mind?.objectives)
+			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+				if(target.mind == objective.target)
+					objective.take_damage(damage, damage_type)
+
+		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] ослабил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>", \
-							"<span class='userdanger'>[user] ослабил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
+							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			target.apply_effect(2, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
@@ -476,7 +497,7 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] попытку обезоруживания [user]!</span>")
+		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
@@ -490,7 +511,7 @@
 		if(randn <= 10)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] толкнул[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -503,7 +524,7 @@
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [target.pulling]!</span>")
+				target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [target.pulling.declent_ru(PREPOSITIONAL)]!</span>")
 				talked = 1
 				target.stop_pulling()
 
@@ -511,14 +532,14 @@
 			if(istype(target.l_hand, /obj/item/grab))
 				var/obj/item/grab/lgrab = target.l_hand
 				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [lgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [lgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(lgrab)
 			if(istype(target.r_hand, /obj/item/grab))
 				var/obj/item/grab/rgrab = target.r_hand
 				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [rgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [rgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(rgrab)
@@ -526,13 +547,13 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] обезоружил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
 
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] попытал[genderize_ru(user.gender,"ся","ась","ось","ись")] обезоружить [target]!</span>")
+	target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] пыта[pluralize_ru(user.gender,"ется","ются")] обезоружить [target.declent_ru(ACCUSATIVE)]!</span>")
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -543,7 +564,7 @@
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
-			to_chat(M, "<span class='warning'>Ты не можешь пользоваться своей рукой.</span>")
+			to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не можешь","Вы не можете")] пользоваться своей рукой.</span>")
 			return
 
 	if(M.mind)
@@ -551,7 +572,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message("<span class='warning'>[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] коснуться [H]!</span>")
+		H.visible_message("<span class='warning'>[M.declent_ru(NOMINATIVE)] пыта[pluralize_ru(M.gender,"ется","ются")] коснуться [H.declent_ru(ACCUSATIVE)]!</span>")
 		return FALSE
 
 	switch(M.a_intent)
@@ -792,7 +813,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
-		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
+		if(A && A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return
 
 	if(H.mind && H.mind.vampire)
@@ -882,6 +903,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
+	return FALSE
+
+/datum/species/proc/spec_thunk(mob/living/carbon/human/H)
+	return FALSE
+
+/datum/species/proc/spec_movement_delay()
+	return TRUE
+
+/datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
+	return FALSE
 
 /**
   * Species-specific runechat colour handler

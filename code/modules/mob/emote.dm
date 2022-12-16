@@ -28,6 +28,13 @@
 				else
 					return target
 
+/mob/proc/user_triggered_emote(act, type, message, force)
+	if(stat || !use_me && usr == src)
+		if(usr)
+			to_chat(usr, "You are unable to emote.")
+		return
+	emote(act, type, message, force)
+
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
 	if(stat || !use_me && usr == src)
@@ -54,12 +61,11 @@
 
 
 	if(message)
-		log_emote(message, src)
+		add_emote_logs(src, message)
 		if(isliving(src)) //isliving because these are defined on the mob/living level not mob
 			var/mob/living/L = src
 			L.say_log += "EMOTE: [input]" //say log too so it is easier on admins instead of having to merge the two with timestamps etc
 			L.emote_log += input //emote only log if an admin wants to search just for emotes they don't have to sift through the say
-			create_log(EMOTE_LOG, input) // TODO after #13047: Include the channel
 		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
 		// Maybe some people are okay with that.
 		for(var/mob/M in GLOB.player_list)
@@ -167,7 +173,7 @@
 
 	var/message = "<B>[src]</b> [input]"
 
-	log_emote(message, src)
+	add_emote_logs(src, message)
 
 	// Coloring text for runechat
 	var/speaker_name = src.name

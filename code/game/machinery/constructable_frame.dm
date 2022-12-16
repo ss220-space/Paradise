@@ -3,7 +3,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null
@@ -121,6 +121,15 @@
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
 				return
+			if(istype(P, /obj/item/wrench))
+				playsound(src.loc, P.usesound, 75, 1)
+				if(!anchored && !isinspace())
+					anchored = TRUE
+					WRENCH_ANCHOR_MESSAGE
+				else if(anchored)
+					anchored = FALSE
+					WRENCH_UNANCHOR_MESSAGE
+				return
 		if(3)
 			if(istype(P, /obj/item/crowbar))
 				playsound(src.loc, P.usesound, 50, 1)
@@ -137,6 +146,16 @@
 				req_components = null
 				components = null
 				icon_state = "box_1"
+				return
+
+			if(istype(P, /obj/item/wrench))
+				playsound(src.loc, P.usesound, 75, 1)
+				if(!anchored && !isinspace())
+					anchored = TRUE
+					WRENCH_ANCHOR_MESSAGE
+				else if(anchored)
+					anchored = FALSE
+					WRENCH_UNANCHOR_MESSAGE
 				return
 
 			if(istype(P, /obj/item/screwdriver))
@@ -266,7 +285,7 @@ to destroy them and players will be able to make replacements.
 		for(var/path in vending_names_paths)
 			display_vending_names_paths[vending_names_paths[path]] = path
 	var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
-	if(loc != user)
+	if(!(loc == user || (istype(loc, /obj/item/gripper) && loc && loc.loc == user)))
 		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
 		return
 	set_type(display_vending_names_paths[choice])
@@ -589,7 +608,7 @@ to destroy them and players will be able to make replacements.
 	id = 2
 
 /obj/item/circuitboard/chem_dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
+	if(I.GetID())
 		if(allowed(user))
 			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "Chem Dispenser") as null|anything in access_types

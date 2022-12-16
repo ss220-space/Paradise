@@ -68,6 +68,10 @@
 	display_name = "a carp plushie"
 	path = /obj/item/toy/carpplushie
 
+/datum/gear/nianplushie
+	display_name = "Nian plushie"
+	path = /obj/item/toy/plushie/nianplushie
+
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
@@ -105,7 +109,7 @@
 	display_name = "a wallet(leather)"
 	path = /obj/item/storage/wallet
 
-/datum/gear/walletb
+/datum/gear/walletbb
 	display_name = "a wallet(blue)"
 	path = /obj/item/storage/wallet/color/blue
 

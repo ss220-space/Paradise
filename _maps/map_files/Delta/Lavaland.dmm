@@ -13,7 +13,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ad" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
@@ -23,13 +23,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "af" = (
 /obj/structure/necropolis_gate/legion_gate,
 /obj/structure/necropolis_arch,
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ag" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -42,7 +42,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ah" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -55,7 +55,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ai" = (
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
@@ -270,6 +270,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"aO" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "aP" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
@@ -1138,6 +1144,19 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"dj" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "dk" = (
 /obj/item/stack/ore/silver,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1163,6 +1182,13 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"dp" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "dq" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1178,6 +1204,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"du" = (
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "dv" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -1255,6 +1292,13 @@
 	icon_state = "white"
 	},
 /area/mine/living_quarters)
+"dF" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "dG" = (
 /obj/structure/railing,
 /obj/structure/railing,
@@ -1312,6 +1356,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
+"dU" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "dW" = (
 /obj/machinery/meter,
 /obj/structure/disposalpipe/segment,
@@ -1465,6 +1522,16 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"ev" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ew" = (
 /obj/machinery/door_control{
 	id = "miningdorm1";
@@ -1513,6 +1580,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"fa" = (
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "fb" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -1698,6 +1769,22 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"fA" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"fB" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "fE" = (
 /obj/machinery/light{
 	dir = 8
@@ -1780,7 +1867,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "fU" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
@@ -1790,13 +1877,14 @@
 	},
 /area/mine/living_quarters)
 "fV" = (
-/turf/simulated/wall/indestructible/boss/see_through,
-/area/lavaland/surface/outdoors)
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "fW" = (
 /obj/structure/necropolis_gate/locked,
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "fX" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1821,10 +1909,20 @@
 	icon_state = "freezerfloor"
 	},
 /area/mine/living_quarters)
+"gg" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "gh" = (
 /obj/machinery/door/airlock{
 	id_tag = "toiletmining1";
-	light = null;
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel{
@@ -1850,7 +1948,7 @@
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gk" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -1863,11 +1961,23 @@
 	},
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"gn" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "go" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gp" = (
 /obj/machinery/cryopod/right,
 /obj/structure/sign/poster/random{
@@ -1896,7 +2006,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gs" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -1909,7 +2019,7 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gt" = (
 /obj/machinery/light,
 /obj/machinery/computer/cryopod{
@@ -1961,7 +2071,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gB" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -1973,7 +2083,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gC" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -1986,7 +2096,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gF" = (
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/dirt,
@@ -2010,7 +2120,7 @@
 	},
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gH" = (
 /obj/machinery/cryopod,
 /obj/structure/closet/walllocker/emerglocker/east,
@@ -2064,29 +2174,48 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gO" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"gP" = (
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gR" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "gT" = (
 /obj/structure/stone_tile/slab/cracked,
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"gU" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"gW" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
+"hd" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "he" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -2107,7 +2236,28 @@
 /obj/structure/stone_tile/center/cracked,
 /mob/living/simple_animal/hostile/megafauna/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"hh" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"hi" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "hm" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -2119,7 +2269,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "hv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
@@ -2138,6 +2288,17 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"hA" = (
+/obj/structure/window/reinforced/clockwork{
+	dir = 8;
+	move_resist = 45000
+	},
+/obj/structure/bookcase{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "hD" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -2151,7 +2312,7 @@
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "hE" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -2162,7 +2323,19 @@
 /obj/structure/stone_tile,
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"hF" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "hG" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -2173,7 +2346,7 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/weldingtool/experimental/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "hH" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -2183,7 +2356,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "hI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -2202,7 +2375,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "hM" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -2243,6 +2416,20 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"ib" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/mob/living/simple_animal/hostile/big_legion,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
@@ -2264,7 +2451,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ij" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -2274,9 +2461,9 @@
 	},
 /obj/structure/stone_tile,
 /obj/structure/table/reinforced/brass,
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/twohanded/ratvarian_spear,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ir" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -2285,17 +2472,18 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "it" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "iu" = (
-/obj/structure/stone_tile/block{
-	dir = 4
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "iw" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 4
@@ -2304,11 +2492,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"ix" = (
-/obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "iy" = (
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2319,7 +2503,7 @@
 	},
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "iE" = (
 /obj/structure/mirror{
 	pixel_y = -30
@@ -2354,7 +2538,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "iM" = (
 /obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2372,7 +2556,30 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"iP" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"iU" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "iX" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -2382,7 +2589,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "iY" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -2395,7 +2602,7 @@
 /obj/structure/stone_tile/center/cracked,
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ja" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -2403,11 +2610,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jb" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
@@ -2430,7 +2637,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jk" = (
 /obj/structure/stone_tile/center,
 /obj/structure/stone_tile/surrounding_tile,
@@ -2441,7 +2648,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jl" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -2454,7 +2661,7 @@
 	},
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jm" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile{
@@ -2467,7 +2674,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jp" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Breakroom";
@@ -2487,11 +2694,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "js" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
+/obj/structure/stone_tile{
+	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jx" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -2508,7 +2715,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jH" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -2519,7 +2726,10 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"jK" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/necropolis)
 "jL" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -2530,7 +2740,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jN" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -2541,7 +2751,7 @@
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "jQ" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -2565,6 +2775,12 @@
 	icon_state = "browncorner"
 	},
 /area/mine/living_quarters)
+"jY" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "ka" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2579,7 +2795,7 @@
 "kg" = (
 /obj/structure/fluff/drake_statue,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kj" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -2588,7 +2804,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kk" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -2600,13 +2816,13 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kl" = (
 /obj/structure/fluff/drake_statue/falling,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "km" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -2621,7 +2837,7 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/toolbox/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ko" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -2631,13 +2847,22 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kp" = (
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ks" = (
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/explored)
+"kx" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "ky" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -2646,7 +2871,20 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"kA" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "kB" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -2657,7 +2895,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kD" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -2670,7 +2908,7 @@
 	},
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kE" = (
 /obj/machinery/light{
 	dir = 8
@@ -2680,6 +2918,11 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"kF" = (
+/obj/structure/closet/crate/necropolis/tendril,
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "kG" = (
 /turf/simulated/wall,
 /area/mine/eva)
@@ -2693,7 +2936,17 @@
 	},
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"kI" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "kJ" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -2706,13 +2959,20 @@
 	},
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "kM" = (
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "kN" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -2725,7 +2985,6 @@
 /area/lavaland/surface/outdoors)
 "kT" = (
 /obj/machinery/door/airlock{
-	light = null;
 	name = "Restroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2748,6 +3007,26 @@
 	tag = "icon-whitegreen (WEST)"
 	},
 /area/mine/living_quarters)
+"kW" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"kX" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "kY" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -2758,9 +3037,28 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"lb" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"ld" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "le" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -2770,7 +3068,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lg" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -2779,7 +3077,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lh" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -2798,7 +3096,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ll" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -2807,7 +3105,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lm" = (
 /obj/structure/railing{
 	dir = 9
@@ -2850,7 +3148,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ls" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -2894,7 +3192,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"lB" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "lC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -2907,16 +3218,17 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lE" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "lF" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -2928,14 +3240,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lG" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lH" = (
 /obj/machinery/vending/wallmed{
 	pixel_x = 26
@@ -2967,13 +3279,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lQ" = (
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 6
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "lR" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -3031,6 +3343,19 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"md" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "mj" = (
 /obj/item/clothing/under/color/orange,
 /obj/effect/decal/cleanable/ash,
@@ -3070,7 +3395,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mr" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -3083,7 +3408,7 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ms" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -3093,14 +3418,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mt" = (
 /obj/structure/stone_tile{
 	dir = 1
 	},
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mu" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -3150,7 +3475,7 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mA" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -3294,7 +3619,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mS" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -3307,7 +3632,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mT" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -3326,7 +3651,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mW" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -3335,7 +3660,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mX" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile{
@@ -3348,7 +3673,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mY" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -3358,7 +3683,7 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "mZ" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -3371,7 +3696,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "na" = (
 /obj/structure/chair{
 	dir = 8
@@ -3395,7 +3720,7 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "nc" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -3408,7 +3733,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ne" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -3418,11 +3743,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "nf" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ng" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -3432,12 +3757,22 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"nn" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "no" = (
 /obj/structure/stone_tile/slab/cracked,
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "nr" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -3456,6 +3791,20 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"nK" = (
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "nV" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -3507,6 +3856,13 @@
 	icon_state = "brown"
 	},
 /area/mine/maintenance)
+"oh" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "ol" = (
 /obj/machinery/mineral/unloading_machine{
 	dir = 1;
@@ -3523,6 +3879,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
+"ox" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "oz" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -3536,7 +3902,7 @@
 	},
 /obj/structure/chair/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "oA" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/atmospherics/unary/tank/air{
@@ -3570,6 +3936,51 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"pp" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"pt" = (
+/obj/structure/closet/crate/necropolis/tendril,
+/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"pz" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"pI" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "pK" = (
 /obj/structure/ore_box,
 /obj/machinery/firealarm{
@@ -3599,6 +4010,66 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"pQ" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
+"pT" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"pV" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"pW" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"pZ" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "qa" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -3609,7 +4080,7 @@
 /obj/structure/stone_tile,
 /obj/structure/chair/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "qb" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -3679,7 +4150,7 @@
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "qC" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -3691,9 +4162,9 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "qD" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light/small{
@@ -3719,10 +4190,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"qP" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "qS" = (
 /obj/structure/clockwork/wall_gear,
 /turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "qT" = (
 /turf/simulated/wall/rust,
 /area/mine/laborcamp)
@@ -3742,6 +4222,39 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"rb" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
+"rc" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"rd" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "rf" = (
 /obj/machinery/door/airlock/external{
 	glass = 1;
@@ -3783,6 +4296,17 @@
 	icon_state = "wood-broken"
 	},
 /area/mine/laborcamp)
+"rs" = (
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/obj/structure/bookcase/random/religion{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ry" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3826,6 +4350,23 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"sb" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1
+	},
+/obj/structure/window/reinforced/clockwork,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "sq" = (
 /turf/simulated/wall,
 /area/mine/laborcamp/security)
@@ -3842,6 +4383,17 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"st" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "sx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3851,6 +4403,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"sB" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"sC" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "sF" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel/white,
@@ -3930,7 +4498,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "sW" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -3990,11 +4558,16 @@
 /obj/structure/stone_tile,
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ty" = (
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp/security)
+"tA" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "tC" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Airlock";
@@ -4006,12 +4579,24 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"tE" = (
+/obj/structure/stone_tile/center/burnt,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "tJ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"tR" = (
+/obj/structure/stone_tile/slab,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "tT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -4063,6 +4648,13 @@
 	icon_state = "brown"
 	},
 /area/mine/maintenance)
+"us" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "uw" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1;
@@ -4121,7 +4713,7 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "uS" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/suit_storage_unit/lavaland,
@@ -4133,6 +4725,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"uZ" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ve" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/mineral/equipment_vendor,
@@ -4195,6 +4800,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp/security)
+"vF" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "vI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -4285,9 +4900,9 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "wA" = (
 /obj/structure/sign/restroom,
 /turf/simulated/wall,
@@ -4299,6 +4914,10 @@
 "wR" = (
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
+"wS" = (
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "wX" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
@@ -4307,6 +4926,24 @@
 /obj/item/clothing/mask/gas/clown_hat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"xd" = (
+/obj/structure/fluff/drake_statue{
+	name = "ancient drake statue"
+	},
+/obj/structure/stone_tile/slab/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"xh" = (
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/obj/structure/bookcase{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "xl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -4325,7 +4962,7 @@
 /obj/structure/stone_tile,
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "xt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -4389,6 +5026,20 @@
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp/security)
+"xM" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"xO" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4396,6 +5047,12 @@
 	icon_state = "browncorner"
 	},
 /area/mine/laborcamp)
+"xS" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "xU" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -4410,11 +5067,21 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "yd" = (
 /obj/vehicle/lavaboat,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"yh" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ym" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4439,7 +5106,7 @@
 	},
 /obj/structure/closet/crate/necropolis,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "yq" = (
 /obj/structure/safe/floor,
 /obj/item/whetstone/cult{
@@ -4494,7 +5161,18 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/wirecutters/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"yJ" = (
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "yK" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -4545,6 +5223,30 @@
 	icon_state = "brown"
 	},
 /area/mine/maintenance)
+"zi" = (
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"zk" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
+"zl" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "zo" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
@@ -4568,11 +5270,31 @@
 	icon_state = "wood-broken"
 	},
 /area/mine/laborcamp)
+"zw" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "zB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"zC" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 6
+	},
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "zI" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/suit_storage_unit/lavaland,
@@ -4592,11 +5314,38 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/toolbox/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"zP" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"zW" = (
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Ad" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Ai" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ak" = (
 /obj/structure/chair{
 	dir = 4
@@ -4612,6 +5361,19 @@
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Aw" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "AB" = (
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
@@ -4664,6 +5426,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/maintenance)
+"AS" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "AU" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -4674,7 +5443,14 @@
 /obj/structure/stone_tile,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"Bh" = (
+/obj/structure/fluff/drake_statue{
+	move_resist = 40000
+	},
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Bi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4705,7 +5481,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Bm" = (
 /obj/structure/toilet{
 	dir = 4
@@ -4724,6 +5500,19 @@
 	icon_state = "freezerfloor"
 	},
 /area/mine/living_quarters)
+"Bn" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Bu" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4762,6 +5551,19 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"BN" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "BR" = (
 /obj/structure/dispenser/oxygen,
 /obj/machinery/light,
@@ -4777,7 +5579,7 @@
 	},
 /obj/structure/closet/crate/necropolis/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "BX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -4786,6 +5588,22 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"Ck" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Ct" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Cy" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4793,6 +5611,28 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"CB" = (
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"CD" = (
+/obj/structure/window/reinforced/clockwork{
+	dir = 8;
+	move_resist = 45000
+	},
+/obj/structure/bookcase/random/religion{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "CE" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -4806,13 +5646,36 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "CH" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"CL" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"CM" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "CS" = (
 /obj/machinery/camera{
 	c_tag = "Mining Coin Press";
@@ -4877,7 +5740,7 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/weldingtool/experimental/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Dl" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -4891,7 +5754,7 @@
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Dm" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -4907,12 +5770,30 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"Dv" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Dw" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"Dx" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "DL" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4927,7 +5808,17 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/wrench/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"DM" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"DN" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "DP" = (
 /obj/structure/chair{
 	dir = 8
@@ -4935,6 +5826,19 @@
 /obj/item/toy/plushie/lizardplushie,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"DR" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "DU" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/personal/mining,
@@ -4962,7 +5866,7 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "El" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
@@ -4976,6 +5880,21 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Er" = (
+/obj/structure/stone_tile/slab,
+/obj/item/clockwork/clockgolem_remains,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"EF" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "EJ" = (
 /obj/machinery/light{
 	dir = 4
@@ -5009,6 +5928,27 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"EP" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"EQ" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "EU" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -5018,6 +5958,36 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"EX" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Fa" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Fc" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Fe" = (
 /turf/simulated/wall,
 /area/mine/living_quarters)
@@ -5030,6 +6000,10 @@
 	tag = "icon-wood-broken7"
 	},
 /area/mine/laborcamp)
+"Fy" = (
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "FC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -5051,6 +6025,13 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"FH" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "FK" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/plasteel,
@@ -5129,12 +6110,32 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Gg" = (
+/obj/effect/rune{
+	color = "#DAA520";
+	desc = "An odd collection of symbols.";
+	name = "brass rune";
+	rune_blood_color = "#DAA520"
+	},
+/mob/living/simple_animal/hostile/megafauna/dragon{
+	color = "#C2B015";
+	health = 5000;
+	maxHealth = 5000;
+	melee_damage_lower = 60;
+	melee_damage_upper = 65;
+	name = "ancient drake"
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Gi" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Gj" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/airlock/external{
@@ -5161,6 +6162,25 @@
 /obj/structure/sign/poster/contraband/clown,
 /turf/simulated/wall/rust,
 /area/mine/laborcamp)
+"Gq" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Gs" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Gt" = (
 /obj/machinery/door/airlock/external{
 	glass = 1;
@@ -5177,6 +6197,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Gy" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "GA" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/structure/disposalpipe/segment{
@@ -5195,6 +6228,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"GC" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "GD" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
 /turf/simulated/wall,
@@ -5232,10 +6280,25 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"GS" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "GV" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"GW" = (
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "GZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -5268,7 +6331,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Hi" = (
 /obj/structure/bedsheetbin,
 /obj/structure/table,
@@ -5287,7 +6350,7 @@
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Ht" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5306,12 +6369,32 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
+"Hz" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "HA" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"HE" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "HF" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/bot,
@@ -5366,6 +6449,26 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"If" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"Ih" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Il" = (
 /obj/machinery/vending/cola/free,
 /turf/simulated/floor/plasteel/dark,
@@ -5383,7 +6486,7 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Iz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5408,7 +6511,7 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "IK" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5428,6 +6531,47 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
+"Ja" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"Jb" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Je" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Jg" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Jk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5462,7 +6606,7 @@
 	},
 /mob/living/simple_animal/hostile/big_legion,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "JG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5552,6 +6696,21 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Kp" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"Ks" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Ky" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Garbage Lavaland Collector";
@@ -5564,6 +6723,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"KO" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "KV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -5579,7 +6742,6 @@
 "Lf" = (
 /obj/machinery/door/airlock{
 	id_tag = "toiletmining2";
-	light = null;
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel{
@@ -5626,6 +6788,12 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Lx" = (
+/obj/structure/stone_tile/slab,
+/obj/item/wrench/brass,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "LF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5634,11 +6802,27 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"LJ" = (
+/obj/structure/stone_tile/surrounding/burnt,
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"LL" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "LN" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "LO" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/bot,
@@ -5686,6 +6870,27 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"Mg" = (
+/obj/structure/stone_tile/slab,
+/obj/item/clockwork/fallen_armor,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Mj" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/bookcase,
+/obj/structure/window/reinforced/clockwork,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ml" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -5698,6 +6903,16 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"MC" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "ME" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5710,6 +6925,15 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"MI" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "MJ" = (
 /obj/item/stack/ore/titanium,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5724,6 +6948,24 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"MM" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"MP" = (
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"MU" = (
+/obj/structure/stone_tile/block/burnt,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "MV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5769,6 +7011,33 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Nj" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Np" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"Nw" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5791,6 +7060,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"NJ" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "NM" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5798,6 +7073,14 @@
 	icon_state = "bar"
 	},
 /area/mine/living_quarters)
+"NS" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "NV" = (
 /obj/item/stack/ore/plasma,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5824,6 +7107,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"Ot" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ov" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -5857,6 +7153,23 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"OU" = (
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"OX" = (
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
+"Pn" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "PF" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -5878,6 +7191,19 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"PI" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "PM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5921,6 +7247,31 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Qb" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Qi" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"Qn" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Qo" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/extinguisher_cabinet{
@@ -5942,7 +7293,7 @@
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Qw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5953,9 +7304,9 @@
 /area/mine/living_quarters)
 "Qy" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "QD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5989,6 +7340,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"QO" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "QR" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -6004,7 +7362,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "QT" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6047,6 +7405,9 @@
 	icon_state = "browncorner"
 	},
 /area/mine/living_quarters)
+"RD" = (
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "RM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -6056,6 +7417,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"RN" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Sb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6063,6 +7436,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Sc" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Sd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6092,7 +7478,7 @@
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Sm" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -6102,7 +7488,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Sn" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -6113,7 +7499,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Ss" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -6162,7 +7548,13 @@
 	dir = 8
 	},
 /turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"Sy" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Sz" = (
 /obj/structure/chair{
 	dir = 8
@@ -6173,6 +7565,33 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"SB" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"SD" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "SF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -6183,7 +7602,7 @@
 /obj/structure/stone_tile/surrounding,
 /obj/structure/closet/crate/necropolis/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "SK" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6201,6 +7620,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Tb" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Td" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Tj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
@@ -6234,7 +7675,7 @@
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Tn" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -6328,6 +7769,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
+"TW" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Ub" = (
 /obj/machinery/computer/shuttle/mining{
 	req_access = null
@@ -6338,10 +7787,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"Uf" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Uh" = (
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/living_quarters)
+"Up" = (
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Ut" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 30
@@ -6351,6 +7818,20 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Uw" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Uz" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/production)
@@ -6376,7 +7857,13 @@
 	},
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"UI" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "UJ" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -6385,9 +7872,9 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "UK" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
@@ -6438,6 +7925,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"Vk" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Vt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -6459,6 +7953,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"VE" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/sacrificealtar,
+/obj/item/spellbook/oneuse/random,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "VJ" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -6468,6 +7973,19 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
+"VL" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "VN" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -6490,6 +8008,24 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"VQ" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"We" = (
+/obj/structure/stone_tile/slab,
+/obj/item/storage/toolbox/brass,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Wf" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -6515,6 +8051,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
+"Wr" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Wt" = (
 /obj/structure/chair{
 	dir = 8
@@ -6536,6 +8082,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"WC" = (
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/lavaland/surface/outdoors/necropolis)
 "WE" = (
 /obj/structure/sign/poster/random{
 	pixel_x = -32;
@@ -6552,6 +8101,15 @@
 	icon_state = "bar"
 	},
 /area/mine/living_quarters)
+"WI" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -6596,9 +8154,9 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "XW" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -6612,7 +8170,20 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
+"XY" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ym" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -6628,6 +8199,26 @@
 	icon_state = "freezerfloor"
 	},
 /area/mine/living_quarters)
+"YA" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 6
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"YF" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "YI" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -6640,11 +8231,8 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced/brass,
-/obj/item/stack/tile/brass{
-	amount = 10
-	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "YJ" = (
 /obj/machinery/door/airlock{
 	name = "Labor Camp Storage"
@@ -6656,6 +8244,19 @@
 /obj/item/clothing/accessory/necklace/talisman,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"YO" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "YQ" = (
 /obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
@@ -6706,7 +8307,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Zf" = (
 /turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
@@ -6736,7 +8337,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "Zs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer{
@@ -6759,9 +8360,9 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/necropolis)
 "ZA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6789,22 +8390,22 @@
 /area/mine/maintenance)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -7046,22 +8647,22 @@ aj
 aj
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -7303,22 +8904,22 @@ aj
 aj
 "}
 (3,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -7560,22 +9161,22 @@ aj
 aj
 "}
 (4,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-aj
-aj
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+zW
+zW
 aj
 aj
 aj
@@ -7817,22 +9418,22 @@ aj
 aj
 "}
 (5,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ix
-ab
-aj
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+DN
+Ct
+zW
 aj
 aj
 aj
@@ -8074,23 +9675,23 @@ aj
 aj
 "}
 (6,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 aj
@@ -8331,23 +9932,23 @@ aj
 aj
 "}
 (7,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 ab
 ab
@@ -8588,22 +10189,22 @@ aj
 aj
 "}
 (8,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -8845,22 +10446,22 @@ aj
 aj
 "}
 (9,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-aj
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+zW
 aj
 aj
 aj
@@ -9102,22 +10703,22 @@ aj
 aj
 "}
 (10,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ix
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+DN
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -9359,22 +10960,22 @@ aj
 aj
 "}
 (11,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -9616,22 +11217,22 @@ aj
 aj
 "}
 (12,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
 iX
-ab
-ab
-ab
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -9873,22 +11474,22 @@ aj
 aj
 "}
 (13,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iY
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+iu
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -10130,22 +11731,22 @@ aj
 aj
 "}
 (14,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -10387,22 +11988,22 @@ aj
 aj
 "}
 (15,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -10644,22 +12245,22 @@ aj
 aj
 "}
 (16,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
 ir
-ab
-ab
-ab
-ab
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -10901,22 +12502,22 @@ aj
 aj
 "}
 (17,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-gP
-ad
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+zi
+WC
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -11158,22 +12759,22 @@ aj
 aj
 "}
 (18,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
 aj
 aj
 aj
@@ -11415,22 +13016,22 @@ aj
 aj
 "}
 (19,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -11672,22 +13273,22 @@ aj
 aj
 "}
 (20,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -11929,22 +13530,22 @@ aj
 aj
 "}
 (21,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
 aj
 aj
 aj
@@ -12186,22 +13787,22 @@ aj
 aj
 "}
 (22,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ix
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+DN
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -12443,23 +14044,23 @@ aj
 aj
 "}
 (23,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 ab
@@ -12700,22 +14301,22 @@ aj
 aj
 "}
 (24,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -12957,23 +14558,23 @@ aj
 aj
 "}
 (25,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ix
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+DN
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -13214,23 +14815,23 @@ aj
 aj
 "}
 (26,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -13471,22 +15072,22 @@ aj
 aj
 "}
 (27,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-jq
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+wS
+Ct
 aj
 aj
 aj
@@ -13728,22 +15329,22 @@ aj
 aj
 "}
 (28,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -13985,22 +15586,22 @@ aj
 aj
 "}
 (29,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -14242,24 +15843,24 @@ aj
 aj
 "}
 (30,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -14499,23 +16100,23 @@ aj
 aj
 "}
 (31,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -14756,23 +16357,23 @@ aj
 aj
 "}
 (32,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -15013,23 +16614,23 @@ aj
 aj
 "}
 (33,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -15270,23 +16871,23 @@ aj
 aj
 "}
 (34,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ja
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+jb
+Ct
+Ct
+Ct
 aj
 aj
 ab
@@ -15527,23 +17128,23 @@ aj
 aj
 "}
 (35,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+Ct
+Ct
+Ct
 aj
 aj
 ab
@@ -15784,23 +17385,23 @@ aj
 aj
 "}
 (36,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
 aj
 aj
 ab
@@ -16041,23 +17642,23 @@ aj
 aj
 "}
 (37,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -16298,23 +17899,23 @@ aj
 aj
 "}
 (38,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -16555,23 +18156,23 @@ aj
 aj
 "}
 (39,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -16812,23 +18413,23 @@ aj
 aj
 "}
 (40,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -17069,23 +18670,23 @@ aj
 aj
 "}
 (41,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-jq
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+wS
+Ct
 aj
 aj
 aj
@@ -17326,24 +18927,24 @@ aj
 aj
 "}
 (42,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iu
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+NJ
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -17583,24 +19184,24 @@ aj
 aj
 "}
 (43,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -17840,24 +19441,24 @@ aj
 aj
 "}
 (44,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -18097,23 +19698,23 @@ aj
 aj
 "}
 (45,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -18354,23 +19955,23 @@ aj
 aj
 "}
 (46,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ja
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+jb
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -18611,23 +20212,23 @@ aj
 aj
 "}
 (47,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -18868,23 +20469,23 @@ aj
 aj
 "}
 (48,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -19125,23 +20726,23 @@ aj
 aj
 "}
 (49,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -19382,23 +20983,23 @@ aj
 aj
 "}
 (50,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -19639,23 +21240,23 @@ aj
 aj
 "}
 (51,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -19896,24 +21497,24 @@ aj
 aj
 "}
 (52,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -20153,24 +21754,24 @@ aj
 aj
 "}
 (53,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -20410,24 +22011,24 @@ aj
 aj
 "}
 (54,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -20667,24 +22268,24 @@ aj
 aj
 "}
 (55,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-jx
-ad
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+js
+WC
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -20924,24 +22525,24 @@ aj
 aj
 "}
 (56,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ai
-ai
-ai
-ai
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+jK
+jK
+jK
+jK
+Ct
 aj
 aj
 aj
@@ -21181,24 +22782,24 @@ aj
 aj
 "}
 (57,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ai
-ai
-ai
-ai
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+jK
+jK
+jK
+jK
+Ct
 aj
 aj
 aj
@@ -21438,24 +23039,24 @@ aj
 aj
 "}
 (58,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ai
-ai
-ai
-ai
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+jK
+jK
+jK
+jK
+Ct
 aj
 aj
 aj
@@ -21695,24 +23296,24 @@ aj
 aj
 "}
 (59,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ad
-ad
-jq
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+WC
+WC
+wS
+Ct
+Ct
 aj
 aj
 aj
@@ -21952,25 +23553,25 @@ aj
 aj
 "}
 (60,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 aj
@@ -22209,25 +23810,25 @@ aj
 aj
 "}
 (61,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -22466,24 +24067,24 @@ aj
 aj
 "}
 (62,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -22723,23 +24324,23 @@ aj
 aj
 "}
 (63,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -22980,22 +24581,22 @@ aj
 aj
 "}
 (64,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -23237,22 +24838,22 @@ aj
 aj
 "}
 (65,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 ab
@@ -23494,22 +25095,22 @@ aj
 aj
 "}
 (66,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -23751,24 +25352,24 @@ aj
 aj
 "}
 (67,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -24008,24 +25609,24 @@ aj
 aj
 "}
 (68,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-jb
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+fB
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -24265,24 +25866,24 @@ aj
 aj
 "}
 (69,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -24522,24 +26123,24 @@ aj
 aj
 "}
 (70,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -24779,25 +26380,25 @@ aj
 aj
 "}
 (71,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -25036,25 +26637,25 @@ aj
 aj
 "}
 (72,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -25293,25 +26894,25 @@ aj
 aj
 "}
 (73,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
 iw
-ad
-ad
-ab
-ab
-ab
-ab
-ab
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -25550,25 +27151,25 @@ aj
 aj
 "}
 (74,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -25807,25 +27408,25 @@ aj
 aj
 "}
 (75,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -26064,26 +27665,26 @@ aj
 aj
 "}
 (76,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -26321,28 +27922,28 @@ aj
 aj
 "}
 (77,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 ab
@@ -26578,24 +28179,24 @@ aj
 aj
 "}
 (78,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -26835,24 +28436,24 @@ aj
 aj
 "}
 (79,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ad
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+WC
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -27092,24 +28693,24 @@ aj
 aj
 "}
 (80,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ai
-ai
-ai
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+jK
+jK
+jK
+Ct
+Ct
 aj
 aj
 aj
@@ -27349,24 +28950,24 @@ aj
 aj
 "}
 (81,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ai
-ai
-ai
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+jK
+jK
+jK
+WC
+Ct
 aj
 aj
 aj
@@ -27606,24 +29207,24 @@ aj
 aj
 "}
 (82,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ai
-ai
-ai
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+jK
+jK
+jK
+WC
+Ct
 aj
 aj
 aj
@@ -27863,24 +29464,24 @@ aj
 aj
 "}
 (83,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ad
-ad
-ix
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+WC
+WC
+DN
+Ct
 aj
 aj
 aj
@@ -28120,24 +29721,24 @@ aj
 aj
 "}
 (84,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -28377,24 +29978,24 @@ aj
 aj
 "}
 (85,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -28634,24 +30235,24 @@ aj
 aj
 "}
 (86,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -28891,25 +30492,25 @@ aj
 aj
 "}
 (87,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ix
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+DN
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -29148,26 +30749,26 @@ aj
 aj
 "}
 (88,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-jb
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+fB
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 aj
@@ -29405,25 +31006,25 @@ aj
 aj
 "}
 (89,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -29662,25 +31263,25 @@ aj
 aj
 "}
 (90,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -29919,25 +31520,25 @@ aj
 aj
 "}
 (91,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -30176,25 +31777,25 @@ aj
 aj
 "}
 (92,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -30433,25 +32034,25 @@ ab
 ab
 "}
 (93,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -30690,25 +32291,25 @@ ab
 ab
 "}
 (94,1,1) = {"
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
 Sx
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -30947,25 +32548,25 @@ aj
 aj
 "}
 (95,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 qB
 Hm
 Dl
-aa
-aa
-aa
-aa
-aa
-ad
-ix
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+WC
+DN
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -31204,26 +32805,26 @@ aj
 aj
 "}
 (96,1,1) = {"
-aa
-aa
+RD
+RD
 qS
 CE
 Sk
 mY
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -31461,27 +33062,27 @@ ab
 ab
 "}
 (97,1,1) = {"
-aa
-aa
+RD
+RD
 xo
 ng
 Qy
 gC
 mq
 qS
-aa
-aa
-aa
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -31718,29 +33319,29 @@ aj
 aj
 "}
 (98,1,1) = {"
-aa
-aa
+RD
+RD
 Hm
 nc
 qB
 Qr
 nc
 mW
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+jK
+jK
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -31975,8 +33576,8 @@ aj
 aj
 "}
 (99,1,1) = {"
-aa
-aa
+RD
+RD
 iO
 kY
 ng
@@ -31984,19 +33585,19 @@ nc
 gT
 qC
 xo
-aa
-aa
-ab
-ab
-ab
-ab
-ai
-ai
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+jK
+jK
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -32232,8 +33833,8 @@ aj
 aj
 "}
 (100,1,1) = {"
-aa
-aa
+RD
+RD
 XW
 gC
 mW
@@ -32241,18 +33842,18 @@ gC
 nc
 Sk
 hD
-aa
-aa
-ab
-ab
-ab
-ad
-ai
-ai
-ad
-ab
-ab
-ab
+RD
+RD
+Ct
+Ct
+Ct
+WC
+jK
+jK
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -32489,26 +34090,26 @@ aj
 aj
 "}
 (101,1,1) = {"
-aa
-aa
+RD
+RD
 LN
 mW
 Gi
 nc
 mS
 Tl
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ad
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+WC
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -32746,26 +34347,26 @@ aj
 aj
 "}
 (102,1,1) = {"
-aa
-aa
+RD
+RD
 hD
 mq
 Tl
 UH
 Qy
 hD
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -33003,26 +34604,26 @@ aj
 aj
 "}
 (103,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 nc
 mY
 nc
 mW
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -33260,26 +34861,26 @@ aj
 aj
 "}
 (104,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 qS
-aa
+RD
 nf
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -33517,26 +35118,26 @@ aj
 aj
 "}
 (105,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 nc
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-jb
-jb
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+fB
+fB
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -33774,26 +35375,26 @@ aj
 aj
 "}
 (106,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 qS
 ng
 qC
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -34031,26 +35632,26 @@ aj
 aj
 "}
 (107,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 mW
 nc
 mW
 Dw
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -34288,26 +35889,26 @@ aj
 aj
 "}
 (108,1,1) = {"
-aa
-aa
+RD
+RD
 Sn
 mq
 mz
 nc
 xU
 XW
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -34545,26 +36146,26 @@ aj
 aj
 "}
 (109,1,1) = {"
-aa
-aa
+RD
+RD
 yp
 CH
 ng
 gC
 Sk
 Sm
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ix
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+DN
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -34802,26 +36403,26 @@ aj
 aj
 "}
 (110,1,1) = {"
-aa
-aa
+RD
+RD
 Dw
 Zx
 nc
 mY
 qC
 qS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -35059,26 +36660,26 @@ aj
 aj
 "}
 (111,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 gC
 AU
 nf
-aa
-aa
-aa
+RD
+RD
+RD
 qS
 DL
 iO
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -35316,28 +36917,28 @@ aj
 aj
 "}
 (112,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 qS
-aa
+RD
 nc
-aa
-aa
-aa
+RD
+RD
+RD
 Zx
 mq
 sS
 nf
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -35573,29 +37174,29 @@ ab
 ab
 "}
 (113,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 mW
-aa
-aa
+RD
+RD
 km
 gC
 nc
 Sk
 ng
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -35830,28 +37431,28 @@ ab
 ab
 "}
 (114,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 mq
-aa
-aa
+RD
+RD
 yH
 QR
 mW
 uM
 kk
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -36087,26 +37688,26 @@ aj
 aj
 "}
 (115,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 nf
-aa
-aa
-aa
+RD
+RD
+RD
 Sk
 nc
 ng
 Zd
-aa
-ab
-ab
-ab
-ad
-ab
-ab
+RD
+RD
+Ct
+Ct
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -36344,26 +37945,26 @@ aj
 aj
 "}
 (116,1,1) = {"
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
 nc
 gC
 Qy
 qS
-aa
+RD
 mS
 no
 YI
 hG
-aa
-ab
-ab
-ad
-ai
-ai
-ab
+RD
+RD
+Ct
+WC
+jK
+jK
+Ct
 aj
 aj
 aj
@@ -36601,26 +38202,26 @@ aj
 aj
 "}
 (117,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 BW
 mW
 ng
 nc
 gC
-aa
+RD
 mq
 gC
 qS
-aa
-aa
-ab
-ad
-ad
-ai
-ai
-ad
+RD
+RD
+RD
+WC
+WC
+jK
+jK
+WC
 aj
 aj
 aj
@@ -36858,9 +38459,9 @@ aj
 aj
 "}
 (118,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 Dw
 Sk
 nc
@@ -36869,15 +38470,15 @@ mq
 mW
 nc
 wr
-aa
-aa
-aa
-it
+RD
+RD
+RD
+MP
 ky
-ad
-ai
-ai
-ad
+WC
+jK
+jK
+WC
 aj
 aj
 aj
@@ -37115,26 +38716,26 @@ aj
 aj
 "}
 (119,1,1) = {"
-aa
-aa
+RD
+RD
 qS
 Bj
 Dm
 UJ
 mS
 iZ
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ad
-ai
-ai
-jq
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+WC
+jK
+jK
+wS
 aj
 aj
 aj
@@ -37372,26 +38973,26 @@ aj
 aj
 "}
 (120,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 iO
 mq
 ng
 oz
 Bj
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -37629,26 +39230,26 @@ aj
 aj
 "}
 (121,1,1) = {"
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
 hE
 nc
 nf
 qS
-aa
-aa
-aa
+RD
+RD
+RD
 ae
 jg
 gB
 gB
-js
-ab
-ab
-ab
-ab
+gU
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 mu
@@ -37886,27 +39487,27 @@ aj
 aj
 "}
 (122,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 mW
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 iC
 gr
 gs
 gr
 gr
-kR
-ab
-ab
-ab
-ab
+Pn
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -38143,26 +39744,26 @@ aj
 aj
 "}
 (123,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 gC
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 gR
 ag
 jF
 gM
 kB
 jm
-ix
-ab
-jS
+DN
+Ct
+Gs
 aj
 aj
 aj
@@ -38400,26 +40001,26 @@ aj
 aj
 "}
 (124,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 mY
-aa
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
+RD
 gG
 go
 kg
 hs
 gr
 hH
-ab
-ab
+Ct
+Ct
 aj
 ly
 aj
@@ -38657,26 +40258,26 @@ aj
 aj
 "}
 (125,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 mS
 mV
 mq
 mV
 nc
-aa
-aa
-fV
-fV
+RD
+RD
+RD
+RD
 gr
 jH
 gO
 kD
 ag
 le
-aa
-aa
+RD
+RD
 ls
 aj
 aj
@@ -38914,31 +40515,31 @@ aj
 aj
 "}
 (126,1,1) = {"
-aa
-aa
-fV
+RD
+RD
+RD
 gj
 gC
 mr
 nb
 ne
-aa
-aa
-fV
-fV
+RD
+RD
+RD
+RD
 jk
 gr
 gr
 gr
 gr
 gs
-aa
-lp
-lp
+RD
+pW
+pW
 lz
-lp
+pW
 lF
-lp
+pW
 lP
 lS
 lp
@@ -39189,13 +40790,13 @@ kj
 fT
 fT
 lg
-gP
-lq
-lu
-lq
+zi
+Kp
+kX
+Kp
 lD
 lG
-lu
+kX
 lQ
 lu
 lW
@@ -39428,32 +41029,32 @@ aj
 aj
 "}
 (128,1,1) = {"
-aa
-aa
-fV
+RD
+RD
+RD
 gk
 mX
 mZ
 nc
 ng
-aa
-aa
-fV
-fV
+RD
+RD
+RD
+RD
 jl
 gr
 ah
 gG
 gs
 gy
-aa
+RD
 lr
-lv
-lv
+MC
+MC
+WI
+MC
+WI
 lE
-lv
-lE
-lR
 lv
 lv
 mb
@@ -39685,26 +41286,26 @@ aj
 aj
 "}
 (129,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 mS
 mY
 ms
 hJ
 id
-aa
-aa
-fV
-fV
+RD
+RD
+RD
+RD
 jm
 jL
 gM
 kH
 gr
 hH
-aa
-aa
+RD
+RD
 lw
 aj
 aj
@@ -39942,26 +41543,26 @@ aj
 aj
 "}
 (130,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 nf
-aa
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
+RD
 gr
 go
 kl
 hs
 gG
 lj
-ab
-ab
+Ct
+Ct
 aj
 aj
 mv
@@ -40199,26 +41800,26 @@ aj
 aj
 "}
 (131,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 mY
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 gR
 ah
 jN
 gO
 kJ
 gr
-it
-ab
-ab
+MP
+Ct
+Ct
 aj
 aj
 aj
@@ -40456,26 +42057,26 @@ aj
 aj
 "}
 (132,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 mS
-aa
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
+RD
 gR
 gr
 gr
 gr
 jm
-gP
-ab
-ab
-ab
+zi
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -40713,26 +42314,26 @@ aj
 aj
 "}
 (133,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 qS
 Sk
 ng
 mq
 qS
-aa
-aa
-aa
+RD
+RD
+RD
 ae
 gr
 jm
 ko
-iu
-ab
-ab
-ab
-ab
+NJ
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -40970,27 +42571,27 @@ aj
 aj
 "}
 (134,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 tu
 nf
 mq
 qa
 Dw
-aa
-aa
-aa
-aa
-aa
-aa
-jq
-ab
-ab
-ab
-ab
-ab
-kN
+RD
+RD
+RD
+RD
+RD
+RD
+wS
+Ct
+Ct
+Ct
+Ct
+Ct
+xS
 aj
 aj
 aj
@@ -41227,26 +42828,26 @@ aj
 aj
 "}
 (135,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 Zq
 Hg
 ng
 kY
 iZ
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-jR
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+sB
 mt
-ab
+Ct
 aj
 aj
 aj
@@ -41484,26 +43085,26 @@ aj
 aj
 "}
 (136,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 qS
 mq
 hE
 ng
 qS
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-jq
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+wS
+Ct
 aj
 aj
 aj
@@ -41741,26 +43342,26 @@ aj
 aj
 "}
 (137,1,1) = {"
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
 mY
 nf
 mq
-aa
-aa
-aa
-aa
+RD
+RD
+RD
+RD
 iK
-ab
-jQ
-jq
-ab
-ab
-ab
-ab
-ab
+Ct
+ld
+wS
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -41998,26 +43599,26 @@ aj
 aj
 "}
 (138,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 wr
 Sk
 IH
 Sk
 Ir
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -42255,8 +43856,8 @@ aj
 aj
 "}
 (139,1,1) = {"
-aa
-aa
+RD
+RD
 ij
 mS
 Eh
@@ -42264,17 +43865,17 @@ mZ
 mZ
 nf
 Dh
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -42512,7 +44113,7 @@ aj
 aj
 "}
 (140,1,1) = {"
-aa
+RD
 qS
 Dw
 Sk
@@ -42522,16 +44123,16 @@ mZ
 Sk
 Zq
 qS
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 lI
@@ -42769,8 +44370,8 @@ aj
 aj
 "}
 (141,1,1) = {"
-aa
-aa
+RD
+RD
 zM
 mq
 Jy
@@ -42778,17 +44379,17 @@ mZ
 Eh
 mY
 iO
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -43026,26 +44627,26 @@ aj
 aj
 "}
 (142,1,1) = {"
-aa
-aa
-aa
+RD
+RD
+RD
 ng
 Sk
 nf
 Sk
 Xl
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -43283,26 +44884,26 @@ aj
 aj
 "}
 (143,1,1) = {"
-aa
-aa
-aa
-aa
-Zq
-tu
-Sn
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+Je
+mY
+iP
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -43540,26 +45141,26 @@ aj
 aj
 "}
 (144,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-qS
-aa
-aa
-aa
-aa
-aa
-ad
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+xO
+xM
+hd
+RD
+RD
+RD
+RD
+WC
+wS
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 mw
@@ -43797,26 +45398,26 @@ aj
 aj
 "}
 (145,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+zW
+zP
+FH
+RD
+RD
+RD
+RD
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 mx
@@ -44054,26 +45655,26 @@ aj
 aj
 "}
 (146,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+hs
+QO
+If
+zW
+aO
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -44311,26 +45912,26 @@ aj
 aj
 "}
 (147,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+hs
+GW
+vF
+yJ
+go
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -44568,26 +46169,26 @@ aj
 aj
 "}
 (148,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-jR
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+zW
+UI
+oh
+Sc
+go
+RD
+RD
+WC
+WC
+sB
+WC
+Ct
+Ct
 ll
-ab
-ab
+Ct
+Ct
 aj
 aj
 aj
@@ -44825,26 +46426,26 @@ aj
 aj
 "}
 (149,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+jY
+fA
+go
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -45082,26 +46683,26 @@ aj
 aj
 "}
 (150,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
+RD
+RD
+RD
+qS
+Fy
+RD
+hs
+GS
+MU
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
 aj
 aj
 aj
@@ -45339,27 +46940,27 @@ aj
 aj
 "}
 (151,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ix
-ab
-ab
-ab
-ad
-ad
-ad
-ab
-ab
-ab
+RD
+RD
+pp
+gM
+gg
+RD
+hs
+yh
+zW
+RD
+RD
+DN
+Ct
+Ct
+Ct
+WC
+WC
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -45596,30 +47197,30 @@ aj
 aj
 "}
 (152,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+qS
+go
+xd
+hs
+RD
+Dx
+Ih
+MU
+RD
+RD
+Ct
+Ct
+Ct
+WC
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -45853,29 +47454,29 @@ aj
 aj
 "}
 (153,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+kW
+gO
+pT
+RD
+hs
+dj
+MU
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -46110,33 +47711,33 @@ aj
 aj
 "}
 (154,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-jS
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+qS
+Fy
+RD
+Np
+Gq
+dF
+RD
+RD
+WC
+WC
+Gs
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 ab
@@ -46367,31 +47968,31 @@ aj
 aj
 "}
 (155,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+qS
+SD
+ox
+Jb
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -46624,29 +48225,29 @@ aj
 aj
 "}
 (156,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+zC
+LJ
+YA
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -46881,29 +48482,29 @@ aj
 aj
 "}
 (157,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+qS
+RD
+Mj
+Ck
+ib
+PI
+sb
+RD
+qS
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -47138,29 +48739,29 @@ aj
 aj
 "}
 (158,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+Wr
+mV
+VQ
+PI
+PI
+YO
+PI
+PI
+hF
+VQ
+Tb
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -47395,29 +48996,29 @@ aj
 aj
 "}
 (159,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+qS
+hh
+iU
+PI
+pV
+kA
+tR
+Ck
+pV
+PI
+lB
+yh
+qS
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -47652,29 +49253,29 @@ aj
 aj
 "}
 (160,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+CD
+hh
+DR
+PI
+rc
+Gy
+lb
+PI
+Jg
+YO
+XY
+yh
+hA
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -47909,30 +49510,30 @@ aj
 aj
 "}
 (161,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+xh
+zw
+KO
+DM
+Ks
+EF
+GW
+EF
+Qn
+gM
+rd
+Fc
+xh
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -48166,31 +49767,31 @@ aj
 aj
 "}
 (162,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+Mg
+CL
+go
+HE
+jY
+CM
+rb
+qP
+go
+Bh
+hs
+Nj
+Lx
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -48423,28 +50024,28 @@ aj
 aj
 "}
 (163,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+hA
+EX
+Ja
+gO
+Nw
+pQ
+TW
+nn
+st
+gO
+Bn
+Fc
+hA
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -48680,27 +50281,27 @@ aj
 aj
 "}
 (164,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+xh
+MM
+Vk
+CM
+RN
+md
+kx
+Hz
+sC
+qP
+EQ
+kI
+xh
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -48937,27 +50538,27 @@ aj
 aj
 "}
 (165,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+qS
+Fy
+AS
+GW
+MI
+TW
+Up
+Gg
+MI
+TW
+Up
+OU
+QO
+Fy
+qS
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -49194,27 +50795,27 @@ aj
 aj
 "}
 (166,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-jS
-ad
-ad
-ab
-ab
+RD
+hA
+hh
+Vk
+zk
+gW
+YF
+rb
+GC
+pZ
+OX
+EQ
+yh
+CD
+RD
+RD
+Gs
+WC
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -49451,27 +51052,27 @@ aj
 aj
 "}
 (167,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ai
-ab
+RD
+xh
+MM
+tE
+UI
+du
+Dv
+TW
+gn
+CB
+UI
+LL
+kI
+xh
+RD
+RD
+jK
+jK
+jK
+jK
+Ct
 aj
 aj
 aj
@@ -49708,27 +51309,27 @@ aj
 aj
 "}
 (168,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-kM
-ai
-ai
-ai
-ai
-ab
+RD
+We
+EP
+Qi
+dU
+Dx
+zk
+kx
+OX
+go
+us
+jY
+VL
+Er
+RD
+RD
+jK
+jK
+jK
+jK
+Ct
 aj
 aj
 aj
@@ -49965,30 +51566,30 @@ aj
 aj
 "}
 (169,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ad
-ai
-ai
-ai
-ai
-ab
-ab
-ab
-ab
+RD
+hA
+Ai
+hi
+Sy
+tA
+Fa
+GW
+Fa
+zl
+Sy
+pI
+yh
+hA
+RD
+RD
+jK
+jK
+jK
+jK
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -50222,30 +51823,30 @@ aj
 aj
 "}
 (170,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ad
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
+RD
+rs
+Td
+kM
+pz
+Aw
+Ot
+nK
+uZ
+pz
+Ot
+uZ
+yh
+xh
+RD
+RD
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -50479,30 +52080,30 @@ aj
 aj
 "}
 (171,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ad
-ai
-ai
-ai
-ai
-ad
-ad
-ab
-ab
+RD
+qS
+Qb
+ms
+hJ
+hJ
+Uw
+BN
+SB
+hJ
+hJ
+Uf
+ev
+qS
+RD
+RD
+jK
+jK
+jK
+jK
+WC
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -50736,30 +52337,30 @@ aj
 aj
 "}
 (172,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ad
-ai
-ai
-ai
-ai
-ad
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+qS
+dp
+kF
+VE
+pt
+NS
+qS
+RD
+RD
+RD
+RD
+RD
+jK
+jK
+jK
+jK
+WC
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -50993,30 +52594,30 @@ aj
 aj
 "}
 (173,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+qS
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+jK
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -51250,30 +52851,30 @@ aj
 aj
 "}
 (174,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -51507,30 +53108,30 @@ aj
 aj
 "}
 (175,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-kN
-ai
-ai
-ai
-ai
-jq
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+xS
+jK
+jK
+jK
+jK
+wS
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -51764,29 +53365,29 @@ aj
 aj
 "}
 (176,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ai
-ai
-ai
-ai
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+jK
+jK
+jK
+jK
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -52021,29 +53622,29 @@ aj
 aj
 "}
 (177,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ad
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+WC
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -52278,29 +53879,29 @@ aj
 aj
 "}
 (178,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -52535,30 +54136,30 @@ aj
 aj
 "}
 (179,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -52792,33 +54393,33 @@ aj
 aj
 "}
 (180,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+fV
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -53049,35 +54650,35 @@ aj
 aj
 "}
 (181,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 ab
@@ -53306,30 +54907,30 @@ aj
 aj
 "}
 (182,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -53563,29 +55164,29 @@ aj
 aj
 "}
 (183,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -53820,29 +55421,29 @@ aj
 aj
 "}
 (184,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ad
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+WC
+jK
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -54077,29 +55678,29 @@ aj
 aj
 "}
 (185,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ai
-jS
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+jK
+Gs
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -54334,29 +55935,29 @@ aj
 aj
 "}
 (186,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ai
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -54591,29 +56192,29 @@ aj
 aj
 "}
 (187,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ai
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -54848,28 +56449,28 @@ aj
 aj
 "}
 (188,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+jK
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -55105,28 +56706,28 @@ aj
 aj
 "}
 (189,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -55362,30 +56963,30 @@ aj
 aj
 "}
 (190,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 aj
@@ -55619,27 +57220,27 @@ aj
 aj
 "}
 (191,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -55876,27 +57477,27 @@ aj
 aj
 "}
 (192,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -56133,27 +57734,27 @@ aj
 aj
 "}
 (193,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -56390,27 +57991,27 @@ aj
 aj
 "}
 (194,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -56647,27 +58248,27 @@ aj
 aj
 "}
 (195,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -56904,27 +58505,27 @@ aj
 aj
 "}
 (196,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -57161,27 +58762,27 @@ aj
 aj
 "}
 (197,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -57418,27 +59019,27 @@ aj
 aj
 "}
 (198,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-iy
-ab
-ad
-ad
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+fa
+Ct
+WC
+WC
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -57675,27 +59276,27 @@ aj
 aj
 "}
 (199,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-iy
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+fa
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -57932,27 +59533,27 @@ aj
 aj
 "}
 (200,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -58189,27 +59790,27 @@ aj
 aj
 "}
 (201,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -58446,27 +60047,27 @@ aj
 aj
 "}
 (202,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -58703,29 +60304,29 @@ aj
 aj
 "}
 (203,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-iy
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+fa
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -58960,29 +60561,29 @@ aj
 aj
 "}
 (204,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -59217,29 +60818,29 @@ aj
 aj
 "}
 (205,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -59474,30 +61075,30 @@ aj
 aj
 "}
 (206,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+jK
+jK
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -59731,30 +61332,30 @@ aj
 aj
 "}
 (207,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ad
-ai
-ai
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+WC
+jK
+jK
+Ct
+Ct
+Ct
 aj
 ab
 aj
@@ -59988,29 +61589,29 @@ aj
 aj
 "}
 (208,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ad
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+jK
+jK
+WC
+Ct
 aj
 aj
 aj
@@ -60245,29 +61846,29 @@ aj
 aj
 "}
 (209,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ad
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+WC
+Ct
+Ct
 aj
 aj
 aj
@@ -60502,29 +62103,29 @@ aj
 aj
 "}
 (210,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -60759,29 +62360,29 @@ aj
 aj
 "}
 (211,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -61016,29 +62617,29 @@ aj
 aj
 "}
 (212,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -61273,29 +62874,29 @@ aj
 aj
 "}
 (213,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -61530,28 +63131,28 @@ aj
 aj
 "}
 (214,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -61787,28 +63388,28 @@ aj
 aj
 "}
 (215,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -62044,28 +63645,28 @@ aj
 aj
 "}
 (216,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -62301,28 +63902,28 @@ aj
 aj
 "}
 (217,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -62558,28 +64159,28 @@ aj
 aj
 "}
 (218,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-js
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+gU
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -62815,28 +64416,28 @@ aj
 aj
 "}
 (219,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -63072,28 +64673,28 @@ aj
 aj
 "}
 (220,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ai
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+jK
+jK
+jK
+jK
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -63329,28 +64930,28 @@ aj
 aj
 "}
 (221,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -63586,28 +65187,28 @@ aj
 aj
 "}
 (222,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -63843,28 +65444,28 @@ aj
 aj
 "}
 (223,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -64100,28 +65701,28 @@ aj
 aj
 "}
 (224,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -64357,28 +65958,28 @@ aj
 aj
 "}
 (225,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-gP
-ai
-ai
-ai
-ai
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+zi
+jK
+jK
+jK
+jK
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -64614,29 +66215,29 @@ aj
 aj
 "}
 (226,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ai
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+jK
+jK
+jK
+jK
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -64871,30 +66472,30 @@ aj
 aj
 "}
 (227,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ai
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+jK
+jK
+jK
+jK
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 ab
@@ -65128,28 +66729,28 @@ aj
 aj
 "}
 (228,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -65385,28 +66986,28 @@ aj
 aj
 "}
 (229,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -65642,28 +67243,28 @@ aj
 aj
 "}
 (230,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -65899,28 +67500,28 @@ aj
 aj
 "}
 (231,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -66156,28 +67757,28 @@ aj
 aj
 "}
 (232,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-it
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+MP
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -66413,28 +68014,28 @@ aj
 aj
 "}
 (233,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -66670,28 +68271,28 @@ aj
 aj
 "}
 (234,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -66927,28 +68528,28 @@ aj
 aj
 "}
 (235,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -67184,28 +68785,28 @@ aj
 aj
 "}
 (236,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -67441,28 +69042,28 @@ aj
 aj
 "}
 (237,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-gP
-js
-ab
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+zi
+gU
+Ct
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -67698,28 +69299,28 @@ aj
 aj
 "}
 (238,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -67955,28 +69556,28 @@ aj
 aj
 "}
 (239,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -68212,29 +69813,29 @@ aj
 aj
 "}
 (240,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 ab
 aj
@@ -68469,28 +70070,28 @@ aj
 aj
 "}
 (241,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -68726,29 +70327,29 @@ aj
 aj
 "}
 (242,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -68983,29 +70584,29 @@ aj
 aj
 "}
 (243,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -69240,29 +70841,29 @@ aj
 aj
 "}
 (244,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -69497,29 +71098,29 @@ aj
 aj
 "}
 (245,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -69754,29 +71355,29 @@ aj
 aj
 "}
 (246,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -70011,29 +71612,29 @@ aj
 aj
 "}
 (247,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -70268,29 +71869,29 @@ aj
 aj
 "}
 (248,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -70525,29 +72126,29 @@ aj
 aj
 "}
 (249,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ad
-ad
-ad
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+WC
+WC
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -70782,29 +72383,29 @@ aj
 aj
 "}
 (250,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ab
-ab
-ad
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+Ct
+Ct
+WC
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -71039,29 +72640,29 @@ aj
 aj
 "}
 (251,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -71296,28 +72897,28 @@ aj
 aj
 "}
 (252,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -71553,28 +73154,28 @@ aj
 aj
 "}
 (253,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ad
-ad
-ad
-js
-ab
-ab
-ab
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+WC
+WC
+WC
+gU
+Ct
+Ct
+Ct
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -71810,28 +73411,28 @@ aj
 aj
 "}
 (254,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-js
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+gU
+Ct
+Ct
+Ct
 aj
 aj
 aj
@@ -72067,28 +73668,28 @@ aj
 aj
 "}
 (255,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ab
-ab
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+RD
+WC
+Ct
+Ct
+Ct
 aj
 aj
 aj

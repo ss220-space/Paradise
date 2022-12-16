@@ -3,6 +3,7 @@
 	real_name = "Guardian Spirit"
 	desc = "A mysterious being that stands by it's charge, ever vigilant."
 	speak_emote = list("intones")
+	tts_seed = "Earth"
 	bubble_icon = "guardian"
 	response_help  = "passes through"
 	response_disarm = "flails at"
@@ -20,7 +21,7 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	attacktext = "punches"
+	attacktext = "бьёт"
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
@@ -68,7 +69,7 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD) || QDELETED(summoner))
 			summoner.remove_guardian_actions()
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
 			visible_message("<span class='danger'>[src] dies along with its user!</span>")
@@ -194,8 +195,7 @@
 	// Show the message to the host and to the guardian.
 	to_chat(summoner, "<span class='changeling'><i>[src]:</i> [input]</span>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	log_say("(GUARDIAN to [key_name(summoner)]): [input]", src)
-	create_log(SAY_LOG, "GUARDIAN to HOST: [input]", summoner)
+	add_say_logs(src, input, summoner, "Guardian")
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)

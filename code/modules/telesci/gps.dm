@@ -54,9 +54,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	update_icon()
 	addtimer(CALLBACK(src, .proc/reboot), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/user)
-	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
-		return //user not valid to use gps
+/obj/item/gps/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
 		return
@@ -104,7 +109,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
-			signal["area"] = get_area_name(G, TRUE)
+			signal["area"] = (GT.z == T.z) ? get_area_name(G, TRUE) : "???"
 			signal["position"] = ATOM_COORDS(GT)
 		signals += list(signal)
 	data["signals"] = signals

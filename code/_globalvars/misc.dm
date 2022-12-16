@@ -83,7 +83,7 @@ GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 
 //printers shutdown if too much shit printed
 GLOBAL_VAR_INIT(copier_items_printed, 0)
-GLOBAL_VAR_INIT(copier_max_items, 300)
+GLOBAL_VAR_INIT(copier_max_items, 500)
 GLOBAL_VAR_INIT(copier_items_printed_logged, FALSE)
 
 
@@ -96,4 +96,3 @@ GLOBAL_VAR_INIT(pending_server_update, FALSE)
 
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
 GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
-

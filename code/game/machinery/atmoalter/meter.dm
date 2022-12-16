@@ -18,8 +18,6 @@
 	idle_power_usage = 2
 	active_power_usage = 5
 	req_one_access_txt = "24;10"
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
 
 /obj/machinery/meter/New()
 	..()
@@ -97,24 +95,21 @@
 	return t
 
 /obj/machinery/meter/examine(mob/user)
-	var/t = "A gas flow meter. "
-
+	. = ..()
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
-		t += "<span class='boldnotice'>You are too far away to read it.</span>"
+		. += "<span class='boldnotice'>You are too far away to read it.</span>"
 
 	else if(stat & (NOPOWER|BROKEN))
-		t += "<span class='danger'>The display is off.</span>"
+		. += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
-			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+			. += "<span class='notice'>The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C).</span>"
 		else
-			t += "The sensor error light is blinking."
+			. += "<span class='warning'>The sensor error light is blinking.</span>"
 	else
-		t += "The connect error light is blinking."
-
-	. = list(t)
+		. += "<span class='warning'>The connect error light is blinking.</span>"
 
 /obj/machinery/meter/Click()
 	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
@@ -123,19 +118,14 @@
 
 	return ..()
 
-/obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(!istype(W, /obj/item/wrench))
-		return ..()
-	playsound(loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-	if(do_after(user, 40 * W.toolspeed, target = src))
+/obj/machinery/meter/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	playsound(loc, I.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	if(do_after(user, 40 * I.toolspeed, target = src))
 		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			"[user] unfastens [src].", \
+			"<span class='notice'>You have unfastened [src].</span>", \
 			"You hear ratchet.")
 		deconstruct(TRUE)
 
@@ -164,11 +154,3 @@
 
 /obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	return
-
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<b>Main</b>
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag")]</li>
-	</ul>"}

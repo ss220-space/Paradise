@@ -13,18 +13,23 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
-/obj/item/clothing/head/hardhat/attack_self(mob/living/user)
-	toggle_helmet_light(user)
+/obj/item/clothing/head/hardhat/attack_self()
+	toggle_helmet_light()
 
-/obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
+/obj/item/clothing/head/hardhat/proc/toggle_helmet_light()
 	on = !on
 	if(on)
-		turn_on(user)
+		turn_on()
 	else
-		turn_off(user)
+		turn_off()
 	update_icon()
 
 /obj/item/clothing/head/hardhat/update_icon()
@@ -38,16 +43,20 @@
 		A.UpdateButtonIcon()
 	..()
 
-/obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
+/obj/item/clothing/head/hardhat/proc/turn_on()
 	set_light(brightness_on)
 
-/obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
+/obj/item/clothing/head/hardhat/proc/turn_off()
 	set_light(0)
 
-/obj/item/clothing/head/hardhat/extinguish_light(mob/living/user)
+/obj/item/clothing/head/hardhat/emp_act(severity)
+	. = ..()
+	extinguish_light()
+
+/obj/item/clothing/head/hardhat/extinguish_light()
 	if(on)
 		on = FALSE
-		turn_off(user)
+		turn_off()
 		update_icon()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
@@ -100,5 +109,10 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
-		)
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
+	)

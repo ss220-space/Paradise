@@ -18,15 +18,22 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
-		)
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+	)
 
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/breath/AltClick(mob/user)
-	..()
-	if( (!in_range(src, user)) || user.stat || user.restrained() )
+/obj/item/clothing/mask/breath/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated() || user.restrained())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user))
 		return
 	adjustmask(user)
 

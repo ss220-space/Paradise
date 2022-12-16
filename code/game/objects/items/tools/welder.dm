@@ -9,6 +9,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 3
+	var/force_enabled = 15
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -44,11 +45,18 @@
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
-		. += "It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel]."
+		. += "<span class='notice'>It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel].</span>"
 
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
+
+/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+	if(tool_enabled)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/weldingtool/process()
 	if(tool_enabled)
@@ -78,7 +86,7 @@
 	if(tool_enabled)
 		START_PROCESSING(SSobj, src)
 		damtype = BURN
-		force = 15
+		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
@@ -86,7 +94,7 @@
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
-		force = 3
+		force = initial(force)
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
@@ -203,6 +211,7 @@
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
+	item_state = "alien_welder"
 	toolspeed = 0.1
 	light_intensity = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
@@ -238,3 +247,4 @@
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	force_enabled = 10

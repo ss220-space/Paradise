@@ -85,7 +85,7 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
 		return FALSE
-	log_game("Blackbox sealed")
+	add_game_logs("Blackbox sealed")
 	sealed = TRUE
 	return TRUE
 
@@ -136,6 +136,8 @@ SUBSYSTEM_DEF(blackbox)
 			record_feedback("tally", "radio_usage", 1, "syndicate taipan")
 		if(SYNDTEAM_FREQ)
 			record_feedback("tally", "radio_usage", 1, "syndicate team")
+		if(NINJA_FREQ)
+			record_feedback("tally", "radio_usage", 1, "spider clan")
 		if(SUP_FREQ)
 			record_feedback("tally", "radio_usage", 1, "supply")
 		if(SRV_FREQ)

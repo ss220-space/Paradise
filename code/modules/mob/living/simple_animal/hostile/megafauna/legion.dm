@@ -24,7 +24,7 @@ Difficulty: Medium
 	icon_living = "legion"
 	desc = "One of many."
 	icon = 'icons/mob/lavaland/legion.dmi'
-	attacktext = "chomps"
+	attacktext = "грызёт"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
 	armour_penetration = 50
@@ -50,6 +50,14 @@ Difficulty: Medium
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
+
+/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(damage, updating_health)
+	. = ..()
+	if(!GLOB.necropolis_gate)
+		return
+	if(GLOB.necropolis_gate.legion_triggered)
+		return
+	GLOB.necropolis_gate.toggle_the_gate(src, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()

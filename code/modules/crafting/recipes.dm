@@ -338,15 +338,79 @@
 	result = /obj/item/bikehorn/golden
 	time = 20
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
-				/obj/item/bikehorn)
+				/obj/item/bikehorn = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
 	result = /obj/item/stack/tile/carpet/black
-	time = 20
+	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon)
+	category = CAT_MISC
+
+/datum/crafting_recipe/bluecarpet
+	name = "Blue Carpet"
+	result = /obj/item/stack/tile/carpet/blue
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/blue)
+	category = CAT_MISC
+
+/datum/crafting_recipe/cyancarpet
+	name = "Cyan Carpet"
+	result = /obj/item/stack/tile/carpet/cyan
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
+	category = CAT_MISC
+
+/datum/crafting_recipe/greencarpet
+	name = "Green Carpet"
+	result = /obj/item/stack/tile/carpet/green
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/green)
+	category = CAT_MISC
+
+/datum/crafting_recipe/orangecarpet
+	name = "Orange Carpet"
+	result = /obj/item/stack/tile/carpet/orange
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/orange)
+	category = CAT_MISC
+
+/datum/crafting_recipe/purplecarpet
+	name = "Purple Carpet"
+	result = /obj/item/stack/tile/carpet/purple
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/purple)
+	category = CAT_MISC
+
+/datum/crafting_recipe/redcarpet
+	name = "Red Carpet"
+	result = /obj/item/stack/tile/carpet/red
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_MISC
+
+/datum/crafting_recipe/royalblackcarpet
+	name = "Royal Black Carpet"
+	result = /obj/item/stack/tile/carpet/royalblack/ten
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet/black = 10,
+				/obj/item/stack/sheet/mineral/gold = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/royalbluecarpet
+	name = "Royal Blue Carpet"
+	result = /obj/item/stack/tile/carpet/royalblue/ten
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet/blue = 10,
+				/obj/item/stack/sheet/mineral/gold = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/showercurtain
@@ -522,6 +586,14 @@
 		        /obj/item/stack/cable_coil = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/ghettojetpack
+	name = "Improvised Jetpack"
+	result = /obj/item/tank/jetpack/improvised
+	time = 30
+	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil = MAXCOIL)
+	category = CAT_MISC
+	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"
@@ -1020,7 +1092,7 @@
 	reqs = list(/obj/item/stack/cable_coil = 20,
 				/obj/item/stack/sheet/metal = 10,
 				/obj/item/storage/toolbox = 2, // For feet
-				/obj/item/tank/oxygen = 1, // For air
+				/obj/item/tank/internals/oxygen = 1, // For air
 				/obj/item/airlock_electronics = 1, //You are stealing the motors from airlocks
 				/obj/item/extinguisher = 1, //For bastard pnumatics
 				/obj/item/c_tube = 5, //to make it airtight

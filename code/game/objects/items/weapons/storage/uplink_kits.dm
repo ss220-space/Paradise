@@ -126,7 +126,7 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/New()
@@ -134,19 +134,19 @@
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	return
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/hardsuit/New()
 	..()
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
@@ -347,6 +347,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/pen/fakesign(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
@@ -380,3 +381,39 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/toy/crayon/white(src)
 	new /obj/item/toy/crayon/yellow(src)
 	new /obj/item/toy/crayon/rainbow(src)
+
+/obj/item/storage/box/syndie_kit/cyborg_maint
+	name = "cyborg repair kit"
+	desc = "For people who wants to repair their robots."
+
+/obj/item/storage/box/syndie_kit/cyborg_maint/New()
+	..()
+	new /obj/item/robot_parts/robot_component/armour(src)
+	new /obj/item/robot_parts/robot_component/actuator(src)
+	new /obj/item/robot_parts/robot_component/radio(src)
+	new /obj/item/robot_parts/robot_component/binary_communication_device(src)
+	new /obj/item/robot_parts/robot_component/camera(src)
+	new /obj/item/robot_parts/robot_component/diagnosis_unit(src)
+	new /obj/item/stack/nanopaste(src)
+	new /obj/item/stack/nanopaste(src)
+	new /obj/item/stack/nanopaste(src)
+	new /obj/item/encryptionkey/syndicate(src)
+	new /obj/item/robotanalyzer(src)
+	var/obj/item/paper/P = new (src)
+	P.name = "Cyborg Repair Instruction"
+	P.info = {"
+<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Краткая инструкция по пончинке роботов</B><HR></center><BR><BR>
+
+<font size = "4">1. Возьмите Cyborg Analyzer, проведите им по юниту.<BR>
+2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<BR>
+3. Если юнит закрыт(будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<BR>
+4. Монтировкой откройте крышку юнита.<BR>
+5. Руками вытащите батарейку у юнита.<BR>
+6. Монтировкой снимите сломанные компоненты из пункта 2.<BR>
+7. Вставьте новые компоненты в юнита.<BR>
+8. Вставьте батарейку в юнита.<BR>
+9. Закройте крышку юнита монтировкой.<BR>
+10. Залейте нанопастой поврежденные части юнита.<BR>
+11. Готово. Юнит снова функционирует.<BR>
+<BR><BR><BR>
+	"}

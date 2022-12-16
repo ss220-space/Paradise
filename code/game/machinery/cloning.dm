@@ -184,18 +184,18 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
-	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
+	. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
 
 //Clonepod
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	if(mess)
-		. += "It's filled with blood and viscera. You swear you can see it moving..."
+		. += "<span class='warning'>It's filled with blood and viscera. You swear you can see it moving...</span>"
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		. +=  "Current clone cycle is [round(get_completion())]% complete."
+		. += "<span class='notice'>Current clone cycle is [round(get_completion())]% complete.</span>"
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
@@ -301,6 +301,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	//Get the clone body ready
 	maim_clone(H)
 	H.Paralyse(4)
+
+	H.tts_seed = pick(SStts.tts_seeds)
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
@@ -457,6 +459,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
+	if(H.mind in SSticker.mode.space_ninjas)
+		SSticker.mode.update_ninja_icons_added()
 	if(H.mind in SSticker.mode.cult)
 		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
 		SSticker.mode.add_cult_actions(H.mind) // And all the actions
@@ -466,6 +470,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 				SSticker.mode.ascend(H)
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
+	if(H.mind.ninja)
+		H.mind.ninja.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
 		SSticker.mode.update_vampire_icons_added(H.mind)
 	if(H.mind in SSticker.mode.changelings)
@@ -542,7 +548,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
 			message += "<i>Is this what dying is like? Yes it is.</i>"
 			to_chat(occupant, "<span class='warning'>[message]</span>")
-			occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
+			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()

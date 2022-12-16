@@ -28,12 +28,11 @@
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
-			. += "There are no [src.icon_type]s left in the box."
+			. += "<span class='notice'>There are no [src.icon_type]s left in the box.</span>"
 		else if(len == 1)
-			. += "There is one [src.icon_type] left in the box."
+			. += "<span class='notice'>There is one [src.icon_type] left in the box.</span>"
 		else
-			. += "There are [src.contents.len] [src.icon_type]s in the box."
-
+			. += "<span class='notice'>There are [src.contents.len] [src.icon_type]s in the box.</span>"
 /*
  * Donut Box
  */
@@ -337,7 +336,7 @@
 		overlays += "[icon_state]_empty"
 
 /*
- * cigcase 
+ * cigcase
  */
 
 /obj/item/storage/fancy/cigcase
@@ -357,8 +356,6 @@
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/clothing/mask/cigarette/cigar(src)
-	return
-	
 
 /*
  * Vial Box
@@ -372,12 +369,10 @@
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 
-
 /obj/item/storage/fancy/vials/New()
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/reagent_containers/glass/beaker/vial(src)
-	return
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
@@ -393,6 +388,8 @@
 
 /obj/item/storage/lockbox/vials/New()
 	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/reagent_containers/glass/beaker/vial(src)
 	update_icon()
 
 /obj/item/storage/lockbox/vials/update_icon(var/itemremoved = 0)

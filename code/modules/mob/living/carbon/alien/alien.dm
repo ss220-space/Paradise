@@ -2,6 +2,7 @@
 	name = "alien"
 	voice_name = "alien"
 	speak_emote = list("hisses")
+	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
@@ -26,6 +27,24 @@
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
+	var/datum/action/innate/xeno_action/plant/plant_action = new
+	var/datum/action/innate/xeno_action/whisper/whisper_action = new
+	var/datum/action/innate/xeno_action/transfer_plasma/transfer_plasma_action = new
+	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
+	var/datum/action/innate/xeno_action/neurotoxin/neurotoxin_action = new
+	var/datum/action/innate/xeno_action/resin/resin_action = new
+	var/datum/action/innate/xeno_action/regurgitate/regurgitate_action = new
+	var/datum/action/innate/xeno_action/nightvisiontoggle/nigtvisiontoggle_action = new
+
+/mob/living/carbon/alien/proc/GrantAlienActions()
+	plant_action.Grant(src)
+	whisper_action.Grant(src)
+	transfer_plasma_action.Grant(src)
+	corrosive_acid_action.Grant(src)
+	resin_action.Grant(src)
+	regurgitate_action.Grant(src)
+	nigtvisiontoggle_action.Grant(src)
+
 /mob/living/carbon/alien/New()
 	..()
 	create_reagents(1000)
@@ -36,6 +55,7 @@
 	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
+	GrantAlienActions()
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
@@ -136,7 +156,6 @@
 
 /mob/living/carbon/alien/verb/nightvisiontoggle()
 	set name = "Toggle Night Vision"
-	set category = "Alien"
 
 	if(!nightvision)
 		see_in_dark = 8
@@ -150,7 +169,6 @@
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
 	update_sight()
-
 
 /mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -224,33 +242,6 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/can_use_vents()
 	return
-
-/mob/living/carbon/alien/handle_footstep(turf/T)
-	if(..())
-		if(T.footstep_sounds && T.footstep_sounds["xeno"])
-			var/S = pick(T.footstep_sounds["xeno"])
-			if(S)
-				if(m_intent == MOVE_INTENT_RUN)
-					if(!(step_count % 2)) //every other turf makes a sound
-						return 0
-
-				var/range = -(world.view - 2)
-				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
-				var/volume = 25
-
-				if(m_intent == MOVE_INTENT_WALK)
-					return 0 //silent when walking
-
-				if(buckled || lying || throwing)
-					return 0 //people flying, lying down or sitting do not step
-
-				if(!has_gravity(src))
-					if(step_count % 3) //this basically says, every three moves make a noise
-						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
-
-				playsound(T, S, volume, 1, range)
-				return 1
-	return 0
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)

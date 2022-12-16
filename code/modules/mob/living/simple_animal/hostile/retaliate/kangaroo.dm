@@ -15,13 +15,14 @@
 	harm_intent_damage = 3
 	melee_damage_lower = 5 // avg damage 12.5 without kick, (12.5+12.5+60)/3=25 with kick
 	melee_damage_upper = 20
-	attacktext = "slashes"
+	attacktext = "пинает"
 	attack_sound = 'sound/weapons/bladeslice.ogg' // they have nails that work like claws, so, slashing sound
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	move_to_delay = 4 // at 20ticks/sec, this is 5 tile/sec movespeed, about the same as a 'fast human'.
 	speed = -1 // '-1' converts to 1.5 total move delay, or 6.6 tiles/sec movespeed
 	var/attack_cycles = 0
 	var/attack_cycles_max = 3
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/New()
 	. = ..()
@@ -46,7 +47,7 @@
 
 	// ... but, every attack_cycles_max attacks on a living mob, do a powerful disemboweling kick instead
 	attack_cycles = 0
-	attacktext = "VICIOUSLY KICKS"
+	attacktext = "ЗЛОБНО ПИНАЕТ"
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 	. = ..()

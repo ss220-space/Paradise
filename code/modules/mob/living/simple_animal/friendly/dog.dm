@@ -12,6 +12,7 @@
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
 	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
+	tts_seed = "Stetmann"
 	faction = list("neutral")
 	see_in_dark = 5
 	speak_chance = 1
@@ -20,6 +21,7 @@
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
@@ -89,15 +91,6 @@
 				custom_emote(1, "growls!")
 
 //Corgis and pugs are now under one dog subtype
-
-/mob/living/simple_animal/pet/dog/detective
-	name = "Гав-Гавыч"
-	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
-	icon_state = "blackdog"
-	icon_living = "blackdog"
-	icon_dead = "blackdog_dead"
-	icon_resting = "blackdog_rest"
-
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
@@ -113,6 +106,7 @@
 	var/obj/item/inventory_back
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	tts_seed = "Stetmann"
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
@@ -568,6 +562,12 @@
 	N.setDir(dir)
 	gib()
 
+/mob/living/simple_animal/pet/dog/corgi/Ian/ratvar_act()
+	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
+	var/mob/living/simple_animal/pet/dog/corgi/ratvar/N = new(loc)
+	N.setDir(dir)
+	gib()
+
 /mob/living/simple_animal/pet/dog/corgi/narsie
 	name = "Nars-Ian"
 	desc = "Ia! Ia!"
@@ -578,6 +578,7 @@
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
+	tts_seed = "Mannoroth"
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -604,6 +605,28 @@
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
 	adjustBruteLoss(-maxHealth)
 
+/mob/living/simple_animal/pet/dog/corgi/ratvar
+	name = "Cli-k"
+	desc = "It's a coolish Ian that clicks!"
+	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon_state = "clik"
+	icon_living = "clik"
+	icon_dead = "clik_dead"
+	faction = list("neutral", "clockwork_cult")
+	gold_core_spawnable = NO_SPAWN
+	nofur = TRUE
+	unique_pet = TRUE
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
+	..()
+	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
+	speak_emote = list("growls", "barks ominously")
+	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an judicial manner.", "mutters something unspeakable.")
+	emote_see = list("communes with the unnameable.", "seeks the light in souls.", "shakes.")
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/ratvar_act()
+	adjustBruteLoss(-maxHealth)
+
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	name = "\improper corgi puppy"
 	real_name = "corgi"
@@ -615,6 +638,7 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	tts_seed = "Jaina"
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -634,6 +658,7 @@
 	unsuitable_atmos_damage = 0
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
+	tts_seed = "Kael"
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -654,6 +679,7 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
+	tts_seed = "Luna"
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
@@ -696,6 +722,7 @@
 	icon_living = "borgi"
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
+	tts_seed = "Glados"
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -713,7 +740,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7)
+	explosion(get_turf(src), 0, 1, 4, 7, cause = src)
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)
@@ -761,6 +788,7 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
+	tts_seed = "Kleiner"
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()

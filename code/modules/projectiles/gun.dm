@@ -35,7 +35,8 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
-
+	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
+	var/bolt_open = FALSE
 	var/spread = 0
 	var/randomspread = 1
 
@@ -73,6 +74,7 @@
 
 /obj/item/gun/New()
 	..()
+	appearance_flags |= KEEP_TOGETHER
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
@@ -89,15 +91,15 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += "<span class='info'>Alt-click it to reskin it.</span>"
 	if(unique_rename)
-		. += "<span class='notice'>Use a pen on it to rename it.</span>"
+		. += "<span class='info'>Use a pen on it to rename it.</span>"
 	if(bayonet)
-		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
+		. += "<span class='notice'>It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.</span>"
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
-		. += "It has a <b>bayonet</b> lug on it."
+		. += "<span class='notice'>It has a <b>bayonet</b> lug on it.</span>"
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -119,12 +121,12 @@
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
-		playsound(user, fire_sound, 10, 1)
+		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 	else
-		playsound(user, fire_sound, 50, 1)
+		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
 				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
@@ -159,7 +161,7 @@
 		if(!can_trigger_gun(L))
 			return
 
-	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can't shoot.
+	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
 		shoot_with_empty_chamber(user)
 		return
 
@@ -414,7 +416,6 @@
 		azoom.Remove(user)
 
 /obj/item/gun/AltClick(mob/user)
-	..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return

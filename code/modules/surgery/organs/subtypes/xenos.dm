@@ -15,7 +15,6 @@
 	for(var/P in alien_powers)
 		M.verbs -= P
 	. = ..()
-
 /obj/item/organ/internal/xenos/prepare_eat()
 	var/obj/S = ..()
 	S.reagents.add_reagent("sacid", 10)
@@ -30,7 +29,6 @@
 	origin_tech = "biotech=5;plasmatech=4"
 	parent_organ = "chest"
 	slot = "plasmavessel"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/plant, /mob/living/carbon/alien/humanoid/verb/transfer_plasma)
 
 
 	var/stored_plasma = 0
@@ -66,7 +64,6 @@
 	icon_state = "plasma_tiny"
 	stored_plasma = 100
 	max_plasma = 150
-	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/plant)
 
 /obj/item/organ/internal/xenos/plasmavessel/larva
 	name = "tiny xeno plasma vessel"
@@ -108,8 +105,15 @@
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
-
+	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
+	
+/obj/item/organ/internal/xenos/acidgland/insert(mob/living/carbon/M, special = 0)
+	..()
+	corrosive_acid_action.Grant(M)
+	
+/obj/item/organ/internal/xenos/acidgland/remove(mob/living/carbon/M, special = 0)
+	corrosive_acid_action.Remove(M)
+	. = ..()
 
 /obj/item/organ/internal/xenos/hivenode
 	name = "xeno hive node"
@@ -118,7 +122,6 @@
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
-	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/whisp)
 
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -138,7 +141,15 @@
 	parent_organ = "head"
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/neurotoxin)
+	var/datum/action/innate/xeno_action/neurotoxin/neurotoxin_action = new
+	
+/obj/item/organ/internal/xenos/neurotoxin/insert(mob/living/carbon/M, special = 0)
+	..()
+	neurotoxin_action.Grant(M)
+	
+/obj/item/organ/internal/xenos/neurotoxin/remove(mob/living/carbon/M, special = 0)
+	neurotoxin_action.Remove(M)
+	. = ..()
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....
@@ -146,7 +157,18 @@
 	icon_state = "liver-x"
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)
+	var/datum/action/innate/xeno_action/resin/resin_action = new
+	var/datum/action/innate/xeno_action/plant/plant_action = new
+	
+/obj/item/organ/internal/xenos/resinspinner/insert(mob/living/carbon/M, special = 0)
+	..()
+	resin_action.Grant(M)
+	plant_action.Grant(M)
+	
+/obj/item/organ/internal/xenos/resinspinner/remove(mob/living/carbon/M, special = 0)
+	resin_action.Remove(M)
+	plant_action.Remove(M)
+	. = ..()
 
 /obj/item/organ/internal/xenos/eggsac
 	name = "xeno egg sac"
@@ -155,4 +177,12 @@
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
-	alien_powers = list(/mob/living/carbon/alien/humanoid/queen/verb/lay_egg)
+	var/datum/action/innate/xeno_action/lay_egg_queen/lay_egg_queen_action = new
+
+/obj/item/organ/internal/xenos/eggsac/insert(mob/living/carbon/M, special = 0)
+	..()
+	lay_egg_queen_action.Grant(M)
+	
+/obj/item/organ/internal/xenos/eggsac/remove(mob/living/carbon/M, special = 0)
+	lay_egg_queen_action.Remove(M)
+	. = ..()

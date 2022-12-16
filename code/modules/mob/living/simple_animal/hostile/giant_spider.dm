@@ -14,6 +14,7 @@
 	icon_dead = "guard_dead"
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
+	tts_seed = "Anubarak"
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 8
@@ -32,11 +33,12 @@
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 6
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.

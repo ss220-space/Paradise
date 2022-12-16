@@ -29,6 +29,27 @@
 	var/foldable = null
 	/// How much of the stack item do you get.
 	var/foldable_amt = 0
+	/// Lazy list of mobs which are currently viewing the storage inventory.
+	var/list/mobs_viewing
+
+/obj/item/storage/Destroy()
+	for(var/obj/O in contents)
+		O.mouse_opacity = initial(O.mouse_opacity)
+
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
+	LAZYCLEARLIST(mobs_viewing)
+	return ..()
+
+/obj/item/storage/forceMove(atom/destination)
+	. = ..()
+	if(!destination)
+		return
+	if(!ismob(destination.loc))
+		for(var/mob/player in mobs_viewing)
+			if(player == destination)
+				continue
+			hide_from(player)
 
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -40,7 +61,7 @@
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
 			if(M.s_active)
 				M.s_active.close(M)
-			show_to(M)
+			open(M)
 			return
 
 		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
@@ -83,17 +104,14 @@
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
 			if(usr.s_active)
 				usr.s_active.close(usr)
-			show_to(usr)
+			open(usr)
 			return
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
-		add_fingerprint(user)
+		open(user)
 	else if(isobserver(user))
 		show_to(user)
-	return ..()
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -127,23 +145,29 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	return
+	LAZYADDOR(mobs_viewing, user)
 
 /obj/item/storage/proc/hide_from(mob/user)
+	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
-
 	user.client.screen -= boxes
 	user.client.screen -= closer
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
-	return
 
-/obj/item/storage/proc/open(mob/user as mob)
-	if(use_sound)
+/obj/item/storage/proc/update_viewers()
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+			continue
+		hide_from(M)
+
+/obj/item/storage/proc/open(mob/user)
+	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
-
+		add_fingerprint(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -170,6 +194,8 @@
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
+	if(!boxes)
+		return
 	var/cx = 4
 	var/cy = 2 + rows
 	boxes.screen_loc = "4:16,2:16 to [4 + cols]:16,[2 + rows]:16"
@@ -248,6 +274,10 @@
 
 	if(loc == W)
 		return FALSE //Means the item is already in the storage item
+
+	if(!W.can_enter_storage(src, usr))
+		return FALSE
+
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
@@ -303,7 +333,17 @@
 	if(silent)
 		prevent_warning = TRUE
 	W.forceMove(src)
+	if(QDELING(W))
+		return FALSE
 	W.on_enter_storage(src)
+	if(QDELING(W))
+		return FALSE
+
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen += W
+
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
@@ -336,10 +376,10 @@
 		var/obj/item/storage/fancy/F = src
 		F.update_icon(TRUE)
 
-	for(var/mob/M in range(1, loc))
-		if(M.s_active == src)
-			if(M.client)
-				M.client.screen -= W
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen -= W
 
 	if(new_location)
 		if(ismob(loc))
@@ -394,8 +434,6 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == src && !H.get_active_hand())	//Prevents opening if it's in a pocket.
@@ -411,13 +449,14 @@
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		show_to(user)
+		open(user)
 	else
 		..()
-		for(var/mob/M in range(1))
-			if(M.s_active == src)
-				close(M)
 	add_fingerprint(user)
+
+/obj/item/storage/equipped(mob/user, slot, initial)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/attack_ghost(mob/user)
 	if(isobserver(user))
@@ -480,14 +519,6 @@
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
-
-/obj/item/storage/Destroy()
-	for(var/obj/O in contents)
-		O.mouse_opacity = initial(O.mouse_opacity)
-
-	QDEL_NULL(boxes)
-	QDEL_NULL(closer)
-	return ..()
 
 /obj/item/storage/emp_act(severity)
 	..()

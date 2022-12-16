@@ -421,6 +421,8 @@
 		check_break(M)
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
+	if(M.flying || M.incorporeal_move)
+		return
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 
@@ -496,24 +498,83 @@
 /obj/structure/table/wood/fancy
 	name = "fancy table"
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
-	icon = 'icons/obj/structures.dmi'
+	icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 	icon_state = "fancy_table"
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+	canSmoothWith = list(/obj/structure/table/wood/fancy,
+						/obj/structure/table/wood/fancy/black,
+						/obj/structure/table/wood/fancy/blue,
+						/obj/structure/table/wood/fancy/cyan,
+						/obj/structure/table/wood/fancy/green,
+						/obj/structure/table/wood/fancy/orange,
+						/obj/structure/table/wood/fancy/purple,
+						/obj/structure/table/wood/fancy/red,
+						/obj/structure/table/wood/fancy/royalblack,
+						/obj/structure/table/wood/fancy/royalblue)
+	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 
-/obj/structure/table/wood/fancy/Initialize(mapload)
+/obj/structure/table/wood/fancy/flip(direction)
+	return FALSE
+
+/obj/structure/table/wood/fancy/Initialize()
 	. = ..()
-	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
+	icon = smooth_icon
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
+	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
-/obj/structure/table/wood/fancy/black/Initialize(mapload)
-	. = ..()
-	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
+/obj/structure/table/wood/fancy/blue
+	icon_state = "fancy_table_blue"
+	buildstack = /obj/item/stack/tile/carpet/blue
+	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+
+/obj/structure/table/wood/fancy/cyan
+	icon_state = "fancy_table_cyan"
+	buildstack = /obj/item/stack/tile/carpet/cyan
+	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+
+/obj/structure/table/wood/fancy/green
+	icon_state = "fancy_table_green"
+	buildstack = /obj/item/stack/tile/carpet/green
+	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+
+/obj/structure/table/wood/fancy/orange
+	icon_state = "fancy_table_orange"
+	buildstack = /obj/item/stack/tile/carpet/orange
+	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+
+/obj/structure/table/wood/fancy/purple
+	icon_state = "fancy_table_purple"
+	buildstack = /obj/item/stack/tile/carpet/purple
+	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+
+/obj/structure/table/wood/fancy/red
+	icon_state = "fancy_table_red"
+	buildstack = /obj/item/stack/tile/carpet/red
+	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+
+/obj/structure/table/wood/fancy/royalblack
+	icon_state = "fancy_table_royalblack"
+	buildstack = /obj/item/stack/tile/carpet/royalblack
+	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+
+/obj/structure/table/wood/fancy/royalblue
+	icon_state = "fancy_table_royalblue"
+	buildstack = /obj/item/stack/tile/carpet/royalblue
+	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
 /*
  * Reinforced tables
@@ -558,8 +619,8 @@
 	icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	frame = /obj/structure/table_frame/brass
-	framestack = /obj/item/stack/tile/brass
-	buildstack = /obj/item/stack/tile/brass
+	framestack = /obj/item/stack/sheet/brass
+	buildstack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/reinforced/brass)
@@ -632,13 +693,13 @@
 	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
 
 /obj/structure/table/tray/flip()
-	return 0
+	return
 
 /obj/structure/table/tray/narsie_act()
-	return 0
+	return
 
 /obj/structure/table/tray/ratvar_act()
-	return 0
+	return
 
 /*
  * Racks
@@ -735,6 +796,123 @@
 
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
+
+/obj/item/gun
+	var/on_rack = FALSE
+
+/obj/item/gun/proc/place_on_rack()
+	on_rack = TRUE
+	var/matrix/M = matrix()
+	M.Turn(-90)
+	transform = M
+
+/obj/item/gun/proc/remove_from_rack()
+	if(on_rack)
+		var/matrix/M = matrix()
+		transform = M
+		on_rack = FALSE
+
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	remove_from_rack()
+
+/obj/structure/rack/gunrack
+	name = "gun rack"
+	desc = "A gun rack for storing guns."
+	icon_state = "gunrack"
+
+/obj/structure/rack/gunrack/MouseDrop_T(obj/O, mob/user)
+	if(isrobot(user))
+		return
+	if(!user.drop_item())
+		return
+	if((!( istype(O, /obj/item/gun) ) || user.get_active_hand() != O))
+		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
+		return
+	if(O.loc != src.loc)
+		if(istype(O, /obj/item/gun))
+			var/obj/item/gun/our_gun = O
+			step(O, get_dir(O, src))
+			our_gun.place_on_rack()
+
+/obj/structure/rack/gunrack/attackby(obj/item/W, mob/user, params)
+	if(!ishuman(user))
+		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!(istype(W, /obj/item/gun)))
+		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
+		return
+	if(!(W.flags & ABSTRACT) && user.drop_item())
+		var/obj/item/gun/our_gun = W
+		our_gun.place_on_rack()
+		our_gun.Move(loc)
+		var/list/click_params = params2list(params)
+		//Center the icon where the user clicked.
+		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+			return
+		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+		W.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+		W.pixel_y = 0
+	else
+		return
+	return
+
+/obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+
+/obj/structure/rack/gunrack/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		for(var/obj/item/I in loc.contents)
+			if(istype(I, /obj/item/gun))
+				var/obj/item/gun/to_place = I
+				to_place.place_on_rack()
+
+/obj/structure/rack/gunrack/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		density = FALSE
+		var/obj/item/gunrack_parts/newparts = new(loc)
+		transfer_fingerprints_to(newparts)
+	for(var/obj/item/I in loc.contents)
+		if(istype(I, /obj/item/gun))
+			var/obj/item/gun/to_remove = I
+			to_remove.remove_from_rack()
+	qdel(src)
+
+/obj/item/gunrack_parts
+	name = "gun rack parts"
+	desc = "Parts of a gun rack."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "gunrack_parts"
+	flags = CONDUCT
+	materials = list(MAT_METAL=2000)
+	var/building = FALSE
+
+/obj/item/gunrack_parts/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/metal(user.loc)
+	qdel(src)
+
+/obj/item/gunrack_parts/attack_self(mob/user)
+	if(building)
+		return
+	building = TRUE
+	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
+	if(do_after(user, 50, target = user, progress=TRUE))
+		if(!user.drop_item(src))
+			return
+		var/obj/structure/rack/gunrack/GR = new (user.loc)
+		user.visible_message("<span class='notice'>[user] assembles \a [GR].\
+			</span>", "<span class='notice'>You assemble \a [GR].</span>")
+		GR.add_fingerprint(user)
+		qdel(src)
+	building = FALSE
 
 /*
  * Rack destruction

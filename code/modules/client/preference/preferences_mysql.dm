@@ -10,7 +10,7 @@
 					toggles,
 					toggles_2,
 					sound,
-					volume,
+					volume_mixer,
 					lastchangelog,
 					exp,
 					clientfps,
@@ -40,7 +40,7 @@
 		toggles = text2num(query.item[7])
 		toggles2 = text2num(query.item[8])
 		sound = text2num(query.item[9])
-		volume = text2num(query.item[10])
+		volume_mixer = deserialize_volume_mixer(query.item[10])
 		lastchangelog = query.item[11]
 		exp = query.item[12]
 		clientfps = text2num(query.item[13])
@@ -61,7 +61,6 @@
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
-	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, -1, 1000, initial(clientfps))
@@ -80,6 +79,11 @@
 			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
+	// We're saving volume_mixer here as well, so no point in keeping the timer running
+	if(volume_mixer_saving)
+		deltimer(volume_mixer_saving)
+		volume_mixer_saving = null
+
 	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("player")]
 				SET
 					ooccolor=:ooccolour,
@@ -92,7 +96,7 @@
 					toggles_2=:toggles2,
 					atklog=:atklog,
 					sound=:sound,
-					volume=:volume,
+					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
 					parallax=:parallax
@@ -109,7 +113,7 @@
 						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 						"atklog" = atklog,
 						"sound" = sound,
-						"volume" = volume,
+						"volume_mixer" = serialize_volume_mixer(volume_mixer),
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
@@ -193,7 +197,9 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss
+					autohiss,
+					uplink_pref,
+					tts_seed
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -273,6 +279,10 @@
 		body_accessory = query.item[50]
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
+		uplink_pref = query.item[53]
+
+		// TTS
+		tts_seed = query.item[54]
 
 		saved = TRUE
 
@@ -310,6 +320,8 @@
 	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
+	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
+	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -419,7 +431,9 @@
 												socks=:socks,
 												body_accessory=:body_accessory,
 												gear=:gearlist,
-												autohiss=:autohiss_mode
+												autohiss=:autohiss_mode,
+												uplink_pref=:uplink_pref,
+												tts_seed=:tts_seed
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -475,6 +489,8 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
+													"uplink_pref" = uplink_pref,
+													"tts_seed" = tts_seed,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -516,7 +532,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss)
+											socks, body_accessory, gear, autohiss, uplink_pref, tts_seed)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -544,7 +560,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref, :tts_seed)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -601,7 +617,9 @@
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
-		"autohiss_mode" = autohiss_mode
+		"autohiss_mode" = autohiss_mode,
+		"uplink_pref" = uplink_pref,
+		"tts_seed" = tts_seed
 	))
 
 	if(!query.warn_execute())
@@ -662,4 +680,25 @@
 	qdel(delete_query)
 
 	saved = FALSE
+	return TRUE
+
+/**
+  * Saves [/datum/preferences/proc/volume_mixer] for the current client.
+  */
+/datum/preferences/proc/save_volume_mixer()
+	volume_mixer_saving = null
+
+	var/datum/db_query/update_query = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET volume_mixer=:volume_mixer WHERE ckey=:ckey",
+		list(
+			"volume_mixer" = serialize_volume_mixer(volume_mixer),
+			"ckey" = parent.ckey
+		)
+	)
+
+	if(!update_query.warn_execute())
+		qdel(update_query)
+		return FALSE
+
+	qdel(update_query)
 	return TRUE

@@ -10,6 +10,9 @@
 	set category = "IC"
 	return
 
+/mob/proc/whisper_say(list/message_pieces, verb = "whispers")
+	return
+
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
@@ -28,7 +31,11 @@
 	*/
 	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
 	set_typing_indicator(FALSE)
-	usr.say(message)
+
+	if(!message)
+		return
+
+	SSspeech_controller.queue_say_for_mob(usr, message, SPEECH_CONTROLLER_QUEUE_SAY_VERB)
 
 
 /mob/verb/me_verb(message as text)
@@ -38,10 +45,14 @@
 	message = strip_html_properly(message)
 
 	set_typing_indicator(FALSE, TRUE)
+
+	if(!message)
+		return
+
 	if(use_me)
 		custom_emote(usr.emote_type, message)
 	else
-		usr.emote(message)
+		SSspeech_controller.queue_say_for_mob(usr, message, SPEECH_CONTROLLER_QUEUE_EMOTE_VERB)
 
 
 /mob/proc/say_dead(message)
@@ -63,8 +74,7 @@
 			return
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
-	create_log(DEADCHAT_LOG, message)
-	log_ghostsay(message, src)
+	add_deadchat_logs(src, message)
 
 /mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
 	if(stat == DEAD)

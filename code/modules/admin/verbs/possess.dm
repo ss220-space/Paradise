@@ -1,5 +1,5 @@
 /proc/possess(obj/O as obj in world)
-	set name = "Possess Obj"
+	set name = "\[Admin\] Possess Obj"
 	set category = null
 
 	if(!check_rights(R_POSSESS))
@@ -16,12 +16,7 @@
 
 	if(confirm != "Yes")
 		return
-	if(T)
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])", 1)
-	else
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at an unknown location")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at an unknown location", 1)
+	log_and_message_admins("has possessed [O] ([O.type]) at [COORD(T)]")
 
 	if(!usr.control_object) //If you're not already possessing something...
 		usr.name_archive = usr.real_name
@@ -34,7 +29,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
-	set name = "Release Obj"
+	set name = "\[Admin\] Release Obj"
 	set category = null
 	//usr.loc = get_turf(usr)
 

@@ -24,7 +24,7 @@
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
-	var/incorporeal_move = 0 //0 is off, 1 is normal, 2 is for ninjas.
+	var/incorporeal_move = INCORPOREAL_NONE
 
 	var/now_pushing = null
 
@@ -62,6 +62,7 @@
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes
+	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
 
 	var/blood_volume = 0 //how much blood the mob has
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)

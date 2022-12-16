@@ -105,6 +105,10 @@
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 	broken_states = list()
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 
 //All of this shit is useless for vines
@@ -432,7 +436,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	. += text
+	. += "<span class='notice'>[text]</span>"
 
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)

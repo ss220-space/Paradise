@@ -1,3 +1,5 @@
+#define BLOOD_DRAIN_LIMIT 200 // the amount of blood a vampire can drain from a person.
+
 //This is the gamemode file for the ported goon gamemode vampires.
 //They get a traitor objective and a blood sucking objective
 /datum/game_mode
@@ -9,7 +11,7 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -49,7 +51,7 @@
 	if(config.traitor_scaling)
 		vampire_scale = config.traitor_scaling
 	vampire_amount = 1 + round(num_players() / vampire_scale)
-	log_game("Number of vampires chosen: [vampire_amount]")
+	add_game_logs("Number of vampires chosen: [vampire_amount]")
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)
@@ -148,10 +150,10 @@
 	blood_objective.gen_amount_goal(150, 400)
 	vampire.objectives += blood_objective
 
-	var/datum/objective/assassinate/kill_objective = new
-	kill_objective.owner = vampire
-	kill_objective.find_target()
-	vampire.objectives += kill_objective
+	var/datum/objective/maroon/maroon_objective = new
+	maroon_objective.owner = vampire
+	maroon_objective.find_target()
+	vampire.objectives += maroon_objective
 
 	var/datum/objective/steal/steal_objective = new
 	steal_objective.owner = vampire
@@ -223,6 +225,8 @@
 		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
 		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
 		/datum/vampire_passive/full = 500)
+	// list of the peoples UIDs that we have drained, and how much blood from each one
+	var/list/drained_humans = list()
 
 /datum/vampire/New(gend = FEMALE)
 	gender = gend
@@ -281,7 +285,9 @@
 
 /datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)
 	draining = H
+	var/unique_suck_id = H.UID()
 	var/blood = 0
+	var/blood_limit_exceeded = FALSE
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
@@ -301,20 +307,30 @@
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
+		if(unique_suck_id in drained_humans)
+			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+				to_chat(owner, "<span class='warning'>Вы поглотили всю жизненную эссенцию [H], дальнейшее питьё крови будет только утолять голод</span>")
+				blood_limit_exceeded = TRUE
 		if(H.stat < DEAD)
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
-				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
-				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
-				bloodusable += blood / 2
+				blood = min(20, H.blood_volume) / 2	// if they have less than 20 blood, give them the remnant else they get 20 blood
+				if(!blood_limit_exceeded)
+					bloodtotal += blood	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+					bloodusable += blood
 		else
 			if(H.ckey || H.player_ghosted)
-				blood = min(5, H.blood_volume)	// The dead only give 5 blood
-				bloodtotal += blood
+				blood = min(10, H.blood_volume) / 2	// The dead only give 5 blood
+				if(!blood_limit_exceeded)
+					bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
 			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
 				to_chat(owner, "<span class='notice'><b>Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""].</b></span>")
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
+		if(!(unique_suck_id in drained_humans))
+			drained_humans[unique_suck_id] = 0
+		if(drained_humans[unique_suck_id] < BLOOD_DRAIN_LIMIT)
+			drained_humans[unique_suck_id] += blood
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
@@ -363,8 +379,7 @@
 	if(vampire_mind in vampires)
 		SSticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
-		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
-		vampire_mind.current.create_log(CONVERSION_LOG, "De-vampired")
+		add_conversion_logs(vampire_mind.current, "De-vampired")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			QDEL_NULL(vampire_mind.vampire)

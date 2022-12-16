@@ -31,7 +31,7 @@
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
+			. += "<span class='notice'><b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
@@ -190,6 +190,7 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
+	hitsound = "bullet"
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
@@ -255,6 +256,7 @@
 	icon_state = "modkit"
 	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = TRUE
+	multiple_use = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'
 	var/denied_type = null
@@ -277,10 +279,13 @@
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
+			return install(H, usr)
 
-	for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-		return install(H, usr)
+/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
+			return uninstall(H, usr)
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE

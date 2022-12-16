@@ -119,7 +119,6 @@ Class Procs:
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
-	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
 	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
@@ -128,6 +127,8 @@ Class Procs:
 	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	/// initialize this in the overridden init_multitool_menu() proc if an object should show the multitool menu
+	var/datum/multitool_menu/multitool_menu
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -157,6 +158,11 @@ Class Procs:
 
 	power_change()
 
+	init_multitool_menu()
+
+/obj/machinery/proc/init_multitool_menu()
+	return
+
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
 	if(speed_process)
@@ -181,6 +187,7 @@ Class Procs:
 		STOP_PROCESSING(SSmachines, src)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
+	QDEL_NULL(multitool_menu)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -221,108 +228,9 @@ Class Procs:
 		flicker()
 	return 1
 
-/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
-	if("set_id" in href_list)
-		if(!("id_tag" in vars))
-			warning("set_id: [type] has no id_tag var.")
-		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
-		if(newid)
-			src:id_tag = newid
-			return TRUE
-	if("set_freq" in href_list)
-		if(!("frequency" in vars))
-			warning("set_freq: [type] has no frequency var.")
-			return FALSE
-		var/newfreq=src:frequency
-		if(href_list["set_freq"]!="-1")
-			newfreq=text2num(href_list["set_freq"])
-		else
-			newfreq = input(usr, "Specify a new frequency (GHz). Decimals assigned automatically.", src, src:frequency) as null|num
-		if(newfreq)
-			if(findtext(num2text(newfreq), "."))
-				newfreq *= 10 // shift the decimal one place
-			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
-			return TRUE
-	return FALSE
-
-/obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
-	if(!allowed(user))//no, not even HREF exploits
-		return FALSE
-	var/obj/item/multitool/P = get_multitool(usr)
-	if(P && istype(P))
-		var/update_mt_menu = FALSE
-		if("set_tag" in href_list && settagwhitelist)
-			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
-				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-				return FALSE
-			if(!(href_list["set_tag"] in vars))
-				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
-				return FALSE
-			var/current_tag = vars[href_list["set_tag"]]
-			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
-			if(newid)
-				vars[href_list["set_tag"]] = newid
-				update_mt_menu = TRUE
-
-		if("unlink" in href_list)
-			var/idx = text2num(href_list["unlink"])
-			if(!idx)
-				return FALSE
-
-			var/obj/O = getLink(idx)
-			if(!O)
-				return FALSE
-			if(!canLink(O))
-				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
-				return FALSE
-
-			if(unlinkFrom(usr, O))
-				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was removed.</span>")
-			else
-				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
-			update_mt_menu = TRUE
-
-		if("link" in href_list)
-			var/obj/O = P.buffer
-			if(!O)
-				return FALSE
-			if(!canLink(O,href_list))
-				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
-				return FALSE
-			if(isLinkedWith(O))
-				to_chat(usr, "<span class='warning'>A red light flashes on \the [P]. The two devices are already linked.</span>")
-				return FALSE
-
-			if(linkWith(usr, O, href_list))
-				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was added.</span>")
-			else
-				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
-			update_mt_menu = TRUE
-
-		if("buffer" in href_list)
-			P.buffer = src
-			to_chat(usr, "<span class='notice'>A green light flashes, and the device appears in the multitool buffer.</span>")
-			update_mt_menu = TRUE
-
-		if("flush" in href_list)
-			to_chat(usr, "<span class='notice'>A green light flashes, and the device disappears from the multitool buffer.</span>")
-			P.buffer = null
-			update_mt_menu = TRUE
-
-		var/ret = multitool_topic(usr,href_list,P.buffer)
-		if(ret)
-			update_mt_menu = TRUE
-
-		if(update_mt_menu)
-			update_multitool_menu(usr)
-			return TRUE
-
 /obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
-
-	handle_multitool_topic(href,href_list,usr)
-	add_fingerprint(usr)
 	return 0
 
 /obj/machinery/proc/operable(var/additional_flags = 0)
@@ -330,12 +238,6 @@ Class Procs:
 
 /obj/machinery/proc/inoperable(var/additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
-
-/obj/machinery/ui_status(mob/user, datum/ui_state/state)
-	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
-
-	return ..()
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
@@ -358,6 +260,8 @@ Class Procs:
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/attack_ai(mob/user)
+	if(iscogscarab(user))
+		return
 	if(isrobot(user))// For some reason attack_robot doesn't work
 		var/mob/living/silicon/robot/R = user
 		if(R.client && R.client.eye == R && !R.low_power_mode)// This is to stop robots from using cameras to remotely control machines; and from using machines when the borg has no power.
@@ -563,9 +467,9 @@ Class Procs:
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
-				. +=  "It looks slightly damaged."
+				. +=  "<span class='notice'>It looks slightly damaged.</span>"
 			if(25 to 50)
-				. +=  "It appears heavily damaged."
+				. +=  "<span class='notice'>It appears heavily damaged.</span>"
 			if(0 to 25)
 				. +=  "<span class='warning'>It's falling apart!</span>"
 	if(user.research_scanner && component_parts)
@@ -588,22 +492,22 @@ Class Procs:
 		return threatcount
 
 	//Agent cards lower threatlevel.
-	var/obj/item/card/id/id = GetIdCard(perp)
-	if(id && istype(id, /obj/item/card/id/syndicate))
+	if(locate(/obj/item/card/id/syndicate) in perp.get_all_id_cards())
 		threatcount -= 2
 	// A proper	CentCom id is hard currency.
-	else if(id && istype(id, /obj/item/card/id/centcom))
+	else if(locate(/obj/item/card/id/centcom) in perp.get_all_id_cards())
 		threatcount -= 2
 
 	if(check_access && !allowed(perp))
 		threatcount += 4
-
-	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
-		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
+	if(auth_weapons && !(ACCESS_WEAPONS in perp.get_access()))
+		if(check_for_weapons(perp.l_hand))
 			threatcount += 4
-		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
+		if(check_for_weapons(perp.r_hand))
 			threatcount += 4
-		if(isitem(perp.belt) && perp.belt.needs_permit)
+		if(check_for_weapons(perp.belt))
+			threatcount += 4
+		if(check_for_weapons(perp.s_store))
 			threatcount += 4
 
 	if(check_records || check_arrest)
@@ -622,6 +526,10 @@ Class Procs:
 
 	return threatcount
 
+/obj/machinery/proc/check_for_weapons(obj/item/slot_item)
+	if(istype(slot_item) && slot_item.needs_permit)
+		return TRUE
+	return FALSE
 
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
@@ -656,3 +564,14 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/**
+ * Alerts the AI that a hack is in progress.
+ *
+ * Sends all AIs a message that a hack is occurring.  Specifically used for space ninja tampering as this proc was originally in the ninja files.
+ * However, the proc may also be used elsewhere.
+ */
+/obj/machinery/proc/AI_notify_hack()
+	var/alertstr = span_userdanger("Network Alert: Hacking attempt detected[get_area(src)?" in [get_area_name(src, TRUE)]":". Unable to pinpoint location"].")
+	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
+		to_chat(AI, alertstr)

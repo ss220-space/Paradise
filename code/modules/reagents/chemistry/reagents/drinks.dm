@@ -257,7 +257,6 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
@@ -276,15 +275,18 @@
 	adj_sleepy = -2
 	adj_temp_hot = 25
 	overdose_threshold = 45
-	addiction_chance = 2 // It's true.
-	addiction_chance_additional = 20
-	addiction_threshold = 10
+	addiction_chance = 1 // It's true.
+	addiction_threshold = 200
 	minor_addiction = TRUE
+	addict_supertype = /datum/reagent/consumable/drink/coffee
 	heart_rate_increase = 1
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
 	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 	taste_description = "coffee"
+
+/datum/reagent/consumable/drink/coffee/New()
+	addict_supertype = /datum/reagent/consumable/drink/coffee
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -371,13 +373,17 @@
 	adj_sleepy = -3
 	adj_temp_hot = 20
 	addiction_chance = 1
-	addiction_chance_additional = 1
-	addiction_threshold = 10
+	addiction_chance_additional = 10
+	addiction_threshold = 300
 	minor_addiction = TRUE
+	addict_supertype = /datum/reagent/consumable/drink/tea
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
 	taste_description = "tea"
+
+/datum/reagent/consumable/drink/tea/New()
+	addict_supertype = /datum/reagent/consumable/drink/tea
 
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -517,7 +523,7 @@
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
 	taste_description = "grape soda"
-	
+
 /datum/reagent/consumable/drink/coco/icecoco
 	name = "Iced Cocoa"
 	id = "icecoco"

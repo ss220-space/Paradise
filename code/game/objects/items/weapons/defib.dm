@@ -69,11 +69,10 @@
 		overlays += "[icon_state]-emagged"
 
 /obj/item/defibrillator/proc/update_charge()
-	if(powered) //so it doesn't show charge if it's unpowered
-		if(cell)
-			var/ratio = cell.charge / cell.maxcharge
-			ratio = CEILING(ratio*4, 1) * 25
-			overlays += "[icon_state]-charge[ratio]"
+	if(powered && cell) //so it doesn't show charge if it's unpowered
+		var/ratio = cell.charge / cell.maxcharge
+		ratio = CEILING(ratio*4, 1) * 25
+		overlays += "[icon_state]-charge[ratio]"
 
 /obj/item/defibrillator/CheckParts(list/parts_list)
 	..()
@@ -81,7 +80,8 @@
 	update_icon()
 
 /obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+	if(ishuman(usr) && Adjacent(usr))
+		toggle_paddles()
 
 /obj/item/defibrillator/CtrlClick()
 	if(ishuman(usr) && Adjacent(usr))
@@ -113,9 +113,11 @@
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)
+		add_attack_logs(user, src, "emagged")
 		safety = FALSE
 		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
 	else
+		add_attack_logs(user, src, "un-emagged")
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
 
@@ -138,19 +140,27 @@
 	set category = "Object"
 
 	var/mob/living/carbon/human/user = usr
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
 
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
 		if(usr.incapacitated()) return
 
+		if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
+			to_chat(user, "<span class='warning'>You can't use your hand to take out the paddles!</span>")
+			return
+
+		if((usr.r_hand != null && usr.l_hand != null))
+			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
+			return
+
 		if(!usr.put_in_hands(paddles))
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
-			update_icon()
 			return
 		paddles.loc = user
 		paddles_on_defib = FALSE
-	else if(user.is_in_active_hand(paddles))
-		//Remove from their hands and back onto the defib unit
+	else //remove in any case because some automatic shit
 		remove_paddles(user)
 
 	update_icon()
@@ -434,6 +444,13 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+
+						if(ishuman(H.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
+							excess_shock(user, H, H.pulledby)
+						for(var/obj/item/grab/G in H.grabbed_by)
+							if(ishuman(G.assailant))
+								excess_shock(user, H, G.assailant)
+
 						H.shock_internal_organs(100)
 						H.med_hud_set_health()
 						H.med_hud_set_status()
@@ -464,6 +481,21 @@
 					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
 		update_icon()
+/*
+ * user = the person using the defib
+ * origin = person being revived
+ * affecting = person being shocked with excess energy from the defib
+*/
+/obj/item/twohanded/shockpaddles/proc/excess_shock(mob/user, mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
+	if(user == affecting)
+		return
+
+	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
+		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
+		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
+			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up their arm!</span>", \
+							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
+			affecting.set_heartattack(TRUE)
 
 /obj/item/borg_defib
 	name = "defibrillator paddles"

@@ -80,7 +80,12 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 
@@ -94,7 +99,12 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/snowman
@@ -107,7 +117,12 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/that
@@ -271,24 +286,12 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
-	)
-
-/obj/item/clothing/head/ratge
-	name = "ratge head"
-	desc = "Ну ты и крыса!"
-	icon_state = "ratgehead"
-	item_state = "ratgehead"
-	flags = BLOCKHAIR|BLOCKHEADHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	species_disguise = "крыса"
-	ru_names = list(NOMINATIVE = "шлем ратге", GENITIVE = "шлема ратге", DATIVE = "шлему ратге", ACCUSATIVE = "шлем ратге", INSTRUMENTAL = "шлемом ратге", PREPOSITIONAL = "шлеме ратге")
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi',
-	"Kidan" = 'icons/mob/species/kidan/head.dmi',
-	"Tajaran" = 'icons/mob/species/tajaran/head.dmi',
-	"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/corgi
@@ -335,7 +338,12 @@
 	icon_state = "fedora"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/whitefedora
@@ -343,7 +351,12 @@
 	icon_state = "wfedora"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/brownfedora
@@ -351,7 +364,12 @@
 	icon_state = "bfedora"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/stalhelm
@@ -377,12 +395,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/beret/purple
-	name = "Pierson Family Beret"
-	desc = " A purple beret, with a small golden crescent moon sewn onto it."
-	icon_state = "beret_purple"
-	item_state = "purpleberet"
-
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
@@ -396,6 +408,18 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
+
+/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
+	name = "royal marines commando beret"
+	desc = "Dark Green beret with an old insignia on it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "sparkyninja_beret"
+
+/obj/item/clothing/head/beret/centcom/officer/sigholt
+	name = "marine lieutenant beret"
+	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
+	icon_state = "beret_hos"
+	item_state = "beret_hos"
 
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captains beret"
@@ -458,7 +482,12 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -491,7 +520,12 @@
 	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/papersack/smiley
@@ -502,7 +536,12 @@
 	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/crown

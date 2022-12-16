@@ -24,6 +24,14 @@ LINEN BINS
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
 
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		)
+
 
 
 /obj/item/bedsheet/attack_self(mob/user as mob)
@@ -246,12 +254,11 @@ LINEN BINS
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
 	if(amount < 1)
-		. += "There are no bed sheets in the bin."
+		. += "<span class='notice'>There are no bed sheets in the bin.</span>"
 	else if(amount == 1)
-		. += "There is one bed sheet in the bin."
+		. += "<span class='notice'>There is one bed sheet in the bin.</span>"
 	else
-		. += "There are [amount] bed sheets in the bin."
-
+		. += "<span class='notice'>There are [amount] bed sheets in the bin.</span>"
 
 /obj/structure/bedsheetbin/update_icon()
 	switch(amount)

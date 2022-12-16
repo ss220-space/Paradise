@@ -398,32 +398,45 @@
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_ENGINE)
 	icon_state = "commander"
+	item_state = "syndieofficer-id"
 
 //Syndicate 'Taipan' access cards
 
 /obj/item/card/id/syndicate/scientist
 	icon_state = "syndiernd"
+	item_state = "syndiernd-id"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_SCIENTIST, ACCESS_SYNDICATE_MEDICAL)
+	rank = "Syndicate Scientist"
 
 /obj/item/card/id/syndicate/cargo
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_CARGO)
 	icon_state = "syndiecargo"
+	item_state = "syndiecargo-id"
+	rank = "Syndicate Cargo Technician"
 
 /obj/item/card/id/syndicate/kitchen
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiechef"
+	item_state = "syndiechef-id"
+	rank = "Syndicate Chef"
 
 /obj/item/card/id/syndicate/engineer
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_ENGINE)
 	icon_state = "syndieengineer"
+	item_state = "syndieengineer-id"
+	rank = "Syndicate Atmos Engineer"
 
 /obj/item/card/id/syndicate/medic
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndiemedical"
+	item_state = "syndiemedical-id"
+	rank = "Syndicate Medic"
 
 /obj/item/card/id/syndicate/botanist
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiebotany"
+	item_state = "syndiebotany-id"
+	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -438,6 +451,8 @@
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "commander"
+	item_state = "syndieofficer-id"
+	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -451,13 +466,15 @@
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "syndierd"
+	item_state = "syndierd-id"
+	rank = "Syndicate Research Director"
 
-/obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
-	if(!proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+	if(!proximity || !istype(O))
 		return
-	if(istype(O, /obj/item/card/id))
-		var/obj/item/card/id/I = O
-		if(istype(user, /mob/living) && user.mind)
+	if(O.GetID())
+		var/obj/item/card/id/I = O.GetID()
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
@@ -487,7 +504,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
+				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Tracking", "Reset Access", "Delete Card Information"))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
@@ -568,9 +585,26 @@
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
 						var/new_job = "Civilian"
+						var/new_rank = "Civilian"
 
 						if(department == "Custom")
 							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+							var/department_icon = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+							switch(department_icon)
+								if("Engineering")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+								if("Medical")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+								if("Science")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+								if("Security")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+								if("Support")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+								if("Command")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+								if("Custom")
+									new_rank = null
 						else if(department != "Civilian")
 							switch(department)
 								if("Engineering")
@@ -585,10 +619,12 @@
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 								if("Command")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+							new_rank = new_job
 
 						if(!Adjacent(user))
 							return
 						assignment = new_job
+						rank = new_rank
 						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
 						UpdateName()
 						RebuildHTML()
@@ -642,6 +678,14 @@
 						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 						RebuildHTML()
 
+					if("Tracking")
+						var/response = alert(user, "Do you want this ID card to be trackable by AI's?", "Tracking", "No", "Yes")
+						if(response == "Yes")
+							untrackable = 0
+						else
+							untrackable = 1
+						to_chat(user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
+
 					if("Reset Access")
 						var/response = alert(user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
 						if(response == "Yes")
@@ -673,6 +717,7 @@
 	desc = "An ID straight from the Syndicate."
 	registered_name = "Syndicate"
 	icon_state = "syndie"
+	item_state = "syndieofficer-id"
 	assignment = "Syndicate Overlord"
 	untrackable = 1
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
@@ -706,6 +751,7 @@
 	name = "central command ID card"
 	desc = "An ID straight from Central Command."
 	icon_state = "centcom"
+	item_state = "centcomm-id"
 	registered_name = "Central Command"
 	assignment = "General"
 
@@ -716,6 +762,7 @@
 /obj/item/card/id/nanotrasen
 	name = "nanotrasen ID card"
 	icon_state = "nanotrasen"
+	item_state = "nt-id"
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
@@ -776,36 +823,42 @@
 	name = "Medical ID"
 	registered_name = "Medic"
 	icon_state = "medical"
+	item_state = "medical-id"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/security
 	name = "Security ID"
 	registered_name = "Officer"
 	icon_state = "security"
+	item_state = "security-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/research
 	name = "Research ID"
 	registered_name = "Scientist"
 	icon_state = "research"
+	item_state = "research-id"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/supply
 	name = "Supply ID"
 	registered_name = "Cargonian"
 	icon_state = "cargo"
+	item_state = "cargo-id"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/engineering
 	name = "Engineering ID"
 	registered_name = "Engineer"
 	icon_state = "engineering"
+	item_state = "engineer-id"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
 
 /obj/item/card/id/hos
 	name = "Head of Security ID"
 	registered_name = "HoS"
 	icon_state = "HoS"
+	item_state = "hos-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
@@ -815,6 +868,7 @@
 	name = "Chief Medical Officer ID"
 	registered_name = "CMO"
 	icon_state = "CMO"
+	item_state = "cmo-id"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
@@ -823,6 +877,7 @@
 	name = "Research Director ID"
 	registered_name = "RD"
 	icon_state = "RD"
+	item_state = "rd-id"
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 			            ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
@@ -832,6 +887,7 @@
 	name = "Chief Engineer ID"
 	registered_name = "CE"
 	icon_state = "CE"
+	item_state = "ce-id"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
@@ -841,6 +897,7 @@
 	name = "Pink ID"
 	registered_name = "HONK!"
 	icon_state = "clown"
+	item_state = "clown-id"
 	desc = "Even looking at the card strikes you with deep fear."
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
@@ -848,12 +905,43 @@
 	name = "Black and White ID"
 	registered_name = "..."
 	icon_state = "mime"
+	item_state = "mime-id"
 	desc = "..."
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/qm
+	name = "Quartmaster ID"
+	registered_name = "QM"
+	icon_state = "qm"
+	item_state = "qm-id"
+	desc = "Glory to cargonia!"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/genetics
+	name = "Genetics ID"
+	registered_name = "Genetics"
+	icon_state = "genetics"
+	item_state = "genetics-id"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/warden
+	name = "Warden ID"
+	registered_name = "Warden"
+	icon_state = "warden"
+	item_state = "warden-id"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/iaa
+	name = "IAA ID"
+	registered_name = "IAA"
+	icon_state = "IAA"
+	item_state = "iaa-id"
+	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"
+	item_state = "clown-id"
 
 /obj/item/card/id/thunderdome/red
 	name = "Thunderdome Red ID"
@@ -877,6 +965,7 @@
 /obj/item/card/id/ert
 	name = "ERT ID"
 	icon_state = "ERT_empty"
+	item_state = "ert-id"
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"

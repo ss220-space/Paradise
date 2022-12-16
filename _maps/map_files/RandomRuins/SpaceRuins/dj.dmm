@@ -417,7 +417,6 @@
 /area/space/nearstation)
 "bw" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "bx" = (
@@ -1136,7 +1135,7 @@
 	dir = 8
 	},
 /obj/structure/rack,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

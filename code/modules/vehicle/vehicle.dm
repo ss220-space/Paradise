@@ -51,9 +51,9 @@
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "It looks slightly damaged."
+			. += "<span class='notice'>It looks slightly damaged.</span>"
 		if(25 to 50)
-			. += "It appears heavily damaged."
+			. += "<span class='notice'>It appears heavily damaged.</span>"
 		if(0 to 25)
 			. += "<span class='warning'>It's falling apart!</span>"
 
@@ -70,7 +70,10 @@
 		return
 	return ..()
 
-/obj/vehicle/AltClick(mob/user)
+/obj/vehicle/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(inserted_key && user.Adjacent(user))
 		if(!(user in buckled_mobs))
 			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
@@ -79,7 +82,6 @@
 		inserted_key.forceMove(drop_location())
 		user.put_in_hands(inserted_key)
 		inserted_key = null
-	return ..()
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return I ? (key_type_exact ? (I.type == key_type) : istype(I, key_type)) : FALSE

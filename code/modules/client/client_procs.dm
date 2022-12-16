@@ -77,7 +77,7 @@
 			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Administrators have been informed."
-				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
+				add_game_logs("has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
@@ -173,6 +173,8 @@
 							karma_purchase(karma,45,"species","Plasmaman")
 						if("7")
 							karma_purchase(karma,30,"species","Drask")
+						if("8")
+							karma_purchase(karma,30,"species","Nian")
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
@@ -470,6 +472,21 @@
 	if(donator_level > 0 && prefs)
 		prefs.max_gear_slots = config.max_loadout_points + 5
 
+/client/proc/send_to_server_by_url(url)
+	if (!url)
+		return
+	src << browse({"
+            <a id='link' href='[url]'>
+                LINK
+            </a>
+            <script type='text/javascript'>
+                document.getElementById("link").click();
+                window.location="byond://winset?command=.quit"
+            </script>
+            "},
+            "border=0;titlebar=0;size=1x1"
+        )
+
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
 	if(IsGuestKey(key))
@@ -547,10 +564,38 @@
 		if(!isnum(sql_id))
 			return
 
+	var/is_tutorial_needed = FALSE
+
 	if(sql_id)
 		var/client_address = address
 		if(!client_address) // Localhost can sometimes have no address set
 			client_address = "127.0.0.1"
+
+		if(config.tutorial_server_url)
+			var/datum/db_query/exp_read = SSdbcore.NewQuery(
+				"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+				list("ckey" = ckey)
+			)
+			exp_read.warn_execute()
+
+			var/list/exp = list()
+			exp = params2list(exp_read.rows[1][1])
+			if(!exp[EXP_TYPE_BASE_TUTORIAL])
+				if(exp[EXP_TYPE_LIVING] && text2num(exp[EXP_TYPE_LIVING]) > 300)
+					exp[EXP_TYPE_BASE_TUTORIAL] = TRUE
+					var/datum/db_query/update_query = SSdbcore.NewQuery(
+						"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
+						list(
+							"newexp" = list2params(exp),
+							"ckey" = ckey
+						)
+					)
+					update_query.warn_execute()
+					qdel(update_query)
+				else
+					is_tutorial_needed = TRUE
+			qdel(exp_read)
+
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
@@ -574,6 +619,8 @@
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
 			qdel(src)
 			return // Dont insert or they can just go in again
+
+		is_tutorial_needed = TRUE
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
@@ -599,6 +646,8 @@
 	// If you ever extend this proc below this point, please wrap these with an if() in the same way its done above
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
+	if(is_tutorial_needed)
+		send_to_server_by_url(config.tutorial_server_url)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
@@ -758,7 +807,7 @@
 	else
 		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
 			if (!cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] appears to have attempted to spoof a cid randomizer check.</span>")
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
 			tokens[ckey] = cid_check_reconnect()
@@ -775,7 +824,7 @@
 			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
 
 			if(!cidcheck_failedckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
@@ -788,11 +837,11 @@
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
 
@@ -1117,8 +1166,9 @@
 			keysend_tripped = TRUE
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			log_admin("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
-			message_admins("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
+			to_chat(usr, "<span class='warning'><big><b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b></big></span>")
+			log_admin("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
+			message_admins("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			qdel(src)
 			return
 
@@ -1233,7 +1283,8 @@
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
 	if(notify && (byondacc_age < config.byond_account_age_threshold))
-		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+		message_admins("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")

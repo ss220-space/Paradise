@@ -47,6 +47,7 @@
 /datum/effect_system/smoke_spread/chem
 	var/obj/chemholder
 	var/list/smoked_atoms = list()
+	var/static/list/process_locations = list()
 
 /datum/effect_system/smoke_spread/chem/New()
 	..()
@@ -84,13 +85,10 @@
 				if(M)
 					more = " "
 				add_attack_logs(M, location, "Caused a chemical smoke reaction containing [contained]. Last associated key is [carry.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 			else
-				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key.", ATKLOG_FEW)
-				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
+				add_attack_logs(carry.my_atom, "A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key.", ATKLOG_FEW)
 		else
-			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
-			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key. CODERS: carry.my_atom may be null.")
+			add_attack_logs(carry, "A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
 
 
 /datum/effect_system/smoke_spread/chem/start(effect_range = 2)
@@ -98,19 +96,20 @@
 
 	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
 
-	for(var/x in 0 to 99)
-		for(var/i = 0, i < rand(2, 6), i++)
-			if(effect_range < 3)
-				new /obj/effect/particle_effect/chem_smoke/small(location, color)
-			else
-				new /obj/effect/particle_effect/chem_smoke(location, color)
+	if(!(location in process_locations))
+		process_locations |= list(location)
+		for(var/x in 0 to 99)
+			addtimer(CALLBACK(src, .proc/SmokeEffects, effect_range, color), 1 * x, TIMER_STOPPABLE | TIMER_DELETE_ME)
+	for(var/x in 0 to 10)
+		addtimer(CALLBACK(src, .proc/SmokeEm, effect_range), 1 SECONDS * x, TIMER_STOPPABLE | TIMER_DELETE_ME)
+	QDEL_IN(src, 10 SECONDS)
 
-		if(x % 10 == 0) //Once every 10 ticks.
-			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range)
-
-		sleep(1)
-	qdel(src)
-
+/datum/effect_system/smoke_spread/chem/proc/SmokeEffects(effect_range, color)
+	for(var/i = 0, i < rand(2, 6), i++)
+		if(effect_range < 3)
+			new /obj/effect/particle_effect/chem_smoke/small(location, color)
+		else
+			new /obj/effect/particle_effect/chem_smoke(location, color)
 
 /datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range = 2)
 	for(var/atom/A in view(effect_range, get_turf(location)))
@@ -124,3 +123,7 @@
 			var/mob/living/carbon/C = A
 			if(C.can_breathe_gas())
 				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
+
+/datum/effect_system/smoke_spread/chem/Destroy()
+	process_locations -= list(location)
+	return ..()

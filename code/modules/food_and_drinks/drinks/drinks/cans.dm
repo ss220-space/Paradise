@@ -17,7 +17,7 @@
 	if(canopened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Alt-click to shake it up!</span>"
+		. += "<span class='info'>Alt-Click to shake it up!</span>"
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened)
@@ -45,11 +45,13 @@
 	qdel(src)
 	return crushed_can
 
-/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
-	var/mob/living/carbon/human/H
+/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(!can_shake || !ishuman(user))
 		return ..()
-	H = user
+	var/mob/living/carbon/human/H = user
 	if(canopened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
 		return ..()
@@ -70,7 +72,6 @@
 				handle_bursting(user)
 	else
 		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
-	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!canopened)

@@ -2,6 +2,8 @@
 #define AB_CHECK_STUNNED 2
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
+#define AB_TRANSFER_MIND 16
+#define AB_CHECK_TURF 32
 
 
 /datum/action
@@ -83,6 +85,9 @@
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
+	if(check_flags & AB_CHECK_TURF)
+		if(!isturf(owner.loc))
+			return FALSE
 	return TRUE
 
 /datum/action/proc/UpdateButtonIcon()
@@ -95,6 +100,7 @@
 		else
 			button.icon = button_icon
 			button.icon_state = background_icon_state
+		button.name = name
 		button.desc = desc
 
 		ApplyIcon(button)
@@ -126,6 +132,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+	var/action_initialisation_text = null	//Space ninja abilities only
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
@@ -159,13 +166,19 @@
 			I.layer = FLOAT_LAYER //AAAH
 			I.plane = FLOAT_PLANE //^ what that guy said
 			I.appearance_flags |= RESET_COLOR | RESET_ALPHA
+			if(I.outline_filter)
+				I.filters -= I.outline_filter
 			current_button.cut_overlays()
 			current_button.add_overlay(I)
 			I.layer = old_layer
 			I.plane = old_plane
 			I.appearance_flags = old_appearance_flags
+			if(I.outline_filter)
+				I.filters -= I.outline_filter
+				I.filters += I.outline_filter
 	else
 		..()
+
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
@@ -214,6 +227,18 @@
 			if(target == C.internal)
 				button.icon = 'icons/mob/actions/actions.dmi'
 				button.icon_state = "bg_default_on"
+
+/datum/action/item_action/set_internals_ninja
+	name = "Set Internals"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+
+/datum/action/item_action/set_internals_ninja/UpdateButtonIcon()
+	if(..()) //button available
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			if(target == C.internal)
+				button.icon_state = "[background_icon_state]_active"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
@@ -300,6 +325,18 @@
 	name = "Zip/Unzip [target.name]"
 	button.name = name
 
+/datum/action/item_action/activate
+
+/datum/action/item_action/activate/New(Target)
+	..()
+	name = "Activate [target.name]"
+	button.name = name
+
+/datum/action/item_action/activate/enchant
+
+/datum/action/item_action/activate/enchant/New(Target)
+	..()
+	UpdateButtonIcon()
 /datum/action/item_action/halt
 	name = "HALT!"
 
@@ -368,6 +405,32 @@
 	if(!istype(J) || !J.on)
 		return FALSE
 	return ..()
+
+/datum/action/item_action/toggle_jetpack/ninja
+	name = "Toggle Jetpack"
+
+/datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
+	return
+
+/datum/action/item_action/toggle_jetpack/ninja/UpdateButtonIcon()
+	. = ..()
+	var/obj/item/tank/jetpack/J = target
+	if(!istype(J) || !J.on)
+		button.icon_state = "[background_icon_state]"
+	else
+		button.icon_state = "[background_icon_state]_active"
+
+/datum/action/item_action/jetpack_stabilization/ninja
+	name = "Toggle Jetpack Stabilization"
+
+/datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
+	. = ..()
+	var/obj/item/tank/jetpack/J = target
+	if(!istype(J) || !J.stabilizers)
+		button.icon_state = "[background_icon_state]"
+	else
+		button.icon_state = "[background_icon_state]_active"
+
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
@@ -471,9 +534,14 @@
 /datum/action/item_action/accessory/holster
 	name = "Holster"
 
+/datum/action/item_action/accessory/holobadge
+	name = "Holobadge"
+
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
+/datum/action/item_action/accessory/petcollar
+	name = "Remove ID"
 
 //Preset for spells
 /datum/action/spell_action
@@ -571,6 +639,28 @@
 
 /datum/action/innate/proc/Deactivate()
 	return
+
+/datum/action/innate/research_scanner
+	name = "Toggle Research Scanner"
+	button_icon_state = "scan_mode"
+
+/datum/action/innate/research_scanner/Trigger()
+	if(IsAvailable())
+		owner.research_scanner = !owner.research_scanner
+		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
+		return TRUE
+
+/datum/action/innate/research_scanner/Remove(mob/living/L)
+	if(owner)
+		owner.research_scanner = 0
+	..()
+
+/datum/action/innate/research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		current_button.overlays += img
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic

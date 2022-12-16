@@ -32,6 +32,10 @@
 	var/drink_desc = "You can't really tell what this is."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
+	var/addict_supertype = /datum/reagent
+
+/datum/reagent/New()
+	addict_supertype = type
 
 /datum/reagent/Destroy()
 	. = ..()
@@ -55,7 +59,7 @@
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
-				if(is_type_in_list(src, M.reagents.addiction_list))
+				if(count_by_type(M.reagents.addiction_list, addict_supertype) > 0)
 					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
 		return TRUE
 
@@ -76,23 +80,21 @@
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
-	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
-		M.reagents.addiction_threshold_accumulated[id] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
+	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)
+		var/datum/reagent/new_reagent = new addict_supertype()
+		M.reagents.addiction_threshold_accumulated[new_reagent.id] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
 			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
-			var/datum/reagent/new_reagent = new type()
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
 
 /datum/reagent/proc/sate_addiction(mob/living/M) //reagents sate their own withdrawals
-	if(is_type_in_list(src, M.reagents.addiction_list))
-		for(var/A in M.reagents.addiction_list)
-			var/datum/reagent/AD = A
-			if(AD && istype(AD, src))
-				AD.last_addiction_dose = world.timeofday
-				AD.addiction_stage = 1
+	for(var/datum/reagent/AD in M.reagents.addiction_list)
+		if(AD && istype(AD, addict_supertype))
+			AD.last_addiction_dose = world.timeofday
+			AD.addiction_stage = 1
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
@@ -111,7 +113,6 @@
 	if(holder.my_atom.fingerprintslast)
 		var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
 		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [name]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
 // Called when this reagent is first added to a mob
@@ -167,6 +168,7 @@
 	else
 		if(prob(8))
 			M.emote("shiver")
+			M.Jitter(60)
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
@@ -180,8 +182,10 @@
 	else
 		if(prob(8))
 			M.emote("twitch_s")
+			M.Jitter(80)
 		if(prob(8))
 			M.emote("shiver")
+			M.Jitter(60)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>Your head hurts.</span>")
 		if(prob(4))
@@ -192,9 +196,13 @@
 	if(minor_addiction)
 		if(prob(8))
 			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+		if(prob(4))
+			M.emote("twitch")
+			M.Jitter(80)
 	else
 		if(prob(8))
 			M.emote("twitch")
+			M.Jitter(80)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
 		if(prob(4))
@@ -209,7 +217,8 @@
 		if(prob(8))
 			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
 		if(prob(4))
-			M.emote(pick("twitch"))
+			M.emote(pick("twitch", "twitch_s", "shiver"))
+			M.Jitter(80)
 	else
 		if(prob(6))
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
@@ -218,6 +227,7 @@
 			update_flags |= M.Weaken(rand(2,4), FALSE)
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
+			M.Jitter(80)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
 		if(prob(5))

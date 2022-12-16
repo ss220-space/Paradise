@@ -17,6 +17,7 @@
 	can_strip = 0
 
 	speak_emote = list("states")
+	tts_seed = "Glados"
 	friendly = "boops"
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
@@ -175,10 +176,10 @@
 
 
 /mob/living/simple_animal/bot/med_hud_set_health()
-	return //we use a different hud
+	return diag_hud_set_bothealth() //we use a different hud
 
 /mob/living/simple_animal/bot/med_hud_set_status()
-	return //we use a different hud
+	return diag_hud_set_botstat() //we use a different hud
 
 /mob/living/simple_animal/bot/update_canmove(delay_action_updates = 0)
 	. = ..()
@@ -220,6 +221,7 @@
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
 		return
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
+		add_attack_logs(user, src, "emagged")
 		emagged = 2
 		remote_disabled = 1 //Manually emagging the bot locks out the AI built in panel.
 		locked = 1 //Access denied forever!
@@ -227,7 +229,6 @@
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
-		add_attack_logs(user, src, "Emagged")
 		return
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
@@ -236,20 +237,16 @@
 	. = ..()
 	if(health < maxHealth)
 		if(health > maxHealth/3)
-			. += "[src]'s parts look loose."
+			. += "<span class='notice'>[src]'s parts look loose.</span>"
 		else
-			. += "[src]'s parts look very loose!"
+			. += "<span class='warning'>[src]'s parts look very loose!</span>"
 	else
-		. += "[src] is in pristine condition."
+		. += "<span class='notice'>[src] is in pristine condition.</span>"
 
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
 	if(amount > 0 && prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 	. = ..()
-
-/mob/living/simple_animal/bot/updatehealth(reason = "none given")
-	..(reason)
-	diag_hud_set_bothealth()
 
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
@@ -319,7 +316,7 @@
 			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	else if(W.GetID() || ispda(W))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -540,7 +537,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [path.len-1] meters to destination.</span>")

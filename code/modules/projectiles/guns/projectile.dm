@@ -23,7 +23,7 @@
 	if(current_skin)
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 	if(bayonet && can_bayonet)
 		overlays += knife_overlay
 
@@ -99,7 +99,7 @@
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
-				fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+				fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
 				A.loc = src
 				update_icon()
@@ -152,7 +152,7 @@
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. += "Has [get_ammo()] round\s remaining."
+	. += "<span class='notice'>Has [get_ammo()] round\s remaining.</span>"
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people

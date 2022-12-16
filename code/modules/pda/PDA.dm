@@ -12,7 +12,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
-	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
@@ -100,7 +99,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return ..()
 
 /obj/item/pda/GetID()
-	return id
+	return id ? id : ..()
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
@@ -157,11 +156,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/pda/AltClick(mob/user)
-	..()
+/obj/item/pda/AltClick(mob/living/user)
 	if(issilicon(user))
 		return
-
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(can_use(user))
 		if(id)
 			remove_id(user)
@@ -307,6 +307,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+	if(try_item_eat(A, user))
+		return FALSE
+
 	if(proximity && scanmode)
 		scanmode.scan_atom(A, user)
 
@@ -322,7 +325,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3)
+		explosion(T, -1, -1, 2, 3, cause = src)
 	qdel(src)
 	return
 
