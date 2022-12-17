@@ -2995,7 +2995,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/upperlevel,
 /area/awaymission/upperlevel)
 "hL" = (
 /obj/machinery/light/built{
@@ -4183,7 +4182,6 @@
 	},
 /area/awaymission/spacehotel)
 "Aq" = (
-/turf/simulated/floor/indestructible/upperlevel,
 /area/awaymission/upperlevel)
 "VG" = (
 /obj/effect/decal{
