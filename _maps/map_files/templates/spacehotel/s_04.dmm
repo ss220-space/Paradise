@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/simulated/floor/indestructible/beach/water,
+/turf/unsimulated/beach/water,
 /area/template_noop)
 "c" = (
 /obj/machinery/shower{
@@ -13,35 +13,32 @@
 	dir = 4;
 	id = "room_s"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 8
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "d" = (
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "e" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/syndicatefake,
 /obj/item/clothing/under/syndicate,
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "f" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/syndicate,
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "g" = (
@@ -54,10 +51,9 @@
 /obj/item/clothing/head/helmet/space/syndicate{
 	pixel_x = -4
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "h" = (
@@ -66,10 +62,9 @@
 	dir = 1;
 	pixel_y = 32
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "i" = (
@@ -86,10 +81,9 @@
 	dir = 4;
 	pixel_x = 32
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "j" = (
@@ -97,9 +91,9 @@
 	dir = 4;
 	id = "room_s"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 8
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "k" = (
@@ -109,10 +103,9 @@
 	dir = 4;
 	pixel_x = 32
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "l" = (
@@ -126,15 +119,15 @@
 	range = 5
 	},
 /obj/item/soap/syndie,
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 1
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "m" = (
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 1
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "n" = (
@@ -142,9 +135,9 @@
 	dir = 4;
 	id = "room_s"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "whitebluecorner";
-	dir = 1
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whitebluecorner"
 	},
 /area/template_noop)
 "o" = (
@@ -157,7 +150,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -165,13 +158,13 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "q" = (
 /obj/machinery/door/window/eastleft,
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -179,10 +172,9 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "s" = (
@@ -193,15 +185,14 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor4";
-	dir = 8;
-	icon = 'icons/turf/shuttle/floors.dmi'
+/turf/unsimulated/floor{
+	icon = 'icons/turf/shuttle/shuttle.dmi';
+	icon_state = "floor4"
 	},
 /area/template_noop)
 "X" = (
 /obj/machinery/poolcontroller/invisible,
-/turf/simulated/floor/indestructible/beach/water,
+/turf/unsimulated/beach/water,
 /area/template_noop)
 
 (1,1,1) = {"

@@ -17,7 +17,7 @@
 /obj/machinery/atmospherics/pipe/New()
 	..()
 	//so pipes under walls are hidden
-	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle))
+	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle) || istype(get_turf(src), /turf/unsimulated/wall))
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()

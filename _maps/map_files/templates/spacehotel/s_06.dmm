@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/simulated/floor/indestructible/beach/water,
+/turf/unsimulated/beach/water,
 /area/template_noop)
 "c" = (
 /obj/machinery/shower{
@@ -13,20 +13,20 @@
 	dir = 4;
 	id = "room_s"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 8
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "d" = (
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "e" = (
 /obj/structure/rack,
 /obj/item/twohanded/dualsaber/toy,
 /obj/item/twohanded/toy/chainsaw,
 /obj/item/toy/foamblade,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "f" = (
 /obj/structure/rack,
@@ -35,41 +35,41 @@
 	},
 /obj/item/toy/snappop,
 /obj/item/toy/redbutton,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "g" = (
 /obj/structure/rack,
 /obj/item/deck/cards,
 /obj/item/toy/figure/secofficer,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "h" = (
 /obj/structure/dresser,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "i" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "j" = (
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
 	id = "room_s"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 8
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "k" = (
 /obj/item/toy/snappop,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "l" = (
 /obj/structure/bed,
 /obj/item/bedsheet/patriot,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "m" = (
 /obj/machinery/light{
@@ -82,15 +82,15 @@
 	range = 5
 	},
 /obj/item/soap/nanotrasen,
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 1
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "n" = (
-/turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 1
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "o" = (
@@ -98,9 +98,9 @@
 	dir = 4;
 	id = "room_s"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "whitebluecorner";
-	dir = 1
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whitebluecorner"
 	},
 /area/template_noop)
 "p" = (
@@ -113,7 +113,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -121,19 +121,19 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "r" = (
 /obj/machinery/door/window/eastleft,
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "X" = (
 /obj/machinery/poolcontroller/invisible,
-/turf/simulated/floor/indestructible/beach/water,
+/turf/unsimulated/beach/water,
 /area/template_noop)
 
 (1,1,1) = {"
