@@ -90,7 +90,7 @@
 			add_attack_logs(carry, "A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
 
 
-/datum/effect_system/smoke_spread/chem/start(effect_range = 2)
+/datum/effect_system/smoke_spread/chem/start(effect_range = 2, apply_once = FALSE)
 	set waitfor = FALSE
 
 	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
@@ -99,7 +99,9 @@
 	tile_reagents.reagents.set_reacting(FALSE) // Just in case
 	var/square_size = effect_range * 2 + 1
 	chemholder.reagents.copy_to(tile_reagents, chemholder.reagents.total_volume, 1 / (square_size * square_size))
-
+	var/transfer_mult = 0.1
+	if(apply_once)
+		transfer_mult = 1
 	for(var/x in 0 to 99)
 		for(var/i = 0, i < rand(2, 6), i++)
 			if(effect_range < 3)
@@ -107,13 +109,13 @@
 			else
 				new /obj/effect/particle_effect/chem_smoke(location, color)
 
-		if(x % 10 == 0) //Once every 10 ticks.
-			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range, tile_reagents.reagents)
+		if(x % 10 == 0 && (x == 0 || !apply_once)) //Once every 10 ticks.
+			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range, tile_reagents.reagents, transfer_mult)
 
 		sleep(1)
 	qdel(src)
 
-/datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range, var/datum/reagents/reagents)
+/datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range, var/datum/reagents/reagents, transfer_mult)
 	for(var/turf/T in view(effect_range, get_turf(location)))
 		var/list/mob/living/carbon/carbons = list()
 		for(var/atom/A in T.contents)
@@ -127,4 +129,4 @@
 				if(C.can_breathe_gas())
 					carbons += C
 		for(var/mob/living/carbon/C in carbons)
-			reagents.copy_to(C, reagents.total_volume, 0.1 / carbons.len)
+			reagents.copy_to(C, reagents.total_volume, transfer_mult / carbons.len)
