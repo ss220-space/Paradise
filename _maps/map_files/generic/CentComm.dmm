@@ -1,80 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aaa" = (
-/obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/o2{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/toxin{
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/lazarus_injector,
-/obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/bot/medbot{
-	name = "\improper Emergency Medibot";
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warning"
-	},
-/area/shuttle/escape)
-"aab" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/mob/living/simple_animal/turkey,
-/turf/simulated/floor/grass,
-/area/centcom/evac)
-"aac" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/mob/living/simple_animal/turkey,
-/turf/simulated/floor/grass,
-/area/centcom/evac)
-"aad" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/mob/living/simple_animal/cow,
-/turf/simulated/floor/grass,
-/area/centcom/evac)
-"aae" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/fox/Syndifox,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
-"aaf" = (
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/cat/Syndi,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership)
-"aag" = (
-/obj/structure/bed/dogbed/ian{
-	name = "Lounger"
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -30
-	},
-/obj/machinery/light,
-/mob/living/simple_animal/pet/dog/fox/alisa,
-/turf/simulated/floor/wood,
-/area/centcom/specops)
 "aao" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -89,9 +13,9 @@
 	id_target = "Synd21"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "aaA" = (
@@ -193,7 +117,9 @@
 /area/vox_station)
 "adL" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/specops)
 "adM" = (
 /obj/item/bedsheet/brown,
@@ -310,7 +236,7 @@
 /area/vox_station)
 "ahv" = (
 /obj/machinery/door/poddoor/multi_tile/three_tile_hor{
-	layer = 3
+	layer = 3.0
 	},
 /obj/structure/barricade/wooden{
 	layer = 3.5
@@ -442,7 +368,9 @@
 	},
 /area/centcom/zone1)
 "ajO" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/zone1)
 "ajU" = (
 /obj/item/flag/nt,
@@ -654,7 +582,7 @@
 /area/vox_station)
 "anK" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -672,17 +600,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/bridge)
-"aoB" = (
-/obj/machinery/door_control{
-	id = "CC_GAMMA";
-	name = "GAMMA SHUTTLE";
-	pixel_x = 24;
-	pixel_y = -24;
-	req_access_txt = "114";
-	wires = 1
-	},
-/turf/simulated/floor/wood,
-/area/centcom/specops)
 "aoS" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/plasteel{
@@ -783,6 +700,17 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
+"arS" = (
+/obj/structure/bed/dogbed/ian{
+	name = "Lounger"
+	},
+/mob/living/simple_animal/pet/dog/fox/alisa,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -30
+	},
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/centcom/specops)
 "arX" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1103,7 +1031,7 @@
 /area/shuttle/escape)
 "azv" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/jail)
 "azC" = (
@@ -1280,9 +1208,9 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/plating/asteroid{
-	dir = 8;
 	icon_state = "asteroidwarning";
-	name = "floor"
+	name = "floor";
+	dir = 8
 	},
 /area/syndicate_mothership/outside)
 "aDX" = (
@@ -1677,9 +1605,9 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "aOC" = (
@@ -1707,9 +1635,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "aOR" = (
@@ -1752,7 +1680,7 @@
 /area/syndicate_mothership)
 "aQn" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -1911,7 +1839,7 @@
 	name = "table"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/fakespace,
@@ -2084,7 +2012,7 @@
 /obj/machinery/cryopod/right,
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1;
-	layer = 3
+	layer = 3.0
 	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -2095,7 +2023,7 @@
 /obj/machinery/cryopod,
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1;
-	layer = 3
+	layer = 3.0
 	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -2191,7 +2119,7 @@
 /area/centcom/zone1)
 "bdB" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/storage/box/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -2897,9 +2825,9 @@
 /area/ninja/holding)
 "buJ" = (
 /turf/simulated/wall/indestructible{
-	color = "#91857C";
 	icon_state = "rock";
-	name = "rock"
+	name = "rock";
+	color = "#91857C"
 	},
 /area/ninja/holding)
 "buW" = (
@@ -3689,7 +3617,7 @@
 "bUd" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = null;
@@ -3812,10 +3740,6 @@
 	req_access_txt = "114"
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 2;
-	id_tag = "CC_Armory_SRT"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4344,9 +4268,9 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer/upgraded,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "ckq" = (
@@ -4432,8 +4356,8 @@
 	id = "syndicate_transit";
 	name = "syndicate in transit";
 	pixel_y = -32;
-	turf_type = /turf/space/transit/north;
-	width = 18
+	width = 18;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 4;
@@ -4518,8 +4442,8 @@
 	height = 20;
 	id = "freegolem_transit";
 	name = "free golem in transit";
-	pixel_x = 32;
-	width = 16
+	width = 16;
+	pixel_x = 32
 	},
 /turf/space/transit/west{
 	icon_state = "black"
@@ -4861,9 +4785,9 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid{
-	dir = 8;
 	icon_state = "asteroidwarning";
-	name = "floor"
+	name = "floor";
+	dir = 8
 	},
 /area/syndicate_mothership/outside)
 "cvu" = (
@@ -5080,9 +5004,9 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "cAA" = (
@@ -5735,9 +5659,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "cSb" = (
@@ -6114,8 +6038,8 @@
 /area/syndicate_mothership/jail)
 "dfs" = (
 /turf/simulated/floor/indestructible/beach/coastline{
-	dir = 1;
 	icon_state = "beachcorner";
+	dir = 1;
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
@@ -6138,9 +6062,9 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/plating/asteroid{
-	dir = 8;
 	icon_state = "asteroidwarning";
-	name = "floor"
+	name = "floor";
+	dir = 8
 	},
 /area/syndicate_mothership/outside)
 "dga" = (
@@ -6406,9 +6330,9 @@
 /area/centcom/zone1)
 "dqG" = (
 /turf/simulated/floor/plating/asteroid{
-	dir = 8;
 	icon_state = "asteroidwarning";
-	name = "floor"
+	name = "floor";
+	dir = 8
 	},
 /area/syndicate_mothership/outside)
 "dqX" = (
@@ -6657,7 +6581,9 @@
 /area/syndicate_mothership/infteam)
 "dwm" = (
 /obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/bridge)
 "dwJ" = (
 /obj/structure/chair/stool/bar,
@@ -6665,9 +6591,9 @@
 /area/centcom/evac)
 "dwR" = (
 /turf/simulated/wall/indestructible{
-	color = "#91857C";
 	icon_state = "rock";
-	name = "rock"
+	name = "rock";
+	color = "#91857C"
 	},
 /area/space)
 "dwU" = (
@@ -6780,13 +6706,25 @@
 	id = "ruins_transport_shuttle_transit";
 	name = "Transport Shuttle in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/north;
-	width = 8
+	width = 8;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/ussp)
+"dzQ" = (
+/mob/living/simple_animal/pet/dog/fox/Syndifox,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "dzW" = (
 /obj/effect/turf_decal/stripes/red/line,
 /turf/simulated/floor/indestructible/vox{
@@ -7381,7 +7319,9 @@
 	},
 /area/centcom/zone3)
 "dRc" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/trader_station/sol)
 "dRA" = (
 /obj/effect/turf_decal/siding/thinplating{
@@ -7577,7 +7517,9 @@
 /area/ninja/outside)
 "dXc" = (
 /obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/zone1)
 "dXq" = (
 /obj/effect/decal/syndie_logo{
@@ -7830,7 +7772,9 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
 "ecV" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/supply)
 "edp" = (
 /obj/effect/turf_decal{
@@ -7953,7 +7897,9 @@
 	locked = 1;
 	name = "Central Command Jail"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/jail)
 "egd" = (
 /obj/effect/turf_decal{
@@ -8039,9 +7985,9 @@
 	id_target = "Synd15"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	tag = "icon-stage_stairs";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "eia" = (
@@ -8136,7 +8082,9 @@
 /area/syndicate_mothership/jail)
 "enn" = (
 /obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/supply)
 "eol" = (
 /obj/machinery/vending/coffee,
@@ -8498,7 +8446,9 @@
 	},
 /area/centcom/specops)
 "eyb" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/zone2)
 "eyD" = (
 /obj/effect/turf_decal/siding/wood{
@@ -8879,9 +8829,9 @@
 	id_target = "Synd22"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "eMo" = (
@@ -9088,9 +9038,9 @@
 	icon_state = "siding8"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership/outside)
 "ePR" = (
@@ -10055,9 +10005,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "fsr" = (
@@ -10430,9 +10380,9 @@
 	id_target = "Synd25"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "fAN" = (
@@ -10562,7 +10512,7 @@
 /area/ninja/outpost)
 "fCV" = (
 /obj/mecha/combat/marauder/seraph{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 80, "bomb" = 80, "bio" = 80, "rad" = 80, "fire" = 100, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
 	color = "#006666";
 	name = "Rocinante"
 	},
@@ -10714,7 +10664,7 @@
 /area/ninja/outpost)
 "fGc" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/radio/headset/syndicate/alt/syndteam,
@@ -11167,9 +11117,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "fRW" = (
@@ -11826,7 +11776,7 @@
 /area/ninja/outpost)
 "ghO" = (
 /obj/structure/closet/secure_closet/brig{
-	req_access = list(153)
+	req_access = list(153,)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
@@ -11846,11 +11796,13 @@
 /area/shuttle/ussp)
 "giG" = (
 /obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/evac)
 "gjn" = (
 /obj/machinery/computer/shuttle/ert{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
@@ -12741,7 +12693,7 @@
 /area/centcom/zone1)
 "gMj" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -12927,7 +12879,7 @@
 	opacity = 0
 	},
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/control)
 "gSH" = (
@@ -13020,9 +12972,9 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "gWk" = (
@@ -13302,7 +13254,9 @@
 	},
 /area/ninja/outpost)
 "hgc" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/bridge)
 "hgB" = (
 /obj/machinery/light/small{
@@ -13483,14 +13437,16 @@
 /area/ninja/outside)
 "hmX" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
 	name = "CentCom SOO"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/specops)
 "hnc" = (
 /obj/machinery/mass_driver{
@@ -13584,13 +13540,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"hqT" = (
-/obj/machinery/door_control{
-	id = "CC_Main_Office_1_1";
-	wires = 1
-	},
-/turf/simulated/wall/indestructible/reinforced,
-/area/centcom/bridge)
 "hqZ" = (
 /obj/item/roller,
 /obj/item/roller,
@@ -13623,7 +13572,7 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/reagent_containers/food/snacks/candy/donor{
 	apply_type = 3;
-	list_reagents = list("nutriment" = 30, "sugar" = 3);
+	list_reagents = list("nutriment"=30,"sugar"=3);
 	name = "MRE"
 	},
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
@@ -14684,19 +14633,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"hYY" = (
-/obj/machinery/door_control{
-	id = "CC_BSA";
-	name = "BSA room";
-	pixel_x = -24;
-	pixel_y = -24;
-	req_access_txt = "114";
-	wires = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "navybluealtstrip"
-	},
-/area/centcom/specops)
 "hZr" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/brown,
@@ -14815,8 +14751,8 @@
 	id = "pod2_transit";
 	name = "pod 2 in transit";
 	pixel_y = -32;
-	turf_type = /turf/space/transit/north;
-	width = 3
+	width = 3;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
@@ -14862,7 +14798,7 @@
 /area/syndicate_mothership/elite_squad)
 "ifB" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	check_borgs = 1;
 	check_synth = 1;
 	color = "#666666";
@@ -15334,7 +15270,9 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "itu" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/wizard_station)
 "itv" = (
 /obj/machinery/door_control{
@@ -15573,9 +15511,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "izp" = (
@@ -16431,7 +16369,9 @@
 	locked = 1;
 	name = "Central Command Jail"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/jail)
 "iXk" = (
 /turf/simulated/floor/plasteel{
@@ -16502,7 +16442,7 @@
 "jbD" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = null;
@@ -17064,7 +17004,7 @@
 /area/centcom/zone1)
 "jmR" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/clothing/suit/judgerobe{
@@ -17606,6 +17546,13 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
+"jCv" = (
+/mob/living/simple_animal/turkey,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/centcom/evac)
 "jDr" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/carpet/black,
@@ -17617,13 +17564,15 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "jDB" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/zone3)
 "jDS" = (
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "jEe" = (
@@ -17682,14 +17631,14 @@
 	color = "#996633"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "jET" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "jEY" = (
@@ -18201,6 +18150,13 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma/space)
+"jVe" = (
+/mob/living/simple_animal/pet/cat/Syndi,
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "jVI" = (
 /obj/item/flashlight,
 /obj/item/gps{
@@ -18225,7 +18181,7 @@
 "jWb" = (
 /obj/structure/curtain/black,
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "jWu" = (
@@ -19175,6 +19131,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone3)
+"kwq" = (
+/mob/living/simple_animal/turkey,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/centcom/evac)
 "kwr" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien9"
@@ -19305,7 +19268,7 @@
 "kAd" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = null;
@@ -19633,9 +19596,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership/outside)
 "kJh" = (
@@ -19923,9 +19886,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "kPg" = (
@@ -19961,9 +19924,9 @@
 	color = "#996633"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "kPz" = (
@@ -20000,9 +19963,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "kQh" = (
@@ -20019,9 +19982,9 @@
 	color = "#996633"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "kQr" = (
@@ -21359,9 +21322,9 @@
 	id_target = "Synd13"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	tag = "icon-stage_stairs";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "lwX" = (
@@ -21688,9 +21651,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "lFP" = (
@@ -21714,9 +21677,9 @@
 /area/centcom/zone1)
 "lGE" = (
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "lGK" = (
@@ -21726,9 +21689,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "lGT" = (
@@ -21738,9 +21701,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "lHa" = (
@@ -21901,7 +21864,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/simulated/floor/plating,
@@ -22157,7 +22120,7 @@
 	name = "table"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/simulated/floor/fakespace,
@@ -22543,7 +22506,7 @@
 /area/centcom/specops)
 "mcz" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/radio/headset/syndicate/alt/syndteam,
@@ -22926,9 +22889,9 @@
 "mls" = (
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "mlH" = (
@@ -22992,9 +22955,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "moU" = (
@@ -23098,9 +23061,9 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "mqK" = (
@@ -23372,7 +23335,7 @@
 "mvM" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = null;
@@ -23649,8 +23612,8 @@
 	id = "ruins_civil_shuttle_transit";
 	name = "Regular Civilian Shuttle in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/north;
-	width = 8
+	width = 8;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -24059,9 +24022,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "mGC" = (
@@ -24161,9 +24124,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "mIW" = (
@@ -24245,9 +24208,9 @@
 	id_target = "Synd23"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "mLP" = (
@@ -24695,9 +24658,9 @@
 	id = "SSTprivateroom"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "mVe" = (
@@ -24743,9 +24706,9 @@
 	id = "SSTprivateroom"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "mVB" = (
@@ -24907,9 +24870,9 @@
 	id = "SSTprivateroom"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "mYw" = (
@@ -25018,8 +24981,8 @@
 	id = "skipjack_transit";
 	name = "skipjack in transit";
 	pixel_y = 32;
-	turf_type = /turf/space/transit/north;
-	width = 19
+	width = 19;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -25068,7 +25031,7 @@
 /area/centcom/supply)
 "naM" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/simulated/floor/plating,
@@ -25111,9 +25074,9 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nbY" = (
@@ -25122,9 +25085,9 @@
 /obj/item/kitchen/knife/butcher,
 /obj/item/kitchen/knife/butcher/meatcleaver,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "ncp" = (
@@ -25149,7 +25112,7 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -25229,9 +25192,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "ndg" = (
@@ -25257,9 +25220,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "neK" = (
@@ -25284,9 +25247,9 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nfw" = (
@@ -25301,9 +25264,9 @@
 "nfE" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nfF" = (
@@ -25548,6 +25511,11 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership/infteam)
+"nlb" = (
+/mob/living/simple_animal/cow,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/centcom/evac)
 "nlx" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -25812,9 +25780,9 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nrP" = (
@@ -25857,9 +25825,9 @@
 "nsg" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nsi" = (
@@ -25870,9 +25838,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nsA" = (
@@ -25915,9 +25883,9 @@
 	wires = 1
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "ntK" = (
@@ -26011,9 +25979,9 @@
 	id = "SSTprivateroom"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nve" = (
@@ -26044,9 +26012,9 @@
 	pixel_x = -13
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nvU" = (
@@ -26064,9 +26032,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nwq" = (
@@ -26081,9 +26049,9 @@
 "nwZ" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nxD" = (
@@ -26156,9 +26124,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nzn" = (
@@ -26636,18 +26604,6 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/specops)
-"nJe" = (
-/obj/machinery/door_control{
-	id = "CC_Armory_DEDI";
-	pixel_x = 24;
-	pixel_y = -24;
-	req_access_txt = "114";
-	wires = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "navybluealtstrip"
-	},
-/area/centcom/specops)
 "nJg" = (
 /obj/structure/fence{
 	color = "#b0b7c6";
@@ -26682,9 +26638,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nKA" = (
@@ -26697,9 +26653,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nKH" = (
@@ -26779,9 +26735,9 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nMT" = (
@@ -26792,9 +26748,9 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nMV" = (
@@ -26813,9 +26769,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nNb" = (
@@ -26833,9 +26789,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "nOi" = (
@@ -27323,7 +27279,7 @@
 /area/syndicate_mothership/control)
 "obJ" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/outside)
 "obR" = (
@@ -27361,9 +27317,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "ocx" = (
@@ -27430,9 +27386,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "odX" = (
@@ -27728,7 +27684,7 @@
 /obj/machinery/vending/hydronutrients{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20, /obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4, /obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez=20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z=13,/obj/item/reagent_containers/glass/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/glass/bottle/ammonia=10,/obj/item/reagent_containers/glass/bottle/diethylamine=5)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -27738,9 +27694,9 @@
 "olg" = (
 /obj/machinery/kitchen_machine/oven/upgraded,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "olG" = (
@@ -27792,9 +27748,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "omG" = (
@@ -27895,17 +27851,17 @@
 	id_target = "Synd11"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	tag = "icon-stage_stairs";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "opx" = (
 /obj/machinery/gibber,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "opU" = (
@@ -27945,17 +27901,17 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "ory" = (
 /obj/structure/closet/chefcloset,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "orL" = (
@@ -27979,9 +27935,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "oso" = (
@@ -28032,9 +27988,9 @@
 "osJ" = (
 /obj/machinery/icemachine,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "otg" = (
@@ -28049,9 +28005,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "oth" = (
@@ -28438,7 +28394,7 @@
 /area/centcom/bridge)
 "oDx" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/control)
 "oDL" = (
@@ -28466,9 +28422,9 @@
 	id_target = "Synd14"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	tag = "icon-stage_stairs";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "oEu" = (
@@ -28935,10 +28891,6 @@
 	req_access_txt = "111"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_Armory_DEDI"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28952,7 +28904,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/simulated/floor/plating,
@@ -29142,8 +29094,8 @@
 	id = "sit_transit";
 	name = "sit in transit";
 	pixel_x = -32;
-	turf_type = /turf/space/transit/south;
-	width = 11
+	width = 11;
+	turf_type = /turf/space/transit/south
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_sit)
@@ -29513,7 +29465,7 @@
 "pdl" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/toy/cards/deck/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -29971,7 +29923,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	lootcount = 20;
 	name = "Food CC Spawner #2"
 	},
@@ -30025,7 +29977,7 @@
 "pte" = (
 /obj/structure/table/wood/fancy/black,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -30101,10 +30053,6 @@
 	name = "Emergency Response Team";
 	opacity = 1;
 	req_access_txt = "114"
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 2;
-	id_tag = "CC_Armory_SRT"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30949,9 +30897,9 @@
 	id_target = "Synd26"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "pOM" = (
@@ -31254,9 +31202,9 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "pUR" = (
@@ -31293,9 +31241,9 @@
 "pVs" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "pVt" = (
@@ -31367,8 +31315,8 @@
 	id = "mining_transit";
 	name = "mining in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/north;
-	width = 7
+	width = 7;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/mining)
@@ -32300,7 +32248,7 @@
 "qxb" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
 	req_access = null;
@@ -33134,13 +33082,13 @@
 /obj/machinery/vending/hydroseeds{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/seeds/aloe = 3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3, /obj/item/seeds/cabbage = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3, /obj/item/seeds/chili = 3, /obj/item/seeds/cocoapod = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/comfrey = 3, /obj/item/seeds/corn = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/nymph = 3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/garlic = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/grass = 3, /obj/item/seeds/lemon = 3, /obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/peanuts = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/poppy = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/pumpkin = 3, /obj/item/seeds/replicapod = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sugarcane = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tomato = 3, /obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3, /obj/item/seeds/cannabis = 3, /obj/item/seeds/amanita = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2, /obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/starthistle = 2, /obj/item/seeds/random = 2)
+	products = list(/obj/item/seeds/aloe=3,/obj/item/seeds/ambrosia=3,/obj/item/seeds/apple=3,/obj/item/seeds/banana=3,/obj/item/seeds/berry=3,/obj/item/seeds/cabbage=3,/obj/item/seeds/carrot=3,/obj/item/seeds/cherry=3,/obj/item/seeds/chanter=3,/obj/item/seeds/chili=3,/obj/item/seeds/cocoapod=3,/obj/item/seeds/coffee=3,/obj/item/seeds/comfrey=3,/obj/item/seeds/corn=3,/obj/item/seeds/cotton=3,/obj/item/seeds/nymph=3,/obj/item/seeds/eggplant=3,/obj/item/seeds/garlic=3,/obj/item/seeds/grape=3,/obj/item/seeds/grass=3,/obj/item/seeds/lemon=3,/obj/item/seeds/lime=3,/obj/item/seeds/onion=3,/obj/item/seeds/orange=3,/obj/item/seeds/peanuts=3,/obj/item/seeds/pineapple=3,/obj/item/seeds/poppy=3,/obj/item/seeds/potato=3,/obj/item/seeds/pumpkin=3,/obj/item/seeds/replicapod=3,/obj/item/seeds/wheat/rice=3,/obj/item/seeds/soya=3,/obj/item/seeds/sugarcane=3,/obj/item/seeds/sunflower=3,/obj/item/seeds/tea=3,/obj/item/seeds/tobacco=3,/obj/item/seeds/tomato=3,/obj/item/seeds/tower=3,/obj/item/seeds/watermelon=3,/obj/item/seeds/wheat=3,/obj/item/seeds/whitebeet=3,/obj/item/seeds/cannabis=3,/obj/item/seeds/amanita=2,/obj/item/seeds/fungus=3,/obj/item/seeds/glowshroom=2,/obj/item/seeds/liberty=2,/obj/item/seeds/nettle=2,/obj/item/seeds/plump=2,/obj/item/seeds/reishi=2,/obj/item/seeds/starthistle=2,/obj/item/seeds/random=2)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "qQE" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
 "qQG" = (
@@ -33272,8 +33220,8 @@
 	id = "laborcamp_transit";
 	name = "labor in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/north;
-	width = 9
+	width = 9;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
@@ -33856,23 +33804,10 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/supply)
-"rhn" = (
-/obj/machinery/door_control{
-	id = "CC_Armory_SRT";
-	pixel_x = 24;
-	pixel_y = 24;
-	req_access_txt = "114";
-	wires = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "navybluealtstrip"
-	},
-/area/centcom/specops)
 "rhx" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -34136,13 +34071,6 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
-"roj" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/trader_station/sol)
 "ror" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
@@ -34810,6 +34738,11 @@
 /area/centcom/evac)
 "rFp" = (
 /obj/machinery/computer/card/centcom,
+/obj/structure/mirror/magic{
+	desc = null;
+	name = "mirror";
+	pixel_y = 25
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -35091,7 +35024,9 @@
 	locked = 1;
 	name = "Central Command Jail"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/jail)
 "rMn" = (
 /obj/structure/toilet,
@@ -35400,9 +35335,9 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid{
-	dir = 8;
 	icon_state = "asteroidwarning";
-	name = "floor"
+	name = "floor";
+	dir = 8
 	},
 /area/syndicate_mothership/outside)
 "rSg" = (
@@ -35738,6 +35673,8 @@
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"saJ" = (
+)
 "sbs" = (
 /obj/machinery/vending/shoedispenser{
 	req_access_txt = "150"
@@ -35778,8 +35715,8 @@
 	id = "pod1_transit";
 	name = "pod 1 in transit";
 	pixel_y = -32;
-	turf_type = /turf/space/transit/north;
-	width = 3
+	width = 3;
+	turf_type = /turf/space/transit/north
 	},
 /obj/docking_port/mobile/pod{
 	id = "pod1";
@@ -35946,7 +35883,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "shl" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/specops)
 "shB" = (
 /obj/structure/chair/comfy/shuttle{
@@ -36250,7 +36189,7 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/reagent_containers/food/snacks/candy/donor{
 	apply_type = 3;
-	list_reagents = list("nutriment" = 30, "sugar" = 3);
+	list_reagents = list("nutriment"=30,"sugar"=3);
 	name = "MRE"
 	},
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
@@ -36683,9 +36622,9 @@
 	id_target = "Synd16"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	tag = "icon-stage_stairs";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "sAo" = (
@@ -36717,9 +36656,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "sAE" = (
@@ -36771,9 +36710,9 @@
 /area/centcom/specops)
 "sBs" = (
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "sBu" = (
@@ -36805,9 +36744,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "sCg" = (
@@ -36824,9 +36763,9 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "sCh" = (
@@ -37025,8 +36964,8 @@
 	id = "emergency_transit";
 	name = "emergency in transit";
 	pixel_x = -32;
-	turf_type = /turf/space/transit/north;
-	width = 24
+	width = 24;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -37201,8 +37140,8 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/beach/coastline{
-	dir = 1;
 	icon_state = "beachcorner";
+	dir = 1;
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
@@ -37976,9 +37915,9 @@
 "tdC" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tdF" = (
@@ -37988,9 +37927,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tdQ" = (
@@ -38019,9 +37958,9 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "teR" = (
@@ -38256,7 +38195,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	lootcount = 20;
 	name = "Food CC Spawner #2"
 	},
@@ -38362,7 +38301,7 @@
 	pixel_y = -25
 	},
 /obj/structure/closet/secure_closet/brig{
-	req_access = list(153)
+	req_access = list(153,)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
@@ -38944,14 +38883,14 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tBG" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -39013,9 +38952,9 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tDk" = (
@@ -39090,8 +39029,8 @@
 	id = "supply_transit";
 	name = "supply in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/north;
-	width = 12
+	width = 12;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/wall/shuttle,
 /area/shuttle/supply)
@@ -39320,7 +39259,7 @@
 	id_tag = "syndFB_teleport"
 	},
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership/control)
 "tKn" = (
@@ -39605,9 +39544,9 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tRb" = (
@@ -39697,9 +39636,9 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tSV" = (
@@ -39713,9 +39652,9 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tTF" = (
@@ -39754,9 +39693,9 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership/infteam)
 "tTX" = (
@@ -39817,7 +39756,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/simulated/floor/wood,
@@ -40125,9 +40064,9 @@
 	icon_state = "siding2"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 8;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership/outside)
 "uea" = (
@@ -40175,9 +40114,9 @@
 	icon_state = "tile_full"
 	},
 /turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
-	name = "floor"
+	name = "floor";
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/syndicate_mothership)
 "uff" = (
@@ -40282,9 +40221,6 @@
 	name = "Bridge 1-1";
 	opacity = 1;
 	req_access_txt = "113"
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "CC_Main_Office_1_1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40950,8 +40886,8 @@
 	id = "pod3_transit";
 	name = "pod 3 in transit";
 	pixel_y = -32;
-	turf_type = /turf/space/transit/north;
-	width = 3
+	width = 3;
+	turf_type = /turf/space/transit/north
 	},
 /obj/docking_port/mobile/pod{
 	id = "pod3";
@@ -41374,8 +41310,8 @@
 	id = "backup_transit";
 	name = "backup in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/north;
-	width = 9
+	width = 9;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -41710,7 +41646,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /obj/machinery/light/small{
@@ -42921,8 +42857,8 @@
 	id = "sst_transit";
 	name = "sst in transit";
 	pixel_x = 32;
-	turf_type = /turf/space/transit/south;
-	width = 11
+	width = 11;
+	turf_type = /turf/space/transit/south
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_elite)
@@ -43391,6 +43327,33 @@
 "vFD" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"vFR" = (
+/obj/structure/closet/crate/medical,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/o2{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/toxin{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/lazarus_injector,
+/mob/living/simple_animal/bot/medbot{
+	name = "\improper Emergency Medibot";
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warning"
 	},
 /area/shuttle/escape)
 "vFV" = (
@@ -44493,23 +44456,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
-"wiU" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Black Ops";
-	opacity = 1;
-	req_access_txt = "111"
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_Armory_DEDI"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "wje" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -44548,9 +44494,9 @@
 	icon_state = "siding2"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 4;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership/outside)
 "wkE" = (
@@ -45051,7 +44997,9 @@
 /area/centcom/bridge)
 "wxt" = (
 /obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/zone2)
 "wxC" = (
 /obj/structure/window/reinforced,
@@ -45084,8 +45032,8 @@
 	height = 20;
 	id = "ombra_transit";
 	name = "Ombra in transit";
-	turf_type = /turf/space/transit/south;
-	width = 9
+	width = 9;
+	turf_type = /turf/space/transit/south
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_ns_1"
@@ -45255,10 +45203,6 @@
 	req_access_txt = "114"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_GAMMA"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45446,7 +45390,7 @@
 /area/syndicate_mothership)
 "wGu" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership)
 "wGM" = (
@@ -45492,7 +45436,7 @@
 "wJo" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
 	req_access = null;
@@ -45561,7 +45505,9 @@
 	},
 /area/centcom/zone2)
 "wLM" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass{
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	},
 /area/centcom/evac)
 "wLP" = (
 /obj/structure/curtain/open/shower/security,
@@ -45685,7 +45631,7 @@
 	},
 /area/shuttle/ninja)
 "wQP" = (
-/obj/mecha/combat/gygax/ert/loaded,
+/obj/mecha/combat/gygax/ert,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45816,9 +45762,9 @@
 	id_target = "Synd24"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	dir = 1;
-	icon_state = "rampbottom"
+	icon_state = "rampbottom";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "wWa" = (
@@ -46517,10 +46463,6 @@
 	opacity = 1;
 	req_access_txt = "114"
 	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_BSA"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46661,8 +46603,8 @@
 	id = "pod4_transit";
 	name = "pod 4 in transit";
 	pixel_y = -32;
-	turf_type = /turf/space/transit/north;
-	width = 3
+	width = 3;
+	turf_type = /turf/space/transit/north
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
@@ -47123,9 +47065,9 @@
 	id_target = "Synd12"
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	tag = "icon-stage_stairs";
+	color = "gray"
 	},
 /area/syndicate_mothership)
 "xBV" = (
@@ -48492,7 +48434,7 @@
 "ykF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/indestructible/fakeglass{
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
+	icon = 'icons/turf/walls/fake_glass.dmi'
 	},
 /area/syndicate_mothership)
 "ykS" = (
@@ -61146,7 +61088,7 @@ wWV
 xBV
 aHS
 mZE
-aae
+dzQ
 tkm
 tDk
 qsy
@@ -61403,7 +61345,7 @@ qHC
 xBV
 nIK
 mZE
-aaf
+jVe
 tkm
 ssv
 tWF
@@ -61764,7 +61706,7 @@ uOA
 wkN
 uVo
 vpD
-aaa
+vFR
 vNc
 vAA
 eLd
@@ -77400,7 +77342,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -77657,7 +77599,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -77914,7 +77856,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -78171,7 +78113,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -78428,7 +78370,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -78685,7 +78627,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -78942,7 +78884,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -79199,7 +79141,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -79456,7 +79398,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -79713,7 +79655,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -79970,7 +79912,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -80227,7 +80169,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -80484,7 +80426,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -80741,7 +80683,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -80998,7 +80940,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -81255,7 +81197,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -81512,7 +81454,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -81769,7 +81711,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -82026,7 +81968,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -82283,7 +82225,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -82540,7 +82482,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -82797,7 +82739,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -82972,25 +82914,15 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-jMD
-mVX
-mVX
-mVX
-mVX
-mVX
+afa
+afa
+afa
+afa
+afa
+afa
+afa
+afa
+afa
 mVX
 mVX
 mVX
@@ -83000,25 +82932,6 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-jMD
 mVX
 mVX
 mVX
@@ -83047,6 +82960,13 @@ mVX
 mVX
 mVX
 mVX
+jMD
+mVX
+mVX
+mVX
+mVX
+mVX
+jMD
 mVX
 mVX
 mVX
@@ -83054,7 +82974,29 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 mVX
 mVX
 mVX
@@ -83229,7 +83171,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+saJ
 mVX
 mVX
 mVX
@@ -83237,7 +83179,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+saJ
 mVX
 mVX
 mVX
@@ -83311,7 +83253,7 @@ pqb
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -83486,7 +83428,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+saJ
 mVX
 mVX
 mVX
@@ -83494,7 +83436,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+saJ
 mVX
 mVX
 mVX
@@ -83568,7 +83510,7 @@ fAN
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -83743,7 +83685,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+saJ
 mVX
 mVX
 mVX
@@ -83751,7 +83693,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+saJ
 mVX
 onc
 onc
@@ -83825,7 +83767,7 @@ fAN
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -84082,7 +84024,7 @@ fAN
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -84339,7 +84281,7 @@ pqb
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -84596,7 +84538,7 @@ mVX
 hne
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -84853,7 +84795,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -85110,7 +85052,7 @@ pqb
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -85367,7 +85309,7 @@ mVX
 hne
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -85624,7 +85566,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -85881,7 +85823,7 @@ pqb
 pqb
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -86138,7 +86080,7 @@ mVX
 hne
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -86395,7 +86337,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -86652,7 +86594,7 @@ pqb
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -86909,7 +86851,7 @@ pqb
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -87166,7 +87108,7 @@ pqb
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -87423,7 +87365,7 @@ pqb
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -87680,7 +87622,7 @@ pqb
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -87937,7 +87879,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -88138,7 +88080,7 @@ fMQ
 fMQ
 fMQ
 ugS
-hqT
+fMQ
 ugS
 fMQ
 fMQ
@@ -88194,7 +88136,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -88451,7 +88393,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -88708,7 +88650,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -88965,7 +88907,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -89222,7 +89164,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -89479,7 +89421,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -89736,7 +89678,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -89993,7 +89935,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -90250,7 +90192,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -90507,7 +90449,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -90764,7 +90706,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -91021,7 +90963,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -91161,7 +91103,7 @@ mVX
 mVX
 iIs
 iIs
-aab
+jCv
 qJu
 fkh
 jPx
@@ -91278,7 +91220,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -91535,7 +91477,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -91675,7 +91617,7 @@ mVX
 mVX
 mVX
 wLM
-aac
+kwq
 fOf
 fkh
 aKD
@@ -91792,7 +91734,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -91938,7 +91880,7 @@ fkh
 app
 xtI
 dZA
-aad
+nlb
 iIs
 hku
 xuq
@@ -92049,7 +91991,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -92306,7 +92248,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -92563,7 +92505,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -92820,7 +92762,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -93077,7 +93019,7 @@ mVX
 aDl
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -93334,7 +93276,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -93591,7 +93533,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -93848,7 +93790,7 @@ mVX
 aDl
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -94105,7 +94047,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -94362,7 +94304,7 @@ pHc
 pHc
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -94619,7 +94561,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -94876,7 +94818,7 @@ mVX
 aDl
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -95133,7 +95075,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -95390,7 +95332,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -95647,7 +95589,7 @@ mVX
 aDl
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -95877,7 +95819,7 @@ oIc
 vgt
 oIc
 oIc
-aag
+arS
 nAN
 ctk
 nAN
@@ -95904,7 +95846,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -96161,7 +96103,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -96418,7 +96360,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -96675,7 +96617,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -96932,7 +96874,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -97189,7 +97131,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -97446,7 +97388,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -97703,7 +97645,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -97960,7 +97902,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -98217,7 +98159,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -98474,7 +98416,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -98731,7 +98673,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -98988,7 +98930,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -99245,7 +99187,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -99502,7 +99444,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -99531,7 +99473,7 @@ dRc
 ecn
 jrL
 jrL
-roj
+eAN
 eAN
 fCq
 fCq
@@ -99759,7 +99701,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -100016,7 +99958,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -100273,7 +100215,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -100515,7 +100457,7 @@ fAg
 fAg
 fAg
 fAg
-hYY
+moU
 xkB
 oIc
 oIc
@@ -100530,7 +100472,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -100787,7 +100729,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -101044,7 +100986,7 @@ nAN
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -101301,7 +101243,7 @@ nAN
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -101558,7 +101500,7 @@ nAN
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -101815,7 +101757,7 @@ nAN
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -102072,7 +102014,7 @@ nAN
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -102329,7 +102271,7 @@ mVX
 hne
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -102586,7 +102528,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -102843,7 +102785,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -103100,7 +103042,7 @@ mVX
 hne
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -103357,7 +103299,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -103593,8 +103535,8 @@ ism
 xeR
 mTv
 fAg
-nJe
-wiU
+moU
+dVa
 tSk
 tSk
 tSk
@@ -103614,7 +103556,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -103871,7 +103813,7 @@ mVX
 hne
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -104085,7 +104027,7 @@ mCQ
 ruu
 gjP
 asI
-aoB
+asI
 wAL
 xQz
 fAg
@@ -104128,7 +104070,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -104385,7 +104327,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -104642,7 +104584,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -104876,7 +104818,7 @@ fAg
 fAg
 fAg
 ptV
-rhn
+wRu
 hHu
 cnO
 dVa
@@ -104899,7 +104841,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -105156,7 +105098,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -105413,7 +105355,7 @@ nAN
 nAN
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -105670,7 +105612,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -105927,7 +105869,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -106184,7 +106126,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -106441,7 +106383,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -106698,7 +106640,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -106955,7 +106897,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -107212,7 +107154,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -107469,7 +107411,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -107726,7 +107668,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -107983,7 +107925,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -108240,7 +108182,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -108497,7 +108439,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -108754,7 +108696,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -109011,7 +108953,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -109268,7 +109210,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -109525,7 +109467,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -109782,7 +109724,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -110039,7 +109981,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -110296,7 +110238,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -110553,7 +110495,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -110810,7 +110752,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -111067,7 +111009,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -111324,7 +111266,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -111581,7 +111523,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -111838,7 +111780,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -112095,7 +112037,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -112352,7 +112294,7 @@ mVX
 mVX
 mVX
 mVX
-pNM
+mVX
 mVX
 mVX
 mVX
@@ -112481,135 +112423,135 @@ mVX
 mVX
 mVX
 pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
-pNM
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 mVX
 mVX
 mVX
