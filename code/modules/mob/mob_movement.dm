@@ -133,7 +133,7 @@
 			if(!movable.CanPass(mob, mob.loc, 1.5) && movable != mob.pulling)
 				if(istype(movable, /mob/living))
 					moving_carbon = movable
-				else
+				else if(movable.slow_down_pull_push)
 					delay *= 1.2
 				break
 

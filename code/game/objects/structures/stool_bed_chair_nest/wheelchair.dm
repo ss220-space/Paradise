@@ -4,6 +4,7 @@
 	item_chair = null
 	anchored = FALSE
 	movable = TRUE
+	slow_down_pull_push = FALSE
 
 	var/move_delay = null
 
