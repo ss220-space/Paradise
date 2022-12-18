@@ -122,7 +122,7 @@
 	moving = 1
 	current_move_delay = mob.movement_delay()
 
-	if(!istype(get_turf(mob), /turf/space) && mob.pulling && mob.pulling.pull_push_speed_modifier)
+	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
 		if(istype(mob.pulling, /mob/living))
 			var/mob/living/living = mob.pulling
 			current_move_delay *= living.get_pull_push_speed_modifier(current_move_delay)
