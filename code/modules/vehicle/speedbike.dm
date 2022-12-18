@@ -4,7 +4,7 @@
 	icon_state = "speedbike_blue"
 	layer = MOB_LAYER - 0.1
 	vehicle_move_delay = 0
-	slowdown_pull_push = FALSE
+	pull_push_speed_modifier = 1
 	var/overlay_state = "cover_blue"
 	var/mutable_appearance/overlay
 
