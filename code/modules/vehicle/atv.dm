@@ -10,6 +10,7 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
+	slow_down_pull_push = FALSE
 	var/static/mutable_appearance/atvcover
 
 /obj/vehicle/atv/Initialize(mapload)
