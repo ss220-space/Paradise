@@ -153,6 +153,13 @@
 /mob/living/proc/ObjBump(obj/O)
 	return
 
+/mob/living/get_pull_push_speed_modifier(current_delay)
+	if(!canmove)
+		return pull_push_speed_modifier * 1.2
+	var/average_delay = (movement_delay() + current_delay) / 2
+	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
+
+
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
 	if(isstructure(AM) && AM.pulledby)
@@ -187,7 +194,17 @@
 				return
 	if(pulling == AM)
 		stop_pulling()
-	AM.glide_size = src.glide_size
+
+	var/new_delay
+	if(istype(AM, /mob/living))
+		var/mob/living/living = AM
+		new_delay = living.get_pull_push_speed_modifier(client.current_move_delay) * client.current_move_delay
+	else
+		new_delay = AM.get_pull_push_speed_modifier() * client.current_move_delay
+
+	client.current_move_delay = new_delay
+	glide_for(client.current_move_delay)
+	AM.glide_size = glide_size
 	var/current_dir
 	if(isliving(AM))
 		current_dir = AM.dir
