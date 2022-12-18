@@ -9,7 +9,7 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
-	slow_down_pull_push = FALSE
+	slowdown_pull_push = FALSE
 
 /obj/item/key/security
 	desc = "A keyring with a small steel key, and a rubber stun baton accessory."
