@@ -231,7 +231,7 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
-	slowdown_pull_push = FALSE
+	pull_push_speed_modifier = 1
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
