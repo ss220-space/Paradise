@@ -155,7 +155,6 @@
 
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
-
 	if(isstructure(AM) && AM.pulledby)
 		if(a_intent == INTENT_HELP && AM.pulledby != src) // Help intent doesn't push other peoples pulled structures
 			return FALSE
