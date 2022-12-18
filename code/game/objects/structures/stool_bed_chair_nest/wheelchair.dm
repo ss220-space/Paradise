@@ -3,7 +3,7 @@
 	icon_state = "wheelchair"
 	item_chair = null
 	movable = TRUE
-	slow_down_pull_push = FALSE
+	slowdown_pull_push = FALSE
 
 	var/move_delay = null
 
