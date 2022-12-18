@@ -37,6 +37,11 @@
 			mob.control_object.forceMove(get_step(mob.control_object, direct))
 	return
 
+/client/proc/calculate_human_delay_modified(var/mob/living/moving_carbon, var/current_delay)
+	if(!moving_carbon.canmove)
+		return current_delay * 1.2
+	var/average_delay = (moving_carbon.movement_delay() + current_delay) / 2
+	return max(current_delay, average_delay)
 
 #define MOVEMENT_DELAY_BUFFER 0.75
 #define MOVEMENT_DELAY_BUFFER_DELTA 1.25
@@ -120,12 +125,28 @@
 
 	//We are now going to move
 	moving = 1
-	current_move_delay = mob.movement_delay()
+	var/delay = mob.movement_delay()
 
-	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
-		current_move_delay *= mob.pulling.get_pull_push_speed_modifier(current_move_delay)
+	if(!istype(get_turf(mob), /turf/space))
+		var/mob/living/moving_carbon
+		for(var/atom/movable/movable in get_step(mob, direct))
+			if(!movable.CanPass(mob, mob.loc, 1.5) && movable != mob.pulling)
+				if(istype(movable, /mob/living))
+					moving_carbon = movable
+				else
+					delay *= 1.2
+				break
 
-	if(old_move_delay + (current_move_delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+		if(mob.pulling)
+			if(istype(mob.pulling, /obj/structure))
+				delay *= 1.2
+			else if(istype(mob.pulling, /mob/living))
+				moving_carbon = mob.pulling
+
+		if(moving_carbon)
+			delay = calculate_human_delay_modified(moving_carbon, delay)
+
+	if(old_move_delay + (delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
