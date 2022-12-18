@@ -581,6 +581,7 @@
 			return
 
 		var/pull_dir = get_dir(src, pulling)
+		pulling.glide_size = glide_size.initial
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 			if(isliving(pulling))
 				var/mob/living/M = pulling
