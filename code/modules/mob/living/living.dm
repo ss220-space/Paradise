@@ -195,17 +195,10 @@
 	if(pulling == AM)
 		stop_pulling()
 
-<<<<<<< HEAD
 	if(client)
 		client.current_move_delay *= AM.get_pull_push_speed_modifier(client.current_move_delay)
 		glide_for(client.current_move_delay)
 
-=======
-	if(istype(AM, /mob/living))
-		client.current_move_delay *= AM.get_pull_push_speed_modifier(client.current_move_delay)
-
-	glide_for(client.current_move_delay)
->>>>>>> 6368b224a6 (Suggestion fixes)
 	AM.glide_size = glide_size
 	var/current_dir
 	if(isliving(AM))
