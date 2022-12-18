@@ -20,7 +20,7 @@
 	var/atom/movable/pulling
 	var/throwforce = 0
 	var/canmove = 1
-	var/slowdown_pull_push = TRUE
+	var/pull_push_speed_modifier = TRUE
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
