@@ -127,8 +127,8 @@
 	moving = 1
 	var/delay = mob.movement_delay()
 
+	var/mob/living/moving_carbon
 	if(!istype(get_turf(mob), /turf/space))
-		var/mob/living/moving_carbon
 		for(var/atom/movable/movable in get_step(mob, direct))
 			if(!movable.CanPass(mob, mob.loc, 1.5) && movable != mob.pulling)
 				if(istype(movable, /mob/living))
@@ -137,7 +137,7 @@
 					delay *= 1.2
 				break
 
-		if(mob.pulling)
+		if(mob.pulling && mob.pulling.slow_down_pull_push)
 			if(istype(mob.pulling, /obj/structure))
 				delay *= 1.2
 			else if(istype(mob.pulling, /mob/living))
@@ -170,7 +170,10 @@
 	mob.setDir(direct)
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay = mob.movement_delay() * 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
+		if(moving_carbon)
+			delay = calculate_human_delay_modified(moving_carbon, mob.movement_delay()) * 1.41
+		else
+			delay = mob.movement_delay() * 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
 
 	move_delay += delay
 

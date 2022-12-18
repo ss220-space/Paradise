@@ -106,7 +106,7 @@
 	icon = 'icons/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
-	pull_push_speed_modifier = 1
+	slow_down_pull_push = FALSE
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
