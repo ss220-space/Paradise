@@ -300,7 +300,7 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcartopen"
 	icon_closed = "trashcart"
-	pull_push_speed_modifier = 1
+	slow_down_pull_push = FALSE
 
 /*these aren't needed anymore
 /obj/structure/closet/crate/hat
