@@ -23,7 +23,7 @@
 
 	var/target_x = 0
 	var/target_y = 0
-	var/ignore_type = 0 //For admin building
+	var/admin_ignore_type = 0 //For admin building
 	var/obj/target
 
 	var/static/list/allowed_types = list(
@@ -77,7 +77,7 @@
 		return
 
 	if(user.a_intent == INTENT_GRAB) //Choose a target
-		if((is_type_in_list(A, allowed_types)) || ignore_type)
+		if((is_type_in_list(A, allowed_types)) || admin_ignore_type)
 			target = A
 			to_chat(user, "<span class='notice'>Object Linked</span>")
 			return
@@ -86,10 +86,10 @@
 			return
 
 	if(user.a_intent == INTENT_HELP) //Move by values
-		if((is_type_in_list(A, allowed_types)) || ignore_type)
+		if((is_type_in_list(A, allowed_types)) || admin_ignore_type)
 			A.pixel_x = target_x
 			A.pixel_y = target_y
-			A.layer = max(A.layer, 3.3)
+			A.layer = max(A.layer, ABOVE_WINDOW_LAYER)
 			playsound(loc, usesound, 30, TRUE)
 
 	var/list/click_params = params2list(params)
@@ -108,7 +108,7 @@
 
 		target.pixel_x = clamp((text2num(click_params["icon-x"]) - TRANSPORTER_RANGE/2) + ((A.x - target.x) * TRANSPORTER_RANGE) + A.pixel_x, -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
 		target.pixel_y = clamp((text2num(click_params["icon-y"]) - TRANSPORTER_RANGE/2) + ((A.y - target.y) * TRANSPORTER_RANGE) + A.pixel_y, -TRANSPORTER_RANGE, TRANSPORTER_RANGE)
-		target.layer = max(A.layer, 3.3)
+		target.layer = max(A.layer, ABOVE_WINDOW_LAYER)
 		playsound(loc, usesound, 30, TRUE)
 		return
 
@@ -116,3 +116,5 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	return FALSE
+
+#undef TRANSPORTER_RANGE
