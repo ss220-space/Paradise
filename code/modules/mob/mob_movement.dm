@@ -173,7 +173,7 @@
 		if(moving_carbon)
 			delay = calculate_human_delay_modified(moving_carbon, mob.movement_delay()) * 1.41
 		else
-			delay = mob.movement_delay() * 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
+			delay = delay * 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
 
 	move_delay += current_move_delay
 
