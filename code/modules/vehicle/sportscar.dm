@@ -6,7 +6,7 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
-	slow_down_pull_push = FALSE
+	slowdown_pull_push = FALSE
 	var/mutable_appearance/carcover
 
 /obj/vehicle/car/Initialize(mapload)
