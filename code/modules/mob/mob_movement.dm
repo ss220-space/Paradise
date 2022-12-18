@@ -149,7 +149,14 @@
 	mob.setDir(direct)
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
+<<<<<<< HEAD
 		current_move_delay *= 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
+=======
+		if(moving_carbon)
+			delay = calculate_human_delay_modified(moving_carbon, mob.movement_delay()) * 1.41
+		else
+			delay = delay * 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
+>>>>>>> c7d5744a2a (Fixed mob movement)
 
 	move_delay += current_move_delay
 
