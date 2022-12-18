@@ -451,7 +451,7 @@
 
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity) //no, you can't just tear skin just by looking. You need to attack.
+	if(!proximity_flag) //no, you can't just tear skin just by looking. You need to attack.
 		return
 	if(enchant_type == BLOODSHED_SPELL && ishuman(target))
 		var/mob/living/carbon/human/human = target
