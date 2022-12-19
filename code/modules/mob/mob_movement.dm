@@ -123,11 +123,7 @@
 	current_move_delay = mob.movement_delay()
 
 	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
-		if(istype(mob.pulling, /mob/living))
-			var/mob/living/living = mob.pulling
-			current_move_delay *= living.get_pull_push_speed_modifier(current_move_delay)
-		else
-			current_move_delay *= mob.pulling.get_pull_push_speed_modifier()
+		current_move_delay *= mob.pulling.get_pull_push_speed_modifier(current_move_delay)
 
 	if(old_move_delay + (current_move_delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
 		move_delay = old_move_delay
