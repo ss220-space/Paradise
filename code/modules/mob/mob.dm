@@ -1108,6 +1108,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/facedir(ndir)
 	if(!canface())
 		return FALSE
+	setDir(ndir)
+	client.move_delay += movement_delay()
 	return TRUE
 
 
