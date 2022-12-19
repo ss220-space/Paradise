@@ -11,13 +11,18 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
+	brute_mod = 0.9
+	heatmod = 0.8
+	coldmod = 1.2
+	hunger_drain = 0.13
+
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
 	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, PIERCEIMMUNE)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
@@ -78,6 +83,8 @@
 	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
 	liked_food = MEAT | RAW | EGG | GROSS
 
+/datum/species/unathi/New()
+
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
 	icon_icon = 'icons/effects/effects.dmi'
@@ -125,6 +132,8 @@
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
+	if(prob(50))
+		to_chat(H, "<span class='green'>[pick("Добро пожаловать в мои объятия, дитя...", "Это была славная охота, унатх.", "Мы не забудем о тебе...", "Я не смогла тебе помочь, прости...", "Как же тепло в её объятиях...", "Отдых нужен даже самым сильным охотникам, дитя.")]</span>")
 
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
@@ -176,3 +185,21 @@
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
+
+/datum/species/unathi/handle_life(mob/living/carbon/human/H)
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("zessulblood") < 5)          //естественно генерируемое вещество, повышает болевой порог на 20 единиц и исцеляет
+		H.reagents.add_reagent("zessulblood", 1)
+	if(H.bodytemperature < 273)                       //механика анабиоза при охлаждении, температурная пушка и тенеморфы усыпляют мгновенно, но ненадолго, в космосе уснешь быстро и навсегда, как и в морозилке.
+		switch(H.bodytemperature)
+			if(200 to 260)
+				H.EyeBlurry(3)
+			if(170 to 200)
+				H.AdjustDrowsy(3)
+			if(170 to 80)
+				to_chat(H, "<span class='danger'>Слишком холодно, я сейчас усну...</span>")
+			if(0 to 170)
+				H.AdjustSleeping(2)
+	else
+		return
