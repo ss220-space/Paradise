@@ -256,7 +256,7 @@
 	. = ..()
 	if(!wielded || !isliving(target))
 		return
-	if(!proximity) //this is not a staff, this is spear; it should work only when you hit someone
+	if(!proximity)
 		return
 	var/mob/living/living = target
 	switch(enchant_type)
@@ -306,7 +306,7 @@
 	. = ..()
 	if(!isliving(target))
 		return
-	if(!proximity) //you need to attack to activate spell
+	if(!proximity)
 		return
 	var/mob/living/living = target
 	switch(enchant_type)
@@ -748,7 +748,7 @@
 	var/mob/living/user = loc
 	if(!(user.a_intent == INTENT_HARM) || !enchant_type)
 		return
-	if(!proximity) //you need to get close to curse them with fire/stun
+	if(!proximity)
 		return
 	if(enchant_type == STUNHAND_SPELL && isliving(A))
 		var/mob/living/living = A
@@ -1181,7 +1181,7 @@
 	. = ..()
 	if(!ishuman(target) || !isclocker(user))
 		return
-	if(!proximity) //just... no more revives through walls
+	if(!proximity)
 		return
 	var/mob/living/carbon/human/human = target
 	if(human.stat == DEAD && isclocker(human)) // dead clocker
