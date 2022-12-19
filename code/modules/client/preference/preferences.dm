@@ -62,6 +62,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+#define TAB_KEYS 3
 
 /datum/preferences
 	var/client/parent
@@ -219,10 +220,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/discord_id = null
 	var/discord_name = null
 
+	/// Active keybinds (currently useable by the mob/client)
+	var/list/datum/keybindings = list()
+	/// Keybinding overrides ("name" => ["key"...])
+	var/list/keybindings_overrides = null
+
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-
+	parent?.set_macros()
 	max_gear_slots = config.max_loadout_points
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
@@ -238,6 +244,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	real_name = random_name(gender)
+	if(!SSdbcore.IsConnected())
+		init_keybindings() //we want default keybinds, even if DB is not connected
+		return
 	if(istype(C))
 		if(!loaded_preferences_successfully)
 			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
@@ -259,6 +268,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -586,6 +596,48 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
 					. += "</td></tr>"
 			dat += "</table>"
+		if(TAB_KEYS)
+			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Пожалуйста, обратите внимание, что некоторые привязки клавиш переопределяются другими категориями.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Убедитесь, что вы привязали их все или тот конкретный, который вам нужен.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Пользователи старого режима могут только повторно привязать и использовать следующие ключи:</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Стрелки, Функциональные (буквы и т.п.), Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Привязка клавиш поддерживается только на английской раскладке, но будет работать и на другой.</b></div></td></tr>"
+			dat += "<table align='center' width='100%'>"
+
+			// Lookup lists to make our life easier
+			var/static/list/keybindings_by_cat
+			if(!keybindings_by_cat)
+				keybindings_by_cat = list()
+				for(var/kb in GLOB.keybindings)
+					var/datum/keybinding/KB = kb
+					keybindings_by_cat["[KB.category]"] += list(KB)
+
+			for(var/cat in GLOB.keybindings_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
+				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
+				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
+					var/datum/keybinding/KB = kb
+					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
+					var/list/keys = override_keys || KB.keys
+					var/keys_buttons = ""
+					for(var/key in keys)
+						var/disp_key = key
+						if(override_keys)
+							disp_key = "<b>[disp_key]</b>"
+						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+					dat += "<tr>"
+					dat += "<td style='width: 25%'>[KB.name]</td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
+					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
+
+			dat += "</table>"
 
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
@@ -784,6 +836,48 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.set_content(html_string)
 	popup.open(0)
 	return
+
+/datum/preferences/proc/init_keybindings(overrides, raw)
+	if(raw)
+		try
+			overrides = json_decode(raw)
+		catch
+			overrides = list()
+	keybindings = list()
+	keybindings_overrides = overrides
+	for(var/kb in GLOB.keybindings)
+		var/datum/keybinding/KB = kb
+		var/list/keys = (overrides && overrides[KB.name]) || KB.keys
+		for(var/key in keys)
+			LAZYADD(keybindings[key], kb)
+
+	parent?.update_active_keybindings()
+	return keybindings
+
+/datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
+	var/HTML = {"
+	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [KB.name]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
+	<script>
+	var deedDone = false;
+	document.onkeyup = function(e) {
+		if(deedDone){ return; }
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var shift = e.shiftKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		window.location=url;
+		deedDone = true;
+	}
+	document.getElementById('focus').focus();
+	</script>
+	"}
+	winshow(user, "capturekeypress", TRUE)
+	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "capturekeypress", src)
 
 /datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
 	if(!job)
@@ -2197,6 +2291,125 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+				if("keybindings")
+					if(!keybindings_overrides)
+						keybindings_overrides = list()
+
+					if(href_list["set"])
+						var/datum/keybinding/KB = locateUID(href_list["set"])
+						if(KB)
+							if(href_list["key"])
+								var/old_key = href_list["old"]
+								var/new_key = copytext(url_decode(href_list["key"]), 1, 16)
+								var/alt_mod = text2num(href_list["alt"]) ? "Alt" : ""
+								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
+								var/shift_mod = text2num(href_list["shift"]) ? "Shift" : ""
+								var/numpad = (text2num(href_list["numpad"]) && text2num(new_key)) ? "Numpad" : ""
+								var/clear = text2num(href_list["clear_key"])
+
+								if(new_key == "Unidentified") //There doesn't seem to be any any key!
+									capture_keybinding(user, KB, href_list["old"])
+									return
+
+								if(!(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80)) // Don't uppercase unicode stuff
+									new_key = uppertext(new_key)
+
+								// Map for JS keys
+								var/static/list/key_map = list(
+									"UP" = "North",
+									"RIGHT" = "East",
+									"DOWN" = "South",
+									"LEFT" = "West",
+									"INSERT" = "Insert",
+									"HOME" = "Northwest",
+									"PAGEUP" = "Northeast",
+									"DEL" = "Delete",
+									"END" = "Southwest",
+									"PAGEDOWN" = "Southeast",
+									"SPACEBAR" = "Space",
+										"ALT" = "Alt",
+									"SHIFT" = "Shift",
+									"CONTROL" = "Ctrl",
+									"DIVIDE" = "Divide",
+									"MULTIPLY" = "Multiply",
+									"ADD" = "Add",
+									"SUBTRACT" = "Subtract",
+									"DECIMAL" = "Decimal",
+									"CLEAR" = "Center"
+								)
+
+								new_key = key_map[new_key] || new_key
+
+								var/full_key
+								switch(new_key)
+									if("ALT")
+										full_key = "Alt[ctrl_mod][shift_mod]"
+									if("CONTROL")
+										full_key = "[alt_mod]Ctrl[shift_mod]"
+									if("SHIFT")
+										full_key = "[alt_mod][ctrl_mod]Shift"
+									else
+										full_key = "[alt_mod][ctrl_mod][shift_mod][numpad][new_key]"
+
+								// Update overrides
+								var/list/key_overrides = keybindings_overrides[KB.name] || KB.keys?.Copy() || list()
+								var/index = key_overrides.Find(old_key)
+								var/changed = FALSE
+								if(clear) // Clear
+									key_overrides -= old_key
+									changed = TRUE
+								else if(old_key != full_key)
+									if(index) // Replace
+										var/cur_index = key_overrides.Find(full_key)
+										if(cur_index)
+											key_overrides[cur_index] = old_key
+										key_overrides[index] = full_key
+										changed = TRUE
+									else // Add
+										key_overrides -= (old_key || full_key) // Defaults to the new key itself, as to reorder it
+										key_overrides += full_key
+										changed = TRUE
+								else
+									changed = isnull(keybindings_overrides[KB.name]) // Sets it in the JSON
+
+								if(changed)
+									if(!length(key_overrides) && !length(KB.keys))
+										keybindings_overrides -= KB.name
+									else
+										keybindings_overrides[KB.name] = key_overrides
+
+								user << browse(null, "window=capturekeypress")
+							else
+								capture_keybinding(user, KB, href_list["old"])
+								return
+
+					else if(href_list["reset"])
+						var/datum/keybinding/KB = locateUID(href_list["reset"])
+						if(KB)
+							keybindings_overrides -= KB.name
+
+					else if(href_list["clear"])
+						var/datum/keybinding/KB = locateUID(href_list["clear"])
+						if(KB)
+							if(length(KB.keys))
+								keybindings_overrides[KB.name] = list()
+							else
+								keybindings_overrides -= KB.name
+
+					else if(href_list["all"])
+						var/yes = alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", "Yes", "No") == "Yes"
+						if(yes)
+							switch(href_list["all"])
+								if("reset")
+									keybindings_overrides = list()
+								if("clear")
+									for(var/kb in GLOB.keybindings)
+										var/datum/keybinding/KB = kb
+										keybindings_overrides[KB.name] = list()
+
+					init_keybindings(keybindings_overrides)
+					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
+
 
 
 	ShowChoices(user)
