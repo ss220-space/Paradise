@@ -195,7 +195,7 @@
 	if(pulling == AM)
 		stop_pulling()
 
-	if(client && istype(AM, /mob/living))
+	if(client)
 		client.current_move_delay *= AM.get_pull_push_speed_modifier(client.current_move_delay)
 		glide_for(client.current_move_delay)
 
