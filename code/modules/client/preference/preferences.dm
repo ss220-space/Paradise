@@ -605,8 +605,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><div align='center'><b>Убедитесь, что вы привязали их все или тот конкретный, который вам нужен.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Пользователи старого режима могут только повторно привязать и использовать следующие ключи:</b></div></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Стрелки, Функциональные (буквы и т.п.), Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Привязка клавиш поддерживается только на английской раскладке, но будет работать и на другой.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Стрелки, Функциональные (буквы(за исключением х и ъ) и т.п.), Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
 			dat += "<table align='center' width='100%'>"
 
 			// Lookup lists to make our life easier
@@ -2311,7 +2310,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									capture_keybinding(user, KB, href_list["old"])
 									return
 
-								if(!(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80)) // Don't uppercase unicode stuff
+								if(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80) // Don't uppercase unicode stuff
+									new_key = sanitize_russian_key_to_english(new_key)
+								else
 									new_key = uppertext(new_key)
 
 								// Map for JS keys
@@ -2327,7 +2328,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									"END" = "Southwest",
 									"PAGEDOWN" = "Southeast",
 									"SPACEBAR" = "Space",
-										"ALT" = "Alt",
+									"ALT" = "Alt",
 									"SHIFT" = "Shift",
 									"CONTROL" = "Ctrl",
 									"DIVIDE" = "Divide",
