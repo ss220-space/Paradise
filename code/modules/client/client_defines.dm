@@ -41,7 +41,7 @@
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
-	//control_freak = 1
+	control_freak = CONTROL_FREAK_ALL
 
 	var/ssd_warning_acknowledged = FALSE
 
@@ -60,7 +60,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"
 
