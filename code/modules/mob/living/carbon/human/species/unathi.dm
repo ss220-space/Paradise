@@ -83,8 +83,6 @@
 	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
 	liked_food = MEAT | RAW | EGG | GROSS
 
-/datum/species/unathi/New()
-
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
 	icon_icon = 'icons/effects/effects.dmi'
