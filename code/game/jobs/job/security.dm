@@ -171,10 +171,9 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	alt_titles = list("Security Cadet")
 	minimal_player_age = 14
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
@@ -197,7 +196,6 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-
 
 
 /datum/job/brigdoc
@@ -271,3 +269,40 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/engineer
+
+
+/datum/job/cadet
+	title = "Security Cadet"
+	flag = JOB_OFFICER
+	department_flag = JOBCAT_ENGSEC
+	total_positions = 7
+	spawn_positions = 7
+	is_security = 1
+	supervisors = "the head of security"
+	department_head = list("Head of Security")
+	selection_color = "#ffeeee"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	minimal_player_age = 14
+	outfit = /datum/outfit/job/cadet
+
+/datum/outfit/job/cadet
+	name = "Security Cadet"
+	jobtype = /datum/job/officer
+	uniform = /obj/item/clothing/under/rank/security_cadet
+	suit = /obj/item/clothing/suit/armor/vest/security
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	head = /obj/item/clothing/head/helmet
+	l_ear = /obj/item/radio/headset/headset_sec/alt
+	id = /obj/item/card/id/security
+	l_pocket = /obj/item/flash
+	suit_store = /obj/item/gun/energy/dominator/sibyl
+	pda = /obj/item/pda/security
+	backpack_contents = list(
+		/obj/item/restraints/handcuffs = 1
+	)
+	implants = list(/obj/item/implant/mindshield)
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security

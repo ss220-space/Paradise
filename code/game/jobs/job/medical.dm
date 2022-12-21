@@ -56,8 +56,8 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Student Medical Doctor","Surgeon","Nurse")
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -317,3 +317,35 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
+
+/datum/job/student_med
+	title = "Student Medical Doctor"
+	flag = JOB_DOCTOR
+	department_flag = JOBCAT_MEDSCI
+	total_positions = 5
+	spawn_positions = 3
+	is_medical = 1
+	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
+	selection_color = "#ffeef0"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
+	minimal_player_age = 3
+	outfit = /datum/outfit/job/student_med
+
+/datum/outfit/job/student_med
+	name = "Student Medical Doctor"
+	jobtype = /datum/job/student_med
+
+	uniform = /obj/item/clothing/under/rank/medical
+	suit = /obj/item/clothing/suit/storage/labcoat
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	l_hand = /obj/item/storage/firstaid/doctor
+	pda = /obj/item/pda/medical
+
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical

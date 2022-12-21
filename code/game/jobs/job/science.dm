@@ -123,3 +123,38 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
+
+/datum/job/student_sci
+	title = "Student Scientist"
+	flag = JOB_SCIENTIST
+	department_flag = JOBCAT_MEDSCI
+	total_positions = 6
+	spawn_positions = 6
+	is_science = 1
+	supervisors = "the research director"
+	department_head = list("Research Director")
+	selection_color = "#ffeeff"
+	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	minimal_player_age = 3
+	// All science-y guys get bonuses for maxing out their tech.
+	required_objectives = list(
+		/datum/job_objective/further_research
+	)
+
+	outfit = /datum/outfit/job/student_sci
+
+/datum/outfit/job/student_sci
+	name = "Student Scientist"
+	jobtype = /datum/job/student_sci
+
+	uniform = /obj/item/clothing/under/rank/scientist
+	suit = /obj/item/clothing/suit/storage/labcoat/science
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/research
+	pda = /obj/item/pda/toxins
+
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science

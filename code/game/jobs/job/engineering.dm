@@ -59,10 +59,10 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Trainee Engineer","Maintenance Technician","Engine Technician","Electrician")
+	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -82,8 +82,6 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
-
-
 
 /datum/job/atmos
 	title = "Life Support Specialist"
@@ -148,6 +146,39 @@
 	backpack_contents = list(
 		/obj/item/pod_paint_bucket = 1
 	)
+
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	box = /obj/item/storage/box/engineer
+
+/datum/job/student_eng
+	title = "Trainee Engineer"
+	flag = JOB_ENGINEER
+	department_flag = JOBCAT_ENGSEC
+	total_positions = 5
+	spawn_positions = 5
+	is_engineering = 1
+	supervisors = "the chief engineer"
+	department_head = list("Chief Engineer")
+	selection_color = "#fff5cc"
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
+	minimal_player_age = 7
+	outfit = /datum/outfit/job/student_eng
+
+/datum/outfit/job/student_eng
+	name = "Station Engineer"
+	jobtype = /datum/job/student_eng
+
+	uniform = /obj/item/clothing/under/rank/engineer
+	belt = /obj/item/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/workboots
+	head = /obj/item/clothing/head/hardhat
+	l_ear = /obj/item/radio/headset/headset_eng
+	id = /obj/item/card/id/engineering
+	l_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/engineering
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
