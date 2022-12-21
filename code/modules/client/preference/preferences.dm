@@ -2440,13 +2440,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							var/desired_emote = stripped_input(user, "Введите текст вашей эмоции, лимит: 128 символов.", "Custom Emote Setter", emote_text, max_length = 128)
 							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
 								user.client.prefs.custom_emotes[custom_emote_keybind.name] = desired_emote
-							user.client.prefs.save_character(user)
+							save_character(user)
 
 					else if(href_list["custom_emote_reset"])
 						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_reset"])
 						if(custom_emote_keybind)
 							user.client.prefs.custom_emotes.Remove(custom_emote_keybind.name)
-							user.client.prefs.save_character(user)
+							save_character(user)
 
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them

@@ -10,7 +10,7 @@
 
 /datum/keybinding/admin/msay
 	name = "Msay"
-	keys = list("F4")
+	keys = list("ShiftF5")
 
 /datum/keybinding/admin/msay/down(client/C)
 	. = ..()
