@@ -195,7 +195,7 @@
 				H.EyeBlurry(3)
 			if(170 to 200)
 				H.AdjustDrowsy(3)
-			if(170 to 80)
+			if(170 to 200)
 				to_chat(H, "<span class='danger'>Слишком холодно, я сейчас усну...</span>")
 			if(0 to 170)
 				H.AdjustSleeping(2)
