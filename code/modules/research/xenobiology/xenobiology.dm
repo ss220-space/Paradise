@@ -531,6 +531,36 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/acidproof
+	name = "slime acidproof potion"
+	desc = "A potent chemical mix that will acidproof any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	origin_tech = "biotech=5"
+	resistance_flags = ACID_PROOF
+
+/obj/item/slimepotion/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(C.resistance_flags & ACID_PROOF)
+		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
+		return ..()
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
+	C.name = "acidproofed [C.name]"
+	C.add_atom_colour("#008000", WASHABLE_COLOUR_PRIORITY)
+	C.resistance_flags |= ACID_PROOF
+
+/obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
+
 /obj/effect/timestop
 	anchored = 1
 	name = "chronofield"
