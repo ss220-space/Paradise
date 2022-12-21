@@ -134,6 +134,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	var/tts_seed = null
 
+	var/custom_emotes_tmp = null
+
+	/// Custom emote text ("name" = "emote text")
+	var/list/custom_emotes = list()
+
 	var/body_accessory = null
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
@@ -240,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
+				init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
@@ -251,6 +257,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(!loaded_preferences_successfully)
 			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		save_character(C)		// Do not call this with no client/C, it generates a runtime / SQL error
+		init_custom_emotes(C.prefs.custom_emotes)
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -633,6 +640,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<td style='width: 25%'>[KB.name]</td>"
 					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
+					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
+						var/datum/keybinding/custom/custom_emote_keybind = kb
+						if(custom_emote_keybind.donor_exclusive && !((user.client.donator_level >= 2) || user.client.holder || unlock_content))
+							dat += "</tr>"
+							dat += "<tr>"
+							dat += "<td><b>Использование этой эмоции ограничено поддержавшими проект и членами byond.</b></td>"
+							dat += "</tr>"
+							continue
+						dat += "</tr>"
+						dat += "<tr>"
+						var/emote_text = user.client.prefs.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
+						if(!emote_text)
+							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
+						else
+							dat += "<td style='width: 25%'><i>\"[user.client.prefs.real_name] [emote_text]\"</i></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote_keybind.UID()];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote_keybind.UID()];'>Reset to Default</a></td>"
+						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 
@@ -2408,6 +2433,21 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 										var/datum/keybinding/KB = kb
 										keybindings_overrides[KB.name] = list()
 
+					else if(href_list["custom_emote_set"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
+						if(custom_emote_keybind)
+							var/emote_text = user.client.prefs.custom_emotes[custom_emote_keybind.name]
+							var/desired_emote = stripped_input(user, "Введите текст вашей эмоции, лимит: 128 символов.", "Custom Emote Setter", emote_text, max_length = 128)
+							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
+								user.client.prefs.custom_emotes[custom_emote_keybind.name] = desired_emote
+							user.client.prefs.save_character(user)
+
+					else if(href_list["custom_emote_reset"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_reset"])
+						if(custom_emote_keybind)
+							user.client.prefs.custom_emotes.Remove(custom_emote_keybind.name)
+							user.client.prefs.save_character(user)
+
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
@@ -2646,3 +2686,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 //Check if the user has ANY job selected.
 /datum/preferences/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
+
+/datum/preferences/proc/init_custom_emotes(overrides)
+	custom_emotes = overrides
+
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue //we don't set anything without an override
+
+		custom_emotes[custom_emote.name] = emote_text
+
+	return custom_emotes

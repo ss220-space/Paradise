@@ -203,7 +203,8 @@
 					gear,
 					autohiss,
 					uplink_pref,
-					tts_seed
+					tts_seed,
+					custom_emotes
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -288,6 +289,8 @@
 		// TTS
 		tts_seed = query.item[54]
 
+		custom_emotes_tmp = query.item[55]
+
 		saved = TRUE
 
 	qdel(query)
@@ -326,6 +329,8 @@
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
 	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
+	custom_emotes_tmp = sanitize_text(custom_emotes_tmp)
+	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -437,7 +442,8 @@
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
 												uplink_pref=:uplink_pref,
-												tts_seed=:tts_seed
+												tts_seed=:tts_seed,
+												custom_emotes=:custom_emotes
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -495,6 +501,7 @@
 													"autohiss_mode" = autohiss_mode,
 													"uplink_pref" = uplink_pref,
 													"tts_seed" = tts_seed,
+													"custom_emotes" = json_encode(custom_emotes),
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -536,7 +543,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, uplink_pref, tts_seed)
+											socks, body_accessory, gear, autohiss, uplink_pref, tts_seed, custom_emotes)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -564,7 +571,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref, :tts_seed)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref, :tts_seed, :custom_emotes)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -623,7 +630,8 @@
 		"gearlist" = (gearlist ? gearlist : ""),
 		"autohiss_mode" = autohiss_mode,
 		"uplink_pref" = uplink_pref,
-		"tts_seed" = tts_seed
+		"tts_seed" = tts_seed,
+		"custom_emotes" = json_encode(custom_emotes)
 	))
 
 	if(!query.warn_execute())
