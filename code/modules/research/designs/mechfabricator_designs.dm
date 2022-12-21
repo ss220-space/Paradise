@@ -1552,3 +1552,124 @@
 	construction_time = 50
 	build_path = /obj/item/borg/upgrade/syndie_rcd
 	category = list("Syndicate")
+
+//Тут идут новые пеинткиты, которые теперь можно печатать в фабрикаторе мехов
+/datum/design/paint_ripley_titan
+	name = "APLU \"Titan's Fist\" customisation kit"
+	id = "p_titan"
+	build_type = MECHFAB
+	req_tech = list("combat" = 5, "engineering" = 7, "materials" = 5, "programming" = 6)
+	build_path = /obj/item/paintkit/ripley_titansfist
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 500
+	category = list("Misc")
+
+/datum/design/paint_ripley_earth
+	name = "Mercenary APLU \"Ripley\" customisation kit"
+	id = "p_earth"
+	build_type = MECHFAB
+	req_tech = list("combat" = 7, "engineering" = 7, "materials" = 5, "programming" = 6)
+	build_path = /obj/item/paintkit/ripley_mercenary
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 500
+	category = list("Misc")
+
+/datum/design/paint_ripley_red
+	name = "APLU \"Firestarter\" customisation kit"
+	id = "p_red"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 7, "materials" = 7, "toxins" = 6)
+	build_path = /obj/item/paintkit/ripley_red
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 300
+	category = list("Misc")
+
+/datum/design/paint_ripley_blue
+	name = "APLU \"Burning Chrome\" customisation kit"
+	id = "p_blue"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 7, "materials" = 7, "toxins" = 6)
+	build_path = /obj/item/paintkit/ripley_blue
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 300
+	category = list("Misc")
+
+/datum/design/paint_firefighter_hauler
+	name = "APLU \"Hauler\" customisation kit"
+	id = "p_hauler"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 7, "materials" = 7, "programming" = 6)
+	build_path = /obj/item/paintkit/firefighter_Hauler
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 500
+	category = list("Misc")
+
+/datum/design/paint_firefighter_zairjah
+	name = "APLU \"Zairjah\" customisation kit"
+	id = "p_zairjah"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 7, "materials" = 7, "programming" = 7, "toxins" = 5)
+	build_path = /obj/item/paintkit/firefighter_zairjah
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 500
+	category = list("Misc")
+
+/datum/design/paint_firefighter_combat
+	name = "Combat Ripley customisation kit"
+	id = "p_combat"
+	build_type = MECHFAB
+	req_tech = list("combat" = 7, "engineering" = 7, "materials" = 7, "programming" = 6)
+	build_path = /obj/item/paintkit/firefighter_combat
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 400
+	category = list("Misc")
+
+/datum/design/paint_firefighter_reaper
+	name = "APLU \"Reaper\" customisation kit"
+	id = "p_reaper"
+	build_type = MECHFAB
+	req_tech = list("combat" = 7, "engineering" = 7, "materials" = 7, "programming" = 6,"toxins" = 7)
+	build_path = /obj/item/paintkit/firefighter_Reaper
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 600
+	category = list("Misc")
+
+/datum/design/paint_gygax_black
+	name = "Syndicate Gygax customisation kit"
+	id = "p_blackgygax"
+	build_type = MECHFAB
+	req_tech = list("combat" = 7, "engineering" = 6, "materials" = 7, "programming" = 6, "syndicate" = 3)
+	build_path = /obj/item/paintkit/gygax_syndie
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 700
+	category = list("Misc")
+
+/datum/design/paint_gygax_alt
+	name = "Old gygax customisation kit"
+	id = "p_altgygax"
+	build_type = MECHFAB
+	req_tech = list("combat" = 4, "engineering" = 5, "materials" = 5, "programming" = 4)
+	build_path = /obj/item/paintkit/gygax_alt
+	materials = list(MAT_METAL=20000, MAT_DIAMOND=1000, MAT_URANIUM= 1000)
+	construction_time = 400
+	category = list("Misc")
+
+/datum/design/paint_durand_shire
+	name = "Shire customisation kit"
+	id = "p_shire"
+	build_type = MECHFAB
+	req_tech = list("combat" = 7, "engineering" = 7, "materials" = 7, "programming" = 7)
+	build_path = /obj/item/paintkit/durand_shire
+	materials = list(MAT_METAL=60000, MAT_DIAMOND=5000, MAT_URANIUM= 10000)
+	construction_time = 800
+	category = list("Misc")
+
+/datum/design/paint_odysseus_hermes
+	name = "Hermes customisation kit"
+	id = "p_hermes"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 6, "materials" = 6, "programming" = 7,"biotech" = 7)
+	build_path = /obj/item/paintkit/odysseus_hermes
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 300
+	category = list("Misc")

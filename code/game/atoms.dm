@@ -1079,3 +1079,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
+
+//Необходимо для нормальной работы модкитов
+/atom/proc/SetName(new_name)
+	var/old_name = name
+
+	if(old_name != new_name)
+		name = new_name
