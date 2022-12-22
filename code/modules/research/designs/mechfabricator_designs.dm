@@ -1664,6 +1664,16 @@
 	construction_time = 800
 	category = list("Misc")
 
+/datum/design/paint_durand_old
+	name = "Old Durand customisation kit"
+	id = "p_olddurand"
+	build_type = MECHFAB
+	req_tech = list("combat" = 4, "engineering" = 5, "materials" = 5, "programming" = 4)
+	build_path = /obj/item/paintkit/durand_old
+	materials = list(MAT_METAL=20000, MAT_DIAMOND=1000, MAT_URANIUM= 1000)
+	construction_time = 400
+	category = list("Misc")
+
 /datum/design/paint_odysseus_hermes
 	name = "Hermes customisation kit"
 	id = "p_hermes"

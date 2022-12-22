@@ -47,7 +47,7 @@
 /obj/item/paintkit/gygax_alt
 	name = "Old gygax customisation kit"
 	icon_state = "paintkit_alt"
-	desc = "A kit containing all the needed tools and parts to turn a Gygax into an outdated version of Gygax. Why would you do that?"
+	desc = "A kit containing all the needed tools and parts to turn a Gygax into an outdated version of itself. Why would you do that?"
 
 	new_name = "Old Gygax"
 	new_desc = "An outdated security exosuit. It is a real achievement to find a preserved exosuit of this model."
@@ -95,6 +95,16 @@
 	new_name = "Shire"
 	new_desc = "An incredibly heavy-duty war machine derived from an Interstellar War design."
 	new_icon = "shire"
+	allowed_types = list("durand")
+
+/obj/item/paintkit/durand_old
+	name = "Old Durand modification kit"
+	icon_state = "paintkit_old"
+	desc = "A kit containing all the needed tools and parts to turn a Durand into an outdated version of itself. Why would you do that?"
+
+	new_name = "Old Durand"
+	new_desc = "A retired, third-generation combat exosuit utilized by the Nanotrasen corporation. Originally developed to combat hostile alien lifeforms."
+	new_icon = "old_durand"
 	allowed_types = list("durand")
 
 /obj/item/paintkit/firefighter_zairjah
