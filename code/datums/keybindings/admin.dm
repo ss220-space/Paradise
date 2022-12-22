@@ -9,7 +9,7 @@
 	return !isnull(C.holder) && ..()
 
 /datum/keybinding/admin/msay
-	name = "Msay"
+	name = "Msay (for admins)"
 	keys = list("ShiftF5")
 
 /datum/keybinding/admin/msay/down(client/C)
@@ -17,7 +17,7 @@
 	C.get_mentor_say()
 
 /datum/keybinding/admin/asay
-	name = "Asay"
+	name = "Msay/Asay"
 	keys = list("F5")
 
 /datum/keybinding/admin/asay/down(client/C)

@@ -294,6 +294,10 @@
 	linked_emote ="sniff"
 	name = "Понюхать"
 
+/datum/keybinding/emote/carbon/human/snuffle
+	linked_emote ="snuffle"
+	name = "Шмыгать носом"
+
 /datum/keybinding/emote/carbon/human/sneeze
 	linked_emote ="sneeze"
 	name = "Чихнуть"
@@ -317,6 +321,10 @@
 /datum/keybinding/emote/carbon/human/snap
 	linked_emote ="snap"
 	name = "Щёлкнуть пальцами"
+
+/datum/keybinding/emote/carbon/human/hem
+	linked_emote ="hem"
+	name = "Хмыкнуть"
 
 /datum/keybinding/emote/carbon/human/fart
 	linked_emote ="fart"
@@ -362,9 +370,13 @@
 	linked_emote ="hum"
 	name = "Гудеть"
 
-/datum/keybinding/emote/carbon/human/hiss
+/datum/keybinding/emote/carbon/human/unathi/hiss
 	linked_emote ="hiss"
-	name = "Шипеть"
+	name = "Шипеть (унатхи)"
+
+/datum/keybinding/emote/carbon/human/unathi/threat
+	linked_emote ="threat"
+	name = "Угрожать"
 
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote ="creak"
@@ -382,9 +394,21 @@
 	linked_emote ="growl"
 	name = "Рычать"
 
-/datum/keybinding/emote/carbon/human/monkey/scratch
+/datum/keybinding/emote/carbon/human/scratch
 	linked_emote ="scratch"
 	name = "Почесаться"
+
+/datum/keybinding/emote/carbon/human/tajaran/hisses
+	linked_emote ="hisses"
+	name = "Шипеть (таяры)"
+
+/datum/keybinding/emote/carbon/human/purr
+	linked_emote ="purr"
+	name = "Мурчать"
+
+/datum/keybinding/emote/carbon/human/purrl
+	linked_emote ="purrl"
+	name = "Мурчать дольше"
 
 /datum/keybinding/emote/carbon/human/whip
 	linked_emote ="whip"
