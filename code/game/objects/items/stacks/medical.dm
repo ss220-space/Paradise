@@ -47,8 +47,8 @@
 			if(!do_mob(user, H, self_delay))
 				return TRUE
 
-		for(var/obj/item/carried_item in H.contents)
-			if(istype(carried_item, /obj/item/clothing/suit/space))
+		if(istype(H.head, /obj/item/clothing/head/helmet/space))
+			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				to_chat(user, "<span class='danger'>This can't be used on hardusits!</span>")
 				return TRUE
 

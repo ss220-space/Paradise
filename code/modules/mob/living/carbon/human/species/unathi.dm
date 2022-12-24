@@ -130,8 +130,6 @@
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
-	if(prob(50))
-		to_chat(H, "<span class='green'>[pick("Добро пожаловать в мои объятия, дитя...", "Это была славная охота, унатх.", "Мы не забудем о тебе...", "Я не смогла тебе помочь, прости...", "Как же тепло в её объятиях...", "Отдых нужен даже самым сильным охотникам, дитя.")]</span>")
 
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
@@ -187,9 +185,9 @@
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
-	if(H.reagents.get_reagent_amount("zessulblood") < 5)          //естественно генерируемое вещество, повышает болевой порог на 20 единиц и исцеляет
+	if(H.reagents.get_reagent_amount("zessulblood") < 5)         //unique unathi chemical, heals over time and increases shock reduction for 20
 		H.reagents.add_reagent("zessulblood", 1)
-	if(H.bodytemperature < 273)                       //механика анабиоза при охлаждении, температурная пушка и тенеморфы усыпляют мгновенно, но ненадолго, в космосе уснешь быстро и навсегда, как и в морозилке.
+	if(H.bodytemperature < 273)                       //anabiosis. unathi falls asleep if body temp is too low
 		switch(H.bodytemperature)
 			if(200 to 260)
 				H.EyeBlurry(3)
