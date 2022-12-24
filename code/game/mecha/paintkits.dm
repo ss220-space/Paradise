@@ -24,7 +24,7 @@
 	allowed_types = list("ripley") //тут идет перечисление всех мехов, на которые можно использовать пеинткит.
 
 /obj/item/paintkit/ripley_mercenary
-	name = "Mercenary APLU \"Ripley\" customisation kit"
+	name = "APLU \"Strike the Earth!\" customisation kit"
 	icon_state = "paintkit_earth"
 	desc = "A kit containing all the needed tools and parts to turn a Ripley into an old Mercenaries APLU."
 
@@ -146,3 +146,14 @@
 	new_desc = "Heavy-duty diving exosuit developed and produced for for highly specialized underwater operations. How did he end up here?"
 	new_icon = "hermes"
 	allowed_types = list("odysseus")
+
+/obj/item/paintkit/durand_unathi
+	name = "Durand \"Kharn MK. IV\" customization kit"
+	icon_state = "paintkit_unathi"
+	desc = "A kit containing all the needed tools and parts to turn a Durand into an alien-like lizard mech"
+
+
+	new_name = "Kharn MK. IV"
+	new_desc = "My life for the empress!"
+	new_icon = "unathi"
+	allowed_types = list("durand")

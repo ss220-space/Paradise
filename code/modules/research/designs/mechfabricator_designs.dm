@@ -1674,6 +1674,17 @@
 	construction_time = 400
 	category = list("Misc")
 
+/datum/design/paint_durand_unathi
+	name = "Kharn MK. IV customisation kit"
+	id = "p_unathi"
+	build_type = MECHFAB
+	req_tech = list("materials" = 7, "biotech" = 7)
+	build_path = /obj/item/paintkit/durand_unathi
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
+	construction_time = 600
+	category = list("Misc")
+
+
 /datum/design/paint_odysseus_hermes
 	name = "Hermes customisation kit"
 	id = "p_hermes"
