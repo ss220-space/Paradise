@@ -190,13 +190,15 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(!config.auto_extended_players_num)
 		return
 
-	if(length(GLOB.clients) <= config.auto_extended_players_num)
+	var/totalPlayersReady = 0
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(player.ready)
+			totalPlayersReady++
+
+	if(totalPlayersReady <= config.auto_extended_players_num)
 		GLOB.master_mode = "extended"
 		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
-	else
-		GLOB.master_mode = "secret"
 	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
-	world.save_mode(GLOB.master_mode)
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")

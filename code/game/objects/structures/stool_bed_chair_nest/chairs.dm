@@ -5,6 +5,7 @@
 	icon_state = "chair"
 	layer = OBJ_LAYER
 	can_buckle = TRUE
+	buckle_prevents_pull = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
@@ -31,6 +32,15 @@
 /obj/structure/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
+
+/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
+	if(!movable)
+		anchored = TRUE
+	. = ..()
+
+/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
+	anchored = initial(anchored)
+	. = ..()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
@@ -220,7 +230,6 @@
 	color = rgb(255,251,0)
 
 /obj/structure/chair/office
-	anchored = FALSE
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
@@ -229,6 +238,7 @@
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
 	icon_state = "shuttle_chair"
+	anchored = TRUE
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
@@ -266,6 +276,7 @@
 	icon_state = "barber_chair"
 	buildstackamount = 1
 	item_chair = null
+	anchored = TRUE
 
 // SOFAS
 /obj/structure/chair/sofa
