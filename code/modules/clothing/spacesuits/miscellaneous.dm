@@ -145,8 +145,8 @@
 	item_state = "solgovcommander"
 
 /obj/item/clothing/suit/space/deathsquad/officer/syndie
-	icon_state = "specops"
-	item_state = "specops"
+	icon_state = "jacket_syndie"
+	item_state = "jacket_syndie"
 
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
