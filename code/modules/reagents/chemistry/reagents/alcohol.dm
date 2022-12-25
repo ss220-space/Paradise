@@ -1861,7 +1861,7 @@
 	drink_icon = "daiquiri"
 	drink_name = "Daiquiri"
 	drink_desc = "Just try, try again for me! With the headshot power of a Daiquiri!"
-	taste_description = "separateness of taste"
+	taste_description = "headshot"
 
 /datum/reagent/consumable/ethanol/tuxedo
 	name = "Tuxedo"
@@ -2058,7 +2058,7 @@
 	alcohol_perc = 0.5
 	drink_icon = "blackicp"
 	drink_name = "Black ICP"
-	drink_desc = "I'm sorry I wasn't listening, can you repeat that?"
+	drink_desc = "I'm sorry I wasn't responding, can you repeat that?"
 	taste_description = "monitor replacing"
 
 /datum/reagent/consumable/ethanol/slime_drink
@@ -2069,7 +2069,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "slime_drink"
 	drink_name = "Slime Drink"
-	drink_desc = "Don't worry, it's just jelly. He's been dead for a long time."
+	drink_desc = "Don't worry, it's just jelly. And slime been dead for a long time."
 	taste_description = "jelly alcohol"
 
 /datum/reagent/consumable/ethanol/innocent_erp
@@ -2141,12 +2141,12 @@
 /datum/reagent/consumable/ethanol/trans_siberian_express
 	name = "Trans-Siberian Express"
 	id = "trans_siberian_express"
-	description = "From Vladivostok to delirium tremens a day."
+	description = "From Vladivostok to delirium tremens in a day."
 	color = "#e2a600"
 	alcohol_perc = 0.5
 	drink_icon = "trans_siberian_express"
 	drink_name = "Trans-Siberian express"
-	drink_desc = "From Vladivostok to delirium tremens a day."
+	drink_desc = "From Vladivostok to delirium tremens in a day."
 	taste_description = "terrible infrastructure"
 
 /datum/reagent/consumable/ethanol/sun
