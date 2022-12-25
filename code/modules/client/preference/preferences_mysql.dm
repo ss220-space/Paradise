@@ -329,7 +329,7 @@
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
 	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
-	custom_emotes_tmp = sanitize_text(custom_emotes_tmp)
+	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
@@ -714,3 +714,15 @@
 
 	qdel(update_query)
 	return TRUE
+
+/datum/preferences/proc/init_custom_emotes(overrides)
+
+	custom_emotes = overrides
+
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue //we set anything without an override back to default, in case it isn't that
+		custom_emotes[custom_emote.name] = emote_text
+
+	return custom_emotes

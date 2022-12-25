@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
-				init_custom_emotes(C.prefs.custom_emotes)
+				C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(!loaded_preferences_successfully)
 			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		save_character(C)		// Do not call this with no client/C, it generates a runtime / SQL error
-		init_custom_emotes(C.prefs.custom_emotes)
+		C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -2686,15 +2686,3 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 //Check if the user has ANY job selected.
 /datum/preferences/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
-
-/datum/preferences/proc/init_custom_emotes(overrides)
-	custom_emotes = overrides
-
-	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
-		var/emote_text = overrides && overrides[custom_emote.name]
-		if(!emote_text)
-			continue //we don't set anything without an override
-
-		custom_emotes[custom_emote.name] = emote_text
-
-	return custom_emotes

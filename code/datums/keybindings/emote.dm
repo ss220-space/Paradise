@@ -41,7 +41,7 @@
 	linked_emote ="jump"
 	name = "Прыгать"
 
-/*/datum/keybinding/emote/deathgasp
+/*/datum/keybinding/emote/deathgasp //commented in emote_panel_ru.dm
 	linked_emote ="deathgasp"
 	name = "Deathgasp"
 */
@@ -238,7 +238,7 @@
 	linked_emote ="cry"
 	name = "Плакать"
 
-/*/datum/keybinding/emote/carbon/human/dap //закоменчено и в эмоут панели
+/*/datum/keybinding/emote/carbon/human/dap //commented in emote_panel_ru.dm
 	linked_emote ="dap
 	name = "Dap"
 */
@@ -485,6 +485,7 @@
 /datum/keybinding/emote/simple_animal/pet/cat/purr
 	linked_emote ="purr"
 	name = "Мурчать (кот)"
+
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM
 	var/default_emote_text = "Введите текст вашей эмоции"
@@ -492,7 +493,7 @@
 
 /datum/keybinding/custom/down(client/C)
 	. = ..()
-	if(!C.prefs.custom_emotes) //Checks the current character save for any custom emotes
+	if(!C.prefs?.custom_emotes) //Checks the current character save for any custom emotes
 		return
 
 	var/desired_emote = C.prefs.custom_emotes[name] //check the custom emotes list for this keybind name
