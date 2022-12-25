@@ -198,6 +198,10 @@
 					body_accessory,
 					gear,
 					autohiss,
+					hair_gradient,
+					hair_gradient_offset,
+					hair_gradient_colour,
+					hair_gradient_alpha,
 					uplink_pref
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
@@ -252,7 +256,7 @@
 		job_karma_med = text2num(query.item[37])
 		job_karma_low = text2num(query.item[38])
 
-		//Miscellaneous
+		//Miscellaneous]
 		flavor_text = query.item[39]
 		med_record = query.item[40]
 		sec_record = query.item[41]
@@ -279,6 +283,10 @@
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
 		uplink_pref = query.item[53]
+		h_grad_style = query.item[54]
+		h_grad_offset_x = query.item[55] // parsed down below
+		h_grad_colour = query.item[56]
+		h_grad_alpha = query.item[57]
 
 		saved = TRUE
 
@@ -335,6 +343,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 200, initial(h_grad_alpha))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -427,6 +442,10 @@
 												body_accessory=:body_accessory,
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
+												hair_gradient=:h_grad_style,
+												hair_gradient_offset=:h_grad_offset,
+												hair_gradient_colour=:h_grad_colour,
+												hair_gradient_alpha=:h_grad_alpha
 												uplink_pref=:uplink_pref
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
@@ -483,6 +502,10 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
+													"h_grad_style" = h_grad_style,
+													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+													"h_grad_colour" = h_grad_colour,
+													"h_grad_alpha" = h_grad_alpha,
 													"uplink_pref" = uplink_pref,
 													"ckey" = C.ckey,
 													"slot" = default_slot
@@ -525,7 +548,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, uplink_pref)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -553,7 +576,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -611,6 +634,10 @@
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
 		"autohiss_mode" = autohiss_mode,
+		"h_grad_style" = h_grad_style,
+		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+		"h_grad_colour" = h_grad_colour,
+		"h_grad_alpha" = h_grad_alpha,
 		"uplink_pref" = uplink_pref
 	))
 
