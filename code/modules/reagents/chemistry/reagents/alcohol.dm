@@ -1606,7 +1606,7 @@
 	drink_icon = "nagasaki"
 	drink_name = "Nagasaki"
 	drink_desc = "At first, no one knew what would happen next. The intoxication was terrible. There is no doubt that this is the strongest intoxication that a person has ever seen."
-	taste_description = "alcoholic ashes"
+	taste_description = "radioactive ash"
 
 /datum/reagent/consumable/ethanol/chocolate_sheridan
 	name = "Chocolate Sheridan's"
@@ -1670,7 +1670,7 @@
 	color = "#6b0059"
 	alcohol_perc = 1.4 ////Heal burn
 	drink_icon = "alcomender"
-	drink_name = "Glass of alcomender"
+	drink_name = "Alcomender"
 	drink_desc = "A glass in the form of a mender, a favorite among doctors."
 	taste_description = "skin restoration"
 
