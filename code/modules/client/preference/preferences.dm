@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_REVENANT = 14,
 	ROLE_OPERATIVE = 21,
 	ROLE_CULTIST = 21,
+	ROLE_CLOCKER = 21,
 	ROLE_RAIDER = 21,
 	ROLE_ALIEN = 21,
 	ROLE_DEMON = 21,
@@ -108,7 +109,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/m_styles = list(
 		"head" = "None",
 		"body" = "None",
-		"tail" = "None"
+		"tail" = "None",
+		"wing" = "None"
 		)			//Marking styles.
 	var/list/m_colours = list(
 		"head" = "#000000",
@@ -128,6 +130,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
+
+	var/tts_seed = null
 
 	var/body_accessory = null
 
@@ -197,6 +201,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1020" = 100, // CHANNEL_HEARTBEAT
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
+		"1014" = 50, // CHANNEL_TTS_LOCAL
+		"1013" = 20, // CHANNEL_TTS_RADIO
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -351,7 +357,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(e_colour)]<br>"
 
-			if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
+			if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[species]) || check_rights(R_ADMIN, 0, user))
 				dat += "<b>Body Color:</b> "
 				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(s_colour)]<br>"
 
@@ -369,6 +375,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Special Role</h2>"
 			dat += "<b>Uplink Location:</b> <a href='?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
+
+			if(config.tts_enabled)
+				dat += "<h2>Text-to-Speech</h2>"
+				dat += "<b>Выбор голоса:</b> <a href='?_src_=prefs;preference=tts_seed;task=input'>Эксплорер TTS голосов</a><br>"
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
@@ -1331,7 +1341,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1414,6 +1424,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 
 						body_accessory = null //no vulptail on humans damnit
+						body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
 
 						//Reset prosthetics.
 						organ_data = list()
@@ -1659,6 +1670,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								continue
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
+					if(S.optional_body_accessory)
+						possible_body_accessories.Add("None") //the only null entry should be the "None" option
+					else
+						possible_body_accessories.Remove("None") // in case an admin is viewing it
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
@@ -1787,7 +1802,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							s_tone = max(min(round(skin_c), S.icon_skin_tones.len), 1)
 
 				if("skin")
-					if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
+					if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[species]) || check_rights(R_ADMIN, 0, user))
 						var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", s_colour) as color|null
 						if(new_skin)
 							s_colour = new_skin
@@ -1820,6 +1835,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_uplink_pref = input(user, "Choose your preferred uplink location:", "Character Preference") as null|anything in list("pda", "headset")
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
+
+				if("tts_seed")
+					var/static/list/explorer_users = list()
+					var/datum/ui_module/tts_seeds_explorer/explorer = explorer_users[user]
+					if(!explorer)
+						explorer = new()
+						explorer_users[user] = explorer
+					explorer.ui_interact(user)
+					return
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
@@ -2206,6 +2230,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_gender(gender)
 	character.age = age
+
+	character.tts_seed = tts_seed
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")

@@ -163,7 +163,7 @@
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
@@ -237,7 +237,7 @@
 	description = "An extremely volatile substance, handle with the utmost care."
 	reagent_state = LIQUID
 	color = "#FF0000"
-	metabolization_rate = 4
+	metabolization_rate = 10 * REAGENTS_METABOLISM
 	process_flags = ORGANIC | SYNTHETIC
 	taste_mult = 0
 
@@ -302,7 +302,7 @@
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
 	color = "#000000"
-	metabolization_rate = 0.05
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "explosions"
 

@@ -6,6 +6,7 @@
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
 	permeability_coefficient = 0.01
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 40, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
@@ -29,6 +30,7 @@
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
 	w_class = WEIGHT_CLASS_BULKY
+	resistance_flags = ACID_PROOF
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 40, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
@@ -95,7 +97,15 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	flags_inv = 0
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
+
+/obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
+	name = "Офицерская фуражка Верховного Главнокомандующего"
+	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего Верховного Главнокомандующего Флота NanoTrasen. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
+	icon_state = "ntsc_cap"
+	item_state = "ntsc_cap"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "\improper Trans-Solar Federation commander's beret"
@@ -114,6 +124,20 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
+
+/obj/item/clothing/suit/space/deathsquad/officer/supreme
+	name = "Форма Верховного Главнокомандующего"
+	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего Верховного Главнокомандующего Флота NanoTrasen. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
+	icon_state = "ntsc_uniform"
+	item_state = "ntsc_uniform"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/space/deathsquad/officer/field
+	name = "Полевая форма Офицера Флота NanoTrasen"
+	desc = "Парадный плащ, разработанный в качестве массового варианта формы Верховного Главнокомандующего. У этой униформы нет тех же защитных свойств, что и у оригинала, но она все ещё является довольно удобным и стильным предметом гардероба."
+	icon_state = "ntsc_uniform"
+	item_state = "ntsc_uniform"
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	name = "\improper Trans-Solar Federation commander's jacket"

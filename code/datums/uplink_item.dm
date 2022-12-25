@@ -1209,6 +1209,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 35
 
+/datum/uplink_item/stealthy_tools/chameleonpen
+	name = "Chameleon Pen"
+	desc = "A pen with customized ultra-super high-tech tip, that makes everything you write look like a real signature."
+	reference = "CHPEN"
+	item = /obj/item/pen/fakesign
+	cost = 1
+	surplus = 35
+
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
@@ -1758,7 +1766,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	The briefcase also feels a little heavier to hold; it has been manufactured to pack a little bit more of a punch if your client needs some convincing."
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 5
+	cost = 1
 
 /datum/uplink_item/badass/plasticbag
 	name = "Plastic Bag"
@@ -1832,6 +1840,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SNPB"
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 22 // normally 27
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/bundles_TC/cyborg_maint
+	name = "Cyborg maintenance crate"
+	desc = "A box containing all internal parts of cyborg for repair."
+	reference = "CYMT"
+	item = /obj/item/storage/box/syndie_kit/cyborg_maint
+	cost = 4
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/badass

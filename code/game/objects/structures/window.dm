@@ -722,6 +722,25 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/shuttle/tinted
 	opacity = TRUE
 
+/obj/structure/window/full/shuttle/gray
+	name = "shuttle window"
+	desc = "A reinforced, air-locked shuttle window."
+	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
+	icon_state = "shuttle_window_gray"
+
+/obj/structure/window/full/shuttle/gray/tinted
+	opacity = TRUE
+
+/obj/structure/window/full/shuttle/ninja
+	name = "High-Tech shuttle window"
+	desc = "A reinforced, air-locked shuttle window."
+	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
+	icon_state = "shuttle_window_ninja"
+	armor = list("melee" = 50, "bullet" = 30, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/structure/window/full/shuttle/ninja/tinted
+	opacity = TRUE
+
 /obj/structure/window/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium."
@@ -745,7 +764,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
-	icon_state = "clockwork_window_single"
+	icon_state = "clockwork_window"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)

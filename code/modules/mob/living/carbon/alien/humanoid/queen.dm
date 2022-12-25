@@ -10,6 +10,8 @@
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	var/datum/action/innate/xeno_action/lay_egg_queen/lay_egg_queen_action = new
+	tts_seed = "Queen"
+
 /mob/living/carbon/alien/humanoid/queen/GrantAlienActions()
 	. = ..()
 	lay_egg_queen_action.Grant(src)
@@ -27,6 +29,7 @@
 			break
 
 	real_name = src.name
+	grant_all_babel_languages()
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac

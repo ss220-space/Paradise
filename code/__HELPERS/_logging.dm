@@ -53,7 +53,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_access_in(client/new_client)
 	if(config.log_access)
-		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version]"
+		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
@@ -231,7 +231,7 @@ GLOBAL_PROTECT(log_end)
 		return
 
 	var/user_str
-	if(ismecha(user.loc) || isspacepod(user.loc))
+	if(ismecha(user?.loc) || isspacepod(user?.loc))
 		var/obj/vehicle = user.loc
 		user_str = key_name_log(user) + COORD(vehicle)
 	else
@@ -257,7 +257,7 @@ GLOBAL_PROTECT(log_end)
 		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
 	var/mob/living/alive = target
 	if(istype(alive))
-		newhp += "\[HP: [alive.health]: [alive.getOxyLoss()] - [alive.getToxLoss()] - [alive.getFireLoss()] - [alive.getBruteLoss()] - [alive.getStaminaLoss()] - [alive.getBrainLoss()] - [alive.getCloneLoss()] \]"
+		newhp += "\[HP:[alive.health]:[alive.getOxyLoss()]-[alive.getToxLoss()]-[alive.getFireLoss()]-[alive.getBruteLoss()]-[alive.getStaminaLoss()]-[alive.getBrainLoss()]-[alive.getCloneLoss()]\]"
 	log_attack(user_str, target_str, what_done, newhp)
 
 	//Setting up log level of how important this log.
@@ -299,8 +299,8 @@ GLOBAL_PROTECT(log_end)
 	else
 		log_runtime(EXCEPTION("Got non-mob variable [user] with arguments [what_said] [language] [target]"))
 		return
-	actor.create_log(SAY_LOG, "([language]) [what_said]", target)
-	log_say("([language]) [what_said] [target ? "to [target]" : null]", actor)
+	actor.create_log(SAY_LOG, "[language ? "([language]) " : ""][what_said]", target)
+	log_say("[language ? "([language]) " : ""][what_said][target ? " to [target]" : null]", actor)
 
 // Proc for conversion log creation
 // * user is who gets converted in something
@@ -344,13 +344,13 @@ GLOBAL_PROTECT(log_end)
 	log_ghostsay(text, user)
 
 // Proc for ooc log creation
-// * user is the user
+// * user is the client, not the mob
 // * text that is definetely a meta
 // * local is boolean of looc or ooc type of proc
-/proc/add_ooc_logs(mob/user, text, local = FALSE)
+/proc/add_ooc_logs(client/user, text, local = FALSE)
 	if(local)
-		user.create_log(LOOC_LOG, text)
+		user.mob.create_log(LOOC_LOG, text)
 		log_looc(text, user)
 	else
-		user.create_log(OOC_LOG, text)
+		user.mob.create_log(OOC_LOG, text)
 		log_ooc(text, user)

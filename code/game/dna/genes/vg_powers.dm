@@ -104,7 +104,7 @@
 			M.change_head_accessory_color(new_head_accessory_colour)
 
 	//Body accessory.
-	if(M.dna.species.tail && M.dna.species.bodyflags & HAS_TAIL)
+	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = input("Please select body accessory style", "Character Generation", M.body_accessory) as null|anything in valid_body_accessories
@@ -167,7 +167,7 @@
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
-	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
+	if(M.dna.species.bodyflags & HAS_SKIN_COLOR && !(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)

@@ -92,6 +92,16 @@
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/security/hos
+	name = "head of security suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	storage_type = /obj/item/tank/internals/oxygen/red
+
+/obj/machinery/suit_storage_unit/security/warden
+	name = "warden's suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
+	req_access = list(ACCESS_ARMORY)
+
 /obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(ACCESS_PILOT)
 

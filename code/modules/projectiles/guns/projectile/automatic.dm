@@ -83,7 +83,7 @@
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -93,7 +93,7 @@
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
-	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	fire_delay = 2
 	burst_size = 2
 	can_bayonet = TRUE
@@ -119,7 +119,7 @@
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
@@ -141,7 +141,7 @@
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	burst_size = 4
 
 //M-90gl Carbine//
@@ -152,7 +152,7 @@
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 1
@@ -220,7 +220,7 @@
 	slot_flags = 0
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
-	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
 	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
@@ -234,11 +234,29 @@
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 3
+	fire_delay = 1
+
+//AK-814 Soviet Assault Rifle
+/obj/item/gun/projectile/automatic/ak814
+	name = "\improper AK-814 assault rifle"
+	desc = "A modern AK assault rifle favored by elite Soviet soldiers."
+	icon_state = "ak814"
+	item_state = "ak814"
+	origin_tech = "combat=5;materials=3"
+	mag_type = /obj/item/ammo_box/magazine/ak814
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = FALSE
+	can_bayonet = TRUE
+	knife_x_offset = 26
+	knife_y_offset = 10
+	burst_size = 2
 	fire_delay = 1
 
 // Bulldog shotgun //
@@ -250,7 +268,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0

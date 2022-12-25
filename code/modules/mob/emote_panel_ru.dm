@@ -243,16 +243,6 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("burp")
 /*
-/mob/living/carbon/human/verb/emote_flap()
-	set name = "~ Махать крыльями "
-	set category = "Эмоции"
-	usr.user_triggered_emote("flap")
-
-/mob/living/carbon/human/verb/emote_aflap()
-	set name = "~ Махать крыльями агрессивно "
-	set category = "Эмоции"
-	usr.user_triggered_emote("aflap")
-
 /mob/living/carbon/human/verb/emote_deathgasp()
 	set name = "> Предсмертный вздох "
 	set category = "Эмоции"
@@ -380,6 +370,26 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("hiss")
 
+/mob/living/carbon/human/proc/emote_roar()
+	set name = "< Рычать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("roar")
+
+/mob/living/carbon/human/proc/emote_threat()
+	set name = "< Угрожать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("threat")
+
+/mob/living/carbon/human/proc/emote_whip()
+	set name = "< Ударить хвостом >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("whip")
+
+/mob/living/carbon/human/proc/emote_whips()
+	set name = "< Хлестать хвостом >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("whips")
+
 /mob/living/carbon/human/proc/emote_hisses()
 	set name = "< Шипеть >"
 	set category = "Эмоции"
@@ -449,3 +459,13 @@
 	set name = "< Отрицательно >"
 	set category = "Эмоции"
 	usr.user_triggered_emote("no")
+
+/mob/living/carbon/human/proc/emote_flap()
+	set name = "~ Махать крыльями "
+	set category = "Эмоции"
+	usr.user_triggered_emote("flap")
+
+/mob/living/carbon/human/proc/emote_aflap()
+	set name = "~ Махать крыльями агрессивно "
+	set category = "Эмоции"
+	usr.user_triggered_emote("aflap")

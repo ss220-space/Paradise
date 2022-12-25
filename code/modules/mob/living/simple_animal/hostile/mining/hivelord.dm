@@ -20,6 +20,7 @@
 	melee_damage_upper = 0
 	attacktext = "хлещет"
 	speak_emote = list("telepathically cries")
+	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
@@ -79,6 +80,7 @@
 	melee_damage_upper = 2
 	attacktext = "кромсает"
 	speak_emote = list("telepathically cries")
+	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	obj_damage = 0
@@ -166,6 +168,7 @@
 	melee_damage_upper = 15
 	attacktext = "хлещет"
 	speak_emote = list("echoes")
+	tts_seed = "Bloodseeker"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "bounces harmlessly off of"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
@@ -308,6 +311,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	tts_seed = "Mannoroth"
 
 
 /mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
@@ -326,7 +330,7 @@
 
 //Legion infested mobs
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE)
 	. = ..()
 	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
 	H.mutations.Add(DWARF)

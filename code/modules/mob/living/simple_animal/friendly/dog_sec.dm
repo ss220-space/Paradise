@@ -15,6 +15,8 @@
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	footstep_type = FOOTSTEP_MOB_CLAW
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
+	tts_seed = "Furion"
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
@@ -24,6 +26,7 @@
 	icon_living = "ranger"
 	icon_resting = "ranger_rest"
 	icon_dead = "ranger_dead"
+	tts_seed = "Pudge"
 
 /mob/living/simple_animal/pet/dog/security/warden
 	name = "Джульбарс"
@@ -33,6 +36,7 @@
 	icon_living = "german_shep2"
 	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
+	tts_seed = "pantheon"
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
@@ -107,6 +111,7 @@
 /mob/living/simple_animal/pet/dog/security/death(gibbed)
 	..(gibbed)
 	regenerate_icons()
+
 /mob/living/simple_animal/pet/dog/security/Topic(href, href_list)
 	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
 		usr << browse(null, "window=mob[UID()]")
@@ -324,3 +329,15 @@
 			mask_icon.transform = turn(mask_icon.transform, 180)
 
 		add_overlay(mask_icon)
+
+/mob/living/simple_animal/pet/dog/security/detective
+	name = "Гав-Гавыч"
+	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
+	icon_state = "blackdog"
+	icon_living = "blackdog"
+	icon_dead = "blackdog_dead"
+	icon_resting = "blackdog_rest"
+	tts_seed = "Thrall"
+
+/mob/living/simple_animal/pet/dog/security/detective/show_inv(mob/user)
+	return

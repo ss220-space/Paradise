@@ -81,7 +81,7 @@
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
 	select_name = "accelerator"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 
 /obj/item/projectile/beam/laser/accelerator
 	name = "accelerator laser"
@@ -130,7 +130,6 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/append = shot.select_name
 	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
-
 
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"

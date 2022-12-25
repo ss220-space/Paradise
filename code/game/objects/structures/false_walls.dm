@@ -26,6 +26,8 @@
 	canSmoothWith = list(
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
+	/turf/simulated/wall/indestructible/metal,
+	/turf/simulated/wall/indestructible/reinforced,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
 	/obj/structure/falsewall/clockwork,
@@ -337,7 +339,7 @@
 
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
-	icon = 'icons/turf/walls/shuttle_wall.dmi'
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium

@@ -35,11 +35,17 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
-	flags = NODROP | DROPDEL | ABSTRACT | NOBLUDGEON
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
 	force = 10
 	ninja_weapon = TRUE
 	var/cost = 50
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
+
+
+/obj/item/gun/magic/johyo/Destroy()
+	. = ..()
+	my_suit.integrated_harpoon = null
+	my_suit = null
 
 /obj/item/gun/magic/johyo/equip_to_best_slot(mob/M)
 	qdel(src)
@@ -70,7 +76,7 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 6
+	weaken = 4
 	var/chain
 
 

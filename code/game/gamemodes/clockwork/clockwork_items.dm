@@ -97,7 +97,7 @@
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-		if(do_after(user, 1.5 SECONDS, target = user))
+		if(do_after(user, 1.5 SECONDS, target = user) && destination)
 			do_sparks(4, 0, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -142,6 +142,8 @@
 			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)
+			if(!proximity) //magical key only works if you're close enough
+				return
 			if(istype(target, /obj/machinery/door))
 				var/obj/machinery/door/door = target
 				if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
@@ -185,7 +187,7 @@
 				return
 			var/mob/living/living = target
 			if(ishuman(living))
-				living.heal_overall_damage(30, 30, TRUE)
+				living.heal_overall_damage(30, 30, TRUE, FALSE, TRUE)
 			else if(isanimal(living))
 				var/mob/living/simple_animal/M = living
 				if(M.health < M.maxHealth)
@@ -211,7 +213,6 @@
 	armour_penetration = 40
 	sharp = TRUE
 	embed_chance = 85
-	block_chance = 25
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("stabbed", "poked", "slashed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -255,6 +256,8 @@
 	. = ..()
 	if(!wielded || !isliving(target))
 		return
+	if(!proximity)
+		return
 	var/mob/living/living = target
 	switch(enchant_type)
 		if(CONFUSE_SPELL)
@@ -286,6 +289,46 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/clock_borg_spear/Initialize(mapload)
+	. = ..()
+	enchants = GLOB.spear_spells
+
+/obj/item/clock_borg_spear/update_icon()
+	update_overlays()
+	return ..()
+
+/obj/item/clock_borg_spear/proc/update_overlays()
+	cut_overlays()
+	if(enchant_type)
+		overlays += "ratvarian_spear0_overlay_[enchant_type]"
+
+/obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!isliving(target))
+		return
+	if(!proximity)
+		return
+	var/mob/living/living = target
+	switch(enchant_type)
+		if(CONFUSE_SPELL)
+			if(living.mind.isholy)
+				to_chat(living, "span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
+				deplete_spell()
+				return
+			living.SetConfused(15)
+			to_chat(living, "<span class='danger'>Your mind blanks for a moment!</span>")
+			add_attack_logs(user, living, "Inflicted confusion with [src]")
+			deplete_spell()
+		if(DISABLE_SPELL)
+			new /obj/effect/temp_visual/emp/clock(get_turf(src))
+			if(issilicon(living))
+				var/mob/living/silicon/S = living
+				S.emp_act(EMP_LIGHT)
+			else
+				living.emp_act(EMP_HEAVY)
+			add_attack_logs(user, living, "Point-EMP with [src]")
+			deplete_spell()
+
 
 /obj/item/twohanded/clock_hammer
 	name = "hammer clock"
@@ -299,7 +342,6 @@
 	armour_penetration = 40
 	throwforce = 30
 	throw_range = 7
-	block_chance = 25
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
 
@@ -409,7 +451,8 @@
 
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-
+	if(!proximity_flag) //no, you can't just tear skin just by looking. You need to attack.
+		return
 	if(enchant_type == BLOODSHED_SPELL && ishuman(target))
 		var/mob/living/carbon/human/human = target
 		var/obj/item/organ/external/BP = pick(human.bodyparts)
@@ -437,7 +480,7 @@
 	throw_range = 3
 	attack_verb = list("bumped", "prodded", "shoved", "bashed")
 	hitsound = 'sound/weapons/smash.ogg'
-	block_chance = 50
+	block_chance = 30
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
 	. = ..()
@@ -455,6 +498,8 @@
 /obj/item/shield/clock_buckler/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!isclocker(user))
+		return
+	if(!proximity) //how you can push someone without getting to them close?
 		return
 	if(enchant_type == PUSHOFF_SPELL && isliving(target))
 		var/mob/living/liv = target
@@ -703,6 +748,8 @@
 	var/mob/living/user = loc
 	if(!(user.a_intent == INTENT_HARM) || !enchant_type)
 		return
+	if(!proximity)
+		return
 	if(enchant_type == STUNHAND_SPELL && isliving(A))
 		var/mob/living/living = A
 		if(living.null_rod_check())
@@ -937,7 +984,7 @@
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
 	searching = FALSE
 	brainmob.key = candidate.key
-	brainmob.name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
+	brainmob.real_name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
 	name = "[src] ([brainmob.name])"
 	brainmob.mind.assigned_role = "Soul Vessel Cube"
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
@@ -1015,15 +1062,15 @@
 	desc = "An unique brass board, used by cyborg warriors."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
-	require_module = FALSE
+	require_module = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-	R.ratvar_act() // weak false
-	R.opened = FALSE
-	R.locked = TRUE
-	return TRUE
+		R.ratvar_act() // weak false
+		R.opened = FALSE
+		R.locked = TRUE
+		return TRUE
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab
@@ -1134,6 +1181,8 @@
 	. = ..()
 	if(!ishuman(target) || !isclocker(user))
 		return
+	if(!proximity)
+		return
 	var/mob/living/carbon/human/human = target
 	if(human.stat == DEAD && isclocker(human)) // dead clocker
 		user.unEquip(src)
@@ -1184,8 +1233,8 @@
 			living.ratvar_act(TRUE)
 			if(!isclocker(living) && !ishuman(living))
 				continue
-			living.heal_overall_damage(100, 100, TRUE)
-			living.reagents.add_reagent("epinephrine", 5)
+			living.heal_overall_damage(60, 60, TRUE, FALSE, TRUE)
+			living.reagents?.add_reagent("epinephrine", 5)
 			var/mob/living/carbon/human/H = living
 			for(var/thing in H.bodyparts)
 				var/obj/item/organ/external/E = thing

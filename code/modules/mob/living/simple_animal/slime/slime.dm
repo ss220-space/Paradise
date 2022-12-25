@@ -6,7 +6,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gender = NEUTER
-	var/datum/slime_age/age_state = /datum/slime_age/baby
+	var/datum/slime_age/age_state = new /datum/slime_age/baby
 	var/docile = 0
 	faction = list("slime", "neutral")
 
@@ -19,6 +19,7 @@
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
+	tts_seed = "Chen"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -38,6 +39,7 @@
 
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
+	var/chance_reproduce = 80
 
 	var/powerlevel = 0 // 1-10 controls how much electricity they are generating
 	var/amount_grown = 0 // controls how long the slime has been overfed, if 10, grows or reproduces
@@ -389,7 +391,7 @@
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
-	var/water_damage = rand(10, 15) * volume - age_state.attacked
+	var/water_damage = (rand(10, 15) - age_state.attacked) * volume
 
 	adjustBruteLoss(water_damage)
 	if(!client && Target && volume >= 3) // Like cats

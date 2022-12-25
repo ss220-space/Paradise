@@ -11,7 +11,7 @@
 /datum/reagent/consumable/drink/orangejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))
-		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/tomatojuice
@@ -257,7 +257,6 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"

@@ -46,6 +46,7 @@
 	icon_state = "taipan_cypherkey"
 	channels = list("SyndTaipan" = 1, "Syndicate" = 1)
 /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
+	icon_state = "ofcom_cypherkey"
 	channels = list("SyndTaipan" = 1, "Syndicate" = 1, "Common" = 1)
 
 /obj/item/encryptionkey/syndteam
@@ -54,6 +55,12 @@
 	channels = list("SyndTeam" = 1, "Syndicate" = 1)
 	origin_tech = "syndicate=4"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
+
+/obj/item/encryptionkey/soviet
+	name = "\improper Soviet encryption key"
+	desc = "An encryption key for a radio headset. To access the Soviet military channel, use :'."
+	icon_state = "sov_cypherkey"
+	channels = list("Soviet" = 1)
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
