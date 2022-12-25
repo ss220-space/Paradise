@@ -908,15 +908,15 @@
 	name = "Aperol"
 	id = "aperol"
 	result = "aperol"
-	required_reagents = list("orangejuice" = 5, "limejuice" = 5, "wine" = 5)
+	required_reagents = list("grapejuice" = 5, "limejuice" = 5, "wine" = 5)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 20
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/bluecuracao
-	name = "Aperol"
-	id = "aperol"
-	result = "aperol"
+	name = "Bluecuracao"
+	id = "bluecuracao"
+	result = "bluecuracao"
 	required_reagents = list("orangejuice" = 5, "limejuice" = 5)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 15
