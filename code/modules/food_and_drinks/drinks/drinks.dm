@@ -284,6 +284,14 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 
+	var/poof_sound = 'sound/weapons/shakesound.ogg'
+
+/obj/item/reagent_containers/food/drinks/shaker/attack_self(mob/user as mob)
+	var/cuddle_verb = pick("shakes up","shake","mixes")
+	user.visible_message("<span class='notice'>[user] [cuddle_verb] the [src].</span>")
+	playsound(get_turf(src), poof_sound, 50, 1, -1)
+	return ..()
+
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
