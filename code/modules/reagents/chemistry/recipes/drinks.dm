@@ -1455,7 +1455,3 @@
 	required_reagents = list("whiskey" = 3, "bitter" = 1, "grapejuice" = 2, "limejuice" = 1,  )
 	result_amount = 7
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-
-/////////////////////////////////non alcohol///////////////////////
-
