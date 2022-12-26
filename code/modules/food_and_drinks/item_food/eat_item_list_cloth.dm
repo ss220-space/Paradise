@@ -57,6 +57,8 @@
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/accessory/medal
 	material_type = MATERIAL_CLASS_NONE
+/obj/item/clothing/accessory/stethoscope
+	material_type = MATERIAL_CLASS_NONE
 
 
 
