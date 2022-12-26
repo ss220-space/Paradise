@@ -1549,7 +1549,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						h_grad_colour = result
 
 				if("h_grad_alpha")
-					var/result = input(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", h_grad_alpha) as num|null
+					var/result = input(user, "Choose your character's hair gradient alpha (0-200):", "Character Preference", h_grad_alpha) as num|null
 					if(!isnull(result))
 						h_grad_alpha = clamp(result, 0, 200)
 
