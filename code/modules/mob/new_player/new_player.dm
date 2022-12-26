@@ -157,6 +157,10 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
+		if(config.tts_enabled && !client.prefs.tts_seed)
+			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+			client.prefs.ShowChoices(src)
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -237,10 +241,13 @@
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
 		if(client.prefs.species in GLOB.whitelisted_species)
-
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
+		if(config.tts_enabled && !client.prefs.tts_seed)
+			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+			client.prefs.ShowChoices(src)
+			return FALSE
 
 		LateChoices()
 
@@ -389,7 +396,7 @@
 			character.loc = pick(GLOB.syndicateofficer)
 		else
 			character.forceMove(pick(GLOB.aroomwarp))
-		join_message = "has arrived"
+		join_message = "прибыл"
 	else
 		if(spawning_at)
 			S = GLOB.spawntypes[spawning_at]
@@ -400,10 +407,10 @@
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
 				character.forceMove(pick(GLOB.latejoin))
-				join_message = "has arrived on the station"
+				join_message = "прибыл на станцию"
 		else
 			character.forceMove(pick(GLOB.latejoin))
-			join_message = "has arrived on the station"
+			join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
@@ -459,7 +466,7 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
@@ -477,13 +484,13 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
-					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
+					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"]."
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever

@@ -482,6 +482,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	nad_allowed = TRUE
 	ambientsounds = HIGHSEC_SOUNDS
 
+/area/syndicate_mothership/outside
+	name = "\improper Syndicate Controlled Territory"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	icon_state = "syndie-outside"
+
 /area/syndicate_mothership/control
 	name = "\improper Syndicate Control Room"
 	icon_state = "syndie-control"
@@ -492,10 +497,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/syndicate_mothership/infteam
 	name = "\improper Syndicate Infiltrators"
-	icon_state = "syndie-elite"
+	icon_state = "syndie-infiltrator"
 
 /area/syndicate_mothership/jail
 	name = "\improper Syndicate Jail"
+	icon_state = "syndie-jail"
+
+/area/syndicate_mothership/cargo
+	name = "\improper Syndicate Cargo"
+	icon_state = "syndie-cargo"
 
 // USSP
 
@@ -668,11 +678,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "green"
 
 /area/maintenance/fore
-	name = "Fore Maintenance"
+	name = "North Maintenance"
 	icon_state = "fmaint"
 
 /area/maintenance/fpmaint
-	name = "Fore-Port Maintenance"
+	name = "North-West Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fsmaint
@@ -683,12 +693,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar Maintenance"
 	icon_state = "fsmaint"
 
+/area/maintenance/tourist
+	name = "Tourist Area Maintenance"
+	icon_state = "fsmaint"
+
 /area/maintenance/asmaint
 	name = "Medbay Maintenance"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint2
 	name = "Science Maintenance"
+	icon_state = "asmaint"
+
+/area/maintenance/asmaint3
+	name = "Research Maintenance"
 	icon_state = "asmaint"
 
 /area/maintenance/apmaint
@@ -700,20 +718,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "central"
 
 /area/maintenance/starboard
-	name = "Starboard Maintenance"
+	name = "East Maintenance"
 	icon_state = "smaint"
 
 /area/maintenance/port
 	name = "Locker Room Maintenance"
 	icon_state = "pmaint"
 
+/area/maintenance/brig
+	name = "Brig Maintenance"
+	icon_state = "pmaint"
+
 /area/maintenance/perma
 	name = "Prison Maintenance"
 	icon_state = "green"
-
-/area/maintenance/aft
-	name = "Engineering Maintenance"
-	icon_state = "amaint"
 
 /area/maintenance/atmospherics
 	name = "Atmospherics Maintenance"
@@ -766,6 +784,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
 
+/area/maintenance/consarea_virology
+	name = "Virology Maintenance Construction Area"
+	icon_state = "yellow"
+
 /area/maintenance/detectives_office
 	name = "\improper Abandoned Detective's Office"
 	icon_state = "detective"
@@ -803,23 +825,23 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/hallway/primary/fore
-	name = "\improper Fore Primary Hallway"
+	name = "\improper North Primary Hallway"
 	icon_state = "hallF"
 
 /area/hallway/primary/starboard
-	name = "\improper Starboard Primary Hallway"
+	name = "\improper East Primary Hallway"
 	icon_state = "hallS"
 
 /area/hallway/primary/starboard/west
 /area/hallway/primary/starboard/east
 
 /area/hallway/primary/aft
-	name = "\improper Aft Primary Hallway"
+	name = "\improper South Primary Hallway"
 	icon_state = "hallA"
 
 
 /area/hallway/primary/port
-	name = "\improper Port Primary Hallway"
+	name = "\improper West Primary Hallway"
 	icon_state = "hallP"
 
 /area/hallway/primary/port/west
@@ -853,6 +875,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Construction Area"
 	icon_state = "construction"
 
+/area/hallway/secondary/garden
+	name = "\improper Garden"
+	icon_state = "hydro"
+
 /area/hallway/secondary/entry
 	name = "\improper Arrivals Hallway"
 	icon_state = "entry"
@@ -864,10 +890,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Arrival Shuttle West Hallway"
 
 /area/hallway/secondary/entry/additional
-	name = "\improper Arrival Additional Port Hallway"
+	name = "\improper Arrival Additional West Hallway"
 
 /area/hallway/secondary/entry/commercial
-	name = "\improper Arrival Commercial Port Hallway"
+	name = "\improper Arrival Commercial West Hallway"
 
 /area/hallway/secondary/entry/north
 
@@ -1311,44 +1337,44 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SPACE
 
 /area/solar/auxport
-	name = "\improper Fore Port Solar Array"
+	name = "\improper North-West Solar Array"
 	icon_state = "panelsA"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/solar/auxstarboard
-	name = "\improper Fore Starboard Solar Array"
+	name = "\improper North-East Solar Array"
 	icon_state = "panelsA"
 
 /area/solar/fore
-	name = "\improper Fore Solar Array"
+	name = "\improper North Solar Array"
 	icon_state = "yellow"
 
 /area/solar/aft
-	name = "\improper Aft Solar Array"
+	name = "\improper South Solar Array"
 	icon_state = "aft"
 
 /area/solar/starboard
-	name = "\improper Aft Starboard Solar Array"
+	name = "\improper South-East Solar Array"
 	icon_state = "panelsS"
 
 /area/solar/port
-	name = "\improper Aft Port Solar Array"
+	name = "\improper South-West Solar Array"
 	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
-	name = "\improper Fore Port Solar Maintenance"
+	name = "\improper North-West Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 /area/maintenance/starboardsolar
-	name = "\improper Aft Starboard Solar Maintenance"
+	name = "\improper South-East Solar Maintenance"
 	icon_state = "SolarcontrolS"
 
 /area/maintenance/portsolar
-	name = "\improper Aft Port Solar Maintenance"
+	name = "\improper South-West Solar Maintenance"
 	icon_state = "SolarcontrolP"
 
 /area/maintenance/auxsolarstarboard
-	name = "\improper Fore Starboard Solar Maintenance"
+	name = "\improper North-East Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 
@@ -1476,7 +1502,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "medresearch"
 
 /area/medical/research
-	name = "\improper Medical Research"
+	name = "\improper Research Division"
 	icon_state = "research"
 
 /area/medical/research/nhallway
@@ -1632,6 +1658,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Prisoner Processing"
 	icon_state = "prisonerprocessing"
 	can_get_auto_cryod = FALSE
+
+/area/security/holding_cell
+	name = "\improper Temporary Holding Cell"
+	icon_state = "holdingcell"
 
 /area/security/interrogation
 	name = "\improper Interrogation"
@@ -1900,6 +1930,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Experimentation Lab"
 	icon_state = "toxmisc"
 
+/area/toxins/sm_test_chamber
+	name = "\improper Supermatter Testing Lab"
+	icon_state = "toxtest"
+
 //Storage
 
 /area/storage
@@ -1934,11 +1968,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "storage"
 
 /area/storage/emergency
-	name = "Starboard Emergency Storage"
+	name = "East Emergency Storage"
 	icon_state = "emergencystorage"
 
 /area/storage/emergency2
-	name = "Port Emergency Storage"
+	name = "West Emergency Storage"
 	icon_state = "emergencystorage"
 
 /area/storage/tech
@@ -2045,8 +2079,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "teleporter"
 	there_can_be_many = TRUE
 
-/area/derelict/eva
-	name = "Derelict EVA Storage"
+/area/derelict/annex
+	name = "Derelict Annex"
 	icon_state = "eva"
 
 /area/shuttle/derelict/ship/start
@@ -2066,11 +2100,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
-	name = "\improper Derelict Starboard Solar Array"
+	name = "\improper Derelict East Solar Array"
 	icon_state = "panelsS"
 
 /area/solar/derelict_aft
-	name = "\improper Derelict Aft Solar Array"
+	name = "\improper Derelict South Solar Array"
 	icon_state = "aft"
 
 /area/derelict/singularity_engine
@@ -2219,7 +2253,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/aisat
-	name = "\improper AI Satellite Exterior"
+	name = "\improper AI Satellite Hallway"
 	icon_state = "yellow"
 
 /area/aisat/entrance
@@ -2227,7 +2261,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "ai_foyer"
 
 /area/aisat/maintenance
-	name = "\improper AI Satellite Maintenance"
+	name = "\improper AI Satellite Service"
+	icon_state = "storage"
+
+/area/aisat/atmospherics
+	name = "\improper AI Satellite Atmospherics"
 	icon_state = "storage"
 
 /area/turret_protected/aisat_interior
@@ -2321,7 +2359,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "away"
 
 /area/awaymission/desert
-	name = "Mars"
+	name = "Sudden Drop"
 	icon_state = "away"
 
 /area/awaymission/beach
@@ -2336,7 +2374,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "undersea"
 
 
-// Это зоны для гейта "moonoutpost19"
+// area for AWAY "moonoutpost19"
 /area/moonoutpost19
 	name = "moonoutpost"
 	has_gravity = TRUE
@@ -2359,6 +2397,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_equip = FALSE
 	power_light = FALSE
 	poweralm = FALSE
+	outdoors = TRUE
 
 /area/moonoutpost19/syndicateoutpost
 	name = "Syndicate Outpost"

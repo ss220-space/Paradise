@@ -76,11 +76,17 @@
 #define HAS_HEAD_MARKINGS	64
 #define HAS_BODY_MARKINGS	128
 #define HAS_TAIL_MARKINGS	256
-#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 #define TAIL_WAGGING    	512
 #define NO_EYES				1024
 #define HAS_ALT_HEADS		2048
-#define ALL_RPARTS			4096
+#define HAS_WING			4096
+#define HAS_BODYACC_COLOR	8192
+#define BALD				16384
+#define ALL_RPARTS			32768
+
+//Pre-baked combinations of the above body flags
+#define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
+#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 
 //Species Diet Flags
 #define DIET_CARN		1
@@ -145,6 +151,7 @@
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
 #define NO_MALF_EFFECT	(1<<8) //So malf cannot blow certain things
+#define NO_MOUSTACHING	(1<<9) //Saves from super hairgrowium shenanigans
 
 #define MEAT 		1
 #define VEGETABLES 	2

@@ -19,6 +19,7 @@
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	tts_seed = "Kleiner"
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -152,8 +153,8 @@
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
-/mob/living/simple_animal/updatehealth(reason = "none given")
-	..(reason)
+/mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
+	..()
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
@@ -173,15 +174,15 @@
 			collar_type = "[initial(collar_type)]"
 			regenerate_icons()
 
-/mob/living/simple_animal/update_stat(reason = "none given")
+/mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
 		else
 			WakeUp()
-	med_hud_set_status()
+	..()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE

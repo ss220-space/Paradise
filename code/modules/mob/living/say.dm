@@ -6,13 +6,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	Busy symbols by languages:
 	0 1 2 3 4 5 6 7 8 9
-	% ? ^
+	% ? ^ '
 
 	Busy letters by radio(eng):
 	c e h i l m n p r s t u w x z
 
 	Busy letters by radio(rus):
-	б г д е ё з к р с т у ц ч ш ы ь я
+	б г д е ё з к р с т у ц ч ш ы ь я Э
 
 	Busy symbols by radio:
 	~ , $ _ - + *
@@ -33,6 +33,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":s" = "Security",		"#s" = "Security",		"№s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",			"#w" = "whisper",		"№w" = "whisper",		".w" = "whisper",
 	  ":t" = "Syndicate",		"#t" = "Syndicate",		"№t" = "Syndicate",		".t" = "Syndicate",
+	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
 	  ":u" = "Supply",			"#u" = "Supply",		"№u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",			"#z" = "Service",		"№z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",		"#p" = "AI Private",	"№p" = "AI Private",	".p" = "AI Private",
@@ -50,6 +51,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":S" = "Security",		"#S" = "Security",		"№S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",			"#W" = "whisper",		"№W" = "whisper",		".W" = "whisper",
 	  ":T" = "Syndicate",		"#T" = "Syndicate",		"№T" = "Syndicate",		".T" = "Syndicate",
+	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
 	  ":U" = "Supply",			"#U" = "Supply",		"№U" = "Supply",		".U" = "Supply",
 	  ":Z" = "Service",			"#Z" = "Service",		"№Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",		"#P" = "AI Private",	"№P" = "AI Private",	".P" = "AI Private",
@@ -67,6 +69,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":ы" = "Security",		"#ы" = "Security",		"№ы" = "Security",		".ы" = "Security",
 	  ":ц" = "whisper",			"#ц" = "whisper",		"№ц" = "whisper",		".ц" = "whisper",
 	  ":е" = "Syndicate",		"#е" = "Syndicate",		"№е" = "Syndicate",		".е" = "Syndicate",
+	  ":э" = "Soviet",			"#э" = "Soviet",		"№э" = "Soviet",		".э" = "Soviet",
 	  ":б" = "SyndTaipan",		"#б" = "SyndTaipan",	"№б" = "SyndTaipan",	".б" = "SyndTaipan",
 	  ":г" = "Supply",			"#г" = "Supply",		"№г" = "Supply",		".г" = "Supply",
 	  ":я" = "Service",			"#я" = "Service",		"№я" = "Service",		".я" = "Service",
@@ -84,6 +87,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Ы" = "Security",		"#Ы" = "Security",		"№Ы" = "Security",		".Ы" = "Security",
 	  ":Ц" = "whisper",			"#Ц" = "whisper",		"№Ц" = "whisper",		".Ц" = "whisper",
 	  ":Е" = "Syndicate",		"#Е" = "Syndicate",		"№Е" = "Syndicate",		".Е" = "Syndicate",
+	  ":Э" = "Soviet",			"#Э" = "Soviet",		"№Э" = "Soviet",		".Э" = "Soviet",
 	  ":Б" = "SyndTaipan",		"#Б" = "SyndTaipan",	"№Б" = "SyndTaipan",	".Б" = "SyndTaipan",
 	  ":Г" = "Supply",			"#Г" = "Supply",		"№Г" = "Supply",		".Г" = "Supply",
 	  ":Я" = "Service",			"#Я" = "Service",		"№Я" = "Service",		".Я" = "Service",
@@ -194,7 +198,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return
 
 	if(sanitize)
-		message = trim_strip_html_properly(message)
+		message = trim_strip_html_properly(message, 512)
 
 	if(stat)
 		if(stat == DEAD)
@@ -214,6 +218,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			message = copytext_char(message, 3)
 
 	message = trim_left(message)
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
@@ -387,7 +395,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
-	message = trim_strip_html_properly(message)
+	message = trim_strip_html_properly(message, 512)
+
+	if(!message)
+		return
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
@@ -397,13 +412,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return 1
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
-	whisper_say(message_pieces)
+	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
 /mob/living/proc/get_whisper_loc()
 	return src
 
-/mob/living/proc/whisper_say(list/message_pieces, verb = "whispers")
+/mob/living/whisper_say(list/message_pieces, verb = "whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")

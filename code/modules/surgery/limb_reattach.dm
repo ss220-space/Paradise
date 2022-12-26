@@ -6,7 +6,7 @@
 /datum/surgery/amputation
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -26,13 +26,16 @@
 /datum/surgery/reattach
 	name = "Limb Reattachment"
 	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(ismachineperson(target) && user.zone_selected != "tail")
+			// RIP bi-centennial man
+			return 0
+		if(ismachineperson(target) && user.zone_selected != "wing")
 			// RIP bi-centennial man
 			return 0
 		if(!affected)
@@ -42,7 +45,7 @@
 /datum/surgery/reattach_synth
 	name = "Synthetic Limb Reattachment"
 	steps = list(/datum/surgery_step/limb/attach/robo)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -57,7 +60,7 @@
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
 	steps = list(/datum/surgery_step/limb/mechanize)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail")
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 
 /datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -78,6 +81,8 @@
 		return 0
 	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
 	if(target_zone == "tail")
+		return TRUE
+	if(target_zone == "wing")
 		return TRUE
 	return !isnull(organ_data)
 
@@ -102,9 +107,9 @@
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
 		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
 		return 0
-	// if(E.parent_organ && !target.get_organ(E.parent_organ))
-	// 	// No rayman allowed
-	// 	return 0
+	if(!target.get_organ(E.parent_organ))
+		to_chat(user, "<span class='warning'>cannot attach a [E.name] because there is no limb to attach to!</span>")
+		return 0
 	if(!is_correct_limb(E, target))
 		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
 		return 0

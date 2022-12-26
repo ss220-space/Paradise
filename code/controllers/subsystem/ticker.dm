@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the world started, relative to world.time
 	var/round_start_time = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 600
+	var/const/restart_timeout = 1200
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -62,6 +62,9 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
 
+	var/list/randomtips = list()
+	var/list/memetips = list()
+
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
 	'sound/music/thunderdome.ogg',\
@@ -72,6 +75,9 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
+
+	randomtips = file2list("strings/tips.txt")
+	memetips = file2list("strings/sillytips.txt")
 
 	return ..()
 
@@ -175,6 +181,9 @@ SUBSYSTEM_DEF(ticker)
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
+
+		world.check_for_lowpop()
+
 		return FALSE
 
 	//Configure mode and assign player to special mode stuff
@@ -427,8 +436,6 @@ SUBSYSTEM_DEF(ticker)
 	if(selected_tip)
 		m = selected_tip
 	else
-		var/list/randomtips = file2list("strings/tips.txt")
-		var/list/memetips = file2list("strings/sillytips.txt")
 		if(randomtips.len && prob(95))
 			m = pick(randomtips)
 		else if(memetips.len)

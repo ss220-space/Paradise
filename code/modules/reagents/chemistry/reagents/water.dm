@@ -63,7 +63,7 @@
 			qdel(O)
 	else
 		if(O.simulated)
-			O.color = initial(O.color)
+			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
@@ -75,7 +75,7 @@
 				floor_only = FALSE
 			else
 				qdel(C)
-		T.color = initial(T.color)
+		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		if(floor_only)
 			T.clean_blood()
 
@@ -91,7 +91,7 @@
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#770000" // rgb: 40, 0, 0
-	metabolization_rate = 5 //fast rate so it disappears fast.
+	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
@@ -358,7 +358,7 @@
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_description = "sulfur"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
@@ -386,7 +386,7 @@
 	id = "hell_water"
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	taste_description = "burning"
 

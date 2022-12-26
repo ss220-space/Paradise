@@ -16,6 +16,7 @@
 	pass_flags = PASSTABLE
 
 	speak_emote = list("clanks", "clinks", "clunks", "clangs")
+	tts_seed = "Earth"
 	speak_statement = "clinks"
 	speak_exclamation = "proclaims"
 	speak_query = "requests"
@@ -27,8 +28,6 @@
 	has_camera = FALSE
 	viewalerts = FALSE
 	modules_break = FALSE
-
-	var/obj/item/stack/sheet/brass/cyborg/stack_brass = null
 
 	req_one_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
@@ -68,9 +67,6 @@
 
 	if(!isclocker(src))
 		SSticker.mode.add_clocker(mind)
-
-
-	stack_brass = locate(/obj/item/stack/sheet/brass/cyborg) in src.module
 
 	update_icons()
 
@@ -158,23 +154,21 @@
 /mob/living/silicon/robot/cogscarab/allowed(obj/item/I) //No opening cover
 	return FALSE
 
-/mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
+/mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
+		return ..()
 	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
-	update_stat("updatehealth([reason])")
+	update_stat("updatehealth([reason])", should_log)
 
-/mob/living/silicon/robot/cogscarab/update_stat(reason = "none given")
+/mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 	if(health <= -maxHealth && stat != DEAD)
-		ghostize(FALSE)
+		ghostize(TRUE)
 		gib()
 		log_debug("died of damage, trigger reason: [reason]")
 		return
-	return ..(reason)
+	return ..()
 
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
@@ -339,13 +333,17 @@
 	user.changeNext_move(CLICK_CD_MELEE * melt_click_delay)
 	QDEL_LIST(grabbed_items)
 
-	if(iscogscarab(user))
-		var/mob/living/silicon/robot/cogscarab/cog = user
+	if(isrobot(user))
+		var/mob/living/silicon/robot/robot = user
+		var/obj/item/stack/sheet/brass/cyborg/stack_brass = locate() in robot.module
 		var/brass_melted = FLOOR(metal_amount / metal_need_per_brass, 1)
 		metal_amount -= brass_melted * metal_need_per_brass
-		if(!cog.stack_brass)
-			cog.stack_brass = new /obj/item/stack/sheet/brass/cyborg(cog.module)
-		cog.stack_brass.add(brass_melted)
+		if(!stack_brass)
+			stack_brass = new /obj/item/stack/sheet/brass/cyborg(robot.module, null, FALSE)
+			robot.module.modules += stack_brass
+			robot.module.fix_modules()
+			robot.module.handle_storages()
+		stack_brass.add(brass_melted)
 
 #undef WINDUP_STATE_NONE
 #undef WINDUP_STATE_WARNING

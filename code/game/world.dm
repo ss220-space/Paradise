@@ -4,6 +4,11 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	CRASH("auxtools not loaded")
 
 /world/New()
+#ifdef USE_BYOND_TRACY
+	#warn USE_BYOND_TRACY is enabled
+	init_byond_tracy()
+#endif
+
 	dmjit_hook_main_init()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
@@ -181,6 +186,20 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << the_mode
 
+/world/proc/check_for_lowpop()
+	if(!config.auto_extended_players_num)
+		return
+
+	var/totalPlayersReady = 0
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(player.ready)
+			totalPlayersReady++
+
+	if(totalPlayersReady <= config.auto_extended_players_num)
+		GLOB.master_mode = "extended"
+		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
+	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
@@ -284,3 +303,18 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if (debug_server)
 		call(debug_server, "auxtools_shutdown")()
 	..()
+
+/world/proc/init_byond_tracy()
+	var/library
+
+	switch (system_type)
+		if (MS_WINDOWS)
+			library = "prof.dll"
+		if (UNIX)
+			library = "libprof.so"
+		else
+			CRASH("Unsupported platform: [system_type]")
+
+	var/init_result = call(library, "init")()
+	if (init_result != "0")
+		CRASH("Error initializing byond-tracy: [init_result]")

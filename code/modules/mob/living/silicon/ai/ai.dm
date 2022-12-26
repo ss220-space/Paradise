@@ -21,7 +21,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message,
-	/mob/living/silicon/ai/proc/arrivals_announcement
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/ai_change_voice,
 ))
 
 //Not sure why this is necessary...
@@ -107,7 +108,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
-	var/arrivalmsg = "$name, $rank, has arrived on the station."
+	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
 	var/list/all_eyes = list()
 
@@ -121,8 +122,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
 	announcement = new()
-	announcement.title = "A.I. Announcement"
-	announcement.announcement_type = "A.I. Announcement"
+	announcement.title = "Оповещение ИИ"
+	announcement.announcement_type = "Оповещение ИИ"
 	announcement.announcer = name
 	announcement.newscast = 0
 
@@ -188,6 +189,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
+	add_language("Tkachi", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -1142,6 +1144,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
+
+/mob/living/silicon/ai/proc/ai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "AI Commands"
+	change_voice()
 
 /mob/living/silicon/ai/proc/arrivals_announcement()
 	set name = "Toggle Arrivals Announcer"

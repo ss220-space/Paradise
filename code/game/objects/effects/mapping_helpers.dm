@@ -2,7 +2,6 @@
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
-
 	var/baseturf
 
 	layer = POINT_LAYER
@@ -57,15 +56,12 @@
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
+	layer = 10
 	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)
 	..()
-
 	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
-
-/obj/effect/mapping_helpers/no_lava
-	icon_state = "no_lava"
 
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
@@ -84,6 +80,10 @@
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
 	..()
+
+/obj/effect/mapping_helpers/no_lava
+	icon_state = "no_lava"
+
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN
@@ -101,3 +101,21 @@
 	T.light_power = light_power
 	T.light_range = light_range
 	. = ..()
+
+// Used by mapmerge2 to denote the existence of a merge conflict (or when it has to complete a "best intent" merge where it dumps the movable contents of an old key and a new key on the same tile).
+// We define it explicitly here to ensure that it shows up on the highest possible plane (while giving off a verbose icon) to aide mappers in resolving these conflicts.
+// DO NOT USE THIS IN NORMAL MAPPING!!! Linters WILL fail.
+
+/obj/merge_conflict_marker
+	name = "Merge Conflict Marker - DO NOT USE"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "merge_conflict_marker"
+	desc = "If you are seeing this in-game: someone REALLY, REALLY, REALLY fucked up. Please make an issue report on GitHub or contact a coder as soon as possible."
+	plane = POINT_LAYER
+
+///We REALLY do not want un-addressed merge conflicts in maps for an inexhaustible list of reasons. This should help ensure that this will not be missed in case linters fail to catch it for any reason what-so-ever.
+/obj/merge_conflict_marker/Initialize(mapload)
+	. = ..()
+	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
+	warning(msg)
+	to_chat(world, "<span class='boldannounce'>[msg]</span>")

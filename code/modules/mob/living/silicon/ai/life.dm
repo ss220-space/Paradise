@@ -131,15 +131,11 @@
 						sleep(50)
 						theAPC = null
 
-/mob/living/silicon/ai/updatehealth(reason = "none given")
+/mob/living/silicon/ai/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = 100
-		stat = CONSCIOUS
-	else
-		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
-		update_stat("updatehealth([reason])")
-		diag_hud_set_health()
-
+		return ..()
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
