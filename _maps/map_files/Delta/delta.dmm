@@ -66288,7 +66288,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer";
-	req_access = "40"
+	req_access_txt = "40"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -94853,7 +94853,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/closet/secure_closet/medical1,
+/obj/structure/closet/secure_closet/medical1{
+    req_access = null;
+    req_access_txt = "5;62"
+    },
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/gateway)
@@ -103237,7 +103240,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id = "cloninglab";
 	name = "Cloning Lab";
-	req_access_txt = "5;9"
+	req_access_txt = "5"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres,
