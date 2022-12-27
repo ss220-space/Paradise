@@ -54195,8 +54195,6 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54208,8 +54206,7 @@
 /obj/machinery/door_control{
 	id = "Virology";
 	name = "Virology Shutters";
-	pixel_x = -24;
-	req_access_txt = "39"
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
