@@ -152,6 +152,7 @@
 		//ID card initialisation
 		n_id_card = new
 		toggle_ninja_nodrop(n_id_card)
+		n_id_card.flags ^= DROPDEL
 		n_id_card.assignment = disguise.assignment
 		n_id_card.rank = disguise.rank
 		if(!ninja.wear_id)
