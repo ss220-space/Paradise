@@ -10,6 +10,8 @@
 Пока есть активный квест, другие квесты недоступны. Невыполнение квеста вовремя или отказ от квеста
 приведёт к пенальти (снятие денег) зависящего от сложности квеста и замене активного квеста.
 За выполнение квеста в награду даются кредиты и возможно другие безделушки.
+
+Возможно в будущем её можно будет адаптировать и для обычной станции.
 */
 
 //GLOBAL_LIST_INIT(premade_syndie_quests, list(/datum/cargo_quest/grenade/death_kiss,,,,,,,,,))
@@ -25,8 +27,8 @@
 #define QUEST_TYPE_GRENADE "grenade"
 #define QUEST_TYPE_PLANTS "plants"
 #define QUEST_TYPE_ORGANS "organs_and_bodyparts"
-#define QUEST_TYPE_WEAPONS "weapons_and_implants"
 #define QUEST_TYPE_GENES "genes"
+#define QUEST_TYPE_WEAPONS "weapons_and_implants"
 #define QUEST_TYPE_BOTS "bots"
 #define QUEST_TYPE_MINERALS "minerals"
 #define QUEST_TYPE_TECH "tech"
@@ -46,8 +48,8 @@
 		QUEST_TYPE_PLANTS,
 		QUEST_TYPE_ORGANS,
 /*
-		QUEST_TYPE_WEAPONS,
 		QUEST_TYPE_GENES,
+		QUEST_TYPE_WEAPONS,
 		QUEST_TYPE_BOTS,
 		QUEST_TYPE_MINERALS,
 		QUEST_TYPE_TECH,
@@ -560,25 +562,13 @@
 	/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator = 84,
 	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = 84,
 	)
-	var/list/rare_misc_from_nt = list(
-	/obj/item/bodybag = 10,
-	)
-	var/list/genes = list(
-	/obj/item/bodybag = 10,
-	)
-	var/list/bot_types = list(
-	/obj/item/bodybag = 10,
-	)
-	var/list/minerals = list(
-	/obj/item/bodybag = 10,
-	)
 
 	// В этом списке не должно быть органов которые обычно не достать.
 	// Всё должно быть более менее достижимо силами генетики, химии, ботаники и медицины
 	// А так же ничего механического
 	/*
 	Система подсчёта веса в этом списке.
-	Стандартный хуман - 100
+	Стандартный хуман = 100
 	Если орган принадлежит дионе -25
 	Если орган принадлежит слайму -40
 	Если орган принадлежит младшей расе(мартышки) +10
@@ -686,6 +676,97 @@
 	/obj/item/organ/internal/eyes/vulpkanin/wolpin = 80,
 	)
 
+	// В этом списке находятся все используемые игрой гены
+	// Имена генов должны совпадать с используемыми в setupgame.dm для списка GLOB.assigned_blocks
+	// Ибо через этот глобальный лист и будет вестись проверка на то совпал ли ген в шприце с запрошенным
+	/*
+	Система подсчёта веса в этом списке.
+	Мартышка/хуман = 100
+	Нейтральная мутация = 90
+	Обычные болячки = 80
+	Особо раздражающие болячки = 70
+	Если мутация полезная = 60
+	Полезная мутация которая не активируется с шансом(XRAY и т.д.) = 40
+
+	Затем в ход идёт дизбаланс гена.
+	Негативный прибавляется к весу,
+	позитивный наоборот отнимается.
+	Если "+" или "-" нет, значит дизбаланса у гена нет
+	*/
+	var/list/genes = list(
+	// Standard muts
+	"BLINDNESS" = 70+15,
+	"COLOURBLIND" = 80+10,
+	"DEAF" = 70+15,
+	"HULK" = 40-15,
+	"TELE" = 40-15,
+	"FIRE" = 60-10,
+	"XRAY" = 40-15,
+	"CLUMSY" = 70+5,
+//	"FAKE" = 100, //ПОЧЕМУ Я ПОСТОЯННО НАХОЖУ РУДИМЕНТЫ ПОКА ПОПОЛНЯЮ ЭТИ ЛИСТЫ?! ЧТО ЭТО ЗА ГЕЕЕЕН!!!!!!!
+	"COUGH" = 80+5,
+	"GLASSES" = 80+10,
+	"EPILEPSY" = 70+10,
+	"TWITCH" = 70+10,
+	"NERVOUS" = 80,
+	"WINGDINGS" = 80+5,
+	// Bay muts
+	"BREATHLESS" = 40-10,
+	"REMOTEVIEW" = 90-5,
+	"REGENERATE" = 60-5,
+	"INCREASERUN" = 60-5,
+	"REMOTETALK" = 60-5,
+	"MORPH" = 60-5,
+	"COLD" = 60-10,
+	"HALLUCINATION" = 80+10,
+	"NOPRINTS" = 60-5,
+	"SHOCKIMMUNITY" = 60-10,
+	"SMALLSIZE" = 60-5,
+	// Goon muts
+	// Disabilities
+	"LISP" = 80,
+	"MUTE" = 70+10,
+	"RAD" = 70+15,
+	"FAT" = 90+5,
+	"SWEDE" = 80,
+	"SCRAMBLE" = 70+5,
+	"STRONG" = 90,
+	"HORNS" = 90,
+	"COMIC" = 90,
+	// Powers
+	"SOBER" = 90,
+	"PSYRESIST" = 60,
+	"SHADOW" = 40-10,
+	"CHAMELEON" = 40-10,
+	"CRYO" = 60-10,
+	"EAT" = 90-5,
+	"JUMP" = 60-5,
+	"IMMOLATE" = 90,
+	"EMPATH" = 90-5,
+	"POLYMORPH" = 60-10,
+	// /vg/ Blocks
+	// Disabilities
+	"LOUD" = 80,
+	"DIZZY" = 70+5,
+	// Paradise220 Disabilities
+	"AULD_IMPERIAL" = 80,
+	// Monkeyblock on/off
+	// TODO: Когда буду делать проверки для уже выполнения самих квестов - не забыть о логике проверки монки/хуман гена отдельно
+	// GLOB.monkeyblock = DNA_SE_LENGTH - Эта строчка шпаргалка для меня. Потом удалю.
+	"MONKEY" = 100,
+	"HUMAN" = 100,
+	)
+
+	var/list/rare_misc_from_nt = list(
+	/obj/item/bodybag = 10,
+	)
+	var/list/bot_types = list(
+	/obj/item/bodybag = 10,
+	)
+	var/list/minerals = list(
+	/obj/item/bodybag = 10,
+	)
+
 /datum/cargo_quests_storage/proc/QuestStorageInitialize() //Вызывать сразу после создания хранилища квестов
 	for(var/i in 1 to 3)
 		generate_quest()
@@ -727,6 +808,9 @@
 		if(QUEST_TYPE_ORGANS)
 			quest.quest_type = QUEST_TYPE_ORGANS
 			generate_organs_info(quest)
+		if(QUEST_TYPE_GENES)
+			quest.quest_type = QUEST_TYPE_GENES
+			generate_genes_info(quest)
 
 ////////////////////////////
 //Прок генерирующий квест на вирус и необходимые симптомы для него
@@ -1002,6 +1086,43 @@
 	//вписать выбор нужной иконки
 	log_debug("Chosen organ/bodypart: [quest.req_item]")
 
+////////////////////////////
+//Прок генерирующий квест на шприцы с генами
+//TODO: Возможно в будущем сюда можно добавить так же различных мартышек/хуманов с нужными генами, как альтернативу лишь шприцам.
+////////////////////////////
+/datum/cargo_quests_storage/proc/generate_genes_info(var/datum/cargo_quest/quest)
+	if(!quest)
+		log_debug("Quest generation attempted without a quest datum reference!")
+		return
+	if(!quest.quest_difficulty)
+		quest.generate_difficulty()
+	log_debug("Generating quest of type \"Genes\"")
+	var/syringes_count = pick(1,2,3,4,5)
+	quest.current_list += genes
+
+	switch(quest.quest_difficulty)
+		if(QUEST_DIFFICULTY_EASY)
+			syringes_count = pick(2,3)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] < 60)	//Убираем большую часть сложно получаемых генов
+					quest.current_list -= item
+		if(QUEST_DIFFICULTY_NORMAL)
+			syringes_count = pick(3,4)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] >= 60)	//Убираем простые гены
+					quest.current_list -= item
+		if(QUEST_DIFFICULTY_HARD)
+			syringes_count = pick(4,5)
+			for(var/item in quest.current_list)
+				if(quest.current_list[item] > 40)	//Оставляем лишь то, что достать трудно
+					quest.current_list -= item
+
+	quest.req_item = /obj/item/dnainjector
+	quest.req_else = pickweight(quest.current_list)
+	quest.req_quantity = syringes_count
+	//вписать выбор нужной иконки
+	log_debug("Chosen gene: [quest.req_else]")
+
 //TODO:
 /datum/cargo_quests_storage/proc/populate_quest_window()
 
@@ -1010,7 +1131,7 @@
 
 /datum/cargo_quest
 	var/active = FALSE 								// Выбран ли квест игроками или нет?
-	var/quest_type = QUEST_TYPE_MECHA						// Тип Квеста. Список типов есть выше.
+	var/quest_type = QUEST_TYPE_MECHA				// Тип Квеста. Список типов есть выше.
 	var/quest_name = ""								// Название квеста
 	var/quest_desc = ""								// Описание квеста
 	var/quest_icon = null							// Иконка для этого квеста которая будет показана в интерфейсе
@@ -1019,7 +1140,7 @@
 	var/stealth = FALSE								// Скрыто ли содержимое нашего квеста до его активации?
 	var/list/quest_reward_else = list() 			// Лист предметов выдающихся в дополнение, за выполнение квеста.
 	var/quest_time_minutes = -1						// Время в МИНУТАХ за которое надо успеть сделать квест или автопровал. Если время < 0, значит ограничения по времени нет.
-	var/list/current_list = list()					// Временный лист для дебага. Удалю когда квест система официально будет закончена и заменю все места где он применяется временными листами
+	var/list/current_list = list()					// Лист для дебага. TODO: Удалить когда квест система официально будет закончена и заменить все места где он применяется временными листами
 
 	var/req_item = null								// Тип предмета который нам надо произвести
 	var/list/req_else = list()						// Дополнительные штуки которые будут проверяться в зависимости от типа квеста
