@@ -535,7 +535,7 @@
 	name = "slime acidproof potion"
 	desc = "A potent chemical mix that will acidproof any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
+	icon_state = "bottle16"
 	origin_tech = "biotech=5"
 	resistance_flags = ACID_PROOF
 
