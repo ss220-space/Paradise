@@ -1679,13 +1679,14 @@
 	update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/consumable/ethanol/alcomender/reaction_mob(mob/living/M, method=REAGENT_INGEST, volume, show_message = 1)
-	if(iscarbon(M))
-		if(method == REAGENT_INGEST)
-			M.adjustFireLoss(-volume)
-			if(show_message)
-				to_chat(M, "<span class='notice'>Strong alcohol moisturizes the skin.</span>")
-	..()
+/datum/reagent/consumable/ethanol/alcomender/reaction_mob(mob/living/M, method=REAGENT_INGEST, volume, show_message = TRUE)
+	if(!iscarbon(M))
+		return
+	if(method == REAGENT_INGEST)
+		M.adjustFireLoss(-volume)
+		if(show_message)
+			to_chat(M, "<span class='notice'>Strong alcohol moisturizes the skin.</span>")
+	return ..()
 
 /datum/reagent/consumable/ethanol/amnesia
 	name = "Star Amnesia"
