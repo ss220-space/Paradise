@@ -168,17 +168,6 @@ emp_act
 
 	return protection
 
-/mob/living/carbon/human/proc/is_acid_proof(var/obj/item/organ/external/def_zone)
-	if(!def_zone)	return 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
-	for(var/bp in body_parts)
-		if(!bp)	continue
-		if(bp && istype(bp ,/obj/item/clothing))
-			var/obj/item/clothing/C = bp
-			if((C.body_parts_covered & def_zone.body_part) && (C.resistance_flags & ACID_PROOF))
-				return TRUE
-	return FALSE
-
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
 	if(!def_zone)
