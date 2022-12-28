@@ -28155,7 +28155,7 @@
 	id_tag = "Chemistry2";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/smartfridge/secure/chemistry,
+/obj/machinery/smartfridge/medbay,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "cKM" = (
@@ -31397,7 +31397,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/smartfridge/medbay,
+/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
 	},
