@@ -190,7 +190,7 @@
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
 
-	if(M.ckey && isanimal(M)) //даем разум симпл мобу под контролем игрока
+	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != sentience_type)
 			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
