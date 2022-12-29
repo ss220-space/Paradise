@@ -33182,7 +33182,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -58764,7 +58765,8 @@
 	hackProof = 1;
 	id_tag = "emergency_home";
 	name = "Security Escape Airlock";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	locked = 1
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -71254,7 +71256,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -94845,9 +94848,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/closet/secure_closet/medical1{
-    req_access = null;
-    req_access_txt = "5;62"
-    },
+	req_access = null;
+	req_access_txt = "5;62"
+	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/gateway)
@@ -116752,7 +116755,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -118541,7 +118545,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/turf_decal/caution{
 	dir = 8
@@ -118946,6 +118951,16 @@
 	icon_state = "dark"
 	},
 /area/security/podbay)
+"uda" = (
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	req_access_txt = "1";
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/hallway/secondary/exit)
 "ude" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -125948,7 +125963,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
@@ -177994,7 +178010,7 @@ eXW
 ruH
 qpH
 iOD
-jGz
+uda
 kUB
 jGz
 kUB
