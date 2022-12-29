@@ -567,7 +567,7 @@
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
 	qdel(src)
 
-/obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
+/obj/item/slimepotion/acidproof/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
