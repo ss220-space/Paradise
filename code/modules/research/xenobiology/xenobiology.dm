@@ -546,13 +546,16 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(C.resistance_flags & ACID_PROOF)
+	if(C.resistance_flags & ACID_PROOF && istype(C.armor) && C.armor.acid == 100)
 		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
 		return ..()
-	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
 	C.name = "acidproofed [C.name]"
 	C.add_atom_colour("#008000", WASHABLE_COLOUR_PRIORITY)
 	C.resistance_flags |= ACID_PROOF
+	if(istype(C.armor))
+		C.armor.acid = 100
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
+	qdel(src)
 
 /obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
