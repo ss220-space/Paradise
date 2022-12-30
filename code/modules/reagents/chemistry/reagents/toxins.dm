@@ -337,15 +337,15 @@
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
 			if(volume >= 5)
-				var/armour = 0
+				var/damage_coef = 0
 				var/isDamaged = FALSE
 				for(var/limb in H.bodyparts)
 					var/obj/item/organ/external/E = limb
-					armour = (100 - clamp(H.getarmor_organ(E, "acid"), 0, 100))/100
-					if(armour < 100 && !isDamaged)
+					damage_coef = (100 - clamp(H.getarmor_organ(E, "acid"), 0, 100))/100
+					if(damage_coef > 0 && !isDamaged)
 						isDamaged = TRUE
 						H.emote("scream")
-					E.receive_damage(0, clamp((volume - 5) * 3, 8, 75) * armour / H.bodyparts.len)
+					E.receive_damage(0, clamp((volume - 5) * 3, 8, 75) * damage_coef / H.bodyparts.len)
 
 			if(volume > 9 && (H.wear_mask || H.head))
 				if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
