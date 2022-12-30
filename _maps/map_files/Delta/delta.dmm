@@ -1668,7 +1668,8 @@
 /area/maintenance/asmaint)
 "aoS" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "admin_home"
+	id_tag = "admin_home";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -6334,7 +6335,8 @@
 /area/quartermaster/office)
 "aRL" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ferry_home"
+	id_tag = "ferry_home";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -8505,7 +8507,8 @@
 /area/space)
 "bfF" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "specops_home"
+	id_tag = "specops_home";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -9800,7 +9803,8 @@
 /area/medical/virology/lab)
 "blv" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "trade_dock"
+	id_tag = "trade_dock";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
