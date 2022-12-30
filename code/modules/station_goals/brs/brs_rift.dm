@@ -22,9 +22,10 @@
 	var/time_per_tile = 0	// время перед движением на тайл
 	var/move_time 			// рассчетное время перед движением
 
-	var/force_sized = 3		//размер разлома, прямо влияющий на его силу и мощность
+	var/force_sized = 3		//размер разлома и критической зоны
 	var/dir_move = 0
 	var/dir_loc = null
+	//var/critical_range = 5	//предельное допустимое расстояние сканирования
 
 /obj/brs_rift/Initialize(mapload, type_rift = DEFAULT_RIFT)
 	. = ..()
@@ -89,11 +90,11 @@
 	dir_loc = F//.loc
 	dir_move = get_dir(src, dir_loc)
 
-	var/dist = get_dist(F, src)
+	var/dist = get_dist(src, F)
 
 	time_per_tile = round(timespan/dist)
 
-	//message_admins("Разлом [src.name] сменил направления на [dir_move], \
-	\n тестовое, объекты([src], [F]); тестовое, объекты([src.loc], [F.loc]): \
-	\n [get_dir(src, F)], [get_dir(src.loc, F.loc)]	\
-	\n [time_per_tile], [timespan/dist], [dist], [timespan]")
+	//message_admins("Разлом [src.name] сменил направления на [dir_move],
+	//\n тестовое, объекты([src], [F]); тестовое, объекты([src.loc], [F.loc]):
+	//\n [get_dir(src, F)], [get_dir(src.loc, F.loc)]
+	//\n [time_per_tile], [timespan/dist], [dist], [timespan]")
