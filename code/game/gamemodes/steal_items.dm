@@ -164,3 +164,8 @@
 /datum/theft_objective/unique/docs_blue
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
+
+/datum/theft_objective/experimantal_t_ray
+	name = "экспериментальный T-ray сканнер"
+	typepath = /obj/item/t_scanner/experimental
+	protected_jobs = list("Research Director")

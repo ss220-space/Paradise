@@ -22,15 +22,57 @@ REAGENT SCANNER
 	var/scan_range = 1
 	var/pulse_duration = 10
 
-/obj/item/t_scanner/longer_pulse
-	pulse_duration = 50
-
 /obj/item/t_scanner/extended_range
+	name = "Расширенный T-ray сканнер"
+	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	Образец с расширенным радиусов воздействия."
+	icon_state = "t-ray-range0"
 	scan_range = 3
+	origin_tech = "magnets=3;engineering=3"
+	materials = list(MAT_METAL=300)
 
-/obj/item/t_scanner/extended_range/longer_pulse
-	scan_range = 3
+/obj/item/t_scanner/pulse
+	name = "Пульсовой T-ray сканнер"
+	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	Образец с продолжительным пульсаром."
+	icon_state = "t-ray-pulse0"
 	pulse_duration = 50
+	origin_tech = "magnets=5;engineering=3"
+	materials = list(MAT_METAL=300)
+
+/obj/item/t_scanner/advanced
+	name = "Продвинутый T-ray сканнер"
+	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	Образец с расширенным радиусом воздействия и продолжительным пульсаром."
+	icon_state = "t-ray-advanced0"
+	pulse_duration = 50
+	scan_range = 3
+	origin_tech = "magnets=7;engineering=3"
+	materials = list(MAT_METAL=300)
+
+/obj/item/t_scanner/science
+	name = "Научный T-ray сканнер"
+	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	Научный образец сканнера с расширенным радиусом действия и продолжительным пульсаром."
+	icon_state = "t-ray-science0"
+	scan_range = 5
+	pulse_duration = 100
+	origin_tech = "magnets=8;engineering=5"
+	materials = list(MAT_METAL=500)
+
+/obj/item/t_scanner/experimental	//хайриск который нельзя разобрать, так как эта хуйня изобретена ну сами знаете кем.
+	name = "Экспериментальный T-ray сканнер"
+	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	Экспериментальный образец сканнера с расширенным радиусом действия и продолжительным пульсаром. \
+	Судя по его виду, эта вещь изобретена безумными учеными, взятая буквально с экспериментами. Вы можете представить больное воображение ученого который это сделал? \
+	Ценная находка в практическом и научном пользовании. \
+	Но её не может изучить даже самый продвинутый разборщик, требуется тщательное исследование."
+	icon_state = "t-ray-experimental0"
+	scan_range = 3
+	pulse_duration = 80
+	origin_tech = null
+	materials = null
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/t_scanner/Destroy()
 	if(on)
