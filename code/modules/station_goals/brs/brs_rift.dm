@@ -1,6 +1,6 @@
-//Блюспейс разлом для создания веселья на станции
+//Блюспейс разлом для создания веселья и беготни на станции
 /obj/brs_rift
-	name = "блюспейс разлом"
+	name = "Блюспейс Разлом"
 	desc = "Аномальное образование с неизвестными свойствами загадочного синего космоса."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_fog"
@@ -9,40 +9,91 @@
 	move_resist = INFINITY
 	appearance_flags = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	layer = MASSIVE_OBJ_LAYER
-	light_range = 6
-	alpha = 45
+	alpha = 180
+
+	//для отображения T-ray сканнера
+	invisibility = INVISIBILITY_ANOMALY
+	level = 1
+
+	var/timespan = 20 MINUTES	// промужуток времени смены направления
+	var/direction_time		// подсчетное время перед сменой направления
+	var/time_per_tile = 0	// время перед движением на тайл
+	var/move_time 			// рассчетное время перед движением
+
 	var/force_sized = 3		//размер разлома, прямо влияющий на его силу и мощность
+	var/dir_move = 0
+	var/dir_loc = null
 
-/obj/brs_rift/New()
-	GLOB.bluespace_rifts_list += src
-	//animate(src, alpha = 0, time = 6)
-	var/count = length(GLOB.bluespace_rifts_list)
-	message_admins("Блюспейс разлом был создан в зоне [ADMIN_VERBOSEJMP(src)]. Всего [count] разломов.")
-
+/obj/brs_rift/Initialize(mapload, type_rift = DEFAULT_RIFT)
 	. = ..()
+	GLOB.poi_list |= src
+	GLOB.bluespace_rifts_list += src
+	START_PROCESSING(SSobj, src)
+
+	change_move_direction()
+	name = "[name] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
+
+	switch(type_rift)
+		if(DEFAULT_RIFT)
+			force_sized = 4
+		if(BIG_RIFT)
+			force_sized = 6
+		if(HUGE_RIFT)
+			force_sized = 9
+		if(TWINS_RIFT)
+			force_sized = 3
+		if(SMALL_FAST_RIFT)
+			force_sized = 1
+	transform = matrix(5, 0, 0, 0, 5, 0)
+
+	var/count = length(GLOB.bluespace_rifts_list)
+	//message_admins("[name] инициализирован в зоне [ADMIN_VERBOSEJMP(src)]. Всего разломов: [count].")
+	//message_admins("[name] инициализирован [COORD(src)]. Всего разломов: [count].")
+	notify_ghosts("[name] возник на станции! Всего разломов: [count]", title = "Блюспейс Разлом!", source = src, action = NOTIFY_FOLLOW)
 
 /obj/brs_rift/Destroy()
-	. = ..()
 	GLOB.bluespace_rifts_list -= src
+	GLOB.poi_list.Remove(src)
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/brs_rift/attackby(obj/item/I, mob/living/user, params)
+	to_chat(user, "<span class='danger'>Невозможно взаимодействовать с разломом!</span>")
+	return FALSE
 
 /obj/brs_rift/process()
-	direct_move()
+	//message_admins(" === === Процесс [src.name], параметры: [dir_move] === === ")
+	move_direction()
+
+/obj/brs_rift/proc/move_direction()
+	//step(src, dir_move) //walk(src, dir_move)
+	if(move_time < world.time)
+		forceMove(get_step(src, dir_move))
+		//message_admins("Разлом [src.name] движется, текущий [move_time], новый: [world.time + time_per_tile], мировой: [world.time] ")
+		move_time = world.time + time_per_tile
+		dir_move = get_dir(src.loc, dir_loc)
+
+	if(direction_time < world.time)
+		change_move_direction()
 
 
-/obj/brs_rift/proc/direct_move()
-	if(prob(95))
-		return FALSE
+/obj/brs_rift/proc/change_move_direction()
+	direction_time = world.time + timespan
+	move_time = world.time + time_per_tile
 
-	var/movement_dir = pick(GLOB.alldirs)	//переделать под зоны на станции
-						//(у свармеров при телепортации были такие ограничения)
+	//направление в сторону тюрфа находящегося на станции в функционирующей её части
+	var/turf/simulated/floor/F
+	F = find_safe_turf(zlevels = src.z)
+	dir_loc = F//.loc
+	dir_move = get_dir(src, dir_loc)
 
-	step(src, movement_dir, force_sized)
+	var/dist = get_dist(F, src)
 
-///obj/brs_rift/Move(atom/newloc, direct)
-//	if(current_size >= STAGE_FIVE || check_turfs_in(direct))
-//		last_failed_movement = 0 //Reset this because we moved
-//		return ..()
-//	else
-//		last_failed_movement = direct
-//		return 0
+	time_per_tile = round(timespan/dist)
+
+	//message_admins("Разлом [src.name] сменил направления на [dir_move], \
+	\n тестовое, объекты([src], [F]); тестовое, объекты([src.loc], [F.loc]): \
+	\n [get_dir(src, F)], [get_dir(src.loc, F.loc)]	\
+	\n [time_per_tile], [timespan/dist], [dist], [timespan]")

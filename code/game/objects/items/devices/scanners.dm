@@ -25,7 +25,7 @@ REAGENT SCANNER
 /obj/item/t_scanner/extended_range
 	name = "Расширенный T-ray сканнер"
 	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
-	Образец с расширенным радиусов воздействия."
+	\nОбразец с расширенным радиусов воздействия."
 	icon_state = "t-ray-range0"
 	scan_range = 3
 	origin_tech = "magnets=3;engineering=3"
@@ -34,7 +34,7 @@ REAGENT SCANNER
 /obj/item/t_scanner/pulse
 	name = "Пульсовой T-ray сканнер"
 	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
-	Образец с продолжительным пульсаром."
+	\nОбразец с продолжительным пульсаром."
 	icon_state = "t-ray-pulse0"
 	pulse_duration = 50
 	origin_tech = "magnets=5;engineering=3"
@@ -43,7 +43,7 @@ REAGENT SCANNER
 /obj/item/t_scanner/advanced
 	name = "Продвинутый T-ray сканнер"
 	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
-	Образец с расширенным радиусом воздействия и продолжительным пульсаром."
+	\nОбразец с расширенным радиусом воздействия и продолжительным пульсаром."
 	icon_state = "t-ray-advanced0"
 	pulse_duration = 50
 	scan_range = 3
@@ -53,7 +53,7 @@ REAGENT SCANNER
 /obj/item/t_scanner/science
 	name = "Научный T-ray сканнер"
 	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
-	Научный образец сканнера с расширенным радиусом действия и продолжительным пульсаром."
+	\nНаучный образец сканнера с расширенным радиусом действия и продолжительным пульсаром."
 	icon_state = "t-ray-science0"
 	scan_range = 5
 	pulse_duration = 100
@@ -63,10 +63,10 @@ REAGENT SCANNER
 /obj/item/t_scanner/experimental	//хайриск который нельзя разобрать, так как эта хуйня изобретена ну сами знаете кем.
 	name = "Экспериментальный T-ray сканнер"
 	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
-	Экспериментальный образец сканнера с расширенным радиусом действия и продолжительным пульсаром. \
-	Судя по его виду, эта вещь изобретена безумными учеными, взятая буквально с экспериментами. Вы можете представить больное воображение ученого который это сделал? \
-	Ценная находка в практическом и научном пользовании. \
-	Но её не может изучить даже самый продвинутый разборщик, требуется тщательное исследование."
+	\nЭкспериментальный образец сканнера с расширенным радиусом действия и продолжительным пульсаром. \
+	\nСудя по его виду, эта вещь изобретена безумными учеными, взятая буквально с экспериментами. Вы можете представить больное воображение ученого который это сделал? \
+	\nЦенная находка в практическом и научном пользовании. \
+	\nНо её не может изучить даже самый продвинутый разборщик, требуется тщательное исследование."
 	icon_state = "t-ray-experimental0"
 	scan_range = 3
 	pulse_duration = 80
@@ -106,7 +106,9 @@ REAGENT SCANNER
 			if(in_turf_object.level != 1)
 				continue
 
-			if(in_turf_object.invisibility == 101)
+			var/temp_invisibility = in_turf_object.invisibility
+			var/temp_alpha = in_turf_object.alpha
+			if(temp_invisibility == 101 || temp_invisibility == INVISIBILITY_ANOMALY)
 				in_turf_object.invisibility = 0
 				in_turf_object.alpha = 128
 				in_turf_object.drain_act_protected = TRUE
@@ -114,8 +116,8 @@ REAGENT SCANNER
 					if(in_turf_object)
 						var/turf/objects_turf = in_turf_object.loc
 						if(objects_turf && objects_turf.intact)
-							in_turf_object.invisibility = 101
-						in_turf_object.alpha = 255
+							in_turf_object.invisibility = temp_invisibility
+						in_turf_object.alpha = temp_alpha
 						in_turf_object.drain_act_protected = FALSE
 		for(var/mob/living/in_turf_mob in scan_turf.contents)
 			var/oldalpha = in_turf_mob.alpha
