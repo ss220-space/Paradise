@@ -29,44 +29,45 @@
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
 	var/alarm_sound = 'sound/effects/alert.ogg'
 
-	var/critical_time = 5 SECONDS	//время до поломки в критических условиях
+	var/critical_time = 5 SECONDS	//время до поломки в критических условиях и до его восстановления на привычные значения
 	var/max_range = 10				//максимальное расстояния для сканирования
 
-	var/world_critical_time = 0
-	var/obj/brs_rift/rift_for_scan = null
+	var/counter_critical_time = 0		//счетчик времени до поломки
+	var/obj/brs_rift/rift_for_scan = null	//концентрация на разломе для сканирования
 	//var/id = 0
 
 /obj/brs_rift/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list |= src
-	GLOB.bluespace_rifts_list += src
+	GLOB.bluespace_rifts_list.Add(src)
 
 /obj/brs_rift/Destroy()
-	GLOB.bluespace_rifts_list -= src
+	GLOB.bluespace_rifts_list.Remove(src)
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/machinery/brs_scanner/process()
-	if (rift_for_scan)
-		var/result = ""
+	if(stat & BROKEN)
+		return FALSE
+	if (!toggle)
+		return FALSE
 
+	if (rift_for_scan)
 		var/dist = get_dist(src, rift_for_scan)
-		result += "\n[rift_for_scan.name]: [dist]"
 		if (!emagged)
-			if (dist > max_range)
-				result += "   ПРЕВЫШАЕТ ВЫШЕЛ ИЗ СКАНИРОВАНИЯ"
+			if (dist > max_range + rift_for_scan.force_sized)
 				rift_for_scan = null
 				change_active()
 			else if (dist <= rift_for_scan.force_sized)
-				result += "   В КРИТИЧЕСКОЙ ЗОНЕ"
 				critical_process()
 			else
-				result += "   ДОПУСТИМО"
 				scanner_process()
-
-
-		message_admins(result)
+		else	//При ЕМАГе, возможно сканирование в любом радиусе. Вне его - критическая зона
+			if (dist <= max_range + rift_for_scan.force_sized)
+				scanner_process()
+			else
+				critical_process()
 		return TRUE
 
 	for (var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
@@ -77,11 +78,24 @@
 			break
 
 /obj/machinery/brs_scanner/proc/critical_process()
-	if (world_critical_time == 0)
-		world_critical_time = world.time + critical_time
+	if (counter_critical_time + critical_time < world.time)	//!!!!ПРОВЕРИТЬ ЕСТЬ ЛИ ВОССТАНОВЛЕНИЕ
+		counter_critical_time = 0
+		message_admins("КРИТИЧЕСКИЙ ПОРОГ ВОССТАНОВЛЕН")
+
+	if (counter_critical_time == 0)
+		counter_critical_time = world.time + critical_time
+		message_admins("Начат отсчет [counter_critical_time]/[world.time]")
+	if (counter_critical_time < world.time)
+		obj_break()
+		anchored = FALSE
+		message_admins("КРИТИЧЕСКИЙ ПОРОГ ПРОЙДЕН")
+	else
+		message_admins("Критическое значение [counter_critical_time]/[world.time]")
+		playsound(loc, alarm_sound, 100, 1)
 
 /obj/machinery/brs_scanner/proc/scanner_process()
-	//передача данных серверам
+	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
+		server.research_process(1)
 
 /obj/machinery/brs_scanner/proc/change_active()
 	active = !active
@@ -93,6 +107,10 @@
 
 /obj/machinery/brs_scanner/update_icon()
 	var/prefix = initial(icon_state)
+	if (stat & BROKEN)
+		icon_state = "[prefix]-broken"
+		return
+
 	if (anchored)
 		if (toggle)
 			if (active)
@@ -110,8 +128,12 @@
 //Взаимодействия
 /obj/machinery/brs_scanner/wrench_act(mob/living/user, obj/item/I)
 	if (!toggle)
-		default_unfasten_wrench(user, I, 40)
-		update_icon()
+		return FALSE
+
+	. = default_unfasten_wrench(user, I, 40)
+	update_icon()
+
+	//!!!!!!!!!Стукает в конце при откручивании/прикручивании. Проверить с чем связано.
 
 /obj/machinery/brs_scanner/attack_hand(mob/user)
 	if(..())

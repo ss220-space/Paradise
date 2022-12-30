@@ -19,22 +19,27 @@
 	anchored = TRUE
 	density = TRUE
 	var/active = FALSE
-	var/researchpoints = 0
+	var/research_points = 0
 	var/activate_sound = 'sound/effects/electheart.ogg'
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
 	//var/id = 0
 
-/obj/machinery/brs_server/update_icon()
-	var/prefix = initial(icon_state)
-	if(stat & (BROKEN))
-		icon_state = "[prefix]-b"
-	else if(stat & (NOPOWER))
-		icon_state = prefix
-	else icon_state = active ? "[prefix]-act" : "[prefix]-on"
+/obj/machinery/brs_server/proc/research_process(var/points)
+	if (!active)
+		change_active()
+	research_points += points
+	message_admins("Сервер [name] получил [points] очков")
+
+/obj/machinery/brs_server/Initialize(mapload)
+	. = ..()
+	GLOB.bluespace_rifts_server_list.Add(src)
+	GLOB.poi_list |= src
 
 /obj/machinery/brs_server/Destroy()
-	. = ..()
-	//Удаляем сервер из списков общих серверов
+	GLOB.bluespace_rifts_server_list.Remove(src)
+	GLOB.poi_list.Remove(src)
+	//STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/machinery/brs_server/proc/change_active()
 	active = !active
@@ -43,12 +48,13 @@
 	else
 		playsound(loc, deactivate_sound, 100, 1)
 
-/*
-/obj/machinery/brs_server/process()
-	if(stat & (BROKEN|NOPOWER))
-		return FALSE
-	//получаем данные
-*/
+/obj/machinery/brs_server/update_icon()
+	var/prefix = initial(icon_state)
+	if(stat & (BROKEN))
+		icon_state = "[prefix]-b"
+	else if(stat & (NOPOWER))
+		icon_state = prefix
+	else icon_state = active ? "[prefix]-act" : "[prefix]-on"
 
 //==========Взаимодействия========
 /obj/machinery/brs_server/wrench_act(mob/living/user, obj/item/I)

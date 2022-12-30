@@ -18,19 +18,19 @@
 	level = 1
 
 	var/timespan = 20 MINUTES	// промужуток времени смены направления
-	var/direction_time		// подсчетное время перед сменой направления
-	var/time_per_tile = 0	// время перед движением на тайл
-	var/move_time 			// рассчетное время перед движением
+	var/required_time_per_tile = 0	// необходимо времени перед движением на тайл
+	var/counter_direction_time		// счетчик времени перед сменой направления
+	var/counter_move_time 			// счетчик времени перед движением
 
 	var/force_sized = 3		//размер разлома и критической зоны
-	var/dir_move = 0
-	var/dir_loc = null
+	var/dir_move = 0		//направление
+	var/dir_loc = null		//место направления
 	//var/critical_range = 5	//предельное допустимое расстояние сканирования
 
 /obj/brs_rift/Initialize(mapload, type_rift = DEFAULT_RIFT)
 	. = ..()
 	GLOB.poi_list |= src
-	GLOB.bluespace_rifts_list += src
+	GLOB.bluespace_rifts_list.Add(src)
 	START_PROCESSING(SSobj, src)
 
 	change_move_direction()
@@ -38,16 +38,16 @@
 
 	switch(type_rift)
 		if(DEFAULT_RIFT)
-			force_sized = 4
+			force_sized = 5
 		if(BIG_RIFT)
-			force_sized = 6
+			force_sized = 7
 		if(HUGE_RIFT)
 			force_sized = 9
 		if(TWINS_RIFT)
 			force_sized = 3
 		if(SMALL_FAST_RIFT)
 			force_sized = 1
-	transform = matrix(5, 0, 0, 0, 5, 0)
+	transform = matrix(force_sized, 0, 0, 0, force_sized, 0)
 
 	var/count = length(GLOB.bluespace_rifts_list)
 	//message_admins("[name] инициализирован в зоне [ADMIN_VERBOSEJMP(src)]. Всего разломов: [count].")
@@ -55,7 +55,7 @@
 	notify_ghosts("[name] возник на станции! Всего разломов: [count]", title = "Блюспейс Разлом!", source = src, action = NOTIFY_FOLLOW)
 
 /obj/brs_rift/Destroy()
-	GLOB.bluespace_rifts_list -= src
+	GLOB.bluespace_rifts_list.Remove(src)
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -70,19 +70,19 @@
 
 /obj/brs_rift/proc/move_direction()
 	//step(src, dir_move) //walk(src, dir_move)
-	if(move_time < world.time)
+	if(counter_move_time < world.time)
 		forceMove(get_step(src, dir_move))
-		//message_admins("Разлом [src.name] движется, текущий [move_time], новый: [world.time + time_per_tile], мировой: [world.time] ")
-		move_time = world.time + time_per_tile
+		//message_admins("Разлом [src.name] движется, текущий [counter_move_time], новый: [world.time + required_time_per_tile], мировой: [world.time] ")
+		counter_move_time = world.time + required_time_per_tile
 		dir_move = get_dir(src.loc, dir_loc)
 
-	if(direction_time < world.time)
+	if(counter_direction_time < world.time)
 		change_move_direction()
 
 
 /obj/brs_rift/proc/change_move_direction()
-	direction_time = world.time + timespan
-	move_time = world.time + time_per_tile
+	counter_direction_time = world.time + timespan
+	counter_move_time = world.time + required_time_per_tile
 
 	//направление в сторону тюрфа находящегося на станции в функционирующей её части
 	var/turf/simulated/floor/F
@@ -92,9 +92,9 @@
 
 	var/dist = get_dist(src, F)
 
-	time_per_tile = round(timespan/dist)
+	required_time_per_tile = round(timespan/dist)
 
 	//message_admins("Разлом [src.name] сменил направления на [dir_move],
 	//\n тестовое, объекты([src], [F]); тестовое, объекты([src.loc], [F.loc]):
 	//\n [get_dir(src, F)], [get_dir(src.loc, F.loc)]
-	//\n [time_per_tile], [timespan/dist], [dist], [timespan]")
+	//\n [required_time_per_tile], [timespan/dist], [dist], [timespan]")

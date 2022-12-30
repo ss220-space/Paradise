@@ -1,7 +1,10 @@
-// Сканейр Блюспейс Разлома
+GLOBAL_LIST_INIT(bluespace_rifts_list, list())
+GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
+
+// Сканер Блюспейс Разлома
 // Цель для исследования аномального блюспейс разлома с созданием портативных и статичных сканеров
-/datum/station_goal/brs //BRS - Bluespace Rift Scanner
-	name = "Сканер Блюспейс Разломов"
+/datum/station_goal/brs
+	name = "Bluespace Rift Scanner"		//BRS
 	var/scanner_goal = 25000
 	var/list/rifts_list = list()
 
@@ -32,7 +35,7 @@
 
 /datum/station_goal/brs/proc/check_scanners_goal()
 	for(var/obj/machinery/brs_server/S in GLOB.machines)
-		if(!S.active || !is_station_level(S.z) || S.researchpoints < scanner_goal)
+		if(!S.active || !is_station_level(S.z) || S.research_points < scanner_goal)
 			continue
 		return TRUE
 	return FALSE
