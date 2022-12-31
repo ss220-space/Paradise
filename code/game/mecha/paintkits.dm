@@ -194,17 +194,6 @@
 	new_icon = "murdysseus"
 	allowed_types = list("odysseus")
 
-
-/obj/item/paintkit/odysseus_medigax
-	name = "Odysseus \"medgax\" customisation kit"
-	icon_state = "paintkit_white"
-	desc = "A kit containing all the needed tools and parts to turn a Odysseus into medical gygax"
-
-	new_name = "Medgax"
-	new_desc = "OH FUCK THERE IS A COMBAT MECH IN THE HOSPITAL IT'S GONNA KILL US"
-	new_icon = "medgax"
-	allowed_types = list("odysseus")
-
 /obj/item/paintkit/durand_soviet
 	name = "Durand \"Dollhouse\" customisation kit"
 	icon_state = "paintkit_doll"
@@ -253,4 +242,14 @@
 	new_name = "White Gygax"
 	new_desc = "Did you just painted your Gygax white? I like it."
 	new_icon = "medigax"
+	allowed_types = list("gygax")
+
+/obj/item/paintkit/gygax_medgax
+	name = "Gygax \"medgax\" customisation kit"
+	icon_state = "paintkit_white"
+	desc = "A kit containing all the needed tools and parts to turn a Gygax into old \"medical\" gygax"
+
+	new_name = "Medgax"
+	new_desc = "OH SHIT THERE IS A COMBAT MECH IN THE HOSPITAL IT'S GONNA KILL US"
+	new_icon = "medgax"
 	allowed_types = list("gygax")

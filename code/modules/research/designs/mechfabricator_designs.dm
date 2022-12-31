@@ -1724,15 +1724,15 @@
 	construction_time = 300
 	category = list("Odysseus")
 
-/datum/design/paint_odysseus_whitegyg
-	name = "Odysseus \"medgax\" customisation kit"
+/datum/design/paint_gygax_medgax
+	name = "Gygax \"medgax\" customisation kit"
 	id = "p_medgax"
 	build_type = MECHFAB
 	req_tech = list("engineering" = 6, "materials" = 6, "programming" = 7,"biotech" = 7, "toxins" = 7)
-	build_path = /obj/item/paintkit/odysseus_medigax
+	build_path = /obj/item/paintkit/gygax_medgax
 	materials = list(MAT_METAL=40000, MAT_DIAMOND=5000, MAT_URANIUM= 5000)
 	construction_time = 300
-	category = list("Odysseus")
+	category = list("Gygax")
 
 /datum/design/paint_clarke_orangey
 	name = "Clarke \"Orangey\" customisation kit"
