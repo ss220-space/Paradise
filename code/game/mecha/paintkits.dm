@@ -2,7 +2,7 @@
 	name = "mecha customisation kit"
 	desc = "A generic kit containing all the needed tools and parts to turn a mech into another mech."
 	icon = 'icons/obj/paintkit.dmi'
-	icon_state = "paintkit"
+	icon_state = "paintkit" //What sprite will your paintkit use?
 
 	var/new_name = "mech"    //What is the variant called?
 	var/new_desc = "A mech." //How is the new mech described?
@@ -15,13 +15,13 @@
 
 /obj/item/paintkit/ripley_titansfist
 	name = "APLU \"Titan's Fist\" customisation kit"
-	icon_state = "paintkit_titan" //Сюда указывается название спрайта пеинткита, который вы берете.
+	icon_state = "paintkit_titan"
 	desc = "A kit containing all the needed tools and parts to turn a Ripley into a Titan's Fist worker mech."
 
 	new_name = "APLU \"Titan's Fist\""
 	new_desc = "This ordinary mining Ripley has been customized to look like a unit of the Titans Fist."
-	new_icon = "titan" //тут указывается название нового спрайта меха, который берется из "icons/mecha/mecha.dmi"
-	allowed_types = list("ripley") //тут идет перечисление всех мехов, на которые можно использовать пеинткит.
+	new_icon = "titan"
+	allowed_types = list("ripley")
 
 /obj/item/paintkit/ripley_mercenary
 	name = "APLU \"Strike the Earth!\" customisation kit"
@@ -54,7 +54,6 @@
 	new_icon = "gygax_alt"
 	allowed_types = list("gygax")
 
-
 /obj/item/paintkit/ripley_red
 	name = "APLU \"Firestarter\" customisation kit"
 	icon_state = "paintkit_red"
@@ -64,18 +63,6 @@
 	new_desc = "A standard APLU exosuit with stylish orange flame decals."
 	new_icon = "ripley_flames_red"
 	allowed_types = list("ripley")
-
-
-/obj/item/paintkit/ripley_blue
-	name = "APLU \"Burning Chrome\" customisation kit"
-	icon_state = "paintkit_blue"
-	desc = "A kit containing all the needed tools and parts to turn a Ripley into APLU \"Burning Chrome\""
-
-	new_name = "APLU \"Burning Chrome\""
-	new_desc = "A standard APLU exosuit with stylish blue flame decals."
-	new_icon = "ripley_flames_blue"
-	allowed_types = list("ripley")
-
 
 /obj/item/paintkit/firefighter_Hauler
 	name = "APLU \"Hauler\" customisation kit"
@@ -88,7 +75,7 @@
 	allowed_types = list( "firefighter")
 
 /obj/item/paintkit/durand_shire
-	name = "Shire modification kit"
+	name = "Durand \"Shire\" modification kit"
 	icon_state = "paintkit_shire"
 	desc = "A kit containing all the needed tools and parts to turn a Durand into incredibly heavy war machine."
 
@@ -97,20 +84,10 @@
 	new_icon = "shire"
 	allowed_types = list("durand")
 
-/obj/item/paintkit/durand_old
-	name = "Old Durand modification kit"
-	icon_state = "paintkit_old"
-	desc = "A kit containing all the needed tools and parts to turn a Durand into an outdated version of itself. Why would you do that?"
-
-	new_name = "Old Durand"
-	new_desc = "A retired, third-generation combat exosuit utilized by the Nanotrasen corporation. Originally developed to combat hostile alien lifeforms."
-	new_icon = "old_durand"
-	allowed_types = list("durand")
-
 /obj/item/paintkit/firefighter_zairjah
 	name = "APLU \"Zairjah\" customisation kit"
 	icon_state = "paintkit_zairjah"
-	desc = "A kit containing all the needed tools and parts to turn a firefighter into weird-looking mining exosuit"
+	desc = "A kit containing all the needed tools and parts to turn a Firefighter into weird-looking mining exosuit"
 
 	new_name = "APLU \"Zairjah\""
 	new_desc = "A mining mecha of custom design, a closed cockpit with powerloader appendages."
@@ -118,9 +95,9 @@
 	allowed_types = list("firefighter")
 
 /obj/item/paintkit/firefighter_combat
-	name = "Combat Ripley customisation kit"
+	name = "APLU \"Combat Ripley\" customisation kit"
 	icon_state = "paintkit_combat"
-	desc = "A kit containing all the needed tools and parts to turn a firefighter into a real combat exosuit. Weapons are not included!"
+	desc = "A kit containing all the needed tools and parts to turn a Firefighter into a real combat exosuit. Weapons are not included!"
 
 	new_name = "APLU \"Combat Ripley\""
 	new_desc = "Wait a second, why does his equipment slots spark so dangerously?"
@@ -130,7 +107,7 @@
 /obj/item/paintkit/firefighter_Reaper
 	name = "APLU \"Reaper\" customisation kit"
 	icon_state = "paintkit_death"
-	desc = "A kit containing all the needed tools and parts to turn a firefighter into a famous DeathSquad ripley!"
+	desc = "A kit containing all the needed tools and parts to turn a Firefighter into a famous DeathSquad ripley!"
 
 	new_name = "APLU \"Reaper\""
 	new_desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA D- Stop, it's just a painted firefighter."
@@ -138,9 +115,9 @@
 	allowed_types = list("firefighter")
 
 /obj/item/paintkit/odysseus_hermes
-	name = "Hermes customisation kit"
+	name = "Odysseus \"Hermes\" customisation kit"
 	icon_state = "paintkit_hermes"
-	desc = "A kit containing all the needed tools and parts to turn a medical odysseus into a alien-like diving exosuit"
+	desc = "A kit containing all the needed tools and parts to turn a Odysseus into a alien-like diving exosuit"
 
 	new_name = "Hermes"
 	new_desc = "Heavy-duty diving exosuit developed and produced for for highly specialized underwater operations. How did he end up here?"
@@ -148,12 +125,132 @@
 	allowed_types = list("odysseus")
 
 /obj/item/paintkit/durand_unathi
-	name = "Durand \"Kharn MK. IV\" customization kit"
+	name = "Durand \"Kharn MK. IV\" customisation kit"
 	icon_state = "paintkit_unathi"
 	desc = "A kit containing all the needed tools and parts to turn a Durand into an alien-like lizard mech"
-
 
 	new_name = "Kharn MK. IV"
 	new_desc = "My life for the empress!"
 	new_icon = "unathi"
 	allowed_types = list("durand")
+
+/obj/item/paintkit/phazon_imperion
+	name = "Phazon \"Imperion\" customisation kit"
+	icon_state = "paintkit_imperon"
+	desc = "A kit containing all the needed tools and parts to turn your expensive Phazon into more expensive and advanced Imperion"
+
+	new_name = "Imperion"
+	new_desc = "The pinnacle of scientific research and pride of Nanotrasen, it uses cutting edge bluespace technology and expensive materials."
+	new_icon = "imperion"
+	allowed_types = list("phazon")
+
+/obj/item/paintkit/phazon_janus
+	name = "Phazon \"Janus\" customisation kit"
+	icon_state = "paintkit_janus"
+	desc = "A kit containing all the needed tools and parts to turn a Phazon into darker and more expensive version of itself"
+
+	new_name = "Janus"
+	new_desc = "The pinnacle of scientific research and pride of Nanotrasen, it uses cutting edge bluespace technology and expensive materials."
+	new_icon = "janus"
+	allowed_types = list("phazon")
+
+/obj/item/paintkit/phazon_plazmus
+	name = "Phazon \"Plazmus\" customisation kit"
+	icon_state = "paintkit_plazmus"
+	desc = "A kit containing all the needed tools and parts to turn a Phazon into purple mech"
+
+	new_name = "Plazmus"
+	new_desc = "So, you combined two of the most dangerous technologies into this thing?"
+	new_icon = "plazmus"
+	allowed_types = list("phazon")
+
+/obj/item/paintkit/phazon_blanco
+	name = "Phazon \"Blanco\" customisation kit"
+	icon_state = "paintkit_white"
+	desc = "A kit containing all the needed tools and parts to paint your Phazon white"
+
+	new_name = "Blanco"
+	new_desc = "It took more than six months of work to find the perfect pastel colors for this mech"
+	new_icon = "phazon_blanco"
+	allowed_types = list("phazon")
+
+/obj/item/paintkit/firefighter_aluminizer
+	name = "APLU \"Aluminizer\" customisation kit"
+	icon_state = "paintkit"
+	desc = "A kit containing all the needed tools and parts to paint a Firefighter white"
+
+	new_name = "Aluminizer"
+	new_desc = "Did you just painted your Ripley white? It looks good."
+	new_icon = "aluminizer"
+	allowed_types = list("firefighter")
+
+/obj/item/paintkit/odysseus_death
+	name = "Odysseus \"Reaper\" customisation kit"
+	icon_state = "paintkit_death"
+	desc = "A kit containing all the needed tools and parts to turn a Odysseus into terrifying mech"
+
+	new_name = "Reaper"
+	new_desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA... get a bad medical treatment?"
+	new_icon = "murdysseus"
+	allowed_types = list("odysseus")
+
+
+/obj/item/paintkit/odysseus_medigax
+	name = "Odysseus \"medgax\" customisation kit"
+	icon_state = "paintkit_white"
+	desc = "A kit containing all the needed tools and parts to turn a Odysseus into medical gygax"
+
+	new_name = "Medgax"
+	new_desc = "OH FUCK THERE IS A COMBAT MECH IN THE HOSPITAL IT'S GONNA KILL US"
+	new_icon = "medgax"
+	allowed_types = list("odysseus")
+
+/obj/item/paintkit/durand_soviet
+	name = "Durand \"Dollhouse\" customisation kit"
+	icon_state = "paintkit_doll"
+	desc = "A kit containing all the needed tools and parts to turn a Durand into soviet mecha. Glory to Space Russia!"
+
+	new_name = "Doll House"
+	new_desc = "A extremely heavy-duty combat mech designed in USSP. Glory to Space Russia!"
+	new_icon = "dollhouse"
+	allowed_types = list("durand")
+
+/obj/item/paintkit/clarke_orangey
+	name = "Clarke \"Orangey\" customisation kit"
+	icon_state = "paintkit_red"
+	desc = "A kit containing all the needed tools and parts to paint a Clarke white"
+
+	new_name = "Orangey"
+	new_desc = "Did you just painted your Clarke orange? It looks quite nice."
+	new_icon = "orangey"
+	allowed_types = list("clarke")
+
+/obj/item/paintkit/clarke_spiderclarke
+	name = "Clarke \"Spiderclarke\" customisation kit"
+	icon_state = "paintkit_spider"
+	desc = "A kit containing all the needed tools and parts to turn a Clarke into terrifying... thing"
+
+	new_name = "Spiderclarke"
+	new_desc = "Heavy mining exo-suit coated with chitin. Isn't that a giant spider's scalp on his visor?"
+	new_icon = "spiderclarke"
+	allowed_types = list("clarke")
+
+/obj/item/paintkit/gygax_pobeda
+	name = "Gygax \"Pobeda\" customisation kit"
+	icon_state = "paintkit_pobeda"
+	desc = "A kit containing all the needed tools and parts to turn a Gygax into a soviet exosuit."
+
+	new_name = "Pobeda"
+	new_desc = "A heavy-duty old Gygax designed and painted in USSP. Glory to Space Russia!"
+	new_icon = "pobeda"
+	allowed_types = list("gygax")
+
+/obj/item/paintkit/gygax_white
+	name = "White Gygax customisation kit"
+	icon_state = "paintkit_white"
+	desc = "A kit containing all the needed tools and parts to paint a Gygax white"
+
+	new_name = "White Gygax"
+	new_desc = "Did you just painted your Gygax white? I like it."
+	new_icon = "medigax"
+	allowed_types = list("gygax")

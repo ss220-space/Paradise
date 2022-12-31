@@ -354,7 +354,7 @@
 		if(phasing && get_charge() >= phasing_energy_drain)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick("phazon-phase", src)
+				flick("[initial_icon]-phase", src)
 				if(direction & (direction - 1))	//moved diagonally
 					glide_for(step_in * 4.23)
 				else
@@ -1499,8 +1499,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
-		WR.icon_state = "[src.reset_icon()]-broken"
-	 //доделать: обломки "покрашенного" меха не спавнятся, если ИИ умирает в мехе. Попытки это исправить не привели ни к какому результату...
+		WR.icon_state = "[src.reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
