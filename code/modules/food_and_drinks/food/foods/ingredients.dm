@@ -89,16 +89,6 @@
 	list_reagents = list("protein" = 2)
 	tastes = list("tomato" = 1)
 	foodtype = VEGETABLES
-	
-// /obj/item/reagent_containers/food/snacks/cucumbermeat
-// 	name = "cucumber slice"
-// 	desc = "A slice from a long cucumber."
-// 	icon_state = "cucumbermeat"
-// 	filling_color = "#00DB00"
-// 	bitesize = 6
-// 	list_reagents = list("kelotane" = 1)
-// 	tastes = list("cucumber" = 1)
-// 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
