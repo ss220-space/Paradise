@@ -22,24 +22,32 @@
 	var/research_points = 0
 	var/activate_sound = 'sound/effects/electheart.ogg'
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
-	//var/id = 0
 
-/obj/machinery/brs_server/proc/research_process(var/points)
-	if (!active)
-		change_active()
-	research_points += points
-	message_admins("Сервер [name] получил [points] очков")
+	var/research_time = 10 SECONDS		//время для процесса изучения "активной анимации"
+	var/counter_research_time = 0		//счетчик до завершения анимации
+	//var/id = 0
 
 /obj/machinery/brs_server/Initialize(mapload)
 	. = ..()
 	GLOB.bluespace_rifts_server_list.Add(src)
 	GLOB.poi_list |= src
+	update_icon()
 
 /obj/machinery/brs_server/Destroy()
 	GLOB.bluespace_rifts_server_list.Remove(src)
 	GLOB.poi_list.Remove(src)
-	//STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/machinery/brs_server/process()
+	if (active && counter_research_time < world.time)
+		change_active()
+
+/obj/machinery/brs_server/proc/research_process(var/points)
+	if (!active)
+		change_active()
+	research_points += points
+	counter_research_time = world.time + research_time
+	message_admins("Сервер [name] получил [points] очков")
 
 /obj/machinery/brs_server/proc/change_active()
 	active = !active
@@ -47,17 +55,23 @@
 		playsound(loc, activate_sound, 100, 1)
 	else
 		playsound(loc, deactivate_sound, 100, 1)
+	update_icon()
 
 /obj/machinery/brs_server/update_icon()
 	var/prefix = initial(icon_state)
 	if(stat & (BROKEN))
-		icon_state = "[prefix]-b"
-	else if(stat & (NOPOWER))
+		icon_state = "[prefix]-broken"
+		return
+	if(stat & (NOPOWER))
 		icon_state = prefix
-	else icon_state = active ? "[prefix]-act" : "[prefix]-on"
+		return
+	icon_state = active ? "[prefix]-act" : "[prefix]-on"
 
 //==========Взаимодействия========
 /obj/machinery/brs_server/wrench_act(mob/living/user, obj/item/I)
+	if (active && !emagged)
+		to_chat(user, "<span class='notice'>Болты заблокированы протоколом безопасности.</span>")
+		return
 	. = default_unfasten_wrench(user, I, 40)
 	if(.)
 		power_change()
@@ -69,6 +83,9 @@
 		update_icon()
 
 /obj/machinery/brs_server/screwdriver_act(mob/living/user, obj/item/I)
+	if (active && !emagged)
+		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		return
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return
@@ -78,6 +95,9 @@
 		overlays += image(icon, "[initial(icon_state)]-panel")
 
 /obj/machinery/brs_server/crowbar_act(mob/living/user, obj/item/I)
+	if (active && !emagged)
+		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		return
 	. = default_deconstruction_crowbar(user, I)
 
 //Перезапись протоколов безопасности.
@@ -126,6 +146,9 @@
 		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
 		ui.open()
 */
+	//добавляем кнопки за очки исследования: форсировать(аномалии++), замедлить, ускорить
+	//при полных очках: закрыть разлом, автовыполнить цель
+	//при емаге: открыть новый разлом, с уничтожением сервера
 
 
 /*

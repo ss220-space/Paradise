@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 // Сканер Блюспейс Разлома
 // Цель для исследования аномального блюспейс разлома с созданием портативных и статичных сканеров
 /datum/station_goal/brs
-	name = "Bluespace Rift Scanner"		//BRS
+	name = "Сканер Блюспейс Разлома"		//BRS - Bluespace Rift Scanner
 	var/scanner_goal = 25000
 	var/list/rifts_list = list()
 
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 
 /datum/station_goal/brs/proc/check_scanners_goal()
 	for(var/obj/machinery/brs_server/S in GLOB.machines)
-		if(!S.active || !is_station_level(S.z) || S.research_points < scanner_goal)
+		if((S.stat & BROKEN|NOPOWER) || !is_station_level(S.z) || S.research_points < scanner_goal)
 			continue
 		return TRUE
 	return FALSE
@@ -45,14 +45,30 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 	. = ..()
 
 /datum/station_goal/brs/proc/random_bluespace_rift()
+	if (length(rifts_list))
+		return
+
 	var/type_rift = rand(1, MAX_TYPES_RIFT)
-	if(type_rift == TWINS_RIFT)
-		create_bluespace_rift(type_rift)
-		create_bluespace_rift(type_rift)
-	else
-		create_bluespace_rift(type_rift)
+	switch(type_rift)
+		if(TWINS_RIFT)		// одинаковое появление аномалий между двумя
+			message_admins("Созданы близнецы")
+			for(var/i in 1 to 2)
+				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
+				rifts_list.Add(rift)
+		if(SMALL_FAST_RIFT)	// случайное появление аномалий в 4-х местах
+			message_admins("Созданы 4 аномалии")
+			for(var/i in 1 to 4)
+				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
+				rifts_list.Add(rift)
+		else
+			message_admins("Создано обычные")
+			var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
+			rifts_list.Add(rift)
+
+	for(var/obj/brs_rift/rift in rifts_list)
+		rift.related_rifts_list = rifts_list
 
 /datum/station_goal/brs/proc/create_bluespace_rift(var/type_rift = DEFAULT_RIFT)
 	var/turf/temp_turf = find_safe_turf()
 	var/obj/brs_rift/rift = new(temp_turf, type_rift)
-	rifts_list.Add(rift)
+	return rift

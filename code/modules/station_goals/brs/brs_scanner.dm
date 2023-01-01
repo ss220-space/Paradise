@@ -21,6 +21,7 @@
 	icon_state = "scanner"
 	anchored = FALSE
 	density = FALSE
+	luminosity = TRUE
 	var/toggle = FALSE	//вывиднут/задвинут
 	var/active = FALSE	//активность блюспейс-разлома
 
@@ -32,14 +33,21 @@
 	var/critical_time = 5 SECONDS	//время до поломки в критических условиях и до его восстановления на привычные значения
 	var/max_range = 10				//максимальное расстояния для сканирования
 
-	var/counter_critical_time = 0		//счетчик времени до поломки
+	var/counter_critical_time = 0			//счетчик времени до поломки
 	var/obj/brs_rift/rift_for_scan = null	//концентрация на разломе для сканирования
+	var/rift_range = 0						//макс. расстояния на выбранном разломе
 	//var/id = 0
+
+/obj/machinery/brs_scanner/dynamic_toggle
+	anchored = TRUE
+	density = TRUE
+	toggle = TRUE
 
 /obj/brs_rift/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list |= src
 	GLOB.bluespace_rifts_list.Add(src)
+	update_icon()
 
 /obj/brs_rift/Destroy()
 	GLOB.bluespace_rifts_list.Remove(src)
@@ -56,46 +64,52 @@
 	if (rift_for_scan)
 		var/dist = get_dist(src, rift_for_scan)
 		if (!emagged)
-			if (dist > max_range + rift_for_scan.force_sized)
+			if (dist > rift_range)
 				rift_for_scan = null
 				change_active()
 			else if (dist <= rift_for_scan.force_sized)
-				critical_process()
+				critical_process(dist)
 			else
-				scanner_process()
+				scanner_process(dist)
 		else	//При ЕМАГе, возможно сканирование в любом радиусе. Вне его - критическая зона
-			if (dist <= max_range + rift_for_scan.force_sized)
-				scanner_process()
+			if (dist <= rift_range)
+				scanner_process(dist)
 			else
-				critical_process()
+				critical_process(dist)
 		return TRUE
 
 	for (var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
 		var/dist = get_dist(src, rift)
-		if (dist <= max_range)
+		var/temp_range = max_range + rift.force_sized
+		if (dist <= temp_range)
 			change_active()
 			rift_for_scan = rift
-			break
+			rift_range = temp_range
+			return TRUE
 
-/obj/machinery/brs_scanner/proc/critical_process()
-	if (counter_critical_time + critical_time < world.time)	//!!!!ПРОВЕРИТЬ ЕСТЬ ЛИ ВОССТАНОВЛЕНИЕ
+/obj/machinery/brs_scanner/proc/scanner_process(var/dist)
+	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
+		server.research_process(1 + rift_range - dist)
+		if(prob(round(rift_for_scan.force_sized * rift_range/dist)))
+			rift_for_scan.event_process(FALSE, dist)
+
+/obj/machinery/brs_scanner/proc/critical_process(var/dist)
+	//Восстановление критического порога
+	if (counter_critical_time + critical_time * 2 < world.time)
 		counter_critical_time = 0
-		message_admins("КРИТИЧЕСКИЙ ПОРОГ ВОССТАНОВЛЕН")
 
+	//Начало отсчета
 	if (counter_critical_time == 0)
 		counter_critical_time = world.time + critical_time
-		message_admins("Начат отсчет [counter_critical_time]/[world.time]")
+
+	//Прохождение критического порога
 	if (counter_critical_time < world.time)
 		obj_break()
 		anchored = FALSE
-		message_admins("КРИТИЧЕСКИЙ ПОРОГ ПРОЙДЕН")
+		rift_for_scan.event_process(TRUE, dist)
+		update_icon()
 	else
-		message_admins("Критическое значение [counter_critical_time]/[world.time]")
 		playsound(loc, alarm_sound, 100, 1)
-
-/obj/machinery/brs_scanner/proc/scanner_process()
-	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
-		server.research_process(1)
 
 /obj/machinery/brs_scanner/proc/change_active()
 	active = !active
@@ -127,13 +141,11 @@
 
 //Взаимодействия
 /obj/machinery/brs_scanner/wrench_act(mob/living/user, obj/item/I)
-	if (!toggle)
+	if (toggle)
 		return FALSE
 
 	. = default_unfasten_wrench(user, I, 40)
 	update_icon()
-
-	//!!!!!!!!!Стукает в конце при откручивании/прикручивании. Проверить с чем связано.
 
 /obj/machinery/brs_scanner/attack_hand(mob/user)
 	if(..())
@@ -155,12 +167,11 @@
 	emagged = TRUE
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 	update_icon()
-	//!!! сканнер отрубает протоколы и может в крит зонах находиться, но вдали от дальней зоны - он бахнет.
 
 /obj/machinery/brs_scanner/emag_act(mob/user)
 	if(!emagged)
 		rewrite_protocol()
-		to_chat(user, "<span class='notice'>Протоколы безопасности сканнера перезаписаны.</span>")
+		to_chat(user, "<span class='notice'>@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@</span>")
 
 /obj/machinery/brs_scanner/emp_act(severity)
 	if(!emagged && prob(40 / severity))
@@ -187,5 +198,52 @@
 	name = "Статичный сканер разлома"
 	icon = 'icons/obj/machines/BRS/scanner_static.dmi'
 	icon_state = "scanner"
-	critical_time = 60 SECONDS	//время до поломки в критических условиях
+	pixel_x = -32
+	pixel_y = -64
+	critical_time = 30 SECONDS	//время до поломки в критических условиях
 	max_range = 50	//максимальное расстояния для исследований
+
+/obj/machinery/brs_scanner/brs_scanner_static/process()
+	. = ..()
+	if (!.)
+		return
+
+	message_admins("Дошел до скана")
+	if (rift_for_scan)
+		message_admins("Сканирует")
+		setDir(get_dir(src, rift_for_scan))	//even if you can't shoot, follow the target
+
+/obj/machinery/brs_scanner/brs_scanner_static/update_icon()
+	var/prefix = initial(icon_state)
+	if (stat & BROKEN)
+		icon_state = "[prefix]-broken"
+		return
+
+	if (toggle && active)
+		icon_state = "[prefix]-act"
+	else
+		icon_state = prefix
+
+//Взаимодействия
+/obj/machinery/brs_scanner/brs_scanner_static/wrench_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>Сканер статичен и не может быть откручен.</span>")
+
+/obj/machinery/brs_scanner/brs_scanner_static/screwdriver_act(mob/living/user, obj/item/I)
+	if (active && !emagged)
+		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		return
+
+	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	if(!.)
+		return
+
+	overlays.Cut()
+	if(panel_open)
+		overlays += image(icon, "[initial(icon_state)]-panel")
+
+/obj/machinery/brs_scanner/brs_scanner_static/crowbar_act(mob/living/user, obj/item/I)
+	if (active && !emagged)
+		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		return
+
+	. = default_deconstruction_crowbar(user, I)

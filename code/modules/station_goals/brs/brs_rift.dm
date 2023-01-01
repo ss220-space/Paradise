@@ -22,10 +22,12 @@
 	var/counter_direction_time		// счетчик времени перед сменой направления
 	var/counter_move_time 			// счетчик времени перед движением
 
-	var/force_sized = 3		//размер разлома и критической зоны
-	var/dir_move = 0		//направление
-	var/dir_loc = null		//место направления
-	//var/critical_range = 5	//предельное допустимое расстояние сканирования
+	var/force_sized = 3		// размер разлома и критической зоны
+	var/dir_move = 0		// направление
+	var/dir_loc = null		// место направления
+
+	var/related_rifts_list = list()	// связанные разломы (пр. разломы-близнецы)
+	var/anomaly_mod = 1.5
 
 /obj/brs_rift/Initialize(mapload, type_rift = DEFAULT_RIFT)
 	. = ..()
@@ -33,52 +35,90 @@
 	GLOB.bluespace_rifts_list.Add(src)
 	START_PROCESSING(SSobj, src)
 
-	change_move_direction()
-	name = "[name] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
-
+	var/prename = "Блюспейс Разлом"
 	switch(type_rift)
-		if(DEFAULT_RIFT)
-			force_sized = 5
-		if(BIG_RIFT)
-			force_sized = 7
-		if(HUGE_RIFT)
-			force_sized = 9
-		if(TWINS_RIFT)
-			force_sized = 3
 		if(SMALL_FAST_RIFT)
 			force_sized = 1
-	transform = matrix(force_sized, 0, 0, 0, force_sized, 0)
+			timespan = 10 MINUTES
+			prename = "Блюспейс Трещина"
+		if(TWINS_RIFT)
+			timespan = 15 MINUTES
+			force_sized = 3
+			prename = "Разлом-Близнец"
+		if(DEFAULT_RIFT)
+			force_sized = 5
+			timespan = 20 MINUTES
+			prename = "Блюспейс Разлом"
+		if(BIG_RIFT)
+			force_sized = 7
+			timespan = 25 MINUTES
+			prename = "Блюспейс Жерло"
+		if(HUGE_RIFT)
+			force_sized = 9
+			timespan = 30 MINUTES
+			prename = "Блюспейс Туманность"
+	color = "#[pick(list("FFFFFF", "FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
+	transform = matrix(force_sized, 0, 0, 0, force_sized, 0) //+ перекрас?
+	name = "[prename] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
+
+	change_move_direction()
+	change_anomaly_chance(anomaly_mod, 1)
 
 	var/count = length(GLOB.bluespace_rifts_list)
-	//message_admins("[name] инициализирован в зоне [ADMIN_VERBOSEJMP(src)]. Всего разломов: [count].")
-	//message_admins("[name] инициализирован [COORD(src)]. Всего разломов: [count].")
 	notify_ghosts("[name] возник на станции! Всего разломов: [count]", title = "Блюспейс Разлом!", source = src, action = NOTIFY_FOLLOW)
+
 
 /obj/brs_rift/Destroy()
 	GLOB.bluespace_rifts_list.Remove(src)
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
+	change_anomaly_chance(anomaly_mod, 0)
 	return ..()
 
-/obj/brs_rift/attackby(obj/item/I, mob/living/user, params)
-	to_chat(user, "<span class='danger'>Невозможно взаимодействовать с разломом!</span>")
-	return FALSE
-
 /obj/brs_rift/process()
-	//message_admins(" === === Процесс [src.name], параметры: [dir_move] === === ")
 	move_direction()
+
+/obj/brs_rift/proc/event_process(var/is_critical = FALSE, var/dist = 0)
+	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist)
+	make_event(event_type)
+	if (length(related_rifts_list))
+		for(var/obj/brs_rift/rift in related_rifts_list)
+			rift.make_local_event(event_type)
+
+/obj/brs_rift/proc/make_event(var/type)
+	var/datum/event_container/container = SSevents.brs_event_containers[type]
+	var/datum/event_meta/event_meta = container.acquire_event()
+
+	//new event
+	new event_meta.event_type(event_meta)
+
+	message_admins("[name] произвел ивент типа [type], [event_meta.name]")
+
+/obj/brs_rift/proc/make_local_event(var/type)
+	message_admins("[name] произвел локальный ивент типа [type]")
+
+/obj/brs_rift/proc/random_event_type(var/dist)
+	var/chance = rand(100)
+	var/n = round(force_sized / dist) //!!!!ИЛИ НАОБОРОТ
+	switch(chance)
+		if(0 to 49-n*3)
+			return BRS_EVENT_MESS
+		if(50-n*3 to 79-n*2)
+			return BRS_EVENT_MINOR
+		if(80-n*2 to 94-n)
+			return BRS_EVENT_MAJOR
+		if(95-n to 100)
+			return BRS_EVENT_CRITICAL
 
 /obj/brs_rift/proc/move_direction()
 	//step(src, dir_move) //walk(src, dir_move)
 	if(counter_move_time < world.time)
 		forceMove(get_step(src, dir_move))
-		//message_admins("Разлом [src.name] движется, текущий [counter_move_time], новый: [world.time + required_time_per_tile], мировой: [world.time] ")
 		counter_move_time = world.time + required_time_per_tile
 		dir_move = get_dir(src.loc, dir_loc)
 
 	if(counter_direction_time < world.time)
 		change_move_direction()
-
 
 /obj/brs_rift/proc/change_move_direction()
 	counter_direction_time = world.time + timespan
@@ -94,7 +134,26 @@
 
 	required_time_per_tile = round(timespan/dist)
 
-	//message_admins("Разлом [src.name] сменил направления на [dir_move],
-	//\n тестовое, объекты([src], [F]); тестовое, объекты([src.loc], [F.loc]):
-	//\n [get_dir(src, F)], [get_dir(src.loc, F.loc)]
-	//\n [required_time_per_tile], [timespan/dist], [dist], [timespan]")
+/obj/brs_rift/attackby(obj/item/I, mob/living/user, params)
+	to_chat(user, "<span class='danger'>Невозможно взаимодействовать с разломом!</span>")
+	return FALSE
+
+/obj/brs_rift/proc/change_anomaly_chance(var/mod, var/multi = TRUE)	//!!!проверить на существование модификатора
+	var/list/modif_list = list(
+			/datum/event/anomaly/anomaly_pyro,
+			/datum/event/anomaly/anomaly_vortex,
+			/datum/event/anomaly/anomaly_bluespace,
+			/datum/event/anomaly/anomaly_flux,
+			/datum/event/anomaly/anomaly_grav,
+			/datum/event/tear,
+			/datum/event/mass_hallucination,
+			/datum/event/wormholes
+		)
+
+	for(var/datum/event_container/container in SSevents.event_containers)
+		for(var/datum/event_meta/M in container.available_events)
+			if(M.event_type in modif_list)
+				if (multi)
+					M.weight_mod *= mod
+				else
+					M.weight_mod /= mod
