@@ -23,7 +23,7 @@
 	icon_state = "lunch_monkeyvuha"
 	desc = "Hmm .. something familiar, it seems strange to me. that there must be another animal inside."
 	trash = /obj/item/stack/sheet/plastic
-	list_reagents = list("nutriment" = 7)
+	list_reagents = list("????" = 30, "vodka" = 20, "toxin" = 5 )
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lunchBoxByter
