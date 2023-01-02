@@ -164,6 +164,10 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	weapon.update_icon()
 	if(ismob(weapon.loc))
 		to_chat(weapon.loc, "<span class='notice'>[message]</span>")
+
+	if(!check_select(weapon.select))
+		weapon.select_fire(weapon.loc)
+
 	return TRUE
 
 /obj/item/sibyl_system_mod/proc/sync_limit()
