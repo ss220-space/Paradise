@@ -65,8 +65,8 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 			var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
 			rifts_list.Add(rift)
 
-	for(var/obj/brs_rift/rift in rifts_list)
-		rift.related_rifts_list = rifts_list
+	//for(var/obj/brs_rift/rift in rifts_list)
+	//	rift.related_rifts_list = rifts_list
 
 /datum/station_goal/brs/proc/create_bluespace_rift(var/type_rift = DEFAULT_RIFT)
 	var/turf/temp_turf = find_safe_turf()

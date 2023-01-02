@@ -18,6 +18,8 @@
 	icon_state = "scan_server"
 	anchored = TRUE
 	density = TRUE
+	luminosity = TRUE
+	max_integrity = 500
 	var/active = FALSE
 	var/research_points = 0
 	var/activate_sound = 'sound/effects/electheart.ogg'
@@ -32,6 +34,7 @@
 	GLOB.bluespace_rifts_server_list.Add(src)
 	GLOB.poi_list |= src
 	update_icon()
+	new_component_parts()
 
 /obj/machinery/brs_server/Destroy()
 	GLOB.bluespace_rifts_server_list.Remove(src)
@@ -72,7 +75,7 @@
 	if (active && !emagged)
 		to_chat(user, "<span class='notice'>Болты заблокированы протоколом безопасности.</span>")
 		return
-	. = default_unfasten_wrench(user, I, 40)
+	. = default_unfasten_wrench(user, I, 80)
 	if(.)
 		power_change()
 
@@ -86,10 +89,15 @@
 	if (active && !emagged)
 		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
 		return
+
+	to_chat(user, "<span class='notice'>[anchored ? "От" : "За"]кручиваю панель-блокатор [name].</span>")
+	if(!I.use_tool(src, user, 120, volume = I.tool_volume))
+		return
+
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return
-
+	to_chat(user, "<span class='notice'>Панель-блокатор [name] [anchored ? "от" : "за"]кручена..</span>")
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[initial(icon_state)]-panel")
@@ -98,19 +106,49 @@
 	if (active && !emagged)
 		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
 		return
+	to_chat(user, "<span class='notice'>Начат процесс разборки [name] на составные компоненты.</span>")
+	if(!I.use_tool(src, user, 200, volume = I.tool_volume))
+		return
+
 	. = default_deconstruction_crowbar(user, I)
+	if(!.)
+		return
+	to_chat(user, "<span class='notice'>[name] разобран на составные компоненты.</span>")
+
+/obj/machinery/brs_server/welder_act(mob/user, obj/item/I)
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!I.use_tool(src, user, 200, volume = I.tool_volume))
+		return
+
+	. = default_welder_repair(user, I)
+	if(!.)
+		return
+	stat &= ~BROKEN
+	obj_integrity = max_integrity
+
+// Составные компоненты
+/obj/machinery/brs_server/proc/new_component_parts()
+	component_parts = list()
+	var/obj/item/circuitboard/brs_server/board = new(null)
+	for (var/obj/item/stock_parts/component in board.req_components)
+		component_parts += new component(null)
+	component_parts += board
+	component_parts += new /obj/item/stack/sheet/metal(null, 10)
+	component_parts += new /obj/item/stack/sheet/glass(null, 5)
+	component_parts += new /obj/item/stack/cable_coil(null, 20)
+	RefreshParts()
 
 //Перезапись протоколов безопасности.
 /obj/machinery/brs_server/proc/rewrite_protocol()
 	emagged = TRUE
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 	update_icon()
-	// сервер ломается/ускоряется?
 
 /obj/machinery/brs_server/emag_act(mob/user)
 	if(!emagged)
 		rewrite_protocol()
-		to_chat(user, "<span class='notice'>Протоколы безопасности сканнера перезаписаны.</span>")
+		to_chat(user, "<span class='warning'>@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@</span>")
 
 /obj/machinery/brs_server/emp_act(severity)
 	if(!emagged && prob(40 / severity))
@@ -118,15 +156,13 @@
 
 
 
-///obj/machinery/smartfridge  -- отсюда многое можно взять
-
 //открываем ТГУИшку?
 ///obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
 
 
 
 /obj/machinery/brs_server/attack_ai(mob/user)
-	return FALSE
+	return attack_hand(user)
 
 /obj/machinery/brs_server/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -136,75 +172,3 @@
 		return
 	//ui_interact(user)
 	return ..()
-
-/*
-/obj/machinery/brs_server/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	user.set_machine(src)
-
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
-		ui.open()
-*/
-	//добавляем кнопки за очки исследования: форсировать(аномалии++), замедлить, ускорить
-	//при полных очках: закрыть разлом, автовыполнить цель
-	//при емаге: открыть новый разлом, с уничтожением сервера
-
-
-/*
-/obj/machinery/computer/brs_control
-	name = "Сервер сканирования разлома"
-	desc = "Используется для сбора и хранения данных сканирования разлома."
-	circuit = /obj/item/circuitboard/computer/brs_control
-	icon_screen = "accelerator"
-	icon_keyboard = "accelerator_key"
-	var/notice
-
-/obj/machinery/computer/brs_control/attack_hand(mob/user)
-	if(..())
-		return 1
-	ui_interact(user)
-
-/obj/machinery/computer/brs_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "SatelliteControl", name, 475, 400)
-		ui.open()
-
-/obj/machinery/computer/brs_control/ui_data(mob/user)
-	var/list/data = list()
-
-	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in GLOB.machines)
-		data["satellites"] += list(list(
-			"id" = S.id,
-			"active" = S.active,
-			"mode" = S.mode
-		))
-	data["notice"] = notice
-
-	var/datum/station_goal/rift_scanner/G = locate() in SSticker.mode.station_goals
-	if(G)
-		data["meteor_shield"] = 1
-		data["meteor_shield_coverage"] = G.get_coverage()
-		data["meteor_shield_coverage_max"] = G.coverage_goal
-		data["meteor_shield_coverage_percentage"] = (G.get_coverage() / G.coverage_goal) * 100
-	return data
-
-/obj/machinery/computer/brs_control/ui_act(action, params)
-	if(..())
-		return
-
-	switch(action)
-		if("toggle")
-			toggle(text2num(params["id"]))
-			. = TRUE
-
-/obj/machinery/computer/brs_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
-		if(S.id == id && atoms_share_level(src, S))
-			if(!S.toggle())
-				notice = "Вы можете активировать только находящиеся в космосе спутники"
-			else
-				notice = null
-*/

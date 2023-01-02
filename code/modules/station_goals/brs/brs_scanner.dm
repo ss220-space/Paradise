@@ -22,6 +22,7 @@
 	anchored = FALSE
 	density = FALSE
 	luminosity = TRUE
+	max_integrity = 300
 	var/toggle = FALSE	//вывиднут/задвинут
 	var/active = FALSE	//активность блюспейс-разлома
 
@@ -43,17 +44,10 @@
 	density = TRUE
 	toggle = TRUE
 
-/obj/brs_rift/Initialize(mapload)
+/obj/machinery/brs_scanner/Initialize(mapload)
 	. = ..()
-	GLOB.poi_list |= src
-	GLOB.bluespace_rifts_list.Add(src)
 	update_icon()
-
-/obj/brs_rift/Destroy()
-	GLOB.bluespace_rifts_list.Remove(src)
-	GLOB.poi_list.Remove(src)
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+	new_component_parts()
 
 /obj/machinery/brs_scanner/process()
 	if(stat & BROKEN)
@@ -89,7 +83,9 @@
 
 /obj/machinery/brs_scanner/proc/scanner_process(var/dist)
 	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
-		server.research_process(1 + rift_range - dist)
+		var/points = 1 + round(10 * (1 - dist / rift_range))
+		message_admins("Получены очки: [points]")
+		server.research_process(points)
 		if(prob(round(rift_for_scan.force_sized * rift_range/dist)))
 			rift_for_scan.event_process(FALSE, dist)
 
@@ -106,8 +102,12 @@
 	if (counter_critical_time < world.time)
 		obj_break()
 		anchored = FALSE
+		density = FALSE
+		toggle = FALSE
 		rift_for_scan.event_process(TRUE, dist)
 		update_icon()
+		var/fs = 1 * rift_for_scan.force_sized
+		explosion(src.loc, 0, 0, 1*fs,  2*fs, flame_range =  3*fs, cause = "[src.name] critical rift explode")
 	else
 		playsound(loc, alarm_sound, 100, 1)
 
@@ -139,7 +139,7 @@
 	else
 		icon_state = prefix
 
-//Взаимодействия
+//Взаимодействия, разбор
 /obj/machinery/brs_scanner/wrench_act(mob/living/user, obj/item/I)
 	if (toggle)
 		return FALSE
@@ -147,10 +147,23 @@
 	. = default_unfasten_wrench(user, I, 40)
 	update_icon()
 
+/obj/machinery/brs_scanner/welder_act(mob/user, obj/item/I)
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!I.use_tool(src, user, 200, volume = I.tool_volume))
+		return
+
+	. = default_welder_repair(user, I)
+	if(!.)
+		return
+	stat &= ~BROKEN
+	obj_integrity = max_integrity
+
 /obj/machinery/brs_scanner/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	if(!anchored)
+		to_chat(user, "<span class='warning'>Протоколы безопасности: Активация сканнера невозможна, сканер не прикручен и не зафиксирован.</span>")
 		return FALSE
 	if(do_after(user, 20, target = src))
 		playsound(loc, toggle_sound, 100, 1)
@@ -162,6 +175,17 @@
 			STOP_PROCESSING(SSobj, src)
 		update_icon()
 
+// Составные компоненты
+/obj/machinery/brs_scanner/proc/new_component_parts()
+	component_parts = list()
+	var/obj/item/circuitboard/brs_scanner/board = new(null)
+	for (var/obj/item/stock_parts/component in board.req_components)
+		component_parts += new component(null)
+	component_parts += board
+	component_parts += new /obj/item/stack/sheet/metal(null, 5)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal(null, 1)
+	RefreshParts()
+
 //Перезапись протоколов безопасности.
 /obj/machinery/brs_scanner/proc/rewrite_protocol()
 	emagged = TRUE
@@ -171,7 +195,7 @@
 /obj/machinery/brs_scanner/emag_act(mob/user)
 	if(!emagged)
 		rewrite_protocol()
-		to_chat(user, "<span class='notice'>@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@</span>")
+		to_chat(user, "<span class='warning'>@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@</span>")
 
 /obj/machinery/brs_scanner/emp_act(severity)
 	if(!emagged && prob(40 / severity))
@@ -181,9 +205,9 @@
 //Статичный сканер 3х3
 //=============================
 
-/obj/item/circuitboard/brs_scanner/brs_scanner_static
+/obj/item/circuitboard/brs_scanner/s_static
 	name = "Статичный сканер разлома (Computer Board)"
-	build_path = /obj/machinery/brs_scanner/brs_scanner_static
+	build_path = /obj/machinery/brs_scanner/s_static
 	icon_state = "bluespace_scannerplat"
 	origin_tech = "engineering=6;bluespace=5"
 	req_components = list(
@@ -194,16 +218,22 @@
 					/obj/item/stack/ore/bluespace_crystal = 4
 					)
 
-/obj/machinery/brs_scanner/brs_scanner_static
+/obj/machinery/brs_scanner/s_static
 	name = "Статичный сканер разлома"
 	icon = 'icons/obj/machines/BRS/scanner_static.dmi'
 	icon_state = "scanner"
 	pixel_x = -32
-	pixel_y = -64
+	pixel_y = -32
+	anchored = TRUE
+	density = TRUE
+	max_integrity = 500
 	critical_time = 30 SECONDS	//время до поломки в критических условиях
 	max_range = 50	//максимальное расстояния для исследований
 
-/obj/machinery/brs_scanner/brs_scanner_static/process()
+/obj/machinery/brs_scanner/s_static/toggle
+	toggle = TRUE
+
+/obj/machinery/brs_scanner/s_static/process()
 	. = ..()
 	if (!.)
 		return
@@ -213,37 +243,58 @@
 		message_admins("Сканирует")
 		setDir(get_dir(src, rift_for_scan))	//even if you can't shoot, follow the target
 
-/obj/machinery/brs_scanner/brs_scanner_static/update_icon()
+/obj/machinery/brs_scanner/s_static/update_icon()
 	var/prefix = initial(icon_state)
 	if (stat & BROKEN)
 		icon_state = "[prefix]-broken"
 		return
 
-	if (toggle && active)
+	if (toggle && !active)
 		icon_state = "[prefix]-act"
 	else
 		icon_state = prefix
 
 //Взаимодействия
-/obj/machinery/brs_scanner/brs_scanner_static/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/brs_scanner/s_static/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='notice'>Сканер статичен и не может быть откручен.</span>")
 
-/obj/machinery/brs_scanner/brs_scanner_static/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/brs_scanner/s_static/screwdriver_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
 		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		return
+
+	to_chat(user, "<span class='notice'>[anchored ? "От" : "За"]кручиваю панель-блокатор [name].</span>")
+	if(!I.use_tool(src, user, 200, volume = I.tool_volume))
 		return
 
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return
-
+	to_chat(user, "<span class='notice'>Панель-блокатор [name] [anchored ? "от" : "за"]кручена..</span>")
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[initial(icon_state)]-panel")
 
-/obj/machinery/brs_scanner/brs_scanner_static/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/brs_scanner/s_static/crowbar_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
 		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
 		return
+	to_chat(user, "<span class='notice'>Начат процесс разборки [name] на составные компоненты.</span>")
+	if(!I.use_tool(src, user, 400, volume = I.tool_volume))
+		return
 
 	. = default_deconstruction_crowbar(user, I)
+	if(!.)
+		return
+	to_chat(user, "<span class='notice'>[name] разобран на составные компоненты.</span>")
+
+// Составные компоненты
+/obj/machinery/brs_scanner/s_static/new_component_parts()
+	component_parts = list()
+	var/obj/item/circuitboard/brs_scanner/s_static/board = new(null)
+	for (var/obj/item/stock_parts/component in board.req_components)
+		component_parts += new component(null)
+	component_parts += board
+	component_parts += new /obj/item/stack/sheet/metal(null, 30)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal(null, 4)
+	RefreshParts()
