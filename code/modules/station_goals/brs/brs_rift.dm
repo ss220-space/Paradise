@@ -78,7 +78,7 @@
 	change_anomaly_chance(anomaly_mod, 1)
 
 	var/count = length(GLOB.bluespace_rifts_list)
-	notify_ghosts("[name] возник на станции! Всего разломов: [count]", title = "Блюспейс Разлом!", source = src, action = NOTIFY_FOLLOW)
+	notify_ghosts("[name] возникло на станции! Всего разломов: [count]", title = "Блюспейс Разлом!", source = src, action = NOTIFY_FOLLOW)
 
 /obj/brs_rift/Destroy()
 	GLOB.bluespace_rifts_list.Remove(src)
@@ -94,6 +94,7 @@
 	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
 	make_event(event_type)
 	if (prob(round(100 * max(1, length(related_rifts_list))/2)))
+		message_admins("На пробу пошло: [round(100 * max(1, length(related_rifts_list))/2)]")	//!!!!!!!!!!
 		make_local_related_event(event_type)
 	else if (length(related_rifts_list))
 		for(var/obj/brs_rift/rift in related_rifts_list)
@@ -119,8 +120,8 @@
 
 /obj/brs_rift/proc/random_event_type(var/dist, var/rift_range)
 	var/chance = rand(100)
-	var/n = round(force_sized * (1 - dist / rift_range))
-	message_admins("Выпавший рандомный номер для прошансовки: [n], а шанс: [chance], тип: [type_rift]")
+	var/n = round(force_sized * (1 - max(1, dist) / rift_range))
+	message_admins("Выпавший рандомный номер для прошансовки: [n], а шанс: [chance], тип: [type_rift]")	//!!!!!!!!!!!!
 	switch(chance)
 		if(0 to 49-n*3)
 			return BRS_EVENT_MESS
@@ -187,10 +188,8 @@
 		message_admins("[n] - одиночный список создали")
 		return temp_list
 
-	var/list/glob_list = GLOB.bluespace_rifts_list
-	glob_list.Remove(src)
-	for(var/obj/brs_rift/rift in glob_list)
-		if (rift.type_rift == type_rift && length(rift.related_rifts_list) < n)
+	for(var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
+		if (rift.type_rift == type_rift)
 			temp_list.Add(rift)
 			if(length(temp_list) >= n)
 				break

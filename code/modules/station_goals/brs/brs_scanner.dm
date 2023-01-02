@@ -72,22 +72,22 @@
 				critical_process(dist)
 		return TRUE
 
-	for (var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
-		var/dist = get_dist(src, rift)
-		var/temp_range = max_range + rift.force_sized
-		if (dist <= temp_range)
-			change_active()
-			rift_for_scan = rift
-			rift_range = temp_range
-			return TRUE
+	find_nearest_rift()
 
 /obj/machinery/brs_scanner/proc/scanner_process(var/dist)
 	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
 		var/points = 1 + round(10 * (1 - dist / rift_range))
 		message_admins("Получены очки: [points]")
 		server.research_process(points)
-		if(prob(round(rift_for_scan.force_sized * rift_range/dist)))
-			rift_for_scan.event_process(FALSE, dist)
+
+		//процесс создания ивентов
+		var/event_chance = round(rift_for_scan.force_sized * max(1, length(rift_for_scan.related_rifts_list)) * (1 - max(1, dist) / rift_range))
+		message_admins("Шанс выпадения ивента: [event_chance], при статах: [rift_for_scan.force_sized], [length(rift_for_scan.related_rifts_list)], [(1 - max(1, dist) / rift_range)]")
+		if(prob(event_chance)) //* rift_range/dist)))
+			message_admins("===ШАНС ПРОШЕЛ===")
+			rift_for_scan.event_process(FALSE, dist, rift_range)
+		//var/n = round(force_sized * (1 - max(1, dist) / rift_range))
+		//if (prob(round(100 * max(1, length(related_rifts_list))/2)))
 
 /obj/machinery/brs_scanner/proc/critical_process(var/dist)
 	//Восстановление критического порога
@@ -104,20 +104,12 @@
 		anchored = FALSE
 		density = FALSE
 		toggle = FALSE
-		rift_for_scan.event_process(TRUE, dist)
+		rift_for_scan.event_process(TRUE, dist, rift_range)
 		update_icon()
 		var/fs = 1 * rift_for_scan.force_sized
 		explosion(src.loc, 0, 0, 1*fs,  2*fs, flame_range =  3*fs, cause = "[src.name] critical rift explode")
 	else
 		playsound(loc, alarm_sound, 100, 1)
-
-/obj/machinery/brs_scanner/proc/change_active()
-	active = !active
-	if (active)
-		playsound(loc, activate_sound, 100, 1)
-	else
-		playsound(loc, deactivate_sound, 100, 1)
-	update_icon()
 
 /obj/machinery/brs_scanner/update_icon()
 	var/prefix = initial(icon_state)
@@ -159,6 +151,7 @@
 	stat &= ~BROKEN
 	obj_integrity = max_integrity
 
+//Выдвижение и задвижение д.сканнера, активация ст.сканнера
 /obj/machinery/brs_scanner/attack_hand(mob/user)
 	if(..())
 		return TRUE
@@ -171,20 +164,10 @@
 		toggle = !toggle
 		if (toggle)
 			START_PROCESSING(SSobj, src)
+			find_nearest_rift()
 		else
 			STOP_PROCESSING(SSobj, src)
 		update_icon()
-
-// Составные компоненты
-/obj/machinery/brs_scanner/proc/new_component_parts()
-	component_parts = list()
-	var/obj/item/circuitboard/brs_scanner/board = new(null)
-	for (var/obj/item/stock_parts/component in board.req_components)
-		component_parts += new component(null)
-	component_parts += board
-	component_parts += new /obj/item/stack/sheet/metal(null, 5)
-	component_parts += new /obj/item/stack/ore/bluespace_crystal(null, 1)
-	RefreshParts()
 
 //Перезапись протоколов безопасности.
 /obj/machinery/brs_scanner/proc/rewrite_protocol()
@@ -200,6 +183,53 @@
 /obj/machinery/brs_scanner/emp_act(severity)
 	if(!emagged && prob(40 / severity))
 		rewrite_protocol()
+
+/obj/machinery/brs_scanner/proc/change_active()
+	active = !active
+	if (active)
+		playsound(loc, activate_sound, 100, 1)
+	else
+		playsound(loc, deactivate_sound, 100, 1)
+	update_icon()
+
+/obj/machinery/brs_scanner/proc/find_nearest_rift()
+	var/obj/brs_rift/min_rift
+	var/min_dist = max_range*2
+	for (var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
+		var/dist = get_dist(src, rift)
+		var/temp_range = max_range + rift.force_sized
+		if (dist <= temp_range && dist <= min_dist)
+			min_rift = rift
+			min_dist = dist
+		else
+			continue
+
+	rift_for_scan = min_rift
+	if(rift_for_scan)
+		change_active()
+		rift_range = min_dist
+		return TRUE
+	return FALSE
+
+// Составные компоненты
+/obj/machinery/brs_scanner/proc/new_component_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/brs_scanner(null)
+
+	component_parts += new /obj/item/stack/sheet/metal(null, 5)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal(null, 1)
+
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	RefreshParts()
 
 //=============================
 //Статичный сканер 3х3
@@ -238,9 +268,7 @@
 	if (!.)
 		return
 
-	message_admins("Дошел до скана")
 	if (rift_for_scan)
-		message_admins("Сканирует")
 		setDir(get_dir(src, rift_for_scan))	//even if you can't shoot, follow the target
 
 /obj/machinery/brs_scanner/s_static/update_icon()
@@ -291,10 +319,31 @@
 // Составные компоненты
 /obj/machinery/brs_scanner/s_static/new_component_parts()
 	component_parts = list()
-	var/obj/item/circuitboard/brs_scanner/s_static/board = new(null)
-	for (var/obj/item/stock_parts/component in board.req_components)
-		component_parts += new component(null)
-	component_parts += board
+	component_parts += new /obj/item/circuitboard/brs_scanner/s_static(null)
+
 	component_parts += new /obj/item/stack/sheet/metal(null, 30)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal(null, 4)
+
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	RefreshParts()
