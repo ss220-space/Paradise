@@ -106,6 +106,10 @@
 	machine_name = "PTech"
 	icon_state = "refill_smoke"
 
+/obj/item/vending_refill/lunch
+	machine_name = "SuusLunch"
+	icon_state = "refill_custom"
+
 /obj/item/vending_refill/dinnerware
 	machine_name = "Plasteel Chef's Dinnerware Vendor"
 	icon_state = "refill_smoke"

@@ -1715,6 +1715,18 @@
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5)
 
+/obj/machinery/vending/suus
+	name = "\improper SuusLunch"
+	desc = "This vending machine very premium and you can see it when the holidays happen."
+	slogan_list = list("I like to eat, I go to the boxes","Dude mankyvooha is really considered a delicacy","Sell ​​kidney for sushi")
+	ads_list = list("Right now, we will also wrap you up in boxing friendelek","You are not worthy to eat such premium food. homeless")
+	vend_delay = 15
+	icon_state = "suus"
+	products = list(/obj/item/reagent_containers/food/snacks/lunchBoxPizza = 2, /obj/item/reagent_containers/food/snacks/lunchBoxMochi = 2, /obj/item/reagent_containers/food/snacks/lunchBoxByter = 2,
+		/obj/item/reagent_containers/food/snacks/lunchBoxFrenchFries = 2, /obj/item/reagent_containers/food/snacks/lunchBoxVOX = 2, /obj/item/reagent_containers/food/snacks/lunchBoxBurger = 2)
+	contraband = list(/obj/item/reagent_containers/food/snacks/lunchBoxMonkeyvyha = 2)
+	premium = list(/obj/item/reagent_containers/food/snacks/lunchBoxSushi = 2)
+	refill_canister = /obj/item/vending_refill/lunch
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"
 	desc = "A vending machine for pet supplies."

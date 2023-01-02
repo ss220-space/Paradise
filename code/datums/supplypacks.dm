@@ -1984,6 +1984,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "autodrobe supply crate"
 
+/datum/supply_packs/vending/suus
+	name = "SuusLunch Supply Crate"
+	contains = list(/obj/item/vending_refill/lunch)
+	cost = 100
+	containername = "SuusLunch supply crate"
+
 /datum/supply_packs/vending/clothes
 	name = "ClothesMate Supply Crate"
 	contains = list(/obj/item/vending_refill/clothing)

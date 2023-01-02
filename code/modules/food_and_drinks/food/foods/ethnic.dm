@@ -1,3 +1,71 @@
+//////////////////////
+//	Lunch-box	//
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/lunchBoxPizza
+	name = "Pizza Lunch"
+	icon_state = "lunch_Pizza"
+	desc = "Perfect pizza, in box."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 7)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lunchBoxMochi
+	name = "Mochi Lunch"
+	icon_state = "lunch_mochi"
+	desc = "Perfect mochi, in box."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 7)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/lunchBoxMonkeyvyha
+	name = "Monkeyvyha"
+	icon_state = "lunch_monkeyvuha"
+	desc = "Hmm .. something familiar, it seems strange to me. that there must be another animal inside."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 7)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lunchBoxByter
+	name = "Byter Lunch"
+	icon_state = "lunch_byter"
+	desc = "Perfect byter, in box."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 7)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lunchBoxFrenchFries
+	name = "French fries Lunch"
+	icon_state = "lunch_frenchFries"
+	desc = "Perfect fries, in box."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 7)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lunchBoxVOX
+	name = "Vox Lunch"
+	icon_state = "lunch_Vox"
+	desc = "Vox chiken meat, in box."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 7)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lunchBoxBurger
+	name = "Burger Lunch-box"
+	icon_state = "lunch_Burger"
+	desc = "Zoomers like burger, in box."
+	trash = /obj/item/stack/sheet/plastic
+
+	list_reagents = list("nutriment" = 7)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lunchBoxSushi
+	name = "Sushi Lunch-box"
+	icon_state = "lunch_Sushi"
+	desc = "Real good Sushi, in box."
+	trash = /obj/item/stack/sheet/plastic
+	list_reagents = list("nutriment" = 8)
+	foodtype = MEAT
 
 //////////////////////
 //		Mexican		//
