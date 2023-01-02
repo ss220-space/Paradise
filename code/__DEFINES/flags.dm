@@ -16,6 +16,7 @@
 #define EARBANGPROTECT			1024
 
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
+#define NOSLIP_LUBE				2048 	//prevents from slipping on space Space Lube
 
 #define HEADBANGPROTECT			4096
 
