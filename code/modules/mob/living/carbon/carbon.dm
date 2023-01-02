@@ -1021,6 +1021,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return FALSE
+	else
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(isobj(H.shoes) && H.shoes.flags & NOSLIP_LUBE)
+				return FALSE
+
 
 	if(tilesSlipped)
 		for(var/i in 1 to tilesSlipped)
