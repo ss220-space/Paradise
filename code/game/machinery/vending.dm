@@ -1716,7 +1716,7 @@
 	premium = list(/obj/item/poster/random_contraband = 5)
 
 /obj/machinery/vending/suus
-	name = "\improper SuusLunch"
+	name = "\improper Suuslunch Vendor"
 	desc = "This vending machine very premium and you can see it when the holidays happen."
 	slogan_list = list("I like to eat, I go to the boxes","Dude mankyvooha is really considered a delicacy","Sell ​​kidney for sushi")
 	ads_list = list("Right now, we will also wrap you up in boxing friendelek","You are not worthy to eat such premium food. homeless")

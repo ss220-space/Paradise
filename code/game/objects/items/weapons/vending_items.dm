@@ -107,7 +107,7 @@
 	icon_state = "refill_smoke"
 
 /obj/item/vending_refill/lunch
-	machine_name = "SuusLunch"
+	machine_name = "Suuslunch Vendor"
 	icon_state = "refill_custom"
 
 /obj/item/vending_refill/dinnerware
