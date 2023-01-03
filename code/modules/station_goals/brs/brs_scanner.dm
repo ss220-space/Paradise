@@ -3,9 +3,10 @@
 //Портативный сканер 1х1
 //=============================
 /obj/item/circuitboard/brs_scanner
-	name = "Портативный сканер разлома (Computer Board)"
+	name = "Портативный сканер разлома (Машинная Плата)"
 	build_path = /obj/machinery/brs_scanner
 	icon_state = "scannerplat"
+	board_type = "machine"
 	origin_tech = "engineering=4;bluespace=3"
 	req_components = list(
 					/obj/item/stack/sheet/metal = 5,
@@ -71,23 +72,21 @@
 			else
 				critical_process(dist)
 		return TRUE
-
-	find_nearest_rift()
+	else
+		find_nearest_rift()
 
 /obj/machinery/brs_scanner/proc/scanner_process(var/dist)
 	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
-		var/points = 1 + round(10 * (1 - dist / rift_range))
-		message_admins("Получены очки: [points]")
+		if(server.z != z)
+			continue
+		var/division = (1 - max(1, dist) / rift_range)
+		var/points = 1 + round(10 * division)
 		server.research_process(points)
 
 		//процесс создания ивентов
-		var/event_chance = round(rift_for_scan.force_sized * max(1, length(rift_for_scan.related_rifts_list)) * (1 - max(1, dist) / rift_range))
-		message_admins("Шанс выпадения ивента: [event_chance], при статах: [rift_for_scan.force_sized], [length(rift_for_scan.related_rifts_list)], [(1 - max(1, dist) / rift_range)]")
+		var/event_chance = 1 + round(2 * rift_for_scan.force_sized * max(1, length(rift_for_scan.related_rifts_list)) * division)
 		if(prob(event_chance)) //* rift_range/dist)))
-			message_admins("===ШАНС ПРОШЕЛ===")
 			rift_for_scan.event_process(FALSE, dist, rift_range)
-		//var/n = round(force_sized * (1 - max(1, dist) / rift_range))
-		//if (prob(round(100 * max(1, length(related_rifts_list))/2)))
 
 /obj/machinery/brs_scanner/proc/critical_process(var/dist)
 	//Восстановление критического порога
@@ -188,6 +187,7 @@
 	active = !active
 	if (active)
 		playsound(loc, activate_sound, 100, 1)
+		setDir(get_dir(src, rift_for_scan))
 	else
 		playsound(loc, deactivate_sound, 100, 1)
 	update_icon()
@@ -196,6 +196,8 @@
 	var/obj/brs_rift/min_rift
 	var/min_dist = max_range*2
 	for (var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
+		if(rift.z != z)
+			continue
 		var/dist = get_dist(src, rift)
 		var/temp_range = max_range + rift.force_sized
 		if (dist <= temp_range && dist <= min_dist)
@@ -206,8 +208,8 @@
 
 	rift_for_scan = min_rift
 	if(rift_for_scan)
+		rift_range = max_range + rift_for_scan.force_sized
 		change_active()
-		rift_range = min_dist
 		return TRUE
 	return FALSE
 
@@ -236,7 +238,7 @@
 //=============================
 
 /obj/item/circuitboard/brs_scanner/s_static
-	name = "Статичный сканер разлома (Computer Board)"
+	name = "Статичный сканер разлома (Машинная Плата)"
 	build_path = /obj/machinery/brs_scanner/s_static
 	icon_state = "bluespace_scannerplat"
 	origin_tech = "engineering=6;bluespace=5"
@@ -269,7 +271,7 @@
 		return
 
 	if (rift_for_scan)
-		setDir(get_dir(src, rift_for_scan))	//even if you can't shoot, follow the target
+		setDir(get_dir(src, rift_for_scan))
 
 /obj/machinery/brs_scanner/s_static/update_icon()
 	var/prefix = initial(icon_state)
@@ -288,7 +290,7 @@
 
 /obj/machinery/brs_scanner/s_static/screwdriver_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
-		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		to_chat(user, "<span class='warning'>Панель заблокирована протоколом безопасности.</span>")
 		return
 
 	to_chat(user, "<span class='notice'>[anchored ? "От" : "За"]кручиваю панель-блокатор [name].</span>")
@@ -305,7 +307,7 @@
 
 /obj/machinery/brs_scanner/s_static/crowbar_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
-		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		to_chat(user, "<span class='warning'>Панель заблокирована протоколом безопасности.</span>")
 		return
 	to_chat(user, "<span class='notice'>Начат процесс разборки [name] на составные компоненты.</span>")
 	if(!I.use_tool(src, user, 400, volume = I.tool_volume))

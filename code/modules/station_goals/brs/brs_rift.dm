@@ -24,55 +24,84 @@
 	var/counter_direction_time		// счетчик времени перед сменой направления
 	var/counter_move_time 			// счетчик времени перед движением
 
-	var/force_sized = 3		// размер разлома и критической зоны
+	var/force_sized = 5		// размер разлома и критической зоны
 	var/dir_move = 0		// направление
 	var/dir_loc = null		// место направления
 
 	var/type_rift = DEFAULT_RIFT
+	var/num_related_rifts = 1	//Сколько разломов может быть связано
 	var/related_rifts_list = list()	// связанные разломы (пр. разломы-близнецы)
 	var/anomaly_mod = 1.5
 
-/obj/brs_rift/Initialize(mapload, new_type_rift = DEFAULT_RIFT)
+/obj/brs_rift/crack
+	name = "Блюспейс Трещина"
+	type_rift = CRACK_RIFT
+	force_sized = 1
+	timespan = 10 MINUTES
+	num_related_rifts = 4
+
+/obj/brs_rift/twin
+	name = "Разлом-Близнец"
+	type_rift = TWINS_RIFT
+	force_sized = 3
+	timespan = 15 MINUTES
+	num_related_rifts = 2
+
+/obj/brs_rift/big
+	name = "Блюспейс Жерло"
+	type_rift = BIG_RIFT
+	force_sized = 7
+	timespan = 25 MINUTES
+
+/obj/brs_rift/fog
+	name = "Блюспейс Туманность"
+	type_rift = FOG_RIFT
+	force_sized = 9
+	timespan = 30 MINUTES
+
+/obj/brs_rift/twin/t_static	//Для тестов и баловства
+	name = "Статичный Разлом-Близнец"
+	timespan = 60 MINUTES
+	invisibility = 0
+	alpha = 255
+
+/obj/brs_rift/Initialize(mapload, new_type_rift)
 	. = ..()
 	GLOB.poi_list |= src
 	GLOB.bluespace_rifts_list.Add(src)
 	START_PROCESSING(SSobj, src)
 
 	type_rift = new_type_rift
-	var/num_related_rifts = 1
-	var/prename = "Блюспейс Разлом"
 	switch(type_rift)
-		if(SMALL_FAST_RIFT)
+		if(CRACK_RIFT)
 			force_sized = 1
 			timespan = 10 MINUTES
-			prename = "Блюспейс Трещина"
+			name = "Блюспейс Трещина"
 			num_related_rifts = 4
 		if(TWINS_RIFT)
 			timespan = 15 MINUTES
 			force_sized = 3
-			prename = "Разлом-Близнец"
+			name = "Разлом-Близнец"
 			num_related_rifts = 2
 		if(DEFAULT_RIFT)
 			force_sized = 5
 			timespan = 20 MINUTES
-			prename = "Блюспейс Разлом"
+			name = "Блюспейс Разлом"
 		if(BIG_RIFT)
 			force_sized = 7
 			timespan = 25 MINUTES
-			prename = "Блюспейс Жерло"
-		if(HUGE_RIFT)
+			name = "Блюспейс Жерло"
+		if(FOG_RIFT)
 			force_sized = 9
 			timespan = 30 MINUTES
-			prename = "Блюспейс Туманность"
+			name = "Блюспейс Туманность"
 
 	transform = matrix(force_sized, 0, 0, 0, force_sized, 0) //+ перекрас?
-	name = "[prename] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
+	name = "[name] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
+	color = get_random_colour()
 
-	related_rifts_list = get_related_list(num_related_rifts, type_rift)
-
-	var/new_colour = "#[pick(list("FFFFFF", "FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
-	for (var/obj/brs_rift/rift in related_rifts_list)
-		rift.color = new_colour
+	if (length(related_rifts_list) <= 1)
+		make_related_list(num_related_rifts, type_rift)
 
 	change_move_direction()
 	change_anomaly_chance(anomaly_mod, 1)
@@ -92,13 +121,13 @@
 
 /obj/brs_rift/proc/event_process(var/is_critical = FALSE, var/dist = 0, var/rift_range = 0)
 	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
+	message_admins("??? Выбранный тип ивента: [event_type] ???")
+
 	make_event(event_type)
-	if (prob(round(100 * max(1, length(related_rifts_list))/2)))
-		message_admins("На пробу пошло: [round(100 * max(1, length(related_rifts_list))/2)]")	//!!!!!!!!!!
-		make_local_related_event(event_type)
-	else if (length(related_rifts_list))
-		for(var/obj/brs_rift/rift in related_rifts_list)
-			rift.make_local_event(event_type)
+	if (prob(round(100 * max(1, length(related_rifts_list))/4)))
+		make_local_related_event()
+	else
+		make_local_event()
 
 /obj/brs_rift/proc/make_event(var/type)
 	var/datum/event_container/container = SSevents.brs_event_containers[type]
@@ -112,16 +141,24 @@
 	event_meta.weight = max(0, event_meta.weight - 10)
 	container.available_events.Add(event_meta)
 
-/obj/brs_rift/proc/make_local_related_event(var/type)
-	message_admins("[name] произвел связанный локальный ивент типа [type]")
+/obj/brs_rift/proc/make_local_event()
+	message_admins("[name] произвел локальный ивент")
+	choose_random_event(related_rifts_list)
 
-/obj/brs_rift/proc/make_local_event(var/type)
-	message_admins("[name] произвел локальный ивент типа [type]")
+/obj/brs_rift/proc/make_local_related_event()
+	message_admins("[name] произвел связанный локальный ивент")
+	var/list/objects_range = list()
+	for(var/obj/brs_rift/rift in related_rifts_list)
+		var/list/temp_range = range(round(force_sized * 2), src)
+		for(var/i in temp_range)
+			objects_range.Add(i)
+		message_admins("[rift.name] поддержал производство")
+	choose_random_related_event(objects_range)
 
 /obj/brs_rift/proc/random_event_type(var/dist, var/rift_range)
-	var/chance = rand(100)
+	var/chance = rand(0, 100)
 	var/n = round(force_sized * (1 - max(1, dist) / rift_range))
-	message_admins("Выпавший рандомный номер для прошансовки: [n], а шанс: [chance], тип: [type_rift]")	//!!!!!!!!!!!!
+	message_admins("??? Выбираем рандомный ивент, шанс: [chance], n: [n], дист: [dist]/[rift_range] ???")
 	switch(chance)
 		if(0 to 49-n*3)
 			return BRS_EVENT_MESS
@@ -160,7 +197,8 @@
 	to_chat(user, "<span class='danger'>Невозможно взаимодействовать с разломом!</span>")
 	return FALSE
 
-/obj/brs_rift/proc/change_anomaly_chance(var/mod, var/multi = TRUE)	//!!!проверить на существование модификатора
+//Работа с весами в контейнерах
+/obj/brs_rift/proc/change_anomaly_chance(var/mod, var/multi = TRUE)
 	var/list/modif_list = list(
 			/datum/event/anomaly/anomaly_pyro,
 			/datum/event/anomaly/anomaly_vortex,
@@ -180,18 +218,22 @@
 				else
 					M.weight_mod /= mod
 
-/obj/brs_rift/proc/get_related_list(var/n = 1, var/type_rift)
-	message_admins("[n] - создаем список")
+/obj/brs_rift/proc/make_related_list(var/n = 1, var/type_rift)
 	var/list/temp_list = list()
 	temp_list.Add(src)
 	if(n <= 1)
-		message_admins("[n] - одиночный список создали")
-		return temp_list
+		related_rifts_list = temp_list
+		return
 
 	for(var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
-		if (rift.type_rift == type_rift)
+		if (rift.type_rift == type_rift && rift != src)
+			if (length(rift.related_rifts_list) >= n)
+				continue
 			temp_list.Add(rift)
 			if(length(temp_list) >= n)
 				break
-	message_admins("[n] - многомерный список создали")
-	return temp_list
+
+	related_rifts_list = temp_list
+	for(var/obj/brs_rift/rift in related_rifts_list)
+		rift.related_rifts_list = related_rifts_list
+		rift.color = color

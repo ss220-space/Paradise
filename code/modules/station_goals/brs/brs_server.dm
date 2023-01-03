@@ -1,6 +1,7 @@
 //Сервер для контроля спутников
 /obj/item/circuitboard/brs_server
 	name = "Сервер сканирирования разлома (Computer Board)"
+	desc = "Плата для сбора сервера изучения сканирования разломов."
 	build_path = /obj/machinery/brs_server
 	icon_state = "cpuboard_super"
 	origin_tech = "engineering=4;bluespace=3"
@@ -13,7 +14,7 @@
 					)
 
 /obj/machinery/brs_server
-	name = "Сервер сканирирования разлома"
+	name = "Сервер сканирования разлома"
 	icon = 'icons/obj/machines/BRS/scanner_server.dmi'
 	icon_state = "scan_server"
 	anchored = TRUE
@@ -50,7 +51,6 @@
 		change_active()
 	research_points += points
 	counter_research_time = world.time + research_time
-	message_admins("Сервер [name] получил [points] очков")
 
 /obj/machinery/brs_server/proc/change_active()
 	active = !active
@@ -87,7 +87,7 @@
 
 /obj/machinery/brs_server/screwdriver_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
-		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		to_chat(user, "<span class='warning'>Панель заблокирована протоколом безопасности.</span>")
 		return
 
 	to_chat(user, "<span class='notice'>[anchored ? "От" : "За"]кручиваю панель-блокатор [name].</span>")
@@ -104,7 +104,7 @@
 
 /obj/machinery/brs_server/crowbar_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
-		to_chat(user, "<span class='notice'>Панель заблокирована протоколом безопасности.</span>")
+		to_chat(user, "<span class='warning'>Панель заблокирована протоколом безопасности.</span>")
 		return
 	to_chat(user, "<span class='notice'>Начат процесс разборки [name] на составные компоненты.</span>")
 	if(!I.use_tool(src, user, 200, volume = I.tool_volume))
@@ -137,6 +137,20 @@
 	component_parts += new /obj/item/stack/sheet/metal(null, 10)
 	component_parts += new /obj/item/stack/sheet/glass(null, 5)
 	component_parts += new /obj/item/stack/cable_coil(null, 20)
+
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	RefreshParts()
 
 //Перезапись протоколов безопасности.

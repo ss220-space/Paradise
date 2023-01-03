@@ -91,3 +91,308 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 #undef ASSIGNMENT_MEDICAL
 #undef ASSIGNMENT_SCIENTIST
 #undef ASSIGNMENT_SECURITY
+
+
+
+//==========================================
+//============ Локальные ивенты ============
+//==========================================
+//Выбор локального ивента
+/obj/brs_rift/proc/choose_random_event(var/list/objects)
+	var/prob_chance = 70
+	var/choosen = rand(1, 2)
+	switch(choosen)
+		if(1)
+			message_admins("--- рандом АОЕ")
+			if(prob(prob_chance))
+				local_emp(objects)
+			else
+				local_explosive(objects)
+		if(2)
+			message_admins("--- рандом граната")
+			local_random_grenade(objects)
+
+//Выбор локального связанного ивента
+/obj/brs_rift/proc/choose_random_related_event(var/list/objects)
+	var/prob_chance = 70
+	var/prob_living_chance = 50
+	var/choosen = rand(1, 6)
+	switch(choosen)
+		if(1)
+			message_admins("--- телепорт небольшой радиус")
+			if(prob(prob_chance))
+				if(prob(prob_living_chance))
+					message_admins("--- --- живые")
+					local_teleport_living(objects)
+				else
+					message_admins("--- --- объекты")
+					local_teleport_objects(objects)
+			else
+				message_admins("--- --- все")
+				local_teleport_all(objects)
+		if(2)
+			message_admins("--- телепорт по Z станции")
+			if(prob(prob_chance))
+				if(prob(prob_living_chance))
+					message_admins("--- --- живые")
+					local_teleport_living_zloc(objects)
+				else
+					message_admins("--- --- объекты")
+					local_teleport_objects_zloc(objects)
+			else
+				message_admins("--- --- все")
+				local_teleport_all(objects)
+		if(3)
+			message_admins("--- телепорт-перемешивание")
+			if(prob(prob_chance))
+				if(prob(prob_living_chance))
+					message_admins("--- --- живые")
+					local_teleport_living_reshuffle(objects)
+				else
+					message_admins("--- --- объекты")
+					local_teleport_objects_reshuffle(objects)
+			else
+				message_admins("--- --- все")
+				local_teleport_all_reshuffle(objects)
+		if(4)
+			if(prob(prob_chance))
+				message_admins("--- рандом ДНК")
+				local_dna_random(objects)
+			else
+				message_admins("--- рандом Специи")
+				local_species_random(objects)
+		if(5)
+			message_admins("--- специи перемешивание")
+			local_species_reshuffle(objects)
+		if(6)
+			message_admins("--- создание гранат на каждом карбоне")
+			local_random_grenade_living(objects)
+
+
+//============ Телепорты ============
+
+//Телепорты в небольшом радиусе
+/obj/brs_rift/proc/local_teleport_living(var/list/objects)
+	for(var/mob/living/H in objects)
+		do_teleport(H, get_turf(H), 7)
+		investigate_log("teleported [key_name_log(H)] to [COORD(H)]", INVESTIGATE_TELEPORTATION)
+
+/obj/brs_rift/proc/local_teleport_objects(var/list/objects)
+	for(var/obj/O in objects)
+		if (!O.anchored)
+			do_teleport(O, get_turf(O), 7)
+
+
+//Телепорт в случайную безопасную точку на станции
+/obj/brs_rift/proc/local_teleport_living_zloc(var/list/objects)
+	for(var/mob/living/H in objects)
+		var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
+		do_teleport(H, F)
+		investigate_log("teleported [key_name_log(H)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
+
+/obj/brs_rift/proc/local_teleport_objects_zloc(var/list/objects)
+	for(var/obj/O in objects)
+		if (!O.anchored)
+			var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
+			do_teleport(O, F)
+
+
+//Перемешивание объектов между собой
+/obj/brs_rift/proc/local_teleport_living_reshuffle(var/list/objects)
+	var/temp_object
+	for(var/mob/living/H in objects)
+		if (temp_object)
+			do_teleport(H, get_turf(temp_object))
+			do_teleport(temp_object, get_turf(H))
+			investigate_log("teleported reshuffle [key_name_log(H)] and [key_name_log(temp_object)]", INVESTIGATE_TELEPORTATION)
+			temp_object = null
+		else
+			temp_object = H
+
+/obj/brs_rift/proc/local_teleport_objects_reshuffle(var/list/objects)
+	var/temp_object
+	for(var/obj/O in objects)
+		if (temp_object)
+			do_teleport(O, get_turf(temp_object))
+			do_teleport(temp_object, get_turf(O))
+			temp_object = null
+		else
+			temp_object = O
+
+
+//Телепорты всех объектов
+/obj/brs_rift/proc/local_teleport_all(var/list/objects)
+	local_teleport_living(objects)
+	local_teleport_objects(objects)
+
+/obj/brs_rift/proc/local_teleport_all_zloc(var/list/objects)
+	local_teleport_living_zloc(objects)
+	local_teleport_objects_zloc(objects)
+
+/obj/brs_rift/proc/local_teleport_all_reshuffle(var/list/objects)
+	local_teleport_living_reshuffle(objects)
+	local_teleport_objects_reshuffle(objects)
+
+
+//============ Изменение облика ============
+//рандомизация преференса
+/obj/brs_rift/proc/local_dna_random(var/list/objects)
+	for(var/mob/living/carbon/human/H in objects)
+		if(istype(H) && H.stat != DEAD && !H.notransform)
+			var/datum/species/S = H.dna.species
+
+			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+			H.age = rand(AGE_MIN, AGE_MAX)
+
+			//лицевое
+			if(S in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+				head_organ.facial_colour = rand_hex_color()
+				head_organ.sec_facial_colour = rand_hex_color()
+				head_organ.hair_colour = rand_hex_color()
+				head_organ.sec_hair_colour = rand_hex_color()
+			head_organ.h_style = random_hair_style(H.gender, S)
+			head_organ.f_style = random_facial_hair_style(H.gender, S)
+			H.change_eye_color(rand_hex_color())
+
+			if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
+				head_organ.headacc_colour = rand_hex_color()
+				head_organ.ha_style = random_head_accessory(S)
+
+			if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
+				H.m_styles["head"] = random_marking_style("head", S, null, null, A.alt_head)
+				H.m_colours["head"] = rand_hex_color()
+
+			if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
+				H.m_styles["body"] = random_marking_style("body", S)
+				H.m_colours["body"] = rand_hex_color()
+
+			if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+				var/body_accessory = random_body_accessory(S, S.optional_body_accessory)
+				H.m_styles["tail"] = random_marking_style("tail", S, null, body_accessory)
+				H.m_colours["tail"] = rand_hex_color()
+
+			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+				H.s_tone = random_skin_tone(S)
+			if(S.bodyflags & HAS_SKIN_COLOR)
+				H.skin_colour  = rand_hex_color()
+
+			//A.real_name = H.real_name
+			//A.copy_to(H)
+
+			H.regenerate_icons()
+			H.update_body()
+
+
+//Рандомизация расы и её преференса
+/obj/brs_rift/proc/local_species_random(var/list/objects)
+	for(var/mob/living/carbon/human/H in objects)
+		if(istype(H) && H.stat != DEAD && !H.notransform)
+			var/datum/preferences/A = new()	//Randomize appearance for the human
+			A.species = get_random_species(TRUE)
+			A.real_name = H.dna.species.name
+			A.copy_to(H)
+
+
+//Перемешивание рас с сохранением оригинального имени
+/obj/brs_rift/proc/local_species_reshuffle(var/list/objects)
+	var/mob/living/carbon/human/temp_human
+	for(var/mob/living/carbon/human/H in objects)
+		if(istype(H) && H.stat != DEAD && !H.notransform)
+			if (temp_human)
+				//Временный преф, сохраняем из H в temp_pref
+				var/datum/preferences/temp_pref = new()
+				H.client.prefs.copy_to(temp_pref)
+
+				//var/temp_name = H.dna.species.name
+				temp_human.real_name = H.dna.species.name
+				temp_human.client.prefs.copy_to(H)
+				//H.mind.name = temp_name
+				//H.real_name = temp_name
+				//H.name = temp_name
+
+				//temp_name = temp_pref.real_name
+				temp_pref.real_name = temp_human.dna.species.name
+				temp_pref.copy_to(temp_human)
+				//temp_human.mind.name = temp_name
+				//temp_human.real_name = temp_name
+				//temp_human.name = temp_name
+
+				investigate_log("species reshuffle [key_name_log(H)] and [key_name_log(temp_human)]", INVESTIGATE_TELEPORTATION)
+				temp_human = null
+			else
+				temp_human = H
+
+//============ АОЕ эффекты ============
+/obj/brs_rift/proc/local_explosive(var/list/objects)
+	for(var/obj/O in objects)
+		var/fs = force_sized
+		explosion(O.loc, 0, 1, fs, 2*fs, flame_range = 3*fs, cause = O)	//Вставлять O.loc???
+
+/obj/brs_rift/proc/local_emp(var/list/objects)
+	for(var/obj/O in objects)
+		var/fs = force_sized
+		empulse(O.loc, fs, 2*fs, TRUE, name)
+
+
+//============ Случайные эффекты из гранат ============
+/obj/brs_rift/proc/local_random_grenade_living(var/list/objects)
+	var/choosen = rand(1, 23)
+	for(var/mob/living/carbon/human/H in objects)
+		make_random_grenade_prime(choosen, H)
+
+/obj/brs_rift/proc/local_random_grenade(var/list/objects)
+	var/choosen = rand(1, 23)
+	for(var/obj/O in objects)
+		make_random_grenade_prime(choosen, O)
+
+//Выбираем гранату и сразу же её подрываем, тем самым "воруя" её эффект хе-хе-хе
+/obj/brs_rift/proc/make_random_grenade_prime(var/choosen, var/new_loc)
+	var/obj/item/grenade/gr
+	switch(choosen)
+		if(1)
+			gr = new /obj/item/grenade/smokebomb(new_loc)
+		if(2)
+			gr = new /obj/item/grenade/frag(new_loc)
+		if(3)
+			gr = new /obj/item/grenade/flashbang(new_loc)
+		if(4)
+			gr = new /obj/item/grenade/chem_grenade/meat(new_loc)
+		if(5)
+			gr = new /obj/item/grenade/chem_grenade/holywater(new_loc)
+		if(6)
+			gr = new /obj/item/grenade/chem_grenade/hellwater(new_loc)
+		if(7)
+			gr = new /obj/item/grenade/chem_grenade/drugs(new_loc)
+		if(8)
+			gr = new /obj/item/grenade/chem_grenade/ethanol(new_loc)
+		if(9)
+			gr = new /obj/item/grenade/chem_grenade/lube(new_loc)
+		if(10)
+			gr = new /obj/item/grenade/chem_grenade/large/monster(new_loc)
+		if(11)
+			gr = new /obj/item/grenade/chem_grenade/large/feast(new_loc)
+		if(12)
+			gr = new /obj/item/grenade/confetti(new_loc)
+		if(13)
+			gr = new /obj/item/grenade/clown_grenade(new_loc)
+		if(14)
+			gr = new /obj/item/grenade/bananade(new_loc)
+		if(15)
+			gr = new /obj/item/grenade/gas/knockout(new_loc)
+		if(16)
+			gr = new /obj/item/grenade/gluon(new_loc)
+		if(17)
+			gr = new /obj/item/grenade/chem_grenade/metalfoam(new_loc)
+		if(18)
+			gr = new /obj/item/grenade/chem_grenade/firefighting(new_loc)
+		if(19)
+			gr = new /obj/item/grenade/chem_grenade/incendiary(new_loc)
+		if(20)
+			gr = new /obj/item/grenade/chem_grenade/antiweed(new_loc)
+		if(21)
+			gr = new /obj/item/grenade/chem_grenade/cleaner(new_loc)
+		if(22)
+			gr = new /obj/item/grenade/chem_grenade/teargas(new_loc)
+		if(23)
+			gr = new /obj/item/grenade/chem_grenade/facid(new_loc)
+	gr.prime()

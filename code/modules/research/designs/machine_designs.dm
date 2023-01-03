@@ -551,3 +551,33 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/microscope
 	category = list ("Misc. Machinery")
+
+/datum/design/brs_server
+	name = "Machine Design (Сервер сканирирования разлома)"
+	desc = "Плата для сбора сервера изучения сканирования разломов."
+	id = "brs_server"
+	req_tech = list("engineering" = 4, "bluespace" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
+	build_path = /obj/item/circuitboard/brs_server
+	category = list ("Research Machinery")
+
+/datum/design/brs_scanner
+	name = "Machine Design (Портативный сканер разлома)"
+	desc = "Плата для сбора данных при сканировании разломов."
+	id = "brs_scanner"
+	req_tech = list("engineering" = 4, "bluespace" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 200)
+	build_path = /obj/item/circuitboard/brs_scanner
+	category = list ("Research Machinery")
+
+/datum/design/brs_scanner_static
+	name = "Machine Design (Статичный сканер разлома)"
+	desc = "Плата для сбора данных при сканировании разломов."
+	id = "brs_scanner_static"
+	req_tech = list("engineering" = 6, "bluespace" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 500)
+	build_path = /obj/item/circuitboard/brs_scanner/s_static
+	category = list ("Research Machinery")
