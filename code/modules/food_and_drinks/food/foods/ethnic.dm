@@ -21,7 +21,7 @@
 /obj/item/reagent_containers/food/snacks/lunchBoxMonkeyvyha
 	name = "Monkeyvyha"
 	icon_state = "lunch_monkeyvuha"
-	desc = "Hmm .. something familiar, it seems strange to me. that the head of a macaque."
+	desc = "Hmm.. Something familiar and strange. But there must be another animal inside."
 	trash = /obj/item/stack/sheet/plastic
 	list_reagents = list("????" = 30, "vodka" = 20, "toxin" = 5 )
 	foodtype = MEAT
