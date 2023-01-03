@@ -21,7 +21,7 @@
 /obj/item/reagent_containers/food/snacks/lunchBoxMonkeyvyha
 	name = "Monkeyvyha"
 	icon_state = "lunch_monkeyvuha"
-	desc = "Hmm .. something familiar, it seems strange to me. that there must be another animal inside."
+	desc = "Tincture on the carcass of the dead head of a macaque. The department reminded that such a drink can be very dangerous to health. The fact is that macaques are very often infected with worms. This happens when eating insects when the clown does not have bananas. This delicacy in the Union of Soviet Socialist Planets is also part of the premium diet."
 	trash = /obj/item/stack/sheet/plastic
 	list_reagents = list("????" = 30, "vodka" = 20, "toxin" = 5 )
 	foodtype = MEAT
