@@ -123,7 +123,11 @@
 	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
 	message_admins("??? Выбранный тип ивента: [event_type] ???")
 
-	make_event(event_type)
+	//даем шансы частого появления обычного эвента с локальным эвентом
+	if(!is_critical && prob(70))
+		make_event(event_type)
+	if(!is_critical && prob(50))
+		return
 	if (prob(round(100 * max(1, length(related_rifts_list))/4)))
 		make_local_related_event()
 	else
