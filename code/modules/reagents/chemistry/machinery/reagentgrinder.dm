@@ -104,6 +104,18 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
+
+/obj/machinery/reagentgrinder/seedvault/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	RefreshParts()
+
+	beaker = new /obj/item/reagent_containers/glass/beaker/bluespace
+
 /obj/machinery/reagentgrinder/RefreshParts()
 	var/H
 	var/T

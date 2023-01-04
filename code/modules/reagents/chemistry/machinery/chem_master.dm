@@ -575,6 +575,16 @@
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
 
+/obj/machinery/chem_master/condimaster/seedvault/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
+	RefreshParts()
+
 #undef MAX_PILL_SPRITE
 #undef MAX_MULTI_AMOUNT
 #undef MAX_UNITS_PER_PILL

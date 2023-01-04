@@ -344,6 +344,17 @@
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	return is_type_in_typecache(O, accepted_items_typecache)
 
+/obj/machinery/smartfridge/seedvault/Initialize()
+	. = ..()
+
+	QDEL_LIST(component_parts)
+	var/obj/item/circuitboard/smartfridge/board = new(null)
+	board.set_type(type)
+	component_parts += board
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	RefreshParts()
+
+
 /**
   * # Syndie Fridge
   */
@@ -533,6 +544,20 @@
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/disk,
 	))
+
+/obj/machinery/smartfridge/disks/seedvault/Initialize()
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/disk,
+	))
+
+	QDEL_LIST(component_parts)
+	component_parts = list()
+	var/obj/item/circuitboard/smartfridge/board = new(null)
+	board.set_type(type)
+	component_parts += board
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	RefreshParts()
 
 /**
   * # Smart Virus Storage

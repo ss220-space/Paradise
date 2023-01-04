@@ -430,6 +430,26 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
+//upgraded botanical chemical dispenser
+/obj/machinery/chem_dispenser/botanical/seedvault
+	name = "botanical chemical dispenser"
+	desc = "A botanical chemical dispenser on a budget."
+	ui_title = "Botanical Chem Dispenser"
+	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water", "atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
+
+
+/obj/machinery/chem_dispenser/botanical/seedvault/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	RefreshParts()
+
 // Handheld chem dispenser
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"

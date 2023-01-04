@@ -26,7 +26,14 @@
 /area/ruin/powered/seedvault)
 "e" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/storage/box/disks_plantgene{
+	pixel_x = 3;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "f" = (
@@ -38,7 +45,7 @@
 /area/ruin/powered/seedvault)
 "g" = (
 /obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
+/obj/machinery/smartfridge/disks/seedvault{
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -66,7 +73,9 @@
 /area/lavaland/surface/outdoors)
 "k" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/item/seeds/apple/poisoned,
+/obj/item/seeds/apple/poisoned,
+/obj/item/seeds/apple/poisoned,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "l" = (
@@ -84,7 +93,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "n" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/seedvault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "o" = (
@@ -111,6 +120,14 @@
 /obj/item/hatchet,
 /obj/item/storage/bag/plants,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = -4;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = 6;
+	pixel_y = 2
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -120,6 +137,14 @@
 /obj/item/storage/bag/plants,
 /obj/item/storage/bag/plants,
 /obj/item/storage/bag/plants,
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = -6;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "s" = (
@@ -128,7 +153,18 @@
 /obj/item/gun/energy/floragun,
 /obj/item/gun/energy/floragun,
 /obj/item/gun/energy/floragun,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/storage/box/disks_plantgene{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/disks_plantgene{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "t" = (
@@ -157,14 +193,26 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "x" = (
-/obj/machinery/reagentgrinder{
+/obj/machinery/reagentgrinder/seedvault{
 	pixel_y = 5
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = 8;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "y" = (
@@ -198,15 +246,15 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "C" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seed_extractor/seedvault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "D" = (
-/obj/machinery/biogenerator,
+/obj/machinery/biogenerator/seedvault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "E" = (
-/obj/machinery/chem_dispenser/mutagensaltpeter,
+/obj/machinery/chem_dispenser/botanical/seedvault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "F" = (
@@ -219,10 +267,14 @@
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "H" = (
-/obj/machinery/chem_master/condimaster,
+/obj/machinery/chem_master/condimaster/seedvault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "I" = (
@@ -234,8 +286,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "J" = (
-/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/toolbox/electrical,
 /obj/structure/table/wood,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "K" = (
@@ -262,7 +315,13 @@
 /area/lavaland/surface/outdoors)
 "N" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/storage/box/disks_plantgene{
+	pixel_y = -1
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -333,6 +392,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Z" = (
+/obj/structure/closet/crate,
+/obj/item/seeds/cherry/bomb,
+/obj/item/seeds/cherry/bomb,
+/obj/item/seeds/cherry/bomb,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 
 (1,1,1) = {"
 a
@@ -427,7 +493,7 @@ a
 a
 Q
 Q
-k
+Z
 Q
 n
 R

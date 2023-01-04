@@ -40,7 +40,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
