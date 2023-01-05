@@ -45,6 +45,9 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	GLOB.sent_strike_team = 1
 
+	// Sets the EPSILON code automatically after spawn
+	set_security_level(epsilon)
+
 	// Spawns commandos and equips them.
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
