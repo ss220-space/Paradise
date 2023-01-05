@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 	name = "Сканер Блюспейс Разлома"		//BRS - Bluespace Rift Scanner
 	var/scanner_goal = 25000
 	var/list/rifts_list = list()
+	var/is_give_reward = FALSE
 
 /datum/station_goal/brs/get_report()
 	return {"<b>Сканирование блюспейс разломов</b><br>
@@ -34,19 +35,24 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 	return check_scanners_goal()
 
 /datum/station_goal/brs/proc/check_scanners_goal()
-	for(var/obj/machinery/brs_server/S in GLOB.machines)
-		if((S.stat & BROKEN|NOPOWER) || !is_station_level(S.z) || S.research_points < scanner_goal)
+	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
+		if(S.research_points < scanner_goal)
 			continue
 		return TRUE
 	return FALSE
 
 /datum/station_goal/brs/proc/get_max_server_points_goal()
 	var/max_points = 0
-	for(var/obj/machinery/brs_server/S in GLOB.machines)
-		if((S.stat & BROKEN|NOPOWER) || !is_station_level(S.z) || S.research_points < scanner_goal)
-			continue
+	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
 		max_points = max(max_points, S.research_points)
 	return max_points
+
+/datum/station_goal/brs/proc/check_can_give_reward()
+	for(var/datum/station_goal/brs/G in SSticker.mode.station_goals)
+		if(!G.is_give_reward)
+			return TRUE
+	return FALSE
+
 
 /datum/station_goal/brs/Destroy()
 	QDEL_LIST(rifts_list)
@@ -59,17 +65,14 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 	var/type_rift = rand(1, MAX_TYPES_RIFT)
 	switch(type_rift)
 		if(TWINS_RIFT)		// одинаковое появление аномалий между двумя
-			message_admins("Созданы близнецы")
 			for(var/i in 1 to 2)
 				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
 				rifts_list.Add(rift)
 		if(CRACK_RIFT)	// случайное появление аномалий в 4-х местах
-			message_admins("Созданы 4 аномалии")
 			for(var/i in 1 to 4)
 				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
 				rifts_list.Add(rift)
 		else
-			message_admins("Создано обычные")
 			var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
 			rifts_list.Add(rift)
 

@@ -103,13 +103,11 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 	var/choosen = rand(1, 2)
 	switch(choosen)
 		if(1)
-			message_admins("--- рандом АОЕ")
 			if(prob(prob_chance))
 				local_emp(objects)
 			else
 				local_explosive(objects)
 		if(2)
-			message_admins("--- рандом граната")
 			local_random_grenade(objects)
 
 //Выбор локального связанного ивента
@@ -119,43 +117,30 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 	var/choosen = rand(1, 4)
 	switch(choosen)
 		if(1)
-			message_admins("--- телепорт небольшой радиус")
 			if(prob(prob_chance))
 				if(prob(prob_living_chance))
-					message_admins("--- --- живые")
 					local_teleport_living(objects)
 				else
-					message_admins("--- --- объекты")
 					local_teleport_objects(objects)
 			else
-				message_admins("--- --- все")
 				local_teleport_all(objects)
 		if(2)
-			message_admins("--- телепорт по Z станции")
 			if(prob(prob_chance))
 				if(prob(prob_living_chance))
-					message_admins("--- --- живые")
 					local_teleport_living_zloc(objects)
 				else
-					message_admins("--- --- объекты")
 					local_teleport_objects_zloc(objects)
 			else
-				message_admins("--- --- все")
 				local_teleport_all(objects)
 		if(3)
-			message_admins("--- телепорт-перемешивание")
 			if(prob(prob_chance))
 				if(prob(prob_living_chance))
-					message_admins("--- --- живые")
 					local_teleport_living_reshuffle(objects)
 				else
-					message_admins("--- --- объекты")
 					local_teleport_objects_reshuffle(objects)
 			else
-				message_admins("--- --- все")
 				local_teleport_all_reshuffle(objects)
 		if(4)
-			message_admins("--- создание гранат на каждом карбоне")
 			local_random_grenade_living(objects)
 
 

@@ -179,10 +179,13 @@
 	return attack_hand(user)
 
 /obj/machinery/brs_server/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	if(stat & (BROKEN|NOPOWER))
 		return
+
 	ui_interact(user)
-	return ..()
 
 //Интерфейс
 /obj/machinery/brs_server/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -196,30 +199,62 @@
 
 	var/datum/station_goal/brs/G = locate() in SSticker.mode.station_goals
 	if(G)
-		message_admins("Обновление UI [G.name]: \n[G.get_max_server_points_goal()], \n[G.scanner_goal], \n[(G.get_max_server_points_goal() / G.scanner_goal) * 100]")
-		data["brs_server"] = 1
+		data["brs_can_give_reward"] = G.check_can_give_reward()
 		data["brs_server_points_goal"] = G.get_max_server_points_goal()
 		data["brs_server_points_goal_max"] = G.scanner_goal
 		data["brs_server_points_goal_percentage"] = (G.get_max_server_points_goal() / G.scanner_goal) * 100
 
 	data["servers"] = list()
 	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
-		if((S.stat & BROKEN|NOPOWER) || S.z != z)
+		if(S.z != z)
 			continue
 		data["servers"] += list(list(
 			"id" = S.id,
+			"stat" = S.stat,
 			"active" = S.active,
 			"points" = S.research_points
 		))
 
 	data["scanners"] = list()
 	for(var/obj/machinery/brs_scanner/S in GLOB.machines)
-		if((S.stat & BROKEN|NOPOWER) || S.z != z)
+		if(S.z != z)
 			continue
 		data["scanners"] += list(list(
 			"id" = S.id,
+			"stat" = S.stat,
 			"toggle" = S.toggle,
 			"active" = S.active
 		))
 
 	return data
+
+/obj/machinery/brs_server/ui_act(action, params)
+	if(..())
+		return
+
+	var/datum/station_goal/brs/G = locate() in SSticker.mode.station_goals
+	if(!G)
+		return FALSE
+
+	switch(action)
+		if("give_reward")
+			if(G.check_can_give_reward())
+				give_reward()
+				G.is_give_reward = TRUE
+				playsound(loc, 'sound/machines/chime.ogg', 100, 1)
+				message_admins("Награда выдана")
+				. = TRUE
+			else
+				playsound(loc, 'sound/machines/buzz-two.ogg', 100, 1)
+				message_admins("Награда НЕ выдана")
+
+		//За очки исследования даем шанс попытать удачу и получить ништяк или стимулировать ивенты аномалии
+		if("luck")
+			message_admins("Пытаем удачу")
+			if(prob(30))
+				message_admins("Удача: Награда выдана")
+				give_random_reward()
+			else
+				message_admins("Удача: Вызвана аномалия")
+				for(var/obj/brs_rift/rift in G.rifts_list)
+					rift.event_process()

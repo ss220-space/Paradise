@@ -80,17 +80,27 @@
 		find_nearest_rift()
 
 /obj/machinery/brs_scanner/proc/scanner_process(var/dist)
-	for (var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
-		if(server.z != z)
+	var/temp_points = 0
+	var/list/rifts_list = list()
+	for (var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
+		if(S.z != z)
 			continue
 		var/division = (1 - max(1, dist) / rift_range)
 		var/points = 1 + round(10 * division)
-		server.research_process(points)
+
+		temp_points += points
+		rifts_list.Add(S)
 
 		//процесс создания ивентов
 		var/event_chance = 1 + round(2 * rift_for_scan.force_sized * max(1, length(rift_for_scan.related_rifts_list)) * division)
 		if(prob(event_chance)) //* rift_range/dist)))
 			rift_for_scan.event_process(FALSE, dist, rift_range)
+
+	//деление очков на все сервера
+	if(length(rifts_list))
+		temp_points = min(1, round(temp_points / length(rifts_list)))
+		for (var/obj/machinery/brs_server/S in rifts_list)
+			S.research_process(temp_points)
 
 /obj/machinery/brs_scanner/proc/critical_process(var/dist)
 	//Восстановление критического порога

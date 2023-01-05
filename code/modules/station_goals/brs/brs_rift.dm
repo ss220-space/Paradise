@@ -31,7 +31,8 @@
 	var/type_rift = DEFAULT_RIFT
 	var/num_related_rifts = 1	//Сколько разломов может быть связано
 	var/related_rifts_list = list()	// связанные разломы (пр. разломы-близнецы)
-	var/anomaly_mod = 1.5
+	var/anomaly_mod = 1.5		//Модификатор для контейнера ивентов
+	var/event_chance = 100	//Шанс появления ивентов для избегания флуда ивентами
 
 /obj/brs_rift/crack
 	name = "Блюспейс Трещина"
@@ -98,7 +99,6 @@
 
 	transform = matrix(force_sized, 0, 0, 0, force_sized, 0) //+ перекрас?
 	name = "[name] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
-	color = get_random_colour()
 
 	if (length(related_rifts_list) <= 1)
 		make_related_list(num_related_rifts, type_rift)
@@ -119,25 +119,31 @@
 /obj/brs_rift/process()
 	move_direction()
 
-/obj/brs_rift/proc/event_process(var/is_critical = FALSE, var/dist = 0, var/rift_range = 0)
-	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
-	message_admins("??? Выбранный тип ивента: [event_type] ???")
+/obj/brs_rift/proc/event_process(var/is_critical = FALSE, var/dist = 1, var/rift_range = 1)
+	if(prob(event_chance))
+		event_chance = min(5, event_chance - 15)
+	else
+		event_chance = max(100, event_chance + 5)
+		return FALSE
 
+	message_admins("ПРОЦЕСС: Выбираем тип ивента с данными: [dist], [rift_range]")
+	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
+	message_admins("ПРОЦЕСС: Выбран ивент типа [event_type]")
 	//даем шансы частого появления обычного эвента с локальным эвентом
 	if(!is_critical && prob(70))
 		make_event(event_type)
 	if(!is_critical && prob(50))
-		return
+		return FALSE
 	if (prob(round(100 * max(1, length(related_rifts_list))/4)))
 		make_local_related_event()
 	else
 		make_local_event()
+	return TRUE
 
 /obj/brs_rift/proc/make_event(var/type)
 	var/datum/event_container/container = SSevents.brs_event_containers[type]
 	var/datum/event_meta/event_meta = container.acquire_event()
 	new event_meta.event_type(event_meta)
-	message_admins("[name] произвел ивент типа [type], [event_meta.name]")
 
 	//Возвращаем ивент в контейнер и изменяем веса прочих ивентов
 	for(var/datum/event_meta/temp_meta in container.available_events)
@@ -146,31 +152,28 @@
 	container.available_events.Add(event_meta)
 
 /obj/brs_rift/proc/make_local_event()
-	message_admins("[name] произвел локальный ивент")
 	choose_random_event(related_rifts_list)
 
 /obj/brs_rift/proc/make_local_related_event()
-	message_admins("[name] произвел связанный локальный ивент")
 	var/list/objects_range = list()
 	for(var/obj/brs_rift/rift in related_rifts_list)
 		var/list/temp_range = range(round(force_sized * 2), src)
 		for(var/i in temp_range)
 			objects_range.Add(i)
-		message_admins("[rift.name] поддержал производство")
 	choose_random_related_event(objects_range)
 
 /obj/brs_rift/proc/random_event_type(var/dist, var/rift_range)
 	var/chance = rand(0, 100)
 	var/n = round(force_sized * (1 - max(1, dist) / rift_range))
-	message_admins("??? Выбираем рандомный ивент, шанс: [chance], n: [n], дист: [dist]/[rift_range] ???")
+	message_admins("РАНДОМИЗАЦИЯ: d:[dist], rr:[rift_range], n:[n], ch:[chance]")
 	switch(chance)
-		if(0 to 49-n*3)
+		if(0 to (49-n*3))
 			return BRS_EVENT_MESS
-		if(50-n*3 to 79-n*2)
+		if((50-n*3) to (79-n*2))
 			return BRS_EVENT_MINOR
-		if(80-n*2 to 94-n)
+		if((80-n*2) to (94-n))
 			return BRS_EVENT_MAJOR
-		if(95-n to 100)
+		if((95-n) to 100)
 			return BRS_EVENT_CRITICAL
 
 /obj/brs_rift/proc/move_direction()
@@ -225,8 +228,10 @@
 /obj/brs_rift/proc/make_related_list(var/n = 1, var/type_rift)
 	var/list/temp_list = list()
 	temp_list.Add(src)
+	message_admins("[name] Цвет: [color]")
 	if(n <= 1)
 		related_rifts_list = temp_list
+		color = get_random_colour(FALSE, 0, 16)
 		return
 
 	for(var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
@@ -237,7 +242,10 @@
 			if(length(temp_list) >= n)
 				break
 
+	message_admins("[name] Цвет: [color]")
 	related_rifts_list = temp_list
+	var/temp_colour = get_random_colour(FALSE, 0, 16)
 	for(var/obj/brs_rift/rift in related_rifts_list)
 		rift.related_rifts_list = related_rifts_list
-		rift.color = color
+		rift.color = temp_colour
+	message_admins("[name] Цвет: [color]")
