@@ -194,7 +194,7 @@
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
-	icon_state = "9x19p"
+	icon_state = "9x19p-8"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
@@ -203,25 +203,25 @@
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	name = "pistol magazine (10mm incendiary)"
-	icon_state = "9x19pI"
+	icon_state = "9x19pI-8"
 	desc = "A gun magazine. Loaded with rounds which ignite the target."
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 
 /obj/item/ammo_box/magazine/m10mm/hp
 	name = "pistol magazine (10mm HP)"
-	icon_state = "9x19pH"
+	icon_state = "9x19pH-8"
 	desc= "A gun magazine. Loaded with hollow-point rounds, extremely effective against unarmored targets, but nearly useless against protective clothing."
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 
 /obj/item/ammo_box/magazine/m10mm/ap
 	name = "pistol magazine (10mm AP)"
-	icon_state = "9x19pA"
+	icon_state = "9x19pA-8"
 	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
-	icon_state = "45"
+	icon_state = "45-8"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
@@ -229,7 +229,7 @@
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
-	icon_state = "enforcer"
+	icon_state = "enforcer-8"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
 	multiple_sprites = 1
@@ -296,7 +296,7 @@
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "SMG magazine (9mm)"
-	icon_state = "smg9mm"
+	icon_state = "smg9mm-20"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 21
@@ -330,7 +330,7 @@
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
-	icon_state = "c20r45"
+	icon_state = "c20r45-24"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -349,7 +349,7 @@
 
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
-	icon_state = "50ae"
+	icon_state = "50ae-7"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50ae"
@@ -358,7 +358,7 @@
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
-	icon_state = "75"
+	icon_state = "75-8"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
 	multiple_sprites = 2
@@ -366,7 +366,7 @@
 
 /obj/item/ammo_box/magazine/m556
 	name = "toploader magazine (5.56mm)"
-	icon_state = "5.56m"
+	icon_state = "5.56m-30"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = "a556"
@@ -375,7 +375,7 @@
 
 /obj/item/ammo_box/magazine/ak814
 	name = "AK magazine (5.45x39mm)"
-	icon_state = "ak814"
+	icon_state = "ak814-30"
 	desc= "A universal magazine for an AK style rifle."
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545
@@ -386,7 +386,7 @@
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."
-	icon_state = "m12gb"
+	icon_state = "m12gb-8"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	origin_tech = "combat=3"
 	caliber = ".12"
@@ -395,46 +395,46 @@
 
 /obj/item/ammo_box/magazine/m12g/buckshot
 	name = "shotgun magazine (12g buckshot slugs)"
-	icon_state = "m12gb"
+	icon_state = "m12gb-8"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"
-	icon_state = "m12gs"
+	icon_state = "m12gs-8"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 
 /obj/item/ammo_box/magazine/m12g/dragon
 	name = "shotgun magazine (12g dragon's breath)"
-	icon_state = "m12gf"
+	icon_state = "m12gf-8"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/magazine/m12g/bioterror
 	name = "shotgun magazine (12g bioterror)"
-	icon_state = "m12gt"
+	icon_state = "m12gt-8"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
 
 /obj/item/ammo_box/magazine/m12g/breach
 	name = "shotgun magazine (12g breacher slugs)"
-	icon_state = "m12gmt"
+	icon_state = "m12gmt-8"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
-	icon_state = "m12gXlSl"
+	icon_state = "m12gXlSl-16"
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
 	name = "\improper XL shotgun magazine (12g buckshot)"
-	icon_state = "m12gXlBs"
+	icon_state = "m12gXlBs-16"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
-	icon_state = "m12gXlDb"
+	icon_state = "m12gXlDb-16"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/magazine/toy
@@ -456,7 +456,7 @@
 
 /obj/item/ammo_box/magazine/toy/pistol
 	name = "foam force pistol magazine"
-	icon_state = "9x19p"
+	icon_state = "9x19p-8"
 	max_ammo = 8
 	multiple_sprites = 2
 
@@ -465,7 +465,7 @@
 
 /obj/item/ammo_box/magazine/toy/enforcer
 	name = "foam enforcer magazine"
-	icon_state = "enforcer"
+	icon_state = "enforcer-8"
 	max_ammo = 8
 	multiple_sprites = 1
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
@@ -492,6 +492,7 @@
 	name = "donksoft SMG magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
+	icon_state = "c20r45-24"
 
 /obj/item/ammo_box/magazine/toy/smgm45/update_icon()
 	..()
@@ -501,6 +502,7 @@
 	name = "donksoft box magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 50
+	icon_state = "a762-50"
 
 /obj/item/ammo_box/magazine/toy/m762/update_icon()
 	..()
@@ -512,7 +514,7 @@
 /obj/item/ammo_box/magazine/laser
 	name = "encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
-	icon_state = "laser"
+	icon_state = "laser-20"
 	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
@@ -526,6 +528,7 @@
 	name = "donksoft SMG magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
+	icon_state = "c20r45-24"
 
 /obj/item/ammo_box/magazine/toy/smgm45/update_icon()
 	..()
