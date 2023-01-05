@@ -184,35 +184,31 @@
 	if(being_used || !ismob(M))
 		return
 	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
-		to_chat(user, "<span class='warning'>[M] is not animal and lesser life form!</span>")
+		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
 		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
 
-	if (M.ckey)		//даем возможность получить разум симпл мобам
-		if (!isanimal(M))
-			to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
-			return
-		var/response = alert(M, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
+	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
+		var/mob/living/simple_animal/SM = M
+		if(SM.sentience_type != sentience_type)
+			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			return ..()
+
+		var/response = alert(SM, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
 
 		if (response == "Нет")
-			to_chat(user, "<span class='warning'>[M.name] отказался от зелья!</span>")
+			to_chat(user, "<span class='warning'>[SM.name] отказался от зелья!</span>")
 			return
 		else
 			if(!src)
 				return
 			being_used = TRUE
 
-			var/mob/living/simple_animal/SM = M
-
-			if (SM.master_commander)
+			if(SM.master_commander)
 				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
 				return
-
-			if(SM.sentience_type != sentience_type)
-				to_chat(user, "<span class='warning'>[SM] не разумное животное!.</span>")
-				return ..()
 
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
@@ -515,12 +511,17 @@
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
 	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
 	C.add_atom_colour("#000080", WASHABLE_COLOUR_PRIORITY)
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF
+	C.is_improoved_by_potion = TRUE
 	uses --
 	if(!uses)
 		qdel(src)
@@ -530,6 +531,44 @@
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/acidproof
+	name = "slime acidproof potion"
+	desc = "A potent chemical mix that will acidproof any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle16"
+	origin_tech = "biotech=5"
+	resistance_flags = ACID_PROOF
+
+/obj/item/slimepotion/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(C.resistance_flags & ACID_PROOF && istype(C.armor) && C.armor.acid == 100)
+		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "acidproofed [C.name]"
+	C.add_atom_colour("#008000", WASHABLE_COLOUR_PRIORITY)
+	C.resistance_flags |= ACID_PROOF
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.acid = 100
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
+	qdel(src)
+
+/obj/item/slimepotion/acidproof/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
 
 /obj/effect/timestop
 	anchored = 1

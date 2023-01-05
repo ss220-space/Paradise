@@ -410,15 +410,11 @@
 		target.visible_message("<span class='warning'>[target] suddenly bends over and coughs out a cloud of black smoke, which begins to spread rapidly!</span>")
 		to_chat(target, "<span class='deadsay'>You regurgitate a vast cloud of blinding smoke.</span>")
 		playsound(target, 'sound/effects/bamf.ogg', 50, 1)
-		var/obj/item/reagent_containers/glass/beaker/large/B = new /obj/item/reagent_containers/glass/beaker/large(target.loc)
-		B.reagents.clear_reagents() //Just in case!
-		B.icon_state = null //Invisible
-		B.reagents.add_reagent("blindness_smoke", 10)
+		var/datum/reagents/reagents_list = new (1000)
+		reagents_list.add_reagent("blindness_smoke", 810)
 		var/datum/effect_system/smoke_spread/chem/S = new
-		if(S)
-			S.set_up(B.reagents, B.loc, TRUE)
-			S.start(4)
-		qdel(B)
+		S.set_up(reagents_list, target.loc, TRUE)
+		S.start(4, apply_once = TRUE)
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
 	name = "odd black liquid"
@@ -437,9 +433,9 @@
 			M.Stun(2)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustToxLoss(-2, FALSE)
+		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
+		update_flags |= M.adjustOxyLoss(-10, FALSE)
+		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
