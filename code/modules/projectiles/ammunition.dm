@@ -102,7 +102,7 @@
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "A box of ammo?"
-	icon_state = "357-7"
+	icon_state = "357"
 	icon = 'icons/obj/ammo.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
