@@ -28,7 +28,9 @@
 
 	var/research_time = 10 SECONDS		//время для процесса изучения "активной анимации"
 	var/counter_research_time = 0		//счетчик до завершения анимации
-	//var/id = 0
+
+	var/static/gid = 0
+	var/id = 0
 
 /obj/machinery/brs_server/Initialize(mapload)
 	. = ..()
@@ -36,6 +38,8 @@
 	GLOB.poi_list |= src
 	update_icon()
 	new_component_parts()
+	id = gid++
+	name = "[name] \[[id]\]"
 
 /obj/machinery/brs_server/Destroy()
 	GLOB.bluespace_rifts_server_list.Remove(src)
@@ -168,13 +172,6 @@
 	if(!emagged && prob(40 / severity))
 		rewrite_protocol()
 
-
-
-//открываем ТГУИшку?
-///obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
-
-
-
 /obj/machinery/brs_server/attack_ai(mob/user)
 	return attack_hand(user)
 
@@ -184,5 +181,45 @@
 /obj/machinery/brs_server/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	//ui_interact(user)
+	ui_interact(user)
 	return ..()
+
+//Интерфейс
+/obj/machinery/brs_server/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BluespaceRiftServer", name, 475, 400)
+		ui.open()
+
+/obj/machinery/brs_server/ui_data(mob/user)
+	var/list/data = list()
+
+	var/datum/station_goal/brs/G = locate() in SSticker.mode.station_goals
+	if(G)
+		message_admins("Обновление UI [G.name]: \n[G.get_max_server_points_goal()], \n[G.scanner_goal], \n[(G.get_max_server_points_goal() / G.scanner_goal) * 100]")
+		data["brs_server"] = 1
+		data["brs_server_points_goal"] = G.get_max_server_points_goal()
+		data["brs_server_points_goal_max"] = G.scanner_goal
+		data["brs_server_points_goal_percentage"] = (G.get_max_server_points_goal() / G.scanner_goal) * 100
+
+	data["servers"] = list()
+	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
+		if((S.stat & BROKEN|NOPOWER) || S.z != z)
+			continue
+		data["servers"] += list(list(
+			"id" = S.id,
+			"active" = S.active,
+			"points" = S.research_points
+		))
+
+	data["scanners"] = list()
+	for(var/obj/machinery/brs_scanner/S in GLOB.machines)
+		if((S.stat & BROKEN|NOPOWER) || S.z != z)
+			continue
+		data["scanners"] += list(list(
+			"id" = S.id,
+			"toggle" = S.toggle,
+			"active" = S.active
+		))
+
+	return data

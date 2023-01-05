@@ -40,6 +40,14 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 		return TRUE
 	return FALSE
 
+/datum/station_goal/brs/proc/get_max_server_points_goal()
+	var/max_points = 0
+	for(var/obj/machinery/brs_server/S in GLOB.machines)
+		if((S.stat & BROKEN|NOPOWER) || !is_station_level(S.z) || S.research_points < scanner_goal)
+			continue
+		max_points = max(max_points, S.research_points)
+	return max_points
+
 /datum/station_goal/brs/Destroy()
 	QDEL_LIST(rifts_list)
 	. = ..()

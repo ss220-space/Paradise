@@ -38,7 +38,9 @@
 	var/counter_critical_time = 0			//счетчик времени до поломки
 	var/obj/brs_rift/rift_for_scan = null	//концентрация на разломе для сканирования
 	var/rift_range = 0						//макс. расстояния на выбранном разломе
-	//var/id = 0
+
+	var/static/gid = 0
+	var/id = 0
 
 /obj/machinery/brs_scanner/dynamic_toggle
 	anchored = TRUE
@@ -49,6 +51,8 @@
 	. = ..()
 	update_icon()
 	new_component_parts()
+	id = gid++
+	name = "[name] \[[id]\]"
 
 /obj/machinery/brs_scanner/process()
 	if(stat & BROKEN)
@@ -167,6 +171,7 @@
 		else
 			STOP_PROCESSING(SSobj, src)
 		update_icon()
+	return TRUE
 
 //Перезапись протоколов безопасности.
 /obj/machinery/brs_scanner/proc/rewrite_protocol()
