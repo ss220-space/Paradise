@@ -22,7 +22,9 @@
 	luminosity = TRUE
 	max_integrity = 500
 	var/active = FALSE
-	var/research_points = 0
+	var/research_points = 0			// Очки исследования для цели
+	var/roulette_points = 0			// Очки для рулетки ивент/награда
+	var/roulette_points_price = 500	// Цена игры в рулетку
 	var/activate_sound = 'sound/effects/electheart.ogg'
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
 
@@ -54,6 +56,7 @@
 	if (!active)
 		change_active()
 	research_points += points
+	roulette_points += points
 	counter_research_time = world.time + research_time
 
 /obj/machinery/brs_server/proc/change_active()
@@ -176,7 +179,7 @@
 	return attack_hand(user)
 
 /obj/machinery/brs_server/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/brs_server/attack_hand(mob/user)
 	if(..())
@@ -203,6 +206,10 @@
 		data["brs_server_points_goal"] = G.get_max_server_points_goal()
 		data["brs_server_points_goal_max"] = G.scanner_goal
 		data["brs_server_points_goal_percentage"] = (G.get_max_server_points_goal() / G.scanner_goal) * 100
+
+		data["roulette_points"] = roulette_points
+		data["roulette_points_price"] = roulette_points_price
+		data["roulette_points_percentage"] = (roulette_points / roulette_points_price) * 100
 
 	data["servers"] = list()
 	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
@@ -232,6 +239,9 @@
 	if(..())
 		return
 
+	if(stat & (NOPOWER|BROKEN))
+		return
+
 	var/datum/station_goal/brs/G = locate() in SSticker.mode.station_goals
 	if(!G)
 		return FALSE
@@ -239,22 +249,27 @@
 	switch(action)
 		if("give_reward")
 			if(G.check_can_give_reward())
-				give_reward()
+				give_reward(src.loc)
 				G.is_give_reward = TRUE
 				playsound(loc, 'sound/machines/chime.ogg', 100, 1)
-				message_admins("Награда выдана")
+				visible_message("<span class='notice'>Исследование завершено.</span>")
 				. = TRUE
-			else
-				playsound(loc, 'sound/machines/buzz-two.ogg', 100, 1)
-				message_admins("Награда НЕ выдана")
 
-		//За очки исследования даем шанс попытать удачу и получить ништяк или стимулировать ивенты аномалии
+		//За очки исследования даем шанс попытать удачу и ВОЗМОЖНО получить ништяк или стимулировать ивенты
 		if("luck")
-			message_admins("Пытаем удачу")
-			if(prob(30))
-				message_admins("Удача: Награда выдана")
-				give_random_reward()
-			else
-				message_admins("Удача: Вызвана аномалия")
-				for(var/obj/brs_rift/rift in G.rifts_list)
-					rift.event_process()
+			if(roulette_points >= roulette_points_price)
+				if(prob(50))
+					var/turf/T
+					for(var/obj/brs_rift/rift in G.rifts_list)
+						if(prob(70))
+							T = rift.loc
+					give_random_reward(T ? T : src.loc)
+					playsound(loc, 'sound/machines/chime.ogg', 100, 1)
+					visible_message("<span class='notice'>Разлом положительно реагирует на стимулирующее вмешательство!</span>")
+
+				else
+					playsound(loc, 'sound/machines/buzz-two.ogg', 100, 1)
+					for(var/obj/brs_rift/rift in G.rifts_list)
+						rift.event_process()
+					visible_message("<span class='warning'>Разлом негативно реагирует на стимулирующее вмешательство!</span>")
+

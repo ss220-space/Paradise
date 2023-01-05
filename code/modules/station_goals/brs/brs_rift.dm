@@ -120,15 +120,16 @@
 	move_direction()
 
 /obj/brs_rift/proc/event_process(var/is_critical = FALSE, var/dist = 1, var/rift_range = 1)
+	var/division = round(force_sized * (1 - max(1, dist) / rift_range))
+
 	if(prob(event_chance))
-		event_chance = min(5, event_chance - 15)
+		event_chance = min(5, event_chance - (15 + division))
 	else
 		event_chance = max(100, event_chance + 5)
 		return FALSE
 
-	message_admins("ПРОЦЕСС: Выбираем тип ивента с данными: [dist], [rift_range]")
 	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
-	message_admins("ПРОЦЕСС: Выбран ивент типа [event_type]")
+
 	//даем шансы частого появления обычного эвента с локальным эвентом
 	if(!is_critical && prob(70))
 		make_event(event_type)
@@ -162,19 +163,17 @@
 			objects_range.Add(i)
 	choose_random_related_event(objects_range)
 
-/obj/brs_rift/proc/random_event_type(var/dist, var/rift_range)
+/obj/brs_rift/proc/random_event_type(var/dist, var/rift_range, var/division)
 	var/chance = rand(0, 100)
-	var/n = round(force_sized * (1 - max(1, dist) / rift_range))
-	message_admins("РАНДОМИЗАЦИЯ: d:[dist], rr:[rift_range], n:[n], ch:[chance]")
-	switch(chance)
-		if(0 to (49-n*3))
-			return BRS_EVENT_MESS
-		if((50-n*3) to (79-n*2))
-			return BRS_EVENT_MINOR
-		if((80-n*2) to (94-n))
-			return BRS_EVENT_MAJOR
-		if((95-n) to 100)
-			return BRS_EVENT_CRITICAL
+	var/n = division
+	if(chance <= (49-n*3))
+		return BRS_EVENT_MESS
+	else if(chance >= (50-n*3) && chance <=  (79-n*2))
+		return BRS_EVENT_MINOR
+	else if(chance >= (80-n*2) && chance <=  (94-n))
+		return BRS_EVENT_MAJOR
+	else if(chance >= (95-n))
+		return BRS_EVENT_CRITICAL
 
 /obj/brs_rift/proc/move_direction()
 	//step(src, dir_move) //walk(src, dir_move)

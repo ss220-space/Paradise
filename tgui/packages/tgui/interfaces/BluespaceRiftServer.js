@@ -2,6 +2,7 @@ import { useBackend } from '../backend';
 import { LabeledList, Section, ProgressBar, Button } from '../components';
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
+import { round } from 'common/math';
 
 const stats = [
   ['good', 'Функционирует'],
@@ -18,6 +19,9 @@ export const BluespaceRiftServer = (props, context) => {
     brs_server_points_goal,
     brs_server_points_goal_max,
     brs_server_points_goal_percentage,
+    roulette_points,
+    roulette_points_price,
+    roulette_points_percentage,
   } = data;
   return (
     <Window resizable>
@@ -28,13 +32,14 @@ export const BluespaceRiftServer = (props, context) => {
             <Fragment>
               <Button
                 icon="download"
-                content="Стимуляция"
+                content="Стимулировать"
+                disabled={brs_server_points_goal_percentage < 100 && !brs_can_give_reward}
                 onClick={() => act('luck')}
               />
               <Button
                 icon="upload"
                 content="Результат"
-                disabled={brs_server_points_goal_percentage < 100 || !brs_can_give_reward}
+                disabled={roulette_points < roulette_points_price}
                 onClick={() => act('give_reward')}
               />
             </Fragment>
@@ -45,6 +50,16 @@ export const BluespaceRiftServer = (props, context) => {
             maxValue={brs_server_points_goal_max}>
             {brs_server_points_goal_percentage} %
           </ProgressBar>
+
+          <ProgressBar
+            color={roulette_points_percentage >= 100 ? 'good': 'grey'}
+            value={roulette_points}
+            maxValue={roulette_points_price}>
+            {"Стимуляция: \t" + (roulette_points_percentage >= 100
+              ? ('100[' + round(roulette_points_percentage, 0) + ']')
+              : round(roulette_points_percentage, 0))} %
+          </ProgressBar>
+
         </Section>
 
         {

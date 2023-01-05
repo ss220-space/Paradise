@@ -1,68 +1,16 @@
-/obj/machinery/brs_server/proc/give_reward()
-	new /obj/item/paper/researchnotes_brs(src.loc)
-	new /obj/structure/toilet/bluespace/brs(src.loc)
+/obj/machinery/brs_server/proc/give_reward(var/turf/temp_loc)
+	new /obj/item/paper/researchnotes_brs(temp_loc)
+	new /obj/structure/toilet/bluespace/brs(temp_loc)
+	spawn_effect(temp_loc)
 
-/obj/machinery/brs_server/proc/give_random_reward()
+/obj/machinery/brs_server/proc/give_random_reward(var/turf/temp_loc)
+	new /obj/effect/spawner/lootdrop/brs(temp_loc)
+	spawn_effect(temp_loc)
 
-
-
-/obj/machinery/brs_server/proc/produce(key)
-	if(key <= 0 || key > length(product_list))	//invalid key
-		return
-	var/datum/data/bluespace_tap_product/A = product_list[key]
-	if(!A)
-		return
-	if(A.product_cost > points)
-		return
-	points -= A.product_cost
-	A.product_cost = round(1.2 * A.product_cost, 1)
-	playsound(src, 'sound/magic/blink.ogg', 50)
-	do_sparks(2, FALSE, src)
-	new A.product_path(get_turf(src))
-
-
-	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 5000),
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
-	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
-	)
-
-
-
-/obj/effect/spawner/lootdrop/bluespace_tap/food
-	name = "fancy food"
-	lootcount = 3
-	loot = list(
-		/obj/item/reagent_containers/food/snacks/wingfangchu,
-		/obj/item/reagent_containers/food/snacks/hotdog,
-		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
-		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
-		/obj/item/reagent_containers/food/snacks/appletart,
-		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
-		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
-		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
-		/obj/item/reagent_containers/food/snacks/soup/meatballsoup,
-		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/fishburger,
-		/obj/item/reagent_containers/food/snacks/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/meatpie,
-		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
-	)
-
-
-
-
-
-
-
-
-
+/obj/machinery/brs_server/proc/spawn_effect(var/turf/temp_loc)
+	playsound(temp_loc, 'sound/magic/blink.ogg', 50)
+	do_sparks(2, FALSE, temp_loc)
+	new /obj/effect/portal(temp_loc, null, null, 40)
 
 
 //================ Объекты ================
@@ -121,3 +69,166 @@
 	teleport(9)
 	. = ..()
 
+/obj/effect/spawner/lootdrop/brs/
+	name = "brs loot"
+	lootcount = 1
+	loot = list(
+		//Тип предмета, его вес
+		/obj/item/stack/ore/bluespace_crystal = 100,
+		/obj/item/stack/sheet/mineral/bananium/fifty = 60,
+		/obj/item/stack/sheet/mineral/tranquillite/fifty = 60,
+		/obj/item/stack/sheet/mineral/abductor/fifty = 30,
+		/obj/item/clothing/under/psyjump = 10,
+		/obj/item/storage/box/beakers/bluespace = 10,
+		/obj/item/grown/bananapeel/bluespace = 10,
+		/obj/item/seeds/random/labelled = 10,
+		/obj/item/clothing/mask/cigarette/random = 5,
+		/obj/item/soap/syndie = 20,
+		/obj/item/toy/syndicateballoon = 5,
+		/obj/item/stack/telecrystal = 1,
+
+		//Игрушки
+		/obj/item/gun/projectile/automatic/c20r/toy = 5,
+		/obj/item/gun/projectile/automatic/l6_saw/toy = 5,
+		/obj/item/gun/projectile/automatic/toy/pistol = 10,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 5,
+		/obj/item/gun/projectile/shotgun/toy = 5,
+		/obj/item/gun/projectile/shotgun/toy/crossbow = 5,
+		/obj/item/gun/projectile/shotgun/toy/tommygun = 5,
+		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 5,
+		/obj/item/twohanded/dualsaber/toy = 5,
+		/obj/item/toy/katana = 5,
+		/obj/item/fluff/rapid_wheelchair_kit = 50,
+		/obj/vehicle/secway = 60,
+		/obj/vehicle/atv = 30,
+		/obj/vehicle/motorcycle = 20,
+		/obj/vehicle/janicart = 15,
+		/obj/vehicle/ambulance = 15,
+		/obj/vehicle/snowmobile = 15,
+		/obj/vehicle/space/speedbike/red = 10,
+		/obj/vehicle/space/speedbike = 10,
+		/obj/vehicle/car,
+		/obj/random/figure = 30,
+		/obj/random/mech = 25,
+		/obj/random/plushie = 30,
+		/obj/random/therapy = 25,
+		/obj/random/carp_plushie = 25,
+
+		//Игрушки которые ты скорее всего никогда не получишь и ненужная мелочевка
+		/obj/item/toy/prizeball/mech,
+		/obj/item/toy/prizeball/carp_plushie,
+		/obj/item/toy/prizeball/plushie,
+		/obj/item/toy/prizeball/figure,
+		/obj/item/toy/prizeball/therapy,
+		/obj/item/toy/balloon,
+		/obj/item/toy/spinningtoy,
+		/obj/item/toy/blink,
+		/obj/item/storage/box/dice,
+		/obj/item/storage/box/snappops,
+		/obj/item/deck/cards,
+		/obj/item/storage/fancy/crayons,
+		/obj/item/toy/eight_ball,
+		/obj/item/storage/wallet/color,
+		/obj/item/id_decal/prisoner,
+		/obj/item/id_decal/silver,
+		/obj/item/id_decal/gold,
+		/obj/item/id_decal/centcom,
+		/obj/item/id_decal/emag,
+		/obj/item/toy/flash,
+		/obj/item/toy/minimeteor,
+		/obj/item/toy/minigibber,
+		/obj/item/grenade/confetti,
+		/obj/item/toy/AI,
+		/obj/item/gun/projectile/revolver/capgun,
+		/obj/item/toy/pet_rock,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/spellbook/oneuse/fake_gib,
+		/obj/item/spellbook/oneuse/mime/fingergun/fake,
+		/obj/item/grenade/clusterbuster/eng_tools,
+		/obj/item/grenade/clusterbuster/tools,
+		/obj/item/toy/eight_ball/conch,
+		/obj/item/toy/foamblade,
+		/obj/item/toy/redbutton,
+		/obj/item/toy/nuke,
+		/obj/item/clothing/head/blob,
+		/obj/item/toy/codex_gigas,
+		/obj/item/toy/sword,
+		/obj/item/stack/tile/fakespace/loaded,
+		/obj/item/stack/tile/arcade_carpet/loaded,
+		/obj/item/twohanded/toy/chainsaw,
+		/obj/item/toy/crayon/random,
+		/obj/structure/toilet = 10,
+		/obj/structure/toilet/secret = 5,
+		/obj/structure/toilet/golden_toilet,
+		/obj/structure/toilet/bluespace,
+
+
+		//Не самые ценные вещи по прежнему могут выпасть, хоть и с небольшим шансом суммы их всех:
+		/obj/item/reagent_containers/food/snacks/wingfangchu,
+		/obj/item/reagent_containers/food/snacks/hotdog,
+		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
+		/obj/item/reagent_containers/food/snacks/appletart,
+		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
+		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
+		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
+		/obj/item/reagent_containers/food/snacks/soup/meatballsoup,
+		/obj/item/reagent_containers/food/snacks/soup/stew,
+		/obj/item/reagent_containers/food/snacks/soup/hotchili,
+		/obj/item/reagent_containers/food/snacks/burrito,
+		/obj/item/reagent_containers/food/snacks/fishburger,
+		/obj/item/reagent_containers/food/snacks/cubancarp,
+		/obj/item/reagent_containers/food/snacks/fishandchips,
+		/obj/item/reagent_containers/food/snacks/meatpie,
+		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
+		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
+		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread,
+		/obj/item/clothing/head/collectable/chef,
+		/obj/item/clothing/head/collectable/paper,
+		/obj/item/clothing/head/collectable/tophat,
+		/obj/item/clothing/head/collectable/captain,
+		/obj/item/clothing/head/collectable/beret,
+		/obj/item/clothing/head/collectable/welding,
+		/obj/item/clothing/head/collectable/flatcap,
+		/obj/item/clothing/head/collectable/pirate,
+		/obj/item/clothing/head/collectable/kitty,
+		/obj/item/clothing/head/crown/fancy,
+		/obj/item/clothing/head/collectable/rabbitears,
+		/obj/item/clothing/head/collectable/wizard,
+		/obj/item/clothing/head/collectable/hardhat,
+		/obj/item/clothing/head/collectable/HoS,
+		/obj/item/clothing/head/collectable/thunderdome,
+		/obj/item/clothing/head/collectable/swat,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/police,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/xenom,
+		/obj/item/clothing/head/collectable/petehat,
+
+		//Магические вещи блюспейса с наиминимальнейшим шансом для появления
+		/obj/item/spellbook/oneuse/fireball,
+		/obj/item/spellbook/oneuse/smoke,
+		/obj/item/spellbook/oneuse/blind,
+		/obj/item/spellbook/oneuse/forcewall,
+		/obj/item/spellbook/oneuse/knock,
+		/obj/item/spellbook/oneuse/charge,
+		/obj/item/spellbook/oneuse/summonitem,
+		/obj/item/spellbook/oneuse/fake_gib,
+		/obj/item/spellbook/oneuse/sacredflame,
+		/obj/item/spellbook/oneuse/mime,
+		/obj/item/spellbook/oneuse/mime/fingergun,
+		/obj/item/spellbook/oneuse/mime/greaterwall,
+		/obj/item/spellbook/oneuse/mime/fingergun/fake,
+		/obj/structure/closet/crate/necropolis/tendril,
+
+		//Бабки, бабки, сука, бабки!
+		/obj/item/stack/spacecash/c1000000 = 1,
+		/obj/item/stack/spacecash/c1000 = 5,
+		/obj/item/stack/spacecash/c500 = 10,
+		/obj/item/stack/spacecash/c200 = 15,
+		/obj/item/stack/spacecash/c100 = 20,
+		/obj/item/stack/spacecash/c50 = 20,
+		/obj/item/stack/spacecash/c20 = 20,
+		/obj/item/stack/spacecash/c10 = 20,
+		/obj/item/storage/bag/cash = 10,
+		/obj/item/storage/secure/briefcase/syndie = 30,
+	)
