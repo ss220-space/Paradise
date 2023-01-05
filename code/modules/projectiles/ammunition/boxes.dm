@@ -79,7 +79,7 @@
 
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
-	icon_state = "40mm-4"
+	icon_state = "40mm"
 	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 4
 	multiple_sprites = 1
@@ -87,7 +87,7 @@
 /obj/item/ammo_box/a762
 	name = "stripper clip (7.62mm)"
 	desc = "A stripper clip."
-	icon_state = "a762-50"
+	icon_state = "762"
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
 	multiple_sprites = 1
@@ -101,7 +101,7 @@
 
 /obj/item/ammo_box/shotgun
 	name = "Shotgun Speedloader (slug)"
-	icon_state = "slugloader-7"
+	icon_state = "slugloader"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
@@ -109,37 +109,37 @@
 
 /obj/item/ammo_box/shotgun/buck
 	name = "Shotgun Speedloader (buckshot)"
-	icon_state = "buckloader-7"
+	icon_state = "buckloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/shotgun/dragonsbreath
 	name = "Shotgun Speedloader (dragonsbreath)"
-	icon_state = "dragonsbreathloader-7"
+	icon_state = "dragonsbreathloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/shotgun/stun
 	name = "Shotgun Speedloader (stun)"
-	icon_state = "stunloader-7"
+	icon_state = "stunloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/ammo_box/shotgun/beanbag
 	name = "Shotgun Speedloader (beanbag)"
-	icon_state = "beanbagloader-7"
+	icon_state = "beanbagloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/ammo_box/shotgun/rubbershot
 	name = "Shotgun Speedloader (rubbershot)"
-	icon_state = "rubbershotloader-7"
+	icon_state = "rubbershotloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/ammo_box/shotgun/tranquilizer
 	name = "Shotgun Speedloader (tranquilizer)"
-	icon_state = "tranqloader-7"
+	icon_state = "tranqloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/ammo_box/shotgun/universal
 	name = "Shotgun Speedloader"
-	icon_state = "slugloader-7"
+	icon_state = "slugloader"
 	ammo_type = null
 	caliber = ".12"
 
@@ -168,7 +168,7 @@
 
 /obj/item/ammo_box/caps
 	name = "speed loader (caps)"
-	icon_state = "357-7"
+	icon_state = "357"
 	ammo_type = /obj/item/ammo_casing/cap
 	max_ammo = 7
 	multiple_sprites = 1
