@@ -263,6 +263,7 @@
 					for(var/obj/brs_rift/rift in G.rifts_list)
 						if(prob(70))
 							T = rift.loc
+					roulette_points -= roulette_points_price
 					give_random_reward(T ? T : src.loc)
 					playsound(loc, 'sound/machines/chime.ogg', 100, 1)
 					visible_message("<span class='notice'>Разлом положительно реагирует на стимулирующее вмешательство!</span>")

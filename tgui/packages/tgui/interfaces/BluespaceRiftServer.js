@@ -33,13 +33,13 @@ export const BluespaceRiftServer = (props, context) => {
               <Button
                 icon="download"
                 content="Стимулировать"
-                disabled={brs_server_points_goal_percentage < 100 && !brs_can_give_reward}
+                disabled={roulette_points < roulette_points_price && !brs_can_give_reward}
                 onClick={() => act('luck')}
               />
               <Button
                 icon="upload"
                 content="Результат"
-                disabled={roulette_points < roulette_points_price}
+                disabled={brs_server_points_goal_percentage < 100}
                 onClick={() => act('give_reward')}
               />
             </Fragment>
@@ -56,7 +56,7 @@ export const BluespaceRiftServer = (props, context) => {
             value={roulette_points}
             maxValue={roulette_points_price}>
             {"Стимуляция: \t" + (roulette_points_percentage >= 100
-              ? ('100[' + round(roulette_points_percentage, 0) + ']')
+              ? ('100[' + round(roulette_points_percentage/100, 0) + ']')
               : round(roulette_points_percentage, 0))} %
           </ProgressBar>
 
