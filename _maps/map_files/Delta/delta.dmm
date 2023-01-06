@@ -111330,16 +111330,6 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
-"suE" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "restaurant";
-	layer = 2;
-	name = "Restaurant Shutters"
-	},
-/turf/space,
-/turf/simulated/floor/plating,
-/area/maintenance/kitchen)
 "suJ" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -193842,7 +193832,7 @@ yhg
 yhg
 yhg
 aaq
-suE
+usN
 vJb
 pIT
 vkX
