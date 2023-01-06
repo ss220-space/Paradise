@@ -74,25 +74,29 @@
 		return TRUE
 	return FALSE
 
-/mob/proc/l_arm_nbroken()
-	return TRUE
+/mob/proc/l_arm_broken()
+	return FALSE
 
-/mob/living/carbon/human/l_arm_nbroken()
+/mob/living/carbon/human/l_arm_broken()
 	var/obj/item/organ/external/hand/l_hand = get_organ("l_hand")
 	var/obj/item/organ/external/arm/l_arm = get_organ("l_arm")
+	if(!l_hand || !l_arm)
+		return FALSE //Ну, не сломано ведь
 	if(l_hand.status & ORGAN_BROKEN || l_arm.status & ORGAN_BROKEN)
-		return FALSE
+		return TRUE
+	return FALSE
+
+/mob/proc/r_arm_broken()
 	return TRUE
 
-/mob/proc/r_arm_nbroken()
-	return TRUE
-
-/mob/living/carbon/human/r_arm_nbroken()
+/mob/living/carbon/human/r_arm_broken()
 	var/obj/item/organ/external/hand/right/r_hand = get_organ("r_hand")
 	var/obj/item/organ/external/arm/right/r_arm = get_organ("r_arm")
-	if(r_hand.status & ORGAN_BROKEN || r_arm.status & ORGAN_BROKEN)
+	if(!r_hand || !r_arm)
 		return FALSE
-	return TRUE
+	if(r_hand.status & ORGAN_BROKEN || r_arm.status & ORGAN_BROKEN)
+		return TRUE
+	return FALSE
 
 //Limb numbers
 /mob/proc/get_num_arms()
