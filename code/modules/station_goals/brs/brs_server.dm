@@ -1,4 +1,4 @@
-//Сервер для контроля спутников
+//Сервер для контроля сканнеров и наблюдения за выполнением цели
 /obj/item/circuitboard/brs_server
 	name = "Сервер сканирирования разлома (Computer Board)"
 	desc = "Плата для сбора сервера изучения сканирования разломов."
@@ -258,6 +258,9 @@
 				playsound(loc, 'sound/machines/chime.ogg', 100, 1)
 				visible_message("<span class='notice'>Исследование завершено.</span>")
 				. = TRUE
+			else
+				playsound(loc, 'sound/machines/buzz-two.ogg', 100, 1)
+				visible_message("<span class='warning'>Результат исследований уже был получен!</span>")
 
 		//За очки исследования даем шанс попытать удачу и ВОЗМОЖНО получить ништяк или стимулировать ивенты
 		if("luck")

@@ -224,22 +224,22 @@
 				else
 					M.weight_mod /= mod
 
-/obj/brs_rift/proc/make_related_list(var/n = 1, var/type_rift)
+/obj/brs_rift/proc/make_related_list(var/num = 1, var/type_rift)
 	var/list/temp_list = list()
 	temp_list.Add(src)
 	var/temp_colour = rand_hex_color()
 	color = temp_colour
 
-	if(n <= 1)
+	if(num <= 1)
 		related_rifts_list = temp_list
 		return
 
 	for(var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
 		if (rift.type_rift == type_rift && rift != src)
-			if (length(rift.related_rifts_list) >= n)
+			if (length(rift.related_rifts_list) >= num)
 				continue
 			temp_list.Add(rift)
-			if(length(temp_list) >= n)
+			if(length(temp_list) >= num)
 				break
 
 	related_rifts_list = temp_list

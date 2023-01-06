@@ -218,7 +218,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 /obj/brs_rift/proc/local_explosive(var/list/objects)
 	for(var/obj/O in objects)
 		var/fs = force_sized
-		explosion(O.loc, 0, 1, fs, 2*fs, flame_range = 3*fs, cause = O)	//Вставлять O.loc???
+		explosion(O.loc, 0, 1, fs, 2*fs, flame_range = 3*fs, cause = O)
 
 /obj/brs_rift/proc/local_emp(var/list/objects)
 	for(var/obj/O in objects)
