@@ -4,6 +4,7 @@
 	desc = "Плата для сбора сервера изучения сканирования разломов."
 	build_path = /obj/machinery/brs_server
 	icon_state = "cpuboard_super"
+	board_type = "machine"
 	origin_tech = "engineering=4;bluespace=3"
 	req_components = list(
 					/obj/item/stack/sheet/metal = 10,
