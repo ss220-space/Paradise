@@ -508,8 +508,7 @@
 		G.on_report()
 		message_text += G.get_report()
 		message_text += "<hr>"
-
-	print_command_report(message_text, "Приказания [command_name()]", FALSE)
+		print_command_report(message_text, "Приказания [command_name()]", FALSE, G)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)
