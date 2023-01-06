@@ -8576,16 +8576,17 @@
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "atT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 32
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 6;
+	id = "pod1_home";
+	name = "pod1 home dock";
+	width = 5
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "atU" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight,
@@ -8883,7 +8884,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/emcloset,
 /obj/machinery/camera{
 	c_tag = "Security Pod"
 	},
@@ -8913,18 +8913,17 @@
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "auA" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1450;
-	id_tag = "dorms_maint_inner";
-	locked = 1;
-	name = "External Access";
-	req_access_txt = "13"
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 6;
+	id = "pod2_home";
+	name = "pod2 home dock";
+	width = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
+/turf/space{
+	icon_state = "black"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/area/space)
 "auB" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -9066,10 +9065,12 @@
 	},
 /area/security/brig)
 "auK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "auL" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -9553,18 +9554,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "avt" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 1;
-	height = 4;
-	id = "pod3_home";
-	name = "pod3 home dock";
-	width = 3
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
 	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "avz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -10384,19 +10380,6 @@
 "axe" = (
 /turf/simulated/wall,
 /area/security/detectives_office)
-"axf" = (
-/obj/machinery/airlock_sensor{
-	frequency = 1450;
-	id_tag = "dorms_sensor";
-	pixel_y = 25
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1450;
-	id_tag = "dorms_pump"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "axg" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1450;
@@ -10405,13 +10388,24 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "axh" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 2;
+	height = 6;
+	id = "pod4_home";
+	name = "pod4 home dock";
+	width = 5
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "axn" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil,
@@ -11144,9 +11138,9 @@
 	req_access_txt = "10;13"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -17462,20 +17456,9 @@
 /turf/simulated/wall,
 /area/maintenance/fpmaint)
 "aMB" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = -32
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "aMC" = (
 /obj/structure/table,
 /obj/machinery/computer/mob_healer_terminal,
@@ -17813,11 +17796,12 @@
 /area/maintenance/electrical)
 "aNt" = (
 /obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	id = "pod1_home";
-	name = "pod1 home dock";
-	width = 3
+	dir = 4;
+	dwidth = 2;
+	height = 6;
+	id = "pod3_home";
+	name = "pod3 home dock";
+	width = 5
 	},
 /turf/space{
 	icon_state = "black"
@@ -17840,17 +17824,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aNy" = (
-/obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	id = "pod2_home";
-	name = "pod2 home dock";
-	width = 3
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "aNz" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -81973,19 +81949,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/toxins/launch)
-"doL" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 1;
-	height = 4;
-	id = "pod4_home";
-	name = "pod4 home dock";
-	width = 3
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "doN" = (
 /obj/machinery/computer/station_alert,
 /obj/machinery/alarm{
@@ -95766,20 +95729,20 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -96023,20 +95986,20 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -99628,7 +99591,7 @@ ylx
 ylx
 ylx
 ylx
-ylx
+bPO
 ylx
 ylx
 ylx
@@ -99878,20 +99841,20 @@ uTI
 uTI
 uTI
 uTI
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
+uTI
+uTI
+uTI
+uTI
+uTI
+aMs
+kCL
+aQX
+aqo
+uTI
+uTI
+uTI
+uTI
+uTI
 uTI
 uTI
 uTI
@@ -100135,20 +100098,20 @@ uTI
 uTI
 uTI
 uTI
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
-bPO
-ylx
-ylx
-ylx
-ylx
-ylx
-ylx
+uTI
+uTI
+uTI
+aMs
+aMs
+aMs
+aOQ
+aOQ
+aSd
+djT
+djT
+uTI
+uTI
+uTI
 uTI
 uTI
 uTI
@@ -100392,17 +100355,17 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+aMs
+aMs
+jGQ
+aPI
 aSd
-kCL
-aQX
-aqo
-uTI
-uTI
+djT
+aLd
 uTI
 uTI
 beh
@@ -100648,18 +100611,18 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+aMs
+aLd
+aWe
 aSd
-aOQ
-aOQ
-aSd
-djT
-djT
+aMs
+aLd
 uTI
 uTI
 bej
@@ -100905,18 +100868,18 @@ uTI
 uTI
 uTI
 uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+atT
+aOP
+aMs
+aVf
+avt
+aMs
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-aSd
-jGQ
-aPI
-aSd
-djT
-aLd
 uTI
 uTI
 bej
@@ -101162,18 +101125,18 @@ uTI
 uTI
 uTI
 uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+aOQ
+aPZ
+aMd
+bLZ
+aMs
 uTI
-uTI
-uTI
-aLd
-aMs
-aMs
-aMs
-aLd
-aWe
-aSd
-aMs
-aLd
 uTI
 bej
 bej
@@ -101420,15 +101383,15 @@ uTI
 uTI
 uTI
 uTI
-uTI
 ylx
 ylx
 ylx
 ylx
-aOP
 aMs
-aVf
-aMB
+aOR
+aMs
+aMd
+aRe
 aSd
 aSd
 aSd
@@ -101678,14 +101641,14 @@ uTI
 uTI
 uTI
 uTI
-ylx
-ylx
-ylx
-aNt
-aOQ
-aPZ
+uTI
+aLd
+aMs
+aMs
+aMs
+aMs
 aMd
-aSf
+bLZ
 aRU
 aOQ
 aRU
@@ -101934,12 +101897,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
 ylx
 ylx
 ylx
 ylx
-aOR
+aMs
+aMs
 aQa
 aMd
 aMD
@@ -102190,12 +102153,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-aLd
-aMs
-aMs
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 aMs
 aLd
 aRa
@@ -102447,12 +102410,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
 ylx
 ylx
 ylx
 ylx
+ylx
+auA
 aOP
 aMs
 aPJ
@@ -102704,12 +102667,12 @@ uTI
 uTI
 abp
 uTI
-uTI
-uTI
 ylx
 ylx
 ylx
-aNy
+ylx
+ylx
+ylx
 aOQ
 aPZ
 aPQ
@@ -102962,11 +102925,11 @@ ylx
 ylx
 uTI
 uTI
-uTI
 ylx
 ylx
 ylx
 ylx
+aMs
 aOR
 aQa
 aPQ
@@ -123634,9 +123597,9 @@ cSU
 dcq
 dcq
 dcq
-dcq
 dgG
-uTI
+dcq
+dcq
 uTI
 uTI
 uTI
@@ -123891,9 +123854,9 @@ dgi
 dcq
 ddr
 deP
+ddr
 dgq
 dcq
-uTI
 uTI
 uTI
 uTI
@@ -124149,8 +124112,8 @@ dgp
 ddr
 ddr
 ddr
+ddr
 dcq
-uTI
 uTI
 uTI
 uTI
@@ -124403,12 +124366,12 @@ dfR
 dcq
 dcq
 dcq
+dcq
 ylx
-doL
+axh
 ylx
 dcq
-uTI
-uTI
+dcq
 uTI
 uTI
 uTI
@@ -124663,9 +124626,9 @@ dcq
 ylx
 ylx
 ylx
+ylx
+ylx
 dcq
-uTI
-uTI
 uTI
 uTI
 uTI
@@ -124916,12 +124879,12 @@ dfC
 dgb
 dcq
 uTI
-dcq
-ylx
-ylx
-ylx
-dcq
 uTI
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -125173,12 +125136,12 @@ dfA
 dfT
 dcq
 uTI
-dcq
-ylx
-ylx
-ylx
-dcq
 uTI
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -125431,11 +125394,11 @@ dgd
 dgc
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -125689,9 +125652,9 @@ dcq
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -130696,7 +130659,7 @@ uTI
 uTI
 uTI
 uTI
-uTI
+awl
 awl
 awl
 awl
@@ -130953,19 +130916,19 @@ uTI
 uTI
 uTI
 uTI
-uTI
 awl
 amK
 avq
 asf
 atw
-atT
-auK
+aMB
 bVQ
+avq
+atG
 atG
 aup
 avq
-avq
+aNy
 atG
 sHt
 sHt
@@ -131210,19 +131173,19 @@ uTI
 uTI
 uTI
 uTI
-uTI
 awl
 aCh
 aqq
 awl
 atu
-atG
-auA
+awl
 axg
-axh
+atG
+atG
 ylx
-avt
+aNt
 ylx
+atG
 atG
 sHt
 sHt
@@ -131467,16 +131430,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
 awl
 amL
 aqr
 awl
 awl
-atG
-axf
+awl
 dgk
-axh
+atG
+ylx
+ylx
 ylx
 ylx
 ylx
@@ -131724,7 +131687,6 @@ uTI
 uTI
 uTI
 uTI
-uTI
 awl
 awl
 awl
@@ -131732,8 +131694,9 @@ awl
 uTI
 awl
 azT
-azT
-axh
+atG
+ylx
+ylx
 ylx
 ylx
 ylx
@@ -131986,11 +131949,11 @@ uTI
 uTI
 uTI
 uTI
-uTI
-awl
 doE
 avM
 doE
+ylx
+ylx
 ylx
 ylx
 ylx
@@ -132242,15 +132205,15 @@ uTI
 uTI
 uTI
 uTI
+uTI
+uTI
 djT
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -132492,14 +132455,6 @@ uTI
 uTI
 uTI
 uTI
-amW
-amW
-amW
-amW
-amW
-amW
-amW
-amW
 uTI
 uTI
 uTI
@@ -132507,6 +132462,14 @@ uTI
 uTI
 uTI
 uTI
+djT
+djT
+djT
+uTI
+uTI
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -132746,27 +132709,27 @@ uTI
 uTI
 uTI
 uTI
-dbT
-dbT
+uTI
+uTI
+uTI
 amW
-dbT
-djT
-uTI
-djT
-uTI
-uTI
-djT
-uTI
-uTI
-uTI
-uTI
-djT
-uTI
+amW
+amW
+amW
+amW
+amW
+amW
+amW
 uTI
 djT
 djT
-djT
-djT
+uTI
+uTI
+uTI
+uTI
+uTI
+uTI
+uTI
 djT
 djT
 djT
@@ -133004,25 +132967,25 @@ uTI
 uTI
 uTI
 dbT
-uTI
+dbT
+amW
+dbT
 djT
 uTI
 djT
 uTI
-app
-app
-app
-app
-app
-app
-app
-app
-app
+uTI
+djT
+uTI
+uTI
+uTI
 djT
 djT
-aqZ
-aqZ
-aqZ
+djT
+uTI
+djT
+djT
+djT
 djT
 djT
 aDS
@@ -133261,26 +133224,26 @@ uTI
 uTI
 uTI
 dbT
+uTI
 djT
-alD
-axq
-axq
-ann
-aoK
-apn
-apn
-apn
-apn
-apn
-apn
-apn
-apn
-ann
+uTI
+djT
+uTI
+app
+app
+app
+app
+app
+app
+app
+app
+app
+djT
+djT
 aqZ
 aqZ
-azU
-awQ
-axq
+aqZ
+djT
 ayE
 aDK
 aER
@@ -133517,28 +133480,28 @@ uTI
 uTI
 uTI
 uTI
-alw
-uTI
+dbT
 djT
-uTI
-djT
-uTI
-apq
-apq
-apq
-apq
-apq
-apq
-apq
-apq
-apq
-djT
-djT
+alD
+axq
+axq
+ann
+aoK
+apn
+apn
+apn
+apn
+apn
+apn
+apn
+apn
+ann
 aqZ
 aqZ
-awR
-djT
-djT
+azU
+awQ
+axq
+auK
 aDS
 aDS
 aDS
@@ -133775,25 +133738,25 @@ uTI
 uTI
 uTI
 alw
-amh
-amW
-dbT
-djT
 uTI
 djT
 uTI
-uTI
-uTI
 djT
 uTI
-uTI
-djT
-uTI
-uTI
+apq
+apq
+apq
+apq
+apq
+apq
+apq
+apq
+apq
 djT
 djT
 aqZ
-djT
+aqZ
+awR
 djT
 djT
 djT
@@ -134031,10 +133994,10 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
+alw
+amh
 amW
+dbT
 djT
 uTI
 djT
@@ -134048,10 +134011,10 @@ djT
 uTI
 uTI
 djT
-uTI
+djT
 aqZ
-uTI
-uTI
+djT
+djT
 uTI
 djT
 djT
@@ -134292,22 +134255,22 @@ uTI
 uTI
 uTI
 amW
-amW
-amW
-amW
 djT
+uTI
 djT
+uTI
+uTI
+uTI
 djT
-app
-app
-app
-app
-app
-app
-app
+uTI
+uTI
+djT
+uTI
+uTI
+djT
 uTI
 aqZ
-djT
+uTI
 uTI
 uTI
 uTI
@@ -134548,21 +134511,21 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
+amW
+amW
+amW
 amW
 djT
-aqZ
-aqZ
-aoK
-apn
-apn
-apn
-apn
-apn
-apn
-ann
+djT
+djT
+app
+app
+app
+app
+app
+app
+app
+uTI
 aqZ
 djT
 uTI
@@ -134811,18 +134774,18 @@ uTI
 amW
 djT
 aqZ
-djT
-apq
-apq
-apq
-apq
-apq
-apq
-apq
-djT
+aqZ
+aoK
+apn
+apn
+apn
+apn
+apn
+apn
+ann
 aqZ
 djT
-djT
+uTI
 uTI
 uTI
 uTI
@@ -135068,17 +135031,17 @@ uTI
 amW
 djT
 aqZ
-uTI
 djT
-uTI
-uTI
-djT
-uTI
-uTI
-djT
+apq
+apq
+apq
+apq
+apq
+apq
+apq
 djT
 aqZ
-uTI
+djT
 djT
 doE
 aHN
@@ -135336,7 +135299,7 @@ djT
 djT
 aqZ
 uTI
-uTI
+djT
 azb
 aJC
 aCy
@@ -135582,14 +135545,14 @@ uTI
 amW
 djT
 aqZ
+uTI
 djT
-app
-app
-app
-app
-app
-app
-app
+uTI
+uTI
+djT
+uTI
+uTI
+djT
 djT
 aqZ
 uTI
@@ -135836,18 +135799,18 @@ uTI
 uTI
 uTI
 uTI
-ayi
+amW
 djT
 aqZ
-aqZ
-aoK
-apn
-apn
-apn
-apn
-apn
-apn
-ann
+djT
+app
+app
+app
+app
+app
+app
+app
+djT
 aqZ
 uTI
 uTI
@@ -136093,18 +136056,18 @@ uTI
 uTI
 uTI
 uTI
-amW
+ayi
 djT
 aqZ
-djT
-apq
-apq
-apq
-apq
-apq
-apq
-apq
-djT
+aqZ
+aoK
+apn
+apn
+apn
+apn
+apn
+apn
+ann
 aqZ
 uTI
 uTI
@@ -136351,16 +136314,16 @@ uTI
 uTI
 uTI
 amW
-aqL
+djT
 aqZ
 djT
-djT
-uTI
-uTI
-djT
-uTI
-uTI
-djT
+apq
+apq
+apq
+apq
+apq
+apq
+apq
 djT
 aqZ
 uTI
@@ -136608,9 +136571,9 @@ uTI
 uTI
 uTI
 amW
-djT
+aqL
 aqZ
-uTI
+djT
 djT
 uTI
 uTI
@@ -136868,13 +136831,13 @@ amW
 djT
 aqZ
 uTI
-app
-app
-app
-app
-app
-app
-app
+djT
+uTI
+uTI
+djT
+uTI
+uTI
+djT
 djT
 aqZ
 uTI
@@ -137124,15 +137087,15 @@ uTI
 amW
 djT
 aqZ
-aqZ
-aoK
-apn
-apn
-apn
-apn
-apn
-apn
-ann
+uTI
+app
+app
+app
+app
+app
+app
+app
+djT
 aqZ
 uTI
 uTI
@@ -137379,18 +137342,18 @@ uTI
 uTI
 uTI
 amW
-uTI
 djT
-djT
-apq
-apq
-apq
-apq
-apq
-apq
-apq
-djT
-uTI
+aqZ
+aqZ
+aoK
+apn
+apn
+apn
+apn
+apn
+apn
+ann
+aqZ
 uTI
 djT
 aAf
@@ -137637,16 +137600,16 @@ uTI
 uTI
 amW
 uTI
-uTI
-uTI
 djT
 djT
+apq
+apq
+apq
+apq
+apq
+apq
+apq
 djT
-djT
-djT
-djT
-djT
-uTI
 uTI
 uTI
 aAf
@@ -137893,19 +137856,19 @@ uTI
 uTI
 uTI
 amW
-amW
-amW
-amW
-amW
-ayi
-amW
-amW
-amW
-amW
-amW
-amW
-amW
-amW
+uTI
+uTI
+uTI
+djT
+djT
+djT
+djT
+djT
+djT
+djT
+uTI
+uTI
+djT
 aAf
 aCO
 aDs
@@ -138149,19 +138112,19 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+amW
+amW
+amW
+amW
+amW
+ayi
+amW
+amW
+amW
+amW
+amW
+amW
+amW
 aAf
 aAf
 aCP
