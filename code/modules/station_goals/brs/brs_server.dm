@@ -246,6 +246,9 @@
 	if(!G)
 		return FALSE
 
+	var/mob/user = usr
+	add_fingerprint(user)
+
 	switch(action)
 		if("give_reward")
 			if(G.check_can_give_reward())

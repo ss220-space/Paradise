@@ -227,10 +227,11 @@
 /obj/brs_rift/proc/make_related_list(var/n = 1, var/type_rift)
 	var/list/temp_list = list()
 	temp_list.Add(src)
-	message_admins("[name] Цвет: [color]")
+	var/temp_colour = rand_hex_color()
+	color = temp_colour
+
 	if(n <= 1)
 		related_rifts_list = temp_list
-		color = get_random_colour(FALSE, 0, 16)
 		return
 
 	for(var/obj/brs_rift/rift in GLOB.bluespace_rifts_list)
@@ -241,10 +242,7 @@
 			if(length(temp_list) >= n)
 				break
 
-	message_admins("[name] Цвет: [color]")
 	related_rifts_list = temp_list
-	var/temp_colour = get_random_colour(FALSE, 0, 16)
 	for(var/obj/brs_rift/rift in related_rifts_list)
 		rift.related_rifts_list = related_rifts_list
 		rift.color = temp_colour
-	message_admins("[name] Цвет: [color]")
