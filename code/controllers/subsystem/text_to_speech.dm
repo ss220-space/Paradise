@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(tts)
 		"mechanic" = "Механик",
 		"chief medical officer" = "Главный врач",
 		"medical doctor" = "Врач",
-		"student medical doctor" = "Врач-интерн",
+		"Intern" = "Врач-интерн",
 		"surgeon" = "Хирург",
 		"nurse" = "Медсестра",
 		"coroner" = "К+оронэр",

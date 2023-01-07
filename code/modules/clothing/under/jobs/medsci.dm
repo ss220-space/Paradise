@@ -24,6 +24,16 @@
 	item_color = "sciencewhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/scientist/student
+	name = "scientist student jumpskirt"
+	icon_state = "student_s"
+	item_color = "student"
+
+/obj/item/clothing/under/rank/scientist/student/assistant
+	name = "scientist assistant jumpskirt"
+	icon_state = "sci_ass_s"
+	item_color = "sci_ass"
+
 /obj/item/clothing/under/rank/chemist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a chemist rank stripe on it."
 	name = "chemist's jumpsuit"
@@ -128,6 +138,18 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
+/obj/item/clothing/under/rank/medical/intern
+	name = "intern jumpsuit"
+	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
+	icon_state = "intern_s"
+	item_color = "intern"
+
+/obj/item/clothing/under/rank/medical/intern/assistant
+	name = "medical assistant jumpsuit"
+	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
+	icon_state = "med_ass_s"
+	item_color = "med_ass"
+
 /obj/item/clothing/under/rank/medical/skirt
 	name = "medical doctor's jumpskirt"
 	icon_state = "medicalf"
@@ -143,6 +165,12 @@
 /obj/item/clothing/under/rank/medical/green
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in dark green."
+	icon_state = "scrubsdarkgreen"
+	item_color = "scrubsdarkgreen"
+
+/obj/item/clothing/under/rank/medical/lightgreen
+	name = "medical scrubs"
+	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in green."
 	icon_state = "scrubsgreen"
 	item_color = "scrubsgreen"
 

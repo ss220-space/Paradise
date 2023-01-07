@@ -42,6 +42,7 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
+
 /datum/job/doctor
 	title = "Medical Doctor"
 	flag = JOB_DOCTOR
@@ -54,10 +55,10 @@
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
-	alt_titles = list("Student Medical Doctor","Surgeon","Nurse")
+	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -76,6 +77,34 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+
+
+/datum/job/doctor/intern
+	title = "Intern"
+	flag = JOB_DOCTOR
+	total_positions = 5
+	spawn_positions = 3
+	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer", "Medical Doctor")
+	selection_color = "#ffeef0"
+	alt_titles = list("Student Medical Doctor", "Medical Assistant")
+	outfit = /datum/outfit/job/doctor/intern
+
+/datum/outfit/job/doctor/intern
+	name = "Intern"
+	jobtype = /datum/job/doctor/intern
+
+	uniform = /obj/item/clothing/under/rank/medical/intern
+	id = /obj/item/card/id/medical/intern
+
+/datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Medical Assistant")
+				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
+			if("Student Medical Doctor")
+				uniform = /obj/item/clothing/under/rank/medical/lightgreen
 
 /datum/job/coroner
 	title = "Coroner"
@@ -173,6 +202,7 @@
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 
+
 /datum/job/geneticist
 	title = "Geneticist"
 	flag = JOB_GENETICIST
@@ -242,6 +272,7 @@
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 
+
 /datum/job/psychiatrist
 	title = "Psychiatrist"
 	flag = JOB_PSYCHIATRIST
@@ -279,6 +310,7 @@
 				uniform = /obj/item/clothing/under/rank/psych/turtleneck
 			if("Therapist")
 				uniform = /obj/item/clothing/under/rank/medical
+
 
 /datum/job/paramedic
 	title = "Paramedic"

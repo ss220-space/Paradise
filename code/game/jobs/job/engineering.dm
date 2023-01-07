@@ -59,10 +59,10 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Trainee Engineer","Maintenance Technician","Engine Technician","Electrician")
+	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -83,6 +83,34 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
+
+/datum/job/engineer/trainee
+	title = "Trainee Engineer"
+	flag = JOB_ENGINEER
+	total_positions = 5
+	spawn_positions = 5
+	is_engineering = 1
+	supervisors = "the chief engineer"
+	department_head = list("Chief Engineer", "Station Engineer")
+	selection_color = "#fff5cc"
+	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
+	outfit = /datum/outfit/job/engineer/trainee
+
+/datum/outfit/job/engineer/trainee
+	name = "Trainee Engineer"
+	jobtype = /datum/job/engineer/trainee
+
+	uniform = /obj/item/clothing/under/rank/engineer/trainee
+	id = /obj/item/card/id/engineering/trainee
+
+/datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Engineer Assistant")
+				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+			if("Technical Assistant")
+				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
 
 
 /datum/job/atmos
@@ -118,6 +146,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/engineer
+
 
 /datum/job/mechanic
 	title = "Mechanic"
