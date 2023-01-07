@@ -93,8 +93,8 @@
 /datum/job/scientist/student
 	title = "Student Scientist"
 	flag = JOB_SCIENTIST_STUDENT
-	total_positions = 6
-	spawn_positions = 6
+	total_positions = 5
+	spawn_positions = 3
 	supervisors = "the research director"
 	department_head = list("Research Director", "Scientist")
 	selection_color = "#ffeeff"

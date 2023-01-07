@@ -89,7 +89,7 @@
 	title = "Trainee Engineer"
 	flag = JOB_ENGINEER
 	total_positions = 5
-	spawn_positions = 5
+	spawn_positions = 3
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer", "Station Engineer")

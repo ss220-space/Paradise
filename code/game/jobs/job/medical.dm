@@ -81,7 +81,7 @@
 
 /datum/job/doctor/intern
 	title = "Intern"
-	flag = JOB_DOCTOR
+	flag = JOB_INTERN
 	total_positions = 5
 	spawn_positions = 3
 	supervisors = "the chief medical officer"
