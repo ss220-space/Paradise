@@ -64,8 +64,8 @@
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research

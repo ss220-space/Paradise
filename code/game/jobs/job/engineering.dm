@@ -134,8 +134,8 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
@@ -167,6 +167,8 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/mechanic
 
 /datum/outfit/job/mechanic
