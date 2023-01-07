@@ -92,7 +92,7 @@
 
 /datum/job/scientist/student
 	title = "Student Scientist"
-	flag = JOB_SCIENTIST
+	flag = JOB_SCIENTIST_STUDENT
 	total_positions = 6
 	spawn_positions = 6
 	supervisors = "the research director"

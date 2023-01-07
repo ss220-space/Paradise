@@ -109,11 +109,13 @@
 	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/clothing/under/rank/engineer(src)
 	new /obj/item/clothing/under/rank/engineer/skirt(src)
+	new /obj/item/clothing/under/rank/engineer/trainee/assistant(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/cartridge/engineering(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
 
 
 /obj/structure/closet/secure_closet/atmos_personal

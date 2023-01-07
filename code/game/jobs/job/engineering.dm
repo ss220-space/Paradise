@@ -49,7 +49,7 @@
 
 /datum/job/engineer
 	title = "Station Engineer"
-	flag = JOB_ENGINEER
+	flag = JOB_ENGINEER_TRAINEE
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
@@ -70,9 +70,10 @@
 	jobtype = /datum/job/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineer
+	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
-	head = /obj/item/clothing/head/hardhat
+	head = /obj/item/clothing/head/hardhat/orange
 	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/t_scanner
@@ -102,6 +103,7 @@
 
 	uniform = /obj/item/clothing/under/rank/engineer/trainee
 	id = /obj/item/card/id/engineering/trainee
+	gloves = /obj/item/clothing/gloves/color/orange
 
 /datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -111,6 +113,11 @@
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
 			if("Technical Assistant")
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				head = /obj/item/clothing/head/soft/orange
+			if("Technical Student", "Technical Trainee")
+				head = /obj/item/clothing/head/soft/orange
+			if("Engineer Student")
+				head = /obj/item/clothing/head/beret/eng
 
 
 /datum/job/atmos

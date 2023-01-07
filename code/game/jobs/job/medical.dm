@@ -96,6 +96,11 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
 	id = /obj/item/card/id/medical/intern
+	l_hand = /obj/item/storage/firstaid/o2
+	backpack_contents = list(
+		/obj/item/clothing/mask/surgical = 1,
+		/obj/item/clothing/gloves/color/latex = 1
+	)
 
 /datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -104,7 +109,9 @@
 			if("Medical Assistant")
 				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
 			if("Student Medical Doctor")
+				head = /obj/item/clothing/head/surgery/lightgreen
 				uniform = /obj/item/clothing/under/rank/medical/lightgreen
+
 
 /datum/job/coroner
 	title = "Coroner"

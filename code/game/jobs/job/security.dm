@@ -200,7 +200,7 @@
 
 /datum/job/officer/cadet
 	title = "Security Cadet"
-	flag = JOB_OFFICER
+	flag = JOB_CADET
 	total_positions = 7
 	spawn_positions = 7
 	supervisors = "the head of security"
@@ -213,11 +213,10 @@
 	name = "Security Cadet"
 	jobtype = /datum/job/officer/cadet
 	uniform = /obj/item/clothing/under/rank/security/cadet
-	suit = /obj/item/clothing/suit/armor/secjacket
-	head = /obj/item/clothing/head/beret/sec
+	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
-	suit_store = /obj/item/gun/energy/taser
+	suit_store = /obj/item/gun/energy/gun/advtaser
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -225,6 +224,8 @@
 		switch(H.mind.role_alt_title)
 			if("Security Assistant")
 				uniform = /obj/item/clothing/under/rank/security/cadet/assistant
+			if("Security Graduate")
+				head = /obj/item/clothing/head/beret/sec
 
 /datum/job/brigdoc
 	title = "Brig Physician"
