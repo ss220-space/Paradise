@@ -695,6 +695,11 @@ BLIND     // can't see anything
 	hide_tail_by_species = null
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
+/obj/item/clothing/suit/space/equipped(mob/user, slot)
+	if("ashwalker" in user.faction)
+		user.unEquip(src, 1)
+		to_chat(user, "<span class='warning'>Вы рефлекторно отбрасываете костюм. По неизвестной причине вы не хотите прикасаться к этим доспехам.</span>")
+		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 // Under clothing
 /obj/item/clothing/under
