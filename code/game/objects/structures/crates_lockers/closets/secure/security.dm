@@ -86,6 +86,10 @@
 	new /obj/item/clothing/shoes/leather(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/under/rank/head_of_personnel_whimsy(src)
+	new /obj/item/clothing/under/rank/head_of_personnel_alt(src)
+	new /obj/item/clothing/under/rank/head_of_personnel_f(src)
+	new /obj/item/clothing/suit/hop_jacket(src)
+	new /obj/item/clothing/suit/hop_jacket/female(src)
 
 
 /obj/structure/closet/secure_closet/hos
