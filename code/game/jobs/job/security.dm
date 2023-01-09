@@ -220,10 +220,14 @@
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(H.mind && H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/security/cadet/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Security Assistant")
 				uniform = /obj/item/clothing/under/rank/security/cadet/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/security/cadet/assistant/skirt
 			if("Security Graduate")
 				head = /obj/item/clothing/head/beret/sec
 

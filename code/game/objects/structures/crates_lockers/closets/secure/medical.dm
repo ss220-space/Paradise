@@ -74,7 +74,6 @@
 	new /obj/item/clothing/shoes/sandal/white(src)
 	new /obj/item/clothing/head/surgery/lightgreen(src)
 	new /obj/item/clothing/under/rank/medical/lightgreen(src)
-	new /obj/item/clothing/under/rank/medical/intern/assistant(src)
 
 
 //Exam Room

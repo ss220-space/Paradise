@@ -39,7 +39,10 @@
 	new /obj/item/clothing/under/rank/security/skirt(src)
 	new /obj/item/clothing/under/rank/security/skirt(src)
 	new /obj/item/clothing/under/rank/security/skirt(src)
-	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
+	new /obj/item/clothing/under/rank/security/cadet(src)
+	new /obj/item/clothing/under/rank/security/cadet(src)
+	new /obj/item/clothing/under/rank/security/cadet/skirt(src)
+	new /obj/item/clothing/under/rank/security/cadet/skirt(src)
 	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
 	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
 	new /obj/item/clothing/shoes/jackboots(src)
@@ -254,6 +257,10 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/under/rank/medical/intern(src)
+	new /obj/item/clothing/under/rank/medical/intern(src)
+	new /obj/item/clothing/under/rank/medical/intern/skirt(src)
+	new /obj/item/clothing/under/rank/medical/intern/skirt(src)
 
 /obj/structure/closet/wardrobe/pjs
 	name = "Pajama wardrobe"

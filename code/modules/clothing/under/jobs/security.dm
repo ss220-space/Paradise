@@ -43,10 +43,22 @@
 	icon_state = "cadet_s"
 	item_color = "cadet"
 
+/obj/item/clothing/under/rank/security/cadet/skirt
+	name = "security cadet jumpskirt"
+	icon_state = "cadetf_s"
+	item_color = "cadetf"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/rank/security/cadet/assistant
 	name = "security assistant jumpsuit"
 	icon_state = "sec_ass_s"
 	item_color = "sec_ass"
+
+/obj/item/clothing/under/rank/security/cadet/assistant/skirt
+	name = "security assistant jumpskirt"
+	icon_state = "sec_ass_f_s"
+	item_color = "sec_ass_f"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/security/skirt
 	name = "security officer's jumpskirt"

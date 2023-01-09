@@ -111,10 +111,14 @@
 
 /datum/outfit/job/scientist/student/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/scientist/student/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Scientist Assistant")
 				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
 
 
 /datum/job/roboticist

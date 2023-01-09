@@ -107,12 +107,18 @@
 
 /datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Engineer Assistant")
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
 			if("Technical Assistant")
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
 				head = /obj/item/clothing/head/soft/orange
 			if("Technical Student", "Technical Trainee")
 				head = /obj/item/clothing/head/soft/orange

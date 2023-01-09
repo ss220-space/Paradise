@@ -104,10 +104,14 @@
 
 /datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/medical/intern/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Medical Assistant")
 				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/medical/intern/assistant/skirt
 			if("Student Medical Doctor")
 				head = /obj/item/clothing/head/surgery/lightgreen
 				uniform = /obj/item/clothing/under/rank/medical/lightgreen
