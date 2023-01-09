@@ -90,6 +90,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
 	uniform = /obj/item/clothing/under/rank/head_of_personnel
+	suit = /obj/item/clothing/suit/hop_jacket
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hopcap
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
