@@ -45,13 +45,11 @@
 
 /obj/item/clothing/under/rank/engineer/trainee
 	name = "engineer trainee jumpsuit"
-	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
 	icon_state = "trainee_s"
 	item_color = "trainee"
 
 /obj/item/clothing/under/rank/engineer/trainee/assistant
 	name = "engineer assistant jumpsuit"
-	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
 	icon_state = "eng_ass_s"
 	item_color = "eng_ass"
 

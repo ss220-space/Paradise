@@ -40,13 +40,11 @@
 
 /obj/item/clothing/under/rank/security/cadet
 	name = "security cadet jumpsuit"
-	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "cadet_s"
 	item_color = "cadet"
 
 /obj/item/clothing/under/rank/security/cadet/assistant
 	name = "security assistant jumpsuit"
-	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "sec_ass_s"
 	item_color = "sec_ass"
 

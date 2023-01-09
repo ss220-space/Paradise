@@ -140,13 +140,11 @@
 
 /obj/item/clothing/under/rank/medical/intern
 	name = "intern jumpsuit"
-	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
 	icon_state = "intern_s"
 	item_color = "intern"
 
 /obj/item/clothing/under/rank/medical/intern/assistant
 	name = "medical assistant jumpsuit"
-	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
 	icon_state = "med_ass_s"
 	item_color = "med_ass"
 
