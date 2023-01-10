@@ -222,7 +222,7 @@ Doesn't work on other aliens/AI.*/
 
 		if(!choice || !plasmacheck(55))	return
 		var/turf/T = get_turf(host.loc)
-		if(locate(/obj/structure/alien) in T.contents || locate(/obj/structure/bed/nest) in T.contents)
+		if(locate(/obj/structure/alien/wall) in T.contents || locate(/obj/structure/bed/nest) in T.contents || locate(/obj/structure/alien/wall) in T.contents)
 			to_chat(host, "<span class ='warning'>Это место уже занято!</span>")
 			return
 		host.adjustPlasma(-55)
