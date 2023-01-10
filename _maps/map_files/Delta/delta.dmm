@@ -35044,9 +35044,7 @@
 	},
 /area/maintenance/starboard)
 "dle" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/hand_labeler,
+/obj/structure/closet/wardrobe/cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -42973,7 +42971,7 @@
 /area/hallway/primary/fore)
 "dQC" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/wardrobe/engineering_yellow,
+/obj/structure/closet/wardrobe/trainee_yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "dQD" = (
@@ -52723,6 +52721,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -65050,7 +65049,7 @@
 	name = "north bump";
 	pixel_y = 25
 	},
-/obj/machinery/computer/med_data,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -76271,11 +76270,11 @@
 	},
 /area/medical/cmo)
 "kQU" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/structure/closet/wardrobe/student,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -79542,12 +79541,20 @@
 "lGJ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
-	pixel_x = -1;
+	pixel_x = -2;
 	pixel_y = 2
 	},
 /obj/item/stock_parts/cell,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/paper_bin{
+	pixel_y = 12;
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -80172,6 +80179,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -91745,12 +91753,11 @@
 	},
 /area/security/permabrig)
 "olb" = (
-/obj/structure/table,
 /obj/machinery/ai_status_display{
 	pixel_y = 32;
 	step_size = 0
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/med_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -93926,11 +93933,6 @@
 /area/toxins/test_chamber)
 "oJX" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -93940,9 +93942,13 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/computer/med_data/laptop{
+	pixel_y = 3;
+	pixel_x = -4
+	},
 /obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
+	pixel_x = 12;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -127604,10 +127610,10 @@
 	},
 /area/security/detectives_office)
 "vUh" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
+/obj/structure/closet/wardrobe/intern_white,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -183070,7 +183076,7 @@ xzg
 xzg
 dMy
 dOF
-dXM
+dXO
 kwr
 cVH
 cNX
@@ -183327,7 +183333,7 @@ fxY
 lsh
 lyo
 cJq
-dXO
+dXM
 kss
 fUr
 cYT

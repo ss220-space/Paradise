@@ -6330,12 +6330,12 @@
 	},
 /area/security/main)
 "apI" = (
-/obj/structure/closet/wardrobe/red,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/light_switch{
 	name = "west light switch";
 	pixel_x = -24
 	},
+/obj/structure/closet/wardrobe/cadet,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredfull"
@@ -54120,7 +54120,6 @@
 	},
 /area/medical/medbreak)
 "ckF" = (
-/obj/structure/chair/stool,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -54133,6 +54132,7 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room"
 	},
+/obj/structure/closet/wardrobe/intern_white,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -73032,6 +73032,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/closet/wardrobe/trainee_yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cUy" = (
@@ -84790,7 +84791,9 @@
 /area/hallway/secondary/exit)
 "gWS" = (
 /obj/structure/disposalpipe/segment,
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/food/drinks/britcup,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -89670,6 +89673,19 @@
 	icon_state = "bar"
 	},
 /area/security/permabrig)
+"sGn" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter";
+	opacity = 0
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "sGy" = (
 /turf/simulated/floor/wood,
 /area/security/permabrig)
@@ -91892,9 +91908,7 @@
 /area/maintenance/xenozoo)
 "xFK" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
-/obj/item/reagent_containers/glass/rag,
+/obj/structure/closet/wardrobe/student,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -138096,7 +138110,7 @@ bIi
 cxW
 cAf
 cBS
-cDy
+sGn
 tou
 cEk
 bPt
