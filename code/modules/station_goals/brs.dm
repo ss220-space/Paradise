@@ -81,5 +81,20 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 
 /datum/station_goal/brs/proc/create_bluespace_rift(var/type_rift = DEFAULT_RIFT)
 	var/turf/temp_turf = find_safe_turf()
-	var/obj/brs_rift/rift = new(temp_turf, type_rift)
+	var/obj/brs_rift/rift
+
+	switch(type_rift)
+		if(CRACK_RIFT)
+			rift = new /obj/brs_rift/crack(temp_turf)
+		if(TWINS_RIFT)
+			rift = new /obj/brs_rift/twin(temp_turf)
+		if(DEFAULT_RIFT)
+			rift = new /obj/brs_rift(temp_turf)
+		if(BIG_RIFT)
+			rift = new /obj/brs_rift/big(temp_turf)
+		if(FOG_RIFT)
+			rift = new /obj/brs_rift/fog(temp_turf)
+		if(HUNTER_RIFT)
+			rift = new /obj/brs_rift/hunter(temp_turf)
+
 	return rift

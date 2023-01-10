@@ -60,42 +60,39 @@
 	force_sized = 9
 	timespan = 30 MINUTES
 
-/obj/brs_rift/twin/t_static	//Для тестов и баловства
+/obj/brs_rift/hunter
+	name = "Блюспейс Трещина"
+	type_rift = CRACK_RIFT
+	force_sized = 1
+	timespan = 10 MINUTES
+	num_related_rifts = 4
+
+/obj/brs_rift/hunter
+	name = "Разлом-Охотник"
+	type_rift = HUNTER_RIFT
+	timespan = 1 MINUTES	//Время у охотника переопределяется в зависимости от дистанции до цели
+	force_sized = 3
+	var/mob/dir_mob = null	// моб к которому направляемся
+
+
+//Для тестов и баловства
+/obj/brs_rift/twin/test_static
 	name = "Статичный Разлом-Близнец"
 	timespan = 60 MINUTES
 	invisibility = 0
 	alpha = 255
 
-/obj/brs_rift/Initialize(mapload, new_type_rift)
+/obj/brs_rift/hunter/test_visible
+	name = "Видимый Разлом-Охотник"
+	invisibility = 0
+	alpha = 255
+
+
+/obj/brs_rift/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list |= src
 	GLOB.bluespace_rifts_list.Add(src)
 	START_PROCESSING(SSobj, src)
-
-	type_rift = new_type_rift
-	switch(type_rift)
-		if(CRACK_RIFT)
-			force_sized = 1
-			timespan = 10 MINUTES
-			name = "Блюспейс Трещина"
-			num_related_rifts = 4
-		if(TWINS_RIFT)
-			timespan = 15 MINUTES
-			force_sized = 3
-			name = "Разлом-Близнец"
-			num_related_rifts = 2
-		if(DEFAULT_RIFT)
-			force_sized = 5
-			timespan = 20 MINUTES
-			name = "Блюспейс Разлом"
-		if(BIG_RIFT)
-			force_sized = 7
-			timespan = 25 MINUTES
-			name = "Блюспейс Жерло"
-		if(FOG_RIFT)
-			force_sized = 9
-			timespan = 30 MINUTES
-			name = "Блюспейс Туманность"
 
 	transform = matrix(force_sized, 0, 0, 0, force_sized, 0) //+ перекрас?
 	name = "[name] [length(GLOB.golem_female) ? "тип: \"[pick(GLOB.golem_female)]\"" : "неизвестного типа"]"
@@ -182,22 +179,21 @@
 		counter_move_time = world.time + required_time_per_tile
 		dir_move = get_dir(src.loc, dir_loc)
 
-	if(counter_direction_time < world.time)
+	if(counter_direction_time < world.time || extra_condition())
 		change_move_direction()
 
 /obj/brs_rift/proc/change_move_direction()
 	counter_direction_time = world.time + timespan
 	counter_move_time = world.time + required_time_per_tile
 
-	//направление в сторону тюрфа находящегося на станции в функционирующей её части
-	var/turf/simulated/floor/F
-	F = find_safe_turf(zlevels = src.z)
-	dir_loc = F//.loc
+	dir_loc = get_random_loc()
 	dir_move = get_dir(src, dir_loc)
 
-	var/dist = get_dist(src, F)
-
+	var/dist = get_dist(src, dir_loc) + 1
 	required_time_per_tile = round(timespan/dist)
+
+/obj/brs_rift/proc/get_random_loc()
+	return find_safe_turf(zlevels = src.z)
 
 /obj/brs_rift/attackby(obj/item/I, mob/living/user, params)
 	to_chat(user, "<span class='danger'>Невозможно взаимодействовать с разломом!</span>")
@@ -246,3 +242,30 @@
 	for(var/obj/brs_rift/rift in related_rifts_list)
 		rift.related_rifts_list = related_rifts_list
 		rift.color = temp_colour
+
+/obj/brs_rift/proc/extra_condition()
+	return FALSE
+
+/obj/brs_rift/hunter/extra_condition()
+	if (dir_loc != dir_mob.loc)
+		return TRUE
+	return FALSE
+
+//Охотник выбирает моба и устанавливает скорость на него
+/obj/brs_rift/hunter/get_random_loc()
+	var/turf/T = (dir_mob && dir_mob.z == z) ? dir_mob.loc : null
+	if(!T || prob(5) || counter_direction_time < world.time)
+		dir_mob = null
+	if(!dir_mob)
+		for(var/mob/M in GLOB.player_list)
+			if(M.z != z || !M.client)
+				continue
+			if(prob(50))	//Не каждая жертва достойна охоты
+				continue
+			dir_mob = M
+			T = M.loc
+			break
+
+	//Охотник движется быстрее и не тупит если цель близко
+	timespan = (get_dist(src, T) SECONDS) + 10 SECONDS
+	return T ? T : ..()

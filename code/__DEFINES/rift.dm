@@ -3,8 +3,9 @@
 #define BIG_RIFT 		2
 #define FOG_RIFT 		3
 #define TWINS_RIFT 		4
-#define CRACK_RIFT 5
-#define MAX_TYPES_RIFT 	5
+#define CRACK_RIFT 		5
+#define HUNTER_RIFT 	6
+#define MAX_TYPES_RIFT 	6
 
 // Тип ивента
 #define BRS_EVENT_MESS 		1
