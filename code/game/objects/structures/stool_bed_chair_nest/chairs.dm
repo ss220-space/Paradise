@@ -32,6 +32,15 @@
 	..()
 	handle_rotation()
 
+/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
+	. = ..()
+	if(. && !movable)
+		anchored = TRUE
+
+/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
+	anchored = initial(anchored)
+	. = ..()
+
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
@@ -223,6 +232,7 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	pull_push_speed_modifier = 1
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
