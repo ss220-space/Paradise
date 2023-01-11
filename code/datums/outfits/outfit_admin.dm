@@ -183,8 +183,8 @@
 
 	backpack_contents = list(
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/pistol/enforcer/lethal = 1,
-		/obj/item/ammo_box/magazine/enforcer/lethal = 4,
+		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/suppressor = 1,
 		/obj/item/CQC_manual = 1
@@ -216,10 +216,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
-	var/image/holder = H.hud_list[ID_HUD]
-	if(I)
-		holder.icon_state = "hudsrt"
-	H.sec_hud_set_security_status()
+	H.sec_hud_set_ID()
 
 
 /datum/outfit/admin/nt_navy_captain
