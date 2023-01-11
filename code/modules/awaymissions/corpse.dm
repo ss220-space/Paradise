@@ -168,6 +168,7 @@
 				break
 	else
 		M.tts_seed = pick(SStts.tts_seeds)
+
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
