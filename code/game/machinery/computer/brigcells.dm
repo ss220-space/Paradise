@@ -52,13 +52,7 @@
 
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
-		switch(pickweight(list("sound_1", "sound_2", "sound_3")))
-			if("sound_1")
-				playsound(src, 'sound/machines/button.ogg', 20)
-			if("sound_2")
-				playsound(src, 'sound/machines/button_alternate.ogg', 20)
-			if("sound_3")
-				playsound(src, 'sound/machines/button_meloboom.ogg', 20)
+		playsound(src, 'sound/machines/[pick("button.ogg", button_alternate.ogg, button_meloboom.ogg)]', 20)
 		return FALSE
 
 	if (action == "release")

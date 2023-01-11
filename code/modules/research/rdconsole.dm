@@ -721,13 +721,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return 1
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-		switch(pickweight(list("sound_1", "sound_2", "sound_3")))
-			if("sound_1")
-				playsound(src, 'sound/machines/button.ogg', 20)
-			if("sound_2")
-				playsound(src, 'sound/machines/button_alternate.ogg', 20)
-			if("sound_3")
-				playsound(src, 'sound/machines/button_meloboom.ogg', 20)
+		playsound(src, 'sound/machines/[pick("button.ogg", button_alternate.ogg, button_meloboom.ogg)]', 20)
 		return TRUE
 	ui_interact(user)
 

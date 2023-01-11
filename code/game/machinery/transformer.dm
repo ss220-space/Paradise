@@ -319,13 +319,7 @@
 	if(istype(I, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
-			switch(pickweight(list("sound_1", "sound_2", "sound_3")))
-				if("sound_1")
-					playsound(src, 'sound/machines/button.ogg', 20)
-				if("sound_2")
-					playsound(src, 'sound/machines/button_alternate.ogg', 20)
-				if("sound_3")
-					playsound(src, 'sound/machines/button_meloboom.ogg', 20)
+			playsound(src, 'sound/machines/[pick("button.ogg", button_alternate.ogg, button_meloboom.ogg)]', 20)
 			return FALSE
 		var/obj/item/disk/data/D = I
 		if(!D.buf)
