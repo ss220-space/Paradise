@@ -34,7 +34,7 @@
 /datum/action/innate/honeycomb
 	name = "Secrete Wax"
 	desc = "Secrete Wax"
-	button_icon_state = "alien_resin"
+	button_icon_state = "wax"
 
 /datum/action/innate/honeycomb/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
@@ -50,9 +50,9 @@
 				O.show_message(text("<span class='alert'>[host] выделяет кучу воска и формирует из неё [choice]!</span>"), 1)
 			switch(choice)
 				if("соты")
-					new /obj/structure/alien/resin/wall(host.loc)
+					new /obj/structure/wryn/wax/wall(host.loc)
 				if("прозрачные соты")
-					new /obj/structure/alien/resin/membrane(host.loc)
+					new /obj/structure/wryn/wax/window(host.loc)
 
 	else
 		to_chat(owner, "<span class='notice'>Не хватает воска!</span>")
@@ -62,7 +62,7 @@
 /datum/action/innate/honeyfloor
 	name = "Honey Floor"
 	desc = "Honey Floor"
-	button_icon_state = "alien_plant"
+	button_icon_state = "wax"
 
 /datum/action/innate/honeyfloor/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
@@ -74,15 +74,15 @@
 		if(do_after(usr, 10, target = usr))
 			host.adjustWax(-25)
 			for(var/mob/O in viewers(owner, null))
-				O.show_message(text("<span class='alertalien'>[owner] высрал что-то на пол и, кажется, очень доволен этим!</span>"), 1)
-			new /obj/structure/alien/weeds(owner.loc)
+				O.show_message(text("<span class='alert'>[owner] выделяет кучу воска и формирует из неё пол!</span>"), 1)
+			new /obj/structure/wryn/floor(owner.loc)
 	else
 		to_chat(owner, "<span class='notice'>Не хватает воска!</span>")
 	return
 
 /datum/action/innate/toggle_producing
 	name = "Toggle Wax Producing"
-	button_icon_state = "alien_plant"
+	button_icon_state = "wrynglands"
 
 /datum/action/innate/toggle_producing/Activate()
 	var/mob/living/carbon/human/host = owner
