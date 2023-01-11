@@ -10,8 +10,8 @@
 	var/removable = null     //Can the kit be removed?
 	var/list/allowed_types = list() //Types of mech that the kit will work on.
 
-//Ниже идут возможные для применения киты. Если вы хотите добавить новые, возьмите спрайт пэинткита по пути "icons/obj/paintkit.dmi"
-//После чего бросьте спрайты нового меха в "icons/mecha/mecha.dmi и добавьте тут новый obj"
+//If you want to add new paintkit, grab a paintkit sprite from: "icons/obj/paintkit.dmi" or make a new one
+//Then throw the sprites of the new mecha skin to the "icons/mecha/mecha.dmi and add a new object below"
 
 /obj/item/paintkit/ripley_titansfist
 	name = "APLU \"Titan's Fist\" customisation kit"

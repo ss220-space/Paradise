@@ -1553,7 +1553,7 @@
 	build_path = /obj/item/borg/upgrade/syndie_rcd
 	category = list("Syndicate")
 
-//Тут идут новые пеинткиты, которые теперь можно печатать в фабрикаторе мехов
+//new paintkits
 /datum/design/paint_ripley_titan
 	name = "APLU \"Titan's Fist\" customisation kit"
 	id = "p_titan"
