@@ -261,7 +261,7 @@
 		)
 
 /obj/item/clothing/suit/storage/blueshield/srt
-	name = "srt coat"
+	name = "SRT coat"
 	desc = "Dark blue armored coat. Excellent defense against most types of damage."
 	armor = list(melee = 45, bullet = 35, laser = 35, energy = 20, bomb = 50, rad = 40, fire = 40, acid = 90)
 

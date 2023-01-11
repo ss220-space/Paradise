@@ -357,7 +357,7 @@
 	icon_state = "satchel-blueshield"
 
 /obj/item/storage/backpack/satchel_blueshield/srt
-	name = "srt satchel"
+	name = "SRT satchel"
 	desc = "A robust satchel issued to Nanotrasen's special force."
 	max_combined_w_class = 30
 

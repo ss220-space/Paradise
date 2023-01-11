@@ -202,8 +202,6 @@
 	. = ..()
 	H.head.desc = null
 	H.head.name = "SRT beret"
-	H.back.desc = null
-	H.back.name = "SRT satchel"
 	H.l_ear.desc = null
 	H.l_ear.name = "SRT bowman headset"
 	H.shoes.name = "SRT special shoes"
