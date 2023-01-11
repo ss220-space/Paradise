@@ -493,7 +493,7 @@
 					C.cremate(user)
 	else
 		to_chat(usr, span_warning("Access denied."))
-		playsound(src, 'sound/machines/[pick("button.ogg", button_alternate.ogg, button_meloboom.ogg)]', 20)
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

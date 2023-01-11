@@ -61,7 +61,7 @@
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		flick("[icon_button]-denied",src)
-		playsound(src, 'sound/machines/[pick("button.ogg", button_alternate.ogg, button_meloboom.ogg)]', 20)
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	use_power(5)
