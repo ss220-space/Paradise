@@ -598,8 +598,6 @@
 	if(rankName in soviet)
 		return "soviet"
 
-	if(assignmentName in special)
-		return "srt"
 	if(rankName in special)
 		return "srt"
 
