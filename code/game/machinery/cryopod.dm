@@ -104,6 +104,7 @@
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
 			playsound(src, 'sound/machines/[pick("button.ogg", button_alternate.ogg, button_meloboom.ogg)]', 20)
+			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
