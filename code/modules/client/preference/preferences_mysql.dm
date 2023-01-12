@@ -202,13 +202,13 @@
 					body_accessory,
 					gear,
 					autohiss,
+					uplink_pref,
+					tts_seed,
+					custom_emotes,
 					hair_gradient,
 					hair_gradient_offset,
 					hair_gradient_colour,
 					hair_gradient_alpha,
-					uplink_pref,
-					tts_seed,
-					custom_emotes
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
