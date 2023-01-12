@@ -61,3 +61,9 @@
 /obj/item/implant/mindshield/ert
 	name = "ERT mindshield implant"
 	desc = "Защищает ваш разум и предоставляет доступ к продвинутому боевому оборудованию НТ"
+
+/obj/item/implanter/mindshield/ert
+	name = "implanter (ERT mindshield)"
+
+/obj/item/implantcase/mindshield/ert/New()
+	imp = new /obj/item/implant/mindshield/ert(src)
