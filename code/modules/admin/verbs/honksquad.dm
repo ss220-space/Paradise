@@ -8,9 +8,9 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	if(!SSticker)
 		to_chat(usr, "<font color='red'>The game hasn't started yet!</font>")
 		return
-	//if(world.time < 6000)
-	//	to_chat(usr, "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>")
-	//	return
+	if(world.time < 6000)
+		to_chat(usr, "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>")
+		return
 	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
 	var/is_security_clowns = FALSE
