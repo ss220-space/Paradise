@@ -464,8 +464,8 @@
 												hair_gradient_colour=:h_grad_colour,
 												hair_gradient_alpha=:h_grad_alpha
 												uplink_pref=:uplink_pref,
-												custom_emotes=:custom_emotes,
-												tts_seed=:tts_seed
+												tts_seed=:tts_seed,
+												custom_emotes=:custom_emotes
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -660,8 +660,8 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"uplink_pref" = uplink_pref,
-		"custom_emotes" = json_encode(custom_emotes),
-		"tts_seed" = tts_seed
+		"tts_seed" = tts_seed,
+		"custom_emotes" = json_encode(custom_emotes)
 	))
 
 	if(!query.warn_execute())
