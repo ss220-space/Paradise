@@ -72,6 +72,11 @@
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
 
+/datum/outfit/admin/syndicate_infiltrator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Nuclear Operative"
@@ -117,6 +122,11 @@
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_syndicate_commando(FALSE, TRUE)
 
+/datum/outfit/admin/syndicate_strike_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
@@ -154,6 +164,60 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("VIP Guest"), "VIP Guest")
 	H.sec_hud_set_ID()
+
+/datum/outfit/admin/special_reaction_team
+	name = "Special Reaction Team Member"
+
+	uniform = /obj/item/clothing/under/fluff/jay_turtleneck
+	suit = /obj/item/clothing/suit/storage/blueshield/srt
+	back = /obj/item/storage/backpack/satchel_blueshield/srt
+	belt = /obj/item/storage/belt/security/webbing/srt/full
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/combat/swat
+	head = /obj/item/clothing/head/beret/centcom/officer/navy
+	l_ear = /obj/item/radio/headset/ert/alt
+	l_pocket = /obj/item/reagent_containers/hypospray/combat
+	r_pocket = /obj/item/reagent_containers/food/snacks/candy/mre
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	id = /obj/item/card/id/centcom
+
+	backpack_contents = list(
+		/obj/item/gun/energy/gun/blueshield = 1,
+		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 4,
+		/obj/item/shield/riot/tele = 1,
+		/obj/item/suppressor = 1,
+		/obj/item/CQC_manual = 1
+	)
+
+	accessories = list(
+		/obj/item/clothing/accessory/holster
+	)
+
+	implants = list(
+		/obj/item/implant/mindshield/ert
+	)
+
+/datum/outfit/admin/special_reaction_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	H.head.desc = null
+	H.head.name = "SRT beret"
+	H.l_ear.desc = null
+	H.l_ear.name = "SRT bowman headset"
+	H.shoes.name = "SRT special shoes"
+	H.w_uniform.name = "SRT uniform"
+
+
+/datum/outfit/admin/special_reaction_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
+	H.sec_hud_set_ID()
+
 
 /datum/outfit/admin/nt_navy_captain
 	name = "NT Navy Captain"

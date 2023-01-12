@@ -518,10 +518,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='warning'>Эта вентиляция ни к чему не подключена!</span>")
 
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
 	totalMembers |= pipeline.other_atmosmch
@@ -543,13 +543,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /atom/proc/update_pipe_vision()
 	return
 
-/mob/living/update_pipe_vision()
-	if(pipes_shown.len)
+/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+	if(!client)
+		pipes_shown.Cut()
+		return
+	if(length(pipes_shown) && !target_move)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
+			if(target_move)
+				remove_ventcrawl()
+			add_ventcrawl(loc, target_move)
 
 
 //Throwing stuff
@@ -1009,17 +1014,24 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if((lying) && (!(tilesSlipped)))
 		return FALSE
 
-	if(!(slipAny))
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/turf/simulated/T = get_turf(H)
+		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
+			return FALSE
+		if(!has_gravity(H) && !grav_ignore)
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip
+				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
+					return FALSE
+			else
 				return FALSE
 
 	if(tilesSlipped)

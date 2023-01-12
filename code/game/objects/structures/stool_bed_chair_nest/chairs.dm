@@ -5,7 +5,6 @@
 	icon_state = "chair"
 	layer = OBJ_LAYER
 	can_buckle = TRUE
-	buckle_prevents_pull = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
@@ -34,9 +33,9 @@
 	handle_rotation()
 
 /obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
-	if(!movable)
-		anchored = TRUE
 	. = ..()
+	if(. && !movable)
+		anchored = TRUE
 
 /obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
 	anchored = initial(anchored)
@@ -233,6 +232,7 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	pull_push_speed_modifier = 1
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"

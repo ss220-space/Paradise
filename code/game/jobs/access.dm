@@ -98,6 +98,8 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("NT Undercover Operative")
 			return get_all_centcom_access() + get_all_accesses()
+		if("Special Reaction Team Member")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Solar Federation General")
@@ -475,6 +477,9 @@
 /proc/get_all_soviet_jobs()
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral")
 
+/proc/get_all_special_jobs()
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
+
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
@@ -576,6 +581,7 @@
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
 	var/soviet = get_all_soviet_jobs()
+	var/special = get_all_special_jobs()
 
 	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
@@ -591,6 +597,16 @@
 		return "soviet"
 	if(rankName in soviet)
 		return "soviet"
+
+	if(rankName in special)
+		switch(rankName)
+			if("Special Reaction Team Member")
+				return "srt"
+			if("HONKsquad")
+				return "honksquad"
+			if("Clown Security")
+				return "clownsecurity"
+		return rankName
 
 	if(assignmentName in job_icons) //Check if the job has a hud icon
 		return assignmentName

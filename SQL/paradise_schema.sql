@@ -81,6 +81,7 @@ CREATE TABLE `characters` (
   `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '200',
+  `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -283,6 +284,7 @@ CREATE TABLE `player` (
   `byond_date` DATE DEFAULT NULL,
   `discord_id` varchar(32) NULL DEFAULT NULL,
   `discord_name` varchar(32) NULL DEFAULT NULL,
+  `keybindings` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
