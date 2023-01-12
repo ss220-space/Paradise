@@ -18,7 +18,8 @@
 					fuid,
 					parallax,
 					discord_id,
-					discord_name
+					discord_name,
+					keybindings
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -49,6 +50,7 @@
 		parallax = text2num(query.item[16])
 		discord_id = query.item[17]
 		discord_name = query.item[18]
+		keybindings = init_keybindings(raw = query.item[19])
 
 	qdel(query)
 
@@ -99,7 +101,8 @@
 					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax
+					parallax=:parallax,
+					keybindings=:keybindings
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -117,6 +120,7 @@
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
+						"keybindings" = json_encode(keybindings_overrides),
 						"ckey" = C.ckey
 					)
 					)
@@ -203,7 +207,8 @@
 					hair_gradient_colour,
 					hair_gradient_alpha,
 					uplink_pref,
-					tts_seed
+					tts_seed,
+					custom_emotes
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
