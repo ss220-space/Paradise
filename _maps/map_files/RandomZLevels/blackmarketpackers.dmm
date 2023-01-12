@@ -582,7 +582,7 @@
 /obj/item/pen/multi/gold,
 /obj/item/paper/crumpled/bloody{
 	layer = 2.9;
-	desc = Сильнопомятаябумага,обильнозапятнаннаякровью.Полноготекстанеразобрать,однакоизобрывковсловстановитсяпонятно,чтоэтопредсмертнаязаписка.
+	desc = "Badly crumpled paper, heavily stained with blood. The full text cannot be understood, however, from fragments of words it becomes clear that this is a death note."
 	},
 /obj/item/gun/energy/gun/mini{
 	layer = 2.8
@@ -4526,11 +4526,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"sC" = (
-/obj/structure/girder,
-/obj/structure/girder,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Buffer)
 "sK" = (
 /obj/effect/decal/cleanable/blood/old{
 	layer = 3.1
@@ -15786,7 +15781,7 @@ Pu
 Yh
 eM
 zX
-sC
+LC
 CJ
 zX
 hj
