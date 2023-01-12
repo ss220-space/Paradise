@@ -257,7 +257,7 @@
 		job_karma_med = text2num(query.item[37])
 		job_karma_low = text2num(query.item[38])
 
-		//Miscellaneous]
+		//Miscellaneous
 		flavor_text = query.item[39]
 		med_record = query.item[40]
 		sec_record = query.item[41]
@@ -287,10 +287,15 @@
 
 		// TTS
 		tts_seed = query.item[54]
-		h_grad_style = query.item[54]
-		h_grad_offset_x = query.item[55] // parsed down below
-		h_grad_colour = query.item[56]
-		h_grad_alpha = query.item[57]
+
+		//Emotes
+		custom_emotes_tmp = query.item[55]
+
+		// Gradient 
+		h_grad_style = query.item[56]
+		h_grad_offset_x = query.item[57] // parsed down below
+		h_grad_colour = query.item[58]
+		h_grad_alpha = query.item[59]
 
 		saved = TRUE
 
@@ -330,6 +335,8 @@
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
 	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
+	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
+	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -452,6 +459,7 @@
 												hair_gradient_colour=:h_grad_colour,
 												hair_gradient_alpha=:h_grad_alpha
 												uplink_pref=:uplink_pref,
+												custom_emotes=:custom_emotes,
 												tts_seed=:tts_seed
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
@@ -514,6 +522,7 @@
 													"h_grad_alpha" = h_grad_alpha,
 													"uplink_pref" = uplink_pref,
 													"tts_seed" = tts_seed,
+													"custom_emotes" = json_encode(custom_emotes),
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -555,7 +564,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -583,7 +592,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -646,6 +655,7 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"uplink_pref" = uplink_pref,
+		"custom_emotes" = json_encode(custom_emotes),
 		"tts_seed" = tts_seed
 	))
 
@@ -729,3 +739,15 @@
 
 	qdel(update_query)
 	return TRUE
+
+/datum/preferences/proc/init_custom_emotes(overrides)
+
+	custom_emotes = overrides
+
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue //we set anything without an override back to default, in case it isn't that
+		custom_emotes[custom_emote.name] = emote_text
+
+	return custom_emotes
