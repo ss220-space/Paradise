@@ -13656,6 +13656,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
+/obj/item/storage/box/responseteam,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
@@ -36289,6 +36290,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/storage/box/responseteam,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
