@@ -5,71 +5,74 @@
 	icon_state = "away"
 	report_alerts = FALSE
 	requires_power = FALSE
-	ambientsounds = "sound/music/space.ogg"
+	ambientsounds = list('sound/music/space.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambigen11.ogg', 'sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/traitor.ogg')
 
 /area/awaymission/BMPship/Engines
 	name = "BMP Engine Block"
 	icon_state = "away1"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/Containment
 	name = "BMP Containment Block"
 	icon_state = "away2"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambicave.ogg', 'sound/ambience/ambiatmos2.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/Fore
 	name = "BMP Fore Block"
 	icon_state = "away3"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambigen12.ogg', 'sound/ambience/ambicave.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/Gate
 	name = "BMP Gate"
 	icon_state = "away4"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/Armory
 	name = "BMP Armory"
 	icon_state = "away5"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/CommonArea
 	name = "BMP Common Area"
 	icon_state = "away6"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambigen4.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/MedBay
 	name = "BMP MedBay Block"
 	icon_state = "away7"
 	requires_power = TRUE
+	ambientsounds = list('sound/ambience/ambigen6.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/ChemLab
 	name = "BMP Chem Lab"
 	icon_state = "away8"
 	requires_power = TRUE
+	ambientsounds = "sound/ambience/ambifailure.ogg"
 
 /area/awaymission/BMPship/Shelter
 	name = "BMP Shelter"
 	icon_state = "away9"
 	requires_power = TRUE
+	ambientsounds = "sound/ambience/ambifailure.ogg"
 
 /area/awaymission/BMPship/Dormitories
 	name = "BMP Dormitories"
 	icon_state = "away10"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambigen3.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/TurretsNorth
 	name = "BMP Turrets North"
@@ -86,21 +89,21 @@
 	icon_state = "away13"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/Kitchen
 	name = "BMP Kitchen"
 	icon_state = "away14"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/Buffer
 	name = "BMP Buffer"
 	icon_state = "away15"
 	requires_power = TRUE
 	fire = TRUE
-	ambientsounds = "sound/music/traitor.ogg"
+	ambientsounds = list('sound/ambience/ambigen5.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/TraderShuttle
 	name = "BMP Trader Shuttle"
