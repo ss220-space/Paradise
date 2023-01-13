@@ -1292,6 +1292,63 @@
 	blocks_air = 1
 	},
 /area/awaymission/beach)
+"ol" = (
+/obj/effect/overlay/palmtree_l,
+/obj/effect/overlay/coconut,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
+"pz" = (
+/obj/effect/overlay/palmtree_r,
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
+"sk" = (
+/obj/structure/flora/rock,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
+"ue" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
+"Ae" = (
+/obj/effect/overlay/palmtree_r,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
+"FW" = (
+/obj/effect/overlay/palmtree_r,
+/obj/effect/overlay/coconut,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
 "LZ" = (
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/indestructible/beach/water/deep,
@@ -1302,6 +1359,19 @@
 /area/awaymission/undersea)
 "Sq" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/awaymission/beach)
+"Ui" = (
+/obj/effect/overlay/palmtree_l,
+/turf/simulated/floor/indestructible/beach/sand{
+	opacity = 1;
+	density = 1;
+	name = "Sand wall";
+	blocks_air = 1
+	},
+/area/awaymission/beach)
+"Vz" = (
+/obj/effect/overlay/palmtree_l,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "WY" = (
 /obj/effect/baseturf_helper/beach/sand,
@@ -15676,9 +15746,9 @@ by
 bj
 bF
 lh
-aa
-aa
-aa
+lh
+lh
+lh
 aa
 aa
 aa
@@ -15933,9 +16003,9 @@ by
 bD
 bL
 lh
-aa
-aa
-aa
+Ae
+lh
+Ae
 aa
 aa
 aa
@@ -16189,10 +16259,10 @@ cc
 by
 bz
 bj
+ue
 lh
-aa
-aa
-aa
+FW
+lh
 aa
 aa
 aa
@@ -16446,10 +16516,10 @@ bX
 bB
 bE
 bz
+ue
 lh
-aa
-aa
-aa
+FW
+lh
 aa
 aa
 aa
@@ -16703,10 +16773,10 @@ bW
 bM
 bj
 bj
+ue
 lh
-aa
-aa
-aa
+FW
+sk
 aa
 aa
 aa
@@ -16960,10 +17030,10 @@ ca
 ci
 bf
 bL
-lh
-aa
-aa
-aa
+Ui
+ue
+ue
+sk
 aa
 aa
 aa
@@ -17218,9 +17288,9 @@ by
 bj
 bz
 lh
-aa
-aa
-aa
+Ui
+ue
+sk
 aa
 aa
 aa
@@ -17474,10 +17544,10 @@ bX
 by
 bz
 bj
+ue
 lh
-aa
-aa
-aa
+Ui
+sk
 aa
 aa
 aa
@@ -17731,10 +17801,10 @@ bT
 by
 bL
 bj
+ue
+ue
+Ui
 lh
-aa
-aa
-aa
 aa
 aa
 aa
@@ -17989,9 +18059,9 @@ bB
 bj
 bz
 lh
-aa
-aa
-aa
+ue
+ue
+Ui
 aa
 aa
 aa
@@ -18246,9 +18316,9 @@ bB
 bj
 bD
 lh
-aa
-aa
-aa
+ue
+pz
+lh
 aa
 aa
 aa
@@ -18502,10 +18572,10 @@ cc
 bj
 bz
 bz
+sk
 lh
-aa
-aa
-aa
+Ae
+lh
 aa
 aa
 aa
@@ -18759,10 +18829,10 @@ bX
 bj
 bz
 bj
+sk
+sk
 lh
-aa
-aa
-aa
+sk
 aa
 aa
 aa
@@ -19017,9 +19087,9 @@ bC
 bj
 bz
 lh
-aa
-aa
-aa
+lh
+sk
+sk
 aa
 aa
 aa
@@ -19272,11 +19342,11 @@ bf
 bX
 cg
 by
-bj
+bF
 lh
-aa
-aa
-aa
+Ae
+lh
+lh
 aa
 aa
 aa
@@ -19530,10 +19600,10 @@ bT
 cg
 bB
 bL
+Ui
 lh
-aa
-aa
-aa
+lh
+Ae
 aa
 aa
 aa
@@ -19788,9 +19858,9 @@ cg
 ci
 bE
 lh
-aa
-aa
-aa
+sk
+sk
+lh
 aa
 aa
 aa
@@ -20044,10 +20114,10 @@ bj
 bx
 bz
 bj
+Ui
 lh
-aa
-aa
-aa
+sk
+sk
 aa
 aa
 aa
@@ -20302,9 +20372,9 @@ by
 bj
 bz
 lh
-aa
-aa
-aa
+Ae
+lh
+sk
 aa
 aa
 aa
@@ -20559,9 +20629,9 @@ bJ
 bj
 bD
 lh
-aa
-aa
-aa
+Ui
+lh
+lh
 aa
 aa
 aa
@@ -20815,10 +20885,10 @@ bz
 bj
 bD
 bj
+Ui
 lh
-aa
-aa
-aa
+lh
+FW
 aa
 aa
 aa
@@ -21073,9 +21143,9 @@ bJ
 bj
 bD
 lh
-aa
-aa
-aa
+Ui
+lh
+ol
 aa
 aa
 aa
@@ -21330,9 +21400,9 @@ bj
 bD
 bj
 lh
-aa
-aa
-aa
+lh
+Ui
+lh
 aa
 aa
 aa
@@ -21587,9 +21657,9 @@ bj
 bz
 bD
 lh
-aa
-aa
-aa
+Ae
+lh
+Ui
 aa
 aa
 aa
@@ -21844,9 +21914,9 @@ bj
 bD
 bj
 lh
-aa
-aa
-aa
+lh
+sk
+sk
 aa
 aa
 aa
@@ -22101,9 +22171,9 @@ bD
 bj
 bD
 lh
-aa
-aa
-aa
+Ui
+sk
+lh
 aa
 aa
 aa
@@ -22357,10 +22427,10 @@ ca
 bj
 bD
 bj
+sk
+sk
 lh
-aa
-aa
-aa
+ol
 aa
 aa
 aa
@@ -22615,9 +22685,9 @@ bD
 bj
 bD
 lh
-aa
-aa
-aa
+Ui
+lh
+ol
 aa
 aa
 aa
@@ -22871,10 +22941,10 @@ bj
 bz
 bD
 bj
+Ui
 lh
-aa
-aa
-aa
+lh
+ol
 aa
 aa
 aa
@@ -23129,9 +23199,9 @@ by
 bz
 bD
 lh
-aa
-aa
-aa
+lh
+Ae
+lh
 aa
 aa
 aa
@@ -23386,9 +23456,9 @@ bB
 by
 bj
 lh
-aa
-aa
-aa
+Ui
+lh
+Ui
 aa
 aa
 aa
@@ -23642,10 +23712,10 @@ bj
 ci
 bB
 bL
+Ae
 lh
-aa
-aa
-aa
+lh
+Ae
 aa
 aa
 aa
@@ -23894,15 +23964,15 @@ bf
 cg
 dc
 bL
-cg
+Vz
 cg
 cg
 ci
 bE
 lh
-aa
-aa
-aa
+Ui
+lh
+Ui
 aa
 aa
 aa
@@ -24157,9 +24227,9 @@ lh
 lh
 lh
 lh
-aa
-aa
-aa
+lh
+lh
+lh
 aa
 aa
 aa
