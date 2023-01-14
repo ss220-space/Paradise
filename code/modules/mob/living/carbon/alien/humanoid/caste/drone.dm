@@ -15,7 +15,10 @@
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
 /mob/living/carbon/alien/humanoid/drone/GrantAlienActions()
-	. = ..()
+	whisper_action.Grant(src)
+	transfer_plasma_action.Grant(src)
+	regurgitate_action.Grant(src)
+	nigtvisiontoggle_action.Grant(src)
 	evolve_to_queen_action.Grant(src)
 
 //Drones use the same base as generic humanoids.
