@@ -79,6 +79,10 @@
 	if(!recolor)
 		recolor = new
 		recolor.Grant(H)
+	var/datum/action/innate/slimehair/changehair = locate() in H.actions
+	if(!changehair)
+		changehair = new
+		changehair.Grant(H)
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	blend(H)
@@ -242,6 +246,28 @@
 		H.visible_message("<span class='notice'>[H] отращивает [genderize_ru(H.gender,"его","её","своей","их")] потерянную [new_limb_rus]!</span>", "<span class='notice'>Вы отрастили [new_limb_rus]</span>")
 	else
 		to_chat(H, "<span class='warning'>Для отращивания конечности вам нужно стоять на месте!</span>")
+
+/datum/action/innate/slimehair
+	name = "Change Hairstyle"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/slimehair/Activate()
+	var/mob/living/carbon/human/H = owner
+
+	var/list/valid_hairstyles = H.generate_valid_hairstyles()
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+	if(new_style)
+		H.change_hair(new_style)
+
+	var/list/valid_facial_hairstyles = H.generate_valid_facial_hairstyles()
+	if(H.gender == FEMALE)
+		return
+	new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+	if(new_style)
+		H.change_facial_hair(new_style)
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
