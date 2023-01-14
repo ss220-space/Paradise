@@ -26,11 +26,11 @@
 			if(spirited)
 				cancel_spirit_form() 	//And another one!
 		if(N_ADRENALINE)
-			if(!a_boost)
+			if(!a_boost.charge_counter)
 				to_chat(ninja, span_warning("You do not have any more adrenaline boosters!"))
 				return TRUE
 		if(N_HEAL)
-			if(!heal_available)
+			if(!heal_chems.charge_counter)
 				to_chat(ninja, span_warning("You do not have any more chemicals to heal yourself!"))
 				return TRUE
 	return (s_coold)//Returns the value of the variable which counts down to zero.

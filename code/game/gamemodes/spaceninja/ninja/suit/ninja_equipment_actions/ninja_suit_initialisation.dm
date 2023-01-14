@@ -9,12 +9,36 @@
 			unlock_suit()
 			return
 	ninja.regenerate_icons()
-	if(ninja_clonable)
-		cloning_ref.scan_mob(ninja)
+
+	var/datum/martial_art/ninja_martial_art/creeping_widow = new
+	creeping_widow.teach(usr)
+	creeping_widow.my_suit = src
+	creeping_widow.my_energy_katana = energyKatana
+
+	ninja_clonable = TRUE
+	cloning_ref.scan_mob(ninja)
+
+	var/list/ninja_abilities = list(
+		"shuriken", "ninja_cloak", "ninja_spirit_form", "chameleon",
+		"kunai", "smoke", "adrenal", "energynet", "emergency_blink",
+		"ninja_clones", "emp", "chem_injector", "caltrop")
+
+	for(var/ability in ninja_abilities)
+		var/action_path = get_suit_ability(ability)
+		actions_types += action_path
+		var/datum/action/ninja_action = new action_path(src, action_icon[action_path], action_icon_state[action_path])
+		ninja_action.Grant(usr)
+		if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaboost))
+			a_boost = ninja_action
+		if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaheal))
+			heal_chems = ninja_action
+	for(var/count in 1 to 5)
+		blocked_TGUI_rows[count] = TRUE
 	toggle_emp_proof(ninja.bodyparts, TRUE)
 	toggle_emp_proof(ninja.internal_organs, TRUE)
 	start()
 	cell.self_recharge = TRUE
+	cell.maxcharge = 50000
 	START_PROCESSING(SSobj, cell)
 	for(var/datum/action/item_action/SpiderOS/ninja_action in actions)
 		toggle_ninja_action_active(ninja_action, TRUE)

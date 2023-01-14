@@ -154,6 +154,10 @@
 			actions_types += action_path
 			var/datum/action/ninja_action = new action_path(src, action_icon[action_path], action_icon_state[action_path])
 			ninja_action.Grant(usr)
+			if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaboost))
+				a_boost = ninja_action
+			if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaheal))
+				heal_chems = ninja_action
 			ninja.mind.ninja.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
 			addtimer(CALLBACK(src, .proc/toggle_ability_buy_block), 2 SECONDS)
 		if("move")
@@ -191,19 +195,19 @@
 	var/return_ability_type
 	switch(ability)
 		if("ninja_cloak")
-			return_ability_type = /datum/action/item_action/ninja_stealth
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_stealth
 		if("shuriken")
 			return_ability_type = /datum/action/item_action/toggle_shuriken_fire_mode
 		if("ninja_spirit_form")
-			return_ability_type = /datum/action/item_action/ninja_spirit_form
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_spirit_form
 		if("chameleon")
 			return_ability_type = /datum/action/item_action/ninja_chameleon
 		if("kunai")
-			return_ability_type = /datum/action/item_action/johyo
+			return_ability_type = /datum/action/item_action/advanced/ninja/johyo
 		if("smoke")
 			return_ability_type = /datum/action/item_action/ninja_smoke_bomb
 		if("adrenal")
-			return_ability_type = /datum/action/item_action/ninjaboost
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninjaboost
 		if("energynet")
 			return_ability_type = /datum/action/item_action/ninjanet
 		if("emergency_blink")
@@ -213,7 +217,7 @@
 		if("emp")
 			return_ability_type = /datum/action/item_action/ninjapulse
 		if("chem_injector")
-			return_ability_type = /datum/action/item_action/ninjaheal
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninjaheal
 		if("caltrop")
 			return_ability_type = /datum/action/item_action/ninja_caltrops
 	return return_ability_type

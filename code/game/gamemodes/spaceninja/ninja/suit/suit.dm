@@ -29,17 +29,17 @@
 		/datum/action/item_action/ninja_autodust,
 		/datum/action/item_action/ninjastatus,
 		/datum/action/item_action/ninja_sword_recall,
-/*		/datum/action/item_action/ninja_stealth, Не используется
+/*		/datum/action/item_action/advanced/ninja/ninja_stealth, Не используется
 		/datum/action/item_action/ninja_chameleon,
-		/datum/action/item_action/ninja_spirit_form,
-		/datum/action/item_action/ninjaboost,
-		/datum/action/item_action/ninjaheal,
+		/datum/action/item_action/advanced/ninja/ninja_spirit_form,
+		/datum/action/item_action/advanced/ninja/ninjaboost,
+		/datum/action/item_action/advanced/ninja/ninjaheal,
 		/datum/action/item_action/ninja_clones,
 		/datum/action/item_action/ninjapulse,
 		/datum/action/item_action/ninja_smoke_bomb,
 		/datum/action/item_action/ninja_caltrops,
 		/datum/action/item_action/ninja_emergency_blink,
-		/datum/action/item_action/johyo,
+		/datum/action/item_action/advanced/ninja/johyo,
 		/datum/action/item_action/ninjanet,
 		/datum/action/item_action/toggle_shuriken_fire_mode
 		/datum/action/item_action/ninjastar, */ )
@@ -231,8 +231,8 @@
 	/// Записанная маскировка для хамелиона
 	var/datum/icon_snapshot/disguise = null
 
-	/// Флаг доступности Адреналина для применения
-	var/a_boost = TRUE
+	/// Адреналин. Для удобства обращения к нему костюма.
+	var/datum/action/item_action/advanced/ninja/ninjaboost/a_boost = null
 	/// Фразы выкрикиваемые носящим при активации адреналина
 	var/list/boost_phrases = list(
 		"A CORNERED FOX IS MORE DANGEROUS THAN A JACKAL!",
@@ -243,7 +243,7 @@
 		"I'M LIGHTNING! THE RAIN TRANSFORMED!")
 
 	/// Флаг доступности лечащих химикатов для применения
-	var/heal_available = TRUE
+	var/datum/action/item_action/advanced/ninja/ninjaheal/heal_chems = null
 	/// Сколько кусков урана требуется для восстановления адреналина/лечащего коктейля?
 	/// От этой цифры так же зависит объём радия вводимый в тело после адренала
 	var/a_transfer = 10
@@ -261,16 +261,16 @@
 	if(!ninja == affecting)
 		return
 	. += "All systems operational. Current energy capacity: <B>[cell.charge]</B>.\n"
-	if(locate(/datum/action/item_action/ninja_stealth) in actions)
+	if(locate(/datum/action/item_action/advanced/ninja/ninja_stealth) in actions)
 		. += "The Cloak-Tech Device is <B>[stealth?"active":"inactive"]</B>.\n"
 	if(locate(/datum/action/item_action/ninja_chameleon) in actions)
 		. += "The Kitsune - Adaptive Chameleon Device is <B>[disguise_active?"active":"inactive"]</B>.\n"
-	if(locate(/datum/action/item_action/ninja_spirit_form) in actions)
+	if(locate(/datum/action/item_action/advanced/ninja/ninja_spirit_form) in actions)
 		. += "Spirit Form Prototype Module is <B>[spirited?"active":"inactive"]</B>.\n"
-	if(locate(/datum/action/item_action/ninjaboost) in actions)
-		. += "[a_boost?"Integrated Adrenaline Injector is available to use.":"There is no adrenaline boost available. Try refilling the suit with uranium sheets."]\n"
-	if(locate(/datum/action/item_action/ninjaheal) in actions)
-		. += "[heal_available?"Integrated Restorative Cocktail Mixer is available to use.":"There is no healing chemicals available. Try refilling the suit with uranium sheets."]\n"
+	if(locate(/datum/action/item_action/advanced/ninja/ninjaboost) in actions)
+		. += "[a_boost.charge_counter ? "Integrated Adrenaline Injector is available to use.":"There is no adrenaline boost available. Try refilling the suit with uranium sheets."]\n"
+	if(locate(/datum/action/item_action/advanced/ninja/ninjaheal) in actions)
+		. += "[heal_chems.charge_counter ? "Integrated Restorative Cocktail Mixer is available to use.":"There is no healing chemicals available. Try refilling the suit with uranium sheets."]\n"
 	if(ninja_clonable)
 		. += "You have bought a Second chance for yourself. \n"
 
@@ -448,10 +448,10 @@
 		if(/datum/action/item_action/ninjastatus)
 			ninjastatus()
 			return TRUE
-		if(/datum/action/item_action/ninjaboost)
+		if(/datum/action/item_action/advanced/ninja/ninjaboost)
 			ninjaboost()
 			return TRUE
-		if(/datum/action/item_action/ninjaheal)
+		if(/datum/action/item_action/advanced/ninja/ninjaheal)
 			ninjaheal()
 			return TRUE
 		if(/datum/action/item_action/ninjastar)
@@ -477,7 +477,7 @@
 		if(/datum/action/item_action/ninja_sword_recall)
 			ninja_sword_recall()
 			return TRUE
-		if(/datum/action/item_action/ninja_stealth)
+		if(/datum/action/item_action/advanced/ninja/ninja_stealth)
 			toggle_stealth()
 			return TRUE
 		if(/datum/action/item_action/ninja_chameleon)
@@ -489,13 +489,13 @@
 		if(/datum/action/item_action/ninja_caltrops)
 			scatter_caltrops()
 			return TRUE
-		if(/datum/action/item_action/johyo)
+		if(/datum/action/item_action/advanced/ninja/johyo)
 			toggle_harpoon()
 			return TRUE
 		if(/datum/action/item_action/ninja_emergency_blink)
 			emergency_blink()
 			return TRUE
-		if(/datum/action/item_action/ninja_spirit_form)
+		if(/datum/action/item_action/advanced/ninja/ninja_spirit_form)
 			if(!is_teleport_allowed(ninja.z))	//Дублирую и тут, потому что спамом абилки можно на доли секунды врубить её и пройти сквозь стену
 				to_chat(ninja, span_warning("This place forcibly stabilizes your body somehow! You can't use \"Spirit Form\" there!"))
 				return FALSE
@@ -551,7 +551,12 @@
 	for(action in ninja.actions)
 		action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
 		action.background_icon_state = "background_[color_choice]"
-		if((istype(action, /datum/action/item_action/ninjaboost) && a_boost) || (istype(action, /datum/action/item_action/ninjaheal) && heal_available))
+		if(istype(action, /datum/action/item_action/advanced/ninja))
+			var/datum/action/item_action/advanced/ninja/ninja_action = action
+			ninja_action.recharge_text_color = color_choice
+			ninja_action.icon_state_active = "background_[color_choice]_active"
+			ninja_action.icon_state_disabled = "background_[color_choice]"
+		if((istype(action, /datum/action/item_action/advanced/ninja/ninjaboost) && a_boost == action) || (istype(action, /datum/action/item_action/advanced/ninja/ninjaheal) && heal_chems == action))
 			action.background_icon_state = "background_[color_choice]_active"
 	ninja.update_action_buttons_icon()
 
@@ -686,7 +691,7 @@
 			bodypart.emp_proof = TRUE
 		else
 			bodypart.emp_proof = initial(bodypart.emp_proof)
-
+//Удалить как закончу с изменением всех экшенов
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_action_active(var/datum/action/item_action/ninja_action, var/active_state)
 	var/mob/living/carbon/human/ninja = affecting
 	ninja_action.background_icon_state =  active_state	?  "background_[color_choice]_active" :  "background_[color_choice]"
