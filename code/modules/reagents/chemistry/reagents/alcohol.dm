@@ -107,7 +107,7 @@
 	overdose_threshold = 30
 	dizzy_adj = 5
 	alcohol_perc = 0.7
-	drink_icon = "absinthebottle"
+	drink_icon = "absintheglass"
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
@@ -1672,21 +1672,7 @@
 	drink_icon = "alcomender"
 	drink_name = "Alcomender"
 	drink_desc = "A glass in the form of a mender, a favorite among doctors."
-	taste_description = "skin restoration"
-
-/datum/reagent/consumable/ethanol/alcomender/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	return ..() | update_flags
-
-/datum/reagent/consumable/ethanol/alcomender/reaction_mob(mob/living/M, method=REAGENT_INGEST, volume, show_message = TRUE)
-	if(!iscarbon(M))
-		return
-	if(method == REAGENT_INGEST)
-		M.adjustFireLoss(-volume)
-		if(show_message)
-			to_chat(M, "<span class='notice'>Strong alcohol moisturizes the skin.</span>")
-	return ..()
+	taste_description = "funny medicine"
 
 /datum/reagent/consumable/ethanol/amnesia
 	name = "Star Amnesia"
