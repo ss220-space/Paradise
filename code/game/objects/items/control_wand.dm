@@ -36,12 +36,6 @@
 		emagged = TRUE
 		if(user)
 			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
-	else
-		add_attack_logs(user, src, "un-emagged")
-		emagged = FALSE
-		mode = WAND_OPEN
-		if(user)
-			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
 
 /obj/item/door_remote/attack_self(mob/user)
 	if(emagged)
