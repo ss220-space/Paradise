@@ -34,7 +34,7 @@
 
 	reagent_tag = PROCESS_ORG
 
-		has_organ = list(
+	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
 		"filtrating vacuoles" =   /obj/item/organ/internal/kidneys/diona,
 		"neural strata" =   /obj/item/organ/internal/brain/diona,
