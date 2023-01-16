@@ -3001,6 +3001,13 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
+"ayc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/grille_often,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
 "aye" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -12792,7 +12799,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "bzy" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/cable{
@@ -15545,7 +15552,7 @@
 	dir = 10;
 	icon_state = "red"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "bLA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -20464,7 +20471,7 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "cft" = (
 /obj/machinery/camera{
 	c_tag = "Supermatter Pump Airlock";
@@ -28001,7 +28008,7 @@
 	dir = 6;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "cJN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -33765,7 +33772,7 @@
 	dir = 5;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "dgv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -36294,7 +36301,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "dpn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -42208,7 +42215,7 @@
 	dir = 6;
 	icon_state = "red"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "dNr" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
@@ -48045,7 +48052,7 @@
 	dir = 5;
 	icon_state = "darkred"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "exw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -51331,7 +51338,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/security/evidence)
+/area/security/interrogation)
 "fif" = (
 /obj/structure/dresser,
 /obj/item/radio/intercom{
@@ -51899,7 +51906,7 @@
 	dir = 10;
 	icon_state = "darkredfull"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "foa" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/arcade,
@@ -52169,7 +52176,7 @@
 	dir = 9;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "fsu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -57061,7 +57068,7 @@
 	dir = 9;
 	icon_state = "red"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "gxS" = (
 /obj/structure/dispenser,
 /obj/item/radio/intercom{
@@ -61382,7 +61389,7 @@
 	dir = 5;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "hsQ" = (
 /obj/machinery/light{
 	dir = 8
@@ -64175,7 +64182,7 @@
 	dir = 4;
 	icon_state = "darkredcorners"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "iaa" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -66445,7 +66452,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/security/evidence)
+/area/security/interrogation)
 "iAS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -66503,7 +66510,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "iBT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -66542,7 +66549,7 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "iCu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -68738,7 +68745,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "jcq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -68854,7 +68861,7 @@
 	dir = 5;
 	icon_state = "red"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "jeg" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/roboticist,
@@ -69610,7 +69617,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/security/evidence)
+/area/security/interrogation)
 "jnr" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
@@ -69693,7 +69700,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "jot" = (
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -72186,7 +72193,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "jRl" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -73067,7 +73074,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/security/evidence)
+/area/security/interrogation)
 "kbW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -73155,7 +73162,7 @@
 	dir = 10;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "kdl" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1;
@@ -73268,7 +73275,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "keL" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -73297,7 +73304,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "kff" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -74390,7 +74397,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "krN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -77243,7 +77250,7 @@
 	dir = 6;
 	icon_state = "darkred"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "lfA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79313,7 +79320,7 @@
 	id = "visiting room"
 	},
 /turf/simulated/floor/plating,
-/area/security/interrogation)
+/area/security/visiting_room)
 "lCK" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -80302,7 +80309,7 @@
 	dir = 9;
 	icon_state = "darkred"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "lOz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -84062,7 +84069,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/security/interrogation)
+/area/security/visiting_room)
 "mDN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -84160,7 +84167,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/security/interrogation)
+/area/security/visiting_room)
 "mEA" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel{
@@ -87360,7 +87367,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "nnM" = (
 /obj/machinery/biogenerator,
 /obj/effect/decal/warning_stripes/yellow,
@@ -88188,6 +88195,9 @@
 	icon_state = "seadeep"
 	},
 /area/crew_quarters/fitness)
+"nwj" = (
+/turf/simulated/wall/r_wall,
+/area/security/visiting_room)
 "nwn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -88336,7 +88346,8 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_home";
 	name = "Cargo Docking Hatch";
-	req_access_txt = "31"
+	req_access_txt = "31";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -88852,7 +88863,9 @@
 /turf/simulated/wall,
 /area/maintenance/library)
 "nFf" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -89376,7 +89389,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/security/interrogation)
+/area/security/visiting_room)
 "nKe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -93397,7 +93410,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "oDO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
@@ -100642,7 +100655,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "qfe" = (
 /obj/machinery/newscaster{
 	pixel_x = -28;
@@ -100961,7 +100974,7 @@
 	id = "visiting room"
 	},
 /turf/simulated/floor/plating,
-/area/security/interrogation)
+/area/security/visiting_room)
 "qis" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -101338,7 +101351,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "qlZ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -104724,7 +104737,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "qWu" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -105524,7 +105537,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "ref" = (
 /obj/structure/table/reinforced,
 /obj/item/analyzer,
@@ -107367,7 +107380,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/wall/r_wall,
-/area/security/evidence)
+/area/security/interrogation)
 "rzM" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -110613,7 +110626,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "skZ" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -113994,7 +114007,7 @@
 	dir = 10;
 	icon_state = "darkred"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "sXr" = (
 /obj/effect/landmark/start{
 	name = "Station Engineer"
@@ -116897,7 +116910,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "tFj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -119089,7 +119102,7 @@
 	dir = 4;
 	icon_state = "darkredcorners"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "ucJ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -122959,7 +122972,7 @@
 	dir = 10;
 	icon_state = "darkredfull"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "uTb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -131370,7 +131383,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/evidence)
+/area/security/interrogation)
 "wLu" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "BrigLeft";
@@ -131477,7 +131490,7 @@
 /area/maintenance/detectives_office)
 "wMw" = (
 /turf/simulated/wall,
-/area/security/interrogation)
+/area/security/visiting_room)
 "wMA" = (
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -134985,7 +134998,7 @@
 	dir = 1;
 	icon_state = "red"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "xxy" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -135119,7 +135132,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/wall/r_wall,
-/area/security/evidence)
+/area/security/interrogation)
 "xyS" = (
 /obj/machinery/computer/teleporter,
 /obj/effect/decal/warning_stripes/southeast,
@@ -139111,7 +139124,7 @@
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
-/area/security/interrogation)
+/area/security/visiting_room)
 "ykR" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -159192,7 +159205,7 @@ ohF
 nBj
 ocy
 lvs
-kUR
+ayc
 fXD
 lsG
 lvs
@@ -191009,10 +191022,10 @@ wla
 ubg
 dsj
 jXk
-vyi
+nwj
 uSY
 qie
-vyi
+nwj
 nKc
 lCu
 wMw
@@ -191266,7 +191279,7 @@ uRW
 iPH
 oar
 jZY
-vyi
+nwj
 lOu
 sXq
 mDL
@@ -191523,7 +191536,7 @@ fnM
 iAK
 jnn
 kbT
-vyi
+nwj
 krM
 qWg
 bzw
@@ -191780,7 +191793,7 @@ qlW
 oDN
 dpk
 kdd
-vyi
+nwj
 exv
 lfw
 mEu
@@ -192037,13 +192050,13 @@ skC
 qfc
 wLq
 kfc
-vyi
-vyi
-vyi
-vyi
-vyi
-vyi
-vyi
+nwj
+nwj
+nwj
+nwj
+nwj
+nwj
+nwj
 hdu
 pLB
 bzC
@@ -192288,7 +192301,7 @@ abj
 abj
 acF
 acF
-sCb
+vyi
 jch
 tFf
 iBE
@@ -192545,7 +192558,7 @@ mAr
 fdX
 fAB
 aru
-sCb
+vyi
 hsI
 hZW
 ucB
@@ -192803,7 +192816,7 @@ ffs
 fAM
 gnI
 aru
-sCb
+vyi
 dgo
 iCk
 cfs
