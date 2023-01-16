@@ -3,9 +3,10 @@
  */
 
 //Кнопка для вызова интерфейса
-/datum/action/item_action/SpiderOS
+/datum/action/item_action/advanced/ninja/SpiderOS
 	name = "SpiderOS"
 	desc = "Your personal integrated suit AI that will help you configure yourself for the upcoming mission!"
+	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "spider_green"
@@ -197,28 +198,28 @@
 		if("ninja_cloak")
 			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_stealth
 		if("shuriken")
-			return_ability_type = /datum/action/item_action/toggle_shuriken_fire_mode
+			return_ability_type = /datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode
 		if("ninja_spirit_form")
 			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_spirit_form
 		if("chameleon")
-			return_ability_type = /datum/action/item_action/ninja_chameleon
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_chameleon
 		if("kunai")
 			return_ability_type = /datum/action/item_action/advanced/ninja/johyo
 		if("smoke")
-			return_ability_type = /datum/action/item_action/ninja_smoke_bomb
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_smoke_bomb
 		if("adrenal")
 			return_ability_type = /datum/action/item_action/advanced/ninja/ninjaboost
 		if("energynet")
-			return_ability_type = /datum/action/item_action/ninjanet
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninjanet
 		if("emergency_blink")
-			return_ability_type = /datum/action/item_action/ninja_emergency_blink
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_emergency_blink
 		if("ninja_clones")
-			return_ability_type = /datum/action/item_action/ninja_clones
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_clones
 		if("emp")
-			return_ability_type = /datum/action/item_action/ninjapulse
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninjapulse
 		if("chem_injector")
 			return_ability_type = /datum/action/item_action/advanced/ninja/ninjaheal
 		if("caltrop")
-			return_ability_type = /datum/action/item_action/ninja_caltrops
+			return_ability_type = /datum/action/item_action/advanced/ninja/ninja_caltrops
 	return return_ability_type
 

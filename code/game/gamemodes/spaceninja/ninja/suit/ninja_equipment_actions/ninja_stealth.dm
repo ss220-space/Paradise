@@ -39,6 +39,7 @@
 			ninja_action.use_action()
 			ninja_action.action_ready = TRUE
 			ninja_action.toggle_button_on_off()
+			break
 
 /**
  * Proc called to cancel stealth.

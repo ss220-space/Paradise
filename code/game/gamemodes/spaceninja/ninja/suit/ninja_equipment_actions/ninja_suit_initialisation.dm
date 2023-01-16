@@ -2,27 +2,21 @@
 /obj/item/clothing/suit/space/space_ninja/proc/admin_on()
 	var/mob/living/carbon/human/ninja = loc
 	affecting = ninja
+	//Блокировка костюма
 	lock_suit(ninja)
-	lockIcons(ninja)//Check for icons.
-	if(preferred_scarf_over_hood)
-		if(!toggle_scarf())
-			unlock_suit()
-			return
-	ninja.regenerate_icons()
-
+	//Боевое искусство
 	var/datum/martial_art/ninja_martial_art/creeping_widow = new
 	creeping_widow.teach(usr)
 	creeping_widow.my_suit = src
 	creeping_widow.my_energy_katana = energyKatana
-
+	//Клонёрка
 	ninja_clonable = TRUE
 	cloning_ref.scan_mob(ninja)
-
+	//Всё остальное
 	var/list/ninja_abilities = list(
 		"shuriken", "ninja_cloak", "ninja_spirit_form", "chameleon",
 		"kunai", "smoke", "adrenal", "energynet", "emergency_blink",
 		"ninja_clones", "emp", "chem_injector", "caltrop")
-
 	for(var/ability in ninja_abilities)
 		var/action_path = get_suit_ability(ability)
 		actions_types += action_path
@@ -32,16 +26,26 @@
 			a_boost = ninja_action
 		if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaheal))
 			heal_chems = ninja_action
+	//Блокировка покупки в костюме
 	for(var/count in 1 to 5)
 		blocked_TGUI_rows[count] = TRUE
+	//Скин иконок абилок и костюма
+	lockIcons(ninja)//Check for icons.
+	if(preferred_scarf_over_hood)
+		if(!toggle_scarf())
+			unlock_suit()
+			return
+	ninja.regenerate_icons()
 	toggle_emp_proof(ninja.bodyparts, TRUE)
 	toggle_emp_proof(ninja.internal_organs, TRUE)
 	start()
 	cell.self_recharge = TRUE
 	cell.maxcharge = 50000
 	START_PROCESSING(SSobj, cell)
-	for(var/datum/action/item_action/SpiderOS/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, TRUE)
+	for(var/datum/action/item_action/advanced/ninja/SpiderOS/ninja_action in actions)
+		ninja_action.action_ready = TRUE
+		ninja_action.use_action()
+		break
 /**
  * Toggles the ninja suit on/off
  *
@@ -113,8 +117,10 @@
 			toggle_emp_proof(ninja.bodyparts, TRUE)
 			toggle_emp_proof(ninja.internal_organs, TRUE)
 			start()
-			for(var/datum/action/item_action/SpiderOS/ninja_action in actions)
-				toggle_ninja_action_active(ninja_action, TRUE)
+			for(var/datum/action/item_action/advanced/ninja/SpiderOS/ninja_action in actions)
+				ninja_action.action_ready = TRUE
+				ninja_action.use_action()
+				break
 			s_busy = FALSE
 //	to_chat(ninja, span_notice("[message]"))
 	current_initialisation_text = message
@@ -179,8 +185,10 @@
 		if	(NINJA_DEINIT_COMPLETE_PHASE)
 			toggle_emp_proof(ninja.bodyparts, FALSE)
 			toggle_emp_proof(ninja.internal_organs, FALSE)
-			for(var/datum/action/item_action/SpiderOS/ninja_action in actions)
-				toggle_ninja_action_active(ninja_action, FALSE)
+			for(var/datum/action/item_action/advanced/ninja/SpiderOS/ninja_action in actions)
+				ninja_action.action_ready = FALSE
+				ninja_action.use_action()
+				break
 			s_busy = FALSE
 			affecting = null
 

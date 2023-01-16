@@ -25,23 +25,23 @@
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	/// Абилки костюма
 	actions_types = list(
-		/datum/action/item_action/SpiderOS,
-		/datum/action/item_action/ninja_autodust,
+		/datum/action/item_action/advanced/ninja/SpiderOS,
+		/datum/action/item_action/advanced/ninja/ninja_autodust,
 		/datum/action/item_action/ninjastatus,
-		/datum/action/item_action/ninja_sword_recall,
+		/datum/action/item_action/advanced/ninja/ninja_sword_recall,
 /*		/datum/action/item_action/advanced/ninja/ninja_stealth, Не используется
-		/datum/action/item_action/ninja_chameleon,
+		/datum/action/item_action/advanced/ninja/ninja_chameleon,
 		/datum/action/item_action/advanced/ninja/ninja_spirit_form,
 		/datum/action/item_action/advanced/ninja/ninjaboost,
 		/datum/action/item_action/advanced/ninja/ninjaheal,
-		/datum/action/item_action/ninja_clones,
-		/datum/action/item_action/ninjapulse,
-		/datum/action/item_action/ninja_smoke_bomb,
-		/datum/action/item_action/ninja_caltrops,
-		/datum/action/item_action/ninja_emergency_blink,
+		/datum/action/item_action/advanced/ninja/ninja_clones,
+		/datum/action/item_action/advanced/ninja/ninjapulse,
+		/datum/action/item_action/advanced/ninja/ninja_smoke_bomb,
+		/datum/action/item_action/advanced/ninja/ninja_caltrops,
+		/datum/action/item_action/advanced/ninja/ninja_emergency_blink,
 		/datum/action/item_action/advanced/ninja/johyo,
-		/datum/action/item_action/ninjanet,
-		/datum/action/item_action/toggle_shuriken_fire_mode
+		/datum/action/item_action/advanced/ninja/ninjanet,
+		/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode
 		/datum/action/item_action/ninjastar, */ )
 
 	/// Мы не хотим чтобы ниндзю замедлял его же костюм!
@@ -203,9 +203,6 @@
 	var/anyone = FALSE
 	/// Активирован ли костюм? В начале всегда деактивирован.
 	var/s_initialized = FALSE
-	/// Нынешний кулдаун костюма. Блокирует некоторые способности на определённое время
-	/// При выдаче кулдауна костюму, писать кулдаун в секундах * 10!
-	var/s_coold = 0
 	/// Как много энергии тратит костюм каждый тик
 	var/s_cost = 5
 	/// Дополнительные затраты энергии за активированные хамелион и/или невидимость за тик
@@ -263,7 +260,7 @@
 	. += "All systems operational. Current energy capacity: <B>[cell.charge]</B>.\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninja_stealth) in actions)
 		. += "The Cloak-Tech Device is <B>[stealth?"active":"inactive"]</B>.\n"
-	if(locate(/datum/action/item_action/ninja_chameleon) in actions)
+	if(locate(/datum/action/item_action/advanced/ninja/ninja_chameleon) in actions)
 		. += "The Kitsune - Adaptive Chameleon Device is <B>[disguise_active?"active":"inactive"]</B>.\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninja_spirit_form) in actions)
 		. += "Spirit Form Prototype Module is <B>[spirited?"active":"inactive"]</B>.\n"
@@ -397,8 +394,6 @@
 			ninja_autodust()
 			stop()	//Чтобы не превращало в пыль 200 раз в секунду
 		else if(cell.charge > 0)
-			if(s_coold > 0)
-				s_coold = max(s_coold - 2, 0)
 			if(stealth) // If stealth is active.
 				stealth_creepy_effects()
 				used_power += s_acost
@@ -435,14 +430,14 @@
 		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()
 		return FALSE
-	if(action == /datum/action/item_action/SpiderOS)
+	if(action == /datum/action/item_action/advanced/ninja/SpiderOS)
 		ui_interact(ninja)
 		return TRUE
 	if(!s_initialized)
 		to_chat(ninja, span_warning("<b>ERROR</b>: suit offline. Please activate suit."))
 		return FALSE
 	switch(action)
-		if(/datum/action/item_action/ninja_autodust)
+		if(/datum/action/item_action/advanced/ninja/ninja_autodust)
 			ninja_toggle_autodust()
 			return TRUE
 		if(/datum/action/item_action/ninjastatus)
@@ -457,42 +452,37 @@
 		if(/datum/action/item_action/ninjastar)
 			ninjastar()
 			return TRUE
-		if(/datum/action/item_action/toggle_shuriken_fire_mode)
+		if(/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode)
 			toggle_shuriken_fire_mode()
 			return TRUE
-	//Всё что ниже этой проверки, будет подвержено общему кулдауну костюма вызываемым некоторыми способностями
-	if(s_coold > 0)
-		to_chat(ninja, span_warning("<b>ERROR</b>: suit is on cooldown."))
-		return FALSE
-	switch(action)
-		if(/datum/action/item_action/ninja_clones)
-			spawn_ninja_clones()
+		if(/datum/action/item_action/advanced/ninja/ninja_clones)
+			start_ninja_clones()
 			return TRUE
-		if(/datum/action/item_action/ninjapulse)
+		if(/datum/action/item_action/advanced/ninja/ninjapulse)
 			ninjapulse()
 			return TRUE
-		if(/datum/action/item_action/ninjanet)
+		if(/datum/action/item_action/advanced/ninja/ninjanet)
 			toggle_ninja_net_emitter()
 			return TRUE
-		if(/datum/action/item_action/ninja_sword_recall)
+		if(/datum/action/item_action/advanced/ninja/ninja_sword_recall)
 			ninja_sword_recall()
 			return TRUE
 		if(/datum/action/item_action/advanced/ninja/ninja_stealth)
 			toggle_stealth()
 			return TRUE
-		if(/datum/action/item_action/ninja_chameleon)
+		if(/datum/action/item_action/advanced/ninja/ninja_chameleon)
 			toggle_chameleon_scanner_mode()
 			return TRUE
-		if(/datum/action/item_action/ninja_smoke_bomb)
+		if(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb)
 			prime_smoke()
 			return TRUE
-		if(/datum/action/item_action/ninja_caltrops)
+		if(/datum/action/item_action/advanced/ninja/ninja_caltrops)
 			scatter_caltrops()
 			return TRUE
 		if(/datum/action/item_action/advanced/ninja/johyo)
 			toggle_harpoon()
 			return TRUE
-		if(/datum/action/item_action/ninja_emergency_blink)
+		if(/datum/action/item_action/advanced/ninja/ninja_emergency_blink)
 			emergency_blink()
 			return TRUE
 		if(/datum/action/item_action/advanced/ninja/ninja_spirit_form)
@@ -691,11 +681,6 @@
 			bodypart.emp_proof = TRUE
 		else
 			bodypart.emp_proof = initial(bodypart.emp_proof)
-//Удалить как закончу с изменением всех экшенов
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_action_active(var/datum/action/item_action/ninja_action, var/active_state)
-	var/mob/living/carbon/human/ninja = affecting
-	ninja_action.background_icon_state =  active_state	?  "background_[color_choice]_active" :  "background_[color_choice]"
-	ninja.update_action_buttons_icon()
 
 //Эффекты призванные "Намекнуть", что рядом есть ниндзя
 /obj/item/clothing/suit/space/space_ninja/proc/stealth_creepy_effects()

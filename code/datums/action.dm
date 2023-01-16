@@ -124,7 +124,6 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
-	var/action_initialisation_text = null	//Space ninja abilities only
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
@@ -688,8 +687,6 @@
 	. = ..()
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	icon_state_disabled = background_icon_state
-	if(charge_type == ADV_ACTION_TYPE_TOGGLE)
-		action_ready = FALSE	//all toggled actions nee to start "off"
 	if(charge_type == ADV_ACTION_TYPE_CHARGES)
 		UpdateButtonIcon()
 		add_charges_overlay()
@@ -831,8 +828,7 @@
 	coold_overlay_icon_state = "background_green"
 	icon_state_active = "background_green_active"
 	icon_state_disabled = "background_green"
-//	var/action_initialisation_text = null	//Space ninja abilities only
-//	Не забудь сместить это сюда после тестов и т.д. ^
+	var/action_initialisation_text = null
 
 /datum/action/item_action/advanced/ninja/New(Target)
 	. = ..()

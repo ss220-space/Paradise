@@ -6,7 +6,7 @@
 	desc = "Inject a secret chemical that will counteract all movement-impairing effect."
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
-	charge_max = 2
+	charge_max = 1
 	use_itemicon = FALSE
 	button_icon_state = "adrenal"
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -44,6 +44,7 @@
 		if(!ninja_action.charge_counter)
 			ninja_action.action_ready = FALSE
 			ninja_action.toggle_button_on_off()
+		break
 	addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
 
 /**
