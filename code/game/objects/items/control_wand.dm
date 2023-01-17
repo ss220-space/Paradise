@@ -77,7 +77,7 @@
 		return
 	if(D.check_access(src.ID))
 		D.add_hiddenprint(user)
-		if(emagged == TRUE)
+		if(emagged)
 			switch(mode)
 				if(WAND_OPEN)
 					if(D.density)
