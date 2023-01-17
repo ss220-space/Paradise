@@ -26,6 +26,7 @@
 	var/research_points = 0			// Research points for the target
 	var/roulette_points = 0			// Roulette Points Event/Reward
 	var/roulette_points_price = 500	// Roulette game price
+	var/emagged_prob_division = 5	// For division roulette points
 	var/activate_sound = 'sound/effects/electheart.ogg'
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
 
@@ -76,7 +77,10 @@
 	if(stat & (NOPOWER))
 		icon_state = prefix
 		return
-	icon_state = active ? "[prefix]-act" : "[prefix]-on"
+	if(emagged)
+		icon_state = active ? "[prefix]-act-emagged" : "[prefix]-on-emagged"
+	else
+		icon_state = active ? "[prefix]-act" : "[prefix]-on"
 
 //==========Interactions========
 /obj/machinery/brs_server/wrench_act(mob/living/user, obj/item/I)
@@ -166,6 +170,8 @@
 	emagged = TRUE
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 	update_icon()
+	roulette_points_price = emagged ? round(roulette_points_price / emagged_prob_division) : initial(roulette_points_price)
+
 
 /obj/machinery/brs_server/emag_act(mob/user)
 	if(!emagged)
@@ -262,11 +268,11 @@
 				playsound(loc, 'sound/machines/buzz-two.ogg', 100, 1)
 				visible_message("<span class='warning'>Результат исследований уже был получен!</span>")
 
-		//За очки исследования даем шанс попытать удачу и ВОЗМОЖНО получить ништяк или стимулировать ивенты
+		//For research points, we give a chance to try your luck and it is POSSIBLE to get a good thing or stimulate events
 		if("luck")
 			if(roulette_points >= roulette_points_price)
 				roulette_points -= roulette_points_price
-				if(prob(50))
+				if(prob(round(50 / emagged ? emagged_prob_division : 1)))
 					var/turf/T
 					for(var/obj/brs_rift/rift in G.rifts_list)
 						if(prob(70))
