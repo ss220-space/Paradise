@@ -16,8 +16,8 @@
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
 	speed = -0.2
-	maxHealth = 130
-	health = 130
+	maxHealth = 120
+	health = 120
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	regeneration = 1
 	ranged = 1
@@ -41,10 +41,10 @@
 		return ..()
 	var/inject_target = pick("chest", "head")
 	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
-		L.reagents.add_reagent("terror_black_toxin", 45)
+		L.reagents.add_reagent("terror_black_toxin", 40)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
-		L.reagents.add_reagent("terror_black_toxin", 30)
+		L.reagents.add_reagent("terror_black_toxin", 25)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	L.attack_animal(src)
 	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))

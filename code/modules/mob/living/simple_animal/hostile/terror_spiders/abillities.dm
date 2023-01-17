@@ -224,7 +224,7 @@
 /obj/effect/proc_holder/spell/targeted/terror/infest
 	name = "Infesting Smoke"
 	desc = "Erupt a smoke to infest your enemies with spider eggs."
-	charge_max = 500
+	charge_max = 700
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
@@ -376,7 +376,7 @@
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.AdjustConfused(10)
-				M.AdjustWeakened(1)
+				M.AdjustWeakened(2)
 				M.slowed = 6
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
