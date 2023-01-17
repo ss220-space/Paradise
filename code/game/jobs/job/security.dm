@@ -203,7 +203,6 @@
 	flag = JOB_CADET
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the head of security"
 	department_head = list("Head of Security", "Security Officer")
 	selection_color = "#ffeeee"
 	alt_titles = list("Security Assistant", "Security Graduate")

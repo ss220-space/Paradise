@@ -95,7 +95,6 @@
 	flag = JOB_SCIENTIST_STUDENT
 	total_positions = 5
 	spawn_positions = 3
-	supervisors = "the research director"
 	department_head = list("Research Director", "Scientist")
 	selection_color = "#ffeeff"
 	alt_titles = list("Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate")

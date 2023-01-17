@@ -49,7 +49,7 @@
 
 /datum/job/engineer
 	title = "Station Engineer"
-	flag = JOB_ENGINEER_TRAINEE
+	flag = JOB_ENGINEER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
@@ -87,11 +87,9 @@
 
 /datum/job/engineer/trainee
 	title = "Trainee Engineer"
-	flag = JOB_ENGINEER
+	flag = JOB_ENGINEER_TRAINEE
 	total_positions = 5
 	spawn_positions = 3
-	is_engineering = 1
-	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer", "Station Engineer")
 	selection_color = "#fff5cc"
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
