@@ -1,4 +1,4 @@
-//Сервер для контроля сканнеров и наблюдения за выполнением цели
+//Server to control scanners and monitor the execution of the goal
 /obj/item/circuitboard/brs_server
 	name = "Сервер сканирирования разлома (Computer Board)"
 	desc = "Плата для сбора сервера изучения сканирования разломов."
@@ -23,14 +23,14 @@
 	luminosity = TRUE
 	max_integrity = 500
 	var/active = FALSE
-	var/research_points = 0			// Очки исследования для цели
-	var/roulette_points = 0			// Очки для рулетки ивент/награда
-	var/roulette_points_price = 500	// Цена игры в рулетку
+	var/research_points = 0			// Research points for the target
+	var/roulette_points = 0			// Roulette Points Event/Reward
+	var/roulette_points_price = 500	// Roulette game price
 	var/activate_sound = 'sound/effects/electheart.ogg'
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
 
-	var/research_time = 10 SECONDS		//время для процесса изучения "активной анимации"
-	var/counter_research_time = 0		//счетчик до завершения анимации
+	var/research_time = 10 SECONDS		// time for the process of learning "active animation"
+	var/counter_research_time = 0		// counter until animation completes
 
 	var/static/gid = 0
 	var/id = 0
@@ -78,7 +78,7 @@
 		return
 	icon_state = active ? "[prefix]-act" : "[prefix]-on"
 
-//==========Взаимодействия========
+//==========Interactions========
 /obj/machinery/brs_server/wrench_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
 		to_chat(user, "<span class='notice'>Болты заблокированы протоколом безопасности.</span>")
@@ -135,7 +135,7 @@
 	stat &= ~BROKEN
 	obj_integrity = max_integrity
 
-// Составные компоненты
+// Composite Components
 /obj/machinery/brs_server/proc/new_component_parts()
 	component_parts = list()
 	var/obj/item/circuitboard/brs_server/board = new(null)
@@ -161,7 +161,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	RefreshParts()
 
-//Перезапись протоколов безопасности.
+// Rewriting security protocols
 /obj/machinery/brs_server/proc/rewrite_protocol()
 	emagged = TRUE
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
@@ -191,7 +191,7 @@
 
 	ui_interact(user)
 
-//Интерфейс
+// Interface
 /obj/machinery/brs_server/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

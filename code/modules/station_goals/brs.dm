@@ -1,10 +1,10 @@
 GLOBAL_LIST_INIT(bluespace_rifts_list, list())
 GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 
-// Сканер Блюспейс Разлома
-// Цель для исследования аномального блюспейс разлома с созданием портативных и статичных сканеров
+// BRS - Bluespace Rift Scanner
+// The goal is to research the anomalous bluespace rift with the creation of portable and static scanners
 /datum/station_goal/brs
-	name = "Сканер Блюспейс Разлома"		//BRS - Bluespace Rift Scanner
+	name = "Сканер Блюспейс Разлома"
 	var/scanner_goal = 25000
 	var/list/rifts_list = list()
 	var/is_give_reward = FALSE
@@ -64,11 +64,11 @@ GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
 
 	var/type_rift = rand(1, MAX_TYPES_RIFT)
 	switch(type_rift)
-		if(TWINS_RIFT)		// одинаковое появление аномалий между двумя
+		if(TWINS_RIFT)		// the same occurrence of anomalies between the two
 			for(var/i in 1 to 2)
 				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
 				rifts_list.Add(rift)
-		if(CRACK_RIFT)	// случайное появление аномалий в 4-х местах
+		if(CRACK_RIFT)	// random appearance of anomalies in 4 places
 			for(var/i in 1 to 4)
 				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
 				rifts_list.Add(rift)

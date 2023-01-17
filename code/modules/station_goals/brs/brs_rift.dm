@@ -1,4 +1,4 @@
-//Блюспейс разлом для создания веселья и беготни на станции
+//Bluespace rift for create fun and running around the station
 /obj/brs_rift
 	name = "Блюспейс Разлом"
 	desc = "Аномальное образование с неизвестными свойствами загадочного синего космоса."
@@ -15,24 +15,24 @@
 	layer = MASSIVE_OBJ_LAYER
 	alpha = 180
 
-	//для отображения T-ray сканнера
+	//	to show from T-ray scanner
 	invisibility = INVISIBILITY_ANOMALY
 	level = 1
 
-	var/timespan = 20 MINUTES	// промужуток времени смены направления
-	var/required_time_per_tile = 0	// необходимо времени перед движением на тайл
-	var/counter_direction_time		// счетчик времени перед сменой направления
-	var/counter_move_time 			// счетчик времени перед движением
+	var/timespan = 20 MINUTES		// direction change time
+	var/required_time_per_tile = 0	// time required before moving to a tile
+	var/counter_direction_time		// time counter before change of direction
+	var/counter_move_time 			// time counter before movement
 
-	var/force_sized = 5		// размер разлома и критической зоны
-	var/dir_move = 0		// направление
-	var/dir_loc = null		// место направления
+	var/force_sized = 5		// size of rift and critical zone
+	var/dir_move = 0		// direction move
+	var/dir_loc = null		// location of direction
 
 	var/type_rift = DEFAULT_RIFT
-	var/num_related_rifts = 1	//Сколько разломов может быть связано
-	var/related_rifts_list = list()	// связанные разломы (пр. разломы-близнецы)
-	var/anomaly_mod = 1.5		//Модификатор для контейнера ивентов
-	var/event_chance = 100	//Шанс появления ивентов для избегания флуда ивентами
+	var/num_related_rifts = 1	// How many rifts can be related
+	var/related_rifts_list = list()	// ex. twin rifts
+	var/anomaly_mod = 1.5		//	Event container modifier
+	var/event_chance = 100		//	Chance of occurrence of events to avoid flooding events
 
 /obj/brs_rift/crack
 	name = "Блюспейс Трещина"
@@ -70,12 +70,12 @@
 /obj/brs_rift/hunter
 	name = "Разлом-Охотник"
 	type_rift = HUNTER_RIFT
-	timespan = 1 MINUTES	//Время у охотника переопределяется в зависимости от дистанции до цели
+	timespan = 1 MINUTES	// The hunter's time is redefined depending on the distance to the target
 	force_sized = 3
-	var/mob/dir_mob = null	// моб к которому направляемся
+	var/mob/dir_mob = null	// mob to which rift directed
 
 
-//Для тестов и баловства
+//For tests and pampering
 /obj/brs_rift/twin/test_static
 	name = "Статичный Разлом-Близнец"
 	timespan = 60 MINUTES
@@ -127,7 +127,7 @@
 
 	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)
 
-	//даем шансы частого появления обычного эвента с локальным эвентом
+	// give the chances of a regular event appearing frequently with a local event
 	if(!is_critical && prob(70))
 		make_event(event_type)
 	if(!is_critical && prob(50))
@@ -173,7 +173,6 @@
 		return BRS_EVENT_CRITICAL
 
 /obj/brs_rift/proc/move_direction()
-	//step(src, dir_move) //walk(src, dir_move)
 	if(counter_move_time < world.time)
 		forceMove(get_step(src, dir_move))
 		counter_move_time = world.time + required_time_per_tile
@@ -199,7 +198,7 @@
 	to_chat(user, "<span class='danger'>Невозможно взаимодействовать с разломом!</span>")
 	return FALSE
 
-//Работа с весами в контейнерах
+//Working with weight in containers
 /obj/brs_rift/proc/change_anomaly_chance(var/mod, var/multi = TRUE)
 	var/list/modif_list = list(
 			/datum/event/anomaly/anomaly_pyro,
@@ -251,7 +250,7 @@
 		return TRUE
 	return FALSE
 
-//Охотник выбирает моба и устанавливает скорость на него
+//The hunter selects a mob and sets the speed on it
 /obj/brs_rift/hunter/get_random_loc()
 	var/turf/T = (dir_mob && dir_mob.z == z) ? dir_mob.loc : null
 	if(!T || prob(5) || counter_direction_time < world.time)
@@ -260,12 +259,12 @@
 		for(var/mob/M in GLOB.player_list)
 			if(M.z != z || !M.client)
 				continue
-			if(prob(50))	//Не каждая жертва достойна охоты
+			if(prob(50))	//Not every prey is worthy of the hunt
 				continue
 			dir_mob = M
 			T = M.loc
 			break
 
-	//Охотник движется быстрее и не тупит если цель близко
+	//The hunter moves faster and doesn't stupefy if the target is close
 	timespan = (get_dist(src, T) SECONDS) + 10 SECONDS
 	return T ? T : ..()

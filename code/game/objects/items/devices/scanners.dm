@@ -60,7 +60,7 @@ REAGENT SCANNER
 	origin_tech = "magnets=8;engineering=5"
 	materials = list(MAT_METAL=500)
 
-/obj/item/t_scanner/experimental	//хайриск который нельзя разобрать, так как эта хуйня изобретена ну сами знаете кем.
+/obj/item/t_scanner/experimental	//a high-risk that cannot be disassembled, since this garbage was invented by, well, you know who.
 	name = "Экспериментальный T-ray сканнер"
 	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
 	\nЭкспериментальный образец сканнера с расширенным радиусом действия и продолжительным пульсаром. \
@@ -145,8 +145,8 @@ REAGENT SCANNER
 	icon_state = "sb_t-ray0"
 	scan_range = 2
 	pulse_duration = 30
-	var/was_alerted = FALSE // Защита от спама алёртов от этого сканера
-	var/burnt = FALSE // Сломало ли нас емп?
+	var/was_alerted = FALSE // Protection against spam alerts from this scanner
+	var/burnt = FALSE // Did emp break us?
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
 	origin_tech = "combat=3;magnets=5;biotech=5"
 

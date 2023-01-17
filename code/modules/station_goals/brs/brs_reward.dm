@@ -13,13 +13,13 @@
 	new /obj/effect/portal(temp_loc, null, null, 40)
 
 
-//================ Объекты ================
+//================ Objects ================
 /obj/item/paper/researchnotes_brs
 	name = "Исследования Блюспейс Разлома"
 	info = "<b>Долгожданные научные исследования блюспейс разлома, продвигающие науку изучения Синего Космоса далеко вперед. \nВ записке написана тарабарщина на машинном языке. \nТребуется деструктивный анализ.</b>"
 	origin_tech = "bluespace=9;magnets=8"
 
-//блюспейс толкан
+//Bluspace Tolkan
 /obj/structure/toilet/bluespace
 	name = "Научный унитаз"
 	desc = "Загадка современной науки о возникновении данного научного экземпляра."
@@ -73,7 +73,7 @@
 	name = "brs loot"
 	lootcount = 1
 	loot = list(
-		//Тип предмета, его вес
+		//Item type, weight
 		/obj/item/stack/ore/bluespace_crystal = 100,
 		/obj/item/stack/sheet/mineral/bananium/fifty = 60,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 60,
@@ -87,7 +87,7 @@
 		/obj/item/toy/syndicateballoon = 5,
 		/obj/item/stack/telecrystal = 1,
 
-		//Игрушки
+		//Toys
 		/obj/item/gun/projectile/automatic/c20r/toy = 5,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 5,
 		/obj/item/gun/projectile/automatic/toy/pistol = 10,
@@ -114,7 +114,7 @@
 		/obj/random/therapy = 25,
 		/obj/random/carp_plushie = 25,
 
-		//Игрушки которые ты скорее всего никогда не получишь и ненужная мелочевка
+		//Toys that you most likely will never get and unnecessary small things
 		/obj/item/toy/prizeball/mech,
 		/obj/item/toy/prizeball/carp_plushie,
 		/obj/item/toy/prizeball/plushie,
@@ -163,7 +163,7 @@
 		/obj/structure/toilet/bluespace,
 
 
-		//Не самые ценные вещи по прежнему могут выпасть, хоть и с небольшим шансом суммы их всех:
+		//Not the most valuable items can still drop, albeit with a small chance of the sum of them all:
 		/obj/item/reagent_containers/food/snacks/wingfangchu,
 		/obj/item/reagent_containers/food/snacks/hotdog,
 		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
@@ -204,7 +204,7 @@
 		/obj/item/clothing/head/collectable/xenom,
 		/obj/item/clothing/head/collectable/petehat,
 
-		//Магические вещи блюспейса с наиминимальнейшим шансом для появления
+		//Bluespace magic items with the lowest chance to spawn
 		/obj/item/spellbook/oneuse/fireball,
 		/obj/item/spellbook/oneuse/smoke,
 		/obj/item/spellbook/oneuse/blind,
@@ -220,7 +220,7 @@
 		/obj/item/spellbook/oneuse/mime/fingergun/fake,
 		/obj/structure/closet/crate/necropolis/tendril,
 
-		//Бабки, бабки, сука, бабки!
+		//Babki, babki, suka, babki!
 		/obj/item/stack/spacecash/c1000000 = 1,
 		/obj/item/stack/spacecash/c1000 = 5,
 		/obj/item/stack/spacecash/c500 = 10,

@@ -1,6 +1,6 @@
-//Сканеры для исследования разломов и передачи данных на сервера
+//Scanners for researching rifts and transmitting data to servers
 //=============================
-//Портативный сканер 1х1
+//Portable Scanner 1x1
 //=============================
 /obj/item/circuitboard/brs_scanner
 	name = "Портативный сканер разлома (Машинная Плата)"
@@ -24,20 +24,20 @@
 	density = FALSE
 	luminosity = TRUE
 	max_integrity = 300
-	var/toggle = FALSE	//вывиднут/задвинут
-	var/active = FALSE	//активность блюспейс-разлома
+	var/toggle = FALSE	// protrude/retract
+	var/active = FALSE	// bluespace rift activity
 
 	var/toggle_sound = 'sound/effects/servostep.ogg'
 	var/activate_sound = 'sound/effects/electheart.ogg'
 	var/deactivate_sound = 'sound/effects/basscannon.ogg'
 	var/alarm_sound = 'sound/effects/alert.ogg'
 
-	var/critical_time = 5 SECONDS	//время до поломки в критических условиях и до его восстановления на привычные значения
-	var/max_range = 10				//максимальное расстояния для сканирования
+	var/critical_time = 5 SECONDS	// time to failure in critical conditions and to its restoration to the usual values
+	var/max_range = 10				// maximum scanning distance
 
-	var/counter_critical_time = 0			//счетчик времени до поломки
-	var/obj/brs_rift/rift_for_scan = null	//концентрация на разломе для сканирования
-	var/rift_range = 0						//макс. расстояния на выбранном разломе
+	var/counter_critical_time = 0			// time to failure counter
+	var/obj/brs_rift/rift_for_scan = null	// concentration on the rift to scan
+	var/rift_range = 0						// Max. distances on the selected rift
 
 	var/static/gid = 0
 	var/id = 0
@@ -70,7 +70,7 @@
 				critical_process(dist)
 			else
 				scanner_process(dist)
-		else	//При ЕМАГе, возможно сканирование в любом радиусе. Вне его - критическая зона
+		else	//With EMAG, it is possible to scan in any radius. Outside it is a critical zone
 			if (dist <= rift_range)
 				scanner_process(dist)
 			else
@@ -91,27 +91,27 @@
 		temp_points += points
 		rifts_list.Add(S)
 
-		//процесс создания ивентов
+		//event creation process
 		var/event_chance = 1 + round(2 * rift_for_scan.force_sized * max(1, length(rift_for_scan.related_rifts_list)) * division)
-		if(prob(event_chance)) //* rift_range/dist)))
+		if(prob(event_chance))
 			rift_for_scan.event_process(FALSE, dist, rift_range)
 
-	//деление очков на все сервера
+	//division of points for all servers
 	if(length(rifts_list))
 		temp_points = min(1, round(temp_points / length(rifts_list)))
 		for (var/obj/machinery/brs_server/S in rifts_list)
 			S.research_process(temp_points)
 
 /obj/machinery/brs_scanner/proc/critical_process(var/dist)
-	//Восстановление критического порога
+	//Restoration of the critical threshold
 	if (counter_critical_time + critical_time * 2 < world.time)
 		counter_critical_time = 0
 
-	//Начало отсчета
+	//Countdown start
 	if (counter_critical_time == 0)
 		counter_critical_time = world.time + critical_time
 
-	//Прохождение критического порога
+	//Passing critical threshold
 	if (counter_critical_time < world.time)
 		obj_break()
 		anchored = FALSE
@@ -144,7 +144,7 @@
 	else
 		icon_state = prefix
 
-//Взаимодействия, разбор
+//Interactions, disassembly
 /obj/machinery/brs_scanner/wrench_act(mob/living/user, obj/item/I)
 	if (toggle)
 		return FALSE
@@ -164,7 +164,7 @@
 	stat &= ~BROKEN
 	obj_integrity = max_integrity
 
-//Выдвижение и задвижение д.сканнера, активация ст.сканнера
+//Extending and retracting the d.scanner, activating the st.scanner
 /obj/machinery/brs_scanner/attack_hand(mob/user)
 	if(..())
 		return TRUE
@@ -183,7 +183,7 @@
 		update_icon()
 	return TRUE
 
-//Перезапись протоколов безопасности.
+//Rewriting security protocols
 /obj/machinery/brs_scanner/proc/rewrite_protocol()
 	emagged = TRUE
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
@@ -228,7 +228,7 @@
 		return TRUE
 	return FALSE
 
-// Составные компоненты
+// Composite Components
 /obj/machinery/brs_scanner/proc/new_component_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/brs_scanner(null)
@@ -249,7 +249,7 @@
 	RefreshParts()
 
 //=============================
-//Статичный сканер 3х3
+// Static Scanner 3x3
 //=============================
 
 /obj/item/circuitboard/brs_scanner/s_static
@@ -274,8 +274,8 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 500
-	critical_time = 30 SECONDS	//время до поломки в критических условиях
-	max_range = 50	//максимальное расстояния для исследований
+	critical_time = 30 SECONDS	//time to failure under critical conditions
+	max_range = 50	//maximum research distance
 
 /obj/machinery/brs_scanner/s_static/toggle
 	toggle = TRUE
@@ -299,7 +299,7 @@
 	else
 		icon_state = prefix
 
-//Взаимодействия
+//Interactions
 /obj/machinery/brs_scanner/s_static/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='notice'>Сканер статичен и не может быть откручен.</span>")
 
@@ -333,7 +333,7 @@
 		return
 	to_chat(user, "<span class='notice'>[name] разобран на составные компоненты.</span>")
 
-// Составные компоненты
+// Composite Components
 /obj/machinery/brs_scanner/s_static/new_component_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/brs_scanner/s_static(null)

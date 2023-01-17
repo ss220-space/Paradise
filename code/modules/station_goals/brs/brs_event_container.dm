@@ -95,9 +95,9 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 
 
 //==========================================
-//============ Локальные ивенты ============
+//============== Local Events ==============
 //==========================================
-//Выбор локального ивента
+// Local Event Selection
 /obj/brs_rift/proc/choose_random_event(var/list/objects)
 	var/prob_chance = 85
 	var/choosen = rand(1, 2)
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		if(2)
 			local_random_grenade(objects)
 
-//Выбор локального связанного ивента
+// Local Related Event Selection
 /obj/brs_rift/proc/choose_random_related_event(var/list/objects)
 	var/prob_chance = 70
 	var/prob_living_chance = 50
@@ -144,9 +144,9 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 			local_random_grenade_living(objects)
 
 
-//============ Телепорты ============
+//============ Teleports ============
 
-//Телепорты в небольшом радиусе
+// Teleports in a small radius
 /obj/brs_rift/proc/local_teleport_living(var/list/objects)
 	for(var/mob/living/H in objects)
 		do_teleport(H, get_turf(H), 7)
@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		do_teleport(O, get_turf(O), 7)
 
 
-//Телепорт в случайную безопасную точку на станции
+// Teleport to a random safe point in the station
 /obj/brs_rift/proc/local_teleport_living_zloc(var/list/objects)
 	for(var/mob/living/H in objects)
 		var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		do_teleport(O, F)
 
 
-//Перемешивание объектов между собой
+// Shuffling objects together
 /obj/brs_rift/proc/local_teleport_living_reshuffle(var/list/objects)
 	var/temp_object
 	for(var/mob/living/H in objects)
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 			temp_object = O
 
 
-//Телепорты всех объектов
+// Teleports of all objects
 /obj/brs_rift/proc/local_teleport_all(var/list/objects)
 	local_teleport_living(objects)
 	local_teleport_objects(objects)
@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 	local_teleport_living_reshuffle(objects)
 	local_teleport_objects_reshuffle(objects)
 
-//============ АОЕ эффекты ============
+//============ AOE effects ============
 /obj/brs_rift/proc/local_explosive(var/list/objects)
 	for(var/obj/O in objects)
 		var/fs = force_sized
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		empulse(O.loc, fs, 2*fs, TRUE, name)
 
 
-//============ Случайные эффекты из гранат ============
+//============ Random grenade effects ============
 /obj/brs_rift/proc/local_random_grenade_living(var/list/objects)
 	var/choosen = rand(1, 23)
 	for(var/mob/living/carbon/human/H in objects)
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 	for(var/obj/O in objects)
 		make_random_grenade_prime(choosen, O)
 
-//Выбираем гранату и сразу же её подрываем, тем самым "воруя" её эффект хе-хе-хе
+//Select a grenade and immediately detonate it, thereby "stealing" its effect ke-ke-ke
 /obj/brs_rift/proc/make_random_grenade_prime(var/choosen, var/new_loc)
 	var/obj/item/grenade/gr
 	switch(choosen)
@@ -288,102 +288,3 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		if(23)
 			gr = new /obj/item/grenade/chem_grenade/facid(new_loc)
 	gr.prime()
-
-
-
-
-//============ Изменение облика ============
-//рандомизация днк
-/*
-		if(5)
-			if(prob(prob_chance))
-				message_admins("--- рандом ДНК")
-				local_dna_random(objects)
-			else
-				message_admins("--- рандом Специи")
-				local_species_random(objects)
-		if(6)
-			message_admins("--- специи перемешивание")
-			local_species_reshuffle(objects)
-
-/obj/brs_rift/proc/local_dna_random(var/list/objects)
-	for(var/mob/living/carbon/human/H in objects)
-		if(istype(H) && H.stat != DEAD && !H.notransform)
-			randomize_species(H)
-
-//Рандомизация расы и её преференса
-/obj/brs_rift/proc/local_species_random(var/list/objects)
-	for(var/mob/living/carbon/human/H in objects)
-		if(istype(H) && H.stat != DEAD && !H.notransform)
-			var/pickable_species = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
-			var/schoosen_species = pick(pickable_species)
-			var/temp_name = H.dna.real_name
-			var/datum/species/new_species = GLOB.all_species[schoosen_species]
-			H.set_species(new_species, retain_damage = TRUE)
-			H.rename_character(null, temp_name)
-
-/proc/randomize_species(var/mob/living/carbon/human/H)
-	var/datum/species/S = H.dna.species
-
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	H.age = rand(AGE_MIN, AGE_MAX)
-
-	//лицевое
-	if(S in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
-		head_organ.facial_colour = rand_hex_color()
-		head_organ.sec_facial_colour = rand_hex_color()
-		head_organ.hair_colour = rand_hex_color()
-		head_organ.sec_hair_colour = rand_hex_color()
-	head_organ.h_style = random_hair_style(H.gender, S)
-	head_organ.f_style = random_facial_hair_style(H.gender, S)
-	H.change_eye_color(rand_hex_color())
-
-	if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-		head_organ.headacc_colour = rand_hex_color()
-		head_organ.ha_style = random_head_accessory(S)
-
-	if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-		H.m_styles["head"] = random_marking_style("head", S, null, null, head_organ.alt_head)
-		H.m_colours["head"] = rand_hex_color()
-
-	if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
-		H.m_styles["body"] = random_marking_style("body", S)
-		H.m_colours["body"] = rand_hex_color()
-
-	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-		var/body_accessory = random_body_accessory(S, S.optional_body_accessory)
-		H.m_styles["tail"] = random_marking_style("tail", S, null, body_accessory)
-		H.m_colours["tail"] = rand_hex_color()
-
-	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-		H.s_tone = random_skin_tone(S)
-	if(S.bodyflags & HAS_SKIN_COLOR)
-		H.skin_colour  = rand_hex_color()
-
-	H.regenerate_icons()
-	H.update_body()
-
-//Перемешивание рас с сохранением оригинального имени
-/obj/brs_rift/proc/local_species_reshuffle(var/list/objects)
-	var/mob/living/carbon/human/temp_human
-	for(var/mob/living/carbon/human/H in objects)
-		if(istype(H) && H.stat != DEAD && !H.notransform)
-			if (temp_human)
-				reshuffle_species(H, temp_human)
-				investigate_log("species reshuffle [key_name_log(H)] and [key_name_log(temp_human)]", INVESTIGATE_TELEPORTATION)
-				temp_human = null
-			else
-				temp_human = H
-
-/proc/reshuffle_species(var/mob/living/carbon/human/H, var/mob/living/carbon/human/T)
-	var/mob/living/carbon/human/T_human = new()
-	T.dna.transfer_identity(T_human)
-
-	var/T_name = T.dna.real_name
-	H.dna.transfer_identity(T)
-	T.rename_character(null, T_name)
-
-	var/H_name = H.dna.real_name
-	T_human.dna.transfer_identity(H)
-	H.rename_character(null, H_name)
-*/
