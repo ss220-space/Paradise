@@ -1,4 +1,6 @@
 // ---------- ACTIONS FOR ALL SPIDERS
+/datum/action/innate/terrorspider
+	background_icon_state = "bg_terror"
 
 /datum/action/innate/terrorspider/web
 	name = "Web"
@@ -27,7 +29,7 @@
 	button_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/greeneggs/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/green/user = owner
+	var/mob/living/simple_animal/hostile/poison/terror_spider/healer/user = owner
 	user.DoLayGreenEggs()
 
 
@@ -50,36 +52,6 @@
 /datum/action/innate/terrorspider/remoteview/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoRemoteView()
-
-
-// ---------- MOTHER ACTIONS
-
-/datum/action/innate/terrorspider/mother/royaljelly
-	name = "Lay Royal Jelly"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "spiderjelly"
-
-/datum/action/innate/terrorspider/mother/royaljelly/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.DoCreateJelly()
-
-/datum/action/innate/terrorspider/mother/gatherspiderlings
-	name = "Gather Spiderlings"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "spiderling"
-
-/datum/action/innate/terrorspider/mother/gatherspiderlings/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.PickupSpiderlings()
-
-/datum/action/innate/terrorspider/mother/incubateeggs
-	name = "Incubate Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
-
-/datum/action/innate/terrorspider/mother/incubateeggs/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.IncubateEggs()
 
 // ---------- QUEEN ACTIONS
 
@@ -244,6 +216,7 @@
 			return
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
+		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
 		stop_automated_movement = 1
 		walk(src,0)
 		if(do_after(src, 40, target = cocoon_target.loc))
@@ -267,7 +240,7 @@
 						if(!mobIsWrappable(L))
 							continue
 						if(iscarbon(L))
-							regen_points += regen_points_per_kill
+							adjustBruteLoss(-heal_per_kill)
 							fed++
 							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
 							to_chat(src, "<span class='notice'>You feel invigorated!</span>")

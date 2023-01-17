@@ -29,7 +29,7 @@
 	switch(infestation_type)
 		if(1)
 			// Weakest, only used during lowpop.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/healer
 			spawncount = 5
 		if(2)
 			// Fairly weak. Dangerous in single combat but has little staying power. Always gets whittled down.
@@ -37,7 +37,7 @@
 			spawncount = 1
 		if(3)
 			// Variable. Depends how many they infect.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
 			spawncount = 2
 		if(4)
 			// Pretty strong.
@@ -56,6 +56,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
 
