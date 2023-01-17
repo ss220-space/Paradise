@@ -176,16 +176,16 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 
 // Shuffling objects together
 /obj/brs_rift/proc/local_teleport_living_reshuffle(var/list/objects)
-	var/temp_object
+	var/mob/living/temp_mob
 	for(var/mob/living/H in objects)
-		if (temp_object)
+		if (temp_mob)
 			var/turf/T = get_turf(H)
-			do_teleport(H, get_turf(temp_object))
-			do_teleport(temp_object, T)
-			investigate_log("teleported reshuffle [key_name_log(H)] and [key_name_log(temp_object)]", INVESTIGATE_TELEPORTATION)
-			temp_object = null
+			do_teleport(H, get_turf(temp_mob))
+			do_teleport(temp_mob, T)
+			investigate_log("switched places [key_name_log(H)][COORD(H.loc)] and [key_name_log(temp_mob)][COORD(temp_mob.loc)]", INVESTIGATE_TELEPORTATION)
+			temp_mob = null
 		else
-			temp_object = H
+			temp_mob = H
 
 /obj/brs_rift/proc/local_teleport_objects_reshuffle(var/list/objects)
 	var/temp_object
