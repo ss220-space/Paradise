@@ -553,7 +553,7 @@
 	category = list ("Misc. Machinery")
 
 /datum/design/brs_server
-	name = "Machine Design (Сервер сканирирования разлома)"
+	name = "Machine Design (Rift Scan Server)"
 	desc = "Плата для сбора сервера изучения сканирования разломов."
 	id = "brs_server"
 	req_tech = list("engineering" = 4, "bluespace" = 3)
@@ -563,7 +563,7 @@
 	category = list ("Research Machinery")
 
 /datum/design/brs_scanner
-	name = "Machine Design (Портативный сканер разлома)"
+	name = "Machine Design (Portable Rift Scanner)"
 	desc = "Плата для сбора данных при сканировании разломов."
 	id = "brs_scanner"
 	req_tech = list("engineering" = 4, "bluespace" = 3)
@@ -573,7 +573,7 @@
 	category = list ("Research Machinery")
 
 /datum/design/brs_scanner_static
-	name = "Machine Design (Статичный сканер разлома)"
+	name = "Machine Design (Static Rift Scanner)"
 	desc = "Плата для сбора данных при сканировании разломов."
 	id = "brs_scanner_static"
 	req_tech = list("engineering" = 6, "bluespace" = 5)
