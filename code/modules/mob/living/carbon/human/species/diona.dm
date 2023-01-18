@@ -41,8 +41,7 @@
 		"receptor node" =   /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
 		"gas bladder" =   /obj/item/organ/internal/lungs/diona,
 		"polyp segment" =   /obj/item/organ/internal/appendix/diona,
-		"anchoring ligament" = /obj/item/organ/internal/heart/diona,
-		"oscillatory catcher" = /obj/item/organ/internal/ears/diona
+		"anchoring ligament" = /obj/item/organ/internal/heart/diona
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/diona
