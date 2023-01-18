@@ -3,5 +3,5 @@ obj/structure/tribune
 	icon = 'icons/obj/tribune.dmi'
 	icon_state = "tribune"
 	density = TRUE
-	anchored = FALSE
+	anchored = TRUE
 	max_integrity = 100
