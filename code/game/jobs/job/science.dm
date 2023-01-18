@@ -98,7 +98,8 @@
 	department_head = list("Research Director", "Scientist")
 	selection_color = "#ffeeff"
 	alt_titles = list("Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate")
-
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/scientist/student
 
 /datum/outfit/job/scientist/student
