@@ -13622,7 +13622,6 @@
 /obj/item/clothing/suit/armor/bulletproof{
 	name = "SRT bulletproof vest"
 	},
-/obj/item/clothing/under/fluff/jay_turtleneck,
 /obj/item/shield/riot/tele,
 /obj/item/suppressor,
 /obj/item/CQC_manual,
@@ -13633,6 +13632,10 @@
 	registered_name = "Special Reaction Team Member"
 	},
 /obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	name = "SRT uniform";
+	desc = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
@@ -36232,7 +36235,6 @@
 /obj/item/clothing/suit/armor/bulletproof{
 	name = "SRT bulletproof vest"
 	},
-/obj/item/clothing/under/fluff/jay_turtleneck,
 /obj/item/shield/riot/tele,
 /obj/item/suppressor,
 /obj/item/CQC_manual,
@@ -36243,6 +36245,10 @@
 	registered_name = "Special Reaction Team Member"
 	},
 /obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	name = "SRT uniform";
+	desc = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
