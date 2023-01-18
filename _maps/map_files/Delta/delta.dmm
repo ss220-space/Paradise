@@ -66441,12 +66441,10 @@
 	pixel_x = 7;
 	pixel_y = 14
 	},
-/obj/item/radio/intercom/locked/confessional{
-	frequency = 1470;
-	pixel_y = -4;
-	req_access_txt = "63"
-	},
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom/department/security{
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67763,13 +67761,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "iPH" = (
-/obj/item/radio/intercom/locked/confessional{
-	frequency = 1470;
-	pixel_y = 4;
-	req_access_txt = "63"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom/department/security{
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -120857,7 +120853,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/item/radio/intercom{
+/obj/item/radio/intercom/locked/confessional{
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -136713,10 +136709,8 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	dir = 8;
-	frequency = 1465;
-	pixel_y = 22
+/obj/item/radio/intercom/locked/confessional{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
