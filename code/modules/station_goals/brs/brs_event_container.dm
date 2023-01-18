@@ -228,63 +228,45 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 
 //============ Random grenade effects ============
 /obj/brs_rift/proc/local_random_grenade_living(var/list/objects)
-	var/choosen = rand(1, 23)
+	var/obj/item/grenade/grenade_type = get_random_grenade_type()
 	for(var/mob/living/carbon/human/H in objects)
-		make_random_grenade_prime(choosen, H)
+		if(grenade_type)
+			var/obj/item/grenade/gr = new grenade_type(H)
+			gr.prime()
 
 /obj/brs_rift/proc/local_random_grenade(var/list/objects)
-	var/choosen = rand(1, 23)
+	var/obj/item/grenade/grenade_type = get_random_grenade_type()
 	for(var/obj/O in objects)
-		make_random_grenade_prime(choosen, O)
+		if(grenade_type)
+			var/obj/item/grenade/gr = new grenade_type(O)
+			gr.prime()
 
 //Select a grenade and immediately detonate it, thereby "stealing" its effect ke-ke-ke
-/obj/brs_rift/proc/make_random_grenade_prime(var/choosen, var/new_loc)
-	var/obj/item/grenade/gr
-	switch(choosen)
-		if(1)
-			gr = new /obj/item/grenade/smokebomb(new_loc)
-		if(2)
-			gr = new /obj/item/grenade/frag(new_loc)
-		if(3)
-			gr = new /obj/item/grenade/flashbang(new_loc)
-		if(4)
-			gr = new /obj/item/grenade/chem_grenade/meat(new_loc)
-		if(5)
-			gr = new /obj/item/grenade/chem_grenade/holywater(new_loc)
-		if(6)
-			gr = new /obj/item/grenade/chem_grenade/hellwater(new_loc)
-		if(7)
-			gr = new /obj/item/grenade/chem_grenade/drugs(new_loc)
-		if(8)
-			gr = new /obj/item/grenade/chem_grenade/ethanol(new_loc)
-		if(9)
-			gr = new /obj/item/grenade/chem_grenade/lube(new_loc)
-		if(10)
-			gr = new /obj/item/grenade/chem_grenade/large/monster(new_loc)
-		if(11)
-			gr = new /obj/item/grenade/chem_grenade/large/feast(new_loc)
-		if(12)
-			gr = new /obj/item/grenade/confetti(new_loc)
-		if(13)
-			gr = new /obj/item/grenade/clown_grenade(new_loc)
-		if(14)
-			gr = new /obj/item/grenade/bananade(new_loc)
-		if(15)
-			gr = new /obj/item/grenade/gas/knockout(new_loc)
-		if(16)
-			gr = new /obj/item/grenade/gluon(new_loc)
-		if(17)
-			gr = new /obj/item/grenade/chem_grenade/metalfoam(new_loc)
-		if(18)
-			gr = new /obj/item/grenade/chem_grenade/firefighting(new_loc)
-		if(19)
-			gr = new /obj/item/grenade/chem_grenade/incendiary(new_loc)
-		if(20)
-			gr = new /obj/item/grenade/chem_grenade/antiweed(new_loc)
-		if(21)
-			gr = new /obj/item/grenade/chem_grenade/cleaner(new_loc)
-		if(22)
-			gr = new /obj/item/grenade/chem_grenade/teargas(new_loc)
-		if(23)
-			gr = new /obj/item/grenade/chem_grenade/facid(new_loc)
-	gr.prime()
+/obj/brs_rift/proc/get_random_grenade_type()
+	var/static/list/grenade_list = list(
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/frag,
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/meat,
+		/obj/item/grenade/chem_grenade/holywater,
+		/obj/item/grenade/chem_grenade/hellwater,
+		/obj/item/grenade/chem_grenade/drugs,
+		/obj/item/grenade/chem_grenade/ethanol,
+		/obj/item/grenade/chem_grenade/lube,
+		/obj/item/grenade/chem_grenade/large/monster,
+		/obj/item/grenade/chem_grenade/large/feast,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/clown_grenade,
+		/obj/item/grenade/bananade,
+		/obj/item/grenade/gas/knockout,
+		/obj/item/grenade/gluon,
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/grenade/chem_grenade/firefighting,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/chem_grenade/facid
+		)
+
+	return pick(grenade_list)
