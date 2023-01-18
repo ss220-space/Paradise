@@ -125134,8 +125134,8 @@
 /area/security/securearmory)
 "vvh" = (
 /obj/structure/bed,
-/obj/item/radio/intercom{
-	pixel_y = 24
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
