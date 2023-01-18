@@ -24,6 +24,9 @@
 
 
 /obj/item/clothing/suit/space/space_ninja/proc/spawn_ninja_clones(mob/living/carbon/human/ninja)
+	if(auto_smoke)
+		if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+			prime_smoke(lowcost = TRUE)
 	do_sparks(3, FALSE, ninja)
 	add_attack_logs(ninja, null, "Activated Energy Clones")
 	for(var/i=0, i<2, i++)

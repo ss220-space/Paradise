@@ -51,6 +51,9 @@
 			ninja_action.use_action()
 			break
 		playsound(ninja, 'sound/effects/glass_step_sm.ogg', 50, TRUE)
+		if(auto_smoke)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+				prime_smoke(lowcost = TRUE)
 
 
 ///The caltrops object

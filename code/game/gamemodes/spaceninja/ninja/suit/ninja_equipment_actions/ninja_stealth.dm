@@ -35,6 +35,9 @@
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(ninja), ninja.dir)
 		ninja.visible_message(span_warning("[ninja.name] расстворил[genderize_ru(ninja.gender, "ся", "ась", "ось", "ись") ] в воздухе!"), span_notice("Теперь вас невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
 		ninja.AddComponent(/datum/component/ninja_states_breaker, src)
+		if(auto_smoke)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+				prime_smoke(lowcost = TRUE)
 		for(var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_action in actions)
 			ninja_action.use_action()
 			ninja_action.action_ready = TRUE

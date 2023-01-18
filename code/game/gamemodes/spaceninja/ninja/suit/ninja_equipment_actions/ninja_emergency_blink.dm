@@ -19,6 +19,9 @@
 		return
 	if(!ninjacost(1500))
 		var/turf/T = get_turf(ninja)
+		if(auto_smoke)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+				prime_smoke(lowcost = TRUE)
 		do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg')
 		add_attack_logs(ninja, null, "Emergency blinked from [COORD(T)] to [COORD(ninja)].")
 		investigate_log("[key_name_log(ninja)] Emergency blinked from [COORD(T)] to [COORD(ninja)].", INVESTIGATE_TELEPORTATION)

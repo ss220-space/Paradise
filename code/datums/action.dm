@@ -740,7 +740,12 @@
 			UpdateButtonIcon()
 			add_charges_overlay()
 
-/datum/action/item_action/advanced/IsAvailable(show_message = FALSE)
+/* Basic availability checks in this proc.
+ * Arguments:
+ * show_message - Do we show recharging message to the caller?
+ * ignore_ready - Are we ignoring the "action_ready" flag? Usefull when u call this check indirrectly.
+ */
+/datum/action/item_action/advanced/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
 	. = ..()
 	switch(charge_type)
 		if(ADV_ACTION_TYPE_RECHARGE)
@@ -750,7 +755,7 @@
 				return FALSE
 		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
 			if(charge_counter < charge_max)
-				if(action_ready)
+				if(action_ready && !ignore_ready)
 					return TRUE
 				if(show_message)
 					to_chat(owner, still_recharging_msg)
@@ -837,7 +842,7 @@
 		recharge_text_color = ninja_suit.color_choice
 		coold_overlay_icon_state = "background_[ninja_suit.color_choice]"
 
-/datum/action/item_action/advanced/ninja/IsAvailable(show_message = FALSE)
+/datum/action/item_action/advanced/ninja/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
 	if(!target && !istype(target, /obj/item/clothing/suit/space/space_ninja))
 		return FALSE
 	return ..()

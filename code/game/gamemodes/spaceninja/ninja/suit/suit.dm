@@ -221,6 +221,9 @@
 	var/stealth = FALSE
 	/// Шанс выдачи флавор намёка о том что рядом ниндзя в инвизе. В процентах.
 	var/stealth_ambient_chance = 2
+	/// Если у нас есть способность выпускать дым, этот флаг отвечает за то будут ли другие способности пытаться делать это сами
+	/// Переключается игроком, через отдельный action
+	var/auto_smoke = FALSE
 	/// Флаг Формы духа
 	var/spirited = FALSE
 	/// Флаг Хамелиона
@@ -280,7 +283,6 @@
 	spark_system.attach(src)
 	// Smoke Init
 	smoke_system = new
-	smoke_system.set_up(20, 0, src)
 	smoke_system.attach(src)
 	// Jetpack initialize
 	if(jetpack && ispath(jetpack))
@@ -475,6 +477,9 @@
 			return TRUE
 		if(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb)
 			prime_smoke()
+			return TRUE
+		if(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto)
+			toggle_smoke()
 			return TRUE
 		if(/datum/action/item_action/advanced/ninja/ninja_caltrops)
 			scatter_caltrops()

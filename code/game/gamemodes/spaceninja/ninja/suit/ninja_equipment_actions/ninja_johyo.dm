@@ -61,7 +61,7 @@
 	qdel(src)
 
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
-	if(!my_action.IsAvailable(show_message = TRUE))
+	if(!my_action.IsAvailable(show_message = TRUE, ignore_ready = TRUE))
 		return FALSE
 	if(!my_suit.ninjacost(cost*burst_size))
 		my_action.use_action()
