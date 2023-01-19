@@ -11,7 +11,7 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Security Cadet", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -457,7 +457,7 @@
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))
 		check_sun()
-	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(owner.loc.loc, /area/chapel) || istype(owner.loc.loc, /area/maintenance/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)
 	nullified = max(0, nullified - 1)
 
