@@ -880,7 +880,9 @@
 	},
 /area/maintenance/asmaint)
 "agN" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	locked = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
 "ahe" = (
@@ -1668,7 +1670,8 @@
 /area/maintenance/asmaint)
 "aoS" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "admin_home"
+	id_tag = "admin_home";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -6350,7 +6353,8 @@
 /area/quartermaster/office)
 "aRL" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ferry_home"
+	id_tag = "ferry_home";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -8536,7 +8540,8 @@
 /area/space)
 "bfF" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "specops_home"
+	id_tag = "specops_home";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -9834,7 +9839,8 @@
 /area/medical/virology/lab)
 "blv" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "trade_dock"
+	id_tag = "trade_dock";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -33235,7 +33241,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -42716,7 +42723,8 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "mining_home";
 	name = "Mining Dock Airlock";
-	req_access_txt = "48"
+	req_access_txt = "48";
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -45672,7 +45680,9 @@
 	},
 /area/library)
 "dZo" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	locked = 1
+	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
@@ -52548,7 +52558,8 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_home";
 	name = "Labor Camp Airlock";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -58249,6 +58260,16 @@
 	icon_state = "darkredfull"
 	},
 /area/space)
+"gKh" = (
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	locked = 1;
+	req_access_txt = "1"
+	},
+/turf/simulated/floor/plating,
+/area/hallway/secondary/exit)
 "gKm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -58838,7 +58859,8 @@
 	hackProof = 1;
 	id_tag = "emergency_home";
 	name = "Security Escape Airlock";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	locked = 1
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -60202,7 +60224,9 @@
 	},
 /area/tcommsat/chamber)
 "heT" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	locked = 1
+	},
 /turf/simulated/floor/plating,
 /area/construction/hallway)
 "heZ" = (
@@ -71326,7 +71350,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -93973,7 +93998,8 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_home";
 	name = "Labor Camp Airlock";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -101025,7 +101051,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "qjy" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	locked = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "qjE" = (
@@ -116885,7 +116913,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -118677,7 +118706,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/turf_decal/caution{
 	dir = 8
@@ -126087,7 +126117,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
@@ -178138,7 +178169,7 @@ eXW
 ruH
 qpH
 iOD
-jGz
+gKh
 kUB
 jGz
 kUB
