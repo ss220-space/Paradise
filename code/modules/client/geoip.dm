@@ -127,50 +127,20 @@
 	var/msg = file2text(vl["CONTENT"])
 	return json_decode(msg)
 
-/proc/DB_ban_record_SyndiCat(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/proc/DB_ban_record_SyndiCat(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/role = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
 	if(!SSdbcore.IsConnected())
 		return
 
-	var/serverip = "[world.internet_address]:[world.port]"
-	var/bantype_pass = 0
-	var/bantype_str
+	var/server_ip = world.internet_address
+	var/server_port = world.port
+	var/bantype_pass = 1
+	var/bantype_str = "PERMABAN"
+	var/applies_to_admins = null
 	var/announce_in_discord = FALSE		//When set, it announces the ban in irc. Intended to be a way to raise an alarm, so to speak.
 	var/kickbannedckey		//Defines whether this proc should kick the banned person, if they are connected (if banned_mob is defined).
 							//some ban types kick players after this proc passes (tempban, permaban), but some are specific to db_ban, so
 							//they should kick within this proc.
 	var/isjobban // For job bans, which need to be inserted into the job ban lists
-	switch(bantype)
-		if(BANTYPE_PERMA)
-			bantype_str = "PERMABAN"
-			duration = -1
-			bantype_pass = 1
-		if(BANTYPE_TEMP)
-			bantype_str = "TEMPBAN"
-			bantype_pass = 1
-		if(BANTYPE_JOB_PERMA)
-			bantype_str = "JOB_PERMABAN"
-			duration = -1
-			bantype_pass = 1
-			isjobban = 1
-		if(BANTYPE_JOB_TEMP)
-			bantype_str = "JOB_TEMPBAN"
-			bantype_pass = 1
-			isjobban = 1
-		if(BANTYPE_APPEARANCE)
-			bantype_str = "APPEARANCE_BAN"
-			duration = -1
-			bantype_pass = 1
-		if(BANTYPE_ADMIN_PERMA)
-			bantype_str = "ADMIN_PERMABAN"
-			duration = -1
-			bantype_pass = 1
-			announce_in_discord = TRUE
-			kickbannedckey = 1
-		if(BANTYPE_ADMIN_TEMP)
-			bantype_str = "ADMIN_TEMPBAN"
-			bantype_pass = 1
-			announce_in_discord = TRUE
-			kickbannedckey = 1
 
 	if( !bantype_pass ) return
 	if( !istext(reason) ) return
@@ -236,16 +206,17 @@
 			adminwho += ", [C]"
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`reason`,`role`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `unbanned_round_id`)
+		VALUES (null, Now(), :server_ip, :server_port, :reason, :role, :round_id, Now() + INTERVAL :duration MINUTE, :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
 	"}, list(
 		// Get ready for parameters
-		"serverip" = serverip,
-		"bantype_str" = bantype_str,
+		"server_ip" = server_ip,
+		"server_port" = server_port,
+		"round_id" = GLOB.round_id,
+		"role" = role,
+		"duration" = duration,
+		"applies_to_admins" = applies_to_admins,
 		"reason" = reason,
-		"job" = job,
-		"duration" = (duration ? "[duration]" : "0"), // Strings are important here
-		"rounds" = (rounds ? "[rounds]" : "0"), // And here
 		"ckey" = ckey,
 		"computerid" = computerid,
 		"ip" = ip,
@@ -260,7 +231,7 @@
 		return
 
 	qdel(query_insert)
-	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
+	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(role)?"([role])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
 	if(announce_in_discord)
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
@@ -270,7 +241,7 @@
 			del(banned_mob.client)
 
 	if(isjobban)
-		jobban_client_fullban(ckey, job)
+		jobban_client_fullban(ckey, role)
 	else
 		flag_account_for_forum_sync(ckey)
 

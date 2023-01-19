@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			return
 
 		//Job permabans
-		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
+		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND isnull(unbanned_datetime) AND isnull(expiration_time)")
 
 		if(!permabans.warn_execute(async=FALSE))
 			qdel(permabans)
@@ -81,7 +81,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(permabans)
 
 		// Job tempbans
-		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND isnull(unbanned_datetime) AND expiration_time > Now()")
 
 		if(!tempbans.warn_execute(async=FALSE))
 			qdel(tempbans)
@@ -89,9 +89,9 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 		while(tempbans.NextRow())
 			var/ckey = tempbans.item[1]
-			var/job = tempbans.item[2]
-			GLOB.jobban_keylist.Add("[ckey] - [job]")
-			jobban_assoc_insert(ckey, job)
+			var/role = tempbans.item[2]
+			GLOB.jobban_keylist.Add("[ckey] - [role]")
+			jobban_assoc_insert(ckey, role)
 
 		qdel(tempbans)
 
@@ -143,8 +143,8 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
 		var/datum/db_query/select_query = SSdbcore.NewQuery({"
-			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [sqlfdbkdbutil].[format_table_name("ban")]
-			WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
+			SELECT bantime, reason, role, expiration_time, a_ckey FROM [sqlfdbkdbutil].[format_table_name("ban")]
+			WHERE ckey LIKE :ckey AND ((role != 'Server' AND expiration_time > Now()) OR (role != 'Server' AND isnull(expiration_time))) AND isnull(unbanned_datetime)
 			ORDER BY bantime DESC LIMIT 100"},
 			list("ckey" = ckey)
 		)
@@ -156,17 +156,15 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		while(select_query.NextRow())
 
 			var/bantime = select_query.item[1]
-			var/bantype  = select_query.item[2]
-			var/reason = select_query.item[3]
-			var/job = select_query.item[4]
-			var/duration = select_query.item[5]
-			var/expiration = select_query.item[6]
-			var/ackey = select_query.item[7]
+			var/reason = select_query.item[2]
+			var/role = select_query.item[3]
+			var/expiration_time = select_query.item[4]
+			var/ackey = select_query.item[5]
 
-			if(bantype == "JOB_PERMABAN")
-				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]</span>")
-			else if(bantype == "JOB_TEMPBAN")
-				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
+			if(isnull(expiration_time))
+				to_chat(src, "<span class='warning'>[role] - REASON: [reason], by [ackey]; [bantime]</span>")
+			else
+				to_chat(src, "<span class='warning'>[role] - REASON: [reason], by [ackey]; [bantime]; expires [expiration_time]</span>")
 
 			is_actually_banned = TRUE
 

@@ -87,9 +87,8 @@
 			qdel(ban_wl_query)
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [sqlfdbkdbutil].[format_table_name("ban")]
-		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
-		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, bantime, applies_to_admins FROM [sqlfdbkdbutil].[format_table_name("ban")]
+		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (isnull(expiration_time) OR (expiration_time > Now())) AND isnull(unbanned_datetime)"}, sql_query_params)
 
 		if(!query.warn_execute())
 			message_admins("Failed to do a DB ban check for [ckeytext]. You have been warned.")
@@ -102,20 +101,19 @@
 			//var/pcid = query.item[3]
 			var/ackey = query.item[4]
 			var/reason = query.item[5]
-			var/expiration = query.item[6]
-			var/duration = query.item[7]
-			var/bantime = query.item[8]
-			var/bantype = query.item[9]
+			var/expiration_time = query.item[6]
+			var/bantime = query.item[7]
+			var/applies_to_admins = query.item[8]
 			if(wl_cid && computer_id && wl_cid == computer_id && pckey != ckey)
 				log_admin("Client [key] has banned CID ([computer_id]) but also exist in a ban whitelist - access allowed")
 				continue
-			if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
+			if(applies_to_admins)
 				//admin bans MUST match on ckey to prevent cid-spoofing attacks
 				//	as well as dynamic ip abuse
 				if(pckey != ckey)
 					continue
 			if(admin)
-				if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
+				if(applies_to_admins)
 					log_admin("The admin [key] is admin banned, and has been disallowed access")
 					message_admins("<span class='adminnotice'>The admin [key] is admin banned, and has been disallowed access</span>")
 				else
@@ -127,14 +125,14 @@
 			var/appealmessage = ""
 			if(config.banappeals)
 				appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
-			if(text2num(duration) > 0)
-				expires = " The ban is for [duration] minutes and expires on [expiration] (server time).[appealmessage]"
+			if(isnull(expiration_time))
+				expires = " The ban expires on [expiration_time] (server time).[appealmessage]"
 			else
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime].[expires]"
 
-			. = list("reason"="[bantype]", "desc"="[desc]")
+			. = list("reason"="[reason]", "desc"="[desc]")
 
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 			qdel(query)
