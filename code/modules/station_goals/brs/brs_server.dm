@@ -272,7 +272,7 @@
 		if("luck")
 			if(roulette_points >= roulette_points_price)
 				roulette_points -= roulette_points_price
-				if(prob(round(50 / emagged ? emagged_prob_division : 1)))
+				if(prob(round(50 / emagged ? round(emagged_prob_division/2) : 1)))
 					var/turf/T
 					for(var/obj/brs_rift/rift in G.rifts_list)
 						if(prob(70))
