@@ -134,4 +134,7 @@
 /obj/item/organ/internal/ears/diona
 	species_type = /datum/species/diona
 	name = "oscillatory catcher"
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "claw"
+	desc = "A strange organic object used by a Gestalt for orientation in a three-dimensional projection."
 	parent_organ = "groin"
