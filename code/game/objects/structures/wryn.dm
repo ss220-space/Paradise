@@ -1,15 +1,6 @@
 /obj/structure/wryn
 	max_integrity = 100
 
-// /obj/structure/wryn/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-// 	if(damage_flag == "melee")
-// 		switch(damage_type)
-// 			if(BRUTE)
-// 				damage_amount *= 2
-// 			if(BURN)
-// 				damage_amount *= 2
-// 	. = ..()
-
 /obj/structure/wryn/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -25,13 +16,13 @@
 	name = "wax"
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
-	icon_state = "wax_wall"
+	icon_state = "wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	//canSmoothWith = list(/obj/structure/alien/resin)
+	canSmoothWith = list(/obj/structure/wryn/wax)
 	max_integrity = 30
-	//smooth = SMOOTH_TRUE
+	smooth = SMOOTH_TRUE
 
 /obj/structure/wryn/wax/Initialize()
 	air_update_turf(1)
@@ -53,18 +44,19 @@
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
 	desc = "Thick wax solidified into a wall."
-	//canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
 
 /obj/structure/wryn/wax/window
 	name = "wax window"
 	desc = "Wax just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
-	icon_state = "wax_wall"
+	icon_state = "window"
 	opacity = 0
 	max_integrity = 20
-	//canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
 
 /obj/structure/wryn/floor
+	icon = 'icons/obj/smooth_structures/wryn/floor.dmi'
 	gender = PLURAL
 	name = "wax floor"
 	desc = "A sticky yellow surface covers the floor."
@@ -72,8 +64,13 @@
 	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
-	icon_state = "wax_wall"
+	icon_state = "wax_floor"
 	max_integrity = 10
+
+/obj/structure/wryn/wax/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASSGLASS))
+		return !opacity
+	return !density
 
 /obj/structure/wryn/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

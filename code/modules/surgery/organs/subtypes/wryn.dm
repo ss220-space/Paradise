@@ -11,7 +11,7 @@
 /obj/item/organ/internal/wryn/glands
 	name = "wryn wax glands"
 	parent_organ = "mouth"
-	icon_state = "liver-x"
+	icon_state = "eggsac"
 	slot = "wax glands"
 	var/datum/action/innate/honeycomb/honeycomb = new
 	var/datum/action/innate/honeyfloor/honeyfloor = new
@@ -34,7 +34,7 @@
 /datum/action/innate/honeycomb
 	name = "Secrete Wax"
 	desc = "Secrete Wax"
-	button_icon_state = "wax"
+	button_icon_state = "wax_wall"
 
 /datum/action/innate/honeycomb/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
@@ -62,7 +62,7 @@
 /datum/action/innate/honeyfloor
 	name = "Honey Floor"
 	desc = "Honey Floor"
-	button_icon_state = "wax"
+	button_icon_state = "wax_floor"
 
 /datum/action/innate/honeyfloor/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
