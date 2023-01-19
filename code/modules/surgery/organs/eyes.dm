@@ -79,9 +79,3 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
-
-/obj/item/organ/internal/ears/diona
-	name = "oscillatory catcher"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "claw"
-	desc = "A strange organic object used by a Gestalt for orientation in a three-dimensional projection"
