@@ -19,9 +19,10 @@
 	health = 110
 	death_sound = 'sound/creatures/terrorspiders/death5.ogg'
 	regeneration = 1
-	speed = -0.1
-	melee_damage_lower = 10
-	melee_damage_upper = 13
+	speed = -0.2
+	melee_damage_lower = 13
+	melee_damage_upper = 16
+	armour_penetration = 20
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	delay_web = 15
 	web_type = /obj/structure/spider/terrorweb/gray

@@ -9,7 +9,6 @@
 	name = "Stealth"
 	desc = "Become completely invisible for a short time."
 	charge_max = 300
-	clothes_req = 1
 	action_icon_state = "stealth"
 	action_background_icon_state = "bg_terror"
 	clothes_req = FALSE
@@ -134,8 +133,8 @@
 
 /obj/effect/proc_holder/spell/targeted/terror/emp/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		empulse(usr.loc, 7, 10, TRUE, cause = usr)
-	return
+		if(isturf(usr.loc)) //to avoid cast from vents
+			empulse(usr.loc, 7, 10, TRUE, cause = usr)
 
 //EXPLOSION
 /obj/effect/proc_holder/spell/targeted/terror/burn
@@ -151,8 +150,8 @@
 
 /obj/effect/proc_holder/spell/targeted/terror/burn/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		explosion(usr.loc, flame_range = 7, cause = usr)
-	return
+		if(isturf(usr.loc)) //to avoid cast from vents
+			explosion(usr.loc, flame_range = 7, cause = usr)
 
 //GUARD//
 
@@ -166,7 +165,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	delay = 0
+	delay = 10
 	range = 0
 	cast_sound = 'sound/creatures/terrorspiders/mod_defence.ogg'
 	summon_type = list(/obj/effect/forcefield/terror)
@@ -176,7 +175,7 @@
 	name = "Guardian shield"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "terror_shield"
-	lifetime = 165                       //max 2 shields existing at one time
+	lifetime = 160                       //max 2 shields existing at one time
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/effect/forcefield/terror/CanPass(atom/movable/mover, turf/target)
@@ -190,14 +189,23 @@
 //DEFILER//
 
 //SMOKE
-/obj/effect/proc_holder/spell/targeted/smoke/terror
+/obj/effect/proc_holder/spell/targeted/terror/smoke
 	name = "Smoke"
 	desc = "Erupt a smoke to confuse your enemies."
-	sound = 'sound/creatures/terrorspiders/attack2.ogg'
 	charge_max = 100
 	clothes_req = FALSE
+	range = -1
+	include_user = 1
+	sound = 'sound/creatures/terrorspiders/attack2.ogg'
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
+
+/obj/effect/proc_holder/spell/targeted/terror/smoke/cast(list/targets, mob/user = usr)
+	for(var/mob/living/target in targets)
+		if(isturf(usr.loc)) //to avoid cast from vents
+			var/datum/effect_system/smoke_spread/smoke = new
+			smoke.set_up(15, 0, usr)
+			smoke.start()
 
 //PARALYSING SMOKE
 /obj/effect/proc_holder/spell/targeted/terror/parasmoke
@@ -213,12 +221,13 @@
 
 /obj/effect/proc_holder/spell/targeted/terror/parasmoke/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		var/datum/effect_system/smoke_spread/chem/S = new
-		create_reagents(50)
-		reagents.add_reagent("neurotoxin", 25)
-		reagents.add_reagent("capulettium_plus", 25)
-		S.set_up(reagents, usr, TRUE)
-		S.start()
+		if(isturf(usr.loc)) //to avoid cast from vents
+			var/datum/effect_system/smoke_spread/chem/S = new
+			create_reagents(50)
+			reagents.add_reagent("neurotoxin", 25)
+			reagents.add_reagent("capulettium_plus", 25)
+			S.set_up(reagents, usr, TRUE)
+			S.start()
 
 //INFESTING SMOKE
 /obj/effect/proc_holder/spell/targeted/terror/infest
@@ -234,12 +243,13 @@
 
 /obj/effect/proc_holder/spell/targeted/terror/infest/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		var/datum/effect_system/smoke_spread/chem/S = new
-		create_reagents(50)
-		reagents.add_reagent("terror_egs", 25)
-		reagents.add_reagent("space_drugs", 25)
-		S.set_up(reagents, usr, TRUE)
-		S.start()
+		if(isturf(usr.loc)) //to avoid cast from vents
+			var/datum/effect_system/smoke_spread/chem/S = new
+			create_reagents(50)
+			reagents.add_reagent("terror_egs", 25)
+			reagents.add_reagent("space_drugs", 25)
+			S.set_up(reagents, usr, TRUE)
+			S.start()
 
 /datum/reagent/terror_eggs
 	name = "terror spider eggs"
@@ -292,28 +302,29 @@
 
 //SLAM
 /obj/effect/proc_holder/spell/aoe_turf/terror/slam
-	name = "Monstrous slam"
+	name = "Slam"
 	desc = "Slam the ground with your body."
 	action_icon_state = "slam"
 	action_background_icon_state = "bg_terror"
 	charge_max = 200
 	clothes_req = FALSE
 	range = 2
-	sound = 'sound/creatures/terrorspiders/prince_attack.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/terror/slam/cast(list/targets, mob/user = usr)
+	playsound(usr, 'sound/creatures/terrorspiders/prince_attack.ogg', 150, 0)
+	visible_message("<span class='warning'>[src] wildly roars and prepares for the slam!</span>")
+	sleep(13)  //synced with sound, first plays roar, then, after 1.3 sec plays slam sound and applies abbillity effect
 	for(var/turf/T in targets)
 		for(var/mob/target in T.contents)
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
-				to_chat(M, "<span class='danger'><b>You have been knocked down!</b></span>")
-				visible_message("<span class='warning'>[usr] wildly roars and slams the ground!</span>")
 				M.AdjustWeakened(1)
 				M.slowed = 6
 				M.adjustBruteLoss(20)
 		var/turf/simulated/floor/tile = user.loc
 		for(tile in range(2, user))
 			tile.break_tile()
+			visible_message("<span class='warning'>[src] slams the ground!</span>")
 
 //MOTHER//
 

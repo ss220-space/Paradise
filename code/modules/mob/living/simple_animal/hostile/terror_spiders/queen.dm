@@ -15,14 +15,14 @@
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
-	maxHealth = 330
-	health = 330
+	maxHealth = 350
+	health = 350
 	deathmessage = "Emits a  piercing screech that echoes through the hallways, chilling the hearts of those around, as the spider lifelessly falls to the ground."
 	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
-	regeneration = 3
-	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage_lower = 20
+	melee_damage_upper = 30
 	ventcrawler = 1
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
@@ -32,12 +32,12 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	projectilesound = 'sound/creatures/terrorspiders/spit2.ogg'
+	projectilesound = 'sound/creatures/terrorspiders/spit.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/queen
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
-	delay_web = 20
+	delay_web = 15
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
@@ -247,7 +247,7 @@
 	queennest_action.Remove(src)
 	hasnested = TRUE
 	ventcrawler = 0
-	speed = 0.4
+	speed = 1
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
@@ -286,9 +286,6 @@
 			numlings = input("How many in the batch?") as null|anything in list(1, 2)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
-		return
-	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
 		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
@@ -338,11 +335,11 @@
 
 	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_BUILDER)
 	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/guardian, /mob/living/simple_animal/hostile/poison/terror_spider/widow))
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/destroyer] < 2)
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/destroyer] < 3)
 		valid_types += TS_DESC_DESTROYER
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/guardian] < 2)
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/guardian] < 3)
 		valid_types += TS_DESC_GUARDIAN
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/widow] < 2)
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/widow] < 4)
 		valid_types += TS_DESC_WIDOW
 	return valid_types
 
@@ -369,7 +366,8 @@
 
 
 /obj/item/projectile/terrorspider/queen
-	name = "queen spit"
+	name = "queen venom"
+	icon_state = "toxin3"
 	damage = 40
 	stamina = 40
 	icon_state = "toxin"

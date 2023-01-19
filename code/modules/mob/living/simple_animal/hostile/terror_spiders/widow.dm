@@ -15,9 +15,9 @@
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
-	speed = -0.2
-	maxHealth = 120
-	health = 120
+	speed = -0.1
+	maxHealth = 150
+	health = 150
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	regeneration = 1
 	ranged = 1
@@ -68,8 +68,9 @@
 				C.reagents.add_reagent("terror_black_toxin", 45)
 
 /obj/item/projectile/terrorspider/widow
-	name = "assasin acid"
-	damage = 14
+	name = "widow venom"
+	icon_state = "toxin5"
+	damage = 17
 	stamina = 17
 	damage_type = TOX
 

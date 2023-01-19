@@ -236,8 +236,8 @@
 	return ..()
 
 /obj/structure/spider/eggcluster/terror_eggcluster/process()
-	amount_grown += rand(0,2)
-	if(amount_grown >= 200)  //x2 time for egg process, spiderlings grows instantly
+	amount_grown += 1
+	if(amount_grown >= 180)  //x2 time for egg process, spiderlings grows instantly
 		var/num = spiderling_number
 		playsound(src, 'sound/creatures/terrorspiders/eggburst.ogg', 100)
 		for(var/i=0, i<num, i++)

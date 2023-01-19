@@ -18,7 +18,7 @@
 	icon_dead = "terror_red_dead"
 	maxHealth = 230
 	health = 230
-	heal_per_kill = 220
+	heal_per_kill = 230
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 	obj_damage = 60

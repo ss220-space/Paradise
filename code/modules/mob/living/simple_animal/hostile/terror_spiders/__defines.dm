@@ -13,7 +13,7 @@
 #define TS_DESC_LURKER "Lurker - AMBUSH"
 #define TS_DESC_HEALER "Healer - NURSE"
 #define TS_DESC_REAPER "Reaper - BRAWL"
-#define TS_DESC_BUILDER "Builder - DRONE"
+#define TS_DESC_BUILDER "Drone - BUILD"
 //TIER 2
 #define TS_DESC_DEFILER "Defiler - INFECT"
 #define TS_DESC_WIDOW "Widow - POISON"

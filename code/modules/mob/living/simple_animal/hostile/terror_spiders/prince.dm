@@ -15,12 +15,13 @@
 	icon_state = "terror_allblack"
 	icon_living = "terror_allblack"
 	icon_dead = "terror_allblack_dead"
-	maxHealth = 600
-	health = 600
+	maxHealth = 670
+	health = 670
 	deathmessage =  "morbidly growls, flailing and crumbling as death finally washes away the burning hatred in it's eyes."
 	death_sound = 'sound/creatures/terrorspiders/prince_dead.ogg'
 	regeneration = 0 //no healing on life, prince should play agressive
-	heal_per_kill = 600
+	heal_per_kill = 670
+	force_threshold = 30
 	speed = -0.1
 	melee_damage_lower = 35
 	melee_damage_upper = 45
@@ -28,6 +29,7 @@
 	obj_damage = 100
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	ventcrawler = 0
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0

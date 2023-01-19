@@ -18,7 +18,6 @@
 	gender = MALE
 	maxHealth = 220
 	health = 220
-	regeneration = 3
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	obj_damage = 70
@@ -33,6 +32,7 @@
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
+	sight = SEE_TURFS|SEE_MOBS
 	web_type = /obj/structure/spider/terrorweb/purple
 	can_wrap = FALSE
 	delay_web = 20
@@ -47,7 +47,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/spider_specialattack(mob/living/carbon/human/L)
 	L.adjustStaminaLoss(15)
 	if(prob(15))
-		playsound(src, 'sound/creatures/terrorspiders/attack.ogg', 75, 1)
+		playsound(src, 'sound/creatures/terrorspiders/bite2.ogg', 120, 1)
 		do_attack_animation(L)
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
 		L.adjustBruteLoss(20)

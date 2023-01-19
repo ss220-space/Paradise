@@ -15,9 +15,12 @@
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
 	icon_dead = "terror_princess1_dead"
+	melee_damage_lower = 15
+	melee_damage_upper = 20
 	maxHealth = 200
 	health = 200
 	speed = -0.1
+	delay_web = 25
 	deathmessage = "Emits a  piercing screech and slowly falls on the ground."
 	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
 	spider_tier = TS_TIER_3
@@ -48,7 +51,7 @@
 
 	// Each princess can also have ONE black/purple/brown. If it dies, they can pick a new spider from the 3 advanced types to lay.
 	var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/guardian, /mob/living/simple_animal/hostile/poison/terror_spider/destroyer))
-	if(spider_array["all"] < 2)
+	if(spider_array["all"] < 3)
 		valid_types |= TS_DESC_WIDOW
 		valid_types |= TS_DESC_GUARDIAN
 		valid_types |= TS_DESC_DESTROYER
@@ -58,10 +61,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_eggs()
 	spider_lastspawn = world.time
-
-	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
-		return
 
 	if(!prob(grant_prob))
 		return
@@ -126,7 +125,8 @@
 	return FALSE
 
 /obj/item/projectile/terrorspider/princess
-	name = "princess acid"
+	name = "princess venom"
+	icon_state = "toxin4"
 	damage = 25
 	stamina = 25
 	icon_state = "toxin"

@@ -114,6 +114,7 @@
 		return
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
+	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, 1)
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
@@ -145,7 +146,7 @@
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
-	if(istype(mover, /obj/item/projectile/terrorqueenspit))
+	if(istype(mover, /obj/item/projectile/terrorspider))
 		return 1
 	if(isliving(mover))
 		var/mob/living/M = mover
@@ -153,8 +154,8 @@
 			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(4) // 8 seconds.
-			M.Weaken(4) // 8 seconds.
+			M.Stun(2) // 4 seconds.
+			M.Weaken(2) // 4 seconds.
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)

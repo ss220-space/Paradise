@@ -18,13 +18,14 @@
 	health = 210
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	speed = -0.1
-	melee_damage_lower = 1
-	melee_damage_upper = 3
+	melee_damage_lower = 5
+	melee_damage_upper = 10
 	spider_opens_doors = 2
 	spider_tier = TS_TIER_2
 	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
-	special_abillity = list(/obj/effect/proc_holder/spell/targeted/smoke/terror,
+	delay_web = 20
+	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
 							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
 							/obj/effect/proc_holder/spell/targeted/terror/infest)
 	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их своими яйцами. Вы наносите мало урона, но можете довольно быстро парализовать цель, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых!"

@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>You don't need healing!</span>")
 		return
 	to_chat(src, "<span class='notice'>You consume royal jelly to heal yourself!</span>")
-	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 50, 1)
+	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
 	adjustBruteLoss(-heal_per_jelly)
 	qdel(J)
 
