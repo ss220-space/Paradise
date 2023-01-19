@@ -1,6 +1,6 @@
 #define MAX_ADMIN_BANS_PER_ADMIN 1
 
-/datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/role = "Server", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = null, var/reason, var/role = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
 
 	if(!check_rights(R_BAN))	return
 
@@ -23,16 +23,18 @@
 	switch(bantype)
 		if(BANTYPE_PERMA)
 			bantype_str = "PERMABAN"
-			duration = -1
+			role = "Server"
+			duration = null
 			bantype_pass = 1
 			blockselfban = 1
 		if(BANTYPE_TEMP)
 			bantype_str = "TEMPBAN"
+			role = "Server"
 			bantype_pass = 1
 			blockselfban = 1
 		if(BANTYPE_JOB_PERMA)
 			bantype_str = "JOB_PERMABAN"
-			duration = -1
+			duration = null
 			bantype_pass = 1
 			isjobban = 1
 		if(BANTYPE_JOB_TEMP)
@@ -41,12 +43,12 @@
 			isjobban = 1
 		if(BANTYPE_APPEARANCE)
 			bantype_str = "APPEARANCE_BAN"
-			duration = -1
 			bantype_pass = 1
 			role = "Appearance"
 		if(BANTYPE_ADMIN_PERMA)
 			bantype_str = "ADMIN_PERMABAN"
-			duration = -1
+			role = "Server"
+			duration = null
 			bantype_pass = 1
 			maxadminbancheck = 1
 			announce_in_discord = TRUE
@@ -55,6 +57,7 @@
 			applies_to_admins = 1
 		if(BANTYPE_ADMIN_TEMP)
 			bantype_str = "ADMIN_TEMPBAN"
+			role = "Server"
 			bantype_pass = 1
 			maxadminbancheck = 1
 			announce_in_discord = TRUE
@@ -153,14 +156,14 @@
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
 		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`role`,`reason`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `unbanned_round_id`)
-		VALUES (null, Now(), :server_ip, :server_port, :role, :reason, :round_id, Now() + INTERVAL :duration MINUTE, :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		VALUES (null, Now(), INET_ATON(:server_ip), :server_port, :role, :reason, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, INET_ATON(:ip), :a_ckey, :a_computerid, INET_ATON(:a_ip), :who, :adminwho, '', null, null, null, null, null)
 	"}, list(
 		// Get ready for parameters
 		"server_ip" = server_ip,
 		"server_port" = server_port,
 		"round_id" = GLOB.round_id,
 		"role" = role,
-		"duration" = duration,
+		"duration" = (duration ? "[duration]" : "0"), // Strings are important here
 		"applies_to_admins" = applies_to_admins,
 		"reason" = reason,
 		"ckey" = ckey,
@@ -208,9 +211,11 @@
 		switch(bantype)
 			if(BANTYPE_PERMA)
 				bantype_str = "PERMABAN"
+				role = "Server"
 				bantype_pass = 1
 			if(BANTYPE_TEMP)
 				bantype_str = "TEMPBAN"
+				role = "Server"
 				bantype_pass = 1
 			if(BANTYPE_JOB_PERMA)
 				bantype_str = "JOB_PERMABAN"
@@ -222,13 +227,16 @@
 				isjobban = 1
 			if(BANTYPE_APPEARANCE)
 				bantype_str = "APPEARANCE_BAN"
+				role = "Appearance"
 				bantype_pass = 1
 			if(BANTYPE_ADMIN_PERMA)
 				bantype_str = "ADMIN_PERMABAN"
+				role = "Server"
 				bantype_pass = 1
 				applies_to_admins = 1
 			if(BANTYPE_ADMIN_TEMP)
 				bantype_str = "ADMIN_TEMPBAN"
+				role = "Server"
 				bantype_pass = 1
 				applies_to_admins = 1
 			if(BANTYPE_ANY_FULLBAN)
@@ -236,19 +244,18 @@
 				bantype_pass = 1
 		if( !bantype_pass ) return
 
-	var/bantype_sql
-	if(bantype_str == "ANY")
-		bantype_sql = "( isnull(expiration_time) OR expiration_time > Now() )"
-	else
-		bantype_sql = "applies_to_admins = '[applies_to_admins]' AND [isjobban ? "role != 'Server'" : ""]"
-
-	var/sql = "SELECT id FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE ckey=:ckey AND [bantype_sql] AND (unbanned_datetime is null)"
 	var/list/sql_params = list(
 		"ckey" = ckey
 	)
-	if(role)
-		sql += " AND role=:role"
-		sql_params["role"] = role
+	var/sql = "SELECT id FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE ckey=:ckey AND (unbanned_datetime is null)"
+	if(bantype_str == "ANY")
+		sql += " AND (isnull(expiration_time) OR expiration_time > Now())"
+	else
+		sql += " AND applies_to_admins = :applies_to_admins"
+		sql_params["applies_to_admins"] = applies_to_admins
+		if(role)
+			sql += " AND role=:role"
+			sql_params["role"] = role
 
 	var/ban_id
 	var/ban_number = 0 //failsafe
@@ -409,7 +416,7 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("ban")] SET unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id, unbanned_round_id=:unbanned_round_id", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("ban")] SET unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=INET_ATON(:unban_ip) WHERE id=:id, unbanned_round_id=:unbanned_round_id", list(
 		"unban_ckey" = unban_ckey,
 		"unban_computerid" = unban_computerid,
 		"unban_ip" = unban_ip,
@@ -554,7 +561,7 @@
 					playersearch = "AND ckey=:playerckey "
 					sql_params["playerckey"] = playerckey
 				if(playerip)
-					ipsearch  = "AND ip=:playerip "
+					ipsearch  = "AND INET_NTOA(ip)=:playerip "
 					sql_params["playerip"] = playerip
 				if(playercid)
 					cidsearch  = "AND computerid=:playercid "
@@ -567,34 +574,32 @@
 					playersearch = "AND ckey LIKE :playerckey "
 					sql_params["playerckey"] = "[playerckey]%"
 				if(playerip && length(playerip) >= 3)
-					ipsearch  = "AND ip LIKE :playerip "
+					ipsearch  = "AND INET_NTOA(ip) LIKE :playerip "
 					sql_params["playerip"] = "[playerip]%"
 				if(playercid && length(playercid) >= 7)
 					cidsearch  = "AND computerid LIKE :playercid "
 					sql_params["playercid"] = "[playercid]%"
 
 			if(dbbantype)
-				bantypesearch = "AND bantype = "
-
 				switch(dbbantype)
 					if(BANTYPE_TEMP)
-						bantypesearch += "'TEMPBAN' "
+						bantypesearch = "AND expiration_time != null AND applies_to_admins = 0 AND role = 'Server'0"
 					if(BANTYPE_JOB_PERMA)
-						bantypesearch += "'JOB_PERMABAN' "
+						bantypesearch = "AND expiration_time = null AND applies_to_admins = 0 AND role != 'Server' AND role != 'Appearance'"
 					if(BANTYPE_JOB_TEMP)
-						bantypesearch += "'JOB_TEMPBAN' "
+						bantypesearch = "AND expiration_time != null AND applies_to_admins = 0 AND role != 'Server' AND role != 'Appearance'"
 					if(BANTYPE_APPEARANCE)
-						bantypesearch += "'APPEARANCE_BAN' "
+						bantypesearch = "AND role = 'Appearance'"
 					if(BANTYPE_ADMIN_PERMA)
-						bantypesearch = "'ADMIN_PERMABAN' "
+						bantypesearch = "AND expiration_time = null AND applies_to_admins = 0 AND role = 'Server'"
 					if(BANTYPE_ADMIN_TEMP)
-						bantypesearch = "'ADMIN_TEMPBAN' "
+						bantypesearch = "AND expiration_time != null AND applies_to_admins = 1 AND role = 'Server'"
 					else
-						bantypesearch += "'PERMABAN' "
+						bantypesearch = "AND expiration_time = null AND applies_to_admins = 0 AND role = 'Server'"
 
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
-				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, ip, computerid, applies_to_admins
+				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, INET_NTOA(ip), computerid, applies_to_admins
 				FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())

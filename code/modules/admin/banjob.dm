@@ -65,35 +65,20 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			jobban_loadbanfile()
 			return
 
-		//Job permabans
-		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND isnull(unbanned_datetime) AND isnull(expiration_time)")
+		// Jobbans
+		var/datum/db_query/jobbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND role != 'Appearance' AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
 
-		if(!permabans.warn_execute(async=FALSE))
-			qdel(permabans)
+		if(!jobbans.warn_execute(async=FALSE))
+			qdel(jobbans)
 			return FALSE
 
-		while(permabans.NextRow())
-			var/ckey = permabans.item[1]
-			var/job = permabans.item[2]
-			GLOB.jobban_keylist.Add("[ckey] - [job]")
-			jobban_assoc_insert(ckey, job)
-
-		qdel(permabans)
-
-		// Job tempbans
-		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND isnull(unbanned_datetime) AND expiration_time > Now()")
-
-		if(!tempbans.warn_execute(async=FALSE))
-			qdel(tempbans)
-			return FALSE
-
-		while(tempbans.NextRow())
-			var/ckey = tempbans.item[1]
-			var/role = tempbans.item[2]
+		while(jobbans.NextRow())
+			var/ckey = jobbans.item[1]
+			var/role = jobbans.item[2]
 			GLOB.jobban_keylist.Add("[ckey] - [role]")
 			jobban_assoc_insert(ckey, role)
 
-		qdel(tempbans)
+		qdel(jobbans)
 
 /proc/jobban_savebanfile()
 	var/savefile/S=new("data/job_full.ban")
@@ -144,7 +129,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		var/is_actually_banned = FALSE
 		var/datum/db_query/select_query = SSdbcore.NewQuery({"
 			SELECT bantime, reason, role, expiration_time, a_ckey FROM [sqlfdbkdbutil].[format_table_name("ban")]
-			WHERE ckey LIKE :ckey AND ((role != 'Server' AND expiration_time > Now()) OR (role != 'Server' AND isnull(expiration_time))) AND isnull(unbanned_datetime)
+			WHERE ckey LIKE :ckey AND role != 'Server' AND role != 'Appearance' AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())
 			ORDER BY bantime DESC LIMIT 100"},
 			list("ckey" = ckey)
 		)

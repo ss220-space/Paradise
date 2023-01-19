@@ -58,7 +58,7 @@ DEBUG
 			return
 
 		//appearance bans
-		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role = 'Appearance' AND unbanned_datetime IS NULL")
+		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role = 'Appearance' AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
 
 		if(!appearanceban_query.warn_execute())
 			qdel(appearanceban_query)
