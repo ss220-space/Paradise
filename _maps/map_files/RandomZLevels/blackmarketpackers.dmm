@@ -5722,12 +5722,12 @@
 /obj/item/clothing/head/helmet/space/nasavoid/yellow,
 /obj/item/clothing/mask/gas/explorer,
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "Dn" = (
@@ -7972,12 +7972,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
-"ZK" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/structure/alien/resin,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "ZM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -14701,7 +14695,7 @@ cY
 fb
 eZ
 xQ
-ZK
+Vb
 lv
 fY
 ir
