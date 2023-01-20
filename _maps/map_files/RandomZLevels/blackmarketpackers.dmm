@@ -17,7 +17,7 @@
 /obj/item/circular_saw,
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/awaymission/BMPship/MedBay)
 "ah" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
@@ -443,9 +443,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
-"bD" = (
-/turf/space,
-/area/awaymission/BMPship/Fore)
 "bE" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -876,10 +873,6 @@
 /area/awaymission/BMPship/Fore)
 "cF" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/door_control{
-	id = "packerCargo";
-	pixel_y = 24
-	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -1401,10 +1394,6 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"dS" = (
-/obj/item/stack/ore/iron,
-/turf/space,
-/area/awaymission/BMPship/TraderShuttle)
 "dT" = (
 /obj/machinery/shieldwallgen{
 	anchored = 1
@@ -4419,10 +4408,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
-"rG" = (
-/obj/item/stack/ore/uranium,
-/turf/space,
-/area/awaymission/BMPship/Fore)
 "rJ" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
@@ -4866,7 +4851,8 @@
 "vi" = (
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "111";
-	hackProof = 1
+	hackProof = 1;
+	locked = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
@@ -4888,10 +4874,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
-"vw" = (
-/obj/effect/decal/cleanable/ash,
-/turf/space,
-/area/space/nearstation)
 "vy" = (
 /obj/structure/sink{
 	dir = 4;
@@ -4946,11 +4928,6 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
-"vP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
 /area/awaymission/BMPship/Containment)
 "vV" = (
 /obj/machinery/door/airlock/titanium{
@@ -5449,9 +5426,6 @@
 /obj/item/stack/sheet/metal,
 /turf/space,
 /area/space)
-"AD" = (
-/turf/simulated/mineral/random,
-/area/awaymission/BMPship/Mining)
 "AI" = (
 /obj/structure/window/reinforced{
 	color = "yellow";
@@ -5708,6 +5682,10 @@
 	equipment = 0
 	},
 /obj/structure/spider/stickyweb,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "Dc" = (
@@ -5986,7 +5964,8 @@
 "EY" = (
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "111";
-	hackProof = 1
+	hackProof = 1;
+	locked = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -6797,9 +6776,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
-"MZ" = (
-/turf/space,
-/area/awaymission)
 "Nd" = (
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Mining)
@@ -6848,7 +6824,7 @@
 "NA" = (
 /obj/effect/mist,
 /turf/space,
-/area/space)
+/area/awaymission)
 "ND" = (
 /obj/item/stack/ore/iron,
 /obj/effect/decal/cleanable/ash,
@@ -7359,11 +7335,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Engines)
-"SH" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/decal/cleanable/ash,
-/turf/simulated/wall/r_wall,
-/area/awaymission/BMPship/Containment)
 "SJ" = (
 /obj/item/stack/ore/uranium,
 /turf/space,
@@ -7677,9 +7648,6 @@
 	tag = "icon-green (EAST)"
 	},
 /area/awaymission/BMPship/Kitchen)
-"Wn" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/awaymission)
 "WC" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -13309,7 +13277,7 @@ aa
 aa
 aa
 aa
-MZ
+aa
 ac
 hj
 hj
@@ -13440,7 +13408,7 @@ aa
 Zb
 aa
 Un
-MZ
+aa
 ac
 hU
 ld
@@ -14224,8 +14192,8 @@ yv
 kZ
 hT
 ii
-Wn
-Wn
+qq
+qq
 ac
 ac
 ac
@@ -14352,7 +14320,7 @@ gA
 gN
 yv
 hv
-bD
+aa
 hv
 gs
 qq
@@ -14483,7 +14451,7 @@ gE
 yv
 hB
 al
-rG
+SJ
 gs
 mF
 hj
@@ -16156,7 +16124,7 @@ gu
 fr
 aa
 ve
-eM
+er
 zt
 dN
 er
@@ -16170,7 +16138,7 @@ eM
 Ds
 BI
 er
-AD
+hj
 hj
 hj
 hj
@@ -16412,11 +16380,11 @@ aa
 Zb
 vd
 oA
-vw
+Zb
 bB
 bB
 ve
-vP
+er
 zt
 dN
 er
@@ -16559,7 +16527,7 @@ fM
 eM
 er
 er
-SH
+TJ
 Nd
 HJ
 Nd
@@ -16676,7 +16644,7 @@ by
 pe
 tw
 Rn
-eM
+er
 dP
 Dr
 er
@@ -16693,7 +16661,7 @@ er
 Nd
 HJ
 uj
-AD
+hj
 hj
 hj
 hj
@@ -17066,7 +17034,7 @@ QD
 Si
 lH
 ve
-eM
+er
 er
 er
 er
@@ -17196,7 +17164,7 @@ HH
 TM
 cv
 ve
-eM
+er
 iB
 Dr
 er
@@ -17586,7 +17554,7 @@ aS
 Si
 Si
 ve
-eM
+er
 er
 er
 er
@@ -17716,7 +17684,7 @@ Fe
 bA
 ji
 ve
-eM
+er
 el
 Tv
 er
@@ -21410,7 +21378,7 @@ kv
 rM
 Pt
 Sn
-dS
+oA
 OS
 ND
 KD
