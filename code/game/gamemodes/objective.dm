@@ -1,7 +1,5 @@
 GLOBAL_LIST_EMPTY(all_objectives)
 
-GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
-
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
@@ -403,6 +401,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 	var/theft_area
+	var/type_theft_flag = 0
+
+/datum/objective/steal/proc/get_theft_extension_list_objectives()
+	return FALSE
 
 /datum/objective/steal/proc/get_location()
 	if(steal_target.location_override)
@@ -416,7 +418,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/find_target()
 	var/list/valid_theft_objectives = list()
-	for(var/thefttype in GLOB.potential_theft_objectives)
+	for(var/thefttype in get_theft_list_objectives())
 		for(var/datum/objective/steal/objective in owner.objectives)
 			if(istype(objective) && istype(objective.steal_target, thefttype))
 				continue
@@ -439,7 +441,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
+	var/list/possible_items_all = get_theft_list_objectives()+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target) return
 	if(new_target == "custom")

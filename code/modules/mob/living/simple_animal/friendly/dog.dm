@@ -14,6 +14,10 @@
 	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
 	tts_seed = "Stetmann"
 	faction = list("neutral")
+	melee_damage_type = STAMINA
+	melee_damage_lower = 6
+	melee_damage_upper = 10
+	attacktext = "кусает"
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
@@ -22,6 +26,9 @@
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
+	collar_type = "dog"
+
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
@@ -107,6 +114,7 @@
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 	tts_seed = "Stetmann"
+	holder_type = /obj/item/holder/corgi
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
@@ -453,6 +461,7 @@
 		icon_dead = "old_corgi_dead"
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
+		holder_type = /obj/item/holder/old_corgi
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/persistent_save()
 	write_memory(FALSE)
@@ -579,6 +588,7 @@
 	nofur = TRUE
 	unique_pet = TRUE
 	tts_seed = "Mannoroth"
+	holder_type = /obj/item/holder/narsian
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -659,6 +669,7 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 	tts_seed = "Kael"
+	holder_type = /obj/item/holder/void_puppy
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -680,6 +691,7 @@
 	var/turns_since_scan = 0
 	var/puppies = 0
 	tts_seed = "Luna"
+	holder_type = /obj/item/holder/lisa
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
@@ -789,6 +801,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
 	tts_seed = "Kleiner"
+	holder_type = /obj/item/holder/pug
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
@@ -799,3 +812,45 @@
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i
 					sleep(1)
+
+/mob/living/simple_animal/pet/dog/bullterrier
+	name = "\improper bullterrier"
+	real_name = "bullterrier"
+	desc = "Кого-то его мордочка напоминает..."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "bullterrier"
+	icon_living = "bullterrier"
+	icon_dead = "bullterrier_dead"
+	//tts_seed = "Kleiner"
+	holder_type = /obj/item/holder/bullterrier
+
+/mob/living/simple_animal/pet/dog/tamaskan
+	name = "\improper tamaskan"
+	real_name = "tamaskan"
+	desc = "Хорошая семейная собака. Уживается с другими собаками и ассистентами."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "tamaskan"
+	icon_living = "tamaskan"
+	icon_dead = "tamaskan_dead"
+	//tts_seed = "Kleiner"
+	holder_type = /obj/item/holder/bullterrier
+
+/mob/living/simple_animal/pet/dog/german
+	name = "\improper german"
+	real_name = "german"
+	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "german"
+	icon_living = "german"
+	icon_dead = "german_dead"
+	//tts_seed = "Kleiner"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/slime
+	name = "\improper slime puppy"
+	real_name = "slimy"
+	desc = "Крайне склизкий. Но прикольный!"
+	icon_state = "slime_puppy"
+	icon_living = "slime_puppy"
+	icon_dead = "slime_puppy_dead"
+	nofur = TRUE
+	holder_type = /obj/item/holder/slime_puppy

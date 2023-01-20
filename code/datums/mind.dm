@@ -469,6 +469,18 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_thief()
+	. = _memory_edit_header("thief")
+	if(src in SSticker.mode.thieves)
+		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>"
+		. += "<br><a href='?src=[UID()];thief=equipment'>Equipment</a>"
+		if(!length(objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];thief=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];thief=thief'>thief</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_THIEF)
+
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/silicon = current
@@ -556,6 +568,8 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	/** THIEF ***/
+	sections["thief"] = memory_edit_thief()
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -1695,6 +1709,36 @@
 					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
 
+	else if(href_list["thief"])
+		switch(href_list["thief"])
+			if("clear")
+				if(src in SSticker.mode.thieves)
+					SSticker.mode.thieves -= src
+					special_role = null
+					to_chat(current, "<span class='warning'><FONT size = 3><B>Вы встали на праведный путь! Вы больше не вор!</B></FONT></span>")
+					log_admin("[key_name(usr)] has de-thiefed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-thiefed [key_name_admin(current)]")
+			if("thief")
+				SSticker.mode.thieves += src
+				special_role = SPECIAL_ROLE_THIEF
+				SSticker.mode.update_thief_icons_added(src)
+				SEND_SOUND(current, 'sound/ambience/antag/thiefalert.ogg')
+				to_chat(current, "<B><font color='red'>Мои [ishuman(current) ? "руки" : "лапы"] так и чешутся чего-нибудь прикарманить!</font></B>")
+				log_admin("[key_name(usr)] has thiefed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has thiefed [key_name_admin(current)]")
+			if("autoobjectives")
+				SSticker.mode.forge_thief_objectives(src)
+				to_chat(usr, "<span class='notice'>The objectives for thief [key] have been generated. You can edit them and announce manually.</span>")
+				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+			if("equipment")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>Некуда поместить экипировку!</span>")
+					return
+				SSticker.mode.equip_thief(src)
+				log_admin("[key_name(usr)] give [key_name(current)] thief equipment")
+				message_admins("[key_name_admin(usr)] give [key_name_admin(current)] thief equipment")
+
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])
 			if("clear")
@@ -2086,6 +2130,16 @@
 	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.equip_revolutionary(current)
 	SSticker.mode.greet_revolutionary(src,0)
+
+
+/datum/mind/proc/make_Thief()
+	if(!(src in SSticker.mode.thieves))
+		SSticker.mode.thieves += src
+		special_role = SPECIAL_ROLE_THIEF
+		SSticker.mode.forge_thief_objectives(src)
+		SSticker.mode.equip_thief(src)
+		SSticker.mode.update_thief_icons_added(src)
+		SSticker.mode.greet_thief(src)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")

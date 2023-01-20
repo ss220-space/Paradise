@@ -8327,6 +8327,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/mob/living/simple_animal/pet/cat/Iriska,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -25932,7 +25934,7 @@
 	},
 /area/hallway/primary/central/north)
 "bhi" = (
-/obj/structure/statue/bananium/clown,
+/obj/structure/statue/bananium/clown/unique,
 /obj/machinery/camera{
 	c_tag = "Clown's Office";
 	dir = 4
@@ -25956,7 +25958,7 @@
 	c_tag = "Mime's Office";
 	dir = 4
 	},
-/obj/structure/statue/tranquillite/mime,
+/obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -27036,9 +27038,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bjx" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy"
-	},
+/mob/living/simple_animal/cow/Betsy,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/hydroponics)
@@ -31605,6 +31605,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/wood,
 /area/library)
 "bux" = (
@@ -38675,9 +38677,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/pig{
-	name = "Саня"
-	},
+/mob/living/simple_animal/pig/Sanya,
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
@@ -74939,9 +74939,7 @@
 /area/security/range)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken{
-	name = "Commander Clucky"
-	},
+/mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "dnG" = (
@@ -85959,6 +85957,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
+/mob/living/simple_animal/goose/Scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -129855,7 +129854,7 @@ cdN
 cgW
 ccL
 ckv
-ckv
+pGd
 coV
 cjd
 ckM
@@ -141901,7 +141900,7 @@ beb
 bfH
 bLU
 bjx
-bfH
+rfw
 bmy
 boq
 bpS

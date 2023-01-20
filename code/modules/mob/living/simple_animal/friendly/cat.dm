@@ -29,6 +29,7 @@
 	var/eats_mice = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
 	tts_seed = "Valerian"
+	holder_type = /obj/item/holder/cat2
 
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"
@@ -39,6 +40,7 @@
 	icon_resting = "floppa_rest"
 	unique_pet = TRUE
 	tts_seed = "Uther"
+	holder_type = null
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -53,6 +55,7 @@
 	unique_pet = TRUE
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
+	holder_type = /obj/item/holder/cat
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
 	SSpersistent_data.register(src)
@@ -263,6 +266,7 @@
 	attacked_sound = "sound/items/eatfood.ogg"
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
+	holder_type = /obj/item/holder/cak
 
 /mob/living/simple_animal/pet/cat/cak/Life()
 	..()
@@ -296,3 +300,47 @@
 	if(new_name)
 		to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
 		name = new_name
+
+/mob/living/simple_animal/pet/cat/white
+	name = "white"
+	desc = "Белоснежная шерстка. Плохо различается на белой плитке, зато отлично виден в темноте!"
+	icon_state = "penny"
+	icon_living = "penny"
+	icon_dead = "penny_dead"
+	icon_resting = "penny_rest"
+	gender = FEMALE
+	holder_type = /obj/item/holder/cak
+
+/mob/living/simple_animal/pet/cat/white/Penny
+	name = "Penny"
+	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/pet/cat/birman
+	name = "birman"
+	desc = "Священная порода Бирма"
+	icon_state = "crusher"
+	icon_living = "crusher"
+	icon_dead = "crusher_dead"
+	icon_resting = "crusher_rest"
+	gender = FEMALE
+	holder_type = /obj/item/holder/cak
+
+/mob/living/simple_animal/pet/cat/birman/Crusher
+	name = "Crusher"
+	desc = "Любит крушить всё что не прикручено. Нужно вовремя прибираться."
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/pet/spacecat
+	name = "spacecat"
+	desc = "Space Kitty!!"
+	icon_state = "spacecat"
+	icon_living = "spacecat"
+	icon_dead = "spacecat_dead"
+	icon_resting = "spacecat_rest"
+	unsuitable_atmos_damage = 0
+	minbodytemp = TCMB
+	maxbodytemp = T0C + 40
+	holder_type = /obj/item/holder/spacecat

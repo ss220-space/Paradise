@@ -12,6 +12,7 @@
 #define VERM_MICE 0
 #define VERM_LIZARDS 1
 #define VERM_SPIDERS 2
+#define VERM_RATS 	 3
 
 /datum/event/infestation
 	announceWhen = 10
@@ -80,6 +81,10 @@
 			spawn_types = list(/obj/structure/spider/spiderling)
 			max_number = 3
 			vermstring = "пауков"
+		if(VERM_RATS)
+			spawn_types = list(/mob/living/simple_animal/mouse/rat_irish)
+			max_number = 12
+			vermstring = "крыс"
 
 	spawn(0)
 		var/num = rand(2,max_number)
@@ -111,3 +116,4 @@
 #undef VERM_MICE
 #undef VERM_LIZARDS
 #undef VERM_SPIDERS
+#undef VERM_RATS

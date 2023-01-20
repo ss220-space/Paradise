@@ -31,6 +31,7 @@
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
+#define ROLE_THIEF 				"thief"
 // Role tags for EVERYONE!
 #define ROLE_BORER				"cortical borer"
 #define ROLE_DEMON				"slaughter demon"
@@ -74,7 +75,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
 	ROLE_RAIDER = /datum/game_mode/heist, 				// Vox raider
 	ROLE_ALIEN, 										// Xenomorph
-	ROLE_WIZARD = /datum/game_mode/wizard 				// Wizard
+	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
+	ROLE_THIEF = /datum/game_mode/thief					// Thief
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,

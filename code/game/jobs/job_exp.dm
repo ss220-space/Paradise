@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_NINJA = 5,
 	ROLE_MORPH = 3,
 	ROLE_DEMON = 3,
+	ROLE_THIEF = 30,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 5,

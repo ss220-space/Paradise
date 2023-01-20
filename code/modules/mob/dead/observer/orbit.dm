@@ -122,6 +122,7 @@
 							"Wizards — ([SSticker.mode.wizards.len])" = (mind in SSticker.mode.wizards),
 							"Wizard’s Apprentices — ([SSticker.mode.apprentices.len])" = (mind in SSticker.mode.apprentices),
 							"Xenomorphs — ([SSticker.mode.xenos.len])" = (mind in SSticker.mode.xenos),
+							"Thieves — ([SSticker.mode.thieves.len])" = (mind in SSticker.mode.thieves),
 						)
 
 				for(var/antag_name in other_antags)
