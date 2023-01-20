@@ -336,6 +336,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
+			if(volume > 0)
 				var/damage_coef = 0
 				var/isDamaged = FALSE
 				for(var/limb in H.bodyparts)
@@ -357,6 +358,7 @@
 					H.update_inv_head()
 				return
 		else
+			if(volume > 0)
 				H.emote("scream")
 				H.adjustFireLoss(clamp(volume * 2, 8, 80));
 		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
