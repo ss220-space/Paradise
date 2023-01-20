@@ -26,6 +26,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
+	var/non_standard = FALSE //for no "mouse_" with mouse_color
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
@@ -73,6 +74,8 @@
 
 /mob/living/simple_animal/mouse/New()
 	..()
+	if(non_standard)
+		return
 	if(!mouse_color)
 		mouse_color = pick( list("brown","gray","white") )
 	icon_state = "mouse_[mouse_color]"
@@ -82,7 +85,7 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == INTENT_HELP)
+	if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_GRAB)
 		get_scooped(M)
 	..()
 
@@ -100,6 +103,10 @@
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
 
+/mob/living/simple_animal/mouse/gib()
+	new /obj/effect/decal/remains/mouse(src)
+	. = ..()
+
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
 	gib()
@@ -110,8 +117,13 @@
 	death()
 
 /mob/living/simple_animal/mouse/proc/splat()
-	icon_dead = "mouse_[mouse_color]_splat"
-	icon_state = "mouse_[mouse_color]_splat"
+	if(non_standard)
+		var/temp_state = icon_state
+		icon_dead = "[temp_state]_splat"
+		icon_state = "[temp_state]_splat"
+	else
+		icon_dead = "mouse_[mouse_color]_splat"
+		icon_state = "mouse_[mouse_color]_splat"
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
@@ -251,3 +263,34 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/simple_animal/mouse/rat_irish
+	name = "rat"
+	real_name = "rat"
+	desc = "Ирландская крыса. На космической станции?! На этот раз им точно некуда бежать!"
+	icon_state = "rat_irish"
+	icon_living = "rat_irish"
+	icon_dead = "rat_irish_dead"
+	icon_resting = "rat_irish_sleep"
+	non_standard = TRUE
+	mouse_color = "brown"
+
+/mob/living/simple_animal/mouse/rat_irish/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+	var/mob/living/L = src
+	L.start_pulling(AM, state, force, show_message)
+
+/mob/living/simple_animal/mouse/hamster
+	name = "hamster"
+	real_name = "hamster"
+	desc = "С надутыми щечками"
+	icon_state = "hamster"
+	icon_living = "hamster"
+	icon_dead = "hamster_dead"
+	icon_resting = "hamster_rest"
+	non_standard = TRUE
+	holder_type = /obj/item/holder/hamster
+	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/mouse/hamster/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+	var/mob/living/L = src
+	L.start_pulling(AM, state, force, show_message)

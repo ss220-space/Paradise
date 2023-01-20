@@ -144,23 +144,17 @@
 /area/quartermaster/qm)
 "aal" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/pig{
-	name = "Саня"
-	},
+/mob/living/simple_animal/pig/Sanya,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "aam" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/mob/living/simple_animal/cow{
-	name = "Betsy"
-	},
+/mob/living/simple_animal/cow/Betsy,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "aan" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/chicken{
-	name = "Commander Clucky"
-	},
+/mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "aao" = (
@@ -6068,7 +6062,7 @@
 	},
 /area/security/detectives_office)
 "aPY" = (
-/obj/structure/statue/bananium/clown{
+/obj/structure/statue/bananium/clown/unique{
 	name = "Статуя Великого Кекеги"
 	},
 /obj/item/radio/intercom{
@@ -29468,6 +29462,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
+"cQs" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/mob/living/simple_animal/chicken/Wife,
+/turf/simulated/floor/grass,
+/area/hydroponics)
 "cQt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/head/beret,
@@ -33655,6 +33654,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "dgb" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/goose/Scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	tag = "icon-whitepurple (WEST)"
@@ -36206,7 +36207,7 @@
 	},
 /area/mimeoffice)
 "dpg" = (
-/obj/structure/statue/tranquillite/mime,
+/obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -98187,6 +98188,8 @@
 	},
 /area/medical/sleeper)
 "pFF" = (
+/mob/living/simple_animal/mouse/hamster/Representative,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "pFI" = (
@@ -129699,6 +129702,11 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port)
+"wtB" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/cat/Iriska,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/lawoffice)
 "wtR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -131298,6 +131306,8 @@
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
+/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -170260,7 +170270,7 @@ dMi
 baF
 fSj
 aal
-fTl
+cQs
 dIb
 dLf
 dCD
@@ -181847,7 +181857,7 @@ xiu
 tQe
 jun
 jun
-jun
+wtB
 wxT
 xiu
 xTn

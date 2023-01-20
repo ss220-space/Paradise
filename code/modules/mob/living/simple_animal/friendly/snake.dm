@@ -34,6 +34,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
+	holder_type = /obj/item/holder/snake
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)

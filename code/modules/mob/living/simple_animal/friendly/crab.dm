@@ -21,6 +21,7 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Riki"
+	holder_type = /obj/item/holder/crab
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
@@ -36,7 +37,10 @@
 /mob/living/simple_animal/crab/Coffee
 	name = "Coffee"
 	real_name = "Coffee"
-	desc = "It's Coffee, the other pet!"
+	desc = "Величественный королевский краб. Коффи? Кофе?"
+	icon_state = "royalcrab"
+	icon_living = "royalcrab"
+	icon_dead = "royalcrab_dead"
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
@@ -54,3 +58,4 @@
 	response_disarm = "shoves"
 	response_harm = "stomps"
 	gold_core_spawnable = HOSTILE_SPAWN
+	holder_type = /obj/item/holder/evilcrab

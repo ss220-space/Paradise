@@ -70,6 +70,7 @@
 	src.forceMove(H)
 	H.name = name
 	if(istype(H, /obj/item/holder/mouse))	H.icon_state = icon_state
+	if(istype(H, /obj/item/holder/chicken))	H.icon_state = icon_state
 	if(desc)	H.desc = desc
 	H.attack_hand(grabber)
 
@@ -109,3 +110,169 @@
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+
+/obj/item/holder/monkey
+	name = "monkey"
+	desc = "It's a monkey"
+	icon_state = "monkey"
+
+/obj/item/holder/corgi
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "corgi"
+
+/obj/item/holder/lisa
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "lisa"
+
+/obj/item/holder/old_corgi
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "old_corgi"
+
+/obj/item/holder/void_puppy
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "void_puppy"
+
+/obj/item/holder/slime_puppy
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "slime_puppy"
+
+/obj/item/holder/narsian
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "narsian"
+	slot_flags = null
+
+/obj/item/holder/pug
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "pug"
+
+/obj/item/holder/fox
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "fox"
+
+/obj/item/holder/sloth
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "sloth"
+	slot_flags = null
+
+/obj/item/holder/cat
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "cat"
+
+/obj/item/holder/cat2
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "cat2"
+
+/obj/item/holder/cak
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "cak"
+
+/obj/item/holder/original
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "original"
+
+/obj/item/holder/spacecat
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "spacecat"
+
+/obj/item/holder/bullterrier
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "bullterrier"
+	slot_flags = null
+
+/obj/item/holder/crab
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "crab"
+
+/obj/item/holder/evilcrab
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "evilcrab"
+
+/obj/item/holder/snake
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "snake"
+
+/obj/item/holder/parrot
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "parrot_fly"
+
+/obj/item/holder/lizard
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "lizard"
+
+/obj/item/holder/chick
+	name = "pet"
+	desc = "It's a small chicken"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "chick"
+
+/obj/item/holder/chicken
+	name = "pet"
+	desc = "It's a chicken"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "chicken_brown"
+	slot_flags = null
+
+/obj/item/holder/cock
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "cock"
+	slot_flags = null
+
+/obj/item/holder/hamster
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "hamster"
+
+/obj/item/holder/hamster_rep
+	name = "Представитель Алексей"
+	desc = "Уважаемый хомяк"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "hamster_rep"
+
+/obj/item/holder/mothroach
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "mothroach"

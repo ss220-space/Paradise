@@ -106,6 +106,7 @@
 							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
 							"Abductor" = (mind in SSticker.mode.abductors),
 							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
+							"Thief" = (mind in SSticker.mode.thieves),
 						)
 
 					for(var/antag_name in other_antags)

@@ -50,3 +50,10 @@
 	R.add_reagent("water", 5)
 	R.reaction(get_turf(src))
 	qdel(src)
+
+/obj/effect/decal/remains/mouse
+	name = "remains"
+	desc = "They look like mouse remains. No more squeek..."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "mouse_skeleton"
+	anchored = FALSE

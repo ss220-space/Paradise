@@ -2,9 +2,28 @@
 //
 // Separated into datums so we can prevent roles from getting certain objectives.
 
-#define THEFT_FLAG_SPECIAL 1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_UNIQUE 2
+GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
+GLOBAL_LIST_INIT(potential_theft_objectives_hard, subtypesof(/datum/theft_objective/hard))
+GLOBAL_LIST_INIT(potential_theft_objectives_easy, subtypesof(/datum/theft_objective/easy))
+GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect))
 
+#define THEFT_FLAG_SPECIAL 	1//unused, maybe someone will use it some day, I'll leave it here for the children
+#define THEFT_FLAG_UNIQUE 	2
+#define THEFT_FLAG_HARD 	3
+#define THEFT_FLAG_EASY 	4
+#define THEFT_FLAG_COLLECT 	5
+
+
+/datum/objective/steal/proc/get_theft_list_objectives()
+	switch(type_theft_flag)
+		if(THEFT_FLAG_HARD)
+			return GLOB.potential_theft_objectives_hard
+		if(THEFT_FLAG_EASY)
+			return GLOB.potential_theft_objectives_easy
+		if(THEFT_FLAG_COLLECT)
+			return GLOB.potential_theft_objectives_collect
+		else
+			return GLOB.potential_theft_objectives
 /datum/theft_objective
 	var/name = "this objective is impossible, yell at a coder"
 	var/typepath=/obj/effect/debugging
@@ -164,3 +183,9 @@
 /datum/theft_objective/unique/docs_blue
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
+
+/datum/theft_objective/hard
+
+/datum/theft_objective/easy
+
+/datum/theft_objective/collect

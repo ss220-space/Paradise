@@ -3,6 +3,7 @@
 	fire_dmi = 'icons/mob/species/monkey/OnFire.dmi'
 	genetic_mutable = 'icons/mob/species/monkey/genetics.dmi'
 	var/sentience_type = SENTIENCE_ORGANIC
+	holder_type = /obj/item/holder/monkey
 
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)

@@ -18,6 +18,18 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
+	holder_type = /obj/item/holder/fox
+
+/mob/living/simple_animal/pet/dog/fox/forest
+	name = "forest fox"
+	desc = "It's a fox. It can bite. A little bit."
+	icon_state = "fox_forest"
+	icon_living = "fox_forest"
+	icon_dead = "fox_forest_dead"
+	icon_resting = "fox_forest_rest"
+	melee_damage_type = STAMINA
+	melee_damage_lower = 8
+	melee_damage_upper = 10
 
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault

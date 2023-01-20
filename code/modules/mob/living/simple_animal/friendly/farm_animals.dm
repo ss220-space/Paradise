@@ -200,6 +200,7 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/chick
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -257,6 +258,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/chicken
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -314,6 +316,39 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	else
 		STOP_PROCESSING(SSobj, src)
 
+/mob/living/simple_animal/cock
+	name = "Петух"
+	desc = "Гордый и важный вид."
+	gender = MALE
+	icon_state = "cock"
+	icon_living = "cock"
+	icon_dead = "cock_dead"
+	speak = list("Cluck!","BWAAAAARK BWAK BWAK BWAK!","Bwaak bwak.")
+	speak_emote = list("clucks","croons")
+	emote_hear = list("clucks")
+	emote_see = list("pecks at the ground","flaps its wings viciously")
+	tts_seed = "pantheon"
+	density = 0
+	speak_chance = 2
+	turns_per_move = 3
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
+	melee_damage_type = STAMINA
+	melee_damage_lower = 2
+	melee_damage_upper = 6
+	attacktext = "клюёт"
+	health = 15
+	maxHealth = 15
+	ventcrawler = 2
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	can_hide = 1
+	can_collar = 1
+	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/cock
 
 /mob/living/simple_animal/pig
 	name = "pig"
@@ -370,6 +405,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "goose"
 	icon_living = "goose"
 	icon_dead = "goose_dead"
+	icon_resting = "goose_rest"
 	speak = list("quack?","quack","QUACK")
 	speak_emote = list("quacks")
 	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
@@ -382,6 +418,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
+	melee_damage_type = STAMINA
+	melee_damage_lower = 2
+	melee_damage_upper = 8
 	attacktext = "щипает"
 	health = 50
 	maxHealth = 50

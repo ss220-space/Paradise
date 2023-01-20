@@ -24,6 +24,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	holder_type = /obj/item/holder/lizard
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
