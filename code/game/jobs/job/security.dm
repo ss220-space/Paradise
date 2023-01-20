@@ -206,7 +206,7 @@
 	title = "Security Cadet"
 	flag = JOB_CADET
 	total_positions = 3
-	spawn_positions = 3
+	spawn_positions = 0
 	department_head = list("Head of Security", "Security Officer")
 	selection_color = "#ffeeee"
 	alt_titles = list("Security Assistant", "Security Graduate")

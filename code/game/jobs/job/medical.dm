@@ -83,7 +83,7 @@
 	title = "Intern"
 	flag = JOB_INTERN
 	total_positions = 5
-	spawn_positions = 3
+	spawn_positions = 0
 	department_head = list("Chief Medical Officer", "Medical Doctor")
 	selection_color = "#ffeef0"
 	alt_titles = list("Student Medical Doctor", "Medical Assistant")
