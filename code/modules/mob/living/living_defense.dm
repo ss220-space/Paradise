@@ -263,7 +263,7 @@
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
 			if(holder_type)
-				get_scooped(M)
+				get_scooped(user)
 			else
 				to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты","Вы")] уже схватил[genderize_ru(user.gender,"","а","о","и")] [src.declent_ru(ACCUSATIVE)].</span>")
 			return

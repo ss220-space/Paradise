@@ -27,8 +27,8 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/goose/Scientist
-	name = "Учёный Гусь"
-	desc = "Гусь. Везде учусь. Крайне умная птица."
+	name = "Гуськор"
+	desc = "Учёный Гусь. Везде учусь. Крайне умная птица. Обожает генетику. Надеемся это не бывший пропавший генетик..."
 	icon_state = "goose_labcoat"
 	icon_living = "goose_labcoat"
 	icon_dead = "goose_labcoat_dead"
