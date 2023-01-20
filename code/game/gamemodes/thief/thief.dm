@@ -137,7 +137,12 @@
 /datum/game_mode/proc/equip_thief(mob/living/carbon/thief)
 	if(!istype(thief))
 		return
-	thief.equip_to_slot_or_del(new /obj/item/thief_kit(thief), slot_in_backpack)
+	if(thief.back)
+		thief.equip_to_slot(new /obj/item/thief_kit(thief), slot_in_backpack)
+		to_chat(thief, "<span class='notice'>Набор гильдии воров находится у вас в рюкзаке.</span>")
+	else
+		thief.equip_to_appropriate_slot(new /obj/item/thief_kit(thief))
+
 
 
 /datum/game_mode/proc/auto_declare_completion_thief()

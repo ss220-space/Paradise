@@ -472,8 +472,8 @@
 /datum/mind/proc/memory_edit_thief()
 	. = _memory_edit_header("thief")
 	if(src in SSticker.mode.thieves)
-		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>"
-		. += "<br><a href='?src=[UID()];thief=equipment'>Equipment</a>"
+		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
+		. += ""
 		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];thief=autoobjectives'>Randomize!</a>"
 	else
@@ -1731,11 +1731,11 @@
 				to_chat(usr, "<span class='notice'>The objectives for thief [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
-			if("equipment")
+			if("equip")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>Некуда поместить экипировку!</span>")
 					return
-				SSticker.mode.equip_thief(src)
+				SSticker.mode.equip_thief(current)
 				log_admin("[key_name(usr)] give [key_name(current)] thief equipment")
 				message_admins("[key_name_admin(usr)] give [key_name_admin(current)] thief equipment")
 

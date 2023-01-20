@@ -12,14 +12,14 @@
 	var/obj/structure/wanted_type
 	var/range_complete = 2
 
-/datum/objective/steal_structure/New()
-	..()
+/datum/objective/steal_structure/find_target()
 	var/list/list_structures = list(
 		/obj/structure/statue/bananium/clown/unique,
 		/obj/structure/statue/tranquillite/mime/unique
 	)
 	wanted_type = pick(list_structures)
 	explanation_text += wanted_type.name
+
 
 /datum/objective/steal_structure/check_completion()
 	if(wanted_type && owner.current)
@@ -31,11 +31,10 @@
 
 /datum/objective/steal_pet
 	explanation_text = "Кража живого питомца: "
-	var/mob/living/simple_animal/pet/wanted_type
+	var/mob/living/wanted_type
 	var/range_complete = 2
 
-/datum/objective/steal_pet/New()
-	..()
+/datum/objective/steal_pet/find_target()
 	var/list/list_pets = list(
 		/mob/living/simple_animal/pet/dog/corgi/Ian,
 		/mob/living/simple_animal/pet/dog/corgi/borgi,
@@ -57,28 +56,43 @@
 		/mob/living/simple_animal/goose/Scientist,
 		/mob/living/simple_animal/pet/cat/Iriska,
 		/mob/living/simple_animal/mouse/hamster/Representative,
+		/mob/living/carbon/human/lesser/monkey/punpun,
 	)
 	wanted_type = pick(list_pets)
 	explanation_text += wanted_type.name
 
 /datum/objective/steal_pet/check_completion()
-	if(wanted_type && owner.current)
-		var/mob/living/simple_animal/M
-		//!!!!Проверку на нахождение в руке или инвентаре
+	if(!wanted_type)
+		return TRUE
 
-		for(var/O in range(range_complete, owner.current.loc))
-			if(istype(O, wanted_type))
-				M = O
-				if(M.stat != DEAD)
-					return TRUE
+	if(!owner.current)
+		return FALSE
 
-			if(istype(O, /obj/structure/closet))
-				var/obj/structure/closet/C = O
-				for(var/mob/living/simple_animal/temp_M in C.contents)
-					if(istype(O, wanted_type))
-						M = temp_M
-						if(M.stat != DEAD)
-							return TRUE
+	var/list/all_items = owner.current.GetAllContents()
+	for(var/obj/item/holder/H in all_items)
+		if(!istype(H, wanted_type.holder_type))
+			continue
+		for(var/mob/M in H.contents)
+			if(!istype(M, wanted_type))
+				continue
+			if(M.stat != DEAD)
+				return TRUE
+
+	var/mob/living/simple_animal/M
+
+	for(var/O in range(range_complete, owner.current.loc))
+		if(istype(O, wanted_type))
+			M = O
+			if(M.stat != DEAD)
+				return TRUE
+
+		if(istype(O, /obj/structure/closet))
+			var/obj/structure/closet/C = O
+			for(var/mob/living/temp_M in C.contents)
+				if(istype(O, wanted_type))
+					M = temp_M
+					if(M.stat != DEAD)
+						return TRUE
 	return FALSE
 
 /datum/theft_objective/hard
