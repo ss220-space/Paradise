@@ -87,7 +87,7 @@
 		if(S.z != z)
 			continue
 		var/division = (1 - max(1, dist) / rift_range)
-		var/points = 1 + round(10 * division)
+		var/points = 1 + round(50 * division)
 
 		temp_points += points
 		rifts_list.Add(S)
