@@ -539,6 +539,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
+/obj/item/reagent_containers/syringe/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "bP" = (
@@ -2319,18 +2320,9 @@
 /turf/space,
 /area/space)
 "gb" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Engines)
+/obj/item/tank/internals/oxygen,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/BMPship/Mining)
 "gc" = (
 /obj/machinery/light_construct{
 	dir = 1
@@ -2686,6 +2678,7 @@
 /area/awaymission/BMPship/Mining)
 "hb" = (
 /obj/effect/landmark/burnturf,
+/obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "hc" = (
@@ -3755,9 +3748,9 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "lX" = (
-/obj/item/stack/cable_coil,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Engines)
+/obj/item/apc_electronics,
+/turf/simulated/floor/plating/airless,
+/area/awaymission/BMPship/MedBay)
 "mb" = (
 /obj/machinery/light{
 	dir = 4
@@ -4026,6 +4019,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
+"ol" = (
+/obj/item/tank/internals/oxygen,
+/turf/simulated/floor/plating/airless,
+/area/awaymission/BMPship/Mining)
 "op" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -4118,6 +4115,7 @@
 	pixel_y = -6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/apc_electronics,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "pe" = (
@@ -4705,7 +4703,12 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "uj" = (
-/obj/effect/mob_spawn/human/corpse/tacticool,
+/obj/effect/mob_spawn/human/corpse/tacticool{
+	layer = 4
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = -5
+	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
 "um" = (
@@ -4724,20 +4727,11 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Buffer)
 "ur" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/machinery/door/airlock/titanium{
+	locked = 1
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Engines)
+/turf/simulated/floor/plasteel,
+/area/awaymission/BMPship/Bath)
 "ut" = (
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/BMPship/TurretsSouth)
@@ -5008,16 +5002,6 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "wv" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	lighting = 0;
-	locked = 0;
-	pixel_y = 24;
-	req_access = "";
-	environ = 0;
-	equipment = 0;
-	operating = 0
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2";
@@ -5062,6 +5046,7 @@
 	pixel_y = 24;
 	pixel_x = 8
 	},
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "wQ" = (
@@ -5070,9 +5055,6 @@
 /area/awaymission/BMPship/Buffer)
 "wU" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser{
-	pixel_x = 8
-	},
 /obj/item/gun/energy/laser{
 	pixel_x = -8
 	},
@@ -5350,6 +5332,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
+"zC" = (
+/obj/item/reagent_containers/food/pill/charcoal,
+/turf/simulated/floor/carpet,
+/area/awaymission/BMPship/Dormitories)
 "zD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/gibspawner/generic,
@@ -5422,6 +5408,13 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
+"Aw" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/pill/charcoal,
+/turf/simulated/floor/carpet,
+/area/awaymission/BMPship/Dormitories)
 "Ay" = (
 /obj/item/stack/sheet/metal,
 /turf/space,
@@ -5672,20 +5665,12 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	lighting = 2;
-	locked = 0;
-	pixel_y = 24;
-	req_access = "";
-	environ = 0;
-	equipment = 0
-	},
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "Dc" = (
@@ -5946,6 +5931,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
+"EH" = (
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/plating/airless,
+/area/awaymission/BMPship/Mining)
 "EL" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/awaymission/BMPship/Kitchen)
@@ -5993,6 +5982,13 @@
 /obj/structure/table/tray,
 /turf/space,
 /area/space)
+"Fs" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/pill/charcoal,
+/turf/simulated/floor/carpet,
+/area/awaymission/BMPship/Dormitories)
 "Fz" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = -32
@@ -6526,9 +6522,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/BMPship/Buffer)
 "Kd" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6906,6 +6900,13 @@
 /obj/item/stack/sheet/mineral/titanium,
 /turf/space,
 /area/space)
+"OI" = (
+/obj/structure/spider/stickyweb,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/BMPship/Engines)
 "OS" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
@@ -7625,6 +7626,11 @@
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
+"VO" = (
+/obj/effect/landmark/damageturf,
+/obj/item/clothing/mask/gas/explorer,
+/turf/simulated/floor/plating/airless,
+/area/awaymission/BMPship/Mining)
 "VQ" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -16653,7 +16659,7 @@ fD
 lK
 er
 Nd
-HJ
+gb
 uj
 hj
 hj
@@ -16913,7 +16919,7 @@ Qi
 KG
 er
 Nd
-gY
+VO
 ia
 ha
 gY
@@ -17433,11 +17439,11 @@ kR
 MY
 er
 Nd
-HJ
+gb
 id
 id
 ib
-hH
+ol
 Nd
 hj
 iK
@@ -17563,7 +17569,7 @@ er
 er
 er
 Nd
-gY
+VO
 en
 id
 id
@@ -17694,7 +17700,7 @@ fP
 er
 Nd
 hL
-hH
+EH
 hH
 hH
 ix
@@ -17805,7 +17811,7 @@ ve
 gc
 Si
 ca
-Si
+lX
 cT
 ve
 er
@@ -19510,8 +19516,8 @@ iq
 jl
 jn
 xG
-ql
-iu
+Fs
+zC
 hK
 IJ
 Yl
@@ -19641,7 +19647,7 @@ de
 eO
 xG
 bO
-hf
+Aw
 xG
 Af
 im
@@ -20551,7 +20557,7 @@ DC
 GD
 DC
 DC
-ep
+ur
 tb
 SV
 SV
@@ -20952,7 +20958,7 @@ LR
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -21046,7 +21052,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -21320,15 +21326,15 @@ aQ
 eU
 aQ
 jg
-Lk
-ur
+OI
+DT
 az
 qC
 Uy
 Uy
 aF
 gx
-lX
+gx
 Lk
 jg
 LR
@@ -21581,7 +21587,7 @@ FL
 FL
 jg
 ht
-gb
+fK
 Lt
 cD
 az
@@ -22619,7 +22625,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
