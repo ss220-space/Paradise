@@ -54,11 +54,11 @@
 	if (active && counter_research_time < world.time)
 		change_active()
 
-/obj/machinery/brs_server/proc/research_process(var/points)
+/obj/machinery/brs_server/proc/research_process(var/new_points, var/new_roulette_points)
 	if (!active)
 		change_active()
-	research_points += points
-	roulette_points += points
+	research_points += new_points
+	roulette_points += new_roulette_points
 	counter_research_time = world.time + research_time
 
 /obj/machinery/brs_server/proc/change_active()

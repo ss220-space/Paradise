@@ -103,9 +103,10 @@
 
 	//division of points for all servers
 	if(length(rifts_list))
-		temp_points = min(1, round(temp_points / length(rifts_list)))
-		for (var/obj/machinery/brs_server/S in rifts_list)
-			S.research_process(temp_points)
+		temp_points = min(1, temp_points)
+		var/roulette_points = min(1, round(temp_points / length(rifts_list)))
+		for(var/obj/machinery/brs_server/S in rifts_list)
+			S.research_process(temp_points, roulette_points)
 
 /obj/machinery/brs_scanner/proc/critical_process(var/dist)
 	//Restoration of the critical threshold
