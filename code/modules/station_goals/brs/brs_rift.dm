@@ -123,7 +123,6 @@
 
 	if(prob(event_chance))
 		event_chance = max(1, event_chance - (15 + division))
-		counter_time_per_event = world.time + round(time_per_event/max(1, length(related_rifts_list)))
 	else
 		event_chance = min(100, event_chance + 1)
 		return FALSE
@@ -132,6 +131,7 @@
 
 	// give the chances of a regular event appearing frequently with a local event
 	if(!is_critical && prob(70))
+		counter_time_per_event = world.time + round(time_per_event/max(1, length(related_rifts_list)))
 		make_event(event_type)
 	if(!is_critical && prob(50))
 		return FALSE
