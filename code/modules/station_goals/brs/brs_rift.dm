@@ -33,6 +33,8 @@
 	var/related_rifts_list = list()	// ex. twin rifts
 	var/anomaly_mod = 1.5		//	Event container modifier
 	var/event_chance = 100		//	Chance of occurrence of events to avoid flooding events
+	var/time_per_event = 1 MINUTES	//for NO FLOOD
+	var/counter_time_per_event
 
 /obj/brs_rift/crack
 	name = "Блюспейс Трещина"
@@ -120,9 +122,10 @@
 	var/division = round(force_sized * (1 - max(1, dist) / rift_range))
 
 	if(prob(event_chance))
-		event_chance = min(5, event_chance - (15 + division))
+		event_chance = max(1, event_chance - (15 + division))
+		counter_time_per_event = world.time + round(time_per_event/max(1, length(related_rifts_list)))
 	else
-		event_chance = max(100, event_chance + 5)
+		event_chance = min(100, event_chance + 1)
 		return FALSE
 
 	var/event_type = is_critical ? BRS_EVENT_CRITICAL : random_event_type(dist, rift_range)

@@ -33,13 +33,13 @@ export const BluespaceRiftServer = (props, context) => {
               <Button
                 icon="download"
                 content="Стимулировать"
-                disabled={roulette_points < roulette_points_price && !brs_can_give_reward}
+                disabled={roulette_points < roulette_points_price}
                 onClick={() => act('luck')}
               />
               <Button
                 icon="upload"
                 content="Результат"
-                disabled={brs_server_points_goal_percentage < 100}
+                disabled={brs_server_points_goal_percentage < 100 && brs_can_give_reward}
                 onClick={() => act('give_reward')}
               />
             </Fragment>
@@ -65,9 +65,9 @@ export const BluespaceRiftServer = (props, context) => {
         {
           <Section title="Сеть Серверов">
             <LabeledList>
-              {servers.map(s => (
-                <LabeledList.Item key={s.id} label={"Сервер #" + s.id} color={stats[s.stat][0]}>
-                  {stats[s.stat][1] + ", "}
+              {servers && servers.map(s => (
+                <LabeledList.Item key={s.id} label={"Сервер #" + s.id} color={stats[s.stat <= 2 ? s.stat : 2][0]}>
+                  {stats[s.stat <= 2 ? s.stat : 2][1] + ", "}
                   {s.active ? "Активный, " : "Неактивный, "}
                   {"Очков: " + s.points}
                   {" "}
@@ -80,9 +80,9 @@ export const BluespaceRiftServer = (props, context) => {
         {
           <Section title="Сеть Сканеров">
             <LabeledList>
-              {scanners.map(s => (
-                <LabeledList.Item key={s.id} label={"Сканнер #" + s.id} color={stats[s.stat][0]}>
-                  {stats[s.stat][1] + ", "}
+              {scanners && scanners.map(s => (
+                <LabeledList.Item key={s.id} label={"Сканнер #" + s.id} color={stats[s.stat <= 2 ? s.stat : 2][0]}>
+                  {stats[s.stat <= 2 ? s.stat : 2][1] + ", "}
                   {s.toggle ? "Включен, " : "Отключен, "}
                   {s.active ? "Активный" : "Неактивный"}
                   {" "}

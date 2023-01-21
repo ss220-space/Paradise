@@ -55,11 +55,12 @@
 	name = "[name] \[[id]\]"
 
 /obj/machinery/brs_scanner/process()
-	if(stat & BROKEN)
+	if(stat & (BROKEN|NOPOWER))
+		if(active)
+			change_active()
 		return FALSE
-	if (!toggle)
+	if(!toggle)
 		return FALSE
-
 	if (rift_for_scan)
 		var/dist = get_dist(src, rift_for_scan)
 		if (!emagged)
@@ -91,6 +92,10 @@
 		temp_points += points
 		rifts_list.Add(S)
 
+		//antiflood event
+		if(world.time < rift_for_scan.counter_time_per_event)
+			continue
+
 		//event creation process
 		var/event_chance = 1 + round(2 * rift_for_scan.force_sized * max(1, length(rift_for_scan.related_rifts_list)) * division)
 		if(prob(event_chance))
@@ -113,16 +118,19 @@
 
 	//Passing critical threshold
 	if (counter_critical_time < world.time)
-		obj_break()
-		anchored = FALSE
-		density = FALSE
-		toggle = FALSE
-		rift_for_scan.event_process(TRUE, dist, rift_range)
-		update_icon()
-		var/fs = 1 * rift_for_scan.force_sized
-		explosion(src.loc, 0, 0, 1*fs,  2*fs, flame_range =  3*fs, cause = "[src.name] critical rift explode")
+		critical_break(dist)
 	else
 		playsound(loc, alarm_sound, 100, 1)
+
+/obj/machinery/brs_scanner/proc/critical_break(var/dist)
+	obj_break()
+	anchored = FALSE
+	density = FALSE
+	toggle = FALSE
+	rift_for_scan.event_process(TRUE, dist, rift_range)
+	update_icon()
+	var/fs = 1 * rift_for_scan.force_sized
+	explosion(src.loc, 0, 0, 1*fs,  2*fs, flame_range =  3*fs, cause = "[src.name] critical rift explode")
 
 /obj/machinery/brs_scanner/update_icon()
 	var/prefix = initial(icon_state)
@@ -172,15 +180,7 @@
 		to_chat(user, "<span class='warning'>Протоколы безопасности: Активация сканнера невозможна, сканер не прикручен и не зафиксирован.</span>")
 		return FALSE
 	if(do_after(user, 20, target = src))
-		playsound(loc, toggle_sound, 100, 1)
-		density = !density
-		toggle = !toggle
-		if (toggle)
-			START_PROCESSING(SSobj, src)
-			find_nearest_rift()
-		else
-			STOP_PROCESSING(SSobj, src)
-		update_icon()
+		change_toggle()
 	return TRUE
 
 //Rewriting security protocols
@@ -205,6 +205,18 @@
 		setDir(get_dir(src, rift_for_scan))
 	else
 		playsound(loc, deactivate_sound, 100, 1)
+	update_icon()
+
+
+/obj/machinery/brs_scanner/proc/change_toggle()
+	playsound(loc, toggle_sound, 100, 1)
+	density = !density
+	toggle = !toggle
+	if (toggle)
+		START_PROCESSING(SSobj, src)
+		find_nearest_rift()
+	else
+		STOP_PROCESSING(SSobj, src)
 	update_icon()
 
 /obj/machinery/brs_scanner/proc/find_nearest_rift()
@@ -301,7 +313,12 @@
 
 //Interactions
 /obj/machinery/brs_scanner/s_static/wrench_act(mob/living/user, obj/item/I)
+	//if(anchored)
 	to_chat(user, "<span class='notice'>Сканер статичен и не может быть откручен.</span>")
+	//else
+	//	. = default_unfasten_wrench(user, I, 40)
+	//	density = TRUE
+	//	update_icon()
 
 /obj/machinery/brs_scanner/s_static/screwdriver_act(mob/living/user, obj/item/I)
 	if (active && !emagged)
@@ -364,3 +381,8 @@
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	RefreshParts()
+
+/obj/machinery/brs_scanner/s_static/critical_break()
+	. = ..()
+	anchored = TRUE
+	density = TRUE

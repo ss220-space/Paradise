@@ -100,15 +100,13 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 // Local Event Selection
 /obj/brs_rift/proc/choose_random_event(var/list/objects)
 	var/prob_chance = 85
-	var/choosen = rand(1, 2)
-	switch(choosen)
-		if(1)
-			if(prob(prob_chance))
-				local_emp(objects)
-			else
-				local_explosive(objects)
-		if(2)
-			local_random_grenade(objects)
+	if(prob_chance)
+		local_random_grenade(objects)
+	else
+		if(prob(prob_chance))
+			local_emp(objects)
+		else
+			local_explosive(objects)
 
 // Local Related Event Selection
 /obj/brs_rift/proc/choose_random_related_event(var/list/objects)
@@ -153,10 +151,17 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		investigate_log("teleported [key_name_log(H)] to [COORD(H)]", INVESTIGATE_TELEPORTATION)
 
 /obj/brs_rift/proc/local_teleport_objects(var/list/objects)
+	var/count = 0
 	for(var/obj/O in objects)
-		if (O.anchored)
+		if(O.anchored)
 			continue
-		do_teleport(O, get_turf(O), 7)
+		count++
+		if(count <= force_sized * 5)
+			return
+		if(count <= force_sized)
+			do_teleport(O, get_turf(O), 7)
+		else
+			O.forceMove(get_turf(O), 7)
 
 
 // Teleport to a random safe point in the station
@@ -167,11 +172,19 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		investigate_log("teleported [key_name_log(H)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
 
 /obj/brs_rift/proc/local_teleport_objects_zloc(var/list/objects)
+	var/count = 0
 	for(var/obj/O in objects)
 		if (O.anchored)
 			continue
+		count++
+		if(count <= force_sized * 5)
+			return
 		var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
-		do_teleport(O, F)
+		if(count <= force_sized)
+			do_teleport(O, F)
+		else
+			O.forceMove(F)
+
 
 
 // Shuffling objects together
@@ -188,14 +201,22 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 			temp_mob = H
 
 /obj/brs_rift/proc/local_teleport_objects_reshuffle(var/list/objects)
-	var/temp_object
+	var/obj/temp_object
+	var/count = 0
 	for(var/obj/O in objects)
 		if (O.anchored)
 			continue
+		count++
+		if(count <= force_sized * 5)
+			return
 		if (temp_object)
 			var/turf/T = get_turf(O)
-			do_teleport(O, get_turf(temp_object))
-			do_teleport(temp_object, T)
+			if(count <= force_sized)
+				do_teleport(O, get_turf(temp_object))
+				do_teleport(temp_object, T)
+			else
+				O.forceMove(get_turf(temp_object))
+				temp_object.forceMove(T)
 			temp_object = null
 		else
 			temp_object = O

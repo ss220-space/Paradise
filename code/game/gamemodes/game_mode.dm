@@ -485,7 +485,7 @@
 
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()
-	for(var/T in subtypesof(/datum/station_goal))
+	for(var/T in subtypesof(/datum/station_goal) - /datum/station_goal/brs)	//!!!!ВРЕМЕННАЯ ЗАТЫЧКА ДО ТЕСТОВ, НЕ В РОТАЦИИ БОЛЬШЕ
 		var/datum/station_goal/G = T
 		if(config_tag in initial(G.gamemode_blacklist))
 			continue
