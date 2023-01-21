@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		if(O.anchored)
 			continue
 		count++
-		if(count <= force_sized * 5)
+		if(count >= force_sized * 5)
 			return
 		if(count <= force_sized)
 			do_teleport(O, get_turf(O), 7)
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		if (O.anchored)
 			continue
 		count++
-		if(count <= force_sized * 5)
+		if(count >= force_sized * 5)
 			return
 		var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
 		if(count <= force_sized)
@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		if (O.anchored)
 			continue
 		count++
-		if(count <= force_sized * 5)
+		if(count >= force_sized * 5)
 			return
 		if (temp_object)
 			var/turf/T = get_turf(O)
