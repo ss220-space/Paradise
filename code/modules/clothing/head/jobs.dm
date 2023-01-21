@@ -163,7 +163,7 @@
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
 
 /obj/item/clothing/head/beret/sec/black
-	name = "black security beret"
+	name = "corporate security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_officer_black"
 
