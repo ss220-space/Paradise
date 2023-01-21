@@ -336,7 +336,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
-			if(volume > 5)
+			if(volume >= 5)
 				var/damage_coef = 0
 				var/isDamaged = FALSE
 				for(var/limb in H.bodyparts)
