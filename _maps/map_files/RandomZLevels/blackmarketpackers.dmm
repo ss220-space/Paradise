@@ -333,9 +333,6 @@
 	tag = ""
 	},
 /mob/living/simple_animal/lizard,
-/obj/effect/decal/warning_stripes/green/partial{
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bp" = (
@@ -864,6 +861,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/structure/rack,
+/obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "cE" = (
@@ -1069,6 +1068,9 @@
 /obj/structure/sign/poster/contraband/tools{
 	pixel_x = -32
 	},
+/obj/item/reagent_containers/food/pill/charcoal{
+	layer = 2.9
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "dd" = (
@@ -1132,6 +1134,8 @@
 	pixel_y = 28
 	},
 /obj/structure/spider/stickyweb,
+/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/medical/bruise_pack/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1201,12 +1205,10 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "dw" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/crate/large,
-/obj/item/storage/firstaid/o2,
-/obj/item/storage/firstaid/o2,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Gate)
+/obj/effect/landmark/burnturf,
+/obj/item/stock_parts/cell,
+/turf/simulated/floor/plating/airless,
+/area/awaymission/BMPship/MedBay)
 "dy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1323,6 +1325,7 @@
 /obj/item/paperplane{
 	pixel_x = 8
 	},
+/obj/item/stamp/mime,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "dK" = (
@@ -1425,11 +1428,7 @@
 /area/awaymission/BMPship/Engines)
 "dX" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/crate/large,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/splint,
-/obj/item/stack/medical/splint,
+/obj/structure/largecrate/mule,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dY" = (
@@ -1766,12 +1765,14 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "eP" = (
-/obj/structure/rack,
+/obj/structure/closet/crate/large,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
 /obj/effect/decal/warning_stripes/west,
-/obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/obj/effect/decal/warning_stripes/green,
+/turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "eQ" = (
 /mob/living/simple_animal/chick,
@@ -2203,12 +2204,12 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "fL" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/crate/large,
-/obj/item/stack/medical/ointment/advanced,
-/obj/item/stack/medical/ointment/advanced,
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "fM" = (
@@ -2406,6 +2407,19 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
+"gm" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/rack,
+/obj/item/flashlight/flare/glowstick,
+/obj/item/flashlight/flare/glowstick/emergency{
+	pixel_x = 2
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/BMPship/Engines)
 "gn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2907,9 +2921,13 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/decal/warning_stripes/green/partial{
-	dir = 8
-	},
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "hS" = (
@@ -2957,9 +2975,6 @@
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
-	},
-/obj/effect/decal/warning_stripes/green/partial{
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -3109,6 +3124,14 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/structure/rack,
+/obj/item/flashlight/flare{
+	pixel_y = -3
+	},
+/obj/item/flashlight/flare{
+	pixel_y = 3
+	},
+/obj/item/flashlight/flare,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "iw" = (
@@ -3393,9 +3416,11 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "jv" = (
-/obj/structure/rack,
+/obj/structure/closet/crate/large,
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/toxin,
 /obj/effect/decal/warning_stripes/west,
-/obj/item/flashlight/flare/glowstick,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "jw" = (
@@ -4408,6 +4433,10 @@
 /area/awaymission/BMPship/Buffer)
 "rJ" = (
 /obj/effect/decal/warning_stripes/south,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "rL" = (
@@ -4496,6 +4525,7 @@
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_x = -32
 	},
+/obj/item/reagent_containers/food/pill/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "su" = (
@@ -4759,11 +4789,10 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/decal/warning_stripes/green/partial{
-	dir = 8
-	},
+/obj/structure/rack,
+/obj/item/storage/belt/utility/full,
 /turf/simulated/floor/plating,
-/area/awaymission/BMPship/Gate)
+/area/awaymission/BMPship/Engines)
 "uC" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/closet/walllocker{
@@ -4924,9 +4953,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "vV" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5437,6 +5464,9 @@
 	pixel_x = -32
 	},
 /mob/living/simple_animal/cockroach,
+/obj/item/reagent_containers/food/pill/charcoal{
+	layer = 2.9
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "AN" = (
@@ -5490,7 +5520,6 @@
 	pixel_x = -32;
 	name = "DANGEROUS CARGO!"
 	},
-/obj/item/storage/firstaid/with_mousetrap/syndie,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Bw" = (
@@ -5558,9 +5587,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "BQ" = (
+/obj/structure/closet/crate/large,
+/obj/item/storage/firstaid/o2,
+/obj/item/storage/firstaid/o2,
 /obj/effect/decal/warning_stripes/west,
-/obj/item/flashlight/flare/glowstick/emergency,
-/obj/structure/rack,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "BS" = (
@@ -5961,12 +5992,14 @@
 	},
 /area/awaymission/BMPship/Armory)
 "Fb" = (
-/obj/structure/rack,
-/obj/item/storage/belt/utility/full,
+/obj/structure/closet/crate/large,
+/obj/item/stack/medical/ointment/advanced,
+/obj/item/stack/medical/ointment/advanced,
+/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/medical/bruise_pack/advanced,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
+/obj/effect/decal/warning_stripes/green,
+/turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "Fe" = (
 /obj/item/shard,
@@ -7319,6 +7352,7 @@
 "Sw" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
+/obj/item/storage/firstaid/with_mousetrap/syndie,
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Engines)
 "Sy" = (
@@ -7621,9 +7655,7 @@
 /area/awaymission/BMPship/Kitchen)
 "VL" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/crate/large,
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/toxin,
+/obj/structure/largecrate,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "VO" = (
@@ -16512,7 +16544,7 @@ as
 AV
 vr
 ZB
-bz
+dw
 Rn
 eM
 er
@@ -20280,7 +20312,7 @@ IY
 aQ
 cI
 cs
-cs
+fL
 Qo
 VQ
 Ky
@@ -21061,7 +21093,7 @@ aQ
 MG
 hR
 bo
-uB
+Gj
 hV
 UZ
 fA
@@ -21190,9 +21222,9 @@ aa
 aQ
 aQ
 dX
-fL
 VL
-dw
+VL
+VL
 jr
 aQ
 UA
@@ -21590,8 +21622,8 @@ ht
 fK
 Lt
 cD
-az
-Uy
+uB
+gm
 iv
 DT
 fK
