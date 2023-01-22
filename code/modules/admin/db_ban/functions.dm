@@ -156,7 +156,7 @@
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
 		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`role`,`reason`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `unbanned_round_id`)
-		VALUES (null, Now(), INET_ATON(:server_ip), :server_port, :role, :reason, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, INET_ATON(:ip), :a_ckey, :a_computerid, INET_ATON(:a_ip), :who, :adminwho, '', null, null, null, null, null)
+		VALUES (null, Now(), :server_ip, :server_port, :role, :reason, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
 	"}, list(
 		// Get ready for parameters
 		"server_ip" = server_ip,
@@ -561,7 +561,7 @@
 					playersearch = "AND ckey=:playerckey "
 					sql_params["playerckey"] = playerckey
 				if(playerip)
-					ipsearch  = "AND INET_NTOA(ip)=:playerip "
+					ipsearch  = "AND ip=:playerip "
 					sql_params["playerip"] = playerip
 				if(playercid)
 					cidsearch  = "AND computerid=:playercid "
@@ -574,7 +574,7 @@
 					playersearch = "AND ckey LIKE :playerckey "
 					sql_params["playerckey"] = "[playerckey]%"
 				if(playerip && length(playerip) >= 3)
-					ipsearch  = "AND INET_NTOA(ip) LIKE :playerip "
+					ipsearch  = "AND ip LIKE :playerip "
 					sql_params["playerip"] = "[playerip]%"
 				if(playercid && length(playercid) >= 7)
 					cidsearch  = "AND computerid LIKE :playercid "
