@@ -17,6 +17,9 @@
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
+	var/list/reagents_blacklist = list(
+		"stimulants"
+	)
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
 
@@ -393,6 +396,9 @@
 			var/proportion = 10 * min(1/beaker.volume, 1)
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
+			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
+				if(reagent.id in reagents_blacklist)
+					proportion = 1
 			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
