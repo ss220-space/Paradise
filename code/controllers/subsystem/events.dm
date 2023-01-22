@@ -30,7 +30,6 @@ SUBSYSTEM_DEF(events)
 
 	//for BRS goal brs_event_container.dm
 	var/list/brs_event_containers = list(
-			BRS_EVENT_MESS 			= new/datum/event_container/brs_mess,
 			BRS_EVENT_MINOR 		= new/datum/event_container/brs_minor,
 			BRS_EVENT_MAJOR 		= new/datum/event_container/brs_major,
 			BRS_EVENT_CRITICAL 		= new/datum/event_container/brs_critical

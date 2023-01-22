@@ -108,6 +108,11 @@
 	var/count = length(GLOB.bluespace_rifts_list)
 	notify_ghosts("[name] возникло на станции! Всего разломов: [count]", title = "Блюспейс Разлом!", source = src, action = NOTIFY_FOLLOW)
 
+	var/datum/station_goal/brs/G = locate() in SSticker.mode.station_goals
+	if(G)
+		if(!length(G.rifts_list))
+			G.rifts_list = related_rifts_list
+
 /obj/brs_rift/Destroy()
 	GLOB.bluespace_rifts_list.Remove(src)
 	GLOB.poi_list.Remove(src)
@@ -131,11 +136,11 @@
 
 	// give the chances of a regular event appearing frequently with a local event
 	if(!is_critical && prob(70))
-		counter_time_per_event = world.time + round(time_per_event / max(1, length(related_rifts_list)))
+		counter_time_per_event = world.time + round(time_per_event / max(1, get_active_scanners_count()))
 		make_event(event_type)
 	if(!is_critical && prob(50))
 		return FALSE
-	if (prob(round(100 * max(1, length(related_rifts_list))/4)))
+	if (prob(round(100 * max(1, length(related_rifts_list))/2)))
 		make_local_related_event()
 	else
 		make_local_event()
@@ -166,13 +171,11 @@
 /obj/brs_rift/proc/random_event_type(var/dist, var/rift_range, var/division)
 	var/chance = rand(0, 100)
 	var/n = division
-	if(chance <= (49-n*3))
-		return BRS_EVENT_MESS
-	else if(chance >= (50-n*3) && chance <=  (79-n*2))
+	if(chance <=  (69-n*2))
 		return BRS_EVENT_MINOR
-	else if(chance >= (80-n*2) && chance <=  (94-n))
+	else if(chance >= (70-n*2) && chance <=  (90-n))
 		return BRS_EVENT_MAJOR
-	else if(chance >= (95-n))
+	else if(chance >= (91-n))
 		return BRS_EVENT_CRITICAL
 
 /obj/brs_rift/proc/move_direction()
@@ -271,3 +274,11 @@
 	//The hunter moves faster and doesn't stupefy if the target is close
 	timespan = (get_dist(src, T) SECONDS) + 10 SECONDS
 	return T ? T : ..()
+
+/obj/brs_rift/proc/get_active_scanners_count()
+	var/scanners_count = 0
+	for(var/obj/machinery/brs_scanner/S in GLOB.bluespace_rifts_scanner_list)
+		if(S.z != z || !S.active || S.rift_for_scan != src)
+			continue
+		scanners_count++
+	return scanners_count

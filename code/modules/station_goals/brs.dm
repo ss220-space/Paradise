@@ -1,5 +1,7 @@
 GLOBAL_LIST_INIT(bluespace_rifts_list, list())
 GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
+GLOBAL_LIST_INIT(bluespace_rifts_scanner_list, list())
+
 
 // BRS - Bluespace Rift Scanner
 // The goal is to research the anomalous bluespace rift with the creation of portable and static scanners

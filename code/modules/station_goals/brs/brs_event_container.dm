@@ -18,22 +18,17 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 
 //event_container.dm
 //====================BRS GOAL====================
-/datum/event_container/brs_mess
-	severity = BRS_EVENT_MESS
-	available_events = list(
-		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(BRS_EVENT_MESS, 	"Ничего",				/datum/event/nothing,			150),
-		new /datum/event_meta(BRS_EVENT_MESS, 	"Денежная лотерея",		/datum/event/money_lotto, 		5, 		list(ASSIGNMENT_ANY = 1)),
-		new /datum/event_meta(BRS_EVENT_MESS, 	"Взлом аккаунта",		/datum/event/money_hacker, 		50, 	list(ASSIGNMENT_ANY = 4)),
-		new /datum/event_meta(BRS_EVENT_MESS, 	"Стенной грибок",		/datum/event/wallrot, 			50,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
-		new /datum/event_meta(BRS_EVENT_MESS, "Отходы из вытяжек",		/datum/event/vent_clog,			100),
-		new /datum/event_meta(BRS_EVENT_MESS, "Гравитационная аномалия",/datum/event/anomaly/anomaly_grav,		200),
-		new /datum/event_meta(BRS_EVENT_MESS, "Массовые галлюцинации",	/datum/event/mass_hallucination,		25),
-	)
-
 /datum/event_container/brs_minor
 	severity = BRS_EVENT_MINOR
 	available_events = list(
+		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
+		new /datum/event_meta(BRS_EVENT_MINOR, "Ничего",					/datum/event/nothing,			350),
+		new /datum/event_meta(BRS_EVENT_MINOR, "Денежная лотерея",			/datum/event/money_lotto, 		100, 		list(ASSIGNMENT_ANY = 1)),
+		new /datum/event_meta(BRS_EVENT_MINOR, "Взлом аккаунта",			/datum/event/money_hacker, 		300, 	list(ASSIGNMENT_ANY = 4)),
+		new /datum/event_meta(BRS_EVENT_MINOR, "Стенной грибок",			/datum/event/wallrot, 			400,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
+		new /datum/event_meta(BRS_EVENT_MINOR, "Отходы из вытяжек",			/datum/event/vent_clog,			600),
+		new /datum/event_meta(BRS_EVENT_MINOR, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		400),
+		new /datum/event_meta(BRS_EVENT_MINOR, "Массовые галлюцинации",		/datum/event/mass_hallucination,		500),
 		new /datum/event_meta(BRS_EVENT_MINOR, "Ничего",					/datum/event/nothing,					100),
 		new /datum/event_meta(BRS_EVENT_MINOR, "Пространственный разрыв",	/datum/event/tear,						150,	list(ASSIGNMENT_SECURITY = 35)),
 		new /datum/event_meta(BRS_EVENT_MINOR, "Червоточины",				/datum/event/wormholes,					10),

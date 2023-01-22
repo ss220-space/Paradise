@@ -230,7 +230,7 @@
 		))
 
 	data["scanners"] = list()
-	for(var/obj/machinery/brs_scanner/S in GLOB.machines)
+	for(var/obj/machinery/brs_scanner/S in GLOB.bluespace_rifts_scanner_list)
 		if(S.z != z)
 			continue
 		data["scanners"] += list(list(
@@ -272,8 +272,8 @@
 		if("luck")
 			if(roulette_points >= roulette_points_price)
 				roulette_points -= roulette_points_price
-				research_points += roulette_points_price
 				if(prob(round(50 / (emagged ? round(emagged_prob_division/2) : 1))))
+					research_points += roulette_points_price
 					var/turf/T
 					for(var/obj/brs_rift/rift in G.rifts_list)
 						if(prob(70))

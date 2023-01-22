@@ -53,6 +53,11 @@
 	new_component_parts()
 	id = gid++
 	name = "[name] \[[id]\]"
+	GLOB.bluespace_rifts_scanner_list.Add(src)
+
+/obj/machinery/brs_scanner/Destroy()
+	GLOB.bluespace_rifts_scanner_list.Remove(src)
+	return ..()
 
 /obj/machinery/brs_scanner/process()
 	if(stat & (BROKEN|NOPOWER))
@@ -115,7 +120,7 @@
 
 	//Countdown start
 	if (counter_critical_time == 0)
-		counter_critical_time = world.time + critical_time
+		counter_critical_time = world.time + round(critical_time / rift_for_scan.get_active_scanners_count())
 
 	//Passing critical threshold
 	if (counter_critical_time < world.time)
@@ -236,7 +241,7 @@
 
 	rift_for_scan = min_rift
 	if(rift_for_scan)
-		rift_range = max_range + rift_for_scan.force_sized
+		rift_range = max_range + round(rift_for_scan.force_sized * 1.5)
 		change_active()
 		return TRUE
 	return FALSE
@@ -314,12 +319,13 @@
 
 //Interactions
 /obj/machinery/brs_scanner/s_static/wrench_act(mob/living/user, obj/item/I)
-	//if(anchored)
-	to_chat(user, "<span class='notice'>Сканер статичен и не может быть откручен.</span>")
-	//else
-	//	. = default_unfasten_wrench(user, I, 40)
-	//	density = TRUE
-	//	update_icon()
+	if(anchored)
+		to_chat(user, "<span class='notice'>Сканер статичен и не может быть откручен.</span>")
+	else
+		. = default_unfasten_wrench(user, I, 40)
+		density = TRUE
+		anchored = TRUE
+		update_icon()
 
 /obj/machinery/brs_scanner/s_static/screwdriver_act(mob/living/user, obj/item/I)
 	if (active && !emagged)

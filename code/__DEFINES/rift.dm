@@ -8,7 +8,6 @@
 #define MAX_TYPES_RIFT 	6
 
 // Тип ивента
-#define BRS_EVENT_MESS 		1
-#define BRS_EVENT_MINOR 	2
-#define BRS_EVENT_MAJOR 	3
-#define BRS_EVENT_CRITICAL 	4
+#define BRS_EVENT_MINOR 	1
+#define BRS_EVENT_MAJOR 	2
+#define BRS_EVENT_CRITICAL 	3
