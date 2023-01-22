@@ -310,12 +310,12 @@
 		Wait, where did I put spray tan?.."
 
 /datum/map_template/ruin/space/ipcship
-	id = "ipcship"
+	id = "ipc_ship"
 	suffix = "ipcship.dmm"
 	name = "IPC Ship"
 	description = "..."
 	cost = 4
-
+	allow_duplicates = FALSE
 
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base

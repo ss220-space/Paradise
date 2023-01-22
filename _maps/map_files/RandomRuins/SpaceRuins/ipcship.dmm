@@ -7,7 +7,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "aw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -22,7 +22,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "aL" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
@@ -31,13 +31,17 @@
 	},
 /obj/item/stock_parts/cell/crap,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "aV" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
+"bM" = (
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/fabricator)
 "bQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -46,7 +50,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "cc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -54,7 +58,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "ci" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -62,11 +66,11 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/fabricator)
 "cq" = (
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "cG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -75,7 +79,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "eh" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
@@ -83,7 +87,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "eY" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -93,7 +97,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "gz" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -101,10 +105,10 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "he" = (
 /turf/space,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "hZ" = (
 /obj/machinery/mecha_part_fabricator,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -113,13 +117,16 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/space)
+/area/ruin/space/ipcship/fabricator)
 "ij" = (
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
+"iP" = (
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/bridge)
 "jW" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -128,39 +135,52 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "kP" = (
 /obj/structure/shuttle/engine/large{
 	dir = 4
 	},
 /turf/space,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "mc" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "mj" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "mF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/engine,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
+"nv" = (
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/bridge)
 "ny" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
+"nS" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/fabricator)
 "pD" = (
 /obj/machinery/power/supermatter_shard{
 	anchored = 1
 	},
 /turf/simulated/floor/engine,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "sH" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -169,7 +189,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "ti" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -179,7 +199,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "tw" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -190,33 +210,33 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "tH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "uw" = (
 /obj/structure/closet/crate/trashcart,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "uP" = (
 /turf/space,
 /area/space)
 "vl" = (
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "vB" = (
 /obj/machinery/power/smes,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "vL" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "wi" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 8
@@ -228,7 +248,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "wu" = (
 /obj/structure/closet,
 /obj/item/stack/sheet/metal{
@@ -261,22 +281,22 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/space)
+/area/ruin/space/ipcship/fabricator)
 "xn" = (
 /obj/item/gps/ruin{
 	pixel_x = -33
 	},
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "xE" = (
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "yi" = (
 /obj/structure/cable,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "yy" = (
 /obj/machinery/computer/sm_monitor,
 /obj/structure/cable{
@@ -286,7 +306,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "yz" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -300,7 +320,14 @@
 	operating = 0
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/fabricator)
+"ze" = (
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/fabricator)
+"zB" = (
+/obj/machinery/computer,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/fabricator)
 "zH" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/cable{
@@ -315,23 +342,23 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Ad" = (
 /obj/structure/window/full/shuttle/gray,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "Ah" = (
 /obj/machinery/power/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Am" = (
 /obj/machinery/power/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Bj" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced,
@@ -345,7 +372,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Cg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -354,7 +381,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Cr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -364,19 +391,19 @@
 	},
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/engine)
 "Cu" = (
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "DF" = (
 /obj/item/apc_electronics,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "Fw" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "FC" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -385,7 +412,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Gm" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -395,13 +422,13 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "Hv" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "HM" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -410,7 +437,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "IU" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -418,11 +445,11 @@
 /obj/structure/table,
 /obj/item/wrench,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "JY" = (
 /obj/item/storage/bag/trash,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "Km" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -437,7 +464,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "KS" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -445,21 +472,21 @@
 /obj/structure/table,
 /obj/item/tank/internals/plasma/full,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "KZ" = (
 /obj/machinery/atmospherics/unary/cold_sink/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "La" = (
 /turf/simulated/wall/r_wall/coated,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Le" = (
 /obj/structure/table,
 /obj/item/t_scanner,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Lt" = (
 /obj/item/storage/belt/utility,
 /obj/item/clothing/glasses/welding,
@@ -475,12 +502,12 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "Mr" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Mz" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -490,7 +517,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "MF" = (
 /obj/machinery/power/emitter{
 	dir = 4
@@ -515,13 +542,13 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "MS" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "NG" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -529,24 +556,24 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "NN" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "Ov" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Qd" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Qn" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/cable{
@@ -555,7 +582,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Rb" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
@@ -563,7 +590,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Rm" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 4
@@ -572,13 +599,13 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "RW" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "RZ" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
@@ -586,7 +613,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "Sh" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -598,24 +625,24 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "SJ" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "SN" = (
 /obj/machinery/computer/operating{
 	name = "Robotics Operating Computer"
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "Tw" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "TQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -627,7 +654,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "UR" = (
 /obj/machinery/mecha_part_fabricator,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -636,11 +663,16 @@
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/space)
+/area/ruin/space/ipcship/fabricator)
 "UU" = (
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
+"UV" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/ipcship/operating)
 "Vs" = (
 /obj/machinery/atmospherics/binary/valve/digital{
 	dir = 4
@@ -652,7 +684,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "WE" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -660,12 +692,12 @@
 /obj/structure/table,
 /obj/item/tank/internals/plasma/full,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "WH" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 "XN" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
@@ -673,11 +705,16 @@
 	},
 /obj/item/stock_parts/cell/crap,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
+"Yl" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/ipcship/fabricator)
 "YP" = (
 /obj/machinery/computer,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/bridge)
 "Za" = (
 /obj/item/storage/belt/utility,
 /obj/item/clothing/glasses/welding,
@@ -693,17 +730,17 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "Zf" = (
 /obj/structure/table/tray,
 /obj/item/storage/firstaid/machine,
 /obj/item/robotanalyzer,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/space)
+/area/ruin/space/ipcship/operating)
 "ZU" = (
 /obj/structure/window/full/shuttle/gray,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ancientstation/atmos)
+/area/ruin/space/ipcship/engine)
 
 (1,1,1) = {"
 uP
@@ -849,11 +886,11 @@ uP
 uP
 Tw
 Tw
-Ad
-Ad
+nv
+nv
 Tw
-Ad
-Ad
+nv
+nv
 Tw
 Tw
 uP
@@ -912,13 +949,13 @@ uP
 uP
 Tw
 UU
-vl
+iP
 Hv
 Hv
-vl
+iP
 Hv
 Hv
-vl
+iP
 UU
 Tw
 uP
@@ -942,17 +979,17 @@ uP
 uP
 uP
 uP
-Ad
+nv
 vL
-vl
-vl
-vl
-vl
-vl
-vl
-vl
+iP
+iP
+iP
+iP
+iP
+iP
+iP
 NN
-Ad
+nv
 uP
 uP
 uP
@@ -974,17 +1011,17 @@ uP
 uP
 uP
 uP
-Ad
+nv
 vL
-vl
+iP
 cq
-vl
-vl
-vl
-vl
-vl
+iP
+iP
+iP
+iP
+iP
 NN
-Ad
+nv
 uP
 uP
 uP
@@ -1009,12 +1046,12 @@ uP
 Tw
 UU
 DF
-vl
-vl
+iP
+iP
 SJ
 yi
-vl
-vl
+iP
+iP
 UU
 Tw
 uP
@@ -1070,17 +1107,17 @@ uP
 uP
 uP
 uP
-Tw
-YP
-vl
-vl
-Tw
+Yl
+zB
+ze
+ze
+Yl
 cG
-Tw
+UV
 Za
 Zf
 SN
-Tw
+UV
 uP
 uP
 uP
@@ -1102,13 +1139,13 @@ uP
 uP
 uP
 uP
-Ad
+bM
 UR
-vl
-vl
-Tw
+ze
+ze
+Yl
 cG
-Tw
+UV
 JY
 vl
 xE
@@ -1134,11 +1171,11 @@ uP
 uP
 uP
 uP
-Ad
+bM
 wu
-vl
+ze
 ci
-HM
+nS
 aw
 HM
 ij
@@ -1166,13 +1203,13 @@ uP
 uP
 uP
 uP
-Ad
+bM
 hZ
-vl
+ze
 yz
-Tw
+Yl
 cG
-Tw
+UV
 Km
 vl
 xE
@@ -1198,17 +1235,17 @@ uP
 uP
 uP
 uP
-Tw
-YP
-vl
-vl
-Tw
+Yl
+zB
+ze
+ze
+Yl
 cG
-Tw
+UV
 Lt
 Zf
 SN
-Tw
+UV
 uP
 uP
 uP
@@ -1230,17 +1267,17 @@ uP
 uP
 uP
 uP
-Tw
-Tw
-Tw
-Tw
-Tw
+WH
+WH
+WH
+WH
+WH
 Cr
-Tw
-Tw
-Tw
-Tw
-Tw
+WH
+WH
+WH
+WH
+WH
 uP
 uP
 uP
@@ -1401,8 +1438,8 @@ cc
 RW
 Ov
 WH
-Tw
-Tw
+WH
+WH
 uP
 uP
 uP
@@ -1419,7 +1456,7 @@ uP
 uP
 uP
 uP
-Tw
+WH
 WH
 WH
 WH
@@ -1450,7 +1487,7 @@ uP
 uP
 uP
 uP
-Tw
+WH
 WH
 Cu
 Cu
@@ -1468,7 +1505,7 @@ WH
 Cu
 Cu
 WH
-Tw
+WH
 uP
 uP
 uP
@@ -1482,7 +1519,7 @@ uP
 uP
 uP
 uP
-Tw
+WH
 Cu
 Cu
 FC
@@ -1500,7 +1537,7 @@ jW
 NG
 Cg
 Cu
-Tw
+WH
 uP
 uP
 uP
@@ -1514,7 +1551,7 @@ uP
 uP
 uP
 uP
-Tw
+WH
 Cu
 FC
 ab
@@ -1532,7 +1569,7 @@ WH
 Cu
 bQ
 Cu
-Tw
+WH
 uP
 uP
 uP
@@ -1546,7 +1583,7 @@ uP
 uP
 uP
 uP
-Tw
+WH
 Cu
 Rb
 vB
@@ -1564,7 +1601,7 @@ WH
 vB
 Mz
 Cu
-Tw
+WH
 uP
 uP
 uP
@@ -1578,25 +1615,25 @@ uP
 uP
 uP
 uP
-Tw
 WH
 WH
 WH
 WH
-he
-kP
-he
-kP
 WH
 he
 kP
 he
 kP
 WH
+he
+kP
+he
+kP
 WH
 WH
 WH
-Tw
+WH
+WH
 uP
 uP
 uP
@@ -1614,17 +1651,17 @@ uP
 uP
 uP
 uP
-Tw
-uP
-uP
-uP
-uP
-Tw
-uP
-uP
-uP
-uP
-Tw
+WH
+he
+he
+he
+he
+WH
+he
+he
+he
+he
+WH
 uP
 uP
 uP
