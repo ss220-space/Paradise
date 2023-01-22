@@ -538,6 +538,10 @@
 	},
 /area/admin)
 "fl" = (
+/obj/machinery/door/poddoor{
+	id_tag = "thunderdome";
+	name = "Thunderdome Blast Door"
+	},
 /obj/machinery/camera{
 	c_tag = "Thunderdome Arena";
 	network = list("Thunderdome");
@@ -549,11 +553,6 @@
 	},
 /obj/item/radio/intercom/pirate{
 	req_access_txt = "153"
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2836,8 +2835,7 @@
 	density = 0;
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door";
-	opacity = 0;
-	simulated = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3375,6 +3373,10 @@
 	},
 /area/admin)
 "Ob" = (
+/obj/machinery/door/poddoor{
+	id_tag = "thunderdome";
+	name = "Thunderdome Blast Door"
+	},
 /obj/machinery/camera{
 	c_tag = "Thunderdome Arena";
 	network = list("Thunderdome");
@@ -3386,11 +3388,6 @@
 	},
 /obj/item/radio/intercom/pirate{
 	req_access_txt = "153"
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3424,8 +3421,7 @@
 "Ou" = (
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
+	name = "Thunderdome Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3517,8 +3513,7 @@
 	density = 0;
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door";
-	opacity = 0;
-	simulated = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4300,8 +4295,7 @@
 "Zs" = (
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
+	name = "Thunderdome Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
