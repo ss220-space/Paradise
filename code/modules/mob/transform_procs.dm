@@ -225,6 +225,14 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pig))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/cock))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/goose))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/turkey))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/mouse/hamster))
+		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge))
 		return 1
 

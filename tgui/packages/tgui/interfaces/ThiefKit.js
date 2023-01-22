@@ -8,12 +8,29 @@ export const ThiefKit = (props, context) => {
   const {
     uses,
     possible_uses,
+    multi_uses,
     kits,
     choosen_kits,
   } = data;
   return (
     <Window resizable>
       <Window.Content scrollable>
+
+        <Section title="Набор Гильдии Воров:">
+          <Box italic>
+            <i>Увесистая коробка, в которой лежит снаряжение гильдии воров.</i><br />
+            <i>Набор вора-шредингера. Нельзя определить что в нём, пока не заглянешь внутрь.</i><br />
+            <p><b>Какое снаряжение в нём лежит?:</b></p>
+            <p>
+              Определено наборов:
+              <Box as="span"
+                color={uses <= 0 ? 'good' : (uses < possible_uses ? 'average' : 'bad')}>
+                <b>{uses}/{possible_uses}</b> {multi_uses ? '(мультивыбор)' : ''}
+              </Box><br />
+              <i>В комплект входят воровские перчатки и сумка</i>
+            </p>
+          </Box>
+        </Section>
 
         <Section title="Доступные наборы:"
           buttons={(
@@ -34,7 +51,7 @@ export const ThiefKit = (props, context) => {
                     <Button
                       icon="upload"
                       content="Выбрать"
-                      disabled={i.was_taken}
+                      disabled={i.was_taken || uses >= possible_uses}
                       onClick={() =>
                         act("takeKit", {
                           item: i.type,
