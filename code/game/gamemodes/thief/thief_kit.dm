@@ -5,13 +5,10 @@
 	icon_state = "box_thief"
 	item_state = "syringe_kit"
 
-/obj/item/storage/box/thief_kit/New(var/list/choosen_kit_list)
+/obj/item/storage/box/thief_kit/New()
 	..()
 	new /obj/item/clothing/gloves/color/black/thief(src)
 	new /obj/item/storage/backpack/satchel_flat(src)
-	for(var/obj/item/item in choosen_kit_list)
-		new item(src)
-
 
 // ========== CHOOSE ITEMS ==========
 /obj/item/thief_kit
@@ -23,17 +20,21 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/possible_uses = 2
 	var/uses = 0
-	/// Choosen items for spawn
-	var/list/choosen_kit_list = list()
-	/// List of categories with items inside
-	//var/list/categories_kits = list()
-	/// List of all items in total
-	var/list/all_kits
+	var/multi_uses = FALSE
+	var/list/datum/thief_kit/choosen_kit_list = list()
+	var/list/datum/thief_kit/all_kits = list()
 
+/obj/item/thief_kit/multi/multi_uses = TRUE
 /obj/item/thief_kit/five/possible_uses = 5
+/obj/item/thief_kit/five/multi/multi_uses = TRUE
 /obj/item/thief_kit/ten/possible_uses = 10
-/obj/item/thief_kit/twenty/possible_uses = 20
-/obj/item/thief_kit/fifty/possible_uses = 50
+/obj/item/thief_kit/ten/multi/multi_uses = TRUE
+/obj/item/thief_kit/twenty
+	possible_uses = 20
+	multi_uses = TRUE
+/obj/item/thief_kit/fifty
+	possible_uses = 50
+	multi_uses = TRUE
 
 /obj/item/thief_kit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -52,18 +53,33 @@
 /obj/item/thief_kit/ui_static_data(mob/user)
 	var/list/data = list()
 
-	// Actual items
-	//if(!categories_kits || !all_kits)
-	//	generate_kit_lists()
-	if(!all_kits)
-		all_kits = subtypesof(/datum/thief_kit)
+	if(!length(all_kits))
+		//var/index_count = 0
+		for(var/kit_type in subtypesof(/datum/thief_kit))
+			var/datum/thief_kit/kit = new kit_type
+			message_admins("[kit] [kit.name]")
+			all_kits.Add(kit)
 
-	data["kits"] = all_kits
+	data["kits"] = list()
+	for(var/datum/thief_kit/kit in all_kits)
+		data["kits"] += list(list(
+			"name" = kit.name,
+			"desc" = kit.desc,
+			"was_taken" = kit.was_taken,
+			"type" = kit.type
+		))
 
-	var/list/test = subtypesof(/datum/thief_kit)
-	message_admins(test)
+	data["choosen_kits"] = list()
+	for(var/datum/thief_kit/kit in choosen_kit_list)
+		data["choosen_kits"] += list(list(
+			"name" = kit.name,
+			"desc" = kit.desc,
+			"was_taken" = kit.was_taken,
+			"type" = kit.type
+		))
 
 	return data
+
 /obj/item/thief_kit/attack_self(mob/user)
 	interact(user)
 
@@ -85,41 +101,75 @@
 	. = TRUE
 	switch(action)
 		if("open")
-			SStgui.close_uis(src)
 			openKit(usr)
 		if("clear")
 			clearKit(usr)
 		if("randomKit")
-			pickKit(pick(all_kits))
+			randomKit()
 		if("takeKit")
 			pickKit(params["item"])
 		if("undoKit")
 			undoKit(params["item"])
 
-
-
 /obj/item/thief_kit/proc/openKit(var/mob/user)
 	if(uses >= possible_uses)
-		var/obj/item/storage/box/thief_kit/kit = new(src, choosen_kit_list)
+		var/obj/item/storage/box/thief_kit/kit = new(src)
+
+		for(var/datum/thief_kit/kit_type in choosen_kit_list)
+			for(var/item_type in kit_type.item_list)
+				kit.contents.Add(new item_type(src))
+
+		user.put_in_hands(kit)
 		kit.AltClick(user)
+		SStgui.close_uis(src)
 		qdel(src)
 	else
 		to_chat(user,"<span class = 'warning'>Вы не определили все предметы в коробке!</span>")
 
 /obj/item/thief_kit/proc/clearKit(var/mob/user)
+	for(var/datum/thief_kit/kit in choosen_kit_list)
+		undoKit(kit)
 	uses = 0
-	choosen_kit_list = list()
 	to_chat(user,"<span class = 'warning'>Вы очистили выбор! Наверное в коробке лежали другие наборы?</span>")
 	message_admins("Очищен [src.name]")
 
-/obj/item/thief_kit/proc/pickKit(var/datum/thief_kit/kit)
-	uses++
-	choosen_kit_list.Add(kit)
+/obj/item/thief_kit/proc/pickKit(var/kit_type)
+	var/datum/thief_kit/kit = convert_kit_type(kit_type)
+	if(kit)
+		SStgui.update_uis(src)
+		choosen_kit_list.Add(kit)
+		if(!multi_uses)
+			kit.was_taken = TRUE
+		uses++
 
-/obj/item/thief_kit/proc/undoKit(var/datum/thief_kit/kit)
-	uses--
-	choosen_kit_list.Remove(kit)
+/obj/item/thief_kit/proc/undoKit(var/kit_type)
+	var/datum/thief_kit/kit = convert_kit_type(kit_type)
+	if(kit)
+		SStgui.update_uis(src)
+		choosen_kit_list.Remove(kit)
+		kit.was_taken = FALSE
+		uses--
 
+/obj/item/thief_kit/proc/randomKit(var/kit_type)
+	var/list/possible_kits = list()
+	for(var/datum/thief_kit/kit in all_kits)
+		if(kit.was_taken)
+			continue
+		possible_kits.Add(kit)
+	if(possible_kits)
+		pickKit(pick(possible_kits))
+	else
+		to_chat(usr,"<span class = 'warning'>Превышен допустимый лимит наборов!</span>")
+
+/obj/item/thief_kit/proc/convert_kit_type(var/kit_type)
+	message_admins("Прибыл кит [kit_type]")
+	message_admins("Прибыл кит [kit_type]")
+	if(istype(kit_type, /datum/thief_kit))
+		return kit_type
+	for(var/datum/thief_kit/kit in all_kits)
+		if("[kit.type]" == kit_type)
+			return kit
+	return FALSE
 
 
 
@@ -235,36 +285,36 @@
 	var/desc = "Описание кита"
 	//var/icon/icon = 'icons/obj/storage.dmi'
 	//var/icon_state = "box_thief"
-	var/list/kit = list()
+	var/list/obj/item/item_list = list()
 	var/was_taken = FALSE
 
 /datum/thief_kit/chamelleon
 	name = "Набор Хамелеона"
 	desc = "Набор одежды-хамелеона для скрытных внедрений. Нескользящие ботинки в комплект не включены."
-	kit = list(
+	item_list = list(
 		/obj/item/flag/chameleon,
-		/obj/item/storage/box/syndie_kit/chameleon
+		/obj/item/storage/box/syndie_kit/chameleon,
 		///obj/item/card/id/syndicate,
 		)
 
 /datum/thief_kit/falsification
 	name = "Набор Подделки"
 	desc = "Набор для подделывания подписей и печатей. И  облика."
-	kit = list(
+	item_list = list(
 		/obj/item/stamp/chameleon,
-		/obj/item/pen/fakesign
+		/obj/item/pen/fakesign,
 		)
 
 /datum/thief_kit/projector
 	name = "Голографический Набор"
 	desc = "Набор для скрытия за голограммой."
-	kit = list(
+	item_list = list(
 		/obj/item/chameleon,
 		)
 
 /datum/thief_kit/radio
 	name = "Набор Связиста"
 	desc = "Набор для подслушивания переговоров."
-	kit = list(
-		/obj/item/encryptionkey/syndicate
+	item_list = list(
+		/obj/item/encryptionkey/syndicate,
 		)

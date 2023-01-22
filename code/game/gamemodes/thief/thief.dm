@@ -97,7 +97,7 @@
 /datum/game_mode/proc/greet_thief(datum/mind/thief, you_are=1)
 	SEND_SOUND(thief.current, 'sound/ambience/antag/thiefalert.ogg')
 	if(you_are)
-		to_chat(thief.current, "<span class='danger'>Вы вор!</span>")
+		to_chat(thief.current, "<span class='danger'>Вы член гильдии воров!</span>")
 	to_chat(thief.current, "<span class='danger'>Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!</span>")
 	to_chat(thief.current, "<B>Вам необходимо преуспеть в целях:</B>")
 	if(thief.current.mind)
@@ -142,8 +142,6 @@
 		to_chat(thief, "<span class='notice'>Набор гильдии воров находится у вас в рюкзаке.</span>")
 	else
 		thief.equip_to_appropriate_slot(new /obj/item/thief_kit(thief))
-
-
 
 /datum/game_mode/proc/auto_declare_completion_thief()
 	if(thieves.len)
