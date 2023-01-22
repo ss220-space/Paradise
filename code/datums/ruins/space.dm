@@ -309,6 +309,14 @@
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
 
+/datum/map_template/ruin/space/ipcship
+	id = "ipcship"
+	suffix = "ipcship.dmm"
+	name = "IPC Ship"
+	description = "..."
+	cost = 4
+
+
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
 	id = "syndicate_space_base"
