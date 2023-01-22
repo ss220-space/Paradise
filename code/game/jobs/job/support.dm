@@ -89,7 +89,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_HYDROPONICS)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
