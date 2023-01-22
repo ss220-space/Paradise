@@ -393,3 +393,9 @@
 	. = ..()
 	anchored = TRUE
 	density = TRUE
+
+/obj/machinery/brs_scanner/s_static/welder_act(mob/user, obj/item/I)
+	..()
+	anchored = TRUE
+	density = TRUE
+	toggle = FALSE
