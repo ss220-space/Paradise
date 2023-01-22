@@ -17,6 +17,7 @@
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
+	//if you don't want to dupe reagents
 	var/list/reagents_blacklist = list(
 		"stimulants"
 	)
@@ -398,7 +399,7 @@
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
 			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
 				if(reagent.id in reagents_blacklist)
-					proportion = 1
+					proportion = min(proportion, 1)
 			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
