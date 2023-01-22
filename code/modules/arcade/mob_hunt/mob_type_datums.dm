@@ -171,7 +171,6 @@
 						/area/gateway)
 	area_whitelist = list(/area/library,
 						/area/chapel,
-						/area/maintenance/chapel,
 						/area/medical/psych)
 
 /datum/mob_type/ghost
@@ -184,7 +183,6 @@
 					TYPE_FIGHTING)
 	area_whitelist = list(/area/medical/morgue,
 						/area/chapel,
-						/area/maintenance/chapel,
 						/area/medical/cloning)
 
 /datum/mob_type/ice
