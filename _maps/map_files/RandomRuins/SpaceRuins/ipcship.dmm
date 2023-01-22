@@ -1,0 +1,3262 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"aw" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"aL" = (
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/crap,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"aV" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"cc" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"ci" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"cq" = (
+/obj/item/mounted/frame/apc_frame,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"cG" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"eh" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"eY" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"hZ" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/space)
+"ij" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"kP" = (
+/obj/structure/shuttle/engine/large{
+	dir = 4
+	},
+/turf/space,
+/area/space)
+"mc" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"mj" = (
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"mF" = (
+/obj/machinery/atmospherics/unary/vent_scrubber,
+/turf/simulated/floor/engine,
+/area/space)
+"ny" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"pD" = (
+/obj/machinery/power/supermatter_shard{
+	anchored = 1
+	},
+/turf/simulated/floor/engine,
+/area/space)
+"sH" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"ti" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"tw" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"tH" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"uw" = (
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"uP" = (
+/turf/space,
+/area/space)
+"vl" = (
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"vB" = (
+/obj/machinery/power/smes,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"vL" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"wi" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"wu" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 15
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/space)
+"xn" = (
+/obj/item/gps/ruin{
+	pixel_x = -33
+	},
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"xE" = (
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"yi" = (
+/obj/structure/cable,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"yy" = (
+/obj/machinery/computer/sm_monitor,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"yz" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/noalarm{
+	locked = 0;
+	pixel_y = -24;
+	equipment = 0;
+	environ = 0;
+	operating = 0
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"zH" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Ad" = (
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Ah" = (
+/obj/machinery/power/rad_collector,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Am" = (
+/obj/machinery/power/rad_collector,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Bj" = (
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"Cg" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Cr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"DF" = (
+/obj/item/apc_electronics,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Fw" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/meson,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"FC" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Gm" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Hv" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"HM" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"IU" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/wrench,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"JY" = (
+/obj/item/storage/bag/trash,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Km" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/noalarm{
+	locked = 0;
+	pixel_y = 24;
+	equipment = 0;
+	environ = 0;
+	operating = 0;
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"KS" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/tank/internals/plasma/full,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"KZ" = (
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"La" = (
+/turf/simulated/wall/r_wall/coated,
+/area/space)
+"Le" = (
+/obj/structure/table,
+/obj/item/t_scanner,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Lt" = (
+/obj/item/storage/belt/utility,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/structure/closet/walllocker{
+	pixel_x = 32
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Mr" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Mz" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"MF" = (
+/obj/machinery/power/emitter{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"MS" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/space)
+"NG" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"NN" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Ov" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Qd" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Qn" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Rb" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Rm" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"RW" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"RZ" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/noalarm{
+	locked = 0;
+	pixel_y = -24
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Sh" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"SJ" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"SN" = (
+/obj/machinery/computer/operating{
+	name = "Robotics Operating Computer"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Tw" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/space)
+"TQ" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"UR" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/space)
+"UU" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Vs" = (
+/obj/machinery/atmospherics/binary/valve/digital{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"WE" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/tank/internals/plasma/full,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"XN" = (
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/crap,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"YP" = (
+/obj/machinery/computer,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Za" = (
+/obj/item/storage/belt/utility,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/structure/closet/walllocker{
+	pixel_x = -32
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+"Zf" = (
+/obj/structure/table/tray,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/space)
+
+(1,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(2,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(3,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(4,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(5,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(6,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(7,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(8,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(9,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(10,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(11,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(12,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(13,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(14,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+Ad
+Ad
+Tw
+Ad
+Ad
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(15,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+XN
+YP
+YP
+xn
+YP
+YP
+aL
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(16,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+UU
+vl
+Hv
+Hv
+vl
+Hv
+Hv
+vl
+UU
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(17,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+vL
+vl
+vl
+vl
+vl
+vl
+vl
+vl
+NN
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(18,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+vL
+vl
+cq
+vl
+vl
+vl
+vl
+vl
+NN
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(19,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+UU
+DF
+vl
+vl
+SJ
+yi
+vl
+vl
+UU
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(20,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+Tw
+Tw
+Tw
+Gm
+Tw
+Tw
+Tw
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(21,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+YP
+vl
+vl
+Tw
+cG
+Tw
+Za
+Zf
+SN
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(22,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+UR
+vl
+vl
+Tw
+cG
+Tw
+JY
+vl
+xE
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(23,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+wu
+vl
+ci
+HM
+aw
+HM
+ij
+vl
+uw
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(24,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+hZ
+vl
+yz
+Tw
+cG
+Tw
+Km
+vl
+xE
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(25,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+YP
+vl
+vl
+Tw
+cG
+Tw
+Lt
+Zf
+SN
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(26,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+Tw
+Tw
+Tw
+Cr
+Tw
+Tw
+Tw
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(27,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+eh
+ny
+ny
+ny
+zH
+Qn
+Qn
+tw
+RZ
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(28,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+WE
+vl
+vl
+vl
+cG
+vl
+vl
+mc
+KZ
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(29,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+KS
+aV
+vl
+vl
+Sh
+vl
+vl
+mc
+KZ
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(30,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+IU
+vl
+vl
+Le
+yy
+Fw
+vl
+mc
+KZ
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(31,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+Tw
+Qd
+vl
+ci
+NG
+MF
+NG
+cc
+RW
+Ov
+Tw
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(32,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+Tw
+Tw
+Rm
+NG
+ab
+mj
+vl
+mj
+eY
+tH
+wi
+Tw
+Tw
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(33,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+vl
+vl
+Tw
+Vs
+mj
+La
+La
+Bj
+La
+La
+mj
+Vs
+Tw
+vl
+vl
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(34,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+vl
+vl
+FC
+ti
+sH
+Ah
+Mr
+MS
+pD
+mF
+Mr
+Am
+TQ
+HM
+NG
+Cg
+vl
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(35,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+vl
+FC
+ab
+Tw
+vl
+mj
+La
+La
+La
+La
+La
+mj
+vl
+Tw
+vl
+cG
+vl
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(36,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+vl
+Rb
+vB
+Tw
+Tw
+Tw
+Tw
+Tw
+Tw
+Tw
+Tw
+Tw
+Tw
+Tw
+vB
+Mz
+vl
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(37,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+Tw
+Tw
+Tw
+Tw
+uP
+kP
+uP
+kP
+Tw
+uP
+kP
+uP
+kP
+Tw
+Tw
+Tw
+Tw
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(38,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Tw
+uP
+uP
+uP
+uP
+Tw
+uP
+uP
+uP
+uP
+Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(39,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(40,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(41,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(42,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(43,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(44,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(45,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(46,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(47,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(48,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(49,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(50,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
