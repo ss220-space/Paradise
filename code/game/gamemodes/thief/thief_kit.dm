@@ -39,7 +39,8 @@
 /obj/item/thief_kit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ThiefKit", name, 600, 600, master_ui, state)
+		ui = new(user, src, ui_key, "ThiefKit", name, 600, 900, master_ui, state)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/item/thief_kit/ui_data(mob/user)
@@ -47,6 +48,7 @@
 
 	data["uses"] = uses
 	data["possible_uses"] = possible_uses
+	data["multi_uses"] = multi_uses
 
 	return data
 
@@ -134,21 +136,30 @@
 	message_admins("Очищен [src.name]")
 
 /obj/item/thief_kit/proc/pickKit(var/kit_type)
-	var/datum/thief_kit/kit = convert_kit_type(kit_type)
+	if(uses >= possible_uses)
+		return FALSE
+	var/datum/thief_kit/kit = convert_kit_type(kit_type, all_kits)
 	if(kit)
-		SStgui.update_uis(src)
 		choosen_kit_list.Add(kit)
 		if(!multi_uses)
 			kit.was_taken = TRUE
 		uses++
 
+		SStgui.close_uis(src)
+		interact(usr)
+
 /obj/item/thief_kit/proc/undoKit(var/kit_type)
-	var/datum/thief_kit/kit = convert_kit_type(kit_type)
+	if(uses <= 0)
+		return FALSE
+	var/datum/thief_kit/kit = convert_kit_type(kit_type, choosen_kit_list)
 	if(kit)
-		SStgui.update_uis(src)
 		choosen_kit_list.Remove(kit)
 		kit.was_taken = FALSE
 		uses--
+
+		SStgui.close_uis(src)
+		interact(usr)
+
 
 /obj/item/thief_kit/proc/randomKit(var/kit_type)
 	var/list/possible_kits = list()
@@ -161,132 +172,29 @@
 	else
 		to_chat(usr,"<span class = 'warning'>Превышен допустимый лимит наборов!</span>")
 
-/obj/item/thief_kit/proc/convert_kit_type(var/kit_type)
-	message_admins("Прибыл кит [kit_type]")
-	message_admins("Прибыл кит [kit_type]")
+/obj/item/thief_kit/proc/convert_kit_type(var/kit_type, var/list/kits_list)
 	if(istype(kit_type, /datum/thief_kit))
 		return kit_type
-	for(var/datum/thief_kit/kit in all_kits)
+	for(var/datum/thief_kit/kit in kits_list)
 		if("[kit.type]" == kit_type)
 			return kit
 	return FALSE
-
-
-
-
-
-/*
-/obj/item/thief_kit/proc/generate_kit_lists()
-	var/list/cats = list()
-
-	for(var/category in uplink_items)
-		cats[++cats.len] = list("cat" = category, "items" = list())
-		for(var/datum/uplink_item/I in uplink_items[category])
-			if(I.job && I.job.len)
-				if(!(I.job.Find(job)))
-					continue
-			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
-			uplink_items[I.reference] = I
-
-	uplink_cats = cats
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-/obj/item/thief_kit/attack_self(mob/user as mob)
-	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
-
-	dat += "<B>Воровской набор-шредингера:</B><BR>"
-	dat += "<I>Увесистая коробка, в которой лежит снаряжение гильдии воров.</I><BR>"
-	dat += "<I>Нельзя определить что в нём лежит, пока не заглянешь внутрь</I><BR>"
-
-	dat += "<BR><B>Какое снаряжение в нём лежит?:</B><BR>"
-	dat += "<I>Определено наборов: [uses]/[possible_uses]</I><BR>"
-
-	var/list/kit_list = subtypesof(/datum/thief_kit)
-	for(var/datum/thief_kit/kit in kit_list)
-		message_admins("Рассматриваем кит: [kit.name]")
-		dat += "<A href='byond://?src=[UID()];kit=[kit]'>[kit.name]</A><BR>"
-		dat += "<I>[kit.desc]</I><BR>"
-
-	dat += "Выбрано:<BR>"
-	for (var/obj/item/I in choosen_kit_list)
-		dat += "<I>[I.name]</I><BR>"
-
-	dat += "<I>В комплект входят воровские перчатки и сумка</I><BR>"
-	dat += "<b><font color='green'>ОТКРЫТЬ</font></b>|<a href='?src=[UID()];kit=open'> </a>"
-	dat += "<b><font color='red'>СБРОСИТЬ</font></b>|<a href='?src=[UID()];kit=clear'> </a>"
-
-	user << browse(dat, "window=radio")
-	onclose(user, "radio")
-	return
-
-/obj/item/thief_kit/Topic(href, href_list)
-	..()
-	if(!ishuman(usr))
-		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как это открыть")
-		return 0
-
-	var/mob/living/carbon/human/user = usr
-
-	if(user.stat || user.restrained())
-		return 0
-
-	if(loc == user || (in_range(src, user) && isturf(loc)))
-		user.set_machine(src)
-		//if(!href_list["kit"])
-		//	return
-
-		switch(href_list["kit"])
-			if("open")
-				if(uses >= possible_uses)
-					var/obj/item/storage/box/thief_kit = new(src, choosen_kit_list)
-					thief_kit.AltClick(user)
-					qdel(src)
-				else
-					to_chat(user,"<span class = 'warning'>Вы не определили все предметы в коробке!</span>")
-			if("clear")
-				uses = 0
-				choosen_kit_list = list()
-				to_chat(user,"<span class = 'warning'>Вы очистили выбор! Наверное в коробке лежали другие предметы?</span>")
-				message_admins("Очищен [src.name]")
-
-			else if(typesof(/obj/item/thief_kit, href_list["kit"]))
-				//for(var/datum/thief_kit/kit in subtypesof(/datum/thief_kit))
-				//	if(!typesof(kit, href_list["kit"]))
-				//		continue
-				var/obj/item/thief_kit/kit = href_list["kit"]
-				message_admins("Выбран Кит [kit] [kit.name]")
-				choosen_kit_list.Add(kit)
-				uses++
-	return
-*/
-
-
-
-
 
 //=============== KITS ================
 /datum/thief_kit
 	var/name = "Безымянный кит (перешлите это разработчику)"
 	var/desc = "Описание кита"
-	//var/icon/icon = 'icons/obj/storage.dmi'
-	//var/icon_state = "box_thief"
 	var/list/obj/item/item_list = list()
 	var/was_taken = FALSE
+
+/datum/thief_kit/falsification
+	name = "Набор Фальсификаций"
+	desc = "Набор для подделывания подписей, печатей и  облика."
+	item_list = list(
+		/obj/item/stamp/chameleon,
+		/obj/item/pen/fakesign,
+		/obj/item/chameleon,
+		)
 
 /datum/thief_kit/chamelleon
 	name = "Набор Хамелеона"
@@ -294,27 +202,99 @@
 	item_list = list(
 		/obj/item/flag/chameleon,
 		/obj/item/storage/box/syndie_kit/chameleon,
-		///obj/item/card/id/syndicate,
 		)
 
-/datum/thief_kit/falsification
-	name = "Набор Подделки"
-	desc = "Набор для подделывания подписей и печатей. И  облика."
+/datum/thief_kit/breakin
+	name = "Набор Агента"
+	desc = "Набор с инструментами и картой агента, любезно позаимствованных у одной организации."
 	item_list = list(
-		/obj/item/stamp/chameleon,
-		/obj/item/pen/fakesign,
+		/obj/item/card/id/syndicate,
+		/obj/item/storage/toolbox/syndicate,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+		/obj/item/toy/syndicateballoon,	//stop stealing syndicate things!
 		)
 
-/datum/thief_kit/projector
-	name = "Голографический Набор"
-	desc = "Набор для скрытия за голограммой."
+/datum/thief_kit/haker
+	name = "Набор Хакера"
+	desc = "Набор для наблюдений за синтетиками и взломов электроники."
 	item_list = list(
-		/obj/item/chameleon,
+		/obj/item/encryptionkey/binary,
+		/obj/item/multitool/ai_detect,
+		/obj/item/storage/belt/military/traitor/hacker,	//default red instruments
 		)
 
 /datum/thief_kit/radio
 	name = "Набор Связиста"
-	desc = "Набор для подслушивания переговоров."
+	desc = "Набор для подслушиваний и контроля связи."
 	item_list = list(
 		/obj/item/encryptionkey/syndicate,
+		/obj/item/jammer,
 		)
+
+/datum/thief_kit/vision
+	name = "Набор Слежки"
+	desc = "Контроль камер и базы данных служб безопасности"
+	item_list = list(
+		/obj/item/clothing/glasses/hud/security/chameleon,
+		/obj/item/camera_bug
+		)
+
+/datum/thief_kit/gas
+	name = "Набор Газовика"
+	desc = "Набор с нелетальными газами для особых случаев."
+	item_list = list(
+		/obj/item/clothing/mask/gas/explorer,
+		/obj/item/storage/belt/grenade/full/nonlethal,
+		)
+
+/datum/thief_kit/safe_breaker
+	name = "Набор Медвежатника"
+	desc = "Отличный выбор для грубого вскрытия сейфов и проделывания дыр с С4."
+	item_list = list(
+		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
+		/obj/item/clothing/gloves/color/latex/nitrile,
+		/obj/item/clothing/mask/gas/clown_hat,
+		/obj/item/thermal_drill/diamond_drill,
+		/obj/item/storage/box/syndie_kit/c4,
+		)
+
+/datum/thief_kit/safe_breaker
+	name = "Набор Педанта"
+	desc = "Отличный выбор для тихого вскрытия сейфов. Термит включен в набор."
+	item_list = list(
+		/obj/item/clothing/gloves/color/latex/nitrile,
+		/obj/item/clothing/mask/balaclava,
+		/obj/item/clothing/accessory/stethoscope,
+		/obj/item/book/manual/engineering_hacking,
+		/obj/item/storage/lockbox/t4,
+		)
+
+/datum/thief_kit/sleepy
+	name = "Набор Сонника"
+	desc = "Набор для тех, кто не желает чтобы рядом стоящие держали глаза открытыми."
+	item_list = list(
+			/obj/item/pen/sleepy,
+			/obj/item/gun/syringe, //default x1
+			/obj/item/reagent_containers/syringe/pancuronium,
+			/obj/item/reagent_containers/syringe/pancuronium,
+			/obj/item/reagent_containers/syringe/capulettium_plus,
+			/obj/item/reagent_containers/syringe/capulettium_plus,
+			/obj/item/reagent_containers/glass/bottle/ether,
+			/obj/item/reagent_containers/glass/bottle/ether,
+		)
+
+/datum/thief_kit/thermal
+	name = "Термальные Очки"
+	desc = "Наблюдение за всем, что происходит за стенами"
+	item_list = list(
+		/obj/item/clothing/glasses/chameleon/thermal
+		)
+
+/*
+/datum/thief_kit/pinpointer
+	name = "Целевой Пинпоинтер"
+	desc = "Позволяет найти все необходимые объекты по целям."
+	item_list = list(
+		/obj/item/pinpointer/thief,
+		)
+*/
