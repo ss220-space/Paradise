@@ -74,8 +74,12 @@
 
 /mob/living/simple_animal/mouse/New()
 	..()
+	pixel_x = rand(-6, 6)
+	pixel_y = rand(0, 10)
+
 	if(non_standard)
 		return
+
 	if(!mouse_color)
 		mouse_color = pick( list("brown","gray","white") )
 	icon_state = "mouse_[mouse_color]"
@@ -129,7 +133,7 @@
 
 /mob/living/simple_animal/mouse/proc/splat()
 	if(non_standard)
-		var/temp_state = icon_state
+		var/temp_state = initial(icon_state)
 		icon_dead = "[temp_state]_splat"
 		icon_state = "[temp_state]_splat"
 	else
@@ -288,18 +292,80 @@
 	var/mob/living/L = src
 	L.start_pulling(AM, state, force, show_message)
 
+#define MAX_HAMSTER 50
+GLOBAL_VAR_INIT(hamster_count, 0)
+
 /mob/living/simple_animal/mouse/hamster
-	name = "hamster"
-	real_name = "hamster"
+	name = "хомяк"
+	real_name = "хомяк"
 	desc = "С надутыми щечками"
 	icon_state = "hamster"
 	icon_living = "hamster"
 	icon_dead = "hamster_dead"
 	icon_resting = "hamster_rest"
+	gender = MALE
 	non_standard = TRUE
+	speak_chance = 0
+	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
+	animal_species = /mob/living/simple_animal/mouse/hamster
 	holder_type = /obj/item/holder/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
+	tts_seed = "Gyro"
 
-/mob/living/simple_animal/mouse/hamster/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+/mob/living/simple_animal/mouse/hamster/New()
+	gender = prob(80) ? MALE : FEMALE
+	desc += MALE ? "Самец!" : "Самочка! Ох... Нет... "
+	GLOB.hamster_count++
+	. = ..()
+
+/mob/living/simple_animal/mouse/hamster/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	var/mob/living/L = src
 	L.start_pulling(AM, state, force, show_message)
+
+/mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
+	..()
+	if(GLOB.hamster_count < MAX_HAMSTER && prob(25))
+		make_babies()
+
+/mob/living/simple_animal/mouse/hamster/baby
+	name = "хомячок"
+	real_name = "хомячок"
+	desc = "Очень миленький! Какие у него пушистые щечки!"
+	tts_seed = "Meepo"
+	turns_per_move = 2
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	response_help  = "полапал"
+	response_disarm = "аккуратно отодвинул"
+	response_harm   = "наступил на"
+	attacktext = "толкается"
+	transform = matrix(0.7, 0, 0, 0, 0.7, 0)
+	health = 3
+	maxHealth = 3
+	var/amount_grown = 0
+	can_hide = 1
+	can_collar = 0
+	holder_type = /obj/item/holder/hamster
+
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	if(show_message)
+		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+	return
+
+/mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
+	. =..()
+	if(.)
+		amount_grown++
+		if(amount_grown >= 100)
+			var/mob/living/simple_animal/A = new /mob/living/simple_animal/mouse/hamster(loc)
+			if(mind)
+				mind.transfer_to(A)
+			qdel(src)
+
+/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
+	if(ishuman(AM))
+		if(!stat)
+			var/mob/M = AM
+			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
+			death()
+			splat()
+	..()

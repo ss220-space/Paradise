@@ -88,3 +88,14 @@
 /obj/structure/closet/critter/deer
 	name = "deer crate"
 	content_mob = /mob/living/simple_animal/deer
+
+/obj/structure/closet/critter/goose
+	name = "goose crate"
+	content_mob = /mob/living/simple_animal/goose
+
+/obj/structure/closet/critter/hamster
+	name = "hamster crate"
+	content_mob = /mob/living/simple_animal/mouse/hamster
+
+/obj/structure/closet/critter/hamster/populate_contents()
+	amount = rand(1, 5)
