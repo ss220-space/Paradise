@@ -6624,6 +6624,18 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"JL" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/wall/indestructible/boss/two{
+	layer = 2.05
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "JP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -8220,18 +8232,19 @@
 	},
 /area/lavaland/surface/outdoors/necropolis)
 "YI" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 4
 	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/wall/indestructible/boss/two{
+	layer = 2.05
+	},
 /area/lavaland/surface/outdoors/necropolis)
 "YJ" = (
 /obj/machinery/door/airlock{
@@ -37956,7 +37969,7 @@ qS
 RD
 mS
 no
-YI
+XW
 hG
 RD
 RD
@@ -39749,7 +39762,7 @@ RD
 RD
 RD
 RD
-gC
+YI
 RD
 RD
 RD
@@ -41805,7 +41818,7 @@ RD
 RD
 RD
 RD
-mY
+JL
 RD
 RD
 RD

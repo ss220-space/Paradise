@@ -135,6 +135,8 @@ Difficulty: Medium
 		if(last_legion)
 			loot = list(/obj/item/staff/storm)
 			elimination = 0
+			for(var/turf/simulated/wall/indestructible/boss/two/T in GLOB.boss_walls)
+				T.collapse()
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
 			if(!true_spawn)

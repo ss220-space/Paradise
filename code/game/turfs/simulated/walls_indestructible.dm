@@ -108,13 +108,32 @@
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "wall"
-	canSmoothWith = list(/turf/simulated/wall/indestructible/boss, /turf/simulated/wall/indestructible/boss/see_through)
+	canSmoothWith = list(/turf/simulated/wall/indestructible/boss, /turf/simulated/wall/indestructible/boss/see_through, /turf/simulated/wall/indestructible/boss/two)
 	explosion_block = 50
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/indestructible/boss/see_through
 	opacity = FALSE
+
+/turf/simulated/wall/indestructible/boss/two
+	baseturf = /turf/simulated/floor/indestructible/boss
+
+/turf/simulated/wall/indestructible/boss/two/Initialize(mapload)
+	. = ..()
+	GLOB.boss_walls += src
+
+/turf/simulated/wall/indestructible/boss/two/BeforeChange()
+	GLOB.boss_walls -= src
+	return ..()
+
+/turf/simulated/wall/indestructible/boss/two/proc/collapse()
+	if(prob(25))
+		visible_message("<span class='warning'>[src] starts rumbling and groaning and it's falling apart!</span>",\
+		"<span class='warning'>You hear metal groaning and tearing!</span>")
+		ChangeTurf(/turf/simulated/floor/indestructible/boss)
+		return
+	addtimer(CALLBACK(src, .proc/collapse), 5 SECONDS)
 
 /turf/simulated/wall/indestructible/hierophant
 	name = "wall"

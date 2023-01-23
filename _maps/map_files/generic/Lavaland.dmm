@@ -4991,18 +4991,19 @@
 	},
 /area/mine/laborcamp)
 "sQ" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 4
 	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/wall/indestructible/boss/two{
+	layer = 2.05
+	},
 /area/lavaland/surface/outdoors/necropolis)
 "sR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6986,6 +6987,18 @@
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"SQ" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/wall/indestructible/boss/two{
+	layer = 2.05
+	},
 /area/lavaland/surface/outdoors/necropolis)
 "Tj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -37076,7 +37089,7 @@ gS
 oG
 mS
 tY
-sQ
+Nk
 XC
 oG
 oG
@@ -38869,7 +38882,7 @@ oG
 oG
 oG
 oG
-gC
+sQ
 oG
 oG
 oG
@@ -40925,7 +40938,7 @@ oG
 oG
 oG
 oG
-mY
+SQ
 oG
 oG
 oG
