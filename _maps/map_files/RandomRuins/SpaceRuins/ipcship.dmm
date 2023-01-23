@@ -6,41 +6,38 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
 "aw" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/effect/mist,
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/area/space)
 "aL" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
 	},
-/obj/item/stock_parts/cell/crap,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"aV" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"aV" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/rad_collector,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
 "bM" = (
 /obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/fabricator)
 "bQ" = (
 /obj/structure/cable{
@@ -49,7 +46,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
 "cc" = (
 /obj/structure/cable{
@@ -57,20 +54,21 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "ci" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/fabricator)
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "cq" = (
-/obj/item/mounted/frame/apc_frame,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/crap,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "cG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -78,25 +76,67 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"eh" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"cV" = (
+/obj/machinery/light{
+	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"dG" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"eh" = (
+/obj/machinery/door/window/survival_pod,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/structure/curtain/black,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"eC" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/table,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full{
+	pixel_y = 6
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"eO" = (
+/obj/structure/table,
+/obj/machinery/light,
+/obj/item/clothing/gloves/color/black,
+/obj/item/analyzer,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
 "eY" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/item/mining_scanner,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"fx" = (
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "gz" = (
 /obj/structure/cable{
@@ -104,29 +144,77 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"gF" = (
+/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"gO" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "he" = (
 /turf/space,
 /area/ruin/space/ipcship/engine)
+"hN" = (
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/structure/curtain/black,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
 "hZ" = (
-/obj/machinery/mecha_part_fabricator,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/fabricator)
 "ij" = (
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/operating)
+"iw" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
 "iP" = (
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/turf/simulated/mineral/titanium,
+/area/space)
+"jf" = (
+/obj/item/clothing/glasses/welding,
+/obj/structure/closet/walllocker{
+	pixel_x = -32
+	},
+/obj/item/storage/box/gloves,
+/obj/item/storage/firstaid/machine,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "jW" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -134,7 +222,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
 "kP" = (
 /obj/structure/shuttle/engine/large{
@@ -142,54 +230,167 @@
 	},
 /turf/space,
 /area/ruin/space/ipcship/engine)
+"lI" = (
+/mob/living/simple_animal/hostile/headcrab,
+/turf/simulated/floor/grass,
+/area/space)
 "mc" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "mj" = (
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
+"mv" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "mF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/engine,
+/area/ruin/space/ipcship/shard)
+"mH" = (
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/binary/volume_pump{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "nv" = (
-/obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/turf/simulated/mineral/iron,
+/area/space)
 "ny" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "nS" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space)
+"oj" = (
+/obj/machinery/atmospherics/binary/volume_pump{
+	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/machinery/door/window{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"oI" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/fabricator)
+"pa" = (
+/obj/machinery/pipedispenser,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
 "pD" = (
 /obj/machinery/power/supermatter_shard{
 	anchored = 1
 	},
 /turf/simulated/floor/engine,
-/area/ruin/space/ipcship/engine)
-"sH" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
+/area/ruin/space/ipcship/shard)
+"pO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"pT" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
+	},
+/area/space)
+"qj" = (
+/obj/structure/spacevine,
+/turf/simulated/mineral/iron,
+/area/space)
+"qs" = (
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/ipcship/shard)
+"qu" = (
+/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+	dir = 8
+	},
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"qE" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"qF" = (
+/obj/machinery/power/apc/noalarm{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"rw" = (
+/obj/structure/spawner/headcrab,
+/turf/simulated/floor/grass,
+/area/space)
+"sp" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"sH" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"tf" = (
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/crap,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "ti" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
@@ -198,58 +399,428 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"tn" = (
+/obj/machinery/atmospherics/binary/valve/digital{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "tw" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
+/obj/structure/spacevine,
+/turf/simulated/mineral,
+/area/space)
+"tH" = (
+/obj/item/mmi,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"ue" = (
+/obj/machinery/computer,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"ut" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"uw" = (
+/obj/structure/spacevine,
+/turf/simulated/mineral/random,
+/area/space)
+"uy" = (
+/obj/machinery/light{
+	dir = 8
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"tH" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"uw" = (
-/obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/operating)
 "uP" = (
 /turf/space,
 /area/space)
+"vj" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 2
+	},
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plating{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "elevatorshaft";
+	name = "floor"
+	},
+/area/ruin/space/ipcship/fabricator)
 "vl" = (
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/operating)
+"vn" = (
+/obj/machinery/power/port_gen/pacman/super,
+/obj/structure/window/reinforced{
+	color = "#000000";
+	dir = 4;
+	opacity = 1
+	},
+/obj/structure/curtain/black,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
 "vB" = (
-/obj/machinery/power/smes,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"vL" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/office/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"vH" = (
+/obj/structure/table,
+/obj/item/tank/internals/plasma/full{
+	pixel_y = 6
+	},
+/obj/item/tank/internals/plasma/full,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"vL" = (
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/ipcship/fabricator)
+"vS" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "wi" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/mecha/working/ripley{
 	dir = 8
 	},
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/ipcship/fabricator)
+"ws" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"wt" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"wu" = (
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"wC" = (
+/obj/structure/decorative_structures/metal/statue/sun,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"wF" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"xk" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"xn" = (
+/obj/item/book/manual/ripley_build_and_repair,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ipcship/fabricator)
+"xE" = (
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"yi" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plating{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "elevatorshaft";
+	name = "floor"
+	},
+/area/ruin/space/ipcship/fabricator)
+"yu" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"yy" = (
+/obj/machinery/computer/sm_monitor,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"yz" = (
+/obj/structure/closet/walllocker{
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"yX" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"ze" = (
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"zy" = (
+/obj/machinery/computer/mech_bay_power_console,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ipcship/fabricator)
+"zB" = (
+/obj/item/emptysandbag,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"zH" = (
+/turf/simulated/floor/grass,
+/area/space)
+"zP" = (
+/obj/machinery/atmospherics/binary/volume_pump,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Ad" = (
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"Ah" = (
+/turf/simulated/wall/shuttle/nodiagonal{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/ipcship/engine)
+"Am" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"AK" = (
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"AM" = (
+/obj/structure/table/tray,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/stack/nanopaste,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -11;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"AQ" = (
+/obj/item/gps/ruin{
+	pixel_x = -33
+	},
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"Bj" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/ipcship/shard)
+"BM" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/bag/trash,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"Cg" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
-"wu" = (
+"Cr" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"Cu" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"CU" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/mecha_wreckage/ripley/deathripley,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/ipcship/fabricator)
+"CV" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Dz" = (
+/obj/item/pickaxe/mini,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"DF" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"Ey" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"EE" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"Fw" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/meson,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"FC" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"Gm" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"GQ" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"Hj" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"Hu" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/structure/cable,
+/obj/machinery/power/rad_collector,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
+"Hv" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/showcase,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"HM" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"HN" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/obj/structure/cable,
+/obj/machinery/power/rad_collector,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
+"HY" = (
 /obj/structure/closet,
 /obj/item/stack/sheet/metal{
 	amount = 50
@@ -269,259 +840,186 @@
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
-/obj/item/stack/sheet/plasteel{
-	amount = 15
-	},
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/ruin/space/ipcship/fabricator)
-"xn" = (
-/obj/item/gps/ruin{
-	pixel_x = -33
-	},
+/obj/item/stack/sheet/mineral/titanium/fifty,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/paintkit/ripley_mercenary,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"Il" = (
+/obj/item/storage/box/lights/mixed,
 /obj/structure/table,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"xE" = (
-/obj/machinery/optable,
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"IU" = (
+/obj/structure/showcase,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/operating)
-"yi" = (
-/obj/structure/cable,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"yy" = (
-/obj/machinery/computer/sm_monitor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"yz" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/noalarm{
-	locked = 0;
-	pixel_y = -24;
-	equipment = 0;
-	environ = 0;
-	operating = 0
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/fabricator)
-"ze" = (
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/fabricator)
-"zB" = (
-/obj/machinery/computer,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/fabricator)
-"zH" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Ad" = (
-/obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/operating)
-"Ah" = (
-/obj/machinery/power/rad_collector,
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Am" = (
-/obj/machinery/power/rad_collector,
+"JY" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Bj" = (
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/structure/window/plasmareinforced{
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Km" = (
+/obj/structure/spacevine,
+/obj/effect/mist,
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
+	},
+/area/space)
+"KS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"KZ" = (
+/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"Cg" = (
+"La" = (
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/ipcship/shard)
+"Le" = (
+/obj/structure/table,
+/obj/item/t_scanner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Lj" = (
+/obj/structure/table,
+/obj/item/weldingtool,
+/obj/item/wrench,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"Lt" = (
+/obj/structure/spacevine,
+/obj/effect/mist,
+/turf/simulated/floor/grass,
+/area/space)
+"Mr" = (
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
+	},
+/area/space)
+"My" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"Mz" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/engine)
+"MF" = (
+/obj/effect/mob_spawn/human/engineer/hardsuit,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"MR" = (
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"MS" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/ipcship/shard)
+"Nu" = (
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Cr" = (
-/obj/structure/cable{
-	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
+	icon_state = "1-8";
 	tag = ""
 	},
-/obj/machinery/door/airlock/highsecurity,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"Cu" = (
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"DF" = (
-/obj/item/apc_electronics,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"Fw" = (
-/obj/structure/table,
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"FC" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+"Ny" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/item/wrench,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"Gm" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"Hv" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"HM" = (
-/obj/machinery/door/airlock/hatch,
+"NG" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/operating)
-"IU" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/wrench,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
-"JY" = (
-/obj/item/storage/bag/trash,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/operating)
-"Km" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
+"NN" = (
+/turf/simulated/mineral/random,
+/area/space)
+"On" = (
+/obj/structure/decorative_structures/metal/statue/moon,
 /obj/machinery/power/apc/noalarm{
 	locked = 0;
-	pixel_y = 24;
 	equipment = 0;
 	environ = 0;
 	operating = 0;
-	dir = 1
+	dir = 4;
+	pixel_x = 26
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/operating)
-"KS" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
+"Oq" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
-/obj/structure/table,
-/obj/item/tank/internals/plasma/full,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"KZ" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 1
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"La" = (
-/turf/simulated/wall/r_wall/coated,
-/area/ruin/space/ipcship/engine)
-"Le" = (
-/obj/structure/table,
-/obj/item/t_scanner,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Lt" = (
-/obj/item/storage/belt/utility,
+/obj/machinery/power/rad_collector,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
+"Ov" = (
 /obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
 /obj/structure/closet/walllocker{
 	pixel_x = 32
 	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
+/obj/item/storage/box/gloves,
+/obj/item/storage/firstaid/machine,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/operating)
-"Mr" = (
+"Qd" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"Mz" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"MF" = (
-/obj/machinery/power/emitter{
-	dir = 4
-	},
+"Qn" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -541,79 +1039,55 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"MS" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/ruin/space/ipcship/engine)
-"NG" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"NN" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
-"Ov" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Qd" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/power/emitter{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"Qn" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "Rb" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "Rm" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"RW" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
-"RZ" = (
+/obj/machinery/power/smes,
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	locked = 0;
-	pixel_y = -24
-	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
+"Ry" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
+/area/ruin/space/ipcship/shard)
+"RD" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"RS" = (
+/obj/machinery/door/window/survival_pod,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/structure/curtain/black,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"RW" = (
+/mob/living/simple_animal/hostile/headcrab/fast,
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
+	},
+/area/space)
+"RZ" = (
+/mob/living/simple_animal/hostile/headcrab,
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
+	},
+/area/space)
 "Sh" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -624,28 +1098,57 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "SJ" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/curtain/black,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
 "SN" = (
 /obj/machinery/computer/operating{
 	name = "Robotics Operating Computer"
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/operating)
 "Tw" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/ruin/space/ipcship/bridge)
+/turf/simulated/mineral,
+/area/space)
 "TQ" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
+/obj/machinery/suit_storage_unit,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"Uc" = (
+/mob/living/simple_animal/hostile/headcrab/poison,
+/turf/simulated/floor/plating/asteroid{
+	blocks_air = 1;
+	name = "asteroid sand blocks air"
+	},
+/area/space)
+"Uw" = (
+/obj/machinery/power/apc/noalarm{
+	locked = 0;
+	equipment = 0;
+	environ = 0;
+	operating = 0;
+	dir = 1;
+	pixel_y = 24
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ipcship/fabricator)
+"UF" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -653,21 +1156,23 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/engine)
 "UR" = (
-/obj/machinery/mecha_part_fabricator,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/ruin/space/ipcship/fabricator)
+/obj/machinery/power/rad_collector,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
 "UU" = (
-/obj/structure/table,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/alarm/all_access{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
 "UV" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -683,66 +1188,147 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "WE" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+/obj/structure/table/tray,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
 	},
-/obj/structure/table,
-/obj/item/tank/internals/plasma/full,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
+/obj/item/stack/nanopaste,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 2;
+	pixel_y = 12
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "WH" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/ruin/space/ipcship/engine)
-"XN" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_y = 2
+"Xi" = (
+/obj/machinery/atmospherics/unary/tank{
+	dir = 8
 	},
-/obj/item/stock_parts/cell/crap,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"XN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
+"XO" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
 "Yl" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/ruin/space/ipcship/fabricator)
+"YB" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 "YP" = (
-/obj/machinery/computer,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/bridge)
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
 "Za" = (
-/obj/item/storage/belt/utility,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/structure/closet/walllocker{
-	pixel_x = -32
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/operating)
+/obj/item/emptysandbag,
+/obj/item/mining_scanner,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
 "Zf" = (
-/obj/structure/table/tray,
-/obj/item/storage/firstaid/machine,
-/obj/item/robotanalyzer,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/operating)
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/space)
+"Zu" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/rad_collector,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/shard)
+"ZK" = (
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ipcship/fabricator)
 "ZU" = (
-/obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/ipcship/engine)
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/fabricator)
+"ZV" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/black,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/operating)
 
 (1,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -784,6 +1370,26 @@ uP
 uP
 uP
 uP
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -808,6 +1414,26 @@ uP
 "}
 (3,1,1) = {"
 uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
 uP
 uP
 uP
@@ -845,6 +1471,26 @@ uP
 uP
 uP
 uP
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+nS
+nS
+uP
+uP
+uP
 uP
 uP
 uP
@@ -876,23 +1522,43 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-Tw
-Tw
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
 nv
-nv
-Tw
-nv
-nv
-Tw
-Tw
+NN
+NN
+iP
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -908,6 +1574,26 @@ uP
 uP
 uP
 uP
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+iP
+iP
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+nS
+nS
+nS
 uP
 uP
 uP
@@ -915,17 +1601,17 @@ uP
 uP
 uP
 uP
-Tw
-Tw
-XN
-YP
-YP
-xn
-YP
-YP
-aL
-Tw
-Tw
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -940,26 +1626,46 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+NN
 Tw
-UU
-iP
-Hv
-Hv
-iP
-Hv
-Hv
-iP
-UU
-Tw
+tw
+tw
+tw
+tw
+tw
+tw
+NN
+NN
+nS
+nS
+nS
 uP
 uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+nS
+nS
 uP
 uP
 uP
@@ -972,28 +1678,48 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+iP
 nv
-vL
-iP
-iP
-iP
-iP
-iP
-iP
+NN
+NN
+Tw
+Tw
+Tw
+Mr
+Mr
+Zf
+Zf
+Zf
+tw
+Tw
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
 iP
 NN
-nv
-uP
-uP
-uP
-uP
+NN
+iP
+nS
+nS
+nS
 uP
 uP
 uP
@@ -1003,29 +1729,49 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nv
-vL
-iP
-cq
-iP
-iP
-iP
-iP
-iP
+nS
+nS
+NN
+NN
 NN
 nv
+NN
+Tw
+Tw
+Mr
+Mr
+RZ
+Mr
+Mr
+Mr
+Zf
+Zf
+tw
+tw
+NN
+NN
+nS
 uP
 uP
 uP
 uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+NN
+NN
+NN
+nv
+nv
+NN
+NN
+NN
+nS
 uP
 uP
 uP
@@ -1035,30 +1781,50 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+NN
+NN
+NN
 Tw
-UU
-DF
-iP
-iP
-SJ
-yi
-iP
-iP
-UU
 Tw
+pT
+pT
+pT
+Mr
+Mr
+Mr
+Mr
+Mr
+Mr
+RZ
+tw
+NN
+NN
+nS
+nS
 uP
 uP
 uP
 uP
 uP
+uP
+uP
+uP
+nS
+nS
+NN
+nv
+nv
+tw
+tw
+tw
+tw
+NN
+NN
+nS
+nS
 uP
 uP
 "}
@@ -1067,30 +1833,50 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+NN
+NN
+NN
 Tw
+Zf
+Zf
 Tw
-Tw
-Tw
-Tw
-Gm
-Tw
-Tw
-Tw
-Tw
-Tw
+pT
+Mr
+Mr
+tw
+tw
+tw
+Mr
+Mr
+tw
+NN
+NN
+nS
+nS
 uP
 uP
 uP
 uP
 uP
+uP
+uP
+uP
+nS
+nS
+NN
+nv
+Tw
+tw
+Zf
+Zf
+tw
+nv
+NN
+nS
+nS
 uP
 uP
 "}
@@ -1099,6 +1885,29 @@ uP
 uP
 uP
 uP
+nS
+NN
+NN
+NN
+NN
+NN
+Tw
+zH
+zH
+Tw
+pT
+Mr
+Tw
+Tw
+Tw
+Tw
+Tw
+Mr
+tw
+iP
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1107,22 +1916,19 @@ uP
 uP
 uP
 uP
-Yl
-zB
-ze
-ze
-Yl
-cG
-UV
-Za
+nS
+nS
+NN
+Tw
+aw
+Uc
+Mr
 Zf
-SN
-UV
-uP
-uP
-uP
-uP
-uP
+tw
+tw
+NN
+nS
+nS
 uP
 uP
 "}
@@ -1131,6 +1937,29 @@ uP
 uP
 uP
 uP
+nS
+NN
+iP
+NN
+NN
+iP
+Tw
+zH
+rw
+Tw
+Mr
+Mr
+Mr
+Mr
+Tw
+Tw
+Tw
+Mr
+tw
+nv
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1139,22 +1968,19 @@ uP
 uP
 uP
 uP
-bM
-UR
-ze
-ze
-Yl
-cG
-UV
-JY
-vl
-xE
-Ad
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+NN
+Tw
+aw
+Mr
+Mr
+Zf
+Zf
+tw
+NN
+nS
+nS
 uP
 uP
 "}
@@ -1163,6 +1989,29 @@ uP
 uP
 uP
 uP
+nS
+NN
+NN
+NN
+NN
+NN
+Tw
+zH
+zH
+Tw
+pT
+Mr
+Mr
+Mr
+Mr
+Tw
+Tw
+Mr
+tw
+nv
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1171,22 +2020,19 @@ uP
 uP
 uP
 uP
-bM
-wu
-ze
-ci
+nS
 nS
 aw
-HM
-ij
-vl
+aw
+aw
+Mr
 uw
-Ad
-uP
-uP
-uP
-uP
-uP
+Mr
+rw
+tw
+NN
+nS
+nS
 uP
 uP
 "}
@@ -1195,6 +2041,29 @@ uP
 uP
 uP
 uP
+nS
+NN
+NN
+NN
+NN
+NN
+Tw
+Tw
+Tw
+Tw
+pT
+pT
+Mr
+RZ
+Mr
+Mr
+Tw
+Mr
+tw
+NN
+iP
+nS
+nS
 uP
 uP
 uP
@@ -1203,21 +2072,18 @@ uP
 uP
 uP
 uP
-bM
-hZ
-ze
-yz
-Yl
-cG
-UV
+nS
+nS
+NN
+Tw
 Km
-vl
-xE
-Ad
-uP
-uP
-uP
-uP
+Mr
+uw
+Mr
+lI
+tw
+nv
+nS
 uP
 uP
 uP
@@ -1227,6 +2093,29 @@ uP
 uP
 uP
 uP
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+tw
+Mr
+Mr
+Mr
+pT
+pT
+pT
+pT
+Zf
+Zf
+Zf
+tw
+NN
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1235,21 +2124,18 @@ uP
 uP
 uP
 uP
-Yl
-zB
-ze
-ze
-Yl
-cG
-UV
+uP
+nS
+NN
+tw
 Lt
 Zf
-SN
-UV
-uP
-uP
-uP
-uP
+Mr
+zH
+zH
+tw
+NN
+nS
 uP
 uP
 uP
@@ -1260,6 +2146,28 @@ uP
 uP
 uP
 uP
+nS
+nS
+NN
+NN
+NN
+NN
+tw
+zH
+zH
+Mr
+Tw
+Tw
+pT
+Mr
+Zf
+zH
+tw
+tw
+NN
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1267,21 +2175,19 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
-WH
-WH
-Cr
-WH
-WH
-WH
-WH
-WH
 uP
 uP
-uP
-uP
+nS
+NN
+tw
+tw
+Zf
+Mr
+zH
+tw
+tw
+NN
+nS
 uP
 uP
 uP
@@ -1292,27 +2198,47 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-WH
-eh
-ny
-ny
-ny
+nS
+nS
+NN
+NN
+NN
+NN
+tw
+tw
 zH
-Qn
-Qn
+Mr
+RW
+Tw
+Tw
+Tw
+pT
+tw
+tw
+nv
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+NN
+tw
 tw
 RZ
-WH
-uP
-uP
-uP
+tw
+qj
+NN
+nS
 uP
 uP
 uP
@@ -1325,26 +2251,46 @@ uP
 uP
 uP
 uP
+nS
+NN
+NN
+NN
+NN
+NN
+tw
+tw
+tw
+Tw
+aw
+aw
+aw
+aw
+Tw
+NN
+NN
+NN
+NN
+nS
 uP
 uP
 uP
 uP
 uP
 uP
-ZU
-WE
-Cu
-Cu
-Cu
-bQ
-Cu
-Cu
-mc
-KZ
-ZU
 uP
 uP
 uP
+uP
+uP
+nS
+NN
+NN
+tw
+tw
+tw
+NN
+NN
+nS
 uP
 uP
 uP
@@ -1357,25 +2303,45 @@ uP
 uP
 uP
 uP
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+NN
+aw
+aw
+Tw
+Tw
+Tw
+NN
+NN
+NN
+NN
+nS
 uP
 uP
 uP
 uP
 uP
 uP
-ZU
-KS
-aV
-Cu
-Cu
-Sh
-Cu
-Cu
-mc
-KZ
-ZU
 uP
 uP
+uP
+uP
+uP
+nS
+nS
+NN
+nv
+NN
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1390,23 +2356,43 @@ uP
 uP
 uP
 uP
+nS
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+Mr
+Tw
+Tw
+NN
+NN
+NN
+NN
+nS
+nS
+nS
 uP
 uP
 uP
 uP
 uP
-ZU
-IU
-Cu
-Cu
-Le
-yy
-Fw
-Cu
-mc
-KZ
-ZU
 uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+iP
+NN
+NN
+iP
+nS
 uP
 uP
 uP
@@ -1422,24 +2408,44 @@ uP
 uP
 uP
 uP
+nS
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+Mr
+NN
+nv
+NN
+NN
+NN
+NN
+nS
+nS
 uP
 uP
 uP
-WH
-WH
-WH
-Qd
-Cu
-gz
-NG
-MF
-NG
-cc
-RW
-Ov
-WH
-WH
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+uP
+uP
 uP
 uP
 uP
@@ -1456,23 +2462,43 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
-WH
-Rm
-NG
-ab
-mj
-Cu
-mj
-eY
-tH
-wi
-WH
-WH
-WH
-WH
+nS
+nS
+nS
+NN
+NN
+NN
+NN
+nS
+NN
+NN
+NN
+NN
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1487,25 +2513,45 @@ uP
 uP
 uP
 uP
-WH
-WH
-Cu
-Cu
-WH
-Vs
-mj
-La
-La
-Bj
-La
-La
-mj
-Vs
-WH
-Cu
-Cu
-WH
-WH
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1519,25 +2565,45 @@ uP
 uP
 uP
 uP
-WH
-Cu
-Cu
-FC
-ti
-sH
-Ah
-Mr
-MS
-pD
-mF
-Mr
-Am
-TQ
-jW
-NG
-Cg
-Cu
-WH
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1551,25 +2617,45 @@ uP
 uP
 uP
 uP
-WH
-Cu
-FC
-ab
-WH
-Cu
-mj
-La
-La
-La
-La
-La
-mj
-Cu
-WH
-Cu
-bQ
-Cu
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1583,25 +2669,45 @@ uP
 uP
 uP
 uP
-WH
-Cu
-Rb
-vB
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-vB
-Mz
-Cu
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1615,25 +2721,45 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
-WH
-WH
-he
-kP
-he
-kP
-WH
-he
-kP
-he
-kP
-WH
-WH
-WH
-WH
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1651,17 +2777,37 @@ uP
 uP
 uP
 uP
-WH
-he
-he
-he
-he
-WH
-he
-he
-he
-he
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1671,6 +2817,2106 @@ uP
 uP
 "}
 (30,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(31,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+UV
+Ad
+Ad
+UV
+Ad
+Ad
+UV
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+"}
+(32,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+UV
+tf
+ue
+ue
+AQ
+ue
+ue
+cq
+UV
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+NN
+NN
+NN
+iP
+nS
+uP
+uP
+uP
+uP
+"}
+(33,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+Rb
+vl
+mv
+mv
+vl
+mv
+mv
+vl
+Rb
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+"}
+(34,1,1) = {"
+uP
+uP
+uP
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+XN
+vl
+vl
+vl
+vl
+vl
+vl
+vl
+ci
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+iP
+nv
+nv
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+"}
+(35,1,1) = {"
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+XN
+vl
+vl
+vl
+vl
+vl
+vl
+vl
+ci
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+"}
+(36,1,1) = {"
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+Rb
+On
+Hv
+cV
+ij
+vS
+IU
+wC
+Rb
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+NN
+nv
+NN
+NN
+iP
+nS
+uP
+uP
+uP
+"}
+(37,1,1) = {"
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+UV
+UV
+UV
+UV
+ws
+UV
+UV
+UV
+UV
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+nv
+nv
+NN
+nv
+NN
+nS
+uP
+uP
+uP
+"}
+(38,1,1) = {"
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+ue
+vB
+ZV
+UV
+YB
+UV
+jf
+AM
+SN
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+"}
+(39,1,1) = {"
+uP
+uP
+nS
+NN
+nv
+NN
+nv
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+sp
+MR
+yz
+UV
+KS
+UV
+vl
+vl
+xE
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+NN
+NN
+NN
+NN
+iP
+nS
+uP
+uP
+uP
+"}
+(40,1,1) = {"
+uP
+uP
+nS
+NN
+NN
+NN
+nv
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+HY
+vl
+vl
+Hj
+KS
+Hj
+vl
+tH
+BM
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+iP
+iP
+nS
+uP
+uP
+uP
+"}
+(41,1,1) = {"
+uP
+uP
+nS
+NN
+iP
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ad
+Ey
+MR
+yz
+UV
+KS
+UV
+vl
+vl
+xE
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+NN
+nv
+NN
+iP
+nS
+uP
+uP
+uP
+uP
+"}
+(42,1,1) = {"
+uP
+uP
+nS
+NN
+NN
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+UV
+ue
+vB
+ZV
+UV
+Gm
+UV
+Ov
+WE
+SN
+UV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+"}
+(43,1,1) = {"
+uP
+nS
+nS
+NN
+NN
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+Yl
+Yl
+Yl
+Yl
+Yl
+Cu
+Yl
+Yl
+Yl
+Yl
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(44,1,1) = {"
+uP
+nS
+nS
+NN
+nv
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+Yl
+Yl
+SJ
+YP
+TQ
+TQ
+hZ
+TQ
+TQ
+YP
+SJ
+Yl
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(45,1,1) = {"
+uP
+uP
+nS
+NN
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+Yl
+Yl
+Yl
+SJ
+ze
+ze
+ze
+hZ
+ze
+ze
+ze
+SJ
+Yl
+Yl
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(46,1,1) = {"
+uP
+uP
+nS
+iP
+iP
+NN
+iP
+nS
+uP
+uP
+uP
+uP
+uP
+Yl
+Yl
+vn
+eh
+Yl
+SJ
+ze
+ze
+ze
+hZ
+ze
+ze
+ze
+SJ
+Yl
+RS
+vn
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(47,1,1) = {"
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+Za
+ze
+ze
+oI
+DF
+DF
+DF
+xk
+hZ
+GQ
+DF
+DF
+DF
+oI
+zB
+eY
+Dz
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(48,1,1) = {"
+uP
+uP
+uP
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+bM
+Dz
+ze
+zB
+Yl
+Uw
+xn
+ZK
+My
+hZ
+wF
+ZK
+ZK
+ZK
+Yl
+ze
+ze
+ze
+bM
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(49,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+zB
+ze
+Cr
+Yl
+zy
+CU
+yi
+ZU
+hZ
+EE
+vj
+wi
+zy
+Yl
+Cr
+ze
+zB
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(50,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+bM
+RD
+bM
+Yl
+Yl
+Yl
+Yl
+Yl
+yX
+Yl
+Yl
+Yl
+Yl
+Yl
+bM
+RD
+bM
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(51,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+vL
+vL
+vL
+vL
+Am
+vL
+vL
+vL
+vL
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(52,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Ah
+WH
+WH
+WH
+WH
+cG
+WH
+WH
+WH
+WH
+Ah
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(53,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Qd
+qE
+zP
+qF
+uy
+gO
+yu
+ny
+CV
+KZ
+Qd
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(54,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Qd
+qE
+zP
+wu
+MF
+Sh
+fx
+fx
+mc
+KZ
+Qd
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(55,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Qd
+gF
+CV
+Ny
+Le
+yy
+Fw
+fx
+mc
+KZ
+Qd
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(56,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Qd
+gF
+wu
+gz
+pO
+Qn
+pO
+cc
+mc
+KZ
+Qd
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(57,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+WH
+Ah
+dG
+iw
+Nu
+AK
+fx
+AK
+UU
+aL
+wt
+Ah
+WH
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(58,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+WH
+WH
+WH
+HM
+La
+La
+La
+qs
+La
+La
+La
+oj
+WH
+WH
+WH
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(59,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+WH
+hN
+hN
+WH
+Vs
+HN
+Ry
+MS
+Bj
+mF
+Ry
+aV
+tn
+WH
+hN
+hN
+WH
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(60,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+vH
+mj
+FC
+ti
+sH
+UR
+Ry
+MS
+pD
+mF
+Ry
+Zu
+XO
+jW
+NG
+Cg
+Il
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(61,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+eC
+FC
+ab
+WH
+JY
+Hu
+Ry
+MS
+Bj
+mF
+Ry
+Oq
+mH
+WH
+mj
+bQ
+eO
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(62,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+pa
+UF
+Rm
+WH
+Xi
+La
+La
+La
+La
+La
+La
+La
+qu
+WH
+Mz
+ut
+Lj
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(63,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(64,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+he
+kP
+he
+kP
+WH
+he
+kP
+he
+kP
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(65,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+WH
+he
+he
+he
+he
+WH
+he
+he
+he
+he
+WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(66,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(67,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(68,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(69,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(70,1,1) = {"
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP

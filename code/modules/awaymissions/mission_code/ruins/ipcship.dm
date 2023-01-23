@@ -4,6 +4,12 @@
 	requires_power = TRUE
 	report_alerts = FALSE
 
+/area/ruin/space/ipcship/shard
+	name = "Shard zone"
+	icon_state = "ipc_ship4"
+	requires_power = TRUE
+	report_alerts = FALSE
+
 /area/ruin/space/ipcship/fabricator
 	name = "Fabricator zone"
 	icon_state = "ipc_ship1"
