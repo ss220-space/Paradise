@@ -39602,8 +39602,8 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/vending/clothing/departament/cargo,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bIY" = (
@@ -46102,15 +46102,13 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bVr" = (
-/obj/structure/table,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west fire alarm";
 	pixel_x = -24
 	},
-/obj/item/folder/yellow,
-/obj/item/eftpos,
-/obj/item/book/manual/sop_supply,
+/obj/machinery/vending/clothing/departament/cargo,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bVs" = (
@@ -46977,6 +46975,8 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/item/folder/yellow,
+/obj/item/eftpos,
 /obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -47876,14 +47876,15 @@
 /area/janitor)
 "bYG" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 6;
-	pixel_y = -5
-	},
 /obj/machinery/newscaster{
 	name = "west newscaster";
 	pixel_x = -32;
 	pixel_y = 1
+	},
+/obj/item/book/manual/sop_supply,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 6;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
