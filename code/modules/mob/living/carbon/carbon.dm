@@ -1026,6 +1026,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/turf/simulated/T = get_turf(H)
 		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
 			return FALSE
+		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
+			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
+				return FALSE
 		if(!has_gravity(H) && !grav_ignore)
 			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip
 				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
