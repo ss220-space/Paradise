@@ -178,7 +178,7 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
-/obj/item/ammo_casing/energy/disabler
+/obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
