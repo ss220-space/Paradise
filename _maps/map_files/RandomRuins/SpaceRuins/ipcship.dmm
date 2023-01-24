@@ -9,7 +9,9 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "ak" = (
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/hatch{
+	color = "lightblue"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -46,12 +48,6 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "aG" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
 /obj/effect/turf_decal{
 	dir = 8;
 	icon_state = "grass_edge_medium_full"
@@ -66,6 +62,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/item/clothing/head/beret/durathread,
 /turf/simulated/floor,
 /area/ruin/space/ipcship/middle)
 "aL" = (
@@ -86,14 +83,28 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
+"bq" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "bv" = (
-/obj/item/emptysandbag,
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
 "bM" = (
-/obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/mineral/titanium,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle{
+	color = "lightblue"
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
 "bQ" = (
 /obj/effect/decal/warning_stripes/east,
@@ -114,6 +125,7 @@
 /area/ruin/space/ipcship/engine)
 "ci" = (
 /obj/machinery/optable,
+/mob/living/carbon/human/machine/created,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -135,6 +147,9 @@
 "cq" = (
 /obj/structure/decorative_structures/metal/statue/sun,
 /obj/structure/spacevine,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/ipcship/aft)
 "cr" = (
@@ -154,10 +169,9 @@
 	},
 /area/ruin/space/ipcship/aft)
 "cu" = (
-/obj/item/pickaxe/mini,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ipcship/middle)
+/obj/item/shard,
+/turf/space,
+/area/space)
 "cG" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -268,6 +282,19 @@
 /obj/structure/spacevine,
 /turf/simulated/mineral,
 /area/ruin/space/ipcship/asteroid)
+"eb" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/obj/item/tank/internals/plasma/full{
+	pixel_y = -3;
+	pixel_x = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
 "eh" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -315,6 +342,10 @@
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
+"eZ" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "fi" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light{
@@ -386,8 +417,10 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/door/airlock/hatch,
 /obj/structure/spacevine,
+/obj/machinery/door/airlock/hatch{
+	color = "lightblue"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -407,17 +440,18 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/middle)
 "iw" = (
-/obj/item/mining_scanner,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ipcship/middle)
-"iG" = (
 /obj/effect/turf_decal{
-	dir = 4;
+	dir = 9;
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/item/paper,
+/obj/item/ammo_box/caps,
 /turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"iG" = (
+/obj/structure/spacevine,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
 /area/ruin/space/ipcship/asteroid)
 "iM" = (
 /obj/effect/turf_decal{
@@ -454,6 +488,11 @@
 	icon_state = "barber"
 	},
 /area/ruin/space/ipcship/aft)
+"jw" = (
+/obj/structure/spacevine,
+/obj/item/toy/minimeteor,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "jW" = (
 /obj/structure/rack/gunrack,
 /obj/item/gun/energy/kinetic_accelerator/experimental{
@@ -506,6 +545,10 @@
 /obj/machinery/power/apc/noalarm{
 	pixel_y = -24
 	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
 "lc" = (
@@ -516,6 +559,17 @@
 	},
 /obj/structure/spacevine,
 /turf/simulated/mineral,
+/area/ruin/space/ipcship/asteroid)
+"lj" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/item/tank/internals/plasma/empty,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"ls" = (
+/obj/item/flag/species/machine,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/ipcship/asteroid)
 "lw" = (
 /obj/effect/turf_decal{
@@ -542,9 +596,13 @@
 "lH" = (
 /obj/machinery/door/window/survival_pod,
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
+/obj/item/emptysandbag,
+/obj/item/emptysandbag,
+/obj/item/emptysandbag,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/pickaxe/mini,
+/obj/item/emptysandbag,
 /obj/structure/curtain/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
@@ -553,12 +611,13 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/asteroid)
 "lR" = (
-/obj/machinery/power/port_gen/pacman/super,
-/obj/structure/window/reinforced{
-	color = "#000000";
-	dir = 4;
-	opacity = 1
-	},
+/obj/machinery/door/window/survival_pod,
+/obj/structure/closet/crate,
+/obj/item/mining_scanner,
+/obj/item/mining_scanner,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
 /obj/structure/curtain/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
@@ -636,6 +695,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
+/obj/item/tank/internals/plasma/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "mL" = (
@@ -649,6 +709,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/item/clothing/gloves/ring/fluff/benjaminfallout,
 /turf/simulated/floor/indestructible/beach/water{
 	water_overlay_image = null
 	},
@@ -660,7 +721,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	color = "lightblue"
 	},
 /area/ruin/space/ipcship/middle)
 "nb" = (
@@ -717,6 +778,17 @@
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor,
 /area/ruin/space/ipcship/engine)
+"nZ" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/decal/cleanable/ash,
+/obj/item/clothing/head/beret/durathread,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
 "oj" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -732,6 +804,7 @@
 	name = "grass"
 	},
 /obj/structure/flora/rock/pile,
+/obj/item/ammo_box/caps,
 /turf/simulated/floor/indestructible/beach/water{
 	water_overlay_image = null
 	},
@@ -786,10 +859,9 @@
 /area/ruin/space/ipcship/shard)
 "pF" = (
 /obj/structure/table,
-/obj/item/tank/internals/plasma/full{
-	pixel_y = 6
+/obj/item/tank/internals/plasma/empty{
+	pixel_x = 5
 	},
-/obj/item/tank/internals/plasma/full,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "pJ" = (
@@ -821,12 +893,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "pT" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium_corner"
-	},
-/obj/item/toy/pet_rock/fred,
-/turf/simulated/floor/plating/asteroid,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
 /area/ruin/space/ipcship/asteroid)
 "qa" = (
 /turf/simulated/floor/plasteel,
@@ -886,12 +954,12 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/item/toy/pet_rock/fred,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "rl" = (
-/obj/item/emptysandbag,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ipcship/middle)
+/turf/simulated/floor,
+/area/ruin/space/ipcship/aft)
 "rw" = (
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/middle)
@@ -950,6 +1018,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4
 	},
+/obj/item/tank/internals/plasma/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "sJ" = (
@@ -975,16 +1044,22 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "tf" = (
 /obj/structure/decorative_structures/metal/statue/moon,
 /obj/structure/spacevine,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/ipcship/aft)
 "ti" = (
-/obj/item/emptysandbag,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/port_gen/pacman/super,
+/obj/machinery/door/window/survival_pod,
+/obj/item/clothing/gloves/combat,
+/obj/structure/curtain/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
 "tn" = (
@@ -1008,6 +1083,15 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ipcship/middle)
+"tI" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/clothing/head/helmet/space/nasavoid/syndi,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "ue" = (
 /obj/structure/showcase,
 /obj/structure/spacevine,
@@ -1061,24 +1145,13 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "ve" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/effect/turf_decal{
 	dir = 4;
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/obj/item/stack/cable_coil,
+/turf/simulated/floor,
 /area/ruin/space/ipcship/middle)
 "vj" = (
 /obj/structure/cable{
@@ -1144,16 +1217,17 @@
 "vH" = (
 /obj/item/stack/sheet/mineral/titanium,
 /obj/effect/decal/cleanable/ash,
+/obj/item/shard{
+	icon_state = "small"
+	},
 /turf/space,
 /area/space)
 "vL" = (
 /turf/simulated/wall/r_wall/coated,
 /area/ruin/space/ipcship/middle)
 "vS" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/organ/external/head/ipc,
+/obj/item/flag/species/machine,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
 "wi" = (
@@ -1200,6 +1274,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "wv" = (
@@ -1280,6 +1355,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/item/ammo_box/caps,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "yi" = (
@@ -1342,10 +1418,15 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/item/ammo_box/caps,
 /turf/simulated/floor/indestructible/beach/water{
 	water_overlay_image = null
 	},
 /area/ruin/space/ipcship/asteroid)
+"yD" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
 "yN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1388,6 +1469,10 @@
 /obj/item/stack/sheet/mineral/uranium,
 /obj/item/stack/sheet/mineral/uranium,
 /obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
 /obj/structure/curtain/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
@@ -1419,13 +1504,20 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "Ad" = (
-/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle{
+	color = "lightblue"
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
 "Ah" = (
 /turf/simulated/wall/shuttle/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	color = "lightblue"
 	},
+/area/ruin/space/ipcship/engine)
+"Ai" = (
+/obj/item/tank/internals/plasma/empty,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "Am" = (
 /obj/structure/ore_box,
@@ -1486,8 +1578,8 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
 "AT" = (
-/obj/item/emptysandbag,
 /obj/effect/decal/warning_stripes/southeastcorner,
+/obj/item/pickaxe/mini,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
 "AY" = (
@@ -1565,7 +1657,9 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/hatch{
+	color = "lightblue"
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
 "CM" = (
@@ -1593,13 +1687,15 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "Dz" = (
-/obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ipcship/middle)
-"DF" = (
-/obj/machinery/light{
-	dir = 4
+/obj/structure/spacevine,
+/obj/item/paper{
+	name = "Dented note";
+	desc = "Dented paper list with curve letters";
+	info = "Have you seen my fiancee? <br />Someone or something hit me on the head and then I lost her. Maybe it was the derpy idiot who was watching us that day. Ah, I hope I can find her... Her shape is something, she's just like a nut.<br />If I meet that jerk, I'll shoot him with my revolver."
 	},
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
+"DF" = (
 /obj/item/organ/external/hand/ipc,
 /obj/structure/spacevine,
 /turf/simulated/floor/mineral/titanium,
@@ -1608,6 +1704,7 @@
 /obj/item/stack/rods/ten,
 /obj/item/stack/cable_coil,
 /obj/structure/spacevine,
+/obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/aft)
 "Ec" = (
@@ -1658,7 +1755,7 @@
 /area/ruin/space/ipcship/middle)
 "Fp" = (
 /obj/structure/spacevine,
-/obj/item/clothing/head/helmet/space/nasavoid/syndi,
+/obj/item/gun/projectile/revolver/capgun,
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/asteroid)
 "Fs" = (
@@ -1698,14 +1795,12 @@
 	},
 /area/ruin/space/ipcship/aft)
 "FC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/machinery/optable,
+/obj/effect/mob_spawn/human/engineer/hardsuit,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
 	},
-/turf/simulated/floor/grass,
-/area/ruin/space/ipcship/middle)
+/area/ruin/space/ipcship/aft)
 "FL" = (
 /obj/item/organ/external/foot/right/ipc,
 /obj/item/shard{
@@ -1715,12 +1810,14 @@
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/ipcship/aft)
 "FX" = (
-/obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
+	},
+/obj/machinery/door/airlock/hatch{
+	color = "lightblue"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
@@ -1784,7 +1881,9 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	color = "lightblue"
+	},
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1805,7 +1904,9 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/asteroid)
 "Hj" = (
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/hatch{
+	color = "lightblue"
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/ipcship/aft)
 "Hu" = (
@@ -1865,11 +1966,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/structure/spacevine,
 /turf/simulated/floor,
 /area/ruin/space/ipcship/middle)
@@ -1877,6 +1973,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/middle)
 "Il" = (
@@ -1924,6 +2021,13 @@
 /obj/item/shard,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"Jz" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle{
+	color = "lightblue"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
 "JH" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -1967,6 +2071,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/item/tank/internals/plasma/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "Ke" = (
@@ -2004,6 +2109,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ipcship/aft)
+"Ko" = (
+/obj/item/tank/internals/plasma/empty{
+	pixel_x = -7
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
 "KS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2159,15 +2270,26 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/ipcship/shard)
+"Nl" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/black,
+/obj/machinery/light,
+/obj/item/toy/prize/seraph{
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
 "Nu" = (
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
 /obj/structure/table,
-/obj/item/tank/internals/plasma/full,
-/obj/item/tank/internals/plasma/full{
-	pixel_y = 6
+/obj/item/tank/internals/plasma/empty,
+/obj/item/tank/internals/plasma/empty{
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
@@ -2262,6 +2384,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ipcship/aft)
+"OL" = (
+/obj/item/clothing/head/beret/durathread,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
 "PE" = (
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/grass,
@@ -2290,10 +2416,10 @@
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/ipcship/aft)
 "Qs" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/machinery/door/airlock/hatch{
+	color = "lightblue"
 	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/middle)
 "QV" = (
 /obj/effect/turf_decal{
@@ -2379,7 +2505,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "RZ" = (
-/obj/structure/window/full/shuttle/gray,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = 9;
+	pixel_y = -9
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ipcship/aft)
 "Sb" = (
@@ -2453,6 +2583,11 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
+"Tq" = (
+/obj/structure/spacevine,
+/obj/item/ammo_box/caps,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "Tw" = (
 /turf/simulated/mineral,
 /area/ruin/space/ipcship/asteroid)
@@ -2516,7 +2651,7 @@
 /area/ruin/space/ipcship/shard)
 "UV" = (
 /turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	color = "lightblue"
 	},
 /area/ruin/space/ipcship/aft)
 "UX" = (
@@ -2529,7 +2664,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor,
 /area/ruin/space/ipcship/engine)
 "Vp" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -2555,6 +2690,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/item/tank/internals/plasma/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "VQ" = (
@@ -2573,9 +2709,11 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "Wt" = (
-/obj/item/pickaxe/mini,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ipcship/middle)
+/obj/structure/spacevine,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/item/gun/energy/gun/mini,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "WE" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -2587,7 +2725,7 @@
 /area/ruin/space/ipcship/middle)
 "WH" = (
 /turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	color = "lightblue"
 	},
 /area/ruin/space/ipcship/engine)
 "Xd" = (
@@ -2600,7 +2738,10 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/item/paper,
+/obj/item/paper{
+	name = "Dented note 2";
+	info = "Have you seen my fiance?<br />It seems I was kidnapped... I remember how we walked, and then... Then I woke up here. It's good that I always have a lady's pistol in my purse. That strange derpy fellow, seeing my gun, curled up in a corner and didn't show up anymore.<br />Ah, I hope my fiance finds me. He is as solid and hard as flint."
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ipcship/asteroid)
 "Xi" = (
@@ -2639,7 +2780,15 @@
 	icon_state = "2-8";
 	tag = ""
 	},
+/obj/item/tank/internals/plasma/full{
+	pixel_y = -3;
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"XS" = (
+/obj/item/tank/internals/plasma/empty,
+/turf/simulated/floor,
 /area/ruin/space/ipcship/engine)
 "XT" = (
 /obj/effect/turf_decal{
@@ -2659,7 +2808,7 @@
 /area/ruin/space/ipcship/aft)
 "Yl" = (
 /turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	color = "lightblue"
 	},
 /area/ruin/space/ipcship/middle)
 "YB" = (
@@ -2742,12 +2891,16 @@
 /area/ruin/space/ipcship/middle)
 "ZU" = (
 /obj/item/stack/cable_coil,
+/obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
 /area/ruin/space/ipcship/aft)
 "ZV" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
 /obj/machinery/light,
+/obj/item/toy/prize/marauder{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2758,6 +2911,9 @@
 	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
+	},
+/obj/item/tank/internals/plasma/empty{
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
@@ -3257,7 +3413,7 @@ tw
 tw
 tw
 tw
-Zf
+iG
 tw
 tw
 NN
@@ -3457,12 +3613,12 @@ NN
 NN
 NN
 tw
-Zf
+Dz
 Fp
 tw
 gD
 oV
-uS
+iw
 tw
 tw
 tw
@@ -3519,7 +3675,7 @@ tw
 tw
 tw
 tw
-wu
+bq
 tw
 nv
 NN
@@ -3565,9 +3721,9 @@ mP
 uK
 tw
 YH
-pT
-iG
-db
+He
+oj
+tI
 tw
 tw
 tw
@@ -3673,9 +3829,9 @@ iS
 VT
 Mb
 sJ
+iG
 Zf
-Zf
-Zf
+Tq
 tw
 NN
 NN
@@ -3726,7 +3882,7 @@ wl
 iS
 Tg
 Zf
-kT
+pT
 tw
 tw
 NN
@@ -3770,7 +3926,7 @@ NN
 NN
 NN
 tw
-kT
+pT
 Hi
 iM
 tw
@@ -3791,12 +3947,12 @@ uP
 uP
 uP
 nS
-nS
+NN
 NN
 Tw
 tw
 tw
-Zf
+jw
 CU
 tw
 nv
@@ -3843,7 +3999,7 @@ uP
 uP
 uP
 nS
-nS
+NN
 NN
 tw
 wv
@@ -3895,13 +4051,13 @@ uP
 uP
 uP
 nS
-nS
+NN
 NN
 tw
 YH
 MA
 uS
-Zf
+iG
 Zf
 tw
 NN
@@ -3947,7 +4103,7 @@ uP
 yV
 uP
 nS
-nS
+NN
 NN
 tw
 YH
@@ -4055,10 +4211,10 @@ nS
 NN
 tw
 Zf
-Zf
+Wt
 Ny
 kT
-kT
+eZ
 tw
 NN
 nS
@@ -4138,7 +4294,7 @@ FZ
 dn
 NN
 NN
-nS
+ls
 tn
 NN
 xz
@@ -4192,7 +4348,7 @@ nS
 NN
 mp
 tn
-yi
+nZ
 gz
 rH
 OJ
@@ -4303,7 +4459,7 @@ CV
 zy
 Zu
 yX
-RZ
+Jz
 uP
 uP
 uP
@@ -4342,7 +4498,7 @@ uP
 uP
 uP
 uP
-uP
+cu
 Uw
 uP
 RZ
@@ -4355,7 +4511,7 @@ Sb
 Uc
 FL
 wO
-RZ
+Jz
 uP
 uP
 uP
@@ -4504,7 +4660,7 @@ uP
 UV
 Mz
 vB
-ZV
+Nl
 UV
 kW
 UV
@@ -4610,7 +4766,7 @@ Fz
 On
 On
 Hj
-KS
+rl
 Hj
 IU
 wC
@@ -4662,11 +4818,11 @@ Zd
 hN
 zN
 UV
-KS
+rl
 UV
 IU
 IU
-ci
+FC
 Ad
 uP
 uP
@@ -4818,7 +4974,7 @@ Ey
 Ik
 HH
 Fe
-FC
+rw
 Rg
 dC
 tH
@@ -4868,11 +5024,11 @@ Yl
 Yl
 Ey
 MR
-rw
+OL
 Il
 aG
 rR
-rw
+yD
 My
 BM
 Yl
@@ -4920,7 +5076,7 @@ lH
 Yl
 Ey
 rw
-rw
+yD
 rw
 cj
 Ca
@@ -4929,7 +5085,7 @@ WE
 BM
 Yl
 zB
-lR
+ti
 Yl
 Yl
 uP
@@ -4967,8 +5123,8 @@ uP
 uP
 Yl
 jW
-ti
-iw
+Za
+qa
 Qs
 rQ
 ar
@@ -4980,8 +5136,8 @@ rw
 Kk
 AY
 Qs
-ti
-iw
+Za
+qa
 xn
 Yl
 uP
@@ -5018,23 +5174,23 @@ uP
 uP
 uP
 bM
-Wt
 qa
-rl
+qa
+qa
 Yl
 Mw
 AC
 ve
 TQ
 pJ
-rw
+yD
 Sk
 YP
 mG
 Yl
 qa
-eY
-cu
+qa
+Za
 bM
 uP
 uP
@@ -5122,9 +5278,9 @@ uP
 uP
 uP
 Yl
-Dz
+bM
 vn
-Dz
+bM
 Yl
 Yl
 Yl
@@ -5136,9 +5292,9 @@ Yl
 Yl
 Yl
 Yl
-Dz
+bM
 vn
-Dz
+bM
 Yl
 uP
 uP
@@ -5226,9 +5382,9 @@ uP
 uP
 uP
 Yl
-Dz
+bM
 vn
-Dz
+bM
 Ah
 WH
 WH
@@ -5240,9 +5396,9 @@ WH
 WH
 WH
 Ah
-Dz
+bM
 vn
-Dz
+bM
 Yl
 uP
 uP
@@ -5252,7 +5408,7 @@ uP
 nS
 NN
 NN
-nv
+NN
 NN
 NN
 iP
@@ -5304,7 +5460,7 @@ uP
 nS
 NN
 nv
-nv
+NN
 NN
 nv
 NN
@@ -5331,7 +5487,7 @@ uP
 uP
 uP
 uP
-uP
+yV
 uP
 Qd
 gF
@@ -5339,7 +5495,7 @@ ny
 sp
 fx
 Sh
-fx
+Ai
 pa
 mc
 KZ
@@ -5397,7 +5553,7 @@ UB
 KZ
 Qd
 uP
-uP
+yV
 uP
 uP
 uP
@@ -5445,7 +5601,7 @@ RS
 cG
 Au
 cc
-mc
+lj
 KZ
 Qd
 uP
@@ -5643,8 +5799,8 @@ uP
 uP
 WH
 pF
-TJ
-RD
+Ko
+eb
 FX
 sH
 UR
@@ -5654,7 +5810,7 @@ pD
 mF
 Ry
 vj
-sp
+XS
 ak
 RW
 oI

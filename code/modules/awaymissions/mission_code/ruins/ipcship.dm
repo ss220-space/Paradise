@@ -46,13 +46,13 @@
 	name = "IPC corpse"
 	uniform = /obj/item/clothing/under/misc/durathread
 	shoes = /obj/item/clothing/shoes/black
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/duffel/durathread
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
 
 /obj/effect/mob_spawn/human/corpse/ipc/Initialize()
-	brute_damage = rand(0, 400)
-	burn_damage = rand(0, 400)
+	brute_damage = rand(80, 400)
+	burn_damage = rand(80, 400)
 	return ..()
 
 // ТРУП ХЕДКРАБА, ПЕРЕНЕСТИ В CORPSE.DM
@@ -63,3 +63,10 @@
 	name = "Dead headcrab"
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab_dead"
+
+// discharged APC
+/obj/machinery/power/apc/discharged
+	locked = 0
+	start_charge = 0
+	report_power_alarm = FALSE
+	req_access = FALSE
