@@ -23,7 +23,6 @@
 	desc = "Just looking at this thing makes you feel tired."
 	density = TRUE
 	anchored = TRUE
-	pull_push_speed_modifier = 1.5
 	var/icon_state_inuse
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
