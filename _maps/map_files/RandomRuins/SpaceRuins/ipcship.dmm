@@ -1,20 +1,73 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mob_spawn/human/corpse/ipc,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"ak" = (
+/obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
 	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"ar" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"aw" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"aG" = (
+/obj/structure/cable{
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8";
+	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"aw" = (
-/obj/effect/mist,
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
 	},
-/area/space)
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"aH" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
 "aL" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -25,29 +78,32 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "aV" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
+/obj/item/mmi/robotic_brain/positronic,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = 9;
+	pixel_y = -9
 	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rad_collector,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/shard)
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/aft)
+"bv" = (
+/obj/item/emptysandbag,
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "bM" = (
 /obj/structure/window/full/shuttle/gray,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/area/ruin/space/ipcship/middle)
 "bQ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "cc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -57,151 +113,31 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "ci" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"cj" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
 "cq" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/crap,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"cG" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/machinery/door/airlock/highsecurity,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"cV" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"dG" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"eh" = (
-/obj/machinery/door/window/survival_pod,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/structure/curtain/black,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"eC" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/structure/table,
-/obj/item/tank/internals/plasma/full,
-/obj/item/tank/internals/plasma/full{
-	pixel_y = 6
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"eO" = (
-/obj/structure/table,
-/obj/machinery/light,
-/obj/item/clothing/gloves/color/black,
-/obj/item/analyzer,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"eY" = (
-/obj/item/mining_scanner,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"fx" = (
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"gz" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"gF" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"gO" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"he" = (
-/turf/space,
-/area/ruin/space/ipcship/engine)
-"hN" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/structure/curtain/black,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"hZ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"ij" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"iw" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"iP" = (
-/turf/simulated/mineral/titanium,
-/area/space)
-"jf" = (
+/obj/structure/decorative_structures/metal/statue/sun,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"cr" = (
 /obj/item/clothing/glasses/welding,
 /obj/structure/closet/walllocker{
 	pixel_x = -32
@@ -213,16 +149,346 @@
 	on = 1
 	},
 /obj/item/storage/belt/utility/full/multitool,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"jW" = (
-/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"cu" = (
+/obj/item/pickaxe/mini,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"cG" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/emitter{
+	dir = 4
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"cV" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"db" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"dn" = (
+/obj/item/stack/sheet/mineral/titanium,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"dr" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"dB" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
+	},
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"dC" = (
+/obj/machinery/suit_storage_unit{
+	suit_type = /obj/item/clothing/suit/space/nasavoid/purple;
+	helmet_type = /obj/item/clothing/head/helmet/space/nasavoid/purple;
+	name = "suit storage unit nasa purple"
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"dG" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"dQ" = (
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/door/window,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"ea" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/spacevine,
+/turf/simulated/mineral,
+/area/ruin/space/ipcship/asteroid)
+"eh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/aft)
+"eo" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"eC" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"eO" = (
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"eP" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"eY" = (
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"fi" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"fx" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"gm" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"gz" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"gD" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"gF" = (
+/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"gO" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"he" = (
+/turf/space,
+/area/ruin/space/ipcship/engine)
+"hN" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"hZ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/airlock/hatch,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
+"ij" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/spacevine,
+/obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/middle)
+"iw" = (
+/obj/item/mining_scanner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"iG" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/paper,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"iM" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"iP" = (
+/turf/simulated/mineral/titanium,
+/area/ruin/space/ipcship/asteroid)
+"iS" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"jf" = (
+/obj/item/clothing/glasses/welding,
+/obj/structure/closet/walllocker{
+	pixel_x = 32
+	},
+/obj/item/storage/box/gloves,
+/obj/item/storage/firstaid/machine,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"jW" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/energy/kinetic_accelerator/experimental{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"kb" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"ku" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/ipcship/middle)
+"kL" = (
+/obj/machinery/power/smes,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "kP" = (
 /obj/structure/shuttle/engine/large{
@@ -230,10 +496,89 @@
 	},
 /turf/space,
 /area/ruin/space/ipcship/engine)
+"kT" = (
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
+"kW" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/power/apc/noalarm{
+	pixel_y = -24
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/aft)
+"lc" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/spacevine,
+/turf/simulated/mineral,
+/area/ruin/space/ipcship/asteroid)
+"lw" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"lE" = (
+/obj/item/stack/sheet/metal,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/aft)
+"lH" = (
+/obj/machinery/door/window/survival_pod,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "lI" = (
 /mob/living/simple_animal/hostile/headcrab,
 /turf/simulated/floor/grass,
-/area/space)
+/area/ruin/space/ipcship/asteroid)
+"lR" = (
+/obj/machinery/power/port_gen/pacman/super,
+/obj/structure/window/reinforced{
+	color = "#000000";
+	dir = 4;
+	opacity = 1
+	},
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"lZ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
 "mc" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -241,59 +586,197 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "mj" = (
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"mv" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"mp" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"mv" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
 "mF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/engine,
 /area/ruin/space/ipcship/shard)
+"mG" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ipcship/middle)
 "mH" = (
 /obj/machinery/light,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"mL" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/aft)
+"mP" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"mZ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/ipcship/middle)
+"nb" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 2
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plating{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "elevatorshaft";
+	name = "floor"
+	},
+/area/ruin/space/ipcship/middle)
+"nj" = (
+/obj/item/organ/external/leg/right/ipc,
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
 "nv" = (
 /turf/simulated/mineral/iron,
-/area/space)
+/area/ruin/space/ipcship/asteroid)
 "ny" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "nS" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
-"oj" = (
-/obj/machinery/atmospherics/binary/volume_pump{
-	dir = 8
-	},
-/obj/machinery/door/window{
-	dir = 8
+/area/ruin/space/ipcship/asteroid)
+"nW" = (
+/obj/machinery/atmospherics/binary/valve/digital{
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "4-8";
+	tag = ""
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
+"oj" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"om" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"oI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"oS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"oV" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"pa" = (
+/obj/effect/mob_spawn/human/corpse/ipc,
+/mob/living/simple_animal/hostile/headcrab/fast,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"oI" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"pa" = (
-/obj/machinery/pipedispenser,
-/turf/simulated/floor/mineral/titanium,
+"pt" = (
+/obj/structure/table,
+/obj/item/t_scanner,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "pD" = (
 /obj/machinery/power/supermatter_shard{
@@ -301,25 +784,57 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/ipcship/shard)
-"pO" = (
+"pF" = (
+/obj/structure/table,
+/obj/item/tank/internals/plasma/full{
+	pixel_y = 6
+	},
+/obj/item/tank/internals/plasma/full,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"pJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"pO" = (
+/obj/item/storage/box/lights/mixed,
+/obj/structure/table,
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "pT" = (
-/obj/structure/spacevine,
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
 	},
-/area/space)
+/obj/item/toy/pet_rock/fred,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"qa" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "qj" = (
 /obj/structure/spacevine,
 /turf/simulated/mineral/iron,
-/area/space)
+/area/ruin/space/ipcship/asteroid)
 "qs" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced,
@@ -359,16 +874,70 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"qQ" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"rl" = (
+/obj/item/emptysandbag,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "rw" = (
-/obj/structure/spawner/headcrab,
 /turf/simulated/floor/grass,
-/area/space)
+/area/ruin/space/ipcship/middle)
+"rA" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"rH" = (
+/obj/item/gps/ruin{
+	pixel_x = -33
+	},
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"rQ" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
+"rR" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"sk" = (
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "sp" = (
-/obj/machinery/mecha_part_fabricator,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/item/stack/cable_coil,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
 "sH" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -383,70 +952,80 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"sJ" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"sR" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "tf" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/crap,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/structure/decorative_structures/metal/statue/moon,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
 "ti" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/obj/item/emptysandbag,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "tn" = (
-/obj/machinery/atmospherics/binary/valve/digital{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"tv" = (
+/obj/structure/spawner/headcrab/smaller_amount,
+/turf/simulated/floor/grass,
 /area/ruin/space/ipcship/engine)
 "tw" = (
 /obj/structure/spacevine,
 /turf/simulated/mineral,
-/area/space)
+/area/ruin/space/ipcship/asteroid)
 "tH" = (
-/obj/item/mmi,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
 "ue" = (
-/obj/machinery/computer,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/structure/showcase,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
 "ut" = (
-/obj/machinery/power/terminal{
-	dir = 1
+/mob/living/simple_animal/hostile/headcrab/poison,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "uw" = (
 /obj/structure/spacevine,
 /turf/simulated/mineral/random,
-/area/space)
+/area/ruin/space/ipcship/asteroid)
 "uy" = (
 /obj/machinery/light{
 	dir = 8
@@ -459,101 +1038,40 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"uK" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
 "uP" = (
 /turf/space,
 /area/space)
-"vj" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 2
+"uS" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/obj/effect/turf_decal/box,
-/turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "elevatorshaft";
-	name = "floor"
-	},
-/area/ruin/space/ipcship/fabricator)
-"vl" = (
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"vn" = (
-/obj/machinery/power/port_gen/pacman/super,
-/obj/structure/window/reinforced{
-	color = "#000000";
-	dir = 4;
-	opacity = 1
-	},
-/obj/structure/curtain/black,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"vB" = (
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"vH" = (
-/obj/structure/table,
-/obj/item/tank/internals/plasma/full{
-	pixel_y = 6
-	},
-/obj/item/tank/internals/plasma/full,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"vL" = (
-/turf/simulated/wall/r_wall/coated,
-/area/ruin/space/ipcship/fabricator)
-"vS" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"wi" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/mecha/working/ripley{
-	dir = 8
-	},
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/ruin/space/ipcship/fabricator)
-"ws" = (
-/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"ve" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"wt" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"wu" = (
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"wC" = (
-/obj/structure/decorative_structures/metal/statue/sun,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"wF" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"xk" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"xn" = (
-/obj/item/book/manual/ripley_build_and_repair,
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
@@ -561,29 +1079,240 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/ruin/space/ipcship/fabricator)
-"xE" = (
-/obj/machinery/optable,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"yi" = (
-/obj/machinery/mech_bay_recharge_port{
+/area/ruin/space/ipcship/middle)
+"vj" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/rad_collector,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/shard)
+"vl" = (
+/obj/structure/table/tray,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/stack/nanopaste,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -11;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"vn" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"vp" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"vz" = (
+/obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/effect/turf_decal/box,
-/turf/simulated/floor/plating{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "elevatorshaft";
-	name = "floor"
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
-/area/ruin/space/ipcship/fabricator)
-"yu" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"vB" = (
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"vH" = (
+/obj/item/stack/sheet/mineral/titanium,
+/obj/effect/decal/cleanable/ash,
+/turf/space,
+/area/space)
+"vL" = (
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/ipcship/middle)
+"vS" = (
 /obj/machinery/light{
-	dir = 8
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/item/organ/external/head/ipc,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/aft)
+"wi" = (
+/obj/structure/spacevine,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
+"wl" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"ws" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"wt" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"wu" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"wv" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/spacevine,
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"wx" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"wC" = (
+/obj/item/mmi,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"wF" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"wO" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"xk" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -7;
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"xn" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/energy/kinetic_accelerator/experimental,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"xz" = (
+/obj/item/stack/sheet/mineral/titanium,
+/turf/space,
+/area/space)
+"xE" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"yi" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"yn" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"yu" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "yy" = (
 /obj/machinery/computer/sm_monitor,
 /obj/structure/cable{
@@ -595,27 +1324,134 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "yz" = (
-/obj/structure/closet/walllocker{
-	pixel_y = -28
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"yX" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
+"yC" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"yN" = (
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"yV" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/space)
+"yX" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
 "ze" = (
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/mecha_wreckage/ripley/deathripley,
+/obj/structure/spacevine,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/ipcship/middle)
 "zy" = (
-/obj/machinery/computer/mech_bay_power_console,
-/obj/effect/decal/warning_stripes/yellow,
+/mob/living/carbon/human/machine/created,
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/aft)
+"zB" = (
+/obj/machinery/door/window/survival_pod,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"zH" = (
+/mob/living/simple_animal/hostile/headcrab/fast,
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"zN" = (
+/obj/structure/closet/walllocker{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"zP" = (
+/obj/machinery/atmospherics/binary/volume_pump,
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Ad" = (
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/ipcship/aft)
+"Ah" = (
+/turf/simulated/wall/shuttle/nodiagonal{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/ipcship/engine)
+"Am" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"Au" = (
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
+"AC" = (
+/obj/item/book/manual/ripley_build_and_repair,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
@@ -623,39 +1459,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/ruin/space/ipcship/fabricator)
-"zB" = (
-/obj/item/emptysandbag,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"zH" = (
-/turf/simulated/floor/grass,
-/area/space)
-"zP" = (
-/obj/machinery/atmospherics/binary/volume_pump,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"Ad" = (
-/obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"Ah" = (
-/turf/simulated/wall/shuttle/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/ruin/space/ipcship/engine)
-"Am" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/area/ruin/space/ipcship/middle)
 "AK" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1
@@ -670,43 +1474,90 @@
 	},
 /obj/item/stack/nanopaste,
 /obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -11;
-	pixel_y = 5
+	pixel_x = 2;
+	pixel_y = 12
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
 "AQ" = (
-/obj/item/gps/ruin{
-	pixel_x = -33
-	},
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
+"AT" = (
+/obj/item/emptysandbag,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"AY" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
 "Bj" = (
 /turf/simulated/floor/engine,
 /area/ruin/space/ipcship/shard)
-"BM" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/storage/bag/trash,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"Cg" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+"Bk" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"BH" = (
+/obj/item/stack/rods/ten,
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"BM" = (
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
+"Ca" = (
+/obj/effect/mob_spawn/human/corpse/ipc,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/mob/living/simple_animal/hostile/headcrab/fast,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"Cg" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "Cr" = (
-/obj/structure/ore_box,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
 "Cu" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -716,53 +1567,190 @@
 	},
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
+"CM" = (
+/obj/structure/showcase,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
 "CU" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/mecha_wreckage/ripley/deathripley,
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/ruin/space/ipcship/fabricator)
+/obj/structure/spacevine,
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "CV" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
+/obj/item/organ/external/leg/ipc,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Ds" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "Dz" = (
-/obj/item/pickaxe/mini,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "DF" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"Ey" = (
-/obj/machinery/mecha_part_fabricator,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"EE" = (
-/obj/effect/decal/warning_stripes/south,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/organ/external/hand/ipc,
+/obj/structure/spacevine,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/area/ruin/space/ipcship/aft)
+"DH" = (
+/obj/item/stack/rods/ten,
+/obj/item/stack/cable_coil,
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/aft)
+"Ec" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
+	},
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/indestructible/beach/water{
+	water_overlay_image = null
+	},
+/area/ruin/space/ipcship/asteroid)
+"Ey" = (
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/curtain/black,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
+"EA" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"EE" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Fe" = (
+/obj/machinery/suit_storage_unit{
+	state_open = 1;
+	name = "suit storage unit opened"
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
+"Fp" = (
+/obj/structure/spacevine,
+/obj/item/clothing/head/helmet/space/nasavoid/syndi,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
+"Fs" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/mecha/working/ripley{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/ipcship/middle)
 "Fw" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"Fz" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/item/stack/sheet/mineral/titanium/fifty,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/paintkit/ripley_mercenary,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
 "FC" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
+"FL" = (
+/obj/item/organ/external/foot/right/ipc,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"FX" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
+"FY" = (
+/mob/living/simple_animal/hostile/headcrab,
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"FZ" = (
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"Gg" = (
+/mob/living/simple_animal/hostile/headcrab,
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "Gm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -772,15 +1760,54 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
 "GQ" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/obj/structure/computerframe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"GS" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/obj/structure/spacevine,
+/turf/simulated/floor/plating{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "elevatorshaft";
+	name = "floor"
+	},
+/area/ruin/space/ipcship/middle)
+"GW" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/door/airlock/highsecurity,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/engine)
+"He" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"Hi" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "Hj" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
 "Hu" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -790,13 +1817,26 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/shard)
 "Hv" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = 9;
+	pixel_y = -9
 	},
-/obj/structure/showcase,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"Hy" = (
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
+"HH" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/suit_storage_unit{
+	suit_type = /obj/item/clothing/suit/space/nasavoid/green;
+	helmet_type = /obj/item/clothing/head/helmet/space/nasavoid/green;
+	name = "suit storage unit nasa green"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
 "HM" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -821,44 +1861,96 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/shard)
 "HY" = (
-/obj/structure/closet,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
 /obj/effect/decal/warning_stripes/north,
-/obj/item/stack/sheet/mineral/titanium/fifty,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/paintkit/ripley_mercenary,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"Il" = (
-/obj/item/storage/box/lights/mixed,
-/obj/structure/table,
-/obj/item/storage/box/lights/mixed{
-	pixel_x = 4;
-	pixel_y = 4
+/obj/machinery/light{
+	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"Ik" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
+"Il" = (
+/obj/effect/mob_spawn/human/corpse/ipc,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
+	},
+/mob/living/simple_animal/hostile/headcrab/poison,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
 "IU" = (
-/obj/structure/showcase,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"IX" = (
+/obj/structure/table,
+/obj/machinery/light,
+/obj/item/analyzer,
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"IY" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"Jy" = (
+/obj/machinery/atmospherics/binary/volume_pump{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/shard,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"JH" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/rad_collector,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/shard)
+"JU" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
+	},
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "JY" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -877,14 +1969,41 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"Km" = (
-/obj/structure/spacevine,
-/obj/effect/mist,
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
+"Ke" = (
+/obj/item/shard{
+	icon_state = "small"
 	},
-/area/space)
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"Kg" = (
+/obj/item/shard,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Kk" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
+"Km" = (
+/obj/item/organ/external/arm/ipc,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
 "KS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -893,7 +2012,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
 "KZ" = (
 /obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
 	dir = 1
@@ -904,47 +2023,136 @@
 /turf/simulated/wall/r_wall/coated,
 /area/ruin/space/ipcship/shard)
 "Le" = (
-/obj/structure/table,
-/obj/item/t_scanner,
+/obj/item/wrench,
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "Lj" = (
-/obj/structure/table,
-/obj/item/weldingtool,
-/obj/item/wrench,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"Lt" = (
-/obj/structure/spacevine,
-/obj/effect/mist,
-/turf/simulated/floor/grass,
-/area/space)
-"Mr" = (
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
+/obj/item/organ/external/groin/ipc,
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/area/space)
-"My" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"Mz" = (
-/obj/machinery/power/smes,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"Lt" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"LH" = (
+/obj/item/organ/external/chest/ipc,
+/obj/item/clothing/shoes/black,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"LS" = (
+/mob/living/simple_animal/hostile/headcrab,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"LV" = (
+/obj/structure/table,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Mb" = (
+/mob/living/simple_animal/hostile/headcrab,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"Mr" = (
+/obj/structure/spawner/headcrab/smaller_amount,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_big_full";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"Mw" = (
+/obj/machinery/power/apc/worn_out{
+	pixel_y = 24
+	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ipcship/middle)
+"My" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ipcship/middle)
+"Mz" = (
+/obj/machinery/computer,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"MA" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"MC" = (
+/obj/structure/spawner/headcrab/smaller_amount,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "MF" = (
-/obj/effect/mob_spawn/human/engineer/hardsuit,
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"MK" = (
+/obj/structure/table,
+/obj/item/weldingtool,
+/obj/item/wrench,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "MR" = (
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/structure/spawner/headcrab/smaller_amount,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/middle)
 "MS" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
@@ -952,142 +2160,233 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/ipcship/shard)
 "Nu" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"Ny" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/item/wrench,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
-"NG" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
-"NN" = (
-/turf/simulated/mineral/random,
-/area/space)
-"On" = (
-/obj/structure/decorative_structures/metal/statue/moon,
-/obj/machinery/power/apc/noalarm{
-	locked = 0;
-	equipment = 0;
-	environ = 0;
-	operating = 0;
-	dir = 4;
-	pixel_x = 26
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"Oq" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rad_collector,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/shard)
-"Ov" = (
-/obj/item/clothing/glasses/welding,
-/obj/structure/closet/walllocker{
-	pixel_x = 32
-	},
-/obj/item/storage/box/gloves,
-/obj/item/storage/firstaid/machine,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
-/obj/item/storage/belt/utility/full/multitool,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/obj/structure/table,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"Ny" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/toy/pet_rock/roxie,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"NG" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"NJ" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"NN" = (
+/turf/simulated/mineral/random,
+/area/ruin/space/ipcship/asteroid)
+"On" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"Oq" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"Ov" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"OG" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"OJ" = (
+/obj/structure/computerframe,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"PE" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/aft)
+"Qb" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "Qd" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
 "Qn" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/item/organ/external/hand/right/ipc,
+/obj/item/clothing/glasses/meson/fluff/book_berner_1,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Qs" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/area/ruin/space/ipcship/middle)
+"QV" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+/obj/item/clothing/suit/space/nasavoid/syndi,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"QX" = (
+/obj/item/organ/external/foot/ipc,
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/emitter{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/engine)
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Ra" = (
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 "Rb" = (
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
+"Rg" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/suit_storage_unit{
+	state_open = 1;
+	name = "suit storage unit opened"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
 "Rm" = (
-/obj/machinery/power/smes,
-/obj/structure/cable,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/engine)
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
 "Ry" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/ruin/space/ipcship/shard)
 "RD" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"RN" = (
+/obj/machinery/pipedispenser,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
 "RS" = (
-/obj/machinery/door/window/survival_pod,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/item/stack/sheet/mineral/uranium,
-/obj/structure/curtain/black,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_full"
+	},
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
 "RW" = (
-/mob/living/simple_animal/hostile/headcrab/fast,
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/area/space)
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
 "RZ" = (
-/mob/living/simple_animal/hostile/headcrab,
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
-	},
-/area/space)
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"Sb" = (
+/obj/item/clothing/under/misc/durathread,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
 "Sh" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -1100,41 +2399,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"SJ" = (
-/obj/machinery/recharge_station,
-/obj/effect/turf_decal/stripes/box,
-/obj/structure/curtain/black,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"SN" = (
-/obj/machinery/computer/operating{
-	name = "Robotics Operating Computer"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
-"Tw" = (
-/turf/simulated/mineral,
-/area/space)
-"TQ" = (
-/obj/machinery/suit_storage_unit,
-/obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"Uc" = (
-/mob/living/simple_animal/hostile/headcrab/poison,
-/turf/simulated/floor/plating/asteroid{
-	blocks_air = 1;
-	name = "asteroid sand blocks air"
-	},
-/area/space)
-"Uw" = (
-/obj/machinery/power/apc/noalarm{
-	locked = 0;
-	equipment = 0;
-	environ = 0;
-	operating = 0;
-	dir = 1;
-	pixel_y = 24
+"Sk" = (
+/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -1143,21 +2413,92 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/ruin/space/ipcship/fabricator)
-"UF" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+/area/ruin/space/ipcship/middle)
+"SJ" = (
+/obj/machinery/computer/mech_bay_power_console,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/spacevine,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
 	},
+/area/ruin/space/ipcship/middle)
+"SN" = (
+/obj/machinery/computer/operating{
+	name = "Robotics Operating Computer"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
+"SQ" = (
+/obj/item/storage/backpack,
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"SX" = (
+/obj/effect/mob_spawn/human/corpse/ipc,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/ipcship/asteroid)
+"Tg" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"Tw" = (
+/turf/simulated/mineral,
+/area/ruin/space/ipcship/asteroid)
+"TJ" = (
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"TQ" = (
+/obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/effect/mob_spawn/human/corpse/ipc,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/mob/living/simple_animal/hostile/headcrab/fast,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"Uc" = (
+/obj/item/organ/external/arm/right/ipc,
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Uw" = (
+/obj/effect/decal/cleanable/ash,
+/turf/space,
+/area/space)
+"UB" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
 /area/ruin/space/ipcship/engine)
+"UF" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "UR" = (
 /obj/machinery/power/rad_collector,
 /obj/structure/cable,
@@ -1177,7 +2518,30 @@
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/aft)
+"UX" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/ipcship/engine)
+"Vp" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/rad_collector,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/shard)
 "Vs" = (
 /obj/machinery/atmospherics/binary/valve/digital{
 	dir = 4
@@ -1193,24 +2557,52 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
+"VQ" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"VT" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"Wt" = (
+/obj/item/pickaxe/mini,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
 "WE" = (
-/obj/structure/table/tray,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
 	},
-/obj/item/stack/nanopaste,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2;
-	pixel_y = 12
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/area/ruin/space/ipcship/middle)
 "WH" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/ruin/space/ipcship/engine)
+"Xd" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/paper,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "Xi" = (
 /obj/machinery/atmospherics/unary/tank{
 	dir = 8
@@ -1218,74 +2610,80 @@
 /obj/structure/curtain/black,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ipcship/engine)
-"XN" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+"XJ" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"XN" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
 "XO" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
+"XT" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/engine)
+"Yh" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/bag/trash,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/ipcship/aft)
 "Yl" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/area/ruin/space/ipcship/fabricator)
+/area/ruin/space/ipcship/middle)
 "YB" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
 	},
-/obj/machinery/light/small{
-	dir = 1
+/obj/item/stock_parts/cell/crap,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/aft)
+"YH" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
 "YP" = (
-/obj/machinery/light{
-	dir = 8
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"Za" = (
-/obj/item/emptysandbag,
-/obj/item/mining_scanner,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
-"Zf" = (
-/obj/structure/spacevine,
-/turf/simulated/floor/grass,
-/area/space)
-"Zu" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rad_collector,
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/ipcship/shard)
-"ZK" = (
+/obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
@@ -1293,20 +2691,81 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/ruin/space/ipcship/fabricator)
-"ZU" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/light{
-	dir = 4
+/area/ruin/space/ipcship/middle)
+"YV" = (
+/obj/structure/spacevine,
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/fabricator)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/ipcship/asteroid)
+"YW" = (
+/obj/structure/table,
+/obj/item/toy/plushie/ipcplushie,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/ipcship/aft)
+"Za" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ipcship/middle)
+"Zd" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"Zf" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
+"Zu" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ipcship/aft)
+"ZK" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor,
+/area/ruin/space/ipcship/middle)
+"ZU" = (
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/aft)
 "ZV" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/ipcship/operating)
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ipcship/aft)
+"ZW" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/ipcship/engine)
+"ZZ" = (
+/obj/structure/spacevine,
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor/grass,
+/area/ruin/space/ipcship/asteroid)
 
 (1,1,1) = {"
 uP
@@ -1370,15 +2829,15 @@ uP
 uP
 uP
 uP
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1419,21 +2878,21 @@ uP
 uP
 uP
 uP
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1471,23 +2930,23 @@ uP
 uP
 uP
 uP
-nS
-nS
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-nS
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1522,25 +2981,25 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
+uP
+uP
+uP
 nS
 nS
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-nv
-NN
-NN
-iP
-NN
-NN
 nS
 nS
+nS
+nS
+nS
+nS
+nS
+uP
+nS
+nS
+uP
 uP
 uP
 uP
@@ -1574,26 +3033,26 @@ uP
 uP
 uP
 uP
-nS
-nS
-NN
-NN
-NN
-NN
-NN
-iP
-iP
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
+uP
+uP
+uP
 nS
 nS
 nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+NN
+NN
+nS
+nS
 uP
 uP
 uP
@@ -1610,7 +3069,7 @@ uP
 uP
 uP
 uP
-uP
+yV
 uP
 uP
 uP
@@ -1626,6 +3085,9 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
 nS
 nS
 NN
@@ -1635,18 +3097,15 @@ NN
 NN
 NN
 NN
-Tw
-tw
-tw
-tw
-tw
-tw
-tw
+NN
+NN
+NN
+NN
+iP
 NN
 NN
 nS
 nS
-nS
 uP
 uP
 uP
@@ -1659,13 +3118,13 @@ uP
 uP
 uP
 uP
-nS
-nS
-nS
-nS
-nS
-nS
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1678,48 +3137,48 @@ uP
 uP
 uP
 uP
+uP
+uP
+nS
 nS
 NN
 NN
-iP
+NN
+NN
+NN
+NN
+NN
+NN
+NN
 nv
 NN
 NN
-Tw
-Tw
-Tw
-Mr
-Mr
-Zf
-Zf
-Zf
-tw
-Tw
+NN
 NN
 NN
 nS
 nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 nS
-nS
-nS
-nS
-iP
-NN
-NN
-iP
-nS
-nS
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1729,49 +3188,49 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
 nS
 nS
 NN
 NN
 NN
-nv
 NN
-Tw
-Tw
-Mr
-Mr
-RZ
-Mr
-Mr
-Mr
-Zf
-Zf
+NN
+iP
+iP
+NN
+NN
+NN
+NN
+NN
 tw
 tw
 NN
 NN
 nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 nS
 nS
-NN
-NN
-NN
-nv
-nv
-NN
-NN
-NN
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -1781,50 +3240,50 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-NN
-NN
-Tw
-Tw
-pT
-pT
-pT
-Mr
-Mr
-Mr
-Mr
-Mr
-Mr
-RZ
-tw
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
 nS
 nS
 NN
-nv
-nv
+NN
+NN
+NN
+NN
+NN
+NN
 tw
 tw
+tw
+tw
+tw
+Zf
 tw
 tw
 NN
 NN
 nS
 nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 "}
@@ -1833,50 +3292,50 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-NN
-NN
-Tw
-Zf
-Zf
-Tw
-pT
-Mr
-Mr
-tw
-tw
-tw
-Mr
-Mr
-tw
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
+yV
 uP
 uP
 nS
-nS
 NN
-nv
-Tw
-tw
-Zf
-Zf
-tw
+NN
+iP
 nv
 NN
+NN
+tw
+tw
+tw
+wx
+db
+Zf
+Zf
+Zf
+Zf
+tw
+tw
+NN
+NN
 nS
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 "}
@@ -1885,50 +3344,50 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-NN
-NN
-Tw
-zH
-zH
-Tw
-pT
-Mr
-Tw
-Tw
-Tw
-Tw
-Tw
-Mr
-tw
-iP
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 nS
 nS
 NN
-Tw
-aw
-Uc
-Mr
-Zf
+NN
+NN
+nv
+NN
 tw
 tw
+Mr
+xE
+LS
+He
+oj
+IY
+yn
+Qb
+FY
+tw
+NN
 NN
 nS
 nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 "}
@@ -1937,50 +3396,50 @@ uP
 uP
 uP
 uP
+uP
+uP
 nS
 NN
-iP
 NN
 NN
-iP
-Tw
-zH
-rw
-Tw
-Mr
-Mr
-Mr
-Mr
-Tw
-Tw
-Tw
-Mr
+NN
+NN
 tw
-nv
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-nS
-NN
-Tw
-aw
-Mr
-Mr
-Zf
-Zf
+tw
+qQ
+JU
+NJ
+VT
+Cg
+dr
+sR
+tw
+QV
+ab
 tw
 NN
+NN
 nS
 nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 "}
@@ -1989,50 +3448,50 @@ uP
 uP
 uP
 uP
+uP
+uP
 nS
 NN
 NN
 NN
 NN
 NN
-Tw
-zH
-zH
-Tw
-pT
-Mr
-Mr
-Mr
-Mr
-Tw
-Tw
-Mr
 tw
-nv
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-nS
-aw
-aw
-aw
-Mr
-uw
-Mr
-rw
+Zf
+Fp
 tw
+gD
+oV
+uS
+tw
+tw
+tw
+lc
+wu
+tw
+iP
 NN
 nS
 nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 "}
@@ -2041,49 +3500,49 @@ uP
 uP
 uP
 uP
+uP
+uP
 nS
 NN
 NN
 NN
 NN
 NN
-Tw
-Tw
-Tw
-Tw
-pT
-pT
-Mr
-RZ
-Mr
-Mr
-Tw
-Mr
 tw
-NN
-iP
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-nS
-NN
-Tw
-Km
-Mr
-uw
-Mr
-lI
+om
+yC
+tw
+gD
+Ds
+tw
+tw
+tw
+tw
+tw
+wu
 tw
 nv
+NN
 nS
+mp
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -2093,49 +3552,49 @@ uP
 uP
 uP
 uP
+uP
+uP
 nS
-nS
+NN
+iP
 NN
 NN
-NN
-NN
-NN
+iP
 tw
-Mr
-Mr
-Mr
-pT
-pT
-pT
-pT
-Zf
-Zf
-Zf
+mP
+uK
 tw
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-NN
+YH
+pT
+iG
+db
 tw
-Lt
-Zf
-Mr
-zH
-zH
 tw
+tw
+kb
+tw
+nv
 NN
 nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+nS
+nS
+nS
+uP
+uP
+uP
 uP
 uP
 uP
@@ -2146,48 +3605,48 @@ uP
 uP
 uP
 uP
-nS
-nS
-NN
-NN
-NN
-NN
-tw
-zH
-zH
-Mr
-Tw
-Tw
-pT
-Mr
-Zf
-zH
-tw
-tw
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 nS
 NN
+NN
+NN
+NN
+NN
 tw
+dB
+Ec
 tw
-Zf
-Mr
-zH
+gD
+VT
+sk
+He
+IY
+NG
 tw
+Bk
 tw
 NN
+iP
 nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
+iP
+NN
+NN
+iP
+nS
+nS
+nS
+uP
 uP
 uP
 uP
@@ -2198,45 +3657,45 @@ uP
 uP
 uP
 uP
+uP
+nS
+NN
+NN
+NN
+NN
+NN
+tw
+tw
+tw
+tw
+gD
+iS
+VT
+Mb
+sJ
+Zf
+Zf
+Zf
+tw
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
 nS
 nS
 NN
 NN
 NN
-NN
-tw
-tw
-zH
-Mr
-RW
-Tw
-Tw
-Tw
-pT
-tw
-tw
+nv
 nv
 NN
 NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-NN
-NN
-tw
-tw
-RZ
-tw
-qj
 NN
 nS
 uP
@@ -2252,46 +3711,46 @@ uP
 uP
 uP
 nS
-NN
-NN
-NN
-NN
-NN
-tw
-tw
-tw
-Tw
-aw
-aw
-aw
-aw
-Tw
-NN
-NN
-NN
-NN
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 nS
 NN
 NN
+NN
+NN
+NN
 tw
+VQ
+vp
+aw
+mj
+wl
+iS
+Tg
+Zf
+kT
 tw
 tw
 NN
 NN
 nS
+nS
 uP
+uP
+uP
+Uw
+uP
+nS
+nS
+NN
+nv
+nv
+tw
+tw
+tw
+tw
+NN
+NN
+nS
+nS
 uP
 uP
 uP
@@ -2303,40 +3762,24 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-NN
-aw
-aw
-Tw
-Tw
-Tw
-NN
-NN
-NN
-NN
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 nS
-nS
+SX
 NN
+NN
+NN
+NN
+tw
+kT
+Hi
+iM
+tw
+tw
+YV
+UF
+OG
+tw
+tw
 nv
 NN
 NN
@@ -2344,6 +3787,22 @@ nS
 nS
 uP
 uP
+uP
+uP
+uP
+nS
+nS
+NN
+Tw
+tw
+tw
+Zf
+CU
+tw
+nv
+NN
+nS
+nS
 uP
 uP
 uP
@@ -2358,29 +3817,25 @@ uP
 uP
 nS
 nS
+NN
+NN
+NN
+NN
+tw
+tw
+kT
+eo
+zH
+tw
+tw
+yu
+gm
+tw
+NN
+NN
+NN
+NN
 nS
-NN
-NN
-NN
-NN
-NN
-NN
-Mr
-Tw
-Tw
-NN
-NN
-NN
-NN
-nS
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -2388,14 +3843,18 @@ uP
 uP
 uP
 nS
-iP
-NN
-NN
-iP
 nS
-uP
-uP
-uP
+NN
+tw
+wv
+ut
+db
+ZZ
+tw
+tw
+NN
+nS
+nS
 uP
 uP
 uP
@@ -2408,32 +3867,27 @@ uP
 uP
 uP
 uP
+uP
 nS
+NN
+NN
+NN
+NN
+NN
+tw
+tw
+tw
+ea
+tw
+uw
+uw
+tw
+tw
+NN
+NN
+NN
+NN
 nS
-nS
-NN
-NN
-NN
-NN
-NN
-NN
-Mr
-NN
-nv
-NN
-NN
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -2442,12 +3896,17 @@ uP
 uP
 nS
 nS
+NN
+tw
+YH
+MA
+uS
+Zf
+Zf
+tw
+NN
 nS
 nS
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -2461,45 +3920,45 @@ uP
 uP
 uP
 uP
-uP
-nS
-nS
 nS
 NN
 NN
 NN
 NN
-nS
 NN
 NN
 NN
 NN
+NN
+uw
+uw
+Tw
+NN
+NN
+NN
+NN
+mp
 nS
 nS
+uP
+Uw
+uP
+uP
+yV
+uP
 nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+tw
+YH
+Ds
+uw
+lw
+MC
+tw
+NN
+nS
+nS
 uP
 uP
 uP
@@ -2514,43 +3973,43 @@ uP
 uP
 uP
 uP
-uP
 nS
 nS
 nS
+NN
+NN
+NN
+NN
+NN
+NN
+eP
+Rm
+Tw
+NN
+NN
+NN
+NN
 nS
 nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 nS
+SX
+NN
+tw
+YV
+Lt
+uw
+wF
+lI
+tw
+nv
 nS
-nS
-nS
-nS
-nS
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -2566,43 +4025,43 @@ uP
 uP
 uP
 uP
+nS
+dn
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+cV
+eC
+nv
+NN
+NN
+nS
+tn
+tn
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
 nS
+NN
+tw
+Zf
+Zf
+Ny
+kT
+kT
+tw
+NN
 nS
-nS
-nS
-nS
-nS
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -2616,6 +4075,24 @@ uP
 uP
 uP
 uP
+xz
+uP
+uP
+uP
+nS
+nS
+nS
+NN
+NN
+NN
+NN
+nS
+rA
+NN
+GQ
+mp
+FZ
+yi
 uP
 uP
 uP
@@ -2626,35 +4103,17 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+tw
+tw
+Zf
+Xd
+Ra
+tw
+tw
+NN
+nS
 uP
 uP
 uP
@@ -2673,39 +4132,39 @@ uP
 uP
 uP
 uP
+nS
+nS
+FZ
+dn
+NN
+NN
+nS
+tn
+NN
+xz
+UV
+Ke
+lE
+UV
+UV
+uP
+uP
+Uw
 uP
 uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+tw
+tw
+Gg
+tw
+qj
+NN
+nS
 uP
 uP
 uP
@@ -2729,6 +4188,18 @@ uP
 uP
 uP
 uP
+nS
+NN
+mp
+tn
+yi
+gz
+rH
+OJ
+DH
+YB
+UV
+UV
 uP
 uP
 uP
@@ -2737,27 +4208,15 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+tw
+tw
+tw
+NN
+NN
+nS
 uP
 uP
 uP
@@ -2777,6 +4236,22 @@ uP
 uP
 uP
 uP
+Uw
+uP
+uP
+Uw
+uP
+nS
+Hv
+BH
+ZU
+eh
+LH
+wt
+mL
+QX
+YW
+UV
 uP
 uP
 uP
@@ -2785,30 +4260,14 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+NN
+nv
+NN
+NN
+nS
+nS
 uP
 uP
 uP
@@ -2833,23 +4292,18 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+Uw
+vH
+Oq
+nj
+PE
+Lj
+Qn
+CV
+zy
+Zu
+yX
+RZ
 uP
 uP
 uP
@@ -2860,7 +4314,12 @@ uP
 uP
 uP
 nS
+iP
+NN
+NN
+iP
 nS
+uP
 uP
 uP
 uP
@@ -2884,21 +4343,19 @@ uP
 uP
 uP
 uP
+Uw
 uP
-uP
-uP
-UV
-UV
-Ad
-Ad
-UV
-Ad
-Ad
-UV
-UV
-uP
-uP
-uP
+RZ
+MF
+Kg
+Km
+SQ
+aV
+Sb
+Uc
+FL
+wO
+RZ
 uP
 uP
 uP
@@ -2910,10 +4367,12 @@ uP
 uP
 uP
 nS
+SX
 nS
 nS
-nS
-nS
+uP
+uP
+uP
 uP
 uP
 uP
@@ -2939,16 +4398,16 @@ uP
 uP
 uP
 UV
-UV
+Rb
 tf
 ue
-ue
+DF
 AQ
-ue
-ue
+vS
+CM
 cq
+LV
 UV
-UV
 uP
 uP
 uP
@@ -2960,13 +4419,13 @@ uP
 uP
 uP
 uP
-nS
-nS
-NN
-NN
-NN
-iP
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+yV
 uP
 uP
 uP
@@ -2983,7 +4442,7 @@ uP
 uP
 uP
 uP
-uP
+xz
 uP
 uP
 uP
@@ -2991,15 +4450,15 @@ uP
 uP
 uP
 UV
-Rb
-vl
-mv
-mv
-vl
-mv
-mv
-vl
-Rb
+UV
+UV
+UV
+UV
+Hj
+UV
+UV
+UV
+UV
 UV
 uP
 uP
@@ -3012,13 +4471,13 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-NN
-NN
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -3028,9 +4487,6 @@ uP
 uP
 uP
 uP
-nS
-nS
-nS
 uP
 uP
 uP
@@ -3042,17 +4498,20 @@ uP
 uP
 uP
 uP
-Ad
-XN
+uP
+uP
+uP
+UV
+Mz
+vB
+ZV
+UV
+kW
+UV
+cr
 vl
-vl
-vl
-vl
-vl
-vl
-vl
-ci
-Ad
+SN
+UV
 uP
 uP
 uP
@@ -3063,14 +4522,14 @@ uP
 uP
 uP
 uP
-nS
-nS
-iP
-nv
-nv
-NN
-NN
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -3080,10 +4539,10 @@ uP
 uP
 uP
 uP
-nS
-nS
-nS
-nS
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -3096,13 +4555,13 @@ uP
 uP
 Ad
 XN
-vl
-vl
-vl
-vl
-vl
-vl
-vl
+hN
+zN
+UV
+KS
+UV
+IU
+IU
 ci
 Ad
 uP
@@ -3115,15 +4574,15 @@ uP
 uP
 uP
 uP
-nS
-nS
-NN
-NN
-NN
-NN
-NN
-NN
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -3132,10 +4591,6 @@ uP
 uP
 uP
 uP
-nS
-nS
-nS
-nS
 uP
 uP
 uP
@@ -3146,17 +4601,28 @@ uP
 uP
 uP
 uP
-UV
-Rb
+uP
+uP
+uP
+uP
+Ad
+Fz
 On
-Hv
-cV
-ij
-vS
+On
+Hj
+KS
+Hj
 IU
 wC
-Rb
-UV
+Yh
+Ad
+uP
+uP
+uP
+uP
+uP
+uP
+yV
 uP
 uP
 uP
@@ -3168,14 +4634,7 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-nv
-NN
-NN
-iP
-nS
+uP
 uP
 uP
 uP
@@ -3184,11 +4643,6 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-nS
 uP
 uP
 uP
@@ -3198,17 +4652,22 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
+uP
+uP
+Ad
+Zd
+hN
+zN
 UV
+KS
 UV
-UV
-UV
-UV
-ws
-UV
-UV
-UV
-UV
-UV
+IU
+IU
+ci
+Ad
 uP
 uP
 uP
@@ -3220,14 +4679,14 @@ uP
 uP
 uP
 uP
-nS
-NN
-nv
-nv
-NN
-nv
-NN
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -3236,11 +4695,11 @@ uP
 uP
 uP
 uP
+uP
 nS
-NN
-NN
-NN
 nS
+nS
+uP
 uP
 uP
 uP
@@ -3251,11 +4710,11 @@ uP
 uP
 uP
 UV
-ue
+Mz
 vB
 ZV
 UV
-YB
+Gm
 UV
 jf
 AM
@@ -3272,14 +4731,14 @@ uP
 uP
 uP
 uP
-nS
-NN
-NN
-NN
-NN
-NN
-NN
-nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -3287,199 +4746,6 @@ uP
 (39,1,1) = {"
 uP
 uP
-nS
-NN
-nv
-NN
-nv
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-Ad
-sp
-MR
-yz
-UV
-KS
-UV
-vl
-vl
-xE
-Ad
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-nS
-NN
-NN
-NN
-NN
-iP
-nS
-uP
-uP
-uP
-"}
-(40,1,1) = {"
-uP
-uP
-nS
-NN
-NN
-NN
-nv
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-Ad
-HY
-vl
-vl
-Hj
-KS
-Hj
-vl
-tH
-BM
-Ad
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-NN
-NN
-NN
-iP
-iP
-nS
-uP
-uP
-uP
-"}
-(41,1,1) = {"
-uP
-uP
-nS
-NN
-iP
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-Ad
-Ey
-MR
-yz
-UV
-KS
-UV
-vl
-vl
-xE
-Ad
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-nS
-NN
-nv
-NN
-iP
-nS
-uP
-uP
-uP
-uP
-"}
-(42,1,1) = {"
-uP
-uP
-nS
-NN
-NN
-NN
-NN
-nS
-nS
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-UV
-ue
-vB
-ZV
-UV
-Gm
-UV
-Ov
-WE
-SN
-UV
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 nS
@@ -3487,21 +4753,6 @@ nS
 nS
 nS
 uP
-uP
-uP
-uP
-uP
-"}
-(43,1,1) = {"
-uP
-nS
-nS
-NN
-NN
-NN
-NN
-nS
-nS
 uP
 uP
 uP
@@ -3544,14 +4795,205 @@ uP
 uP
 uP
 "}
-(44,1,1) = {"
+(40,1,1) = {"
+uP
+uP
+uP
+yV
+nS
+nS
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Yl
+Yl
+Yl
+Ey
+Ik
+HH
+Fe
+FC
+Rg
+dC
+tH
+BM
+Yl
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(41,1,1) = {"
+uP
+uP
+uP
 uP
 nS
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+uP
+Yl
+Yl
+Yl
+Yl
+Ey
+MR
+rw
+Il
+aG
+rR
+rw
+My
+BM
+Yl
+Yl
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(42,1,1) = {"
+uP
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+nS
+uP
+uP
+uP
+uP
+Yl
+Yl
+lR
+lH
+Yl
+Ey
+rw
+rw
+rw
+cj
+Ca
+Ov
+WE
+BM
+Yl
+zB
+lR
+Yl
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+"}
+(43,1,1) = {"
+uP
+uP
+uP
 nS
 NN
 nv
 NN
-NN
+nv
+nS
+uP
+uP
+uP
+uP
+Yl
+jW
+ti
+iw
+Qs
+rQ
+ar
+Hy
+XJ
+ZK
+aH
+rw
+Kk
+AY
+Qs
+ti
+iw
+xn
+Yl
+uP
+uP
+uP
+uP
+uP
+uP
+nS
+nS
+nS
+nS
 nS
 uP
 uP
@@ -3560,35 +5002,52 @@ uP
 uP
 uP
 uP
+"}
+(44,1,1) = {"
+uP
+uP
+uP
+nS
+NN
+NN
+NN
+nv
+nS
+uP
+uP
+uP
+uP
+bM
+Wt
+qa
+rl
 Yl
-Yl
-Yl
-SJ
+Mw
+AC
+ve
+TQ
+pJ
+rw
+Sk
 YP
-TQ
-TQ
-hZ
-TQ
-TQ
-YP
-SJ
+mG
 Yl
-Yl
-Yl
+qa
+eY
+cu
+bM
 uP
 uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+NN
+NN
+NN
+iP
+nS
 uP
 uP
 uP
@@ -3599,48 +5058,48 @@ uP
 (45,1,1) = {"
 uP
 uP
+uP
+nS
+NN
+iP
+NN
+NN
+nS
+nS
+uP
+uP
+uP
+Yl
+AT
+bQ
+dG
+Yl
+SJ
+ze
+GS
+HY
+oS
+fi
+nb
+Fs
+SJ
+Yl
+Am
+bQ
+bv
+Yl
+uP
+uP
+uP
+uP
+uP
 nS
 NN
 NN
 NN
 NN
+NN
 nS
-uP
-uP
-uP
-uP
-uP
-uP
-Yl
-Yl
-Yl
-Yl
-SJ
-ze
-ze
-ze
-hZ
-ze
-ze
-ze
-SJ
-Yl
-Yl
-Yl
-Yl
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -3651,48 +5110,48 @@ uP
 (46,1,1) = {"
 uP
 uP
+uP
 nS
-iP
-iP
 NN
-iP
+NN
+NN
+NN
+nS
 nS
 uP
 uP
 uP
-uP
-uP
 Yl
-Yl
+Dz
 vn
-eh
+Dz
 Yl
-SJ
-ze
-ze
-ze
+Yl
+Yl
+mZ
+Yl
 hZ
-ze
-ze
-ze
-SJ
 Yl
-RS
+Yl
+Yl
+Yl
+Yl
+Dz
 vn
+Dz
 Yl
-Yl
 uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+iP
+nv
+nv
+NN
+NN
+nS
 uP
 uP
 uP
@@ -3705,47 +5164,47 @@ uP
 uP
 nS
 nS
+NN
+NN
+NN
+NN
 nS
 nS
-nS
-uP
-uP
-uP
 uP
 uP
 uP
 Yl
 Za
-ze
-ze
-oI
-DF
-DF
-DF
-xk
-hZ
-GQ
-DF
-DF
-DF
-oI
-zB
+qa
 eY
-Dz
+Yl
+vL
+ku
+vL
+vL
+ij
+vL
+vL
+vL
+vL
+Yl
+qa
+Za
+qa
 Yl
 uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+nS
 uP
 uP
 uP
@@ -3755,49 +5214,49 @@ uP
 (48,1,1) = {"
 uP
 uP
-uP
 nS
 nS
+NN
+nv
+NN
+NN
 nS
 uP
 uP
 uP
 uP
-uP
-uP
-uP
-bM
+Yl
 Dz
-ze
-zB
+vn
+Dz
+Ah
+WH
+WH
+WH
+WH
+GW
+WH
+WH
+WH
+WH
+Ah
+Dz
+vn
+Dz
 Yl
-Uw
-xn
-ZK
-My
-hZ
-wF
-ZK
-ZK
-ZK
-Yl
-ze
-ze
-ze
-bM
 uP
 uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+nv
+NN
+NN
+iP
+nS
 uP
 uP
 uP
@@ -3808,6 +5267,12 @@ uP
 uP
 uP
 uP
+nS
+NN
+NN
+NN
+NN
+nS
 uP
 uP
 uP
@@ -3816,27 +5281,17 @@ uP
 uP
 uP
 uP
-uP
-uP
-Yl
-zB
-ze
-Cr
-Yl
-zy
-CU
-yi
-ZU
-hZ
+Qd
+gF
+ny
+qF
+uy
+lZ
 EE
-vj
 wi
-zy
-Yl
-Cr
-ze
-zB
-Yl
+wi
+KZ
+Qd
 uP
 uP
 uP
@@ -3846,10 +5301,14 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
+nS
+NN
+nv
+nv
+NN
+nv
+NN
+nS
 uP
 uP
 uP
@@ -3860,6 +5319,31 @@ uP
 uP
 uP
 uP
+nS
+iP
+iP
+NN
+iP
+nS
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+Qd
+gF
+ny
+sp
+fx
+Sh
+fx
+pa
+mc
+KZ
+Qd
 uP
 uP
 uP
@@ -3869,39 +5353,14 @@ uP
 uP
 uP
 uP
-uP
-Yl
-bM
-RD
-bM
-Yl
-Yl
-Yl
-Yl
-Yl
-yX
-Yl
-Yl
-Yl
-Yl
-Yl
-bM
-RD
-bM
-Yl
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+NN
+NN
+NN
+NN
+nS
 uP
 uP
 uP
@@ -3912,6 +5371,11 @@ uP
 uP
 uP
 uP
+nS
+nS
+nS
+nS
+nS
 uP
 uP
 uP
@@ -3921,23 +5385,17 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-Yl
-vL
-vL
-vL
-vL
-Am
-vL
-vL
-vL
-vL
-Yl
-uP
+Qd
+qE
+zP
+Le
+pt
+yy
+Fw
+eO
+UB
+KZ
+Qd
 uP
 uP
 uP
@@ -3947,13 +5405,14 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+nS
+NN
+NN
+NN
+NN
+iP
+nS
 uP
 uP
 uP
@@ -3965,6 +5424,9 @@ uP
 uP
 uP
 uP
+nS
+nS
+nS
 uP
 uP
 uP
@@ -3975,20 +5437,17 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-Ah
-WH
-WH
-WH
-WH
+Qd
+ws
+XT
+mv
+RS
 cG
-WH
-WH
-WH
-WH
-Ah
+Au
+cc
+mc
+KZ
+Qd
 uP
 uP
 uP
@@ -3999,13 +5458,13 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+NN
+NN
+iP
+iP
+nS
 uP
 uP
 uP
@@ -4028,19 +5487,21 @@ uP
 uP
 uP
 uP
-uP
-uP
-Qd
-qE
-zP
-qF
-uy
+WH
+WH
+Ah
+UX
+tv
+yz
+Cr
 gO
-yu
-ny
-CV
-KZ
-Qd
+AK
+UU
+aL
+xk
+Ah
+WH
+WH
 uP
 uP
 uP
@@ -4049,14 +5510,12 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+nS
+NN
+nv
+NN
+iP
+nS
 uP
 uP
 uP
@@ -4079,27 +5538,23 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-Qd
-qE
-zP
-wu
-MF
-Sh
-fx
-fx
-mc
-KZ
-Qd
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+WH
+WH
+WH
+WH
+HM
+La
+La
+La
+qs
+La
+La
+La
+Jy
+WH
+WH
+WH
+WH
 uP
 uP
 uP
@@ -4108,6 +5563,10 @@ uP
 uP
 uP
 uP
+nS
+nS
+nS
+nS
 uP
 uP
 uP
@@ -4130,25 +5589,25 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-Qd
-gF
-CV
-Ny
-Le
-yy
-Fw
-fx
-mc
-KZ
-Qd
-uP
-uP
-uP
-uP
+WH
+WH
+dQ
+dQ
+WH
+Vs
+HN
+Ry
+MS
+Bj
+mF
+Ry
+JH
+nW
+WH
+dQ
+dQ
+WH
+WH
 uP
 uP
 uP
@@ -4182,25 +5641,25 @@ uP
 uP
 uP
 uP
-uP
-uP
-uP
-uP
-Qd
-gF
-wu
-gz
+WH
+pF
+TJ
+RD
+FX
+sH
+UR
+Ry
+MS
+pD
+mF
+Ry
+vj
+sp
+ak
+RW
+oI
 pO
-Qn
-pO
-cc
-mc
-KZ
-Qd
-uP
-uP
-uP
-uP
+WH
 uP
 uP
 uP
@@ -4234,25 +5693,25 @@ uP
 uP
 uP
 uP
-uP
-uP
 WH
-WH
-Ah
-dG
-iw
 Nu
-AK
-fx
-AK
-UU
-aL
-wt
-Ah
+RD
+ZW
 WH
+JY
+Hu
+Ry
+MS
+Bj
+mF
+Ry
+Vp
+mH
 WH
-uP
-uP
+TJ
+yN
+IX
+WH
 uP
 uP
 uP
@@ -4286,25 +5745,25 @@ uP
 uP
 uP
 uP
-uP
 WH
+RN
+XO
+kL
 WH
-WH
-WH
-HM
+Xi
 La
 La
 La
-qs
 La
 La
 La
-oj
+La
+qu
 WH
+EA
+vz
+MK
 WH
-WH
-WH
-uP
 uP
 uP
 uP
@@ -4332,7 +5791,7 @@ uP
 uP
 uP
 uP
-uP
+yV
 uP
 uP
 uP
@@ -4340,21 +5799,21 @@ uP
 uP
 WH
 WH
-hN
-hN
 WH
-Vs
-HN
-Ry
-MS
-Bj
-mF
-Ry
-aV
-tn
 WH
-hN
-hN
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
 WH
 WH
 uP
@@ -4390,24 +5849,20 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
+uP
 WH
-vH
-mj
-FC
-ti
-sH
-UR
-Ry
-MS
-pD
-mF
-Ry
-Zu
-XO
-jW
-NG
-Cg
-Il
+he
+kP
+he
+kP
+WH
+he
+kP
+he
+kP
 WH
 uP
 uP
@@ -4421,6 +5876,10 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
+yV
 uP
 uP
 uP
@@ -4442,25 +5901,25 @@ uP
 uP
 uP
 uP
+uP
+uP
+uP
+uP
 WH
-eC
-FC
-ab
+he
+he
+he
+he
 WH
-JY
-Hu
-Ry
-MS
-Bj
-mF
-Ry
-Oq
-mH
+he
+he
+he
+he
 WH
-mj
-bQ
-eO
-WH
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -4494,25 +5953,25 @@ uP
 uP
 uP
 uP
-WH
-pa
-UF
-Rm
-WH
-Xi
-La
-La
-La
-La
-La
-La
-La
-qu
-WH
-Mz
-ut
-Lj
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -4546,25 +6005,25 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+yV
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 uP
 uP
 uP
@@ -4602,110 +6061,6 @@ uP
 uP
 uP
 uP
-WH
-he
-kP
-he
-kP
-WH
-he
-kP
-he
-kP
-WH
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-"}
-(65,1,1) = {"
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-WH
-he
-he
-he
-he
-WH
-he
-he
-he
-he
-WH
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-"}
-(66,1,1) = {"
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
 uP
 uP
 uP
@@ -4740,163 +6095,7 @@ uP
 uP
 uP
 "}
-(67,1,1) = {"
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-"}
-(68,1,1) = {"
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-"}
-(69,1,1) = {"
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-"}
-(70,1,1) = {"
+(65,1,1) = {"
 uP
 uP
 uP
