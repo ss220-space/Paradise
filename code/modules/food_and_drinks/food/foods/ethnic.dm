@@ -161,7 +161,20 @@
 	name = "tofu-kabob"
 	icon_state = "kabob"
 	desc = "Vegan meat, on a stick."
-	trash = /obj/item/stack/rods
+	trash = /obj/item/stack/
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
 	foodtype = VEGETABLES | FRIED
+
+//////////////////////////////////
+//	North-Eastern Mediterranean	//
+//////////////////////////////////
+
+/obj/item/reagent_containers/food/snacks/shawarma
+	name = "shawarma"
+	desc = "Awesome mix of grilled meat and fresh vegetables. Don't ask about meat."
+	icon_state = "shawarma"
+	filling_color = "#c0720c"
+	list_reagents = list("nutriment" = 8, "msg" = 2, "vitamin" = 4, "tomatojuice" = 5)
+	tastes = list("meat" = 3, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = MEAT | VEGETABLES

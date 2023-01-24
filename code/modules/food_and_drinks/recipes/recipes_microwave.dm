@@ -664,6 +664,19 @@
 	items = list(/obj/item/reagent_containers/food/snacks/grown/potato)
 	result = /obj/item/reagent_containers/food/snacks/mashed_potatoes
 
+/datum/recipe/microwave/shawarma
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meatsteak,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage,
+		/obj/item/reagent_containers/food/snacks/onion_slice,
+		/obj/item/reagent_containers/food/snacks/grown/tomato,
+		/obj/item/reagent_containers/food/snacks/grown/carrot,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough
+	)
+	result = /obj/item/reagent_containers/food/snacks/shawarma
+
+
 //////////////////////////////////////////
 // bs12 food port stuff
 //////////////////////////////////////////
