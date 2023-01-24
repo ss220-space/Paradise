@@ -245,8 +245,8 @@
 			adminwho += ", [C]"
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`reason`,`role`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `unbanned_round_id`)
-		VALUES (null, Now(), :server_ip, :server_port, :reason, :role, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`reason`,`role`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`server`)
+		VALUES (null, Now(), :server_ip, :server_port, :reason, :role, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', :server_name)
 	"}, list(
 		// Get ready for parameters
 		"server_ip" = server_ip,
@@ -263,7 +263,8 @@
 		"a_computerid" = a_computerid,
 		"a_ip" = a_ip,
 		"who" = who,
-		"adminwho" = adminwho
+		"adminwho" = adminwho,
+		"server_name" = sqlbansservername
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)

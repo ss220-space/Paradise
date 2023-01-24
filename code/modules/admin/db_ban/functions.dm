@@ -155,8 +155,8 @@
 
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`role`,`reason`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `unbanned_round_id`)
-		VALUES (null, Now(), :server_ip, :server_port, :role, :reason, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		INSERT INTO [sqlfdbkdbutil].[format_table_name("ban")] (`id`,`bantime`,`server_ip`,`server_port`,`role`,`reason`,`round_id`,`expiration_time`, `applies_to_admins`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`server`)
+		VALUES (null, Now(), :server_ip, :server_port, :role, :reason, :round_id, [duration ? "Now() + INTERVAL :duration MINUTE" : "null"], :applies_to_admins, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', :server_name)
 	"}, list(
 		// Get ready for parameters
 		"server_ip" = server_ip,
@@ -173,7 +173,8 @@
 		"a_computerid" = a_computerid,
 		"a_ip" = a_ip,
 		"who" = who,
-		"adminwho" = adminwho
+		"adminwho" = adminwho,
+		"server_name" = sqlbansservername
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)
@@ -201,6 +202,10 @@
 
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		return
+
+	if(!sqlbansmodifyfrom.len)
+		to_chat(usr, "<span class='boldannounce'>This server not allowed to edit any bans!</span>")
 		return
 
 	var/bantype_str
@@ -247,7 +252,7 @@
 	var/list/sql_params = list(
 		"ckey" = ckey
 	)
-	var/sql = "SELECT id FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE ckey=:ckey AND (unbanned_datetime is null)"
+	var/sql = "SELECT id FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE ckey=:ckey AND (unbanned_datetime is null) AND (server IN ('[jointext(sqlbansmodifyfrom, "','")]'))"
 	if(bantype_str == "ANY")
 		sql += " AND (isnull(expiration_time) OR expiration_time > Now())"
 	else
@@ -299,7 +304,11 @@
 		to_chat(usr, "Cancelled")
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, expiration_time, reason, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE id=:banid", list(
+	if(!sqlbansmodifyfrom.len)
+		to_chat(usr, "<span class='boldannounce'>This server not allowed to edit any bans!</span>")
+		return
+
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, expiration_time, reason, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE id=:banid  AND (server IN ('[jointext(sqlbansmodifyfrom, "','")]'))", list(
 		"banid" = banid
 	))
 	if(!query.warn_execute())
@@ -386,10 +395,14 @@
 		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
 		return
 
+	if(!sqlbansmodifyfrom.len)
+		to_chat(usr, "<span class='boldannounce'>This server not allowed to edit any bans!</span>")
+		return
+
 	var/ban_number = 0 //failsafe
 
 	var/pckey
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE id=:banid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE id=:banid  AND (server IN ('[jointext(sqlbansmodifyfrom, "','")]'))", list(
 		"banid" = id
 	))
 	if(!query.warn_execute())
@@ -454,6 +467,10 @@
 
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
+		return
+
+	if(!sqlbansreadfrom.len)
+		to_chat(usr, "<span class='boldannounce'>This server not allowed to display any bans!</span>")
 		return
 
 	var/output = {"<meta charset="UTF-8"><div align='center'><table width='90%'><tr>"}
@@ -599,8 +616,8 @@
 
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
-				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, INET_NTOA(ip), computerid, applies_to_admins
-				FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
+				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, INET_NTOA(ip), computerid, applies_to_admins, server
+				FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE (server IN ('[jointext(sqlbansreadfrom, "','")]')) [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
 				qdel(select_query)
@@ -620,7 +637,9 @@
 				var/ip = select_query.item[11]
 				var/cid = select_query.item[12]
 				var/applies_to_admins = select_query.item[13]
+				var/server_name = select_query.item[14]
 
+				var/can_edit = sqlbansmodifyfrom.Find(server_name)
 				var/lcolor = blcolor
 				var/dcolor = bdcolor
 				if(unbantime)
@@ -633,7 +652,9 @@
 
 				ban_titles.Add(isnull(expiration) ? "PERMABAN" : "TEMPBAN")
 
-				if (role != "Server" && role != "Appearance")
+				if(role == "Appearance")
+					ban_titles.Add("APPEARANCEBAN")
+				else if (role != "Server")
 					ban_titles.Add("JOBBAN")
 
 				var/ban_title_text = ban_titles.Join(" ")
@@ -641,21 +662,21 @@
 				if (isnull(expiration))
 					typedesc += "<font color='red'><b>[ban_title_text]</b></font>"
 				else
-					typedesc += "<b>[ban_title_text]</b><br><font size='2'>[role]<br>[(unbantime) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
+					typedesc += "<b>[ban_title_text]</b><br><font size='2'>[role]<br>[(unbantime || !can_edit) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
 
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"
 				output += "<td align='center'><b>[ckey]</b></td>"
 				output += "<td align='center'>[bantime]</td>"
 				output += "<td align='center'><b>[ackey]</b></td>"
-				output += "<td align='center'>[(unbantime) ? "" : "<b><a href=\"byond://?src=[UID()];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b>"]</td>"
+				output += "<td align='center'>[(unbantime || !can_edit) ? "" : "<b><a href=\"byond://?src=[UID()];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b>"]</td>"
 				output += "</tr>"
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center' colspan='2' bgcolor=''><b>IP:</b> [ip]</td>"
 				output += "<td align='center' colspan='3' bgcolor=''><b>CID:</b> [cid]</td>"
 				output += "</tr>"
 				output += "<tr bgcolor='[lcolor]'>"
-				output += "<td align='center' colspan='5'><b>Reason: [(unbantime) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=reason;dbbanid=[banid]\">Edit</a>)"]</b> <cite>\"[reason]\"</cite></td>"
+				output += "<td align='center' colspan='5'><b>Reason: [(unbantime || !can_edit) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=reason;dbbanid=[banid]\">Edit</a>)"]</b> <cite>\"[reason]\"</cite></td>"
 				output += "</tr>"
 				if(edits)
 					output += "<tr bgcolor='[dcolor]'>"

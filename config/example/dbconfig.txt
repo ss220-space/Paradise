@@ -47,3 +47,18 @@ ASYNC_QUERY_TIMEOUT 10
 
 ## The maximum number of additional threads Rust SQL is allowed to run at once
 RUST_SQL_THREAD_LIMIT 50
+
+# Server name for bans that this server issued
+BANS_SERVER_NAME main
+
+# Apply bans from this servers, separated by comma, WITHOUT spaces
+APPLY_BANS_FROM main,secondary
+
+# Bans that will displayed in ban panel, separated by comma, WITHOUT spaces
+READ_BANS_FROM main,secondary
+
+# Bans that will be allowed to edit in ban panel, separated by comma, WITHOUT spaces
+MODIFY_BANS_FROM main
+
+# Apply bans that flagged as global, uncomment to enable
+APPLY_GLOBAL_BANS

@@ -1031,6 +1031,16 @@
 				async_sql_query_timeout = text2num(value)
 			if("rust_sql_thread_limit")
 				config.rust_sql_thread_limit = text2num(value)
+			if("bans_server_name")
+				sqlbansservername = value
+			if("apply_bans_from")
+				sqlbansapplyfrom = splittext(value, ",")
+			if("read_bans_from")
+				sqlbansreadfrom = splittext(value, ",")
+			if("modify_bans_from")
+				sqlbansmodifyfrom = splittext(value, ",")
+			if("apply_global_bans")
+				sqlbansapplyfrom = TRUE
 			else
 				log_config("Unknown setting in configuration: '[name]'")
 

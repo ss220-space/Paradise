@@ -88,7 +88,7 @@
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
 		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, bantime, applies_to_admins FROM [sqlfdbkdbutil].[format_table_name("ban")]
-		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND role = 'Server' AND (isnull(expiration_time) OR (expiration_time > Now())) AND isnull(unbanned_datetime)"}, sql_query_params)
+		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (0 OR [sqlbansapplyfrom.len ? "server IN ('[jointext(sqlbansapplyfrom, "','")]')" : ""] [sqlbansapplyglobal ? "OR is_global = '1'" : ""]) AND role = 'Server' AND (isnull(expiration_time) OR (expiration_time > Now())) AND isnull(unbanned_datetime)"}, sql_query_params)
 
 		if(!query.warn_execute())
 			message_admins("Failed to do a DB ban check for [ckeytext]. You have been warned.")
