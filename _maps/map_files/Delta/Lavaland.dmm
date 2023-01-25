@@ -8214,6 +8214,20 @@
 	icon_state = "clockwork_floor"
 	},
 /area/lavaland/surface/outdoors/necropolis)
+"YI" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "YJ" = (
 /obj/machinery/door/airlock{
 	name = "Labor Camp Storage"
@@ -37937,7 +37951,7 @@ qS
 RD
 mS
 no
-XW
+YI
 hG
 RD
 RD

@@ -4976,6 +4976,20 @@
 	icon_state = "barber"
 	},
 /area/mine/laborcamp)
+"sQ" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "sR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -37048,7 +37062,7 @@ gS
 oG
 mS
 tY
-Nk
+sQ
 XC
 oG
 oG
