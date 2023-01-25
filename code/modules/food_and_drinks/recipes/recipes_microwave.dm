@@ -668,6 +668,7 @@
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meatsteak,
+		/obj/item/reagent_containers/food/snacks/meatsteak,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage,
 		/obj/item/reagent_containers/food/snacks/onion_slice,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -676,6 +677,47 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/shawarma
 
+/datum/recipe/microwave/doner_cheese
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meatsteak,
+		/obj/item/reagent_containers/food/snacks/meatsteak,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage,
+		/obj/item/reagent_containers/food/snacks/grown/tomato,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough
+	)
+	result = /obj/item/reagent_containers/food/snacks/doner_cheese
+
+/datum/recipe/microwave/doner_mushroom
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meatsteak,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage,
+		/obj/item/reagent_containers/food/snacks/onion_slice,
+		/obj/item/reagent_containers/food/snacks/grown/tomato,
+		/obj/item/reagent_containers/food/snacks/grown/carrot,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough
+	)
+	result = /obj/item/reagent_containers/food/snacks/doner_mushroom
+
+/datum/recipe/microwave/doner_vegan
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/cabbage,
+		/obj/item/reagent_containers/food/snacks/onion_slice,
+		/obj/item/reagent_containers/food/snacks/onion_slice,
+		/obj/item/reagent_containers/food/snacks/grown/tomato,
+		/obj/item/reagent_containers/food/snacks/grown/tomato,
+		/obj/item/reagent_containers/food/snacks/grown/carrot,
+		/obj/item/reagent_containers/food/snacks/grown/carrot,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough
+	)
+	result = /obj/item/reagent_containers/food/snacks/doner_vegan
 
 //////////////////////////////////////////
 // bs12 food port stuff

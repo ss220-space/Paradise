@@ -175,6 +175,33 @@
 	desc = "Awesome mix of grilled meat and fresh vegetables. Don't ask about meat."
 	icon_state = "shawarma"
 	filling_color = "#c0720c"
-	list_reagents = list("nutriment" = 8, "msg" = 2, "vitamin" = 4, "tomatojuice" = 5)
+	list_reagents = list("protein" = 4, "nutriment" = 4, "vitamin" = 2, "tomatojuice" = 4)
 	tastes = list("meat" = 3, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
 	foodtype = MEAT | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/doner_cheese
+	name = "cheese doner"
+	desc = "Chef's special - grilled meat and fresh vegetables with warm cheese sause. Yummy!"
+	icon_state = "doner_cheese"
+	filling_color = "#c0720c"
+	list_reagents = list("protein" = 4, "nutriment" = 6, "vitamin" = 2, "tomatojuice" = 4)
+	tastes = list("meat" = 3, "cheese" = 2, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = MEAT | DAIRY | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/doner_mushroom
+	name = "mushroom doner"
+	desc = "Grilled meat and fresh vegetables. You can see some mushrooms too."
+	icon_state = "doner_mushroom"
+	filling_color = "#c0720c"
+	list_reagents = list("protein" = 4, "nutriment" = 4, "plantmatter" = 2, "vitamin" = 2, "tomatojuice" = 4)
+	tastes = list("meat" = 3, "mushrooms" = 2, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = MEAT | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/doner_vegan
+	name = "vegan doner"
+	desc = "Fresh vegetables wrapped in a long roll. No meat included!"
+	icon_state = "doner_vegan"
+	filling_color = "#c0720c"
+	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "vitamin" = 4, "tomatojuice" = 8)
+	tastes = list("vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = VEGETABLES
