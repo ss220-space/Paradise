@@ -1822,12 +1822,14 @@
 		)
 
 	contraband = list(
-		/obj/item/clothing/under/syndicate/tacticool = 3,
 		/obj/item/clothing/under/pants/camo		= 5,	//Pants contraband...
 		/obj/item/clothing/suit/jacket 			= 2,
 		/obj/item/clothing/suit/jacket/leather	= 2,
 		/obj/item/clothing/suit/jacket/leather/overcoat	= 1,
 		/obj/item/clothing/suit/jacket/motojacket	= 1,
+		/obj/item/clothing/mask/gas/clown_hat 			= 5,
+		/obj/item/clothing/under/rank/security/clown 	= 5,	//Honktraband
+		/obj/item/clothing/shoes/clown_shoes 			= 5,
 		)
 
 	premium = list(
