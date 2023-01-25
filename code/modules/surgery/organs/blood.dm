@@ -159,29 +159,16 @@
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
-			if((blood_id == "blood") || (blood_id == "sbloodoxy") || (blood_id == "sbloodvox")) //normal blood
+			if(blood_id == "blood") //normal blood
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(blood_id == "blood")
-					if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
-						C.reagents.add_reagent("toxin", amount * 0.5)
-						return 1
-				if(blood_id == "sbloodoxy")
-					if(C.dna.species.blood_species == "Vox")
-						C.reagents.add_reagent("toxin", amount * 0.5)
-						if(C.stat != DEAD)
-							C.adjustOxyLoss(4)
-						return 1
-				if(blood_id == "sbloodvox")
-					if(!(C.dna.species.blood_species == "Vox"))
-						C.reagents.add_reagent("toxin", amount * 0.5)
-						if(C.stat != DEAD)
-							C.adjustOxyLoss(4)
-						return 1
+				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
+					C.reagents.add_reagent("toxin", amount * 0.5)
+					return 1
 
 			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
 			return 1
