@@ -827,6 +827,7 @@
 /obj/item/storage/box/pillbottles
 	name = "box of pill bottles"
 	desc = "It has pictures of pill bottles on its front."
+	icon_state = "pillbox"
 
 /obj/item/storage/box/pillbottles/New()
 	..()
