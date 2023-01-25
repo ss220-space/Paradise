@@ -313,8 +313,9 @@
 	id = "ipc_ship"
 	suffix = "ipcship.dmm"
 	name = "IPC Ship"
-	description = "..."
-	cost = 4
+	description = "By a strange and unfortunate coincidence, the ship of the Union of Synthetics during a rescue operation came under the influence of a solar flare. \
+		After long wanderings over space, the ghost ship collided with an asteroid..."
+	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
 	allow_duplicates = FALSE
 
 /* Старый код для добавления Тайпана. Оставлено на всякий случай

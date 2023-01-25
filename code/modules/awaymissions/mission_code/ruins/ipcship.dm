@@ -45,7 +45,7 @@
 /datum/outfit/ipc_corpse
 	name = "IPC corpse"
 	uniform = /obj/item/clothing/under/misc/durathread
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/rainbow
 	back = /obj/item/storage/backpack/duffel/durathread
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
@@ -61,6 +61,7 @@
 	mob_type = /mob/living/simple_animal/hostile/headcrab
 	death = TRUE
 	name = "Dead headcrab"
+	desc = "A small dead parasitic creature that would like to connect with your brain stem."
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab_dead"
 
@@ -68,5 +69,31 @@
 /obj/machinery/power/apc/discharged
 	locked = 0
 	start_charge = 0
+	operating = 0
 	report_power_alarm = FALSE
 	req_access = FALSE
+
+/obj/item/mmi/robotic_brain/positronic/decorative
+	name = "positronic brain"
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "posibrain"
+	blank_icon = "posibrain"
+	searching_icon = "posibrain-searching"
+	occupied_icon = "posibrain-occupied"
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
+	silenced = TRUE
+	requires_master = FALSE
+	ejected_flavor_text = "metal cube"
+	dead_icon = "posibrain"
+	searching = FALSE
+
+/obj/machinery/power/supermatter_shard/anchored
+	anchored = TRUE
+
+/obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/W as obj, mob/living/user as mob, params)
+	if(istype(W,/obj/item/wrench))
+		if(!anchored)
+			user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] the tool disappears</span>")
+		else
+			consume_wrench(W)
+		user.apply_effect(150, IRRADIATE)
