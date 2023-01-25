@@ -174,13 +174,13 @@
 					if(C.dna.species.blood_species == "Vox")
 						C.reagents.add_reagent("toxin", amount * 0.5)
 						if(C.stat != DEAD)
-							C.adjustOxyLoss(5)
+							C.adjustOxyLoss(4)
 						return 1
 				if(blood_id == "sbloodvox")
 					if(!(C.dna.species.blood_species == "Vox"))
 						C.reagents.add_reagent("toxin", amount * 0.5)
 						if(C.stat != DEAD)
-							C.adjustOxyLoss(5)
+							C.adjustOxyLoss(4)
 						return 1
 
 			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)

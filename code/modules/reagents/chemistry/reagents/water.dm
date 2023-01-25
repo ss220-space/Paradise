@@ -204,7 +204,7 @@
 			if(!data || !(C.dna.species.blood_species == "Vox"))
 				C.reagents.add_reagent("toxin", volume * 0.5)
 				if(C.stat != DEAD)
-					C.adjustOxyLoss(5)
+					C.adjustOxyLoss(4)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
@@ -223,7 +223,7 @@
 			if(!data || C.dna.species.blood_species == "Vox")
 				C.reagents.add_reagent("toxin", volume * 0.5)
 				if(C.stat != DEAD)
-					C.adjustOxyLoss(5)
+					C.adjustOxyLoss(4)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
