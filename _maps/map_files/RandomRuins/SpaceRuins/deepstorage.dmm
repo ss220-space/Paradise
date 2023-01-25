@@ -186,17 +186,17 @@
 /area/ruin/unpowered)
 "ap" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "aq" = (

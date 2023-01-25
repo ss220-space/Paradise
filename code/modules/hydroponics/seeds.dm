@@ -169,7 +169,7 @@
 
 		var/list/data = null
 		if(rid == "blood") // Hack to make blood in plants always O-
-			data = list("blood_type" = "O-")
+			data = list("blood_type" = "O-", "blood_species" = "Human")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
 			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))

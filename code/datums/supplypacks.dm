@@ -945,13 +945,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Blood Pack Variety Crate"
 	contains = list(/obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
-	cost = 35
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis)
+	cost = 140
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
 
