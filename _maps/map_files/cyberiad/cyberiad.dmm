@@ -51681,9 +51681,6 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
@@ -52635,9 +52632,6 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
@@ -61811,13 +61805,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/machinery/ai_status_display{
 	pixel_y = -32;
@@ -98082,9 +98070,6 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
