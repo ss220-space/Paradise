@@ -190,7 +190,7 @@
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
 	desc = "A box full of empty IV bags."
-	icon_state = "beaker"
+	icon_state = "iv_bags"
 
 /obj/item/storage/box/iv_bags/New()
 	..()
@@ -842,6 +842,7 @@
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
 	desc = "It has pictures of patch packs on its front."
+	icon_state = "patch_packs"
 
 /obj/item/storage/box/patch_packs/New()
 	..()
