@@ -157,7 +157,6 @@
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "aan" = (
-/obj/structure/flora/ausbushes/lavendergrass,
 /mob/living/simple_animal/chicken{
 	name = "Commander Clucky"
 	},
@@ -7351,9 +7350,30 @@
 	},
 /area/hallway/secondary/entry/commercial)
 "aXx" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall,
-/area/hydroponics)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8;
+	icon_state = "pipe-j2s";
+	name = "Hydroponics Junction";
+	sortType = 21
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "aXA" = (
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/carpet,
@@ -7849,6 +7869,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -16865,6 +16888,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17329,28 +17353,6 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/theatre)
-"bTo" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "bTs" = (
 /obj/machinery/computer/monitor,
 /obj/effect/decal/warning_stripes/north,
@@ -40814,12 +40816,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start{
 	name = "Botanist"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -40868,6 +40873,10 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53976,22 +53985,17 @@
 /area/maintenance/fpmaint)
 "fOr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/maintenance{
+	name = "Hydroponics Maintenance";
+	req_access_txt = "35"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 8;
-	icon_state = "pipe-j2s";
-	name = "Hydroponics Junction";
-	sortType = 21
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "fOC" = (
@@ -57416,20 +57420,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"gCs" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/maintenance{
-	name = "Hydroponics Maintenance";
-	req_access_txt = "35"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "gCu" = (
 /obj/machinery/air_sensor{
 	id_tag = "mix_sensor"
@@ -59522,7 +59512,6 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -168547,8 +168536,8 @@ dcC
 egD
 aOs
 mzQ
-fOr
-aXx
+fQu
+baF
 gVO
 dHS
 dKX
@@ -169061,8 +169050,8 @@ dEG
 bEs
 cup
 mzQ
-bTo
-gCs
+aXx
+fOr
 bQT
 dHY
 bWS
