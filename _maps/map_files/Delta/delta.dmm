@@ -16808,14 +16808,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
 /obj/effect/landmark/start{
 	name = "Captain"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/toilet/captain_toilet{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -73819,10 +73819,10 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/item/bikehorn/rubberducky/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

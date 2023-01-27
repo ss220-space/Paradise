@@ -10487,6 +10487,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/mob/living/simple_animal/pet/cat/Iriska,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -27116,11 +27118,11 @@
 	},
 /area/hallway/primary/central/north)
 "bhi" = (
-/obj/structure/statue/bananium/clown,
 /obj/machinery/camera{
 	c_tag = "Clown's Office";
 	dir = 4
 	},
+/obj/structure/statue/bananium/clown/unique,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bhj" = (
@@ -27154,7 +27156,7 @@
 	c_tag = "Mime's Office";
 	dir = 4
 	},
-/obj/structure/statue/tranquillite/mime,
+/obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -42755,7 +42757,7 @@
 /turf/simulated/wall,
 /area/crew_quarters/captain/bedroom)
 "bOL" = (
-/obj/structure/toilet{
+/obj/structure/toilet/captain_toilet{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -43648,10 +43650,10 @@
 	dir = 4
 	},
 /obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
+/obj/item/bikehorn/rubberducky/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -48883,6 +48885,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -48913,6 +48916,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56320,6 +56324,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/hamster/Representative,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "coW" = (
@@ -85145,6 +85151,13 @@
 	icon_state = "escape"
 	},
 /area/maintenance/livingcomplex/hall)
+"fsD" = (
+/obj/structure/chair/sofa,
+/mob/living/simple_animal/goose/Scientist,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "fuG" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -93807,6 +93820,12 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"pwK" = (
+/obj/structure/bed/dogbed/pet,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "pwU" = (
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine,
@@ -98906,6 +98925,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/bar)
+"viH" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "viL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/xeno,
@@ -100445,6 +100470,18 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
+"wKE" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+/turf/simulated/floor/wood,
+/area/library)
 "wKS" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -100600,6 +100637,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"wSu" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "wTJ" = (
 /obj/machinery/vending/hydronutrients,
 /obj/effect/decal/cleanable/dirt,
@@ -144342,7 +144385,7 @@ bQK
 bHX
 bpD
 bWj
-bLR
+pwK
 bWc
 cbf
 ccT
@@ -144856,7 +144899,7 @@ bUl
 bVC
 bRU
 bWj
-bLR
+fsD
 bWc
 cbf
 ccV
@@ -145113,7 +145156,7 @@ bUN
 bVA
 bRU
 bWj
-bLR
+viH
 bWc
 cbf
 ccU
@@ -146372,7 +146415,7 @@ bax
 bcj
 bep
 bfT
-bkQ
+wKE
 bjF
 bll
 bcp
@@ -146398,7 +146441,7 @@ bRl
 bVD
 bIa
 bIa
-bLR
+wSu
 bWn
 cbj
 ceL
