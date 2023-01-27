@@ -73,20 +73,6 @@
 	report_power_alarm = FALSE
 	req_access = FALSE
 
-/obj/item/mmi/robotic_brain/positronic/decorative
-	name = "positronic brain"
-	icon = 'icons/obj/assemblies.dmi'
-	icon_state = "posibrain"
-	blank_icon = "posibrain"
-	searching_icon = "posibrain-searching"
-	occupied_icon = "posibrain-occupied"
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
-	silenced = TRUE
-	requires_master = FALSE
-	ejected_flavor_text = "metal cube"
-	dead_icon = "posibrain"
-	searching = FALSE
-
 /obj/machinery/power/supermatter_shard/anchored
 	name = "Well anchored supermatter shard"
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. Apparently the structure is attached to the surface with industrial equipment, it cannot be unanchored with simple equipment. <span class='danger'>You get headaches just from looking at it.</span>"
