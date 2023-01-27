@@ -293,7 +293,7 @@
 /area/ruin/space/ipcship/aft)
 "dQ" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/machinery/door/window,
+/obj/machinery/door/window/survival_pod,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/ipcship/engine)
 "ea" = (
@@ -1070,15 +1070,15 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/ipcship/asteroid)
 "rH" = (
-/obj/item/gps/ruin{
-	pixel_x = -33
-	},
 /obj/structure/table,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/spacevine,
 /obj/effect/mob_spawn/headcrab,
+/obj/item/gps/ruin{
+	pixel_x = -33
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ipcship/aft)
 "rQ" = (
@@ -2461,7 +2461,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ipcship/aft)
 "Nn" = (
-/obj/structure/holowindow{
+/obj/structure/window/reinforced/survival_pod{
 	dir = 4;
 	layer = 1.9
 	},
