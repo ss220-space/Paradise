@@ -309,10 +309,10 @@
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
 
-/datum/map_template/ruin/space/ipcship
-	id = "ipc_ship"
-	suffix = "ipcship.dmm"
-	name = "IPC Ship"
+/datum/map_template/ruin/space/crashedipcship
+	id = "crashed_ipc_ship"
+	suffix = "crashedipcship.dmm"
+	name = "Crashed IPC Ship"
 	description = "By a strange and unfortunate coincidence, the ship of the Union of Synthetics during a rescue operation came under the influence of a solar flare. \
 		After long wanderings over space, the ghost ship collided with an asteroid..."
 	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions

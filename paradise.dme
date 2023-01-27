@@ -1478,7 +1478,7 @@
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gasthelizards.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gps.dm"
-#include "code\modules\awaymissions\mission_code\ruins\ipcship.dm"
+#include "code\modules\awaymissions\mission_code\ruins\crashedipcship.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\spacehotelv1.dm"
 #include "code\modules\awaymissions\mission_code\ruins\wizardcrash.dm"
