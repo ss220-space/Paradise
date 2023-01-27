@@ -1667,11 +1667,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "aoS" = (
-/obj/effect/decal/warning_stripes/north,
 /obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
+	id_tag = "admin_home"
 	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "aoU" = (
@@ -6351,8 +6350,7 @@
 /area/quartermaster/office)
 "aRL" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
+	id_tag = "ferry_home"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -8537,11 +8535,10 @@
 	},
 /area/space)
 "bfF" = (
-/obj/effect/decal/warning_stripes/north,
 /obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+	id_tag = "specops_home"
 	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "bfL" = (
@@ -9837,8 +9834,7 @@
 /area/medical/virology/lab)
 "blv" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1
+	id_tag = "trade_dock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -33236,6 +33232,11 @@
 "dex" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock"
+	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit/maint)
@@ -48961,16 +48962,6 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/ai)
-"eIy" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Security Escape Airlock";
-	req_access_txt = "1";
-	locked = 1
-	},
-/turf/simulated/floor/plating,
-/area/hallway/secondary/exit)
 "eIQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -58847,8 +58838,7 @@
 	hackProof = 1;
 	id_tag = "emergency_home";
 	name = "Security Escape Airlock";
-	req_access_txt = "1";
-	locked = 1
+	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -62780,14 +62770,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/mixing)
-"hJS" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/additional)
 "hJX" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -71344,8 +71326,7 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
+	name = "Escape Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -76386,14 +76367,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
-"kSK" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/additional)
 "kSR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -99057,6 +99030,12 @@
 	},
 /area/crew_quarters/theatre)
 "pMQ" = (
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Security Escape Airlock";
+	req_access_txt = "1"
+	},
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
@@ -99070,13 +99049,6 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
-	},
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Security Escape Airlock";
-	req_access_txt = "1";
-	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -116623,14 +116595,6 @@
 	icon_state = "grimy"
 	},
 /area/chapel/main)
-"tDv" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/additional)
 "tDB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -116915,6 +116879,11 @@
 /area/turret_protected/aisat_interior)
 "tGb" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock"
+	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -118703,17 +118672,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "tYi" = (
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock"
+	},
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -126115,6 +126083,11 @@
 /area/chapel/office)
 "vCC" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock"
+	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit/maint)
@@ -168749,8 +168722,8 @@ aaq
 aaq
 aaq
 dft
-kSK
-hJS
+aoS
+aoS
 dft
 abj
 abj
@@ -169264,7 +169237,7 @@ dft
 aFu
 dft
 aoS
-tDv
+aoS
 dft
 dft
 aFu
@@ -178164,7 +178137,7 @@ eXW
 ruH
 qpH
 iOD
-eIy
+jGz
 kUB
 jGz
 kUB
