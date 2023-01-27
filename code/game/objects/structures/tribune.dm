@@ -34,7 +34,6 @@
 		new buildstacktype(loc, buildstackamount)
 	..()
 
-
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"
 	icon = 'icons/obj/tribune.dmi'
