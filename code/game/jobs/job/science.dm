@@ -28,6 +28,7 @@
 
 	outfit = /datum/outfit/job/rd
 
+
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/rd
@@ -61,16 +62,17 @@
 	selection_color = "#ffeeff"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Student Scientist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 600
+	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
 
 	outfit = /datum/outfit/job/scientist
+
 
 /datum/outfit/job/scientist
 	name = "Scientist"
@@ -88,6 +90,41 @@
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
 
+/datum/job/scientist/student
+	title = "Student Scientist"
+	flag = JOB_SCIENTIST_STUDENT
+	total_positions = 5
+	spawn_positions = 3
+	department_head = list("Research Director", "Scientist")
+	selection_color = "#ffeeff"
+	alt_titles = list("Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate")
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
+	exp_max	= 600
+	exp_type_max = EXP_TYPE_SCIENCE
+	is_novice = TRUE
+	outfit = /datum/outfit/job/scientist/student
+
+/datum/outfit/job/scientist/student
+	name = "Student Scientist"
+	jobtype = /datum/job/scientist/student
+
+	uniform = /obj/item/clothing/under/rank/scientist/student
+	l_pocket = /obj/item/paper/deltainfo
+	id = /obj/item/card/id/research/student
+
+/datum/outfit/job/scientist/student/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/scientist/student/skirt
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Scientist Assistant")
+				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
+
+
 /datum/job/roboticist
 	title = "Roboticist"
 	flag = JOB_ROBOTICIST
@@ -102,8 +139,8 @@
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	alt_titles = list("Student Robotist","Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_SCIENCE
 
 	required_objectives = list(
 		/datum/job_objective/make_cyborg,

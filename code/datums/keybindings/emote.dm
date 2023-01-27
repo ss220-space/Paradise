@@ -131,7 +131,7 @@
 
 /datum/keybinding/emote/whimper
 	linked_emote ="whimper"
-	name = "Подмигнуть"
+	name = "Хныкать"
 
 /datum/keybinding/emote/carbon
 	category = KB_CATEGORY_EMOTE_CARBON
@@ -237,6 +237,10 @@
 /datum/keybinding/emote/carbon/human/cry
 	linked_emote ="cry"
 	name = "Плакать"
+
+/datum/keybinding/emote/carbon/human/whistle
+	linked_emote ="whistle"
+	name = "Свистеть"
 
 /*/datum/keybinding/emote/carbon/human/dap //commented in emote_panel_ru.dm
 	linked_emote ="dap
@@ -451,6 +455,14 @@
 /datum/keybinding/emote/silicon/no
 	linked_emote ="no"
 	name = "Отрицательно"
+
+/datum/keybinding/emote/silicon/law
+	linked_emote = "law"
+	name = "Law"
+
+/datum/keybinding/emote/silicon/halt
+	linked_emote = "halt"
+	name = "Halt"
 
 /datum/keybinding/emote/simple_animal
 	category = KB_CATEGORY_EMOTE_ANIMAL

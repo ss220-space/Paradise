@@ -42,12 +42,15 @@
 	var/is_medical
 	var/is_science
 	var/is_security
+	var/is_novice
 
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
 
 	var/exp_requirements = 0
 	var/exp_type = ""
+	var/exp_max = 0	//Max EXP, then hide
+	var/exp_type_max = ""
 
 	var/min_age_allowed = 0
 	var/disabilities_allowed = 1
@@ -282,3 +285,15 @@
 	if(!istype(player))
 		return FALSE
 	return is_job_whitelisted(player, title)
+
+
+/datum/job/proc/can_novice_play(client/C)
+	if(!is_novice)
+		return TRUE
+	if(exp_max && exp_type_max)
+		var/list/play_records = params2list(C.prefs.exp)
+		var/job_exp = text2num(play_records[exp_type_max])
+		var/job_requirement = text2num(exp_max)
+		if(job_exp >= job_requirement)
+			return FALSE
+	return TRUE
