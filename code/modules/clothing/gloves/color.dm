@@ -195,7 +195,6 @@
 	item_color="brown"
 
 /obj/item/clothing/gloves/color/brown/cargo
-	name = "cargo gloves"
 	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex

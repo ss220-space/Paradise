@@ -6006,7 +6006,8 @@
 	},
 /area/maintenance/bar)
 "aPA" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/structure/closet/wardrobe/red,
+/obj/item/clothing/suit/tracksuit/red,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -10272,7 +10273,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -24890,6 +24890,7 @@
 /area/hallway/secondary/entry)
 "czk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/engineering_electrical,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -24898,7 +24899,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/vending/clothing/departament/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29808,10 +29808,22 @@
 	},
 /area/medical/sleeper)
 "cRk" = (
+/obj/structure/closet/wardrobe/medic_white,
+/obj/item/clothing/head/surgery/blue,
+/obj/item/clothing/head/surgery/blue,
+/obj/item/clothing/head/surgery/green,
+/obj/item/clothing/head/surgery/green,
+/obj/item/clothing/head/surgery/purple,
+/obj/item/clothing/head/surgery/purple,
+/obj/item/clothing/suit/storage/fr_jacket,
+/obj/item/clothing/suit/storage/fr_jacket,
+/obj/item/clothing/under/rank/medical/blue,
+/obj/item/clothing/under/rank/medical/green,
+/obj/item/clothing/under/rank/medical/purple,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/clothing/departament/medical,
+/obj/item/clothing/head/beret/med,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
@@ -35031,9 +35043,7 @@
 	},
 /area/maintenance/starboard)
 "dle" = (
-/obj/structure/table/reinforced,
-/obj/item/hand_labeler,
-/obj/item/storage/fancy/donut_box,
+/obj/structure/closet/wardrobe/cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -38755,13 +38765,12 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/emcloset,
 /obj/machinery/camera{
 	c_tag = "Cargo Personal Corner";
 	dir = 4;
 	pixel_y = -27
 	},
-/obj/machinery/vending/clothing/departament/cargo,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -39453,13 +39462,13 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/serviceyard)
 "dCL" = (
+/obj/structure/closet/secure_closet/scientist,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/clothing/departament/science,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -42959,6 +42968,11 @@
 	icon_state = "browncorner"
 	},
 /area/hallway/primary/fore)
+"dQC" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/wardrobe/trainee_yellow,
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "dQD" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/engineering_personal,
@@ -48278,7 +48292,8 @@
 	},
 /area/turret_protected/ai)
 "eAt" = (
-/obj/machinery/vending/security,
+/obj/structure/closet/redcorp,
+/obj/item/clothing/suit/tracksuit/red,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -52712,6 +52727,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -76256,7 +76272,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/closet/wardrobe/student,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -80160,6 +80176,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -85145,7 +85162,9 @@
 	dir = 8;
 	pixel_x = 27
 	},
-/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/color/black,
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -113718,7 +113737,15 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "sUp" = (
-/obj/machinery/vending/clothing/departament/law,
+/obj/structure/closet/lawcloset,
+/obj/item/clothing/under/rank/internalaffairs,
+/obj/item/clothing/under/rank/internalaffairs,
+/obj/item/clothing/suit/storage/internalaffairs,
+/obj/item/clothing/suit/storage/internalaffairs,
+/obj/item/clothing/accessory/lawyers_badge,
+/obj/item/clothing/accessory/lawyers_badge,
+/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "sUw" = (
@@ -127533,7 +127560,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/closet/wardrobe/intern_white,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -135951,20 +135978,9 @@
 /area/medical/medbay)
 "xHY" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/wardrobe/engineering_yellow,
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/northwest,
-/obj/structure/rack,
-/obj/item/stack/cable_coil{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 1
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 6;
-	pixel_y = -2
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -161389,7 +161405,7 @@ mrH
 tdv
 tPh
 dDP
-dQD
+dQC
 tXp
 uXS
 nnT
