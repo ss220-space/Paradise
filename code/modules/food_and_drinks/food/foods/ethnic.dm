@@ -161,7 +161,7 @@
 	name = "tofu-kabob"
 	icon_state = "kabob"
 	desc = "Vegan meat, on a stick."
-	trash = /obj/item/stack/
+	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
 	foodtype = VEGETABLES | FRIED
