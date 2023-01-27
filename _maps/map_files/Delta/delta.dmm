@@ -1667,10 +1667,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "aoS" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home"
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_home";
+	locked = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "aoU" = (
@@ -6005,8 +6006,7 @@
 	},
 /area/maintenance/bar)
 "aPA" = (
-/obj/structure/closet/wardrobe/red,
-/obj/item/clothing/suit/tracksuit/red,
+/obj/machinery/vending/clothing/departament/security,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -6350,7 +6350,8 @@
 /area/quartermaster/office)
 "aRL" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ferry_home"
+	id_tag = "ferry_home";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -8535,10 +8536,11 @@
 	},
 /area/space)
 "bfF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home"
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_home";
+	locked = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "bfL" = (
@@ -9834,7 +9836,8 @@
 /area/medical/virology/lab)
 "blv" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "trade_dock"
+	id_tag = "trade_dock";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -10269,6 +10272,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -24886,7 +24890,6 @@
 /area/hallway/secondary/entry)
 "czk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/secure_closet/engineering_electrical,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -24895,6 +24898,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/vending/clothing/departament/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29804,22 +29808,10 @@
 	},
 /area/medical/sleeper)
 "cRk" = (
-/obj/structure/closet/wardrobe/medic_white,
-/obj/item/clothing/head/surgery/blue,
-/obj/item/clothing/head/surgery/blue,
-/obj/item/clothing/head/surgery/green,
-/obj/item/clothing/head/surgery/green,
-/obj/item/clothing/head/surgery/purple,
-/obj/item/clothing/head/surgery/purple,
-/obj/item/clothing/suit/storage/fr_jacket,
-/obj/item/clothing/suit/storage/fr_jacket,
-/obj/item/clothing/under/rank/medical/blue,
-/obj/item/clothing/under/rank/medical/green,
-/obj/item/clothing/under/rank/medical/purple,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/clothing/head/beret/med,
+/obj/machinery/vending/clothing/departament/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
@@ -33232,11 +33224,6 @@
 "dex" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Escape Airlock"
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit/maint)
@@ -35044,7 +35031,9 @@
 	},
 /area/maintenance/starboard)
 "dle" = (
-/obj/structure/closet/wardrobe/cadet,
+/obj/structure/table/reinforced,
+/obj/item/hand_labeler,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -38766,12 +38755,13 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/emcloset,
 /obj/machinery/camera{
 	c_tag = "Cargo Personal Corner";
 	dir = 4;
 	pixel_y = -27
 	},
+/obj/machinery/vending/clothing/departament/cargo,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -39463,13 +39453,13 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/serviceyard)
 "dCL" = (
-/obj/structure/closet/secure_closet/scientist,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/vending/clothing/departament/science,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -42969,11 +42959,6 @@
 	icon_state = "browncorner"
 	},
 /area/hallway/primary/fore)
-"dQC" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/wardrobe/trainee_yellow,
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "dQD" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/engineering_personal,
@@ -48293,8 +48278,7 @@
 	},
 /area/turret_protected/ai)
 "eAt" = (
-/obj/structure/closet/redcorp,
-/obj/item/clothing/suit/tracksuit/red,
+/obj/machinery/vending/security,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -48962,6 +48946,16 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/ai)
+"eIy" = (
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Security Escape Airlock";
+	req_access_txt = "1";
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/hallway/secondary/exit)
 "eIQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -52718,7 +52712,6 @@
 	dir = 1;
 	on = 1
 	},
-/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -58838,7 +58831,8 @@
 	hackProof = 1;
 	id_tag = "emergency_home";
 	name = "Security Escape Airlock";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	locked = 1
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -62770,6 +62764,14 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/mixing)
+"hJS" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_home";
+	locked = 1
+	},
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/additional)
 "hJX" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -65016,7 +65018,6 @@
 	dir = 1
 	},
 /obj/item/clothing/shoes/leather,
-/obj/item/clothing/under/dress/dress_hop,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -71326,7 +71327,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	locked = 1
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -76254,7 +76256,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/closet/wardrobe/student,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -76367,6 +76369,14 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
+"kSK" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_home";
+	locked = 1
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/additional)
 "kSR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -80150,7 +80160,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -85136,9 +85145,7 @@
 	dir = 8;
 	pixel_x = 27
 	},
-/obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/black,
-/obj/item/stack/cable_coil,
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -99030,12 +99037,6 @@
 	},
 /area/crew_quarters/theatre)
 "pMQ" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Security Escape Airlock";
-	req_access_txt = "1"
-	},
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
@@ -99049,6 +99050,13 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Security Escape Airlock";
+	req_access_txt = "1";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -113713,15 +113721,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "sUp" = (
-/obj/structure/closet/lawcloset,
-/obj/item/clothing/under/rank/internalaffairs,
-/obj/item/clothing/under/rank/internalaffairs,
-/obj/item/clothing/suit/storage/internalaffairs,
-/obj/item/clothing/suit/storage/internalaffairs,
-/obj/item/clothing/accessory/lawyers_badge,
-/obj/item/clothing/accessory/lawyers_badge,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
+/obj/machinery/vending/clothing/departament/law,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "sUw" = (
@@ -113894,6 +113894,16 @@
 /obj/item/clothing/head/fedora,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
+"sWX" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start{
+	name = "Station Engineer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/engine/break_room)
 "sXk" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -115189,7 +115199,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/filingcabinet,
+/obj/structure/closet/secure_closet/hop2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -115277,6 +115287,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -116598,6 +116611,14 @@
 	icon_state = "grimy"
 	},
 /area/chapel/main)
+"tDv" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_home";
+	locked = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/additional)
 "tDB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -116882,11 +116903,6 @@
 /area/turret_protected/aisat_interior)
 "tGb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Escape Airlock"
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -116924,6 +116940,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "tGs" = (
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreencorner"
@@ -118674,16 +118691,17 @@
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "tYi" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Escape Airlock"
-	},
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -126084,11 +126102,6 @@
 /area/chapel/office)
 "vCC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Escape Airlock"
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit/maint)
@@ -127522,7 +127535,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/obj/structure/closet/wardrobe/intern_white,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -135940,9 +135953,20 @@
 /area/medical/medbay)
 "xHY" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/wardrobe/engineering_yellow,
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/structure/rack,
+/obj/item/stack/cable_coil{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/stack/cable_coil{
+	pixel_x = 1
+	},
+/obj/item/stack/cable_coil{
+	pixel_x = 6;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -161367,7 +161391,7 @@ mrH
 tdv
 tPh
 dDP
-dQC
+dQD
 tXp
 uXS
 nnT
@@ -162637,7 +162661,7 @@ lAc
 cIA
 bER
 bDn
-bER
+sWX
 psk
 whh
 bGz
@@ -168723,8 +168747,8 @@ aaq
 aaq
 aaq
 dft
-aoS
-aoS
+kSK
+hJS
 dft
 abj
 abj
@@ -169238,7 +169262,7 @@ dft
 aFu
 dft
 aoS
-aoS
+tDv
 dft
 dft
 aFu
@@ -178138,7 +178162,7 @@ eXW
 ruH
 qpH
 iOD
-jGz
+eIy
 kUB
 jGz
 kUB
@@ -192714,7 +192738,7 @@ lhS
 vcX
 iHp
 uZU
-mVd
+xFL
 xFL
 syB
 vnH
@@ -192970,8 +192994,8 @@ pNI
 xXC
 vcX
 nHu
-xFL
 mVd
+xFL
 xFL
 syB
 mIk
@@ -193227,8 +193251,8 @@ myZ
 xXZ
 oNP
 icp
-kzP
 aTs
+kzP
 fDB
 uEV
 ply
@@ -193484,8 +193508,8 @@ jBm
 eEb
 vcX
 nHu
-xFL
 mVd
+xFL
 xFL
 syB
 aaL
@@ -193742,7 +193766,7 @@ lhS
 oHJ
 unN
 hbT
-mVd
+xFL
 xFL
 syB
 vnH
