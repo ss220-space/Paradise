@@ -1,7 +1,42 @@
-obj/structure/tribune
+/obj/structure/tribune
 	name = "Tribune"
 	icon = 'icons/obj/tribune.dmi'
-	icon_state = "tribune"
+	icon_state = "nt_tribune"
+	desc = "Sturdy wooden tribune. When you look at it, you want to start making a speech."
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
+	resistance_flags = FLAMMABLE
+	var/buildstacktype = /obj/item/stack/sheet/wood
+	var/buildstackamount = 5
+	var/mover_dir = null
+
+/obj/structure/tribune/attack_hand(obj/item/I, mob/living/user, params)
+	..()
+	add_fingerprint(user)
+
+/obj/structure/tribune/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		return
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+
+/obj/structure/tribune/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+		new buildstacktype(loc, buildstackamount)
+	..()
+
+
+/obj/structure/tribune/centcom
+	name = "CentCom tribune"
+	icon = 'icons/obj/tribune.dmi'
+	icon_state = "nt_tribune_cc"
+	desc = "A richly decorated tribune. Just looking at her makes your heart skip a beat."

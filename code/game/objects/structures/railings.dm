@@ -159,3 +159,31 @@
 		return
 	if(can_be_rotated(user))
 		setDir(turn(dir, 45))
+
+/obj/structure/railing/wooden
+	name = "Wooden railing"
+	desc = "Wooden railing meant to protect idiots like you from falling."
+	icon_state = "woodenrailing0"
+	resistance_flags = FLAMMABLE
+	smooth = SMOOTH_TRUE
+	climbable = TRUE
+	var/buildstacktype = /obj/item/stack/sheet/wood
+	var/buildstackamount = 5
+	//canSmoothWith = list(/obj/structure/railing/wooden)
+
+/obj/structure/railing/wooden/attack_hand(obj/item/I, mob/living/user, params)
+	..()
+	add_fingerprint(user)
+
+/obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/structure/railing/wooden/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		return
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
