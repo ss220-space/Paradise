@@ -1,27 +1,27 @@
 // AREAS
-/area/ruin/space/ipcship/engine
+/area/ruin/space/crashedipcship/engine
 	name = "Engine zone"
 	icon_state = "ipc_ship3"
 	requires_power = TRUE
 	report_alerts = FALSE
 
-/area/ruin/space/ipcship/shard
+/area/ruin/space/crashedipcship/shard
 	name = "Shard zone"
 	icon_state = "ipc_ship4"
 	requires_power = TRUE
 	report_alerts = FALSE
 
-/area/ruin/space/ipcship/middle
+/area/ruin/space/crashedipcship/middle
 	name = "Middle zone"
 	icon_state = "ipc_ship2"
 	requires_power = TRUE
 
-/area/ruin/space/ipcship/asteroid
+/area/ruin/space/crashedipcship/asteroid
 	name = "IPC asteroid zone"
 	icon_state = "ipc_ship"
 	requires_power = FALSE
 
-/area/ruin/space/ipcship/aft
+/area/ruin/space/crashedipcship/aft
 	name = "IPC aft zone"
 	icon_state = "ipc_ship1"
 	requires_power = TRUE
