@@ -10,6 +10,8 @@
 	layer = ABOVE_MOB_LAYER
 	var/currently_climbed = FALSE
 	var/mover_dir = null
+	var/buildstacktype = /obj/item/stack/rods
+	var/buildstackamount = 3
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -41,11 +43,12 @@
 	deconstruct()
 	return TRUE
 
-/obj/structure/railing/deconstruct(disassembled)
-	if(!(flags & NODECONSTRUCT))
-		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
-		transfer_fingerprints_to(rod)
-	return ..()
+/obj/structure/railing/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+		var/obj/item/stack/rods/stack = new buildstacktype(loc, buildstackamount)
+		transfer_fingerprints_to(stack)
+	..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
@@ -166,14 +169,11 @@
 	icon_state = "woodenrailing"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	var/buildstacktype = /obj/item/stack/sheet/wood
-	var/buildstackamount = 5
+	anchored = FALSE
 	canSmoothWith = list(/obj/structure/railing/wooden)
 	smooth = SMOOTH_MORE|SMOOTH_BORDER
-
-/obj/structure/railing/wooden/attack_hand(obj/item/I, mob/living/user, params)
-	..()
-	add_fingerprint(user)
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
 
 /obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -188,13 +188,15 @@
 		return
 	deconstruct(TRUE)
 
-/obj/structure/railing/wooden/wirecutter_act(mob/living/user, obj/item/I)
-	. = FALSE
-	return
-
 /obj/structure/railing/wooden/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
 	if(buildstacktype && (!(flags & NODECONSTRUCT)))
-		new buildstacktype(loc, buildstackamount)
+		var/obj/item/stack/sheet/wood/stack = new buildstacktype(loc, buildstackamount)
+		transfer_fingerprints_to(stack)
 	..()
+
+/obj/structure/railing/wooden/wirecutter_act(mob/living/user, obj/item/I)
+	. = NODECONSTRUCT
+	return
+
 
