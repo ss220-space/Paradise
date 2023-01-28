@@ -19,6 +19,15 @@
 	var/wax = 25
 	var/producing = FALSE
 
+/obj/item/organ/internal/wryn/glands/on_life()
+	if(!producing)
+		return
+	if(owner.nutrition > NUTRITION_LEVEL_STARVING && owner.getWax() < 75)
+		owner.adjustWax(10)
+		owner.set_nutrition(owner.nutrition - 25)
+		if(prob(10))
+			to_chat(owner, "<span class='notice'>Вы чувствуете лёгкое бурление в восковых железах.</span>")
+
 /obj/item/organ/internal/wryn/glands/insert(mob/living/carbon/M, special = 0)
 	..()
 	honeycomb.Grant(M)
@@ -40,7 +49,7 @@
 	var/mob/living/carbon/human/wryn/host = owner
 
 	if(host.getWax() >= 50)
-		var/choice = input("Что бы построить...","Строительство") as null|anything in list("соты","прозрачные соты") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
+		var/choice = input("Что бы построить...","Строительство") as null|anything in list("соты","прозрачные соты")
 
 		if(!choice || host.getWax() < 50)	return
 

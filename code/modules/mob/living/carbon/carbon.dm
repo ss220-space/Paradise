@@ -974,8 +974,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(glands)
 			stat(null, "Wax: [glands.wax]")
 
-
-
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
 				r_hand,

@@ -212,12 +212,3 @@
 /mob/living/carbon/human/proc/get_producing()
  	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
  	return glands ? glands.producing : FALSE
-
-/datum/species/wryn/handle_life(mob/living/carbon/human/H)
-	if(!H.get_producing())
-		return
-	if(H.nutrition > NUTRITION_LEVEL_STARVING && H.getWax() < 75)
-		H.adjustWax(10)
-		H.set_nutrition(H.nutrition - 25)
-		if(prob(10))
-			to_chat(H, "<span class='notice'>Вы чувствуете лёгкое бурление в восковых железах.</span>")

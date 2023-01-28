@@ -14,7 +14,7 @@
 
 /obj/structure/wryn/wax
 	name = "wax"
-	desc = "Looks like some kind of thick resin."
+	desc = "Looks like some kind of thick wax."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
 	icon_state = "wall"
 	density = TRUE
