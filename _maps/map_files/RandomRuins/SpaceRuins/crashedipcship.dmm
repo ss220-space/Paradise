@@ -222,7 +222,7 @@
 	},
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "db" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -234,7 +234,7 @@
 "dn" = (
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "dr" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -351,7 +351,7 @@
 	},
 /obj/structure/spacevine,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "eO" = (
 /obj/effect/mob_spawn/headcrab,
 /obj/effect/decal/cleanable/dirt,
@@ -365,7 +365,7 @@
 	},
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "eY" = (
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plasteel,
@@ -444,10 +444,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
-"gW" = (
-/obj/structure/spacevine,
-/turf/simulated/mineral,
-/area/ruin/space/crashedipcship)
 "hc" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/item/stack/sheet/metal,
@@ -528,7 +524,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "iP" = (
 /turf/simulated/mineral/titanium,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "iS" = (
 /obj/structure/spacevine,
 /turf/simulated/floor/plating/asteroid,
@@ -651,7 +647,7 @@
 "ls" = (
 /obj/item/flag/species/machine,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "lw" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -752,11 +748,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "mp" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "mv" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -799,7 +795,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "mP" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -847,7 +843,7 @@
 /area/ruin/space/crashedipcship/aft)
 "nv" = (
 /turf/simulated/mineral/iron,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "ny" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/item/shard,
@@ -857,7 +853,7 @@
 /area/ruin/space/crashedipcship/engine)
 "nS" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "nW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -887,7 +883,7 @@
 /obj/effect/decal/cleanable/ash,
 /obj/item/clothing/head/beret/durathread,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "oj" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1067,7 +1063,7 @@
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "rH" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -1179,7 +1175,7 @@
 "tn" = (
 /obj/structure/spacevine,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "tv" = (
 /obj/structure/spawner/headcrab/smaller_amount,
 /obj/effect/decal/cleanable/dirt,
@@ -1220,10 +1216,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
-"uw" = (
-/obj/structure/spacevine,
-/turf/simulated/mineral/random,
-/area/ruin/space/crashedipcship)
 "uy" = (
 /obj/machinery/light{
 	dir = 8
@@ -1486,7 +1478,7 @@
 	},
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "yn" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1750,7 +1742,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "BM" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/stripes/box,
@@ -1940,9 +1932,6 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
-"Fx" = (
-/turf/space,
-/area/ruin/space/crashedipcship)
 "Fz" = (
 /obj/structure/closet,
 /obj/item/stack/sheet/metal{
@@ -1999,7 +1988,7 @@
 "FZ" = (
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "Gg" = (
 /mob/living/simple_animal/hostile/headcrab,
 /obj/effect/turf_decal{
@@ -2038,7 +2027,7 @@
 "GQ" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "GS" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
@@ -2099,7 +2088,7 @@
 	pixel_y = -9
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "Hy" = (
 /obj/effect/mob_spawn/headcrab,
 /obj/item/stack/sheet/metal,
@@ -2539,11 +2528,11 @@
 /area/ruin/space/crashedipcship/asteroid)
 "NN" = (
 /turf/simulated/mineral/random,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "NQ" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "On" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -2681,7 +2670,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "Ry" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -2774,7 +2763,7 @@
 "SX" = (
 /obj/effect/mob_spawn/human/corpse/ipc,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "Tg" = (
 /obj/structure/spacevine,
 /obj/effect/turf_decal{
@@ -2791,7 +2780,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "Tw" = (
 /turf/simulated/mineral,
-/area/ruin/space/crashedipcship)
+/area/ruin/space/crashedipcship/asteroid)
 "TJ" = (
 /obj/item/stack/sheet/metal,
 /obj/item/stack/sheet/metal,
@@ -3576,8 +3565,8 @@ NN
 NN
 NN
 NN
-gW
-gW
+tw
+tw
 NN
 NN
 nS
@@ -4301,8 +4290,8 @@ NN
 NN
 NN
 NN
-uw
-uw
+Dy
+Dy
 Tw
 NN
 NN
@@ -4611,7 +4600,7 @@ Uw
 uP
 uP
 Uw
-Fx
+uP
 nS
 Hv
 BH
