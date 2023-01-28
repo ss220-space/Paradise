@@ -536,11 +536,10 @@
 
 /obj/item/slimepotion/acidproof
 	name = "slime acidproof potion"
-	desc = "A potent chemical mix that will acidproof any article of clothing."
+	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
+	icon_state = "bottle8"
 	origin_tech = "biotech=5"
-	resistance_flags = ACID_PROOF
 
 /obj/item/slimepotion/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
@@ -557,11 +556,10 @@
 		return ..()
 
 	C.name = "acidproofed [C.name]"
-	C.add_atom_colour("#008000", WASHABLE_COLOUR_PRIORITY)
-	C.resistance_flags |= ACID_PROOF
+	C.add_atom_colour("#022202", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	if(istype(C.armor))
-		C.armor.acid = 100
+		C.armor.acid += 25
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
 	qdel(src)
 
@@ -571,6 +569,206 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/laserresistance
+	name = "That's a laser resistance slime potion."
+	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle4"
+	origin_tech = "biotech=5"
+	var/uses = 1
+
+/obj/item/slimepotion/laserresistance/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(istype(C.armor) && C.armor.laser == 100)
+		to_chat(user, "<span class='warning'>[C] is already laser proof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "laserproof [C.name]"
+	C.add_atom_colour("#91723a", WASHABLE_COLOUR_PRIORITY)
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.laser += 10
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more laserproofing.</span>")
+	qdel(src)
+
+/obj/item/slimepotion/laserresistance/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/radiation
+	name = "That's a radiation resistance slime potion."
+	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle6"
+	origin_tech = "biotech=5"
+	var/uses = 1
+
+/obj/item/slimepotion/radiation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(istype(C.armor) && C.armor.rad == 100)
+		to_chat(user, "<span class='warning'>[C] is already Radiation proof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "Radiationproof [C.name]"
+	C.add_atom_colour("#e6e205", WASHABLE_COLOUR_PRIORITY)
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.rad += 40
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more Radiationproof.</span>")
+	qdel(src)
+
+/obj/item/slimepotion/radiation/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/bio
+	name = "That's a bio resistance slime potion."
+	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle7"
+	origin_tech = "biotech=5"
+	var/uses = 1
+
+/obj/item/slimepotion/bio/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(istype(C.armor) && C.armor.bio == 100)
+		to_chat(user, "<span class='warning'>[C] is already bio proof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "Bioproof [C.name]"
+	C.add_atom_colour("#068a06", WASHABLE_COLOUR_PRIORITY)
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.bio += 40
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more bioproof.</span>")
+	qdel(src)
+
+/obj/item/slimepotion/bio/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/explosionresistencte
+	name = "That's a explosion resistance slime potion."
+	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle9"
+	origin_tech = "biotech=5"
+	var/uses = 1
+
+/obj/item/slimepotion/explosionresistencte/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(istype(C.armor) && C.armor.bomb == 100)
+		to_chat(user, "<span class='warning'>[C] is already explosion proof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "Ressisted to explosions [C.name]"
+	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.bomb += 20
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosion proof.</span>")
+	qdel(src)
+
+/obj/item/slimepotion/explosionresistencte/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/teleportation
+	name = "That's a teleportation slime potion"
+	desc = "A potent chemical mix that provides a small chance to teleport when taking damage."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle5"
+	origin_tech = "biotech=5"
+	var/uses = 1
+
+/obj/item/slimepotion/teleportation/afterattack(obj/item/clothing/suit/armor/A, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(A.teleportation)
+		to_chat(user, "<span class='warning'>[A] is already with teleportation slime potion on it!</span>")
+		return ..()
+	if(A.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[A] is already improoved by some potion!</span>")
+		return ..()
+
+	A.name = "Teleportational [A.name]"
+	A.add_atom_colour("#def1de", WASHABLE_COLOUR_PRIORITY)
+	A.is_improoved_by_potion = TRUE
+	A.teleportation = TRUE
+	to_chat(user, "<span class='notice'>You slather the white gunk over [A], making it teleportable.</span>")
+	qdel(src)
+
+
+/obj/item/slimepotion/damage
+	name = "Physical damage resistance slime potion"
+	desc = "A potent chemical mix that will increase impact and gunshot resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle8"
+	origin_tech = "biotech=5"
+
+/obj/item/slimepotion/damage/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(istype(C.armor) && C.armor.melee == 100 && C.armor.bullet == 100)
+		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "Damagepoof [C.name]"
+	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.melee += 25
+		C.armor.bullet += 25
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], damageproofing it.</span>")
+	qdel(src)
 
 /obj/effect/timestop
 	anchored = 1
