@@ -1,7 +1,8 @@
 /datum/action/item_action/advanced/ninja/ninjaheal
 	name = "Restorative Cocktail"
-	desc = "Injects a series of chemicals that will heal most of the user's injuries, cure internal damage and bones. \
-			But healing comes with a price of sleeping while your body regenerates!"
+	desc = "Injects an experimental chemical that will heal most of the user's injuries, purges other reagents, cures internal damage, regrows limbs and bones. \
+			It operates by rewinding your bodyparts to their perfect state in the past. Cause of that healing comes with a price of rare time paradox occuring! \
+			DO NOT overdose it! Overdose threshold: 30"
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_CHARGES
 	charge_max = 3
@@ -16,9 +17,9 @@
 	if(ninjacost(0,N_HEAL))
 		return
 	var/mob/living/carbon/human/ninja = affecting
-	if(alert(ninja, "Вы уверены что хотите ввести себе лечащие реагенты? Это усыпит вас на время пока ваше тело регенерирует!",,"Да","Нет") == "Нет")
+	if(alert(ninja, "Вы уверены что хотите ввести себе эксперементальную лечащую сыворотку? Реагент не стабилен и может вызывать редкие парадоксы времени и пространства!",,"Да","Нет") == "Нет")
 		return
-	ninja.reagents.add_reagent("chiyurizine", 25)
+	ninja.reagents.add_reagent("chiyurizine", 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
 	to_chat(ninja, span_notice("Реагенты успешно введены в пользователя."))
 	add_attack_logs(ninja, null, "Activated healing chems.")
 	for(var/datum/action/item_action/advanced/ninja/ninjaheal/ninja_action in actions)
@@ -27,17 +28,9 @@
 			ninja_action.action_ready = FALSE
 			ninja_action.toggle_button_on_off()
 		break
-/*
-	addtimer(CALLBACK(src, .proc/ninjaheal_after), 5 SECONDS)
 
-/obj/item/clothing/suit/space/space_ninja/proc/ninjaheal_after()
-	var/mob/living/carbon/human/ninja = affecting
-	ninja.SetSleeping(60)
-	var/obj/effect/temp_visual/ninja_rend/rend = new(get_turf(src))
-	rend.occupant = ninja
-	ninja.forceMove(rend)
-*/
 // Разрыв в реальности призванный удерживать там ниндзя c реагентом пока тот лечится
+// Вызывается в коде самого реагента "chiyurizine"
 /obj/effect/temp_visual/ninja_rend
 	name = "A somewhat stable rend in reality"
 	desc = "Incredible... yet absurd thing. Who's gonna come out of it?"

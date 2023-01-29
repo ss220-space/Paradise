@@ -4,7 +4,7 @@
 
 /*
  * Chiyurizine
- * A reagent that can heal almost anthing, but is very slow to metabolise, and risky if you overdose it.
+ * A reagent that can heal almost anything, but is very slow to metabolise, and risky if you overdose it.
  * It "rewinds" your body to a healthy state and makes you younger. it even has a veeery small chance to rewind itself,
  * to start the healing cycle again. But if you overdose... You are going to become old, suffer from time paradoxes rewinding your position
  * and from many annoing debuffs like slowness and confusion. If you survive until it turns you 100 years old. You will play a forced game of dice with death.
@@ -20,14 +20,13 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	harmless = FALSE
 	overdose_threshold = 30
-	taste_description = "the last spring"
+	taste_description = "time"
 	var/turf/last_random_turf //For overdose teleports
 	var/can_work = FALSE //Can metabolise only if it was added in a dose equal to overdose_threshold-5 or more
 	var/obj/effect/temp_visual/ninja_rend/rend = null//Unharmfull trap for playing with time
 
 /datum/reagent/medicine/chiyurizine/on_mob_life(mob/living/our_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	log_debug("Current chiyurizine cycle: [current_cycle]") // Не забудь удалить этот дебаг.
 	if(volume >= overdose_threshold-5)
 		can_work = TRUE
 	if(!can_work)
@@ -38,10 +37,14 @@
 		addtimer(CALLBACK(src, .proc/clearRend), rend.duration)
 	if(prob(25))
 		last_random_turf = get_turf(our_mob)
+	//We don't tolerate ANY other reagent.
+	for(var/datum/reagent/R in our_mob.reagents.reagent_list)
+		if(R != src)
+			our_mob.reagents.remove_reagent(R.id,5)
 	switch(current_cycle)
 		if(1 to 20)
-			if(prob(20))
-				to_chat(our_mob, span_notice("You feel like your lost time comes back to you!"))
+			if(prob(10))
+				to_chat(our_mob, span_notice("You feel like what's been lost in time comes back to you!"))
 				our_mob.emote("giggle")
 			// Anti-Drunk
 			our_mob.SetSlur(0)
@@ -67,6 +70,9 @@
 			//Human only effects
 			if(ishuman(our_mob))
 				var/mob/living/carbon/human/mob_human = our_mob
+				if(prob(10))
+					to_chat(mob_human, span_notice("You feel a powerfull gush inside self, when your body slowly heals..."))
+					mob_human.Jitter(20)
 				// Regrow limbs
 				if(current_cycle == 30)
 					to_chat(mob_human, span_notice("Your body refreshes..."))
@@ -76,25 +82,22 @@
 					mob_human.remove_all_embedded_objects()
 				// Organs
 				for(var/obj/item/organ/internal/internal_organ in mob_human.internal_organs)
-					if(internal_organ.is_damaged())
-						if(prob(50))
-							to_chat(mob_human, span_notice("You feel a powerfull gush inside self, when your [internal_organ.name] heals..."))
-							internal_organ.rejuvenate()
-							break
+					if(prob(20))
+						internal_organ.rejuvenate()
+						internal_organ.receive_damage(-5, FALSE)
 				// Bones
 				for(var/obj/item/organ/external/external_organ in mob_human.bodyparts)
-					if(external_organ.is_damaged())
-						if(prob(50))
-							to_chat(mob_human, span_notice("You feel a burning sensation in your [external_organ.name] as it straightens involuntarily!"))
-							external_organ.rejuvenate()
-							break
+					if(prob(20))
+						external_organ.rejuvenate()
+						external_organ.mend_fracture()
+						external_organ.internal_bleeding = FALSE
 				//Eyes and Ears internal damage
 				var/obj/item/organ/internal/eyes/our_eyes = mob_human.get_int_organ(/obj/item/organ/internal/eyes)
 				if(istype(our_eyes))
-					our_eyes.heal_internal_damage(1)
+					our_eyes.heal_internal_damage(5, robo_repair = TRUE)
 				var/obj/item/organ/internal/ears/our_ears = mob_human.get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(our_ears))
-					our_ears.AdjustEarDamage(-1)
+					our_ears.AdjustEarDamage(-5)
 					if(our_ears.ear_damage < 25 && prob(30))
 						our_ears.deaf = 0
 				//ALL viruses
