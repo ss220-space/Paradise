@@ -7,6 +7,7 @@
 	anchored = TRUE
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
+	layer = ABOVE_MOB_LAYER
 	var/buildstacktype = /obj/item/stack/sheet/wood
 	var/buildstackamount = 5
 	var/mover_dir = null
@@ -33,6 +34,43 @@
 	if(buildstacktype && (!(flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
+
+/obj/structure/tribune/proc/after_rotation(mob/user)
+	add_fingerprint(user)
+
+/obj/structure/tribune/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "It is fastened to the floor!")
+		return
+	setDir(turn(dir, 90))
+	after_rotation(user)
+
+/obj/structure/tribune/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASSGLASS))
+		return 1
+	if(get_dir(loc, target) == dir)
+		return !density
+	return 1
+
+/obj/structure/tribune/CheckExit(atom/movable/O, target)
+	if(istype(O) && O.checkpass(PASSGLASS))
+		return 1
+	if(get_dir(O.loc, target) == dir)
+		return 0
+	return 1
+
+/obj/structure/tribune/Initialize()
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+	else
+		layer = ABOVE_MOB_LAYER
+
+
+///obj/structure/tribune/proc/layerswitch()
+//	if(dir == NORTH)
+//		layer = BELOW_MOB_LAYER
 
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"

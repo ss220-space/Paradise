@@ -166,12 +166,12 @@
 /obj/structure/railing/wooden
 	name = "Wooden railing"
 	desc = "Wooden railing meant to protect idiots like you from falling."
+	icon = 'icons/obj/fence_wood.dmi'
 	icon_state = "woodenrailing"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	anchored = FALSE
-	canSmoothWith = list(/obj/structure/railing/wooden)
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smooth = SMOOTH_TRUE
+	canSmoothWith = /obj/structure/railing/wooden
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
@@ -187,13 +187,6 @@
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	deconstruct(TRUE)
-
-/obj/structure/railing/wooden/deconstruct()
-	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
-		var/obj/item/stack/sheet/wood/stack = new buildstacktype(loc, buildstackamount)
-		transfer_fingerprints_to(stack)
-	..()
 
 /obj/structure/railing/wooden/wirecutter_act(mob/living/user, obj/item/I)
 	. = NODECONSTRUCT
