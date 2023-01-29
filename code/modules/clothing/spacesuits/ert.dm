@@ -96,7 +96,7 @@
 /obj/item/clothing/suit/space/hardsuit/ert/gamma/commander
 	name = "elite emergency response team commander suit"
 	icon_state = "ert_gcommander"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/commander
 
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security
@@ -121,7 +121,7 @@
 /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
 	name = "elite emergency response team security suit"
 	icon_state = "ert_gsecurity"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/security
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
@@ -147,7 +147,7 @@
 /obj/item/clothing/suit/space/hardsuit/ert/gamma/engineer
 	name = "elite emergency response team engineer suit"
 	icon_state = "ert_gengineer"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/engineer
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
@@ -170,7 +170,7 @@
 /obj/item/clothing/suit/space/hardsuit/ert/gamma/medical
 	name = "elite emergency response team medical suit"
 	icon_state = "ert_gmedical"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/medical
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
@@ -181,7 +181,6 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/janitor
 	name = "elite emergency response team janitor helmet"
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammajanitor"
 	item_color = "gammajanitor"
 
@@ -193,9 +192,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/gamma/janitor
 	name = "elite emergency response team janitor suit"
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gjanitor"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/janitor
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
