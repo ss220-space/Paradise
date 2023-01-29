@@ -22,7 +22,7 @@
 	var/current_move_delay = 0
 	var/moving			= null
 	var/area			= null
-	var/time_died_as_mouse = null //when the client last died as a mouse
+	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 
 	var/typing = FALSE // Prevents typing window stacking
 
@@ -42,7 +42,7 @@
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
-	//control_freak = 1
+	control_freak = CONTROL_FREAK_ALL
 
 	var/ssd_warning_acknowledged = FALSE
 
@@ -61,7 +61,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"
 
@@ -116,6 +115,13 @@
 	var/tos_consent = FALSE
 
 	var/url
+
+	/// Input datum, what the client is pressing.
+	var/datum/input_data/input_data = new()
+	/// The client's active keybindings, depending on their active mob.
+	var/list/active_keybindings = list()
+	/// The client's movement keybindings to directions, which work regardless of modifiers.
+	var/list/movement_kb_dirs = list()
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

@@ -54,6 +54,7 @@
 	else
 		if(message)
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/proc/change_security_level(var/new_level)
@@ -81,6 +82,7 @@
 	if(action == "auth")
 		if(!ishuman(usr))
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
@@ -515,7 +517,7 @@
 	SSshuttle.autoEvac()
 	return ..()
 
-/proc/print_command_report(text = "", title = "Central Command Update", add_to_records = TRUE)
+/proc/print_command_report(text = "", title = "Central Command Update", add_to_records = TRUE, var/datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
@@ -525,6 +527,8 @@
 			if(add_to_records)
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
+			if(goal)
+				goal.papers_list.Add(P)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
