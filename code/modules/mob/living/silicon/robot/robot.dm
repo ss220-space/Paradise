@@ -1414,7 +1414,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		icon_state =  "[src.ckey]-[modtype]"
 		return
 
-	icon_state = module.default_skin
 	if(length(module.borg_skins) <= 1) // it's a default
 		return
 	SetLockdown(1)  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
@@ -1424,14 +1423,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
 		choices[skin] = skin_image
 	var/choice = show_radial_menu(src, src, choices, require_near = TRUE)
+	setDir(SOUTH)
 	say("Загрузка модуля...")
 	for(var/i in 1 to 4)
-		playsound(src.loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, TRUE, -1)
+		playsound(src.loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
 	if(choice)
 		icon_state = module.borg_skins[choice]
 		flick("[module.borg_skins[choice]]_transform", src)
 		to_chat(src, "<span class='notice'>Your icon has been set. You now require a reset module to change it.</span>")
 	else
+		icon_state = module.default_skin
 		flick("[module.default_skin]_transform", src)
 		to_chat(src, "<span class='notice'>Your icon has been set by default. You now require a reset module to change it.</span>")
 
