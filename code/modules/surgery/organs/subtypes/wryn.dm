@@ -55,7 +55,7 @@
 		if(!choice || host.getWax() < 50)	return
 
 		if(do_after(usr, 50, target = usr))
-			if(locate(/obj/structure/wax) in get_turf(owner))
+			if(locate(/obj/structure/wryn/wax) in get_turf(owner))
 				to_chat(owner, "<span class='notice'>Место уже занято!</span>")
 				return
 			host.adjustWax(-50)
