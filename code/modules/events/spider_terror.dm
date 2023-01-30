@@ -23,9 +23,9 @@
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
-	if((length(GLOB.clients)) < TS_MIDPOP_TRIGGER)
+	if((length(GLOB.clients)) <= TS_MIDPOP_TRIGGER)
 		infestation_type = pick(1, 2)
-	if((length(GLOB.clients)) > TS_HIGHPOP_TRIGGER)
+	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
 		infestation_type = 5
 	else
 		infestation_type = pick(3, 4)
