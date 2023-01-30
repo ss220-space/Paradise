@@ -84,8 +84,8 @@
 	if(spider_awaymission && !is_away_level(T.z))
 		stillborn = TRUE
 	if(stillborn)
-			// Fake spiderlings stick around for awhile, just to be spooky.
-			qdel(src)
+		// Fake spiderlings stick around for awhile, just to be spooky.
+		qdel(src)
 	else
 		if(!grow_as)
 			grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
