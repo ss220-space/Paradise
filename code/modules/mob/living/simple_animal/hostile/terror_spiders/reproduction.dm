@@ -81,7 +81,6 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/process()
 	var/turf/T = get_turf(src)
-	amount_grown += 0
 	if(amount_grown >= 0)
 		if(spider_awaymission && !is_away_level(T.z))
 			stillborn = TRUE
