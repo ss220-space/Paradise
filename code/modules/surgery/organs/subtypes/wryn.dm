@@ -55,6 +55,9 @@
 		if(!choice || host.getWax() < 50)	return
 
 		if(do_after(usr, 50, target = usr))
+			if(locate(/obj/structure/wax) in get_turf(owner))
+				to_chat(owner, "<span class='notice'>Место уже занято!</span>")
+				return
 			host.adjustWax(-50)
 			for(var/mob/O in viewers(host, null))
 				O.show_message(text("<span class='alert'>[host] выделяет кучу воска и формирует из неё [choice]!</span>"), 1)
@@ -77,11 +80,11 @@
 /datum/action/innate/honeyfloor/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
 
-	if(locate(/obj/structure/alien/weeds) in get_turf(owner))
-		to_chat(owner, "<span class='notice'>Пол здесь уже готов.</span>")
-		return
 	if(host.getWax() >= 25)
 		if(do_after(usr, 10, target = usr))
+			if(locate(/obj/structure/wryn/floor) in get_turf(owner))
+				to_chat(owner, "<span class='notice'>Пол здесь уже готов.</span>")
+				return
 			host.adjustWax(-25)
 			for(var/mob/O in viewers(owner, null))
 				O.show_message(text("<span class='alert'>[owner] выделяет кучу воска и формирует из неё пол!</span>"), 1)
