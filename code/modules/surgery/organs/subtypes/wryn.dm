@@ -9,6 +9,7 @@
 	slot = "hivenode"
 
 /obj/item/organ/internal/wryn/glands
+	species_type = /datum/species/wryn
 	name = "wryn wax glands"
 	parent_organ = "mouth"
 	icon_state = "eggsac"
