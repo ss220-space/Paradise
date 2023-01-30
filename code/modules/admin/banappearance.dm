@@ -57,8 +57,17 @@ DEBUG
 			appearance_loadbanfile()
 			return
 
+		var/applyfrom_query = ""
+		var/applyglobal_query = ""
+
+		if(sqlbansapplyfrom.len)
+			applyfrom_query = "OR server IN ('[jointext(sqlbansapplyfrom, "','")]')"
+
+		if(sqlbansapplyglobal)
+			applyglobal_query = "OR is_global = '1'"
+
 		//appearance bans
-		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role = 'Appearance' AND (0 OR [sqlbansapplyfrom.len ? "server IN ('[jointext(sqlbansapplyfrom, "','")]')" : ""] [sqlbansapplyglobal ? "OR is_global = '1'" : ""]) AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
+		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role = 'Appearance' AND (0 [applyfrom_query] [applyglobal_query]) AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
 
 		if(!appearanceban_query.warn_execute())
 			qdel(appearanceban_query)

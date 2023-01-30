@@ -65,8 +65,17 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			jobban_loadbanfile()
 			return
 
+		var/applyfrom_query = ""
+		var/applyglobal_query = ""
+
+		if(sqlbansapplyfrom.len)
+			applyfrom_query = "OR server IN ('[jointext(sqlbansapplyfrom, "','")]')"
+
+		if(sqlbansapplyglobal)
+			applyglobal_query = "OR is_global = '1'"
+
 		// Jobbans
-		var/datum/db_query/jobbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND (0 OR [sqlbansapplyfrom.len ? "server IN ('[jointext(sqlbansapplyfrom, "','")]')" : ""] [sqlbansapplyglobal ? "OR is_global = '1'" : ""]) AND role != 'Appearance' AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
+		var/datum/db_query/jobbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND (0 [applyfrom_query] [applyglobal_query]) AND role != 'Appearance' AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
 
 		if(!jobbans.warn_execute(async=FALSE))
 			qdel(jobbans)
