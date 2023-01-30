@@ -4,13 +4,13 @@
 	icon_state = "nt_tribune"
 	desc = "Sturdy wooden tribune. When you look at it, you want to start making a speech."
 	density = TRUE
-	anchored = TRUE
+	anchored = FALSE
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
-	layer = ABOVE_MOB_LAYER
 	var/buildstacktype = /obj/item/stack/sheet/wood
 	var/buildstackamount = 5
 	var/mover_dir = null
+	var/ini_dir = null
 
 /obj/structure/tribune/attack_hand(obj/item/I, mob/living/user, params)
 	..()
@@ -38,6 +38,10 @@
 /obj/structure/tribune/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
+/obj/structure/tribune/New()
+	if(dir == SOUTH)
+		layer = ABOVE_MOB_LAYER
+
 /obj/structure/tribune/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
@@ -46,6 +50,10 @@
 		return
 	setDir(turn(dir, 90))
 	after_rotation(user)
+	if(dir == SOUTH)
+		layer = ABOVE_MOB_LAYER
+	else
+		layer = BELOW_MOB_LAYER
 
 /obj/structure/tribune/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -60,17 +68,6 @@
 	if(get_dir(O.loc, target) == dir)
 		return 0
 	return 1
-
-/obj/structure/tribune/Initialize()
-	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
-	else
-		layer = ABOVE_MOB_LAYER
-
-
-///obj/structure/tribune/proc/layerswitch()
-//	if(dir == NORTH)
-//		layer = BELOW_MOB_LAYER
 
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"

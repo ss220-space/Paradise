@@ -170,8 +170,9 @@
 	icon_state = "woodenrailing"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = /obj/structure/railing/wooden
+	//smooth = SMOOTH_TRUE
+	flags = ON_BORDER
+	//canSmoothWith = /obj/structure/railing/wooden
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
