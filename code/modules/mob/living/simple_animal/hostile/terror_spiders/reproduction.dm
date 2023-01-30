@@ -81,21 +81,19 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/process()
 	var/turf/T = get_turf(src)
-	if(amount_grown >= 0)
-		if(spider_awaymission && !is_away_level(T.z))
-			stillborn = TRUE
-		if(stillborn)
-			if(amount_grown >= 0)
-				// Fake spiderlings stick around for awhile, just to be spooky.
-				qdel(src)
-		else
-			if(!grow_as)
-				grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
-			var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(T)
-			S.spider_myqueen = spider_myqueen
-			S.spider_mymother = spider_mymother
-			S.enemies = enemies
+	if(spider_awaymission && !is_away_level(T.z))
+		stillborn = TRUE
+	if(stillborn)
+			// Fake spiderlings stick around for awhile, just to be spooky.
 			qdel(src)
+	else
+		if(!grow_as)
+			grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(T)
+		S.spider_myqueen = spider_myqueen
+		S.spider_mymother = spider_mymother
+		S.enemies = enemies
+		qdel(src)
 	if(movement_disabled)
 		return
 	if(travelling_in_vent)
