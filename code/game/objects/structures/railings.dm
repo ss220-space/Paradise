@@ -166,13 +166,14 @@
 /obj/structure/railing/wooden
 	name = "Wooden railing"
 	desc = "Wooden railing meant to protect idiots like you from falling."
-	icon = 'icons/obj/fence_wood.dmi'
+	icon = 'icons/obj/fence_smooth.dmi'
 	icon_state = "woodenrailing"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	//smooth = SMOOTH_TRUE
+	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL|SMOOTH_BORDER
+	can_be_unanchored = 1
 	flags = ON_BORDER
-	//canSmoothWith = /obj/structure/railing/wooden
+	canSmoothWith = list(/obj/structure/railing/wooden)
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
