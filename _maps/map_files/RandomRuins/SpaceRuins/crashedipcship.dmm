@@ -552,13 +552,6 @@
 /obj/item/toy/minimeteor,
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
-"jW" = (
-/obj/structure/rack/gunrack,
-/obj/item/gun/energy/kinetic_accelerator/experimental{
-	pixel_x = 3
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/crashedipcship/middle)
 "kb" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1449,7 +1442,7 @@
 /area/ruin/space/crashedipcship/engine)
 "xn" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/kinetic_accelerator/experimental,
+/obj/item/gun/energy/kinetic_accelerator,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
 "xz" = (
@@ -5326,7 +5319,7 @@ uP
 uP
 uP
 Yl
-jW
+xn
 Za
 qa
 kg
