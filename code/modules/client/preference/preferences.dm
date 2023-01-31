@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><div align='center'><b>Пожалуйста, обратите внимание, что некоторые привязки клавиш переопределяются другими категориями.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Убедитесь, что вы привязали их все или тот конкретный, который вам нужен.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Пользователи старого режима могут только повторно привязать и использовать следующие ключи:</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Пользователи могут повторно привязать и использовать следующие ключи:</b></div></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Стрелки, Функциональные (буквы (за исключением х и ъ) и т.п.), Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
 			dat += "<table align='center' width='100%'>"
 
@@ -709,7 +709,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	metadata["[tweak]"] = new_metadata
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Research Director", "Magistrate"), widthPerColumn = 459, height = 700)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Research Director", "Magistrate"), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
@@ -746,6 +746,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				continue
 
 			if(job.hidden_from_job_prefs)
+				continue
+
+			if(!job.can_novice_play(user.client))
 				continue
 
 			index += 1
