@@ -1040,7 +1040,7 @@
 			if("modify_bans_from")
 				sqlbansmodifyfrom = splittext(value, ",")
 			if("apply_global_bans")
-				sqlbansapplyfrom = TRUE
+				sqlbansapplyglobal = TRUE
 			else
 				log_config("Unknown setting in configuration: '[name]'")
 
