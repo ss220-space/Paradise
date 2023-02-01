@@ -147,8 +147,9 @@
 	return
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/holy
-	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
-	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/holy_shift
+	jaunt_out_type = /obj/effect/temp_visual/dir_setting/holy_shift/out
+
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
