@@ -15,11 +15,11 @@
 /datum/objective/steal_structure/find_target()
 	var/list/list_structures = list(
 		/obj/structure/statue/bananium/clown/unique,
-		/obj/structure/statue/tranquillite/mime/unique
+		/obj/structure/statue/tranquillite/mime/unique,
+		/obj/structure/toilet/captain_toilet,
 	)
 	wanted_type = pick(list_structures)
 	explanation_text += wanted_type.name
-
 
 /datum/objective/steal_structure/check_completion()
 	if(wanted_type && owner.current)
@@ -95,23 +95,46 @@
 						return TRUE
 	return FALSE
 
-/datum/theft_objective/hard
-	flags = THEFT_FLAG_HARD
+/datum/objective/collect
+	var/datum/theft_objective/collect/collect_targets
+	name = "Украдите что угодно хоть сколько-нибудь ценное"
+	var/step=1
+	var/required_amount=0
+	var/list/obj/typepath_list = list()
+
+/datum/objective/steal/check_completion()
+	if(!collect_targets)
+		return 1 // Free Objective
+
+	if(!owner.current)
+		return FALSE
+
+	var/list/all_items = owner.current.GetAllContents()
+
+	for(var/obj/I in all_items)
+		//!!!!Проверку на каждый предмет
+		if(istype(I, collect_targets.typepath))
+			return collect_targets.check_special_completion(I)
+		if(I.type in collect_targets.altitems)
+			return collect_targets.check_special_completion(I)
 
 
+/datum/objective/collect/find_target()
+	var/list/valid_theft_objectives = list()
+	for(var/thefttype in GLOB.potential_theft_objectives_collect)
+		for(var/datum/objective/collect/objective in owner.objectives)
+			if(istype(objective) && istype(objective.collect_targets, thefttype))
+				continue
+		var/datum/theft_objective/O = new thefttype
+		if(O.flags & 2)
+			continue
+		valid_theft_objectives += O
 
+	if(length(valid_theft_objectives))
+		var/datum/theft_objective/O = pick(valid_theft_objectives)
+		collect_targets = O
 
-/datum/theft_objective/easy
-	flags = THEFT_FLAG_EASY
+		explanation_text = "Собрать [collect_targets]"
+		return
 
-
-
-/datum/theft_objective/easy
-	name = "the chief engineer's advanced magnetic boots"
-	typepath = /obj/item/clothing/shoes/magboots/advance
-	protected_jobs = list("Chief Engineer")
-
-/datum/theft_objective/collect
-	flags = THEFT_FLAG_COLLECT
-	var/possible_amount_min	= 2
-	var/possible_amount_max	= 5
+	explanation_text = "Украдите что угодно."
