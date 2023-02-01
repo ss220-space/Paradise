@@ -35,9 +35,6 @@
 	if(in_use)
 		to_chat(user, "It's already in use - wait a bit.")
 		return
-	if(!anchored)
-		to_chat(user, "<span class='warning'> This structure is not anchored.")
-		return
 	else if((get_dist(user, src)<=1)&&(user.z == src.z))
 		in_use = TRUE
 		icon_state = icon_state_inuse
@@ -54,15 +51,7 @@
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
 		icon_state = initial(icon_state)
 		to_chat(user, finishmessage)
-		user.reagents.add_reagent("growthserum", 10)
 		user.apply_status_effect(STATUS_EFFECT_EXERCISED)
-
-/obj/structure/weightmachine/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE
-	if(!in_use)
-		default_unfasten_wrench(user, I, time = 20)
-	else
-		to_chat(user, "<span class='warning'> This structure is being used.")
 
 /obj/structure/weightmachine/stacklifter
 	icon = 'icons/goonstation/objects/fitness.dmi'
