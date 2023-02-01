@@ -19,6 +19,10 @@
 	summon_type = list(/turf/simulated/floor/engine/cult)
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/floor/holy
+	name = "Summon Holy Floor"
+	desc = "Это заклинание призовет святой пол."
+	summon_type = list(/turf/simulated/floor/engine/cult/holy)
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Summon Cult Wall"
 	desc = "This spell constructs a cult wall"
@@ -33,6 +37,10 @@
 	summon_type = list(/turf/simulated/wall/cult/artificer) //we don't want artificer-based runed metal farms
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/wall/holy
+	name = "Summon Holy Wall"
+	desc = "Это закланиние призовет святую стенку, способную сдержать врагов. Впрочем, вы можете легко её разрушить."
+	summon_type = list(/turf/simulated/wall/cult/artificer/holy)
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
@@ -80,6 +88,11 @@
 
 	summon_type = list(/obj/structure/cult/functional/pylon)
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon/holy
+	name = "Holy Pylon"
+	desc = "Это заклинание призывает уязвимый к повреждениям кристалл, что будет немного лечить иных коснтруктов"
+
+	summon_type = list(/obj/structure/cult/functional/pylon/holy)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall
 	name = "Shield"
@@ -95,12 +108,22 @@
 	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall/holy
+	summon_type = list(/obj/effect/forcefield/holy)
+
 /obj/effect/forcefield/cult
 	desc = "That eerie looking obstacle seems to have been pulled from another dimension through sheer force"
 	name = "eldritch wall"
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "m_shield_cult"
 	light_color = LIGHT_COLOR_PURE_RED
+
+/obj/effect/forcefield/holy
+	desc = "Этот щит, похоже, так и светится своей святостью! Не похоже что его можно будет убрать так просто."
+	name = "holy field"
+	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = "holy_field"
+	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift
 	name = "Phase Shift"
@@ -123,6 +146,9 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return
 
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/holy
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
+	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
