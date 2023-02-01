@@ -48278,7 +48278,7 @@
 	},
 /area/turret_protected/ai)
 "eAt" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/security,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
