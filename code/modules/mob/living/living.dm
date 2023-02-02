@@ -156,7 +156,7 @@
 /mob/living/get_pull_push_speed_modifier(current_delay)
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
-	var/average_delay = (movement_delay() + current_delay) / 2
+	var/average_delay = (movement_delay(TRUE) + current_delay) / 2
 	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
 
 //Called when we want to push an atom/movable
