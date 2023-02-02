@@ -39,6 +39,7 @@
 	name = "BMP Armory"
 	icon_state = "away5"
 	requires_power = TRUE
+	power_environ = FALSE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
@@ -53,6 +54,8 @@
 	name = "BMP MedBay Block"
 	icon_state = "away7"
 	requires_power = TRUE
+	power_environ = FALSE
+	power_equip = FALSE
 	ambientsounds = list('sound/ambience/ambigen6.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/ChemLab
@@ -140,6 +143,14 @@
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
 
+/obj/item/storage/firstaid/with_mousetrap/tactical/AltClick(mob/user)
+	if (isliving(user))
+		..()
+
+/obj/item/storage/firstaid/with_mousetrap/tactical/Click(mob/user)
+	if (isliving(user))
+		..()
+
 /obj/item/paper/taunt
 	name = "Shrot note"
 	info = "<b>Ha-ha! Gotcha! As always!</b>"
@@ -157,6 +168,14 @@
 	..()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
+
+/obj/item/storage/firstaid/with_mousetrap/syndie/AltClick(mob/user)
+	if (isliving(user))
+		..()
+
+/obj/item/storage/firstaid/with_mousetrap/syndie/Click(mob/user)
+	if (isliving(user))
+		..()
 
 // Дисплей кейс с лодкой
 
