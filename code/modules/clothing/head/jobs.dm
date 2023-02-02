@@ -25,11 +25,7 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
-	dog_fashion = null
-
-/obj/item/clothing/head/caphat/alt
-	icon_state = "cap_parade"
-	item_state = "cap_parade"
+	item_state = "capcap"
 	dog_fashion = null
 
 /obj/item/clothing/head/caphat/blue

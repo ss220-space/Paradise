@@ -226,7 +226,7 @@
 	put_on_delay = 50
 
 /obj/item/clothing/shoes/laceup/cap
-	name = "captains laceup shoes"
+	name = "captain's laceup shoes"
 	icon_state = "cap_laceups"
 	item_state = "cap_laceups"
 
