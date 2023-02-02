@@ -29,8 +29,8 @@
 			ninja_action.toggle_button_on_off()
 		break
 
-// Разрыв в реальности призванный удерживать там ниндзя c реагентом пока тот лечится
-// Вызывается в коде самого реагента "chiyurizine"
+// A reality rift designated to contain our ninja inside it.
+// Created via the "chiyurizine" reagent.
 /obj/effect/temp_visual/ninja_rend
 	name = "A somewhat stable rend in reality"
 	desc = "Incredible... yet absurd thing. Who's gonna come out of it?"
@@ -49,7 +49,7 @@
 /obj/effect/temp_visual/ninja_rend/Initialize(mapload)
 	for(var/obj/effect/temp_visual/ninja_rend/other_rend in src.loc.contents)
 		if(other_rend!=src)
-			qdel(other_rend)	//Не больше одного на тайле!
+			qdel(other_rend)	//Only one on a turf!
 	duration = rand(duration_min, duration_max)
 	. = ..()
 
@@ -64,6 +64,10 @@
 	if(!istype(rend_occupant))
 		return
 	occupant = rend_occupant
+	//Check below gets them out of most machines safelly
+	if(isobj(rend_occupant.loc))
+		var/obj/O = rend_occupant.loc
+		O.force_eject_occupant(rend_occupant)
 	occupant.forceMove(src)
 	occupant.SetSleeping(duration)
 	to_chat(occupant, span_danger("Вы попали в пространственно временной парадокс... "))

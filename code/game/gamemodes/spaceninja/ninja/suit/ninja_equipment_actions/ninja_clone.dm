@@ -34,8 +34,8 @@
 		ninja_clone.faction = list(ROLE_NINJA)
 		ninja_clone.Copy_Parent(ninja, 20 SECONDS, 20, 10, 50)
 		do_teleport(ninja_clone, get_turf(ninja), 2)
-		// Проверяем мобов в небольшом радиусе от точки каста на наличие майндщилда.
-		// И делаем ближайшего целью клонов.
+		// Check mobs in a small radius from the cast position for mindshield
+		// And make the closest to be targeted by clones
 		var/list/mobs_in_range = viewers(5, get_turf(src))
 		for(var/mob/living/in_turf_mob in mobs_in_range)
 			if(ismindshielded(in_turf_mob))
