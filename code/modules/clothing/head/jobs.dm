@@ -27,6 +27,26 @@
 	icon_state = "capcap"
 	dog_fashion = null
 
+/obj/item/clothing/head/caphat/alt
+	icon_state = "cap_parade"
+	item_state = "cap_parade"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/blue
+	icon_state = "cap_parade_alt"
+	item_state = "cap_parade_alt"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/office
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	icon_state = "cap_beret"
+	item_state = "cap_beret"
+
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"

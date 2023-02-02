@@ -34,7 +34,19 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
-
+	new /obj/item/clothing/head/caphat/alt(src)
+	new /obj/item/clothing/head/caphat/blue(src)
+	new /obj/item/clothing/head/caphat/office(src)
+	new /obj/item/clothing/head/caphat/beret(src)
+	new /obj/item/clothing/under/captainparade/alt(src)
+	new /obj/item/clothing/under/captainparade/dress(src)
+	new /obj/item/clothing/under/captainparade/office(src)
+	new /obj/item/clothing/suit/captunic/coat(src)
+	new /obj/item/clothing/suit/captunic/parade(src)
+	new /obj/item/clothing/suit/captunic/parade/alt(src)
+	new /obj/item/clothing/shoes/laceup/cap(src)
+	new /obj/item/clothing/suit/captunic/bomber(src)
+	new /obj/item/clothing/suit/captunic/jacket(src)
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
