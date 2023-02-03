@@ -16,9 +16,8 @@
 	icon_state = "terror_red"
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
-	maxHealth = 230
-	health = 230
-	heal_per_kill = 230
+	maxHealth = 190
+	health = 190
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 	obj_damage = 60
@@ -26,7 +25,7 @@
 	death_sound = 'sound/creatures/terrorspiders/death1.ogg'
 	armour_penetration = 10
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
-	speed = 0.5
+	speed = 1
 	spider_opens_doors = 2
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	web_type = /obj/structure/spider/terrorweb/knight
