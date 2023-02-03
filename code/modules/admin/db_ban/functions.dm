@@ -428,7 +428,7 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("ban")] SET unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=INET_ATON(:unban_ip) WHERE id=:id, unbanned_round_id=:unbanned_round_id", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("ban")] SET unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip, unbanned_round_id=:unbanned_round_id WHERE id=:id", list(
 		"unban_ckey" = unban_ckey,
 		"unban_computerid" = unban_computerid,
 		"unban_ip" = unban_ip,
