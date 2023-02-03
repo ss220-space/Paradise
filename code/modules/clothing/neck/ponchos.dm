@@ -24,8 +24,13 @@
 	desc = "Your classic, non-racist poncho. This one is red."
 	icon_state = "redponcho"
 
-/obj/item/clothing/neck/poncho/ponchoshame
+/obj/item/clothing/neck/poncho/shame
 	name = "poncho of shame"
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
 	icon_state = "ponchoshame"
 	flags = NODROP
+
+/obj/item/clothing/neck/poncho/security
+	name = "corporate poncho"
+	desc = "Пончо в корпоративных цветах, при его виде пропадает желание нелегально пересекать сектор"
+	icon_state = "seccponcho"
