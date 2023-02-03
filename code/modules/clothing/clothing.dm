@@ -694,7 +694,23 @@ BLIND     // can't see anything
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude", "Wryn", "lesser form")
+	var/list/faction_restricted = list("exlude", "ashwalker")
 
+/obj/item/clothing/suit/space/mob_can_equip(M as mob, slot)
+	if(!..())
+		return 0
+
+	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+		return 1
+
+	if(faction_restricted && istype(M,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+
+		if(H.faction)
+			if((H.faction in faction_restricted))
+				to_chat(M, "<span class='warning'>Вы понятия не имеете как надеть [src].</span>")
+				return 0
+	return 1
 
 // Under clothing
 /obj/item/clothing/under
