@@ -26,10 +26,6 @@
 	icon_state = "ipc_ship1"
 	requires_power = TRUE
 
-// HEADCRAB SPAWNERS
-/obj/structure/spawner/headcrab/smaller_amount
-	max_mobs = 7
-
 // IPC corpse
 /obj/effect/mob_spawn/human/corpse/ipc
 	mob_type = /mob/living/carbon/human/machine
@@ -55,7 +51,7 @@
 	burn_damage = rand(80, 400)
 	return ..()
 
-// ТРУП ХЕДКРАБА, ПЕРЕНЕСТИ В CORPSE.DM
+// Headcrab corpse
 
 /obj/effect/mob_spawn/headcrab
 	mob_type = /mob/living/simple_animal/hostile/headcrab
@@ -65,14 +61,7 @@
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab_dead"
 
-// discharged APC
-/obj/machinery/power/apc/discharged
-	locked = 0
-	start_charge = 0
-	operating = 0
-	report_power_alarm = FALSE
-	req_access = FALSE
-
+// SM shard that can't be moved
 /obj/machinery/power/supermatter_shard/anchored
 	name = "Well anchored supermatter shard"
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. Apparently the structure is attached to the surface with industrial equipment, it cannot be unanchored with simple equipment. <span class='danger'>You get headaches just from looking at it.</span>"
