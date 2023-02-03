@@ -151,7 +151,7 @@
 	layer = 1.9
 	},
 /turf/simulated/wall/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/middle)
 "cq" = (
@@ -382,8 +382,9 @@
 /area/ruin/space/crashedipcship/middle)
 "fo" = (
 /obj/structure/window/full/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
+/obj/structure/grille,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
 "fx" = (
@@ -424,6 +425,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 5
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "gR" = (
@@ -703,6 +705,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "mc" = (
@@ -744,6 +747,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/spacevine,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "mF" = (
@@ -796,7 +800,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/middle)
 "nb" = (
@@ -1173,6 +1177,7 @@
 	max_mobs = 7;
 	max_integrity = 300
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "tw" = (
@@ -1311,8 +1316,9 @@
 /area/ruin/space/crashedipcship/engine)
 "vA" = (
 /obj/structure/window/full/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
+/obj/structure/grille,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -1343,6 +1349,7 @@
 "wi" = (
 /obj/structure/spacevine,
 /obj/item/stock_parts/matter_bin/super,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "wl" = (
@@ -1540,6 +1547,16 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
 /area/space)
+"yW" = (
+/obj/structure/window/full/shuttle{
+	color = "#A9E0FF"
+	},
+/obj/structure/window/full/shuttle{
+	color = "#A9E0FF"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/crashedipcship/middle)
 "yX" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
@@ -1611,13 +1628,14 @@
 /area/ruin/space/crashedipcship/engine)
 "Ad" = (
 /obj/structure/window/full/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
+/obj/structure/grille,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
 "Ah" = (
 /turf/simulated/wall/shuttle/nodiagonal{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/engine)
 "Ai" = (
@@ -1642,7 +1660,7 @@
 /area/ruin/space/crashedipcship/middle)
 "An" = (
 /turf/simulated/wall/shuttle/nodiagonal{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/aft)
 "Au" = (
@@ -2124,6 +2142,7 @@
 "HW" = (
 /obj/structure/spacevine,
 /obj/item/stock_parts/micro_laser/ultra,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "HY" = (
@@ -2195,8 +2214,9 @@
 /area/ruin/space/crashedipcship/engine)
 "Jz" = (
 /obj/structure/window/full/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
+/obj/structure/grille,
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
 "JH" = (
@@ -2475,7 +2495,7 @@
 	layer = 1.9
 	},
 /turf/simulated/wall/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/engine)
 "Nu" = (
@@ -2823,6 +2843,7 @@
 /area/space)
 "UB" = (
 /obj/effect/decal/cleanable/ash,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "UF" = (
@@ -2853,7 +2874,7 @@
 /area/ruin/space/crashedipcship/shard)
 "UV" = (
 /turf/simulated/wall/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/aft)
 "UX" = (
@@ -2864,6 +2885,7 @@
 /obj/item/stock_parts/matter_bin/super,
 /obj/effect/landmark/damageturf,
 /obj/item/stack/cable_coil,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "Vp" = (
@@ -2926,7 +2948,7 @@
 /area/ruin/space/crashedipcship/middle)
 "WH" = (
 /turf/simulated/wall/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/engine)
 "Xd" = (
@@ -3021,7 +3043,7 @@
 /area/ruin/space/crashedipcship/aft)
 "Yl" = (
 /turf/simulated/wall/shuttle{
-	color = "lightblue"
+	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/middle)
 "YB" = (
@@ -5487,7 +5509,7 @@ uP
 uP
 uP
 Yl
-fo
+yW
 vn
 fo
 Yl
