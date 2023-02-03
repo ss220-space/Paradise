@@ -2775,9 +2775,6 @@
 /obj/machinery/door/airlock/silver,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"hp" = (
-/turf/simulated/wall/shuttle,
-/area/awaymission/BMPship/Containment)
 "hq" = (
 /obj/structure/alien/weeds,
 /obj/machinery/firealarm/triggered_nosignals{
@@ -4478,20 +4475,12 @@
 /turf/space,
 /area/space)
 "qQ" = (
-/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "qS" = (
@@ -7391,14 +7380,6 @@
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
-"QE" = (
-/obj/effect/spawner/window/shuttle,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "QN" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -7613,20 +7594,12 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Armory)
 "Tj" = (
-/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Tt" = (
@@ -7711,13 +7684,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Uf" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Containment)
 "Ug" = (
 /obj/effect/landmark/damageturf,
@@ -15647,7 +15616,7 @@ zX
 zX
 ff
 Tj
-hp
+Uf
 jI
 jw
 Uf
@@ -18507,11 +18476,11 @@ ve
 XQ
 XQ
 qQ
-hp
+Uf
 sa
 sa
 Uf
-QE
+qQ
 XQ
 xG
 xG
