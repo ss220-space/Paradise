@@ -641,3 +641,5 @@
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	name = "cucumber mask"
 	heal_bodypart = "eyes"
+	icon_state = "cucumbermask"
+	item_state = "cucumbermask"
