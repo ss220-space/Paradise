@@ -707,7 +707,7 @@ BLIND     // can't see anything
 		var/mob/living/carbon/human/H = M
 
 		if(H.faction)
-			if((H.faction in faction_restricted))
+			if(H.faction in faction_restricted)
 				to_chat(M, "<span class='warning'>Вы понятия не имеете как надеть [src].</span>")
 				return 0
 	return 1
