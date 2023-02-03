@@ -154,8 +154,9 @@
 			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(2) // 4 seconds.
-			M.Weaken(2) // 4 seconds.
+			M.Stun(1) // 2 seconds.
+			M.Weaken(1) // 2 seconds.
+			M.slowed = 3
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)
@@ -241,10 +242,10 @@
 						if(!mobIsWrappable(L))
 							continue
 						if(iscarbon(L))
-							adjustBruteLoss(-heal_per_kill)
+							apply_status_effect(STATUS_EFFECT_TERROR_FOOD_REGEN)
 							fed++
 							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
-							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+							to_chat(src, "<span class='notice'>You begin to regenerate quickly!</span>")
 						else
 							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1

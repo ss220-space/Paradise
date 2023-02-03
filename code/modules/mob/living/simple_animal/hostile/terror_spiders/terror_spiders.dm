@@ -40,10 +40,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	maxHealth = 120
 	health = 120
 	a_intent = INTENT_HARM
-	var/heal_per_kill = 120 // healing per wrap
-	var/heal_per_jelly = 120 // gain a ton of healing if you eat a jelly
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
+	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds
 
 	//ATTACK
 	melee_damage_lower = 15
@@ -206,7 +205,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		return
 	to_chat(src, "<span class='notice'>You consume royal jelly to heal yourself!</span>")
 	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
-	adjustBruteLoss(-heal_per_jelly)
+	apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
 	qdel(J)
 
 // --------------------------------------------------------------------------------
@@ -248,6 +247,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(can_wrap)
 		wrap_action = new()
 		wrap_action.Grant(src)
+	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
 	if(is_away_level(z))
@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(stat != DEAD)
 			adjustBruteLoss(-regeneration)
 		if(degenerate)
-			adjustBruteLoss(rand(4,6))
+			adjustBruteLoss(rand(15,20))
 		if(prob(5))
 			CheckFaction()
 
