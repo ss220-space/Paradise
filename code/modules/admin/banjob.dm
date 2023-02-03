@@ -75,7 +75,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			applyglobal_query = "OR is_global = '1'"
 
 		// Jobbans
-		var/datum/db_query/jobbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND (0 [applyfrom_query] [applyglobal_query]) AND role != 'Appearance' AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
+		var/datum/db_query/jobbans = SSdbcore.NewQuery("SELECT ckey, role FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE role != 'Server' AND role != 'Appearance' AND (0 [applyfrom_query] [applyglobal_query]) AND isnull(unbanned_datetime) AND (isnull(expiration_time) OR expiration_time > Now())")
 
 		if(!jobbans.warn_execute(async=FALSE))
 			qdel(jobbans)

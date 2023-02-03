@@ -599,7 +599,7 @@
 			if(dbbantype)
 				switch(dbbantype)
 					if(BANTYPE_TEMP)
-						bantypesearch = "AND expiration_time != null AND applies_to_admins = 0 AND role = 'Server'0"
+						bantypesearch = "AND expiration_time != null AND applies_to_admins = 0 AND role = 'Server'"
 					if(BANTYPE_JOB_PERMA)
 						bantypesearch = "AND expiration_time = null AND applies_to_admins = 0 AND role != 'Server' AND role != 'Appearance'"
 					if(BANTYPE_JOB_TEMP)
@@ -615,7 +615,7 @@
 
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
-				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, INET_NTOA(ip), computerid, applies_to_admins, server
+				SELECT id, bantime, reason, role, expiration_time, ckey, a_ckey, unbanned_ckey, unbanned_datetime, edits, ip, computerid, applies_to_admins, server
 				FROM [sqlfdbkdbutil].[format_table_name("ban")] WHERE (server IN ('[jointext(sqlbansreadfrom, "','")]')) [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
@@ -659,9 +659,9 @@
 				var/ban_title_text = ban_titles.Join(" ")
 				var/typedesc =""
 				if (isnull(expiration))
-					typedesc += "<font color='red'><b>[ban_title_text]</b></font>"
+					typedesc = "<font color='red'><b>[ban_title_text]</b></font>"
 				else
-					typedesc += "<b>[ban_title_text]</b><br><font size='2'>[role]<br>[(unbantime || !can_edit) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
+					typedesc = "<b>[ban_title_text]</b><br><font size='2'>[role]<br>[(unbantime || !can_edit) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>)"]<br>Expires [expiration]</font>"
 
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"
