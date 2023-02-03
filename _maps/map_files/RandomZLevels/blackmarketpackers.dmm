@@ -1323,7 +1323,7 @@
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "dI" = (
@@ -1343,7 +1343,7 @@
 	pixel_x = 8
 	},
 /obj/item/stamp/mime,
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "dK" = (
@@ -1507,7 +1507,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen/fancy,
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "eg" = (
@@ -1854,7 +1854,7 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth{
 	layer = 2.9
 	},
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "eZ" = (
@@ -4270,6 +4270,11 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
+"pr" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/awaymission/BMPship/CommonArea)
 "pt" = (
 /obj/machinery/light_construct/small,
 /mob/living/simple_animal/cockroach,
@@ -7014,7 +7019,7 @@
 "MM" = (
 /obj/structure/alien/weeds,
 /obj/item/storage/fancy/donut_box,
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "MN" = (
@@ -7199,7 +7204,7 @@
 "OV" = (
 /obj/structure/alien/weeds,
 /obj/machinery/recharger,
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "OX" = (
@@ -11158,7 +11163,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -11691,7 +11696,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -12449,7 +12454,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -14018,7 +14023,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -14415,7 +14420,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -18474,14 +18479,14 @@ ve
 ve
 ve
 XQ
-XQ
+pr
 qQ
 Uf
 sa
 sa
 Uf
 qQ
-XQ
+pr
 xG
 xG
 xG
@@ -19812,7 +19817,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -20352,7 +20357,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -21265,7 +21270,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 QB
 QB
 QB
@@ -21508,7 +21513,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 kv
@@ -22420,7 +22425,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
@@ -22540,7 +22545,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 Vt
@@ -22796,7 +22801,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 ac
@@ -22824,7 +22829,7 @@ aa
 aM
 aa
 aa
-aa
+BG
 aa
 QB
 QB
@@ -23468,7 +23473,7 @@ aa
 aa
 aa
 aa
-aa
+BG
 aa
 aa
 aa
