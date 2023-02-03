@@ -67,7 +67,6 @@
 
 	if( !bantype_pass ) return
 	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
 
 	var/ckey
 	var/computerid
