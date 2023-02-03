@@ -1034,11 +1034,11 @@
 			if("bans_server_name")
 				sqlbansservername = value
 			if("apply_bans_from")
-				sqlbansapplyfrom = splittext(value, ",")
+				sqlbansapplyfrom += value
 			if("read_bans_from")
-				sqlbansreadfrom = splittext(value, ",")
+				sqlbansreadfrom += value
 			if("modify_bans_from")
-				sqlbansmodifyfrom = splittext(value, ",")
+				sqlbansmodifyfrom += value
 			if("apply_global_bans")
 				sqlbansapplyglobal = TRUE
 			else
