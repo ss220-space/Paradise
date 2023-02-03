@@ -64,7 +64,12 @@ SUBSYSTEM_DEF(tts)
 		"assistant" = "Ассистент",
 		"chief engineer" = "Главный Инженер",
 		"station engineer" = "Станционный инженер",
-		"trainee engineer" = "Инженер-практикант",
+		"trainee engineer" = "Инженер-стажер",
+		"Engineer Assistant" = "Инженерный Ассистент",
+		"Technical Assistant" = "Технический Ассистент",
+		"Engineer Student" = "Инженер-практикант",
+		"Technical Student" = "Техник-практикант",
+		"Technical Trainee" = "Техник-стажер",
 		"maintenance technician" = "Техник по обслуживанию",
 		"engine technician" = "Техник по двигателям",
 		"electrician" = "Электрик",
@@ -73,7 +78,9 @@ SUBSYSTEM_DEF(tts)
 		"mechanic" = "Механик",
 		"chief medical officer" = "Главный врач",
 		"medical doctor" = "Врач",
-		"student medical doctor" = "Врач-интерн",
+		"Intern" = "Интерн",
+		"Student Medical Doctor" = "Врач-практикант",
+		"Medical Assistant" = "Ассистирующий врач",
 		"surgeon" = "Хирург",
 		"nurse" = "Медсестра",
 		"coroner" = "К+оронэр",
@@ -90,7 +97,11 @@ SUBSYSTEM_DEF(tts)
 		"paramedic" = "Парамедик",
 		"research director" = "Директор исследований",
 		"scientist" = "Учёный",
-		"student scientist" = "Учёный-практик",
+		"student scientist" = "Учёный-практикант",
+		"Scientist Assistant" = "Научный Ассистент",
+		"Scientist Pregraduate" = "Учёный-бакалавр",
+		"Scientist Graduate" = "Научный выпускник",
+		"Scientist Postgraduate" = "Учёный-аспирант",
 		"anomalist" = "Аномалист",
 		"plasma researcher" = "Исследователь плазмы",
 		"xenobiologist" = "Ксенобиолог",
@@ -99,12 +110,14 @@ SUBSYSTEM_DEF(tts)
 		"student robotist" = "Студент-робототехник",
 		"biomechanical engineer" = "Биомеханический инженер",
 		"mechatronic engineer" = "Инженер мехатроники",
-		"head of security" = "Глаза службы безопасности",
+		"head of security" = "Глава службы безопасности",
 		"warden" = "Смотритель",
 		"detective" = "Детектив",
 		"forensic technician" = "Криминалист",
 		"security officer" = "Офицер службы безопасности",
 		"security cadet" = "Кадет службы безопасности",
+		"Security Assistant" = "Ассистент службы безопасности",
+		"Security Graduate" = "Выпускник кадетской академии",
 		"brig physician" = "Врач брига",
 		"security pod pilot" = "Пилот пода службы безопасности",
 		"ai" = "И И",
@@ -435,8 +448,8 @@ SUBSYSTEM_DEF(tts)
 	for(var/job in tts_job_replacements)
 		. = replacetext(., regex(job, "igm"), tts_job_replacements[job])
 	. = rustg_latin_to_cyrillic(.)
-	. = replacetext(., regex(@"(?<=[1-90])(\.|,)(?=[1-90])", "g"), " целых ")
-	. = replacetext(., regex(@"\d+", "g"), /proc/num_in_words)
+	. = replacetext(., regex(@"-?\d+\.\d+", "g"), /proc/dec_in_words)
+	. = replacetext(., regex(@"-?\d+", "g"), /proc/num_in_words)
 	if(sanitized_messages_caching)
 		sanitized_messages_cache[hash] = .
 
@@ -510,6 +523,7 @@ SUBSYSTEM_DEF(tts)
 			"трейзен" = "трэйзэн",
 			"нанотрейзен" = "нанотрэйзэн",
 			"мед" = "м ед",
+			"кз" = "Кэ Зэ",
 		)
 	var/match = tts_replacement_list[lowertext(word)]
 	if(match)

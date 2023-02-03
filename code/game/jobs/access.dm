@@ -98,6 +98,8 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("NT Undercover Operative")
 			return get_all_centcom_access() + get_all_accesses()
+		if("Special Reaction Team Member")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Solar Federation General")
@@ -475,6 +477,9 @@
 /proc/get_all_soviet_jobs()
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral")
 
+/proc/get_all_special_jobs()
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
+
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
@@ -560,41 +565,41 @@
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/assignmentName = "Unknown"
 	var/rankName = "Unknown"
 	if(istype(src, /obj/item/pda))
 		var/obj/item/pda/P = src
-		assignmentName = P.ownjob
 		rankName = P.ownrank
 	else
 		var/obj/item/card/id/id = GetID()
 		if(istype(id))
-			assignmentName = id.assignment
 			rankName = id.rank
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
 	var/soviet = get_all_soviet_jobs()
+	var/special = get_all_special_jobs()
 
-	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
-		return "Centcom"
-	if(rankName in centcom)
+	if(rankName in centcom) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 
-	if(assignmentName in solgov) //Return with the SolGov logo if it is a SolGov job
-		return "solgov"
-	if(rankName in solgov)
+	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job
 		return "solgov"
 
-	if(assignmentName in soviet) //Return with the U.S.S.P logo if it is a Soviet job
-		return "soviet"
-	if(rankName in soviet)
+	if(rankName in soviet) //Return with the U.S.S.P logo if it is a Soviet job
 		return "soviet"
 
-	if(assignmentName in job_icons) //Check if the job has a hud icon
-		return assignmentName
-	if(rankName in job_icons)
+	if(rankName in special)
+		switch(rankName)
+			if("Special Reaction Team Member")
+				return "srt"
+			if("HONKsquad")
+				return "honksquad"
+			if("Clown Security")
+				return "clownsecurity"
+		return rankName
+
+	if(rankName in job_icons) //Check if the job has a hud icon
 		return rankName
 
 	return "Unknown" //Return unknown if none of the above apply

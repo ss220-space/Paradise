@@ -623,6 +623,14 @@
 	build_path = /obj/item/assembly/voice/noise
 	category = list("initial", "Miscellaneous")
 
+/datum/design/transporter
+	name = "Transporter"
+	id = "Transporter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 50)
+	build_path = /obj/item/transporter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/light_tube
 	name = "Light Tube"
 	id = "light_tube"
@@ -1019,4 +1027,13 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/desk_bell
+	category = list("initial", "Miscellaneous")
+
+/datum/design/cap_ammo
+	name = "Speed Loader(caps)"
+	desc = "Capgun speedloader"
+	id = "cap_ammo"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100)
+	build_path = /obj/item/ammo_box/caps
 	category = list("initial", "Miscellaneous")

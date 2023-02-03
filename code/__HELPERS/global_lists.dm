@@ -10,6 +10,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
+	//hair gradients
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair_gradient, GLOB.hair_gradients_list)
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
 	//underwear
@@ -132,6 +134,11 @@
 			stack_trace("[wth.type] has the same topic key as [GLOB.world_topic_handlers[wth.topic_key]]! ([wth.topic_key])")
 			continue
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

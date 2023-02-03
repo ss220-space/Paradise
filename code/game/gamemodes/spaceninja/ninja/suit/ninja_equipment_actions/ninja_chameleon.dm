@@ -2,10 +2,11 @@
 /*
 * Chameleon ability, that allows you to change your appearance to the appearance of a crewmember
 */
-/datum/action/item_action/ninja_chameleon
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+/datum/action/item_action/advanced/ninja/ninja_chameleon
 	name = "Chameleon Disguise"
 	desc = "Toggles Chameleon mode on and off. Passively encrease suit energy consumption."
+	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "chameleon"
@@ -21,6 +22,9 @@
 	else
 		chameleon_scanner = new
 		chameleon_scanner.my_suit = src
+		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
+			chameleon_scanner.my_action = ninja_action
+			break
 		if(disguise_active)
 			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
 		ninja.put_in_hands(chameleon_scanner)
@@ -40,11 +44,13 @@
 	flags =  DROPDEL | ABSTRACT
 	var/effect_color = "#ffaa00"
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
+	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
 /obj/item/ninja_chameleon_scanner/Destroy()
 	. = ..()
 	my_suit.chameleon_scanner = null
 	my_suit = null
+	my_action = null
 
 /obj/item/ninja_chameleon_scanner/equip_to_best_slot(mob/M)
 	qdel(src)
@@ -138,46 +144,67 @@
 		restore_form(ninja)
 		return
 
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_chameleon()
+/// When reloading our disguise via helper, we don't need to do some things.
+/// That's why the "extra_important_things" flag is here.
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_chameleon(extra_important_things = TRUE)
 	var/mob/living/carbon/human/ninja = affecting
 	var/old_name = "[ninja]"
 
+	if(extra_important_things)
+		//Voice changing
+		n_mask.voice_changer.set_voice(ninja, disguise.name)
+		if(!n_mask.voice_changer.active)
+			n_mask.voice_changer.attack_self(ninja)
+		//ID card initialisation
+		n_id_card = new
+		toggle_ninja_nodrop(n_id_card)
+		n_id_card.flags ^= DROPDEL
+		n_id_card.assignment = disguise.assignment
+		n_id_card.rank = disguise.rank
+		if(!ninja.wear_id)
+			ninja.equip_to_slot(n_id_card, slot_wear_id)
+		else
+			qdel(n_id_card)
+			n_id_card = null
+		//Sparks
+		playsound(ninja, "sparks", 75, TRUE)
+		spark_system.start()
+		//Log and info
+		ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
+		add_game_logs("Замаскировался под [ninja]", ninja)
+		//Components
+		ninja.AddComponent(/datum/component/examine_override, disguise.examine_text)
+		ninja.AddComponent(/datum/component/ninja_states_breaker, src)
+		ninja.AddComponent(/datum/component/ninja_chameleon_helper, src)
+		//Chameleon_scanner icon reloading
+		if(chameleon_scanner)
+			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
+		//Action icon
+		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
+			ninja_action.action_ready = TRUE
+			ninja_action.use_action()
+
+	//Disguise
 	ninja.name_override = disguise.name
 	ninja.icon = disguise.icon
 	ninja.icon_state = disguise.icon_state
 	ninja.overlays = disguise.overlays
 	ninja.update_inv_r_hand()
 	ninja.update_inv_l_hand()
-
-	n_mask.voice_changer.set_voice(ninja, disguise.name)
-	if(!n_mask.voice_changer.active)
-		n_mask.voice_changer.attack_self(ninja)
-
-	playsound(ninja, "sparks", 75, TRUE)
-	spark_system.start()
-
-	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
-	add_game_logs("Замаскировался под [ninja]", ninja)
-
-	ninja.AddComponent(/datum/component/examine_override, disguise.examine_text)
-	ninja.AddComponent(/datum/component/ninja_states_breaker, src)
-
-	if(chameleon_scanner)
-		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
-
-	for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, TRUE)
+	//Disguise flag
 	disguise_active = TRUE
+
+
 /*
 * Proc восстанавливающий внешность ниндзя и отрубающий хамелион.
 */
 /obj/item/clothing/suit/space/space_ninja/proc/restore_form()
+	//Disguise flag
 	disguise_active = FALSE
-	var/mob/living/carbon/human/ninja = affecting
-	if(chameleon_scanner)
-		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]"
-	var/old_name = "[ninja.name_override]"
 
+	var/mob/living/carbon/human/ninja = affecting
+	var/old_name = "[ninja.name_override]"
+	//Disguise off
 	ninja.cut_overlays()
 	ninja.icon = initial(ninja.icon)
 	ninja.icon_state = initial(ninja.icon_state)
@@ -187,17 +214,26 @@
 	ninja.desc = initial(ninja.desc)
 	ninja.color = initial(ninja.color)
 
+	//Voice changing off
 	if(n_mask.voice_changer.active)
 		n_mask.voice_changer.attack_self(ninja)
-
+	//ID card deinitialisation
+	qdel(n_id_card)
+	n_id_card = null
+	//Sparks
 	playsound(ninja, "sparks", 150, TRUE)
 	spark_system.start()
-
+	//Info
 	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы возвращаете себе свою внешность."), "Вы слышите странный электрический звук!")
-
-	for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, FALSE)
-
+	//Chameleon_scanner icon reloading
+	if(chameleon_scanner)
+		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]"
+	//Action icon
+	for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
+		ninja_action.action_ready = FALSE
+		ninja_action.use_action()
+	//Components
 	qdel(ninja.GetComponent(/datum/component/examine_override))
 	qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
+	qdel(ninja.GetComponent(/datum/component/ninja_chameleon_helper))
 

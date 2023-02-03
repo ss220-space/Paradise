@@ -123,7 +123,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	formatted_message += "<h2 class='alert'>[message_title].</h2>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
-		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
+		formatted_message += "<br><span class='alert'> — [message_announcer]</span>"
 
 	return formatted_message
 
@@ -139,7 +139,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	formatted_message += "<h1 class='alert'>[message_title].</h1>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
-		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
+		formatted_message += "<br><span class='alert'> — [message_announcer]</span>"
 	formatted_message += "<br>"
 
 	return formatted_message
@@ -180,7 +180,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 		if(config.tts_enabled)
 			var/volume = M.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
-				return
+				continue
 		SEND_SOUND(M, message_sound)
 
 /datum/announcement/proc/Log(message as text, message_title as text)
