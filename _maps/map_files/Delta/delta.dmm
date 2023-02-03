@@ -20910,8 +20910,8 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "chD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker)
 "chH" = (
@@ -71845,7 +71845,7 @@
 /area/chapel/office)
 "jNM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/atmospherics/binary/pump,
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker)
 "jOc" = (
@@ -106009,8 +106009,8 @@
 /area/maintenance/asmaint2)
 "rle" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 4
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker)
@@ -128469,7 +128469,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
 /turf/simulated/wall,
