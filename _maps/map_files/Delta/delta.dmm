@@ -16381,9 +16381,9 @@
 /area/crew_quarters/fitness)
 "bPj" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/door_control{
@@ -60711,9 +60711,9 @@
 /area/quartermaster/storage)
 "hme" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/structure/window/reinforced/polarized{
 	dir = 8;
 	id = "vir_work_zone2"
@@ -69858,12 +69858,12 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/iv_drip,
 /obj/structure/cable{
@@ -100557,15 +100557,15 @@
 /area/hallway/primary/starboard/east)
 "qfb" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -104140,9 +104140,9 @@
 /area/toxins/sm_test_chamber)
 "qQk" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/door_control{
@@ -119689,9 +119689,9 @@
 /area/security/reception)
 "uiO" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
 	id = "vir_work_zone2"

@@ -205,21 +205,21 @@
 	var/blood_type = "Synthetic"
 	amount_per_transfer_from_this = 5
 
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis
-	name = "\improper IV Bag - Oxigenis"
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis
+	name = "\improper IV Bag - Oxygenis"
 	var/blood_species = "Oxygen - synthetic"
 
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis/Initialize(mapload)
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
 	. = ..()
 	if(blood_type != null && blood_species != null)
 		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon()
 
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
 	name = "\improper IV Bag - Nitrogenis"
 	var/blood_species = "Vox - synthetic"
 
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis/Initialize(mapload)
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
 	. = ..()
 	if(blood_type != null && blood_species != null)
 		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))

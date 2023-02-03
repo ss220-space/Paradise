@@ -64,12 +64,12 @@
 /area/shuttle/abandoned)
 "aT" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/Nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
