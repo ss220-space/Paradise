@@ -16,8 +16,8 @@
 	icon_living = "terror_purple"
 	icon_dead = "terror_purple_dead"
 	gender = MALE
-	maxHealth = 200
-	health = 200
+	maxHealth = 220
+	health = 220
 	melee_damage_lower = 20
 	melee_damage_upper = 25
 	obj_damage = 70

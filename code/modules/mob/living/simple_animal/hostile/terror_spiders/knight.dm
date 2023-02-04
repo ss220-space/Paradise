@@ -73,7 +73,7 @@
 		playsound(src, 'sound/creatures/terrorspiders/mod_defence_out.ogg', 100)
 		to_chat(src, "<span class='notice'>You are now in default mode</span>")
 		speed = 0.8
-		damage_coeff = list(BRUTE = 1, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
+		damage_coeff = list(BRUTE = 0.9, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
 		melee_damage_lower = 15
 		melee_damage_upper = 19
 		current_mode = 0
@@ -102,7 +102,7 @@
 			playsound(src, 'sound/creatures/terrorspiders/mod_defence.ogg', 100)
 			to_chat(src, "<span class='notice'>You are now in defence mode</span>")
 			speed = 1.6
-			damage_coeff = list(BRUTE = 0.7, BURN = 0.8, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
+			damage_coeff = list(BRUTE = 0.6, BURN = 0.8, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
 			melee_damage_lower = 10
 			melee_damage_upper = 15
 			current_mode = 2
