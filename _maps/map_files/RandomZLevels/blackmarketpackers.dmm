@@ -2126,7 +2126,8 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/airlock/vault{
+	hackProof = 1;
 	locked = 1
 	},
 /obj/machinery/door/poddoor/shutters{
