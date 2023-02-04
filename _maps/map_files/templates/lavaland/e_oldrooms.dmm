@@ -136,6 +136,15 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/necropolis,
+/obj/structure/window/reinforced/clockwork,
+/obj/structure/window/reinforced/clockwork{
+	dir = 8;
+	move_resist = 45000
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "lY" = (
@@ -290,14 +299,21 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "DS" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
 /obj/structure/closet/crate/necropolis/tendril,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "DU" = (
@@ -805,7 +821,7 @@ ZC
 Yn
 uh
 ZC
-YF
+DS
 Te
 il
 il
@@ -1219,7 +1235,7 @@ Te
 Te
 Te
 Te
-DS
+RA
 YF
 RA
 ZC
