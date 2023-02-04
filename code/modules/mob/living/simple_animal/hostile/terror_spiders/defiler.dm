@@ -28,7 +28,7 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
 							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
 							/obj/effect/proc_holder/spell/targeted/terror/infest)
-	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за три укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
+	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за два укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/LoseTarget()
@@ -44,7 +44,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.AdjustSilence(5)
-	L.adjustStaminaLoss(40)
+	L.adjustStaminaLoss(50)
 	if(!poisonable)
 		..()
 		return

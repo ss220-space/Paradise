@@ -26,7 +26,7 @@
 	if((length(GLOB.clients)) <= TS_MIDPOP_TRIGGER)
 		infestation_type = pick(1, 2)
 	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
-		infestation_type = 5
+		infestation_type = pick(5, 6, 7)
 	else
 		infestation_type = pick(3, 4)
 	switch(infestation_type)
@@ -38,13 +38,19 @@
 			spawncount = 2
 		if(3)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
-			spawncount = 5
+			spawncount = 4
 		if(4)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			spawncount = 3
 		if(5)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
+		if(6)
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
+			spawncount = 6
+		if(7)
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
+			spawncount = 4
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Террора?", null, TRUE, source = spider_type)
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")

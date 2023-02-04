@@ -22,7 +22,7 @@
 	regeneration = 0 //no healing on life, prince should play agressive
 	force_threshold = 30
 	melee_damage_lower = 35
-	melee_damage_upper = 40
+	melee_damage_upper = 39
 	armour_penetration = 20
 	obj_damage = 90
 	environment_smash = 2
@@ -52,7 +52,7 @@
 	if(prob(delimb_chance))
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)
-			L.adjustBruteLoss(35)
+			L.adjustBruteLoss(39)
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 100, 1)
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
 			visible_message("<span class='warning'>[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!</span>")

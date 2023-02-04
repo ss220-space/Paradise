@@ -32,6 +32,33 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/healer/user = owner
 	user.DoLayGreenEggs()
 
+// ---------- KNIGHT ACTIONS
+/datum/action/innate/terrorspider/knight/defaultm
+	name = "Default"
+	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon_state = "terror_princess1"
+
+/datum/action/innate/terrorspider/knight/defaultm/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(0)
+
+/datum/action/innate/terrorspider/knight/attackm
+	name = "Attack"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "attack"
+
+/datum/action/innate/terrorspider/knight/attackm/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(1)
+
+/datum/action/innate/terrorspider/knight/defencem
+	name = "Defence"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "defence"
+
+/datum/action/innate/terrorspider/knight/defencem/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(2)
 
 // ---------- BOSS ACTIONS
 
