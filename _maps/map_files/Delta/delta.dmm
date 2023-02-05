@@ -305,7 +305,7 @@
 /area/bridge/vip)
 "aay" = (
 /obj/machinery/hologram/holopad,
-/mob/living/simple_animal/crab/Coffee{
+/mob/living/simple_animal/crab/royal/Coffee{
 	desc = "Master of the GYM";
 	name = "Billy Crabington";
 	real_name = "Billy Crabington"
@@ -100729,6 +100729,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
 /obj/item/stack/spacecash/c1000{
 	amount = 100000
 	},

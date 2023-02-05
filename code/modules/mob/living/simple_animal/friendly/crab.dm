@@ -33,17 +33,24 @@
 				if(Process_Spacemove(east_vs_west))
 					Move(get_step(src, east_vs_west), east_vs_west)
 
-//COFFEE! SQUEEEEEEEEE!
-/mob/living/simple_animal/crab/Coffee
-	name = "Coffee"
-	real_name = "Coffee"
-	desc = "Величественный королевский краб. Коффи? Кофе?"
+/mob/living/simple_animal/crab/royal
+	name = "королевский краб"
+	desc = "Величественный королевский краб."
 	icon_state = "royalcrab"
 	icon_living = "royalcrab"
 	icon_dead = "royalcrab_dead"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stomps"
+	response_help  = "с уважением гладит"
+	response_disarm = "с уважением отталкивает"
+	response_harm   = "топчет без уважения"
+	health = 50
+	maxHealth = 50
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
+
+//COFFEE! SQUEEEEEEEEE!
+/mob/living/simple_animal/crab/royal/Coffee
+	name = "Coffee"
+	real_name = "Coffee"
+	desc = "Величественный королевский краб. Коффи? Кофе?"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 

@@ -669,9 +669,10 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "hijack",
-			"escape", "survive", "steal", "download", "nuclear", "capture", "blood", "absorb",
-			"destroy", "identity theft", "kill all humans",
+			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "escape", "survive",
+			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
+			"download", "nuclear", "capture", "blood", "absorb",
+			"destroy", "identity theft", "hijack", "kill all humans",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
@@ -857,6 +858,58 @@
 				var/datum/objective/steal/steal = new_objective
 				if(!steal.select_target())
 					return
+
+
+			if("thief hard")
+				if(!istype(objective, /datum/objective/steal/hard))
+					new_objective = new /datum/objective/steal/hard
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal/hard/steal = new_objective
+				if(!steal.select_target())
+					return
+
+			if("thief medium")
+				if(!istype(objective, /datum/objective/steal/medium))
+					new_objective = new /datum/objective/steal/medium
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal/medium/steal = new_objective
+				if(!steal.select_target())
+					return
+
+			if("thief collect")
+				if(!istype(objective, /datum/objective/collect))
+					new_objective = new /datum/objective/collect
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/collect/steal = new_objective
+				if(!steal.select_target())
+					return
+
+			if("thief pet")
+				if(!istype(objective, /datum/objective/steal_pet))
+					new_objective = new /datum/objective/steal_pet
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal_pet/steal = new_objective
+				if(!steal.select_target())
+					return
+
+			if("thief structure")
+				if(!istype(objective, /datum/objective/steal_structure))
+					new_objective = new /datum/objective/steal_structure
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal_structure/steal = new_objective
+				if(!steal.select_target())
+					return
+
 
 			if("get money")
 				new_objective = new /datum/objective/get_money

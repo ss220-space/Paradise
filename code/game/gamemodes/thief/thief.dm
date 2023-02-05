@@ -52,40 +52,35 @@
 	..()
 
 /datum/game_mode/proc/forge_thief_objectives(datum/mind/thief)
-	var/datum/objective/steal/steal_objective
+	var/datum/objective/thief_objective
 
 	//Hard objective
 	if(prob(30))
-		steal_objective = new /datum/objective/steal
-		steal_objective.owner = thief
-		steal_objective.find_target()
-		thief.objectives += steal_objective
+		thief_objective = new /datum/objective/steal
 	else
-		steal_objective = new /datum/objective/steal/hard
-		steal_objective.owner = thief
-		steal_objective.find_target()
-		thief.objectives += steal_objective
+		thief_objective = new /datum/objective/steal/hard
+	thief_objective.owner = thief
+	thief_objective.find_target()
+	thief.objectives += thief_objective
 
-	//Easy objective
+	//Medium objective
 	if(prob(50))
-		steal_objective = new /datum/objective/steal_pet
-		steal_objective.owner = thief
-		thief.objectives += steal_objective
+		thief_objective = new /datum/objective/steal_pet
 	else if(prob(70))
-		steal_objective = new /datum/objective/steal/easy
-		steal_objective.owner = thief
-		steal_objective.find_target()
-		thief.objectives += steal_objective
+		thief_objective = new /datum/objective/steal/medium
 	else
-		steal_objective = new /datum/objective/steal_structure
-		steal_objective.owner = thief
-		thief.objectives += steal_objective
+		thief_objective = new /datum/objective/steal_structure
+	thief_objective.owner = thief
+	thief_objective.find_target()
+	thief.objectives += thief_objective
 
 	//Collect objective
-	steal_objective = new /datum/objective/steal/collect
-	steal_objective.owner = thief
-	steal_objective.find_target()
-	thief.objectives += steal_objective
+	/*
+	thief_objective = new /datum/objective/steal/collect
+	thief_objective.owner = thief
+	thief_objective.find_target()
+	thief.objectives += thief_objective
+	*/
 
 	//Escape objective
 	if(!(locate(/datum/objective/escape) in thief.objectives))

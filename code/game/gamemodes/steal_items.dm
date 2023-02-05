@@ -4,14 +4,14 @@
 
 GLOBAL_LIST_INIT(potential_theft_objectives, subtypesof(/datum/theft_objective/highrisk))
 GLOBAL_LIST_INIT(potential_theft_objectives_hard, subtypesof(/datum/theft_objective/hard))
-GLOBAL_LIST_INIT(potential_theft_objectives_easy, subtypesof(/datum/theft_objective/easy))
+GLOBAL_LIST_INIT(potential_theft_objectives_easy, subtypesof(/datum/theft_objective/medium))
 GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect) + subtypesof(/datum/theft_objective/number))
 
 #define THEFT_FLAG_SPECIAL 	1//unused, maybe someone will use it some day, I'll leave it here for the children
 #define THEFT_FLAG_HIGHRISK 2
 #define THEFT_FLAG_UNIQUE 	3
 #define THEFT_FLAG_HARD 	4
-#define THEFT_FLAG_EASY 	5
+#define THEFT_FLAG_MEDIUM 	5
 #define THEFT_FLAG_COLLECT 	6
 
 
@@ -19,10 +19,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	switch(type_theft_flag)
 		if(THEFT_FLAG_HARD)
 			return GLOB.potential_theft_objectives_hard
-		if(THEFT_FLAG_EASY)
+		if(THEFT_FLAG_MEDIUM)
 			return GLOB.potential_theft_objectives_easy
-		if(THEFT_FLAG_COLLECT)
-			return GLOB.potential_theft_objectives_collect
+		//if(THEFT_FLAG_COLLECT)
+			//return GLOB.potential_theft_objectives_collect
 		else
 			return GLOB.potential_theft_objectives
 /datum/theft_objective
@@ -131,6 +131,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/highrisk/documents
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
+	altitems = list(/obj/item/folder/documents)
+
+/datum/objective_item/highrisk/documents/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/documents))
+		return TRUE
+	if(istype(I, /obj/item/folder/documents))
+		if(!I.contents)
+			return FALSE
+		for(var/obj/item/content_item in I.contents)
+			if(istype(content_item, /obj/item/documents))
+				return TRUE
+	return FALSE
 
 /datum/theft_objective/highrisk/hypospray
 	name = "the Chief Medical Officer's hypospray"
@@ -147,12 +159,215 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
 	protected_jobs = list("Head Of Security", "Warden")
 
+
+/datum/theft_objective/unique
+	flags = THEFT_FLAG_UNIQUE
+
+/datum/theft_objective/unique/docs_red
+	name = "the \"Red\" secret documents"
+	typepath = /obj/item/documents/syndicate/red
+
+/datum/theft_objective/unique/docs_blue
+	name = "the \"Blue\" secret documents"
+	typepath = /obj/item/documents/syndicate/blue
+
+
+/datum/theft_objective/hard
+	flags = THEFT_FLAG_HARD
+/datum/theft_objective/hard/capduck
+	typepath = /obj/item/bikehorn/rubberducky/captain
+	name = "любимую уточку капитана"
+	protected_jobs = list("Captain")
+
+/datum/theft_objective/hard/capspare
+	typepath = /obj/item/card/id/captains_spare
+	name = "запасную карту капитана с каюты"
+	protected_jobs = list("Captain")
+
+/datum/theft_objective/hard/goldcup
+	typepath = /obj/item/reagent_containers/food/drinks/trophy/gold_cup
+	name = "золотой кубок"
+
+/datum/theft_objective/hard/belt_champion
+	typepath = /obj/item/storage/belt/champion
+	name = "чемпионский пояс"
+
+/datum/theft_objective/hard/unica
+	typepath = /obj/item/gun/projectile/revolver/mateba
+	name = "Unica 6, авторевольвер"
+
+/datum/theft_objective/hard/unica
+	typepath = /obj/item/gun/projectile/revolver/detective
+	name = ".38 Mars, заказной револьвер детектива"
+
+/datum/theft_objective/hard/space_cap
+	typepath = /obj/item/clothing/suit/space/captain
+	name = "капитанский костюм для выхода в космос"
+
+/datum/theft_objective/hard/magboots_cap
+	typepath = /obj/item/clothing/shoes/magboots/security/captain
+	name = "капитанские магбутсы"
+
+
+/datum/theft_objective/medium
+	flags = THEFT_FLAG_MEDIUM
+/datum/theft_objective/medium/sec_aviators
+	typepath = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	name = "очки-авиаторы службы безопасности"
+
+/datum/theft_objective/medium/sybil
+	typepath = /obj/item/sibyl_system_mod
+	name = "модуль Sibyl System"
+
+/datum/theft_objective/medium/space_ce
+	typepath = /obj/item/clothing/suit/space/hardsuit/engine/elite
+	name = "продвинутый хардсьют Главного Инженера"
+
+/datum/theft_objective/medium/space_mime
+	typepath = /obj/item/clothing/suit/space/eva/mime
+	name = "космический костюм мима"
+
+/datum/theft_objective/medium/space_clown
+	typepath = /obj/item/clothing/suit/space/eva/clown
+	name = "космический костюм клоуна"
+
+/datum/theft_objective/medium/space_rd
+	typepath = /obj/item/clothing/suit/space/hardsuit/rd
+	name = "хардсьют директора исследований"
+
+/datum/theft_objective/medium/space_bs
+	typepath = /obj/item/clothing/suit/space/hardsuit/blueshield
+	name = "хардсьют офицера \"Синего Щита\""
+
+/datum/theft_objective/medium/space_warden
+	typepath = /obj/item/clothing/suit/space/hardsuit/security/warden
+	name = "хардсьют смотрителя"
+
+/datum/theft_objective/medium/space_hos
+	typepath = /obj/item/clothing/suit/space/hardsuit/security/hos
+	name = "хардсьют главы службы безопасности"
+
+
+/datum/theft_objective/collect
+	flags = THEFT_FLAG_COLLECT
+	var/min=0
+	var/max=0
+	var/step=1
+	var/required_amount=0
+	var/list/obj/item/typepath_list = list()
+	var/list/obj/item/choosen_typepath_list = list()
+/*
+
+/datum/theft_objective/collect/New()
+	if(min==max)
+		required_amount=min
+	else
+		var/lower=min/step
+		var/upper=min/step
+		required_amount=rand(lower,upper)*step
+
+	var/list/obj/item/possible_typepath_list = typepath_list.Copy()
+	for(var/i=0, i < required_amount, i++)
+		var/obj/item/O = pick(possible_typepath_list)
+		possible_typepath_list.Remove(O)
+		choosen_typepath_list.Add(O)
+		name += "[O.name][i < required_amount-1 ? ', ' : '.']"
+
+/datum/theft_objective/collect/check_completion(var/datum/mind/owner)
+	if(!owner.current)
+		return 0
+	if(!isliving(owner.current))
+		return 0
+	var/list/all_items = owner.current.get_contents()
+	var/found_amount=0.0
+	for(var/obj/item/I in all_items)
+		for(var/obj/item/type_item in choosen_typepath_list)
+			if(istype(I, type_item))
+				found_amount += getAmountStolen(I)
+	return found_amount >= required_amount
+
+/datum/theft_objective/collect/proc/getAmountStolen(var/obj/item/I)
+	return I:amount
+
+/datum/theft_objective/collect/figure
+	min=3
+	max=10
+	typepath_list = subtypesof(/obj/item/toy/figure)
+
+/datum/theft_objective/collect/zippo
+	min=3
+	max=10
+	typepath_list = list()
+	/obj/item/lighter/zippo/nt_rep
+
+/datum/theft_objective/collect/hats
+	min=3
+	max=6
+	typepath_list = list(
+		/obj/item/clothing/head/ntrep,
+		/obj/item/clothing/head/caphat/parade,
+		/obj/item/clothing/head/beret/purple,
+		/obj/item/clothing/head/HoS,
+		/obj/item/clothing/head/warden,
+		/obj/item/clothing/head/beret/sec/warden,
+		/obj/item/clothing/head/det_hat,
+	)
+
+
+/datum/theft_objective/collect/clothes
+	min=3
+	max=6
+	typepath_list = list(
+		/obj/item/clothing/under/det,
+		/obj/item/clothing/suit/storage/det_suit,
+		/obj/item/clothing/under/rank/warden,
+		/obj/item/clothing/suit/armor/vest/warden,
+		/obj/item/clothing/under/rank/head_of_security,
+		/obj/item/clothing/suit/armor/hos,
+		/obj/item/clothing/suit/storage/labcoat/cmo,
+		/obj/item/clothing/under/rank/chief_medical_officer,
+		/obj/item/clothing/under/rank/research_director,
+		/obj/item/clothing/under/rank/chief_engineer,
+		/obj/item/clothing/suit/armor/vest/capcarapace,
+		/obj/item/clothing/under/rank/captain,
+		/obj/item/clothing/suit/hop_jacket,
+		/obj/item/clothing/under/rank/ntrep,
+		/obj/item/clothing/suit/storage/ntrep,
+		/obj/item/clothing/under/rank/blueshield,
+		/obj/item/clothing/suit/armor/vest/blueshield,
+		/obj/item/clothing/suit/judgerobe,
+		/obj/item/clothing/under/rank/clown,	//honk honk... ur panties my now
+		/obj/item/clothing/mask/gas/clown_hat,
+		/obj/item/clothing/shoes/clown_shoes,
+		/obj/item/clothing/under/mime,
+		/obj/item/clothing/mask/gas/mime,
+
+
+	)
+
+
+
+
+
+/datum/theft_objective/collect/encryptors
+	min=3
+	max=6
+	/obj/item/radio/headset/headset_sec/alt
+
+
+
+
+
+
+
+*/
 /datum/theft_objective/number
 	flags = THEFT_FLAG_COLLECT
 	var/min=0
 	var/max=0
 	var/step=1
 	var/required_amount=0
+/*
 
 /datum/theft_objective/number/New()
 	if(min==max)
@@ -218,107 +433,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	typepath = /obj/item/melee/classic_baton/telescopic
 	min=3
 	max=5
-
-
-
-/datum/theft_objective/unique
-	flags = THEFT_FLAG_UNIQUE
-
-/datum/theft_objective/unique/docs_red
-	name = "the \"Red\" secret documents"
-	typepath = /obj/item/documents/syndicate/red
-
-/datum/theft_objective/unique/docs_blue
-	name = "the \"Blue\" secret documents"
-	typepath = /obj/item/documents/syndicate/blue
-
-
-/datum/theft_objective/hard
-	flags = THEFT_FLAG_HARD
-/datum/theft_objective/hard/capduck
-	typepath = /obj/item/bikehorn/rubberducky/captain
-	name = "любимая уточка капитана"
-	protected_jobs = list("Captain")
-
-/datum/theft_objective/hard/capspare
-	typepath = /obj/item/card/id/captains_spare
-	name = "запасную карту капитана с каюты"
-	protected_jobs = list("Captain")
-
-/datum/theft_objective/hard/goldcup
-	typepath = /obj/item/reagent_containers/food/drinks/trophy/gold_cup	//!!!Необходимо добавить в сейф
-	name = "золотой кубок"
-	protected_jobs = list("Captain")
-
-
-/datum/theft_objective/easy
-	flags = THEFT_FLAG_EASY
-/datum/theft_objective/easy/hatntrep
-	typepath = /obj/item/clothing/head/ntrep
-	name = "головной убор представителя"
-/datum/theft_objective/easy/hatcapparade
-	typepath = /obj/item/clothing/head/caphat/parade
-	name = "парадную фуражку капитана"
-/datum/theft_objective/easy/hatrd
-	typepath = /obj/item/clothing/head/beret/purple
-	name = "берет РД"
-/datum/theft_objective/easy/hathos
-	typepath = /obj/item/clothing/head/HoS
-	name = "головной убор Главы Службы Безопасности"
-/datum/theft_objective/easy/hatwarden
-	typepath = /obj/item/clothing/head/warden
-	name = "полицейскую фуражку Вардена
-/datum/theft_objective/easy/hatwardenberet
-	typepath = /obj/item/clothing/head/beret/sec/warden
-	name = "берет Вардена"
-
-
-/datum/theft_objective/collect
-	flags = THEFT_FLAG_COLLECT
-	var/min=0
-	var/max=0
-	var/step=1
-	var/required_amount=0
-	var/list/obj/item/typepath_list = list()
-	var/list/obj/item/choosen_typepath_list = list()
-
-/datum/theft_objective/collect/New()
-	if(min==max)
-		required_amount=min
-	else
-		var/lower=min/step
-		var/upper=min/step
-		required_amount=rand(lower,upper)*step
-
-	var/list/obj/item/possible_typepath_list = typepath_list.Copy()
-	for(var/i=0, i < required_amount, i++)
-		var/obj/item/O = pick(possible_typepath_list)
-		possible_typepath_list.Remove(O)
-		choosen_typepath_list.Add(O)
-		name += "[O.name][i < required_amount-1 ? ', ' : '.']"
-
-/datum/theft_objective/collect/check_completion(var/datum/mind/owner)
-	if(!owner.current)
-		return 0
-	if(!isliving(owner.current))
-		return 0
-	var/list/all_items = owner.current.get_contents()
-	var/found_amount=0.0
-	for(var/obj/item/I in all_items)
-		for(var/obj/item/type_item in choosen_typepath_list)
-			if(istype(I, type_item))
-				found_amount += getAmountStolen(I)
-	return found_amount >= required_amount
-
-/datum/theft_objective/collect/proc/getAmountStolen(var/obj/item/I)
-	return I:amount
-
-/datum/theft_objective/collect/figure
-	var/min=3
-	var/max=10
-	var/list/obj/item/typepath_list = subtypesof(/obj/item/toy/figure)
-
-/datum/theft_objective/collect/figure
-	var/min=3
-	var/max=10
-	var/list/obj/item/typepath_list = list
+*/
