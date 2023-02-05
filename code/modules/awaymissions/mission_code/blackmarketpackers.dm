@@ -40,6 +40,8 @@
 	icon_state = "away5"
 	requires_power = TRUE
 	power_environ = FALSE
+	power_light = FALSE
+	power_equip = FALSE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
@@ -55,6 +57,7 @@
 	icon_state = "away7"
 	requires_power = TRUE
 	power_environ = FALSE
+	power_light = FALSE
 	power_equip = FALSE
 	ambientsounds = list('sound/ambience/ambigen6.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
@@ -81,6 +84,9 @@
 	name = "BMP Turrets North"
 	icon_state = "away11"
 	requires_power = TRUE
+	power_environ = FALSE
+	power_light = FALSE
+	power_equip = FALSE
 
 /area/awaymission/BMPship/TurretsSouth
 	name = "BMP Turrets South"
@@ -218,3 +224,17 @@
 	show_alert_level = FALSE
 	triggered = TRUE
 	icon_state = "fire1"
+
+//Spieder spawner
+
+/obj/structure/spawner/giantspider
+	name = "giant spider nest"
+	desc = "A living nest for giant spiders. It is moving ominously."
+	icon_state = "eggs"
+	icon = 'icons/effects/effects.dmi'
+	max_integrity = 200
+	max_mobs = 5
+	spawn_time = 600
+	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
+	spawn_text = "crawls out of"
+	faction = list("spiders")
