@@ -272,7 +272,7 @@
 		species_traits = H.dna.species.species_traits
 
 	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
-		var/CM = abs(H.dna.species.coldmod)
+		var/CM = H.dna.species.coldmod
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
 			TC = cold_level_3_damage
