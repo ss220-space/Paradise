@@ -84,10 +84,20 @@ CREATE TABLE IF NOT EXISTS `ban` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table feedback.ban: ~0 rows (approximately)
+-- Add some bans to table for tests
 /*!40000 ALTER TABLE `ban` DISABLE KEYS */;
-INSERT INTO `ban` (`id`, `bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
-	(1, '2020-04-24 17:40:05', '127.0.0.1', 'PERMABAN', 'Breaking it all', NULL, -1, NULL, '2020-04-24 17:40:20', 'AffectedArc07', '1111111111', '127.0.0.1', 'AffectedArc07', '1111111111', '127.0.0.1', 'Player1, Player2, Whoever', 'SomeAdmin', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `ban` (`bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
+	('2020-04-24 17:40:05', '127.0.0.1:7000', 'PERMABAN', 'Breaking it all', NULL, -1, NULL, '2020-04-24 17:40:20', 'paradise', '1111111111', '127.0.0.1', 'dimach', '1111111111', '127.0.0.1', 'Player', 'SomeAdmin', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `ban` (`bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
+	('2020-04-24 17:40:05', '127.0.0.1:7001', 'TEMPBAN', 'Breaking it all', NULL, 10, NULL, '2020-04-24 17:40:20', 'paradise', '1111111111', '127.0.0.1', 'dimach', '1111111111', '127.0.0.1', 'Player', 'SomeAdmin', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `ban` (`bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
+	('2020-04-24 17:40:05', '127.0.0.1:7002', 'PERMABAN', 'Breaking it all', NULL, -1, NULL, '2020-04-24 17:40:20', 'paradise', '1111111111', '127.0.0.1', 'dimach', '1111111111', '127.0.0.1', 'Player', 'SomeAdmin', NULL, 1, '2020-04-24 17:40:05', 'dimach', '1111111111', '127.0.0.1');
+INSERT INTO `ban` (`bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
+	('2020-04-24 17:40:05', '127.0.0.1:7000', 'TEMPBAN', 'Breaking it all', NULL, 10, NULL, '2020-04-24 17:40:20', 'paradise', '1111111111', '127.0.0.1', 'dimach', '1111111111', '127.0.0.1', 'Player', 'SomeAdmin', NULL, 1, '2020-04-24 17:40:05', 'dimach', '1111111111', '127.0.0.1');
+INSERT INTO `ban` (`bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
+	('2020-04-24 17:40:05', '127.0.0.1:7001', 'JOB_TEMPBAN', 'No fun allowed', 'fun', 10, NULL, '2020-04-24 17:40:20', 'paradise', '1111111111', '127.0.0.1', 'dimach', '1111111111', '127.0.0.1', 'Player', 'SomeAdmin', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `ban` (`bantime`, `serverip`, `bantype`, `reason`, `job`, `duration`, `rounds`, `expiration_time`, `ckey`, `computerid`, `ip`, `a_ckey`, `a_computerid`, `a_ip`, `who`, `adminwho`, `edits`, `unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`) VALUES
+	('2020-04-24 17:40:05', '127.0.0.1:7002', 'JOB_PERMABAN', 'No fun allowed', 'fun', -1, NULL, '2020-04-24 17:40:20', 'paradise', '1111111111', '127.0.0.1', 'dimach', '1111111111', '127.0.0.1', 'Player', 'SomeAdmin', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `ban` ENABLE KEYS */;
 
 -- Dumping structure for table feedback.characters
