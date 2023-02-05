@@ -24,7 +24,7 @@
 		if(istype(O, /obj/item/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * O.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
 				locked = FALSE
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon()
@@ -84,7 +84,7 @@
 			else
 				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-				if(do_after(user, 20 * O.toolspeed, target = src))
+				if(do_after(user, 20 * O.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
 					locked = TRUE
 					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
 				return

@@ -106,7 +106,7 @@
 		var/obj/item/shovel/S = I
 		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
 		playsound(loc, S.usesound, 50, TRUE)
-		if(!do_after(user, 50 * S.toolspeed, target = src))
+		if(!do_after(user, 50 * S.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
 			return
 		user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
 		qdel(src)

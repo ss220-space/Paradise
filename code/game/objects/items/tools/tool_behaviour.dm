@@ -6,7 +6,7 @@
 	target.add_fingerprint(user)
 	if(!tool_start_check(target, user, amount) && !delay)
 		return
-	delay *= toolspeed
+	delay *= toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1
 
 	// Play tool sound at the beginning of tool usage.
 	play_tool_sound(target, volume)

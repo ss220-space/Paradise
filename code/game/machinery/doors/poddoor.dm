@@ -64,7 +64,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50 * I.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
 			if(!hasPower())
 				open()
 			else
