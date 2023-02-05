@@ -258,7 +258,10 @@
 						if("corgi")
 							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
-							new_mob = new /mob/living/simple_animal/crab(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/crab(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/crab/royal(M.loc)
 						if("cat")
 							new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
 						if("mouse")

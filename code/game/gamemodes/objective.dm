@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		if(!is_admin_level(candidate.loc.z))
 			theft_area = get_area(candidate.loc)
 			return "[theft_area]"
-	return "an unknown area"
+	return "неизвестной зоне"
 
 /datum/objective/steal/find_target()
 	var/list/valid_theft_objectives = list()
@@ -432,9 +432,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		var/datum/theft_objective/O = pick(valid_theft_objectives)
 		steal_target = O
 
-		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
-			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
+			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
 		return
 
 	explanation_text = "Free Objective."
@@ -454,10 +454,10 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		O.name = sanitize(copytext_char(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
 		if(!O.name) return
 		steal_target = O
-		explanation_text = "Steal [O.name]."
+		explanation_text = "Украсть [O.name]."
 	else
 		steal_target = new new_target
-		explanation_text = "Steal [steal_target.name]."
+		explanation_text = "Украсть [steal_target.name]."
 	return steal_target
 
 /datum/objective/steal/check_completion()
