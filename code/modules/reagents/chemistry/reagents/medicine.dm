@@ -833,7 +833,7 @@
 /datum/reagent/medicine/fomepizole
 	name = "Fomepizole"
 	id = "fomepizole"
-	description = "Fomepizone is  is a competitive ADH inhibitor. It is used to block metabolism of ethanol to their toxic metabolites."
+	description = "Fomepizone is a competitive ADH inhibitor. It is used to block metabolism of ethanol to their toxic metabolites."
 	color = "#95bb72"
 	taste_description = "sanity"
 

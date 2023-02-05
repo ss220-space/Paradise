@@ -150,7 +150,7 @@
 	result = "fomepizole"
 	required_reagents = list("ammonia" = 1, "mannitol" = 1, "acetic_acid" = 1)
 	result_amount = 3
-	mix_message = "The solution create a smoke, which clearing your mind"
+	mix_message = "The solution create a smoke, which clearing your mind."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/perfluorodecalin
