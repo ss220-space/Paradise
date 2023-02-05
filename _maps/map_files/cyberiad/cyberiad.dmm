@@ -77725,8 +77725,8 @@
 	name = "Isolation Desk"
 	},
 /obj/machinery/door/window/brigdoor/westleft{
-	req_access_txt = "64";
-	name = "Secure Desk"
+	name = "Secure Desk";
+	req_access_txt = "64"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -101885,8 +101885,8 @@
 	name = "Isolation Desk"
 	},
 /obj/machinery/door/window/brigdoor/westleft{
-	req_access_txt = "64";
-	name = "Secure Desk"
+	name = "Secure Desk";
+	req_access_txt = "64"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
