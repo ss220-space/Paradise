@@ -522,6 +522,8 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	default_skin = "nano_bloodhound"
+	borg_skins = list("Deathsquad" = "nano_bloodhound")
 
 /obj/item/robot_module/deathsquad/New()
 	..()
@@ -538,6 +540,8 @@
 /obj/item/robot_module/syndicate
 	name = "Syndicate Bloodhound"
 	module_type = "Malf" // cuz it looks cool
+	default_skin = "syndie_bloodhound"
+	borg_skins = list("Syndicate Bloodhound" = "syndie_bloodhound")
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -558,6 +562,8 @@
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"
 	module_type = "Malf"
+	default_skin = "syndi-medi"
+	borg_skins = list("Syndicate Medical" = "syndi-medi")
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
@@ -598,6 +604,8 @@
 	name = "Syndicate Saboteur"
 	name_disguise = "Engineering"
 	module_type = "Malf"
+	default_skin = "syndi-engi"
+	borg_skins = list("Syndicate Saboteur" = "syndi-engi")
 
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
