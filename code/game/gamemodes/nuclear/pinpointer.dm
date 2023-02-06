@@ -1,14 +1,15 @@
-#define MODE_OFF 0
-#define MODE_DISK 1
-#define MODE_NUKE 2
-#define MODE_ADV 3
-#define MODE_SHIP 4
+#define MODE_OFF 	0
+#define MODE_DISK 	1
+#define MODE_NUKE 	2
+#define MODE_ADV 	3
+#define MODE_SHIP 	4
 #define MODE_OPERATIVE 5
-#define MODE_CREW 6
-#define MODE_NINJA 7
-#define SETTING_DISK 0
-#define SETTING_LOCATION 1
-#define SETTING_OBJECT 2
+#define MODE_CREW 	6
+#define MODE_NINJA 	7
+#define MODE_THIEF 	8
+#define SETTING_DISK 		0
+#define SETTING_LOCATION 	1
+#define SETTING_OBJECT 		2
 
 /obj/item/pinpointer
 	name = "pinpointer"
@@ -453,6 +454,167 @@
 	var/turf/there = get_turf(H)
 	return istype(there) && istype(here) && there.z == here.z
 
+
+///////////////////////
+///thief pinpointers///
+///////////////////////
+
+/obj/item/pinpointer/thief
+	name = "thief pinpointer"
+	desc = "Модифицированный пинпоинтер гильдии воров предназначенный для нахождения всех ценных и интересных для гильдии сигнатур, не передающий сигналы локаторами."
+	modes = list(MODE_THIEF)
+	var/modelocked = FALSE // If true, user cannot change mode.
+	var/turf/location = null
+	var/obj/target = null
+	var/setting = 0
+
+/obj/item/pinpointer/thief/process()
+	switch(setting)
+		if(SETTING_LOCATION)
+			point_at(location)
+		if(SETTING_OBJECT)
+			point_at(target)
+
+/obj/item/pinpointer/thief/verb/toggle_mode()
+	set category = "Object"
+	set name = "Toggle Pinpointer Mode"
+	set src in usr
+
+	if(usr.stat || usr.restrained())
+		return
+
+	mode = MODE_OFF
+	icon_state = icon_off
+	target = null
+	location = null
+
+	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта"))
+		if("Локация")
+			setting = SETTING_LOCATION
+
+			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
+			if(!locationx || !(usr in view(1,src)))
+				return
+			var/locationy = input(usr, "Please input the y coordinate to search for.", "Location?" , "") as num
+			if(!locationy || !(usr in view(1,src)))
+				return
+
+			var/turf/Z = get_turf(src)
+
+			location = locate(locationx,locationy,Z.z)
+
+			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
+
+
+			return attack_self()
+
+		if("Сигнатура Объекта")
+			setting = SETTING_OBJECT
+			switch(alert("Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , "Предмет" , "Структура" , "Питомец"))
+				if("Предмет")
+					var/list/item_names[0]
+					var/list/item_paths[0]
+					var/list/potential_list
+					switch(alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный"))
+						if("Сложнодоступен")
+							potential_list = GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives
+						if("Доступен")
+							potential_list = GLOB.potential_theft_objectives_medium
+						if("Коллекционный")
+							potential_list = GLOB.potential_theft_objectives_collect
+					if(!length(potential_list))
+						return
+					for(var/objective in potential_list)
+						var/datum/theft_objective/T = objective
+						var/name = initial(T.name)
+						item_names += name
+						item_paths[name] = initial(T.typepath)
+					var/targetitem = input("Выберите сигнатуру предмета", "Режим Выбора Предмета","") as null|anything in item_names
+					if(!targetitem)
+						return
+
+					var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
+					for(var/obj/item/candidate in target_candidates)
+						if(!is_admin_level((get_turf(candidate)).z))
+							target = candidate
+							break
+
+					if(!target)
+						to_chat(usr, "<span class='warning'>Не удалось обнаружить [targetitem]!</span>")
+						return
+					to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [targetitem].</span>")
+				if("Структура")
+					var/datum/mind/owner = usr.mind
+					var/list/potential_list = list()
+					for(var/datum/objective/steal_structure/O in owner.objectives)
+						if(!length(O.possible_structures_list))
+							continue
+						potential_list = O.possible_structures_list
+						break
+					if(!length(potential_list))
+						to_chat(usr, "<span class='warning'>Интересующие вас данные не обнаружены!</span>")
+						return
+
+					var/list/structure_names[0]
+					var/list/structure_paths[0]
+
+					for(var/objective in potential_list)
+						var/datum/theft_objective/T = objective
+						var/name = initial(T.name)
+						structure_names += name
+						structure_paths[name] = initial(T.typepath)
+					var/target_structure = input("Выберите сигнатуру структуры", "Режим Выбора Структуры","") as null|anything in structure_names
+					if(!target_structure)
+						return
+
+					var/list/target_candidates = get_all_of_type(structure_paths[target_structure], subtypes = TRUE)
+					for(var/obj/candidate in target_candidates)
+						if(!is_admin_level((get_turf(candidate)).z))
+							target = candidate
+							break
+
+					if(!target)
+						to_chat(usr, "<span class='warning'>Не удалось обнаружить [target_structure]!</span>")
+						return
+					to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [target_structure].</span>")
+
+				if("Питомец")
+					var/datum/mind/owner = usr.mind
+					var/list/potential_list = list()
+					for(var/datum/objective/steal_pet/O in owner.objectives)
+						if(!length(O.possible_pets_list))
+							continue
+						potential_list = O.possible_pets_list
+						break
+					if(!length(potential_list))
+						to_chat(usr, "<span class='warning'>Интересующие вас данные не обнаружены!</span>")
+						return
+
+					var/list/pet_names[0]
+					var/list/pet_paths[0]
+
+					for(var/objective in potential_list)
+						var/datum/theft_objective/T = objective
+						var/name = initial(T.name)
+						pet_names += name
+						pet_paths[name] = initial(T.typepath)
+
+					var/target_pet = input("Выберите сигнатуру питомца", "Режим Выбора Питомца","") as null|anything in pet_names
+					if(!target_pet)
+						return
+
+					for(var/mob/living/candidate in GLOB.mob_list)
+						if(!is_admin_level((get_turf(candidate)).z) && istype(candidate, pet_paths[target_pet]))
+							target = candidate
+							break
+
+					if(!target)
+						to_chat(usr, "<span class='warning'>Не удалось обнаружить [target_pet]!</span>")
+						return
+					to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [target_pet].</span>")
+
+			return attack_self()
+
 #undef MODE_OFF
 #undef MODE_DISK
 #undef MODE_NUKE
@@ -461,6 +623,7 @@
 #undef MODE_OPERATIVE
 #undef MODE_CREW
 #undef MODE_NINJA
+#undef MODE_THIEF
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT

@@ -418,7 +418,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/steal/find_target()
 	var/list/valid_theft_objectives = list()
-	for(var/thefttype in get_theft_list_objectives())
+	for(var/thefttype in get_theft_list_objectives(type_theft_flag))
 		for(var/datum/objective/steal/objective in owner.objectives)
 			if(istype(objective) && istype(objective.steal_target, thefttype))
 				continue
@@ -441,7 +441,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = get_theft_list_objectives()+"custom"
+	var/list/possible_items_all = get_theft_list_objectives(type_theft_flag)+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target) return
 	if(new_target == "custom")
@@ -897,6 +897,21 @@ GLOBAL_LIST_EMPTY(all_objectives)
 //Цель на добычу определённой суммы денег налом
 /datum/objective/get_money
 	var/req_amount = 75000
+
+/datum/objective/get_money/proc/new_cash(var/input_sum, var/accounts_procent = 60)
+	var/temp_cash_summ = 0
+	var/remainder = 0
+
+	if(input_sum)
+		temp_cash_summ = input_sum
+	else
+		for(var/datum/money_account/account in GLOB.all_money_accounts)
+			temp_cash_summ += account.money
+		temp_cash_summ = (temp_cash_summ / 100) * accounts_procent //procents from all accounts
+		remainder = temp_cash_summ % 1000	//для красивого 1000-го числа
+
+	req_amount = temp_cash_summ - remainder
+	explanation_text = "Добудьте [req_amount] кредитов со станции, наличкой."
 
 /datum/objective/get_money/check_completion()
 	if(!owner.current)

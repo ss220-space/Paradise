@@ -1,12 +1,10 @@
 /datum/objective/steal/hard
 	type_theft_flag = THEFT_FLAG_HARD
 
+
 /datum/objective/steal/medium
 	type_theft_flag = THEFT_FLAG_MEDIUM
 
-/datum/objective/steal/collect
-	explanation_text = "Собрать "
-	type_theft_flag = THEFT_FLAG_COLLECT
 
 /datum/objective/steal_structure
 	explanation_text = "Украсть структуру: "
@@ -22,9 +20,9 @@
 
 /datum/objective/steal_structure/find_target()
 	steal_target = pick(possible_structures_list)
-	explanation_text += steal_target.name
-	//!!!!!!!!! Exception has occurred: Cannot read /obj/structure/statue/tranquil... (/obj/structure/statue/tranquillite/mime/unique).name
-
+	var/obj/temp_obj = new steal_target(owner.current)
+	explanation_text += temp_obj.name
+	qdel(temp_obj)
 
 /datum/objective/steal_structure/check_completion()
 	if(steal_target && owner.current)
@@ -36,10 +34,12 @@
 /datum/objective/steal_structure/proc/select_target()
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_structures_list
 	if(!new_target) return
-	steal_target = new new_target
-	//explanation_text = "Украсть структуру: [steal_target.name]."
-	explanation_text += steal_target.name
+	var/obj/temp_obj = new new_target(owner.current)
+	explanation_text += temp_obj.name
+	qdel(temp_obj)
+	steal_target = new_target
 	return steal_target
+
 
 /datum/objective/steal_pet
 	explanation_text = "Украсть живого питомца "
@@ -72,7 +72,9 @@
 
 /datum/objective/steal_pet/find_target()
 	steal_target = pick(possible_pets_list)
-	explanation_text += steal_target.name
+	var/obj/temp_obj = new steal_target(owner.current)
+	explanation_text += temp_obj.name
+	qdel(temp_obj)
 
 /datum/objective/steal_pet/check_completion()
 	if(!steal_target)
@@ -84,6 +86,10 @@
 	var/list/all_items = owner.current.GetAllContents()
 	for(var/obj/item/holder/H in all_items)
 		if(!istype(H, steal_target.holder_type))
+		//Exception has occurred: Cannot read /mob/living/simple_animal/crab... (/mob/living/simple_animal/crab/royal/Coffee).holder_type
+		//Exception has occurred: Cannot read /mob/living/simple_animal/goos... (/mob/living/simple_animal/goose/Scientist).holder_type
+		//Exception has occurred: Cannot read /mob/living/simple_animal/pet/... (/mob/living/simple_animal/pet/cat/Iriska).holder_type
+
 			continue
 		for(var/mob/M in H.contents)
 			if(!istype(M, steal_target))
@@ -111,62 +117,50 @@
 /datum/objective/steal_pet/proc/select_target()
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_pets_list
 	if(!new_target) return
-	steal_target = new_target//new new_target
-	//var/target_name = ismonkeybasic(steal_target) :
-	//!!!!!!!Exception has occurred: Cannot read /mob/living/simple_animal/pet/... (/mob/living/simple_animal/pet/cat/Runtime).name
-
-	explanation_text += steal_target.name
+	var/obj/temp_obj = new new_target(owner.current)
+	explanation_text += temp_obj.name
+	qdel(temp_obj)
+	steal_target = new_target
 	return steal_target
 
 
-/datum/objective/collect	//Раскомментировать глобал список
-	//var/datum/theft_objective/collect/collect_targets
-	explanation_text = "Соберите "
-	var/step=1
+/datum/objective/collect
+	var/type_theft_flag = THEFT_FLAG_COLLECT
+	var/datum/theft_objective/collect/collect_targets
+	explanation_text = "Собрать: "
 	var/required_amount=0
-	var/list/obj/typepath_list = list()
 
-/*
 /datum/objective/collect/find_target()
-	var/list/valid_theft_objectives = list()
-	for(var/thefttype in GLOB.potential_theft_objectives_collect)
+	var/list/valid_collect_objectives = list()
+	for(var/theft_type in get_theft_list_objectives(type_theft_flag))//GLOB.potential_theft_objectives_collect)
 		for(var/datum/objective/collect/objective in owner.objectives)
-			if(istype(objective) && istype(objective.collect_targets, thefttype))
+			if(istype(objective) && istype(objective.collect_targets, theft_type))
 				continue
-		var/datum/theft_objective/O = new thefttype
+		var/datum/theft_objective/O = new theft_type
 		if(O.flags & 2)
 			continue
-		valid_theft_objectives += O
+		valid_collect_objectives += O
 
-	if(length(valid_theft_objectives))
-		var/datum/theft_objective/O = pick(valid_theft_objectives)
+	if(length(valid_collect_objectives))
+		var/datum/theft_objective/collect/O = pick(valid_collect_objectives)
 		collect_targets = O
-
-		explanation_text = "Собрать [collect_targets]"
-		return
+		explanation_text += collect_targets.name
+		return TRUE
 
 	explanation_text = "Украдите что угодно хоть сколько-нибудь ценное."
 
 /datum/objective/collect/check_completion()
-	if(!typepath_list)
-		return 1 // Free Objective
+	if(!collect_targets)
+		return TRUE // Free Objective
 
 	if(!owner.current)
 		return FALSE
 
-	var/list/all_items = owner.current.GetAllContents()
+	collect_targets.check_completion(owner)
 
-	for(var/obj/I in all_items)
-		for(var/obj/typeI in typepath_list)
-			if(istype(I, typeI))
-				return collect_targets.check_special_completion(I)
-
-
-*/
 /datum/objective/collect/proc/select_target()
-	//var/new_target = input("Select target:", "Objective target", null) as null|anything in potential_theft_objectives_collect
-	//if(!new_target) return
-	//steal_target = new new_target
-	//explanation_text = "Кража живого питомца: [steal_target.name]."
-	//return steal_target
-	return FALSE
+	var/new_target = input("Select target:", "Objective target", null) as null|anything in get_theft_list_objectives(type_theft_flag)
+	if(!new_target) return
+	collect_targets = new new_target
+	explanation_text += collect_targets.name
+	return collect_targets

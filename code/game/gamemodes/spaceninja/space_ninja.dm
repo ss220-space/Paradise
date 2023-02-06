@@ -272,11 +272,7 @@
 	var/datum/objective/get_money/money_objective = new
 	money_objective.owner = ninja_mind
 	ninja_mind.objectives += money_objective
-	var/temp_cash_summ
-	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		temp_cash_summ += account.money
-	money_objective.req_amount = (temp_cash_summ / 100) * 60 //60% всех денег со всех аккаунтов
-	money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
+	money_objective.new_cash(accounts_procent = 60)
 
 	var/pick_hack = pick(1,2)
 	switch(pick_hack)

@@ -1968,6 +1968,7 @@
 	req_access_txt = "47"
 	products = list(
 		/obj/item/clothing/head/beret/purple_normal = 10,
+		/obj/item/clothing/head/beret/purple = 10,
 
 		/obj/item/clothing/under/rank/scientist = 10,
 		/obj/item/clothing/under/rank/scientist/skirt = 10,
