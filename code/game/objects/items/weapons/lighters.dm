@@ -36,7 +36,7 @@
 	item_state = icon_on
 	force = 5
 	damtype = BURN
-	hitsound = 'sound/items/welder.ogg'
+	hitsound = 'sound/weapons/tap.ogg'
 	attack_verb = list("burnt", "singed")
 
 	attempt_light(user)
