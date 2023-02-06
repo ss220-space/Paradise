@@ -75,12 +75,17 @@
 	thief.objectives += thief_objective
 
 	//Collect objective
-	/*
-	thief_objective = new /datum/objective/steal/collect
-	thief_objective.owner = thief
-	thief_objective.find_target()
-	thief.objectives += thief_objective
-	*/
+	if(prob(70))
+		thief_objective = new /datum/objective/collect
+		thief_objective.owner = thief
+		thief_objective.find_target()
+		thief.objectives += thief_objective
+	else
+		var/datum/objective/get_money/money_objective = new
+		money_objective.owner = thief
+		thief.objectives += money_objective
+		money_objective.new_cash(accounts_procent = 50)
+
 
 	//Escape objective
 	if(!(locate(/datum/objective/escape) in thief.objectives))

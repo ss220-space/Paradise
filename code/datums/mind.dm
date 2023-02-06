@@ -914,15 +914,11 @@
 			if("get money")
 				new_objective = new /datum/objective/get_money
 				var/datum/objective/get_money/money_objective = new_objective
-				var/temp_cash_summ
 				var/input_sum = null
-				for(var/datum/money_account/account in GLOB.all_money_accounts)
-					temp_cash_summ += account.money
 				if(alert(usr, "Do you want to pick the summ yourself? No will use 60% of cash in all accounts.", "Confirmation", "Yes", "No") == "Yes")
 					input_sum = input("Input required money sum:", "Objective") as num|null
-				money_objective.req_amount = !input_sum ? ((temp_cash_summ / 100) * 60): input_sum
-				money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
 				money_objective.owner = src
+				money_objective.new_cash(input_sum)
 
 			if("download","capture","absorb", "blood")
 				var/def_num

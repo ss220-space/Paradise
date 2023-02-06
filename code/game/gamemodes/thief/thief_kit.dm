@@ -285,16 +285,16 @@
 
 /datum/thief_kit/thermal
 	name = "Термальные Очки"
-	desc = "Наблюдение за всем, что происходит за стенами"
+	desc = "Наблюдение за всем, что происходит за стенами."
 	item_list = list(
 		/obj/item/clothing/glasses/chameleon/thermal
 		)
 
-/*
+
 /datum/thief_kit/pinpointer
 	name = "Целевой Пинпоинтер"
-	desc = "Позволяет найти все необходимые объекты по целям."
+	desc = "Позволяет найти все интересные для гильдии объекты."
 	item_list = list(
 		/obj/item/pinpointer/thief,
 		)
-*/
+

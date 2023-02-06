@@ -45,7 +45,7 @@
 /obj/machinery/computer/cryopod/New()
 	..()
 
-	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_easy /*+ GLOB.potential_theft_objectives_collect*/)
+	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_medium /*+ GLOB.potential_theft_objectives_collect*/)
 		theft_cache += new T
 
 /obj/machinery/computer/cryopod/attack_ai()
