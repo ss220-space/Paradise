@@ -7,6 +7,7 @@
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
 	var/is_improoved_by_potion = FALSE //used for xenobio potions
+	var/list/faction_restricted = null
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -87,7 +88,7 @@
 	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
 		return 1
 
-	if(species_restricted && istype(M,/mob/living/carbon/human))
+	if(species_restricted && faction_restricted && istype(M,/mob/living/carbon/human))
 
 		var/wearable = null
 		var/exclusive = null
@@ -96,21 +97,25 @@
 		if("exclude" in species_restricted)
 			exclusive = 1
 
-		if(H.dna.species)
+		if(H.dna.species && H.faction)
 			if(exclusive)
 				if(!(H.dna.species.name in species_restricted))
-					wearable = 1
+					if(!(H.faction in faction_restricted))
+						wearable = 1
 			else
 				if(H.dna.species.name in species_restricted)
-					wearable = 1
+					if(H.faction in faction_restricted)
+						wearable = 1
 
-			if (wearable && ("lesser form" in species_restricted) && issmall(H))
+			if(wearable && ("lesser form" in species_restricted) && issmall(H))
 				wearable = 0
 
 			if(!wearable)
-				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
+				to_chat(M, "<span class='warning'>You cannot wear [src].</span>")
 				return 0
+
 	return 1
+
 
 /obj/item/clothing/proc/refit_for_species(var/target_species)
 	//Set species_restricted list
@@ -694,23 +699,7 @@ BLIND     // can't see anything
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude", "Wryn", "lesser form")
-	var/list/faction_restricted = list("exlude", "ashwalker")
-
-/obj/item/clothing/suit/space/mob_can_equip(M as mob, slot)
-	if(!..())
-		return 0
-
-	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
-		return 1
-
-	if(faction_restricted && istype(M,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-
-		if(H.faction)
-			if(H.faction in faction_restricted)
-				to_chat(M, "<span class='warning'>Вы понятия не имеете как надеть [src].</span>")
-				return 0
-	return 1
+	faction_restricted = list("ashwalker")
 
 // Under clothing
 /obj/item/clothing/under
