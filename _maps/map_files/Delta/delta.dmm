@@ -32464,8 +32464,7 @@
 	},
 /obj/machinery/computer/med_data/laptop,
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "dca" = (
@@ -36240,8 +36239,7 @@
 	name = "Psychiatrist"
 	},
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "dpC" = (
@@ -41687,8 +41685,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "dLM" = (
@@ -41809,8 +41806,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "dMc" = (
@@ -62377,8 +62373,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "hGI" = (
@@ -67217,8 +67212,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "iKD" = (
@@ -101809,8 +101803,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "qrL" = (
@@ -124396,8 +124389,7 @@
 /area/assembly/robotics)
 "vlN" = (
 /turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
+	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
 "vlU" = (
