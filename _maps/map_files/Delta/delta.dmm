@@ -34937,8 +34937,15 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
 "dle" = (
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/fitness)
+/obj/structure/closet/secure_closet/security,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/customs)
 "dlf" = (
 /obj/structure/table/glass,
 /obj/item/soap{
@@ -75629,6 +75636,7 @@
 	density = 0;
 	icon_state = "brokengrille"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "kJB" = (
@@ -88288,11 +88296,6 @@
 /area/medical/virology/lab)
 "nAl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper{
-	desc = "Paper attached to freezer";
-	info = "<h1>Моему сменщику</h1><hr>Одна из камер содержания снабжена теплопроводящим контуром. Чтобы контур работал эффективно, пусти в него плазму из хранилища токсинов и настрой охладитель на желаемую температуру.<br><br><br><br>-Пит.";
-	name = "Записка"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -187085,7 +187088,7 @@ dye
 dye
 syj
 kJu
-syj
+dye
 syj
 gJQ
 gDB
@@ -187853,9 +187856,9 @@ nzR
 iGG
 thO
 cHU
-cHU
+dle
 ckS
-cHU
+dle
 cHU
 xJj
 usx
@@ -190947,7 +190950,7 @@ ufw
 llx
 caD
 oZh
-dle
+xqu
 geg
 mIV
 wdC
@@ -191204,7 +191207,7 @@ rtG
 fEc
 hdG
 gui
-dle
+xqu
 nze
 tNl
 aWS
@@ -191461,7 +191464,7 @@ rtG
 sUb
 hdG
 iDs
-dle
+xqu
 ttY
 tNl
 soM
@@ -191718,7 +191721,7 @@ hdG
 bBt
 hdG
 sMh
-dle
+xqu
 pTS
 ufU
 soM
@@ -191975,7 +191978,7 @@ iYJ
 dLk
 buC
 vMY
-dle
+xqu
 xun
 tNl
 soM
@@ -192232,7 +192235,7 @@ xqu
 xqu
 xqu
 xqu
-dle
+xqu
 lNV
 tNl
 dYX
