@@ -343,8 +343,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	melee_damage_lower = 2
 	melee_damage_upper = 6
 	attacktext = "клюёт"
-	health = 15
-	maxHealth = 15
+	health = 30
+	maxHealth = 30
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -405,7 +405,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/goose
 	name = "goose"
-	desc = "A pretty goose. Would make a nice comforter."
+	desc = "Прекрасная птица для набива подушек и страха детишек."
 	icon_state = "goose"
 	icon_living = "goose"
 	icon_dead = "goose_dead"
@@ -431,6 +431,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/goose/gosling
+	name = "gosling"
+	desc = "Симпатичный гусенок. Скоро он станей грозой всей станции."
+	icon_state = "gosling"
+	icon_living = "gosling"
+	icon_dead = "gosling_dead"
+	icon_resting = "gosling_rest"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	health = 20
+	maxHealth = 20
 
 /mob/living/simple_animal/seal
 	name = "seal"

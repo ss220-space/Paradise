@@ -36,3 +36,11 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/simple_animal/lizard/axolotl
+	name = "Аксолотль"
+	desc = "Маленький милый аксолотль."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "axolotl"
+	icon_living = "axolotl"
+	icon_dead = "axolotl-dead"

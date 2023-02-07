@@ -1258,6 +1258,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/goose
 	containername = "goose crate"
 
+/datum/supply_packs/organic/gosling
+	name = "Gosling Crate"
+	cost = 30
+	containertype = /obj/structure/closet/critter/gosling
+	containername = "gosling crate"
+
 /datum/supply_packs/organic/hamster
 	name = "Hamster Crate"
 	cost = 30

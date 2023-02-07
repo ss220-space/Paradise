@@ -93,6 +93,13 @@
 	name = "goose crate"
 	content_mob = /mob/living/simple_animal/goose
 
+/obj/structure/closet/critter/gosling
+	name = "gosling crate"
+	content_mob = /mob/living/simple_animal/goose/gosling
+
+/obj/structure/closet/critter/gosling/populate_contents()
+	amount = rand(1, 3)
+
 /obj/structure/closet/critter/hamster
 	name = "hamster crate"
 	content_mob = /mob/living/simple_animal/mouse/hamster

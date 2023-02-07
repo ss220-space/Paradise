@@ -50,9 +50,15 @@
 	..()
 	if(stat != DEAD)
 		if(loc && istype(loc,/turf/space))
-			icon_state = "bear"
+			icon_state = "[icon_living]"
 		else
-			icon_state = "bearfloor"
+			icon_state = "[icon_living]floor"
 
 /mob/living/simple_animal/hostile/bear/Process_Spacemove(var/movement_dir = 0)
 	return 1	//No drifting in space for space bears!
+
+/mob/living/simple_animal/hostile/bear/brown
+	icon_state = "brownbear"
+	icon_living = "brownbear"
+	icon_dead = "brownbear_dead"
+	icon_gib = "brownbear_gib"
