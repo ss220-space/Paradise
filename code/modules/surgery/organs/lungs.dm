@@ -396,8 +396,8 @@
 	desc = "it needs to be pumped..."
 	actions_types = list(/datum/action/item_action/organ_action/cursed_lungs)
 	var/last_pump = 0
-	var/pump_delay = 600
-	var/oxy_loss = 30
+	var/pump_delay = 300
+	var/oxy_loss = 50
 
 /obj/item/organ/internal/lungs/cursed/on_life()
 	if(world.time > (last_pump + pump_delay))
@@ -407,8 +407,7 @@
 				H.setOxyLoss(H.oxyloss + oxy_loss)
 				H.custom_emote(1, "задыхается!")
 				to_chat(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
-		else
-			last_pump = world.time //lets be extra fair *sigh*
+		last_pump = world.time
 
 /obj/item/organ/internal/lungs/cursed/insert(mob/living/carbon/M, special = 0)
 	..()
