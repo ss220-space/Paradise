@@ -582,9 +582,9 @@
 					var/datum/mind/owner = usr.mind
 					var/list/potential_list = list()
 					for(var/datum/objective/steal_pet/O in owner.objectives)
-						if(!length(O.possible_pets_list))
+						if(!length(O.possible_targets_list))
 							continue
-						potential_list = O.possible_pets_list
+						potential_list = O.possible_targets_list
 						break
 					if(!length(potential_list))
 						to_chat(usr, "<span class='warning'>Интересующие вас данные не обнаружены!</span>")
