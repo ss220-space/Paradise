@@ -857,8 +857,8 @@
 					new_objective = objective
 				var/datum/objective/steal/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
-
 
 			if("thief hard")
 				if(!istype(objective, /datum/objective/steal/hard))
@@ -868,6 +868,7 @@
 					new_objective = objective
 				var/datum/objective/steal/hard/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 			if("thief medium")
@@ -878,6 +879,7 @@
 					new_objective = objective
 				var/datum/objective/steal/medium/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 			if("thief collect")
@@ -888,6 +890,7 @@
 					new_objective = objective
 				var/datum/objective/collect/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 			if("thief pet")
@@ -898,6 +901,7 @@
 					new_objective = objective
 				var/datum/objective/steal_pet/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 			if("thief structure")
@@ -908,6 +912,7 @@
 					new_objective = objective
 				var/datum/objective/steal_structure/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 
@@ -915,10 +920,17 @@
 				new_objective = new /datum/objective/get_money
 				var/datum/objective/get_money/money_objective = new_objective
 				var/input_sum = null
-				if(alert(usr, "Do you want to pick the summ yourself? No will use 60% of cash in all accounts.", "Confirmation", "Yes", "No") == "Yes")
-					input_sum = input("Input required money sum:", "Objective") as num|null
+				var/accounts_procent = 60
+				if(alert(usr, "Хотите сами подобрать сумму? Если нет, то будет выбрана сумма от процентажа со всех аккаунтов.", "Введите сумму", "Yes", "No") == "Yes")
+					input_sum = input("Введите необходимую денежную сумму:", "Денежная Сумма") as num|null
+				else
+					accounts_procent = input("Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж") as num|null
+					if(accounts_procent)
+						accounts_procent = clamp(accounts_procent, 1, 100)
+					else
+						accounts_procent = initial(accounts_procent)
 				money_objective.owner = src
-				money_objective.new_cash(input_sum)
+				money_objective.new_cash(input_sum, accounts_procent)
 
 			if("download","capture","absorb", "blood")
 				var/def_num

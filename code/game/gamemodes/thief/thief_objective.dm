@@ -19,10 +19,25 @@
 	)
 
 /datum/objective/steal_structure/find_target()
-	steal_target = pick(possible_structures_list)
-	var/obj/temp_obj = new steal_target(owner.current)
-	explanation_text += temp_obj.name
-	qdel(temp_obj)
+	var/list/valid_targets_list = possible_structures_list
+
+	while(!steal_target)
+		if(!length(valid_targets_list))
+			return FALSE
+
+		var/obj/target_type = pick(valid_targets_list)
+		valid_targets_list.Remove(target_type)
+		get_structure(target_type)
+
+/datum/objective/steal_structure/proc/get_structure(var/obj/target_type)
+	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
+	if(!length(targets_list))
+		return FALSE
+
+	for(var/obj/temp_target in targets_list)
+		steal_target = temp_target
+		explanation_text += steal_target.name
+		return TRUE
 
 /datum/objective/steal_structure/check_completion()
 	if(steal_target && owner.current)
@@ -32,13 +47,10 @@
 	return FALSE
 
 /datum/objective/steal_structure/proc/select_target()
-	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_structures_list
-	if(!new_target) return
-	var/obj/temp_obj = new new_target(owner.current)
-	explanation_text += temp_obj.name
-	qdel(temp_obj)
-	steal_target = new_target
-	return steal_target
+	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_structures_list
+	if(!new_target_type)
+		return FALSE
+	return get_structure(new_target_type)
 
 
 /datum/objective/steal_pet
@@ -46,7 +58,7 @@
 	var/mob/living/steal_target
 	var/range_complete = 2
 
-	var/possible_pets_list = list(
+	var/list/possible_targets_list = list(
 		/mob/living/simple_animal/pet/dog/corgi/Ian,
 		/mob/living/simple_animal/pet/dog/corgi/borgi,
 		/mob/living/simple_animal/pet/dog/fox/Renault,
@@ -71,10 +83,26 @@
 	)
 
 /datum/objective/steal_pet/find_target()
-	steal_target = pick(possible_pets_list)
-	var/obj/temp_obj = new steal_target(owner.current)
-	explanation_text += temp_obj.name
-	qdel(temp_obj)
+	var/list/valid_targets_list = possible_targets_list
+
+	while(!steal_target)
+		if(!length(valid_targets_list))
+			return FALSE
+
+		var/mob/living/target_type = pick(valid_targets_list)
+		valid_targets_list.Remove(target_type)
+		get_alive_pet(target_type)
+
+/datum/objective/steal_pet/proc/get_alive_pet(var/mob/living/target_type)
+	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
+	if(!length(targets_list))
+		return FALSE
+
+	for(var/mob/living/temp_target in targets_list)
+		if(temp_target.stat != DEAD)
+			steal_target = temp_target
+			explanation_text += steal_target.name
+			return TRUE
 
 /datum/objective/steal_pet/check_completion()
 	if(!steal_target)
@@ -85,11 +113,9 @@
 
 	var/list/all_items = owner.current.GetAllContents()
 	for(var/obj/item/holder/H in all_items)
+		//var/list/holder_items = H.GetAllContents()
+		//for(var/i in holder_items)
 		if(!istype(H, steal_target.holder_type))
-		//Exception has occurred: Cannot read /mob/living/simple_animal/crab... (/mob/living/simple_animal/crab/royal/Coffee).holder_type
-		//Exception has occurred: Cannot read /mob/living/simple_animal/goos... (/mob/living/simple_animal/goose/Scientist).holder_type
-		//Exception has occurred: Cannot read /mob/living/simple_animal/pet/... (/mob/living/simple_animal/pet/cat/Iriska).holder_type
-
 			continue
 		for(var/mob/M in H.contents)
 			if(!istype(M, steal_target))
@@ -115,13 +141,10 @@
 	return FALSE
 
 /datum/objective/steal_pet/proc/select_target()
-	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_pets_list
-	if(!new_target) return
-	var/obj/temp_obj = new new_target(owner.current)
-	explanation_text += temp_obj.name
-	qdel(temp_obj)
-	steal_target = new_target
-	return steal_target
+	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
+	if(!new_target_type)
+		return FALSE
+	return get_alive_pet(new_target_type)
 
 
 /datum/objective/collect
@@ -132,7 +155,7 @@
 
 /datum/objective/collect/find_target()
 	var/list/valid_collect_objectives = list()
-	for(var/theft_type in get_theft_list_objectives(type_theft_flag))//GLOB.potential_theft_objectives_collect)
+	for(var/theft_type in get_theft_list_objectives(type_theft_flag))
 		for(var/datum/objective/collect/objective in owner.objectives)
 			if(istype(objective) && istype(objective.collect_targets, theft_type))
 				continue
