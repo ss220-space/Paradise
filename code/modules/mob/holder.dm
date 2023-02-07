@@ -4,6 +4,8 @@
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = SLOT_HEAD
+	origin_tech = "biotech=2"
+
 
 /obj/item/holder/New()
 	..()
@@ -85,25 +87,30 @@
 	name = "diona nymph"
 	desc = "It's a tiny plant critter."
 	icon_state = "nymph"
+	origin_tech = "biotech=5"
 
 /obj/item/holder/drone
 	name = "maintenance drone"
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
+	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4"
 
 /obj/item/holder/drone/emagged
 	name = "maintenance drone"
 	icon_state = "drone-emagged"
+	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4;syndicate=3"
 
 /obj/item/holder/cogscarab
 	name = "cogscarab"
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
 	icon_state = "cogscarab"
+	origin_tech = "materials=3;magnets=4;powerstorage=9;bluespace=4"
 
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
 	icon_state = "pai"
+	origin_tech = "materials=3;programming=4;engineering=4"
 
 /obj/item/holder/mouse
 	name = "mouse"
@@ -115,6 +122,25 @@
 	name = "monkey"
 	desc = "It's a monkey"
 	icon_state = "monkey"
+	origin_tech = "biotech=3"
+
+/obj/item/holder/farwa
+	name = "farwa"
+	desc = "It's a farwa"
+	icon_state = "farwa"
+	origin_tech = "biotech=3"
+
+/obj/item/holder/stok
+	name = "stok"
+	desc = "It's a stok"
+	icon_state = "stok"
+	origin_tech = "biotech=3"
+
+/obj/item/holder/neara
+	name = "neara"
+	desc = "It's a neara"
+	icon_state = "neara"
+	origin_tech = "biotech=3"
 
 /obj/item/holder/corgi
 	name = "pet"
@@ -139,12 +165,14 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "void_puppy"
+	origin_tech = "biotech=4;bluespace=5"
 
 /obj/item/holder/slime_puppy
 	name = "pet"
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "slime_puppy"
+	origin_tech = "biotech=6"
 
 /obj/item/holder/narsian
 	name = "pet"
@@ -152,6 +180,7 @@
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "narsian"
 	slot_flags = null
+	origin_tech = "bluespace=10"
 
 /obj/item/holder/pug
 	name = "pet"
@@ -189,6 +218,7 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "cak"
+	origin_tech = "biotech=5"
 
 /obj/item/holder/original
 	name = "pet"
@@ -271,8 +301,42 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "hamster_rep"
 
+/obj/item/holder/fennec
+	name = "fennec"
+	desc = "It's a fennec. Yiff!"
+	icon_state = "fennec"
+	origin_tech = "biotech=4"
+
 /obj/item/holder/mothroach
-	name = "pet"
-	desc = "It's a pet"
-	icon = 'icons/mob/animal.dmi'
+	name = "mothroach"
+	desc = "Bzzzz"
+	icon = 'icons/mob/pets.dmi'
 	icon_state = "mothroach"
+	origin_tech = "biotech=4"
+
+/obj/item/holder/moth
+	name = "moth"
+	desc = "Bzzzz"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "moth"
+	origin_tech = "biotech=4"
+
+/obj/item/holder/headslug
+	name = "headslug"
+	desc = "It's a headslug. Ewwww..."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "headslug"
+	origin_tech = "biotech=6"
+
+/obj/item/holder/possum
+	name = "possum"
+	desc = "It's a possum. Ewwww..."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "possum"
+	origin_tech = "biotech=3"
+
+/obj/item/holder/possum/poppy
+	name = "poppy"
+	desc = "It's a possum Poppy. Ewwww..."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "poppy"

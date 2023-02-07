@@ -14,6 +14,8 @@
 	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
 	tts_seed = "Stetmann"
 	faction = list("neutral")
+	maxHealth = 50
+	health = 50
 	melee_damage_type = STAMINA
 	melee_damage_lower = 6
 	melee_damage_upper = 10
@@ -589,6 +591,11 @@
 	unique_pet = TRUE
 	tts_seed = "Mannoroth"
 	holder_type = /obj/item/holder/narsian
+	maxHealth = 300
+	health = 300
+	melee_damage_type = STAMINA	//Пади ниц!
+	melee_damage_lower = 50
+	melee_damage_upper = 100
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -626,6 +633,8 @@
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
+	maxHealth = 100
+	health = 100
 
 /mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
 	..()
@@ -649,6 +658,8 @@
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
 	tts_seed = "Jaina"
+	maxHealth = 20
+	health = 20
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -670,9 +681,23 @@
 	maxbodytemp = T0C + 40
 	tts_seed = "Kael"
 	holder_type = /obj/item/holder/void_puppy
+	maxHealth = 60
+	health = 60
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/slime
+	name = "\improper slime puppy"
+	real_name = "slimy"
+	desc = "Крайне склизкий. Но прикольный!"
+	icon_state = "slime_puppy"
+	icon_living = "slime_puppy"
+	icon_dead = "slime_puppy_dead"
+	nofur = TRUE
+	holder_type = /obj/item/holder/slime_puppy
+	minbodytemp = 250 //Weak to cold
+	maxbodytemp = INFINITY
 
 //LISA! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Lisa
@@ -802,6 +827,8 @@
 	collar_type = "pug"
 	tts_seed = "Kleiner"
 	holder_type = /obj/item/holder/pug
+	maxHealth = 30
+	health = 30
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
@@ -845,12 +872,11 @@
 	icon_dead = "german_dead"
 	//tts_seed = "Kleiner"
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/slime
-	name = "\improper slime puppy"
-	real_name = "slimy"
-	desc = "Крайне склизкий. Но прикольный!"
-	icon_state = "slime_puppy"
-	icon_living = "slime_puppy"
-	icon_dead = "slime_puppy_dead"
-	nofur = TRUE
-	holder_type = /obj/item/holder/slime_puppy
+/mob/living/simple_animal/pet/dog/brittany
+	name = "\improper brittany"
+	real_name = "brittany"
+	desc = "Старая порода, которую любят аристократы."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "brittany"
+	icon_living = "brittany"
+	icon_dead = "brittany_dead"

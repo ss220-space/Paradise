@@ -207,6 +207,7 @@
 "aar" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
+/mob/living/simple_animal/moth,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -16039,6 +16040,7 @@
 /area/maintenance/bar)
 "bNK" = (
 /obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bNL" = (
@@ -33407,6 +33409,7 @@
 /area/construction/hallway)
 "deX" = (
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/moth,
 /turf/simulated/floor/wood,
 /area/maintenance/tourist)
 "dfa" = (
@@ -45562,6 +45565,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/mob/living/simple_animal/turtle,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -49862,6 +49866,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
 "eSz" = (
@@ -56142,6 +56148,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/possum/Poppy,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "gmO" = (
@@ -61537,6 +61545,11 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/cmostore)
+"huZ" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/plating,
+/area/crew_quarters/theatre)
 "hvg" = (
 /obj/item/radio/intercom/custom{
 	pixel_y = 25
@@ -71331,6 +71344,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"jGj" = (
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/plasteel{
+	icon_state = "tranquillite"
+	},
+/area/maintenance/kitchen)
 "jGk" = (
 /obj/structure/bed,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -81098,6 +81117,13 @@
 	icon_state = "darkred"
 	},
 /area/security/podbay)
+"lYK" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/plasteel{
+	icon_state = "tranquillite"
+	},
+/area/maintenance/kitchen)
 "lZa" = (
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway East 5";
@@ -94619,6 +94645,7 @@
 /turf/simulated/floor/plating,
 /area/engine/break_room)
 "oRQ" = (
+/mob/living/simple_animal/moth,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
 	tag = "icon-wood-broken3"
@@ -101922,6 +101949,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -102319,6 +102347,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/mob/living/simple_animal/pet/slugcat,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -104972,6 +105002,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/chair/office/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/mob/living/simple_animal/mouse/rat/white/Brain,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -125027,6 +125058,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -156590,7 +156622,7 @@ twh
 tWo
 deL
 uXU
-wdH
+huZ
 uRn
 pzu
 deL
@@ -194386,7 +194418,7 @@ wXk
 dMp
 ryv
 ojd
-tDG
+lYK
 uqV
 tDG
 rMp
@@ -194898,10 +194930,10 @@ swS
 vkX
 pso
 ycV
-uqV
+jGj
 jLB
 vkX
-uqV
+jGj
 hvU
 eNI
 vzF

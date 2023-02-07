@@ -77,9 +77,9 @@
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 
-	if(non_standard)
-		return
+	color_pick()
 
+/mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
 		mouse_color = pick( list("brown","gray","white") )
 	icon_state = "mouse_[mouse_color]"
@@ -201,6 +201,8 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	tts_seed = "Arthas"
+	maxHealth = 10
+	health = 10
 
 
 /mob/living/simple_animal/mouse/blobinfected
@@ -265,6 +267,8 @@
 	gold_core_spawnable = NO_SPAWN
 	can_collar = 0
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
+	maxHealth = 20
+	health = 20
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
@@ -277,20 +281,54 @@
 		return TRUE
 	return ..()
 
-/mob/living/simple_animal/mouse/rat_irish
+/mob/living/simple_animal/mouse/rat
 	name = "rat"
 	real_name = "rat"
-	desc = "Ирландская крыса. На космической станции?! На этот раз им точно некуда бежать!"
-	icon_state = "rat_irish"
-	icon_living = "rat_irish"
-	icon_dead = "rat_irish_dead"
-	icon_resting = "rat_irish_sleep"
+	desc = "Крыса. Рожа у неё хитрая..."
+	icon_state 		= "rat_gray"
+	icon_living 	= "rat_gray"
+	icon_dead 		= "rat_gray_dead"
+	icon_resting 	= "rat_gray_sleep"
 	non_standard = TRUE
-	mouse_color = "brown"
+	mouse_color = null
+	maxHealth = 15
+	health = 15
 
-/mob/living/simple_animal/mouse/rat_irish/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+/mob/living/simple_animal/mouse/rat/color_pick()
+	if(!mouse_color)
+		mouse_color = pick(list("gray","white","irish"))
+
+	icon_state 		= "rat_[mouse_color]"
+	icon_living 	= "rat_[mouse_color]"
+	icon_dead 		= "rat_[mouse_color]_dead"
+	icon_resting 	= "rat_[mouse_color]_sleep"
+
+/mob/living/simple_animal/mouse/rat/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
 	var/mob/living/L = src
 	L.start_pulling(AM, state, force, show_message)
+
+/mob/living/simple_animal/mouse/rat/gray
+	name = "gray rat"
+	real_name = "gray rat"
+
+/mob/living/simple_animal/mouse/rat/white
+	name = "white rat"
+	real_name = "white rat"
+	icon_state 		= "rat_white"
+	icon_living 	= "rat_white"
+	icon_dead 		= "rat_white_dead"
+	icon_resting 	= "rat_white_sleep"
+	mouse_color = "white"
+
+/mob/living/simple_animal/mouse/rat/irish
+	name = "irish rat"		//Да, я знаю что это вид. Это каламбурчик.
+	real_name = "irish rat"
+	desc = "Ирландская крыса. На космической станции?! На этот раз им точно некуда бежать!"
+	icon_state 		= "rat_irish"
+	icon_living 	= "rat_irish"
+	icon_dead 		= "rat_irish_dead"
+	icon_resting 	= "rat_irish_sleep"
+	mouse_color = "irish"
 
 #define MAX_HAMSTER 50
 GLOBAL_VAR_INIT(hamster_count, 0)
@@ -311,6 +349,11 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	holder_type = /obj/item/holder/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Gyro"
+	maxHealth = 10
+	health = 10
+
+/mob/living/simple_animal/mouse/hamster/color_pick()
+	return
 
 /mob/living/simple_animal/mouse/hamster/New()
 	gender = prob(80) ? MALE : FEMALE

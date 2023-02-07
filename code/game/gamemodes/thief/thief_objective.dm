@@ -79,7 +79,12 @@
 		/mob/living/simple_animal/goose/Scientist,
 		/mob/living/simple_animal/pet/cat/Iriska,
 		/mob/living/simple_animal/mouse/hamster/Representative,
+		/mob/living/simple_animal/mouse/rat/white/Brain,
 		/mob/living/carbon/human/lesser/monkey/punpun,
+		/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+		/mob/living/simple_animal/pet/slugcat,
+		/mob/living/simple_animal/possum/Poppy,
+
 	)
 
 /datum/objective/steal_pet/find_target()

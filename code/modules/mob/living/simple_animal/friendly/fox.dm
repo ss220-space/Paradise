@@ -22,14 +22,14 @@
 
 /mob/living/simple_animal/pet/dog/fox/forest
 	name = "forest fox"
-	desc = "It's a fox. It can bite. A little bit."
+	desc = "Лесная дикая лисица. Может укусить."
 	icon_state = "fox_forest"
 	icon_living = "fox_forest"
 	icon_dead = "fox_forest_dead"
 	icon_resting = "fox_forest_rest"
-	melee_damage_type = STAMINA
-	melee_damage_lower = 8
-	melee_damage_upper = 10
+	melee_damage_type = BRUTE
+	melee_damage_lower = 6
+	melee_damage_upper = 12
 
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault
@@ -75,3 +75,13 @@
 	minbodytemp = 0
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+
+/mob/living/simple_animal/pet/dog/fox/fennec
+	name = "фенек"
+	desc = "Миниатюрная лисичка с ооочень большими ушами. Фенек, фенек, зачем тебе такие большие уши? Чтобы избегать дормитория?"
+	icon_state = "fennec"
+	icon_living = "fennec"
+	icon_dead = "fennec_dead"
+	icon_resting = "fennec_rest"	//fennec_sit ?
+	see_in_dark = 10
+	holder = /obj/item/holder/fennec

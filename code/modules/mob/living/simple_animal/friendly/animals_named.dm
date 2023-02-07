@@ -7,6 +7,8 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham/old = 10)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	maxHealth = 80	//Старый Боров
+	health = 80
 
 /mob/living/simple_animal/cow/Betsy
 	name = "Бетси"
@@ -19,12 +21,16 @@
 	desc = "Почетная наседка. Жена Коммандора, следующая за ним в коммандировки по космическим станциям."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	maxHealth = 20
+	health = 20
 
 /mob/living/simple_animal/cock/Commandor
 	name = "Коммандор Клакки"
 	desc = "Его великая армия бесчисленна. Ко-ко-ко."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	maxHealth = 40	//Veteran
+	health = 40
 
 /mob/living/simple_animal/goose/Scientist
 	name = "Гуськор"
@@ -36,6 +42,8 @@
 	attacktext = "умно щипает"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	maxHealth = 80	//Гусь-ученый привык к "экспериментам"
+	health = 80
 
 /mob/living/simple_animal/pet/cat/Iriska
 	name = "Ириска"
@@ -52,10 +60,14 @@
 	canmove = FALSE		// TOO FAT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 8)
 	tts_seed = "Huntress"
+	maxHealth = 40	//Sooooo faaaat...
+	health = 40
+	speed = 0
+	can_hide = 0
 
 /mob/living/simple_animal/mouse/hamster/Representative
 	name = "Представитель Алексей"
-	desc = "Представитель федерации хомяков. Проявите уважение при его виде, ведь он с позитивным исходом решил немало дипломатических вопросов между федерацией мышей и корпорацией Нанотрейзен. Да и кто вообще хомяка так назвал?!"
+	desc = "Представитель федерации хомяков. Проявите уважение при его виде, ведь он с позитивным исходом решил немало дипломатических вопросов между федерацией мышей, республикой крыс и корпорацией Нанотрейзен. Да и кто вообще хомяка так назвал?!"
 	icon_state = "hamster_rep"
 	icon_living = "hamster_rep"
 	icon_dead = "hamster_rep_dead"
@@ -63,9 +75,27 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	holder_type = /obj/item/holder/hamster_rep
+	maxHealth = 20
+	health = 20
 
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Геннадий"
 	desc = "Собачий аристократ. Выглядит очень важным и начитанным. Доброжелательный любимец ассистентов."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	maxHealth = 5
+	health = 5
+
+/mob/living/simple_animal/mouse/rat/white/Brain
+	name = "Брейн"
+	real_name = "Брейн"
+	desc = "Сообразительная личная лабораторная крыса директора исследований. Настолько часто сбегал, что его перестали помещать в клетку. Он явно хочет захватить мир."
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+	maxHealth = 20
+	health = 20
+
+/mob/living/simple_animal/pet/dog/fox/fennec/Fenya
+	name = "Феня"
+	desc = "Миниатюрная лисичка c важным видом и очень большими ушами. Был пойман во время разливания огромного мороженого по формочкам и теперь Магистрат держит его при себе и следит за ним. Но похоже что ему даже нравится быть частью правосудия."
+
