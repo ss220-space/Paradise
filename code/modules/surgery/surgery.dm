@@ -100,7 +100,7 @@
 		return
 
 	if(tool)
-		speed_mod = tool.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1
+		speed_mod = tool.toolspeed * (ishuman(user) ? user.dna.species.toolspeedmod : 1)
 
 	if(do_after(user, time * speed_mod, target = target))
 		var/advance = 0
