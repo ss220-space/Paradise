@@ -13,13 +13,14 @@
 
 	var/can_cancel = 1
 	var/step_in_progress = 0
-	var/list/in_progress = list()									//Actively performing a Surgery
+	var/list/in_progress = list()								//Actively performing a Surgery
 	var/location = "chest"										//Surgery location
 	var/requires_organic_bodypart = 1							//Prevents you from performing an operation on robotic limbs
 	var/list/possible_locs = list() 							//Multiple locations -- c0
-	var/obj/item/organ/organ_ref									//Operable body part
+	var/obj/item/organ/organ_ref								//Operable body part
 	var/current_organ = "organ"
 	var/list/allowed_mob = list(/mob/living/carbon/human)
+	var/temporary_variable										//Used to move variables between surgery steps
 
 /datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
 	// if 0 surgery wont show up in list
