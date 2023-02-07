@@ -19,7 +19,7 @@
 	if(dirty)
 		if(istype(I, /obj/item/soap))
 			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
-			if(do_after(user, 20 * I.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
+			if(do_after(user, 20 * I.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src))
 				clean()
 				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
 				update_dialog(user)

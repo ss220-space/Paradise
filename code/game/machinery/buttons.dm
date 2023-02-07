@@ -71,7 +71,7 @@
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 30 * I.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
+	if(do_after(user, 30 * I.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src))
 		to_chat(user, "<span class='notice'>You detach [src] from the wall.</span>")
 		new/obj/item/mounted/frame/driver_button(get_turf(src))
 		qdel(src)

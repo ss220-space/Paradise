@@ -866,7 +866,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 25 * O.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) || (!myseed && !weedlevel))
+		if(!do_after(user, 25 * O.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) || (!myseed && !weedlevel))
 			return
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 		playsound(src, O.usesound, 50, 1)

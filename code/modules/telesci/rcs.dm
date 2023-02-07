@@ -132,7 +132,7 @@
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 50 * toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = C))
+	if(!do_after(user, 50 * toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = C))
 		teleporting = FALSE
 		return
 

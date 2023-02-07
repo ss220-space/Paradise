@@ -24,7 +24,7 @@
 	. = TRUE
 	to_chat(user, "You begin to unscrew the bolts off [src]...")
 	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 30 * I.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src))
+	if(do_after(user, 30 * I.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src))
 		var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
 		F.dir = dir
 		F.anchored = 1
@@ -96,7 +96,7 @@
 			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) && (build == 0))
+				if(do_after(user, 10 * W.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) && (build == 0))
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
 					anchored = 1
 					build++
@@ -106,7 +106,7 @@
 			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) && (build == 1))
+				if(do_after(user, 10 * W.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) && (build == 1))
 					build--
 					anchored = 0
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
@@ -116,7 +116,7 @@
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 20 * C.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) && (C.get_amount() >= 2) && (build == 2))
+				if(do_after(user, 20 * C.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
@@ -124,7 +124,7 @@
 		if(3) // Wired
 			if(istype(W, /obj/item/wirecutters))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
-				if(do_after(user, 10 * W.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) && (build == 3))
+				if(do_after(user, 10 * W.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
@@ -134,7 +134,7 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) && (R.get_amount() >= 2) && (build == 3))
+				if(do_after(user, 20 * R.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
@@ -144,7 +144,7 @@
 			if(istype(W, /obj/item/crowbar))
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 30 * W.toolspeed * istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? istype(user, /mob/living/carbon/human) ? user.dna.species.toolspeedmod : 1 : 1 : 1, target = src) && (build == 4))
+				if(do_after(user, 30 * W.toolspeed * ishuman(user) ? user.dna.species.toolspeedmod : 1, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
 					build--
 				return 1
