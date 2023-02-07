@@ -186,15 +186,15 @@
 	var/isNewPatient = (table.patient != currentPatient) //Is this a new Patient?
 
 	if(table.patient.stat == DEAD || table.patient.status_flags & FAKEDEATH)
-		patientStatus = "Dead"
+		patientStatus = "умер"
 	else if(table.patient.stat == CONSCIOUS)
-		patientStatus = "Awake"
+		patientStatus = "в сознании"
 	else if(table.patient.stat == UNCONSCIOUS)
-		patientStatus = "Asleep"
+		patientStatus = "спит"
 
 	if(isNewPatient)
-		atom_say("New patient detected, loading stats")
-		atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
+		atom_say("Обнаружен новый пациент, загрузка показаний")
+		atom_say("[table.patient], группа крови [table.patient.dna.blood_type], [patientStatus]")
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient
@@ -208,5 +208,5 @@
 		if(healthAnnounce && table.patient.health <= healthAlarm)
 			atom_say("[round(table.patient.health)]")
 		if(table.patient.stat != patientStatusHolder)
-			atom_say("Patient is now [patientStatus]")
+			atom_say("Пациент [patientStatus]")
 			patientStatusHolder = table.patient.stat
