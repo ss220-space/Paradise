@@ -410,11 +410,10 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/lungs/cursed/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(M)
-		var/mob/living/carbon/human/H = M
-		to_chat(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
+		to_chat(M, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
 
 /datum/action/item_action/organ_action/cursed_lungs
 	name = "Дышать"
