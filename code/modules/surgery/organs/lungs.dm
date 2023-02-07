@@ -417,7 +417,7 @@
 		to_chat(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
 
 /datum/action/item_action/organ_action/cursed_lungs
-	name = "pump your air"
+	name = "Дышать"
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_lungs/Trigger()
