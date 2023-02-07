@@ -1,25 +1,25 @@
 /datum/surgery/cybernetic_repair/change_model
 	name = "Change Model"
-	steps = list(/datum/surgery_step/robotics/external/customize_name,/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/rewrite_name)
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/rewrite_name)
 	possible_locs = list("chest")
 
-/datum/surgery_step/robotics/external/customize_name
-	name = "change a model name"
+/datum/surgery_step/robotics/external/rewrite_name
+	name = "write a model name"
 	allowed_tools = list(
-		/obj/item/screwdriver = 100,
-		/obj/item/coin = 50,
-		/obj/item/kitchen/knife = 50
+		/obj/item/pen = 100,
+		/obj/item/hand_labeler = 100,
 	)
 
-	time = 16
+	time = 64
 
-/datum/surgery_step/robotics/external/customize_name/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/rewrite_name/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	user.visible_message("[user] begins to alter [target]'s appearance.",
-	"<span class='notice'>You begin to alter [target]'s appearance...</span>")
+	"<span class='notice'You begin to alter [target]'s appearance...</span>")
 	..()
 
-/datum/surgery_step/robotics/external/customize_name/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/list/names = list()
+/datum/surgery_step/robotics/external/rewrite_name/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		var/list/names = list()
 	var/list_size = 10
 	//IDs in hand
 	if(istype(user, /mob/living/carbon/human)) //Only 'humans' can hold ID cards
@@ -52,37 +52,11 @@
 	var/chosen_name = input(user, "Choose a new name to assign.", "Metal Surgery") as null|anything in names
 	if(!chosen_name)
 		return
-	surgery.temporary_variable = chosen_name
-	return 1
-
-/datum/surgery_step/robotics/external/customize_name/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to change the model on [target]'s [affected.name].</span>",
-	"<span class='warning'> Your [tool] slips, failing to change the model on [target]'s [affected.name].</span>")
-	return 0
-
-/datum/surgery_step/robotics/external/rewrite_name
-	name = "write a model name"
-	allowed_tools = list(
-		/obj/item/pen = 100,
-		/obj/item/hand_labeler = 100,
-	)
-
-	time = 64
-
-/datum/surgery_step/robotics/external/rewrite_name/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	user.visible_message("[user] makes a final touches on [target]'s appearance.",
-	"<span class='notice'>You begin to make a final touches on  [target]'s appearance...</span>")
-	..()
-
-/datum/surgery_step/robotics/external/rewrite_name/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/oldname = target.real_name
-	var/new_name = surgery.temporary_variable
+	var/new_name = chosen_name
 	target.real_name = new_name
 	user.visible_message("[user] alters [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [new_name]!", "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [new_name].</span>")
 	target.sec_hud_set_ID()
-	affected.open = 0
 	return TRUE
 
 /datum/surgery_step/robotics/external/rewrite_name/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
