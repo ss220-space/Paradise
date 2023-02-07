@@ -18,8 +18,7 @@
 	..()
 
 /datum/surgery_step/robotics/external/rewrite_name/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		var/list/names = list()
+	var/list/names = list()
 	var/list_size = 10
 	//IDs in hand
 	if(istype(user, /mob/living/carbon/human)) //Only 'humans' can hold ID cards
