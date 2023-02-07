@@ -398,6 +398,7 @@
 	var/last_pump = 0
 	var/pump_delay = 300
 	var/oxy_loss = 45
+	unremovable = TRUE
 
 /obj/item/organ/internal/lungs/cursed/on_life()
 	if(world.time > (last_pump + pump_delay))
