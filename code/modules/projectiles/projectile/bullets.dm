@@ -316,7 +316,3 @@
 	name = "cap"
 	damage = 0
 	nodamage = 1
-
-/obj/item/projectile/bullet/cap/fire()
-	loc = null
-	qdel(src)
