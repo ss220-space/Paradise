@@ -69165,6 +69165,11 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/port)
+"jiK" = (
+/mob/living/simple_animal/pet/dog/brittany/Psycho,
+/obj/structure/bed/dogbed/pet,
+/turf/simulated/floor/carpet,
+/area/medical/psych)
 "jiL" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/green/hollow,
@@ -105258,6 +105263,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
+/mob/living/simple_animal/mothroach,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -116956,6 +116962,8 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
 /obj/item/soap,
+/mob/living/simple_animal/mouse/rat/gray/Ratatui,
+/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "tGl" = (
@@ -182012,7 +182020,7 @@ eEh
 myh
 qrz
 hGs
-vlN
+jiK
 cJq
 nIr
 kwr

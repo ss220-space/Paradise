@@ -290,7 +290,6 @@
 		/obj/item/clothing/glasses/chameleon/thermal
 		)
 
-
 /datum/thief_kit/pinpointer
 	name = "Целевой Пинпоинтер"
 	desc = "Позволяет найти все интересные для гильдии объекты."

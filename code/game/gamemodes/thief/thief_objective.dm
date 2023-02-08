@@ -29,6 +29,12 @@
 		valid_targets_list.Remove(target_type)
 		get_structure(target_type)
 
+/datum/objective/steal_structure/proc/select_target()
+	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_structures_list
+	if(!new_target_type)
+		return FALSE
+	return get_structure(new_target_type)
+
 /datum/objective/steal_structure/proc/get_structure(var/obj/target_type)
 	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
 	if(!length(targets_list))
@@ -45,12 +51,6 @@
 			if(istype(S, steal_target))
 				return TRUE
 	return FALSE
-
-/datum/objective/steal_structure/proc/select_target()
-	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_structures_list
-	if(!new_target_type)
-		return FALSE
-	return get_structure(new_target_type)
 
 
 /datum/objective/steal_pet
@@ -80,6 +80,7 @@
 		/mob/living/simple_animal/pet/cat/Iriska,
 		/mob/living/simple_animal/mouse/hamster/Representative,
 		/mob/living/simple_animal/mouse/rat/white/Brain,
+		/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 		/mob/living/carbon/human/lesser/monkey/punpun,
 		/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
 		/mob/living/simple_animal/pet/slugcat,
@@ -97,6 +98,12 @@
 		var/mob/living/target_type = pick(valid_targets_list)
 		valid_targets_list.Remove(target_type)
 		get_alive_pet(target_type)
+
+/datum/objective/steal_pet/proc/select_target()
+	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
+	if(!new_target_type)
+		return FALSE
+	return get_alive_pet(new_target_type)
 
 /datum/objective/steal_pet/proc/get_alive_pet(var/mob/living/target_type)
 	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
@@ -145,21 +152,15 @@
 						return TRUE
 	return FALSE
 
-/datum/objective/steal_pet/proc/select_target()
-	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
-	if(!new_target_type)
-		return FALSE
-	return get_alive_pet(new_target_type)
-
 
 /datum/objective/collect
 	var/type_theft_flag = THEFT_FLAG_COLLECT
-	var/datum/theft_objective/collect/collect_targets
+	var/datum/theft_objective/collect/collect_targets	//Изменить под список предметов?????
 	explanation_text = "Собрать: "
 	var/required_amount=0
 
 /datum/objective/collect/find_target()
-	var/list/valid_collect_objectives = list()
+	var/list/valid_objectives_list = list()
 	for(var/theft_type in get_theft_list_objectives(type_theft_flag))
 		for(var/datum/objective/collect/objective in owner.objectives)
 			if(istype(objective) && istype(objective.collect_targets, theft_type))
@@ -167,15 +168,33 @@
 		var/datum/theft_objective/O = new theft_type
 		if(O.flags & 2)
 			continue
-		valid_collect_objectives += O
+		valid_objectives_list += O
 
-	if(length(valid_collect_objectives))
-		var/datum/theft_objective/collect/O = pick(valid_collect_objectives)
-		collect_targets = O
-		explanation_text += collect_targets.name
+	if(length(valid_objectives_list))
+
+		while(!collect_targets)
+			if(!length(valid_objectives_list))
+				return FALSE
+			var/datum/theft_objective/collect/temp_collection = pick(valid_targets_list)
+			/datum/theft_objective/collect/number
+			valid_targets_list.Remove(temp_collection)
+			try_make_collection(temp_collection)
+
+	if(collect_targets)
 		return TRUE
 
-	explanation_text = "Украдите что угодно хоть сколько-нибудь ценное."
+	return FALSE
+
+/datum/objective/steal_pet/proc/try_make_collection(var/datum/theft_objective/collect/temp_objective)
+	if(temp_objective.make_collection())
+		collect_targets = temp_objective
+		return TRUE
+
+/datum/objective/collect/proc/select_target()
+	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in get_theft_list_objectives(type_theft_flag)
+	if(!new_target)
+		return FALSE
+	return try_make_collection(new_target_type)
 
 /datum/objective/collect/check_completion()
 	if(!collect_targets)
@@ -185,10 +204,3 @@
 		return FALSE
 
 	collect_targets.check_completion(owner)
-
-/datum/objective/collect/proc/select_target()
-	var/new_target = input("Select target:", "Objective target", null) as null|anything in get_theft_list_objectives(type_theft_flag)
-	if(!new_target) return
-	collect_targets = new new_target
-	explanation_text += collect_targets.name
-	return collect_targets
