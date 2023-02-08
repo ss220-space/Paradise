@@ -135,7 +135,7 @@
 	return TRUE
 
 /obj/structure/necropolis_gate/ashwalker
-	desc = "Массивные каменные ворота. Эта кажутся навеки запечатанными."
+	desc = "Массивные каменные ворота. Кажется, они намертво запечатаны."
 	locked = TRUE
 
 /obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
