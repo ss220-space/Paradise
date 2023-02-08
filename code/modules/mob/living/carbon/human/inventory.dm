@@ -75,7 +75,7 @@
 	var/obj/item/organ/O = I
 	if(istype(O) && O.owner == src)
 		. = 0 // keep a good grip on your heart
-	if((get_slot_by_item(I) in check_obscured_slots())&!force)
+	if((get_slot_by_item(I) in check_obscured_slots())&&!force)
 		. = 0
 
 /mob/living/carbon/human/unEquip(obj/item/I, force)
@@ -382,47 +382,47 @@
 	return null
 
 /mob/living/carbon/human/proc/get_slot_by_item(item)
-	if(item==back)
+	if(item == back)
 		return slot_back
-	if(item==wear_mask)
+	if(item == wear_mask)
 		return slot_wear_mask
-	if(item==neck)
+	if(item == neck)
 		return slot_neck
-	if(item==handcuffed)
+	if(item == handcuffed)
 		return slot_handcuffed
-	if(item==legcuffed)
+	if(item == legcuffed)
 		return slot_legcuffed
-	if(item==l_hand)
+	if(item == l_hand)
 		return slot_l_hand
-	if(item==r_hand)
+	if(item == r_hand)
 		return slot_r_hand
-	if(item==belt)
+	if(item == belt)
 		return slot_belt
-	if(item==wear_id)
+	if(item == wear_id)
 		return slot_wear_id
-	if(item==wear_pda)
+	if(item == wear_pda)
 		return slot_wear_pda
-	if(item==l_ear)
+	if(item == l_ear)
 		return slot_l_ear
-	if(item==r_ear)
+	if(item == r_ear)
 		return slot_r_ear
-	if(item==glasses)
+	if(item == glasses)
 		return slot_glasses
-	if(item==gloves)
+	if(item == gloves)
 		return slot_gloves
-	if(item==head)
+	if(item == head)
 		return slot_head
-	if(item==shoes)
+	if(item == shoes)
 		return slot_shoes
-	if(item==wear_suit)
+	if(item == wear_suit)
 		return slot_wear_suit
-	if(item==w_uniform)
+	if(item == w_uniform)
 		return slot_w_uniform
-	if(item==l_store)
+	if(item == l_store)
 		return slot_l_store
-	if(item==r_store)
+	if(item == r_store)
 		return slot_r_store
-	if(item==s_store)
+	if(item == s_store)
 		return slot_s_store
 	return null
 /mob/living/carbon/human/get_all_slots()
