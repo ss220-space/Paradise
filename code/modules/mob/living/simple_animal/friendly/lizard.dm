@@ -7,6 +7,7 @@
 	icon_dead = "lizard-dead"
 	speak_emote = list("hisses")
 	tts_seed = "Ladyvashj"
+	death_sound = 'sound/creatures/lizard_death.ogg'
 	health = 5
 	maxHealth = 5
 	attacktext = "кусает"

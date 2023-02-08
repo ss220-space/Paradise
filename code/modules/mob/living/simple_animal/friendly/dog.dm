@@ -25,6 +25,7 @@
 	turns_per_move = 10
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
+	var/growl_sound = list('sound/creatures/dog_grawl1.ogg','sound/creatures/dog_grawl2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -76,6 +77,7 @@
 		if("growl")
 			message = "growls!"
 			m_type = 2 //audible
+			playsound(src, pick(src.growl_sound), 75, TRUE)
 		if("help")
 			to_chat(src, "scream, bark, growl")
 

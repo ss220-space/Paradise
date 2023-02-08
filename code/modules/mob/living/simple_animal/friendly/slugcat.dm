@@ -18,6 +18,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
+	can_collar = 1
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -38,6 +39,7 @@
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
+	var/test_transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 
 /mob/living/simple_animal/pet/slugcat/New()
 	..()
@@ -129,7 +131,7 @@
 	. = ..()
 	if(inventory_head || inventory_hand)
 		hat_offset_y = initial(hat_offset_y)
-		regenerate_icons()
+		drop_hand()	//have regenerate_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
 	icon_state = "slugcat_spear"
@@ -161,7 +163,7 @@
 		slugI.alpha = hat_alpha
 		slugI.color = hat_color
 		slugI.pixel_y = hat_offset_y
-		//slugI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)	//centered
+		slugI.transform = test_transform//matrix(1.125, 0, 0.5, 0, 1, 0)	//centered
 		return slugI
 
 /mob/living/simple_animal/pet/slugcat/show_inv(mob/user)
