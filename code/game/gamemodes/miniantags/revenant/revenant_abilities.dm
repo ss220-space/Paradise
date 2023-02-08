@@ -135,6 +135,50 @@
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
+/obj/effect/proc_holder/spell/targeted/click/command/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(charge_counter < charge_max)
+		return 0
+	if(user.essence <= cast_amount)
+		return 0
+	return 1
+
+/obj/effect/proc_holder/spell/targeted/click/command
+	name = "Command"
+	panel = "Revenant Abilities"
+	charge_max = 100
+	clothes_req = 0
+	range = 8
+	action_icon_state = "boo"
+	action_background_icon_state = "bg_revenant"
+	var/cast_amount = 30
+
+/obj/effect/proc_holder/spell/targeted/click/command/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	for(var/mob/living/M in targets)
+		for (var/obj/O in view(1, user))
+			if (!O.anchored)
+				O.throw_at(M, 32, 2)
+	user.essence -= cast_amount
+	user.reveal(20)
+
+/obj/effect/proc_holder/spell/targeted/blood_writing
+	name = "Blood Writing"
+	panel = "Revenant Abilities"
+	clothes_req = FALSE
+	charge_max = 0
+	range = -1
+	include_user = TRUE
+	action_icon_state = "boo"
+	action_background_icon_state = "bg_revenant"
+	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+	var/temp = "rune"
+
+/obj/effect/proc_holder/spell/targeted/blood_writing/cast(mob/living/simple_animal/revenant/user = usr)
+	var/select = input("Please select a letters.") in letters
+	var/T = get_turf(user)
+	if (istype(T, /turf/simulated/wall) || istype(T, /turf/space))
+		to_chat(user, "<span class='revennotice'>Wall!</span>")
+	else
+		new/obj/effect/decal/cleanable/crayon(T, COLOR_RED, select, temp)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
@@ -271,8 +315,8 @@
 					floor.broken = 0
 					floor.burnt = 0
 					floor.make_plating(1)
-				for(var/obj/machinery/light/light in T.contents)
-					light.flicker(30) //spooky
+				for(var/obj/machinery/light/light in range(8, user))
+					light.flicker(10) //spooky
 
 //Malfunction: Makes bad stuff happen to robots and machines.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction
@@ -314,3 +358,20 @@
 					new/obj/effect/temp_visual/revenant(S.loc)
 					S.spark_system.start()
 					S.emp_act(1)
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/animation
+	name = "Animation"
+	charge_max = 650
+	range = 1
+	reveal = 90
+	cast_amount = 100
+	unlock_amount = 150
+	action_icon_state = "boo"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/animation/cast(mob/living/simple_animal/revenant/user = usr)
+	var/spawn_max = 5
+	if(attempt_cast(user))
+		for (var/obj/O in view(range, user))
+			if(istype(O, /obj/item) && (spawn_max != 0))
+				spawn_max -= 1
+				new /mob/living/simple_animal/hostile/mimic/copy/revenant(O.loc, O, user)

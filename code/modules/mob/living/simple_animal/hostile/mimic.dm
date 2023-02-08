@@ -110,7 +110,11 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/image/googly_eyes = null
+	var/revenant_unit = 0
 	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/hostile/mimic/copy/revenant
+	revenant_unit = 1
 
 /mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
 	..(loc)
@@ -167,7 +171,10 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				is_electronic = 1
 		else if(istype(O, /obj/item))
 			var/obj/item/I = O
-			health = 15 * I.w_class
+			if (revenant_unit)
+				health = 10
+			else
+				health = 15 * I.w_class
 			melee_damage_lower = 2 + I.force
 			melee_damage_upper = 2 + I.force
 			move_to_delay = 2 * I.w_class + 1

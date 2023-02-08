@@ -57,7 +57,6 @@
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 
-
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()
 	if(revealed && essence <= 0)
@@ -184,10 +183,13 @@
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/command(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/revenant_transmit(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/animation(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blood_writing(null))
 	return TRUE
 
 
