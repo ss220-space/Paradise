@@ -9,6 +9,7 @@
 	maxHealth = 100
 	speed = 10
 	attacktext = "толкает"
+	death_sound = 'sound/creatures/crack_death1.ogg'
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
@@ -43,6 +44,7 @@
 	maxHealth = 500
 	speed = 20
 	attacktext = "толкает"
+	death_sound = 'sound/creatures/crack_death1.ogg'
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"

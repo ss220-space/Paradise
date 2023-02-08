@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 	var/theft_area
-	var/type_theft_flag = THEFT_FLAG_HIGHRISK
+	var/type_theft_flag = 0
 
 /datum/objective/steal/proc/get_theft_extension_list_objectives()
 	return FALSE

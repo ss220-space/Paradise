@@ -175,9 +175,9 @@
 		while(!collect_targets)
 			if(!length(valid_objectives_list))
 				return FALSE
-			var/datum/theft_objective/collect/temp_collection = pick(valid_targets_list)
+			var/datum/theft_objective/collect/temp_collection = pick(valid_objectives_list)
 			/datum/theft_objective/collect/number
-			valid_targets_list.Remove(temp_collection)
+			valid_objectives_list.Remove(temp_collection)
 			try_make_collection(temp_collection)
 
 	if(collect_targets)
@@ -185,14 +185,14 @@
 
 	return FALSE
 
-/datum/objective/steal_pet/proc/try_make_collection(var/datum/theft_objective/collect/temp_objective)
+/datum/objective/collect/proc/try_make_collection(var/datum/theft_objective/collect/temp_objective)
 	if(temp_objective.make_collection())
 		collect_targets = temp_objective
 		return TRUE
 
 /datum/objective/collect/proc/select_target()
 	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in get_theft_list_objectives(type_theft_flag)
-	if(!new_target)
+	if(!new_target_type)
 		return FALSE
 	return try_make_collection(new_target_type)
 

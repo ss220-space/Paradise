@@ -34,6 +34,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	melee_damage_upper = 20
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
+	death_sound = 'sound/creatures/spider_death.ogg'
 	a_intent = INTENT_HARM
 
 	// Movement

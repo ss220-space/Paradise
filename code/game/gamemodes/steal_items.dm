@@ -7,12 +7,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives_hard, subtypesof(/datum/theft_object
 GLOBAL_LIST_INIT(potential_theft_objectives_medium, subtypesof(/datum/theft_objective/medium))
 GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect) - /datum/theft_objective/collect/number)
 
+#define THEFT_FLAG_HIGHRISK 0
 #define THEFT_FLAG_SPECIAL 	1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_HIGHRISK 2
-#define THEFT_FLAG_UNIQUE 	3
-#define THEFT_FLAG_HARD 	4
-#define THEFT_FLAG_MEDIUM 	5
-#define THEFT_FLAG_COLLECT 	6
+#define THEFT_FLAG_UNIQUE 	2
+#define THEFT_FLAG_HARD 	3
+#define THEFT_FLAG_MEDIUM 	4
+#define THEFT_FLAG_COLLECT 	5
 
 
 /datum/objective/proc/get_theft_list_objectives(var/type_theft_flag)

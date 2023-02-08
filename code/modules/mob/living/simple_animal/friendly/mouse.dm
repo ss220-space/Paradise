@@ -10,7 +10,10 @@
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
+	var/squeak_sound = 'sound/creatures/mouse_squeak.ogg'
+	var/talk_sound = 'sound/creatures/rat_talk.ogg'
+	var/wound_sound = 'sound/creatures/rat_wound.ogg'
+	death_sound = 'sound/creatures/rat_death.ogg'
 	tts_seed = "Gyro"
 	speak_chance = 1
 	turns_per_move = 5
@@ -40,7 +43,7 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list(squeak_sound = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -131,11 +134,15 @@
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
-	playsound(src, squeak_sound, 40, 1)
+	playsound(src, death_sound, 40, 1)
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	layer = MOB_LAYER
+
+/mob/living/simple_animal/mouse/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
+	if(..())
+		playsound(src, talk_sound, 40, 1)
 
 /mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
@@ -159,6 +166,7 @@
 			playsound(src, squeak_sound, 40, 1)
 		if("help")
 			to_chat(src, "scream, squeak")
+			playsound(src, wound_sound, 40, 1)
 
 	..()
 
@@ -274,6 +282,7 @@
 	name = "rat"
 	real_name = "rat"
 	desc = "Крыса. Рожа у неё хитрая и знакомая..."
+	squeak_sound = 'sound/creatures/rat_squeak.ogg'
 	icon_state 		= "rat_gray"
 	icon_living 	= "rat_gray"
 	icon_dead 		= "rat_gray_dead"
@@ -295,6 +304,9 @@
 /mob/living/simple_animal/mouse/rat/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
 	var/mob/living/L = src
 	L.start_pulling(AM, state, force, show_message)
+
+	//!!!!!!!!Возникло исключение: Maximum recursion level reached (perhaps there is an infinite loop)
+	//To avoid this safety check, set world.loop_checks=0.
 
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"

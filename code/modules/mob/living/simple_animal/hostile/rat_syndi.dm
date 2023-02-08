@@ -42,11 +42,11 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	var/chew_probability = 1
-	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
+	var/squeak_sound = 'sound/creatures/mouse_squeak.ogg'
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list('sound/creatures/mouse_squeak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
