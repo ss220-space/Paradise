@@ -24326,6 +24326,8 @@
 	pixel_y = 28
 	},
 /obj/structure/closet/chefcloset,
+/mob/living/simple_animal/mouse/rat/gray/Ratatui,
+/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -62829,6 +62831,7 @@
 	pixel_y = 24;
 	req_access_txt = "24"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cMb" = (

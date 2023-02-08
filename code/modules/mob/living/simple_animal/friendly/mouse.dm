@@ -284,7 +284,7 @@
 /mob/living/simple_animal/mouse/rat
 	name = "rat"
 	real_name = "rat"
-	desc = "Крыса. Рожа у неё хитрая..."
+	desc = "Крыса. Рожа у неё хитрая и знакомая..."
 	icon_state 		= "rat_gray"
 	icon_living 	= "rat_gray"
 	icon_dead 		= "rat_gray_dead"
@@ -310,10 +310,12 @@
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
+	desc = "Серая крыса. Не яркий представитель своего вида."
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"
 	real_name = "white rat"
+	desc = "Типичный представитель лабораторных крыс."
 	icon_state 		= "rat_white"
 	icon_living 	= "rat_white"
 	icon_dead 		= "rat_white_dead"

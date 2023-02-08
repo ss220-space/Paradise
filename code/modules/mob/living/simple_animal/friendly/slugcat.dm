@@ -25,6 +25,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_SLIME
 	tts_seed = "Narrator"
+	faction = list("slime","neutral")
 	//holder_type = /obj/item/holder/cat2
 
 	//Шляпы для слизнекота!
@@ -44,17 +45,18 @@
 
 
 /mob/living/simple_animal/pet/slugcat/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
-		place_on_head(user.get_active_hand(), user)
-		return
-
-	if(istype(W, /obj/item/twohanded/spear) && user.a_intent != INTENT_HARM)
-		place_to_hand(user.get_active_hand(), user)
-		return
+	if (stat != DEAD)
+		if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
+			place_on_head(user.get_active_hand(), user)
+			return
+		if(istype(W, /obj/item/twohanded/spear) && user.a_intent != INTENT_HARM)
+			place_to_hand(user.get_active_hand(), user)
+			return
 
 	. = ..()
 
-/mob/living/simple_animal/pet/slugcat/atta
+///mob/living/simple_animal/pet/slugcat/atta
+//Должен сам брать копье
 
 /mob/living/simple_animal/pet/slugcat/death(gibbed)
 	drop_hat()
@@ -126,7 +128,7 @@
 /mob/living/simple_animal/pet/slugcat/StopResting(updating = 1)
 	. = ..()
 	if(inventory_head || inventory_hand)
-		hat_offset_y = initial(hat_offset_y_rest)
+		hat_offset_y = initial(hat_offset_y)
 		regenerate_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
@@ -159,7 +161,7 @@
 		slugI.alpha = hat_alpha
 		slugI.color = hat_color
 		slugI.pixel_y = hat_offset_y
-		slugI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)	//centered
+		//slugI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)	//centered
 		return slugI
 
 /mob/living/simple_animal/pet/slugcat/show_inv(mob/user)

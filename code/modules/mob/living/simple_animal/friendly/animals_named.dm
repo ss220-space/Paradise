@@ -95,7 +95,30 @@
 	maxHealth = 20
 	health = 20
 
+/mob/living/simple_animal/mouse/rat/gray/Ratatui
+	name = "Рататуй"
+	real_name = "Рататуй"
+	desc = "Личная крыса шеф повара, помогающая ему при готовке наиболее изысканных блюд. До момента пока он не пропадет и повар не начнет готовить что-то новенькое..."
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+	maxHealth = 20
+	health = 20
+
+/mob/living/simple_animal/mouse/rat/irish/Remi
+	name = "Реми"
+	real_name = "Реми"
+	desc = "Близкий друг Рататуя. Не любимец повара, но пока тот не мешает на кухне, ему разрешили здесь остаться. Очень толстая крыса."
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+	maxHealth = 20
+	health = 20
+	transform = matrix(1.125, 0, 0.5, 0, 1, 0)	//толстячок на +1 пиксель
+
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
 	name = "Феня"
 	desc = "Миниатюрная лисичка c важным видом и очень большими ушами. Был пойман во время разливания огромного мороженого по формочкам и теперь Магистрат держит его при себе и следит за ним. Но похоже что ему даже нравится быть частью правосудия."
 
+/mob/living/simple_animal/pet/dog/brittany/Psycho
+	name = "\improper Психо"
+	real_name = "Психо"
+	desc = "Собака готовая выслушать все ваши проблемы и дать вам целебных объятий и обнюхиваний."
