@@ -79,8 +79,12 @@
 	if(use_prefs_prompt(user))
 		mob_use_prefs = TRUE
 	else
+		var/randomize_alert = alert("Your character will be randomized for this role, continue?",,"Yes","No")
+		if(randomize_alert == "No")
+			return
 		if(!species_prompt())
 			return
+
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
@@ -176,6 +180,8 @@
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
 	var/allow_prefs_prompt = FALSE
+	var/allow_gender_pick = FALSE
+	var/allow_name_pick = FALSE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -227,22 +233,51 @@
 	if(allow_prefs_prompt)
 		if(!(user.client))
 			return FALSE
-		for(var/C in GLOB.human_names_list)
-			var/char_name = user.client.prefs.real_name
-			if(char_name == C)
-				return FALSE
 		var/get_slot = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
 		if(get_slot == "Yes")
+			for(var/C in GLOB.human_names_list)
+				var/char_name = user.client.prefs.real_name
+				if(char_name == C)
+					to_chat(user, "<span class='warning'>You have already entered the round with this name, choose another slot.</span>")
+					return FALSE
+			var/char_species = user.client.prefs.species
+			if(!(char_species in pickable_species))
+				to_chat(user, "<span class='warning'>Your character's current species is not suitable for this role.</span>")
+				return FALSE
 			return TRUE
 	return FALSE
 
 /obj/effect/mob_spawn/human/species_prompt()
+	var/new_name = null
+	if(allow_gender_pick)
+		//пол
+		var/new_gender = alert("Please select gender.",, "Male","Female")
+		if(new_gender == "Male")
+			mob_gender = MALE
+		else
+			mob_gender = FEMALE
+
+	if(allow_name_pick)
+		//имя
+		new_name = input("Enter your name:") as text
+		if(new_name)
+			mob_name = new_name
+		else
+			mob_name = random_name(mob_gender, mob_species)
+
 	if(allow_species_pick)
+		//раса
 		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
 		if(!selected_species)
-			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
+			to_chat(usr, "<span class='warning'>Spawning stopped.</span>")
+			return	FALSE	// You didn't pick, abort
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
+		if(!new_name)
+			mob_name = random_name(mob_gender, selected_species)
+
+	//цвет кожи
+	skin_tone = rand(-25, 0)
 	return TRUE
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H, use_prefs = FALSE)
@@ -258,6 +293,15 @@
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
 	if(!use_prefs)
+		if(!random)
+			H.real_name = mob_name ? mob_name : H.name
+			if(H.dna)
+				H.dna.real_name = mob_name
+			if(H.mind)
+				H.mind.name = mob_name
+			if(!mob_gender)
+				mob_gender = pick(MALE, FEMALE)
+			H.gender = mob_gender
 		if(istype(D))
 			if(hair_style)
 				D.h_style = hair_style
@@ -319,6 +363,13 @@
 			W.assignment = id_job
 		W.registered_name = H.real_name
 		W.update_label()
+
+/obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
+	if(!(NO_DNA in H.dna.species.species_traits))
+		H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
+		var/datum/dna/D = H.dna
+		if(!D.species.is_small)
+			H.change_dna(D, TRUE, TRUE)
 
 //Instant version - use when spawning corpses during runtime
 /obj/effect/mob_spawn/human/corpse
@@ -555,8 +606,10 @@
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
 	roundstart = FALSE
-	random = TRUE
 	allow_species_pick = TRUE
+	allow_prefs_prompt = TRUE
+	allow_gender_pick = TRUE
+	allow_name_pick = TRUE
 	name = "bartender sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
@@ -564,14 +617,19 @@
 	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
 
+/obj/effect/mob_spawn/human/bartender/special(mob/living/carbon/human/H)
+	GLOB.human_names_list += H.real_name
+	return ..()
+
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
 	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
 	 You aren't trained for this, but you'll still keep your guests alive!"
 	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
-	mob_gender = "female"
+	mob_gender = FEMALE
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/shorts/red
+	allow_gender_pick = FALSE
+	outfit = /datum/outfit/beachbum/female
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -589,8 +647,10 @@
 /obj/effect/mob_spawn/human/beach/alive
 	death = FALSE
 	roundstart = FALSE
-	random = TRUE
 	allow_species_pick = TRUE
+	allow_prefs_prompt = TRUE
+	allow_gender_pick = TRUE
+	allow_name_pick = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
@@ -599,10 +659,19 @@
 	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
 
+/obj/effect/mob_spawn/human/beach/alive/special(mob/living/carbon/human/H)
+	GLOB.human_names_list += H.real_name
+	return ..()
+
 /datum/outfit/beachbum
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
 	uniform = /obj/item/clothing/under/shorts/red
+
+/datum/outfit/beachbum/female
+	name = "Beach Bum (female)"
+	glasses = /obj/item/clothing/glasses/sunglasses
+	uniform = /obj/item/clothing/under/swimsuit/red
 
 /////////////////Spooky Undead//////////////////////
 
