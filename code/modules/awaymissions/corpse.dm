@@ -137,12 +137,11 @@
 		M.faction = list(faction)
 	if(disease)
 		M.ForceContractDisease(new disease)
-	if(death)
-		M.death() //Kills the new mob
-
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
+	if(death)
+		M.death() //Kills the new mob
 	M.color = mob_color
 	if(plr)
 		if(prefs)
