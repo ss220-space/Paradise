@@ -1105,8 +1105,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/player in possible_changelings)
 		if(player.current)
 			if(ismindshielded(player.current))
-				if(player.current.dna.species.name in temp_gameMode.protected_species)
-					possible_changelings -= player
+				possible_changelings -= player
+			if(player.current.dna.species.name in temp_gameMode.protected_species)
+				possible_changelings -= player
 	if(possible_changelings.len)
 		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
 		for(var/j = 0, j < changeling_num, j++)
