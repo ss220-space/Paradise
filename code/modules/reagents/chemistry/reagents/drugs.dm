@@ -153,7 +153,7 @@
 /datum/reagent/moonlin
 	name = "Moonlin"
 	id = "moonlin"
-	description = "Чувааааааааак"
+	description = "A granular powder consisting of small white crystals, which is extracted from moonlight plant growing on the coasts and in the deltas of the Adomai rivers."
 	reagent_state = LIQUID
 	color = "#5ec3cc" // rgb: 96, 165, 132
 	overdose_threshold = 20
@@ -172,14 +172,14 @@
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
 	M.AdjustJitter(-25)
 	switch(current_cycle)
-		if(1 to 15)
+		if(1 to 35)
 			if(prob(7))
 				M.emote("yawn")
-		if(16 to 30)
-			M.Drowsy(20)
-		if(31 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
-			M.Drowsy(20)
+		if(36 to 70)
+			M.Drowsy(10)
+		if(71 to INFINITY)
+			update_flags |= M.Paralyse(10, FALSE)
+			M.Drowsy(10)
 	return ..() | update_flags
 
 /datum/reagent/moonlin/overdose_process(mob/living/M, severity)
