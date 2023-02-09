@@ -274,7 +274,6 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/sovietsoda = "BODA",
 		/obj/machinery/vending/security = "SecTech",
 		/obj/machinery/vending/crittercare = "CritterCare",
-		/obj/machinery/vending/clothing/departament = "Departament ClothesMate",
 		/obj/machinery/vending/clothing/departament/security = "Departament Security ClothesMate",
 		/obj/machinery/vending/clothing/departament/medical = "Departament Medical ClothesMate",
 		/obj/machinery/vending/clothing/departament/engineering = "Departament Engineering ClothesMate",
