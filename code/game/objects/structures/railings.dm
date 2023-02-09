@@ -166,16 +166,49 @@
 /obj/structure/railing/wooden
 	name = "Wooden railing"
 	desc = "Wooden railing meant to protect idiots like you from falling."
-	icon = 'icons/obj/fence_smooth.dmi'
-	icon_state = "woodenrailing"
+	icon = 'icons/obj/fence.dmi'
+	icon_state = "railing_wood"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL|SMOOTH_BORDER
 	can_be_unanchored = 1
 	flags = ON_BORDER
-	canSmoothWith = list(/obj/structure/railing/wooden)
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
+
+/obj/structure/railing/wooden/New()
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+	else
+		layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/wooden/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "It is fastened to the floor!")
+		return
+	setDir(turn(dir, 90))
+	after_rotation(user)
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+	else
+		layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/wooden/corner_nl
+	name = "Wooden railing corner"
+	icon_state = "nl_corner_railing_wood"
+
+/obj/structure/railing/wooden/corner_nr
+	name = "Wooden railing corner"
+	icon_state = "nr_corner_railing_wood"
+
+/obj/structure/railing/wooden/corner_sl
+	name = "Wooden railing corner"
+	icon_state = "sl_corner_railing_wood"
+
+/obj/structure/railing/wooden/corner_sr
+	name = "Wooden railing corner"
+	icon_state = "sr_corner_railing_wood"
 
 /obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
 	. = TRUE

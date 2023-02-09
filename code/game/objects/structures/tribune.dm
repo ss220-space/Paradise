@@ -41,6 +41,8 @@
 /obj/structure/tribune/New()
 	if(dir == SOUTH)
 		layer = ABOVE_MOB_LAYER
+	else
+		layer = BELOW_MOB_LAYER
 
 /obj/structure/tribune/AltClick(mob/user)
 	if(!Adjacent(user))
