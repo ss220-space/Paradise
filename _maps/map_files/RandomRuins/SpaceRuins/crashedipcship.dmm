@@ -2675,12 +2675,6 @@
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
-"Qs" = (
-/obj/machinery/door/airlock/hatch{
-	color = "lightblue"
-	},
-/turf/space,
-/area/ruin/space/crashedipcship/middle)
 "QV" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -5409,7 +5403,7 @@ aH
 rw
 Kk
 AY
-Qs
+kg
 Za
 qa
 xn
