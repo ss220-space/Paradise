@@ -82,7 +82,7 @@
 			return FALSE
 	return TRUE
 
-/datum/action/proc/IsActive()
+/datum/action/proc/IsMayActive()
 	return FALSE
 
 /datum/action/proc/UpdateButtonIcon()
@@ -100,11 +100,12 @@
 
 		ApplyIcon(button)
 
+		if(IsMayActive())
+			toggle_active_overlay()
+
 		// If the action isn't available, darken the button
 		if(!IsAvailable())
 			apply_unavailable_effect()
-		if(IsActive())
-			apply_active_overlay()
 		else
 			return TRUE
 
@@ -125,7 +126,7 @@
 		img.pixel_y = 0
 		current_button.add_overlay(img)
 
-/datum/action/proc/apply_active_overlay()
+/datum/action/proc/toggle_active_overlay()
 	return
 
 //Presets for item actions
@@ -585,7 +586,7 @@
 		return spell.can_cast(owner)
 	return FALSE
 
-/datum/action/spell_action/IsActive()
+/datum/action/spell_action/IsMayActive()
 	if(!target)
 		return FALSE
 	var/obj/effect/proc_holder/spell/targeted/click/S = target
@@ -593,7 +594,7 @@
 		return ..()
 	return TRUE
 
-/datum/action/spell_action/apply_active_overlay()
+/datum/action/spell_action/toggle_active_overlay()
 	var/obj/effect/proc_holder/spell/targeted/click/S = target
 	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
 	I.plane = FLOAT_PLANE + 1.1
