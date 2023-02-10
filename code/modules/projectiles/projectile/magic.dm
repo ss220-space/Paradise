@@ -202,13 +202,18 @@
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.mmi = new /obj/item/mmi(new_mob)
+				if(ishuman(M))
+					Robot.mmi = new /obj/item/mmi(new_mob)
+					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+				else
+					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
+					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
+					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.become_occupied("boris")
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
-				if(ishuman(M))
-					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("СЛАЙМ")
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
@@ -363,7 +368,7 @@
 /obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())

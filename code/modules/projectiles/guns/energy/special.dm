@@ -532,7 +532,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	origin_tech = "combat=4;magnets=4"
 
-	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator, /obj/item/ammo_casing/energy/dominator/slaughter)
+	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator)
 	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
 	var/sound_cd = null
 	cell_type = /obj/item/stock_parts/cell/dominator
@@ -550,10 +550,10 @@
 	if(sibyl_mod && sibyl_mod.voice_is_enabled && !sound_cd)
 		var/temp_select = select
 		if(sound_voice[select] && select == temp_select)
-			sound_cd = addtimer(CALLBACK(src, .proc/select_voice, user, temp_select), 2 SECONDS)
+			sound_cd = addtimer(CALLBACK(src, .proc/select_playvoice, user, temp_select), 2 SECONDS)
 	return
 
-/obj/item/gun/energy/dominator/proc/select_voice(mob/living/user, temp_select)
+/obj/item/gun/energy/dominator/proc/select_playvoice(mob/living/user, temp_select)
 	user.playsound_local(get_turf(src), sound_voice[select], 50, FALSE)
 	sound_cd = null
 

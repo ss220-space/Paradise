@@ -8,42 +8,42 @@
 	dir = 8;
 	pixel_x = -32
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "c" = (
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "d" = (
 /obj/structure/dresser,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "e" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "g" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/item/toy/figure/cmo,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "h" = (
 /obj/machinery/optable,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "i" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "j" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -51,24 +51,24 @@
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "l" = (
 /obj/machinery/door/window/southright,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "m" = (
 /obj/item/flashlight/lamp/green,
 /obj/structure/table/wood,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "n" = (
 /obj/structure/sink{
@@ -81,7 +81,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -89,13 +89,13 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "p" = (
 /obj/machinery/door/window/eastleft,
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -103,12 +103,12 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "r" = (
-/turf/simulated/wall/indestructible/metal,
+/turf/unsimulated/wall/metal,
 /area/template_noop)
 
 (1,1,1) = {"

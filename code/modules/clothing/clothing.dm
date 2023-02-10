@@ -6,6 +6,7 @@
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
+	var/is_improoved_by_potion = FALSE //used for xenobio potions
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -34,6 +35,8 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
+	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.  
+	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
 
 

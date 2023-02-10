@@ -5,6 +5,9 @@
 	icon_state = "white_walls_corners"
 	},
 /area/shuttle/transport)
+"b" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/transport)
 "c" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/transport)
@@ -136,7 +139,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle/plating,
+/turf/unsimulated/floor,
 /area/shuttle/transport)
 "t" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -188,6 +191,15 @@
 	icon_state = "white_walls_corners"
 	},
 /area/shuttle/transport)
+"Z" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/unsimulated/floor,
+/area/shuttle/transport)
 
 (1,1,1) = {"
 a
@@ -197,11 +209,11 @@ t
 J
 "}
 (2,1,1) = {"
-G
+b
 s
+Z
 s
-s
-G
+b
 "}
 (3,1,1) = {"
 c

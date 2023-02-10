@@ -172,7 +172,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmjit_debug_dump_call_count,
 	/client/proc/dmjit_debug_dump_opcode_count,
 	/client/proc/dmjit_debug_toggle_hooks,
-	/client/proc/dmjit_debug_dump_deopts
+	/client/proc/dmjit_debug_dump_deopts,
+	/client/proc/timer_log,
+	/client/proc/debug_timers,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -691,6 +693,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ptypes += "Shamebrero"
 		ptypes += "Dust"
 		ptypes += "Shitcurity Goblin"
+		ptypes += "High RP"
 	var/punishment = input("How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 	if(!(punishment in ptypes))
 		return
@@ -811,6 +814,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			var/mob/living/simple_animal/hostile/shitcur_goblin/goblin = new (T)
 			goblin.GiveTarget(M)
 			logmsg = "shitcurity goblin"
+		if("High RP")
+			var/obj/item/organ/internal/lungs/cursed/L = H.get_int_organ(/obj/item/organ/internal/lungs/cursed)
+			if(!L)
+				var/obj/item/organ/internal/lungs/cursed/O = new
+				O.insert(H)
+			else
+				L.remove(H)
 	if(logmsg)
 		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")
 
@@ -922,6 +932,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	deadmin()
 	verbs += /client/proc/readmin
 	GLOB.deadmins += ckey
+	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -1010,6 +1021,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
+		update_active_keybindings()
 		GLOB.deadmins -= ckey
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return

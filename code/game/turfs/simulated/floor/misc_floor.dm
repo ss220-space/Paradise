@@ -53,7 +53,6 @@
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
-	baseturf = /turf/simulated/floor/beach/sand
 
 
 /turf/simulated/floor/beach/coastline
@@ -64,7 +63,6 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
-	baseturf = /turf/simulated/floor/beach/coastline
 
 /turf/simulated/floor/beach/coastline_t
 	name = "coastline"
@@ -82,14 +80,12 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
-	baseturf = /turf/simulated/floor/beach/coastline_t
 
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
-	baseturf = /turf/simulated/floor/beach/water
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER

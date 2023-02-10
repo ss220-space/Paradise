@@ -709,6 +709,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Research Maintenance"
 	icon_state = "asmaint"
 
+/area/maintenance/asmaint4
+	name = "Virology Maintenance"
+	icon_state = "asmaint"
+
 /area/maintenance/apmaint
 	name = "Cargo Maintenance"
 	icon_state = "apmaint"
@@ -1693,6 +1697,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/evidence
 	name = "\improper Evidence Room"
 	icon_state = "evidence"
+
+/area/security/visiting_room
+	name = "\improper Visiting Room"
+	icon_state = "visiting-room"
 
 /area/security/prisonlockers
 	name = "\improper Prisoner Lockers"

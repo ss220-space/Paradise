@@ -348,6 +348,10 @@
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses_fake/holo
+	desc = "Protects against the holographic UV rays of the holographic sun."
+	name = "holographic sunglasses"
+
 /obj/item/clothing/glasses/thermal_fake
 	desc = "Cheap plastic sunglasses. Wear thoze if yu are kool."
 	name = "Phirmel Soonglesas"
@@ -632,3 +636,10 @@
 		var/mob/living/carbon/user = usr
 		user.update_tint()
 		user.update_inv_glasses()
+		
+/obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
+	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
+	name = "cucumber mask"
+	heal_bodypart = "eyes"
+	icon_state = "cucumbermask"
+	item_state = "cucumbermask"

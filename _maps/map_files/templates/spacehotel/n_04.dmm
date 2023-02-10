@@ -7,54 +7,54 @@
 	dir = 8;
 	pixel_x = -32
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "c" = (
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "d" = (
 /obj/structure/dresser,
 /obj/item/clothing/head/xenos,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "e" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "f" = (
 /mob/living/simple_animal/hostile/alien/queen,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "g" = (
 /obj/structure/bed/nest,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "h" = (
 /obj/structure/bed/alien,
 /obj/item/xenos_claw,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "i" = (
 /obj/effect/gibspawner/xeno,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "j" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "k" = (
 /obj/structure/bed/alien,
 /obj/item/clothing/suit/xenos,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "l" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "m" = (
 /obj/structure/alien/weeds{
@@ -63,19 +63,19 @@
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "n" = (
 /obj/machinery/door/window/southright,
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "o" = (
 /obj/structure/table/wood,
 /obj/item/lipstick/black,
-/turf/simulated/floor/indestructible/carpet,
+/turf/unsimulated/floor/carpet,
 /area/template_noop)
 "p" = (
 /obj/structure/sink{
@@ -89,7 +89,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -100,14 +100,14 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "r" = (
 /obj/machinery/door/window/eastleft,
 /obj/structure/alien/weeds,
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -118,12 +118,12 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},
-/turf/simulated/floor/indestructible{
+/turf/unsimulated/floor{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "t" = (
-/turf/simulated/wall/indestructible/metal,
+/turf/unsimulated/wall/metal,
 /area/template_noop)
 
 (1,1,1) = {"
