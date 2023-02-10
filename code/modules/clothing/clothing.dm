@@ -118,6 +118,7 @@
 
 		if(H.faction)
 			if(H.faction in faction_restricted)
+				to_chat(M, "<span class='warning'>You cannot wear [src].</span>")
 				return 0
 	return 1
 
