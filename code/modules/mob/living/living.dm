@@ -598,6 +598,19 @@
 				var/mob/living/M = pulling
 				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
+				if(ishuman(pulling))
+					var/mob/living/carbon/human/H = pulling
+					var/obj/item/organ/external/head
+					if(!H.lying)
+						if(H.confused > 0 && prob(4))
+							H.setStaminaLoss(100)
+							head = H.get_organ("head")
+							head?.receive_damage(5, 0, FALSE)
+							pulling.stop_pulling()
+						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
+							H.setStaminaLoss(100)
+							head = H.get_organ("head")
+							head?.receive_damage(5, 0, FALSE)
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
