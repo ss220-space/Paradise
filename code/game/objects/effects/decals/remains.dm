@@ -53,7 +53,11 @@
 
 /obj/effect/decal/remains/mouse
 	name = "remains"
-	desc = "They look like mouse remains. No more squeek..."
+	desc = "Некогда бывшая мышь. Её останки. Больше не будет пищать..."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_skeleton"
 	anchored = FALSE
+	move_resist = MOVE_FORCE_EXTREMELY_WEAK
+
+/obj/effect/decal/remains/mouse/water_act(volume, temperature, source, method)
+	. = ..()

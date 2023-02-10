@@ -57,12 +57,13 @@
 	gold_core_spawnable = NO_SPAWN
 	gender = FEMALE
 	mob_size = MOB_SIZE_LARGE	//THICK!!!
-	canmove = FALSE		// TOO FAT
+	//canmove = FALSE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 8)
 	tts_seed = "Huntress"
 	maxHealth = 40	//Sooooo faaaat...
 	health = 40
-	speed = 0
+	speed = 10		// TOO FAT
+	wander = 0		// LAZY
 	can_hide = 0
 
 /mob/living/simple_animal/mouse/hamster/Representative
@@ -111,9 +112,9 @@
 	desc = "Близкий друг Рататуя. Не любимец повара, но пока тот не мешает на кухне, ему разрешили здесь остаться. Очень толстая крыса."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
-	maxHealth = 20
-	health = 20
-	transform = matrix(1.125, 0, 0.5, 0, 1, 0)	//толстячок на +1 пиксель
+	maxHealth = 25
+	health = 25
+	transform = matrix(1.250, 0, 0, 0, 1, 0)	//толстячок на +2 пикселя
 
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
 	name = "Феня"

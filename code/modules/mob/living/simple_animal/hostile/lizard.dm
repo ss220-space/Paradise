@@ -26,17 +26,14 @@
 	attacktext = "терзает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	death_sound = 'sound/creatures/lizard_death_big.ogg'
-	var/list/growl_sound = list('sound/creatures/lizard_angry1.ogg', 'sound/creatures/lizard_angry2.ogg', 'sound/creatures/lizard_angry3.ogg')
+	talk_sound = list('sound/creatures/lizard_angry1.ogg', 'sound/creatures/lizard_angry2.ogg', 'sound/creatures/lizard_angry3.ogg')
+	damaged_sound = list('sound/creatures/lizard_damaged.ogg')
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 	minbodytemp = 250 //Weak to cold
 	maxbodytemp = T0C + 200
 
 	gold_core_spawnable = HOSTILE_SPAWN
-
-/mob/living/simple_animal/hostile/lizard/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
-	. = ..()
-	playsound(src, pick(src.growl_sound), 75, TRUE)
 
 /mob/living/simple_animal/hostile/lizard/gator
 	name = "аллигатор"

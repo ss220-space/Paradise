@@ -11,8 +11,8 @@
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
 	var/squeak_sound = 'sound/creatures/mouse_squeak.ogg'
-	var/talk_sound = 'sound/creatures/rat_talk.ogg'
-	var/wound_sound = 'sound/creatures/rat_wound.ogg'
+	talk_sound = list('sound/creatures/rat_talk.ogg')
+	damaged_sound = list('sound/creatures/rat_wound.ogg')
 	death_sound = 'sound/creatures/rat_death.ogg'
 	tts_seed = "Gyro"
 	speak_chance = 1
@@ -43,7 +43,8 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list(squeak_sound = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	//AddComponent(/datum/component/squeak, list('sound/creatures/mouse_squeak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -110,10 +111,6 @@
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
 
-/mob/living/simple_animal/mouse/gib()
-	new /obj/effect/decal/remains/mouse(src)
-	. = ..()
-
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
 	gib()
@@ -133,16 +130,19 @@
 		icon_state = "mouse_[mouse_color]_splat"
 
 /mob/living/simple_animal/mouse/death(gibbed)
+	if(gibbed)
+		make_remains()
+
 	// Only execute the below if we successfully died
-	playsound(src, death_sound, 40, 1)
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	layer = MOB_LAYER
 
-/mob/living/simple_animal/mouse/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
-	if(..())
-		playsound(src, talk_sound, 40, 1)
+/mob/living/simple_animal/mouse/proc/make_remains()
+	var/obj/effect/decal/remains = new /obj/effect/decal/remains/mouse(src.loc)
+	remains.pixel_x = pixel_x
+	remains.pixel_y = pixel_y
 
 /mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
@@ -166,7 +166,7 @@
 			playsound(src, squeak_sound, 40, 1)
 		if("help")
 			to_chat(src, "scream, squeak")
-			playsound(src, wound_sound, 40, 1)
+			playsound(src, damaged_sound, 40, 1)
 
 	..()
 
@@ -295,11 +295,10 @@
 /mob/living/simple_animal/mouse/rat/color_pick()
 	if(!mouse_color)
 		mouse_color = pick(list("gray","white","irish"))
-
-	icon_state 		= "rat_[mouse_color]"
-	icon_living 	= "rat_[mouse_color]"
-	icon_dead 		= "rat_[mouse_color]_dead"
-	icon_resting 	= "rat_[mouse_color]_sleep"
+		icon_state 		= "rat_[mouse_color]"
+		icon_living 	= "rat_[mouse_color]"
+		icon_dead 		= "rat_[mouse_color]_dead"
+		icon_resting 	= "rat_[mouse_color]_sleep"
 
 /mob/living/simple_animal/mouse/rat/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
 	var/mob/living/L = src
@@ -312,6 +311,7 @@
 	name = "gray rat"
 	real_name = "gray rat"
 	desc = "Серая крыса. Не яркий представитель своего вида."
+	mouse_color = "gray"
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"

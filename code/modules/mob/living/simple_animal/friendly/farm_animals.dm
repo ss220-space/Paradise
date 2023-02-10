@@ -21,6 +21,7 @@
 	attack_same = 1
 	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
+	death_sound = 'sound/creatures/goat_death.ogg'
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 1
@@ -123,6 +124,9 @@
 	response_harm   = "kicks the"
 	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
+	death_sound = 'sound/creatures/cow_death.ogg'
+	damaged_sound = list('sound/creatures/cow_damaged.ogg')
+	talk_sound = list('sound/creatures/cow_talk1.ogg', 'sound/creatures/cow_talk2.ogg')
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -190,7 +194,7 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "клюёт"
-	death_sound = 'sound/creatures/chicken_talk.ogg'
+	death_sound = 'sound/creatures/mouse_squeak.ogg'
 	health = 3
 	maxHealth = 3
 	ventcrawler = 2
@@ -247,7 +251,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "клюёт"
-	death_sound = 'sound/creatures/chicken_talk.ogg'
+	death_sound = 'sound/creatures/chicken_death.ogg'
+	damaged_sound = list('sound/creatures/chicken_damaged1.ogg', 'sound/creatures/chicken_damaged2.ogg')
+	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 15
 	maxHealth = 15
 	ventcrawler = 2
@@ -345,7 +351,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	melee_damage_lower = 2
 	melee_damage_upper = 6
 	attacktext = "клюёт"
-	death_sound = 'sound/creatures/chicken_talk.ogg'
+	death_sound = 'sound/creatures/chicken_death.ogg'
+	damaged_sound = list('sound/creatures/chicken_damaged1.ogg', 'sound/creatures/chicken_damaged2.ogg')
+	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 30
 	maxHealth = 30
 	ventcrawler = 2
@@ -377,17 +385,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_harm   = "kicks the"
 	attacktext = "лягает"
 	death_sound = 'sound/creatures/pig_death.ogg'
-	var/list/talk_sound = list('sound/creatures/pig_talk1.ogg', 'sound/creatures/pig_talk2.ogg')
+	talk_sound = list('sound/creatures/pig_talk1.ogg', 'sound/creatures/pig_talk2.ogg')
+	damaged_sound = list()
 	health = 50
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-
-/mob/living/simple_animal/pig/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
-	. = ..()
-	playsound(src, pick(src.talk_sound), 75, TRUE)
-
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -407,6 +411,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "клюёт"
+	death_sound = 'sound/creatures/duck_quak1.ogg'
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -436,6 +441,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	melee_damage_lower = 2
 	melee_damage_upper = 8
 	attacktext = "щипает"
+	death_sound = 'sound/creatures/duck_quak1.ogg'
+	talk_sound = list('sound/creatures/duck_talk1.ogg', 'sound/creatures/duck_talk2.ogg', 'sound/creatures/duck_talk3.ogg', 'sound/creatures/duck_quak1.ogg', 'sound/creatures/duck_quak2.ogg', 'sound/creatures/duck_quak3.ogg')
+	damaged_sound = list('sound/creatures/duck_aggro1.ogg', 'sound/creatures/duck_aggro2.ogg')
 	health = 50
 	maxHealth = 50
 	can_collar = 1

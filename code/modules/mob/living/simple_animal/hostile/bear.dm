@@ -25,6 +25,10 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	attacktext = "терзает"
+	death_sound = 'sound/creatures/bear_death.ogg'
+	talk_sound = list('sound/creatures/bear_talk1.ogg', 'sound/creatures/bear_talk2.ogg', 'sound/creatures/bear_talk3.ogg')
+	damaged_sound = list('sound/creatures/bear_onerawr1.ogg', 'sound/creatures/bear_onerawr2.ogg', 'sound/creatures/bear_onerawr3.ogg')
+	var/trigger_sound = 'sound/creatures/bear_rawr.ogg'
 	friendly = "bear hugs"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -35,6 +39,11 @@
 
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
+
+/mob/living/simple_animal/hostile/bear/handle_automated_movement()
+	if(..())
+		playsound(src, src.trigger_sound, 40, 1)
+
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson

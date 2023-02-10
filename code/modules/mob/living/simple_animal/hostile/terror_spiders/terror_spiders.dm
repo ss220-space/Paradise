@@ -35,6 +35,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	death_sound = 'sound/creatures/spider_death.ogg'
+	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
+	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	a_intent = INTENT_HARM
 
 	// Movement
