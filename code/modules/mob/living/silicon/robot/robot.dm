@@ -1414,34 +1414,34 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		icon_state =  "[src.ckey]-[modtype]"
 		return
 
-	if(length(module.borg_skins) <= 1) // it's a default
-		return
-	SetLockdown(1)  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
 	var/list/choices = list()
-	for(var/skin in module.borg_skins)
-		var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
-		skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
-		choices[skin] = skin_image
-	var/choice = show_radial_menu(src, src, choices, require_near = TRUE)
-	setDir(SOUTH)
-	say("Загрузка модуля...")
-	for(var/i in 1 to 4)
-		playsound(src.loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
-	if(choice)
-		icon_state = module.borg_skins[choice]
-		flick("[module.borg_skins[choice]]_transform", src)
-		to_chat(src, "<span class='notice'>Your icon has been set. You now require a reset module to change it.</span>")
-	else
-		icon_state = module.default_skin
-		flick("[module.default_skin]_transform", src)
-		to_chat(src, "<span class='notice'>Your icon has been set by default. You now require a reset module to change it.</span>")
+	var/choice
+	if(length(module?.borg_skins) > 1)
+		for(var/skin in module.borg_skins)
+			var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
+			skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
+			choices[skin] = skin_image
+		choice = show_radial_menu(src, src, choices, require_near = TRUE)
 
-	addtimer(CALLBACK(src, /mob/living/silicon/robot/.proc/complete_loading), 50)
+	if(choice)
+		transform_animation(module.borg_skins[choice])
+	else
+		transform_animation(module.default_skin, TRUE)
 
 	var/list/names = splittext(icon_state, "-")
 	custom_panel = trim(names[1])
-	update_icons()
 	return
+
+/mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
+	SetLockdown(1)
+	setDir(SOUTH)
+	for(var/i in 1 to 4)
+		playsound(src.loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
+	icon_state = animated_icon
+	flick("[animated_icon]_transform", src)
+	to_chat(src, "<span class='notice'>Your icon has been set[default?" by default":""]. You now require a reset module to change it.</span>")
+	addtimer(CALLBACK(src, /mob/living/silicon/robot/.proc/complete_loading), 50)
+	update_icons()
 
 /mob/living/silicon/robot/proc/complete_loading()
 	SetLockdown(0)
