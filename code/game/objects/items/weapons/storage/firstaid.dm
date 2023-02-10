@@ -235,12 +235,12 @@
 	..()
 	if(empty)
 		return
-	new /obj/item/reagent_containers/hypospray/ertm/hydro(src)
-	new /obj/item/reagent_containers/hypospray/ertm/perfa(src)
-	new /obj/item/reagent_containers/hypospray/ertm/dtpa(src)
-	new /obj/item/reagent_containers/hypospray/ertm/epi(src)
+	new /obj/item/reagent_containers/hypospray/ertm/hydrocodone(src)
+	new /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin(src)
+	new /obj/item/reagent_containers/hypospray/ertm/pentic_acid(src)
+	new /obj/item/reagent_containers/hypospray/ertm/epinephrine(src)
 	new	/obj/item/reagent_containers/hypospray/ertm/mannitol(src)
-	new /obj/item/reagent_containers/hypospray/ertm/oculin(src)
+	new /obj/item/reagent_containers/hypospray/ertm/oculine(src)
 	new /obj/item/reagent_containers/hypospray/ertm/omnisal(src)
 
 
