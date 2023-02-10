@@ -1440,6 +1440,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
 	SetLockdown(1)
+	say("Загрузка модуля...")
 	setDir(SOUTH)
 	for(var/i in 1 to 4)
 		playsound(src.loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
