@@ -39,7 +39,6 @@
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
-	var/test_transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 
 /mob/living/simple_animal/pet/slugcat/New()
 	..()
@@ -103,6 +102,10 @@
 	overlays.Cut()
 	..()
 
+	if(inventory_hand)
+		if(istype(inventory_hand, /obj/item/twohanded/spear))
+			speared()
+
 	if(inventory_head)
 		var/image/head_icon
 
@@ -117,10 +120,6 @@
 
 		add_overlay(head_icon)
 
-	if(inventory_hand)
-		if(istype(inventory_hand, /obj/item/twohanded/spear))
-			speared()
-
 /mob/living/simple_animal/pet/slugcat/StartResting(updating = 1)
 	. = ..()
 	if(inventory_head || inventory_hand)
@@ -131,7 +130,8 @@
 	. = ..()
 	if(inventory_head || inventory_hand)
 		hat_offset_y = initial(hat_offset_y)
-		drop_hand()	//have regenerate_icons()
+		drop_hand()
+		regenerate_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
 	icon_state = "slugcat_spear"
@@ -163,7 +163,7 @@
 		slugI.alpha = hat_alpha
 		slugI.color = hat_color
 		slugI.pixel_y = hat_offset_y
-		slugI.transform = test_transform//matrix(1.125, 0, 0.5, 0, 1, 0)	//centered
+		slugI.transform = matrix(0, 0, 1, 0, 1, 0)
 		return slugI
 
 /mob/living/simple_animal/pet/slugcat/show_inv(mob/user)
@@ -292,5 +292,5 @@
 		regenerate_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hand()
-	inventory_hand = null
 	unspeared()
+	inventory_hand = null

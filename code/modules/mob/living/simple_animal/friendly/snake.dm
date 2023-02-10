@@ -22,6 +22,7 @@
 	maxHealth = 20
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
+	death_sound = 'sound/creatures/snake_death.ogg'
 	melee_damage_lower = 5
 	melee_damage_upper = 6
 	response_help  = "pets"
