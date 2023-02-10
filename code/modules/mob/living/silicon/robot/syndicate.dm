@@ -1,5 +1,7 @@
 /mob/living/silicon/robot/syndicate
 	base_icon = "syndie_bloodhound"
+	icon_state = "syndie_bloodhound"
+	has_transform_animation = TRUE
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
@@ -47,22 +49,14 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-	if(istype(src, /mob/living/silicon/robot/syndicate/saboteur/ninja))
-		return
-	if(istype(src, /mob/living/silicon/robot/syndicate/medical))
-		transform_animation("syndi-medi")
-	else
-		if(istype(src, /mob/living/silicon/robot/syndicate/saboteur))
-			transform_animation("syndi-engi")
-		else
-			transform_animation("syndie_bloodhound")
-
 /mob/living/silicon/robot/syndicate/reset_module()
 	..()
 	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
 
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
+	icon_state = "syndi-medi"
+	has_transform_animation = TRUE
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
@@ -83,6 +77,8 @@
 
 /mob/living/silicon/robot/syndicate/saboteur
 	base_icon = "syndi-engi"
+	icon_state = "syndi-engi"
+	has_transform_animation = TRUE
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
