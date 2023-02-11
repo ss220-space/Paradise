@@ -607,10 +607,12 @@
 							head = H.get_organ("head")
 							head?.receive_damage(5, 0, FALSE)
 							pulling.stop_pulling()
+							visible_message("<span class='danger'>Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол, сильно ударяясь головой!</span>")
 						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
 							H.setStaminaLoss(100)
 							head = H.get_organ("head")
 							head?.receive_damage(5, 0, FALSE)
+							visible_message("<span class='danger'>[H] не поспевает за [src] и с грохотом падает на пол, сильно ударяясь головой!</span>")
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
