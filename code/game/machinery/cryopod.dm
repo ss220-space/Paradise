@@ -253,7 +253,8 @@
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/spacepod_key,
 		/obj/item/nullrod,
-		/obj/item/key
+		/obj/item/key,
+		/obj/item/sensor_device/command
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (

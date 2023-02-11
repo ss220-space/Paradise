@@ -21,3 +21,20 @@
 
 /obj/item/sensor_device/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	crew_monitor.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/sensor_device/command
+	name = "handheld command crew monitor"
+	desc = "A miniature machine that tracks suit sensors across the station."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "c_scanner"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = SLOT_BELT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/datum/ui_module/c_crew_monitor/c_crew_monitor
+
+/obj/item/sensor_device/command/New()
+	..()
+	c_crew_monitor = new(src)
+
+/obj/item/sensor_device/command/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	c_crew_monitor.ui_interact(user, ui_key, ui, force_open)
