@@ -85,8 +85,9 @@
 			M.make_changeling()
 		if(origin.changeling.can_absorb_dna(M, owner))
 			origin.changeling.absorb_dna(owner, M)
+		if(origin.changeling.absorbed_languages)
+			M.changeling_update_languages(origin.changeling.absorbed_languages)
 
-		M.changeling_update_languages(origin.changeling.absorbed_languages)
 		var/datum/action/changeling/humanform/HF = new
 		HF.Grant(M)
 		for(var/power in origin.changeling.purchasedpowers)
