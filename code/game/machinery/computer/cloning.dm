@@ -27,6 +27,8 @@
 
 /obj/machinery/computer/cloning/Initialize()
 	..()
+	if(circuit.emagged)
+		emagged = TRUE
 	pods = list()
 	records = list()
 	set_scan_temp("Scanner ready.", "good")
@@ -124,6 +126,27 @@
 
 	updatemodules()
 	ui_interact(user)
+
+/obj/machinery/computer/cloning/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		add_attack_logs(user, src, "emagged")
+		emp_act(2)
+		SStgui.update_uis(src)
+	else
+		ui_interact(user)
+
+/obj/machinery/computer/cloning/emp_act(severity)
+	for(var/obj/machinery/clonepod/P in pods)
+		if(P.occupant)
+			var/mob/living/carbon/human/H = P.occupant
+			H.adjustCloneLoss(500)
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				if(E!=H.bodyparts_by_name["head"] && E!=H.bodyparts_by_name["upper_torso"])
+					E.remove()
+			for(var/obj/item/organ/internal/E in H.internal_organs)
+				E.remove()
+			P.go_out()
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
@@ -348,6 +371,8 @@
 							records.Remove(C)
 							qdel(C)
 							menu = MENU_MAIN
+							if(emagged)
+								emp_act()
 						else
 							set_temp("Error: Initialisation failure.", "danger")
 			else
