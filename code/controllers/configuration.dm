@@ -114,7 +114,7 @@
 	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
-	var/discordurl = "http://example.org"
+	var/discordurl = "http://discord.ss220.space/"
 	var/discordforumurl = "http://example.org"
 
 	var/overflow_server_url

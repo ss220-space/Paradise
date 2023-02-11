@@ -276,7 +276,7 @@ CHECK_RANDOMIZER
 # GITHUBURL http://example.org
 
 ## Discord address
-# DISCORDURL http://example.org
+# DISCORDURL http://discord.ss220.space/
 
 ## Discord address (forum-based invite)
 # DISCORDFORUMURL http://example.org
@@ -549,6 +549,6 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 #TTS_TOKEN_SILERO mytoken
 #TTS_ENABLED
 #TTS_CACHE
- 
+
 # Number of players required for automatic gamemode change to extended. Doesn't work if set to zero or commented
 #AUTO_EXTENDED_PLAYERS_NUM 10
