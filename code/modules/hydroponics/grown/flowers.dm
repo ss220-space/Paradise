@@ -88,8 +88,9 @@
 	seed = /obj/item/seeds/moonlight
 	name = "moonlight"
 	desc = "A beautiful sparkling flower."
+	origin_tech = "biotech=4"
 	icon_state = "moonlight"
-	tastes = list("moonlight" = 1)
+	tastes = list("moonlin" = 1)
 	filling_color = "#46fdfd"
 	slot_flags = SLOT_HEAD
 
