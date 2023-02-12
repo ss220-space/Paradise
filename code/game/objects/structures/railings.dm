@@ -194,21 +194,52 @@
 	else
 		layer = ABOVE_MOB_LAYER
 
-/obj/structure/railing/wooden/corner_nl
+/obj/structure/railing/wooden/corner
 	name = "Wooden railing corner"
+	icon_state = "sl_end_railing_wood"
+
+/obj/structure/railing/wooden/corner/AltClick(mob/user)
+	return
+
+/obj/structure/railing/wooden/corner/nl
 	icon_state = "nl_corner_railing_wood"
 
-/obj/structure/railing/wooden/corner_nr
-	name = "Wooden railing corner"
+/obj/structure/railing/wooden/corner/nl/New()
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+
+/obj/structure/railing/wooden/corner/nr
 	icon_state = "nr_corner_railing_wood"
 
-/obj/structure/railing/wooden/corner_sl
-	name = "Wooden railing corner"
+/obj/structure/railing/wooden/corner/nr/New()
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+
+/obj/structure/railing/wooden/corner/sl
 	icon_state = "sl_corner_railing_wood"
 
-/obj/structure/railing/wooden/corner_sr
-	name = "Wooden railing corner"
+/obj/structure/railing/wooden/corner/sr
 	icon_state = "sr_corner_railing_wood"
+
+/obj/structure/railing/wooden/corner/endnl
+	icon_state = "nl_end_railing_wood"
+
+/obj/structure/railing/wooden/corner/endnl/New()
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+
+/obj/structure/railing/wooden/corner/endnr
+	icon_state = "nr_end_railing_wood"
+
+/obj/structure/railing/wooden/corner/endnr/New()
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+
+/obj/structure/railing/wooden/corner/endsl
+	icon_state = "sl_end_railing_wood"
+
+/obj/structure/railing/wooden/corner/endsr
+	icon_state = "sr_end_railing_wood"
 
 /obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
 	. = TRUE
