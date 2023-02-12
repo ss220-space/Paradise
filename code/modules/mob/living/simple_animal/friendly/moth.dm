@@ -22,7 +22,7 @@
 	mob_size = MOB_SIZE_TINY
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
-	holder = /obj/item/holder/moth
+	holder_type = /obj/item/holder/moth
 	tts_seed = "Tychus"
 
 /mob/living/simple_animal/mothroach
@@ -50,5 +50,5 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
-	holder = /obj/item/holder/mothroach
+	holder_type = /obj/item/holder/mothroach
 	tts_seed = "Tychus"

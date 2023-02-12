@@ -5,14 +5,13 @@
 GLOBAL_LIST_INIT(potential_theft_objectives, subtypesof(/datum/theft_objective/highrisk))
 GLOBAL_LIST_INIT(potential_theft_objectives_hard, subtypesof(/datum/theft_objective/hard))
 GLOBAL_LIST_INIT(potential_theft_objectives_medium, subtypesof(/datum/theft_objective/medium))
-GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect) - /datum/theft_objective/collect/number)
+GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect) - /datum/theft_objective/collect/number - /datum/theft_objective/collect/number/name)
 
 #define THEFT_FLAG_HIGHRISK 0
-#define THEFT_FLAG_SPECIAL 	1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_UNIQUE 	2
-#define THEFT_FLAG_HARD 	3
-#define THEFT_FLAG_MEDIUM 	4
-#define THEFT_FLAG_COLLECT 	5
+#define THEFT_FLAG_UNIQUE 	1
+#define THEFT_FLAG_HARD 	2
+#define THEFT_FLAG_MEDIUM 	3
+#define THEFT_FLAG_COLLECT 	4
 
 
 /datum/objective/proc/get_theft_list_objectives(var/type_theft_flag)
@@ -40,21 +39,25 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 
 /datum/theft_objective/proc/check_completion(var/datum/mind/owner)
 	if(!owner.current)
-		return 0
+		return TRUE
 	if(!isliving(owner.current))
-		return 0
+		return TRUE
 	var/list/all_items = owner.current.get_contents()
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, typepath) && check_special_completion(I))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
-	return 1
+	return TRUE
 
+
+
+//==========================
+//========Highrisk========
+//==========================
 /datum/theft_objective/highrisk
 	flags = THEFT_FLAG_HIGHRISK
-
 
 /datum/theft_objective/highrisk/antique_laser_gun
 	name = "the captain's antique laser gun"
@@ -90,8 +93,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
 			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
-				return 1
-	return 0
+				return TRUE
+	return FALSE
 
 /datum/theft_objective/highrisk/defib
 	name = "a compact defibrillator"
@@ -111,12 +114,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 
 /datum/objective_item/highrisk/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
-		return 1
+		return TRUE
 	if(istype(I, /obj/item/photo))
 		var/obj/item/photo/P = I
 		if(P.blueprints)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/theft_objective/highrisk/capmedal
 	name = "the medal of captaincy"
@@ -165,6 +168,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	protected_jobs = list("Head Of Security", "Warden")
 
 
+
+//==========================
+//==========Unique==========
+//==========================
 /datum/theft_objective/unique
 	flags = THEFT_FLAG_UNIQUE
 
@@ -177,6 +184,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	typepath = /obj/item/documents/syndicate/blue
 
 
+
+//==========================
+//========Hard Thief========
+//==========================
 /datum/theft_objective/hard
 	flags = THEFT_FLAG_HARD
 /datum/theft_objective/hard/capduck
@@ -213,12 +224,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	typepath = /obj/item/clothing/shoes/magboots/security/captain
 	name = "капитанские магбутсы"
 
+/*
 /datum/theft_objective/hard/flask_cap
 	typepath = /obj/item/reagent_containers/food/drinks/flask/gold
 	name = "капитанскую золотую фляжку"
+*/
 
 
 
+//==========================
+//=======Medium Thief=======
+//==========================
 /datum/theft_objective/medium
 	flags = THEFT_FLAG_MEDIUM
 /datum/theft_objective/medium/sec_aviators
@@ -257,130 +273,125 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	typepath = /obj/item/clothing/suit/space/hardsuit/security/hos
 	name = "хардсьют главы службы безопасности"
 
+/datum/theft_objective/medium/rnd_logs_key
+	typepath = /obj/item/paper/rnd_logs_key
+	name = "подлинную бумагу RnD logs Decryption Key"
 
-//Collection
+/datum/theft_objective/medium/monitorkey
+	typepath = /obj/item/paper/monitorkey
+	name = "подлинную бумагу Monitor Decryption Key"
+
+/datum/theft_objective/medium/paper_rnd
+	typepath = /obj/item/paper/safe_code
+	name = "подлинную бумагу с кодами от сейфа"
+
+/datum/theft_objective/medium/tcommskey
+	typepath = /obj/item/paper/tcommskey
+	name = "подлинную бумагу с паролем от телекомов"
+
+
+
+//==========================
+//========Collection========
+//==========================
 /datum/theft_objective/collect
 	name = ""
 	flags = THEFT_FLAG_COLLECT
+	var/list/type_list = list()
+	var/obj/item/subtype = null
+
 	var/min=0
 	var/max=0
 	var/step=1
 	var/required_amount=0
-	var/list/typepath_list = list()
-	var/typepath_subtypesof
+	var/list/wanted_items = list()
 
 /datum/theft_objective/collect/New()
-	if(min==max)
-		required_amount=min
+	if(min == max)
+		required_amount = min
 	else
-		var/lower=min/step
-		var/upper=min/step
-		required_amount=rand(lower,upper)*step
+		var/lower = min / step
+		var/upper = max / step
+		required_amount = rand(lower, upper) * step
 
 	make_collection()
 
 /datum/theft_objective/collect/proc/make_collection()
+	if(subtype)
+		type_list = subtypesof(subtype)
 
-	if(typepath_subtypesof)
-		typepath_list = subtypesof(typepath_subtypesof)
+	if(!length(type_list))
+		return
 
-
-	/*
-	while
-
-
-
-
-	var/list/possible_typepath_list = typepath_list.Copy()
+	var/list/possible_type_list = type_list.Copy()
 	for(var/i=0, i < required_amount, i++)
-		var/type_item = pick(possible_typepath_list)
+		if(!length(possible_type_list))
+			required_amount = i
+			break
 
-		var/obj/item/item = new type_item
-		possible_typepath_list.Remove(type_item)
-		typepath_list.Add(type_item)
-		var/split_num = 3	//for notes
-		if(required_amount % split_num == 0)
+		var/obj/item/type_item = pick(possible_type_list)
+		possible_type_list.Remove(type_item)
+		wanted_items.Add(type_item)
+
+		var/obj/item/temp_item = new type_item
+		var/split_num = 3	//notes split
+		if(i % split_num == 0)
 			name += "\n"
-		name += "[item.name][i < required_amount-1 ? ", " : "."]"
-		qdel(item)
-
-
-	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
-	if(!length(targets_list))
-		return FALSE
-
-	for(var/obj/item/temp_target in targets_list)
-		if(temp_target.stat != DEAD)
-			steal_target = temp_target
-			explanation_text += steal_target.name
-			return TRUE
-
-		//var/datum/theft_objective/collect/O = pick(valid_objectives_list)
-		//collect_targets = O
-		//explanation_text += collect_targets.name
-
-
-
-	var/list/valid_targets_list = possible_structures_list
-
-	while(!steal_target)
-		if(!length(valid_targets_list))
-			return FALSE
-
-		var/obj/target_type = pick(valid_targets_list)
-		valid_targets_list.Remove(target_type)
-		get_structure(target_type)
-
-
-	*/
-
-
-
-
-
+		name += "[temp_item.name][i < required_amount-1 ? ", " : "."]"
+		qdel(temp_item)
 
 /datum/theft_objective/collect/number/make_collection()
+	wanted_items.Add(typepath)
 	var/obj/item/item = new typepath
 	name = "[item.name] в количестве [required_amount] штук."
 	qdel(item)
 
 /datum/theft_objective/collect/check_completion(var/datum/mind/owner)
 	if(!owner.current)
-		return 0
+		return FALSE
 	if(!isliving(owner.current))
-		return 0
-	var/list/all_items = owner.current.get_contents()
-	var/found_amount=0
-	for(var/obj/item/I in all_items)
-		found_amount += get_collect_amount(I)
-	return found_amount >= required_amount
+		return FALSE
+	if(!length(wanted_items))
+		return TRUE
+	var/collect_amount = 0
+	var/list/all_items = owner.current.get_all_contents()
+	for(var/obj/item/item in all_items)
+		//collect_amount += get_collect_amount(item)
+		var/is_found = FALSE
+		for(var/wanted_type in wanted_items)
+			if(istype(item, wanted_type))
+				is_found = TRUE
+				break
+		if(!is_found)
+			continue
+		collect_amount++
 
-/datum/theft_objective/collect/proc/get_collect_amount(var/obj/item/I)
-	for(var/obj/item/type_item in typepath_list)
-		if(istype(I, type_item))
-			return 1
-	return 0
+		duplicate_remove(item)
+		if(!length(wanted_items))
+			break
 
-/datum/theft_objective/collect/number/get_collect_amount(var/obj/item/I)
-	if(istype(I, typepath))
-		//if(istype(I, /obj/item/stack))
-		//	var/obj/item/stack/stack_item = I
-		//	return stack_item.amount
-		return 1
-	return 0
+	return collect_amount >= required_amount
+
+/datum/theft_objective/collect/proc/duplicate_remove(var/obj/item/item)
+	wanted_items.Remove(item)
+	return
+
+/datum/theft_objective/collect/number/duplicate_remove(var/obj/item/item)
+	return
 
 
+//=======Collect Types=======
 /datum/theft_objective/collect/figure
 	min=6
 	max=12
 	step=3
-	typepath_subtypesof = /obj/item/toy/figure
+	subtype = /obj/item/toy/figure
 
 /datum/theft_objective/collect/mug
 	min=3
 	max=9
 	step=3
-	typepath_list = list(
+	type_list = list(
 		/obj/item/reagent_containers/food/drinks/mug/cap,
 		/obj/item/reagent_containers/food/drinks/mug/hop,
 		/obj/item/reagent_containers/food/drinks/mug/cmo,
@@ -396,7 +407,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/collect/zippo
 	min=3
 	max=6
-	typepath_list = list(
+	type_list = list(
 		/obj/item/lighter/zippo/nt_rep,
 		/obj/item/lighter/zippo/cap,
 		/obj/item/lighter/zippo/hop,
@@ -409,7 +420,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/collect/hats
 	min=3
 	max=6
-	typepath_list = list(
+	type_list = list(
 		/obj/item/clothing/head/ntrep,
 		/obj/item/clothing/head/caphat/parade,
 		/obj/item/clothing/head/HoS,
@@ -424,7 +435,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/collect/clothes
 	min=3
 	max=6
-	typepath_list = list(
+	type_list = list(
 		/obj/item/clothing/under/det,
 		/obj/item/clothing/suit/storage/det_suit,
 		/obj/item/clothing/under/rank/warden,
@@ -456,7 +467,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	min=3
 	max=9
 	step=3
-	typepath_list = list(
+	type_list = list(
 		/obj/item/encryptionkey/headset_sec,
 		/obj/item/encryptionkey/headset_iaa,
 		/obj/item/encryptionkey/headset_medsec,
@@ -479,6 +490,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 		/obj/item/encryptionkey/headset_service,
 		)
 
+
+//=====Collection Number=====
 /datum/theft_objective/collect/number/baton
 	typepath = /obj/item/melee/baton
 	min=4
@@ -487,12 +500,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/collect/number/laser
 	typepath = /obj/item/gun/energy/laser
 	min=3
-	max=5
+	max=8
+
+/datum/theft_objective/collect/number/dominator
+	typepath = /obj/item/gun/energy/dominator
+	min=3
+	max=8
 
 /datum/theft_objective/collect/number/wt550
 	typepath = /obj/item/gun/projectile/automatic/wt550
 	min=2
-	max=3
+	max=6
 
 /datum/theft_objective/collect/number/riot_armor
 	typepath = /obj/item/clothing/suit/armor/riot
@@ -517,4 +535,38 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/collect/number/telescopic
 	typepath = /obj/item/melee/classic_baton/telescopic
 	min=3
-	max=5
+	max=6
+
+//=====Collection Number Type Name=====
+/datum/theft_objective/collect/number/name
+	name = ""
+
+/datum/theft_objective/collect/number/name/make_collection()
+	wanted_items.Add(typepath)
+	name = "[name] в количестве [required_amount] штук."
+
+/datum/theft_objective/collect/number/name/laser
+	typepath = /obj/item/gun/energy/laser
+	name = "любое оружие лазерного типа"
+	min=3
+	max=8
+
+/datum/theft_objective/collect/number/name/automatic
+	typepath = /obj/item/gun/projectile/automatic
+	name = "любое оружие огнестрельного типа"
+	min=2
+	max=6
+
+/datum/theft_objective/collect/number/name/armor
+	typepath = /obj/item/clothing/suit/armor
+	name = "любую нательную броню"
+	min=2
+	max=6
+
+/datum/theft_objective/collect/number/name/medal
+	typepath = /obj/item/clothing/accessory/medal
+	name = "любых медалей"
+	min=4
+	max=10
+
+

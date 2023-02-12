@@ -25,7 +25,7 @@
 	var/datum/mind/origin
 	var/egg_lain = 0
 	sentience_type = SENTIENCE_OTHER
-	holder = /obj/item/holder/headslug
+	holder_type = /obj/item/holder/headslug
 
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
 	. = ..()

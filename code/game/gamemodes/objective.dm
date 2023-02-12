@@ -423,8 +423,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			if(istype(objective) && istype(objective.steal_target, thefttype))
 				continue
 		var/datum/theft_objective/O = new thefttype
-		if(O.flags & 2)
-			continue
+		//if(O.flags & 2)
+		//	continue
 		if(owner.assigned_role in O.protected_jobs)
 			continue
 		valid_theft_objectives += O
@@ -435,34 +435,39 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
 			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
-		return
+		return TRUE
 
 	explanation_text = "Free Objective."
-
+	return FALSE
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = get_theft_list_objectives(type_theft_flag)+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
-	if(!new_target) return
+	if(!new_target)
+		return FALSE
 	if(new_target == "custom")
 		var/datum/theft_objective/O=new
 		O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-		if(!O.typepath) return
+		if(!O.typepath)
+			return FALSE
 		var/tmp_obj = new O.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
 		O.name = sanitize(copytext_char(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-		if(!O.name) return
+		if(!O.name)
+			return FALSE
 		steal_target = O
 		explanation_text = "Украсть [O.name]."
 	else
 		steal_target = new new_target
 		explanation_text = "Украсть [steal_target.name]."
-	return steal_target
+	if(steal_target)
+		return TRUE
+	return FALSE
 
 /datum/objective/steal/check_completion()
 	if(!steal_target)
-		return 1 // Free Objective
+		return TRUE // Free Objective
 
 	if(!owner.current)
 		return FALSE

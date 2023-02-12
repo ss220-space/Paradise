@@ -160,6 +160,12 @@
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "old_corgi"
 
+/obj/item/holder/borgi
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "borgi"
+
 /obj/item/holder/void_puppy
 	name = "pet"
 	desc = "It's a pet"

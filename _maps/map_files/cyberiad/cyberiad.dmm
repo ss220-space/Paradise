@@ -13683,6 +13683,10 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/toy/figure/magistrate{
+	pixel_x = 9;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},

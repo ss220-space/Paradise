@@ -1,3 +1,7 @@
+
+//==========================
+//======Steal Difficult=====
+//==========================
 /datum/objective/steal/hard
 	type_theft_flag = THEFT_FLAG_HARD
 
@@ -6,12 +10,15 @@
 	type_theft_flag = THEFT_FLAG_MEDIUM
 
 
+//==========================
+//======Steal Structure=====
+//==========================
 /datum/objective/steal_structure
 	explanation_text = "Украсть структуру: "
-	var/obj/steal_target
-	var/range_complete = 2
+	var/obj/wanted_type
+	var/range_distance = 2
 
-	var/list/possible_structures_list = list(
+	var/list/possible_targets_list = list(
 		/obj/structure/statue/bananium/clown/unique,
 		/obj/structure/statue/tranquillite/mime/unique,
 		/obj/structure/toilet/captain_toilet,
@@ -19,9 +26,9 @@
 	)
 
 /datum/objective/steal_structure/find_target()
-	var/list/valid_targets_list = possible_structures_list
+	var/list/valid_targets_list = possible_targets_list.Copy()
 
-	while(!steal_target)
+	while(!wanted_type)
 		if(!length(valid_targets_list))
 			return FALSE
 
@@ -29,11 +36,18 @@
 		valid_targets_list.Remove(target_type)
 		get_structure(target_type)
 
+		if(wanted_type)
+			return TRUE
+
+	//Шанс мал, но вдруг выдастся новая цель в момент, когда все структуры сожрала сингулярность или клоун разобрал на составные компоненты?
+	explanation_text = "Украдите самую ценную структуру и ресурсы на станции."
+	return FALSE
+
 /datum/objective/steal_structure/proc/select_target()
-	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_structures_list
-	if(!new_target_type)
+	var/target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
+	if(!target_type)
 		return FALSE
-	return get_structure(new_target_type)
+	return get_structure(target_type)
 
 /datum/objective/steal_structure/proc/get_structure(var/obj/target_type)
 	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
@@ -41,57 +55,70 @@
 		return FALSE
 
 	for(var/obj/temp_target in targets_list)
-		steal_target = temp_target
-		explanation_text += steal_target.name
+		wanted_type = target_type
+		explanation_text += temp_target.name
 		return TRUE
 
 /datum/objective/steal_structure/check_completion()
-	if(steal_target && owner.current)
-		for(var/obj/S in range(range_complete, owner.current.loc))
-			if(istype(S, steal_target))
-				return TRUE
+	if(!wanted_type)
+		return TRUE
+
+	if(!owner.current)
+		return FALSE
+
+	for(var/obj/S in range(range_distance, owner.current.loc))
+		if(istype(S, wanted_type))
+			return TRUE
 	return FALSE
 
 
+//==========================
+//========Steal Pet=========
+//==========================
 /datum/objective/steal_pet
 	explanation_text = "Украсть живого питомца "
-	var/mob/living/steal_target
-	var/range_complete = 2
+	var/mob/living/wanted_type
+	var/obj/item/holder/wanted_holder_type
+	var/range_distance = 2
 
 	var/list/possible_targets_list = list(
+		//simple mobs
 		/mob/living/simple_animal/pet/dog/corgi/Ian,
 		/mob/living/simple_animal/pet/dog/corgi/borgi,
-		/mob/living/simple_animal/pet/dog/fox/Renault,
-		/mob/living/simple_animal/pet/cat/floppa,
-		/mob/living/simple_animal/pet/cat/Runtime,
-		/mob/living/simple_animal/crab/royal/Coffee,
+		/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+		/mob/living/simple_animal/pet/dog/brittany/Psycho,
 		/mob/living/simple_animal/pet/dog/security,
 		/mob/living/simple_animal/pet/dog/security/ranger,
 		/mob/living/simple_animal/pet/dog/security/warden,
 		/mob/living/simple_animal/pet/dog/security/detective,
-		/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+		/mob/living/simple_animal/pet/dog/fox/Renault,
+		/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+		/mob/living/simple_animal/pet/cat/floppa,
+		/mob/living/simple_animal/pet/cat/Runtime,
+		/mob/living/simple_animal/pet/cat/Iriska,
 		/mob/living/simple_animal/pet/sloth/paperwork,
+		/mob/living/simple_animal/pet/slugcat,
+		/mob/living/simple_animal/crab/royal/Coffee,
 		/mob/living/simple_animal/chicken/Wife,
 		/mob/living/simple_animal/cock/Commandor,
 		/mob/living/simple_animal/cow/Betsy,
 		/mob/living/simple_animal/pig/Sanya,
 		/mob/living/simple_animal/parrot/Poly,
 		/mob/living/simple_animal/goose/Scientist,
-		/mob/living/simple_animal/pet/cat/Iriska,
 		/mob/living/simple_animal/mouse/hamster/Representative,
 		/mob/living/simple_animal/mouse/rat/white/Brain,
 		/mob/living/simple_animal/mouse/rat/gray/Ratatui,
-		/mob/living/carbon/human/lesser/monkey/punpun,
-		/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
-		/mob/living/simple_animal/pet/slugcat,
 		/mob/living/simple_animal/possum/Poppy,
+
+		//carbons
+		/mob/living/carbon/human/lesser/monkey/punpun,
 
 	)
 
 /datum/objective/steal_pet/find_target()
-	var/list/valid_targets_list = possible_targets_list
+	var/list/valid_targets_list = possible_targets_list.Copy()
 
-	while(!steal_target)
+	while(!wanted_type)
 		if(!length(valid_targets_list))
 			return FALSE
 
@@ -99,71 +126,104 @@
 		valid_targets_list.Remove(target_type)
 		get_alive_pet(target_type)
 
+		if(wanted_type)
+			return TRUE
+	return FALSE
+
 /datum/objective/steal_pet/proc/select_target()
-	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
-	if(!new_target_type)
+	var/target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
+	if(!target_type)
 		return FALSE
-	return get_alive_pet(new_target_type)
+	return get_alive_pet(target_type)
 
 /datum/objective/steal_pet/proc/get_alive_pet(var/mob/living/target_type)
-	var/list/targets_list = get_all_of_type(target_type, subtypes = TRUE)
-	if(!length(targets_list))
-		return FALSE
+	//ищем переименованных маперами мобов
+	for(var/mob/living/temp_target in GLOB.mob_living_list)
+		if(istype(temp_target, target_type))
+			if(temp_target.stat != DEAD)
+				wanted_type = target_type
+				if(temp_target.holder_type)
+					wanted_holder_type = temp_target.holder_type
+				explanation_text += temp_target.name
+				return TRUE
 
-	for(var/mob/living/temp_target in targets_list)
-		if(temp_target.stat != DEAD)
-			steal_target = temp_target
-			explanation_text += steal_target.name
-			return TRUE
+	wanted_type = target_type
+	var/holder_type = initial(wanted_type.holder_type)
+	if(holder_type)
+		wanted_holder_type = holder_type
+	explanation_text += initial(wanted_type.name)
+	return TRUE
 
 /datum/objective/steal_pet/check_completion()
-	if(!steal_target)
+	if(!wanted_type)
 		return TRUE
 
 	if(!owner.current)
 		return FALSE
 
-	var/list/all_items = owner.current.GetAllContents()
-	for(var/obj/item/holder/H in all_items)
-		//var/list/holder_items = H.GetAllContents()
-		//for(var/i in holder_items)
-		if(!istype(H, steal_target.holder_type))
-			continue
-		for(var/mob/M in H.contents)
-			if(!istype(M, steal_target))
+	return check_in_contents_range(wanted_type, range_distance)
+
+/datum/objective/proc/check_in_contents_range(var/wanted_type, var/range_distance = 1)
+	if(additional_conditions())
+		return TRUE
+
+	for(var/find_object in range(range_distance, owner.current.loc))
+		if(find_check(find_object, wanted_type))
+			return TRUE
+
+		if(istype(find_object, /obj/structure/closet))
+			var/obj/structure/closet/closet = find_object
+			var/list/closet_contents = closet.GetAllContents()
+			for(var/temp_object in closet_contents)
+				if(find_check(temp_object, wanted_type))
+					return TRUE
+				if(additional_conditions())
+					return TRUE
+	return FALSE
+
+/datum/objective/proc/additional_conditions()
+	return TRUE
+
+/datum/objective/proc/find_check(var/find_object, var/wanted_type)
+	return TRUE
+
+/datum/objective/steal_pet/find_check(var/find_object, var/wanted_type)
+	if(!find_object || !wanted_type)
+		return FALSE
+
+	if(istype(find_object, wanted_type))
+		var/mob/living/mob = find_object
+		if(mob.stat != DEAD)
+			return TRUE
+	return FALSE
+
+/datum/objective/steal_pet/additional_conditions()
+	if(wanted_holder_type)
+		var/list/all_items = owner.current.GetAllContents()
+		for(var/obj/item/holder/H in all_items)
+			if(!istype(H, wanted_holder_type))
 				continue
-			if(M.stat != DEAD)
-				return TRUE
-
-	var/mob/living/simple_animal/M
-
-	for(var/O in range(range_complete, owner.current.loc))
-		if(istype(O, steal_target))
-			M = O
-			if(M.stat != DEAD)
-				return TRUE
-
-		if(istype(O, /obj/structure/closet))
-			var/obj/structure/closet/C = O
-			for(var/mob/living/temp_M in C.contents)
-				if(istype(O, steal_target))
-					M = temp_M
-					if(M.stat != DEAD)
-						return TRUE
+			for(var/mob/M in H.contents)
+				if(!istype(M, wanted_type))
+					continue
+				if(M.stat != DEAD)
+					return TRUE
 	return FALSE
 
 
+//==========================
+//=========Collect==========
+//==========================
 /datum/objective/collect
 	var/type_theft_flag = THEFT_FLAG_COLLECT
-	var/datum/theft_objective/collect/collect_targets	//Изменить под список предметов?????
+	var/datum/theft_objective/collect/collect_objective	//Изменить под список предметов?????
 	explanation_text = "Собрать: "
-	var/required_amount=0
 
 /datum/objective/collect/find_target()
 	var/list/valid_objectives_list = list()
 	for(var/theft_type in get_theft_list_objectives(type_theft_flag))
 		for(var/datum/objective/collect/objective in owner.objectives)
-			if(istype(objective) && istype(objective.collect_targets, theft_type))
+			if(istype(objective) && istype(objective.collect_objective, theft_type))
 				continue
 		var/datum/theft_objective/O = new theft_type
 		if(O.flags & 2)
@@ -172,35 +232,36 @@
 
 	if(length(valid_objectives_list))
 
-		while(!collect_targets)
+		while(!collect_objective)
 			if(!length(valid_objectives_list))
 				return FALSE
-			var/datum/theft_objective/collect/temp_collection = pick(valid_objectives_list)
-			/datum/theft_objective/collect/number
-			valid_objectives_list.Remove(temp_collection)
-			try_make_collection(temp_collection)
+			var/datum/theft_objective/collect/temp_objective = pick(valid_objectives_list)
+			valid_objectives_list.Remove(temp_objective)
+			check_collection(temp_objective)
 
-	if(collect_targets)
+	if(collect_objective)
 		return TRUE
-
 	return FALSE
 
-/datum/objective/collect/proc/try_make_collection(var/datum/theft_objective/collect/temp_objective)
-	if(temp_objective.make_collection())
-		collect_targets = temp_objective
+/datum/objective/collect/proc/check_collection(var/datum/theft_objective/collect/temp_objective)
+	if(length(temp_objective.wanted_items))
+		collect_objective = temp_objective
+		explanation_text += collect_objective.name
 		return TRUE
+	return FALSE
 
 /datum/objective/collect/proc/select_target()
 	var/new_target_type = input("Select target:", "Objective target", null) as null|anything in get_theft_list_objectives(type_theft_flag)
 	if(!new_target_type)
 		return FALSE
-	return try_make_collection(new_target_type)
+	var/datum/theft_objective/collect/temp_objective = new new_target_type
+	return check_collection(temp_objective)
 
 /datum/objective/collect/check_completion()
-	if(!collect_targets)
+	if(!collect_objective)
 		return TRUE // Free Objective
 
 	if(!owner.current)
 		return FALSE
 
-	collect_targets.check_completion(owner)
+	return collect_objective.check_completion(owner)

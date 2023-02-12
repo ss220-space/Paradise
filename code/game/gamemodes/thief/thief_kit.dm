@@ -9,6 +9,7 @@
 	..()
 	new /obj/item/clothing/gloves/color/black/thief(src)
 	new /obj/item/storage/backpack/satchel_flat(src)
+	new /obj/item/paper/thief(src)
 
 // ========== CHOOSE ITEMS ==========
 /obj/item/thief_kit
@@ -59,7 +60,6 @@
 		//var/index_count = 0
 		for(var/kit_type in subtypesof(/datum/thief_kit))
 			var/datum/thief_kit/kit = new kit_type
-			message_admins("[kit] [kit.name]")
 			all_kits.Add(kit)
 
 	data["kits"] = list()
@@ -133,7 +133,6 @@
 		undoKit(kit)
 	uses = 0
 	to_chat(user,"<span class = 'warning'>Вы очистили выбор! Наверное в коробке лежали другие наборы?</span>")
-	message_admins("Очищен [src.name]")
 
 /obj/item/thief_kit/proc/pickKit(var/kit_type)
 	if(uses >= possible_uses)
@@ -180,12 +179,20 @@
 			return kit
 	return FALSE
 
+
 //=============== KITS ================
 /datum/thief_kit
 	var/name = "Безымянный кит (перешлите это разработчику)"
 	var/desc = "Описание кита"
 	var/list/obj/item/item_list = list()
 	var/was_taken = FALSE
+
+/datum/thief_kit/pinpointer
+	name = "Целевой Пинпоинтер"
+	desc = "Позволяет найти все интересные для гильдии объекты."
+	item_list = list(
+		/obj/item/pinpointer/thief,
+		)
 
 /datum/thief_kit/falsification
 	name = "Набор Фальсификаций"
@@ -206,12 +213,30 @@
 
 /datum/thief_kit/breakin
 	name = "Набор Агента"
-	desc = "Набор с инструментами и картой агента, любезно позаимствованных у одной организации."
+	desc = "Набор с инструментами и личными вещами неудачливого агента, любезно позаимствованнми у одной организации."
 	item_list = list(
 		/obj/item/card/id/syndicate,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-		/obj/item/toy/syndicateballoon,	//stop stealing syndicate things!
+		/obj/item/toy/syndicateballoon,
+		)
+
+/datum/thief_kit/agent
+	name = "Набор Агента"
+	desc = "Набор с инструментами и личными вещами, любезно позаимствованный у неудачливого агента одной организации."
+	item_list = list(
+		/obj/item/card/id/syndicate,
+		/obj/item/storage/toolbox/syndicate,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+
+		//syndi trash
+		/obj/item/toy/syndicateballoon,
+		/obj/item/soap/syndie,
+		/obj/item/clothing/shoes/combat,
+		/obj/item/clothing/under/syndicate,
+		/obj/item/clothing/mask/gas/syndicate,
+		/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+		/obj/item/flashlight/flare/glowstick/red,
 		)
 
 /datum/thief_kit/haker
@@ -258,7 +283,7 @@
 		/obj/item/storage/box/syndie_kit/c4,
 		)
 
-/datum/thief_kit/safe_breaker
+/datum/thief_kit/safe_breaker_quiet
 	name = "Набор Педанта"
 	desc = "Отличный выбор для тихого вскрытия сейфов. Термит включен в набор."
 	item_list = list(
@@ -283,17 +308,24 @@
 			/obj/item/reagent_containers/glass/bottle/ether,
 		)
 
-/datum/thief_kit/thermal
-	name = "Термальные Очки"
-	desc = "Наблюдение за всем, что происходит за стенами."
+/datum/thief_kit/mutant
+	name = "Набор Мутанта"
+	desc = "Специфический набор включающий в себя 3 мутагенных шприца с генами телепатии, удаленного наблюдения и гена карликовости."
 	item_list = list(
-		/obj/item/clothing/glasses/chameleon/thermal
+		/obj/item/dnainjector/telemut,
+		/obj/item/dnainjector/antitele,
+		/obj/item/dnainjector/remoteview,
+		/obj/item/dnainjector/antiremoteview,
+		/obj/item/dnainjector/runfast,
+		/obj/item/dnainjector/midgit,
+		/obj/item/dnainjector/antimidgit,
 		)
 
-/datum/thief_kit/pinpointer
-	name = "Целевой Пинпоинтер"
-	desc = "Позволяет найти все интересные для гильдии объекты."
+/datum/thief_kit/thermal
+	name = "Термальные Очки"
+	desc = "Солнцезащитные термальные очки для наблюдения за всем, что происходит за стенами и звездами. Гильдия Воров вложила любимые конфетки любителей термалов."
 	item_list = list(
-		/obj/item/pinpointer/thief,
+		/obj/item/clothing/glasses/thermal/sunglasses,
+		/obj/item/storage/box/candythief,
 		)
 

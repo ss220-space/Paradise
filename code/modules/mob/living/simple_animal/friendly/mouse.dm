@@ -93,7 +93,7 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_GRAB)
+	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
