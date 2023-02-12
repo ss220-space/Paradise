@@ -451,7 +451,7 @@
 		if(0)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
@@ -459,7 +459,7 @@
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
@@ -502,7 +502,7 @@
 				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
+					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
@@ -527,7 +527,7 @@
 				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
+					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
@@ -594,7 +594,7 @@
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
@@ -633,7 +633,7 @@
 				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
+					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
@@ -658,7 +658,7 @@
 				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
+					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
