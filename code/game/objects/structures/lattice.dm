@@ -13,7 +13,8 @@
 	canSmoothWith = list(/obj/structure/lattice,
 						/turf/simulated/floor,
 						/turf/simulated/wall,
-						/obj/structure/falsewall)
+						/obj/structure/falsewall,
+						/obj/structure/lattice/fireproof)
 	smooth = SMOOTH_MORE
 
 /obj/structure/lattice/Initialize(mapload)
@@ -131,3 +132,33 @@
 		pixel_x = 0
 		pixel_y = 0
 	return TRUE
+
+/obj/structure/lattice/catwalk/fireproof
+	name = "strong catwalk"
+	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk"
+	armor = list("melee" = 70, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	max_integrity = 150
+	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
+	icon_state = "catwalk"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+	number_of_rods = 3
+
+/obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='warning'>Вы срезали усиленный мостик!</span>")
+	new /obj/item/stack/fireproof_rods(get_turf(src), number_of_rods)
+	qdel(src)
+
+/obj/structure/lattice/fireproof
+	name = "fireproof lattice"
+	desc = "A lightweight support lattice made of heat-resistance alloy."
+	icon = 'icons/obj/smooth_structures/lattice_f.dmi'
+	icon_state = "lattice"
+	armor = list("melee" = 70, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	max_integrity = 100

@@ -93,7 +93,7 @@
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
 
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/plasteel)) //у нас же нет их в игре, что оно тут делает?
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/plasteel/S = C
