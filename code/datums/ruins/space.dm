@@ -322,7 +322,9 @@
 	id = "ussp_laboratory"
 	suffix = "ussp_laboratory.dmm"
 	name = "USSP Laboratory"
-	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"	
+	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"
+	allow_duplicates = FALSE
+	cost = 2
 
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
