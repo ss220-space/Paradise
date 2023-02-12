@@ -423,10 +423,10 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 
 ## Hub address for tracking stats
 ## example: Hubmakerckey.Hubname
-#MEDAL_HUB_ADDRESS
+MEDAL_HUB_ADDRESS NeonNik.TEG
 
 ## Password for the hub page
-#MEDAL_HUB_PASSWORD
+MEDAL_HUB_PASSWORD 3qb77RnAX0
 
 ## Uncomment this if you want to disable usage of emoji in OOC
 #DISABLE_OOC_EMOJI
@@ -549,6 +549,6 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 #TTS_TOKEN_SILERO mytoken
 #TTS_ENABLED
 #TTS_CACHE
- 
+
 # Number of players required for automatic gamemode change to extended. Doesn't work if set to zero or commented
 #AUTO_EXTENDED_PLAYERS_NUM 10
