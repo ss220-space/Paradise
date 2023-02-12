@@ -59,7 +59,7 @@
 
 /turf/simulated/floor/wood/fancy/oak
 	icon_state = "fancy-wood-oak"
-	floor_tile = /obj/item/stack/tile/wood/oak
+	floor_tile = /obj/item/stack/tile/wood/fancy/oak
 	broken_states = list("fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3", "fancy-wood-oak-broken4", "fancy-wood-oak-broken5", "fancy-wood-oak-broken6", "fancy-wood-oak-broken7")
 
 /turf/simulated/floor/wood/fancy/birch
