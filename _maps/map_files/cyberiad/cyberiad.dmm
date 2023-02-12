@@ -14481,6 +14481,10 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/toy/figure/magistrate{
+	pixel_x = 9;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -97355,6 +97359,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"tlQ" = (
+/obj/item/soap/syndie,
+/obj/item/toy/figure/syndie,
+/turf/simulated/floor/plating/airless,
+/area/toxins/test_area)
 "tmi" = (
 /turf/simulated/wall,
 /area/security/range)
@@ -158582,7 +158591,7 @@ uTI
 uTI
 djT
 cic
-cjZ
+tlQ
 cjZ
 cie
 cie

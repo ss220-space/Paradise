@@ -44,6 +44,7 @@
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 80	//Гусь-ученый привык к "экспериментам"
 	health = 80
+	resting = TRUE
 
 /mob/living/simple_animal/pet/cat/Iriska
 	name = "Ириска"
@@ -65,6 +66,10 @@
 	speed = 10		// TOO FAT
 	wander = 0		// LAZY
 	can_hide = 0
+	resting = TRUE
+
+/mob/living/simple_animal/pet/cat/Iriska/handle_automated_action()
+	return
 
 /mob/living/simple_animal/mouse/hamster/Representative
 	name = "Представитель Алексей"
@@ -78,6 +83,7 @@
 	holder_type = /obj/item/holder/hamster_rep
 	maxHealth = 20
 	health = 20
+	resting = TRUE
 
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Геннадий"
@@ -96,6 +102,7 @@
 	maxHealth = 20
 	health = 20
 	universal_speak = 1
+	resting = TRUE
 
 /mob/living/simple_animal/mouse/rat/gray/Ratatui
 	name = "Рататуй"
@@ -119,8 +126,10 @@
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
 	name = "Феня"
 	desc = "Миниатюрная лисичка c важным видом и очень большими ушами. Был пойман во время разливания огромного мороженого по формочкам и теперь Магистрат держит его при себе и следит за ним. Но похоже что ему даже нравится быть частью правосудия."
+	resting = TRUE
 
 /mob/living/simple_animal/pet/dog/brittany/Psycho
 	name = "\improper Психо"
 	real_name = "Психо"
 	desc = "Собака готовая выслушать все ваши проблемы и выдать вам целебных объятий и обнюхиваний."
+	resting = TRUE

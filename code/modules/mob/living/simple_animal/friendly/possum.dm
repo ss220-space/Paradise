@@ -32,7 +32,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
-	holder = /obj/item/holder/possum
+	holder_type = /obj/item/holder/possum
 
 
 /mob/living/simple_animal/possum/a_intent_change(input as text)
@@ -52,6 +52,6 @@
 	icon_dead = "poppy_dead"
 	icon_resting = "poppy_sleep"
 	icon_harm = "poppy_aaa"
-	holder = /obj/item/holder/possum/poppy
+	holder_type = /obj/item/holder/possum/poppy
 	maxHealth = 50
 	health = 50

@@ -19326,6 +19326,7 @@
 /obj/machinery/space_heater,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/item/toy/figure/ninja,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cbb" = (
@@ -47540,6 +47541,7 @@
 "eso" = (
 /obj/item/trash/plate,
 /obj/item/trash/syndi_cakes,
+/obj/item/toy/figure/clown,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "esq" = (
@@ -49844,6 +49846,11 @@
 /obj/item/paicard,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
+"eSo" = (
+/obj/item/soap/syndie,
+/obj/item/toy/figure/syndie,
+/turf/simulated/floor/plating/airless,
+/area/toxins/test_area)
 "eSr" = (
 /obj/structure/table_frame/wood,
 /turf/simulated/floor/wood/fancy/birch{
@@ -107071,6 +107078,10 @@
 	desc = "Бедный Йорик...";
 	name = "Йорик"
 	},
+/obj/item/toy/figure/magistrate{
+	pixel_x = 9;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
 "rwW" = (
@@ -153791,7 +153802,7 @@ gOO
 fps
 fps
 tGo
-qNR
+eSo
 jhN
 abj
 aaq

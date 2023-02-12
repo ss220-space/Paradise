@@ -85,4 +85,4 @@
 	icon_dead = "fennec_dead"
 	icon_resting = "fennec_rest"	//fennec_sit ?
 	see_in_dark = 10
-	holder = /obj/item/holder/fennec
+	holder_type = /obj/item/holder/fennec
