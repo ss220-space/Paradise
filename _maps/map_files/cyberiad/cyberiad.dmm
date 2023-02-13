@@ -36492,6 +36492,7 @@
 /obj/effect/turf_decal/siding/wideplating{
 	dir = 4
 	},
+/mob/living/simple_animal/frog,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -53912,6 +53913,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
+/obj/effect/decal/remains/mouse/Pinkie,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
 "cjK" = (
@@ -54745,6 +54747,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "clz" = (
+/obj/effect/decal/remains/mouse{
+	name = "Джерри"
+	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "clA" = (

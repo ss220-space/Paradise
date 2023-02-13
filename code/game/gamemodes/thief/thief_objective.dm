@@ -124,19 +124,21 @@
 
 		var/mob/living/target_type = pick(valid_targets_list)
 		valid_targets_list.Remove(target_type)
-		get_alive_pet(target_type)
+		get_pet_alive(target_type)
 
 		if(wanted_type)
 			return TRUE
-	return FALSE
+
+	var/mob/living/target_type = pick(possible_targets_list)
+	return get_pet_anyway(target_type)
 
 /datum/objective/steal_pet/proc/select_target()
 	var/target_type = input("Select target:", "Objective target", null) as null|anything in possible_targets_list
 	if(!target_type)
 		return FALSE
-	return get_alive_pet(target_type)
+	return get_pet_anyway(target_type)
 
-/datum/objective/steal_pet/proc/get_alive_pet(var/mob/living/target_type)
+/datum/objective/steal_pet/proc/get_pet_alive(var/mob/living/target_type)
 	//ищем переименованных маперами мобов
 	for(var/mob/living/temp_target in GLOB.mob_living_list)
 		if(istype(temp_target, target_type))
@@ -146,7 +148,9 @@
 					wanted_holder_type = temp_target.holder_type
 				explanation_text += temp_target.name
 				return TRUE
+	return FALSE
 
+/datum/objective/steal_pet/proc/get_pet_anyway(var/mob/living/target_type)
 	wanted_type = target_type
 	var/holder_type = initial(wanted_type.holder_type)
 	if(holder_type)
@@ -192,23 +196,40 @@
 		return FALSE
 
 	if(istype(find_object, wanted_type))
-		var/mob/living/mob = find_object
-		if(mob.stat != DEAD)
-			return TRUE
+		var/mob/M = find_object
+		check_stat(M)
+
+	//переноска
+	if(istype(find_object, /obj/item/pet_carrier))
+		var/obj/item/pet_carrier/C = find_object
+		if(!C.contains_pet)
+			return FALSE
+		for(var/mob/M in C.contents)
+			check_stat(M)
 	return FALSE
 
 /datum/objective/steal_pet/additional_conditions()
-	if(wanted_holder_type)
-		var/list/all_items = owner.current.GetAllContents()
-		for(var/obj/item/holder/H in all_items)
-			if(!istype(H, wanted_holder_type))
-				continue
-			for(var/mob/M in H.contents)
-				if(!istype(M, wanted_type))
-					continue
-				if(M.stat != DEAD)
-					return TRUE
+	var/list/all_items = owner.current.GetAllContents()
+	for(var/I in all_items)
+		//из переноски
+		if(ismob(I))
+			var/mob/M = I
+			check_stat(M)
+
+		//животное-предмет "холдер"
+		if(wanted_holder_type)
+			if(!istype(I, wanted_holder_type))
+				var/obj/item/holder/H = I
+				for(var/mob/M in H.contents)
+					check_stat(M)
 	return FALSE
+
+/datum/objective/steal_pet/proc/check_stat(var/mob/M)
+	if(!istype(M, wanted_type))
+		return FALSE
+	if(M.stat != DEAD)
+		return TRUE
+
 
 
 //==========================
@@ -216,7 +237,7 @@
 //==========================
 /datum/objective/collect
 	var/type_theft_flag = THEFT_FLAG_COLLECT
-	var/datum/theft_objective/collect/collect_objective	//Изменить под список предметов?????
+	var/datum/theft_objective/collect/collect_objective
 	explanation_text = "Собрать: "
 
 /datum/objective/collect/find_target()

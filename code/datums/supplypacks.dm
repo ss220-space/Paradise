@@ -1270,6 +1270,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/hamster
 	containername = "hamster crate"
 
+/datum/supply_packs/organic/frog
+	name = "frog Crate"
+	cost = 60
+	containertype = /obj/structure/closet/critter/frog
+	containername = "frog crate"
+
+/datum/supply_packs/organic/frog/toxic
+	name = "ERROR frog Crate"
+	cost = 200
+	containertype = /obj/structure/closet/critter/frog/toxic
+	containername = "ERROR frog crate"
+	hidden = 1
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie

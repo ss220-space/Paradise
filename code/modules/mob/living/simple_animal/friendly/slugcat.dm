@@ -1,6 +1,6 @@
 /mob/living/simple_animal/pet/slugcat
 	name = "Слизнекот"
-	desc = "Удивительное существо, напоминающая кота и слизня в одном обличии. Гордость ксенобиологии. Крайне ловкое и умное, родом с планеты с опасной средой обитания. Обожает копья, не стоит давать ему его в лапки."
+	desc = "Удивительное существо, напоминающая кота и слизня в одном обличии. Гордость ксенобиологии. Крайне ловкое и умное, родом с планеты с опасной средой обитания. Обожает копья, не стоит давать ему его в лапки. На нем отлично смотрятся шляпы."
 	icon_state = "slugcat"
 	icon_living = "slugcat"
 	icon_dead = "slugcat_dead"
@@ -11,6 +11,7 @@
 	see_in_dark = 8
 	health = 100
 	maxHealth = 100
+	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_type = STAMINA
 	melee_damage_lower = 0
 	melee_damage_upper = 0
@@ -59,11 +60,12 @@
 ///mob/living/simple_animal/pet/slugcat/atta
 //Должен сам брать копье
 
+/mob/living/simple_animal/pet/slugcat/
+
 /mob/living/simple_animal/pet/slugcat/death(gibbed)
 	drop_hat()
 	drop_hand()
 	. = ..()
-
 
 /mob/living/simple_animal/pet/slugcat/Topic(href, href_list)
 	if(..())
@@ -125,12 +127,12 @@
 	if(inventory_head || inventory_hand)
 		hat_offset_y = hat_offset_y_rest
 		regenerate_icons()
+		drop_hand()
 
 /mob/living/simple_animal/pet/slugcat/StopResting(updating = 1)
 	. = ..()
 	if(inventory_head || inventory_hand)
 		hat_offset_y = initial(hat_offset_y)
-		drop_hand()
 		regenerate_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
@@ -163,7 +165,7 @@
 		slugI.alpha = hat_alpha
 		slugI.color = hat_color
 		slugI.pixel_y = hat_offset_y
-		slugI.transform = matrix(0, 0, 1, 0, 1, 0)
+		slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
 
 /mob/living/simple_animal/pet/slugcat/show_inv(mob/user)
@@ -245,6 +247,10 @@
 			return 0
 		return 0
 
+	if(resting)
+		to_chat(user, "<span class='warning'>[src] спит и не принимает [item_to_add]!</span>")
+		return 0
+
 	if(!istype(item_to_add, /obj/item/twohanded/spear))
 		to_chat(user, "<span class='warning'>[src] не принимает [item_to_add]!</span>")
 		return 0
@@ -261,11 +267,14 @@
 	user.visible_message("<span class='notice'>[real_name] выхватывает [item_to_add] с рук [user].</span>",
 		"<span class='notice'>[real_name] выхватывает [item_to_add] с ваших рук.</span>",
 		"<span class='italics'>Вы видите довольные глаза.</span>")
+	move_item_to_hand(item_to_add)
+
+	return 1
+
+/mob/living/simple_animal/pet/slugcat/proc/move_item_to_hand(obj/item/item_to_add)
 	item_to_add.forceMove(src)
 	inventory_hand = item_to_add
 	regenerate_icons()
-
-	return 1
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)

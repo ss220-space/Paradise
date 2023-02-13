@@ -65,7 +65,7 @@
 		visible_message("<span class='danger'>SPLAT!</span>")
 		M.apply_damage(5, "brute")
 		if (M.stat == DEAD)
-			M.splat()
+			M.splat(item = src)
 	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
 	armed = FALSE

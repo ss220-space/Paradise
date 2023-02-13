@@ -21,6 +21,7 @@
 	stop_automated_movement_when_pulled = 0
 	maxHealth = 60
 	health = 60
+	blood_volume = BLOOD_VOLUME_NORMAL
 	obj_damage = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30
@@ -43,7 +44,6 @@
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())
 		playsound(src, src.trigger_sound, 40, 1)
-
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson

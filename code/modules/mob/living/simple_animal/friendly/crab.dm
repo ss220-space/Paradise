@@ -23,6 +23,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Riki"
 	holder_type = /obj/item/holder/crab
+	mob_size = MOB_SIZE_SMALL
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement

@@ -20,6 +20,7 @@
 	speed = 2
 	maxHealth = 40
 	health = 40
+	blood_volume = BLOOD_VOLUME_NORMAL
 	obj_damage = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30

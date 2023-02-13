@@ -21,6 +21,7 @@
 	faction = list("neutral")
 	maxHealth = 30
 	health = 30
+	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_type = STAMINA
 	melee_damage_lower = 3
 	melee_damage_upper = 8
@@ -34,24 +35,26 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	holder_type = /obj/item/holder/possum
 
-
-/mob/living/simple_animal/possum/a_intent_change(input as text)
+/mob/living/simple_animal/possum/attackby(obj/item/O, mob/living/user)
+	icon_state = icon_harm
 	. = ..()
-	switch(a_intent)
+
+/mob/living/simple_animal/possum/attack_hand(mob/living/carbon/human/M)
+	switch(M.a_intent)
 		if(INTENT_HELP)
 			icon_state = initial(icon_state)
-		if(INTENT_HARM)
+		if(INTENT_HARM, INTENT_DISARM, INTENT_GRAB)
 			icon_state = icon_harm
-
+	. = ..()
 
 /mob/living/simple_animal/possum/Poppy
 	name = "Ключик"
 	desc = "Маленький работяга. Его жилетка подчеркивает его рабочие... лапы. Тот еще трудяга. Очень не любит ассистентов в инженерном отделе. И Полли. Интересно, почему?"
-	icon_state = "poppy"
-	icon_living = "poppy"
-	icon_dead = "poppy_dead"
-	icon_resting = "poppy_sleep"
-	icon_harm = "poppy_aaa"
+	icon_state = "possum_poppy"
+	icon_living = "possum_poppy"
+	icon_dead = "possum_poppy_dead"
+	icon_resting = "possum_poppy_sleep"
+	icon_harm = "possum_poppy_aaa"
 	holder_type = /obj/item/holder/possum/poppy
 	maxHealth = 50
 	health = 50
