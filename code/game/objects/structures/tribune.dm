@@ -39,6 +39,7 @@
 	add_fingerprint(user)
 
 /obj/structure/tribune/New()
+	. =..()
 	if(dir == NORTH)
 		layer = OBJ_LAYER
 	else
