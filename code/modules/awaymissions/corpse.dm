@@ -30,6 +30,7 @@
 	var/burn_damage = 0
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
+	var/allow_prefs_prompt = FALSE //for mob_spawn/human
 	var/assignedrole
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
@@ -79,9 +80,10 @@
 	if(use_prefs_prompt(user))
 		mob_use_prefs = TRUE
 	else
-		var/randomize_alert = alert("Your character will be randomized for this role, continue?",,"Yes","No")
-		if(randomize_alert == "No")
-			return
+		if(allow_prefs_prompt)
+			var/randomize_alert = alert("Your character will be randomized for this role, continue?",,"Yes","No")
+			if(randomize_alert == "No")
+				return
 		if(!species_prompt())
 			return
 
@@ -178,7 +180,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/allow_prefs_prompt = FALSE
+	allow_prefs_prompt = FALSE
 	var/allow_gender_pick = FALSE
 	var/allow_name_pick = FALSE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
