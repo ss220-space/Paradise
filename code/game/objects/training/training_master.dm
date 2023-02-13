@@ -43,7 +43,7 @@
 			if (x == startX || x == endX || y == startY || y == endY)
 				old_turf.ChangeTurf(/turf/simulated/wall/indestructible)
 			else
-				old_turf.ChangeTurf(/turf/unsimulated/floor)
+				old_turf.ChangeTurf(/turf/simulated/floor/indestructible)
 
 	var/datum/training_coords/center = get_center()
 	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, startY, src.z))
@@ -142,7 +142,7 @@
 	for(var/x = startX, x <= endX, x++)
 		for(var/y = startY, y <= endY, y++)
 			var/turf/turf = get_turf(locate(x, y, master.z))
-			turf.ChangeTurf(/turf/unsimulated/floor)
+			turf.ChangeTurf(/turf/simulated/floor/indestructible)
 			turf.icon = 'icons/turf/floors.dmi'
 			turf.icon_state = "Floor3"
 			for(var/A in turf.contents)
