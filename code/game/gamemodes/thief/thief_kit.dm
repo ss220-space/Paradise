@@ -9,6 +9,7 @@
 	..()
 	new /obj/item/clothing/gloves/color/black/thief(src)
 	new /obj/item/storage/backpack/satchel_flat(src)
+	new /obj/item/coin/twoheaded/thief(src)
 	new /obj/item/paper/thief(src)
 
 // ========== CHOOSE ITEMS ==========

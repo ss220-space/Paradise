@@ -96,13 +96,18 @@
 /mob/living/simple_animal/mouse/rat/white/Brain
 	name = "Брейн"
 	real_name = "Брейн"
-	desc = "Сообразительная личная лабораторная крыса директора исследований, даже освоившая речь. Настолько часто сбегал, что его перестали помещать в клетку. Он явно хочет захватить мир."
+	desc = "Сообразительная личная лабораторная крыса директора исследований, даже освоившая речь. Настолько часто сбегал, что его перестали помещать в клетку. Он явно хочет захватить мир. Где-то спрятался его напарник..."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 20
 	health = 20
 	universal_speak = 1
 	resting = TRUE
+
+/obj/effect/decal/remains/mouse/Pinkie
+	name = "Пинки"
+	desc = "Когда-то это был напарник самой сообразительной крысы в мире. К сожалению он таковым не являлся..."
+	anchored = TRUE
 
 /mob/living/simple_animal/mouse/rat/gray/Ratatui
 	name = "Рататуй"

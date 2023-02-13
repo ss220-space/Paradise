@@ -224,11 +224,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	typepath = /obj/item/clothing/shoes/magboots/security/captain
 	name = "капитанские магбутсы"
 
-/*
 /datum/theft_objective/hard/flask_cap
 	typepath = /obj/item/reagent_containers/food/drinks/flask/gold
 	name = "капитанскую золотую фляжку"
-*/
+
 
 
 
@@ -297,6 +296,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/collect
 	name = ""
 	flags = THEFT_FLAG_COLLECT
+	typepath=null
 	var/list/type_list = list()
 	var/obj/item/subtype = null
 
@@ -333,18 +333,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 		possible_type_list.Remove(type_item)
 		wanted_items.Add(type_item)
 
-		var/obj/item/temp_item = new type_item
 		var/split_num = 3	//notes split
 		if(i % split_num == 0)
 			name += "\n"
-		name += "[temp_item.name][i < required_amount-1 ? ", " : "."]"
-		qdel(temp_item)
+		name += "[initial(type_item.name)][i < required_amount-1 ? ", " : "."]"
 
 /datum/theft_objective/collect/number/make_collection()
 	wanted_items.Add(typepath)
-	var/obj/item/item = new typepath
-	name = "[item.name] в количестве [required_amount] штук."
-	qdel(item)
+	name = "[initial(typepath.name)] в количестве [required_amount] штук."
 
 /datum/theft_objective/collect/check_completion(var/datum/mind/owner)
 	if(!owner.current)

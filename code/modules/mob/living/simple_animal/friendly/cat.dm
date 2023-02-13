@@ -136,7 +136,7 @@
 			if(!M.stat && Adjacent(M))
 				custom_emote(1, "splats \the [M]!")
 				M.death()
-				M.splat()
+				M.splat(user = src)
 				movement_target = null
 				stop_automated_movement = 0
 				break

@@ -662,6 +662,7 @@
 	tts_seed = "Jaina"
 	maxHealth = 20
 	health = 20
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 1)
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)

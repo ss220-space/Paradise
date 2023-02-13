@@ -45,3 +45,4 @@
 	icon_state = "axolotl"
 	icon_living = "axolotl"
 	icon_dead = "axolotl-dead"
+	holder_type = /obj/item/holder/axolotl

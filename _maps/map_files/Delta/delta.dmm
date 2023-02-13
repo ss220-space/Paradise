@@ -1322,6 +1322,7 @@
 "amk" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/effect/decal/remains/mouse/Pinkie,
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
@@ -103389,6 +103390,16 @@
 	tag = "icon-whitepurple (SOUTHEAST)"
 	},
 /area/toxins/misc_lab)
+"qGt" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/structure/curtain/open/shower,
+/mob/living/simple_animal/frog,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/locker/locker_toilet)
 "qGv" = (
 /obj/machinery/light,
 /obj/structure/table/reinforced,
@@ -118463,6 +118474,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "tUX" = (
+/obj/effect/decal/remains/mouse{
+	name = "Джерри"
+	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "tVr" = (
@@ -181806,7 +181820,7 @@ tbb
 xLG
 nRC
 cxn
-qul
+qGt
 qul
 qul
 xzg

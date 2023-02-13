@@ -20,6 +20,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
+	blood_volume = BLOOD_VOLUME_SURVIVE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -44,7 +45,6 @@
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
-	//AddComponent(/datum/component/squeak, list('sound/creatures/mouse_squeak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -101,19 +101,18 @@
 	if(istype(M, /mob/living/simple_animal/pet/cat))
 		var/mob/living/simple_animal/pet/cat/C = M
 		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
-			apply_damage(15, BRUTE) //3x от ХП обычной мыши
+			apply_damage(15, BRUTE) //3x от ХП обычной мыши или полное хп крысы
 			visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>")
 			return
 	. = ..()
 
-
-/mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+/mob/living/simple_animal/mouse/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
 	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
-		return ..() // Get dem
+		return TRUE // Get dem
 	if(show_message)
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
-	return
+	return FALSE
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
@@ -131,7 +130,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/proc/splat()
+/mob/living/simple_animal/mouse/proc/splat(var/obj/item/item = null, var/mob/living/user = null)
 	if(non_standard)
 		var/temp_state = initial(icon_state)
 		icon_dead = "[temp_state]_splat"
@@ -139,6 +138,14 @@
 	else
 		icon_dead = "mouse_[mouse_color]_splat"
 		icon_state = "mouse_[mouse_color]_splat"
+
+	if(prob(50))
+		var/turf/location = get_turf(src)
+		add_splatter_floor(location)
+		if(item)
+			item.add_mob_blood(src)
+		if(user)
+			user.add_mob_blood(src)
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	if(gibbed)
@@ -311,12 +318,8 @@
 		icon_dead 		= "rat_[mouse_color]_dead"
 		icon_resting 	= "rat_[mouse_color]_sleep"
 
-/mob/living/simple_animal/mouse/rat/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-	var/mob/living/L = src
-	L.start_pulling(AM, state, force, show_message)
-
-	//!!!!!!!!Возникло исключение: Maximum recursion level reached (perhaps there is an infinite loop)
-	//To avoid this safety check, set world.loop_checks=0.
+/mob/living/simple_animal/mouse/rat/pull_constraint(atom/movable/AM, show_message = FALSE)
+	return TRUE
 
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
@@ -350,7 +353,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 /mob/living/simple_animal/mouse/hamster
 	name = "хомяк"
 	real_name = "хомяк"
-	desc = "С надутыми щечками"
+	desc = "С надутыми щечками."
 	icon_state = "hamster"
 	icon_living = "hamster"
 	icon_dead = "hamster_dead"
@@ -371,17 +374,25 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 
 /mob/living/simple_animal/mouse/hamster/New()
 	gender = prob(80) ? MALE : FEMALE
-	desc += MALE ? "Самец!" : "Самочка! Ох... Нет... "
+	desc += MALE ? " Самец!" : " Самочка! Ох... Нет... "
 	GLOB.hamster_count++
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	var/mob/living/L = src
-	L.start_pulling(AM, state, force, show_message)
+/mob/living/simple_animal/mouse/hamster/Destroy()
+	GLOB.hamster_count--
+	. = ..()
+
+/mob/living/simple_animal/mouse/hamster/death(gibbed)
+	if(!gibbed)
+		GLOB.hamster_count--
+	. = ..()
+
+/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
+	return TRUE
 
 /mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
 	..()
-	if(GLOB.hamster_count < MAX_HAMSTER && prob(25))
+	if(GLOB.hamster_count < MAX_HAMSTER)
 		make_babies()
 
 /mob/living/simple_animal/mouse/hamster/baby
@@ -405,7 +416,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 
 /mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+		to_chat(src, "<span class='warning'>Вы слишком малы чтобы что-то тащить.</span>")
 	return
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
@@ -424,5 +435,5 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
 			death()
-			splat()
+			splat(user = AM)
 	..()

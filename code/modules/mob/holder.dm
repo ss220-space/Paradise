@@ -3,6 +3,8 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
+	lefthand_file = 'icons/mob/inhands/mobs_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
 	slot_flags = SLOT_HEAD
 	origin_tech = "biotech=2"
 
@@ -48,10 +50,10 @@
 
 	if(istype(M))
 		M.unEquip(src)
-		to_chat(M, "[src] wriggles out of your grip!")
-		to_chat(L, "You wriggle out of [M]'s grip!")
+		to_chat(M, "[src.name] вырывается из вашей хватки!")
+		to_chat(L, "Вы вырываетесь из хвата [M.name]!")
 	else if(istype(loc,/obj/item))
-		to_chat(L, "You struggle free of [loc].")
+		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
 
 	if(istype(M))
@@ -76,8 +78,8 @@
 	if(desc)	H.desc = desc
 	H.attack_hand(grabber)
 
-	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
-	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
+	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
 	grabber.status_flags |= PASSEMOTES
 	return H
 
@@ -269,6 +271,12 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 
+/obj/item/holder/axolotl
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "axolotl"
+
 /obj/item/holder/lizard
 	name = "pet"
 	desc = "It's a pet"
@@ -346,3 +354,14 @@
 	desc = "It's a possum Poppy. Ewwww..."
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "poppy"
+
+/obj/item/holder/frog
+	name = "frog"
+	desc = "It's a wednesday, my dudes."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "frog"
+
+/obj/item/holder/frog/toxic
+	name = "rare frog"
+	desc = "It's a toxic wednesday, my dudes."
+	icon_state = "rare_frog"

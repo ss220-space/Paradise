@@ -1,9 +1,13 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
-		add_collar(O, user)
-		return
-	else
-		return ..()
+	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
+		if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
+			add_collar(O, user)
+			return
+		if(istype(O, /obj/item/pet_carrier))
+			var/obj/item/pet_carrier/C = O
+			if(C.put_in_carrier(src, user))
+				return
+	return ..()
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()

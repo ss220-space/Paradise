@@ -462,7 +462,7 @@
 ///thief pinpointers///
 ///////////////////////
 /obj/item/pinpointer/thief
-	name = "special pinpointer"
+	name = "pinpointer"
 	desc = "Модифицированный пинпоинтер #REDACTED# предназначенный для нахождения всех ценных и интересных для #REDACTED# сигнатур, не передающий сигналы локаторами. На обратной стороне напечатан странный непонятный детский ребус."
 	modes = list(MODE_THIEF)
 	shows_nuke_timer = FALSE
@@ -517,7 +517,7 @@
 
 		if("Сигнатура Объекта")
 			setting = SETTING_OBJECT
-			var/list/targets_list
+			var/list/targets_list = list()
 			var/list/target_names[0]
 			var/list/target_paths[0]
 			var/input_ask = "Выберите сигнатуру"
@@ -537,11 +537,26 @@
 					input_subtype = alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
 					switch(input_subtype)
 						if("Сложнодоступен")
-							targets_list = GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives
+							var/list/datum_list = GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives
+							for(var/element in datum_list)
+								var/datum/theft_objective/D = element
+								targets_list.Add(initial(D.typepath))
 						if("Доступен")
-							targets_list = GLOB.potential_theft_objectives_medium
+							var/list/datum_list = GLOB.potential_theft_objectives_medium
+							for(var/element in datum_list)
+								var/datum/theft_objective/D = element
+								targets_list.Add(initial(D.typepath))
 						if("Коллекционный")
-							targets_list = GLOB.potential_theft_objectives_collect
+							var/list/datum_list = GLOB.potential_theft_objectives_collect
+							for(var/element in datum_list)
+								var/datum/theft_objective/collect/D = element
+								var/typepath_datum = initial(D.typepath)
+								if(typepath_datum)
+									targets_list.Add(typepath_datum)
+									continue
+								var/subtype_datum = initial(D.subtype)
+								var/list/type_list = subtype_datum ? subtypesof(subtype_datum) : initial(D.type_list)
+								targets_list += type_list
 					if(!input_subtype)
 						return
 					input_subtype = " ([input_subtype])"
@@ -605,15 +620,21 @@
 
 					if(istype(objective, /datum/objective/collect))
 						var/datum/objective/collect/temp_objective = objective
-						var/list/wanted_type_list = temp_objective.collect_objective.type_list//temp_objective.get_list_wanted_target_typepath()
-						//var/list/result_type_list = list()
+						var/list/wanted_type_list = temp_objective.collect_objective.type_list
 						for(var/W in wanted_type_list)
 							var/obj/item/wanted_type = W
 							if(!(wanted_type in targets_list))
 								targets_list.Add(wanted_type)
-						//	if(!(item in result_type_list))
-						//		result_type_list.Add(item)
-						//targets_list += result_type_list
+
+						var/list/datum_list = GLOB.potential_theft_objectives_collect
+						for(var/datum/theft_objective/collect/D in datum_list)
+							var/typepath_datum = initial(D.typepath)
+							if(typepath_datum)
+								targets_list.Add(typepath_datum)
+								continue
+							var/subtype_datum = initial(D.subtype)
+							var/list/type_list = subtype_datum ? subtypesof(subtype_datum) : initial(D.type_list)
+							targets_list += type_list
 
 				for(var/T in targets_list)
 					var/obj/temp_target = T

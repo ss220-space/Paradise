@@ -241,6 +241,8 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/slugcat))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/frog))
+		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))
 		return 1

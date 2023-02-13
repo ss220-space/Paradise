@@ -106,3 +106,14 @@
 
 /obj/structure/closet/critter/hamster/populate_contents()
 	amount = rand(1, 5)
+
+/obj/structure/closet/critter/frog
+	name = "frog crate"
+	content_mob = /mob/living/simple_animal/frog
+
+/obj/structure/closet/critter/frog/populate_contents()
+	amount = rand(1, 5)
+
+/obj/structure/closet/critter/frog/toxic
+	name = "frog crate"
+	content_mob = /mob/living/simple_animal/frog/toxic
