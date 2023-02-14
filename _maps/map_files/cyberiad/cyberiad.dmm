@@ -348,11 +348,18 @@
 /area/security/securearmory)
 "acF" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
-/area/maintenance/engrooms)
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/turf_decal/arrows/red,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/secpost)
 "acG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
@@ -13676,13 +13683,19 @@
 /area/crew_quarters/courtroom)
 "aFm" = (
 /obj/structure/table,
-/obj/item/gavelblock,
-/obj/item/gavelhammer,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/toy/figure/magistrate{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/clothing/head/helmet/skull{
+	desc = "Бедный Йорик...";
+	name = "Йорик"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -19565,6 +19578,7 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
+/mob/living/simple_animal/moth,
 /turf/simulated/floor/carpet,
 /area/maintenance/quarters)
 "aTo" = (
@@ -22311,6 +22325,7 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 100000
 	},
+/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -25938,10 +25953,12 @@
 	},
 /area/hallway/primary/central/north)
 "bhi" = (
-/obj/structure/statue/bananium/clown,
 /obj/machinery/camera{
 	c_tag = "Clown's Office";
 	dir = 4
+	},
+/obj/structure/statue/bananium/clown/unique{
+	name = "Статуя Великого Кекеги"
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
@@ -25962,7 +25979,7 @@
 	c_tag = "Mime's Office";
 	dir = 4
 	},
-/obj/structure/statue/tranquillite/mime,
+/obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -40449,7 +40466,7 @@
 /turf/simulated/wall,
 /area/crew_quarters/captain/bedroom)
 "bOL" = (
-/obj/structure/toilet{
+/obj/structure/toilet/captain_toilet{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -41282,10 +41299,10 @@
 	dir = 4
 	},
 /obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
+/obj/item/bikehorn/rubberducky/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -47972,6 +47989,13 @@
 /obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
+"cdA" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/magistrateoffice)
 "cdB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -62186,6 +62210,8 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/mob/living/simple_animal/pet/slugcat,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreencorner"
@@ -62826,6 +62852,7 @@
 	pixel_y = 24;
 	req_access_txt = "24"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cMb" = (
@@ -67004,6 +67031,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/mob/living/simple_animal/possum/Poppy,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cUy" = (
@@ -76562,6 +76591,12 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/maintenance/asmaint)
+"dxu" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "dxS" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -76590,6 +76625,10 @@
 	icon_state = "dark"
 	},
 /area/maintenance/secpost)
+"dyx" = (
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/plating,
+/area/maintenance/livingcomplex/hall)
 "dyH" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -78748,13 +78787,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/gambling_den)
-"fko" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/magistrateoffice)
 "fkJ" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass,
@@ -79888,6 +79920,11 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"gaZ" = (
+/obj/item/soap/syndie,
+/obj/item/toy/figure/syndie,
+/turf/simulated/floor/plating/airless,
+/area/toxins/test_area)
 "gbu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -80276,6 +80313,7 @@
 /area/security/securearmory)
 "gqS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/mob/living/simple_animal/moth,
 /turf/simulated/floor/plating,
 /area/maintenance/quarters)
 "grP" = (
@@ -82298,12 +82336,6 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/dorms)
-"icB" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/research)
 "icG" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -83555,13 +83587,6 @@
 	icon_state = "blue"
 	},
 /area/hydroponics)
-"jhk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/transparent/glass,
-/area/maintenance/gambling_den)
 "jib" = (
 /obj/effect/turf_decal/stripes{
 	dir = 5
@@ -84682,6 +84707,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/gambling_den)
+"kfb" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/maintenance/engrooms)
 "kfx" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/tea,
@@ -85034,6 +85066,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/security/securearmory)
+"kqt" = (
+/mob/living/simple_animal/moth,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "krd" = (
 /obj/structure/table,
 /obj/item/clothing/ears/earmuffs{
@@ -86492,12 +86528,6 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
-"ltl" = (
-/obj/structure/chair/sofa/corp/left,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/research)
 "ltz" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
@@ -87251,11 +87281,6 @@
 /obj/item/hand_labeler,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
-"lXP" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
-/turf/simulated/floor/wood,
-/area/ntrep)
 "lYa" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -87301,7 +87326,9 @@
 	frequency = 1222;
 	id_tag = "toxins_mixing_exterior"
 	},
-/obj/effect/decal/remains/mouse,
+/obj/effect/decal/remains/mouse{
+	name = "Джерри"
+	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "mbq" = (
@@ -87467,6 +87494,13 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
+	},
+/area/medical/research)
+"mfn" = (
+/mob/living/simple_animal/goose/Scientist,
+/obj/structure/chair/sofa/corp,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
 /area/medical/research)
 "mfx" = (
@@ -90098,6 +90132,13 @@
 	icon_state = "caution"
 	},
 /area/maintenance/engrooms)
+"otC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/transparent/glass,
+/area/maintenance/gambling_den)
 "otE" = (
 /obj/item/trash/candy,
 /turf/simulated/floor/plasteel{
@@ -90643,14 +90684,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/mixing)
-"oNi" = (
-/obj/effect/turf_decal/siding/white,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/decal/remains/mouse,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
-/area/maintenance/banya)
 "oNA" = (
 /obj/effect/landmark{
 	color = "#00ae00";
@@ -91069,14 +91102,6 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
-"pgv" = (
-/mob/living/simple_animal/crab/royal/Coffee{
-	desc = "Master of the GYM";
-	name = "Billy Crabington";
-	real_name = "Billy Crabington"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/dorms)
 "pgW" = (
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacecash/c10,
@@ -91578,11 +91603,6 @@
 	icon_state = "cult"
 	},
 /area/lawoffice)
-"pCk" = (
-/obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken/Wife,
-/turf/simulated/floor/grass,
-/area/hydroponics)
 "pCr" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -95225,6 +95245,14 @@
 	icon_state = "dark"
 	},
 /area/maintenance/gambling_den)
+"snR" = (
+/obj/effect/turf_decal/siding/white,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/maintenance/banya)
 "soa" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -95327,6 +95355,11 @@
 	icon_state = "dark"
 	},
 /area/maintenance/secpost)
+"svE" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/mouse/hamster/Representative,
+/turf/simulated/floor/wood,
+/area/ntrep)
 "swh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98244,10 +98277,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"uSK" = (
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plating,
-/area/maintenance/livingcomplex/hall)
 "uTa" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -98847,6 +98876,11 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
+"vkz" = (
+/obj/machinery/hydroponics/soil,
+/mob/living/simple_animal/chicken/Wife,
+/turf/simulated/floor/grass,
+/area/hydroponics)
 "vlf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -99484,6 +99518,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
+"vIm" = (
+/obj/structure/chair/sofa/corp/left,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "vIo" = (
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/light{
@@ -99724,20 +99764,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
-"vOT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/effect/turf_decal/arrows/red,
-/obj/effect/decal/remains/mouse,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/secpost)
 "vPE" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plating,
@@ -100670,11 +100696,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/customs)
-"wyJ" = (
-/obj/item/soap/syndie,
-/obj/item/toy/figure/syndie,
-/turf/simulated/floor/plating/airless,
-/area/toxins/test_area)
 "wyS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -101892,6 +101913,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
+"xsh" = (
+/mob/living/simple_animal/crab/royal/Coffee{
+	desc = "Master of the GYM";
+	name = "Billy Crabington";
+	real_name = "Billy Crabington"
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "xsM" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
@@ -102071,13 +102100,6 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
-"xAf" = (
-/mob/living/simple_animal/goose/Scientist,
-/obj/structure/chair/sofa/corp,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/research)
 "xAn" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 24
@@ -116589,7 +116611,7 @@ rMQ
 hok
 saZ
 bnw
-bnK
+kqt
 eIX
 wWJ
 eiy
@@ -129398,7 +129420,7 @@ ayK
 azE
 aIl
 aCe
-fko
+cdA
 aDi
 aFo
 aIl
@@ -130232,7 +130254,7 @@ ckw
 coU
 ckw
 cqO
-lXP
+svE
 cgW
 cvy
 cwW
@@ -141503,7 +141525,7 @@ beb
 dju
 bLn
 bjv
-pCk
+vkz
 bmy
 boo
 btM
@@ -142000,7 +142022,7 @@ sHt
 sHt
 sHt
 aOI
-pgv
+xsh
 aPm
 aSM
 aVv
@@ -144034,7 +144056,7 @@ xIS
 kZh
 hJy
 uht
-vOT
+acF
 fnf
 qNN
 svC
@@ -145382,7 +145404,7 @@ bQK
 bHX
 bpD
 bWj
-icB
+dxu
 bWc
 cbf
 ccT
@@ -145896,7 +145918,7 @@ bUl
 bVC
 bRU
 bWj
-xAf
+mfn
 bWc
 cbf
 ccV
@@ -146153,7 +146175,7 @@ bUN
 bVA
 bRU
 bWj
-ltl
+vIm
 bWc
 cbf
 ccU
@@ -146843,7 +146865,7 @@ grP
 gXF
 frK
 kXF
-jhk
+otC
 ssf
 kXF
 xls
@@ -152005,7 +152027,7 @@ nqc
 oJC
 rcS
 nqc
-uSK
+dyx
 dTq
 hfb
 uTI
@@ -152774,7 +152796,7 @@ jWN
 vZO
 nqc
 kxO
-oNi
+snR
 nqc
 dof
 qqn
@@ -156360,7 +156382,7 @@ aFP
 uje
 aKX
 dof
-acF
+kfb
 aRY
 xgY
 fuG
@@ -162865,7 +162887,7 @@ uTI
 uTI
 djT
 cic
-wyJ
+gaZ
 clA
 cie
 cbS

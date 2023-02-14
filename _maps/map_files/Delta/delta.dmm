@@ -80260,10 +80260,6 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/mixing)
-"lNL" = (
-/obj/effect/decal/remains/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/engrooms)
 "lNM" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
@@ -81079,6 +81075,10 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"lXT" = (
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/engrooms)
 "lYc" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -107111,13 +107111,13 @@
 /area/medical/sleeper)
 "rwM" = (
 /obj/structure/table,
-/obj/item/clothing/head/helmet/skull{
-	desc = "Бедный Йорик...";
-	name = "Йорик"
-	},
 /obj/item/toy/figure/magistrate{
 	pixel_x = 9;
 	pixel_y = 6
+	},
+/obj/item/clothing/head/helmet/skull{
+	desc = "Бедный Йорик...";
+	name = "Йорик"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
@@ -169951,7 +169951,7 @@ bsb
 aTA
 ceP
 cnf
-lNL
+lXT
 cNg
 cAy
 ceP
