@@ -347,11 +347,12 @@
 	},
 /area/security/securearmory)
 "acF" = (
-/mob/living/simple_animal/crab/Coffee,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "neutralfull"
 	},
-/area/crew_quarters/dorms)
+/area/maintenance/engrooms)
 "acG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
@@ -8327,6 +8328,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/cat/Iriska,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -12522,6 +12525,7 @@
 	pixel_y = 34
 	},
 /obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -23168,6 +23172,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/mob/living/simple_animal/turtle,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -25248,6 +25253,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -27036,10 +27042,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bjx" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy"
-	},
 /obj/structure/flora/ausbushes/ppflowers,
+/mob/living/simple_animal/cow/Betsy,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "bjy" = (
@@ -34963,6 +34967,7 @@
 /obj/effect/turf_decal/siding/wideplating{
 	dir = 4
 	},
+/mob/living/simple_animal/frog,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -35304,6 +35309,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/dog/bullterrier/Genn,
 /turf/simulated/floor/wood,
 /area/library)
 "bCP" = (
@@ -38675,9 +38682,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/pig{
-	name = "Саня"
-	},
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
@@ -38686,6 +38690,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
+/mob/living/simple_animal/pig/Sanya,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -46189,6 +46194,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46219,6 +46225,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46801,6 +46808,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/rat/white/Brain,
 /turf/simulated/floor/carpet/purple,
 /area/crew_quarters/hor)
 "cbr" = (
@@ -50824,6 +50832,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
+/obj/effect/decal/remains/mouse/Pinkie,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
 "cjK" = (
@@ -50936,6 +50945,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/clothing/mask/cigarette,
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "ckb" = (
@@ -72517,6 +72527,7 @@
 /obj/structure/sink/kitchen{
 	pixel_y = 28
 	},
+/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -74069,6 +74080,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlD" = (
@@ -74939,9 +74951,7 @@
 /area/security/range)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken{
-	name = "Commander Clucky"
-	},
+/mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "dnG" = (
@@ -77191,6 +77201,7 @@
 "dZd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -78551,6 +78562,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -78736,6 +78748,13 @@
 	icon_state = "dark"
 	},
 /area/maintenance/gambling_den)
+"fko" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/magistrateoffice)
 "fkJ" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass,
@@ -80404,6 +80423,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80651,6 +80671,7 @@
 /area/security/permabrig)
 "gHZ" = (
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -82277,6 +82298,12 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/dorms)
+"icB" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "icG" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -82697,6 +82724,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/lizard/croco/Gena,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -83527,6 +83555,13 @@
 	icon_state = "blue"
 	},
 /area/hydroponics)
+"jhk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/transparent/glass,
+/area/maintenance/gambling_den)
 "jib" = (
 /obj/effect/turf_decal/stripes{
 	dir = 5
@@ -86037,6 +86072,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
 "lgB" = (
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredaltstrip"
@@ -86456,6 +86492,12 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
+"ltl" = (
+/obj/structure/chair/sofa/corp/left,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "ltz" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
@@ -86741,6 +86783,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 1
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87186,6 +87229,7 @@
 "lVL" = (
 /obj/item/stack/rods,
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87207,6 +87251,11 @@
 /obj/item/hand_labeler,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
+"lXP" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/mouse/hamster/Representative,
+/turf/simulated/floor/wood,
+/area/ntrep)
 "lYa" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -87252,6 +87301,7 @@
 	frequency = 1222;
 	id_tag = "toxins_mixing_exterior"
 	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "mbq" = (
@@ -88391,6 +88441,7 @@
 /area/maintenance/garden)
 "mSO" = (
 /obj/effect/decal/cleanable/dust,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "mST" = (
@@ -89575,6 +89626,7 @@
 "nXw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89646,6 +89698,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -90369,6 +90422,7 @@
 /area/maintenance/gambling_den)
 "oGG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "oGP" = (
@@ -90589,6 +90643,14 @@
 	icon_state = "dark"
 	},
 /area/toxins/mixing)
+"oNi" = (
+/obj/effect/turf_decal/siding/white,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/maintenance/banya)
 "oNA" = (
 /obj/effect/landmark{
 	color = "#00ae00";
@@ -90652,12 +90714,13 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east fire alarm";
 	pixel_x = 24
 	},
+/mob/living/simple_animal/pet/dog/brittany/Psycho,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "oOR" = (
@@ -90811,6 +90874,7 @@
 "oVG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light_construct/small,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -91005,6 +91069,14 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
+"pgv" = (
+/mob/living/simple_animal/crab/royal/Coffee{
+	desc = "Master of the GYM";
+	name = "Billy Crabington";
+	real_name = "Billy Crabington"
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "pgW" = (
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacecash/c10,
@@ -91506,6 +91578,11 @@
 	icon_state = "cult"
 	},
 /area/lawoffice)
+"pCk" = (
+/obj/machinery/hydroponics/soil,
+/mob/living/simple_animal/chicken/Wife,
+/turf/simulated/floor/grass,
+/area/hydroponics)
 "pCr" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -91783,6 +91860,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/light,
 /area/maintenance/gambling_den)
 "pKs" = (
@@ -92246,6 +92324,7 @@
 	name = "east fire alarm";
 	pixel_x = 24
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -93446,6 +93525,7 @@
 "qQh" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94516,6 +94596,7 @@
 "rLu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -94562,6 +94643,7 @@
 "rOj" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -95058,6 +95140,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -95210,6 +95293,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -98160,6 +98244,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"uSK" = (
+/mob/living/simple_animal/mouse/rat,
+/turf/simulated/floor/plating,
+/area/maintenance/livingcomplex/hall)
 "uTa" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -99636,6 +99724,20 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
+"vOT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/turf_decal/arrows/red,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/secpost)
 "vPE" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plating,
@@ -100568,6 +100670,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/customs)
+"wyJ" = (
+/obj/item/soap/syndie,
+/obj/item/toy/figure/syndie,
+/turf/simulated/floor/plating/airless,
+/area/toxins/test_area)
 "wyS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -100616,6 +100723,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredalt"
 	},
@@ -101963,6 +102071,13 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
+"xAf" = (
+/mob/living/simple_animal/goose/Scientist,
+/obj/structure/chair/sofa/corp,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "xAn" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 24
@@ -102504,6 +102619,7 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -129282,7 +129398,7 @@ ayK
 azE
 aIl
 aCe
-aDi
+fko
 aDi
 aFo
 aIl
@@ -130116,7 +130232,7 @@ ckw
 coU
 ckw
 cqO
-ckv
+lXP
 cgW
 cvy
 cwW
@@ -139318,7 +139434,7 @@ aFI
 aQE
 aSM
 aUT
-acF
+aWT
 aZC
 bbu
 bdj
@@ -141387,7 +141503,7 @@ beb
 dju
 bLn
 bjv
-bfH
+pCk
 bmy
 boo
 btM
@@ -141884,7 +142000,7 @@ sHt
 sHt
 sHt
 aOI
-aPm
+pgv
 aPm
 aSM
 aVv
@@ -143918,7 +144034,7 @@ xIS
 kZh
 hJy
 uht
-fHK
+vOT
 fnf
 qNN
 svC
@@ -145266,7 +145382,7 @@ bQK
 bHX
 bpD
 bWj
-bLR
+icB
 bWc
 cbf
 ccT
@@ -145780,7 +145896,7 @@ bUl
 bVC
 bRU
 bWj
-bLR
+xAf
 bWc
 cbf
 ccV
@@ -146037,7 +146153,7 @@ bUN
 bVA
 bRU
 bWj
-bLR
+ltl
 bWc
 cbf
 ccU
@@ -146727,7 +146843,7 @@ grP
 gXF
 frK
 kXF
-kXF
+jhk
 ssf
 kXF
 xls
@@ -151889,7 +152005,7 @@ nqc
 oJC
 rcS
 nqc
-hgC
+uSK
 dTq
 hfb
 uTI
@@ -152658,7 +152774,7 @@ jWN
 vZO
 nqc
 kxO
-aKJ
+oNi
 nqc
 dof
 qqn
@@ -156244,7 +156360,7 @@ aFP
 uje
 aKX
 dof
-uTa
+acF
 aRY
 xgY
 fuG
@@ -162749,7 +162865,7 @@ uTI
 uTI
 djT
 cic
-cjZ
+wyJ
 clA
 cie
 cbS
