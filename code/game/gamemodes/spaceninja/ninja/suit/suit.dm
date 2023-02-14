@@ -15,7 +15,6 @@
 	icon_state = "ninja_suit"
 	item_state = "ninja_suit"
 	allowed = list(
-		/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing,
 		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -270,7 +269,7 @@
 	if(locate(/datum/action/item_action/advanced/ninja/ninjaboost) in actions)
 		. += "[a_boost.charge_counter ? "Integrated Adrenaline Injector is available to use.":"There is no adrenaline boost available. Try refilling the suit with uranium sheets."]\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninjaheal) in actions)
-		. += "[heal_chems.charge_counter ? "Integrated Restorative Cocktail Mixer is available to use.":"There is no healing chemicals available. Try refilling the suit with uranium sheets."]\n"
+		. += "[heal_chems.charge_counter ? "Integrated Restorative Cocktail Mixer is available to use. Charges: [heal_chems.charge_counter]/[heal_chems.charge_max]":"There is no healing chemicals available. Try refilling the suit with bluespace crystal sheets."]\n"
 	if(ninja_clonable)
 		. += "You have bought a Second chance for yourself. \n"
 

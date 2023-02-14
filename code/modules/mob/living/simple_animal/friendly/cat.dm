@@ -179,6 +179,11 @@
 			on_CD = handle_emote_CD()
 		if("purr")
 			on_CD = handle_emote_CD()
+		if("sit")
+			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
+			resting = TRUE
+			update_canmove()
 		else
 			on_CD = 0
 
@@ -197,7 +202,7 @@
 			message = "purrs."
 			m_type = 2
 		if("help")
-			to_chat(src, "scream, meow, hiss, purr")
+			to_chat(src, "scream, meow, hiss, purr, sit")
 
 	..()
 

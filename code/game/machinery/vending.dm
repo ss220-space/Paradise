@@ -944,7 +944,7 @@
 /obj/machinery/vending/snack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
-	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
+	slogan_list = list("Попробуйте наш новый батончик с нугой!","Вдвое больше калорий за полцены!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "snack"
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/chips =6,
@@ -962,7 +962,7 @@
 /obj/machinery/vending/chinese
 	name = "\improper Mr. Chang"
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
-	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
+	slogan_list = list("Попробуйте 5000 лет культуры!","Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!","Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!","Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга.!")
 	icon_state = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
@@ -977,7 +977,7 @@
 	name = "\improper Robust Softdrinks"
 	desc = "A soft drink vendor provided by Robust Industries, LLC."
 	icon_state = "Cola_Machine"
-	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
+	slogan_list = list("Роб+аст с+офтдринкс: крепче, чем тулбоксом по голове!")
 	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано больше миллиона бутылок!","Хотите пить? Почему бы не взять колы?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки во всём космосе")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
@@ -994,7 +994,7 @@
 /obj/machinery/vending/cart
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
-	slogan_list = list("Carts to go!")
+	slogan_list = list("Карточки в дорогу!")
 	icon_state = "cart"
 	icon_deny = "cart-deny"
 	products = list(/obj/item/pda =10,/obj/item/eftpos = 6,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
@@ -1788,7 +1788,6 @@
 		/obj/item/clothing/under/rank/security2 		= 5,
 		/obj/item/clothing/under/rank/dispatch 			= 5,
 
-		/obj/item/clothing/suit/storage/suragi_jacket/sec 	= 5,
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
@@ -1812,37 +1811,14 @@
 		/obj/item/storage/backpack/duffel/security 	= 5,
 
 		//For trainings
-		/obj/item/clothing/under/pants/blackjeans	= 10,
 		/obj/item/clothing/under/shorts/red			= 10,
 		/obj/item/clothing/under/shorts/black		= 5,
 		/obj/item/clothing/under/pants/red 			= 10,
-		/obj/item/clothing/under/pants/black 		= 5,
 		/obj/item/clothing/under/pants/track 		= 5,
 
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
-		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 		)
 
-	contraband = list(
-		/obj/item/clothing/under/pants/camo		= 5,	//Pants contraband...
-		/obj/item/clothing/suit/jacket 			= 2,
-		/obj/item/clothing/suit/jacket/leather	= 2,
-		/obj/item/clothing/suit/jacket/leather/overcoat	= 1,
-		/obj/item/clothing/suit/jacket/motojacket	= 1,
-		/obj/item/clothing/mask/gas/clown_hat 			= 5,
-		/obj/item/clothing/under/rank/security/clown 	= 5,	//Honktraband
-		/obj/item/clothing/shoes/clown_shoes 			= 5,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/security = 5,
-		/obj/item/radio/headset/headset_sec/alt	= 3,
-		/obj/item/clothing/mask/gas/sechailer	= 3,
-		/obj/item/clothing/glasses/hud/security = 3,
-		/obj/item/clothing/accessory/holster = 3,
-		/obj/item/clothing/gloves/combat = 1,
-		/obj/item/clothing/accessory/storage/black_vest = 1,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/security
 
@@ -1879,7 +1855,6 @@
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
-		/obj/item/clothing/suit/storage/suragi_jacket/medic = 5,
 
 		/obj/item/clothing/mask/surgical 		= 10,
 
@@ -1932,23 +1907,6 @@
 		/obj/item/clothing/under/rank/medical/mortician  	= 2,
 		)
 
-	contraband = list(
-		/obj/item/clothing/suit/jacket/miljacket/white 	= 1,
-		/obj/item/clothing/suit/jacket/miljacket/patch 	= 1,
-		/obj/item/clothing/shoes/cowboy/white			= 1,
-		/obj/item/clothing/accessory/cowboyshirt/white	= 1,
-		/obj/item/clothing/head/cowboyhat/white			= 1,
-		/obj/item/clothing/mask/bandana/skull 			= 1,
-		/obj/item/clothing/head/cone  = 10,		//WHAT HOW?!
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/medical = 5,
-		/obj/item/clothing/glasses/hud/health 	= 3,
-		/obj/item/storage/belt/medical 			= 3,
-		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 1,
-		/obj/item/clothing/suit/storage/suragi_jacket/medsec	= 1,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/medical
 
@@ -1995,23 +1953,10 @@
 
 		/obj/item/clothing/under/rank/atmospheric_technician = 3,
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
-		/obj/item/clothing/suit/storage/suragi_jacket/atmos = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 
-	contraband = list(
-		/obj/item/clothing/head/hardhat/white 	= 1,
-		/obj/item/clothing/head/beret/ce		= 1,
-		/obj/item/clothing/neck/mantle/chief_engineer = 1,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/engineering = 5,
-		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
-		/obj/item/clothing/glasses/meson = 3,
-		/obj/item/storage/belt/utility = 3,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/engineering
 
@@ -2060,16 +2005,6 @@
 		/obj/item/clothing/shoes/black 			= 10,
 		)
 
-	contraband = list(
-		/obj/item/relic = 1,
-		/obj/item/clothing/suit/storage/labcoat/mad = 3,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/science = 5,
-		/obj/item/clothing/glasses/hud/diagnostic = 3,
-		/obj/item/clothing/glasses/science = 3,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/science
 
@@ -2087,7 +2022,6 @@
 		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
 		/obj/item/clothing/under/overalls 				= 10,
 
-		/obj/item/clothing/suit/storage/suragi_jacket/cargo = 5,
 
 		/obj/item/clothing/mask/bandana/black 	= 10,
 		/obj/item/clothing/mask/bandana/orange 	= 10,
@@ -2115,22 +2049,6 @@
 		/obj/item/clothing/under/pants/track 	= 10,
 		)
 
-	contraband = list(
-		/obj/item/clothing/head/fedora/brownfedora 	= 5,
-		/obj/item/clothing/suit/browntrenchcoat  	= 5,
-		/obj/item/clothing/mask/bandana/skull  		= 5,
-		/obj/item/clothing/mask/bandana/gold  		= 2,
-		/obj/item/clothing/under/soviet 		= 10,
-		/obj/item/clothing/under/sovietofficer 	= 2,
-		/obj/item/clothing/under/sovietadmiral 	= 1,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/cargo = 5,
-		/obj/item/clothing/suit/hooded/wintercoat/miner = 5,
-		/obj/item/clothing/glasses/meson = 3,
-		/obj/item/clothing/accessory/storage/brown_vest = 1,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/cargo
 
@@ -2174,9 +2092,7 @@
 
 		/obj/item/radio/headset/headset_iaa  	= 10,
 
-		/obj/item/clothing/glasses/sunglasses/big = 5,
 
-		/obj/item/clothing/accessory/lawyers_badge = 10,
 		/obj/item/clothing/accessory/blue 		= 10,
 		/obj/item/clothing/accessory/red 		= 10,
 		/obj/item/clothing/accessory/black 		= 10,
@@ -2185,16 +2101,5 @@
 		/obj/item/storage/briefcase			= 5,
 		)
 
-	contraband = list(
-		/obj/item/clothing/under/schoolgirl = 5,
-		/obj/item/clothing/suit/judgerobe = 3,
-		/obj/item/clothing/under/rank/ntrep = 3,
-		/obj/item/clothing/accessory/horrible = 5,
-		/obj/item/clothing/accessory/necklace/dope = 1,
-		)
-
-	premium = list(
-		/obj/item/storage/secure/briefcase	= 2
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/law
