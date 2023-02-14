@@ -386,6 +386,8 @@
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"
 
+/obj/item/circuitboard/broken
+	name = "Broken curcuit"
 
 /obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/multitool))

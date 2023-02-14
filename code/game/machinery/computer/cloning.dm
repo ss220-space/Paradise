@@ -27,8 +27,6 @@
 
 /obj/machinery/computer/cloning/Initialize()
 	..()
-	if(circuit.emagged)
-		emagged = TRUE
 	pods = list()
 	records = list()
 	set_scan_temp("Scanner ready.", "good")
@@ -127,11 +125,17 @@
 	updatemodules()
 	ui_interact(user)
 
+/obj/machinery/computer/cloning/deconstruct(disassembled = TRUE, mob/user)
+	if (emagged)
+		circuit = /obj/item/circuitboard/broken
+	..()
+
+
 /obj/machinery/computer/cloning/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
-		emp_act(2)
+		emp_act(1)
 		SStgui.update_uis(src)
 	else
 		ui_interact(user)
