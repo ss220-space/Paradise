@@ -328,7 +328,7 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/pet/spacecat
+/mob/living/simple_animal/pet/cat/spacecat
 	name = "spacecat"
 	desc = "Space Kitty!!"
 	icon_state = "spacecat"

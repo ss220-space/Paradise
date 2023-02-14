@@ -212,16 +212,6 @@
 		/obj/item/storage/box/syndie_kit/chameleon,
 		)
 
-/datum/thief_kit/breakin
-	name = "Набор Агента"
-	desc = "Набор с инструментами и личными вещами неудачливого агента, любезно позаимствованнми у одной организации."
-	item_list = list(
-		/obj/item/card/id/syndicate,
-		/obj/item/storage/toolbox/syndicate,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-		/obj/item/toy/syndicateballoon,
-		)
-
 /datum/thief_kit/agent
 	name = "Набор Агента"
 	desc = "Набор с инструментами и личными вещами, любезно позаимствованный у неудачливого агента одной организации."
@@ -317,7 +307,6 @@
 		/obj/item/dnainjector/antitele,
 		/obj/item/dnainjector/remoteview,
 		/obj/item/dnainjector/antiremoteview,
-		/obj/item/dnainjector/runfast,
 		/obj/item/dnainjector/midgit,
 		/obj/item/dnainjector/antimidgit,
 		)
