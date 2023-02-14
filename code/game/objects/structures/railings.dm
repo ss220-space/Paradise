@@ -190,8 +190,10 @@
 /obj/structure/railing/wooden/proc/handle_layer()
 	if(dir == NORTH)
 		layer = BELOW_MOB_LAYER
-	else
+	else if(dir == SOUTH)
 		layer = ABOVE_MOB_LAYER
+	else
+		layer = HIGH_OBJ_LAYER
 
 /obj/structure/railing/wooden/AltClick(mob/user)
 	if(!Adjacent(user))
@@ -201,10 +203,6 @@
 		return
 	setDir(turn(dir, 90))
 	after_rotation(user)
-	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
-	else
-		layer = ABOVE_MOB_LAYER
 
 /obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
 	. = TRUE

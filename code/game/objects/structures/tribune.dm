@@ -51,7 +51,6 @@
 	handle_layer()
 
 /obj/structure/tribune/proc/handle_layer()
-	..()
 	if(dir == NORTH)
 		layer = BELOW_MOB_LAYER
 	else
@@ -65,10 +64,6 @@
 		return
 	setDir(turn(dir, 90))
 	after_rotation(user)
-	if(dir == SOUTH)
-		layer = ABOVE_MOB_LAYER
-	else
-		layer = BELOW_MOB_LAYER
 
 /obj/structure/tribune/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
