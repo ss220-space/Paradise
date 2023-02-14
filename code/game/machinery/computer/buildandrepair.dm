@@ -551,6 +551,8 @@
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				var/B = new circuit.build_path (loc)
+				if(!B)
+					to_chat(user, "<span class='notice'>The circuit is not working, so you cant build this computer.</span>")
 				if(circuit.powernet) B:powernet = circuit.powernet
 				if(circuit.id) B:id = circuit.id
 				if(circuit.records) B:records = circuit.records
