@@ -46,7 +46,6 @@
 	var/powernet = null
 	var/list/records = null
 	var/contain_parts = 1
-	var/emagged = FALSE
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
