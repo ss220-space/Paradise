@@ -139,7 +139,7 @@
 		/mob/living/simple_animal/pet/cat/cak = 2,
 		/mob/living/simple_animal/pet/cat/white = 2,
 		/mob/living/simple_animal/pet/cat/birman = 2,
-		/mob/living/simple_animal/pet/spacecat = 2,
+		/mob/living/simple_animal/pet/cat/spacecat = 2,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
 		/mob/living/simple_animal/pet/dog/fox/forest = 2,
 		/mob/living/simple_animal/pet/dog/fox/fennec = 2,
