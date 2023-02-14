@@ -282,7 +282,7 @@
 		/obj/item/clothing/mask/balaclava,
 		/obj/item/clothing/accessory/stethoscope,
 		/obj/item/book/manual/engineering_hacking,
-		/obj/item/storage/lockbox/t4,
+		/obj/item/storage/box/syndie_kit/t4,
 		)
 
 /datum/thief_kit/sleepy
