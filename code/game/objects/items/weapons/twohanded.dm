@@ -122,16 +122,6 @@
 		unwield(M)
 		return
 
-/obj/item/twohanded/attack_hand(mob/user, pickupfireoverride)
-	if(istype(user, /mob/living/simple_animal/pet/slugcat))
-		var/mob/living/simple_animal/pet/slugcat/slugcat = user
-		slugcat.move_item_to_hand(src)
-		user.visible_message("<span class='notice'>[user.name] хватает [src.name] в лапы.</span>",
-		"<span class='notice'>Вы берете [src.name] в лапы.</span>")
-	else
-		. = ..()
-
-
 ///////////OFFHAND///////////////
 /obj/item/twohanded/offhand
 	w_class = WEIGHT_CLASS_HUGE
@@ -436,7 +426,6 @@
 	update_icon()
 	qdel(tip)
 	..()
-
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)

@@ -83841,6 +83841,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"dVH" = (
+/obj/effect/turf_decal/siding/white,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/maintenance/banya)
 "dWV" = (
 /obj/item/ammo_casing/c9mm{
 	dir = 6;
@@ -84341,6 +84349,7 @@
 "eAt" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "eAX" = (
@@ -84877,6 +84886,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -85034,6 +85044,7 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89915,6 +89926,11 @@
 	icon_state = "white"
 	},
 /area/maintenance/library)
+"kTM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/genetics)
 "kUu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90149,6 +90165,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
 "lgB" = (
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredaltstrip"
@@ -96621,6 +96638,7 @@
 "stq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "sue" = (
@@ -97582,6 +97600,7 @@
 "tAj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -143177,7 +143196,7 @@ ccQ
 caW
 bWg
 ceo
-cga
+kTM
 chF
 ciY
 ckJ
@@ -151846,7 +151865,7 @@ jWN
 vZO
 nqc
 kxO
-aKJ
+dVH
 nqc
 dof
 qqn
