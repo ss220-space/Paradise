@@ -14,6 +14,7 @@
 #define VERM_SPIDERS 	2
 #define VERM_RATS 	 	3
 #define VERM_SNAIL 	 	4
+#define VERM_FROG 	 	5
 
 /datum/event/infestation
 	announceWhen = 10
@@ -68,7 +69,7 @@
 
 	var/list/spawn_types = list()
 	var/max_number
-	vermin = rand(0,4)
+	vermin = rand(0,5)
 	switch(vermin)
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
@@ -102,6 +103,15 @@
 			spawn_types = list(/mob/living/simple_animal/snail)
 			max_number = 6
 			vermstring = "улиток"
+		if(VERM_FROG)
+			max_number = 6
+			if(prob(85))
+				spawn_types = list(/mob/living/simple_animal/frog)
+				vermstring = "лягушек"
+			else
+				spawn_types = list(/mob/living/simple_animal/frog/toxic)
+				vermstring = "токсичных лягушек"
+
 
 
 
@@ -137,3 +147,4 @@
 #undef VERM_SPIDERS
 #undef VERM_RATS
 #undef VERM_SNAIL
+#undef VERM_FROG
