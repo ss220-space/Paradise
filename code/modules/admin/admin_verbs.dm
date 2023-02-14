@@ -815,12 +815,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			goblin.GiveTarget(M)
 			logmsg = "shitcurity goblin"
 		if("High RP")
-			var/obj/item/organ/internal/lungs/cursed/L = H.get_int_organ(/obj/item/organ/internal/lungs/cursed)
-			if(!L)
-				var/obj/item/organ/internal/lungs/cursed/O = new
-				O.insert(H)
+			var/obj/item/organ/internal/brain/high_rp/hrp_brain = H.get_int_organ(/obj/item/organ/internal/brain/high_rp)
+			if(!hrp_brain)
+				H.curse_high_rp()
+				H.mind.curses += "high_rp"
+				logmsg = "high rp"
 			else
-				L.remove(H)
+				var/obj/item/organ/internal/brain/newbrain = hrp_brain.old_brain
+				newbrain.insert(H)
+				H.mind.curses -= "high_rp"
+				logmsg = "high rp cure"
+
 	if(logmsg)
 		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")
 

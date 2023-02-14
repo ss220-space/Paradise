@@ -137,3 +137,4 @@
 	if(ishuman(target) && make_cluwne)
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
+
