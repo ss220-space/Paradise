@@ -8337,6 +8337,7 @@
 /obj/machinery/camera{
 	c_tag = "Kitchen South"
 	},
+/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -57546,6 +57547,7 @@
 "gDy" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/kitchenspike,
+/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "gDz" = (
@@ -80258,6 +80260,10 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/mixing)
+"lNL" = (
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/engrooms)
 "lNM" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
@@ -117011,8 +117017,6 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
 /obj/item/soap,
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
-/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "tGl" = (
@@ -169947,7 +169951,7 @@ bsb
 aTA
 ceP
 cnf
-aHu
+lNL
 cNg
 cAy
 ceP
