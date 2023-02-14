@@ -175,10 +175,21 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
-/obj/structure/railing/wooden/New()
-	. =..()
+/obj/structure/railing/wooden/Initialize(mapload) //Only for mappers
+	..()
+	handle_layer()
+
+/obj/structure/railing/wooden/setDir(newdir)
+	..()
+	handle_layer()
+
+/obj/structure/railing/wooden/Move(newloc, direct, movetime)
+	..()
+	handle_layer()
+
+/obj/structure/railing/wooden/proc/handle_layer()
 	if(dir == NORTH)
-		layer = OBJ_LAYER
+		layer = BELOW_MOB_LAYER
 	else
 		layer = ABOVE_MOB_LAYER
 
@@ -216,42 +227,14 @@
 	icon_state = "right_corner_railing_wood"
 	anchored = FALSE
 
-/obj/structure/railing/wooden/cornerr/New()
-	. =..()
-	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
-	else
-		layer = ABOVE_MOB_LAYER
-
 /obj/structure/railing/wooden/cornerl
 	icon_state = "left_corner_railing_wood"
 	anchored = FALSE
-
-/obj/structure/railing/wooden/cornerl/New()
-	. =..()
-	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
-	else
-		layer = ABOVE_MOB_LAYER
 
 /obj/structure/railing/wooden/endr
 	icon_state = "right_end_railing_wood"
 	anchored = FALSE
 
-/obj/structure/railing/wooden/endr/New()
-	. =..()
-	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
-	else
-		layer = ABOVE_MOB_LAYER
-
 /obj/structure/railing/wooden/endl
 	icon_state = "left_end_railing_wood"
 	anchored = FALSE
-
-/obj/structure/railing/wooden/endl/New()
-	. =..()
-	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
-	else
-		layer = ABOVE_MOB_LAYER

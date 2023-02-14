@@ -38,10 +38,22 @@
 /obj/structure/tribune/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
-/obj/structure/tribune/New()
-	. =..()
+/obj/structure/tribune/Initialize(mapload) //Only for mappers
+	..()
+	handle_layer()
+
+/obj/structure/tribune/setDir(newdir)
+	..()
+	handle_layer()
+
+/obj/structure/tribune/Move(newloc, direct, movetime)
+	..()
+	handle_layer()
+
+/obj/structure/tribune/proc/handle_layer()
+	..()
 	if(dir == NORTH)
-		layer = OBJ_LAYER
+		layer = BELOW_MOB_LAYER
 	else
 		layer = ABOVE_MOB_LAYER
 
