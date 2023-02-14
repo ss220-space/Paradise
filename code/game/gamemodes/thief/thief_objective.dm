@@ -78,7 +78,6 @@
 /datum/objective/steal_pet
 	explanation_text = "Украсть живого питомца "
 	var/mob/living/wanted_type
-	var/obj/item/holder/wanted_holder_type
 	var/range_distance = 2
 
 	var/list/possible_targets_list = list(
@@ -144,17 +143,12 @@
 		if(istype(temp_target, target_type))
 			if(temp_target.stat != DEAD)
 				wanted_type = target_type
-				if(temp_target.holder_type)
-					wanted_holder_type = temp_target.holder_type
 				explanation_text += temp_target.name
 				return TRUE
 	return FALSE
 
 /datum/objective/steal_pet/proc/get_pet_anyway(var/mob/living/target_type)
 	wanted_type = target_type
-	var/holder_type = initial(wanted_type.holder_type)
-	if(holder_type)
-		wanted_holder_type = holder_type
 	explanation_text += initial(wanted_type.name)
 	return TRUE
 
@@ -168,63 +162,33 @@
 	return check_in_contents_range(wanted_type, range_distance)
 
 /datum/objective/proc/check_in_contents_range(var/wanted_type, var/range_distance = 1)
-	if(additional_conditions())
-		return TRUE
-
 	for(var/find_object in range(range_distance, owner.current.loc))
 		if(find_check(find_object, wanted_type))
 			return TRUE
 
-		if(istype(find_object, /obj/structure/closet))
-			var/obj/structure/closet/closet = find_object
-			var/list/closet_contents = closet.GetAllContents()
-			for(var/temp_object in closet_contents)
-				if(find_check(temp_object, wanted_type))
-					return TRUE
-				if(additional_conditions())
-					return TRUE
 	return FALSE
-
-/datum/objective/proc/additional_conditions()
-	return TRUE
 
 /datum/objective/proc/find_check(var/find_object, var/wanted_type)
 	return TRUE
 
-/datum/objective/steal_pet/find_check(var/find_object, var/wanted_type)
+/datum/objective/steal_pet/find_check(var/obj/find_object, var/wanted_type)
 	if(!find_object || !wanted_type)
 		return FALSE
 
 	if(istype(find_object, wanted_type))
-		var/mob/M = find_object
-		check_stat(M)
+		if(check_stat(find_object))
+			return TRUE
 
-	//переноска
-	if(istype(find_object, /obj/item/pet_carrier))
-		var/obj/item/pet_carrier/C = find_object
-		if(!C.contains_pet)
-			return FALSE
-		for(var/mob/M in C.contents)
-			check_stat(M)
-	return FALSE
-
-/datum/objective/steal_pet/additional_conditions()
-	var/list/all_items = owner.current.GetAllContents()
+	var/list/all_items = find_object.GetAllContents()
 	for(var/I in all_items)
-		//из переноски
-		if(ismob(I))
-			var/mob/M = I
-			check_stat(M)
-
-		//животное-предмет "холдер"
-		if(wanted_holder_type)
-			if(!istype(I, wanted_holder_type))
-				var/obj/item/holder/H = I
-				for(var/mob/M in H.contents)
-					check_stat(M)
+		if(check_stat(I))
+			return TRUE
 	return FALSE
 
-/datum/objective/steal_pet/proc/check_stat(var/mob/M)
+/datum/objective/steal_pet/proc/check_stat(var/target)
+	if(!ismob(target))
+		return FALSE
+	var/mob/M = target
 	if(!istype(M, wanted_type))
 		return FALSE
 	if(M.stat != DEAD)

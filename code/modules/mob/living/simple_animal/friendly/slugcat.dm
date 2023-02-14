@@ -47,7 +47,7 @@
 
 
 /mob/living/simple_animal/pet/slugcat/attackby(obj/item/W, mob/user, params)
-	if (stat != DEAD)
+	if(stat != DEAD)
 		if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 			place_on_head(user.get_active_hand(), user)
 			return
@@ -56,11 +56,6 @@
 			return
 
 	. = ..()
-
-///mob/living/simple_animal/pet/slugcat/atta
-//Должен сам брать копье
-
-/mob/living/simple_animal/pet/slugcat/
 
 /mob/living/simple_animal/pet/slugcat/death(gibbed)
 	drop_hat()
@@ -123,17 +118,17 @@
 		add_overlay(head_icon)
 
 /mob/living/simple_animal/pet/slugcat/StartResting(updating = 1)
-	. = ..()
 	if(inventory_head || inventory_hand)
 		hat_offset_y = hat_offset_y_rest
-		regenerate_icons()
 		drop_hand()
+		regenerate_icons()
+	. = ..()
 
 /mob/living/simple_animal/pet/slugcat/StopResting(updating = 1)
-	. = ..()
-	if(inventory_head || inventory_hand)
+	if(inventory_head)
 		hat_offset_y = initial(hat_offset_y)
 		regenerate_icons()
+	. = ..()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
 	icon_state = "slugcat_spear"
@@ -158,14 +153,13 @@
 	armour_penetration = initial(armour_penetration)
 	obj_damage = initial(obj_damage)
 
-
 /mob/living/simple_animal/pet/slugcat/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
 		var/image/slugI = image(hat_icon_file, hat_icon_state)
 		slugI.alpha = hat_alpha
 		slugI.color = hat_color
 		slugI.pixel_y = hat_offset_y
-		slugI.transform = matrix(1, 0, 1, 0, 1, 0)
+		//slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
 
 /mob/living/simple_animal/pet/slugcat/show_inv(mob/user)

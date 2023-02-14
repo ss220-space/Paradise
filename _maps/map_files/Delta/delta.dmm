@@ -76216,6 +76216,7 @@
 /obj/structure/sign/poster/contraband/borg_fancy_2{
 	pixel_y = -32
 	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -84387,6 +84388,10 @@
 "mHd" = (
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
+"mHe" = (
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/wood,
+/area/maintenance/tourist)
 "mHl" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -88185,6 +88190,10 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"nwe" = (
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "nwf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -106034,6 +106043,7 @@
 	name = "east bump";
 	pixel_x = 26
 	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "rjT" = (
@@ -112402,6 +112412,7 @@
 	},
 /area/security/execution)
 "sDo" = (
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -132201,6 +132212,12 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"wUU" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit/maint)
 "wUX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -154346,7 +154363,7 @@ pxR
 txl
 nTk
 deX
-ete
+mHe
 goA
 hsp
 abj
@@ -182889,7 +182906,7 @@ xpU
 eRm
 wDC
 sUa
-vLr
+nwe
 uCn
 nHq
 vLr
@@ -183432,7 +183449,7 @@ wOp
 wOp
 wOp
 pOi
-eNs
+wUU
 eNs
 pOi
 aaq
