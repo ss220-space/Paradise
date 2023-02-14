@@ -137,6 +137,8 @@
 /mob/living/simple_animal/hostile/poison/bees/Found(atom/A)
 	if(isliving(A))
 		var/mob/living/H = A
+		if(istype(A, /mob/living/carbon/human/wryn))
+			return H.bee_friendly()
 		return !H.bee_friendly()
 	if(istype(A, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = A
