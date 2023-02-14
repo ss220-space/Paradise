@@ -68,6 +68,8 @@
 		ui_interact(user)
 
 /obj/machinery/computer/teleporter/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
@@ -602,8 +604,10 @@
 		to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
 
 
-/obj/machinery/teleport/station/attack_ai()
-	attack_hand()
+/obj/machinery/teleport/station/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_COMPUTER_ACTION_HEAT))
+		return
+	attack_hand(user)
 
 /obj/machinery/teleport/station/attack_hand(mob/user)
 	if(!panel_open)

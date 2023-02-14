@@ -48,8 +48,10 @@
 	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_medium /*+ GLOB.potential_theft_objectives_collect*/)
 		theft_cache += new T
 
-/obj/machinery/computer/cryopod/attack_ai()
-	attack_hand()
+/obj/machinery/computer/cryopod/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
+	attack_hand(user)
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(stat & (NOPOWER|BROKEN))

@@ -232,7 +232,6 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
-	pull_push_speed_modifier = 1
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
@@ -459,7 +458,7 @@
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Weaken(3)
+		T.Weaken(5)
 		return
 	..()
 

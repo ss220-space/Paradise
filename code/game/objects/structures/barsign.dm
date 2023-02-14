@@ -51,6 +51,8 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/sign/barsign/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return src.attack_hand(user)
 
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)
@@ -381,6 +383,11 @@
 	name = "SS220 Shitcur"
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
+
+/datum/barsign/pourndot
+	name = "SS220 Pour and that's it"
+	icon = "pourndot"
+	desc = "Pour and that's it. Hard time has come."
 
 /datum/barsign/hiddensigns
 	hidden = 1

@@ -170,6 +170,8 @@
 		to_chat(user, "<span class='warning'>The security of the cabinet is compromised.</span>")
 		return
 	else
+		if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+			return
 		locked = !locked
 		if(locked)
 			to_chat(user, "<span class='warning'>Cabinet locked.</span>")

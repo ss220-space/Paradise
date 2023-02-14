@@ -176,8 +176,8 @@
 	spawn(20)
 		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(2)
-			Weaken(2)
+			Stun(3)
+			Weaken(3)
 	if(shock_damage > 200)
 		src.visible_message(
 			"<span class='danger'>[src.name] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой [source]!</span>",
@@ -242,7 +242,6 @@
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
-				adjustStaminaLoss(-10)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -1051,7 +1050,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
-	Stun(stun)
 	Weaken(weaken)
 	return TRUE
 

@@ -138,6 +138,8 @@
 		icon_state = "tvalvenopower"
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_ai(mob/user)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_hand(mob/user)

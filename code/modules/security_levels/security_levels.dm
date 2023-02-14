@@ -136,6 +136,10 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+		update_ids()
+
+		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
+			AI.update_reserve_heat_display()
 
 		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
 			var/limit = SIBYL_NONLETHAL
@@ -157,6 +161,12 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				mod.set_limit(limit)
 	else
 		return
+
+/proc/update_ids()
+	var/proc_to_call = (GLOB.security_level > SEC_LEVEL_BLUE) ? /obj/item/card/id/proc/on_red_alert : /obj/item/card/id/proc/after_red_alert
+
+	for(var/obj/item/card/id/card as anything in GLOB.id_cards)
+		call(card, proc_to_call)()
 
 /proc/get_security_level()
 	switch(GLOB.security_level)

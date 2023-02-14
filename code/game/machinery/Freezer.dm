@@ -100,6 +100,8 @@
 	return
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	attack_hand(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ghost(mob/user as mob)
@@ -268,6 +270,8 @@
 	return
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
+	if(isAI(user) && !user:add_heat(AI_NORMAL_ACTION_HEAT))
+		return
 	attack_hand(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ghost(mob/user as mob)
