@@ -586,59 +586,59 @@
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
 	switch(SSticker.mode.config_tag)
-	if("traitorchan")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
-		sections -= "traitor"
-		sections -= "changeling"
-	// Elif technically unnecessary but it makes the following else look better
-	else if("traitorvamp")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
-		sections -= "traitor"
-		sections -= "vampire"
-	else if("thiefchan")
-		if(sections["thief"])
-			out += sections["thief"] + "<br>"
-		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
-		sections -= "thief"
-		sections -= "changeling"
-	else if("vampirethief")
-		if(sections["thief"])
-			out += sections["thief"] + "<br>"
-		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
-		sections -= "thief"
-		sections -= "vampire"
-	else if("traitorthiefchan")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["thief"])
-			out += sections["thief"] + "<br>"
-		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
-		sections -= "traitor"
-		sections -= "thief"
-		sections -= "changeling"
-	else if("traitorthiefvampire")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["thief"])
-			out += sections["thief"] + "<br>"
-		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
-		sections -= "traitor"
-		sections -= "thief"
-		sections -= "vampire"
-	else
-		if(sections[SSticker.mode.config_tag])
-			out += sections[SSticker.mode.config_tag] + "<br>"
-		sections -= SSticker.mode.config_tag
+		if("traitorchan")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "traitor"
+			sections -= "changeling"
+		// Elif technically unnecessary but it makes the following else look better
+		if("traitorvamp")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "traitor"
+			sections -= "vampire"
+		if("thiefchan")
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "thief"
+			sections -= "changeling"
+		if("vampirethief")
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "thief"
+			sections -= "vampire"
+		if("traitorthiefchan")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "traitor"
+			sections -= "thief"
+			sections -= "changeling"
+		if("traitorthiefvampire")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "traitor"
+			sections -= "thief"
+			sections -= "vampire"
+		else
+			if(sections[SSticker.mode.config_tag])
+				out += sections[SSticker.mode.config_tag] + "<br>"
+			sections -= SSticker.mode.config_tag
 
 	for(var/i in sections)
 		if(sections[i])
