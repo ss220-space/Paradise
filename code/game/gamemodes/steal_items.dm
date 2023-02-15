@@ -352,7 +352,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	var/collect_amount = 0
 	var/list/all_items = owner.current.get_all_contents()
 	for(var/obj/item/item in all_items)
-		//collect_amount += get_collect_amount(item)
 		var/is_found = FALSE
 		for(var/wanted_type in wanted_items)
 			if(istype(item, wanted_type))
