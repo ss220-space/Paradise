@@ -121,10 +121,10 @@
 
 	to_chat(L, "<span class='warning'>Вы начали вылезать из переноски (это займет [breakout_time_open] секунд, не двигайтесь)</span>")
 
-	if(opened && L.loc == usr)
+	if(opened && L.loc == src)
 		spawn(0)
 			if(do_after(L,(breakout_time_open*dcsec), target = src))
-				if(!src || !L || L.stat != CONSCIOUS || L.loc != usr || !opened)
+				if(!src || !L || L.stat != CONSCIOUS || L.loc != src || !opened)
 					to_chat(L, "<span class='warning'>Побег прерван!</span>")
 					return
 
