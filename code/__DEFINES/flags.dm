@@ -17,7 +17,7 @@
 
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
 
-#define NOPICKUP				2048		// This flags makes it so an item cannot be picked in hands
+#define NOPICKUP				2048	// This flags makes it so an item cannot be picked in hands
 
 #define HEADBANGPROTECT			4096
 
