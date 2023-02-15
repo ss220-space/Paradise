@@ -26,10 +26,22 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("slime", "neutral")
-
+	reagents = new()
 
 /mob/living/simple_animal/snail/Process_Spacemove(var/movement_dir = 0)
 	return 1
+
+/mob/living/simple_animal/snail/Move(atom/newloc, direct, movetime)
+	var/oldLoc = src.loc
+	. = ..()
+	if(.)
+		make_lube(oldLoc)
+
+/mob/living/simple_animal/snail/proc/make_lube(atom/oldLoc)
+	if(oldLoc != src.loc)
+		reagents.add_reagent("lube",10)
+		reagents.reaction(oldLoc, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+		reagents.remove_any(10)
 
 /mob/living/simple_animal/turtle
 	name = "yeeslow"

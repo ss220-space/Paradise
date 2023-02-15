@@ -6,13 +6,15 @@
 	max_integrity = 100
 	w_class = WEIGHT_CLASS_SMALL
 	var/mob_size = MOB_SIZE_TINY
+
 	var/list/possible_skins = list("black", "blue", "red", "yellow", "green", "purple")
 	var/color_skin
 
 	var/opened = TRUE
 	var/contains_pet = FALSE
-	var/contains_pet_color_open = "#b6b6b6ff"
-	var/contains_pet_color_close = "#5f5f5fff"
+	var/contains_pet_color_open = "#d8d8d8ff"
+	var/contains_pet_color_close = "#949494ff"
+
 /obj/item/pet_carrier/normal
 	name = "Средняя переноска"
 	desc = "Переноска для небольших животных. "
@@ -113,13 +115,16 @@
 		M.ex_act(intensity)
 
 /obj/item/pet_carrier/container_resist(var/mob/living/L)
-	var/breakout_time = 120 //2 minutes
+	var/breakout_time = 60 //1 minute
 	var/breakout_time_open = 5 //seconds for escape
-	if(opened && L.loc == src)
+	var/dcsec = 10 //seconds * 10deciseconds
+
+	to_chat(L, "<span class='warning'>Вы начали вылезать из переноски (это займет [breakout_time_open] секунд, не двигайтесь)</span>")
+
+	if(opened && L.loc == usr)
 		spawn(0)
-			to_chat(L, "<span class='warning'>Вы начали вылезать из переноски (это займет [breakout_time_open] секунд, не двигайтесь)</span>")
-			if(do_after(L,(breakout_time_open*10), target = src)) //seconds * 10deciseconds
-				if(!src || !L || L.stat != CONSCIOUS || L.loc != src || !opened)
+			if(do_after(L,(breakout_time_open*dcsec), target = src))
+				if(!src || !L || L.stat != CONSCIOUS || L.loc != usr || !opened)
 					to_chat(L, "<span class='warning'>Побег прерван!</span>")
 					return
 
@@ -132,7 +137,7 @@
 		O.show_message("<span class='danger'>[src.name] начинает трястись!</span>", 1)
 
 	spawn(0)
-		if(do_after(L,(breakout_time*10), target = src)) //seconds * 10deciseconds
+		if(do_after(L,(breakout_time*dcsec), target = src))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				to_chat(L, "<span class='warning'>Побег прерван!</span>")
 				return

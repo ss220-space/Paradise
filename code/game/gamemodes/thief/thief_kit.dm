@@ -260,7 +260,7 @@
 	desc = "Набор с нелетальными газами для особых случаев."
 	item_list = list(
 		/obj/item/clothing/mask/gas/explorer,
-		/obj/item/storage/belt/grenade/full/nonlethal,
+		/obj/item/storage/belt/grenade/nonlethal,
 		)
 
 /datum/thief_kit/safe_breaker

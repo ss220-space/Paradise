@@ -401,13 +401,25 @@
 	new /obj/item/grenade/syndieminibomb(src)
 
 
-/obj/item/storage/belt/grenade/full/nonlethal/New()
+/obj/item/storage/belt/grenade/nonlethal/New()
 	..()
-	new /obj/item/grenade/smokebomb(src) //6
+	new /obj/item/grenade/smokebomb(src) //14
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/grenade/smokebomb(src)
 	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)	//4
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)	//6
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
 	new /obj/item/grenade/chem_grenade/teargas(src)
 	new /obj/item/grenade/chem_grenade/teargas(src)
 	new /obj/item/grenade/chem_grenade/teargas(src)
