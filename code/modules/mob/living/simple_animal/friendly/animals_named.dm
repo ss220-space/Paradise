@@ -71,20 +71,6 @@
 /mob/living/simple_animal/pet/cat/Iriska/handle_automated_action()
 	return
 
-/mob/living/simple_animal/pet/cat/white/Penny
-	name = "Копейка"
-	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
-	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
-	resting = TRUE
-
-/mob/living/simple_animal/pet/cat/birman/Crusher
-	name = "Бедокур"	//Не цель для воров
-	desc = "Любит крушить всё что не прикручено. Нужно вовремя прибираться."
-	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
-	resting = TRUE
-
 /mob/living/simple_animal/mouse/hamster/Representative
 	name = "Представитель Алексей"
 	desc = "Представитель федерации хомяков. Проявите уважение при его виде, ведь он с позитивным исходом решил немало дипломатических вопросов между федерацией мышей, республикой крыс и корпорацией Нанотрейзен. Да и кто вообще хомяка так назвал?!"
@@ -106,7 +92,6 @@
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 5
 	health = 5
-	resting = TRUE
 
 /mob/living/simple_animal/mouse/rat/white/Brain
 	name = "Брейн"
@@ -149,7 +134,7 @@
 	resting = TRUE
 
 /mob/living/simple_animal/pet/dog/brittany/Psycho
-	name = "\improper Перро"
-	real_name = "Перро"
-	desc = "Собака, обожающая котов, особенно в сапогах, прекрасно лающая на Испанском, прошла терапевтические курсы, готова выслушать все ваши проблемы и выдать вам целебных объятий с завершением в виде почесыванием животика."
+	name = "\improper Психо"
+	real_name = "Психо"
+	desc = "Собака готовая выслушать все ваши проблемы и выдать вам целебных объятий и обнюхиваний."
 	resting = TRUE

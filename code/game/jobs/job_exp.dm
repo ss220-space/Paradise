@@ -11,7 +11,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
 	// SOLO ANTAGS
+
 	ROLE_TRAITOR = 3,
+  ROLE_THIEF = 3,
 	ROLE_CHANGELING = 3,
 	ROLE_WIZARD = 3,
 	ROLE_VAMPIRE = 3,
