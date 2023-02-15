@@ -95,6 +95,7 @@
 		/mob/living/simple_animal/pet/cat/floppa,
 		/mob/living/simple_animal/pet/cat/Runtime,
 		/mob/living/simple_animal/pet/cat/Iriska,
+		/mob/living/simple_animal/pet/cat/white/Penny,
 		/mob/living/simple_animal/pet/sloth/paperwork,
 		/mob/living/simple_animal/pet/slugcat,
 		/mob/living/simple_animal/crab/royal/Coffee,

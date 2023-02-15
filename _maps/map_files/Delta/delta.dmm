@@ -7902,6 +7902,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"baM" = (
+/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/dogbed/pet,
+/turf/simulated/wall/r_wall,
+/area/toxins/misc_lab)
 "baS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -107115,10 +107121,7 @@
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/item/clothing/head/helmet/skull{
-	desc = "Бедный Йорик...";
-	name = "Йорик"
-	},
+/obj/item/clothing/head/helmet/skull/Yorick,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
 "rwW" = (
@@ -166952,7 +166955,7 @@ svD
 svD
 cRU
 mxZ
-oOZ
+baM
 uHA
 iQu
 oOo

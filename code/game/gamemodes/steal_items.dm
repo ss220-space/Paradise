@@ -230,7 +230,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 
 
 
-
 //==========================
 //=======Medium Thief=======
 //==========================
@@ -287,6 +286,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 /datum/theft_objective/medium/tcommskey
 	typepath = /obj/item/paper/tcommskey
 	name = "подлинную бумагу с паролем от телекомов"
+
+/datum/theft_objective/medium/tcommskey
+	typepath = /obj/item/clothing/head/helmet/skull/Yorick
+	name = "череп Йорика"
 
 
 

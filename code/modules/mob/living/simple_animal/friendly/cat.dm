@@ -311,12 +311,6 @@
 	gender = FEMALE
 	holder_type = /obj/item/holder/cak
 
-/mob/living/simple_animal/pet/cat/white/Penny
-	name = "Penny"
-	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
-	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
-
 /mob/living/simple_animal/pet/cat/birman
 	name = "birman"
 	desc = "Священная порода Бирма"
@@ -326,12 +320,6 @@
 	icon_resting = "crusher_rest"
 	gender = FEMALE
 	holder_type = /obj/item/holder/cak
-
-/mob/living/simple_animal/pet/cat/birman/Crusher
-	name = "Crusher"
-	desc = "Любит крушить всё что не прикручено. Нужно вовремя прибираться."
-	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/cat/spacecat
 	name = "spacecat"
