@@ -402,7 +402,7 @@
 		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_traitor()
-	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
+	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		if(!length(objectives))
@@ -470,7 +470,7 @@
 		. += "mindslave|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_thief()
-	. = _memory_edit_header("thief")
+	. = _memory_edit_header("thief", list("traitorthief"))
 	if(src in SSticker.mode.thieves)
 		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
 		. += ""
@@ -536,10 +536,11 @@
 		"clockwork",
 		"wizard",
 		"changeling",
-		"vampire", // "traitorvamp",
+		"vampire", 	// "traitorvamp",
 		"nuclear",
-		"traitor", // "traitorchan",
+		"traitor", 	// "traitorchan",
 		"ninja",
+		"thief",	//	"traitorthief"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -589,6 +590,8 @@
 			out += sections["traitor"] + "<br>"
 		if(sections["changeling"])
 			out += sections["changeling"] + "<br>"
+		if(sections["thief"])
+			out += sections["thief"] + "<br>"
 		sections -= "traitor"
 		sections -= "changeling"
 	// Elif technically unnecessary but it makes the following else look better
