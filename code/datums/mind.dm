@@ -299,7 +299,7 @@
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
-	. = _memory_edit_header("changeling", list("traitorchan"))
+	. = _memory_edit_header("changeling", list("traitorchan", "thiefchan", "traitorthiefchan"))
 	if(src in SSticker.mode.changelings)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
 		if(!length(objectives))
@@ -312,7 +312,7 @@
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
-	. = _memory_edit_header("vampire", list("traitorvamp"))
+	. = _memory_edit_header("vampire", list("traitorvamp", "vampirethief", "traitorthiefvampire"))
 	if(src in SSticker.mode.vampires)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		if(!length(objectives))
@@ -470,7 +470,7 @@
 		. += "mindslave|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_thief()
-	. = _memory_edit_header("thief", list("traitorthief"))
+	. = _memory_edit_header("thief", list("traitorthief", "thiefchan", "vampirethief", "traitorthiefvampire", "traitorthiefchan"))
 	if(src in SSticker.mode.thieves)
 		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
 		. += ""
@@ -535,12 +535,12 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling",
-		"vampire", 	// "traitorvamp",
+		"changeling", // "traitorchan", "thiefchan",
+		"vampire", 	// "traitorvamp", "vampirethief",
 		"nuclear",
-		"traitor", 	// "traitorchan",
+		"traitor",
 		"ninja",
-		"thief",	//	"traitorthief"
+		"thief",	//	"traitorthief", "traitorthiefvampire", "traitorthiefchan",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -585,22 +585,55 @@
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
-	if(SSticker.mode.config_tag == "traitorchan")
+	switch(SSticker.mode.config_tag)
+	if("traitorchan")
 		if(sections["traitor"])
 			out += sections["traitor"] + "<br>"
 		if(sections["changeling"])
 			out += sections["changeling"] + "<br>"
-		if(sections["thief"])
-			out += sections["thief"] + "<br>"
 		sections -= "traitor"
 		sections -= "changeling"
 	// Elif technically unnecessary but it makes the following else look better
-	else if(SSticker.mode.config_tag == "traitorvamp")
+	else if("traitorvamp")
 		if(sections["traitor"])
 			out += sections["traitor"] + "<br>"
 		if(sections["vampire"])
 			out += sections["vampire"] + "<br>"
 		sections -= "traitor"
+		sections -= "vampire"
+	else if("thiefchan")
+		if(sections["thief"])
+			out += sections["thief"] + "<br>"
+		if(sections["changeling"])
+			out += sections["changeling"] + "<br>"
+		sections -= "thief"
+		sections -= "changeling"
+	else if("vampirethief")
+		if(sections["thief"])
+			out += sections["thief"] + "<br>"
+		if(sections["vampire"])
+			out += sections["vampire"] + "<br>"
+		sections -= "thief"
+		sections -= "vampire"
+	else if("traitorthiefchan")
+		if(sections["traitor"])
+			out += sections["traitor"] + "<br>"
+		if(sections["thief"])
+			out += sections["thief"] + "<br>"
+		if(sections["changeling"])
+			out += sections["changeling"] + "<br>"
+		sections -= "traitor"
+		sections -= "thief"
+		sections -= "changeling"
+	else if("traitorthiefvampire")
+		if(sections["traitor"])
+			out += sections["traitor"] + "<br>"
+		if(sections["thief"])
+			out += sections["thief"] + "<br>"
+		if(sections["vampire"])
+			out += sections["vampire"] + "<br>"
+		sections -= "traitor"
+		sections -= "thief"
 		sections -= "vampire"
 	else
 		if(sections[SSticker.mode.config_tag])

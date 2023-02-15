@@ -1,7 +1,7 @@
 /datum/game_mode/traitor/thief/vampire
 	name = "traitor+thief+vampire"
 	config_tag = "traitorthiefvampire"
-	traitors_possible = 3 //hard limit on traitors if scaling is turned off
+	traitors_possible = 2 //hard limit on traitors if scaling is turned off
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 25
 	required_enemies = 1	// how many of each type are required
@@ -19,16 +19,20 @@
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_vampires))
+		if((player.mind in possible_vampires) && (player.client.prefs.species in protected_species_vampire))
 			possible_vampires -= player.mind
 
 	if(possible_vampires.len > 0)
 		var/datum/mind/vampire = pick(possible_vampires)
-		vampire += vampire
+		vampires += vampire
 		modePlayer += vampires
+		var/datum/mindslaves/slaved = new()
+		slaved.masters += vampire
+		vampire.som = slaved //we MIGT want to mindslave someone
 		vampire.restricted_roles = restricted_jobs
 		vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		return ..()
+		..()
+		return 1
 	else
 		return 0
 
