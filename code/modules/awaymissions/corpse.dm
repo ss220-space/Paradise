@@ -158,16 +158,13 @@
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
+		M.change_voice()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
 		qdel(src)
-	if(plr)
-		for(var/i in 1 to 10)
-			if(M.change_voice())
-				break
 	else
-		M.tts_seed = pick(SStts.tts_seeds)
+		M.tts_seed = SStts.get_random_seed(M)
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
