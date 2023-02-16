@@ -6,7 +6,6 @@
 	layer = OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
-	anchored = TRUE
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
@@ -32,6 +31,15 @@
 /obj/structure/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
+
+/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
+	. = ..()
+	if(. && !movable)
+		anchored = TRUE
+
+/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
+	anchored = initial(anchored)
+	. = ..()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
@@ -67,7 +75,7 @@
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs())
+		if(!item_chair || has_buckled_mobs() || anchored)
 			return
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
@@ -221,18 +229,25 @@
 	color = rgb(255,251,0)
 
 /obj/structure/chair/office
-	anchored = FALSE
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	pull_push_speed_modifier = 1
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
 	icon_state = "shuttle_chair"
+	anchored = TRUE
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
+
+/obj/structure/chair/comfy/shuttle/dark
+	icon_state = "shuttle_chair_dark"
+
+/obj/structure/chair/comfy/shuttle/dark/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest")
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
@@ -261,6 +276,7 @@
 	icon_state = "barber_chair"
 	buildstackamount = 1
 	item_chair = null
+	anchored = TRUE
 
 // SOFAS
 /obj/structure/chair/sofa
@@ -477,7 +493,7 @@
 	desc = "A spinny chair made of brass. It looks uncomfortable."
 	icon_state = "brass_chair"
 	max_integrity = 150
-	buildstacktype = /obj/item/stack/tile/brass
+	buildstacktype = /obj/item/stack/sheet/brass
 	buildstackamount = 1
 	item_chair = null
 	var/turns = 0

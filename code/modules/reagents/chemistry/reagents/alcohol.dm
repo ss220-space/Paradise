@@ -107,7 +107,7 @@
 	overdose_threshold = 30
 	dizzy_adj = 5
 	alcohol_perc = 0.7
-	drink_icon = "absinthebottle"
+	drink_icon = "absintheglass"
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
@@ -115,6 +115,7 @@
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
 	M.AdjustHallucinate(5)
+	M.last_hallucinator_log = name
 	return ..()
 
 /datum/reagent/consumable/ethanol/absinthe/overdose_process(mob/living/M, severity)
@@ -1204,9 +1205,9 @@
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		metabolization_rate += 3.6 //gets removed from organics very fast
+		metabolization_rate += 9 * REAGENTS_METABOLISM //gets removed from organics very fast
 		if(prob(25))
-			metabolization_rate += 15
+			metabolization_rate += 40 * REAGENTS_METABOLISM
 			M.fakevomit()
 	return ..()
 
@@ -1444,3 +1445,25 @@
 	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
 	taste_description = "low class heaven"
 	remove_nutrition = 1
+
+/datum/reagent/consumable/ethanol/rainbow_sky
+	name = "Rainbow Sky"
+	id = "rainbow_sky"
+	description = "A drink that shimmers with all the colors of the rainbow with notes of the galaxy."
+	color = "#ffffff"
+	dizzy_adj = 10
+	alcohol_perc = 1.5
+	drink_icon = "rainbow_sky"
+	drink_name = "Rainbow Sky"
+	drink_desc = "A drink that shimmers with all the colors of the rainbow with notes of the galaxy."
+	taste_description = "rainbow"
+
+/datum/reagent/consumable/ethanol/rainbow_sky/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(-1, FALSE)
+	update_flags |= M.adjustFireLoss(-1, FALSE)
+	update_flags |= M.Druggy(15, FALSE)
+	M.Jitter(5)
+	M.AdjustHallucinate(10)
+	M.last_hallucinator_log = name
+	return ..() | update_flags

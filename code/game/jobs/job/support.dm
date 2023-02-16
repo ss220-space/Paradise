@@ -10,7 +10,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/bartender
 
 /datum/outfit/job/bartender
@@ -51,7 +51,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
-	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_KITCHEN)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 
@@ -67,7 +67,6 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
-		/obj/item/eftpos=1,\
 		/obj/item/paper/chef=1,\
 		/obj/item/book/manual/chef_recipes=1)
 
@@ -90,7 +89,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
@@ -253,7 +252,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
@@ -339,7 +338,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
@@ -418,7 +417,7 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_LIBRARY)
-	minimal_access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_LIBRARY)
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
 
@@ -448,7 +447,7 @@
 	selection_color = "#dddddd"
 	alt_titles = list("Hair Stylist","Beautician")
 	access = list()
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	minimal_access = list()
 	outfit = /datum/outfit/job/barber
 
 /datum/outfit/job/barber

@@ -21,6 +21,9 @@
 	if(NO_BLOOD in dna.species.species_traits)
 		bleed_rate = 0
 		return
+	if(status_flags & GODMODE)
+		bleed_rate = 0
+		return
 
 	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
@@ -163,7 +166,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
+				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -201,7 +204,8 @@
 			blood_data["ckey"] = ckey
 		if(!suiciding)
 			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(src.dna.blood_type,1,0)
+		blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
+		blood_data["blood_species"] = dna.species.blood_species
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
 		blood_data["blood_color"] = dna.species.blood_color
@@ -342,3 +346,21 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+	if(!T)
+		T = get_turf(src)
+
+	var/obj/effect/decal/cleanable/blood/clock/streak/oil = locate() in T
+	var/list/oils = get_atoms_of_type(T, oil, TRUE, 0, 0)
+	if(shift_x || shift_y)
+		oils = get_atoms_of_type(T, oil, TRUE, shift_x, shift_y)
+		oil = locate() in oils
+	if(!oil)
+		oil = new(T)
+
+	oil.pixel_x = (shift_x)
+	oil.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		oil.off_floor = TRUE
+		oil.layer = BELOW_MOB_LAYER

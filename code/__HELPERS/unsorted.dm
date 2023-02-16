@@ -147,6 +147,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return FALSE
 	if(A.tele_proof)
 		return TRUE
+	if(!is_teleport_allowed(O.z))
+		return TRUE
 	else
 		return FALSE
 
@@ -289,7 +291,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || iscogscarab(A) || isclocker(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -305,6 +307,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled == 1)
+			continue
+		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
 			continue
 		. += A
 	return .
@@ -776,7 +780,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
-							X.icon = 'icons/turf/shuttle.dmi'
+							X.icon = 'icons/turf/shuttle/shuttle.dmi'
 							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
@@ -984,10 +988,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
-
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -1801,10 +1801,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
 			/datum = "D",
-			/turf/simulated/floor = "SIM_FLOOR",
-			/turf/simulated/wall = "SIM_WALL",
-			/turf/unsimulated/floor = "UNSIM_FLOOR",
-			/turf/unsimulated/wall = "UNSIM_WALL",
+			/turf/simulated/floor = "FLOOR",
+			/turf/simulated/wall = "WALL",
 			/turf = "T",
 			/mob/living/carbon/alien = "XENO",
 			/mob/living/carbon/human = "HUMAN",
@@ -2080,3 +2078,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "White Noise"
 		if(CHANNEL_AMBIENCE)
 			return "Ambience"
+		if(CHANNEL_TTS_LOCAL)
+			return "TTS Local"
+		if(CHANNEL_TTS_RADIO)
+			return "TTS Radio"

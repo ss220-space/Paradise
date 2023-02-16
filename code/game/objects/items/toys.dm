@@ -1136,12 +1136,61 @@
 	icon_state = "plushie_nuke"
 	item_state = "plushie_nuke"
 
+/obj/item/toy/plushie/nianplushie
+	name = "nian plushie"
+	desc = "A silky nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	icon_state = "plushie_nian"
+	item_state = "plushie_nian"
+	var/cooldown = FALSE
+	var/mothbite = 'sound/voice/scream_moth.ogg'
+
+/obj/item/toy/plushie/nianplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, mothbite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/nianplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/voice/scream_moth.ogg', 10, 0)
+	visible_message("<span class='danger'>Buzzzz!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
 /obj/item/toy/plushie/slimeplushie
 	name = "slime plushie"
 	desc = "An adorable stuffed toy that resembles a slime. It is practically just a hacky sack."
 	icon_state = "plushie_slime"
 	item_state = "plushie_slime"
 
+
+// Little cute Ninja plushie
+/obj/item/toy/plushie/ninja
+	name = "space ninja plushie"
+	desc = "A protagonist of one of the most popular cartoon series on this side of galaxy. \"運命の忍者矢\""
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "ninja_plushie_green"
+	item_state = "ninja_plushie_green"
+	var/cooldown = 0
+
+/obj/item/toy/plushie/ninja/attack_self(mob/user as mob)
+	. = ..()
+	if(cooldown < world.time)
+		cooldown = (world.time + 30) //3 second cooldown
+		var/plushie_color = pick("green","blue","red")
+		switch (plushie_color)
+			if("green")
+				icon_state = "ninja_plushie_green"
+				item_state = "ninja_plushie_green"
+				user.visible_message(span_notice("[bicon(src)] The [name] says \"I am not afraid of the darkness! I am the darkness!\""))
+			if("blue")
+				icon_state = "ninja_plushie_blue"
+				item_state = "ninja_plushie_blue"
+				user.visible_message(span_notice("[bicon(src)] The [name] says \"Your simple light won't stop me!\""))
+			if("red")
+				icon_state = "ninja_plushie_red"
+				item_state = "ninja_plushie_red"
+				user.visible_message(span_notice("[bicon(src)] The [name] says \"You can run, but you can't hide!\""))
 /*
  * Foam Armblade
  */
@@ -1806,6 +1855,12 @@
 	desc = "The amnesiac Warden, from Space Life's SS12 figurine collection."
 	icon_state = "warden"
 	toysay = "Execute him for breaking in!"
+
+/obj/item/toy/figure/magistrate
+	name = "Magistrate action figure"
+	desc = "The relevant magistrate, from Space Life's SS12 figurine collection."
+	icon_state = "magistrate"
+	toysay = "To execute, or not to execute, that is the question."
 
 //////////////////////////////////////////////////////
 //				Magic 8-Ball / Conch				//

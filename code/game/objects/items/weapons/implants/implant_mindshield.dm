@@ -24,9 +24,9 @@
 			removed(target, 1)
 			qdel(src)
 			return -1
-		if((target.mind in SSticker.mode.cult) || (target.mind in SSticker.mode.head_revolutionaries))
+		if((target.mind in SSticker.mode?.cult) || (target.mind in SSticker.mode?.head_revolutionaries))
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-		else if(target.mind in SSticker.mode.revolutionaries)
+		else if(target.mind in SSticker.mode?.revolutionaries)
 			SSticker.mode.remove_revolutionary(target.mind)
 		else
 			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
@@ -61,3 +61,15 @@
 /obj/item/implant/mindshield/ert
 	name = "ERT mindshield implant"
 	desc = "Защищает ваш разум и предоставляет доступ к продвинутому боевому оборудованию НТ"
+
+/obj/item/implanter/mindshield/ert
+	name = "implanter (ERT mindshield)"
+
+/obj/item/implanter/mindshield/ert/New()
+	imp = new /obj/item/implant/mindshield/ert(src)
+	..()
+	update_icon()
+
+/obj/item/implantcase/mindshield/ert/New()
+	imp = new /obj/item/implant/mindshield/ert(src)
+	..()

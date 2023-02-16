@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(HasController())
 		return TRUE
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) && !iscogscarab(user) || isAI(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -328,7 +328,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-			if(do_after(user, 20 * I.toolspeed, target = src))
+			if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 				if(prob(70))
 					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 					if(installation)
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			)
 
 		wrenching = TRUE
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			if(!anchored)
 				playsound(loc, I.usesound, 100, 1)

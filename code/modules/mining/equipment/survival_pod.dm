@@ -55,8 +55,8 @@
 
 		var/turf/T = deploy_location
 		if(!is_mining_level(T.z))//only report capsules away from the mining/lavaland level
-			message_admins("[key_name_admin(usr)] ([ADMIN_QUE(usr,"?")]) ([ADMIN_FLW(usr,"FLW")]) activated a bluespace capsule away from the mining level! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
-			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] activated a bluespace capsule away from the mining level!")
+			add_game_logs("activated a bluespace capsule away from the mining level at [COORD(T)]", usr)
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 		qdel(src)
@@ -186,7 +186,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 			new /obj/item/gps(loc)
 			qdel(src)
 			return ..()
@@ -278,7 +278,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 			deconstruct()
 			return ..()
 
@@ -321,7 +321,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)
 			return ..()
@@ -335,8 +335,8 @@
 						/obj/item/sleeping_carp_scroll,
 						/obj/item/shield/changeling,
 						/obj/item/lava_staff,
-						/obj/item/katana/energy,
 						/obj/item/hierophant_club,
+						/obj/item/melee/energy_katana,
 						/obj/item/storage/toolbox/green/memetic,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,

@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(is_sacrifice_target(mind))
 		return FALSE
+	if(isclocker(mind.current))
+		return FALSE // Go away Ratvar
 	if(iscultist(mind.current))
 		return TRUE //If they're already in the cult, assume they are convertable
 	if(mind.isholy)
@@ -48,14 +50,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Security Cadet", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/min_cultists_to_start = 3
-	var/const/max_cultists_to_start = 4
+	var/const/max_cultist_to_start = 4
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
@@ -66,7 +67,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		restricted_jobs += protected_jobs
 
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
-	for(var/cultists_number = 1 to max_cultists_to_start)
+	for(var/cultists_number = 1 to max_cultist_to_start)
 		if(!length(cultists_possible))
 			break
 		var/datum/mind/cultist = pick(cultists_possible)
@@ -85,6 +86,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+		var/datum/objective/servecult/obj = new
+		obj.owner = cult_mind
+		cult_mind.objectives += obj
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -121,6 +125,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		ascend_percent = CULT_ASCENDANT_LOW
 		rise_number = round(CULT_RISEN_LOW * (players - cultists))
 		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
+	add_game_logs("Blood Cult rise/ascend numbers: [rise_number]/[ascend_number].")
 
 /**
   * Returns the current number of cultists and constructs.
@@ -186,8 +191,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
-		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
-		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
+		add_conversion_logs(cult_mind.current, "converted to the blood cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -220,6 +224,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
 
 	else if(cult_players >= ascend_number)
@@ -229,6 +234,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
@@ -236,6 +242,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
+		if(!H.original_eye_color)
+			H.original_eye_color = H.get_eye_color()
 		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
@@ -266,6 +274,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.remove_overlay(HALO_LAYER)
 			H.update_body()
 		check_cult_size()
+		add_conversion_logs(cultist, "deconverted from the blood cult.")
 		if(show_message)
 			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")

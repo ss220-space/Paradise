@@ -406,31 +406,37 @@
 	icon_state = "syndiernd"
 	item_state = "syndiernd-id"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_SCIENTIST, ACCESS_SYNDICATE_MEDICAL)
+	rank = "Syndicate Scientist"
 
 /obj/item/card/id/syndicate/cargo
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_CARGO)
 	icon_state = "syndiecargo"
 	item_state = "syndiecargo-id"
+	rank = "Syndicate Cargo Technician"
 
 /obj/item/card/id/syndicate/kitchen
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiechef"
 	item_state = "syndiechef-id"
+	rank = "Syndicate Chef"
 
 /obj/item/card/id/syndicate/engineer
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_ENGINE)
 	icon_state = "syndieengineer"
 	item_state = "syndieengineer-id"
+	rank = "Syndicate Atmos Engineer"
 
 /obj/item/card/id/syndicate/medic
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndiemedical"
 	item_state = "syndiemedical-id"
+	rank = "Syndicate Medic"
 
 /obj/item/card/id/syndicate/botanist
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiebotany"
 	item_state = "syndiebotany-id"
+	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -446,6 +452,7 @@
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "commander"
 	item_state = "syndieofficer-id"
+	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -460,13 +467,14 @@
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "syndierd"
 	item_state = "syndierd-id"
+	rank = "Syndicate Research Director"
 
-/obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
-	if(!proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+	if(!proximity || !istype(O))
 		return
 	if(O.GetID())
 		var/obj/item/card/id/I = O.GetID()
-		if(istype(user, /mob/living) && user.mind)
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
@@ -754,7 +762,7 @@
 /obj/item/card/id/nanotrasen
 	name = "nanotrasen ID card"
 	icon_state = "nanotrasen"
-	item_state = "centcomm-id"
+	item_state = "nt-id"
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
@@ -818,6 +826,12 @@
 	item_state = "medical-id"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/medical/intern
+	name = "Intern ID"
+	registered_name = "Intern"
+	icon_state = "intern"
+	item_state = "intern-id"
+
 /obj/item/card/id/security
 	name = "Security ID"
 	registered_name = "Officer"
@@ -825,12 +839,24 @@
 	item_state = "security-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
+/obj/item/card/id/security/cadet
+	name = "Cadet ID"
+	registered_name = "Cadet"
+	icon_state = "cadet"
+	item_state = "cadet-id"
+
 /obj/item/card/id/research
 	name = "Research ID"
 	registered_name = "Scientist"
 	icon_state = "research"
 	item_state = "research-id"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/research/student
+	name = "Student ID"
+	registered_name = "Student"
+	icon_state = "student"
+	item_state = "student-id"
 
 /obj/item/card/id/supply
 	name = "Supply ID"
@@ -845,6 +871,12 @@
 	icon_state = "engineering"
 	item_state = "engineer-id"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
+
+/obj/item/card/id/engineering/trainee
+	name = "Trainee ID"
+	registered_name = "Trainee"
+	icon_state = "trainee"
+	item_state = "trainee-id"
 
 /obj/item/card/id/hos
 	name = "Head of Security ID"
@@ -1041,7 +1073,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")

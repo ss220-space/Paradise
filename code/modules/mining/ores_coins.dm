@@ -99,7 +99,9 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
-		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
+		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50), \
+		null, \
+		new /datum/stack_recipe("puddle", /obj/structure/sink/puddle, 30, 1, 1, 10 SECONDS, 1, 1)\
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
@@ -286,20 +288,20 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			else
 				message_admins("[key_name_admin(user)] has triggered a [name] to detonate at [ADMIN_COORDJMP(bombturf)].")
 		if(triggered_by == 1)
-			log_game("An explosion has primed a [name] for detonation at [AREACOORD(bombturf)]")
+			add_game_logs("An explosion has primed a [name] for detonation at [AREACOORD(bombturf)]")
 		else if(triggered_by == 2)
-			log_game("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
+			add_game_logs("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
 			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
-			log_game("[key_name(user)] has primed a [name] for detonation at [AREACOORD(bombturf)])")
+			add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)])", user)
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(src.loc,2,4,9,adminlog = notify_admins)
+				explosion(src.loc,2,4,9,adminlog = notify_admins, cause = src)
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(src.loc,1,2,5,adminlog = notify_admins)
+				explosion(src.loc,1,2,5,adminlog = notify_admins, cause = src)
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(src.loc,-1,1,3,adminlog = notify_admins)
+				explosion(src.loc,-1,1,3,adminlog = notify_admins, cause = src)
 			qdel(src)
 
 

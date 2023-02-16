@@ -1,80 +1,111 @@
 GLOBAL_LIST_INIT(department_radio_keys, list(
-	  ":r" = "right ear",	"#r" = "right ear",		".r" = "right ear",
-	  ":l" = "left ear",	"#l" = "left ear",		".l" = "left ear",
-	  ":i" = "intercom",	"#i" = "intercom",		".i" = "intercom",
-	  ":h" = "department",	"#h" = "department",	".h" = "department",
-	  ":+" = "special",		"#+" = "special",		".+" = "special", //activate radio-specific special functions
-	  ":c" = "Command",		"#c" = "Command",		".c" = "Command",
-	  ":n" = "Science",		"#n" = "Science",		".n" = "Science",
-	  ":m" = "Medical",		"#m" = "Medical",		".m" = "Medical",
-	  ":x" = "Procedure",	"#x" = "Procedure",		".x" = "Procedure",
-	  ":e" = "Engineering", "#e" = "Engineering",	".e" = "Engineering",
-	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
-	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
-	  ":t" = "Syndicate",	"#t" = "Syndicate",		".t" = "Syndicate",
-	  ":," = "SyndTaipan",	"#," ="SyndTaipan",		".," = "SyndTaipan",
-	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
-	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
-	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
+/*
+	Busy letters by languages:
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
 
-	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
-	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
-	  ":I" = "intercom",	"#I" = "intercom",		".I" = "intercom",
-	  ":H" = "department",	"#H" = "department",	".H" = "department",
-	  ":C" = "Command",		"#C" = "Command",		".C" = "Command",
-	  ":N" = "Science",		"#N" = "Science",		".N" = "Science",
-	  ":M" = "Medical",		"#M" = "Medical",		".M" = "Medical",
-	  ":X" = "Procedure",	"#X" = "Procedure",		".X" = "Procedure",
-	  ":E" = "Engineering",	"#E" = "Engineering",	".E" = "Engineering",
-	  ":S" = "Security",	"#S" = "Security",		".S" = "Security",
-	  ":W" = "whisper",		"#W" = "whisper",		".W" = "whisper",
-	  ":T" = "Syndicate",	"#T" = "Syndicate",		".T" = "Syndicate",
-	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
-	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
-	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
-	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
-	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
-	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":~" = "cords",		"#~" = "cords",			".~" = "cords",
+	Busy symbols by languages:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^ '
 
-	  ":к" = "right ear",	"№к" = "right ear",		".к" = "right ear",
-	  ":д" = "left ear",	"№д" = "left ear",		".д" = "left ear",
-	  ":ш" = "intercom",	"№ш" = "intercom",		".ш" = "intercom",
-	  ":р" = "department",	"№р" = "department",	".р" = "department",
-	  ":с" = "Command",		"№с" = "Command",		".с" = "Command",
-	  ":т" = "Science",		"№т" = "Science",		".т" = "Science",
-	  ":ь" = "Medical",		"№ь" = "Medical",		".ь" = "Medical",
-	  ":ч" = "Procedure",	"#ч" = "Procedure",		".ч" = "Procedure",
-	  ":у" = "Engineering", "№у" = "Engineering",	".у" = "Engineering",
-	  ":ы" = "Security",	"№ы" = "Security",		".ы" = "Security",
-	  ":ц" = "whisper",		"№ц" = "whisper",		".ц" = "whisper",
-	  ":е" = "Syndicate",	"№е" = "Syndicate",		".е" = "Syndicate",
-	  ":б" = "SyndTaipan",	"#б" ="SyndTaipan",		".б" = "SyndTaipan",
-	  ":г" = "Supply",		"№г" = "Supply",		".г" = "Supply",
-	  ":я" = "Service",		"№я" = "Service",		".я" = "Service",
-	  ":з" = "AI Private",	"№з" = "AI Private",	".з" = "AI Private",
-	  ":ё" = "cords",		"№ё" = "cords",			".ё" = "cords",
+	Busy letters by radio(eng):
+	c e h i l m n p r s t u w x z
 
-	  ":К" = "right ear",	"№К" = "right ear",		".К" = "right ear",
-	  ":Д" = "left ear",	"№Д" = "left ear",		".Д" = "left ear",
-	  ":Ш" = "intercom",	"№Ш" = "intercom",		".Ш" = "intercom",
-	  ":Р" = "department",	"№Р" = "department",	".Р" = "department",
-	  ":С" = "Command",		"№С" = "Command",		".С" = "Command",
-	  ":Т" = "Science",		"№Т" = "Science",		".Т" = "Science",
-	  ":Ь" = "Medical",		"№Ь" = "Medical",		".Ь" = "Medical",
-	  ":У" = "Engineering",	"№У" = "Engineering",	".У" = "Engineering",
-	  ":Ы" = "Security",	"№Ы" = "Security",		".Ы" = "Security",
-	  ":Ц" = "whisper",		"№Ц" = "whisper",		".Ц" = "whisper",
-	  ":Е" = "Syndicate",	"№Е" = "Syndicate",		".Е" = "Syndicate",
-	  ":Б" = "SyndTaipan",	"#Б" ="SyndTaipan",		".Б" = "SyndTaipan",
-	  ":Г" = "Supply",		"№Г" = "Supply",		".Г" = "Supply",
-	  ":Я" = "Service",		"№Я" = "Service",		".Я" = "Service",
-	  ":З" = "AI Private",	"№З" = "AI Private",	".З" = "AI Private",
-	  ":Ё" = "cords",		"№Ё" = "cords",			".Ё" = "cords",
-	  						"№$" = "Response Team",
-	  						"№-" = "Special Ops",
-	  						"№_" = "SyndTeam",
-							"№+" = "special"
+	Busy letters by radio(rus):
+	б г д е ё з к р с т у ц ч ш ы ь я Э
+
+	Busy symbols by radio:
+	~ , $ _ - + *
+
+	CAUTION! The key must not repeat the key of the languages (language.dm)
+	and must not contain prohibited characters
+*/
+	// English text lowercase
+	  ":r" = "right ear",		"#r" = "right ear",		"№r" = "right ear",		".r" = "right ear",
+	  ":l" = "left ear",		"#l" = "left ear",		"№l" = "left ear",		".l" = "left ear",
+	  ":i" = "intercom",		"#i" = "intercom",		"№i" = "intercom",		".i" = "intercom",
+	  ":h" = "department",		"#h" = "department",	"№h" = "department",	".h" = "department",
+	  ":c" = "Command",			"#c" = "Command",		"№c" = "Command",		".c" = "Command",
+	  ":n" = "Science",			"#n" = "Science",		"№n" = "Science",		".n" = "Science",
+	  ":m" = "Medical",			"#m" = "Medical",		"№m" = "Medical",		".m" = "Medical",
+	  ":x" = "Procedure",		"#x" = "Procedure",		"№x" = "Procedure",		".x" = "Procedure",
+	  ":e" = "Engineering", 	"#e" = "Engineering",	"№e" = "Engineering",	".e" = "Engineering",
+	  ":s" = "Security",		"#s" = "Security",		"№s" = "Security",		".s" = "Security",
+	  ":w" = "whisper",			"#w" = "whisper",		"№w" = "whisper",		".w" = "whisper",
+	  ":t" = "Syndicate",		"#t" = "Syndicate",		"№t" = "Syndicate",		".t" = "Syndicate",
+	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
+	  ":u" = "Supply",			"#u" = "Supply",		"№u" = "Supply",		".u" = "Supply",
+	  ":z" = "Service",			"#z" = "Service",		"№z" = "Service",		".z" = "Service",
+	  ":p" = "AI Private",		"#p" = "AI Private",	"№p" = "AI Private",	".p" = "AI Private",
+
+	// English text uppercase
+	  ":R" = "right ear",		"#R" = "right ear",		"№R" = "right ear",		".R" = "right ear",
+	  ":L" = "left ear",		"#L" = "left ear",		"№L" = "left ear",		".L" = "left ear",
+	  ":I" = "intercom",		"#I" = "intercom",		"№I" = "intercom",		".I" = "intercom",
+	  ":H" = "department",		"#H" = "department",	"№H" = "department",	".H" = "department",
+	  ":C" = "Command",			"#C" = "Command",		"№C" = "Command",		".C" = "Command",
+	  ":N" = "Science",			"#N" = "Science",		"№N" = "Science",		".N" = "Science",
+	  ":M" = "Medical",			"#M" = "Medical",		"№M" = "Medical",		".M" = "Medical",
+	  ":X" = "Procedure",		"#X" = "Procedure",		"№X" = "Procedure",		".X" = "Procedure",
+	  ":E" = "Engineering",		"#E" = "Engineering",	"№E" = "Engineering",	".E" = "Engineering",
+	  ":S" = "Security",		"#S" = "Security",		"№S" = "Security",		".S" = "Security",
+	  ":W" = "whisper",			"#W" = "whisper",		"№W" = "whisper",		".W" = "whisper",
+	  ":T" = "Syndicate",		"#T" = "Syndicate",		"№T" = "Syndicate",		".T" = "Syndicate",
+	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
+	  ":U" = "Supply",			"#U" = "Supply",		"№U" = "Supply",		".U" = "Supply",
+	  ":Z" = "Service",			"#Z" = "Service",		"№Z" = "Service",		".Z" = "Service",
+	  ":P" = "AI Private",		"#P" = "AI Private",	"№P" = "AI Private",	".P" = "AI Private",
+
+	// Russian text lowercase
+	  ":к" = "right ear",		"#к" = "right ear",		"№к" = "right ear",		".к" = "right ear",
+	  ":д" = "left ear",		"#д" = "left ear",		"№д" = "left ear",		".д" = "left ear",
+	  ":ш" = "intercom",		"#ш" = "intercom",		"№ш" = "intercom",		".ш" = "intercom",
+	  ":р" = "department",		"#р" = "department",	"№р" = "department",	".р" = "department",
+	  ":с" = "Command",			"#с" = "Command",		"№с" = "Command",		".с" = "Command",
+	  ":т" = "Science",			"#т" = "Science",		"№т" = "Science",		".т" = "Science",
+	  ":ь" = "Medical",			"#ь" = "Medical",		"№ь" = "Medical",		".ь" = "Medical",
+	  ":ч" = "Procedure",		"#ч" = "Procedure",		"№ч" = "Procedure",		".ч" = "Procedure",
+	  ":у" = "Engineering", 	"#у" = "Engineering",	"№у" = "Engineering",	".у" = "Engineering",
+	  ":ы" = "Security",		"#ы" = "Security",		"№ы" = "Security",		".ы" = "Security",
+	  ":ц" = "whisper",			"#ц" = "whisper",		"№ц" = "whisper",		".ц" = "whisper",
+	  ":е" = "Syndicate",		"#е" = "Syndicate",		"№е" = "Syndicate",		".е" = "Syndicate",
+	  ":э" = "Soviet",			"#э" = "Soviet",		"№э" = "Soviet",		".э" = "Soviet",
+	  ":б" = "SyndTaipan",		"#б" = "SyndTaipan",	"№б" = "SyndTaipan",	".б" = "SyndTaipan",
+	  ":г" = "Supply",			"#г" = "Supply",		"№г" = "Supply",		".г" = "Supply",
+	  ":я" = "Service",			"#я" = "Service",		"№я" = "Service",		".я" = "Service",
+	  ":з" = "AI Private",		"#з" = "AI Private",	"№з" = "AI Private",	".з" = "AI Private",
+	  ":ё" = "cords",			"#ё" = "cords",			"№ё" = "cords",			".ё" = "cords",
+	// Russian text uppercase
+	  ":К" = "right ear",		"#К" = "right ear",		"№К" = "right ear",		".К" = "right ear",
+	  ":Д" = "left ear",		"#Д" = "left ear",		"№Д" = "left ear",		".Д" = "left ear",
+	  ":Ш" = "intercom",		"#Ш" = "intercom",		"№Ш" = "intercom",		".Ш" = "intercom",
+	  ":Р" = "department",		"#Р" = "department",	"№Р" = "department",	".Р" = "department",
+	  ":С" = "Command",			"#С" = "Command",		"№С" = "Command",		".С" = "Command",
+	  ":Т" = "Science",			"#Т" = "Science",		"№Т" = "Science",		".Т" = "Science",
+	  ":Ь" = "Medical",			"#Ь" = "Medical",		"№Ь" = "Medical",		".Ь" = "Medical",
+	  ":У" = "Engineering",		"#У" = "Engineering",	"№У" = "Engineering",	".У" = "Engineering",
+	  ":Ы" = "Security",		"#Ы" = "Security",		"№Ы" = "Security",		".Ы" = "Security",
+	  ":Ц" = "whisper",			"#Ц" = "whisper",		"№Ц" = "whisper",		".Ц" = "whisper",
+	  ":Е" = "Syndicate",		"#Е" = "Syndicate",		"№Е" = "Syndicate",		".Е" = "Syndicate",
+	  ":Э" = "Soviet",			"#Э" = "Soviet",		"№Э" = "Soviet",		".Э" = "Soviet",
+	  ":Б" = "SyndTaipan",		"#Б" = "SyndTaipan",	"№Б" = "SyndTaipan",	".Б" = "SyndTaipan",
+	  ":Г" = "Supply",			"#Г" = "Supply",		"№Г" = "Supply",		".Г" = "Supply",
+	  ":Я" = "Service",			"#Я" = "Service",		"№Я" = "Service",		".Я" = "Service",
+	  ":З" = "AI Private",		"#З" = "AI Private",	"№З" = "AI Private",	".З" = "AI Private",
+	  ":Ё" = "cords",			"#Ё" = "cords",			"№Ё" = "cords",			".Ё" = "cords",
+
+	// English symbols no case
+	  ":~" = "cords",			"#~" = "cords",			"№~" = "cords",			".~" = "cords",
+	  ":," = "SyndTaipan",		"#," = "SyndTaipan",	"№," = "SyndTaipan",	".," = "SyndTaipan",
+	// Russian symbols no case
+		// None yet.
+
+	// Special symbols only (that means that they don't have/use an english/russian analogue)
+ 	  ":*" = "Spider Clan",		"#*" = "Spider Clan",	"№*" = "Spider Clan",	".*" = "Spider Clan",
+	  ":$" = "Response Team",	"#$" = "Response Team", "№$" = "Response Team",	".$" = "Response Team",
+  	  ":_" = "SyndTeam",		"#_" = "SyndTeam",		"№_" = "SyndTeam",		"._" = "SyndTeam",
+	  ":-" = "Special Ops",		"#-" = "Special Ops",	"№-" = "Special Ops",	".-" = "Special Ops",
+	  ":+" = "special",			"#+" = "special",		"№+" = "special",		".+" = "special" //activate radio-specific special functions
 ))
 
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
@@ -129,6 +160,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			S.message = cultslur(S.message)
 			verb = "slurs"
 
+		if(clockslurring)
+			S.message = clockslur(S.message)
+			verb = "slurs"
+
 		if(!IsVocal())
 			S.message = ""
 	return list("verb" = verb)
@@ -149,8 +184,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
 	if(client)
+		if(last_emote == "me")
+			if(handle_emote_CD(10) == 1)
+				return
+		last_emote = "me"
 		client.check_say_flood(5)
-		if(client.prefs.muted & MUTE_IC)
+		if(client?.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 	. = ..()
@@ -158,12 +197,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/say(var/message, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
 	if(client)
 		client.check_say_flood(5)
-		if(client.prefs.muted & MUTE_IC)
+		if(client?.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
 	if(sanitize)
-		message = trim_strip_html_properly(message)
+		message = trim_strip_html_properly(message, 512)
 
 	if(stat)
 		if(stat == DEAD)
@@ -183,6 +222,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			message = copytext_char(message, 3)
 
 	message = trim_left(message)
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
@@ -221,9 +264,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
-	// Do this so it gets logged for all types of communication
-	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
-	create_log(SAY_LOG, log_message)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
@@ -231,8 +271,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	// Log of what we've said, plain message, no spans or junk
 	// handle_message_mode should have logged this already if it handled it
-	say_log += log_message
-	log_say(log_message, src)
+	add_say_logs(src, "'[message]'", null, message_mode)
 
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]
@@ -341,7 +380,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
 		client.check_say_flood(5)
-		if(client.prefs.muted & MUTE_IC)
+		if(client?.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
@@ -360,7 +399,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
-	message = trim_strip_html_properly(message)
+	message = trim_strip_html_properly(message, 512)
+
+	if(!message)
+		return
+
+	var/ending = copytext(message, length(message))
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
@@ -370,13 +416,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return 1
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
-	whisper_say(message_pieces)
+	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
 /mob/living/proc/get_whisper_loc()
 	return src
 
-/mob/living/proc/whisper_say(list/message_pieces, verb = "whispers")
+/mob/living/whisper_say(list/message_pieces, verb = "whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")

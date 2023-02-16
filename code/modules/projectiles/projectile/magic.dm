@@ -2,6 +2,8 @@
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
+	hitsound = 'sound/weapons/magic.ogg'
+	hitsound_wall = 'sound/weapons/magic.ogg'
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100
@@ -56,7 +58,7 @@
 /obj/item/projectile/magic/fireball/on_hit(var/target)
 	. = ..()
 	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
@@ -166,7 +168,7 @@
 		if(isrobot(M))
 			var/mob/living/silicon/robot/Robot = M
 			QDEL_NULL(Robot.mmi)
-			Robot.notify_ai(1)
+			Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
@@ -200,13 +202,18 @@
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.mmi = new /obj/item/mmi(new_mob)
+				if(ishuman(M))
+					Robot.mmi = new /obj/item/mmi(new_mob)
+					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+				else
+					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
+					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
+					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.become_occupied("boris")
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
-				if(ishuman(M))
-					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("СЛАЙМ")
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
@@ -271,26 +278,31 @@
 					по типу Иана, Поли, Аранеуса или т.п."
 				new_mob.universal_speak = TRUE
 			if("ЧЕЛОВЕК")
-				new_mob = new /mob/living/carbon/human(M.loc)
-				var/mob/living/carbon/human/H = new_mob
-				var/datum/preferences/A = new()	//Randomize appearance for the human
-				A.species = get_random_species(TRUE)
-				A.copy_to(new_mob)
-				randomize = H.dna.species.name
+				if(prob(50))
+					new_mob = new /mob/living/carbon/human(M.loc)
+					var/mob/living/carbon/human/H = new_mob
+					var/datum/preferences/A = new()	//Randomize appearance for the human
+					A.species = get_random_species(TRUE)
+					A.copy_to(new_mob)
+					randomize = H.dna.species.name
 
-				briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
-				но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+					briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+					но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+				else
+					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
+
+					briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
+					но у вас по прежнему память о своей прошлой жизни..."
+
 			else
 				return
 
-		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
 		else
-			new_mob.attack_log_old = M.attack_log_old.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ [uppertext(randomize)].</B></FONT></span>")
@@ -356,7 +368,7 @@
 /obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())

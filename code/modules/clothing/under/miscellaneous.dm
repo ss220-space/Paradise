@@ -357,11 +357,26 @@
 	item_color = "piraterags"
 
 /obj/item/clothing/under/soviet
-	name = "soviet uniform"
-	desc = "For the Motherland!"
+	name = "\improper Soviet uniform"
+	desc = "A standard U.S.S.P military uniform."
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
+
+
+/obj/item/clothing/under/sovietofficer
+	name = "\improper Soviet officer uniform"
+	desc = "A U.S.S.P commanding officer's uniform."
+	icon_state = "sovietofficer"
+	item_state = "sovietofficer"
+	item_color = "sovietofficer"
+
+/obj/item/clothing/under/sovietadmiral
+	name = "\improper Soviet admiral uniform"
+	desc = "A U.S.S.P naval admiral's uniform."
+	icon_state = "sovietadmiral"
+	item_state = "sovietadmiral"
+	item_color = "sovietadmiral"
 
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"
@@ -453,6 +468,12 @@
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
 
+/obj/item/clothing/under/dress/dress_parade
+	name = "captain parade dress uniform"
+	desc = "Feminine fashion for the style concious captain."
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
+
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
@@ -529,6 +550,23 @@
 	icon_state = "captain_parade"
 	item_state = "by_suit"
 	item_color = "captain_parade"
+
+/obj/item/clothing/under/captainparade/alt
+	icon_state = "cap_parade"
+	item_state = "cap_parade"
+	item_color = "cap_parade"
+
+/obj/item/clothing/under/captainparade/dress
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
+	item_color = "dress_parade"
+
+/obj/item/clothing/under/captainparade/office
+	name = "captain's office uniform"
+	desc = "for everyday bureaucracy"
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	item_color = "cap_office"
 
 /obj/item/clothing/under/roman
 	name = "roman armor"

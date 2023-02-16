@@ -4,7 +4,7 @@
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
-	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 
 /obj/item/gun/projectile/revolver/New()
 	..()
@@ -92,6 +92,7 @@
 	name = ".38 Mars Special"
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	unique_rename = 1
 	unique_reskin = 1
 
@@ -100,8 +101,10 @@
 	options["The Original"] = "detective"
 	options["Leopard Spots"] = "detective_leopard"
 	options["Black Panther"] = "detective_panther"
-	options["Gold Trim"] = "detective_gold"
+	options["White Gold "] = "detective_gold"
 	options["The Peacemaker"] = "detective_peacemaker"
+	options["Gold Wood"] = "detective_gold_alt"
+	options["Silver"] = "detective_silver"
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/detective/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
@@ -335,7 +338,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_rename = 1
@@ -394,7 +397,7 @@
 	force = 10
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = 0
 	unique_reskin = 0
@@ -447,7 +450,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
-	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
 

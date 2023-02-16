@@ -131,7 +131,7 @@
 			if(!msg)
 				charge_counter = charge_max
 				return
-			log_say("(REVENANT to [key_name(M)]) [msg]", user)
+			add_say_logs(user, msg, M, "REVENANT")
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
@@ -251,7 +251,7 @@
 					human.adjustToxLoss(toxdamage)
 					human.AdjustConfused(confusion, bound_lower = 0, bound_upper = maxconfusion)
 					new/obj/effect/temp_visual/revenant(human.loc)
-				if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
+				if(!istype(T, /turf/simulated/wall/shuttle) && !istype(T, /turf/simulated/floor/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
 					new/obj/effect/temp_visual/revenant(T)
 					T.ChangeTurf(/turf/simulated/wall/rust)
 				if(!istype(T, /turf/simulated/wall/r_wall/rust) && istype(T, /turf/simulated/wall/r_wall) && prob(15))

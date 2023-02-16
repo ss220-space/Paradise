@@ -51,7 +51,7 @@
 /area/awaymission/spacebattle/prhallway6
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/prhallway7 
+/area/awaymission/spacebattle/prhallway7
 	name = "\improper Primary Hallway"
 
 /area/awaymission/spacebattle/kitchen
@@ -140,39 +140,53 @@
 
 /area/awaymission/spacebattle/turret1
 	name = "\improper Turret Room"
+	requires_power = FALSE
 
 /area/awaymission/spacebattle/turret2
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret3
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret4
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret5
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret6
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret7
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret8
 	name = "\improper Turret Room"
-
-/area/awaymission/spacebattle/turret10
-	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret9
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
+/area/awaymission/spacebattle/turret10
+	name = "\improper Turret Room"
+	requires_power = FALSE
 /area/awaymission/spacebattle/bsa
 	name = "\improper BSA Chamber"
 
 /area/awaymission/spacebattle/sec_storage
 	name = "\improper Secure Storage"
 
+/mob/living/simple_animal/hostile/syndicate/melee/spacebattle
+	maxHealth = 400
+	health = 400
 
+/mob/living/simple_animal/hostile/syndicate/melee/space/spacebattle
+	maxHealth = 400
+	health = 400
 
+/mob/living/simple_animal/hostile/syndicate/ranged/spacebattle
+	maxHealth = 300
+	health = 300
+
+/mob/living/simple_animal/hostile/syndicate/ranged/space/spacebattle
+	maxHealth = 300
+	health = 300

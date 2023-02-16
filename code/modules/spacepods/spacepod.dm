@@ -61,7 +61,7 @@
 
 	var/unlocked = TRUE
 
-	var/move_delay = 2
+	var/move_delay = 1.5
 	var/next_move = 0
 	var/can_paint = TRUE
 
@@ -241,7 +241,6 @@
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
 		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
@@ -273,7 +272,7 @@
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
 					L.adjustBruteLoss(300)
-			explosion(loc, 0, 0, 2)
+			explosion(loc, 0, 0, 2, cause = src)
 			robogibs(loc)
 			robogibs(loc)
 			qdel(src)
@@ -386,7 +385,7 @@
 		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 100 * W.toolspeed, target = src))
+			if(do_after(user, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
 				QDEL_NULL(equipment_system.lock_system)
 				unlocked = TRUE
 				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
@@ -591,7 +590,7 @@
 	name = "\improper security spacepod"
 	desc = "An armed security spacepod with reinforced armor plating."
 	icon_state = "pod_dece"
-	health = 400
+	health = 600
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"

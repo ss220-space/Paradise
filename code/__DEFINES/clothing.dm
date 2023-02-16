@@ -61,6 +61,7 @@
 #define HANDS			1536
 #define FULL_BODY		2047
 #define TAIL			4096
+#define WING			8192
 
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
@@ -91,10 +92,16 @@
 #define SUIT_SENSOR_VITAL 2
 #define SUIT_SENSOR_TRACKING 3
 
-#define BLOCKHEADHAIR 			4		// temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
+#define BLOCKHEADHAIR 			32768	// temporarily removes the user's hair overlay. Leaves facial hair.
+#define BLOCKHAIR				65536	// temporarily removes the user's hair, facial and otherwise.
 
 //flags for muzzle speech blocking
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
+
+//MATERIAL CLASS FOR RACE EAT
+#define MATERIAL_CLASS_NONE     0
+#define MATERIAL_CLASS_CLOTH    1
+#define MATERIAL_CLASS_TECH		2
+#define MATERIAL_CLASS_SOAP		3

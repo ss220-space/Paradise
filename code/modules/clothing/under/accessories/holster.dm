@@ -54,9 +54,14 @@
 	holstered.loc = src
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
+	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
-	if(!holstered)
+	if(!holstered || user.stat == DEAD)
+		return
+
+	if(user.stat == UNCONSCIOUS)
+		to_chat(user, "<span class='warning'>Вы не можете достать [holstered] сейчас!")
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
@@ -71,6 +76,7 @@
 		user.put_in_hands(holstered)
 		holstered.add_fingerprint(user)
 		holstered = null
+		playsound(user.loc, 'sound/weapons/gun_interactions/1unholster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user as mob)
 	if(has_suit)	//if we are part of a suit

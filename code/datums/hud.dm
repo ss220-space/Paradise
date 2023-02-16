@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
+	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(), \
@@ -62,6 +63,8 @@ GLOBAL_LIST_INIT(huds, list( \
 
 /datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
+		return
+	if(!length(A.hud_list))
 		return
 	for(var/i in hud_icons)
 		M.client.images -= A.hud_list[i]

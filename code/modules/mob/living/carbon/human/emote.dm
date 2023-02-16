@@ -32,10 +32,18 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes", "roar", "threat")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
+				return
+	switch(act)
+		if("growl", "growls","purr", "purrs","purrl","drone", "drones", "hum", "hums",\
+		"rumble", "rumbles","clack", "clacks","click", "clicks","warble", "warbles","salute",\
+		"salutes","clap", "claps","deathgasp", "deathgasps","moan", "moans","slap", "slaps","snap", "snaps")	//If you are strangled you will not be able to gather your thoughts to make sounds or gestures,
+			if(garroted_by.len)																						//not to mention saluting, spanking and finger-snapping
+				on_CD = handle_emote_CD()
+				emote("twitch")	//we pretend that the victim is trying to do something so that it doesn't look like hugs from the outside
 				return
 
 	switch(act)		//This switch adds cooldowns to some emotes
@@ -118,9 +126,38 @@
 			else
 				return
 
+		if("roar")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(50)
+			else
+				return
+
+		if("threat")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(50)
+			else
+				return
+
+		if("whip")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(20)
+			else
+				return
+
+		if("whips")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(40)
+			else
+				return
+
 		if("quill", "quills")
 			if(isvox(src)) //Only Vox can rustle their quills.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+		if("flap", "flaps", "aflap", "aflaps","flutter", "flutters")
+			if(ismoth(src))
+				on_CD = handle_emote_CD()
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -140,6 +177,8 @@
 			on_CD = handle_emote_CD()
 		if("gasp", "gasps")
 			on_CD = handle_emote_CD()
+		if("salute", "salutes")
+			on_CD = handle_emote_CD()
 		if("deathgasp", "deathgasps")
 			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
@@ -148,7 +187,10 @@
 			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
-			on_CD = FALSE	//If it doesn't induce the cooldown, we won't check for the cooldown
+			if(last_emote == act)
+				on_CD = handle_emote_CD(10)
+			else
+				on_CD = handle_emote_CD(5)		//no "snuffle" "sniff" spam
 
 	if(!force && on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
@@ -170,7 +212,6 @@
 					m_type = 2
 				else
 					message = "издает очень громкий шум[M ? " на [M]" : ""]."
-					playsound(loc, 'sound/goonstation/voice/howl.ogg', 25, 1, 10, frequency = get_age_pitch())
 					m_type = 2
 
 		if("growl", "growls")
@@ -272,6 +313,48 @@
 				message = "тихо шипит."
 				m_type = 2
 
+		if("roar")
+			var/M = handle_emote_param(param)
+
+			if(!muzzled)
+				message = "рычит[M ? " на [M]" : ""]."
+				playsound(src, pick('sound/goonstation/voice/unathi/roar.ogg', 'sound/goonstation/voice/unathi/roar2.ogg', 'sound/goonstation/voice/unathi/roar3.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+			else
+				message = "тихо рычит."
+				m_type = 2
+
+		if("whip")
+			var/obj/item/organ/external/tail = src.get_organ("tail")
+			var/M = handle_emote_param(param)
+			m_type = 2
+			if(tail)
+				message = "ударяет хвостом[M ? " грозно смотря на [M]" : ""]."
+				playsound(loc, 'sound/goonstation/voice/unathi/whip_short.ogg', 100)
+			else
+				message = "пытается взмахнуть отсутствующим хвостом."
+
+		if("whips")
+			var/obj/item/organ/external/tail = src.get_organ("tail")
+			var/M = handle_emote_param(param)
+			m_type = 2
+			if(tail)
+				message = "хлестает хвостом[M ? " грозно смотря на [M]" : ""]."
+				playsound(loc, 'sound/goonstation/voice/unathi/whip.ogg', 100)
+			else
+				message = "пытается взмахнуть отсутствующим хвостом."
+
+		if("threat")
+			var/M = handle_emote_param(param)
+
+			if(!muzzled)
+				message = "угрожающе раскрывает пасть[M ? " на [M]" : ""]."
+				playsound(src, pick('sound/goonstation/voice/unathi/threat.ogg', 'sound/goonstation/voice/unathi/threat2.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+			else
+				message = "издаёт громкий шум."
+				m_type = 2
+
 		if("hisses")
 			var/M = handle_emote_param(param)
 
@@ -312,7 +395,7 @@
 			m_type = 2
 
 		if("wag", "wags")
-			if(body_accessory)
+			if(istype(body_accessory, /datum/body_accessory/tail))
 				if(body_accessory.try_restrictions(src))
 					message = "начинает махать хвостом."
 					start_tail_wagging()
@@ -328,7 +411,7 @@
 			m_type = 1
 
 		if("swag", "swags")
-			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
+			if((dna.species.bodyflags & TAIL_WAGGING) || istype(body_accessory, /datum/body_accessory/tail))
 				message = "прекращает махать хвостом."
 				stop_tail_wagging()
 			else
@@ -375,8 +458,6 @@
 
 		if("salute", "salutes")
 			if(!restrained())
-				if(handle_emote_CD())
-					return
 				var/M = handle_emote_param(param)
 
 				message = "салюту[pluralize_ru(src.gender,"ет","ют")][M ? " [M]" : ""]!"
@@ -436,11 +517,18 @@
 					to_chat(usr, "Тебе нужно две рабочих руки чтобы хлопать.")
 
 		if("flap", "flaps")
-			if(!restrained())
-				message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
-				m_type = 2
-				if(miming)
-					m_type = 1
+			if(istype(body_accessory, /datum/body_accessory/wing))
+				if(body_accessory.try_restrictions(src))
+					message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
+					m_type = 2
+					if(miming)
+						m_type = 1
+
+		if("flutter", "flutters")
+			message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
+			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if("flip", "flips")
 			m_type = 1
@@ -497,11 +585,12 @@
 									SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
-			if(!restrained())
-				message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
-				m_type = 2
-				if(miming)
-					m_type = 1
+			if(istype(body_accessory, /datum/body_accessory/tail))
+				if(body_accessory.try_restrictions(src))
+					message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
+					m_type = 2
+					if(miming)
+						m_type = 1
 
 		if("drool", "drools")
 			message = "неразборчиво бурч[pluralize_ru(src.gender,"ит","ат")]."
@@ -615,9 +704,9 @@
 				if(!muzzled)
 					message = "хихика[pluralize_ru(src.gender,"ет","ют")]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_giggle_sound), 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_giggle_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -696,9 +785,9 @@
 				if(!muzzled)
 					message = "сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M]" : ""]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_laugh_sound), 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_laugh_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -1046,12 +1135,24 @@
 			for(var/mob/living/L in orange(1))
 				if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 					if((mind && mind.special_role == SPECIAL_ROLE_WIZARD) && (L.mind && L.mind.special_role == SPECIAL_ROLE_WIZARD))
-						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЭПИЧЕСКУЮ пятюню!</span>")
+						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЛЕГЕНДАРНУЮ пятюню!</span>")
 						status_flags |= GODMODE
 						L.status_flags |= GODMODE
-						explosion(loc,5,2,1,3)
+						explosion(loc,1,3,9,12, cause = "Wizard highfive")
 						status_flags &= ~GODMODE
 						L.status_flags &= ~GODMODE
+						return
+					else if((mind && (mind.special_role == SPECIAL_ROLE_WIZARD || mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) && (L.mind && (L.mind.special_role == SPECIAL_ROLE_WIZARD ||  L.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)))
+						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЭПИЧЕСКУЮ пятюню!</span>")
+						if (mind.special_role == SPECIAL_ROLE_WIZARD)
+							status_flags |= GODMODE
+						if (L.mind.special_role == SPECIAL_ROLE_WIZARD)
+							L.status_flags |= GODMODE
+						explosion(loc,0,0,3,9)
+						if (mind.special_role == SPECIAL_ROLE_WIZARD)
+							status_flags &= ~GODMODE
+						if (L.mind.special_role == SPECIAL_ROLE_WIZARD)
+							L.status_flags &= ~GODMODE
 						return
 					visible_message("<b>[name]</b> и <b>[L.name]</b> дают пятюню!")
 					playsound('sound/effects/snap.ogg', 50)
@@ -1060,13 +1161,13 @@
 					return
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
-			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			var/emotelist = "airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
 			+ " handshake-mob, hug(s)-none/mob, hem, highfive, johnny, jump, laugh(s), look(s)-none/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-none/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-none/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
 			+ " wave(s), whimper(s), wink(s), yawn(s)"
 
-			switch(dna.species.name)
+			switch(dna.species.name) //dear future coders, do not use strings like this
 				if("Diona")
 					emotelist += "\n<u>Специфические эмоуты рассы Diona</u> :- creak(s)"
 				if("Drask")
@@ -1076,13 +1177,15 @@
 				if("Skrell")
 					emotelist += "\n<u>Специфические эмоуты расы Skrell</u> :- warble(s)"
 				if("Tajaran")
-					emotelist += "\n<u>Специфические эмоуты расы Tajaran</u> :- wag(s), swag(s)"
+					emotelist += "\n<u>Специфические эмоуты расы Tajaran</u> :- wag(s), swag(s), hisses"
 				if("Unathi")
-					emotelist += "\n<u>Специфические эмоуты расы Unathi</u> :- wag(s), swag(s), hiss(es)"
+					emotelist += "\n<u>Специфические эмоуты расы Unathi</u> :- wag(s), swag(s), hiss, roar, threat, whip, whips"
 				if("Vox")
 					emotelist += "\n<u>Специфические эмоуты расы Vox</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")
 					emotelist += "\n<u>Специфические эмоуты расы Vulpkanin</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
+				if("Nian")
+					emotelist += "\n<u>Специфические эмоуты расы Nian</u> :- aflap(s), flap(s), flutter(s)"
 
 			if(ismachineperson(src))
 				emotelist += "\n<u>Специфические эмоуты машин</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"
@@ -1102,6 +1205,9 @@
 			to_chat(src, emotelist)
 		else
 			to_chat(src, "<span class='notice'>Неизвестный эмоут '[act]'. Введи *help для отображения списка.</span>")
+
+	last_emote = act
+
 	..()
 
 /mob/living/carbon/human/verb/pose()

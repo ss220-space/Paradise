@@ -34,12 +34,9 @@
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
-	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
 
-	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
@@ -72,7 +69,6 @@
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
-	var/shakecamera = 0
 	var/a_intent = INTENT_HELP //Living
 	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
@@ -94,7 +90,8 @@
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
-	var/list/grabbed_by = list()
+	var/list/obj/item/grab/grabbed_by = list()
+	var/list/obj/item/twohanded/garrote/garroted_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
@@ -211,3 +208,6 @@
 
 	/// The location our runechat message should appear. Should be src by default.
 	var/atom/runechat_msg_location
+
+	/// The datum receiving keyboard input. parent mob by default.
+	var/datum/input_focus = null

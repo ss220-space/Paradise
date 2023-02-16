@@ -164,7 +164,7 @@
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35 * M.toolspeed, target = src) && M.use(6))
+		if(do_after(user, 35 * M.toolspeed * gettoolspeedmod(user), target = src) && M.use(6))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
@@ -192,4 +192,24 @@
 	icon_state = "cuff_white_used"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
+	return
+
+/obj/item/restraints/handcuffs/manacles
+	name = "manacles"
+	desc = "Wooden handcuffs analogue. Use this to keep prisoners in line."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "manacle_lock"
+	item_state = "manacle"
+	breakouttime = 450 //Deciseconds = 45s
+	cuffsound = 'sound/items/zippoclose.ogg'
+	materials = list()
+	trashtype = /obj/item/restraints/handcuffs/manacles/used
+
+/obj/item/restraints/handcuffs/manacles/used
+	desc = "A pair of broken manacles."
+	icon_state = "manacle_unlock"
+
+/obj/item/restraints/handcuffs/manacles/used/attack()
 	return

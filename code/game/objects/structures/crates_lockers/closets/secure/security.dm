@@ -16,7 +16,6 @@
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
-	new /obj/item/clothing/suit/captunic/capjacket(src)
 	new /obj/item/clothing/neck/mantle/captain(src)
 	new /obj/item/clothing/neck/cloak/captain(src)
 	new /obj/item/clothing/under/captainparade(src)
@@ -34,7 +33,18 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
-
+	new /obj/item/clothing/head/caphat/blue(src)
+	new /obj/item/clothing/head/caphat/office(src)
+	new /obj/item/clothing/head/caphat/beret(src)
+	new /obj/item/clothing/under/captainparade/alt(src)
+	new /obj/item/clothing/under/captainparade/dress(src)
+	new /obj/item/clothing/under/captainparade/office(src)
+	new /obj/item/clothing/suit/captunic/coat(src)
+	new /obj/item/clothing/suit/captunic/parade(src)
+	new /obj/item/clothing/suit/captunic/parade/alt(src)
+	new /obj/item/clothing/shoes/laceup/cap(src)
+	new /obj/item/clothing/suit/captunic/bomber(src)
+	new /obj/item/clothing/suit/captunic/jacket(src)
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -72,10 +82,8 @@
 	icon_off = "hopsecureoff"
 
 /obj/structure/closet/secure_closet/hop2/populate_contents()
-	new /obj/item/clothing/under/rank/head_of_personnel(src)
 	new /obj/item/clothing/neck/mantle/head_of_personnel(src)
 	new /obj/item/clothing/neck/cloak/head_of_personnel(src)
-	new /obj/item/clothing/under/dress/dress_hop(src)
 	new /obj/item/clothing/under/dress/dress_hr(src)
 	new /obj/item/clothing/under/lawyer/female(src)
 	new /obj/item/clothing/under/lawyer/black(src)
@@ -86,6 +94,10 @@
 	new /obj/item/clothing/shoes/leather(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/under/rank/head_of_personnel_whimsy(src)
+	new /obj/item/clothing/under/rank/head_of_personnel_alt(src)
+	new /obj/item/clothing/under/rank/head_of_personnel_f(src)
+	new /obj/item/clothing/suit/hop_jacket(src)
+	new /obj/item/clothing/suit/hop_jacket/female(src)
 
 
 /obj/structure/closet/secure_closet/hos
@@ -123,8 +135,8 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/mask/gas/sechailer/hos(src)
 	new /obj/item/shield/riot/tele(src)
-	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/storage/belt/security/sec(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
@@ -160,8 +172,7 @@
 	new /obj/item/clothing/mask/gas/sechailer/warden(src)
 	new /obj/item/storage/box/zipties(src)
 	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/gun/energy/gun/advtaser(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
@@ -186,15 +197,12 @@
 	new /obj/item/clothing/suit/armor/vest/security(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/flash(src)
-	new /obj/item/grenade/flashbang(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
 
 
@@ -242,10 +250,7 @@
 	new	/obj/item/storage/firstaid/adv(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/storage/belt/security/sec(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/flash(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)

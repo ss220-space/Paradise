@@ -24,6 +24,7 @@
 	var/log_whisper = 0					// log client whisper
 	var/log_emote = 0					// log emotes
 	var/log_attack = 0					// log attack messages
+	var/log_conversion = 0				// log conversion mob
 	var/log_adminchat = 0				// log admin chat messages
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
@@ -118,6 +119,7 @@
 	var/discordbugreporturl = "http://example.org"
 
 	var/overflow_server_url
+	var/tutorial_server_url
 	var/forbid_singulo_possession = 0
 
 	var/check_randomizer = 0
@@ -302,6 +304,12 @@
 
 	var/allow_head_of_departaments_assign_civilian = FALSE
 
+	var/tts_enabled = FALSE // Global switch
+	var/tts_cache = FALSE // Store generated tts files and reuse them, instead of always requesting new
+
+	/// the amount of players needed to automatically switch gamemode to extended. Doesn't work if set to zero
+	var/auto_extended_players_num = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -319,8 +327,7 @@
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Config reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		log_and_message_admins("attempted to reload configuration via advanced proc-call")
 		return
 	var/list/Lines = file2list(filename)
 
@@ -443,6 +450,9 @@
 
 				if("log_attack")
 					config.log_attack = 1
+
+				if("log_conversion")
+					config.log_conversion = 1
 
 				if("log_emote")
 					config.log_emote = 1
@@ -752,6 +762,9 @@
 				if("overflow_server_url")
 					config.overflow_server_url = value
 
+				if("tutorial_server_url")
+					config.tutorial_server_url = value
+
 				if("disable_away_missions")
 					config.disable_away_missions = 1
 
@@ -857,6 +870,18 @@
 				if("topic_filtering_whitelist")
 					config.topic_filtering_whitelist = splittext(value, " ")
 
+				if("tts_token_silero")
+					tts_token_silero = value
+
+				if("tts_enabled")
+					config.tts_enabled = tts_token_silero ? TRUE : FALSE
+
+				if("tts_cache")
+					config.tts_cache = TRUE
+
+				if("auto_extended_players_num")
+					config.auto_extended_players_num = text2num(value)
+
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -931,8 +956,7 @@
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		log_and_message_admins("attempted to reload SQL configuration via advanced proc-call")
 		return
 	var/list/Lines = file2list(filename)
 	for(var/t in Lines)
@@ -1018,3 +1042,8 @@
 			runnable_modes[M] = probabilities[M.config_tag]
 //			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
+
+/datum/configuration/vv_edit_var(var_name, var_value)
+	if(findtext(var_name, "log_") && usr?.client?.holder?.rights != R_HOST)
+		return FALSE
+	return ..()

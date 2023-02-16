@@ -28,6 +28,7 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
+	tts_seed = "Valerian"
 
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"
@@ -37,6 +38,7 @@
 	icon_dead = "floppa_dead"
 	icon_resting = "floppa_rest"
 	unique_pet = TRUE
+	tts_seed = "Uther"
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -174,6 +176,11 @@
 			on_CD = handle_emote_CD()
 		if("purr")
 			on_CD = handle_emote_CD()
+		if("sit")
+			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
+			resting = TRUE
+			update_canmove()
 		else
 			on_CD = 0
 
@@ -192,7 +199,7 @@
 			message = "purrs."
 			m_type = 2
 		if("help")
-			to_chat(src, "scream, meow, hiss, purr")
+			to_chat(src, "scream, meow, hiss, purr, sit")
 
 	..()
 

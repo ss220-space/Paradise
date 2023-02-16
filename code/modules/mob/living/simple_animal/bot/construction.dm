@@ -32,7 +32,7 @@
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
-			log_game("[key_name(user)] has renamed a robot to [t]")
+			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 
 //Edbot Assembly
 
@@ -53,7 +53,7 @@
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
-			log_game("[key_name(user)] has renamed a robot to [t]")
+			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 		return
 
 	switch(build_step)
@@ -135,7 +135,7 @@
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(coil.get_amount() >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7
@@ -173,7 +173,7 @@
 			if(istype(W, /obj/item/screwdriver))
 				playsound(loc, W.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					build_step++
 					name = "armed [name]"
 					to_chat(user, "<span class='notice'>Taser gun attached.</span>")
@@ -268,7 +268,7 @@
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
-			log_game("[key_name(user)] has renamed a robot to [t]")
+			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 
 /obj/item/toolbox_tiles/sensor/attackby(obj/item/W, mob/user, params)
 	..()
@@ -284,7 +284,7 @@
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
-			log_game("[key_name(user)] has renamed a robot to [t]")
+			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 
 //Medbot Assembly
 /obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
@@ -352,7 +352,7 @@
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
-			log_game("[key_name(user)] has renamed a robot to [t]")
+			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 	else
 		switch(build_step)
 			if(0)
@@ -461,7 +461,7 @@
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
-			log_game("[key_name(user)] has renamed a robot to [t]")
+			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(!build_step)

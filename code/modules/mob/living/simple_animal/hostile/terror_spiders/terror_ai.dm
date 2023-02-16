@@ -86,7 +86,6 @@
 		var/mob/living/T = target
 		if(T.stat > 0)
 			killcount++
-			regen_points += regen_points_per_kill
 	attackstep = 0
 	attackcycles = 0
 	..()
@@ -175,7 +174,7 @@
 	. = ..(damage)
 	Retaliate()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
+/mob/living/simple_animal/hostile/poison/terror_spider/Retaliate()
 	var/list/around = oview(src, 7)
 	var/list/ts_nearby = list()
 	for(var/atom/movable/A in around)

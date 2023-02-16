@@ -21,7 +21,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message,
-	/mob/living/silicon/ai/proc/arrivals_announcement
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/ai_change_voice,
 ))
 
 //Not sure why this is necessary...
@@ -107,7 +108,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
-	var/arrivalmsg = "$name, $rank, has arrived on the station."
+	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
 	var/list/all_eyes = list()
 
@@ -121,8 +122,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
 	announcement = new()
-	announcement.title = "A.I. Announcement"
-	announcement.announcement_type = "A.I. Announcement"
+	announcement.title = "Оповещение ИИ"
+	announcement.announcement_type = "Оповещение ИИ"
 	announcement.announcer = name
 	announcement.newscast = 0
 
@@ -147,6 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
+	if(B?.clock || isclocker(B?.brainmob))
+		laws = new /datum/ai_laws/ratvar
+		overlays += "clockwork_frame"
 	if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
@@ -185,6 +189,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
+	add_language("Tkachi", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -637,6 +642,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
+/mob/living/silicon/ai/ratvar_act()
+	if(isclocker(src))
+		return
+	SSticker.mode.add_clocker(mind)
+	laws = new /datum/ai_laws/ratvar
+	overlays += "clockwork_frame"
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
+		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
+		R.ratvar_act(TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)
@@ -714,8 +729,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			mech_has_controlbeacon = TRUE
 			break
 		if(!can_dominate_mechs && !mech_has_controlbeacon)
-			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
-			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			log_debug("Warning: possible href exploit by [key_name_log(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
 		if(controlled_mech)
@@ -985,8 +1000,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in personnel_list
@@ -1130,6 +1145,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
+/mob/living/silicon/ai/proc/ai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "AI Commands"
+	change_voice()
+
 /mob/living/silicon/ai/proc/arrivals_announcement()
 	set name = "Toggle Arrivals Announcer"
 	set desc = "Change whether or not you wish to announce arrivals."
@@ -1175,7 +1196,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(istype(W, /obj/item/wrench))
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
+			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
@@ -1183,7 +1204,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
+			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
@@ -1355,6 +1376,42 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
+
+/mob/living/silicon/ai/var/current_camera = 0
+
+/mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
+	var/camnum_length = length(stored_locations)
+	if(camnum > camnum_length || (camnum == 0 && camnum_length < 10))
+		to_chat(user, "<span class='warning'>You have no stored camera on [camnum] position</span>")
+		return FALSE
+	if(camnum == 0)
+		camnum = 10
+	current_camera = camnum
+	return TRUE
+
+/mob/living/silicon/ai/proc/check_for_binded_cameras(client/user)
+	if(!length(stored_locations))
+		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")
+		return FALSE
+	return TRUE
+
+/mob/living/silicon/ai/proc/update_binded_camera(client/user)
+	var/camname
+	camname = stored_locations[current_camera]
+	ai_goto_location(camname)
+	to_chat(user, "<span class='notice'>Now you on camera position: [camname]</span>")
+
+/mob/living/silicon/ai/proc/current_camera_next(client/user)
+	if(current_camera >= length(stored_locations))
+		current_camera = 1
+	else
+		current_camera += 1
+
+/mob/living/silicon/ai/proc/current_camera_back(client/user)
+	if(current_camera <= 1)
+		current_camera = length(stored_locations)
+	else
+		current_camera -= 1
 
 /mob/living/silicon/ai/handle_fire()
 	return

@@ -54,41 +54,115 @@ REAGENT SCANNER
 
 /obj/item/t_scanner/proc/scan()
 
-	for(var/turf/T in range(scan_range, src.loc) )
+	for(var/turf/scan_turf in range(scan_range, src.loc) )
 
-		if(!T.intact)
+		if(!scan_turf.intact)
 			continue
 
-		for(var/obj/O in T.contents)
+		for(var/obj/in_turf_object in scan_turf.contents)
 
-			if(O.level != 1)
+			if(in_turf_object.level != 1)
 				continue
 
-			if(O.invisibility == 101)
-				O.invisibility = 0
-				O.alpha = 128
+			if(in_turf_object.invisibility == 101)
+				in_turf_object.invisibility = 0
+				in_turf_object.alpha = 128
+				in_turf_object.drain_act_protected = TRUE
 				spawn(pulse_duration)
-					if(O)
-						var/turf/U = O.loc
-						if(U && U.intact)
-							O.invisibility = 101
-						O.alpha = 255
-		for(var/mob/living/M in T.contents)
-			var/oldalpha = M.alpha
-			if(M.alpha < 255 && istype(M))
-				M.alpha = 255
+					if(in_turf_object)
+						var/turf/objects_turf = in_turf_object.loc
+						if(objects_turf && objects_turf.intact)
+							in_turf_object.invisibility = 101
+						in_turf_object.alpha = 255
+						in_turf_object.drain_act_protected = FALSE
+		for(var/mob/living/in_turf_mob in scan_turf.contents)
+			var/oldalpha = in_turf_mob.alpha
+			if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+				in_turf_mob.alpha = 255
 				spawn(10)
-					if(M)
-						M.alpha = oldalpha
+					if(in_turf_mob)
+						in_turf_mob.alpha = oldalpha
 
-		var/mob/living/M = locate() in T
+		var/mob/living/in_turf_mob = locate() in scan_turf
 
-		if(M && M.invisibility == 2)
-			M.invisibility = 0
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
+			in_turf_mob.invisibility = 0
 			spawn(2)
-				if(M)
-					M.invisibility = INVISIBILITY_LEVEL_TWO
+				if(in_turf_mob)
+					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
 
+/obj/item/t_scanner/security
+	name = "Противо-маскировочное ТГц устройство"
+	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство уязвимо для ЭМИ излучения."
+	icon = 'icons/obj/device.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_state = "sb_t-ray"
+	icon_state = "sb_t-ray0"
+	scan_range = 2
+	pulse_duration = 30
+	var/was_alerted = FALSE // Защита от спама алёртов от этого сканера
+	var/burnt = FALSE // Сломало ли нас емп?
+	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
+	origin_tech = "combat=3;magnets=5;biotech=5"
+
+/obj/item/t_scanner/security/Initialize()
+	. = ..()
+	//Sets up a spark system
+	spark_system = new /datum/effect_system/spark_spread
+	spark_system.set_up(5, 0, src)
+	spark_system.attach(src)
+
+/obj/item/t_scanner/security/attack_self(mob/user)
+	if(!burnt)
+		on = !on
+		icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
+
+	if(on)
+		START_PROCESSING(SSobj, src)
+
+/obj/item/t_scanner/security/emp_act(severity)
+	. = ..()
+	if(prob(25) && !burnt)
+		burnt = TRUE
+		on = FALSE;
+		icon_state = copytext(icon_state, 1, length(icon_state))+"_burnt"
+		desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
+		playsound(loc, "sparks", 50, TRUE, 5)
+		spark_system.start()
+
+/obj/item/t_scanner/security/scan()
+
+	new /obj/effect/temp_visual/scan(get_turf(src))
+
+	var/list/mobs_in_range = viewers(scan_range, get_turf(src))
+	for(var/mob/living/in_turf_mob in mobs_in_range)
+		var/oldalpha = in_turf_mob.alpha
+		if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+			in_turf_mob.alpha = 255
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.alpha = oldalpha
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
+			in_turf_mob.invisibility = 0
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
+
+/obj/item/t_scanner/security/proc/alert_searchers(mob/living/found_mob)
+	var/list/alerted = viewers(7, found_mob)
+	if(alerted && !was_alerted)
+		for(var/mob/living/alerted_mob in alerted)
+			if(!alerted_mob.stat)
+				alerted_mob.do_alert_animation(alerted_mob)
+				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
+		was_alerted = TRUE
+		addtimer(CALLBACK(src, .proc/end_alert_cd), 1 MINUTES)
+
+/obj/item/t_scanner/security/proc/end_alert_cd()
+	was_alerted = FALSE
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(ishuman(M))
@@ -433,6 +507,7 @@ REAGENT SCANNER
 			. += "<span class='danger'>Обнаружено кровотечение!</span>"
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 		var/blood_type = H.dna.blood_type
+		var/blood_species = H.dna.species.blood_species
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
@@ -440,11 +515,11 @@ REAGENT SCANNER
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			. += "Уровень крови: <span class='danger'>НИЗКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type]"
+			. += "Уровень крови: <span class='danger'>НИЗКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type], кровь расы: [blood_species]"
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			. += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type]"
+			. += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type], кровь расы: [blood_species]"
 		else
-			. += "Уровень крови: [blood_percent] %, [H.blood_volume] cl, тип: [blood_type]"
+			. += "Уровень крови: [blood_percent] %, [H.blood_volume] cl, тип: [blood_type], кровь расы: [blood_species]"
 
 	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"
 	var/list/implant_detect = list()
@@ -661,6 +736,7 @@ REAGENT SCANNER
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/reagent_scanner/afterattack(obj/O, mob/user as mob)
+	try_item_eat(O, user)
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
@@ -672,14 +748,16 @@ REAGENT SCANNER
 	if(!isnull(O.reagents))
 		var/dat = ""
 		var/blood_type = ""
+		var/blood_species = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
 					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 				else
+					blood_species = R.data["blood_species"]
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat
@@ -743,7 +821,7 @@ REAGENT SCANNER
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
 	to_chat(user, "========================")
 	to_chat(user, "<b>Slime scan results:</b>")
-	to_chat(user, "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
+	to_chat(user, "<span class='notice'>[T.colour] [T.age_state.age] slime</span>")
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
 	if(T.nutrition < T.get_starve_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
@@ -766,7 +844,9 @@ REAGENT SCANNER
 			to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
 	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
-	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+	to_chat(user, "Growth progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown)]/[T.age_state.amount_grown]")
+	to_chat(user, "Split progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown_for_split)]/[T.age_state.amount_grown_for_split]")
+	to_chat(user, "Evolve: preparing for [(T.amount_grown < T.age_state.amount_grown_for_split) ? (T.age_state.stat_text) : (T.age_state.age != SLIME_ELDER ? T.age_state.stat_text_evolve : T.age_state.stat_text)]")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")

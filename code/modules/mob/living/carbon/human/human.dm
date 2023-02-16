@@ -27,6 +27,9 @@
 		if(mind)
 			mind.name = real_name
 
+		if (!tts_seed)
+			tts_seed = SStts.get_random_seed(src)
+
 	create_reagents(330)
 
 	handcrafting = new()
@@ -104,9 +107,13 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
+	if (!tts_seed)
+		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
+	if (!tts_seed)
+		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
 	. = ..(mapload, /datum/species/machine)
@@ -142,20 +149,10 @@
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
-/mob/living/carbon/human/monkey/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey)
-
-/mob/living/carbon/human/farwa/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/tajaran)
-
-/mob/living/carbon/human/wolpin/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/vulpkanin)
-
-/mob/living/carbon/human/neara/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/skrell)
-
-/mob/living/carbon/human/stok/Initialize(mapload)
-	. = ..(mapload, /datum/species/monkey/unathi)
+/mob/living/carbon/human/moth/Initialize(mapload)
+	. = ..(mapload, /datum/species/moth)
+	if(!body_accessory)
+		change_body_accessory("Plain Wings")
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -188,10 +185,14 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
-
 			if(mind.vampire)
 				stat("Всего крови", "[mind.vampire.bloodtotal]")
 				stat("Доступная кровь", "[mind.vampire.bloodusable]")
+			if(isclocker(mind.current))
+				stat("Total Power", "[GLOB.clockwork_power]")
+			if(mind.ninja && mind.ninja.my_suit)
+				stat("Заряд костюма","[mind.ninja.return_cell_charge()]")
+				stat("Заряд рывков","[mind.ninja.return_dash_charge()]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
@@ -290,6 +291,7 @@
 /mob/living/carbon/human/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
@@ -625,12 +627,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
-						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Equipped with [place_item]")
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -639,7 +641,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]")
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -654,7 +656,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
+				add_attack_logs(usr, src, "Stripped of headpocket items")
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1210,6 +1212,8 @@
 
 	tail = dna.species.tail
 
+	wing = dna.species.wing
+
 	maxHealth = dna.species.total_health
 
 	if(dna.species.language)
@@ -1339,7 +1343,10 @@
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-	body_accessory = null
+	if(dna.species.bodyflags & HAS_BODY_ACCESSORY)
+		body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+	else
+		body_accessory = null
 
 	dna.real_name = real_name
 
@@ -1540,6 +1547,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
 			. = 100
+		if(mind.assigned_role == "Trainee Engineer")	//Чем глупее, тем вкуснее
+			. = 300
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
 	..() //Called afterwards because getting the mind after getting gibbed is sketchy
@@ -1715,6 +1724,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
 		return FALSE
 
+	// Ниндзя не пользуется чужими пушками. В этом нет чести, нет уважения, нет САКЭ!
+	if(mind && mind.ninja && !mind.ninja.allow_guns && !G.ninja_weapon)
+		to_chat(src, "<span class='warning'>[mind.ninja.no_guns_message]</span>")
+		return FALSE
+
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
@@ -1851,25 +1865,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/datum/objective/sintouched/O
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
-			log_game("[src] was influenced by the sin of Acedia.")
+			add_game_logs("[src] was influenced by the sin of Acedia.", src)
 			O = new /datum/objective/sintouched/acedia
 		if(2) // Gluttony
-			log_game("[src] was influenced by the sin of gluttony.")
+			add_game_logs("[src] was influenced by the sin of gluttony.", src)
 			O = new /datum/objective/sintouched/gluttony
 		if(3) // Greed
-			log_game("[src] was influenced by the sin of greed.")
+			add_game_logs("[src] was influenced by the sin of greed.", src)
 			O = new /datum/objective/sintouched/greed
 		if(4) // sloth
-			log_game("[src] was influenced by the sin of sloth.")
+			add_game_logs("[src] was influenced by the sin of sloth.", src)
 			O = new /datum/objective/sintouched/sloth
 		if(5) // Wrath
-			log_game("[src] was influenced by the sin of wrath.")
+			add_game_logs("[src] was influenced by the sin of wrath.", src)
 			O = new /datum/objective/sintouched/wrath
 		if(6) // Envy
-			log_game("[src] was influenced by the sin of envy.")
+			add_game_logs("[src] was influenced by the sin of envy.", src)
 			O = new /datum/objective/sintouched/envy
 		if(7) // Pride
-			log_game("[src] was influenced by the sin of pride.")
+			add_game_logs("[src] was influenced by the sin of pride.", src)
 			O = new /datum/objective/sintouched/pride
 	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O
@@ -1913,6 +1927,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
 
+/mob/living/carbon/human/WakeUp(updating = TRUE)
+	if(dna.species.spec_WakeUp(src))
+		return
+	..()
+
 /**
   * Helper to get the mobs runechat colour span
   *
@@ -1926,3 +1945,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		runechat_msg_location = loc
 	else
 		runechat_msg_location = src
+
+/mob/living/carbon/human/limb_attack_self()
+	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)
+	if(arm)
+		arm.attack_self(src)
+	return ..()

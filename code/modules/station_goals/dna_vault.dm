@@ -46,9 +46,11 @@
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_probes]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
@@ -74,7 +76,7 @@
 	plants = list()
 	dna = list()
 
-GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
+GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/lesser/monkey,/mob/living/carbon/alien)))
 
 /obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
 	..()

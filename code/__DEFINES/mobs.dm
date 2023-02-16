@@ -63,10 +63,6 @@
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4
 
-// By defining the effect multiplier this way, it'll exactly adjust
-// all effects according to how they originally were with the 0.4 metabolism
-#define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.8 // Nerf all reagents by half
-
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
@@ -105,6 +101,15 @@
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
+#define SLIME_EVOLUTION_THRESHOLD_OLD 30
+#define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
+#define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
+
+#define SLIME_BABY 		"baby"
+#define SLIME_ADULT 	"adult"
+#define SLIME_OLD 		"old"
+#define SLIME_ELDER 	"elder"
+#define SLIME_SLIMEMAN 	"slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
@@ -139,6 +144,10 @@
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
 
+// Robot notify AI type
+#define ROBOT_NOTIFY_AI_CONNECTED 1 //New Cyborg
+#define ROBOT_NOTIFY_AI_MODULE 2 //New Module
+#define ROBOT_NOTIFY_AI_NAME 3 //New Name
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
@@ -206,11 +215,13 @@
 #define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
 #define iskidan(A) (is_species(A, /datum/species/kidan))
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
+#define isnucleation(A) (is_species(A, /datum/species/nucleation))
 #define isgrey(A) (is_species(A, /datum/species/grey))
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
+#define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
@@ -227,6 +238,12 @@
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+#define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
+#define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
+
+// For tools
+
+#define gettoolspeedmod(A) (ishuman(A) ? A.dna.species.toolspeedmod : 1)
 
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))

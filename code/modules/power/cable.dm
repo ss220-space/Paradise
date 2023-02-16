@@ -84,7 +84,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
 	if(usr)
-		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was deconstructed by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
 			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
@@ -216,7 +216,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(shock(user, 50))
 		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	investigate_log("was cut by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	deconstruct()
 
 // shock the user with probability prb
@@ -568,6 +568,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 				use(1)
 				cable_used += 1
 				E.heal_damage(0, HEALPERCABLE, 0, 1)
+				H.UpdateDamageIcon()
 			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
 		return 1
 

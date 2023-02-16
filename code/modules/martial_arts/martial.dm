@@ -8,6 +8,7 @@
 	var/temporary = FALSE
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
+	var/reflection_chance = 0 //Chance to reflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
@@ -17,7 +18,8 @@
 
 	var/list/combos = list()							// What combos can the user do? List of combo types
 	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
-	var/last_hit = 0									// When the last hit happened
+	var/last_hit = 0 									// When the last hit happened
+	var/in_stance = FALSE
 
 /datum/martial_art/New()
 	. = ..()
@@ -109,6 +111,7 @@
 								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
+	objective_damage(A, D, damage, BRUTE)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
@@ -120,6 +123,12 @@
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
+
+/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
+	if(target.mind && user?.mind?.objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+			if(target.mind == objective.target)
+				objective.take_damage(damage, damage_type)
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)

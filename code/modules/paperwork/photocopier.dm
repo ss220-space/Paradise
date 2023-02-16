@@ -359,7 +359,7 @@
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
-	else if(istype(ass,/mob/living/silicon/robot/drone))
+	else if(isdrone(ass))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(istype(ass,/mob/living/simple_animal/diona))
 		temp_img = icon('icons/obj/butts.dmi', "nymph")
@@ -442,7 +442,7 @@
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("Attention: Posterior Placed on Printing Plaque!")
+		atom_say("Внимание: обнаружена задница на печатном полотне!")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

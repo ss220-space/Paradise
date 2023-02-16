@@ -404,6 +404,11 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
+/obj/machinery/sleeper/ratvar_act()
+	go_out()
+	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 /obj/machinery/sleeper/proc/toggle_filter()
 	if(filtering || !beaker)
 		filtering = FALSE
@@ -449,6 +454,8 @@
 	set category = "Object"
 	set src in oview(1)
 
+	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+		return
 	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 

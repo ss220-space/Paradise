@@ -126,11 +126,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
 				if(limited_stock > 0)
-					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+					add_game_logs("purchased [name]. [name] was discounted to [cost].", user)
 					if(!user.mind.special_role)
 						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 				else
-					log_game("[key_name(user)] purchased [name].")
+					add_game_logs("purchased [name].", user)
 					if(!user.mind.special_role)
 						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 				A.put_in_any_hand_if_possible(I)
@@ -294,7 +294,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
-	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Chief Medical Officer", "Medical Doctor", "Intern", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
 /datum/uplink_item/jobspecific/batterer
 	name = "Mind Batterer"
@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SG"
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 2
-	job = list("Civilian", "Mechanic", "Station Engineer", "Chief Engineer")
+	job = list("Civilian", "Mechanic", "Station Engineer", "Trainee Engineer", "Chief Engineer")
 
 //Bartender
 
@@ -387,7 +387,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 8
-	job = list("Station Engineer", "Chief Engineer")
+	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer")
 
 //RD
 
@@ -452,7 +452,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
-	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Scientist", "Student Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
 //Tator Poison Bottles
 
@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TPB"
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
+	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
 
 // Paper contact poison pen
 
@@ -927,6 +927,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/ammo/compact
+	name = "50. compact ammo box"
+	desc = "A box of 50. cal sniper ammo."
+	reference = "50L"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
@@ -1206,6 +1214,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
+	cost = 1
+	surplus = 35
+
+/datum/uplink_item/stealthy_tools/chameleonpen
+	name = "Chameleon Pen"
+	desc = "A pen with customized ultra-super high-tech tip, that makes everything you write look like a real signature."
+	reference = "CHPEN"
+	item = /obj/item/pen/fakesign
 	cost = 1
 	surplus = 35
 
@@ -1546,6 +1562,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/magboots/advance
+	name = "Advanced Blood-Red Magboots"
+	desc = "A pair of magnetic boots with a Syndicate paintjob that assist with freer movement in space or on-station during gravitational generator failures. \
+	These reverse-engineered knockoffs of Nanotrasen's 'Advanced Magboots' not slow you down in simulated-gravity environments and provide protection against slipping on the space lube."
+	reference = "ABRMB"
+	item = /obj/item/clothing/shoes/magboots/syndie/advance
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
@@ -1758,7 +1783,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	The briefcase also feels a little heavier to hold; it has been manufactured to pack a little bit more of a punch if your client needs some convincing."
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 5
+	cost = 1
 
 /datum/uplink_item/badass/plasticbag
 	name = "Plastic Bag"
@@ -1834,6 +1859,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 22 // normally 27
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/bundles_TC/cyborg_maint
+	name = "Cyborg maintenance crate"
+	desc = "A box containing all internal parts of cyborg for repair."
+	reference = "CYMT"
+	item = /obj/item/storage/box/syndie_kit/cyborg_maint
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
@@ -1887,7 +1920,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	for(var/item in bought_items)
 		var/obj/purchased = new item(C)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", usr)
 
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "Raw Telecrystal"

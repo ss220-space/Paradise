@@ -728,6 +728,17 @@
 	for(var/i in 1 to 7)
 		new	/obj/item/restraints/handcuffs/alien(src)
 
+/obj/item/storage/box/manacles
+	name = "box of spare manacles"
+	desc = "A box full of manacles. Old but gold."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "box_manacle"
+
+/obj/item/storage/box/manacles/New()
+	..()
+	for(var/i in 1 to 7)
+		new	/obj/item/restraints/handcuffs/manacles(src)
+
 /obj/item/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."
@@ -1083,6 +1094,22 @@
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
+/obj/item/storage/box/soviet
+	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
+	icon_state = "box_soviet"
+
+/obj/item/storage/box/soviet/New()
+	..()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"

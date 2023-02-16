@@ -40,7 +40,13 @@
 	name = "medical gripper"
 	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
 	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag)
+					/obj/item/reagent_containers/iv_bag,
+					/obj/item/robot_parts/head,
+					/obj/item/robot_parts/l_arm,
+					/obj/item/robot_parts/r_arm,
+					/obj/item/robot_parts/l_leg,
+					/obj/item/robot_parts/r_leg,
+					/obj/item/robot_parts/chest)
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
@@ -64,6 +70,27 @@
 		return
 	..()
 
+/obj/item/gripper/cogscarab
+	name = "ancient gripper"
+	desc = "A brass grasping tool for supporting workmates."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clock_gripper"
+
+/obj/item/gripper/cogscarab/New()
+	//Has a list of items that it can hold.
+	can_hold += list(
+		/obj/item/clockwork/integration_cog,
+		/obj/item/clockwork/shard,
+		/obj/item/stack/sheet,
+		/obj/item/mmi/robotic_brain/clockwork
+	)
+	..()
+
+/obj/item/gripper/nuclear
+	name = "Nuclear gripper"
+	desc = "Designed for all your nuclear needs."
+	icon_state = "diskgripper"
+	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/New()
 	..()

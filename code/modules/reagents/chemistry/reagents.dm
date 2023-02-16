@@ -113,7 +113,6 @@
 	if(holder.my_atom.fingerprintslast)
 		var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
 		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [name]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
 // Called when this reagent is first added to a mob
@@ -169,6 +168,7 @@
 	else
 		if(prob(8))
 			M.emote("shiver")
+			M.Jitter(60)
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
@@ -182,8 +182,10 @@
 	else
 		if(prob(8))
 			M.emote("twitch_s")
+			M.Jitter(80)
 		if(prob(8))
 			M.emote("shiver")
+			M.Jitter(60)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>Your head hurts.</span>")
 		if(prob(4))
@@ -196,9 +198,11 @@
 			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
 		if(prob(4))
 			M.emote("twitch")
+			M.Jitter(80)
 	else
 		if(prob(8))
 			M.emote("twitch")
+			M.Jitter(80)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
 		if(prob(4))
@@ -214,6 +218,7 @@
 			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
 		if(prob(4))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
+			M.Jitter(80)
 	else
 		if(prob(6))
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
@@ -222,6 +227,7 @@
 			update_flags |= M.Weaken(rand(2,4), FALSE)
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
+			M.Jitter(80)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
 		if(prob(5))

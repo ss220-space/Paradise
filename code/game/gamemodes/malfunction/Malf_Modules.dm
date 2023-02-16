@@ -321,16 +321,9 @@
 	for(var/mob/M in GLOB.player_list)
 		M << 'sound/machines/alarm.ogg'
 	sleep(100)
-	for(var/mob/living/L in GLOB.mob_list)
-		var/turf/T = get_turf(L)
-		if(!T || T.z != z_level)
-			continue
-		if(issilicon(L))
-			continue
-		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
-		L.dust()
+	SSticker.station_explosion_cinematic(null, "AI malfunction")
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	SSticker.force_ending = 1
+	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
 /datum/AI_Module/large/upgrade_turrets
@@ -484,7 +477,7 @@
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0)
+		explosion(get_turf(M), 0,1,1,0, cause = "AI Machine Overload")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 

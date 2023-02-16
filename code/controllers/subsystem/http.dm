@@ -8,7 +8,8 @@ SUBSYSTEM_DEF(http)
 	/// List of all async HTTP requests in the processing chain
 	var/list/datum/http_request/active_async_requests
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
-	var/logging_enabled = FALSE
+	var/logging_enabled = TRUE
+	var/logging_errors_only = TRUE
 	/// Total requests the SS has processed in a round
 	var/total_requests
 
@@ -38,7 +39,15 @@ SUBSYSTEM_DEF(http)
 
 			// And log the result
 			if(logging_enabled)
+				if(logging_errors_only && !res.errored)
+					return
 				var/list/log_data = list()
+				log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
+				log_data += "\t[uppertext(req.method)] [req.url]"
+				log_data += "\tRequest body: [req.body]"
+				log_data += "\tRequest headers: [req.headers]"
+				log_data += "END ASYNC REQUEST (ID: [req.id])"
+
 				log_data += "BEGIN ASYNC RESPONSE (ID: [req.id])"
 				if(res.errored)
 					log_data += "\t ----- RESPONSE ERRROR -----"
@@ -48,7 +57,7 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse body: [res.body]"
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
-				WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
+				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), tts_token_silero, "TOKEN"))
 
 /**
   * Async request creator
@@ -67,17 +76,18 @@ SUBSYSTEM_DEF(http)
 	active_async_requests += req
 	total_requests++
 
-	if(logging_enabled)
-		// Create a log holder
-		var/list/log_data = list()
-		log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
-		log_data += "\t[uppertext(req.method)] [req.url]"
-		log_data += "\tRequest body: [req.body]"
-		log_data += "\tRequest headers: [req.headers]"
-		log_data += "END ASYNC REQUEST (ID: [req.id])"
+	// if(logging_enabled)
+	// 	// Create a log holder
+	// 	var/list/log_data = list()
+	// 	log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
+	// 	log_data += "\t[uppertext(req.method)] [req.url]"
+	// 	log_data += "\tRequest body: [req.body]"
+	// 	log_data += "\tRequest headers: [req.headers]"
+	// 	log_data += "END ASYNC REQUEST (ID: [req.id])"
+	// 	log_data = replacetext_char(log_data, tts_token_silero, "TOKEN")
 
-		// Write the log data
-		WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
+	// 	// Write the log data
+	// 	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 /**
   * Blocking request creator

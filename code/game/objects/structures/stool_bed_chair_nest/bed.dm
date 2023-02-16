@@ -30,7 +30,7 @@
 	M.resting = TRUE
 	M.update_canmove()
 
-/obj/sturcture/bed/post_unbuckle_mob(mob/living/M)
+/obj/structure/bed/post_unbuckle_mob(mob/living/M)
 	. = ..()
 	M.resting = FALSE
 	M.update_canmove()
@@ -77,6 +77,7 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	pull_push_speed_modifier = 1
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))

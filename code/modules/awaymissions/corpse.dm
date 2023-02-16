@@ -36,6 +36,7 @@
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 	var/min_hours = 0 //Минимальное количество часов для игры на гост роли
 	var/exp_type = EXP_TYPE_LIVING
+	var/respawn_cooldown = 0
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -53,6 +54,20 @@
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
+	var/deathtime = world.time - O.timeofdeath
+	if(respawn_cooldown && deathtime < respawn_cooldown && O.started_as_observer == 0)
+		var/deathtimeminutes = round(deathtime / 600)
+		var/pluralcheck = "minute"
+		if(deathtimeminutes == 0)
+			pluralcheck = ""
+		else if(deathtimeminutes == 1)
+			pluralcheck = " [deathtimeminutes] minute and"
+		else if(deathtimeminutes > 1)
+			pluralcheck = " [deathtimeminutes] minutes and"
+		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!</span>")
+		return
 	if(config.use_exp_restrictions && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
 			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
@@ -60,16 +75,20 @@
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
 		return
-	if(!species_prompt())
-		return
+	var/mob_use_prefs = FALSE
+	if(use_prefs_prompt(user))
+		mob_use_prefs = TRUE
+	else
+		if(!species_prompt())
+			return
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	if(id_job == null)
-		log_game("[user.ckey] became [mob_name]")
+		add_game_logs("[user.ckey] became [mob_name]", user)
 	else
-		log_game("[user.ckey] became [mob_name]. Job: [id_job]")
-	create(ckey = user.ckey)
+		add_game_logs("[user.ckey] became [mob_name]. Job: [id_job]", user)
+	create(plr = user, prefs = mob_use_prefs)
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -87,16 +106,19 @@
 		GLOB.mob_spawners -= name
 	return ..()
 
+/obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user)
+	return
+
 /obj/effect/mob_spawn/proc/species_prompt()
 	return TRUE
 
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/equip(mob/M)
+/obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE)
 	return
 
-/obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
+/obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -118,10 +140,13 @@
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
 	M.color = mob_color
-	equip(M, TRUE)
+	if(plr)
+		if(prefs)
+			plr.client?.prefs.copy_to(M)
+	equip(M, use_prefs = prefs)
 
-	if(ckey)
-		M.ckey = ckey
+	if(plr)
+		M.ckey = plr.ckey
 		if(flavour)
 			to_chat(M, "[flavour_text]")
 		var/datum/mind/MM = M.mind
@@ -133,10 +158,13 @@
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
+		M.change_voice()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
 		qdel(src)
+	else
+		M.tts_seed = SStts.get_random_seed(M)
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
@@ -144,6 +172,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
+	var/allow_prefs_prompt = FALSE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -191,6 +220,19 @@
 		mob_name = id_job
 	return ..()
 
+/obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
+	if(allow_prefs_prompt)
+		if(!(user.client))
+			return FALSE
+		for(var/C in GLOB.human_names_list)
+			var/char_name = user.client.prefs.real_name
+			if(char_name == C)
+				return FALSE
+		var/get_slot = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
+		if(get_slot == "Yes")
+			return TRUE
+	return FALSE
+
 /obj/effect/mob_spawn/human/species_prompt()
 	if(allow_species_pick)
 		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
@@ -200,8 +242,8 @@
 		mob_species = S.type
 	return TRUE
 
-/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
-	if(mob_species)
+/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H, use_prefs = FALSE)
+	if(mob_species && !use_prefs)
 		H.set_species(mob_species)
 
 	if(husk)
@@ -212,22 +254,23 @@
 	H.undershirt = "Nude"
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
-	if(istype(D))
-		if(hair_style)
-			D.h_style = hair_style
+	if(!use_prefs)
+		if(istype(D))
+			if(hair_style)
+				D.h_style = hair_style
+			else
+				D.h_style = random_hair_style(gender, D.dna.species.name)
+			D.hair_colour = rand_hex_color()
+			if(facial_hair_style)
+				D.f_style = facial_hair_style
+			else
+				D.f_style = random_facial_hair_style(gender, D.dna.species.name)
+			D.facial_colour = rand_hex_color()
+		if(skin_tone)
+			H.change_skin_tone(skin_tone)
 		else
-			D.h_style = random_hair_style(gender, D.dna.species.name)
-		D.hair_colour = rand_hex_color()
-		if(facial_hair_style)
-			D.f_style = facial_hair_style
-		else
-			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
-		D.facial_colour = rand_hex_color()
-	if(skin_tone)
-		H.change_skin_tone(skin_tone)
-	else
-		H.change_skin_tone(random_skin_tone())
-		H.change_skin_color(rand_hex_color())
+			H.change_skin_tone(random_skin_tone())
+			H.change_skin_color(rand_hex_color())
 	H.update_hair()
 	H.update_fhair()
 	H.update_body()
@@ -242,7 +285,8 @@
 		H.equipOutfit(outfit)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
-			qdel(I)
+			if(I)
+				qdel(I)
 
 		if(disable_pda)
 			// We don't want corpse PDAs to show up in the messenger list.
@@ -342,6 +386,12 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+/obj/effect/mob_spawn/human/intern
+	name = "Intern"
+	mob_name = "Intern"
+	id_job = "Intern"
+	outfit = /datum/outfit/job/doctor/intern
+
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
 	roundstart = FALSE
@@ -352,7 +402,7 @@
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
-/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H, use_prefs = FALSE)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
@@ -365,6 +415,12 @@
 	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
+
+/obj/effect/mob_spawn/human/trainee
+	name = "Trainee Engineer"
+	mob_name = "Trainee Engineer"
+	id_job = "Trainee Engineer"
+	outfit = /datum/outfit/job/engineer/trainee
 
 /obj/effect/mob_spawn/human/engineer/hardsuit
 	outfit = /datum/outfit/job/engineer/suit
@@ -448,11 +504,23 @@
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
+/obj/effect/mob_spawn/human/student
+	name = "Student Scientist"
+	mob_name = "Student Scientist"
+	id_job = "Student Scientist"
+	outfit = /datum/outfit/job/scientist/student
+
 /obj/effect/mob_spawn/human/securty
 	name = "Security Officer"
 	mob_name = "Security Officer"
 	id_job = "Security Officer"
 	outfit = /datum/outfit/job/officer
+
+/obj/effect/mob_spawn/human/cadet
+	name = "Security Cadet"
+	mob_name = "Security Cadet"
+	id_job = "Security Cadet"
+	outfit = /datum/outfit/job/officer/cadet
 
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
@@ -623,3 +691,61 @@
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+
+//For dead simple mobs
+
+/obj/effect/mob_spawn/carp
+	mob_type = /mob/living/simple_animal/hostile/carp
+	death = TRUE
+	name = "Dead carp"
+	icon = 'icons/mob/carp.dmi'
+	icon_state = "base_dead"
+
+//For black market packers gate
+
+/obj/effect/mob_spawn/human/corpse/tacticool
+	mob_type = /mob/living/carbon/human
+	name = "Tacticool corpse"
+	icon = 'icons/mob/uniform.dmi'
+	icon_state = "tactifool_s"
+	mob_name = "Unknown"
+	random = TRUE
+	death = TRUE
+	disable_sensors = TRUE
+	outfit = /datum/outfit/packercorpse
+
+/datum/outfit/packercorpse
+	name = "Packer Corpse"
+
+	uniform = /obj/item/clothing/under/syndicate/tacticool
+	shoes = /obj/item/clothing/shoes/combat
+	back = /obj/item/storage/backpack
+	l_ear = /obj/item/radio/headset
+	gloves = /obj/item/clothing/gloves/color/black
+
+/obj/effect/mob_spawn/human/corpse/tacticool/Initialize()
+	brute_damage = rand(0, 400)
+	burn_damage = rand(0, 400)
+	return ..()
+
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader
+	name = "Syndi trader corpse"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "secure"
+	random = TRUE
+	disable_sensors = TRUE
+	outfit = /datum/outfit/syndicatetrader
+
+/datum/outfit/syndicatetrader
+	uniform = /obj/item/clothing/under/syndicate/tacticool
+	shoes = /obj/item/clothing/shoes/combat
+	back = /obj/item/storage/backpack
+	gloves = /obj/item/clothing/gloves/color/black/forensics
+	belt = /obj/item/gun/projectile/automatic/pistol
+	mask = /obj/item/clothing/mask/balaclava
+	suit = /obj/item/clothing/suit/armor/vest/combat
+
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize()
+	brute_damage = rand(150, 500)
+	burn_damage = rand(100, 300)
+	return ..()

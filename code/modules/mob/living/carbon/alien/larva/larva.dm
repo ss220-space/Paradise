@@ -9,6 +9,8 @@
 	health = 25
 	density = 0
 
+	tts_seed = "Templar"
+
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth
@@ -21,6 +23,7 @@
 /mob/living/carbon/alien/larva/GrantAlienActions()
 	hide_action.Grant(src)
 	evolve_action.Grant(src)
+	nigtvisiontoggle_action.Grant(src)
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()

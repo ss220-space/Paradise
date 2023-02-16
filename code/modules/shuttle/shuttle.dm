@@ -532,6 +532,14 @@
 	loc = S1.loc
 	dir = S1.dir
 
+	// Update mining and labor shuttle ash storm audio
+	if(id in list("mining", "laborcamp"))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
+
 	unlockPortDoors(S1)
 
 
@@ -805,6 +813,7 @@
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE
@@ -816,8 +825,8 @@
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
-				atom_say("Shuttle departing! Please stand away from the doors.")
-				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+				atom_say("Шаттл отправляется! Пожалуйста, отойдите от шлюзов.")
+				add_misc_logs(usr, "used [src] to call the [shuttleId] shuttle")
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
@@ -830,6 +839,7 @@
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")

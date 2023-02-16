@@ -18,7 +18,8 @@
 					fuid,
 					parallax,
 					discord_id,
-					discord_name
+					discord_name,
+					keybindings
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -49,12 +50,13 @@
 		parallax = text2num(query.item[16])
 		discord_id = query.item[17]
 		discord_name = query.item[18]
+		keybindings = init_keybindings(raw = query.item[19])
 
 	qdel(query)
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
+	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight", "Plasmafire", "Retro", "Slimecore", "Operative"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
@@ -99,7 +101,8 @@
 					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax
+					parallax=:parallax,
+					keybindings=:keybindings
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -117,6 +120,7 @@
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
+						"keybindings" = json_encode(keybindings_overrides),
 						"ckey" = C.ckey
 					)
 					)
@@ -198,7 +202,13 @@
 					body_accessory,
 					gear,
 					autohiss,
-					uplink_pref
+					uplink_pref,
+					tts_seed,
+					custom_emotes,
+					hair_gradient,
+					hair_gradient_offset,
+					hair_gradient_colour,
+					hair_gradient_alpha
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -280,6 +290,18 @@
 		autohiss_mode = text2num(query.item[52])
 		uplink_pref = query.item[53]
 
+		// TTS
+		tts_seed = query.item[54]
+
+		//Emotes
+		custom_emotes_tmp = query.item[55]
+
+		// Gradient
+		h_grad_style = query.item[56]
+		h_grad_offset_x = query.item[57] // parsed down below
+		h_grad_colour = query.item[58]
+		h_grad_alpha = query.item[59]
+
 		saved = TRUE
 
 	qdel(query)
@@ -317,6 +339,9 @@
 	b_type			= sanitize_text(b_type, initial(b_type))
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
+	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
+	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
+	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -335,6 +360,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 200, initial(h_grad_alpha))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -427,7 +459,13 @@
 												body_accessory=:body_accessory,
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
-												uplink_pref=:uplink_pref
+												hair_gradient=:h_grad_style,
+												hair_gradient_offset=:h_grad_offset,
+												hair_gradient_colour=:h_grad_colour,
+												hair_gradient_alpha=:h_grad_alpha,
+												uplink_pref=:uplink_pref,
+												tts_seed=:tts_seed,
+												custom_emotes=:custom_emotes
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -483,7 +521,13 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
+													"h_grad_style" = h_grad_style,
+													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+													"h_grad_colour" = h_grad_colour,
+													"h_grad_alpha" = h_grad_alpha,
 													"uplink_pref" = uplink_pref,
+													"tts_seed" = tts_seed,
+													"custom_emotes" = json_encode(custom_emotes),
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -525,7 +569,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, uplink_pref)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -553,7 +597,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -611,7 +655,13 @@
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
 		"autohiss_mode" = autohiss_mode,
-		"uplink_pref" = uplink_pref
+		"h_grad_style" = h_grad_style,
+		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+		"h_grad_colour" = h_grad_colour,
+		"h_grad_alpha" = h_grad_alpha,
+		"uplink_pref" = uplink_pref,
+		"tts_seed" = tts_seed,
+		"custom_emotes" = json_encode(custom_emotes)
 	))
 
 	if(!query.warn_execute())
@@ -694,3 +744,15 @@
 
 	qdel(update_query)
 	return TRUE
+
+/datum/preferences/proc/init_custom_emotes(overrides)
+
+	custom_emotes = overrides
+
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue //we set anything without an override back to default, in case it isn't that
+		custom_emotes[custom_emote.name] = emote_text
+
+	return custom_emotes

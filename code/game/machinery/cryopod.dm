@@ -103,6 +103,7 @@
 	else if(href_list["item"])
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 		if(!allow_items) return
 
@@ -125,6 +126,7 @@
 	else if(href_list["allitems"])
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 		if(!allow_items)
 			return
@@ -212,7 +214,7 @@
 	flags = NODECONSTRUCT
 	var/base_icon_state = "body_scanner_0"
 	var/occupied_icon_state = "body_scanner_1"
-	var/on_store_message = "has entered long-term storage."
+	var/on_store_message = "помещен в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
@@ -251,7 +253,9 @@
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/spacepod_key,
 		/obj/item/nullrod,
-		/obj/item/key
+		/obj/item/key,
+		/obj/item/door_remote,
+		/obj/item/stamp
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -295,8 +299,7 @@
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
-		log_admin("Cryopod in [loc.loc] could not find control computer!")
-		message_admins("Cryopod in [loc.loc] could not find control computer!")
+		log_and_message_admins("Cryopod in [COORD(src)] could not find control computer!")
 		last_no_computer_message = world.time
 
 	return control_computer != null
@@ -448,14 +451,14 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if (announce_rank)
-				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+				announcer.say("; [issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]")
 			else
-				announcer.say(";[occupant.real_name] [on_store_message]")
+				announcer.say("; [issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]")
 		else
 			if (announce_rank)
-				announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
-				announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
 		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
@@ -561,7 +564,7 @@
 		return
 
 	if(!L.mind)
-		to_chat(user, "<span class='noitce'>Catatonic people are not allowed into cryo.</span>")
+		to_chat(user, "<span class='notice'>Catatonic people are not allowed into cryo.</span>")
 		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
@@ -620,8 +623,8 @@
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
-	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_admin("<span class='notice'>[key_name_log(E)] entered a stasis pod.</span>")
+	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)
 
 
@@ -742,7 +745,7 @@
 	icon_state = "pod_0"
 	base_icon_state = "pod_0"
 	occupied_icon_state = "pod_1"
-	on_store_message = "has entered robotic storage."
+	on_store_message = "помещен в робохранилище."
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)

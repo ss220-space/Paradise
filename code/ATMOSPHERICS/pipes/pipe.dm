@@ -17,7 +17,7 @@
 /obj/machinery/atmospherics/pipe/New()
 	..()
 	//so pipes under walls are hidden
-	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/shuttle/wall) || istype(get_turf(src), /turf/unsimulated/wall))
+	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle))
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
@@ -36,6 +36,9 @@
 	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
+
+/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
+	return parent
 
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))

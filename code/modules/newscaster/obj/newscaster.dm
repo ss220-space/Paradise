@@ -79,6 +79,8 @@
 			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
+			/datum/job/ntnavyofficer/field,
+			/datum/job/ntspecops/supreme,
 			/datum/job/ntspecops,
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
@@ -675,7 +677,7 @@
 	if(!is_operational())
 		return
 	if(wanted_notice)
-		atom_say("Attention! Wanted issue distributed!")
+		atom_say("Внимание! Объявлен розыск!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 	else if(length(announcement))
 		atom_say("[announcement]!")

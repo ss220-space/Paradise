@@ -2,6 +2,7 @@
 	name = "energy"
 	icon_state = "spark"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = BURN
 	flag = "energy"
 	is_reflectable = TRUE
@@ -44,6 +45,7 @@
 	name = "declone"
 	icon_state = "declone"
 	damage = 20
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = CLONE
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -58,18 +60,11 @@
 	range = 7
 	shockbull = TRUE
 
-/obj/item/projectile/energy/shuriken
-	name = "shuriken"
-	icon_state = "toxin"
-	damage = 30
-	damage_type = TOX
-	weaken = 1
-	stutter = 1
-
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
+	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
 	nodamage = 0
@@ -78,8 +73,8 @@
 	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large
-	damage = 20	
-	weaken = 1	
+	damage = 20
+	weaken = 1
 	stamina = 30
 
 /obj/item/projectile/energy/shock_revolver
@@ -104,5 +99,6 @@
 	name = "plasma bolt"
 	icon_state = "energy"
 	damage = 20
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = TOX
 	irradiate = 20

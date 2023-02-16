@@ -170,10 +170,10 @@
 	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
 	if(being_built)
-		atom_say("Error: Something is already being built!")
+		atom_say("Ошибка: уже в процессе производства!")
 		return
 	if(!can_afford_design(D))
-		atom_say("Error: Insufficient materials to build [D.name]!")
+		atom_say("Ошибка: недостаточно материалов для производства [D.name]!")
 		return
 
 	// Subtract the materials from the holder
@@ -192,6 +192,15 @@
 	addtimer(CALLBACK(src, .proc/build_design_timer_finish, D, final_cost), build_time)
 
 	return TRUE
+
+/obj/machinery/mecha_part_fabricator/proc/log_printing_design(datum/design/D)
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(S.disabled)
+			continue
+		if(S.syndicate)
+			continue
+		if(istype(S, /obj/machinery/r_n_d/server/robotics) || istype(S, /obj/machinery/r_n_d/server/centcom))
+			S.add_usage_log(usr, D, src)
 
 /**
   * Called when the timer for building a design finishes.
@@ -219,7 +228,7 @@
 	desc = initial(desc)
 	use_power = IDLE_POWER_USE
 	cut_overlays()
-	atom_say("[A] is complete.")
+	atom_say("[A] завершён.")
 
 	// Keep the queue processing going if it's on
 	process_queue()
@@ -243,7 +252,7 @@
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)
-		atom_say("Successfully synchronized with R&D servers.")
+		atom_say("Успешная синхронизация с серверами РНД.")
 		break
 	SStgui.update_uis(src)
 
@@ -298,6 +307,7 @@
 		return
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	ui_interact(user)
 
@@ -392,6 +402,7 @@
 			if(!D)
 				return
 			build_design(D)
+			log_printing_design(D)
 		if("queue")
 			var/id = params["id"]
 			if(!(id in local_designs.known_designs))
@@ -400,6 +411,7 @@
 			if(!(D.build_type & allowed_design_types) || length(D.reagents_list))
 				return
 			LAZYADD(build_queue, D)
+			log_printing_design(D)
 			process_queue()
 		if("queueall")
 			LAZYINITLIST(build_queue)
@@ -408,6 +420,7 @@
 				if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 					continue
 				build_queue += D
+				log_printing_design(D)
 			process_queue()
 		if("unqueue")
 			if(!build_queue)

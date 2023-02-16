@@ -26,6 +26,7 @@
 	if(_ai)
 		masterAI = _ai
 	initialize_belts()
+	GLOB.disable_robotics_consoles = TRUE
 
 /// Used to create all of the belts the transformer will be using. All belts should be pushing `WEST`.
 /obj/machinery/transformer/proc/initialize_belts()
@@ -100,10 +101,12 @@
 
 	H.emote("scream")
 	if(!masterAI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
-		H.Robotize(robot_cell_type)
+		var/mob/living/silicon/robot/R = H.Robotize(robot_cell_type)
+		R.emagged = TRUE
 		return
 
 	var/mob/living/silicon/robot/R = H.Robotize(robot_cell_type, FALSE, masterAI)
+	R.emagged = TRUE
 	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
@@ -316,6 +319,7 @@
 	if(istype(I, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		var/obj/item/disk/data/D = I
 		if(!D.buf)

@@ -683,7 +683,7 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2)
+	explosion(T, 0, 0, 2, 2, cause = src)
 	qdel(src)
 
 
@@ -774,8 +774,8 @@
 /obj/item/light/bulb/fire
 	name = "fire bulb"
 	desc = "A replacement fire bulb."
-	icon_state = "fbulb"
-	base_state = "fbulb"
+	icon_state = "flight"
+	base_state = "flight"
 	item_state = "egg4"
 	brightness_range = 5
 

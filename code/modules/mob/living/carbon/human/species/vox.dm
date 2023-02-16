@@ -25,10 +25,11 @@
 
 	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
 
 	silent_steps = TRUE
 
+	blood_species = "Vox"
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
@@ -164,7 +165,7 @@
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.adjustToxLoss(0.5) //Same as plasma.
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
 

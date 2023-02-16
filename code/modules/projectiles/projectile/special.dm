@@ -2,12 +2,12 @@
 	name = "ion bolt"
 	icon_state = "ion"
 	damage = 0
-	alwayslog = TRUE
 	damage_type = BURN
 	nodamage = 1
 	var/emp_range = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
+	hitsound = 'sound/weapons/tap.ogg'
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
@@ -25,7 +25,6 @@
 	name ="explosive bolt"
 	icon_state= "bolter"
 	damage = 50
-	alwayslog = TRUE
 	flag = "bullet"
 
 /obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
@@ -37,7 +36,6 @@
 	name ="40mm grenade"
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
-	alwayslog = TRUE
 	damage = 60
 	flag = "bullet"
 
@@ -55,6 +53,7 @@
 	flag = "energy"
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	hitsound = 'sound/weapons/tap.ogg'
 
 /obj/item/projectile/temp/New(loc, shot_temp)
 	..()
@@ -129,6 +128,7 @@
 	name = "alpha somatoray"
 	icon_state = "energy"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -162,6 +162,7 @@
 	name = "beta somatoray"
 	icon_state = "energy2"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = 1
 	flag = "energy"
@@ -188,6 +189,7 @@
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
 		M.AdjustHallucinate(20)
+		M.last_hallucinator_log = name
 
 /obj/item/projectile/clown
 	name = "snap-pop"
@@ -233,11 +235,10 @@
 	name ="explosive slug"
 	damage = 25
 	weaken = 5
-	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 1)
+	explosion(target, -1, 0, 1, cause = src)
 	return 1
 
 /obj/item/projectile/plasma
@@ -245,6 +246,7 @@
 	icon_state = "plasmacutter"
 	damage_type = BRUTE
 	damage = 5
+	hitsound = "bullet"
 	range = 3
 	dismemberment = 20
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
@@ -271,7 +273,6 @@
 	icon_state = "bluespace"
 	damage = 0
 	nodamage = 1
-	alwayslog = TRUE
 	var/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)

@@ -51,6 +51,7 @@
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	return ..()
 
@@ -96,6 +97,7 @@
 		return
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE
 	switch(action)
@@ -134,7 +136,7 @@
 	if(confirmed)
 		confirmed = FALSE
 		trigger_event(event)
-		log_game("[key_name(event_triggered_by)] triggered and [key_name(event_confirmed_by)] confirmed event [event]")
+		add_game_logs("[key_name_log(event_triggered_by)] triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
 		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
 
@@ -168,9 +170,9 @@
 			revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
+				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
-			atom_say("ERT request transmitted!")
+			atom_say("Запрос ОБР отправлен!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 

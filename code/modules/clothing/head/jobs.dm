@@ -25,7 +25,23 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
+	item_state = "capcap"
 	dog_fashion = null
+
+/obj/item/clothing/head/caphat/blue
+	icon_state = "cap_parade_alt"
+	item_state = "cap_parade_alt"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/office
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	icon_state = "cap_beret"
+	item_state = "cap_beret"
 
 //Head of Personnel
 /obj/item/clothing/head/hopcap
@@ -78,6 +94,18 @@
 	icon_state = "witchhunterhat"
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/head/bishopmitre
+	name = "bishop mitre"
+	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
+	icon_state = "bishopmitre"
+	item_state = "bishopmitre"
+
+/obj/item/clothing/head/blackbishopmitre
+	name = "black bishop mitre"
+	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
+	icon_state = "blackbishopmitre"
+	item_state = "blackbishopmitre"
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
@@ -218,6 +246,10 @@
 
 /obj/item/clothing/head/surgery/green
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is dark green."
+	icon_state = "surgcap_darkgreen"
+
+/obj/item/clothing/head/surgery/lightgreen
+	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is green."
 	icon_state = "surgcap_green"
 
 /obj/item/clothing/head/surgery/black

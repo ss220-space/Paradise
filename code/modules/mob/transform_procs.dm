@@ -49,6 +49,8 @@
 
 	O.rename_self("AI",1)
 
+	O.tts_seed = tts_seed
+
 	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
@@ -113,6 +115,8 @@
 	O.update_pipe_vision()
 
 	O.Namepick()
+
+	O.tts_seed = tts_seed
 
 	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
@@ -189,8 +193,6 @@
 		if(ispath(MP, /mob/living/simple_animal/pet/cat/Syndi))
 			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/detective))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/dog/security))
 		return 1

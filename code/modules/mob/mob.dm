@@ -2,12 +2,14 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	focus = null
+	input_focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	for(var/alert in alerts)
+		clear_alert(alert)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -28,7 +30,8 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	set_focus(src)
+	input_focus = src
+	reset_perspective(src)
 	prepare_huds()
 	runechat_msg_location = src
 	update_runechat_msg_location()
@@ -498,6 +501,16 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return seen_mobs
 
 /**
+  * Called by using Activate Held Object with an empty hand/limb
+  *
+  * Does nothing by default. The intended use is to allow limbs to call their
+  * own attack_self procs. It is up to the individual mob to override this
+  * parent and actually use it.
+  */
+/mob/proc/limb_attack_self()
+	return
+
+/**
  * Returns an assoc list which contains the mobs in range and their "visible" name.
  * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
 */
@@ -673,17 +686,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(istype(loc,/obj/mecha)) return
 
-	if(hand)
-		var/obj/item/W = l_hand
-		if(W)
-			W.attack_self(src)
-			update_inv_l_hand()
-	else
-		var/obj/item/W = r_hand
-		if(W)
-			W.attack_self(src)
-			update_inv_r_hand()
-	return
+	var/obj/item/I = get_active_hand()
+	if(I)
+		I.attack_self(src)
+		update_inv_l_hand()
+		update_inv_r_hand()
+		return
+
+	limb_attack_self()
 
 /*
 /mob/verb/dump_source()
@@ -778,14 +788,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	var/deathtime = world.time - src.timeofdeath
-	var/joinedasobserver = 0
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(G.started_as_observer == 1)
-			joinedasobserver = 1
 
 	var/deathtimeminutes = round(deathtime / 600)
 	var/pluralcheck = "minute"
@@ -797,7 +804,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtimeminutes < config.respawn_delay && joinedasobserver == 0)
+	if(deathtimeminutes < config.respawn_delay)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait [config.respawn_delay] minutes to respawn!</span>")
 		return
@@ -805,24 +812,24 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
 		return
 
-	log_game("[key_name(usr)] has respawned.")
+	add_game_logs("has respawned.", usr)
 
 	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
 
 	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 	client.screen.Cut()
 	client.screen += client.void
 
 	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 
 	GLOB.respawnable_list -= usr
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		add_game_logs("respawn failed due to disconnect.", usr)
 		qdel(M)
 		return
 
@@ -1090,7 +1097,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/canface()
 	if(!canmove)						return 0
 	if(client.moving)					return 0
-	if(world.time < client.move_delay)	return 0
 	if(stat==2)							return 0
 	if(anchored)						return 0
 	if(notransform)						return 0
@@ -1103,10 +1109,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/facedir(ndir)
 	if(!canface())
-		return 0
+		return FALSE
 	setDir(ndir)
 	client.move_delay += movement_delay()
-	return 1
+	return TRUE
 
 
 /mob/verb/eastface()
@@ -1176,16 +1182,16 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 
 /mob/proc/become_mouse()
-	var/timedifference = world.time - client.time_died_as_mouse
-	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
-		var/timedifference_text
-		timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
+	var/timedifference = world.time - client.time_joined_as_mouse
+	if(client.time_joined_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
+		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
+		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left.</span>")
 		return
 
 	//find a viable mouse candidate
 	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0, station_levels_only = FALSE, z_level = z)
 	if(length(found_vents))
+		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
 		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 		host.ckey = src.ckey
@@ -1316,15 +1322,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/obj/item/access_location in get_access_locations())
 		. |= access_location.GetAccess()
 
-/mob/proc/create_attack_log(text, collapse = TRUE)
-	LAZYINITLIST(attack_log_old)
-	create_log_in_list(attack_log_old, text, collapse, last_log)
-	last_log = world.timeofday
-
-/mob/proc/create_debug_log(text, collapse = TRUE)
-	LAZYINITLIST(debug_log)
-	create_log_in_list(debug_log, text, collapse, world.timeofday)
-
+/*
+ * * Creates Log Record for Log Viewer
+ * log_type - look __DEFINES/logs.dm (example: ATTACK_LOG, SAY_LOG, MISC_LOGS)
+ * what - happened that got logged a mob. Someone screamed or planted an explosion
+ * target - who targeted
+ * where(optional) - at what placed
+ */
 /mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
 	if(!ckey)
 		return
@@ -1333,41 +1337,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		real_ckey = copytext(ckey, 2)
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
 	GLOB.logging.add_log(real_ckey, record)
-
-/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
-	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
-	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
-	var/new_log = "\[[time_stamp()]] [text]"
-
-	if(target.len)//if there are other logs already present
-		var/previous_log = target[target.len]//get the latest log
-		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
-		var/x_sign_position = findtext(previous_log, "x")
-
-		if(world.timeofday - last_log > 100)//if more than 10 seconds from last log
-			collapse = 0//don't collapse anyway
-
-		//the following checks if the last log has the same contents as the new one
-		if(last_log_is_range)
-			if(!(copytext(previous_log, x_sign_position + 13) == text))//the 13 is there because of span classes; you won't see those normally in-game
-				collapse = 0
-		else
-			if(!(copytext(previous_log, 12) == text))
-				collapse = 0
-
-
-		if(collapse == 1)
-			var/rep = 0
-			var/old_timestamp = copytext(previous_log, 2, 10)//copy the first time value. This one doesn't move when it's a timespan, so no biggie
-			//An attack log entry can either be a time range with multiple occurences of an action or a single one, with just one time stamp
-			if(last_log_is_range)
-
-				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
-
-			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			target -= target[target.len]//remove the last log
-
-	target += new_log
 
 /mob/vv_get_dropdown()
 	. = ..()
@@ -1390,6 +1359,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
 	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
 	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
+	.["Change Voice"] = "?_src_=vars;changevoice=[UID()]"
 	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
 

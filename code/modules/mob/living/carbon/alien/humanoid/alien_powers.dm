@@ -94,7 +94,7 @@ Doesn't work on other aliens/AI.*/
 	if(!msg)
 		return
 	host.adjustPlasma(-10)
-	log_say("(AWHISPER to [key_name(L)]) [msg]", host)
+	add_say_logs(host, msg, L, "Alien Whisper")
 	to_chat(L, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
 	to_chat(host, "<span class='noticealien'>You said: [msg] to [L]</span>")
 	for(var/mob/dead/observer/G in GLOB.player_list)
@@ -133,12 +133,6 @@ Doesn't work on other aliens/AI.*/
 			else
 				to_chat(host, "<span class='noticealien'>You need to be closer.</span>")
 	return
-
-/mob/living/carbon/alien/humanoid/proc/corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
-	set name = "Corrossive Acid (200)"
-	set desc = "Drench an object in acid, destroying it over time."
-
-	corrosive_acid_action.Activate(target)
 
 /datum/action/innate/xeno_action/corrosive_acid
 	name = "Corrossive Acid (200)"
@@ -221,6 +215,10 @@ Doesn't work on other aliens/AI.*/
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
 
 		if(!choice || !plasmacheck(55))	return
+		var/turf/T = get_turf(host.loc)
+		if(locate(/obj/structure/alien/resin) in T.contents || locate(/obj/structure/bed/nest) in T.contents)
+			to_chat(host, "<span class ='warning'>Это место уже занято!</span>")
+			return
 		host.adjustPlasma(-55)
 		for(var/mob/O in viewers(host, null))
 			O.show_message(text("<span class='alertalien'>[host] vomits up a thick purple substance and shapes it!</span>"), 1)

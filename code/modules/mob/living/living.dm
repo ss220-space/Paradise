@@ -153,6 +153,12 @@
 /mob/living/proc/ObjBump(obj/O)
 	return
 
+/mob/living/get_pull_push_speed_modifier(current_delay)
+	if(!canmove)
+		return pull_push_speed_modifier * 1.2
+	var/average_delay = (movement_delay() + current_delay) / 2
+	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
+
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
 
@@ -188,7 +194,12 @@
 				return
 	if(pulling == AM)
 		stop_pulling()
-	AM.glide_size = src.glide_size
+
+	if(client)
+		client.current_move_delay *= AM.get_pull_push_speed_modifier(client.current_move_delay)
+		glide_for(client.current_move_delay)
+
+	AM.glide_size = glide_size
 	var/current_dir
 	if(isliving(AM))
 		current_dir = AM.dir
@@ -251,25 +262,21 @@
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
-			log_emote("point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-			create_log(EMOTE_LOG, "point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])")
+			add_emote_logs(src, "point [hand_item] to [key_name(A)] [COORD(A)]")
 			return TRUE
 		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
 											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
 		A << 'sound/weapons/targeton.ogg'
-		log_emote("point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-		create_log(EMOTE_LOG, "point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])")
+		add_emote_logs(src, "point [hand_item] HARM to [key_name(A)] [COORD(A)]")
 		return TRUE
 	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
-	log_emote("point to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-	create_log(EMOTE_LOG, "point to [key_name(A)] ([A.x],[A.y],[A.z])")
+	add_emote_logs(src, "point to [key_name(A)] [COORD(A)]")
 	return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
@@ -298,20 +305,26 @@
 		return
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
-		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+		add_attack_logs(user, src, "set on fire with [I]")
 
-/mob/living/proc/updatehealth(reason = "none given")
+/mob/living/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
-	update_stat("updatehealth([reason])")
+		if(stat != CONSCIOUS && stat != DEAD)
+			WakeUp()
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_damage_hud()
+	if(should_log)
+		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
 
+/mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
+	if(status_flags & GODMODE)
+		health = maxHealth
+		update_stat("updatehealth([reason])", should_log)
+		return
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	update_stat("updatehealth([reason])", should_log)
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -498,7 +511,7 @@
 			human_mob.restore_blood()
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
-
+	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
@@ -554,7 +567,7 @@
 	if(pullee && get_dist(src, pullee) > 1)
 		stop_pulling()
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
-		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+		log_debug("[src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
 	if(restrained())
 		stop_pulling()
@@ -579,6 +592,7 @@
 			return
 
 		var/pull_dir = get_dir(src, pulling)
+		pulling.glide_size = glide_size
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 			if(isliving(pulling))
 				var/mob/living/M = pulling
@@ -877,7 +891,7 @@
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
-	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
+	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
 	gib()
 	return 20
 
@@ -891,6 +905,36 @@
 /mob/living/narsie_act()
 	if(client)
 		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE)
+	spawn_dust()
+	gib()
+
+/mob/living/ratvar_act(weak = FALSE)
+	if(weak)
+		return //It's too weak to break a flesh!
+	if(client)
+		switch(rand(1,3))
+			if(1)
+				var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
+				if(mind)
+					SSticker.mode.add_clocker(mind)
+					mind.transfer_to(cog)
+				else
+					cog.key = client.key
+			if(2)
+				var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+				if(mind)
+					SSticker.mode.add_clocker(mind)
+					mind.transfer_to(cog)
+				else
+					cog.key = client.key
+			if(3)
+				var/mob/living/silicon/robot/cog = new (get_turf(src))
+				if(mind)
+					SSticker.mode.add_clocker(mind)
+					mind.transfer_to(cog)
+				else
+					cog.key = client.key
+				cog.ratvar_act()
 	spawn_dust()
 	gib()
 
@@ -1024,6 +1068,7 @@
 		pullin.update_icon(src)
 	if(ismob(AM))
 		var/mob/M = AM
+		add_attack_logs(src, M, "pulls", ATKLOG_ALMOSTALL)
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else

@@ -9,6 +9,7 @@
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
 	var/gustprotection = FALSE									//this is for unsafe_unwrenching protection
+	var/lubeprotection = FALSE									//this is for lube protection when magpulse
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
@@ -20,6 +21,22 @@
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
 	gustprotection = TRUE
+
+/obj/item/clothing/shoes/magboots/security
+	name = "combat magboots"
+	desc = "Combat-edition magboots issued by Nanotrasen Security for extravehicular missions."
+	icon_state = "cmagboots0"
+	magboot_state = "cmagboots"
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 25, "energy" = 25, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
+	slowdown_active = 1
+
+/obj/item/clothing/shoes/magboots/security/captain
+	name = "captain's greaves"
+	desc = "A relic predating magboots, these ornate greaves have retractable spikes in the soles to maintain grip."
+	icon_state = "capboots0"
+	magboot_state = "capboots"
+	magpulse_name = "anchoring spikes"
+	slowdown_active = 2
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
@@ -59,12 +76,16 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
+/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team and Nuclear operative
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
 	name = "advanced blood-red magboots"
+	icon_state = "advsyndiemag0"
+	magboot_state = "advsyndiemag"
 	slowdown_active = SHOES_SLOWDOWN
+	lubeprotection = TRUE
 
 /obj/item/clothing/shoes/magboots/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."

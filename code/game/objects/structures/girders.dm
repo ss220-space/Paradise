@@ -40,7 +40,7 @@
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src)
 				return
 			playsound(loc, W.usesound, 100, 1)
@@ -131,7 +131,7 @@
 					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -163,7 +163,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -361,6 +361,8 @@
 		qdel(src)
 
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(height==0)
 		return 1
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
@@ -386,6 +388,11 @@
 /obj/structure/girder/narsie_act()
 	if(prob(25))
 		new /obj/structure/girder/cult(loc)
+		qdel(src)
+
+/obj/structure/girder/ratvar_act()
+	if(prob(25))
+		new /obj/structure/clockwork/wall_gear(loc)
 		qdel(src)
 
 /obj/structure/girder/displaced
@@ -424,7 +431,7 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40* W.toolspeed, target = src))
+		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
 			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))

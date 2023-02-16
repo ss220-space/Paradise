@@ -6,6 +6,8 @@
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
+	var/is_improoved_by_potion = FALSE //used for xenobio potions
+	var/list/faction_restricted = null
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -34,7 +36,10 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
+	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.  
+	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
+
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -102,13 +107,21 @@
 				if(H.dna.species.name in species_restricted)
 					wearable = 1
 
-			if (wearable && ("lesser form" in species_restricted) && issmall(H))
+			if(wearable && ("lesser form" in species_restricted) && issmall(H))
 				wearable = 0
 
 			if(!wearable)
-				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
+				to_chat(M, "<span class='warning'>You cannot wear [src].</span>")
+				return 0
+	if(faction_restricted && istype(M,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+
+		if(H.faction)
+			if(H.faction in faction_restricted)
+				to_chat(M, "<span class='warning'>You cannot wear [src].</span>")
 				return 0
 	return 1
+
 
 /obj/item/clothing/proc/refit_for_species(var/target_species)
 	//Set species_restricted list
@@ -308,16 +321,20 @@ BLIND     // can't see anything
 	else
 		return ..()
 
-/obj/item/clothing/under/proc/set_sensors(mob/user as mob)
-	var/mob/M = user
-	if(istype(M, /mob/dead/)) return
-	if(user.stat || user.restrained()) return
+/obj/item/clothing/under/proc/set_sensors(mob/living/user)
+	if(user.stat || user.restrained())
+		return
+	if(length(user.grabbed_by))
+		for(var/obj/item/grab/grabbed in user.grabbed_by)
+			if(grabbed.state >= GRAB_NECK)
+				to_chat(user, "You can't reach the controls.")
+				return
 	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
-		return 0
+		return
 	if(has_sensor <= 0)
 		to_chat(user, "This suit does not have any sensors.")
-		return 0
+		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
@@ -401,7 +418,7 @@ BLIND     // can't see anything
 		"Stok" = 'icons/mob/species/monkey/head.dmi'
 		)
 
-///obj/item/clothing/head/equipped(var/mob/living/carbon/human/monkey/user, var/slot) //Смещаем шапки у обезьян
+///obj/item/clothing/head/equipped(var/mob/living/carbon/human/lesser/monkey/user, var/slot) //Смещаем шапки у обезьян
 //	..()
 //	if(!issmall(user))
 //		return
@@ -560,6 +577,8 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+	max_integrity = 400
+	integrity_failure = 160
 
 	sprite_sheets = list(
 		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
@@ -686,7 +705,7 @@ BLIND     // can't see anything
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude", "Wryn", "lesser form")
-
+	faction_restricted = list("ashwalker")
 
 // Under clothing
 /obj/item/clothing/under

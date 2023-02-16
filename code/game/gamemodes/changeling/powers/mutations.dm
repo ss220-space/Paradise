@@ -243,7 +243,9 @@
 	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
+	armour_penetration = 0
 	var/chain
+	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
 /obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
@@ -253,34 +255,56 @@
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		intent = firer.a_intent
+		if (intent == INTENT_DISARM)
+			armour_penetration = 100   //ignore block_chance
 	..()
 
 /obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
+	if(!H)
+		return
 	if(H.in_throw_mode)
 		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
 
-/mob/proc/tentacle_grab(mob/living/carbon/C)
-	if(Adjacent(C))
-		var/obj/item/grab/G = C.grabbedby(src,1)
-		if(istype(G))
-			G.state = GRAB_PASSIVE
-			C.Weaken(2)
-
-/mob/proc/tentacle_stab(mob/living/carbon/C)
-	if(Adjacent(C))
-		var/obj/item/I = r_hand
-		if(!is_sharp(I))
-			I = l_hand
-		if(!is_sharp(I))
+/obj/item/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item)
+	reset_throw(firer)
+	if(!thrown_item || !firer)
+		return
+	if(thrown_item in firer.contents)
+		return
+	if(firer.get_active_hand())
+		return
+	if(istype(thrown_item, /obj/item/twohanded))
+		if(firer.get_inactive_hand())
 			return
+	firer.put_in_active_hand(thrown_item)
 
-		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
-		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
-		C.apply_damage(I.force, BRUTE, "chest")
-		do_item_attack_animation(C, used_item = I)
-		add_blood(C)
-		playsound(get_turf(src), I.hitsound, 75, 1)
+/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/C)
+	if(!firer || !C)
+		return
+	if(!firer.Adjacent(C))
+		return
+	var/obj/item/grab/G = C.grabbedby(firer, 1)
+	if(istype(G))
+		G.state = GRAB_PASSIVE
+		C.Weaken(2)
 
+/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/C)
+	if(!firer || !C)
+		return
+	if(!firer.Adjacent(C))
+		return
+	var/obj/item/I = firer.r_hand
+	if(!is_sharp(I))
+		I = firer.l_hand
+	if(!is_sharp(I))
+		return
+	C.visible_message("<span class='danger'>[firer] impales [C] with [I]!</span>", "<span class='userdanger'>[firer] impales you with [I]!</span>")
+	add_attack_logs(firer, C, "[firer] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
+	C.apply_damage(I.force, BRUTE, "chest")
+	do_item_attack_animation(C, used_item = I)
+	add_blood(C)
+	playsound(get_turf(firer), I.hitsound, 75, 1)
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	qdel(source.gun) //one tentacle only unless you miss
@@ -293,7 +317,7 @@
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
 			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
 			H.throw_mode_on()
-			I.throw_at(H, 10, 2)
+			I.throw_at(H, 10, 2, callback = CALLBACK(src, .proc/tentacle_disarm, I))
 			. = 1
 
 	else if(isliving(target))
@@ -301,7 +325,7 @@
 		if(!L.anchored && !L.throwing)//avoid double hits
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
-				switch(firer.a_intent)
+				switch(intent)
 					if(INTENT_HELP)
 						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
@@ -310,9 +334,15 @@
 						return 1
 
 					if(INTENT_DISARM)
-						var/obj/item/I = C.get_active_hand()
+						var/obj/item/I = C.l_hand
+						if(!istype(I, /obj/item/shield))  //shield is priotity target
+							I = C.r_hand
+							if(!istype(I, /obj/item/shield))
+								I = C.get_active_hand()
+								if(!I)
+									I = C.get_inactive_hand()
 						if(I)
-							if(C.drop_item())
+							if(C.unEquip(I))
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
 								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
@@ -329,13 +359,13 @@
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_grab, C))
 						return 1
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_stab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_stab, C))
 						return 1
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")

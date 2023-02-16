@@ -111,6 +111,7 @@
 	suffix = "lavaland_surface_sloth.dmm"
 	cost = 0
 
+/*
 /datum/map_template/ruin/lavaland/ratvar
 	name = "Dead God"
 	id = "ratvar"
@@ -118,6 +119,7 @@
 	suffix = "lavaland_surface_dead_ratvar.dmm"
 	cost = 0
 	allow_duplicates = FALSE
+*/
 
 /datum/map_template/ruin/lavaland/hierophant
 	name = "Hierophant's Arena"
@@ -220,9 +222,9 @@
 	cost = 5
 
 /datum/map_template/ruin/lavaland/bfl_crack
-	name = "Rich plasma deposit"
+	name = "Rich Plasma Deposit"
 	id = "bfl"
-	description = "NT found a huge plasma deposit on the surface of lavaland, you should dig it"
-	suffix = "lavaland_BFL_crack.dmm"
+	description = "NT found a huge plasma deposit on the surface of lavaland, you should dig it."
+	suffix = "lavaland_surface_bfl_crack.dmm"
 	always_place = TRUE
 	allow_duplicates = FALSE

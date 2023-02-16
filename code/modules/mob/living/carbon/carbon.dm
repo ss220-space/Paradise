@@ -184,7 +184,7 @@
 			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
 			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
 		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2)
+		explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
 
 	if(override)
 		return override
@@ -518,10 +518,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='warning'>Эта вентиляция ни к чему не подключена!</span>")
 
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
 	totalMembers |= pipeline.other_atmosmch
@@ -543,13 +543,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /atom/proc/update_pipe_vision()
 	return
 
-/mob/living/update_pipe_vision()
-	if(pipes_shown.len)
+/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+	if(!client)
+		pipes_shown.Cut()
+		return
+	if(length(pipes_shown) && !target_move)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
+			if(target_move)
+				remove_ventcrawl()
+			add_ventcrawl(loc, target_move)
 
 
 //Throwing stuff
@@ -970,6 +975,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+		var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+		if(glands)
+			stat(null, "Wax: [glands.wax]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1009,17 +1017,28 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if((lying) && (!(tilesSlipped)))
 		return FALSE
 
-	if(!(slipAny))
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/turf/simulated/T = get_turf(H)
+		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
+			return FALSE
+		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
+			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
+				return FALSE
+		if(!has_gravity(H) && !grav_ignore)
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
+				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
+					return FALSE
+			else
 				return FALSE
 
 	if(tilesSlipped)
@@ -1050,9 +1069,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		else
 			if(!selfFeed(toEat, fullness))
 				return 0
+		if(toEat.log_eating)
+			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
+			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]", src)
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
+		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
+		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	GLOB.score_foodeaten++
 	return 1
@@ -1090,12 +1114,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!toEat.instant_application)
 		if(!do_mob(user, src))
 			return 0
-	forceFedAttackLog(toEat, user)
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1
-
-/mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
@@ -1122,6 +1142,9 @@ so that different stomachs can handle things in different ways VB*/
 	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if(NO_BREATHE in src.dna.species.species_traits)
+		return FALSE
+
 	if(!wear_mask)
 		return TRUE
 

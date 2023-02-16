@@ -40,7 +40,7 @@
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA|PREFTOGGLE_NUMPAD_TARGET)
+#define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_UI_DARKMODE|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA|PREFTOGGLE_NUMPAD_TARGET)
 
 // toggles_2 variables. These MUST be prefixed with PREFTOGGLE_2
 #define PREFTOGGLE_2_RANDOMSLOT		1
@@ -71,12 +71,12 @@
 
 
 
-// Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
-#define ATKLOG_ALL	0
-#define ATKLOG_ALMOSTALL	1
-#define ATKLOG_MOST	2
-#define ATKLOG_FEW	3
-#define ATKLOG_NONE	4
+// Admin attack logs filter system, see /proc/add_attack_logs
+#define ATKLOG_ALL	0 // All. no exceptions
+#define ATKLOG_ALMOSTALL	1 // exceptions: NPC vs NPC, strip/equip, vamp bites and pushing
+#define ATKLOG_MOST	2 // exceptions: player vs NPC, off-station areas
+#define ATKLOG_FEW	3 // important: SSD interaction, explosives, gib, wiping AI, acid spray, messing with engine
+#define ATKLOG_NONE	4 // None
 
 // Playtime tracking system, see jobs_exp.dm
 #define EXP_TYPE_LIVING			"Living"
@@ -93,6 +93,7 @@
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
 #define EXP_TYPE_WHITELIST		"Whitelist"
+#define EXP_TYPE_BASE_TUTORIAL  "TrainBase"
 
 #define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL)
 

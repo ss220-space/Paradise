@@ -221,6 +221,7 @@
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
@@ -354,7 +355,7 @@
 
 /obj/machinery/door/window/clockwork/New(loc, set_dir)
 	..()
-	debris += new/obj/item/stack/tile/brass(src, 2)
+	debris += new/obj/item/stack/sheet/brass(src, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

@@ -144,6 +144,8 @@
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+	if(owner?.status_flags & GODMODE)
+		return
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -426,15 +428,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(config.bones_can_break && brute_dam + burn_dam + damage > min_broken_damage && !is_robotic())
 		if(prob(damage))
 			fracture()
+			add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
+		return
+	if(owner.status_flags & GODMODE)
 		return
 	var/min_internal_bleeding_damage = 30
 	if(damage > 15 && brute_dam + burn_dam + damage > min_internal_bleeding_damage && !is_robotic())
 		if(prob(damage))
 			internal_bleeding = TRUE
 			owner.custom_pain("You feel something rip in your [name]!")
+			add_attack_logs(owner, null, "Suffered internal bleeding to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -482,6 +488,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(cannot_amputate || !owner)
 		return
+	if(owner.status_flags & GODMODE)
+		return
 
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
@@ -527,6 +535,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(victim)
 		victim.update_tail()
+		victim.update_wing()
 		victim.updatehealth("droplimb")
 		victim.UpdateDamageIcon()
 		victim.regenerate_icons()
@@ -629,15 +638,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fracture()
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
 	if(owner)
+		if(owner.status_flags & GODMODE)
+			return
 		owner.visible_message(\
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
+		if(owner.reagents.has_reagent("morphine"))
+			return
+		if(owner.reagents.has_reagent("hydrocodone"))
+			return
+		if(owner.stat == UNCONSCIOUS)
+			return
 		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
 			owner.emote("scream")
 
@@ -762,7 +778,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(owner),-1,-1,2,3)
+		explosion(get_turf(owner),-1,-1,2,3, cause = "Organ Sabotage")
 		do_sparks(5, 0, victim)
 		qdel(src)
 
@@ -770,6 +786,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disfigured)
 		return
 	if(owner)
+		if(owner.status_flags & GODMODE)
+			return
 		owner.visible_message("<span class='warning'>You hear a sickening sound coming from \the [owner]'s [name] as it turns into a mangled mess!</span>",	\
 							  "<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 							  "<span class='warning'>You hear a sickening sound.</span>")
@@ -783,6 +801,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return src == O.bodyparts_by_name[limb_name]
 
 /obj/item/organ/external/proc/infection_check()
+	if(owner?.status_flags & GODMODE)
+		return FALSE
 	var/total_damage = brute_dam + burn_dam
 	if(total_damage)
 		if(total_damage < 10) //small amounts of damage aren't infectable

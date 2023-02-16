@@ -65,6 +65,11 @@
 	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
 	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/list/ru_names
+	// Can it be drained of energy by ninja?
+	var/drain_act_protected = FALSE
+	var/list/description_holders = list("info" = null, "antag" = null, "fluff" = null)
+
+	var/tts_seed = "Arthas"
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -350,7 +355,29 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	var/descriptions
+	description_holders["info"] = get_description_info()
+	description_holders["antag"] = (isAntag(user) || isobserver(user)) ? get_description_antag() : ""
+	description_holders["fluff"] = get_description_fluff()
+
+	if(description_holders["info"])
+		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
+	if(description_holders["antag"])
+		descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+	if(description_holders["fluff"])
+		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
+
+	. += descriptions
+
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/atom/Topic(href, href_list)
+	if(href_list["description_info"])
+		to_chat(usr, "<div class='examine'><span class='info'>[description_holders["info"]]</span></div>")
+	if(href_list["description_antag"])
+		to_chat(usr, "<div class='examine'><span class='syndradio'>[description_holders["antag"]]</span></div>")
+	if(href_list["description_fluff"])
+		to_chat(usr, "<div class='examine'><span class='notice'>[description_holders["fluff"]]</span></div>")
 
 /atom/proc/relaymove()
 	return
@@ -864,19 +891,57 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_say(message)
 	if(!message)
 		return
+	var/message_tts = message
+	message = replace_characters(message, list("+"))
+
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
 		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-			if((M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
+			if(!M.can_hear() || M.stat == UNCONSCIOUS)
+				continue
+
+			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				M.create_chat_message(src, message, FALSE, TRUE)
+
+			var/effect = SOUND_EFFECT_RADIO
+			var/traits = TTS_TRAIT_RATE_MEDIUM
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, effect, traits)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
+
+/atom/proc/select_voice(mob/user, silent_target = FALSE)
+	if(!ismob(src) && !user)
+		return null
+	var/tts_test_str = "Так звучит мой голос."
+
+	var/tts_seeds
+	if(user && check_rights(R_ADMIN, 0, user))
+		tts_seeds = SStts.tts_seeds_names
+	else
+		tts_seeds = SStts.get_available_seeds(src)
+
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in tts_seeds
+	if(!new_tts_seed)
+		return null
+	if(!silent_target && ismob(src) && src != user)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
+	if(user)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
+	return new_tts_seed
+
+/atom/proc/change_voice(mob/user)
+	set waitfor = FALSE
+	var/new_tts_seed = select_voice(user)
+	if(!new_tts_seed)
+		return null
+	tts_seed = new_tts_seed
+	return new_tts_seed
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return

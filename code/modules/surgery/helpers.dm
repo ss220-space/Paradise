@@ -8,7 +8,8 @@
 								/obj/item/cautery = 100,			\
 								/obj/item/clothing/mask/cigarette = 90,	\
 								/obj/item/lighter = 60,			\
-								/obj/item/weldingtool = 30
+								/obj/item/weldingtool = 30,     \
+								/obj/item/flashlight/flare/torch = 30
 								)
 
 		if(istype(M, /mob/living/carbon/human))
@@ -92,7 +93,7 @@
 
 					if(cautery_chance)
 						C.begin_step(user, H, selected_zone, cautery_tool, current_surgery)
-						if(do_after(user, C.time * cautery_tool.toolspeed, target = M))
+						if(do_after(user, C.time * cautery_tool.toolspeed * gettoolspeedmod(user), target = M))
 							if(!isrobot(user))
 								cautery_chance *= get_location_modifier(H)
 								cautery_chance *= get_pain_modifier(H)

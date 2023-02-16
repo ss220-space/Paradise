@@ -79,6 +79,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.available_in_playtime(player.client))
 			return 0
+		if(!job.can_novice_play(player.client))
+			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
 		if(!job.character_old_enough(player.client))
@@ -107,8 +109,7 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
-			log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
-			player.create_log(MISC_LOG, "Вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
+			add_game_logs("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])", player)
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
@@ -134,6 +135,9 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(job.available_in_playtime(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
+			continue
+		if(!job.can_novice_play(player.client))
+			Debug("FOC player has too much playtime, Player: [player]")
 			continue
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
@@ -180,6 +184,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.available_in_playtime(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
+			continue
+
+		if(!job.can_novice_play(player.client))
+			Debug("GRJ player has too much playtime, Player: [player]")
 			continue
 
 		if(job.barred_by_disability(player.client))
@@ -365,6 +373,10 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
+				if(!job.can_novice_play(player.client))
+					Debug("DO player has too much playtime, Player: [player], Job:[job.title]")
+					continue
+
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
@@ -460,6 +472,8 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
 		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+	if(job.is_novice)
+		to_chat(H, "<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area

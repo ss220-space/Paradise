@@ -421,6 +421,15 @@
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
 
+/obj/item/clothing/suit/hooded/wintercoat/security/hos
+	name = "head of securiry winter coat"
+	icon_state = "wintercoat_hos"
+	item_state = "coathos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/hos
+
+/obj/item/clothing/head/hooded/winterhood/security/hos
+	icon_state = "winterhood_hos"
+
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
 	icon_state = "wintercoat_med"
@@ -433,6 +442,15 @@
 /obj/item/clothing/head/hooded/winterhood/medical
 	icon_state = "winterhood_med"
 
+/obj/item/clothing/suit/hooded/wintercoat/medical/cmo
+	name = "chief medical officer winter coat"
+	icon_state = "wintercoat_cmo"
+	item_state = "coatcmo"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/cmo
+
+/obj/item/clothing/head/hooded/winterhood/medical/cmo
+	icon_state = "winterhood_cmo"
+
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
 	icon_state = "wintercoat_sci"
@@ -444,6 +462,15 @@
 
 /obj/item/clothing/head/hooded/winterhood/science
 	icon_state = "winterhood_sci"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/rd
+	name = "research director winter coat"
+	icon_state = "wintercoat_rd"
+	item_state = "coatrd"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/rd
+
+/obj/item/clothing/head/hooded/winterhood/science/rd
+	icon_state = "winterhood_rd"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering
 	name = "engineering winter coat"
@@ -465,6 +492,15 @@
 
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos
 	icon_state = "winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/ce
+	name = "chief engineer winter coat"
+	icon_state = "wintercoat_ce"
+	item_state = "coatce"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/ce
+
+/obj/item/clothing/head/hooded/winterhood/engineering/ce
+	icon_state = "winterhood_ce"
 
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
@@ -497,7 +533,23 @@
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
 
+/obj/item/clothing/suit/hooded/wintercoat/hop
+	name = "head of personel winter coat"
+	icon_state = "wintercoat_hop"
+	item_state = "coathop"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hop
 
+/obj/item/clothing/head/hooded/winterhood/hop
+	icon_state = "winterhood_hop"
+
+/obj/item/clothing/suit/hooded/wintercoat/qm
+	name = "quartermaster winter coat"
+	icon_state = "wintercoat_qm"
+	item_state = "coatqm"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
+
+/obj/item/clothing/head/hooded/winterhood/qm
+	icon_state = "winterhood_qm"
 /*
  * Misc
  */
@@ -923,6 +975,31 @@
 		"Neara" = 'icons/mob/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/sovietcoat
+	name = "\improper Soviet greatcoat"
+	desc = "A military overcoat made of rough wool that is thick enough to provide excellent protection against the elements."
+	icon_state = "sovietcoat"
+	item_state = "sovietcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	armor = list(melee = 15, bullet = 15, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/projectile,/obj/item/ammo_box)
+
+/obj/item/clothing/suit/sovietcoat/officer
+	name = "\improper Soviet officer's greatcoat"
+	desc = "A military overcoat made with expensive wool. The U.S.S.P armband means it must belong to someone important."
+	icon_state = "sovietofficercoat"
+	item_state = "sovietofficercoat"
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
+
+/obj/item/clothing/suit/russiancoat
+	name = "russian coat"
+	desc = "Used in extremly cold fronts, made out of real bears."
+	item_state = "rus_coat"
+	icon_state = "rus_coat"
 
 /obj/item/clothing/suit/lordadmiral
 	name = "Lord Admiral's Coat"

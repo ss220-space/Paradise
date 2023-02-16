@@ -2,7 +2,7 @@
 #define NONE 0
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDMAGE 		1		// This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				8		// mask allows internals
@@ -16,6 +16,8 @@
 #define EARBANGPROTECT			1024
 
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
+
+#define NOPICKUP				2048	// This flags makes it so an item cannot be picked in hands
 
 #define HEADBANGPROTECT			4096
 
@@ -76,11 +78,17 @@
 #define HAS_HEAD_MARKINGS	64
 #define HAS_BODY_MARKINGS	128
 #define HAS_TAIL_MARKINGS	256
-#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 #define TAIL_WAGGING    	512
 #define NO_EYES				1024
 #define HAS_ALT_HEADS		2048
-#define ALL_RPARTS			4096
+#define HAS_WING			4096
+#define HAS_BODYACC_COLOR	8192
+#define BALD				16384
+#define ALL_RPARTS			32768
+
+//Pre-baked combinations of the above body flags
+#define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
+#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 
 //Species Diet Flags
 #define DIET_CARN		1
@@ -103,6 +111,8 @@
 #define PASSMOB			16
 #define LETPASSTHROW	32
 #define PASSFENCE 64
+#define PASS_OTHER_THINGS 128
+#define PASS_EVERYTHING PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASS_OTHER_THINGS
 
 //turf-only flags
 #define NOJAUNT		1
@@ -143,6 +153,7 @@
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
 #define NO_MALF_EFFECT	(1<<8) //So malf cannot blow certain things
+#define NO_MOUSTACHING	(1<<9) //Saves from super hairgrowium shenanigans
 
 #define MEAT 		1
 #define VEGETABLES 	2

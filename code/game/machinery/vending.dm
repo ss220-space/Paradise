@@ -944,7 +944,7 @@
 /obj/machinery/vending/snack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
-	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
+	slogan_list = list("Попробуйте наш новый батончик с нугой!","Вдвое больше калорий за полцены!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "snack"
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/chips =6,
@@ -962,7 +962,7 @@
 /obj/machinery/vending/chinese
 	name = "\improper Mr. Chang"
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
-	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
+	slogan_list = list("Попробуйте 5000 лет культуры!","Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!","Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!","Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга.!")
 	icon_state = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
@@ -977,7 +977,7 @@
 	name = "\improper Robust Softdrinks"
 	desc = "A soft drink vendor provided by Robust Industries, LLC."
 	icon_state = "Cola_Machine"
-	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
+	slogan_list = list("Роб+аст с+офтдринкс: крепче, чем тулбоксом по голове!")
 	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано больше миллиона бутылок!","Хотите пить? Почему бы не взять колы?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки во всём космосе")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
@@ -994,14 +994,14 @@
 /obj/machinery/vending/cart
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
-	slogan_list = list("Carts to go!")
+	slogan_list = list("Карточки в дорогу!")
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	products = list(/obj/item/pda =10,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
+	products = list(/obj/item/pda =10,/obj/item/eftpos = 6,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
 					/obj/item/cartridge/engineering = 10,/obj/item/cartridge/atmos = 10,/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,/obj/item/cartridge/signal = 10)
 	contraband = list(/obj/item/cartridge/clown = 1,/obj/item/cartridge/mime = 1)
-	prices = list(/obj/item/pda =300,/obj/item/cartridge/mob_hunt_game = 50,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
+	prices = list(/obj/item/pda =300,/obj/item/eftpos = 200,/obj/item/cartridge/mob_hunt_game = 50,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
 					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
 					/obj/item/cartridge/signal = 75)
 	refill_canister = /obj/item/vending_refill/cart
@@ -1107,10 +1107,10 @@
 	icon_state = "med"
 	icon_deny = "med-deny"
 	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
-	req_access_txt = "5"
+	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
-					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide =3, /obj/item/reagent_containers/glass/bottle/saline = 5,
+					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide = 3, /obj/item/reagent_containers/glass/bottle/saline = 5,
 					/obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4, /obj/item/reagent_containers/glass/bottle/atropine = 3,
 					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/syringe/antiviral = 6,
 					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
@@ -1170,7 +1170,7 @@
 	req_access_txt = "1"
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6)
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1241,6 +1241,7 @@
 					/obj/item/seeds/tea = 3,
 					/obj/item/seeds/tobacco = 3,
 					/obj/item/seeds/tomato = 3,
+					/obj/item/seeds/cucumber = 3,
 					/obj/item/seeds/tower = 3,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
@@ -1266,20 +1267,31 @@
 	vend_delay = 15
 	vend_reply = "Have an enchanted evening!"
 	ads_list = list("FJKLFJSD","AJKFLBJAKL","1234 LOONIES LOL!",">MFW","Kill them fuckers!","GET DAT FUKKEN DISK","HONK!","EI NATH","Destroy the station!","Admin conspiracies since forever!","Space-time bending hardware!")
-	products = list(/obj/item/clothing/head/wizard = 1,
-					/obj/item/clothing/suit/wizrobe = 1,
-					/obj/item/clothing/head/wizard/red = 1,
-					/obj/item/clothing/suit/wizrobe/red = 1,
-					/obj/item/clothing/shoes/sandal = 1,
-					/obj/item/clothing/suit/wizrobe/clown = 1,
-					/obj/item/clothing/head/wizard/clown = 1,
-					/obj/item/clothing/mask/gas/clownwiz = 1,
-					/obj/item/clothing/shoes/clown_shoes/magical = 1,
-					/obj/item/clothing/suit/wizrobe/mime = 1,
-					/obj/item/clothing/head/wizard/mime = 1,
-					/obj/item/clothing/mask/gas/mime/wizard = 1,
-					/obj/item/clothing/shoes/sandal/marisa = 1,
-					/obj/item/twohanded/staff = 2)
+	products = list(/obj/item/clothing/head/wizard = 5,
+					/obj/item/clothing/suit/wizrobe = 5,
+					/obj/item/clothing/head/wizard/red = 5,
+					/obj/item/clothing/suit/wizrobe/red = 5,
+					/obj/item/clothing/shoes/sandal = 5,
+					/obj/item/clothing/suit/wizrobe/clown = 5,
+					/obj/item/clothing/head/wizard/clown = 5,
+					/obj/item/clothing/mask/gas/clownwiz = 5,
+					/obj/item/clothing/shoes/clown_shoes/magical = 5,
+					/obj/item/clothing/suit/wizrobe/mime = 5,
+					/obj/item/clothing/head/wizard/mime = 5,
+					/obj/item/clothing/mask/gas/mime/wizard = 5,
+					/obj/item/clothing/head/wizard/marisa = 5,
+					/obj/item/clothing/suit/wizrobe/marisa = 5,
+					/obj/item/clothing/shoes/sandal/marisa = 5,
+					/obj/item/twohanded/staff/broom = 5,
+					/obj/item/clothing/head/wizard/black = 5,
+					/obj/item/clothing/head/wizard/fluff/dreamy = 5,
+					/obj/item/twohanded/staff = 10,
+					/obj/item/clothing/head/helmet/space/plasmaman/wizard = 5,
+					/obj/item/clothing/under/plasmaman/wizard = 5,
+					/obj/item/tank/internals/plasmaman/belt/full = 5,
+					/obj/item/clothing/mask/breath = 5,
+					/obj/item/tank/internals/emergency_oxygen/double/vox = 5,
+					/obj/item/clothing/mask/breath/vox = 5)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -1438,7 +1450,7 @@
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
 					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
 					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
-					/obj/item/kitchen/cutter = 2)
+					/obj/item/kitchen/cutter = 2, /obj/item/eftpos = 4)
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
 	refill_canister = /obj/item/vending_refill/dinnerware
 
@@ -1726,3 +1738,365 @@
 
 /obj/machinery/vending/crittercare/free
 	prices = list()
+
+/obj/machinery/vending/clothing/departament
+	name = "\improper Broken Departament ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды отдела."
+	icon_state = "clothes"
+	slogan_list = list(
+		"Одежда успешного работника!", "Похвала на глаза!", "Ну наконец-то нормально оделся!",
+		"Одевай одежду, надевай еще и шляпку!", "Вот это гордость такое надевать!", "Выглядишь отпадно!",
+		"Я бы и сам такое носил!", "А я думал, куда она подевалась...", "О, это была моя любимая!",
+		"Производитель рекомендует этот фасон", "Ваша талия идеально сочетается с ней!",
+		"Ваши глаза так и блистают с ней!", "Как же ты здорово выглядишь!", "И не скажешь что тебе не идёт!",
+		"Ну жених!", "Постой на картонке, возможно найдем что поинтереснее!", "Бери-бери, не глазей!",
+		"Возвраты не берем!", "Ну как на тебя шили!", "Только не стирайте в машинке.", "У нас лучшая одежда! То что вы взяли было не самым лучшим",
+		"Не переживайте! Если моль её поела, значит она качественная!", "Вам идеально подошла бы другая одежда, но и эта подойдет!",
+		"Выглядите стильно. По депортаменски!", "Вы теперь выглядите отделанным! Ну одежда отдела у вас!",
+		"Отдел будет вам доволен, если вы нарядитесь в это!", "Ну красавец!"
+		)
+	vend_delay = 15
+	vend_reply = "Спасибо за использование автомата-помощника в выборе одежды отдела!"
+	products = list()
+	contraband = list()
+	premium = list()
+	refill_canister = null
+
+/obj/machinery/vending/clothing/departament/security
+	name = "\improper Departament Security ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
+	icon_state = "clothes-dep-sec"
+	//slogan_list += list()
+	req_access_txt = "1"
+	products = list(
+		/obj/item/clothing/head/soft/sec		= 10,
+		/obj/item/clothing/head/soft/sec/corp	= 10,
+		/obj/item/clothing/head/beret/sec		= 10,
+		/obj/item/clothing/head/beret/sec/black	= 10,
+		/obj/item/clothing/head/officer		 	= 10,
+
+		/obj/item/clothing/under/rank/security			= 10,
+		/obj/item/clothing/under/rank/security/skirt 	= 10,
+		/obj/item/clothing/under/rank/security/cadet 	= 10,
+		/obj/item/clothing/under/rank/security/cadet/skirt 		= 10,
+		/obj/item/clothing/under/rank/security/cadet/assistant 	= 10,
+		/obj/item/clothing/under/rank/security/cadet/assistant/skirt = 10,
+		/obj/item/clothing/under/rank/security/formal 	= 5,
+		/obj/item/clothing/under/rank/security/corp 	= 5,
+		/obj/item/clothing/under/rank/security2 		= 5,
+		/obj/item/clothing/under/rank/dispatch 			= 5,
+
+		/obj/item/clothing/suit/tracksuit/red				= 5,
+
+		/obj/item/clothing/mask/balaclava 		= 10,
+		/obj/item/clothing/mask/bandana/red 	= 10,
+		/obj/item/clothing/mask/bandana/black 	= 10,
+
+		/obj/item/clothing/gloves/color/black	= 10,
+		/obj/item/clothing/gloves/color/red	= 10,
+
+		/obj/item/clothing/shoes/jackboots 				= 10,
+		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
+
+		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
+
+		/obj/item/clothing/accessory/scarf/black 	= 10,
+		/obj/item/clothing/accessory/scarf/red 		= 10,
+		/obj/item/clothing/accessory/armband/sec 	= 10,
+
+		/obj/item/storage/backpack/security 		= 5,
+		/obj/item/storage/backpack/satchel_sec 		= 5,
+		/obj/item/storage/backpack/duffel/security 	= 5,
+
+		//For trainings
+		/obj/item/clothing/under/shorts/red			= 10,
+		/obj/item/clothing/under/shorts/black		= 5,
+		/obj/item/clothing/under/pants/red 			= 10,
+		/obj/item/clothing/under/pants/track 		= 5,
+
+		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
+		)
+
+
+	refill_canister = /obj/item/vending_refill/clothing/security
+
+/obj/machinery/vending/clothing/departament/medical
+	name = "\improper Departament Medical ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Медицинского Отдела."
+	icon_state = "clothes-dep-med"
+	//slogan_list += list()
+	req_access_txt = "5"
+	products = list(
+		/obj/item/clothing/head/beret/med  			= 10,
+		/obj/item/clothing/head/surgery/purple 		= 10,
+		/obj/item/clothing/head/surgery/blue 		= 10,
+		/obj/item/clothing/head/surgery/green 		= 10,
+		/obj/item/clothing/head/surgery/lightgreen 	= 10,
+		/obj/item/clothing/head/surgery/black 		= 10,
+		/obj/item/clothing/head/headmirror 			= 10,
+
+		/obj/item/clothing/under/rank/medical 				= 10,
+		/obj/item/clothing/under/rank/medical/skirt 		= 10,
+		/obj/item/clothing/under/rank/medical/intern 		= 10,
+		/obj/item/clothing/under/rank/medical/intern/skirt 	= 10,
+		/obj/item/clothing/under/rank/medical/intern/assistant 			= 10,
+		/obj/item/clothing/under/rank/medical/intern/assistant/skirt 	= 10,
+		/obj/item/clothing/under/rank/medical/blue 			= 10,
+		/obj/item/clothing/under/rank/medical/green 		= 10,
+		/obj/item/clothing/under/rank/medical/purple 		= 10,
+		/obj/item/clothing/under/rank/medical/lightgreen 	= 10,
+		/obj/item/clothing/under/medigown 					= 10,
+		/obj/item/clothing/under/rank/nursesuit				= 10,
+		/obj/item/clothing/under/rank/nurse					= 10,
+		/obj/item/clothing/under/rank/orderly				= 10,
+
+		/obj/item/clothing/suit/storage/labcoat 	= 10,
+		/obj/item/clothing/suit/apron/surgical 		= 10,
+		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
+
+		/obj/item/clothing/mask/surgical 		= 10,
+
+		/obj/item/clothing/gloves/color/latex 	= 10,
+		/obj/item/clothing/gloves/color/latex/nitrile	= 10,
+
+		/obj/item/clothing/shoes/white 			= 10,
+		/obj/item/clothing/shoes/sandal/white 	= 10,
+
+		/obj/item/radio/headset/headset_med 	= 10,
+
+		/obj/item/clothing/accessory/scarf/white 		= 10,
+		/obj/item/clothing/accessory/scarf/lightblue 	= 10,
+		/obj/item/clothing/accessory/stethoscope		= 10,
+		/obj/item/clothing/accessory/armband/med 		= 10,
+		/obj/item/clothing/accessory/armband/medgreen 	= 10,
+
+		/obj/item/storage/backpack/satchel_med 		= 5,
+		/obj/item/storage/backpack/medic 			= 5,
+		/obj/item/storage/backpack/duffel/medical 	= 5,
+
+		/obj/item/clothing/under/rank/virologist	= 2,
+		/obj/item/clothing/under/rank/virologist/skirt = 2,
+		/obj/item/clothing/suit/storage/labcoat/virologist = 2,
+		/obj/item/clothing/suit/storage/suragi_jacket/virus = 2,
+		/obj/item/storage/backpack/satchel_vir		= 2,
+		/obj/item/storage/backpack/virology			= 2,
+		/obj/item/storage/backpack/duffel/virology	= 2,
+
+		/obj/item/clothing/under/rank/chemist		= 2,
+		/obj/item/clothing/under/rank/chemist/skirt	= 2,
+		/obj/item/clothing/suit/storage/labcoat/chemist = 2,
+		/obj/item/clothing/suit/storage/suragi_jacket/chem 	= 2,
+		/obj/item/storage/backpack/satchel_chem 	= 2,
+		/obj/item/storage/backpack/chemistry		= 2,
+		/obj/item/storage/backpack/duffel/chemistry	= 2,
+
+		/obj/item/clothing/under/rank/geneticist	= 2,
+		/obj/item/clothing/under/rank/geneticist/skirt = 2,
+		/obj/item/clothing/suit/storage/labcoat/genetics = 2,
+		/obj/item/clothing/suit/storage/suragi_jacket/genetics = 2,
+		/obj/item/storage/backpack/satchel_gen 		= 2,
+		/obj/item/storage/backpack/genetics			= 2,
+		/obj/item/storage/backpack/duffel/genetics	= 2,
+
+		/obj/item/clothing/under/rank/psych				= 2,
+		/obj/item/clothing/under/rank/psych/turtleneck	= 2,
+
+		/obj/item/clothing/suit/storage/labcoat/mortician 	= 2,
+		/obj/item/clothing/under/rank/medical/mortician  	= 2,
+		)
+
+
+	refill_canister = /obj/item/vending_refill/clothing/medical
+
+/obj/machinery/vending/clothing/departament/engineering
+	name = "\improper Departament Engineering ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Инженерного Отдела."
+	icon_state = "clothes-dep-eng"
+	req_access_txt = "11"
+	//slogan_list += list()
+	products = list(
+		/obj/item/clothing/head/hardhat = 10,
+		/obj/item/clothing/head/hardhat/orange = 10,
+		/obj/item/clothing/head/hardhat/red = 10,
+		/obj/item/clothing/head/hardhat/dblue = 10,
+		/obj/item/clothing/head/beret/eng = 10,
+
+		/obj/item/clothing/under/rank/engineer = 10,
+		/obj/item/clothing/under/rank/engineer/skirt = 10,
+		/obj/item/clothing/under/rank/engineer/trainee/assistant = 10,
+		/obj/item/clothing/under/rank/engineer/trainee/assistant/skirt = 10,
+
+		/obj/item/clothing/suit/storage/hazardvest = 10,
+		/obj/item/clothing/suit/storage/suragi_jacket/eng = 5,
+
+		/obj/item/clothing/mask/gas  = 10,
+		/obj/item/clothing/mask/bandana/red 	= 10,
+		/obj/item/clothing/mask/bandana/orange 	= 10,
+		/obj/item/clothing/mask/bandana/red 	= 10,
+
+		/obj/item/clothing/gloves/color/orange	= 10,
+		/obj/item/clothing/gloves/color/fyellow = 3,
+
+		/obj/item/clothing/shoes/workboots 		= 10,
+
+		/obj/item/radio/headset/headset_eng 	= 10,
+
+		/obj/item/clothing/accessory/scarf/yellow	= 10,
+		/obj/item/clothing/accessory/scarf/orange	= 10,
+		/obj/item/clothing/accessory/armband/engine = 10,
+
+		/obj/item/storage/backpack/industrial = 5,
+		/obj/item/storage/backpack/satchel_eng = 5,
+		/obj/item/storage/backpack/duffel/engineering = 5,
+
+		/obj/item/clothing/under/rank/atmospheric_technician = 3,
+		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
+		/obj/item/clothing/head/beret/atmos = 3,
+		/obj/item/storage/backpack/duffel/atmos = 3.
+		)
+
+
+	refill_canister = /obj/item/vending_refill/clothing/engineering
+
+/obj/machinery/vending/clothing/departament/science
+	name = "\improper Departament Science ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Научного Отдела."
+	icon_state = "clothes-dep-sci"
+	//slogan_list += list()
+	req_access_txt = "47"
+	products = list(
+		/obj/item/clothing/head/beret/purple_normal = 10,
+
+		/obj/item/clothing/under/rank/scientist = 10,
+		/obj/item/clothing/under/rank/scientist/skirt = 10,
+		/obj/item/clothing/under/rank/scientist/student = 10,
+		/obj/item/clothing/under/rank/scientist/student/skirt = 10,
+		/obj/item/clothing/under/rank/scientist/student/assistant = 10,
+		/obj/item/clothing/under/rank/scientist/student/assistant/skirt = 10,
+
+		/obj/item/clothing/suit/storage/labcoat/science = 10,
+		/obj/item/clothing/suit/storage/labcoat 		= 10,
+		/obj/item/clothing/suit/storage/suragi_jacket/sci = 5,
+
+		/obj/item/clothing/gloves/color/latex 	= 10,
+		/obj/item/clothing/gloves/color/white 	= 10,
+		/obj/item/clothing/gloves/color/purple 	= 10,
+
+		/obj/item/clothing/shoes/white 			= 10,
+		/obj/item/clothing/shoes/slippers 		= 10,
+		/obj/item/clothing/shoes/sandal/white 	= 10,
+
+		/obj/item/radio/headset/headset_sci 		= 10,
+		/obj/item/clothing/accessory/armband/science = 10,
+		/obj/item/clothing/accessory/armband/yb 	= 10,
+		/obj/item/clothing/accessory/scarf/purple 	= 10,
+
+		/obj/item/storage/backpack/science 			= 5,
+		/obj/item/storage/backpack/satchel_tox 		= 5,
+		/obj/item/storage/backpack/duffel/science 	= 5,
+
+		/obj/item/clothing/head/soft/black 		= 10,
+		/obj/item/clothing/under/rank/roboticist 	= 10,
+		/obj/item/clothing/under/rank/roboticist/skirt = 10,
+		/obj/item/clothing/gloves/fingerless 	= 10,
+		/obj/item/clothing/shoes/black 			= 10,
+		)
+
+
+	refill_canister = /obj/item/vending_refill/clothing/science
+
+/obj/machinery/vending/clothing/departament/cargo
+	name = "\improper Departament Cargo ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Отдела Поставок."
+	icon_state = "clothes-dep-car"
+	//slogan_list += list()
+	req_access_txt = "48"
+	products = list(
+		/obj/item/clothing/head/soft = 10,
+
+		/obj/item/clothing/under/rank/cargotech 		= 10,
+		/obj/item/clothing/under/rank/cargotech/skirt 	= 10,
+		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
+		/obj/item/clothing/under/overalls 				= 10,
+
+
+		/obj/item/clothing/mask/bandana/black 	= 10,
+		/obj/item/clothing/mask/bandana/orange 	= 10,
+
+		/obj/item/clothing/gloves/color/brown/cargo = 10,
+		/obj/item/clothing/gloves/color/light_brown = 10,
+		/obj/item/clothing/gloves/fingerless 	= 10,
+		/obj/item/clothing/gloves/color/black 	= 10,
+
+		/obj/item/clothing/shoes/brown = 10,
+		/obj/item/clothing/shoes/workboots/mining = 10,
+		/obj/item/clothing/shoes/jackboots 				= 10,
+		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
+
+		/obj/item/radio/headset/headset_cargo = 10,
+
+		/obj/item/clothing/accessory/armband/cargo = 10,
+
+		/obj/item/storage/backpack/cargo = 10,
+		/obj/item/storage/backpack/explorer = 5,
+		/obj/item/storage/backpack/satchel_explorer = 5,
+		/obj/item/storage/backpack/duffel = 5,
+
+		/obj/item/clothing/under/pants/tan 		= 10,
+		/obj/item/clothing/under/pants/track 	= 10,
+		)
+
+
+	refill_canister = /obj/item/vending_refill/clothing/cargo
+
+
+/obj/machinery/vending/clothing/departament/law
+	name = "\improper Departament Law ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Юридического Отдела."
+	icon_state = "clothes-dep-sec"
+	//slogan_list += list()
+	req_access_txt = "38"
+	products = list(
+		/obj/item/clothing/under/rank/internalaffairs = 10,
+		/obj/item/clothing/under/lawyer/female = 10,
+		/obj/item/clothing/under/lawyer/black = 10,
+		/obj/item/clothing/under/lawyer/red = 10,
+		/obj/item/clothing/under/lawyer/blue = 10,
+		/obj/item/clothing/under/lawyer/bluesuit = 10,
+		/obj/item/clothing/under/lawyer/purpsuit = 10,
+		/obj/item/clothing/under/lawyer/oldman = 10,
+		/obj/item/clothing/under/blackskirt 	= 10,
+
+		/obj/item/clothing/suit/storage/internalaffairs  = 10,
+		/obj/item/clothing/suit/storage/lawyer/bluejacket = 5,
+		/obj/item/clothing/suit/storage/lawyer/purpjacket = 5,
+		/obj/item/clothing/under/suit_jacket = 5,
+		/obj/item/clothing/under/suit_jacket/really_black = 5,
+		/obj/item/clothing/under/suit_jacket/female = 5,
+		/obj/item/clothing/under/suit_jacket/red = 5,
+		/obj/item/clothing/under/suit_jacket/navy = 5,
+		/obj/item/clothing/under/suit_jacket/tan = 5,
+		/obj/item/clothing/under/suit_jacket/burgundy = 5,
+		/obj/item/clothing/under/suit_jacket/charcoal = 5,
+
+		/obj/item/clothing/gloves/color/white 	= 10,
+		/obj/item/clothing/gloves/fingerless	= 10,
+
+		/obj/item/clothing/shoes/laceup  		= 10,
+		/obj/item/clothing/shoes/centcom 		= 10,
+		/obj/item/clothing/shoes/brown 			= 10,
+		/obj/item/clothing/shoes/sandal/fancy 	= 10,
+
+		/obj/item/radio/headset/headset_iaa  	= 10,
+
+
+		/obj/item/clothing/accessory/blue 		= 10,
+		/obj/item/clothing/accessory/red 		= 10,
+		/obj/item/clothing/accessory/black 		= 10,
+
+		/obj/item/storage/backpack/satchel 	= 10,
+		/obj/item/storage/briefcase			= 5,
+		)
+
+
+	refill_canister = /obj/item/vending_refill/clothing/law

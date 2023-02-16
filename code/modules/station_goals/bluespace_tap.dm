@@ -17,6 +17,7 @@
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/bluespace_tap/check_completion()
 	if(..())
@@ -86,7 +87,6 @@
 		/obj/vehicle/space/speedbike/red = 10,
 		/obj/item/grenade/clusterbuster/honk = 10,
 		/obj/item/toy/katana = 10,
-		/obj/item/stack/tile/brass/fifty = 20,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 20,
 		/obj/item/sord = 20,
 		/obj/item/toy/syndicateballoon = 15,
@@ -418,6 +418,7 @@
 /obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
 	if(emagged)
 		return
+	add_attack_logs(user, src, "emagged")
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)

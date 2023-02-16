@@ -14,11 +14,13 @@
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		desc += " The screen only shows the word KILL flashing over and over."
 		if(user)
 			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
 	else
+		add_attack_logs(user, src, "un-emagged")
 		emagged = FALSE
 		desc = "Used to restart stopped hearts."
 		if(user)
@@ -52,6 +54,7 @@
 		if(H.stat == DEAD)
 			to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
 		else
+			playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
 			H.set_heartattack(FALSE)
 			var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 			if(H.health <= HEALTH_THRESHOLD_CRIT)

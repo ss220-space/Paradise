@@ -302,6 +302,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	maim_clone(H)
 	H.Paralyse(4)
 
+	H.tts_seed = SStts.get_random_seed(H)
+
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
@@ -457,6 +459,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
+	if(H.mind in SSticker.mode.space_ninjas)
+		SSticker.mode.update_ninja_icons_added()
 	if(H.mind in SSticker.mode.cult)
 		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
 		SSticker.mode.add_cult_actions(H.mind) // And all the actions
@@ -466,6 +470,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 				SSticker.mode.ascend(H)
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
+	if(H.mind.ninja)
+		H.mind.ninja.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
 		SSticker.mode.update_vampire_icons_added(H.mind)
 	if(H.mind in SSticker.mode.changelings)

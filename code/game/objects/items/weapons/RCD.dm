@@ -309,7 +309,7 @@
 		if("door_type")
 			var/new_door_type = text2path(params["door_type"])
 			if(!(new_door_type in current_rcd_door_types))
-				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
+				message_admins("<span class='warning'>RCD Door HREF exploit</span> attempted by [ADMIN_FULLMONTY(usr)]!")
 				return FALSE
 			door_type = new_door_type
 
@@ -384,6 +384,7 @@
 			to_chat(user, "Building Floor...")
 			playsound(loc, usesound, 50, 1)
 			var/turf/AT = get_turf(A)
+			add_attack_logs(user, A, "Constructed floor with RCD")
 			AT.ChangeTurf(floor_type)
 			return TRUE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this floor!</span>")
@@ -391,6 +392,8 @@
 		return FALSE
 
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -398,10 +401,11 @@
 		if(checkResource(3, user))
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 20 * toolspeed, target = A))
+			if(do_after(user, 20 * toolspeed * gettoolspeedmod(user), target = A))
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
+				add_attack_logs(user, A, "Constructed wall with RCD")
 				var/turf/turf_to_change = A
 				turf_to_change.ChangeTurf(wall_type)
 				return TRUE
@@ -424,6 +428,8 @@
  */
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -431,13 +437,14 @@
 		if(checkResource(10, user))
 			to_chat(user, "Building Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = A))
 				if(locate(/obj/machinery/door/airlock) in A.contents)
 					return FALSE
 				if(!useResource(10, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/obj/machinery/door/airlock/T = new door_type(A)
+				add_attack_logs(user, T, "Constructed airlock with RCD")
 				T.name = door_name
 				T.autoclose = TRUE
 				if(one_access)
@@ -465,18 +472,23 @@
  */
 /obj/item/rcd/proc/mode_decon(atom/A, mob/user)
 	if(iswallturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
 			return FALSE
 		if(istype(A, /turf/simulated/wall/mineral/titanium/nodecon))
 			return FALSE
+		if(istype(A, /turf/simulated/wall/indestructible))
+			return FALSE
 		if(checkResource(5, user))
 			to_chat(user, "Deconstructing Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 40 * toolspeed, target = A))
+			if(do_after(user, 40 * toolspeed * gettoolspeedmod(user), target = A))
 				if(!useResource(5, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/turf/AT = A
+				add_attack_logs(user, AT, "Deconstructed wall with RCD")
 				AT.ChangeTurf(floor_type)
 				return TRUE
 			return FALSE
@@ -485,14 +497,17 @@
 		return FALSE
 
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(checkResource(5, user))
 			to_chat(user, "Deconstructing Floor...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = A))
 				if(!useResource(5, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/turf/AT = A
+				add_attack_logs(user, AT, "Deconstructed floor with RCD")
 				AT.ChangeTurf(AT.baseturf)
 				return TRUE
 			return FALSE
@@ -504,10 +519,11 @@
 		if(checkResource(20, user))
 			to_chat(user, "Deconstructing Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = A))
 				if(!useResource(20, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
+				add_attack_logs(user, A, "Deconstructed airlock with RCD")
 				qdel(A)
 				return TRUE
 			return FALSE
@@ -524,12 +540,13 @@
 			return FALSE
 		to_chat(user, "Deconstructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		if(!do_after(user, 20 * toolspeed, target = A))
+		if(!do_after(user, 20 * toolspeed * gettoolspeedmod(user), target = A))
 			return FALSE
 		if(!useResource(2, user))
 			return FALSE
 		playsound(loc, usesound, 50, 1)
 		var/turf/T1 = get_turf(A)
+		add_attack_logs(user, A, "Deconstructed window with RCD")
 		QDEL_NULL(A)
 		for(var/obj/structure/window/W in T1.contents)
 			qdel(W)
@@ -560,6 +577,8 @@
  */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -572,13 +591,14 @@
 			return FALSE
 		to_chat(user, "Constructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		if(!do_after(user, 20 * toolspeed, target = A))
+		if(!do_after(user, 20 * toolspeed * gettoolspeedmod(user), target = A))
 			return FALSE
 		if(locate(/obj/structure/grille) in A)
 			return FALSE // We already have window
 		if(!useResource(2, user))
 			return FALSE
 		playsound(loc, usesound, 50, 1)
+		add_attack_logs(user, A, "Constructed window with RCD")
 		new /obj/structure/grille(A)
 		for(var/obj/structure/window/W in A)
 			qdel(W)
@@ -687,7 +707,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1)
+	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "AI detonate RCD")
 	qdel(src)
 
 /obj/item/rcd/preloaded

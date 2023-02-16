@@ -41,6 +41,8 @@
 	speed = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
+	tts_seed = "Sylvanas"
+
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regenerating = 1 //If the revenant regenerates essence or not; 1 for yes, 0 for no
@@ -86,6 +88,8 @@
 /mob/living/simple_animal/revenant/narsie_act()
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
+/mob/living/simple_animal/revenant/ratvar_act()
+	return
 
 /mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
@@ -100,7 +104,7 @@
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
-	log_say(message, src)
+	add_say_logs(src, message)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
 	for(var/mob/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))
@@ -149,8 +153,8 @@
 		var/mob/dead/observer/theghost = null
 		if(candidates.len)
 			theghost = pick(candidates)
-			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
 			key = theghost.key
+			message_admins("[key_name_admin(src)] has taken control of a revenant created without a mind")
 			giveObjectivesandGoals()
 			giveSpells()
 		else
@@ -425,8 +429,8 @@
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		SSticker.mode.traitors |= player_mind
-		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
-		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
+		message_admins("[key_name_admin(R)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
+		add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", R)
 		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")
 		qdel(src)
 		if(src) //Should never happen, but just in case

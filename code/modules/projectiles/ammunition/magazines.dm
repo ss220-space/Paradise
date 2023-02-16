@@ -352,7 +352,7 @@
 	icon_state = "50ae"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
-	caliber = ".50"
+	caliber = ".50ae"
 	max_ammo = 7
 	multiple_sprites = 1
 
@@ -370,6 +370,16 @@
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = "a556"
+	max_ammo = 30
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/ak814
+	name = "AK magazine (5.45x39mm)"
+	icon_state = "ak814"
+	desc= "A universal magazine for an AK style rifle."
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	caliber = "a545"
 	max_ammo = 30
 	multiple_sprites = 2
 

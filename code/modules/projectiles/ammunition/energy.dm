@@ -6,7 +6,7 @@
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	var/alt_select_name = null
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	leaves_residue = 0
 
@@ -25,7 +25,7 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
+	e_cost = 75
 
 /obj/item/ammo_casing/energy/laser/blueshield
 	e_cost = 83
@@ -34,6 +34,7 @@
 	projectile_type = /obj/item/projectile/beam/practice
 	select_name = "practice"
 	harmful = FALSE
+	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter
 	projectile_type = /obj/item/projectile/beam/scatter
@@ -44,41 +45,43 @@
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	e_cost = 200
 	select_name = "DESTROY"
-	fire_sound = 'sound/weapons/pulse.ogg'
+	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
 	projectile_type = /obj/item/projectile/beam/pulse
 	e_cost = 200
 	select_name = "ANNIHILATE"
-	fire_sound = 'sound/weapons/pulse.ogg'
+	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/bluetag
 	projectile_type = /obj/item/projectile/beam/lasertag/bluetag
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name = "bluetag"
 	harmful = FALSE
+	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
 /obj/item/ammo_casing/energy/laser/redtag
 	projectile_type = /obj/item/projectile/beam/lasertag/redtag
 	select_name = "redtag"
 	harmful = FALSE
+	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	e_cost = 100
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	e_cost = 125
 
 /obj/item/ammo_casing/energy/immolator/strong
@@ -105,7 +108,7 @@
 	projectile_type = /obj/item/projectile/energy/electrode
 	muzzle_flash_color = "#FFFF00"
 	select_name = "stun"
-	fire_sound = 'sound/weapons/taser.ogg'
+	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 100
 	delay = 15
 	harmful = FALSE
@@ -130,7 +133,7 @@
 	projectile_type = /obj/item/projectile/energy/declone
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name = "declone"
-	fire_sound = 'sound/weapons/pulse3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1declone.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
 	projectile_type = /obj/item/projectile/beam/mindflayer
@@ -152,7 +155,7 @@
 
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
-	fire_sound = 'sound/weapons/pulse3.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
 	var/temp = 300
 
 /obj/item/ammo_casing/energy/temp/New()
@@ -173,8 +176,10 @@
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name  = "disable"
 	e_cost = 50
-	fire_sound = 'sound/weapons/taser2.ogg'
+	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
+/obj/item/ammo_casing/energy/disabler/hos
+	e_cost = 40
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 175
@@ -186,7 +191,7 @@
 	projectile_type = /obj/item/projectile/plasma
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
+	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
 	e_cost = 25
 
@@ -220,7 +225,7 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	select_name = "bolt"
 	e_cost = 500
-	fire_sound = 'sound/weapons/genhit.ogg'
+	fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
 
 /obj/item/ammo_casing/energy/bolt/large
 	projectile_type = /obj/item/projectile/energy/bolt/large
@@ -237,6 +242,7 @@
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	e_cost = 0
 	select_name = "DESTROY"
+	fire_sound = 'sound/weapons/marauder.ogg'
 
 /obj/item/ammo_casing/energy/instakill/blue
 	projectile_type = /obj/item/projectile/beam/instakill/blue
@@ -245,15 +251,6 @@
 /obj/item/ammo_casing/energy/instakill/red
 	projectile_type = /obj/item/projectile/beam/instakill/red
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
-
-/obj/item/ammo_casing/energy/plasma
-	projectile_type = /obj/item/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
-	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/pulse.ogg'
-
-/obj/item/ammo_casing/energy/plasma/adv
-	projectile_type = /obj/item/projectile/plasma/adv
 
 /obj/item/ammo_casing/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
@@ -265,7 +262,7 @@
 /obj/item/ammo_casing/energy/toxplasma
 	projectile_type = /obj/item/projectile/energy/toxplasma
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
-	fire_sound = 'sound/weapons/taser2.ogg'
+	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
 
 /obj/item/ammo_casing/energy/clown
@@ -315,8 +312,8 @@
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name = "stun"
 	alt_select_name = "taser"
-	fire_sound = 'sound/weapons/taser.ogg'
-	e_cost = 120
+	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
+	e_cost = 250
 	delay = 15
 	harmful = FALSE
 
@@ -326,7 +323,7 @@
 	select_name  = "non-lethal paralyzer"
 	alt_select_name = "disable"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	e_cost = 80
+	e_cost = 100
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/dominator/eliminator
@@ -334,8 +331,8 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	select_name = "lethal-eliminator"
 	alt_select_name = "lethal"
-	fire_sound = 'sound/weapons/laser.ogg'
-	e_cost = 160
+	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
+	e_cost = 200
 
 /obj/item/ammo_casing/energy/dominator/slaughter
 	projectile_type = /obj/item/projectile/beam/dominator/slaughter
@@ -343,5 +340,5 @@
 	select_name  = "execution-slaughter"
 	alt_select_name = "destroy"
 	fire_sound = 'sound/weapons/marauder.ogg'
-	e_cost = 600
+	e_cost = 250
 	delay = 30

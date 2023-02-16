@@ -404,6 +404,20 @@
 			return TRUE
 	return ..()
 
+/obj/structure/holosign/barrier/atmos/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	for(var/turf/T in range(1, src))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			S.target = null
+			return TRUE
+		else if(istype(A, /area/engine/supermatter))
+			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			S.target = null
+			return TRUE
+	return ..()
+
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
 	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
 	return FALSE
@@ -525,6 +539,7 @@
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
+	investigate_log("[key_name_log(src)] teleported [key_name_log(target)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	if(!tesla_shock)
@@ -550,6 +565,7 @@
 		N.pixel_z = target.pixel_z
 		target.dropContents()
 		if(istype(target, /obj/machinery/computer))
+			add_attack_logs(src, target, "Swarm-dismantled [target]")
 			var/obj/machinery/computer/C = target
 			if(C.circuit)
 				new C.circuit(Tsec)

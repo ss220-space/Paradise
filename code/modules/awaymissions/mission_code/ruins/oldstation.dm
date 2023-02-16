@@ -341,18 +341,6 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
-
-// Engines
-/obj/structure/shuttle/engine/large
-	name = "engine"
-	opacity = 1
-	icon = 'icons/obj/2x2.dmi'
-	icon_state = "large_engine"
-	desc = "A very large bluespace engine used to propel very large ships."
-	bound_width = 64
-	bound_height = 64
-	appearance_flags = 0
-
 // areas
 //Ruin of ancient Space Station
 

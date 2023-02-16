@@ -42,7 +42,11 @@
 /obj/machinery/computer/robotics/proc/console_shows(mob/living/silicon/robot/R)
 	if(!istype(R))
 		return FALSE
-	if(istype(R, /mob/living/silicon/robot/drone))
+	if(isdrone(R))
+		return FALSE
+	if(iscogscarab(R))
+		return FALSE
+	if(iscogscarab(R))
 		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
@@ -153,13 +157,15 @@
 	if(..())
 		return
 	. = FALSE
-	if(!is_authenticated(usr))
+	if(!is_authenticated(usr) || (GLOB.disable_robotics_consoles && iscarbon(usr)))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system
 			if(issilicon(usr))
 				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
 			safety = !safety
 			to_chat(usr, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency self destruct.</span>")
@@ -167,14 +173,15 @@
 		if("nuke") // Destroys all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
 				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
 			if(safety)
 				to_chat(usr, "<span class='danger'>Self-destruct aborted - safety active</span>")
 				return
-			message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
-			log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
+			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated all cyborgs!</span>")
+			add_game_logs("detonated all cyborgs!", usr)
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
-				if(istype(R, /mob/living/silicon/robot/drone))
+				if(isdrone(R))
 					continue
 				// Ignore antagonistic cyborgs
 				if(R.scrambledcodes)
@@ -194,8 +201,8 @@
 				. = TRUE
 				return
 			var/turf/T = get_turf(R)
-			message_admins("<span class='notice'>[key_name_admin(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!</span>")
-			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>")
+			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!</span>")
+			add_game_logs("detonated [key_name_log(R)]!", usr)
 			to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
 			if(R.connected_ai)
 				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
@@ -204,12 +211,13 @@
 		if("stopbot") // lock or unlock the borg
 			if(isrobot(usr))
 				to_chat(usr, "<span class='danger'>Access Denied.</span>")
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_control(usr, R, TRUE))
 				return
 			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!</span>")
-			log_game("[key_name(usr)] [!R.lockcharge ? "locked down" : "released"] [key_name(R)]!")
+			add_game_logs("[!R.lockcharge ? "locked down" : "released"] [key_name_log(R)]!", usr)
 			R.SetLockdown(!R.lockcharge)
 			to_chat(R, "[!R.lockcharge ? "<span class='notice'>Your lockdown has been lifted!" : "<span class='alert'>You have been locked down!"]</span>")
 			if(R.connected_ai)
@@ -222,8 +230,8 @@
 			var/choice = input("Really hack [R.name]? This cannot be undone.") in list("Yes", "No")
 			if(choice != "Yes")
 				return
-			log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
-			message_admins("<span class='notice'>[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
+			add_game_logs("emagged [key_name_log(R)] using robotic console!", usr)
+			message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
 			R.emagged = TRUE
 			to_chat(R, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
 			. = TRUE

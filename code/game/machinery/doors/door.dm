@@ -129,7 +129,9 @@
 			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	else if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
 
@@ -233,6 +235,7 @@
 
 /obj/machinery/door/emag_act(mob/user)
 	if(density)
+		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		flick("door_spark", src)
 		sleep(6)
 		open()

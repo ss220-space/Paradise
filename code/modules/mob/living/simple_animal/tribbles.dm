@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	speak_emote = list("purrs", "trills")
 	emote_hear = list("shuffles", "purrs")
 	emote_see = list("trundles around", "rolls")
+	tts_seed = "Meepo"
 	speak_chance = 10
 	turns_per_move = 5
 	maxHealth = 10
@@ -184,13 +185,12 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
-/obj/item/clothing/suit/furcape
+/obj/item/clothing/neck/cloak/furcape
 	name = "fur cape"
 	desc = "A cape made from fur. You'll really be stylin' now."
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furcape"
 	item_state = "furcape"
-	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

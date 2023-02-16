@@ -115,6 +115,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
+	//Clockwork enchantment
+	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
+	var/list/enchants = null // List(datum)
+
+	//eat_items.dm
+	var/material_type = MATERIAL_CLASS_NONE
+	var/max_bites = 1 			//The maximum amount of bites before item is depleted
+	var/current_bites = 0	//How many bites did
+	var/integrity_bite = 10		// Integrity used
+	var/nutritional_value = 20 	// How much nutrition add
+	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
+
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -198,7 +211,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "gigantic"
 
-	. = ..(user, "", "It is a [size] item.")
+	var/material_string = item_string_material(user)
+
+	. = ..(user, "", "It is a [size] item. [material_string]")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -221,6 +236,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		msg += "*--------*"
 		. += msg
 
+	if(isclocker(user) && enchant_type)
+		if(enchant_type == CASTING_SPELL)
+			. += "<span class='notice'>The last spell hasn't expired yet!</span><BR>"
+		for(var/datum/spell_enchant/S in enchants)
+			if(S.enchantment == enchant_type)
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				break
+
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
@@ -241,8 +264,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
 	..()
 
+	if(!proximity)
+		return
+	try_item_eat(target, user)
+
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
+	if(flags & NOPICKUP) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
@@ -418,6 +446,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	in_storage = TRUE
 	return
+
+/**
+  * Called to check if this item can be put into a storage item.
+  *
+  * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
+  * Arguments:
+  * * S - The [/obj/item/storage] that `src` is being inserted into.
+  * * user - The mob trying to insert the item.
+  */
+/obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
+	return TRUE
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder as mob)
@@ -755,3 +794,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		materials_coeff = 1 / new_coeff
 	for(var/material in materials)
 		materials[material] *= materials_coeff
+
+/obj/item/proc/deplete_spell()
+	enchant_type = NO_SPELL
+	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
+	if(enchant_action)
+		qdel(enchant_action)
+	update_icon()
+
+/obj/item/update_atom_colour()
+	. = ..()
+	if(!is_equipped())
+		return
+	update_slot_icon()
+	for(var/action in actions)
+		var/datum/action/myaction = action
+		myaction.UpdateButtonIcon()

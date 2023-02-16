@@ -11,13 +11,18 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
+	brute_mod = 0.9
+	heatmod = 0.8
+	coldmod = 1.2
+	hunger_drain = 0.13
+
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
 	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, PIERCEIMMUNE)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
@@ -30,6 +35,7 @@
 	heat_level_2 = 420 //Default 400
 	heat_level_3 = 480 //Default 460
 
+	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
@@ -37,7 +43,10 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	brute_mod = 1.05
+	male_scream_sound = "u_mscream"
+	female_scream_sound = "u_fscream"
+	male_sneeze_sound = 'sound/goonstation/voice/unathi/m_u_sneeze.ogg'
+	female_sneeze_sound = 'sound/goonstation/voice/unathi/f_u_sneeze.ogg'
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -72,8 +81,8 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	disliked_food = VEGETABLES | FRUIT | GRAIN
-	liked_food = MEAT | RAW | EGG
+	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
+	liked_food = MEAT | RAW | EGG | GROSS
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
@@ -151,6 +160,10 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
 	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs |= /mob/living/carbon/human/proc/emote_roar
+	H.verbs |= /mob/living/carbon/human/proc/emote_threat
+	H.verbs |= /mob/living/carbon/human/proc/emote_whip
+	H.verbs |= /mob/living/carbon/human/proc/emote_whips
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -161,6 +174,29 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs -= /mob/living/carbon/human/proc/emote_roar
+	H.verbs -= /mob/living/carbon/human/proc/emote_threat
+	H.verbs -= /mob/living/carbon/human/proc/emote_whip
+	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
+
+/datum/species/unathi/handle_life(mob/living/carbon/human/H)
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("zessulblood") < 5)         //unique unathi chemical, heals over time and increases shock reduction for 20
+		H.reagents.add_reagent("zessulblood", 1)
+	if(H.bodytemperature < 273)                       //anabiosis. unathi falls asleep if body temp is too low
+		switch(H.bodytemperature)
+			if(200 to 260)
+				H.EyeBlurry(3)
+			if(170 to 200)
+				H.AdjustDrowsy(3)
+			if(170 to 200)
+				to_chat(H, "<span class='danger'>Слишком холодно, я сейчас усну...</span>")
+			if(0 to 170)
+				H.AdjustSleeping(2)
+	else
+		return

@@ -34,6 +34,7 @@
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
 	if(emagged)
 		return
+	add_attack_logs(user, src, "emagged")
 	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
@@ -58,7 +59,7 @@
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
 		playsound(src, 'sound/misc/announce_dig.ogg', 50, FALSE)
-		atom_say("Now serving ticket #[current_number]!")
+		atom_say("Очередь билета номер #[current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
@@ -87,6 +88,7 @@
 				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 	else
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		flick("doorctrl-denied", src)
 
 /obj/machinery/door_control/ticket_machine_button/update_icon()

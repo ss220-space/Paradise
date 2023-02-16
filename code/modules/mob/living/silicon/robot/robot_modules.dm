@@ -1,7 +1,8 @@
 /obj/item/robot_module
-	name = "robot module"
+	name = "Placeholder name"
+	var/name_disguise //used by examine
 	icon = 'icons/obj/module.dmi'
-	icon_state = "std_module"
+	icon_state = "std_mod"
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
@@ -17,6 +18,10 @@
 	var/channels = list()
 	var/list/custom_removals = list()
 
+	///List of skins the borg can be reskinned to, optional
+	var/list/borg_skins
+	//If decides not to choose
+	var/default_skin
 
 /obj/item/robot_module/emp_act(severity)
 	if(modules)
@@ -90,6 +95,9 @@
 		else if(istype(S, /obj/item/stack/tile/wood/cyborg))
 			S.cost = 1
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
+		else if(istype(S, /obj/item/stack/sheet/brass/cyborg))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
 
 /obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
@@ -127,6 +135,7 @@
 	R.add_language("Bubblish", 0)
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
+	R.add_language("Tkachi", 0)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
@@ -154,9 +163,17 @@
 	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
 	// if eng crisis, assist by helping repair hull breaches
 	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
-	name = "generalist robot module"
+	name = "Generalist"
 	module_type = "Standard"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
+	default_skin = "Robot-STD"
+	borg_skins = list(
+		"Basic" = "Robot-STD",
+		"Android" = "droid",
+		"Default" = "Standard",
+		"Noble-STD" = "Noble-STD"
+	)
 
 /obj/item/robot_module/standard/New()
 	..()
@@ -203,9 +220,20 @@
 	..()
 
 /obj/item/robot_module/medical
-	name = "medical robot module"
+	name = "Medical"
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	channels = list("Medical" = 1)
+	default_skin = "Robot-MED"
+	borg_skins = list(
+		"Standard" = "Standard-Medi",
+		"Basic" = "Robot-MED",
+		"Surgeon" = "surgeon",
+		"Advanced Droid" = "droid-medical",
+		"Needles" = "Robot-SRG",
+		"Noble-MED" = "Noble-MED",
+		"Cricket" = "Cricket-MEDI"
+	)
 
 /obj/item/robot_module/medical/New()
 	..()
@@ -251,11 +279,21 @@
 	..()
 
 /obj/item/robot_module/engineering
-	name = "engineering robot module"
+	name = "Engineering"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
+	)
+	channels = list("Engineering" = 1)
+	default_skin = "Robot-ENG"
+	borg_skins = list(
+		"Basic" = "Robot-ENG",
+		"Antique" = "Robot-ENG2",
+		"Landmate" = "landmate",
+		"Standard" = "Standard-Engi",
+		"Noble-ENG" = "Noble-ENG",
+		"Cricket" = "Cricket-ENGI"
 	)
 
 /obj/item/robot_module/engineering/New()
@@ -295,9 +333,20 @@
 		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/security
-	name = "security robot module"
+	name = "Security"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	channels = list("Security" = 1)
+	default_skin = "Robot-SEC"
+	borg_skins = list(
+		"Basic" = "Robot-SEC",
+		"Red Knight" = "Security",
+		"Black Knight" = "securityrobot",
+		"Bloodhound" = "bloodhound",
+		"Standard" = "Standard-Secy",
+		"Noble-SEC" = "Noble-SEC",
+		"Cricket" = "Cricket-SEC"
+	)
 
 /obj/item/robot_module/security/New()
 	..()
@@ -314,8 +363,18 @@
 	fix_modules()
 
 /obj/item/robot_module/janitor
-	name = "janitorial robot module"
+	name = "Janitor"
 	module_type = "Janitor"
+	channels = list("Service" = 1)
+	default_skin = "Robot-JAN"
+	borg_skins = list(
+		"Basic" = "Robot-JAN",
+		"Mopbot" = "Robot-JAN2",
+		"Mop Gear Rex" = "mopgearrex",
+		"Standard" = "Standard-Jani",
+		"Noble-CLN" = "Noble-CLN",
+		"Cricket" = "Cricket-JANI"
+	)
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -335,11 +394,24 @@
 	fix_modules()
 
 /obj/item/robot_module/butler
-	name = "service robot module"
+	name = "Service"
 	module_type = "Service"
+	channels = list("Service" = 1)
+	default_skin = "Robot-MAN"
+	borg_skins = list(
+		"Waitress" = "Robot-LDY",
+		"Kent" = "toiletbot",
+		"Bro" = "Robot-RLX",
+		"Rich" = "maximillion",
+		"Default" = "Robot-MAN",
+		"Standard" = "Standard-Serv",
+		"Noble-SRV" = "Noble-SRV",
+		"Cricket" = "Cricket-SERV"
+	)
 
 /obj/item/robot_module/butler/New()
 	..()
+
 	modules += new /obj/item/handheld_chem_dispenser/booze(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
 
@@ -393,6 +465,7 @@
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
 	R.add_language("Neo-Russkiya", 1)
+	R.add_language("Tkachi", 1)
 
 /obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
@@ -401,12 +474,23 @@
 
 
 /obj/item/robot_module/miner
-	name = "miner robot module"
+	name = "Miner"
 	module_type = "Miner"
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
 	custom_removals = list("KA modkits")
+	channels = list("Supply" = 1)
+	default_skin = "Robot-MNR"
+	borg_skins = list(
+		"Basic" = "Robot-MNR",
+		"Advanced Droid" = "droid-miner",
+		"Treadhead" = "Miner",
+		"Standard" = "Standard-Mine",
+		"Noble-DIG" = "Noble-DIG",
+		"Cricket" = "Cricket-MINE",
+		"Lavaland" = "lavaland"
+	)
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -432,7 +516,8 @@
     return ..()
 
 /obj/item/robot_module/deathsquad
-	name = "NT advanced combat module"
+	name = "Deathsquad"
+	name_disguise = "NT advanced combat"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
@@ -444,12 +529,14 @@
 	modules += new /obj/item/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/crowbar(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 
 	fix_modules()
 
 /obj/item/robot_module/syndicate
-	name = "syndicate assault robot module"
+	name = "Syndicate Bloodhound"
 	module_type = "Malf" // cuz it looks cool
 
 /obj/item/robot_module/syndicate/New()
@@ -461,13 +548,15 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
-	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
 
 /obj/item/robot_module/syndicate_medical
-	name = "syndicate medical robot module"
+	name = "Syndicate Medical"
 	module_type = "Malf"
 
 /obj/item/robot_module/syndicate_medical/New()
@@ -497,6 +586,8 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
@@ -504,7 +595,8 @@
 	handle_storages()
 
 /obj/item/robot_module/syndicate_saboteur
-	name = "engineering robot module" //to disguise in examine
+	name = "Syndicate Saboteur"
+	name_disguise = "Engineering"
 	module_type = "Malf"
 
 /obj/item/robot_module/syndicate_saboteur/New()
@@ -525,6 +617,8 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/borg_chameleon(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
@@ -538,11 +632,14 @@
 	handle_storages()
 
 /obj/item/robot_module/destroyer
-	name = "destroyer robot module"
+	name = "Destroyer"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	channels = list("Security" = 1)
+	default_skin = "droidcombat"
+	borg_skins = list("Destroyer" = "droidcombat")
 
 /obj/item/robot_module/destroyer/New()
 	..()
@@ -554,14 +651,18 @@
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/syndiecyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 	fix_modules()
 
 
 /obj/item/robot_module/combat
-	name = "combat robot module"
+	name = "Combat"
 	module_type = "Malf"
 	module_actions = list()
+	default_skin = "ertgamma"
+	borg_skins = list("ERT-GAMMA" = "ertgamma")
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -576,23 +677,30 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 	fix_modules()
 
 
-/obj/item/robot_module/alien/hunter
-	name = "alien hunter module"
+/obj/item/robot_module/hunter
+	name = "Hunter"
 	module_type = "Standard"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal/alien,
 	)
+	default_skin = "xenoborg"
+	borg_skins = list("Xenoborg" = "xenoborg")
 
-/obj/item/robot_module/alien/hunter/New()
+/obj/item/robot_module/hunter/add_default_robot_items()
+	return
+
+/obj/item/robot_module/hunter/New()
 	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
-	S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
+	S.reagents.add_reagent("cryogenic_liquid",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S
 	var/obj/item/reagent_containers/spray/alien/smoke/A = new /obj/item/reagent_containers/spray/alien/smoke(src)
 	S.reagents.add_reagent("water",50) //Water is used as a dummy reagent for the smoke bombs. More of an ammo counter.
@@ -603,12 +711,12 @@
 
 	fix_modules()
 
-/obj/item/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
 
 /obj/item/robot_module/drone
-	name = "drone module"
+	name = "Drone"
 	module_type = "Engineer"
 
 /obj/item/robot_module/drone/New()
@@ -648,11 +756,132 @@
 	C.reagents.add_reagent("cleaner", 3)
 	..()
 
-
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/cogscarab
+	name = "Cogscarab"
+	module_type = "Cogscarab"
+
+/obj/item/robot_module/cogscarab/Initialize()
+	. = ..()
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/brass(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/clockwork/brassmaker(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = null
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/cogscarab/add_default_robot_items()
+	return
+
+/obj/item/robot_module/cogscarab/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	G?.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/clockwork
+	name = "Clockwork"
+	module_type = "Cogscarab" //icon_state
+	default_skin = "cyborg"
+	borg_skins = list("cyborg" = "cyborg")
+
+/obj/item/robot_module/clockwork/Initialize()
+	. = ..()
+	modules += new /obj/item/clockwork/clockslab(src)
+	modules += new /obj/item/clock_borg_spear(src)
+	modules += new /obj/item/weldingtool/experimental/brass(src)
+	modules += new /obj/item/screwdriver/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/multitool/brass(src)
+	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/clockwork/brassmaker(src)
+	modules += new /obj/item/extinguisher(src)
+	emag = new /obj/item/toy/carpplushie/gold(src)
+
+	fix_modules()
+	handle_storages()
+
+/obj/item/robot_module/clockwork/add_default_robot_items()
+	return
+
+/obj/item/robot_module/clockwork/respawn_consumable(mob/living/silicon/robot/R)
+	return
+
+/obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	G?.drop_gripped_item(silent = TRUE)
+
+/obj/item/robot_module/ninja
+	name = "Ninja"
+	name_disguise = "Service"
+	module_type = "ninja"
+
+/obj/item/robot_module/ninja/New()
+	..()
+	// Ниндзя штучки
+	modules += new /obj/item/gun/energy/shuriken_emitter/borg(src)
+	modules += new /obj/item/melee/energy_katana/borg(src)
+	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
+	// Инструменты
+	modules += new /obj/item/rcd/borg/syndicate(src)
+	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	// Наручники
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	// Мед. инструменты
+	modules += new /obj/item/scalpel/laser/laser1(src)
+	modules += new /obj/item/hemostat(src)
+	modules += new /obj/item/retractor(src)
+	modules += new /obj/item/bonegel(src)
+	modules += new /obj/item/FixOVein(src)
+	modules += new /obj/item/bonesetter(src)
+	modules += new /obj/item/circular_saw(src)
+	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
+	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
+	modules += new /obj/item/roller_holder(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+
+	var/obj/item/borg_chameleon/cham_proj = new /obj/item/borg_chameleon(src)
+	cham_proj.disguise = "maximillion"
+	modules += cham_proj
+	emag = null
+	fix_modules()
+	handle_storages()
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
@@ -670,7 +899,8 @@
 	var/energy
 
 /datum/robot_energy_storage/New(var/obj/item/robot_module/R = null)
-	energy = max_energy
+	if(!energy)
+		energy = max_energy
 	if(R)
 		R.storages |= src
 	return
@@ -701,6 +931,12 @@
 	max_energy = 50
 	recharge_rate = 2
 	name = "Wire Storage"
+
+/datum/robot_energy_storage/brass
+	max_energy = 30
+	recharge_rate = 0
+	energy = 1
+	name = "Brass Storage"
 
 /datum/robot_energy_storage/medical
 	max_energy = 12
