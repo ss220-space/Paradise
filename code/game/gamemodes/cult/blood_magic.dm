@@ -851,6 +851,9 @@
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
 	switch(choice)
 		if("Blood Spear (150)")
+			if(!Adjacent(user))
+				to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+				return
 			if(uses < BLOOD_SPEAR_COST)
 				to_chat(user, "<span class='warning'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
 			else
@@ -868,6 +871,9 @@
 					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
 
 		if("Blood Bolt Barrage (300)")
+			if(!Adjacent(user))
+				to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+				return
 			if(uses < BLOOD_BARRAGE_COST)
 				to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
 			else
@@ -884,6 +890,9 @@
 					qdel(rite)
 
 		if("Blood Orb (50)")
+			if(!Adjacent(user))
+				to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+				return
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, "<span class='warning'>You need [BLOOD_ORB_COST] charges to perform this rite.</span>")
 			else
@@ -906,6 +915,9 @@
 					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
 
 		if("Blood Recharge (75)")
+			if(!Adjacent(user))
+				to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+				return
 			if(uses < BLOOD_RECHARGE_COST)
 				to_chat(user, "<span class='cultitalic'>You need [BLOOD_RECHARGE_COST] charges to perform this rite.</span>")
 			else
