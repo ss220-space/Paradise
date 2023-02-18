@@ -8,6 +8,7 @@
     name = "Entrance"
     icon_state = "entr_ussp"
 
+
 /area/ruin/ussp_xeno/medbay
     name = "Medbay"
     icon_state = "med_ussp"
@@ -36,4 +37,6 @@
 	name = "Space near USSP Laboratory"
 	icon_state = "out_ussp"
 	has_gravity = TRUE
-	no_air = TRUE
+	no_air = null
+
+	
