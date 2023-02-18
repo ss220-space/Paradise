@@ -163,6 +163,24 @@
 	if(can_be_rotated(user))
 		setDir(turn(dir, 45))
 
+/obj/structure/railing/Initialize(mapload) //Only for mappers
+	..()
+	handle_layer()
+
+/obj/structure/railing/setDir(newdir)
+	..()
+	handle_layer()
+
+/obj/structure/railing/Move(newloc, direct, movetime)
+	..()
+	handle_layer()
+
+/obj/structure/railing/proc/handle_layer()
+	if(dir == NORTH || dir == NORTHEAST || dir == NORTHWEST)
+		layer = BELOW_MOB_LAYER
+	else
+		layer = ABOVE_MOB_LAYER
+
 /obj/structure/railing/wooden
 	name = "Wooden railing"
 	desc = "Wooden railing meant to protect idiots like you from falling."
@@ -175,21 +193,9 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
-/obj/structure/railing/wooden/Initialize(mapload) //Only for mappers
-	..()
-	handle_layer()
-
-/obj/structure/railing/wooden/setDir(newdir)
-	..()
-	handle_layer()
-
-/obj/structure/railing/wooden/Move(newloc, direct, movetime)
-	..()
-	handle_layer()
-
-/obj/structure/railing/wooden/proc/handle_layer()
+/obj/structure/railing/wooden/handle_layer()
 	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
+		layer = LOW_ITEM_LAYER
 	else if(dir == SOUTH)
 		layer = ABOVE_MOB_LAYER
 	else
