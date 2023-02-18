@@ -394,11 +394,11 @@
 					clear_alert("temp")
 			else
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
-					heal_overall_damage(burn=-mult*-COLD_DAMAGE_LEVEL_1)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1)
 				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
-					heal_overall_damage(burn=-mult*COLD_DAMAGE_LEVEL_2)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2)
 				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
-					heal_overall_damage(burn=-mult*COLD_DAMAGE_LEVEL_3)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3)
 				else
 					clear_alert("temp")
 	else
