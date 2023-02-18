@@ -703,6 +703,7 @@
 #include "code\game\gamemodes\spaceninja\ninja\drain_act\rnd_server.dm"
 #include "code\game\gamemodes\spaceninja\ninja\drain_act\robot.dm"
 #include "code\game\gamemodes\spaceninja\ninja\drain_act\smes.dm"
+#include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_bloodscan_machine.dm"
 #include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_cloning.dm"
 #include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_mindscan_machine.dm"
 #include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_teleporter.dm"

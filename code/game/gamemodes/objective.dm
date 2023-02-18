@@ -977,7 +977,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 //Цель на то чтобы подставить человека заставив сб его арестовать
 /datum/objective/set_up
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 
 /datum/objective/set_up/find_target()
 	var/list/possible_targets = list()
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 // Для выполнения этой цели - ниндзя должен похищать людей определённой профессии пока не найдёт ТОГО САМОГО засранца обладающего инфой.
 // Либо пока не похитит достаточно людей (от 3 до 8(на 100 игроков))
 /datum/objective/find_and_scan
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 	var/list/possible_roles = list()
 	// Переменные ниже наполняются устройством для сканирования
 	var/list/scanned_occupants = list()
@@ -1086,7 +1086,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/vermit_hunt
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 	var/req_kills
 
 /datum/objective/vermit_hunt/find_target()
@@ -1123,6 +1123,35 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(killed_vermits >= req_kills)
 		return TRUE
 	return FALSE
+
+/datum/objective/collect_blood
+	martyr_compatible = TRUE
+	explanation_text = "На объекте вашей миссии действуют вампиры. \
+	Ваша задача отыскать их, взять с них образцы крови и просканировать оные в устройстве на вашей базе. \
+	Вам нужно 3 уникальных образца чтобы начать сканирование.\
+	Успешное сканирование поможет клану лучше противодействовать им."
+	var/samples_to_win = 3
+
+/datum/objective/collect_blood/proc/generate_vampires()
+	var/list/possible_vampires = list()
+	var/datum/game_mode/vampire/temp_gameMode = new
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(player.client && player.mind && player.stat != DEAD)
+			if((ishuman(player) && !player.mind.special_role))
+				if(player.client && (ROLE_VAMPIRE in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_VAMPIRE))
+					possible_vampires += player.mind
+	for(var/datum/mind/player in possible_vampires)
+		if(player.current)
+			if(ismindshielded(player.current))
+				possible_vampires -= player
+			if(player.current.dna.species.name in temp_gameMode.protected_species)
+				possible_vampires -= player
+	if(possible_vampires.len)
+		var/vampires_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
+		for(var/j = 0, j < vampires_num, j++)
+			var/datum/mind/new_vampires_mind = pick(possible_vampires)
+			new_vampires_mind.make_Vampire()
+			possible_vampires.Remove(new_vampires_mind)
 
 /datum/objective/research_corrupt
 	explanation_text = "Используя свои перчатки, загрузите мощный вирус на любой научный сервер станции, тем самым саботировав все их исследования! \

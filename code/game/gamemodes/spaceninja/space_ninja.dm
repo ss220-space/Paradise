@@ -325,6 +325,16 @@
 				else
 					qdel(kill_objective)
 
+	//Сбор крови вампиров
+	var/datum/objective/collect_blood/collect_vamp_blood = new
+	collect_vamp_blood.owner = ninja_mind
+	collect_vamp_blood.generate_vampires()
+	ninja_mind.objectives += collect_vamp_blood
+	if(!length(SSticker.mode.vampires))//Если нет вампиров, просто не даём цель
+		GLOB.all_objectives -= collect_vamp_blood
+		ninja_mind.objectives -= collect_vamp_blood
+		qdel(collect_vamp_blood)
+
 	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = ninja_mind
