@@ -52,7 +52,7 @@
 
 /obj/structure/tribune/proc/handle_layer()
 	if(dir == NORTH)
-		layer = BELOW_MOB_LAYER
+		layer = LOW_ITEM_LAYER
 	else
 		layer = ABOVE_MOB_LAYER
 
