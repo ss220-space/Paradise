@@ -30,7 +30,14 @@
 	var/burn_damage = 0
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
-	var/allow_prefs_prompt = FALSE //for mob_spawn/human
+
+	//for mob_spawn/human
+	var/allow_prefs_prompt = FALSE
+	var/allow_species_pick = FALSE
+	var/allow_gender_pick = FALSE
+	var/allow_name_pick = FALSE
+	var/mob_species = null
+
 	var/assignedrole
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
@@ -77,6 +84,9 @@
 	if(ghost_role == "No")
 		return
 	var/mob_use_prefs = FALSE
+	var/_mob_species = FALSE
+	var/_mob_gender = FALSE
+	var/_mob_name = FALSE
 	if(use_prefs_prompt(user))
 		mob_use_prefs = TRUE
 	else
@@ -84,9 +94,17 @@
 			var/randomize_alert = alert("Your character will be randomized for this role, continue?",,"Yes","No")
 			if(randomize_alert == "No")
 				return
-		if(!species_prompt())
-			return
-
+		if(allow_species_pick)
+			_mob_species = species_prompt()
+		if(allow_gender_pick)
+			_mob_gender = gender_prompt()
+		if(allow_name_pick)
+			var/m_gender = (_mob_gender)? _mob_gender : mob_gender
+			var/m_species =(_mob_species)? _mob_species : mob_species
+			_mob_name = name_prompt(m_gender, m_species)
+		if(_mob_species)
+			var/datum/species/S = GLOB.all_species[_mob_species]
+			_mob_species = S.type
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
@@ -94,7 +112,7 @@
 		add_game_logs("[user.ckey] became [mob_name]", user)
 	else
 		add_game_logs("[user.ckey] became [mob_name]. Job: [id_job]", user)
-	create(plr = user, prefs = mob_use_prefs)
+	create(plr = user, prefs = mob_use_prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -118,13 +136,19 @@
 /obj/effect/mob_spawn/proc/species_prompt()
 	return TRUE
 
+/obj/effect/mob_spawn/proc/gender_prompt()
+	return
+
+/obj/effect/mob_spawn/proc/name_prompt(_mob_gender, _mob_species)
+	return
+
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE)
+/obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	return
 
-/obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE)
+/obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -148,7 +172,7 @@
 	if(plr)
 		if(prefs)
 			plr.client?.prefs.copy_to(M)
-	equip(M, use_prefs = prefs)
+	equip(M, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 	if(plr)
 		M.ckey = plr.ckey
@@ -178,11 +202,11 @@
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
-	var/mob_species = null		//Set species
-	var/allow_species_pick = FALSE
+	mob_species = null		//Set species
+	allow_species_pick = FALSE
 	allow_prefs_prompt = FALSE
-	var/allow_gender_pick = FALSE
-	var/allow_name_pick = FALSE
+	allow_gender_pick = FALSE
+	allow_name_pick = FALSE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -249,40 +273,30 @@
 	return FALSE
 
 /obj/effect/mob_spawn/human/species_prompt()
-	var/new_name = null
-	if(allow_gender_pick)
-		//пол
-		var/new_gender = alert("Please select gender.",, "Male","Female")
-		if(new_gender == "Male")
-			mob_gender = MALE
-		else
-			mob_gender = FEMALE
-
-	if(allow_name_pick)
-		//имя
-		new_name = input("Enter your name:") as text
-		if(new_name)
-			mob_name = new_name
-		else
-			mob_name = random_name(mob_gender, mob_species)
-
-	if(allow_species_pick)
-		//раса
-		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
-		if(!selected_species)
-			to_chat(usr, "<span class='warning'>Spawning stopped.</span>")
-			return	FALSE	// You didn't pick, abort
-		var/datum/species/S = GLOB.all_species[selected_species]
-		mob_species = S.type
-		if(!new_name)
-			mob_name = random_name(mob_gender, selected_species)
-
-	//цвет кожи
+	var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
+	if(!selected_species)
+		to_chat(usr, "<span class='warning'>Spawning stopped.</span>")
+		return FALSE	// You didn't pick, abort
 	skin_tone = rand(-25, 0)
-	return TRUE
+	return selected_species
 
-/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H, use_prefs = FALSE)
-	if(mob_species && !use_prefs)
+/obj/effect/mob_spawn/human/gender_prompt()
+	var/new_gender = alert("Please select gender.",, "Male","Female")
+	if(new_gender == "Male")
+		return MALE
+	else
+		return FEMALE
+
+/obj/effect/mob_spawn/human/name_prompt(_mob_gender, _mob_species)
+	var/new_name = input("Enter your name:") as text
+	if(!new_name)
+		new_name = random_name(_mob_gender, _mob_species)
+	return new_name
+
+/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
+	if(_mob_species && !use_prefs)
+		H.set_species(_mob_species)
+	else if(mob_species && !use_prefs)
 		H.set_species(mob_species)
 
 	if(husk)
@@ -295,14 +309,24 @@
 	var/obj/item/organ/external/head/D = H.get_organ("head")
 	if(!use_prefs)
 		if(!random)
-			H.real_name = mob_name ? mob_name : H.name
-			if(H.dna)
-				H.dna.real_name = mob_name
-			if(H.mind)
-				H.mind.name = mob_name
-			if(!mob_gender)
-				mob_gender = pick(MALE, FEMALE)
-			H.gender = mob_gender
+			if(_mob_name)
+				H.real_name = _mob_name
+				if(H.dna)
+					H.dna.real_name = _mob_name
+				if(H.mind)
+					H.mind.name = _mob_name
+			else
+				H.real_name = mob_name ? mob_name : H.name
+				if(H.dna)
+					H.dna.real_name = mob_name
+				if(H.mind)
+					H.mind.name = mob_name
+			if(_mob_gender)
+				H.gender = _mob_gender
+			else
+				if(!mob_gender)
+					mob_gender = pick(MALE, FEMALE)
+				H.gender = mob_gender
 		if(istype(D))
 			if(hair_style)
 				D.h_style = hair_style
@@ -457,7 +481,7 @@
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
-/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H, use_prefs = FALSE)
+/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
