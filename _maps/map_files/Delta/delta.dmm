@@ -86343,7 +86343,6 @@
 /area/space/nearstation)
 "nfx" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/structure/table/wood/fancy/royalblack,
 /obj/item/paper_bin{
 	pixel_x = -3;
 	pixel_y = 6
