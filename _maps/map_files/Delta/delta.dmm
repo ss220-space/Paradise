@@ -6005,7 +6005,9 @@
 	},
 /area/maintenance/bar)
 "aPA" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/clothing/departament/security{
+	req_access_txt = "1;63"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
