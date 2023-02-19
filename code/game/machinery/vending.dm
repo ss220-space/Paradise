@@ -2165,4 +2165,4 @@
 		/obj/item/clothing/shoes/sandal = 2,
 		/obj/item/clothing/shoes/leather = 2
 	)
-	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
+	refill_canister = /obj/item/vending_refill/clothing/service/botanical
