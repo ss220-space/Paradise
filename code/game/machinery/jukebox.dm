@@ -1,8 +1,16 @@
 /obj/machinery/jukebox
+<<<<<<< Updated upstream
 	name = "Автомат музыки"
 	desc = "hahaha"
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slotsb"
+=======
+    name = "jukebox"
+	desc = "Автомат играющий музыку, стоит ваших денях."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "disco0"
+	var/activate = FALSE
+>>>>>>> Stashed changes
 	anchored = 1
 	density = 1
 	var/plays = 0
@@ -11,6 +19,7 @@
 	var/result = null
 	var/resultlvl = null
 
+<<<<<<< Updated upstream
 	/obj/machinery/jukebox/attack_hand(mob/user as mob)
 	ui_interact(user)
 
@@ -18,6 +27,15 @@
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "JukeBox", name, 350, 200, master_ui, state)
+=======
+/obj/machinery/jukebox/attack_hand(mob/user as mob)
+	ui_interact(user)
+
+	/obj/machinery/jukebox/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "jukebox", name, 350, 200, master_ui, state)
+>>>>>>> Stashed changes
 		ui.open()
 
 /obj/machinery/jukebox/ui_data(mob/user)
@@ -32,6 +50,7 @@
 	data["result"] = result
 	data["resultlvl"] = resultlvl
 	return data
+<<<<<<< Updated upstream
 
 /obj/machinery/jukebox/ui_act(action, params)
 	if(..())
@@ -98,3 +117,5 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
+=======
+>>>>>>> Stashed changes
