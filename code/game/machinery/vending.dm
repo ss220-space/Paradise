@@ -2118,8 +2118,24 @@
 	//slogan_list += list()
 	req_access_txt = "22"
 	products = list(
-		/obj/item/clothing/under/maid = 1,
-		/obj/item/clothing/under/janimaid = 1
+		/obj/item/clothing/under/rank/chaplain = 1,
+		/obj/item/clothing/suit/witchhunter = 1,
+		/obj/item/clothing/head/witchhunter_hat = 1,
+		/obj/item/clothing/suit/armor/riot/knight/templar = 1,
+		/obj/item/clothing/head/helmet/riot/knight/templar = 1,
+		/obj/item/clothing/under/wedding/bride_white = 1,
+		/obj/item/clothing/suit/hooded/chaplain_hoodie = 1,
+		/obj/item/clothing/suit/hooded/nun = 1,
+		/obj/item/clothing/suit/holidaypriest = 1,
+		/obj/item/clothing/head/bishopmitre = 1,
+		/obj/item/clothing/neck/cloak/bishop = 1,
+		/obj/item/clothing/head/blackbishopmitre = 1,
+		/obj/item/clothing/neck/cloak/bishopblack = 1,
+		/obj/item/storage/backpack/cultpack = 1,
+		/obj/item/clothing/shoes/black = 1,
+		/obj/item/clothing/shoes/laceup = 1,
+		/obj/item/clothing/gloves/ring/gold = 2,
+		/obj/item/clothing/gloves/ring/silver = 2
 	)
 	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
 
