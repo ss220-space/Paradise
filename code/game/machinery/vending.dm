@@ -2107,7 +2107,7 @@
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
 	icon_state = "clothes"
 	//slogan_list += list()
-	req_access_txt = "22"
+	req_access_txt = "0"
 	products = list()
 	refill_canister = /obj/item/vending_refill/
 
@@ -2129,7 +2129,7 @@
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
 	icon_state = "clothes"
 	//slogan_list += list()
-	req_access_txt = "22"
+	req_access_txt = "35"
 	products = list(
 		/obj/item/clothing/under/rank/hydroponics = 5,
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3
