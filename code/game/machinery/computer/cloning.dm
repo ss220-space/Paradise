@@ -145,13 +145,6 @@
 		if(P.occupant)
 			var/mob/living/carbon/human/H = P.occupant
 			H.adjustCloneLoss(500)
-			for(var/obj/item/organ/external/E in H.bodyparts)
-				if(E.organ_tag == "limb")
-					E.remove()
-
-			for(var/obj/item/organ/internal/O in H.internal_organs)
-				if(O.slot != "brain")
-					O.remove()
 			P.go_out()
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -253,7 +246,7 @@
 		if("scan")
 			if(!scanner || !scanner.occupant || loading)
 				return
-			set_scan_temp("Scanner ready.", "good")
+			set_scan_temp(emagged ? "Killer ready." : "Scanner ready.", "good")
 			loading = TRUE
 
 			spawn(20)
@@ -306,7 +299,7 @@
 						set_temp("Error: The disk's data could not be read.", "danger")
 						return
 					else if(isnull(active_record))
-						set_temp("Error: No active record was found.", "danger")
+						set_temp(emagged ? "Error: No active prey was found." : "Error: No active record was found.", "danger")
 						menu = MENU_MAIN
 						return
 
@@ -356,24 +349,24 @@
 				ui_modal_clear(src)
 				//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 				if(!length(pods))
-					set_temp("Error: No cloning pod detected.", "danger")
+					set_temp(emagged ? "Error: No killing pod detected." : "Error: No cloning pod detected.", "danger")
 				else
 					var/obj/machinery/clonepod/pod = selected_pod
 					var/cloneresult
 					if(!selected_pod)
-						set_temp("Error: No cloning pod selected.", "danger")
+						set_temp(emagged ? "Error: No killing pod selected." : "Error: No cloning pod selected.", "danger")
 					else if(pod.occupant)
 						set_temp("Error: The cloning pod is currently occupied.", "danger")
 					else if(pod.biomass < CLONE_BIOMASS)
-						set_temp("Error: Not enough biomass.", "danger")
+						set_temp(emagged ? "Error: Not enough MEAT!" : "Error: Not enough biomass.", "danger")
 					else if(pod.mess)
-						set_temp("Error: The cloning pod is malfunctioning.", "danger")
+						set_temp(emagged ? "Error: The killing pod is ok." : "Error: The cloning pod is malfunctioning.", emagged? "good" : "danger")
 					else if(!config.revival_cloning)
-						set_temp("Error: Unable to initiate cloning cycle.", "danger")
+						set_temp(emagged ? "Error: Unable to initiate killing cycle. " : "Error: Unable to initiate cloning cycle.", "danger")
 					else
 						cloneresult = pod.growclone(C)
 						if(cloneresult)
-							set_temp("Initiating cloning cycle...", "success")
+							set_temp(emagged ? "Initiating killing cycle...\nSubject successfully killed!" : "Initiating cloning cycle...", "success")
 							records.Remove(C)
 							qdel(C)
 							menu = MENU_MAIN
