@@ -2134,6 +2134,7 @@
 		/obj/item/clothing/under/rank/hydroponics = 5,
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
 		/obj/item/clothing/suit/apron = 4,
+		/obj/item/clothing/suit/apron/overalls = 2,
 		/obj/item/clothing/mask/bandana/botany = 4,
 		/obj/item/clothing/accessory/scarf/green = 2,
 		/obj/item/clothing/head/flatcap = 2,
