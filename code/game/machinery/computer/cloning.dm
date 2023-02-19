@@ -151,7 +151,7 @@
 
 			for(var/obj/item/organ/internal/O in H.internal_organs)
 				if(O.slot != "brain")
-				O.remove()
+					O.remove()
 			P.go_out()
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
