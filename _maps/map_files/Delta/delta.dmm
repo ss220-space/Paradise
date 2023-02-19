@@ -59818,10 +59818,6 @@
 	},
 /area/quartermaster/miningdock)
 "hbA" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
