@@ -2154,7 +2154,6 @@
 		/obj/item/clothing/mask/bandana/botany = 4,
 		/obj/item/clothing/accessory/scarf/green = 2,
 		/obj/item/clothing/head/flatcap = 2,
-		/obj/item/clothing/head/furcap = 1,
 		/obj/item/radio/headset/headset_service = 5,
 		/obj/item/clothing/gloves/botanic_leather = 5,
 		/obj/item/clothing/gloves/fingerless = 3,
