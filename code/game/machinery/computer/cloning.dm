@@ -146,7 +146,7 @@
 			var/mob/living/carbon/human/H = P.occupant
 			H.adjustCloneLoss(500)
 			for(var/obj/item/organ/external/E in H.bodyparts)
-				if(E!=H.bodyparts_by_name["head"] && E!=H.bodyparts_by_name["upper_torso"])
+				if(E.organ_tag == "limb")
 					E.remove()
 
 			for(var/obj/item/organ/internal/O in H.internal_organs)
