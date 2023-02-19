@@ -148,8 +148,10 @@
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				if(E!=H.bodyparts_by_name["head"] && E!=H.bodyparts_by_name["upper_torso"])
 					E.remove()
-			for(var/obj/item/organ/internal/E in H.internal_organs)
-				E.remove()
+
+			for(var/obj/item/organ/internal/O in H.internal_organs)
+				if(O.slot != "brain")
+				O.remove()
 			P.go_out()
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
