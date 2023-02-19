@@ -2100,3 +2100,25 @@
 
 
 	refill_canister = /obj/item/vending_refill/clothing/law
+
+
+/obj/machinery/vending/clothing/departament/service
+	name = "\improper Departament Service ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
+	icon_state = "clothes-dep-sec"
+	//slogan_list += list()
+	req_access_txt = "22"
+	products = list()
+	refill_canister = /obj/item/vending_refill/
+
+/obj/machinery/vending/clothing/departament/service/chaplain
+	name = "\improper Departament Service ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
+	icon_state = "clothes-dep-chaplain"
+	//slogan_list += list()
+	req_access_txt = "22"
+	products = list(
+		/obj/item/clothing/under/maid = 1,
+		/obj/item/clothing/under/janimaid = 1
+	)
+	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
