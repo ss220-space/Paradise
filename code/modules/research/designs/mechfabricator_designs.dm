@@ -1053,7 +1053,7 @@
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
 	id = "clusterbang_launcher"
 	build_type = MECHFAB
-	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
+	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
 	construction_time = 100
@@ -1308,7 +1308,7 @@
 	id = "borg_upgade_abductor_medi"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_medi
-	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 4)
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
 	materials = list(MAT_METAL = 18000, MAT_GLASS = 1500, MAT_SILVER = 13000, MAT_GOLD = 1000, MAT_PLASMA = 4000, MAT_TITANIUM = 12000, MAT_DIAMOND = 1000) //Base abductor engineering tools *8 + IMS cost
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")

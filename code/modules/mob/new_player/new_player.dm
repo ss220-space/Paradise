@@ -157,10 +157,16 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
-		if(config.tts_enabled && !client.prefs.tts_seed)
-			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-			client.prefs.ShowChoices(src)
-			return FALSE
+		if(config.tts_enabled)
+			if(!client.prefs.tts_seed)
+				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
+			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+			if(client.donator_level < seed.donator_level)
+				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -244,10 +250,16 @@
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
-		if(config.tts_enabled && !client.prefs.tts_seed)
-			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-			client.prefs.ShowChoices(src)
-			return FALSE
+		if(config.tts_enabled)
+			if(!client.prefs.tts_seed)
+				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
+			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+			if(client.donator_level < seed.donator_level)
+				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
 
 		LateChoices()
 
@@ -299,14 +311,17 @@
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
 		return 0
+	if(!job.can_novice_play(client))
+		return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0
+			var/datum/job/cadet = SSjobs.GetJob("Security Cadet")
 			var/datum/job/officer = SSjobs.GetJob("Security Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
 			var/datum/job/hos = SSjobs.GetJob("Head of Security")
-			count += (officer.current_positions + warden.current_positions + hos.current_positions)
+			count += (officer.current_positions + warden.current_positions + hos.current_positions + cadet.current_positions)
 			if(job.current_positions > (config.assistantratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1

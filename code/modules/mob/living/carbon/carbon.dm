@@ -975,6 +975,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+		var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+		if(glands)
+			stat(null, "Wax: [glands.wax]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1026,8 +1029,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/turf/simulated/T = get_turf(H)
 		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
 			return FALSE
+		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
+			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
+				return FALSE
 		if(!has_gravity(H) && !grav_ignore)
-			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
 				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
 				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
 					return FALSE
@@ -1135,6 +1142,9 @@ so that different stomachs can handle things in different ways VB*/
 	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if(NO_BREATHE in src.dna.species.species_traits)
+		return FALSE
+
 	if(!wear_mask)
 		return TRUE
 
@@ -1250,3 +1260,9 @@ so that different stomachs can handle things in different ways VB*/
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			clean_hands = FALSE
 	..(clean_hands, clean_mask, clean_feet)
+
+/mob/living/carbon/get_pull_push_speed_modifier(current_delay)
+	if(!canmove)
+		return pull_push_speed_modifier * 1.2
+	var/average_delay = (movement_delay(restrained() ? FALSE : TRUE) + current_delay) / 2
+	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)

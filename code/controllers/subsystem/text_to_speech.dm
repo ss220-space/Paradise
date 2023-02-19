@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(tts)
 	var/is_enabled = TRUE
 
 	var/list/datum/tts_seed/tts_seeds = list()
+	var/list/tts_seeds_names = list()
+	var/list/tts_seeds_names_by_donator_levels = list()
 	var/list/datum/tts_provider/tts_providers = list()
 
 	var/list/tts_local_channels_by_owner = list()
@@ -64,7 +66,12 @@ SUBSYSTEM_DEF(tts)
 		"assistant" = "Ассистент",
 		"chief engineer" = "Главный Инженер",
 		"station engineer" = "Станционный инженер",
-		"trainee engineer" = "Инженер-практикант",
+		"trainee engineer" = "Инженер-стажер",
+		"Engineer Assistant" = "Инженерный Ассистент",
+		"Technical Assistant" = "Технический Ассистент",
+		"Engineer Student" = "Инженер-практикант",
+		"Technical Student" = "Техник-практикант",
+		"Technical Trainee" = "Техник-стажер",
 		"maintenance technician" = "Техник по обслуживанию",
 		"engine technician" = "Техник по двигателям",
 		"electrician" = "Электрик",
@@ -73,7 +80,9 @@ SUBSYSTEM_DEF(tts)
 		"mechanic" = "Механик",
 		"chief medical officer" = "Главный врач",
 		"medical doctor" = "Врач",
-		"student medical doctor" = "Врач-интерн",
+		"Intern" = "Интерн",
+		"Student Medical Doctor" = "Врач-практикант",
+		"Medical Assistant" = "Ассистирующий врач",
 		"surgeon" = "Хирург",
 		"nurse" = "Медсестра",
 		"coroner" = "К+оронэр",
@@ -90,7 +99,11 @@ SUBSYSTEM_DEF(tts)
 		"paramedic" = "Парамедик",
 		"research director" = "Директор исследований",
 		"scientist" = "Учёный",
-		"student scientist" = "Учёный-практик",
+		"student scientist" = "Учёный-практикант",
+		"Scientist Assistant" = "Научный Ассистент",
+		"Scientist Pregraduate" = "Учёный-бакалавр",
+		"Scientist Graduate" = "Научный выпускник",
+		"Scientist Postgraduate" = "Учёный-аспирант",
 		"anomalist" = "Аномалист",
 		"plasma researcher" = "Исследователь плазмы",
 		"xenobiologist" = "Ксенобиолог",
@@ -105,6 +118,8 @@ SUBSYSTEM_DEF(tts)
 		"forensic technician" = "Криминалист",
 		"security officer" = "Офицер службы безопасности",
 		"security cadet" = "Кадет службы безопасности",
+		"Security Assistant" = "Ассистент службы безопасности",
+		"Security Graduate" = "Выпускник кадетской академии",
 		"brig physician" = "Врач брига",
 		"security pod pilot" = "Пилот пода службы безопасности",
 		"ai" = "И И",
@@ -166,6 +181,9 @@ SUBSYSTEM_DEF(tts)
 			continue
 		seed.provider = tts_providers[initial(seed.provider.name)]
 		tts_seeds[seed.name] = seed
+		tts_seeds_names += seed.name
+		tts_seeds_names_by_donator_levels["[seed.donator_level]"] += list(seed.name)
+	tts_seeds_names = sortTim(tts_seeds_names, /proc/cmp_text_asc)
 
 /datum/controller/subsystem/tts/Initialize(start_timeofday)
 	is_enabled = config.tts_enabled
@@ -224,14 +242,14 @@ SUBSYSTEM_DEF(tts)
 	tts_requests_queue += list(list(text, seed, proc_callback))
 	return TRUE
 
-/datum/controller/subsystem/tts/proc/get_tts(mob/speaker, mob/listener, message, seed_name = "Arthas", is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
+/datum/controller/subsystem/tts/proc/get_tts(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	if(!is_enabled)
 		return
 	if(!message)
 		return
 	if(isnull(listener) || !listener.client)
 		return
-	if(!(seed_name in tts_seeds))
+	if(isnull(seed_name) || !(seed_name in tts_seeds))
 		return
 	var/datum/tts_seed/seed = tts_seeds[seed_name]
 
@@ -281,7 +299,7 @@ SUBSYSTEM_DEF(tts)
 	LAZYADD(tts_queue[filename], play_tts_cb)
 	tts_rps_counter++
 
-/datum/controller/subsystem/tts/proc/get_tts_callback(mob/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
+/datum/controller/subsystem/tts/proc/get_tts_callback(atom/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
 
 	// Bail if it errored
@@ -324,7 +342,7 @@ SUBSYSTEM_DEF(tts)
 
 	tts_queue -= filename
 
-/datum/controller/subsystem/tts/proc/play_tts(mob/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null)
+/datum/controller/subsystem/tts/proc/play_tts(atom/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null)
 	if(isnull(listener) || !listener.client)
 		return
 
@@ -406,17 +424,34 @@ SUBSYSTEM_DEF(tts)
 	SEND_SOUND(listener, output)
 
 /datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
-	if(!ismob(owner))
-		CRASH("Invalid channel owner given.")
-	var/owner_ref = "\ref[owner]"
-	var/channel = tts_local_channels_by_owner[owner_ref]
+	var/channel = tts_local_channels_by_owner[owner]
 	if(isnull(channel))
 		channel = SSsounds.reserve_sound_channel_datumless()
-		tts_local_channels_by_owner[owner_ref] = channel
+		tts_local_channels_by_owner[owner] = channel
 	return channel
 
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
 	fdel(filename)
+
+/datum/controller/subsystem/tts/proc/get_available_seeds(owner)
+	var/list/_tts_seeds_names = list()
+	_tts_seeds_names |= tts_seeds_names
+
+	if(!ismob(owner))
+		return _tts_seeds_names
+
+	var/mob/M = owner
+
+	if(!M.client)
+		return _tts_seeds_names
+
+	for(var/donator_level in 0 to DONATOR_LEVEL_MAX)
+		if(M.client.donator_level < donator_level)
+			_tts_seeds_names -= tts_seeds_names_by_donator_levels["[donator_level]"]
+	return _tts_seeds_names
+
+/datum/controller/subsystem/tts/proc/get_random_seed(owner)
+	return pick(get_available_seeds(owner))
 
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
 	var/hash
@@ -440,7 +475,7 @@ SUBSYSTEM_DEF(tts)
 	if(sanitized_messages_caching)
 		sanitized_messages_cache[hash] = .
 
-/proc/tts_cast(mob/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
+/proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
 
 /proc/tts_word_replacer(word)

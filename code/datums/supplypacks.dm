@@ -945,13 +945,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Blood Pack Variety Crate"
 	contains = list(/obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
-	cost = 35
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
+	cost = 140
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
 
@@ -1989,6 +1991,42 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/vending_refill/clothing)
 	cost = 15
 	containername = "clothesmate supply crate"
+
+/datum/supply_packs/vending/clothes/security
+	name = "Security Departament ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/security)
+	cost = 80
+	containername = "security departament clothesmate supply crate"
+
+/datum/supply_packs/vending/clothes/engineering
+	name = "Engineering Departament ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/engineering)
+	cost = 50
+	containername = "engineering departament clothesmate supply crate"
+
+/datum/supply_packs/vending/clothes/medical
+	name = "Medical Departament ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/medical)
+	cost = 50
+	containername = "medical departament clothesmate supply crate"
+
+/datum/supply_packs/vending/clothes/science
+	name = "Science Departament ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/science)
+	cost = 30
+	containername = "science departament clothesmate supply crate"
+
+/datum/supply_packs/vending/clothes/cargo
+	name = "Cargo Departament ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/cargo)
+	cost = 30
+	containername = "cargo departament clothesmate supply crate"
+
+/datum/supply_packs/vending/clothes/law
+	name = "Law Departament ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/law)
+	cost = 30
+	containername = "law departament clothesmate supply crate"
 
 /datum/supply_packs/vending/suit
 	name = "Suitlord Supply Crate"
