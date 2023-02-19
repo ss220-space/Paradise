@@ -2114,7 +2114,7 @@
 	/obj/machinery/vending/clothing/departament/service/chaplain
 	name = "\improper Departament Service ClothesMate Chaplain"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
-	icon_state = "clothes-dep-chaplain"
+	icon_state = "clothes-dep-car"
 	//slogan_list += list()
 	req_access_txt = "22"
 	products = list(
