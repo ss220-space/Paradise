@@ -2105,14 +2105,14 @@
 /obj/machinery/vending/clothing/departament/service
 	name = "\improper Departament Service ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
-	icon_state = "clothes-dep-sec"
+	icon_state = "clothes"
 	//slogan_list += list()
 	req_access_txt = "22"
 	products = list()
 	refill_canister = /obj/item/vending_refill/
 
-/obj/machinery/vending/clothing/departament/service/chaplain
-	name = "\improper Departament Service ClothesMate"
+	/obj/machinery/vending/clothing/departament/service/chaplain
+	name = "\improper Departament Service ClothesMate Chaplain"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
 	icon_state = "clothes-dep-chaplain"
 	//slogan_list += list()
@@ -2120,5 +2120,32 @@
 	products = list(
 		/obj/item/clothing/under/maid = 1,
 		/obj/item/clothing/under/janimaid = 1
+	)
+	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
+
+
+/obj/machinery/vending/clothing/departament/service/botanist
+	name = "\improper Departament Service ClothesMate Botanical"
+	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
+	icon_state = "clothes"
+	//slogan_list += list()
+	req_access_txt = "22"
+	products = list(
+		/obj/item/clothing/under/rank/hydroponics = 5,
+		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3
+		/obj/item/clothing/suit/apron = 4,
+		/obj/item/clothing/mask/bandana/botany = 4,
+		/obj/item/clothing/accessory/scarf/green = 2,
+		/obj/item/clothing/head/flatcap = 2,
+		/obj/item/clothing/head/furcap = 1,
+		/obj/item/radio/headset/headset_service = 5,
+		/obj/item/clothing/gloves/botanic_leather = 5,
+		/obj/item/clothing/gloves/fingerless = 3,
+		/obj/item/clothing/gloves/color/brown = 3,
+		/obj/item/storage/backpack/botany = 5,
+		/obj/item/storage/bag/plants = 4,
+		/obj/item/clothing/shoes/brown = 4,
+		/obj/item/clothing/shoes/sandal = 2,
+		/obj/item/clothing/shoes/leather = 2
 	)
 	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
