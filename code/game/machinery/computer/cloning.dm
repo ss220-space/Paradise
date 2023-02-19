@@ -29,7 +29,7 @@
 	..()
 	pods = list()
 	records = list()
-	set_scan_temp("Scanner ready.", "good")
+	set_scan_temp(emagged ? "Killer ready." : "Scanner ready.", "good")
 	updatemodules()
 
 /obj/machinery/computer/cloning/Destroy()
@@ -366,7 +366,7 @@
 					else
 						cloneresult = pod.growclone(C)
 						if(cloneresult)
-							set_temp(emagged ? "Initiating killing cycle...\nSubject successfully killed!" : "Initiating cloning cycle...", "success")
+							set_temp(emagged ? "Initiating killing cycle... Subject successfully killed!" : "Initiating cloning cycle...", "success")
 							records.Remove(C)
 							qdel(C)
 							menu = MENU_MAIN
@@ -480,7 +480,7 @@
 		R.mind = "\ref[subject.mind]"
 
 	src.records += R
-	set_scan_temp("Subject successfully scanned. [extra_info]", "good")
+	set_scan_temp(emagged ? "Prey successfully scanned. [extra_info]" : "Subject successfully scanned. [extra_info]", "good")
 	SStgui.update_uis(src)
 
 //Find a specific record by key.
