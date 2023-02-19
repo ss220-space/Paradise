@@ -2140,7 +2140,7 @@
 	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
 
 
-/obj/machinery/vending/clothing/departament/service/botanist
+/obj/machinery/vending/clothing/departament/service/botanical
 	name = "\improper Departament Service ClothesMate Botanical"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
 	icon_state = "clothes"
