@@ -135,6 +135,7 @@
 	if(!emagged)
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
+		set_scan_temp(emagged ? "Killer ready." : "Scanner ready.", "good")
 		emp_act(1)
 		SStgui.update_uis(src)
 	else
@@ -285,7 +286,7 @@
 					ui_modal_message(src, action, "", null, payload)
 			else
 				active_record = null
-				set_temp("Error: Record missing.", "danger")
+				set_temp(emagged ? "Error: Prey missing." : "Error: Record missing.", "danger")
 		if("del_rec")
 			if(!active_record)
 				return
@@ -373,7 +374,7 @@
 							if(emagged)
 								emp_act()
 						else
-							set_temp("Error: Initialisation failure.", "danger")
+							set_temp(emagged ? "Success: You are doing great!" : "Error: Initialisation failure.", emagged ? "good" : "danger")
 			else
 				set_temp("Error: Data corruption.", "danger")
 		if("menu")
@@ -422,23 +423,23 @@
 				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
-		set_scan_temp("No brain detected in subject.", "bad")
+		set_scan_temp("No brain detected in subject.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		set_scan_temp("Subject has committed suicide and is not scannable.", "bad")
+		set_scan_temp(emagged ? "Prey come in better world. Leave it be" : "Subject has committed suicide and is not scannable.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
+		set_scan_temp(emagged ? "Prey's brain is in pristine condition. Further attempts not needed." : "Subject's brain is not responding. Further attempts after a short delay may succeed.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
-		set_scan_temp("Subject has incompatible genetic mutations.", "bad")
+		set_scan_temp(emagged ? "Prey has a too perfect body. Cry about it" : "Subject has incompatible genetic mutations.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
-		set_scan_temp("Subject already in database.")
+		set_scan_temp(emagged ? "Баян." : "Subject already in database.")
 		SStgui.update_uis(src)
 		return
 
