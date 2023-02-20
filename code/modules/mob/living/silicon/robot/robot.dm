@@ -1427,6 +1427,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			choices[skin] = skin_image
 		choice = show_radial_menu(src, src, choices, require_near = TRUE)
 
+	overlays.Cut()
 	if(choice)
 		icon_state = module.borg_skins[choice]
 		transform_animation(module.borg_skins[choice])
