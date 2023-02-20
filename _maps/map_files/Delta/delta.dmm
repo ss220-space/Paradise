@@ -5853,7 +5853,6 @@
 	},
 /obj/structure/tribune{
 	dir = 4;
-	pixel_y = 6;
 	pixel_x = 2;
 	anchored = 1
 	},
@@ -19239,8 +19238,8 @@
 	},
 /area/magistrateoffice)
 "cay" = (
-/obj/machinery/computer/secure_data/laptop,
 /obj/structure/table/wood,
+/obj/machinery/computer/secure_data/laptop,
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
 	},
@@ -24987,16 +24986,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
-"czU" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Courtroom";
-	id_tag = "courtroombolts"
-	},
-/turf/simulated/floor/wood/fancy/light{
-	color = "orange"
-	},
-/area/crew_quarters/courtroom)
 "czV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -41088,7 +41077,9 @@
 /area/chapel/main)
 "dIW" = (
 /obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 7
+	},
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
@@ -53530,16 +53521,15 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "fKj" = (
-/obj/structure/railing/wooden{
-	dir = 4
-	},
-/obj/structure/railing/wooden/cornerl{
-	dir = 1;
-	anchored = 1
-	},
 /obj/structure/chair/office{
 	dir = 1;
 	layer = 4.2
+	},
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/obj/structure/railing/wooden/cornerl{
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -56686,16 +56676,19 @@
 	},
 /area/chapel/office)
 "guW" = (
-/obj/item/paper_bin,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood/fancy/royalblack,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 7
+	},
 /obj/item/pen/multi{
 	pixel_x = -7;
 	pixel_y = 5
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
@@ -66199,9 +66192,10 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "izf" = (
-/obj/item/gavelblock,
-/obj/item/gavelhammer,
 /obj/structure/table/wood/fancy/royalblack,
+/obj/machinery/computer/secure_data/laptop{
+	pixel_y = 6
+	},
 /turf/simulated/floor/carpet{
 	icon_state = "carpet6-2";
 	icon = 'icons/turf/floors.dmi'
@@ -79979,22 +79973,11 @@
 /area/security/lobby)
 "lMu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door_control{
-	pixel_x = -5;
-	specialfunctions = 4;
-	id = "courtroombolts";
-	normaldoorcontrol = 1;
-	req_access_txt = "74"
-	},
 /obj/structure/table/wood/fancy/royalblack,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/button/windowtint{
-	pixel_x = 8;
-	anchored = 1;
-	id = "courtroom"
-	},
+/obj/item/folder/yellow,
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
 	},
@@ -82762,11 +82745,14 @@
 /area/crew_quarters/fitness)
 "msV" = (
 /obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 7
+	},
 /obj/item/pen/multi{
 	pixel_x = -7;
 	pixel_y = 5
 	},
-/obj/item/paper_bin,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/courtroom)
 "msW" = (
@@ -84226,16 +84212,11 @@
 /area/atmos)
 "mHl" = (
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/glass{
 	name = "Courtroom";
 	req_access_txt = "63";
-	id_tag = "courtroombolts"
+	id_tag = "courtroombolts";
+	id = "courtroom"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -87917,7 +87898,17 @@
 /area/turret_protected/aisat_interior)
 "nuE" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/folder/yellow,
+/obj/machinery/door_control{
+	specialfunctions = 4;
+	id = "courtroombolts";
+	normaldoorcontrol = 1;
+	req_access_txt = "74";
+	pixel_y = 8
+	},
+/obj/machinery/button/windowtint{
+	anchored = 1;
+	id = "courtroom"
+	},
 /turf/simulated/floor/carpet{
 	icon_state = "carpet5-1";
 	icon = 'icons/turf/floors.dmi'
@@ -98515,7 +98506,6 @@
 	},
 /area/security/prison/cell_block/A)
 "pIL" = (
-/obj/machinery/computer/secure_data/laptop,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -98527,6 +98517,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/item/gavelblock,
+/obj/item/gavelhammer{
+	pixel_y = 6
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
@@ -99726,7 +99720,8 @@
 /obj/machinery/door/airlock/glass{
 	name = "Courtroom";
 	req_access_txt = "63";
-	id_tag = "courtroombolts"
+	id_tag = "courtroombolts";
+	id = "courtroom"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -102900,11 +102895,11 @@
 	},
 /area/turret_protected/ai)
 "qBE" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
 	name = "Courtroom";
 	id_tag = "courtroombolts"
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -111424,11 +111419,14 @@
 /area/engine/engineering)
 "sum" = (
 /obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 7
+	},
 /obj/item/pen/multi{
 	pixel_x = -7;
 	pixel_y = 5
 	},
-/obj/item/paper_bin,
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/courtroom)
 "sut" = (
@@ -181445,7 +181443,7 @@ fFz
 vHA
 wNR
 ydS
-czU
+qBE
 ydS
 fFv
 dtb
