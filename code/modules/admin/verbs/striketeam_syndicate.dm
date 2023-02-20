@@ -130,6 +130,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
 
+	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "syndie"
 	W.assignment = "Syndicate Commando"
@@ -168,5 +169,4 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
 	D.implant(src)
-	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	return 1
