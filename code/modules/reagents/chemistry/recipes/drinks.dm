@@ -933,7 +933,7 @@
 	name = "Bitter"
 	id = "bitter"
 	result = "bitter"
-	required_reagents = list("etanol" = 5, "berryjuice" = 5)
+	required_reagents = list("ethanol" = 5, "berryjuice" = 5)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 15
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
