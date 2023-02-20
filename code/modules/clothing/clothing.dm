@@ -36,10 +36,10 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
-	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.  
+	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.
 	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
-
+	var/hides = 0
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))

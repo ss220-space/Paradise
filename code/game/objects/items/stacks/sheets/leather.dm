@@ -157,11 +157,12 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
-			/obj/item/clothing/suit/space/hardsuit/mining,
-			/obj/item/clothing/head/helmet/space/hardsuit/mining,
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining))
+	var/static/list/goliath_platable_armor_new_icon_typecache = typecacheof(list(
+			/obj/item/clothing/suit/space/hardsuit/mining,
+			/obj/item/clothing/head/helmet/space/hardsuit/mining))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -191,6 +192,25 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+	else if(is_type_in_typecache(target, goliath_platable_armor_new_icon_typecache))
+		var/obj/item/clothing/V = target
+		var/datum/armor/current_armor = V.armor
+		if(current_armor.getRating("melee") < 60)
+			V.hides++
+			V.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			use(1)
+			if(V.hides < 3)
+				V.icon_state = "[initial(V.icon_state)]_reinf"
+				V.item_color = "[initial(V.item_color)]_reinf" //necessary for the correct switching of the flashlight
+			else
+				V.icon_state = "[initial(V.icon_state)]_reinf_full"
+				V.item_color = "[initial(V.item_color)]_reinf_full"
+
+
+		else
+			to_chat(user, "<span class='warning'>You can't improve [V] any further!</span>")
+
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
