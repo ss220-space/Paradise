@@ -3,7 +3,7 @@
 	var/name_disguise //used by examine
 	var/has_transform_animation = FALSE
 	icon = 'icons/obj/module.dmi'
-	icon_state = "std_module"
+	icon_state = "std_mod"
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT

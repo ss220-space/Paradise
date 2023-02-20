@@ -42,12 +42,14 @@
 			/obj/item/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
 			/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5),
 			/obj/item/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
+			/obj/item/reagent_containers/food/snacks/grown/buckwheat = list("buckwheat" = -5),
 
 			//Grinder stuff, but only if dry
 			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/moonlight = list("moonlin" = 0),
 
 
 			//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
@@ -86,7 +88,8 @@
 			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/moonlight = list("moonlin" = 0)
 	)
 
 	var/list/holdingitems = list()
