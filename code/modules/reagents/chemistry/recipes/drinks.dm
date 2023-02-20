@@ -893,24 +893,6 @@
 	required_reagents = list("doctorsdelight" = 1, "bananahonk" = 1, "erikasurprise" = 1, "screwdrivercocktail" = 1, "gargleblaster" = 1)
 	result_amount = 5
 
-/datum/chemical_reaction/champagne
-	name = "Champagne"
-	id = "champagne"
-	result = "champagne"
-	required_reagents = list("berryjuice" = 5, "sodawater" = 5)
-	required_catalysts = list("enzyme" = 5)
-	result_amount = 10
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/jagermeister
-	name = "Jagermeister"
-	id = "jagermeister"
-	result = "jagermeister"
-	required_reagents = list("carrotjuice" = 5)
-	required_catalysts = list("enzyme" = 5)
-	result_amount = 10
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 /datum/chemical_reaction/aperol
 	name = "Aperol"
 	id = "aperol"
@@ -918,15 +900,6 @@
 	required_reagents = list("grapejuice" = 5, "limejuice" = 5, "wine" = 5)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 20
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/bluecuracao
-	name = "Bluecuracao"
-	id = "bluecuracao"
-	result = "bluecuracao"
-	required_reagents = list("orangejuice" = 5, "limejuice" = 5)
-	required_catalysts = list("enzyme" = 5)
-	result_amount = 15
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/bitter
@@ -947,24 +920,6 @@
 	result_amount = 15
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/sambuka
-	name = "Sambuka"
-	id = "sambuka"
-	result = "sambuka"
-	required_reagents = list("ethanol" = 5, "sugar" = 5)
-	required_catalysts = list("enzyme" = 5)
-	result_amount = 15
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/sheridan
-	name = "Sheridan's"
-	id = "sheridan"
-	result = "sheridan"
-	required_reagents = list("kahlua" = 5, "cream" = 5)
-	required_catalysts = list("enzyme" = 5)
-	result_amount = 15
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 
 //////////////////////////coctail/////////////////////////////
 
@@ -972,7 +927,7 @@
 	name = "Black Blood"
 	id = "black_blood"
 	result = "black_blood"
-	required_reagents = list("bluecuracao" = 2, "jagermeister" = 1, "sodawater" = 1, "lce" = 1)
+	required_reagents = list("bluecuracao" = 2, "jagermeister" = 1, "sodawater" = 1, "ice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
