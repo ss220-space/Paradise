@@ -991,7 +991,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
 			sleep(6)
 			SetEmagged(TRUE)
-			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
+			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
@@ -1019,7 +1019,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
 			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
-			SetLockdown(0)
+			SetLockdown(FALSE)
 			if(src.module && istype(src.module, /obj/item/robot_module/miner))
 				for(var/obj/item/pickaxe/drill/cyborg/D in src.module.modules)
 					qdel(D)
@@ -1397,10 +1397,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return
 
-/mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(var/state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
-		state = 1
+		state = TRUE
 	if(isclocker(src))
 		return
 	if(state)
@@ -1439,18 +1439,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return
 
 /mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
-	SetLockdown(1)
+	SetLockdown(TRUE)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
 	for(var/i in 1 to 4)
-		playsound(src.loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
+		playsound(loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
 	flick("[animated_icon]_transform", src)
 	to_chat(src, "<span class='notice'>Your icon has been set[default?" by default":""]. You now require a reset module to change it.</span>")
-	addtimer(CALLBACK(src, /mob/living/silicon/robot/.proc/complete_loading), 50)
+	addtimer(CALLBACK(src, /mob/living/silicon/robot/.proc/complete_loading), 5 SECONDS)
 	update_icons()
 
 /mob/living/silicon/robot/proc/complete_loading()
-	SetLockdown(0)
+	SetLockdown(FALSE)
 	say("Инициализация успешна")
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
