@@ -579,11 +579,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "aaS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -705,7 +700,7 @@
 	},
 /area/security/permabrig)
 "aee" = (
-/obj/effect/mob_spawn/human,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
 "aeG" = (
@@ -5092,7 +5087,8 @@
 	layer = 4.2
 	},
 /obj/structure/railing/wooden/endr{
-	dir = 1
+	dir = 1;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -5858,7 +5854,8 @@
 /obj/structure/tribune{
 	dir = 4;
 	pixel_y = 6;
-	pixel_x = 2
+	pixel_x = 2;
+	anchored = 1
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
@@ -10166,7 +10163,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/east)
 "boc" = (
@@ -14039,12 +14037,7 @@
 /area/bridge)
 "bEa" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
@@ -19468,7 +19461,9 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/obj/structure/railing/wooden/endr,
+/obj/structure/railing/wooden/endr{
+	anchored = 1
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -21163,9 +21158,9 @@
 "cjf" = (
 /obj/structure/bed,
 /obj/item/clothing/under/color/orange/prison,
-/obj/effect/mob_spawn/human/skeleton,
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "cjg" = (
@@ -27929,7 +27924,8 @@
 	},
 /obj/structure/chair/office,
 /obj/structure/railing/wooden/endl{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -52596,7 +52592,9 @@
 /area/hallway/primary/central/west)
 "fyk" = (
 /obj/structure/cable{
-	icon_state = "1-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
@@ -53536,7 +53534,8 @@
 	dir = 4
 	},
 /obj/structure/railing/wooden/cornerl{
-	dir = 1
+	dir = 1;
+	anchored = 1
 	},
 /obj/structure/chair/office{
 	dir = 1;
@@ -53994,12 +53993,6 @@
 "fPX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -57222,6 +57215,14 @@
 /turf/simulated/floor/engine/o2,
 /area/atmos)
 "gBu" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
 	},
@@ -61833,9 +61834,6 @@
 	},
 /area/bridge/vip)
 "hzN" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "carpet14-10"
@@ -87296,7 +87294,8 @@
 	tag = ""
 	},
 /obj/structure/railing/wooden/endr{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -95313,7 +95312,9 @@
 /obj/structure/railing/wooden{
 	dir = 4
 	},
-/obj/structure/railing/wooden/cornerl,
+/obj/structure/railing/wooden/cornerl{
+	anchored = 1
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -103880,26 +103881,16 @@
 /turf/simulated/floor/plating,
 /area/security/execution)
 "qNd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/railing/wooden,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet7-3"
 	},
-/area/bridge/vip)
+/area/magistrateoffice)
 "qNu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -106081,12 +106072,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
-"rlI" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/locker)
 "rma" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -106641,7 +106626,10 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
@@ -118985,7 +118973,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
 "ubV" = (
@@ -125709,6 +125698,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
@@ -126571,6 +126561,12 @@
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
@@ -178375,7 +178371,7 @@ dIC
 pPV
 nCm
 rIx
-qNd
+jPB
 vjx
 csV
 tek
@@ -182232,7 +182228,7 @@ fLk
 nQy
 gGI
 ydS
-rlI
+tbb
 lnH
 wvd
 cxn
@@ -182489,7 +182485,7 @@ fLk
 nQy
 cvq
 gWJ
-dVM
+tbb
 ogV
 vgU
 cxn
@@ -183517,7 +183513,7 @@ taO
 caB
 pPo
 mHl
-dVM
+vSD
 iFR
 ctj
 cxn
@@ -184531,10 +184527,10 @@ dCV
 xnx
 eWO
 wnD
-iEi
+pOC
 xBx
 aaS
-dBV
+qNd
 dBV
 caw
 dFD
