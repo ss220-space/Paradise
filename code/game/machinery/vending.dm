@@ -2111,7 +2111,7 @@
 	products = list()
 	refill_canister = /obj/item/vending_refill/
 
-	/obj/machinery/vending/clothing/departament/service/chaplain
+/obj/machinery/vending/clothing/departament/service/chaplain
 	name = "\improper Departament Service ClothesMate Chaplain"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
 	icon_state = "clothes-dep-car"
@@ -2159,6 +2159,7 @@
 		/obj/item/clothing/gloves/fingerless = 3,
 		/obj/item/clothing/gloves/color/brown = 3,
 		/obj/item/storage/backpack/botany = 5,
+		/obj/item/storage/backpack/satchel_hyd = 5,
 		/obj/item/storage/bag/plants = 4,
 		/obj/item/clothing/shoes/brown = 4,
 		/obj/item/clothing/shoes/sandal = 2,
