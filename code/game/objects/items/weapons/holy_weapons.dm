@@ -3,7 +3,7 @@
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of dark magic."
 	icon_state = "nullrod"
 	item_state = "nullrod"
-	default_sprite = 'icons/mob/belt.dmi'
+	onmob_icon = 'icons/mob/belt.dmi'
 	force = 15
 	throw_speed = 3
 	throw_range = 4

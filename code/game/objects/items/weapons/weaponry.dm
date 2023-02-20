@@ -76,7 +76,7 @@
 	desc = "Woefully underpowered in D20"
 	icon_state = "katana"
 	item_state = "katana"
-	default_sprite = 'icons/mob/belt.dmi'
+	onmob_icon = 'icons/mob/belt.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 40

@@ -3,7 +3,7 @@
 	seed = /obj/item/seeds/ambrosia
 	name = "ambrosia branch"
 	desc = "This is a plant."
-	default_sprite = 'icons/mob/head.dmi'
+	onmob_icon = 'icons/mob/head.dmi'
 	icon_state = "ambrosiavulgaris"
 	slot_flags = SLOT_HEAD
 	filling_color = "#008000"

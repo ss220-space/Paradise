@@ -39,7 +39,7 @@
 	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.
 	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
- //default_sprite отвечает за место поиска спрайта на вашего персонажа пример:"icon/mob/вашфайл.dmi" и его можно вписать отдельно для каждой вещи
+
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -151,7 +151,7 @@
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
-	default_sprite = 'icons/mob/ears.dmi'
+	onmob_icon = 'icons/mob/ears.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
 	slot_flags = SLOT_EARS
@@ -223,7 +223,7 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	default_sprite = 'icons/mob/eyes.dmi'
+	onmob_icon = 'icons/mob/eyes.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
@@ -289,7 +289,7 @@ BLIND     // can't see anything
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
-	default_sprite = 'icons/mob/hands.dmi'
+	onmob_icon = 'icons/mob/hands.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
@@ -402,7 +402,7 @@ BLIND     // can't see anything
 /obj/item/clothing/head
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
-	default_sprite = 'icons/mob/head.dmi'
+	onmob_icon = 'icons/mob/head.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
 	var/blockTracking // Do we block AI tracking?
@@ -431,7 +431,7 @@ BLIND     // can't see anything
 /obj/item/clothing/mask
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
-	default_sprite = 'icons/mob/mask.dmi'
+	onmob_icon = 'icons/mob/mask.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
 	var/mask_adjusted = 0
@@ -513,7 +513,7 @@ BLIND     // can't see anything
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
-	default_sprite = 'icons/mob/feet.dmi'
+	onmob_icon = 'icons/mob/feet.dmi'
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 	var/chained = 0
 	var/can_cut_open = 0
@@ -574,7 +574,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
-	default_sprite = 'icons/mob/suit.dmi'
+	onmob_icon = 'icons/mob/suit.dmi'
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	slot_flags = SLOT_OCLOTHING
@@ -718,7 +718,7 @@ BLIND     // can't see anything
 /obj/item/clothing/under
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
-	default_sprite = 'icons/mob/uniform.dmi'
+	onmob_icon = 'icons/mob/uniform.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
@@ -891,7 +891,7 @@ BLIND     // can't see anything
 /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
-	default_sprite = 'icons/mob/neck.dmi'
+	onmob_icon = 'icons/mob/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = SLOT_NECK
 

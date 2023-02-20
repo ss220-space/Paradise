@@ -8,7 +8,7 @@
 	desc = "You wear this on your back and put items into it."
 	icon_state = "backpack"
 	item_state = "backpack"
-	default_sprite = 'icons/mob/back.dmi'
+	onmob_icon = 'icons/mob/back.dmi'
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY

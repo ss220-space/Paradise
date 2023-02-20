@@ -1,6 +1,6 @@
 GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
 /obj/item
-	var/default_sprite
+	var/onmob_icon  //onmob_icon отвечает за место поиска спрайта на вашего персонажа пример:"icon/mob/вашфайл.dmi" и его можно вписать отдельно для каждой вещи
 	name = "item"
 	icon = 'icons/obj/items.dmi'
 
@@ -765,31 +765,31 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/mob/owner = loc
 	var/flags = slot_flags
 	if(flags & SLOT_OCLOTHING)
-		owner.update_inv_wear_suit() //обновленно
+		owner.update_inv_wear_suit()
 	if(flags & SLOT_ICLOTHING)
-		owner.update_inv_w_uniform() //обновленно
+		owner.update_inv_w_uniform()
 	if(flags & SLOT_GLOVES)
-		owner.update_inv_gloves() //обновленно
+		owner.update_inv_gloves()
 	if(flags & SLOT_EYES)
-		owner.update_inv_glasses() //обновленно
+		owner.update_inv_glasses()
 	if(flags & SLOT_EARS)
-		owner.update_inv_ears() //обновленно
+		owner.update_inv_ears()
 	if(flags & SLOT_MASK)
-		owner.update_inv_wear_mask() //обновленно (возможно не всему прописано default_sprite)
+		owner.update_inv_wear_mask()
 	if(flags & SLOT_NECK)
-		owner.update_inv_neck() //обновленно
+		owner.update_inv_neck()
 	if(flags & SLOT_HEAD)
-		owner.update_inv_head() //обновленно (возможно не всему прописано default_sprite)
+		owner.update_inv_head()
 	if(flags & SLOT_FEET)
-		owner.update_inv_shoes() //обновленно
+		owner.update_inv_shoes()
 	if(flags & SLOT_ID)
-		owner.update_inv_wear_id() //не требуется в обновлении
+		owner.update_inv_wear_id()
 	if(flags & SLOT_BELT)
-		owner.update_inv_belt() //обновленно (возможно не всему прописано default_sprite)
+		owner.update_inv_belt()
 	if(flags & SLOT_BACK)
-		owner.update_inv_back() //обновленно (очень большой шанс того что вещам по типу большого оружия непрописано)
+		owner.update_inv_back()
 	if(flags & SLOT_PDA)
-		owner.update_inv_wear_pda() //не требуется в обновлении
+		owner.update_inv_wear_pda()
 
 /obj/item/proc/update_materials_coeff(new_coeff)
 	if(new_coeff <= 1)

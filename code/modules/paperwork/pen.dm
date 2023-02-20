@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	default_sprite = 'icons/mob/belt.dmi'
+	onmob_icon = 'icons/mob/belt.dmi'
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
