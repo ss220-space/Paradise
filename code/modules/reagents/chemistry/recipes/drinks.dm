@@ -942,7 +942,7 @@
 	name = "Schnaps"
 	id = "schnaps"
 	result = "schnaps"
-	required_reagents = list("etanol" = 5, "flour" = 5)
+	required_reagents = list("ethanol" = 5, "flour" = 5)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 15
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -951,7 +951,7 @@
 	name = "Sambuka"
 	id = "sambuka"
 	result = "sambuka"
-	required_reagents = list("etanol" = 5, "sugar" = 5)
+	required_reagents = list("ethanol" = 5, "sugar" = 5)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 15
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
