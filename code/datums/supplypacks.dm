@@ -2033,7 +2033,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "Service Departament ClothesMate Botanical crate"
 
 /datum/supply_packs/vending/clothes/service/chaplain
-	name = "Service Departament ClothesMate Botanical Supply Crate"
+	name = "Service Departament ClothesMate Chaplain Supply Crate"
 	contains = list(/obj/item/vending_refill/clothing/service/chaplain)
 	cost = 30
 	containername = "Service Departament ClothesMate Chaplain crate"
