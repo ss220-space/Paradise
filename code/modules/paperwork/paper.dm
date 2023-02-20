@@ -7,6 +7,7 @@
 	name = "paper"
 	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
+	default_sprite = 'icons/mob/head.dmi'
 	icon_state = "paper"
 	item_state = "paper"
 	throwforce = 0

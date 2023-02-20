@@ -1,5 +1,6 @@
 GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
 /obj/item
+	var/default_sprite
 	name = "item"
 	icon = 'icons/obj/items.dmi'
 
@@ -64,6 +65,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
+
+	var/time_to_equip = 0 // set to ticks it takes to equip a worn suit.
+	var/time_to_unequip = 0 // set to ticks it takes to unequip a worn suit.
 
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
@@ -761,31 +765,31 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/mob/owner = loc
 	var/flags = slot_flags
 	if(flags & SLOT_OCLOTHING)
-		owner.update_inv_wear_suit()
+		owner.update_inv_wear_suit() //обновленно
 	if(flags & SLOT_ICLOTHING)
-		owner.update_inv_w_uniform()
+		owner.update_inv_w_uniform() //обновленно
 	if(flags & SLOT_GLOVES)
-		owner.update_inv_gloves()
+		owner.update_inv_gloves() //обновленно
 	if(flags & SLOT_EYES)
-		owner.update_inv_glasses()
+		owner.update_inv_glasses() //обновленно
 	if(flags & SLOT_EARS)
-		owner.update_inv_ears()
+		owner.update_inv_ears() //обновленно
 	if(flags & SLOT_MASK)
-		owner.update_inv_wear_mask()
+		owner.update_inv_wear_mask() //обновленно (возможно не всему прописано default_sprite)
 	if(flags & SLOT_NECK)
-		owner.update_inv_neck()
+		owner.update_inv_neck() //обновленно
 	if(flags & SLOT_HEAD)
-		owner.update_inv_head()
+		owner.update_inv_head() //обновленно (возможно не всему прописано default_sprite)
 	if(flags & SLOT_FEET)
-		owner.update_inv_shoes()
+		owner.update_inv_shoes() //обновленно
 	if(flags & SLOT_ID)
-		owner.update_inv_wear_id()
+		owner.update_inv_wear_id() //не требуется в обновлении
 	if(flags & SLOT_BELT)
-		owner.update_inv_belt()
+		owner.update_inv_belt() //обновленно (возможно не всему прописано default_sprite)
 	if(flags & SLOT_BACK)
-		owner.update_inv_back()
+		owner.update_inv_back() //обновленно (очень большой шанс того что вещам по типу большого оружия непрописано)
 	if(flags & SLOT_PDA)
-		owner.update_inv_wear_pda()
+		owner.update_inv_wear_pda() //не требуется в обновлении
 
 /obj/item/proc/update_materials_coeff(new_coeff)
 	if(new_coeff <= 1)

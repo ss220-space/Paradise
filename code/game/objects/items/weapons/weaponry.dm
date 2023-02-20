@@ -76,6 +76,7 @@
 	desc = "Woefully underpowered in D20"
 	icon_state = "katana"
 	item_state = "katana"
+	default_sprite = 'icons/mob/belt.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 40
@@ -362,7 +363,7 @@
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
-	
+
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	. = ..()
 	if(!(isertmindshielded(user)))

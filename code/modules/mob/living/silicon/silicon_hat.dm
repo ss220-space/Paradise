@@ -22,7 +22,7 @@
 		/obj/item/clothing/head/hardhat/reindeer,
 		/obj/item/clothing/head/cardborg
 	)
-
+	default_sprite = 'icons/mob/head.dmi'
 	var/hat_icon_file = 'icons/mob/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha

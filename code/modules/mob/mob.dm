@@ -213,6 +213,12 @@
 
 		return 0
 
+	if(W.time_to_equip) //у вещей с переменной time_to_equip появиться время одевания
+		if(!do_after(src, W.time_to_equip, TRUE,target = src))
+			to_chat(src, "Вы перестали одевать \the [W]")
+			return 1
+		equip_to_slot(W, slot) //This proc should not ever fail.
+		return 0
 	equip_to_slot(W, slot) //This proc should not ever fail.
 	return 1
 

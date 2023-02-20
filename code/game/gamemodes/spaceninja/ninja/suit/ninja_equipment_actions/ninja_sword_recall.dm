@@ -7,6 +7,7 @@
 	charge_max = 0.5 SECONDS
 	button_icon_state = "energy_katana_green"
 	icon_icon = 'icons/obj/ninjaobjects.dmi'
+	default_sprite = 'icons/mob/belt.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Katana Recall System"
