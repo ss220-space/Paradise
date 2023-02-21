@@ -43,10 +43,12 @@
 	var/obj/item/I = H.get_item_by_slot(slot_wear_suit)
 	if(!istype(H))
 		return ..()
-	if(istype(I, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HardS = I
-		if(HardS.shield && !shield_ignore)
-			blocked =  HardS.shield.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(istype(I, /obj/item/clothing/suit/space) && !shield_ignore)
+		blocked = TRUE
+		if(istype(I, /obj/item/clothing/suit/space/hardsuit))
+			var/obj/item/clothing/suit/space/hardsuit/HardS = I
+			if(HardS.shield)
+				HardS.shield.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src] is still charging!</span>")
 		return
@@ -79,7 +81,7 @@
 					to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")
 					H.set_heartattack(TRUE)
 		if(blocked)
-			to_chat(user, "<span class='danger'>[H] has an active shield!</span>")
+			to_chat(user, "<span class='danger'>[H] has a hardsuit!</span>")
 		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
 		addtimer(CALLBACK(src, .proc/short_charge), 10)
