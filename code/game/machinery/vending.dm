@@ -2160,6 +2160,7 @@
 		/obj/item/clothing/gloves/color/brown = 3,
 		/obj/item/storage/backpack/botany = 5,
 		/obj/item/storage/backpack/satchel_hyd = 5,
+		/obj/item/storage/backpack/duffel/hydro = 5,
 		/obj/item/storage/bag/plants = 4,
 		/obj/item/clothing/shoes/brown = 4,
 		/obj/item/clothing/shoes/sandal = 2,
