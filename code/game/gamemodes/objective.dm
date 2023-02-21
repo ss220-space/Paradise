@@ -943,9 +943,67 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "На [target.current.real_name], \
 		[target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)] ведут охоту. \
 		[target.current.real_name] должен любой ценой дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы он остался жив."
+		generate_traitors()
 	else
 		explanation_text = "Free Objective"
 	return target
+
+/datum/objective/protect/ninja/proc/generate_traitors()
+//Генерация трейторов для атаки защищаемого
+	var/list/possible_traitors = list()
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(player.client && player.mind && player.stat != DEAD && player != target.current)
+			if((ishuman(player) && !player.mind.special_role) || (isAI(player) && !player.mind.special_role))
+				if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+					possible_traitors += player.mind
+	for(var/datum/mind/player in possible_traitors)
+		if(player.current)
+			if(ismindshielded(player.current))
+				possible_traitors -= player
+	if(possible_traitors.len)
+		var/traitor_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
+		for(var/j = 0, j < traitor_num, j++)
+			var/datum/mind/newtraitormind = pick(possible_traitors)
+			var/datum/antagonist/traitor/killer = new()
+			killer.silent = TRUE //Позже поздороваемся
+			newtraitormind.add_antag_datum(killer)
+			//Подменяем цель на того кого нам выпало защищать
+			var/datum/objective/maroon/killer_maroon_objective = locate() in newtraitormind.objectives
+			var/datum/objective/assassinate/killer_kill_objective = locate() in newtraitormind.objectives
+			if(killer_maroon_objective)
+				killer_maroon_objective.target = target
+				killer_maroon_objective.check_cryo = FALSE
+				killer_maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
+				killers_objectives += killer_maroon_objective
+			else if(killer_kill_objective)
+				killer_kill_objective.target = target
+				killer_kill_objective.check_cryo = FALSE
+				killer_kill_objective.explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+				killers_objectives += killer_kill_objective
+			else //Не нашли целей на убийство? Значит подставляем пресет из трёх целей вместо того, что нагенерил стандартный код. Прости хиджакер, не при ниндзя.
+				QDEL_LIST(newtraitormind.objectives)	// Очищаем листы
+				QDEL_LIST(killer.assigned_targets)
+				//Подставная цель для трейтора
+				var/datum/objective/maroon/maroon_objective = new
+				maroon_objective.owner = newtraitormind
+				maroon_objective.target = target
+				maroon_objective.check_cryo = FALSE
+				killer.assigned_targets.Add("[maroon_objective.target]")
+				maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
+				killer.add_objective(maroon_objective)
+				killers_objectives += maroon_objective
+				//Кража для трейтора
+				var/datum/objective/steal/steal_objective = new
+				steal_objective.owner = newtraitormind
+				steal_objective.find_target()
+				killer.assigned_targets.Add("[steal_objective.steal_target]")
+				killer.add_objective(steal_objective)
+				//Ну и банальное - Выживи
+				var/datum/objective/survive/survive_objective = new
+				survive_objective.owner = newtraitormind
+				killer.add_objective(survive_objective)
+			killer.greet()	// Вот теперь здороваемся!
+			killer.update_traitor_icons_added()	// Фикс худа, а то порой те кому выпал хиджак при ниндзя - получали замену целек, но не худа
 
 /datum/objective/protect/ninja/on_target_cryo()
 	if(!check_cryo)
@@ -1036,7 +1094,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 // Цель на то, чтобы найти обладающего информацией человека. Всё что известно ниндзя - его предполагаемая профессия.
 // Для выполнения этой цели - ниндзя должен похищать людей определённой профессии пока не найдёт ТОГО САМОГО засранца обладающего инфой.
-// Либо пока не похитит достаточно людей (от 3 до 8(на 100 игроков))
+// Либо пока не похитит достаточно людей (от 3 до 6(на 100 игроков))
 /datum/objective/find_and_scan
 	martyr_compatible = TRUE
 	var/list/possible_roles = list()
