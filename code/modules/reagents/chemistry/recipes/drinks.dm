@@ -1229,8 +1229,8 @@
 	name = "White Bear"
 	id = "white_bear"
 	result = "white_bear"
-	required_reagents = list("schnaps" = 2, "cream" = 1)
-	result_amount = 3
+	required_reagents = list("schnaps" = 2, "cream" = 1, "beer" = 2)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/vampiro
