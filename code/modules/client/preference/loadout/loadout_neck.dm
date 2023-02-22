@@ -9,7 +9,7 @@
 	path = /obj/item/clothing/neck/mantle
 
 /datum/gear/neck/old_scarf
-	display_name = "old wrap"
+	display_name = "old scarf"
 	path = /obj/item/clothing/neck/mantle/old
 
 /datum/gear/neck/regal_shawl
