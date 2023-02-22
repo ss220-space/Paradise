@@ -31,9 +31,9 @@ export const SpiderOS = (properties, context) => {
           height="190px"
           grow={1}
           backgroundColor="rgba(0, 0, 0, 0)">
+          <Helpers />
           <StylesPreview />
           <SuitTuning />
-          <Helpers />
         </Flex.Item>
 
       </Flex>
@@ -287,7 +287,7 @@ const Helpers = (properties, context) => {
         tooltip={"Молодым убийцам часто не легко освоится в полевых условиях, даже после интенсивных тренировок. \
         \nЭтот раздел призван помочь вам советами по определённым часто возникающим вопросам касательно возможных миссий которые вам выдадут\
         или рассказать о малоизвестной информации которую вы можете обернуть в свою пользу."}
-        tooltipPosition="top-left" />}>
+        tooltipPosition="bottom-left" />}>
       <Flex
         direction="column"
         grow={1}
@@ -295,11 +295,11 @@ const Helpers = (properties, context) => {
         <Flex.Item direction="row">
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ninja_teleport"]}`}
               style={{
                 "margin-left": "-6px",
@@ -313,15 +313,15 @@ const Helpers = (properties, context) => {
               \nПользуясь встроенным контроллером шаттла, вы всегда сможете призвать его к себе и вернуться назад. \
               \nТак же в случае если вы решите полететь на шаттле, напоминаем вам, что во избежание вашего обнаружения или кражи шаттла и попадания на вашу базу посторонних лиц, \
               отличной практикой будет отозвать его."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["headset_green"]}`}
               style={{
                 "margin-left": "-6px",
@@ -335,15 +335,15 @@ const Helpers = (properties, context) => {
               Благодаря этому вы можете постепенно накапливать необходимые вам местные каналы связи для получения любой информации.\
               \nТак же ваш наушник автомати- чески улавливает и переводит бинарные сигналы генерируемые синтетиками при общении друг с другом. \
               К тому же позволяя вам самим общаться с ними."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ninja_sleeper"]}`}
               style={{
                 "margin-left": "-6px",
@@ -356,15 +356,15 @@ const Helpers = (properties, context) => {
               Даже если вам не удастся найти обладающего всей информацией человека, можно будет собрать информацию по крупицам продолжая похищать людей.\
               \nДля того, чтобы успешно похи- тить людей. У вас на шаттле есть скафандры, а на базе запас на- ручников, кислорода и балло- нов. \
               \nТак же напоминаем, что ваши перчатки способны направлять в людей электрический импульс, эффективно станя их на короткое время. "}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ai_face"]}`}
               style={{
                 "margin-left": "-6px",
@@ -376,15 +376,15 @@ const Helpers = (properties, context) => {
               \nПредпочитаемый кланом метод это создание уязвимости прямо в загрузочной для законов позволяющей вывести ИИ из строя. \
               В результате такого метода мы можем легко перегрузить ИИ абсурдными законами, но это ограничивает нас в том плане, что для взлома в итоге подходят только консоли в самой загрузочной.\
               Так же взлом задача нелёгкая - системы защиты есть везде. А процесс занимает время. Не удивляйтесь если ИИ будет противодейст- вовать вашим попыткам его сломать."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ninja_borg"]}`}
               style={{
                 "margin-left": "-6px",
@@ -398,17 +398,15 @@ const Helpers = (properties, context) => {
               слугу способ- ного на оказание помощи как в саботаже станции так и в вашем лечении. \
               \nТак же робот будет оснащён личной катаной, устройством маскировки, пинпоинтером указывающим ему на вас и генератором электрических сюрикенов. \
               Помните, что катана робота не способна обеспечить его блюспейс транслокацию!"}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
-        </Flex.Item>
-        <Flex.Item direction="row">
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["server"]}`}
               style={{
                 "margin-left": "-6px",
@@ -422,15 +420,15 @@ const Helpers = (properties, context) => {
               Вам нужно будет лишь загрузить его напрямую на их научный сервер и все их исследования будут утеряны. \
               \nНо загрузка вируса требует времени, и системы защиты многих обьектов не дремлют. \
               Скорее всего о вашей попытке взлома будет оповещён местный ИИ. Будьте готовы к этому."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["buckler"]}`}
               style={{
                 "margin-left": "-6px",
@@ -445,15 +443,15 @@ const Helpers = (properties, context) => {
               Не раскрывайте себя без нужды, чтобы упростить себе же работу и на вас самих не вели охоту! \
               \nТак же мы напоминаем, что клан не одобряет варварские методы \"Защиты\" цели. Нет вы не можете посадить защищаемого в клетку и следить за ним там! \
               Не портите нашу репутацию в глазах наших клиентов!"}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["cash"]}`}
               style={{
                 "margin-left": "-6px",
@@ -466,15 +464,15 @@ const Helpers = (properties, context) => {
               \nДля вас эта задача не трудная, но времязатратная. Помните, что вы натренированы в искусстве незаметных карманных краж. \
               Вы можете это использовать для кражи чужих карт и обналичи- вания их счетов. Либо можете метить выше и ограбить хранилища или счета самого обьекта вашей миссии.\
               Самое главное. Достаньте эти деньги!"}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["handcuff"]}`}
               style={{
                 "margin-left": "-6px",
@@ -488,15 +486,15 @@ const Helpers = (properties, context) => {
               Но в то же время просто прийти и вписать цели срок в консоли - не рабочий метод. Цель легко оправдают в суде, что не устроит клиента.\
               \n У вас достаточно инструментов, чтобы совершить преступление под личиной цели. \
               Главное постарайтесь обойтись без слиш- ком больших последствий. Лишняя дыра в обшивке станции или трупы - увеличивают шансы провала вашего плана."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["spider_charge"]}`}
               style={{
                 "margin-left": "-6px",
@@ -510,17 +508,15 @@ const Helpers = (properties, context) => {
               \nБудьте готовы к тому, что после взрыва на вас будет вестись охота. \
               \n Наши бомбы специально изготовлены с ограничителями. Никто кроме вас не сможет их подорвать \
               и даже вы сможете активировать их лишь в зоне заказанной клиентом. Советуем сразу бежать подальше после установки. Хотя это и так должно быть для вас очевидно."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
-        </Flex.Item>
-        <Flex.Item direction="row">
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["BSM"]}`}
               style={{
                 "margin-left": "-6px",
@@ -534,15 +530,15 @@ const Helpers = (properties, context) => {
               \nИмеющаяся у вас на базе центрифуга для крови способна эффективно проанализировать образцы не повредив их и передать информацию нам. \
               \nДля эффективного анализа крови необходимо обязательно собрать 3 уникальных образца. И поме- стить их в пробирки, которые потом надо поместить в устройство. \
               \nПримеси приняты не будут!"}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["changeling"]}`}
               style={{
                 "margin-left": "-6px",
@@ -557,15 +553,15 @@ const Helpers = (properties, context) => {
               И так же эффективно ложатся на дно в случае опасности. Чтобы было легче их поймать дайте им поплясать, прежде чем выходить на сцену. \
               И внимательно слушайте радио на обьекте. Возможно местная охрана уже охотится за одним из них. \
               \nНикто не будет против если вы незаметно поможете им с этим..."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["vampire"]}`}
               style={{
                 "margin-left": "-6px",
@@ -579,15 +575,15 @@ const Helpers = (properties, context) => {
               Так или иначе, до тех пор пока вампир не мешает вашей миссии или угрожает вашей жизни. Вы вольны его игнорировать. \
               \nВампиры очень опасны в прямом столкновении, они способны оглушать взглядом и порабощать разум своих жертв. \
               Не доверяйте им, но так же помните - они лишь жертвы стечения обстоятельств. И это можно использовать в свою пользу..."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["syndicate"]}`}
               style={{
                 "margin-left": "-6px",
@@ -599,9 +595,8 @@ const Helpers = (properties, context) => {
               \nСиндикат поставляет и выполняет множество заказов. Но самой очевидной, для всех кто как следует их изучит, чертой этой группы - является огромная ненависть к НТ. \
               \nВ случае столкновения с агентами Синдиката политика наших действий проста. \
               \nЕсли они не мешают выполнению задания. Мы не мешаем им."}
-              position="top-left" />
+              position="bottom-left" />
           </Button>
-
         </Flex.Item>
       </Flex>
     </Section>
