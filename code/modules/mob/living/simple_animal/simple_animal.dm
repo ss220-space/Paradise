@@ -107,8 +107,7 @@
 	var/my_z // I don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
-	var/onmob_icon //onmob_icon отвечает за место поиска спрайта на вашего персонажа пример:"icon/mob/вашфайл.dmi" и его можно вписать отдельно для каждой вещи
-
+	
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src

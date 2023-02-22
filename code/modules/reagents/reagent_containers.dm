@@ -2,6 +2,7 @@
 	name = "Container"
 	desc = "..."
 	icon = 'icons/obj/chemical.dmi'
+	onmob_icon = 'icons/mob/head.dmi'
 	icon_state = null
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_per_transfer_from_this = 5

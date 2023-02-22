@@ -1,6 +1,5 @@
 /mob/living/silicon
 	var/obj/item/inventory_head
-	var/onmob_icon ////onmob_icon отвечает за место поиска спрайта на вашего персонажа пример:"icon/mob/вашфайл.dmi" и его можно вписать отдельно для каждой вещи
 	var/hat_offset_y = -3
 	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
 
@@ -22,7 +21,6 @@
 		/obj/item/clothing/head/hardhat/reindeer,
 		/obj/item/clothing/head/cardborg
 	)
-	onmob_icon = 'icons/mob/head.dmi'
 	var/hat_icon_file = 'icons/mob/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha

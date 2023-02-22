@@ -126,6 +126,7 @@
 	name = "red holy staff"
 	icon_state = "godstaff-red"
 	item_state = "godstaff-red"
+	onmob_icon = 'icons/mob/back.dmi'
 	desc = "It has a mysterious, protective aura."
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
@@ -229,6 +230,7 @@
 	name = "reaper scythe"
 	icon_state = "scythe0"
 	item_state = "scythe0"
+	onmob_icon = 'icons/mob/back.dmi'
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
@@ -395,6 +397,7 @@
 /obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
+	onmob_icon = 'icons/mob/back.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
 	block_chance = 40
@@ -565,6 +568,7 @@
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
 	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
+	onmob_icon = 'icons/mob/back.dmi'
 	reskinned = TRUE
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"

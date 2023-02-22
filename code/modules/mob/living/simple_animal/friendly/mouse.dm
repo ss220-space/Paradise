@@ -1,7 +1,6 @@
 /mob/living/simple_animal/mouse
 	name = "mouse"
 	real_name = "mouse"
-	onmob_icon = 'icons/mob/head.dmi'
 	desc = "It's a small, disease-ridden rodent."
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"

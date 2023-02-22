@@ -3,6 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
+	onmob_icon = 'icons/mob/head.dmi'
 	slot_flags = SLOT_HEAD
 
 /obj/item/holder/New()

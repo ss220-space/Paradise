@@ -3,6 +3,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/onmob_icon  //onmob_icon отвечает за место поиска спрайта на вашего персонажа пример:"icon/mob/вашфайл.dmi" и его можно вписать отдельно для каждой вещи
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+	onmob_icon = 'icons/mob/back.dmi'
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers

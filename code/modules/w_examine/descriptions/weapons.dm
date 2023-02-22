@@ -9,6 +9,7 @@
 //This contains a lot of copypasta but I'm told it's better then a lot of New()s appending the var.
 /obj/item/gun
 	description_info = "This is a gun."
+	onmob_icon = 'icons/mob/back.dmi'
 
 /obj/item/gun/energy
 	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger."
