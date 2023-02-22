@@ -14,7 +14,7 @@
 	icon_state = "regal_mantle"
 
 /obj/item/clothing/neck/mantle/old
-	name = "old wrap"
+	name = "old scarf"
 	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
 	icon_state = "old_mantle"
 
