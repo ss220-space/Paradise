@@ -640,10 +640,10 @@
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
-		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), slot_back)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
+		var/armour = C.equip_to_slot_if_possible(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
+		C.equip_to_slot_if_possible(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
+		C.equip_to_slot_if_possible(new /obj/item/storage/backpack/cultpack(user), slot_back)
+		C.equip_to_slot_if_possible(new /obj/item/clothing/shoes/cult(user), slot_shoes)
 
 		if(C == user)
 			qdel(src) //Clears the hands
@@ -849,6 +849,9 @@
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	if(!Adjacent(user))
+		to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+		return
 	switch(choice)
 		if("Blood Spear (150)")
 			if(uses < BLOOD_SPEAR_COST)
