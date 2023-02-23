@@ -58,6 +58,13 @@
 		qdel(src)
 		return FALSE
 
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
+		return FALSE
+
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
