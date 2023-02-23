@@ -18,6 +18,7 @@
 		)
 
 	brute_mod = 1.25 //greys are fragile
+	toolspeedmod = 0.8
 
 	default_genes = list(REMOTE_TALK)
 
@@ -27,6 +28,7 @@
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
+	blood_species = "Grey"
 	blood_color = "#A200FF"
 
 	disliked_food = SUGAR | FRIED

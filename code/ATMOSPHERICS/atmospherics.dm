@@ -18,7 +18,6 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	var/nodealert = 0
 	var/can_unwrench = 0
 
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
@@ -204,7 +203,7 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \

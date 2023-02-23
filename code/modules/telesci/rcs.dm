@@ -124,6 +124,9 @@
 	if(!is_level_reachable(C.z))
 		to_chat(user, "<span class='warning'>Warning: No telepads in range!</span>")
 		return
+	if(C.anchored)
+		to_chat(user, "<span class ='warning'>Ошибка: Ящик прикручен! Отмена операции.</span>")
+		return
 
 	teleport(user, C, pad)
 
@@ -132,7 +135,7 @@
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 50 * toolspeed, target = C))
+	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = C))
 		teleporting = FALSE
 		return
 

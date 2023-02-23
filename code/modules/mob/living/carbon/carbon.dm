@@ -975,6 +975,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+		var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+		if(glands)
+			stat(null, "Wax: [glands.wax]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1139,6 +1142,9 @@ so that different stomachs can handle things in different ways VB*/
 	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if(NO_BREATHE in src.dna.species.species_traits)
+		return FALSE
+
 	if(!wear_mask)
 		return TRUE
 
