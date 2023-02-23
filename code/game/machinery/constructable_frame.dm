@@ -282,8 +282,7 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate",
 		/obj/machinery/vending/clothing/departament/service = "Service Departament ClothesMate",
 		/obj/machinery/vending/clothing/departament/service/botanical = "Service Departament ClothesMate Botanical",
-		/obj/machinery/vending/clothing/departament/service/chaplain = "Service Departament ClothesMate Chaplain",
-		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate")
+		/obj/machinery/vending/clothing/departament/service/chaplain = "Service Departament ClothesMate Chaplain")
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
