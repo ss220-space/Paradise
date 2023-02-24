@@ -664,7 +664,7 @@
 	name = "Директива Центрального Командования"
 	info = ""
 	
-/obj/item/paper/central_command/Initialize()
+/obj/item/paper/central_command/Initialize(mapload)
 	time = "Время: [station_time_timestamp()]"
 	if(!(GLOB.genname))
 		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
