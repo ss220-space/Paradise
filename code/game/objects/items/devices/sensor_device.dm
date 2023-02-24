@@ -23,7 +23,7 @@
 	crew_monitor.ui_interact(user, ui_key, ui, force_open)
 
 /obj/item/sensor_device/command
-	name = "command crew monitor"
+	name = "handheld command crew monitor"
 	desc = "A miniature machine that tracks suit sensors across the station."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "c_scanner"
