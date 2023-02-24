@@ -215,8 +215,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -386,12 +386,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -604,14 +598,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "bM" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Labor Camp Maintenance";
+	req_access_txt = "2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Labor Camp Maintenance";
-	req_access_txt = "2"
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -709,6 +704,9 @@
 /obj/machinery/computer/prisoner{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -724,7 +722,9 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -735,7 +735,9 @@
 	},
 /obj/item/cigbutt,
 /obj/effect/baseturf_helper/lava_land/surface,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -746,13 +748,15 @@
 	desc = "Powered by the tears and sweat of laborers.";
 	name = "Prison Ofitser"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -784,7 +788,7 @@
 /area/mine/laborcamp/security)
 "ce" = (
 /obj/machinery/power/smes{
-	charge = 1e+006
+	charge = 2e+006
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -803,11 +807,8 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -997,7 +998,7 @@
 /area/mine/living_quarters)
 "cO" = (
 /obj/machinery/power/smes{
-	charge = 1e+006
+	charge = 2e+006
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -2361,7 +2362,7 @@
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -3625,7 +3626,7 @@
 	dir = 5;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/maintenance)
 "oh" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile/block{
@@ -3884,8 +3885,8 @@
 	c_tag = "Labor Camp Central 2";
 	network = list("Labor Camp")
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3987,9 +3988,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "rl" = (
@@ -4160,7 +4158,7 @@
 	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4381,7 +4379,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/maintenance)
 "us" = (
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
@@ -4520,7 +4518,7 @@
 /area/mine/laborcamp)
 "vC" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4545,10 +4543,6 @@
 	},
 /obj/item/trash/syndi_cakes,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -4950,7 +4944,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/maintenance)
 "zi" = (
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4996,7 +4990,6 @@
 	name = "Labor Camp Bedroom"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -6680,7 +6673,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -7016,10 +7009,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "QD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "QE" = (
@@ -7147,6 +7140,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Sb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "Sc" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -8063,7 +8063,9 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -14551,7 +14553,7 @@ aq
 aq
 tZ
 qA
-JZ
+Sb
 JZ
 JZ
 JZ
@@ -14808,7 +14810,7 @@ au
 Rd
 tZ
 LQ
-JZ
+Sd
 aM
 wg
 JZ
@@ -16356,7 +16358,7 @@ aT
 aX
 aX
 aX
-aX
+aD
 aj
 aj
 aj
@@ -19191,7 +19193,7 @@ aD
 aj
 aj
 ab
-Zf
+La
 og
 ur
 ze
@@ -20732,7 +20734,7 @@ ab
 ai
 ai
 ab
-La
+Zf
 La
 bR
 wR
