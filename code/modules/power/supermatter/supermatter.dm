@@ -47,7 +47,7 @@
 	var/damage_archived = 0
 	var/safe_alert = "Гиперструктура кристалла возвращается к безопасному уровню активности."
 	var/warning_point = 50
-	var/warning_alert = "ОПАСНОСТЬ! Нестабильность гиперструктуры кристалла!"
+	var/warning_alert = "ОПАСНОСТЬ! Дестабилизация гиперструктуры кристалла!"
 	var/emergency_point = 400
 	var/emergency_alert = "РАССЛОЕНИЕ КРИСТАЛЛА НЕИЗБЕЖНО."
 	var/explosion_point = 600
