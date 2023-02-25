@@ -1100,6 +1100,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/explosives/t4
+	name = "Breaching T-4"
+	desc = "Thermite-charged breaching explosive. Effective to destroy wall, but not to destroy airlocks."
+	reference = "T4"
+	item = /obj/item/grenade/plastic/x4/thermite
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/t4_pack
+	name = "Pack of 3 T-4 explosives"
+	desc = "A package containing 3 T-4. Cheaper than 3 T-4!"
+	reference = "T4P"
+	item = /obj/item/storage/box/syndie_kit/t4
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"
 	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
