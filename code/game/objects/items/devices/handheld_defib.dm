@@ -106,4 +106,3 @@
 	charge_time = 30
 	icon_base = "sdefib"
 	shield_ignore = TRUE
-	
