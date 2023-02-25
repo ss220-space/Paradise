@@ -19184,9 +19184,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "car" = (
-/obj/structure/railing/corner,
-/turf/simulated/wall/r_wall,
-/area/maintenance/maintcentral)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/se)
 "cas" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -21159,7 +21161,10 @@
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	layer = 3.5;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "cjg" = (
@@ -126090,6 +126095,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
+"vCv" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/east)
 "vCx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -180161,7 +180172,7 @@ bST
 eDn
 dAU
 cak
-car
+bIn
 qOt
 nhD
 cfO
@@ -181186,7 +181197,7 @@ tmc
 clX
 wMU
 xHe
-xHe
+vCv
 qOs
 xHe
 xHe
@@ -181196,7 +181207,7 @@ xHe
 xHe
 xHe
 geP
-vFy
+car
 vFy
 oRS
 cCX
