@@ -3,7 +3,7 @@
 	melee_damage_upper = 15
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
-	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы наносите и почти не получаете урона, даже от взрывов, но двигаетесь немного медленнее".
+	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы наносите и почти не получаете урона, даже от взрывов, но двигаетесь немного медленнее"
 	magic_fluff_string = "..And draw the Guardian, a stalwart protector that never leaves the side of its charge."
 	tech_fluff_string = "Boot sequence complete. Protector modules loaded. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to defend you."
