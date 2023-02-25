@@ -58,7 +58,7 @@ for file in orderedSqlFiles:
         elif file == "17-18.py":
             scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback feedback feedback_2\n")
         elif file == "30-31.py":
-            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback ban_old ban main:7000,secondary:7001 unkn\n")
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback ban_old ban 7000:main,7001:secondary unkn\n")
         else:
             print("ERROR: CI failed due to invalid python file in SQL/updates")
             exit(1)

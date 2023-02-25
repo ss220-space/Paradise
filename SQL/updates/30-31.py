@@ -32,7 +32,7 @@ fallback_server_name = args.fallbackserver
 for pair in args.port2server.split(","):
     split = pair.split(":")
     if len(split) > 1:
-        port2server[split[1]] = split[0]
+        port2server[split[0]] = split[1]
 
 for i in port2server:
     print("Port", i, "mapped to server", port2server[i])
