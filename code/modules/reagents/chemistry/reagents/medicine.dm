@@ -830,6 +830,19 @@
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/medicine/fomepizole
+	name = "Fomepizole"
+	id = "fomepizole"
+	description = "Fomepizone is a competitive ADH inhibitor. It is used to block metabolism of ethanol to their toxic metabolites."
+	color = "#95bb72"
+	taste_description = "sanity"
+
+/datum/reagent/medicine/fomepizole/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.AdjustDizzy(-60, FALSE)
+	update_flags |= M.AdjustJitter(-10, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"
 	id = "mutadone"
@@ -1329,6 +1342,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "blessing"
+	can_synth = FALSE
 
 /datum/reagent/medicine/zessulblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

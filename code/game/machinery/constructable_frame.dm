@@ -78,7 +78,7 @@
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
+					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 1 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
@@ -273,7 +273,13 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
 		/obj/machinery/vending/security = "SecTech",
-		/obj/machinery/vending/crittercare = "CritterCare")
+		/obj/machinery/vending/crittercare = "CritterCare",
+		/obj/machinery/vending/clothing/departament/security = "Departament Security ClothesMate",
+		/obj/machinery/vending/clothing/departament/medical = "Departament Medical ClothesMate",
+		/obj/machinery/vending/clothing/departament/engineering = "Departament Engineering ClothesMate",
+		/obj/machinery/vending/clothing/departament/science = "Departament Science ClothesMate",
+		/obj/machinery/vending/clothing/departament/cargo = "Departament Cargo ClothesMate",
+		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate")
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -599,36 +605,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/cell = 1)
-	var/access_types = list("Chem Dispenser", "Botanical Chem Dispenser")
-	id = 1
 
 /obj/item/circuitboard/chem_dispenser/botanical
 	name = "circuit board (Botanical Chem Dispenser)"
 	build_path = /obj/machinery/chem_dispenser/botanical
-	id = 2
-
-/obj/item/circuitboard/chem_dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(I.GetID())
-		if(allowed(user))
-			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
-			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "Chem Dispenser") as null|anything in access_types
-			if(console_choice == null)
-				return
-			switch(console_choice)
-				if("Chem Dispenser")
-					name = "circuit board (Chem Dispenser)"
-					build_path = /obj/machinery/chem_dispenser
-					id = 1
-				if("Botanical Chem Dispenser")
-					name = "circuit board (Botanical Chem Dispenser)"
-					build_path = /obj/machinery/chem_dispenser/botanical
-					id = 2
-
-			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
-		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
-		return
-	return ..()
 
 /obj/item/circuitboard/chem_master
 	name = "circuit board (ChemMaster 3000)"

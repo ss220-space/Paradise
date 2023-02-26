@@ -381,6 +381,51 @@
 			return s_store
 	return null
 
+/mob/living/carbon/human/proc/get_slot_by_item(item)
+	if(item == back)
+		return slot_back
+	if(item == wear_mask)
+		return slot_wear_mask
+	if(item == neck)
+		return slot_neck
+	if(item == handcuffed)
+		return slot_handcuffed
+	if(item == legcuffed)
+		return slot_legcuffed
+	if(item == l_hand)
+		return slot_l_hand
+	if(item == r_hand)
+		return slot_r_hand
+	if(item == belt)
+		return slot_belt
+	if(item == wear_id)
+		return slot_wear_id
+	if(item == wear_pda)
+		return slot_wear_pda
+	if(item == l_ear)
+		return slot_l_ear
+	if(item == r_ear)
+		return slot_r_ear
+	if(item == glasses)
+		return slot_glasses
+	if(item == gloves)
+		return slot_gloves
+	if(item == head)
+		return slot_head
+	if(item == shoes)
+		return slot_shoes
+	if(item == wear_suit)
+		return slot_wear_suit
+	if(item == w_uniform)
+		return slot_w_uniform
+	if(item == l_store)
+		return slot_l_store
+	if(item == r_store)
+		return slot_r_store
+	if(item == s_store)
+		return slot_s_store
+	return null
+
 /mob/living/carbon/human/get_all_slots()
 	. = get_head_slots() | get_body_slots()
 
@@ -451,3 +496,28 @@
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
+
+//procs to prevent equipping/unequipping stuff if something obscurs the slot
+/mob/living/carbon/human/advanced_can_equip(obj/item/item, slot, disable_warning = 0)
+	. = ..()
+	if(slot in check_obscured_slots())
+		if(!disable_warning)
+			to_chat(src, "<span class='warning'>You can't equip this item beacause the slot is obscuread!</span>")
+		return 0
+
+/mob/living/carbon/human/advanced_can_unequip(obj/item/item, force, disable_warning = 0)
+	. = ..()
+	if(get_slot_by_item(item) in check_obscured_slots())
+		if(!disable_warning)
+			to_chat(src, "<span class='warning'>You can't unequip this item beacause the slot is obscuread!</span>")
+		return 0
+
+/mob/living/carbon/human/advanced_equip_to_slot_if_possible(obj/item/item, slot, del_on_fail = 0, disable_warning = 0)
+	if(advanced_can_equip(item, slot, disable_warning))
+		return equip_to_slot_if_possible(item, slot, del_on_fail, disable_warning)
+
+/mob/living/carbon/human/advanced_unequip_if_possible(obj/item/item, force)
+	if((get_slot_by_item(item) in check_obscured_slots()) && !force)
+		to_chat(src, "<span class='warning'>You can't unequip this item beacause the slot is obscuread!</span>")
+		return
+	return unEquip(item, force)

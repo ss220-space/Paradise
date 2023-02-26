@@ -341,6 +341,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	job = list("Civilian")
 
+/datum/uplink_item/jobspecific/lockermech
+	name = "Syndie Locker Mech"
+	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
+	reference = "SLM"
+	item = /obj/mecha/combat/lockersyndie/loaded
+	cost = 10
+	job = list("Civilian")
+
 /datum/uplink_item/jobspecific/stungloves
 	name = "Stungloves"
 	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
@@ -926,6 +934,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
+
+/datum/uplink_item/ammo/compact
+	name = "50. compact ammo box"
+	desc = "A box of 50. cal sniper ammo."
+	reference = "50L"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"

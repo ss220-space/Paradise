@@ -30,6 +30,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
+	blood_species = "Tajaran"
 	flesh_color = "#b5a69b"
 	base_color = "#424242"
 	butt_sprite = "tajaran"
@@ -73,6 +74,12 @@
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
+/datum/species/tajaran/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "moonlin")
+		H.reagents.add_reagent("psilocybin",(0.5))
+		return TRUE
+	return ..()
+
 /datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
@@ -86,5 +93,5 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_purr
-	H.verbs -= /mob/living/carbon/human/proc/emote_purrl	
+	H.verbs -= /mob/living/carbon/human/proc/emote_purrl
 	H.verbs -= /mob/living/carbon/human/proc/emote_hisses
