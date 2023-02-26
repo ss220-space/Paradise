@@ -34,7 +34,7 @@
 /mob/living/simple_animal/hostile/guardian/punch/Life(seconds, times_fired)
 	. = ..()
 	for(var/mob/living/carbon/human/L in view(2, src))
-		if(L.stat != DEAD && !summoner)
+		if(L.stat != DEAD && L != summoner)
 			L.Slowed(2)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch

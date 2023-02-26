@@ -169,7 +169,7 @@
 	to_chat(user, "Проверяю раны хозяина..")
 	if(do_after(user, cast_time, target = summoner))
 		if(prob(chance_to_mend))
-			var/list/injures[][]
+			var/list/injures[] = list()
 			injures["bleedings"] = summoner.check_internal_bleedings()
 			injures["fractures"] = summoner.check_fractures()
 			injures["infections"] =  summoner.check_infections()

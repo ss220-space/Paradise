@@ -115,7 +115,7 @@
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
 						"<span class='italics'>You hear a heavy electrical crack.</span>" \
 					)
-				L.adjustFireLoss(6)
+				L.adjustFireLoss(3)
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)

@@ -87,7 +87,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, "<span class='holoparasite'>Вас откинула назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!</span>")
+			to_chat(src, "<span class='holoparasite'>Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!</span>")
 			visible_message("<span class='danger'>\The [src] вернулся к носителю.</span>")
 			if(istype(summoner.loc, /obj/effect))
 				Recall(TRUE)
@@ -328,7 +328,7 @@
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoned = TRUE
 	G.key = key
-	to_chat(G, "Вы [mob_name], обязанные служить [user.real_name].")
+	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
 	to_chat(G, "Будучи лично неуязвимым, Вы умрете если [user.real_name] умрет, и любой урон попавший по вам будет пропорционально перенесен хозяину, так как вы питаетесь от его жизненной силы.")
 	to_chat(G, "[G.playstyle_string]")

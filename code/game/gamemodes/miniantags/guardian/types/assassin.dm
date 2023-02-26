@@ -76,7 +76,6 @@
 		tox_damage = 15
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE
-		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 		alpha = 15
 		damage_transfer = 1.1
 		if(!forced)
