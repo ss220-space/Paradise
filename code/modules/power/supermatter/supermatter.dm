@@ -49,7 +49,7 @@
 	var/warning_point = 50
 	var/warning_alert = "ОПАСНОСТЬ! Дестабилизация гиперструктуры кристалла!"
 	var/emergency_point = 400
-	var/emergency_alert = "РАССЛОЕНИЕ КРИСТАЛЛА НЕИЗБЕЖНО."
+	var/emergency_alert = "РАСЩЕПЛЕНИЕ КРИСТАЛЛА НЕМИНУЕМО."
 	var/explosion_point = 600
 
 	var/emergency_issued = 0
