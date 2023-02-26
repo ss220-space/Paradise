@@ -1824,11 +1824,10 @@
 		/obj/item/clothing/under/pants/red 			= 10,
 		/obj/item/clothing/under/pants/track 		= 5,
 
-		/obj/item/clothing/under/rank/security/brigphys = 3
+		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
-		/obj/item/clothing/suit/storage/brigdoc = 3,
-
+		/obj/item/clothing/suit/storage/brigdoc = 3
 		)
 
 
