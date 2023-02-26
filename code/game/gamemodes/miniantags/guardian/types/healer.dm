@@ -143,8 +143,8 @@
 		to_chat(src, "<span class='danger'>Мне нужно стоять смирно!</span>")
 
 /obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend
-	name = "Quick mend"
-	desc = "Break bones and organs to your master in suppose to fix them"
+	name = "Быстрое исцеление"
+	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
 	action_icon_state = "heal"
 	action_background_icon_state = "bg_spell"
 	charge_max = 350
