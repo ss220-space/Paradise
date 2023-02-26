@@ -386,6 +386,9 @@
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"
 
+/obj/item/circuitboard/broken
+	name = "Broken curcuit"
+	build_path = null
 
 /obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/multitool))
@@ -450,7 +453,7 @@
 		if(0)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
@@ -458,7 +461,7 @@
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
@@ -501,7 +504,7 @@
 				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
+					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
@@ -526,7 +529,7 @@
 				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
+					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
@@ -548,7 +551,11 @@
 			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				var/B = new circuit.build_path (loc)
+				var/build_path = circuit.build_path
+				if(!build_path)
+					to_chat(user, "<span class='notice'>The circuit is not working, so you cant build this computer.</span>")
+					return
+				var/B = new build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
 				if(circuit.id) B:id = circuit.id
 				if(circuit.records) B:records = circuit.records
@@ -593,7 +600,7 @@
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
@@ -632,7 +639,7 @@
 				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
+					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
@@ -657,7 +664,7 @@
 				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
+					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4

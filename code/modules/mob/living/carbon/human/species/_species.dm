@@ -11,6 +11,8 @@
 	var/damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
 	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
 
+	var/blood_species // Species blood's name
+
 	var/eyes = "eyes_s"                                  // Icon for eyes.
 	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
 	var/butt_sprite = "human"
@@ -179,6 +181,8 @@
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
+	var/toolspeedmod = 1
+
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
@@ -292,8 +296,9 @@
 			. += hungry/50
 		if(FAT in H.mutations)
 			. += (1.5 - flight)
-		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+		if (coldmod>0)
+			if(H.bodytemperature < cold_level_1)
+				. += (cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	return .
 
