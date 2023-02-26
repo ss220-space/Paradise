@@ -860,6 +860,14 @@
 					/obj/item/reagent_containers/food/drinks/bag/goonbag = 3,
 					/obj/item/reagent_containers/food/drinks/bottle/cognac = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/kahlua = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/champagne = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/aperol = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/jagermeister = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/schnaps = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/sheridan = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/bluecuracao = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/sambuka = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/bitter = 3,
 					/obj/item/reagent_containers/food/drinks/cans/beer = 6,
 					/obj/item/reagent_containers/food/drinks/cans/ale = 6,
 					/obj/item/reagent_containers/food/drinks/cans/synthanol = 15,
@@ -1170,7 +1178,8 @@
 	req_access_txt = "1"
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4)
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					/obj/item/clothing/suit/storage/suragi_jacket/medsec = 2, /obj/item/clothing/suit/storage/brigdoc = 2, /obj/item/clothing/under/rank/security/brigphys = 2)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1255,7 +1264,8 @@
 					  /obj/item/seeds/plump = 2,
 					  /obj/item/seeds/reishi = 2,
 					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2)
+					  /obj/item/seeds/random = 2,
+					  /obj/item/seeds/moonlight = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
