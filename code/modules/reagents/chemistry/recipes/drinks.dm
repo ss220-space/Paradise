@@ -1417,3 +1417,93 @@
 	required_reagents = list("whiskey" = 3, "bitter" = 1, "grapejuice" = 2, "limejuice" = 1,  )
 	result_amount = 7
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/blue_moondrin
+	name = "Iluk Blue Moon'drin"
+	id = "blue_moondrin"
+	result = "blue_moondrin"
+	required_reagents = list("moonlight_skuma" = 3, "blue_lagoon" = 1, "martini" = 2, "ice" = 1,  )
+	result_amount = 7
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/blue_moondrin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Druggy(15, FALSE)
+	switch(current_cycle)
+		if(1 to 15)
+			M.Dizzy(5)
+			if(prob(20))
+				M.emote(pick("twitch","giggle","moan"))
+				M.Jitter(10)
+				M.AdjustHallucinate(10)
+		if(16 to INFINITY)
+			if(prob(15))
+				M.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 3)
+			if(prob(10))
+				M.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
+	return ..() | update_flags
+
+/datum/chemical_reaction/red_moondrin
+	name = "Redwater Moon'drin"
+	id = "red_moondrin"
+	result = "red_moondrin"
+	required_reagents = list("moonlight_skuma" = 3, "devilskiss" = 1, "manhattan" = 2, "watermelonjuice" = 1, "ice" = 1  )
+	result_amount = 8
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/red_moondrin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Druggy(30, FALSE)
+	switch(current_cycle)
+		if(1 to 20)
+			M.Dizzy(5)
+			M.Stuttering(1)
+			if(prob(30))
+				M.emote(pick("twitch","moan"))
+				M.Jitter(10)
+				M.AdjustHallucinate(15)
+				M.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
+		if(21 to 30)
+			if(prob(20))
+				to_chat(M, "<span class='warning'>You feel pain!</span>")
+				M.emote("scream")
+				M.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 5)
+				M.AdjustHallucinate(20)
+				update_flags |= M.adjustStaminaLoss(3, FALSE)
+			if(prob(5))
+				M.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
+				M.emote("gasp")
+				to_chat(M, "<span class='warning'>You can't breathe! But it feels GOOD!</span>")
+				update_flags |= M.adjustOxyLoss(15, FALSE)
+				update_flags |= M.adjustToxLoss(2, FALSE)
+				update_flags |= M.Stun(1, FALSE)
+		if(31 to INFINITY)
+			M.Dizzy(5)
+			M.Stuttering(1)
+			if(prob(30))
+				M.emote(pick("twitch","moan"))
+				M.Jitter(10)
+				M.AdjustHallucinate(15)
+				M.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
+			if(prob(20))
+				to_chat(M, "<span class='warning'>You feel pain!</span>")
+				M.emote("scream")
+				M.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 5)
+				M.AdjustHallucinate(20)
+				update_flags |= M.adjustStaminaLoss(3, FALSE)
+			if(prob(5))
+				M.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
+				M.emote("gasp")
+				to_chat(M, "<span class='warning'>You can't breathe! But it feels GOOD!</span>")
+				update_flags |= M.adjustOxyLoss(15, FALSE)
+				update_flags |= M.adjustToxLoss(2, FALSE)
+				update_flags |= M.Stun(1, FALSE)
+			if(prob(3))
+				to_chat(M, "<span class='warning'>You feel terrible!</span>")
+				M.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
+				M.emote(pick("drool","scream"))
+				M.Jitter(10)
+				update_flags |= M.adjustToxLoss(3, FALSE)
+				update_flags |= M.Weaken(1, FALSE)
+				M.AdjustConfused(33)
+	return ..() | update_flags
