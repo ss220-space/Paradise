@@ -2126,6 +2126,7 @@
 		/obj/item/clothing/head/helmet/riot/knight/templar = 1,
 		/obj/item/clothing/under/wedding/bride_white = 1,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie = 2,
+		/obj/item/radio/headset/headset_service = 5,
 		/obj/item/clothing/suit/hooded/nun = 2,
 		/obj/item/clothing/suit/holidaypriest = 2,
 		/obj/item/clothing/head/bishopmitre = 2,
