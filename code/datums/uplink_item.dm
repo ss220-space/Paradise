@@ -1145,6 +1145,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 11
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
@@ -1158,12 +1159,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	hijack_only = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/explosives/syndicate_bomb/nuke
+/datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "SBEMP"
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
-	cost = 11
+	cost = 10
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	hijack_only = FALSE
 
 
 /datum/uplink_item/explosives/syndicate_minibomb
