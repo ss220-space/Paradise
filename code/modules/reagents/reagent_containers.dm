@@ -14,6 +14,7 @@
 	var/has_lid = FALSE // Used for containers where we want to put lids on and off
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
+	var/pass_open_check = FALSE // Pass open check in empty verb
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -55,7 +56,7 @@
 	if(!usr.Adjacent(src) || usr.stat || !usr.canmove || usr.incapacitated())
 		return
 	if(isturf(usr.loc) && loc == usr)
-		if(!is_open_container())
+		if(!is_open_container() && !pass_open_check)
 			to_chat(usr, "<span class='warning'>Open [src] first.</span>")
 			return
 		if(reagents.total_volume)
