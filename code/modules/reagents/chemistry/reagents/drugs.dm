@@ -158,7 +158,7 @@
 	color = "#5ec3cc" // rgb: 96, 165, 132
 	drink_icon = "moonlight_d"
 	drink_name = "Moonlin"
-	drink_desc = "Strange drink with white crystals! Be aware, if you a tajaran."
+	drink_desc = "Strange drink with white crystals! Be aware, if you are tajaran."
 	overdose_threshold = 20
 	addiction_chance = 20
 	addiction_threshold = 15

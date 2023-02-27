@@ -157,6 +157,7 @@
 	drink_icon = "moonlight_skuma"
 	drink_name = "Moon'drin"
 	drink_desc = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	addiction_chance = 2
 	dizzy_adj = 3
 	alcohol_perc = 0.5
 
@@ -166,14 +167,17 @@
 	switch(current_cycle)
 		if(1 to INFINITY)
 			M.Dizzy(5)
-			if(prob(10))
+			if(prob(15))
 				M.emote(pick("twitch","giggle"))
-	if(prob(1))
-		to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
-	if(prob(25))
-		var/list/tider_talk = list("Тёплые пески Адомая так далеко...",
-									"Даже когти стали острее!",
-									"Надеюсь, мы летим туда, где тепло?",
-									"Пусть дорога приведёт нас в теплые пески.",)
-		M.say(pick(tider_talk))
+				M.Dizzy(3)
+			if(prob(5))
+				M.Jitter(5)
+				M.emote("smile")
+				to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
+			if(prob(20))
+				var/list/tider_talk = list("Тёплые пески Адомая так далеко...",
+										"Даже когти стали острее!",
+										"Надеюсь, мы летим туда, где тепло?",
+										"Пусть дорога приведёт нас в теплые пески.",)
+				M.say(pick(tider_talk))
 	return ..()
