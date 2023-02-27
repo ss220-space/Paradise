@@ -2195,9 +2195,7 @@
 /area/syndicate_mothership/control)
 "bdh" = (
 /obj/structure/chair,
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -2700,9 +2698,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -2974,12 +2970,8 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Central Command"
 	},
-/obj/effect/landmark{
-	name = "Commando_Manual"
-	},
-/obj/effect/landmark{
-	name = "nukecode"
-	},
+/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/commando_manual,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -3237,9 +3229,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -5573,9 +5563,7 @@
 /area/shuttle/ussp)
 "cNc" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark{
-	name = "Syndicate Officer"
-	},
+/obj/effect/landmark/syndicate_officer,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "cNn" = (
@@ -6740,9 +6728,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "Syndicate Officer"
-	},
+/obj/effect/landmark/syndicate_officer,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "dxR" = (
@@ -9922,9 +9908,7 @@
 	color = "#363636";
 	icon_state = "diagonal_edge"
 	},
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "fnC" = (
@@ -10649,9 +10633,7 @@
 "fDt" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/effect/landmark{
-	name = "traderstart_sol"
-	},
+/obj/effect/landmark/traderstart_sol,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "fDP" = (
@@ -12085,9 +12067,7 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14931,11 +14911,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark{
-	color = "#9999ff";
-	icon_state = "x_white";
-	name = "Syndicate-Spawn"
-	},
+/obj/effect/landmark/Syndicate_Spawn,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "ifg" = (
@@ -15208,9 +15184,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "Syndicate Officer"
-	},
+/obj/effect/landmark/syndicate_officer,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "iny" = (
@@ -15361,9 +15335,7 @@
 	},
 /area/wizard_station)
 "ism" = (
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16454,9 +16426,7 @@
 /area/syndicate_mothership/outside)
 "iUt" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/effect/landmark{
-	name = "Commando"
-	},
+/obj/effect/landmark/death_squard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18671,8 +18641,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -19393,9 +19362,7 @@
 	},
 /area/syndicate_mothership)
 "kzy" = (
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/syndieprisonwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -22410,11 +22377,7 @@
 /area/syndicate_mothership)
 "lWc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	color = "#9999ff";
-	icon_state = "x_white";
-	name = "Syndicate-Spawn"
-	},
+/obj/effect/landmark/Syndicate_Spawn,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
 	},
@@ -23463,9 +23426,7 @@
 /area/syndicate_mothership/jail)
 "muU" = (
 /obj/structure/table/wood,
-/obj/effect/landmark{
-	name = "Teleport-Scroll"
-	},
+/obj/effect/landmark/teleport_scroll,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -30
 	},
@@ -23489,9 +23450,7 @@
 "mvo" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/obj/effect/landmark/start{
-	name = "wizard"
-	},
+/obj/effect/landmark/wizard,
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "mvu" = (
@@ -25746,9 +25705,7 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444"
 	},
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "nnm" = (
@@ -28266,9 +28223,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "ERT Director"
-	},
+/obj/effect/landmark/ERT_Director,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "ovv" = (
@@ -31351,9 +31306,7 @@
 /area/centcom/evac)
 "pUC" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/effect/landmark{
-	name = "Commando"
-	},
+/obj/effect/landmark/death_squard,
 /obj/machinery/computer/cryopod{
 	pixel_y = -30
 	},
@@ -32616,9 +32569,7 @@
 /obj/effect/turf_decal/box{
 	do_not_delete_me = 1
 	},
-/obj/effect/landmark{
-	name = "Nuclear-Bomb"
-	},
+/obj/effect/landmark/nuclear_bomb,
 /obj/machinery/door/window/brigdoor/westleft{
 	color = "#d70000";
 	dir = 2;
@@ -34331,8 +34282,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /obj/effect/turf_decal/plaque,
@@ -35166,9 +35116,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40088,12 +40036,8 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
 "uam" = (
-/obj/effect/landmark{
-	name = "prisonwarp"
-	},
-/obj/effect/landmark{
-	name = "prisonwarp"
-	},
+/obj/effect/landmark/prisonwarp,
+/obj/effect/landmark/prisonwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -44294,9 +44238,7 @@
 	},
 /area/syndicate_mothership)
 "vZg" = (
-/obj/effect/landmark{
-	name = "Marauder Exit"
-	},
+/obj/effect/landmark/Marauder_Exit
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
@@ -47287,11 +47229,7 @@
 /area/syndicate_mothership)
 "xBV" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	color = "#9999ff";
-	icon_state = "x_white";
-	name = "Syndicate-Spawn"
-	},
+/obj/effect/landmark/Syndicate_Spawn,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "xCi" = (
