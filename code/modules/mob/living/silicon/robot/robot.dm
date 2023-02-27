@@ -1254,12 +1254,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			lamp_recharging = 0
 
 	else
-		set_light(light_range + lamp_intensity)
+		if(!on_fire)
+			set_light(light_range + lamp_intensity)
+		else
+			set_light(light_range + lamp_intensity + 3) // +3 derives from living_defense IgniteMob method (keeping fire light on borg)
 
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"
 
 	update_icons()
+
+/mob/living/silicon/robot/ExtinguishMob() //returns normal light color when silicon has been extinguished
+	..()
+	set_light(l_color = "#FFFFFF")
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
