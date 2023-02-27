@@ -1,7 +1,7 @@
 /obj/effect/spawner/random_barrier
 	name = "random tile"
 	icon = 'icons/effects/mapping_helpers.dmi'
-	icon_state = "standart"
+	icon_state = "floor"
 	var/list/result = list(
 	/turf/simulated/floor/plasteel = 1,
 	/turf/simulated/wall = 1,
