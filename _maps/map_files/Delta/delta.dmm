@@ -17493,7 +17493,9 @@
 	icon_state = "robot_old";
 	name = "Cyborg Statue";
 	pixel_x = -9;
-	pixel_y = 2
+	pixel_y = 2;
+	icon_state = "Robot-STD";
+	icon = 'icons/mob/robots.dmi'
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -109844,6 +109846,9 @@
 	},
 /area/library)
 "rLv" = (
+/obj/machinery/flasher{
+	pixel_y = 24
+	},
 /obj/structure/showcase{
 	density = 0;
 	dir = 4;
@@ -109851,10 +109856,9 @@
 	icon_state = "robot_old";
 	name = "Cyborg Statue";
 	pixel_x = -9;
-	pixel_y = 2
-	},
-/obj/machinery/flasher{
-	pixel_y = 24
+	pixel_y = 2;
+	icon_state = "Robot-STD";
+	icon = 'icons/mob/robots.dmi'
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -110102,7 +110106,9 @@
 	icon_state = "robot_old";
 	name = "Cyborg Statue";
 	pixel_x = 9;
-	pixel_y = 2
+	pixel_y = 2;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "Robot-STD"
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 6;
@@ -113725,7 +113731,9 @@
 	icon_state = "robot_old";
 	name = "Cyborg Statue";
 	pixel_x = 9;
-	pixel_y = 2
+	pixel_y = 2;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "Robot-STD"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
