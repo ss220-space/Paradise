@@ -44238,7 +44238,7 @@
 	},
 /area/syndicate_mothership)
 "vZg" = (
-/obj/effect/landmark/Marauder_Exit
+/obj/effect/landmark/Marauder_Exit,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)

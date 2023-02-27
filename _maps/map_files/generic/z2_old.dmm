@@ -30440,7 +30440,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "vLT" = (
-/obj/effect/landmark/Marauder_Exit
+/obj/effect/landmark/Marauder_Exit,
 /turf/simulated/floor/indestructible{
 	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
