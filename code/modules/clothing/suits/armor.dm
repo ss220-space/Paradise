@@ -77,9 +77,10 @@
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
 
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.Remove(user)
+		for(var/action in actions)
+			var/datum/action/A = action
+			if(istype(A, /datum/action/item_action/remove_badge))
+				src.actions.Remove(A)
 
 		icon_state = "armor"
 		user.update_inv_wear_suit()
