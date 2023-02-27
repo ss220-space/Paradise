@@ -6,6 +6,7 @@
 	item_state = "mender"
 	volume = 200
 	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
@@ -24,6 +25,9 @@
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 
 /obj/item/reagent_containers/applicator/set_APTFT()
+	set hidden = TRUE
+
+/obj/item/reagent_containers/applicator/empty()
 	set hidden = TRUE
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
@@ -110,7 +114,7 @@
 
 		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, 1)
 
-/obj/item/reagent_containers/applicator/verb/empty()
+/obj/item/reagent_containers/applicator/verb/empty_mender()
 	set name = "Empty Applicator"
 	set category = "Object"
 	set src in usr
