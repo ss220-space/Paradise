@@ -37,13 +37,12 @@
 	if(istype(L))
 		L.adjustToxLoss(tox_damage)
 	. = ..()
-	if(toggle && (isliving(target) || istype(target, /obj/structure/window) || istype(target, /obj/structure/grille)))
+	if(toggle && (ishuman(target)))
 		if(prob(25))
-			var/mob/living/carbon/human/H
-			if(istype(H,/mob/living/carbon/human))
-				var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL, BODY_ZONE_WING)
-				var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
-				BP.fracture()
+			var/mob/living/carbon/human/H = target
+			var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL, BODY_ZONE_WING)
+			var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
+			BP.fracture()
 	ToggleMode(1)
 
 
