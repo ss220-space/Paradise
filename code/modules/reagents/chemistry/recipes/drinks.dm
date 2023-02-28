@@ -1470,6 +1470,7 @@
 				M.emote(pick("twitch","moan"))
 				M.Jitter(10)
 				M.AdjustHallucinate(15)
+			if(prob(10))
 				M.playsound_local(src,'sound/hallucinations/im_here1.ogg', 1)
 		if(21 to 30)
 			M.Dizzy(5)
