@@ -43,7 +43,6 @@
 
 	next_move = 1
 	sight |= SEE_SELF
-	..()
 
 	reset_perspective(loc)
 
