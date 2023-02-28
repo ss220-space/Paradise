@@ -19,7 +19,7 @@
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
-	if(get_dist(get_turf(src), get_turf(A)) > 1)
+	if(get_dist(get_turf(src), get_turf(A)) > 3)
 		to_chat(src, "<span class='danger'>Слишком далеко от [A] чтобы скрыть это как бомбу.</span>")
 		return
 	if(istype(A, /obj/) && can_plant(A))
