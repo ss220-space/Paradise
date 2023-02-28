@@ -7,9 +7,9 @@
 	speed = -1
 	damage_transfer = 0.6
 	playstyle_string = "Будучи <b>Налетчиком</b> вы наносите слабый урон, имеете среднее сопротивление урону, очень быстро передвигаетесь, наносите более быстрые атаки по живым и можете атаковать цель, нанося ей урон и опрокидывая на пол. <b>Нажмите на плитку дальше одного тайла, чтобы использовать рывок!</b>"
-	magic_fluff_string = "..And draw the Hunter, an alien master of rapid assault."
-	tech_fluff_string = "Boot sequence complete. Charge modules loaded. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to deal damage."
+	magic_fluff_string = ".. и вытягиваете Охотника, инопланетного мастера стремительных атак."
+	tech_fluff_string = "Последовательность загрузки завершена. Скоростные модули загружены. Рой голопаразитов запущен."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый нанести урон."
 	var/charging = 0
 	var/obj/screen/alert/chargealert
 
