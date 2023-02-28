@@ -26,7 +26,6 @@
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	bot_core_type = /obj/machinery/bot_core/mulebot
-	path_image_color = "#7F5200"
 
 
 	suffix = ""
