@@ -667,7 +667,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 
 // Operating Table / Beds / Lockers
 

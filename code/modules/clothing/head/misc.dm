@@ -77,7 +77,7 @@
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
@@ -95,7 +95,7 @@
 	icon_state = "cueball"
 	item_state = "cueball"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
@@ -113,7 +113,7 @@
 	icon_state = "snowman_h"
 	item_state = "snowman_h"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
@@ -330,7 +330,7 @@
 	item_state = "xenos_helm"
 	desc = "A helmet made out of chitinous alien hide."
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -378,7 +378,7 @@
 	icon_state = "stalhelm"
 	item_state = "stalhelm"
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/head/panzer
 	name = "Clown HONKMech Cap"
@@ -393,7 +393,7 @@
 	icon_state = "officercap"
 	item_state = "officercap"
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officers beret"
@@ -479,7 +479,7 @@
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
@@ -517,7 +517,7 @@
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
 	icon_state = "papersack"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE|HIDEEARS
+	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
@@ -533,7 +533,7 @@
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE|HIDEEARS
+	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
