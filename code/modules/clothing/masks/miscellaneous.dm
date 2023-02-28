@@ -330,6 +330,7 @@
 	item_state = "pig"
 	flags = BLOCKHAIR
 	flags_inv = HIDENAME
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_SMALL
 
 
@@ -432,12 +433,11 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 
-/obj/item/clothing/mask/fawkes
+/obj/item/clothing/mask/face/fawkes
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
 	item_state = "fawkes"
-	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
@@ -453,7 +453,6 @@
 	name = "bandana"
 	desc = "A colorful bandana."
 	flags_inv = HIDENAME
-	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD

@@ -284,6 +284,7 @@
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
@@ -300,6 +301,7 @@
 	icon_state = "corgihead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/corgi/super_hero
 	name = "super-hero corgi suit head"
@@ -331,6 +333,7 @@
 	desc = "A helmet made out of chitinous alien hide."
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -480,6 +483,7 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
@@ -511,6 +515,7 @@
 	desc = "A horribly bloated and mismatched human head."
 	icon_state = "lingspacehelmet"
 	item_state = "lingspacehelmet"
+	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"

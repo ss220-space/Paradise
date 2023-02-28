@@ -99,6 +99,7 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	flags_inv = 0
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
+	flags_cover = null
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
 	name = "Офицерская фуражка Верховного Главнокомандующего"
