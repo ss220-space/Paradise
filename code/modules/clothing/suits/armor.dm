@@ -58,7 +58,7 @@
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge) //preventing from equipping more than one badge
+	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
 		if(user.unEquip(I))
 			add_fingerprint(user)
 			I.forceMove(src)
@@ -78,8 +78,8 @@
 		user.put_in_hands(attached_badge)
 
 		for(var/datum/action/item_action/remove_badge/action in actions)
-			src.actions.Remove(action) //remove action from vest
-			action.Remove(user) //remove action from user
+			src.actions.Remove(action)
+			action.Remove(user)
 
 		icon_state = "armor"
 		user.update_inv_wear_suit()
