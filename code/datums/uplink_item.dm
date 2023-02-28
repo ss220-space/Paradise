@@ -452,7 +452,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/rcd/combat
 	cost = 8
 	job = list("Chief Engineer")
-	surplus = 0 //because код похуй. Лично сам не вижу причин почему его нельзя в лутбоксы.
+	surplus = 0
 
 //Stimulants
 
