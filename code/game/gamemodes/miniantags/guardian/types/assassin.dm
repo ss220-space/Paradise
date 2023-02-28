@@ -34,7 +34,8 @@
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	var/mob/living/L = target
-	L.adjustToxLoss(tox_damage)
+	if(istype(L))
+		L.adjustToxLoss(tox_damage)
 	. = ..()
 	if(toggle && (isliving(target) || istype(target, /obj/structure/window) || istype(target, /obj/structure/grille)))
 		if(prob(25))
