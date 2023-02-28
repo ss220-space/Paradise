@@ -146,6 +146,9 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
+/obj/machinery/atmospherics/proc/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/proc/returnPipenetAir()
 	return
 
