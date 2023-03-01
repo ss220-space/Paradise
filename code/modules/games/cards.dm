@@ -364,11 +364,10 @@
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
 
-	var/obj/item/cardhand/H = new(get_turf(src))
 	if(!card)
 		return
-	if(!Adjacent(user))
-		return
+
+	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
 	H.cards += card
 	cards -= card
