@@ -61,6 +61,9 @@
 	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
+	if(!get_location_accessible(chugger, "mouth"))
+		to_chat(chugger, "<span class='notice'>Your face is obscured, so you cant [pick("chugging","gulping")].</span>")
+		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
 		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
 			"<span class='notice'>You start chugging [src].</span>",
