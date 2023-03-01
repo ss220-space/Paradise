@@ -89,6 +89,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return
+	. = ..()
 
 /obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.

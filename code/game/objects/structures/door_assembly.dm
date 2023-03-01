@@ -58,6 +58,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return
+	. = ..()
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
