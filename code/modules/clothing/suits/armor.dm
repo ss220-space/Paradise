@@ -19,7 +19,6 @@
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 	w_class = WEIGHT_CLASS_NORMAL
-	var/teleportation = FALSE // Made for teleportation slime potion
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -321,7 +320,6 @@
 	var/tele_range = 2
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	..()
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
@@ -351,7 +349,6 @@
 	name = "reactive incendiary armor"
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	..()
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
@@ -364,12 +361,10 @@
 		return 1
 	return 0
 
-
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	..()
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
@@ -387,7 +382,6 @@
 	name = "reactive tesla armor"
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	..()
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
@@ -563,28 +557,3 @@
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
-
-/obj/item/clothing/suit/armor/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	..()
-	if(teleportation)
-		return 0
-	var/mob/living/carbon/human/H = owner
-	owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
-	var/list/turfs = new/list()
-	for(var/turf/T in orange(3, H))
-		if(istype(T, /turf/space))
-			continue
-		if(T.density)
-			continue
-		if(T.x>world.maxx-3 || T.x<3)
-			continue			
-		if(T.y>world.maxy-3 || T.y<3)
-			continue
-		turfs += T
-	if(!turfs.len)
-		turfs += pick(/turf in orange(3, H))
-	var/turf/picked = pick(turfs)
-	if(!isturf(picked))
-		return
-	H.forceMove(picked)
-	return 1

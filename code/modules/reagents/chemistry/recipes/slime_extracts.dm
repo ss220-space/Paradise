@@ -494,6 +494,19 @@
 	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
 	P.forceMove(get_turf(holder.my_atom))
 
+/datum/chemical_reaction/moenkeylanguage
+	name = "Moenky language"
+	id = "monkeylanguage"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/pink
+	required_other = 1
+
+/datum/chemical_reaction/moenkeylanguage/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/reagent_containers/glass/bottle/monkeylangue/M = new /obj/item/reagent_containers/glass/bottle/monkeylangue
+	M.forceMove(get_turf(holder.my_atom))
 
 //Black
 /datum/chemical_reaction/slimemutate2
@@ -551,7 +564,7 @@
 	required_container = /obj/item/slime_extract/oil
 	required_other = 1
 
-/datum/chemical_reaction/slimepotionlaser/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slimepotionexplosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/explosionresistencte/E = new /obj/item/slimepotion/explosionresistencte
 	E.forceMove(get_turf(holder.my_atom))
@@ -615,6 +628,19 @@
 	P.amount = 25
 	P.forceMove(get_turf(holder.my_atom))
 
+/datum/chemical_reaction/slimeteleportation
+	name = "Slime Steroid 2"
+	id = "m_steroid2"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/bluespace
+	required_other = 1
+
+/datum/chemical_reaction/slimeteleportation/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/teleportation/T = new /obj/item/slimepotion/teleportation
+	T.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecrystal
 	name = "Slime Crystal"

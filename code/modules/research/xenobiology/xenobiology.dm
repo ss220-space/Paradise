@@ -558,7 +558,11 @@
 	C.name = "acidproofed [C.name]"
 	C.add_atom_colour("#022202", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.setRating(acid_value = current_armor.getRating("acid") + 25)
+	to_chat(user, "<span class='info'>You strengthen [C.name], improving its resistance against melee attacks.</span>")
 	if(istype(C.armor))
+		C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
 		C.armor.acid += 25
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
 	qdel(src)
@@ -594,8 +598,8 @@
 	C.name = "laserproof [C.name]"
 	C.add_atom_colour("#91723a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
-	if(istype(C.armor))
-		C.armor.laser += 10
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.setRating(laser_value = current_armor.getRating("laser") + 10)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more laserproofing.</span>")
 	qdel(src)
 
@@ -630,8 +634,8 @@
 	C.name = "Radiationproof [C.name]"
 	C.add_atom_colour("#e6e205", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
-	if(istype(C.armor))
-		C.armor.rad += 40
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.setRating(rad_value = current_armor.getRating("rad") + 40)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more Radiationproof.</span>")
 	qdel(src)
 
@@ -666,8 +670,8 @@
 	C.name = "Bioproof [C.name]"
 	C.add_atom_colour("#068a06", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
-	if(istype(C.armor))
-		C.armor.bio += 40
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.setRating(bio_value = current_armor.getRating("bio") + 40)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more bioproof.</span>")
 	qdel(src)
 
@@ -702,8 +706,8 @@
 	C.name = "Ressisted to explosions [C.name]"
 	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
-	if(istype(C.armor))
-		C.armor.bomb += 20
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.setRating(bomb_value = current_armor.getRating("bomb") + 40)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosion proof.</span>")
 	qdel(src)
 
@@ -721,22 +725,25 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
-/obj/item/slimepotion/teleportation/afterattack(obj/item/clothing/suit/armor/A, mob/user, proximity_flag)
+/obj/item/slimepotion/teleportation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
-	if(A.teleportation)
-		to_chat(user, "<span class='warning'>[A] is already with teleportation slime potion on it!</span>")
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(C.teleportation)
+		to_chat(user, "<span class='warning'>[C] is already with teleportation slime potion on it!</span>")
 		return ..()
-	if(A.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[A] is already improoved by some potion!</span>")
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
 		return ..()
 
-	A.name = "Teleportational [A.name]"
-	A.add_atom_colour("#def1de", WASHABLE_COLOUR_PRIORITY)
-	A.is_improoved_by_potion = TRUE
-	A.teleportation = TRUE
-	to_chat(user, "<span class='notice'>You slather the white gunk over [A], making it teleportable.</span>")
+	C.name = "Teleportational [C.name]"
+	C.add_atom_colour("#def1de", WASHABLE_COLOUR_PRIORITY)
+	C.is_improoved_by_potion = TRUE
+	C.teleportation = TRUE
+	to_chat(user, "<span class='notice'>You slather the white gunk over [C], making it teleportable.</span>")
 	qdel(src)
 
 
@@ -744,7 +751,7 @@
 	name = "Physical damage resistance slime potion"
 	desc = "A potent chemical mix that will increase impact and gunshot resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle8"
+	icon_state = "bottle10"
 	origin_tech = "biotech=5"
 
 /obj/item/slimepotion/damage/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
@@ -764,9 +771,8 @@
 	C.name = "Damagepoof [C.name]"
 	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
-	if(istype(C.armor))
-		C.armor.melee += 25
-		C.armor.bullet += 25
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.setRating(bullet_value = current_armor.getRating("bullet") + 40, melee_value = current_armor.getRating("melee") + 40)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], damageproofing it.</span>")
 	qdel(src)
 
