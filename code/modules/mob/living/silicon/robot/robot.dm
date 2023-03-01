@@ -98,6 +98,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/default_lamp_color = "#FFFFFF"
 
 	var/updating = 0 //portable camera camerachunk update
 
@@ -1266,9 +1267,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	update_icons()
 
-/mob/living/silicon/robot/ExtinguishMob() //returns normal light color when silicon has been extinguished
+/mob/living/silicon/robot/ExtinguishMob()
 	..()
-	set_light(l_color = "#FFFFFF")
+	set_light(l_color = default_lamp_color)
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
