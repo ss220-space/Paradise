@@ -170,18 +170,18 @@
 
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
 	. = ..()
-	toggle_mode()
+	toggle_mode(user)
 
-/obj/item/pinpointer/advpinpointer/verb/toggle_mode()
+/obj/item/pinpointer/advpinpointer/verb/toggle_mode(mob/user)
 	set category = "Object"
 	set name = "Toggle Pinpointer Mode"
 	set src in usr
 
-	if(usr.stat || usr.restrained())
+	if(user.stat || user.restrained())
 		return
 
 	if(modelocked)
-		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
+		to_chat(user, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
 	mode = MODE_OFF
@@ -193,18 +193,18 @@
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(usr, "Введите X координату для поиска.", "Локация?" , "") as num
-			if(!locationx || !(usr in view(1,src)))
+			var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as num
+			if(!locationx || !(user in view(1,src)))
 				return
-			var/locationy = input(usr, "Введите Y координату для поиска.", "Локация?" , "") as num
-			if(!locationy || !(usr in view(1,src)))
+			var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as num
+			if(!locationy || !(user in view(1,src)))
 				return
 
 			var/turf/Z = get_turf(src)
 
 			location = locate(locationx,locationy,Z.z)
 
-			to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [locationx],[locationy]</span>")
+			to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [locationx],[locationy]</span>")
 
 
 			return attack_self()
@@ -235,9 +235,9 @@
 							break
 
 					if(!target)
-						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
+						to_chat(user, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
-					to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [targetitem].</span>")
+					to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [targetitem].</span>")
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
 					if(!DNAstring)
@@ -504,14 +504,14 @@
 
 /obj/item/pinpointer/thief/AltClick(mob/user)
 	. = ..()
-	toggle_mode()
+	toggle_mode(user)
 
-/obj/item/pinpointer/thief/verb/toggle_mode()
+/obj/item/pinpointer/thief/verb/toggle_mode(mob/user)
 	set category = "Object"
 	set name = "Переключить Режим Пинпоинтера"
 	set src in usr
 
-	if(usr.stat || usr.restrained())
+	if(user.stat || user.restrained())
 		return
 
 	mode = MODE_OFF
@@ -523,16 +523,16 @@
 		if("Локация")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(usr, "Введите X координату для поиска.", "Локация?" , "") as num
-			if(!locationx || !(usr in view(1,src)))
+			var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as num
+			if(!locationx || !(user in view(1,src)))
 				return
-			var/locationy = input(usr, "Введите Y координату для поиска.", "Локация?" , "") as num
-			if(!locationy || !(usr in view(1,src)))
+			var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as num
+			if(!locationy || !(user in view(1,src)))
 				return
 			var/turf/Z = get_turf(src)
 			location = locate(locationx,locationy,Z.z)
 
-			to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [locationx],[locationy]</span>")
+			to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [locationx],[locationy]</span>")
 			return attack_self()
 
 		if("Сигнатура Объекта")
@@ -606,19 +606,19 @@
 					break
 
 			if(!target)
-				to_chat(usr, "<span class='warning'>Не удалось обнаружить [choosen_target]!</span>")
+				to_chat(user, "<span class='warning'>Не удалось обнаружить [choosen_target]!</span>")
 				return
-			to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [choosen_target].</span>")
+			to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [choosen_target].</span>")
 			return attack_self()
 
 		if("Цели")
 			setting = SETTING_OBJECT
-			if(length(usr.mind.objectives) && (usr.mind in SSticker.mode.thieves))
+			if(length(user.mind.objectives) && (user.mind in SSticker.mode.thieves))
 				var/list/targets_list = list()
 				var/list/target_names[0]
 				var/list/target_paths[0]
 
-				for(var/datum/objective/objective in usr.mind.objectives)
+				for(var/datum/objective/objective in user.mind.objectives)
 
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/temp_objective = objective
@@ -673,9 +673,9 @@
 						target = candidate
 						break
 
-				to_chat(usr, "<span class='notice'>Вы переключили пинпоинтер для обнаружения интересных целей для Гильдии Воров.</span>")
+				to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения интересных целей для Гильдии Воров.</span>")
 			else
-				to_chat(usr, "<span class='warning'>Не удалось обнаружить интересные цели для #REDACTED#! Если вы не член #REDACTED#, верните устройство владельцу или обратитесь по зашифрованному номеру на обратной стороне пинпоинтера.</span>")
+				to_chat(user, "<span class='warning'>Не удалось обнаружить интересные цели для #REDACTED#! Если вы не член #REDACTED#, верните устройство владельцу или обратитесь по зашифрованному номеру на обратной стороне пинпоинтера.</span>")
 
 			return attack_self()
 

@@ -1,7 +1,7 @@
 /datum/game_mode/thief/changeling
 	name = "thief+changeling"
 	config_tag = "thiefchan"
-	thieves_amount = 2 //hard limit on vampires if scaling is turned off
+	thieves_amount = 2 //hard limit if scaling is turned off
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
@@ -9,7 +9,7 @@
 	var/protected_species_changeling = list("Machine")
 
 /datum/game_mode/thief/changeling/announce()
-	to_chat(world, "<B>The current game mode is - Vampire+Thief!</B>")
+	to_chat(world, "<B>The current game mode is - Changeling+Thief!</B>")
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</B>")
 
 

@@ -39,9 +39,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 
 /datum/theft_objective/proc/check_completion(var/datum/mind/owner)
 	if(!owner.current)
-		return TRUE
+		return FALSE
 	if(!isliving(owner.current))
-		return TRUE
+		return FALSE
 	var/list/all_items = owner.current.get_contents()
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, typepath) && check_special_completion(I))
