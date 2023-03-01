@@ -9,6 +9,7 @@
 	var/is_improoved_by_potion = FALSE //used for xenobio potions
 	var/list/faction_restricted = null
 	var/teleportation = FALSE //used for xenobio potions
+	var/slime_potions
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.

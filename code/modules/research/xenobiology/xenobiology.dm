@@ -121,6 +121,15 @@
 
 /obj/item/slimepotion
 	name = "slime potion"
+	var/list/Potions = list(
+		/obj/item/slimepotion/damage, 
+		/obj/item/slimepotion/laserresistance, 
+		/obj/item/slimepotion/explosionresistencte, 
+		/obj/item/slimepotion/acidproof, 
+		/obj/item/slimepotion/bio,
+		/obj/item/slimepotion/radiation, 
+		/obj/item/slimepotion/teleportation)
+	var/id
 	desc = "A hard yet gelatinous capsule excreted by a slime, containing mysterious substances."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=4"
@@ -170,6 +179,7 @@
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
+	id = "Sentience"
 	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
@@ -332,6 +342,7 @@
 
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
+	id = "Transference"
 	desc = "A strange slime-based chemical that, when used, allows the user to transfer their consciousness to a lesser being."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
@@ -402,12 +413,14 @@
 
 /obj/item/slimepotion/enhancer
 	name = "extract enhancer"
+	id = "Enhancer"
 	desc = "A potent chemical mix that will give a slime extract an additional use."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 
 /obj/item/slimepotion/slime/stabilizer
 	name = "slime stabilizer"
+	id = "Stabilizer"
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
@@ -429,6 +442,7 @@
 
 /obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
+	id = "Mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
@@ -454,6 +468,7 @@
 
 /obj/item/slimepotion/speed
 	name = "slime speed potion"
+	id = "Speed"
 	desc = "A potent chemical mix that will remove the slowdown from any item."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
@@ -493,6 +508,7 @@
 
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
+	id = "Fire Resistance"
 	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
@@ -517,7 +533,7 @@
 		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
 		return ..()
 
-	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
+	C.slime_potions = id
 	C.name = "fireproofed [C.name]"
 	C.add_atom_colour("#000080", WASHABLE_COLOUR_PRIORITY)
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -536,7 +552,9 @@
 
 /obj/item/slimepotion/acidproof
 	name = "slime acidproof potion"
+	id = "Acid Proof"
 	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 25)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
@@ -551,19 +569,15 @@
 	if(C.resistance_flags & ACID_PROOF && istype(C.armor) && C.armor.acid == 100)
 		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "acidproofed [C.name]"
 	C.add_atom_colour("#022202", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.setRating(acid_value = current_armor.getRating("acid") + 25)
-	to_chat(user, "<span class='info'>You strengthen [C.name], improving its resistance against melee attacks.</span>")
-	if(istype(C.armor))
-		C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
-		C.armor.acid += 25
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
 	qdel(src)
 
@@ -575,6 +589,8 @@
 
 /obj/item/slimepotion/laserresistance
 	name = "That's a laser resistance slime potion."
+	id = "Laser Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle4"
@@ -591,15 +607,15 @@
 	if(istype(C.armor) && C.armor.laser == 100)
 		to_chat(user, "<span class='warning'>[C] is already laser proof!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "laserproof [C.name]"
 	C.add_atom_colour("#91723a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.setRating(laser_value = current_armor.getRating("laser") + 10)
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more laserproofing.</span>")
 	qdel(src)
 
@@ -611,6 +627,8 @@
 
 /obj/item/slimepotion/radiation
 	name = "That's a radiation resistance slime potion."
+	id = "Radiation Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 40, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle6"
@@ -627,15 +645,15 @@
 	if(istype(C.armor) && C.armor.rad == 100)
 		to_chat(user, "<span class='warning'>[C] is already Radiation proof!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "Radiationproof [C.name]"
 	C.add_atom_colour("#e6e205", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.setRating(rad_value = current_armor.getRating("rad") + 40)
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more Radiationproof.</span>")
 	qdel(src)
 
@@ -647,6 +665,8 @@
 
 /obj/item/slimepotion/bio
 	name = "That's a bio resistance slime potion."
+	id = "Bio Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 40, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle7"
@@ -663,15 +683,15 @@
 	if(istype(C.armor) && C.armor.bio == 100)
 		to_chat(user, "<span class='warning'>[C] is already bio proof!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "Bioproof [C.name]"
 	C.add_atom_colour("#068a06", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.setRating(bio_value = current_armor.getRating("bio") + 40)
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more bioproof.</span>")
 	qdel(src)
 
@@ -683,6 +703,8 @@
 
 /obj/item/slimepotion/explosionresistencte
 	name = "That's a explosion resistance slime potion."
+	id = "Explosion Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle9"
@@ -699,15 +721,15 @@
 	if(istype(C.armor) && C.armor.bomb == 100)
 		to_chat(user, "<span class='warning'>[C] is already explosion proof!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "Ressisted to explosions [C.name]"
 	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.setRating(bomb_value = current_armor.getRating("bomb") + 40)
+	C.armor = current_armor.attachArmor(armor)	
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosion proof.</span>")
 	qdel(src)
 
@@ -719,6 +741,7 @@
 
 /obj/item/slimepotion/teleportation
 	name = "That's a teleportation slime potion"
+	id = "Teleportation Resistance"
 	desc = "A potent chemical mix that provides a small chance to teleport when taking damage."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle5"
@@ -735,10 +758,10 @@
 	if(C.teleportation)
 		to_chat(user, "<span class='warning'>[C] is already with teleportation slime potion on it!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "Teleportational [C.name]"
 	C.add_atom_colour("#def1de", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
@@ -749,6 +772,8 @@
 
 /obj/item/slimepotion/damage
 	name = "Physical damage resistance slime potion"
+	id = "Damage Resistance"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase impact and gunshot resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle10"
@@ -764,15 +789,15 @@
 	if(istype(C.armor) && C.armor.melee == 100 && C.armor.bullet == 100)
 		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
 		return ..()
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
-		return ..()
+	if(!is_aldready_improved(C))
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion! You washed away previous potion and set new</span>")
 
+	C.slime_potions = id
 	C.name = "Damagepoof [C.name]"
 	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.setRating(bullet_value = current_armor.getRating("bullet") + 40, melee_value = current_armor.getRating("melee") + 40)
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], damageproofing it.</span>")
 	qdel(src)
 
@@ -912,3 +937,19 @@
 	icon_state = "sepia"
 	desc = "Time seems to flow very slowly around these tiles."
 	floor_tile = /obj/item/stack/tile/sepia
+
+/obj/item/slimepotion/proc/is_aldready_improved(obj/item/clothing/C)
+	if(C.slime_potions)
+		to_chat(world, C.slime_potions)
+		for(var/Potion in Potions)
+			to_chat(world, Potion)
+			to_chat(world, id)
+			to_chat(world, C.slime_potions)
+			C.slime_potions = null
+			C.name = initial(C.name)
+			var/datum/armor/current_armor = C.armor
+			C.armor = current_armor.detachArmor(armor)
+			return FALSE
+	else
+		return TRUE
+	return TRUE
