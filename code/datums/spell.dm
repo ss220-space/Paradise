@@ -453,8 +453,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		remove_ranged_ability(user, selection_deactivated_message)
 	else
 		if(cast_check(TRUE, FALSE, user))
-			if(auto_target_nearest && attempt_auto_target_nearest(user))
+			if(auto_target_nearest)
+				if(!attempt_auto_target_nearest(user))
+					to_chat(user, "<span class='warning'>No targets found!</span>")
 				return
+
 			if(auto_target_single && attempt_auto_target_single(user))
 				return
 
