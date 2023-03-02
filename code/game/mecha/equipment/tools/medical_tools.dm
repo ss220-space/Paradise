@@ -528,6 +528,32 @@
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
 
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	name = "Additional system for the reproduction of reagents"
+	desc = "temp desc"
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = 'beaker_upgrade'
+	origin_tech = "materials=5;engineering=5;"
+	energy_drain = 10
+	selectable = 0
+	var/improv_max_volume = 300
+	var/imrov_synth_speed = 20
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
+	..()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S)
+		S.max_volume = improv_max_volume
+		S.synth_speed = imrov_synth_speed
+		S.reagents.maximum_volume = improv_max_volume
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S)
+		S.max_volume = initial(S.max_volume)
+		S.synth_speed = initial(S.synth_speed)
+		S.reagents.maximum_volume = S.max_volume
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
@@ -574,3 +600,24 @@
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
+	name = "improved exosuit control system"
+	desc = "Gotta go fast!"
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "move_plating"
+	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
+	energy_drain = 20
+	selectable = 0
+	var/improv_step_in = 2
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach(obj/mecha/M)
+	..()
+	for(var/obj/mecha/medical/odysseus/O)
+		O.step_in = improv_step_in
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach()
+	for(var/obj/mecha/medical/odysseus/O)
+		O.step_in = initial(O.step_in)
+	STOP_PROCESSING(SSobj, src)
+	return ..()
