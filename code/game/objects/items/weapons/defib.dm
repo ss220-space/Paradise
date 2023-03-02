@@ -340,12 +340,12 @@
 	var/threshold = -HEALTH_THRESHOLD_DEAD
 	var/mob/living/carbon/human/H = M
 
-	var/combat
+	var/is_combat_borg = FALSE
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
-		combat = istype(R.module, /obj/item/robot_module/syndicate_medical) || istype(R.module, /obj/item/robot_module/ninja)
-	else
-		combat = defib.combat
+		is_combat_borg = istype(R.module, /obj/item/robot_module/syndicate_medical) || istype(R.module, /obj/item/robot_module/ninja)
+
+	var/ignores_hardsuits = defib?.combat || is_combat_borg
 
 	if(busy)
 		return
@@ -369,7 +369,7 @@
 		var/can_harm
 		if(isrobot(user))
 			var/mob/living/silicon/robot/R = user
-			can_harm = R.emagged
+			can_harm = R.emagged || is_combat_borg
 		else
 			can_harm = !defib.safety
 
@@ -381,7 +381,7 @@
 			H.Weaken(2)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			if(!H.undergoing_cardiac_arrest() && (prob(10) || combat)) // Your heart explodes.
+			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib?.combat)) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			H.shock_internal_organs(100)
 			add_attack_logs(user, M, "Stunned with [src]")
@@ -409,7 +409,7 @@
 			if(do_after(user, 20 * toolspeed * gettoolspeedmod(user), target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
-						if(!combat)
+						if(!ignores_hardsuits)
 							user.visible_message("<span class='notice'>[defib || src] buzzes: Patient's chest is obscured. Operation aborted.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
