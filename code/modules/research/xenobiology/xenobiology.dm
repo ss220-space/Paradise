@@ -931,28 +931,17 @@
 	floor_tile = /obj/item/stack/tile/sepia
 
 /obj/item/slimepotion/proc/is_aldready_improved(obj/item/clothing/C)
-	var/list/Potions = list(
-		/obj/item/slimepotion/damage,
-		/obj/item/slimepotion/laserresistance,
-		/obj/item/slimepotion/explosionresistencte,
-		/obj/item/slimepotion/acidproof,
-		/obj/item/slimepotion/bio,
-		/obj/item/slimepotion/radiation,
-		/obj/item/slimepotion/teleportation
-	)
 	if(C.slime_potions)
-		to_chat(world, C.slime_potions)
-		for(var/obj/item/slimepotion/Potion in Potions)
+		to_chat(world, "Прошёл")
+		for(var/Potion as obj in GLOB.slime_potions)
 			to_chat(world, "Начало фор")
-			world << Potion
-			if(istype(Potion, /obj/item/slimepotion))
-				var/obj/item/slimepotion/S = Potion
-				if(S.id == C.slime_potions)	
-					to_chat(world, "Прошёл проверку")
-					C.slime_potions = null
-					C.name = initial(C.name)
-					var/datum/armor/current_armor = C.armor
-					C.armor = current_armor.detachArmor(S.armor)
-					return FALSE
+			var/obj/item/slimepotion/S = Potion
+			if(S.id == C.slime_potions)	
+				to_chat(world, "Прошёл проверку")
+				C.slime_potions = null
+				C.name = initial(C.name)
+				var/datum/armor/current_armor = C.armor
+				C.armor = current_armor.detachArmor(S.armor)
+				return FALSE
 	else
 		return TRUE
