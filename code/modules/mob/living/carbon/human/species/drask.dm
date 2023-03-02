@@ -18,7 +18,7 @@
 	burn_mod = 1.5
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
-	toolspeedmod = 1.25 //20% slower
+	toolspeedmod = 1.2 //20% slower
 	punchdamagelow = 5
 	punchdamagehigh = 12
 	punchstunthreshold = 12
