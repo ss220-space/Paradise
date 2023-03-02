@@ -88,6 +88,7 @@
 			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
 			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
+			qdel(src)
 			return
 	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
 	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
