@@ -158,6 +158,14 @@
 					melee_attack_chain(user, V)
 		swiping = FALSE
 
+/obj/item/scythe/cyborg
+	icon_state = "tscythe1"
+	name = "safety scythe"
+	desc = "Plastic version of a regular scythe, designed to be used in janitor cyborgs."
+	force = 7
+	armour_penetration = 0
+	sharp = 0
+
 /obj/item/scythe/tele
 	icon_state = "tscythe0"
 	item_state = null	//no sprite for folded version, like a tele-baton
