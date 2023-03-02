@@ -133,6 +133,20 @@
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
+/obj/item/slimepotion/proc/is_aldready_improved(obj/item/clothing/C)
+	if(C.slime_potions)
+		for(var/Potion as obj in GLOB.slime_potions)
+			var/obj/item/slimepotion/S = Potion
+			if(S.id == C.slime_potions)	
+				C.slime_potions = null
+				C.name = initial(C.name)
+				var/datum/armor/current_armor = C.armor
+				C.armor = current_armor.detachArmor(S.armor)
+				C.teleportation = initial(C.teleportation)
+				return FALSE
+	else
+		return TRUE
+
 /obj/item/slimepotion/slime/docility
 	name = "docility potion"
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
@@ -929,17 +943,3 @@
 	icon_state = "sepia"
 	desc = "Time seems to flow very slowly around these tiles."
 	floor_tile = /obj/item/stack/tile/sepia
-
-/obj/item/slimepotion/proc/is_aldready_improved(obj/item/clothing/C)
-	if(C.slime_potions)
-		for(var/Potion as obj in GLOB.slime_potions)
-			var/obj/item/slimepotion/S = Potion
-			if(S.id == C.slime_potions)	
-				C.slime_potions = null
-				C.name = initial(C.name)
-				var/datum/armor/current_armor = C.armor
-				C.armor = current_armor.detachArmor(S.armor)
-				C.teleportation = initial(C.teleportation)
-				return FALSE
-	else
-		return TRUE
