@@ -148,7 +148,10 @@
 				if(isturf(Stuff))
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
-						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
+						var/turf/simulated/floor/O = T.ChangeTurf(NewTerrainFloors)
+						if(ispath(NewTerrainFloors, /turf/simulated/floor/plating))
+							O.icon_plating = "basalt"
+							O.icon_state = "basalt"
 						if(O.air)
 							var/datum/gas_mixture/G = O.air
 							G.copy_from(O.air)
@@ -156,7 +159,7 @@
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
-					if(iswallturf(T) && NewTerrainWalls)
+					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
 						T.ChangeTurf(NewTerrainWalls)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)

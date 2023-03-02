@@ -131,7 +131,7 @@
 	set_light(0)
 	return ..()
 
-/proc/set_basalt_light(turf/simulated/floor/B)
+/turf/simulated/floor/plating/asteroid/basalt/proc/set_basalt_light(turf/simulated/floor/B)
 	switch(B.icon_state)
 		if("basalt1", "basalt2", "basalt3")
 			B.set_light(2, 0.6, LIGHT_COLOR_LAVA) //more light

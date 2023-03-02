@@ -345,6 +345,28 @@
 /turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
+/turf/simulated/floor/snow/attackby(obj/item/C, mob/user, params)
+	if(..())
+		return TRUE
+	if(istype(C, /obj/item/shovel))
+		var/obj/item/shovel/S = C
+		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
+		playsound(get_turf(user), S.usesound, 50, TRUE)
+		if(do_after(user, 5 SECONDS * S.toolspeed * gettoolspeedmod(user), target = src) && istype(src, /turf/simulated/floor/snow))
+			user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
+			new /obj/item/snowball(src)
+			make_plating()
+			return
+
+
+/turf/simulated/floor/snow/attack_hand(mob/living/carbon/human/user)
+	if(!istype(user)) //Nonhumans don't have the balls to fight in the snow
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/obj/item/snowball/SB = new(get_turf(user))
+	user.put_in_hands(SB)
+	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
+
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
