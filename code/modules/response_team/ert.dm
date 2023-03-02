@@ -271,7 +271,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «АМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- RED TEAM --
 
