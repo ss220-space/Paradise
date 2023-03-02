@@ -909,7 +909,6 @@
 	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
 	floor_tile = /obj/item/stack/tile/bluespace
 
-
 /obj/item/stack/tile/sepia
 	name = "sepia floor tile"
 	singular_name = "floor tile"
