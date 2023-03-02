@@ -78,6 +78,8 @@
 /obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
 	if(!istype(user))
 		return
+	if(get_dist(get_turf(src), get_turf(user)) > 1)
+		return
 	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
@@ -92,6 +94,7 @@
 	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
 	user.ex_act(2)
+	qdel(src)
 	qdel(src)
 
 /obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)
