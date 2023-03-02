@@ -585,7 +585,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
-		return 1
+		return TRUE
 	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
 		return TRUE
 	if(!exclude_mobs)
