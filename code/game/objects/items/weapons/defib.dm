@@ -516,6 +516,12 @@
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 
+/obj/item/twohanded/shockpaddles/borg/check_defib_exists()
+	// No-op.
+
+/obj/item/twohanded/shockpaddles/borg/dropped()
+	// No-op.
+
 /obj/item/twohanded/shockpaddles/borg/spend_charge(mob/user)
 	var/mob/living/silicon/robot/R = user
 	R.cell.use(revivecost)
