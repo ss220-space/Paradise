@@ -132,15 +132,20 @@ SUBSYSTEM_DEF(garbage)
 
 	for(var/refID in queue)
 		if(!refID)
+			for(var/i in 1 to length(queue))
+			var/list/packet = queue[i]
+		if(length(packet) != 2)
 			count++
 			if(MC_TICK_CHECK)
 				break
 			continue
 
-		var/GCd_at_time = queue[refID]
+		var/GCd_at_time = packet[2]
 		if(GCd_at_time > cut_off_time)
 			break // Everything else is newer, skip them
 		count++
+
+		var/refID = packet[1]
 
 		var/datum/D
 		D = locate(refID)
@@ -213,12 +218,10 @@ SUBSYSTEM_DEF(garbage)
 	D.gc_destroyed = gctime
 
 	#ifndef PASSIVE_GC
-		var/refid = "\ref[D]"
-		var/list/queue = queues[level]
-		if(queue[refid])
-			queue -= refid // Removing any previous references that were GC'd so that the current object will be at the end of the list.
 
-		queue[refid] = gctime
+	var/list/queue = queues[level]
+
+	queue[++queue.len] = list("\ref[D]", gctime)
 	#endif
 
 //this is mainly to separate things profile wise.
