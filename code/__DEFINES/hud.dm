@@ -24,7 +24,7 @@
 #define PLANT_TOXIN_HUD		"19"// Toxin level
 #define PLANT_PEST_HUD		"20"// Pest level
 #define PLANT_WEED_HUD		"21"// Weed level
-#define DIAG_TRACK_HUD		"22"// Mech tracking beacon
+//#define DIAG_TRACK_HUD		"22"// Mech tracking beacon
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
 
@@ -58,7 +58,6 @@
 #define ANTAG_HUD_EVENTMISC 21
 #define ANTAG_HUD_BLOB 22
 #define TAIPAN_HUD 23
-#define ANTAG_HUD_THIEF 24
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
