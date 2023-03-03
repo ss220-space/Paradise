@@ -295,13 +295,13 @@
 							 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
 		H.set_species(/datum/species/shadow/ling)
 		H.adjustCloneLoss(-target.getCloneLoss())
-		H.equip_to_slot(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
-		H.equip_to_slot(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
-		H.equip_to_slot(new /obj/item/clothing/suit/space/shadowling(H), slot_wear_suit)
-		H.equip_to_slot(new /obj/item/clothing/head/shadowling(H), slot_head)
-		H.equip_to_slot(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
-		H.equip_to_slot(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
-		H.equip_to_slot(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(H), slot_wear_suit)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
+		H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
+		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
 
 /obj/effect/proc_holder/spell/targeted/collective_mind //Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount
 	name = "Collective Hivemind"
@@ -686,7 +686,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/more_minutes = 6000
 		var/timer = SSshuttle.emergency.timeLeft(1) + more_minutes
-		GLOB.event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.spell_list.Remove(src) //Can only be used once!

@@ -33,7 +33,7 @@
 	allow_species_pick = TRUE
 	allow_gender_pick = TRUE
 	allow_name_pick = TRUE
-	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn")
+	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn", "Nian")
 	faction = list("syndicate")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
@@ -75,7 +75,7 @@
 
 		switch(race)
 			if("Vox", "Vox Armalis")
-				H.equip_to_slot(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
 				H.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(H), slot_l_hand)
 				H.internal = H.l_hand
 
@@ -85,12 +85,12 @@
 				var/I = H.get_item_by_slot(slot_wear_id)
 				qdel(H.get_item_by_slot(slot_w_uniform))
 				qdel(H.get_item_by_slot(slot_head))
-				H.equip_to_slot(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
 				H.equip_to_slot(new /obj/item/tank/internals/plasmaman/belt/full(H), slot_l_hand)
 				H.equip_to_slot(I, slot_wear_id) // По непонятной мне причине другие методы считают что персонаж не может надеть предметы. Поэтому надеваем насильно!
 				H.equip_to_slot(R, slot_r_store)
 				H.equip_to_slot(L, slot_l_store)
-				H.equip_to_slot(new /obj/item/clothing/under/plasmaman(H), slot_w_uniform)
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/plasmaman(H), slot_w_uniform)
 				H.equip_to_slot(new /obj/item/clothing/head/helmet/space/plasmaman(H), slot_head)
 				H.internal = H.l_hand
 

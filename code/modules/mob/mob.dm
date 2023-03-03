@@ -179,7 +179,7 @@
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		equip_to_slot_if_possible(W, slot)
+		advanced_equip_to_slot_if_possible(W, slot)
 	else if(!restrained())
 		W = get_item_by_slot(slot)
 		if(W)
@@ -197,6 +197,8 @@
 	return 0
 
 
+/mob/proc/advanced_equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
+	return equip_to_slot_if_possible(W, slot, del_on_fail, disable_warning)
 
 //This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
@@ -269,14 +271,19 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 //puts the item "W" into an appropriate slot in a human's inventory
 //returns 0 if it cannot, 1 if successful
-/mob/proc/equip_to_appropriate_slot(obj/item/W)
+/mob/proc/equip_to_appropriate_slot(obj/item/W, var/ignore_obscured = TRUE)
 	if(!istype(W)) return 0
 
 	for(var/slot in GLOB.slot_equipment_priority)
 		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
-		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
-			return 1
+		if(ignore_obscured)
+			if(equip_to_slot_if_possible(W, slot, del_on_fail = FALSE, disable_warning = TRUE))
+				return 1
+		else
+			if(advanced_equip_to_slot_if_possible(W, slot, del_on_fail = FALSE, disable_warning = TRUE))
+				return 1
+
 
 	return 0
 
@@ -1194,7 +1201,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(length(found_vents))
 		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
-		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
+		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
 		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
 			host.faction += "syndicate"
