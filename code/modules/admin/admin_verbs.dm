@@ -817,12 +817,24 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if("High RP")
 			var/obj/item/organ/internal/brain/high_rp/hrp_brain = H.get_int_organ(/obj/item/organ/internal/brain/high_rp)
 			if(!hrp_brain)
-				H.curse_high_rp()
+				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
+				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
+				var/effect_strength = input("What effect strength do you want?(delay - damage)", "") as null|anything in effect_variants
+				var/pdelay
+				var/oxy_dmg
+				if(effect_strength == "custom")
+					pdelay = input("Input pump delay.") as num|null
+					oxy_dmg = input("Input oxy damage.") as num|null
+				else
+					var/list/strenght = text2numlist(effect_strength, " - ")
+					pdelay = strenght[1]
+					oxy_dmg = strenght[2]
+				H.curse_high_rp(pdelay*10, oxy_dmg)
 				H.mind.curses += "high_rp"
-				logmsg = "high rp"
+				logmsg = "high rp([pdelay] - [oxy_dmg])"
 			else
-				var/obj/item/organ/internal/brain/newbrain = hrp_brain.old_brain
-				newbrain.insert(H)
+				var/obj/item/organ/internal/brain/original_brain = hrp_brain.old_brain
+				original_brain.insert(H)
 				H.mind.curses -= "high_rp"
 				logmsg = "high rp cure"
 
