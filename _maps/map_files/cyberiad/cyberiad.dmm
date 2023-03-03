@@ -20341,7 +20341,6 @@
 	icon_state = "0-2"
 	},
 /obj/effect/landmark/JoinLateGateway,
-,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -25563,7 +25562,6 @@
 	dir = 10
 	},
 /obj/effect/landmark/JoinLateGateway,
-,
 /obj/machinery/camera{
 	c_tag = "Gateway";
 	dir = 4
@@ -25581,7 +25579,6 @@
 	dir = 6
 	},
 /obj/effect/landmark/JoinLateGateway,
-,
 /obj/machinery/light{
 	dir = 4
 	},
