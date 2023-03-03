@@ -1155,3 +1155,21 @@
 	reqs = list(/obj/item/stack/sheet/cardboard = 5,
 				/obj/item/toy/crayon/spraycan = 1)
 	category = CAT_MISC
+
+/datum/crafting_recipe/stacklifter
+	name = "The weight stacklifter"
+	result = /obj/structure/weightmachine/stacklifter
+	time = 60
+	reqs = list(/obj/item/stack/sheet/mineral/titanium = 15,
+				/obj/item/stack/sheet/metal = 20)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	category = CAT_MISC
+
+/datum/crafting_recipe/weightlifter
+	name = "The weightlifter"
+	result = /obj/structure/weightmachine/weightlifter
+	time = 60
+	reqs = list(/obj/item/stack/sheet/mineral/titanium = 20,
+				/obj/item/stack/sheet/metal = 15)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	category = CAT_MISC
