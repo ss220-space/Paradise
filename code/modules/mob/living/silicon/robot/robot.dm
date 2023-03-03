@@ -98,7 +98,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
-	var/default_lamp_color = "#FFFFFF"
+	var/default_lamp_color = "#FFFFFF" //White color of the default lamp light
+	var/fire_light_modificator = 3 //Determines how bright fire emits light when on cyborg.
 
 	var/updating = 0 //portable camera camerachunk update
 
@@ -1260,7 +1261,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!on_fire)
 			set_light(light_range + lamp_intensity)
 		else
-			set_light(light_range + lamp_intensity + 3) // +3 derives from living_defense IgniteMob method (keeping fire light on borg)
+			set_light(light_range + lamp_intensity + fire_light_modificator)
 
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"
