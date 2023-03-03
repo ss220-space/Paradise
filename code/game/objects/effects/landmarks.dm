@@ -115,11 +115,6 @@
 /obj/effect/landmark/singularity_pull()
 	return
 
-/obj/effect/landmark/Destroy()
-	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
-
 /obj/effect/landmark/proc/set_tag()
 	tag = text("landmark*[]", name)
 
@@ -133,7 +128,7 @@
 
 /obj/effect/landmark/JoinLateCyborg
 	name = "JoinLateCyborg"
-	icon_state = "Borg"
+	icon_state = "LateBorg"
 
 /obj/effect/landmark/JoinLate
 	name = "JoinLate"
@@ -290,7 +285,7 @@
 //Прописано исключительно для включения в рендеры
 //В порядке списка проффессий в лобби
 
-/obj/effect/landmark/start/assistant
+/obj/effect/landmark/start/civilian
 	name = "Civilian"
 	icon_state = "Assistant"
 
@@ -314,7 +309,7 @@
 	name = "Mechanic"
 	icon_state = "Mechanic"
 
-/obj/effect/landmark/start/chief_medical_officer
+/obj/effect/landmark/start/cmo
 	name = "Chief Medical Officer"
 	icon_state = "CMO"
 

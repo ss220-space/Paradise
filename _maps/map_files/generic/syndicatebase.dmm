@@ -236,8 +236,6 @@
 "atQ" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/item/stack/tape_roll,
@@ -827,8 +825,6 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aNK" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1448,8 +1444,6 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "bfb" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1606,11 +1600,7 @@
 	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bmH" = (
@@ -1647,8 +1637,6 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "boY" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/machinery/light/small,
@@ -5010,8 +4998,6 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "eAf" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6139,8 +6125,6 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -6377,11 +6361,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /obj/random/tool{
 	color = "#c08081";
 	icon = 'icons/mob/screen_gen.dmi';
@@ -6901,11 +6881,7 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /obj/random/tool{
 	color = "#c08081";
 	icon = 'icons/mob/screen_gen.dmi';
@@ -6942,8 +6918,6 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gjz" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /turf/simulated/floor/plating,
@@ -7007,8 +6981,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "gpB" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -7820,8 +7792,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gTT" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -7907,11 +7877,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10475,11 +10441,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/random/toolbox,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jkz" = (
@@ -12563,11 +12525,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
@@ -15572,8 +15530,6 @@
 /area/syndicate/unpowered/syndicate_space_base/main/west)
 "nuA" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /obj/machinery/light/small{
@@ -17304,8 +17260,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /obj/item/storage/box/syndie_kit/hardsuit,
@@ -17665,11 +17619,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "oTI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oTR" = (
@@ -18238,11 +18188,7 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "ppf" = (
@@ -19101,8 +19047,6 @@
 	icon_state = "brokengrille"
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -19391,8 +19335,6 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qdn" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/structure/grille{
@@ -20569,8 +20511,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "qQp" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/item/storage/box/syndie_kit/throwing_weapons,
@@ -22293,11 +22233,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/storage/wallet/random,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "smz" = (
@@ -22688,11 +22624,7 @@
 "sJO" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22711,11 +22643,7 @@
 "sLk" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "sLL" = (
@@ -23333,8 +23261,6 @@
 "tgX" = (
 /obj/effect/decal/cleanable/blood/innards,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /turf/simulated/floor/plating,
@@ -23638,8 +23564,6 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "tuD" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /turf/simulated/floor/plating,
@@ -24955,8 +24879,6 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uii" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -25012,8 +24934,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "ujw" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
 	spawn_inside = /obj/structure/closet/crate
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -25026,11 +24946,7 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ujO" = (
@@ -25063,11 +24979,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ulz" = (
@@ -25140,11 +25052,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "umD" = (

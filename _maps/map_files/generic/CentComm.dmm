@@ -2380,8 +2380,6 @@
 	pixel_y = -2
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -8965,8 +8963,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -11079,10 +11075,8 @@
 /area/syndicate_mothership/cargo)
 "fPx" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11130,10 +11124,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate/syndicate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -12680,10 +12672,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate/syndicate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -15761,8 +15751,6 @@
 "iBM" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -15898,10 +15886,8 @@
 /area/ninja/outside)
 "iEH" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate/syndicate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -16315,8 +16301,6 @@
 "iRN" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /obj/structure/fans/tiny/invisible,
@@ -18470,8 +18454,6 @@
 	pixel_y = 8
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -18832,8 +18814,6 @@
 "kjX" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -19174,10 +19154,8 @@
 /area/abductor_ship)
 "ktr" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -20797,8 +20775,6 @@
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -23331,10 +23307,8 @@
 /area/wizard_station)
 "mtc" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -26795,10 +26769,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -28271,8 +28243,6 @@
 	pixel_y = -2
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -32841,10 +32811,8 @@
 /area/syndicate_mothership/jail)
 "qHi" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37522,10 +37490,8 @@
 	},
 /area/centcom/jail)
 "sUD" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -37681,8 +37647,6 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -42244,8 +42208,6 @@
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	color = "#755d9a";
-	icon_state = "x_white";
 	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
@@ -44695,10 +44657,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot/level3{
-	color = "#00856f";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -46445,10 +46405,8 @@
 /area/shuttle/vox)
 "xhG" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot/level4{
-	color = "#f64a46";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate/syndicate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48209,10 +48167,8 @@
 /area/syndicate_mothership/jail)
 "ybk" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	color = "#08457e";
-	icon_state = "x_white";
-	spawn_inside = /obj/structure/closet/crate
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
