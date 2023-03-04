@@ -161,13 +161,10 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
                     O = new /datum/objective/heist/kidnap()
                 prob(50)
                     O = new /datum/objective/heist/loot()
-        O.choose_target()
+		O = new /datum/objective/heist/inviolate_crew
+		O = new /datum/objective/heist/inviolate_death
+        O.choose_target() 	//-All- vox raids have these two objectives. Failing them loses the game.
         objs += O
-
-	//-All- vox raids have these two objectives. Failing them loses the game.
-	new /datum/objective/heist/inviolate_crew
-	new /datum/objective/heist/inviolate_death
-	objs += O
 
 	return objs
 
