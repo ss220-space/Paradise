@@ -148,10 +148,7 @@
 				if(isturf(Stuff))
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
-						var/turf/simulated/floor/O = T.ChangeTurf(NewTerrainFloors)
-						if(ispath(NewTerrainFloors, /turf/simulated/floor/plating))
-							O.icon_plating = "basalt"
-							O.icon_state = "basalt"
+						var/turf/simulated/floor/O = T.ChangeTurf(NewTerrainFloors, keep_icon = FALSE)
 						if(O.air)
 							var/datum/gas_mixture/G = O.air
 							G.copy_from(O.air)
