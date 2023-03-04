@@ -5,6 +5,7 @@
 	var/oxy_loss = 45
 	var/pump_window = 10
 	var/warned = 0
+	unremovable = TRUE
 
 /obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = 0, high_rp = 1)
 	..(target, special = special)
