@@ -532,7 +532,7 @@
 	name = "Additional system for the reproduction of reagents"
 	desc = "temp desc"
 	icon = 'icons/mecha/mecha_equipment.dmi'
-	icon_state = 'beaker_upgrade'
+	icon_state = "beaker_upgrade"
 	origin_tech = "materials=5;engineering=5;"
 	energy_drain = 10
 	selectable = 0
@@ -541,13 +541,13 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
 	..()
-	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S)
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
 		S.max_volume = improv_max_volume
 		S.synth_speed = imrov_synth_speed
 		S.reagents.maximum_volume = improv_max_volume
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach()
-	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S)
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
 		S.max_volume = initial(S.max_volume)
 		S.synth_speed = initial(S.synth_speed)
 		S.reagents.maximum_volume = S.max_volume
