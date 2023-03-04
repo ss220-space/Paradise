@@ -15,6 +15,7 @@
 /mob/living/carbon/human/proc/curse_high_rp(delay = 300, oxyloss = 45)
 	var/mob/living/carbon/human/H = src
 	var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = new
+	hrp_tumor.last_pump = world.time
 	hrp_tumor.pump_delay = delay
 	hrp_tumor.oxy_loss = oxyloss
 	hrp_tumor.pump_window = delay/5
