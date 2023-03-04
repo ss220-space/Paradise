@@ -8886,16 +8886,6 @@
 	icon_state = "purple"
 	},
 /area/janitor)
-"bgm" = (
-/obj/item/radio/intercom{
-	dir = 0;
-	pixel_x = 29
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
-	},
-/area/hydroponics)
 "bgn" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/legcuffs/beartrap,
@@ -31977,6 +31967,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 30;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
@@ -170467,7 +170461,7 @@ baB
 bca
 gWH
 cXI
-bgm
+oCC
 iUP
 baF
 bWL
@@ -170722,9 +170716,9 @@ aYZ
 aYZ
 aYZ
 aYZ
-cgs
-ccC
 baF
+ccC
+cgs
 ctT
 baF
 baF
