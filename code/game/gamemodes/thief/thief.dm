@@ -19,12 +19,13 @@
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров. Не допустите кражу дорогостоящего оборудования!</B>")
 
 /datum/game_mode/thief/pre_setup()
+
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
-	var/thieves_scale = 15
 
+	var/thieves_scale = 15
 	if(config.traitor_scaling)
 		thieves_scale = config.traitor_scaling
 	thieves_amount = 1 + round(num_players() / thieves_scale)
@@ -34,11 +35,11 @@
 		for(var/i = 0, i < thieves_amount, i++)
 			if(!possible_thieves.len) break
 			var/datum/mind/M = pick(possible_thieves)
-			thieves += M
-			M.special_role = SPECIAL_ROLE_THIEF
 			possible_thieves -= M
+			thieves += M
 			M.restricted_roles = restricted_jobs
 			modePlayer += thieves
+			M.special_role = SPECIAL_ROLE_THIEF
 		..()
 		return 1
 	else
@@ -152,19 +153,19 @@
 				var/count = 1
 				for(var/datum/objective/objective in thief.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font>"
+						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font><br>"
 						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font>"
+						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font><br>"
 						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "FAIL"))
 						thiefwin = 0
 					count++
 
 			if(thiefwin)
-				text += "<br><font color='green'><B>Вор преуспел!</B></font>"
+				text += "<br><font color='green'><B>Вор преуспел!</B></font><br>"
 				SSblackbox.record_feedback("tally", "thief_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>Вор провалился.</B></font>"
+				text += "<br><font color='red'><B>Вор провалился.</B></font><br>"
 				SSblackbox.record_feedback("tally", "thief_success", 1, "FAIL")
 
 		to_chat(world, text)
