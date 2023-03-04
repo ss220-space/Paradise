@@ -167,6 +167,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//-All- vox raids have these two objectives. Failing them loses the game.
 	new /datum/objective/heist/inviolate_crew
 	new /datum/objective/heist/inviolate_death
+	objs += O
 
 	return objs
 
