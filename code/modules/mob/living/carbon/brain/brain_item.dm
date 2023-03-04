@@ -94,6 +94,11 @@
 				target.key = brainmob.key
 	else
 		log_debug("Multibrain shenanigans at ([target.x],[target.y],[target.z]), mob '[target]'")
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.special_post_clone_handling()
+
 	..(target, special = special)
 
 /obj/item/organ/internal/brain/receive_damage(amount, silent = 0) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.

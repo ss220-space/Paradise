@@ -815,8 +815,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			goblin.GiveTarget(M)
 			logmsg = "shitcurity goblin"
 		if("High RP")
-			var/obj/item/organ/internal/brain/high_rp/hrp_brain = H.get_int_organ(/obj/item/organ/internal/brain/high_rp)
-			if(!hrp_brain)
+			var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = H.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
+			if(!hrp_tumor)
 				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
 				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
 				var/effect_strength = input("What effect strength do you want?(delay - damage)", "") as null|anything in effect_variants
@@ -833,8 +833,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				H.mind.curses += "high_rp"
 				logmsg = "high rp([pdelay] - [oxy_dmg])"
 			else
-				var/obj/item/organ/internal/brain/original_brain = hrp_brain.old_brain
-				original_brain.insert(H)
+				hrp_tumor.remove(H)
+				qdel(hrp_tumor)
 				H.mind.curses -= "high_rp"
 				logmsg = "high rp cure"
 
