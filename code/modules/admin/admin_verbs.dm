@@ -819,7 +819,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(!hrp_tumor)
 				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
 				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
-				var/effect_strength = input("What effect strength do you want?(delay - damage)", "") as null|anything in effect_variants
+				var/effect_strength = input("What effect strength do you want?(delay in seconds -  oxy damage)", "") as null|anything in effect_variants
 				var/pdelay
 				var/oxy_dmg
 				if(effect_strength == "custom")
@@ -836,7 +836,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				hrp_tumor.remove(H)
 				qdel(hrp_tumor)
 				H.mind.curses -= "high_rp"
-				logmsg = "high rp cure"
+				logmsg = "high rp(cure)"
 
 	if(logmsg)
 		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")

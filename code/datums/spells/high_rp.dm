@@ -33,15 +33,6 @@
 	button_icon_state = "lungs"
 	check_flags = null
 
-/datum/action/item_action/organ_action/manual_breath/IsMayActive()
-	. = ..()
-	if(. && istype(target, /obj/item/organ/internal/high_rp_tumor))
-		var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target
-		if(world.time < (hrp_tumor.last_pump + (hrp_tumor.pump_delay - hrp_tumor.pump_window)))
-			return FALSE
-		return TRUE
-	return FALSE
-
 /datum/action/item_action/organ_action/manual_breath/Trigger()
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/high_rp_tumor))
