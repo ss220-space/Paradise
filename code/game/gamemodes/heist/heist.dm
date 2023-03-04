@@ -149,29 +149,25 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	return 0
 
 /datum/game_mode/proc/forge_vox_objectives()
-	var/i = 1
-	var/max_objectives = pick(2,2,2,2,3,3,3,4)
+	var/max_objectives = pick(5,6)
 	var/list/objs = list()
-	var/list/goals = list("kidnap","loot","salvage")
-	while(i<= max_objectives)
-		var/goal = pick(goals)
+	for(var/i in 1 to max_objectives+2)
 		var/datum/objective/heist/O
-
-		if(goal == "kidnap")
-			goals -= "kidnap"
-			O = new /datum/objective/heist/kidnap()
-		else if(goal == "loot")
-			O = new /datum/objective/heist/loot()
-		else
-			O = new /datum/objective/heist/salvage()
+		switch(i)
+			if(1 to 3)
+				O = new /datum/objective/heist/salvage()
+			if(4 to max_objectives)
+				if(prob(50))
+					O = new /datum/objective/heist/loot()
+				if(prob(50))
+					O = new /datum/objective/heist/kidnap()
+			if(max_objectives to max_objectives+2)	//-All- vox raids have these two objectives. Failing them loses the game.
+				O = new /datum/objective/heist/inviolate_crew
+				O = new /datum/objective/heist/inviolate_death
 		O.choose_target()
 		objs += O
 
 		i++
-
-	//-All- vox raids have these two objectives. Failing them loses the game.
-	objs += new /datum/objective/heist/inviolate_crew
-	objs += new /datum/objective/heist/inviolate_death
 
 	return objs
 
