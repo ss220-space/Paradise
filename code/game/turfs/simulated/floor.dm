@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	update_icon()
 
 /turf/simulated/floor/proc/make_plating()
+	if(underturf)
+		return ChangeTurf(underturf)
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)

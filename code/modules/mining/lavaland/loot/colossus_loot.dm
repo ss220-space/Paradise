@@ -148,7 +148,9 @@
 				if(isturf(Stuff))
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
+						var/old_floor = (T.underturf) ? T.underturf : T.type
 						var/turf/simulated/floor/O = T.ChangeTurf(NewTerrainFloors, keep_icon = FALSE)
+						O.underturf = old_floor
 						if(O.air)
 							var/datum/gas_mixture/G = O.air
 							G.copy_from(O.air)
