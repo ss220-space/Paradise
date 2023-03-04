@@ -78,13 +78,17 @@
 /obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
 	if(!istype(user))
 		return
+	if(get_dist(get_turf(src), get_turf(user)) > 1)
+		return
 	to_chat(user, "<span class='danger'> Это ловушка! [src] был заминирован!</span>")
+  
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")
 			to_chat(user, "<span class='danger'>Из-за связи с вашим Подрывником вы знали о бомбе и деактивировали её.</span>")
 			stored_obj.forceMove(get_turf(loc))
+			qdel(src)
 			qdel(src)
 			return
 	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
@@ -95,6 +99,7 @@
 	user.ex_act(3)
 	user.ex_act(3) //Потому что я могу сделать это 2 раза, вместо прописи отдельного прока для 60 урона.
 	user.Weaken(3)
+	qdel(src)
 	qdel(src)
 
 /obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)

@@ -1179,7 +1179,7 @@
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
-					/obj/item/clothing/suit/storage/suragi_jacket/medsec = 2, /obj/item/clothing/suit/storage/brigdoc = 2, /obj/item/clothing/under/rank/security/brigphys = 2)
+					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1455,6 +1455,7 @@
 					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/food/condiment/saltshaker =5,
 					/obj/item/reagent_containers/food/condiment/peppermill =5,
+					/obj/item/reagent_containers/food/condiment/herbs = 2,
 					/obj/item/whetstone = 2, /obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
@@ -1736,11 +1737,13 @@
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
+					/obj/item/pet_carrier/normal = 3, /obj/item/pet_carrier = 5,
 					)
 	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
 					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/fish_eggs/feederfish = 5,
 					/obj/item/fish_eggs/salmon = 10, /obj/item/fish_eggs/catfish = 10, /obj/item/fish_eggs/glofish = 10,
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
+					/obj/item/pet_carrier/normal = 250, /obj/item/pet_carrier = 100,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
 	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
@@ -1812,6 +1815,8 @@
 
 		/obj/item/clothing/accessory/scarf/black 	= 10,
 		/obj/item/clothing/accessory/scarf/red 		= 10,
+		/obj/item/clothing/neck/poncho/security     = 10,
+		/obj/item/clothing/neck/cloak/security      = 10,
 		/obj/item/clothing/accessory/armband/sec 	= 10,
 
 		/obj/item/storage/backpack/security 		= 5,
@@ -1824,7 +1829,10 @@
 		/obj/item/clothing/under/pants/red 			= 10,
 		/obj/item/clothing/under/pants/track 		= 5,
 
+		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
+		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
+		/obj/item/clothing/suit/storage/brigdoc = 3
 		)
 
 
@@ -1976,6 +1984,7 @@
 	req_access_txt = "47"
 	products = list(
 		/obj/item/clothing/head/beret/purple_normal = 10,
+		/obj/item/clothing/head/beret/purple = 10,
 
 		/obj/item/clothing/under/rank/scientist = 10,
 		/obj/item/clothing/under/rank/scientist/skirt = 10,
