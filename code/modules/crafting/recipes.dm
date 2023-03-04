@@ -1159,17 +1159,21 @@
 /datum/crafting_recipe/stacklifter
 	name = "The weight stacklifter"
 	result = /obj/structure/weightmachine/stacklifter
-	time = 60
-	reqs = list(/obj/item/stack/sheet/mineral/titanium = 15,
-				/obj/item/stack/sheet/metal = 20)
-	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+	reqs = list(/obj/item/restraints/handcuffs/cable  = 4,
+				/obj/item/stack/sheet/metal = 30,
+				/obj/item/stack/sheet/plasteel = 10,
+				/obj/item/stack/rods = 15)
+	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
 	category = CAT_MISC
 
 /datum/crafting_recipe/weightlifter
 	name = "The weightlifter"
 	result = /obj/structure/weightmachine/weightlifter
-	time = 60
-	reqs = list(/obj/item/stack/sheet/mineral/titanium = 20,
-				/obj/item/stack/sheet/metal = 15)
+	time = 100
+	reqs = list(/obj/item/stack/sheet/plasteel = 10,
+				/obj/item/stack/sheet/metal = 35,
+				/obj/item/stack/rods = 20,
+				/obj/item/stack/sheet/mineral/silver = 5)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	category = CAT_MISC
