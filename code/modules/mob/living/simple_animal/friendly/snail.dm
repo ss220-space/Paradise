@@ -3,7 +3,8 @@
 	desc = "Маленькая космо-улиточка со своим космо-домиком. Прочная, тихая и медленная."
 	icon_state = "snail"
 	icon_living = "snail"
-	icon_dead = "snail-dead"
+	icon_dead = "snail_dead"
+	speak = list("Uhh.", "Hurrr.")
 	tts_seed = "Ladyvashj"
 	health = 100
 	maxHealth = 100
@@ -45,13 +46,14 @@
 		reagents.remove_any(10)
 
 /mob/living/simple_animal/turtle
-	name = "yeeslow"
+	name = "черепаха"
 	desc = "Большая космочерепаха. Прочная, тихая и медленная. Но почему она склизкая?"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "yeeslow"
 	icon_living = "yeeslow"
-	icon_dead = "yeeslow-dead"
+	icon_dead = "yeeslow_dead"
 	icon_resting = "yeeslow_scared"
+	speak = list("Uhh.", "Hurrr.")
 	tts_seed = "Ladyvashj"
 	health = 500
 	maxHealth = 500
