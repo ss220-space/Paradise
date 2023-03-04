@@ -498,14 +498,21 @@
 
 /obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R)
 	if(..())
+		var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
 		var/obj/item/reagent_containers/borghypo/basic/H2 = locate() in R.module.modules
+		var/obj/item/reagent_containers/borghypo/emagged/H3 = locate() in R.module.modules
+		var/obj/item/reagent_containers/borghypo/upgraded/H4 = locate() in R.module.modules
 		if(H2)
 			qdel(H2)
 			R.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(R.module)
 			R.module.rebuild()
 			return TRUE
 
-		var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
+		if((H3) && (H4))
+			to_chat(usr, "<span class='notice'>Hypospray overcharges when you try to connect upgrade module to it!</span>")
+			do_sparks(5, TRUE, R)
+			return FALSE
+
 		if(H)
 			qdel(H)
 			R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)

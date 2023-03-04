@@ -1,5 +1,3 @@
-#define BORGHYPO_REFILL_VALUE 5
-
 /obj/item/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
 	desc = "An advanced chemical synthesizer and injection system, designed for heavy-duty medical equipment."
@@ -12,6 +10,7 @@
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
+	var/borghypo_refill_value = 5
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
@@ -38,6 +37,17 @@
 		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = 1
+
+/obj/item/reagent_containers/borghypo/emagged
+	name = "reserve cyborg hypospray"
+	desc = "An experimental hypospray version filled with extremely sedative chemical. Was hidden behind of a safety system due to several accidents in 2559."
+	icon_state = "borghypo_s"
+	amount_per_transfer_from_this = 10
+	volume = 20
+	charge_cost = 100
+	borghypo_refill_value = 10
+	recharge_time = 35
+	reagent_ids = list("ketamine" = list('icons/mob/screen_alert.dmi', "asleep"))
 
 /obj/item/reagent_containers/borghypo/upgraded
 	name = "upgraded cyborg hypospray"
@@ -105,7 +115,7 @@
 
 /obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
-		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
+		RG.add_reagent(reagent_id, borghypo_refill_value)
 		R.cell.use(charge_cost)
 		return TRUE
 	return FALSE
@@ -144,6 +154,7 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
+	amount_per_transfer_from_this  = (reagent_ids[mode] == "ketamine") ? 10 : 5
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
@@ -176,5 +187,3 @@
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
-
-#undef BORGHYPO_REFILL_VALUE

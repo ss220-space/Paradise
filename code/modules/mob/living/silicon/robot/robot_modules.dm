@@ -268,19 +268,10 @@
 	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/rlf(src)
 
-	emag = new /obj/item/reagent_containers/spray(src)
-
-	emag.reagents.add_reagent("facid", 250)
-	emag.name = "Polyacid spray"
+	emag = new /obj/item/reagent_containers/borghypo/emagged(src)
 
 	fix_modules()
 	handle_storages()
-
-/obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
-	if(emag)
-		var/obj/item/reagent_containers/spray/PS = emag
-		PS.reagents.add_reagent("facid", 2)
-	..()
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
