@@ -313,10 +313,10 @@
 // Loot drop from mob's
 
 /mob/living/simple_animal/hostile/syndicate
-/var/obj/synmobdrop //Обычный лут, дропается со всех
-/var/obj/SynSpace //Выпадение бладрига
-/var/obj/SynMelee //Лут с милишников
-/var/obj/SynRange //Лут с дальников
+	var/synmobdrop //Обычный лут, дропается со всех
+	var/SynSpace //Выпадение бладрига
+	var/SynMelee //Лут с милишников
+	var/SynRange //Лут с дальников
 
 /mob/living/simple_animal/hostile/syndicate/Initialize()
 	var/rollforloot = rand(1,50) //Лучшего варианта я не нашел

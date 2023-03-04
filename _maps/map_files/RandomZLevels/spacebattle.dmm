@@ -1395,7 +1395,6 @@
 /area/awaymission/spacebattle/syndicate4)
 "eq" = (
 /turf/space,
-/turf/space,
 /area/space)
 "er" = (
 /obj/machinery/door/airlock/highsecurity/red{
@@ -2241,7 +2240,6 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/turf/space,
 /turf/space,
 /area/awaymission/spacebattle/syndicate4)
 "gB" = (
@@ -4917,16 +4915,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway5)
-"of" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/turf/simulated/floor/engine/plasma,
-/turf/simulated/floor/engine,
-/area/awaymission/spacebattle/syndicate4)
 "og" = (
 /obj/machinery/light_construct{
 	dir = 1
@@ -6946,7 +6934,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/turret5)
+/area/awaymission/spacebattle/hallway8)
 "tX" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -8012,7 +8000,7 @@
 	id_tag = "RightTurret"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret6)
+/area/awaymission/spacebattle/hallway7)
 "wS" = (
 /obj/structure/closet/cardboard{
 	icon_closed = "cardboard_syndicate";
@@ -8895,9 +8883,7 @@
 /area/awaymission/spacebattle/hallway11)
 "zd" = (
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/turret5{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/hallway8)
 "ze" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -9487,7 +9473,7 @@
 	underlay_floor_icon = 'icons/turf/space.dmi';
 	underlay_floor_icon_state = "0"
 	},
-/area/awaymission/spacebattle/turret5)
+/area/awaymission/spacebattle/hallway8)
 "AQ" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/light{
@@ -10260,7 +10246,6 @@
 /area/awaymission/spacebattle/cruiser)
 "CW" = (
 /obj/machinery/door/airlock,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/prhallway4)
@@ -12218,7 +12203,7 @@
 	underlay_floor_icon = 'icons/turf/space.dmi';
 	underlay_floor_icon_state = "0"
 	},
-/area/awaymission/spacebattle/turret6)
+/area/awaymission/spacebattle/hallway7)
 "Is" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8
@@ -13344,7 +13329,7 @@
 "LE" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/security,
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/turret5)
+/area/awaymission/spacebattle/hallway8)
 "LF" = (
 /turf/space,
 /area/awaymission/spacebattle/syndicate4)
@@ -13961,7 +13946,7 @@
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/turret6)
+/area/awaymission/spacebattle/hallway7)
 "Nv" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/cable{
@@ -14236,9 +14221,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret6{
-	requires_power = 0
-	})
+/area/awaymission/spacebattle/hallway7)
 "Oe" = (
 /obj/structure/sign/pods{
 	pixel_y = -32
@@ -14269,7 +14252,7 @@
 	id = "cargoship"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret6)
+/area/awaymission/spacebattle/hallway7)
 "Oi" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -14373,7 +14356,7 @@
 	id_tag = "RightTurret"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret5)
+/area/awaymission/spacebattle/hallway8)
 "Ot" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -14683,7 +14666,7 @@
 	id_tag = "RightTurret"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret6)
+/area/awaymission/spacebattle/hallway7)
 "Po" = (
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/hallway11)
@@ -16209,7 +16192,7 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/turret6)
+/area/awaymission/spacebattle/hallway7)
 "TD" = (
 /obj/structure/chair/comfy/shuttle/dark,
 /turf/simulated/floor/shuttle{
@@ -16903,7 +16886,7 @@
 	underlay_floor_icon = 'icons/turf/space.dmi';
 	underlay_floor_icon_state = "0"
 	},
-/area/awaymission/spacebattle/turret5)
+/area/awaymission/spacebattle/hallway8)
 "Vx" = (
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/plasteel,
@@ -33477,7 +33460,7 @@ sI
 eP
 ql
 zD
-of
+nU
 Is
 nU
 zD
