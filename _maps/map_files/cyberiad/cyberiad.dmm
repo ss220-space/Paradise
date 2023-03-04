@@ -12100,6 +12100,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aBZ" = (
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "aCa" = (
@@ -15530,6 +15531,7 @@
 "aJK" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/stack/tile/plasteel,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
 "aJL" = (
@@ -16820,6 +16822,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
 "aNg" = (
@@ -18427,6 +18430,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "aQU" = (
@@ -26136,6 +26140,11 @@
 	icon_state = "showroomfloor"
 	},
 /area/crew_quarters/kitchen)
+"bhX" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/livingcomplex)
 "bhY" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -65726,6 +65735,7 @@
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "cSS" = (
@@ -68279,6 +68289,10 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"cXQ" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "cXR" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -76716,6 +76730,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
 "dWZ" = (
@@ -82529,6 +82544,10 @@
 	icon_state = "dark"
 	},
 /area/maintenance/gambling_den)
+"iGi" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "iGk" = (
 /obj/structure/table/reinforced,
 /obj/item/coin/iron,
@@ -83165,6 +83184,10 @@
 	icon_state = "dark"
 	},
 /area/maintenance/secpost)
+"jmM" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "jnc" = (
 /turf/simulated/wall,
 /area/maintenance/server)
@@ -83195,6 +83218,7 @@
 "joE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "joG" = (
@@ -86269,6 +86293,11 @@
 "lCJ" = (
 /turf/simulated/wall/rust,
 /area/maintenance/livingcomplex)
+"lCM" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/maintenance/livingcomplex)
 "lDb" = (
 /obj/item/storage/backpack/satchel,
 /turf/simulated/floor/plating,
@@ -88703,6 +88732,7 @@
 /area/maintenance/medroom)
 "nya" = (
 /obj/machinery/mecha_part_fabricator,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "nyd" = (
@@ -89923,6 +89953,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/blood/gibs/robot,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "oGC" = (
@@ -91415,6 +91446,17 @@
 	icon_state = "darkredalt"
 	},
 /area/maintenance/secpost)
+"pMx" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "pMJ" = (
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = 30
@@ -91919,6 +91961,10 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"qgM" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "qgO" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -92482,6 +92528,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "qyZ" = (
@@ -92550,6 +92597,11 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"qzY" = (
+/obj/structure/closet,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "qAg" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -94187,6 +94239,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
 "rRs" = (
@@ -98867,6 +98920,11 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
+"vFA" = (
+/obj/item/stack/tile/plasteel,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/livingcomplex)
 "vGs" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/condiment/saltshaker{
@@ -99347,6 +99405,22 @@
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
+"vWI" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/maintenance/livingcomplex)
 "vXd" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/disposal,
@@ -99630,6 +99704,10 @@
 /obj/item/paper/monitorkey,
 /turf/simulated/floor/carpet,
 /area/security/hos)
+"wiG" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/livingcomplex)
 "wiX" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -100344,6 +100422,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
 "wHW" = (
@@ -117976,9 +118055,9 @@ aMA
 aKd
 aLm
 aMA
-afO
-afO
-afO
+qgM
+qgM
+qgM
 aMA
 aRB
 aTu
@@ -118233,7 +118312,7 @@ aMA
 aLt
 aMN
 aMA
-afO
+iGi
 aOX
 djT
 aMA
@@ -118491,7 +118570,7 @@ aLv
 aMP
 aMA
 aBT
-afO
+iGi
 aBZ
 aMA
 aRB
@@ -140159,7 +140238,7 @@ cNb
 cUC
 cPd
 cPd
-cPd
+pMx
 cPd
 cPd
 ech
@@ -145475,13 +145554,13 @@ vLh
 vLh
 ouP
 vOp
-vqU
+wiG
 vqU
 qkh
 aSg
 aQI
 aVQ
-aGY
+cXQ
 aGY
 bbY
 bkN
@@ -145979,7 +146058,7 @@ tAy
 rRs
 nQl
 rQA
-aYX
+vWI
 gKy
 rVO
 vqU
@@ -146231,7 +146310,7 @@ nZy
 qlq
 xUU
 vYd
-vqU
+wiG
 aQT
 aJK
 aNf
@@ -146488,8 +146567,8 @@ daY
 rUc
 okP
 its
-vqU
-vLh
+wiG
+lCM
 aNf
 aYX
 koF
@@ -146744,10 +146823,10 @@ ggi
 aMg
 vtv
 tYU
-xcS
-jqR
+bhX
+vFA
 aNf
-aYX
+vWI
 xtW
 nhf
 mMo
@@ -148907,7 +148986,7 @@ kuy
 iCe
 rIN
 cWp
-bGG
+jmM
 bGG
 cLh
 cuQ
@@ -151481,7 +151560,7 @@ dea
 djA
 bGG
 bGG
-bGG
+jmM
 bZZ
 uTI
 uTI
@@ -152503,7 +152582,7 @@ bGG
 cuQ
 cJQ
 cJQ
-wPi
+qzY
 cuQ
 dia
 djC
