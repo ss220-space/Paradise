@@ -478,6 +478,8 @@
 			return FALSE
 		if(istype(A, /turf/simulated/wall/mineral/titanium/nodecon))
 			return FALSE
+		if(istype(A, /turf/simulated/wall/shuttle))
+			return FALSE
 		if(istype(A, /turf/simulated/wall/indestructible))
 			return FALSE
 		if(checkResource(5, user))
