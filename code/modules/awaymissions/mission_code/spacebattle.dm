@@ -206,7 +206,7 @@
 	info = "<p> от Кока Рэмси <br> Капитану 'Безымянного' <br> <br> Капитан, после выстрела из вашей погремушки у меня в холодильнике завелся вредитель! Я открыл холодильник, а там на меня смотрело желе! Я не готовил это сраное желе! ОНО СМОТРИТ НА МЕНЯ! <br> Прошу, пришлите кого-то, хотя бы яйцеголовых, я не могу работать, КОГДА НА МЕНЯ СМОТРИТ ЭТО! </p>"
 
 /obj/item/paper/spacebattle/bridge
-	info = "<p> <grid> </td> <tr> <td> <img src = ntlogo.png> <td> <table> </td> <tr> <td> <small> Форма NanoTrasen NT-<b>CC</b>-REQ </small> <br> <small>Станция — <b>Центральное командование</b> </small>     <small>Год: 2367</small> <br> <center> <large> <b> Распоряжение Центрального командования </b> </large> </center> </i> </grid> <hr> <br> Командование судна 'Безымянный', ваш крейсер был оснащен экспериментальной установкой под кодовым именем БСА - рассекречивание наличия данной установки, принципов её работы и любые упоминания о её существование вне экипажа и высшего командования строго запрещены! <br> <b> Ваша задача: </b> После полного прочтения данных директив, совершить вылет из системы, после чего будут получены координаты <b> засекреченного </b> испытательного полигона для тестирования данной установки. Требуется произвести минимум 3 выстрела с рассчетным интервалом в 10 минут, что обуславливает время необходимое для заряда батарей установки от экспериментального двигателя, использующего осколок суперматерии. Последний выстрел необходимо произвести во время сверхсветового скачка на максимальной возможной скорости. Затем вернутся в док с соответствующей отчетной документацией для получения новых распоряжений. <br> <small> <i> <br>Подпись: ███████ ████████ </i>,   в должности: <i>NanoTrasen Navi Officer.</i> </small> <br> <hr> <small> *Несоблюдение указаний, содержащихся в данном документе, считается нарушением политики компании; Дисциплинарное взыскание за нарушения может быть применено на месте или в конце смены в Центральном командовании;<br>*Получатель(и) данного меморандума подтверждает(ют), что он(она/они) несут ответственность за любой ущерб, который может возникнуть в результате игнорирования приведенных здесь директив или рекомендаций;<br>*Все отчеты должны храниться конфиденциально их предполагаемым получателем и любой соответствующей стороной. Несанкционированное распространение данного меморандума может привести к дисциплинарным взысканиям.</small> </p>"
+	info = "<p> <grid> </td> <tr> <td> <img src = ntlogo.png> <td> <table> </td> <tr> <td> <small> Форма NanoTrasen NT-<b>CC</b>-REQ </small> <br> <small>Станция — <b>Центральное командование</b> </small>     <small>Год: 2367</small> <br> <center> <large> <b> Распоряжение Центрального командования </b> </large> </center> </i> </grid> <hr> <br> Командование судна 'Безымянный', ваш крейсер был оснащен экспериментальной установкой под кодовым именем БСА - рассекречивание наличия данной установки, принципов её работы и любые упоминания о её существование вне экипажа и высшего командования строго запрещены! <br> <b> Ваша задача: </b> После полного прочтения данных директив, совершить вылет из системы, после чего будут получены координаты <b> засекреченного </b> испытательного полигона для тестирования данной установки. Требуется произвести минимум 3 выстрела с рассчетным интервалом в 10 минут, что обуславливает время необходимое для заряда батарей установки от экспериментального двигателя, использующего осколок суперматерии. Последний выстрел необходимо произвести во время сверхсветового скачка на максимальной возможной скорости. Затем вернутся в док с соответствующей отчетной документацией для получения новых распоряжений. <br> <small> <i> <br>Подпись: ███████ ████████ </i>,   в должности: <i>NanoTrasen Navy Officer.</i> </small> <br> <hr> <small> *Несоблюдение указаний, содержащихся в данном документе, считается нарушением политики компании; Дисциплинарное взыскание за нарушения может быть применено на месте или в конце смены в Центральном командовании;<br>*Получатель(и) данного меморандума подтверждает(ют), что он(она/они) несут ответственность за любой ущерб, который может возникнуть в результате игнорирования приведенных здесь директив или рекомендаций;<br>*Все отчеты должны храниться конфиденциально их предполагаемым получателем и любой соответствующей стороной. Несанкционированное распространение данного меморандума может привести к дисциплинарным взысканиям.</small> </p>"
 
 /obj/item/paper/check/spacebattle/bridge2
 	info = "<p> <grid> </td> <tr> <td> <img src = ntlogo.png> <td> <table> </td> <tr> <td> <small> Форма NanoTrasen NT-<b>COM</b>-BB </small> <br> <small>Судно — <b>ЭКН 'Безымянный'</b> </small>     <small>Год: 2367</small> <br> <i> <large> <b> Бортовой журнал </b> </large> </i> </grid> <hr> <br> <i>██.03.2367</i> - Вылет. Док №2, ИОН ███████, █████ спутник планеты █████ системы ███████ ██████-█. <br> <i>██.03.2367</i> - Прибыли на координаты ████, ████, ██ - ████████, планета ████████, система ██████████-███. <br> <i>██.03.2367</i> - Начато испытание установки ███. <br> <i>██.03.2367</i> - Произведен залп из ███ по мишени №1. Переход к мишени №2. <br> <i>██.03.2367</i> - Произведен залп из ███ по мишени №2. Переход к задаче №3. Запуск сверхсветовых двигателей. <br> <i>██.03.2367</i> - Произведен залп из ███ во время сверхсветовоого скачка при достижении нагрузки на ССД двигатели = 95% <br> <i>██.̴̼̝̐͌͠0̴͓̦̝͘͝͠6̴̡̦͙͐̓̐.̴͉̘͙̓͛͊2̴͓͒̔̈́͜4̴͙͎͊͌͌͜6̵̞̟̘̈́́̚7̴̙͉̝̓̐͘</i> -̵͓͇̾̐̚͜ О̴͍̟͓̽̒͘б̴̢̪͍͒͋̈́н̴̠̼̪̒̿́а̴̢͉͕͛͐͝р̵̢͓́̈́у̴̫̟̓̾̚͜ж̴̝̞̽̀̚е̸̡͎̦͌̓͐н̸͉̦̞͋͊͘ с̵̺͖̞͛̀͝б̴̦͔͍̒͛͋о̸̠̟́̒̿й̴̢̘͙͆̚͝ с̵̡̺͉̒̚̚ӥ̸͖͓͍́͒͆с̴̙͎͉͒͌͑т̴͓̫͊̀͜е̴͓͖͎͒͛̀м̸̺̼͐̈́̾ы̵̞̪͋͐̕͜.̸͔̝͖́͆̀ О̸̡̫̼̾͑͘б̸̺̦͊͜͠͠р̸̢̺͚̕͝͝а̵͇̟͇͐̐͋т̵̟̪͛͘͘͜и̴̢͎͙͐̾т̴̞̾̿̈́͜е̸͙͖͍̓̔с̸͍͙̙͆̀̾ь̴̟͕̺̓͋͛ к̴̺͖͔̿̈́ б̵͖̻͎͐̓͘о̵̦͕̦͊͘͠р̴̢̻̞̔̈́̚т̴͉̦̪͒̕͠о̸̞̺͊̾в̸͕͍̠̽̒̈́о̸͇̫̓͘͠м̸̡͖̪̓͆͊у̸̡͍͒͛̿ т̸͉̼̐͐͝е̴̡͓̞͋͠х̴͖̙͖̚͘͝н̵͍͙̒̐̚͜и̴̻̻͇̽͋̚к̴̪͖̔̐͐у̸͚̪̼̀͋̾.̵͍͚͔͑͒̽ <br> <i>██.̴͉̝̠̔͆͠0̸̞͍͓̐̽̈́9̵̢͍͙͋͛͊.̴͍͉̀͛2̸̟͔̘̽̀̈́4̴͖͔͙̓͝͝6̴̼͔̽͑͝7̵̟̓͝͝</i> -̸̟͕͆́̓ О̵̡͖̘̓̔͝б̴̼̪̈́̽н̸̘̺͓͑̀͘а̵͇̦̓̾̚͜р̴͖̞͊̓̚ӱ̸̼̻́̔̿͜ж̴̟͚̒͌͝е̵̪̫̓͆͘н̵͍̈́̓͛͜ с̴̢̢̠͌̓͑б̴͚͎̞̔͐͝о̵͓͔̝̿͘͠й̵̺͚͙͒͝ с̵̘͇̾̽͜͠и̵̻̺͓̾̒̕с̴̻̝̀͋̚т̵̦̼͚͊̓̚е̴̟͇̼͌̈́̀м̸̝̪͕͌̾̒ы̴̫̟͓̓͛̓.̵͍͚̪̓͘͝ О̸̦̙̔̓̈́б̵̡͔̪͑̿̿р̵̫̪͙̽͋͑а̴̫͓̠̾̈́͘т̴̡͓͙̔̚͝и̵͎͙͉͛̈́͛т̵͙̼͉́̈́͒е̵͕͓̦͒͘͝с̵̪̘͍̔̿̈́ь̸̠̙͎̓̈́ к̵̡̡̙͆͒͝ б̵̡̻̚͝о̸͙͒͊̕͜р̴̪̟̺̿͑͝т̵̘͔͚́̐̕о̵̢̘͍͘̚͝в̵̡̫̙̀͌̚о̵͔̟̺̀̐̿м̸͍͓͔́̿̓у̵̢̡̦̐̈́̒ т̵̺̘͍͒̕͘е̵̞̺͇͐̔̕х̵̠͎͍͊̈́͒н̵̫͕̟̿̚и̵̙̼̿͜͝͝к̸͕̻̟̓͊͒у̸͓̠̘̔̿̿.̴̡͖̀͐̿ <br> .ʎdoꓕɐdꓕɔиниᥕჩɐ ʎᥕoнᥕǝꓕɔиɔ ʞ ৭ɔǝꓕиꓕɐdܦО .ыᥕǝꓕɔиɔ и̯oܦɔ нǝжʎdɐнܦО - <i>↋↊0↊.↋0.↋0</i> <br> <i>██.丨己.己丩67</i> - 乃ы尸闩⻏廾и⻏闩廾и🝗 爪ㄖ⼭廾ㄖ⼕ти ⼕и⼕т🝗爪ы. 闩⻏闩尸ий廾ый ⼕石尸ㄖ⼕ ⼕长ㄖ尸ㄖ⼕ти ⼕⻏🝗尸〤⼕⻏🝗тㄖ⻏ы〤 具⻏и⺁闩т🝗人🝗й. <br> <i>██.██.2567</i> - Выход из сверхсветового коридора. координаты ████,████,██ - Поле астериодов. <br> <i>██.██.2567</i> - Обнаружено физическое нарушение целостности двигательного отсека. <br> <i>██.██.2567</i> - Обнаружены разгерметизации левого борта: двигательный отсек, секция ЭМР-2, левый ангар. <br> <i> ██.██.██67 </i> - Нарушение целостности корпуса судна. Запуск протокола 'Черный Ящик' <br> ██.██.████ - Н███шен█е це██ст███ти к█рп█с█. З█п█ск пр███кола 'Шифрат█р.NT' <br> ██.██.████ - █████████████████████████████. █████████████████████████... <br> ██.██.████ - ███████ ██████████ ███ - ███████ ████ █████: '███████████ ██████' <br> ██████████ - ████████████████████████████████...</p>"
@@ -286,37 +286,11 @@
 
 // Enemys
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
-
-/mob/living/simple_animal/hostile/syndicate/melee/Initialize()
-	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee)
-	return ..()
-
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
-
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
-	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee, SynSpace)
-	return ..()
-
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
-
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
-	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange)
-	return ..()
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
-	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange, SynSpace, )
-	return ..()
-
-// Loot drop from mob's
-
 /mob/living/simple_animal/hostile/syndicate
-	var/synmobdrop //Обычный лут, дропается со всех
-	var/SynSpace //Выпадение бладрига
-	var/SynMelee //Лут с милишников
-	var/SynRange //Лут с дальников
+	/var/synmobdrop //Обычный лут, дропается со всех
+	/var/SynSpace //Выпадение бладрига
+	/var/SynMelee //Лут с милишников
+	/var/SynRange //Лут с дальников
 
 /mob/living/simple_animal/hostile/syndicate/Initialize()
 	var/rollforloot = rand(1,50) //Лучшего варианта я не нашел
@@ -389,6 +363,34 @@
 			SynRange = /obj/item/ammo_casing/c10mm
 	.=..()
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
+	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize()
+	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee)
+	return ..()
+
+/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
+	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0)
+
+/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
+	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee, SynSpace)
+	return ..()
+
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
+	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
+	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange)
+	return ..()
+
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
+
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
+	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange, SynSpace)
+	return ..()
+
+
 /mob/living/simple_animal/hostile/malf_drone/spacebattle
 	icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 	icon_state = "wisewill-Combat-roll"
@@ -405,7 +407,7 @@
 	icon_state = "scatterlaser"
 	eyeblur = 1
 
-/mob/living/simple_animal/hostile/malf_drone/drop_loot()
+/mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
 	do_sparks(3, 1, src)
 	var/turf/T = get_turf(src)
 
