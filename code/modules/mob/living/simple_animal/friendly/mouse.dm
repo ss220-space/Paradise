@@ -41,6 +41,11 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
+	melee_damage_lower = 1
+	melee_damage_upper = 1
+	harm_intent_damage = 3
+	attacktext = "кусает"
+	attack_sound = 'sound/weapons/bite.ogg'
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
