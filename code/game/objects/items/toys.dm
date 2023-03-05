@@ -911,6 +911,7 @@
 	icon_state = "carpplushie"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = 1
 
@@ -975,6 +976,7 @@
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = 1
 
