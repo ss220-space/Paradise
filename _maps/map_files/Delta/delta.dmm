@@ -5203,7 +5203,8 @@
 	layer = 4.2
 	},
 /obj/structure/railing/wooden/endr{
-	dir = 1
+	dir = 1;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -5960,7 +5961,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/tribune{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
@@ -19950,7 +19952,9 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/obj/structure/railing/wooden/endr,
+/obj/structure/railing/wooden/endr{
+	anchored = 1
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -28486,7 +28490,8 @@
 	},
 /obj/structure/chair/office,
 /obj/structure/railing/wooden/endl{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -54490,7 +54495,8 @@
 	layer = 4.2
 	},
 /obj/structure/railing/wooden/cornerl{
-	dir = 1
+	dir = 1;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -88610,7 +88616,8 @@
 	tag = ""
 	},
 /obj/structure/railing/wooden/endr{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -107510,7 +107517,9 @@
 /obj/structure/railing/wooden{
 	dir = 4
 	},
-/obj/structure/railing/wooden/cornerl,
+/obj/structure/railing/wooden/cornerl{
+	anchored = 1
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
