@@ -15,9 +15,14 @@
 	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
-	burn_mod = 2
+	burn_mod = 1.5
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
+	toolspeedmod = 1.2 //20% slower
+	punchdamagelow = 5
+	punchdamagehigh = 12
+	punchstunthreshold = 12
+	obj_damage = 10
 
 	blurb = "Hailing from Hoorlm, planet outside what is usually considered a habitable \
 	orbit, the Drask evolved to live in extreme cold. Their strange bodies seem \
@@ -37,15 +42,15 @@
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
 
-	cold_level_1 = -1 //Default 260 - Lower is better
-	cold_level_2 = -1 //Default 200
-	cold_level_3 = -1 //Default 120
+	cold_level_1 = 260 //Default 260 - Lower is better
+	cold_level_2 = 200 //Default 200
+	cold_level_3 = 120 //Default 120
 	coldmod = -1
 
 	heat_level_1 = 310 //Default 370 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
-	heatmod = 2
+	heatmod = 3
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG

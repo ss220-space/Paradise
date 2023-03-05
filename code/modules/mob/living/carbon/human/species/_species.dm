@@ -64,6 +64,7 @@
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
+	var/obj_damage = 0
 	var/list/default_genes = list()
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
@@ -296,8 +297,9 @@
 			. += hungry/50
 		if(FAT in H.mutations)
 			. += (1.5 - flight)
-		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+		if (coldmod>0)
+			if(H.bodytemperature < cold_level_1)
+				. += (cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	return .
 
