@@ -25,7 +25,22 @@
 	throw_speed = 4
 	throw_range = 20
 	force = 0
+	var/unique_toy_rename = FALSE
 
+/obj/item/toy/examine(mob/user)
+	. = ..()
+	if(unique_toy_rename == 1)
+		. += "<span class='info'>Use a pen on it to rename it.</span>"
+
+/obj/item/toy/attackby(obj/item/K, mob/user, params)
+	. = ..()
+	if(unique_toy_rename)
+		if(istype(K, /obj/item/pen))
+			var/t = rename_interactive(user, K, use_prefix = FALSE)
+			if(!isnull(t))
+				to_chat(user, "<span class='notice'>You name the toy [name]. Say hello to your new friend.</span>")
+	else
+		return ..()
 
 /*
  * Balloons
@@ -897,6 +912,7 @@
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
 	resistance_flags = FLAMMABLE
+	unique_toy_rename = 1
 
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
@@ -960,6 +976,7 @@
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
 	resistance_flags = FLAMMABLE
+	unique_toy_rename = 1
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
