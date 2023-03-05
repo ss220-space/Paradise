@@ -76,7 +76,7 @@
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
@@ -148,7 +148,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
 
@@ -220,7 +220,7 @@
 	icon_state = "flagellanthood"
 	item_state = "flagellanthood"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
@@ -307,7 +307,8 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
+		var/curse_delay = cursetime / 600
+		GLOB.command_announcement.Announce("[message] Шаттл задерживается на [curse_delay] [declension_ru(curse_delay,"минуту","минуты","минут")].", "Системный сбой.", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift
