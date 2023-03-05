@@ -11,7 +11,8 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
 	container_type = OPENCONTAINER
-	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
+	possible_transfer_amounts = list(1, 5)
+	visible_transfer_rate = TRUE
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
@@ -33,19 +34,23 @@
 	set hidden = FALSE
 	..()
 
+/obj/item/reagent_containers/food/condiment/empty()
+	set hidden = FALSE
+	..()
+
 /obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return 0
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!get_location_accessible(H, "mouth"))
-			if(M == user)
-				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-			else
-				to_chat(user, "<span class='warning'>[H]'s face is obscured, so[H.p_they()] cant eat.</span>")
-			return 0
+
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
+		return FALSE
+
 	if(M == user)
 		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
 	else
@@ -200,6 +205,62 @@
 	possible_states = list()
 	log_eating = TRUE
 
+//Tomato sauce
+/obj/item/reagent_containers/food/condiment/tomatosauce
+	name = "tomato sauce"
+	desc = "The father of all sauces. Tomatoes, a little spice and nothing extra."
+	icon_state = "tomatosauce"
+	list_reagents = list("tsauce" = 50)
+	possible_states = list()
+
+//Diablo sauce
+/obj/item/reagent_containers/food/condiment/diablosauce
+	name = "diablo sauce"
+	desc = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	icon_state = "diablosauce"
+	list_reagents = list("dsauce" = 50)
+	possible_states = list()
+
+//Cheese sauce
+/obj/item/reagent_containers/food/condiment/cheesesauce
+	name = "cheese sauce"
+	desc = "Cheese, cream and milk... maximum protein concentration!"
+	icon_state = "cheesesauce"
+	list_reagents = list("csauce" = 50)
+	possible_states = list()
+
+//Mushroom sauce
+/obj/item/reagent_containers/food/condiment/mushroomsauce
+	name = "mushroom sauce"
+	desc = "Creamy sauce with mushrooms, has a rather pungent smell."
+	icon_state = "mushroomsauce"
+	list_reagents = list("msauce" = 50)
+	possible_states = list()
+
+//Garlic sauce
+/obj/item/reagent_containers/food/condiment/garlicsauce
+	name = "garlic sauce"
+	desc = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
+	icon_state = "garlicsauce"
+	list_reagents = list("gsauce" = 50)
+	possible_states = list()
+
+//Custard
+/obj/item/reagent_containers/food/condiment/custard
+	name = "Custard"
+	desc = "Soft and sweet cream, used in confectionery."
+	icon_state = "custard"
+	list_reagents = list("custard" = 50)
+	possible_states = list()
+
+//Herbs
+/obj/item/reagent_containers/food/condiment/herbs
+	name = "Herbs mix"
+	desc = "A mix of variouse herbs. Perfect for pizza!"
+	icon_state = "herbs"
+	list_reagents = list("herbsmix" = 50)
+	possible_states = list()
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/food/condiment/pack
@@ -208,7 +269,7 @@
 	icon_state = "condi_empty"
 	volume = 10
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	possible_states = list("ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."), "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"), "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"), "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"), "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"), "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.

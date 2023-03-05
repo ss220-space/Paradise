@@ -47,6 +47,16 @@
 	icon_state = "abed"
 	comfort = 0.3
 
+/obj/structure/bed/sandstone
+	name = "sandstone plate"
+	desc = "This is used to lie on, feels farm."
+	icon_state = "bed_sand"
+	resistance_flags = FIRE_PROOF
+	max_integrity = 200
+	buildstacktype = /obj/item/stack/sheet/mineral/sandstone
+	buildstackamount = 15
+	buckle_offset = -7
+
 /obj/structure/bed/proc/handle_rotation()
 	return
 
@@ -186,4 +196,9 @@
 /obj/structure/bed/dogbed/runtime
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
+	anchored = TRUE
+
+/obj/structure/bed/dogbed/pet
+	name = "Удобная лежанка"
+	desc = "Комфортная лежанка для любимейшего питомца отдела."
 	anchored = TRUE

@@ -23,6 +23,7 @@
 		<a href='?src=[UID()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=11'>Make Thieves</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -331,6 +332,13 @@
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
 		return 0
+	var/datum/objective/custom_objective = null
+	if(alert(usr, "Хотите ли вы выдать этому ниндзя особую цель?","Особая цель","Да", "Нет") == "Да")
+		var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null,1,MAX_MESSAGE_LEN))
+		if(!expl)
+			return
+		custom_objective = new
+		custom_objective.explanation_text = expl
 	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
 
@@ -340,9 +348,8 @@
 	if(candidates.len)
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
-
 		var/mob/living/carbon/human/new_character = makeBody(selected)
-		new_character.mind.make_Space_Ninja()
+		new_character.mind.make_Space_Ninja(custom_objective)
 		return 1
 	return 0
 
@@ -523,3 +530,33 @@
 	else
 		return 0
 	return 1
+
+/datum/admins/proc/makeThieves()
+	var/datum/game_mode/thief/temp = new
+	if(config.protect_roles_from_antagonist)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many thieves you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return 0
+
+	log_admin("[key_name(owner)] tried making Thieves with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Thieves with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_THIEF, applicant, temp))
+			candidates += applicant
+
+	if(candidates.len)
+		var/numThieves = min(candidates.len, antnum)
+
+		for(var/i = 0, i<numThieves, i++)
+			H = pick(candidates)
+			H.mind.make_Thief()
+			candidates.Remove(H)
+
+		return 1
+	return 0
