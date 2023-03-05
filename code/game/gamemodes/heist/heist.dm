@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/proc/forge_vox_objectives()
 	var/max_objectives = pick(5,6)
 	var/list/objs = list()
-	for(var/i in 1 to max_objectives+2)
+	for(var/i in 1 to max_objectives)
 		var/datum/objective/heist/O
 		switch(i)
 			if(1 to 3)
