@@ -172,7 +172,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/datum/armor/current_armor = C.armor
 		if(current_armor.getRating("melee") < 60)
 			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
-				to_chat(user, "[current_armor.getRating("melee")]")
 				switch(current_armor.getRating("melee"))
 					if(30, 40)
 						C.icon_state = "[initial(C.icon_state)]_reinf"
