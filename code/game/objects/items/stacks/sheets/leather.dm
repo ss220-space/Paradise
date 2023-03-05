@@ -171,19 +171,19 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
 		if(current_armor.getRating("melee") < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
 			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
-				switch(current_armor.getRating("melee"))
-					if(30, 40)
+				switch(C.armor.getRating("melee"))
+					if(40, 50)
 						C.icon_state = "[initial(C.icon_state)]_reinf"
-						C.item_color = "mining_reinf"
-					if(50)
+						C.item_color = "[initial(C.icon_state)]_reinf" //"mining_reinf"
+					if(60)
 						C.icon_state = "[initial(C.icon_state)]_reinf_full"
-						C.item_color = "mining_reinf_full"
+						C.item_color = "[initial(C.icon_state)]_reinf_full" //"mining_reinf_full"
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
 					H.update_inv_head()
 					H.update_inv_wear_suit()
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
