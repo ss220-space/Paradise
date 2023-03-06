@@ -20613,7 +20613,9 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "lcJ" = (
-/obj/effect/landmark/syndicate_infiltrator,
+/obj/effect/landmark/syndicate_infiltrator{
+	tag = "Commando"
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -29562,7 +29564,9 @@
 	},
 /area/centcom/supply)
 "pek" = (
-/obj/effect/landmark/syndicate_commando,
+/obj/effect/landmark/syndicate_commando{
+	tag = "Commando"
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pem" = (
@@ -30952,14 +30956,18 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/court)
 "pPN" = (
-/obj/effect/landmark/syndicate_commando,
+/obj/effect/landmark/syndicate_commando{
+	tag = "Commando"
+	},
 /obj/structure/sign/double/map/right{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pQd" = (
-/obj/effect/landmark/syndicate_infiltrator,
+/obj/effect/landmark/syndicate_infiltrator{
+	tag = "Commando"
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "pQe" = (
@@ -35950,6 +35958,15 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"skU" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/landmark/syndicate_infiltrator{
+	tag = "Commando"
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/infteam)
 "sle" = (
 /turf/simulated/floor/shuttle/objective_check{
 	dir = 6;
@@ -54635,7 +54652,7 @@ lcJ
 lOM
 lOM
 lOM
-lcJ
+skU
 nFC
 lJc
 gHn

@@ -176,12 +176,10 @@
 
 /obj/effect/landmark/syndicate_infiltrator
 	name = "Syndicate-Infiltrator"
-	tag = "Commando"
 	icon_state = "syndicate_team"
 
 /obj/effect/landmark/syndicate_commando
 	name = "Syndicate-Commando"
-	tag = "Commando"
 	icon_state = "syndicate_team"
 
 /obj/effect/landmark/aroomwarp
