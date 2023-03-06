@@ -7271,6 +7271,16 @@
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
+"dMz" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners_smoothed"
+	},
+/area/shuttle/syndicate)
 "dMC" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -7725,7 +7735,8 @@
 /area/centcom/supply)
 "dZv" = (
 /obj/structure/piano{
-	icon_state = "piano"
+	icon_state = "piano";
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -11428,6 +11439,16 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
+"fZa" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners_smoothed"
+	},
+/area/shuttle/syndicate)
 "fZg" = (
 /obj/structure/spider/terrorweb/gray,
 /turf/simulated/floor/plating,
@@ -17505,6 +17526,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"jyx" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners"
+	},
+/area/shuttle/syndicate)
 "jyy" = (
 /obj/structure/table/reinforced{
 	color = "#444444"
@@ -35303,6 +35334,16 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/bridge)
+"rRI" = (
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners"
+	},
+/area/shuttle/syndicate)
 "rSc" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -44123,7 +44164,6 @@
 	},
 /area/shuttle/escape)
 "waD" = (
-/obj/machinery/porta_turret/syndicate,
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
@@ -46690,9 +46730,6 @@
 	},
 /area/centcom/court)
 "xqM" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
@@ -50482,7 +50519,7 @@ pwa
 pwa
 pwa
 pwa
-yiJ
+dMz
 rZw
 rZw
 vVA
@@ -51248,7 +51285,7 @@ pwa
 pwa
 pwa
 pwa
-wWR
+jyx
 yiJ
 xil
 xrD
@@ -53047,7 +53084,7 @@ pwa
 pwa
 pwa
 pwa
-voo
+rRI
 yiJ
 vMC
 xxs
@@ -53823,7 +53860,7 @@ pwa
 pwa
 pwa
 pwa
-wvV
+fZa
 wEF
 wEF
 vVA
