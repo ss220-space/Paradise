@@ -9,24 +9,13 @@ z3 = engineering stuff (called Z4, dont question it)
 z4 = lavaland
 */
 
-#if !defined(USING_MAP_DATUM)
-	#include "map_files\cyberiad\cyberiad.dmm"
-	#include "map_files\generic\CentComm.dmm"
-	#include "map_files\generic\Admin_Zone.dmm"
-	#include "map_files\generic\Lavaland.dmm"
-	#include "map_files\generic\syndicatebase.dmm"
+#include "map_files\generic\CentComm.dmm"
+#include "map_files\generic\Admin_Zone.dmm"
+#include "map_files\generic\Lavaland.dmm"
+#include "map_files\generic\syndicatebase.dmm"
 
-	#define MAP_TRANSITION_CONFIG list(\
-DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
+#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(CENTCOMM, UNAFFECTED, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(ADMIN_ZONE, UNAFFECTED, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)),\
 DECLARE_LEVEL(RAMSS_TAIPAN, CROSSLINKED, list(REACHABLE, TAIPAN)))
-	#define USING_MAP_DATUM /datum/map/cyberiad
-	#define MAP_NAME "Cyberiad"
-
-#elif !defined(MAP_OVERRIDE)
-
-	#warn a map has already been included, ignoring Cyberiad.
-
-#endif

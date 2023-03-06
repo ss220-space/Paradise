@@ -1,6 +1,6 @@
 /datum/map
 	var/name = "Unnamed Map"
-	var/full_name = "Unnamed Map"
+	var/map_path = ""
 
 	var/station_name  = "BAD Station"
 	var/station_short = "Baddy"
