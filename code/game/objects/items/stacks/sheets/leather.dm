@@ -176,10 +176,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 				switch(C.armor.getRating("melee"))
 					if(40, 50)
 						C.icon_state = "[initial(C.icon_state)]_reinf"
-						C.item_color = "[initial(C.icon_state)]_reinf" //"mining_reinf"
+						C.item_color = "mining_reinf"
 					if(60)
 						C.icon_state = "[initial(C.icon_state)]_reinf_full"
-						C.item_color = "[initial(C.icon_state)]_reinf_full" //"mining_reinf_full"
+						C.item_color = "mining_reinf_full"
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
 					H.update_inv_head()
