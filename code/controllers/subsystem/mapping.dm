@@ -34,6 +34,10 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 	// Load the station
 	loadStation()
+
+	loadLavaland()
+
+	loadTaipan()
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
 		createRandomZlevel()
@@ -117,7 +121,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.station_name]...")
-	// This should always be Z2, but you never know
+	// This should always be Z3, but you never know
 	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK))
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 	log_startup_progress("Loaded [map_datum.station_name] in [stop_watch(watch)]s")
@@ -131,6 +135,21 @@ SUBSYSTEM_DEF(mapping)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
+
+/datum/controller/subsystem/mapping/proc/loadLavaland()
+	var/watch = start_watch()
+	log_startup_progress("Loading Lavaland...")
+	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
+	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
+	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
+
+
+/datum/controller/subsystem/mapping/proc/loadTaipan()
+	var/watch = start_watch()
+	log_startup_progress("Loading Taipan...")
+	var/taipan_z_level = GLOB.space_manager.add_new_zlevel(RAMSS_TAIPAN, linkage = SELFLOOPING, traits = list(REACHABLE, TAIPAN))
+	GLOB.maploader.load_map(file("_maps/map_files/generic/syndicatebase.dmm"), z_offset = taipan_z_level)
+	log_startup_progress("Loaded Taipan in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
 	if(!z_levels || !z_levels.len)
