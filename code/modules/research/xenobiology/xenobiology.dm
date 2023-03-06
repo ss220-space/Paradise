@@ -535,7 +535,7 @@
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(C.is_improoved_by_potion)
@@ -575,7 +575,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(istype(C.armor) && C.armor.acid == 100)
@@ -616,7 +616,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(istype(C.armor) && C.armor.laser == 100)
@@ -657,7 +657,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(istype(C.armor) && C.armor.rad == 100)
@@ -698,7 +698,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(istype(C.armor) && C.armor.bio == 100)
@@ -739,7 +739,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(istype(C.armor) && C.armor.bomb == 100)
@@ -779,7 +779,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(C.teleportation)
@@ -813,7 +813,7 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(istype(C, obj/item/clothing/neck))
+	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(istype(C.armor) && C.armor.melee == 100 && C.armor.bullet == 100)
