@@ -10,6 +10,9 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
 	severity = DANGEROUS
+	mutable = TRUE
+	mutation_reagents = list("mutagen", "radium")
+	possible_mutations = list(/datum/disease/kingstons_advanced)
 
 /datum/disease/kingstons/stage_act()
 	..()
@@ -62,6 +65,7 @@
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
 	var/chosensuff
+	mutable = FALSE
 
 /datum/disease/kingstons_advanced/New()
 	chosentype = pick(virspecies)

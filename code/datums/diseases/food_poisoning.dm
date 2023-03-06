@@ -14,6 +14,8 @@
 	disease_flags = CURABLE
 	spread_flags = NON_CONTAGIOUS
 	virus_heal_resistant = TRUE
+	mutable = TRUE
+	possible_mutations = list(/datum/disease/tuberculosis)
 
 /datum/disease/food_poisoning/stage_act()
 	..()
