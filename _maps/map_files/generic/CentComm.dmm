@@ -11073,16 +11073,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
-"fPx" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "fPz" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -11119,18 +11109,6 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
-"fQu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "fQx" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -12434,7 +12412,10 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
 "gAV" = (
-/mob/living/carbon/human/lesser/wolpin,
+/mob/living/carbon/human/lesser/wolpin{
+	icon_state = "wolfling";
+	icon = 'icons/mob/monkey.dmi'
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "tatami";
@@ -12665,18 +12646,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
-	},
-/area/syndicate_mothership)
-"gIJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
 "gJg" = (
@@ -14901,7 +14870,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/Syndicate_Spawn,
+/obj/effect/landmark/syndicate_spawn,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "ifg" = (
@@ -16298,17 +16267,6 @@
 /obj/structure/statue/furukai,
 /turf/simulated/floor/redgrid,
 /area/syndicate_mothership)
-"iRN" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "iRS" = (
 /obj/structure/guillotine,
 /obj/machinery/light/small{
@@ -18811,16 +18769,6 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
-"kjX" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "kkq" = (
 /obj/structure/chair/comfy/beige,
 /turf/simulated/floor/wood,
@@ -20665,12 +20613,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "lcJ" = (
-/obj/effect/landmark{
-	color = "#99ff99";
-	icon_state = "x_white";
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/syndicate_infiltrator,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -22353,7 +22296,7 @@
 /area/syndicate_mothership)
 "lWc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/Syndicate_Spawn,
+/obj/effect/landmark/syndicate_spawn,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
 	},
@@ -23305,15 +23248,6 @@
 /obj/machinery/vending/snack/free,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
-"mtc" = (
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "mto" = (
 /obj/machinery/flasher{
 	id = "soltraderflash";
@@ -28195,7 +28129,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/ERT_Director,
+/obj/effect/landmark/ert_director,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "ovv" = (
@@ -29628,12 +29562,7 @@
 	},
 /area/centcom/supply)
 "pek" = (
-/obj/effect/landmark{
-	color = "#ff9999";
-	icon_state = "x_white";
-	name = "Syndicate-Commando";
-	tag = "Commando"
-	},
+/obj/effect/landmark/syndicate_commando,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pem" = (
@@ -31023,24 +30952,14 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/court)
 "pPN" = (
-/obj/effect/landmark{
-	color = "#ff9999";
-	icon_state = "x_white";
-	name = "Syndicate-Commando";
-	tag = "Commando"
-	},
+/obj/effect/landmark/syndicate_commando,
 /obj/structure/sign/double/map/right{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pQd" = (
-/obj/effect/landmark{
-	color = "#99ff99";
-	icon_state = "x_white";
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "pQe" = (
@@ -32809,16 +32728,6 @@
 	icon_state = "darkredcornersalt"
 	},
 /area/syndicate_mothership/jail)
-"qHi" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "qHm" = (
 /obj/machinery/light,
 /turf/simulated/floor/carpet/black,
@@ -44200,7 +44109,7 @@
 	},
 /area/syndicate_mothership)
 "vZg" = (
-/obj/effect/landmark/Marauder_Exit,
+/obj/effect/landmark/marauder_exit,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
@@ -44652,18 +44561,6 @@
 	icon_state = "gray_walls_corners"
 	},
 /area/shuttle/vox)
-"wnz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "wnA" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	closingLayer = 5;
@@ -47187,7 +47084,7 @@
 /area/syndicate_mothership)
 "xBV" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/Syndicate_Spawn,
+/obj/effect/landmark/syndicate_spawn,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "xCi" = (
@@ -48165,15 +48062,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
-"ybk" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership)
 "ybq" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -50171,7 +50059,7 @@ ycg
 pSK
 nak
 qkp
-iRN
+ktr
 gtw
 ycg
 eIq
@@ -50943,7 +50831,7 @@ vVk
 aAn
 ycg
 gtw
-qHi
+xhG
 ycg
 wlr
 tye
@@ -54026,8 +53914,8 @@ vVk
 vVk
 rxl
 ycg
-fPx
-kjX
+xhG
+xhG
 ycg
 wlr
 eer
@@ -54541,7 +54429,7 @@ wiF
 mMl
 sQh
 hzK
-fPx
+xhG
 ycg
 cGz
 bif
@@ -54798,7 +54686,7 @@ lng
 axB
 sQh
 seD
-kjX
+xhG
 ycg
 eIq
 tye
@@ -57339,7 +57227,7 @@ iqh
 twp
 nKH
 aAR
-fQu
+nKH
 qsK
 wfM
 mZE
@@ -57589,7 +57477,7 @@ rgB
 mZE
 nYK
 uxM
-ybk
+iBM
 pVc
 fCi
 chw
@@ -57851,7 +57739,7 @@ ucn
 wlI
 ucn
 wlI
-mtc
+iEH
 pVc
 iEH
 cBV
@@ -58105,7 +57993,7 @@ nYK
 uxM
 vgP
 sUD
-ybk
+iBM
 pVc
 iBM
 wlI
@@ -58365,9 +58253,9 @@ iGO
 mOA
 lga
 mOA
-gIJ
+lga
 mOA
-wnz
+lga
 fBG
 wfM
 ljm

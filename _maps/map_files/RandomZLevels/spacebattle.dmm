@@ -74,7 +74,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "ap" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -163,7 +163,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "aF" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -292,7 +292,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "bd" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -3273,7 +3273,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "mi" = (
@@ -5191,7 +5191,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "zQ" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "zS" = (
@@ -5269,7 +5269,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "Av" = (
@@ -5595,7 +5595,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Cu" = (
@@ -6502,7 +6502,7 @@
 /area/awaymission/spacebattle/storage)
 "JD" = (
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "JH" = (
@@ -7282,7 +7282,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "PO" = (
@@ -7609,7 +7609,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Se" = (
@@ -7818,7 +7818,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "TQ" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "TS" = (

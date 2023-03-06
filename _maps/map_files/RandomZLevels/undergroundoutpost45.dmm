@@ -253,7 +253,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "aT" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "aU" = (
@@ -261,13 +261,13 @@
 	dir = 4;
 	tag = "icon-comfychair (EAST)"
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/awaymission/UO45/central_hall)
 "aV" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -309,7 +309,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -343,11 +343,11 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "bf" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -356,7 +356,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"

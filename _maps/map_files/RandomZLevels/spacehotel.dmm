@@ -2227,7 +2227,7 @@
 	},
 /area/awaymission/spacehotel)
 "fx" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "fy" = (
@@ -2287,7 +2287,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "fH" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/beach/water,
 /area/awaymission/spacehotel)
 "fI" = (

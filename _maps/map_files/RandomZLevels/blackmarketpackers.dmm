@@ -1586,7 +1586,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "en" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -2707,7 +2707,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "gZ" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -3031,14 +3031,14 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "ib" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
 "ic" = (
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Engines)
 "id" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "ie" = (

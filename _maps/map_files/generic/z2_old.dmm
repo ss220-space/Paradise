@@ -27706,7 +27706,7 @@
 /area/centcom/evac)
 "tMy" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark/ERT_Director,
+/obj/effect/landmark/ert_director,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -30440,7 +30440,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "vLT" = (
-/obj/effect/landmark/Marauder_Exit,
+/obj/effect/landmark/marauder_exit,
 /turf/simulated/floor/indestructible{
 	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';

@@ -643,7 +643,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "bS" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1532,7 +1532,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "dU" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -3993,7 +3993,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "jM" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "jN" = (
@@ -4332,7 +4332,7 @@
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission/academy)
 "kD" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "kE" = (
@@ -4477,7 +4477,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "kV" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -6805,7 +6805,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"

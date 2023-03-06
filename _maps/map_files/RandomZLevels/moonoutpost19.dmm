@@ -6325,11 +6325,11 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mt" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
 "mu" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -6462,7 +6462,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mJ" = (
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
@@ -6474,7 +6474,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark/Awaystart,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},

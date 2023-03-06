@@ -126,39 +126,39 @@
 	name = "Observer-Start"
 	icon_state = "observer_start"
 
-/obj/effect/landmark/JoinLateCyborg
+/obj/effect/landmark/join_late_cyborg
 	name = "JoinLateCyborg"
 	icon_state = "LateBorg"
 
-/obj/effect/landmark/JoinLate
+/obj/effect/landmark/join_late
 	name = "JoinLate"
 	icon_state = "Late"
 
-/obj/effect/landmark/JoinLateCryo
+/obj/effect/landmark/join_late_cryo
 	name = "JoinLateCryo"
 	icon_state = "Late"
 
-/obj/effect/landmark/JoinLateGateway
+/obj/effect/landmark/join_late_gateway
 	name = "JoinLateGateway"
 	icon_state = "awaystart"
 
-/obj/effect/landmark/Marauder_Entry
+/obj/effect/landmark/marauder_entry
 	name = "Marauder Entry"
 	icon_state = "marauder"
 
-/obj/effect/landmark/Marauder_Exit
+/obj/effect/landmark/marauder_exit
 	name = "Marauder Exit"
 	icon_state = "marauder"
 
-/obj/effect/landmark/Awaystart
+/obj/effect/landmark/awaystart
 	name = "awaystart"
 	icon_state = "awaystart"
 
-/obj/effect/landmark/HONKsquad
+/obj/effect/landmark/honk_squad
 	name = "HONKsquad"
 	icon_state = "HONKsquad"
 
-/obj/effect/landmark/ERT_Director
+/obj/effect/landmark/ert_director
 	name = "ERT Director"
 	icon_state = "ERT Director"
 
@@ -170,9 +170,19 @@
 	name = "Commando"
 	icon_state = "death_squard"
 
-/obj/effect/landmark/Syndicate_Spawn
+/obj/effect/landmark/syndicate_spawn
 	name = "Syndicate-Spawn"
 	icon_state = "snukeop_spawn"
+
+/obj/effect/landmark/syndicate_infiltrator
+	name = "Syndicate-Infiltrator"
+	tag = "Commando"
+	icon_state = "syndicate_team"
+
+/obj/effect/landmark/syndicate_commando
+	name = "Syndicate-Commando"
+	tag = "Commando"
+	icon_state = "syndicate_team"
 
 /obj/effect/landmark/aroomwarp
 	name = "aroomwarp"
@@ -218,19 +228,19 @@
 	name = "Holocarp Spawn"
 	icon_state = "carpspawn"
 
-/obj/effect/landmark/event/Carpspawn
+/obj/effect/landmark/event/carpspawn
 	name = "carpspawn"
 	icon_state = "carpspawn"
 
-/obj/effect/landmark/event/Blobstart
+/obj/effect/landmark/event/blobstart
 	name = "blobstart"
 	icon_state = "blobstart"
 
-/obj/effect/landmark/event/Xeno_spawn
+/obj/effect/landmark/event/xeno_spawn
 	name = "xeno_spawn"
 	icon_state = "xeno_spawn"
 
-/obj/effect/landmark/event/Revenantspawn
+/obj/effect/landmark/event/revenantspawn
 	name = "revenantspawn"
 	icon_state = "revenantspawn"
 
@@ -238,11 +248,11 @@
 	name = "voxstart"
 	icon_state = "voxstart"
 
-/obj/effect/landmark/event/Tripai
+/obj/effect/landmark/event/tripai
 	name = "tripai"
 	icon_state = "tripai"
 
-/obj/effect/landmark/event/Lightsout
+/obj/effect/landmark/event/lightsout
 	name = "lightsout"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "lightsout"
