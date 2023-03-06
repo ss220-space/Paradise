@@ -2,14 +2,14 @@
 
 /mob/proc/combine_message(list/message_pieces, mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
-	var/msg = "" // This is to make sure that the pieces have actually added something
+	var/msg = ""
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		iteration_count++
 		var/piece = SP.message
 		if(piece == "")
 			continue
 
-		if(SP.speaking && SP.speaking.flags & INNATE) // Fucking snowflake noise lang
+		if(SP.speaking && SP.speaking.flags & INNATE) // If message contains noise lang parts other parts will be skipped
 			return SP.speaking.format_message(piece)
 
 		if(iteration_count == 1)
@@ -37,15 +37,15 @@
 
 /mob/proc/combine_message_tts(list/message_pieces, mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
-	var/msg = "" // This is to make sure that the pieces have actually added something
+	var/msg = ""
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		iteration_count++
 		var/piece = SP.message
 		if(piece == "")
 			continue
 
-		if(SP.speaking && SP.speaking.flags & INNATE) // Fucking snowflake noise lang
-			return piece
+		if(SP.speaking && SP.speaking.flags & INNATE) // TTS should not read emotes like "laughts"
+			return ""
 
 		if(iteration_count == 1)
 			piece = capitalize(piece)
@@ -66,13 +66,15 @@
 		msg += (piece + " ")
 	return trim(msg)
 
-/mob/proc/verb_message(var/message, verb)
+/mob/proc/verb_message(list/message_pieces, message, verb)
 	if(!verb)
 		return message
-	else if(message == "")
+	if(message == "")
 		return ""
-	else
-		return "[verb], \"[message]\""
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		if(SP.speaking && SP.speaking.flags & INNATE) // Message contains only emoutes, no need to add verb
+			return message
+	return "[verb], \"[message]\""
 
 /mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)
@@ -113,9 +115,10 @@
 		return
 
 	var/message_tts = combine_message_tts(message_pieces, speaker)
+	var/message = message_clean
 
 	if(italics)
-		message_clean = "<i>[message_clean]</i>"
+		message = "<i>[message]</i>"
 
 	var/track = null
 	if(isobserver(src))
@@ -123,7 +126,7 @@
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
-			message_clean = "<b>[message_clean]</b>"
+			message = "<b>[message]</b>"
 
 	speaker_name = colorize_name(speaker, speaker_name)
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
@@ -141,11 +144,11 @@
 		else
 			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message_clean, verb)]</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message_pieces, message, verb)]</span>")
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker.runechat_msg_location, message_clean,FALSE, italics)
+			create_chat_message(speaker.runechat_msg_location, message_clean, FALSE, italics)
 
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
@@ -198,7 +201,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_clean, verb)
+	var/message = verb_message(message_pieces, message_clean, verb)
 	var/message_tts = combine_message_tts(message_pieces, speaker, always_stars = hard_to_hear)
 
 	var/track = null
@@ -282,7 +285,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_clean, verb)
+	var/message = verb_message(message_pieces, message_clean, verb)
 	var/message_tts = combine_message_tts(message_pieces, speaker)
 
 	var/name = speaker.name
