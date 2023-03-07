@@ -19,7 +19,6 @@
 	name = "collectable xenomorph helmet!"
 	desc = "Hiss hiss hiss!"
 	icon_state = "xenom"
-	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/collectable/chef
 	name = "collectable chef's hat"
@@ -65,7 +64,7 @@
 	desc = "A Collectable Welding Helmet. Now with 80% less lead! Not for actual welding. Any welding done while wearing this Helmet is done so at the owner's own risk!"
 	icon_state = "welding"
 	item_state = "welding"
-	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',

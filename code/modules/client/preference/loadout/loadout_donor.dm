@@ -73,7 +73,7 @@
 
 /datum/gear/donor/fawkes
 	display_name = "Guy Fawkes mask"
-	path = /obj/item/clothing/mask/face/fawkes
+	path = /obj/item/clothing/mask/fawkes
 
 /datum/gear/donor/id_decal_silver
 	display_name = "Silver ID Decal"
