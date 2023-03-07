@@ -290,8 +290,8 @@
 	icon_state = "codes"
 
 /obj/effect/landmark/start
-//Прописано исключительно для включения в рендеры
-//В порядке списка проффессий в лобби
+//Landmark icons added only for renders
+//Same orders as jobs in lobby
 
 /obj/effect/landmark/start/civilian
 	name = "Civilian"
