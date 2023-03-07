@@ -897,7 +897,7 @@ BLIND     // can't see anything
 		)
 	
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(teleportation)
+	if(!teleportation)
 		return ..()
 	if(prob(5))
 		var/mob/living/carbon/human/H = owner
