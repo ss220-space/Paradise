@@ -4,7 +4,7 @@
 	icon_state = "balaclava"
 	item_state = "balaclava"
 	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/adjust)
 	adjusted_flags = SLOT_HEAD
@@ -32,7 +32,7 @@
 	icon_state = "luchag"
 	item_state = "luchag"
 	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
 
 	sprite_sheets = list(
