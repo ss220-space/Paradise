@@ -100,7 +100,7 @@
 /obj/item/stamp/ploho
 	name = "'Very Bad, Redo' rubber stamp"
 	icon_state = "stamp-ploho"
-	item_color = "medical"
+	item_color = "hop"
 
 /obj/item/stamp/BIGdeny
 	name = "BIG DENY rubber stamp"
