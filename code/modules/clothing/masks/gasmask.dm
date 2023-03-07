@@ -118,7 +118,6 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
-	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
@@ -168,7 +167,6 @@
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
-	flags_cover = MASKCOVERSEYES
 	flags_inv = HIDEHEADSETS | HIDEGLASSES
 	magical = TRUE
 
@@ -180,7 +178,6 @@
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
 	item_state = "mime"
-	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime/wizard
@@ -204,7 +201,6 @@
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
-	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg
