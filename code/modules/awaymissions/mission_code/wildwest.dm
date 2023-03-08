@@ -169,7 +169,8 @@
 		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
 		return
 	if(revival_in_progress)
-		return //no spam in chat
+		to_chat(C, "<span class='notice'>You're rising from the dead!</span>")
+		return //no spam callbacks
 	C.revival_in_progress = TRUE
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
 	addtimer(CALLBACK(C, .proc/resurrect, C), rand(80 SECONDS, 120 SECONDS))
