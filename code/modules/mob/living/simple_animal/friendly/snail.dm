@@ -37,7 +37,8 @@
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
-		make_wet_floor(oldLoc)
+		if(stat != DEAD)
+			make_wet_floor(oldLoc)
 
 /mob/living/simple_animal/snail/proc/make_wet_floor(atom/oldLoc)
 	if(oldLoc != src.loc)
