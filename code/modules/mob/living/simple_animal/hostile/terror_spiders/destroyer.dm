@@ -43,8 +43,8 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/Life(seconds)
 	. = ..()
 	for(var/mob/living/simple_animal/S in view(5, src))
-		if(src.stat != DEAD)
-			src.adjustBruteLoss(8)
+		if(isterrorspider(S) && S != src)
+			src.adjustBruteLoss(6)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/death(gibbed)
 	if(can_die())

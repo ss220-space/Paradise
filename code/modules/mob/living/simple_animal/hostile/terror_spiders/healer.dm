@@ -17,7 +17,6 @@
 	icon_dead = "terror_green_dead"
 	maxHealth = 100
 	health = 100
-	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	death_sound = 'sound/creatures/terrorspiders/death4.ogg'
 	delay_web = 20
 	melee_damage_lower = 10
