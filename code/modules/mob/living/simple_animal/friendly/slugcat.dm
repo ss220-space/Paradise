@@ -173,7 +173,7 @@
 	. = ..()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "slugcat_spear"
+	icon_state = "[icon_state]_spear"
 
 	var/obj/item/twohanded/spear = inventory_hand
 
@@ -186,7 +186,7 @@
 	obj_damage = spear.force
 
 /mob/living/simple_animal/pet/slugcat/proc/unspeared()
-	icon_state = "slugcat"
+	icon_state = initial(icon_state)
 	attacktext = initial(attacktext)
 	attack_sound = initial(attack_sound)
 	melee_damage_type = initial(melee_damage_type)
