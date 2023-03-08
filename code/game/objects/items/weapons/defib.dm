@@ -44,6 +44,10 @@
 	update_overlays()
 	update_charge()
 
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
@@ -164,9 +168,6 @@
 		remove_paddles(user)
 
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new /obj/item/twohanded/shockpaddles(src)
