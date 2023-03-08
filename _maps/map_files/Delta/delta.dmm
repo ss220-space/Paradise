@@ -62313,7 +62313,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/asmaint4)
 "hzd" = (
 /turf/simulated/wall/rust,
 /area/security/checkpoint)
@@ -110185,7 +110185,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/chapel/main)
 "san" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -120305,7 +120305,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/chapel/main)
 "uhL" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -121767,7 +121767,7 @@
 	req_access_txt = "22"
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/asmaint4)
 "uzy" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -139088,7 +139088,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/chapel/main)
 "yeL" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/hologram/holopad,
