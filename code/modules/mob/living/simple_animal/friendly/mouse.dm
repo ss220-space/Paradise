@@ -309,6 +309,7 @@
 	mouse_color = null
 	maxHealth = 15
 	health = 15
+	mob_size = MOB_SIZE_SMALL
 
 /mob/living/simple_animal/mouse/rat/color_pick()
 	if(!mouse_color)
