@@ -169,7 +169,7 @@
 		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
 		return
 	if(revival_in_progress)
-		to_chat(C, "<span class='notice'>You're rising from the dead!</span>")
+		to_chat(C, "<span class='notice'>You're already rising from the dead!</span>")
 		return //no spam callbacks
 	C.revival_in_progress = TRUE
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
