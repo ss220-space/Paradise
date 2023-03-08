@@ -105,12 +105,16 @@
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
-	if(istype(W, /obj/item/screwdriver))
+	else if(istype(W, /obj/item/screwdriver))
 		if(cell)
 			cell.update_icon()
 			cell.loc = get_turf(loc)
 			cell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+
+	else if(W == paddles)
+		paddles.unwield()
+		toggle_paddles()
 
 	update_icon()
 	return
@@ -256,13 +260,6 @@
 	cell = new(src)
 	update_icon()
 	return
-
-/obj/item/defibrillator/compact/combat/attackby(obj/item/W, mob/user, params)
-	if(W == paddles)
-		paddles.unwield()
-		toggle_paddles()
-		update_icon()
-		return
 
 //paddles
 
