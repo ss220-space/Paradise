@@ -273,6 +273,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
+	flags = ABSTRACT
 
 	var/revivecost = 1000
 	var/cooldown = FALSE
