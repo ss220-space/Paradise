@@ -80,6 +80,8 @@
 	is_pacifist = FALSE
 	is_reduce_damage = FALSE
 	gold_core_spawnable = NO_SPAWN
+	health = 300
+	maxHealth = 300
 
 /mob/living/simple_animal/pet/slugcat/New()
 	..()
