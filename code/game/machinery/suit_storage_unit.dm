@@ -647,35 +647,35 @@
 		to_chat(user, "<span class='notice'>You push the button. The coloured LED next to it changes.</span>")
 		safeties = !safeties
 
-/obj/machinery/suit_storage_unit/proc/dispense_helmet(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_helmet()
 	if(!helmet)
 		return
 	else
 		helmet.forceMove(loc)
 		helmet = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_suit(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_suit()
 	if(!suit)
 		return
 	else
 		suit.forceMove(loc)
 		suit = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_mask(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_mask()
 	if(!mask)
 		return
 	else
 		mask.forceMove(loc)
 		mask = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_magboots(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_magboots()
 	if(!magboots)
 		return
 	else
 		magboots.forceMove(loc)
 		magboots = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_storage(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_storage()
 	if(!storage)
 		return
 	else
