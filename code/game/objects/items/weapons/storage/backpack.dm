@@ -594,9 +594,7 @@
 	new /obj/item/reagent_containers/syringe/antiviral(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
-	new /obj/item/stack/sheet/plasteel{
-		amount = 5
-		}(src)
+	new /obj/item/stack/sheet/plasteel(src, 5)
 
 /obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
