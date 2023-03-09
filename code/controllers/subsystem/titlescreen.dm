@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(title)
 
 		var/file_path = "config/title_screens/images/[pick(title_screens)]"
 
-		var/icon/icon = new(fcopy_rsc(file_path))
+		var/icon/icon = new(SSdemo.embed_resource(fcopy_rsc(file_path)))
 
 		for(var/turf/simulated/wall/indestructible/splashcreen/splash in world)
 			splash.icon = icon
