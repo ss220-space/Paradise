@@ -1780,7 +1780,7 @@
 	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access_txt = "1"
+	req_access_txt = "63"
 	products = list(
 		/obj/item/clothing/head/soft/sec		= 10,
 		/obj/item/clothing/head/soft/sec/corp	= 10,
@@ -1829,6 +1829,7 @@
 		/obj/item/clothing/under/pants/red 			= 10,
 		/obj/item/clothing/under/pants/track 		= 5,
 
+		//For brig physician
 		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
