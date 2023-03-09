@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(demo)
 	var/revdata_list = list()
 	if(GLOB.revision_info)
 		revdata_list["commit"] = "[GLOB.revision_info.commit_hash]"
-		// if(GLOB.revision_info.originmastercommit) revdata_list["originmastercommit"] = "[GLOB.revision_info.originmastercommit]"
+		if(GLOB.revision_info.originmastercommit) revdata_list["originmastercommit"] = "[GLOB.revision_info.originmastercommit]"
 		revdata_list["repo"] = "ss220-space/Paradise"
 	var/revdata_str = json_encode(revdata_list);
 	var/result = call(DEMO_WRITER, "demo_start")(GLOB.demo_log, revdata_str)
