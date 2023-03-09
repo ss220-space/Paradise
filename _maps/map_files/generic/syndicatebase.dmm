@@ -14334,10 +14334,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "mHV" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
 	d1 = 1;
@@ -28198,14 +28194,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wqn" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/conveyor/east{
+	id = "SQMLoad"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/obj/machinery/light,
+/turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wqL" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -31147,7 +31140,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yfb" = (
-/obj/machinery/light,
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
 	d1 = 1;
@@ -69272,7 +69264,7 @@ xTC
 yfA
 vfH
 yfb
-wqn
+vfH
 mHV
 sBZ
 aEV
@@ -69533,7 +69525,7 @@ xfh
 ewt
 wUA
 gWA
-qeh
+wqn
 rXX
 rIh
 xkT
