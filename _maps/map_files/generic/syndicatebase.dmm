@@ -4676,6 +4676,19 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
+"eeD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellowaltstrip"
+	},
+/area/syndicate/unpowered/syndicate_space_base/cargo)
 "eeY" = (
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -4925,10 +4938,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
 "ewt" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/syndie_packager,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5924,18 +5937,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "fmN" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 7
-	},
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "foC" = (
@@ -5966,10 +5970,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "fpl" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "dark"
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "fqF" = (
@@ -6311,18 +6314,26 @@
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fJM" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=4";
+	dir = 4;
+	location = "SQM #3"
+	},
+/mob/living/simple_animal/bot/mulebot{
+	access_card = 150;
+	desc = "Керберос до сих пор ищет своего 3-его мулбота";
+	faction = list("syndicate","silicon");
+	home_destination = "SQM #3";
+	player_access = list(150);
+	suffix = "#3"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown,
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/door_control{
-	id = "CargoPrivacy";
-	name = "Privacy shutters control";
-	pixel_x = 24;
-	req_one_access_txt = "157"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6630,25 +6641,9 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "fUi" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=4";
-	dir = 4;
-	location = "SQM #3"
-	},
-/mob/living/simple_animal/bot/mulebot{
-	access_card = 150;
-	desc = "Керберос до сих пор ищет своего 3-его мулбота";
-	faction = list("syndicate","silicon");
-	home_destination = "SQM #3";
-	player_access = list(150);
-	suffix = "#3"
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "fUt" = (
@@ -7759,7 +7754,15 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "gUu" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10054,11 +10057,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "iSn" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "iTW" = (
@@ -11095,6 +11096,18 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
+"jQQ" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/computer/syndie_supplycomp,
+/obj/item/paper/syndicate{
+	info = "Для отправки особо важных посылок используйте только наши ящики! Вместо того чтобы направиться на сортировку по протоколу, эти ящики будут отправлены запросившим поставки от вас офицерам, после рутинной проверки. Под особо важными посылками мы подразумеваем уникальные заказы офицеров и только их! Технологии, плазму и так далее шлите в обычных ящиках.";
+	name = "Особое напоминание"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/cargo)
 "jQX" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -14334,7 +14347,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "mHV" = (
-/obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -22623,7 +22635,11 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sMI" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26599,8 +26615,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "vgo" = (
@@ -29607,16 +29623,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xfh" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/computer/syndie_supplycomp,
-/obj/item/paper/syndicate{
-	info = "Для отправки особо важных посылок используйте только наши ящики! Вместо того чтобы направиться на сортировку по протоколу, эти ящики будут отправлены запросившим поставки от вас офицерам, после рутинной проверки. Под особо важными посылками мы подразумеваем уникальные заказы офицеров и только их! Технологии, плазму и так далее шлите в обычных ящиках.";
-	name = "Особое напоминание"
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xgn" = (
@@ -31140,7 +31148,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yfb" = (
-/obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -31149,8 +31156,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yfc" = (
@@ -68749,8 +68756,8 @@ xEr
 wUA
 yeZ
 sJO
-wUA
-wUA
+gUu
+jQQ
 xTN
 yeZ
 mrp
@@ -69006,9 +69013,9 @@ xEr
 wUA
 yeZ
 wUA
-fpl
-fUi
-gUu
+wUA
+wUA
+wUA
 yeZ
 bNY
 vtZ
@@ -69264,7 +69271,7 @@ xTC
 yfA
 vfH
 yfb
-vfH
+eeD
 mHV
 sBZ
 aEV
@@ -69517,12 +69524,12 @@ wVR
 vEL
 xuO
 xGj
-xTN
-ygJ
 wUA
-sMI
-xfh
 ewt
+fpl
+wUA
+xfh
+ygJ
 wUA
 gWA
 wqn
@@ -69776,7 +69783,7 @@ xxa
 xGj
 wUA
 ygJ
-wUA
+fUi
 iSn
 fmN
 ygJ
@@ -70291,7 +70298,7 @@ xHb
 xUn
 wUA
 kAg
-wUA
+sMI
 wUA
 tPk
 ccl

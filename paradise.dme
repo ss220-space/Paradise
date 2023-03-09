@@ -2643,6 +2643,7 @@
 #include "code\modules\surgery\organs\subtypes\vulpkanin.dm"
 #include "code\modules\surgery\organs\subtypes\wryn.dm"
 #include "code\modules\surgery\organs\subtypes\xenos.dm"
+#include "code\modules\taipan\redspace_packager.dm"
 #include "code\modules\taipan\syndicate_space_base.dm"
 #include "code\modules\taipan\syndie_cargo.dm"
 #include "code\modules\taipan\syndiepad.dm"
