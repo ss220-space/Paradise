@@ -2655,6 +2655,7 @@
 #include "code\modules\taipan\quest_system\quest_organs_and_bodyparts.dm"
 #include "code\modules\taipan\quest_system\quest_plants.dm"
 #include "code\modules\taipan\quest_system\quest_virus.dm"
+#include "code\modules\taipan\quest_system\quest_weapons_and_implants.dm"
 #include "code\modules\telesci\bscrystal.dm"
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\rcs.dm"
