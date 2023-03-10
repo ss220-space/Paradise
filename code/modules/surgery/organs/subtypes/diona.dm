@@ -107,8 +107,7 @@
 
 	if(. && istype(target, /obj/item/organ/internal/brain/diona))
 		var/is_dead = owner.is_dead()
-		var/delay = is_dead ? 1 SECONDS : 1 MINUTES
-		if(do_after(owner, delay, target = owner))
+		if(is_dead || do_after(owner, 5 SECONDS, target = owner)) // change to 1 min
 			var/obj/item/organ/internal/brain/diona/brain = target
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind

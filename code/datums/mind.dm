@@ -2095,12 +2095,6 @@
 		A.on_removal()
 
 
-/datum/mind/proc/remove_all_antags()
-	if(islist(antag_datums))
-		leave_all_huds()
-		remove_all_antag_datums()
-		return TRUE
-	return FALSE
 
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
