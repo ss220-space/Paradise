@@ -28,7 +28,7 @@
 "g" = (
 /obj/structure/sign/mining/survival{
 	tag = "icon-survival (NORTH)";
-	icon_state = "survival"
+	icon_state = "survival";
 	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
@@ -143,7 +143,7 @@
 "x" = (
 /obj/structure/sign/mining/survival{
 	tag = "icon-survival (EAST)";
-	icon_state = "survival"
+	icon_state = "survival";
 	dir = 4
 	},
 /turf/simulated/wall/mineral/titanium/survival,
