@@ -6107,7 +6107,7 @@
 /area/maintenance/bar)
 "aPA" = (
 /obj/machinery/vending/clothing/departament/security{
-	req_access_txt = "1;63"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -8497,7 +8497,6 @@
 	dir = 1;
 	pixel_y = -25
 	},
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -27827,7 +27826,7 @@
 "cIx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/clothing/mask/gas/clown_hat/pennywise,
+/obj/item/clothing/mask/gas/pennywise,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -102923,7 +102922,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/mob/living/simple_animal/pet/slugcat,
+/mob/living/simple_animal/pet/slugcat/monk,
 /obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -119615,12 +119614,6 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/obj/machinery/door/airlock/glass{
-	name = "Courtroom";
-	req_access_txt = "63";
-	id_tag = "courtroombolts";
-	id = "courtroom"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
