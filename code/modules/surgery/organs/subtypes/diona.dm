@@ -88,6 +88,37 @@
 	icon_state = "nymph"
 	dead_icon = null
 	parent_organ = "chest"
+	actions_types = list(/datum/action/item_action/organ_action/diona_brain_evacuation)
+
+/datum/action/item_action/organ_action/diona_brain_evacuation
+	name = "Evacuation"
+	desc = "Leave body as a nymph. (!Если использовать, пока живы, то лишитесь роли антагониста!)"
+
+/datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
+	. = ..()
+	var/confirm1 = alert("Are we sure that we want to exit our body as a nymph?","Confirm evacuation","Yes","No")
+	if(confirm1 == "No")
+		return
+	else
+		var/confirm2 = alert("Are we REALLY sure? We will loose some of our important memories.","Confirm evacuation","No","Yes")
+		if(confirm2 == "No")
+			return
+
+	if(. && istype(target, /obj/item/organ/internal/brain/diona))
+		var/is_dead = owner.is_dead()
+		var/delay = is_dead ? 1 SECONDS : 1 MINUTES
+		if(do_after(owner, delay, target = owner))
+			var/obj/item/organ/internal/brain/diona/brain = target
+			var/loc = owner.loc
+			var/datum/mind/mind = owner.mind
+			if(!is_dead && islist(mind.antag_datums))
+				mind.remove_all_antag_datums()
+			brain.remove(owner)
+
+			for(var/mob/living/simple_animal/diona/nymph in get_turf(loc))
+				var/throw_dir = pick(GLOB.alldirs)
+				var/throwtarget = get_edge_target_turf(nymph, throw_dir)
+				nymph.throw_at(throwtarget, 3, 1, owner)
 
 /obj/item/organ/internal/kidneys/diona
 	species_type = /datum/species/diona
