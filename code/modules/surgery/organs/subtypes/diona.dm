@@ -112,8 +112,8 @@
 			var/obj/item/organ/internal/brain/diona/brain = target
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind
-			if(!is_dead && islist(mind.antag_datums))
-				mind.remove_all_antag_datums()
+			if(!is_dead)
+				mind.remove_all_antags()
 			brain.remove(owner)
 
 			for(var/mob/living/simple_animal/diona/nymph in get_turf(loc))
