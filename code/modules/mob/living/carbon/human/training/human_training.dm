@@ -23,9 +23,9 @@
 		if (place)
 			break
 		for(var/y = 1, y < world.maxy - room_size_y, y += room_size_y)
-			var/turf/turf = get_turf(locate(x, y, 1))
+			var/turf/turf = get_turf(locate(x, y, 3))
 			if (istype(turf, /turf/space))
-				place = locate(x, y, 1)
+				place = locate(x, y, 3)
 				break
 	return place
 

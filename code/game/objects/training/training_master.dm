@@ -57,7 +57,7 @@
 
 /obj/training_master/proc/begin_user()
 	var/datum/training_coords/center = get_center()
-	controlled_user.setLoc(locate(src.x + 2, center.y, src.z), TRUE)
+	controlled_user.forceMove(locate(src.x + 2, center.y, src.z))
 	controlled_user.reset_inventory()
 
 /obj/training_master/proc/begin_task()

@@ -146,26 +146,26 @@ SUBSYSTEM_DEF(ticker)
 			// 	else
 			// 		reboot_helper("Round ended.", "proper completion")
 
-			if(!SSmapping.next_map) //Next map already selected by admin
-				var/list/all_maps = subtypesof(/datum/map)
-				for(var/x in all_maps)
-					var/datum/map/M = x
-					if(initial(M.admin_only))
-						all_maps -= M
-				switch(config.map_rotate)
-					if("rotate")
-						for(var/i in 1 to all_maps.len)
-							if(istype(SSmapping.map_datum, all_maps[i]))
-								var/target_map = all_maps[(i % all_maps.len) + 1]
-								SSmapping.next_map = new target_map
-								break
-					if("random")
-						var/target_map = pick(all_maps)
-						SSmapping.next_map = new target_map
-					if("vote")
-						SSvote.start_vote(new /datum/vote/map)
-					else
-						SSmapping.next_map = SSmapping.map_datum
+			// if(!SSmapping.next_map) //Next map already selected by admin
+			// 	var/list/all_maps = subtypesof(/datum/map)
+			// 	for(var/x in all_maps)
+			// 		var/datum/map/M = x
+			// 		if(initial(M.admin_only))
+			// 			all_maps -= M
+			// 	switch(config.map_rotate)
+			// 		if("rotate")
+			// 			for(var/i in 1 to all_maps.len)
+			// 				if(istype(SSmapping.map_datum, all_maps[i]))
+			// 					var/target_map = all_maps[(i % all_maps.len) + 1]
+			// 					SSmapping.next_map = new target_map
+			// 					break
+			// 		if("random")
+			// 			var/target_map = pick(all_maps)
+			// 			SSmapping.next_map = new target_map
+			// 		if("vote")
+			// 			SSvote.start_vote(new /datum/vote/map)
+			// 		else
+			// 			SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
 				to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
