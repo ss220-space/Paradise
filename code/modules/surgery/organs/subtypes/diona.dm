@@ -156,6 +156,7 @@
 		if(istype(parent, /obj/item/organ/internal/brain))
 			var/obj/item/organ/internal/brain/brain = organ
 			nymph.real_name = brain.brainmob.real_name
+			nymph.name = "nypmh ([brain.brainmob.real_name])"
 			var/datum/mind/mind = brain.brainmob.mind
 			mind.remove_all_antag_datums()
 			mind.transfer_to(nymph)
