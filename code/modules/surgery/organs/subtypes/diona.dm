@@ -92,6 +92,7 @@
 
 /datum/action/item_action/organ_action/diona_brain_evacuation
 	name = "Evacuation"
+	check_flags = 0
 	desc = "Leave body as a nymph. (!Если использовать, пока живы, то лишитесь роли антагониста!)"
 
 /datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
