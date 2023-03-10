@@ -158,7 +158,6 @@
 			nymph.real_name = brain.brainmob.real_name
 			nymph.name = "nypmh ([brain.brainmob.real_name])"
 			var/datum/mind/mind = brain.brainmob.mind
-			mind.remove_all_antag_datums()
 			mind.transfer_to(nymph)
 
 		qdel(organ)
