@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(servers)
+
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
@@ -20,9 +22,11 @@
 	var/list/usage_logs
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
+	var/z = locate(z)
 
 /obj/machinery/r_n_d/server/New()
 	..()
+	GLOB.servers += src
 	if(!logs_decryption_key)
 		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
@@ -49,6 +53,7 @@
 	RefreshParts()
 
 /obj/machinery/r_n_d/server/Destroy()
+	GLOB.servers -= src
 	griefProtection()
 	return ..()
 
@@ -105,6 +110,7 @@
 		delay = initial(delay)
 
 /obj/machinery/r_n_d/server/emp_act(severity)
+	GLOB.servers -= src
 	griefProtection()
 	..()
 
@@ -254,6 +260,9 @@
 	if(is_taipan(z))
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+	else(is_away_level(z))
+		req_access = null
+		return
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)
 	if(..())
@@ -437,13 +446,8 @@
 
 /obj/machinery/r_n_d/server/core
 	name = "Core R&D Server"
-	id_with_upload_string = "1;3"
-	id_with_download_string = "1;3"
+	id_with_upload_string = "1;3" //so only experiment and core consoles can upload
+	id_with_download_string = "1;2;3;4;5"
 	server_id = 1
 	plays_sound = 1
 
-/obj/machinery/r_n_d/server/robotics
-	name = "Robotics and Mechanic R&D Server"
-	id_with_upload_string = "1;2;4"
-	id_with_download_string = "1;2;4"
-	server_id = 2

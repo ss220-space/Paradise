@@ -35,7 +35,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define TECH_UPDATE_DELAY 50
 #define DESIGN_UPDATE_DELAY 50
 #define PROTOLATHE_CONSTRUCT_DELAY 32
-#define SYNC_RESEARCH_DELAY 30
+//#define SYNC_RESEARCH_DELAY 30
+#define SYNC_SERVER 40
 #define DECONSTRUCT_DELAY 24
 #define SYNC_DEVICE_DELAY 20
 #define RESET_RESEARCH_DELAY 20
@@ -84,7 +85,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
 	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
+	var/sync = 0		//If sync = 0, it doesn't show up on Server Control Console
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
@@ -151,6 +152,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_imprinter = D
 				D.linked_console = src
 	return
+
+/obj/machinery/computer/rdconsole/proc/sync_server(/obj/machinery/r_n_d/server/target)
+	show(GLOBAL_LIST_EMPTY(servers))
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(var/obj/machinery/r_n_d/server/S != z)
+			return
+		else
+			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+			linked_server = target
+			target.linked_console |= src
+			target.refresh_zlevels()
+			sync = 1
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -267,10 +280,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(t_disk && t_disk.stored)
 		files.AddTech2Known(t_disk.stored)
 	SStgui.update_uis(src)
+	sync_research()
 	griefProtection() //Update centcom too
 
 /obj/machinery/computer/rdconsole/proc/sync_research()
 	if(!sync)
+		reset_research()
+		to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 		return
 	clear_wait_message()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
@@ -294,6 +310,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	qdel(files)
 	files = new /datum/research(src)
 	clear_wait_message()
+	sync_research()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -330,6 +347,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("[linked_destroy.icon_closed]_process", linked_destroy)
 	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech, user), DECONSTRUCT_DELAY)
+	sync_research()
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -381,6 +399,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
+	sync_research()
 	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
@@ -498,6 +517,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		machine.busy = FALSE
 
 	clear_wait_message()
+	sync_research()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/ui_act(action, list/params)
@@ -624,16 +644,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
 			start_destroyer(usr)
 
-		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-			else
-				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
-				griefProtection() //Putting this here because I dont trust the sync process
-				addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
+		//if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
+			//if(!sync)
+				//to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+			//else
+				//add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
+				//griefProtection() //Putting this here because I dont trust the sync process
+				//addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
 
 		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.
-			sync = !sync
+			sync_server()
+			add_wait_message("Syncing with server...", SYNC_SERVER)
+			addtimer(CALLBACK(src, .proc/sync_server), SYNC_SERVER)
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -714,7 +736,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			selected_category = "Search Results for '[query]'"
 
 	return TRUE // update uis
-
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
@@ -835,7 +856,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
-	data["sync"] = sync
+	//data["sync"] = sync
 	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
 	data["disk_data"] = null
@@ -992,7 +1013,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
 #undef PROTOLATHE_CONSTRUCT_DELAY
-#undef SYNC_RESEARCH_DELAY
+#undef SYNC_SERVER
+//#undef SYNC_RESEARCH_DELAY
 #undef DECONSTRUCT_DELAY
 #undef SYNC_DEVICE_DELAY
 #undef RESET_RESEARCH_DELAY
