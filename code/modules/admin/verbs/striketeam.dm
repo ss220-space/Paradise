@@ -157,42 +157,9 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	if(is_leader)
 		new_commando.equipOutfit(/datum/outfit/admin/death_commando/officer)
 	else
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/deathsquad(src), slot_wear_suit)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(src), slot_glasses)
-
-	equip_to_slot_or_del(new /obj/item/storage/backpack/ert/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/responseteam(src), slot_in_backpack)
-
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/storage/box/flashbangs(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/flashlight/seclite(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-
-
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
-	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_in_backpack )
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
-	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_s_store )
+		new_commando.equipOutfit(/datum/outfit/admin/death_commando)
 
 	var/obj/item/implant/mindshield/ert/L = new/obj/item/implant/mindshield/ert(src)
 	L.implant(src)
-
-	var/obj/item/card/id/W = new(src)
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "deathsquad"
-	W.assignment = "Death Commando"
-	W.access = get_centcom_access(W.assignment)
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
 
 	return 1
