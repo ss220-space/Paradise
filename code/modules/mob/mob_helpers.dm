@@ -339,6 +339,7 @@
 			animate(C, pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
 		else
 			animate(pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+		SSdemo.flush()
 	animate(pixel_x = oldx, pixel_y = oldy, time = 1)
 
 
