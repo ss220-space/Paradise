@@ -96,8 +96,7 @@
 		for(var/check_z in random_space_levels_z)
 			if(is_station_level(check_z))
 				random_space_levels_z -= check_z //Deletes station lvl, so there's only space
-		Z = pick(z_levels) // Pick a z level
-		Z = z_levels.Find(Z) + 4 // And get the corresponding number + 4
+		Z = pick(random_space_levels_z) // Pick a z level
 
 	return locate(rand_x, rand_y, Z)
 
