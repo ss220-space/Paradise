@@ -522,7 +522,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NRV Sparta";
-	req_access = "101"
+	req_access_txt = "101"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;

@@ -4038,7 +4038,7 @@
 /area/ninja/outpost)
 "dol" = (
 /obj/machinery/computer/teleporter{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -6568,7 +6568,7 @@
 /area/centcom/jail)
 "fdk" = (
 /obj/machinery/computer/card/centcom{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -10859,7 +10859,7 @@
 /area/holodeck/source_theatre)
 "ikJ" = (
 /obj/machinery/computer/teleporter{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /obj/machinery/light/small{
 	brightness_range = 10;
@@ -16419,8 +16419,7 @@
 	control_area = "\improper Centcom Emergency Shuttle";
 	name = "Emergency Shuttle Turret Control Panel";
 	pixel_x = -30;
-	req_access = "0";
-	req_access_txt = "110"
+	req_access_txt = "0"
 	},
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 1 Check point 2";
@@ -24245,7 +24244,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Supreme Court";
 	opacity = 1;
-	req_access_txt = "106,109,110"
+	req_access_txt = "106;109;110"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -24254,7 +24253,7 @@
 "rtj" = (
 /obj/machinery/computer/shuttle/ert{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	req_access = list(109)
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"

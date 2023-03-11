@@ -539,7 +539,7 @@
 "bp" = (
 /obj/machinery/alarm/monitor{
 	pixel_y = 23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -685,7 +685,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	pixel_x = 23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -828,7 +828,7 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/alarm/monitor{
 	pixel_y = 23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
@@ -905,7 +905,7 @@
 /obj/machinery/alarm/monitor{
 	locked = 0;
 	pixel_y = 23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -1287,7 +1287,7 @@
 	cell_type = 15000;
 	name = "Worn-out APC";
 	pixel_y = -25;
-	req_access = "150";
+	req_access_txt = "150";
 	start_charge = 0
 	},
 /obj/structure/alien/weeds{
@@ -1375,7 +1375,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	pixel_x = 23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /obj/machinery/light{
 	active_power_usage = 0;
@@ -1552,7 +1552,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 4;
 	pixel_x = -23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
@@ -1580,7 +1580,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	pixel_x = 23;
-	req_access = "150"
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/wood,
 /area/moonoutpost19/syndicateoutpost)

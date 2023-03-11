@@ -203,7 +203,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Dominator's";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/gun/energy/dominator/sibyl{
 	pixel_x = 3;
@@ -382,7 +382,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Security ballistic weapons";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/gun/projectile/automatic/pistol/enforcer/security{
 	pixel_x = -3;
@@ -1351,7 +1351,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Tasers";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2850,7 +2850,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Rubber bullets";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/ammo_box/rubber9mm{
 	pixel_x = -3;
@@ -32975,7 +32975,7 @@
 	control_area = "\improper AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
-	req_access = list(75)
+	req_access_txt = "75"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80253,7 +80253,7 @@
 /area/maintenance/xenozoo)
 "gJT" = (
 /obj/machinery/shieldwallgen{
-	req_access = list(47)
+	req_access_txt = "47"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /obj/structure/cable{
@@ -94384,7 +94384,7 @@
 /area/turret_protected/aisat_interior)
 "rWs" = (
 /obj/machinery/shieldwallgen{
-	req_access = list(47)
+	req_access_txt = "47"
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/cable{

@@ -1548,7 +1548,7 @@
 /area/holodeck/source_boxingcourt)
 "qt" = (
 /obj/machinery/computer/card/centcom{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -2742,7 +2742,7 @@
 /area/space)
 "Fv" = (
 /obj/machinery/computer/teleporter{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"

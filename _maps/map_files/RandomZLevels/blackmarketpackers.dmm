@@ -7965,7 +7965,7 @@
 	dir = 1;
 	lighting = 0;
 	pixel_y = 24;
-	req_access = "111";
+	req_access_txt = "111";
 	environ = 0;
 	equipment = 0;
 	operating = 0;

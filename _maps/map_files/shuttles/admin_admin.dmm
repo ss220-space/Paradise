@@ -88,7 +88,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NVT Argos";
-	req_access = "101"
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -729,14 +729,14 @@
 	name = "Blast door control";
 	pixel_x = -5;
 	pixel_y = -23;
-	req_access = list(101)
+	req_access_txt = "101"
 	},
 /obj/machinery/door_control{
 	id = "adminshuttleshutters";
 	name = "Shutter control";
 	pixel_x = 5;
 	pixel_y = -23;
-	req_access = list(101)
+	req_access_txt = "101"
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/shuttle{

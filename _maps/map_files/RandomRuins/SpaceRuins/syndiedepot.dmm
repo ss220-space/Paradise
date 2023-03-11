@@ -990,7 +990,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	pixel_x = 24;
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -2359,7 +2359,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Supreme Court";
 	opacity = 1;
-	req_access_txt = "106,109,110"
+	req_access_txt = "106;109;110"
 	},
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel{
@@ -6269,7 +6269,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NVT Argos";
-	req_access = "101"
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -11855,7 +11855,7 @@
 /area/ninja/outpost)
 "ghO" = (
 /obj/structure/closet/secure_closet/brig{
-	req_access = list(153)
+	req_access_txt = "153"
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
@@ -11880,7 +11880,7 @@
 "gjn" = (
 /obj/machinery/computer/shuttle/ert{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	req_access = list(109)
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -17745,7 +17745,7 @@
 	name = "Shutter control";
 	pixel_x = 5;
 	pixel_y = -23;
-	req_access = list(101);
+	req_access_txt = "101";
 	wires = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -38339,7 +38339,7 @@
 	pixel_y = -25
 	},
 /obj/structure/closet/secure_closet/brig{
-	req_access = list(153)
+	req_access_txt = "153"
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)

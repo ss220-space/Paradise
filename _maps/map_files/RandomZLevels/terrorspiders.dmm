@@ -7680,7 +7680,7 @@
 	layer = 2.9
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
-	req_access = list(271)
+	req_access_txt = "271"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10153,7 +10153,7 @@
 	pixel_y = -24
 	},
 /obj/structure/closet/secure_closet/miner{
-	req_access = list(271)
+	req_access_txt = "271"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -11161,7 +11161,7 @@
 	icon_state = "miningsec";
 	locked = 0;
 	name = "miner's equipment";
-	req_access = list(271)
+	req_access_txt = "271"
 	},
 /obj/item/storage/backpack/satchel_eng,
 /obj/item/clothing/gloves/fingerless,

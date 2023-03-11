@@ -54536,7 +54536,7 @@
 	id = "SupermatterVenting";
 	name = "Supermatter Venting Control";
 	pixel_x = 26;
-	req_access_txt = "24,47"
+	req_access_txt = "24;47"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -61196,7 +61196,7 @@
 /area/security/podbay)
 "hmq" = (
 /obj/structure/closet/secure_closet/brigdoc{
-	req_access_txt = "2","5"
+	req_access_txt = "2;5"
 	},
 /obj/item/handheld_defibrillator,
 /obj/item/storage/belt/medical,

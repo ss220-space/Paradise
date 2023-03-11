@@ -2254,7 +2254,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "156, 149"
+	req_access_txt = "156;149"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -4872,7 +4872,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "esH" = (
 /obj/structure/closet/secure_closet/personal/patient{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /obj/item/clothing/head/wizard/fake{
 	desc = "Это что принадлежит местной мартышке?";
@@ -20177,7 +20177,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qFx" = (
 /obj/structure/closet/secure_closet/personal/patient{
-	req_access = list(150)
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
