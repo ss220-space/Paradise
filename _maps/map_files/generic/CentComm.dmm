@@ -3323,7 +3323,7 @@
 	},
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
-	req_one_access = list(150)
+	req_one_access_txt = "150"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -23214,7 +23214,7 @@
 "mrX" = (
 /obj/machinery/computer/cryopod{
 	pixel_x = 32;
-	req_one_access = list(150)
+	req_one_access_txt = "150"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -31759,7 +31759,7 @@
 /obj/item/flag/syndi,
 /obj/machinery/computer/cryopod{
 	pixel_x = 32;
-	req_one_access = list(150)
+	req_one_access_txt = "150"
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
@@ -33561,7 +33561,7 @@
 "rbh" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
-	req_one_access = list(150)
+	req_one_access_txt = "150"
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
