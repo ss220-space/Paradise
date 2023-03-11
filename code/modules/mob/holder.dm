@@ -379,7 +379,7 @@
 	name = "poppy"
 	desc = "It's a possum Poppy. Ewwww..."
 	icon = 'icons/mob/pets.dmi'
-	icon_state = "poppy"
+	icon_state = "possum_poppy"
 
 /obj/item/holder/frog
 	name = "frog"
@@ -397,12 +397,14 @@
 	desc = "Slooooow"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "snail"
+	slot_flags = null
 
 /obj/item/holder/turtle
 	name = "yeeslow"
 	desc = "Slooooow"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "yeeslow"
+	slot_flags = null
 
 /obj/item/holder/clowngoblin
 	name = "clowngoblin"

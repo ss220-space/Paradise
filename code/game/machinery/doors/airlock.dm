@@ -741,9 +741,12 @@ About the new airlock wires panel:
 
 	if(headbutt_airlock(user))
 		return // Smack that head against that airlock
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
 	if(remove_airlock_note(user, FALSE))
 		return
-
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
@@ -1505,6 +1508,24 @@ About the new airlock wires panel:
 			A = new/obj/machinery/door/airlock/clockwork(get_turf(src))
 	A.name = name
 	qdel(src)
+
+/obj/machinery/door/airlock/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(20, user))
+		to_chat(user, "Deconstructing airlock...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(20, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed airlock with RCD")
+			qdel(src)
+			return RCD_ACT_SUCCESSFULL
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
 
 /obj/machinery/door/airlock/proc/ai_control_callback()
 	if(aiControlDisabled == AICONTROLDISABLED_ON)
