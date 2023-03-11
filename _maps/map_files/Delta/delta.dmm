@@ -61196,7 +61196,7 @@
 /area/security/podbay)
 "hmq" = (
 /obj/structure/closet/secure_closet/brigdoc{
-	req_access = list(2,5)
+	req_access_txt = "2","5"
 	},
 /obj/item/handheld_defibrillator,
 /obj/item/storage/belt/medical,
@@ -64612,7 +64612,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Rubber Bullets";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/ammo_box/magazine/enforcer{
 	pixel_x = 3;
@@ -92989,7 +92989,7 @@
 	control_area = "\improper AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
-	req_access = list(75)
+	req_access_txt = "75"
 	},
 /turf/simulated/floor/carpet,
 /area/bridge)
@@ -97322,7 +97322,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Tasers";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
@@ -98571,7 +98571,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Dominator's";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/gun/energy/dominator/sibyl,
 /obj/item/gun/energy/dominator/sibyl,
@@ -122491,7 +122491,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Security Ballistic Weapons";
-	req_access = list(1)
+	req_access_txt = "1"
 	},
 /obj/item/gun/projectile/automatic/pistol/enforcer/security{
 	pixel_x = -3;
@@ -134420,7 +134420,7 @@
 /area/medical/research)
 "xnO" = (
 /obj/machinery/shieldwallgen{
-	req_access = list(47)
+	req_access_txt = "47"
 	},
 /obj/structure/sign/electricshock{
 	pixel_y = -32
@@ -137296,7 +137296,7 @@
 /area/engine/controlroom)
 "xOw" = (
 /obj/machinery/shieldwallgen{
-	req_access = list(47)
+	req_access_txt = "47"
 	},
 /obj/structure/sign/electricshock{
 	pixel_y = -32
