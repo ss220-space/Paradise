@@ -60,6 +60,11 @@ SUBSYSTEM_DEF(demo)
 		chat_list[++chat_list.len] = list(world.time, target_list, message_str, is_text)
 
 /datum/controller/subsystem/demo/Initialize()
+	if(!config.demos_enabled)
+		flags |= SS_NO_FIRE
+		can_fire = FALSE
+		return ..()
+
 	dummy_observer = new
 	dummy_observer.forceMove(null)
 	dummy_observer.key = dummy_observer.ckey = ckey
@@ -74,7 +79,7 @@ SUBSYSTEM_DEF(demo)
 	var/result = call(DEMO_WRITER, "demo_start")(GLOB.demo_log, revdata_str)
 
 	if(result == "SUCCESS")
-		demo_started = 1
+		demo_started = TRUE
 		for(var/L in embed_list)
 			embed_resource(arglist(L))
 
@@ -104,7 +109,8 @@ SUBSYSTEM_DEF(demo)
 		last_size = text2num(call(DEMO_WRITER, "demo_flush")())
 
 /datum/controller/subsystem/demo/Shutdown()
-	call(DEMO_WRITER, "demo_end")()
+	if(demo_started)
+		call(DEMO_WRITER, "demo_end")()
 
 /datum/controller/subsystem/demo/stat_entry(msg)
 	msg += "ALL: [format_size(last_size)] | RSC: [format_size(last_embedded_size)]"
