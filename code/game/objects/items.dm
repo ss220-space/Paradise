@@ -315,7 +315,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(!user.advanced_unequip_if_possible(src))
+		if(!user.unEquip(src))
 			return 0
 
 	else
