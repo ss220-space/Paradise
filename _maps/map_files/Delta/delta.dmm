@@ -49013,6 +49013,7 @@
 	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"rad"=100,"fire"=70,"acid"=100);
 	dir = 2;
 	name = "Secure Armory";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/machinery/door/window/brigdoor{
@@ -64612,6 +64613,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Rubber Bullets";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/ammo_box/magazine/enforcer{
@@ -97322,6 +97324,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Tasers";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/gun/energy/gun/advtaser{
@@ -98571,6 +98574,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Dominator's";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/gun/energy/dominator/sibyl,
@@ -122491,6 +122495,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Security Ballistic Weapons";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/gun/projectile/automatic/pistol/enforcer/security{

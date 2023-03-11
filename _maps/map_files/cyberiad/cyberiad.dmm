@@ -203,6 +203,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Dominator's";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/gun/energy/dominator/sibyl{
@@ -382,6 +383,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Security ballistic weapons";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/gun/projectile/automatic/pistol/enforcer/security{
@@ -1351,6 +1353,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Tasers";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /turf/simulated/floor/plasteel{
@@ -2850,6 +2853,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Rubber bullets";
+	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/item/ammo_box/rubber9mm{
