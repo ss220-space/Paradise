@@ -245,6 +245,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
 
+		SSdemo.embed_resource(base_icon)
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		GLOB.human_icon_cache[icon_key] = new_base
 		standing += new_base

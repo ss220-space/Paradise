@@ -16,7 +16,6 @@
 	MA.icon_state = icon_state
 	MA.layer = layer
 	MA.plane = plane
-	SSdemo.embed_resource(icon)
 	return MA
 
 
