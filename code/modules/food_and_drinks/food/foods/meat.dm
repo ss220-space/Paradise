@@ -38,7 +38,7 @@
 	desc = "A slab of reclaimed and chemically processed meat product."
 
 /obj/item/reagent_containers/food/snacks/meat/monkey
-	//same as plain meat
+	name = "lesser meat"
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
@@ -68,6 +68,12 @@
 	name = "жесткая ветчина"
 	desc = "Мясо почтенного хряка."
 	list_reagents = list("protein" = 2, "porktonium" = 10)
+
+/obj/item/reagent_containers/food/snacks/meat/mouse
+	name = "мышатина"
+	desc = "На безрыбье и мышь мясо. Кто знает чем питался этот грызун до его подачи к столу."
+	icon_state = "meat_clear"
+	list_reagents = list("nutriment" = 2, "blood" = 3, "toxin" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/meatwheat
 	name = "meatwheat clump"
@@ -290,15 +296,6 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
-	foodtype = MEAT
-
-/obj/item/reagent_containers/food/snacks/fried_vox
-	name = "Kentucky Fried Vox"
-	desc = "Bucket of voxxy, yaya!"
-	icon_state = "fried_vox"
-	trash = /obj/item/trash/fried_vox
-	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("quills" = 1, "the shoal" = 1)
 	foodtype = MEAT
 
 //////////////////////
@@ -561,3 +558,76 @@
 	desc = "An appendix which appears to be inflamed."
 	icon_state = "appendixinflamed"
 	filling_color = "#E00D7A"
+
+//Food made of species
+/obj/item/reagent_containers/food/snacks/fried_vox
+	name = "Kentucky Fried Vox"
+	desc = "Bucket of voxxy, yaya!"
+	icon_state = "fried_vox"
+	trash = /obj/item/trash/fried_vox
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("quills" = 1, "the shoal" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/kidanragu
+	name = "Spicy chitin ragu"
+	desc = "Stew with very tough chitinous meat and stewed vegetables."
+	icon_state = "kidanragu"
+	list_reagents = list("nutriment" = 8, "vitamin" = 4, "protein" = 4)
+	tastes = list("insect" = 3, "vegetable" = 2)
+	foodtype = GROSS | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/sliceable/lizard
+	name = "Fried reptile meat"
+	desc = " A Juicy steaks from the tail of a large lizard, makes you want to lie on warm rocks. Slicable"
+	icon_state = "lizard_steak"
+	slice_path = /obj/item/reagent_containers/food/snacks/lizardslice
+	slices_num = 5
+	list_reagents = list("zessulblood" = 50, "protein" = 30, "nutriment" = 20, "vitamin" = 10)
+	tastes = list("lizard meat" = 4, "chicken meat" = 2)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lizardslice
+	name = "reptile steak"
+	desc = "A serving of unathi meat."
+	icon_state = "lizard_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#a55f3a"
+	tastes = list("lizard meat" = 2, "chicken meat" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/tajaroni
+	name = "Tajaroni"
+	desc = "Spicy dried sausage with pepper and... Did it just meow?"
+	icon_state = "tajaroni"
+	list_reagents = list("nutriment" = 8, "vitamin" = 4, "protein" = 4)
+	tastes = list("dry meat" = 3, "cat meat" = 2)
+	foodtype = MEAT
+
+//vulpix
+/obj/item/reagent_containers/food/snacks/vulpix
+	name = "Vulpixes"
+	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of!"
+	icon_state = "vulpix"
+	list_reagents = list("nutriment" = 10, "vitamin" = 4, "protein" = 5)
+	tastes = list("dough" = 2, "dog meat" = 3)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/vulpix/cheese
+	name = "Cheese vulpixes"
+	desc = "Appetizing-looking meat balls in the dough filled with cheese.. The main thing is not to think about WHO they are made of!"
+	icon_state = "vulpix_cheese"
+	tastes = list("dough" = 2, "dog meat" = 3, "cheese" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/bacon
+	name = "Bacon and mushroom vulpixes"
+	desc = "Appetizing-looking meat balls in the dough filled with.. The main thing is not to think about WHO they are made of!"
+	icon_state = "vulpix_bacon"
+	tastes = list("dough" = 2, "dog meat" = 3, "bacon" = 2, "mushroom" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/chilli
+	name = "Chilli vulpixes"
+	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of! Makes your tongue burn."
+	icon_state = "vulpix_chillie"
+	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
+
