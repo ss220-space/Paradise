@@ -112,7 +112,7 @@
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind
 			if(!is_dead)
-				mind.remove_all_antags()
+				mind.remove_all_antag_datums()
 			brain.remove(owner)
 
 			for(var/mob/living/simple_animal/diona/nymph in get_turf(loc))
