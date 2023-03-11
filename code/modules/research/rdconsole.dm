@@ -74,6 +74,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null	//Linked Destructive Analyzer
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
+	var/obj/machinery/r_n_d/server/linked_server //Linked Server
 
 	var/screen = 1.0	//Which screen is currently showing.
 
@@ -82,7 +83,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
-	var/syndicate = 0 //добавленный для синдибазы флаг
+	var/syndicate = 0 //flag for syndibase
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 0		//If sync = 0, it doesn't show up on Server Control Console
@@ -92,7 +93,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
 
-	var/ui_theme = "Nanotrasen" //Тема интерфейса
+	var/ui_theme = "Nanotrasen" //Interface theme
 
 /proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
 	for(var/T in subtypesof(/datum/tech))
@@ -154,16 +155,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return
 
 /obj/machinery/computer/rdconsole/proc/sync_server(/obj/machinery/r_n_d/server/target)
-	show(GLOBAL_LIST_EMPTY(servers))
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-		if(var/obj/machinery/r_n_d/server/S != z)
-			return
+	for(var/obj/machinery/computer/rdconsole/S in GLOB.machines)
+		var/able_to_sync(list)
+		var/obj/machinery/r_n_d/server/s = S
+		var/turf/ST = get_turf (S)
+		if(S.local || same(z))
+			++ able_to_sync
 		else
-			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
-			linked_server = target
-			target.linked_console |= src
-			target.refresh_zlevels()
-			sync = 1
+			return
+	for(var/obj/machinery/r_n_d/server/target)
+	var/target = input(target,"Pick a server to connect to.",null)as null|anything in able_to_sync.list()
+		input("Are you shure you want to connect to this server?") in list("Connect", "Cancel")
+			if("Cancel")
+				return
+			else
+				linked_server = target
+				target.linked_console |= src
+				sync = 1
+
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -218,7 +227,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
 			return
-
 		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
 		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
 		else
@@ -284,10 +292,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection() //Update centcom too
 
 /obj/machinery/computer/rdconsole/proc/sync_research()
-	if(!sync)
-		reset_research()
-		to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-		return
 	clear_wait_message()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		var/server_processed = FALSE
@@ -517,7 +521,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		machine.busy = FALSE
 
 	clear_wait_message()
-	sync_research()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/ui_act(action, list/params)
@@ -615,6 +618,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
 			var/datum/design/design = files.known_designs[params["id"]]
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				return
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
 			menu = MENU_DISK
@@ -634,6 +640,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				return
 			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
@@ -642,7 +651,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			start_destroyer(usr)
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				return
+			else
+				start_destroyer(usr)
 
 		//if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			//if(!sync)
@@ -652,16 +665,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				//griefProtection() //Putting this here because I dont trust the sync process
 				//addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
 
-		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.
+		if("togglesync")
 			sync_server()
 			add_wait_message("Syncing with server...", SYNC_SERVER)
 			addtimer(CALLBACK(src, .proc/sync_server), SYNC_SERVER)
 
 		if("build") //Causes the Protolathe to build something.
-			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				return
+			else
+				start_machine(linked_lathe, params["id"], text2num(params["amount"]))
 
 		if("imprint") //Causes the Circuit Imprinter to build something.
-			start_machine(linked_imprinter, params["id"], text2num(params["amount"]))
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				return
+			else
+				start_machine(linked_imprinter, params["id"], text2num(params["amount"]))
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
@@ -705,6 +726,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						linked_imprinter = null
 
 		if("reset") //Reset the R&D console's database.
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				return
 			griefProtection()
 			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 			if(choice == "Continue")

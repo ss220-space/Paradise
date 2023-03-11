@@ -1,4 +1,6 @@
 GLOBAL_LIST_EMPTY(servers)
+#define UI_TAB_CONFIG "CONFIG"
+#define UI_TAB_LINKS "LINKS"
 
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
@@ -22,7 +24,7 @@ GLOBAL_LIST_EMPTY(servers)
 	var/list/usage_logs
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
-	var/z = locate(z)
+	var/list/linked_servers = list()
 
 /obj/machinery/r_n_d/server/New()
 	..()
@@ -251,7 +253,7 @@ GLOBAL_LIST_EMPTY(servers)
 	var/screen = 0
 	var/obj/machinery/r_n_d/server/temp_server
 	var/list/servers = list()
-	var/list/consoles = list()
+	var/list/linked_consoles = list()
 	var/badmin = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
@@ -279,7 +281,7 @@ GLOBAL_LIST_EMPTY(servers)
 
 	else if(href_list["access"] || href_list["data"] || href_list["transfer"] || href_list["logs"])
 		temp_server = null
-		consoles = list()
+		linked_consoles = list()
 		servers = list()
 		for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["logs"]) || S.server_id == text2num(href_list["transfer"]))
@@ -289,7 +291,7 @@ GLOBAL_LIST_EMPTY(servers)
 			screen = 1
 			for(var/obj/machinery/computer/rdconsole/C in GLOB.machines)
 				if(C.sync)
-					consoles += C
+					linked_consoles += C
 		else if(href_list["data"])
 			screen = 2
 		else if(href_list["logs"])
@@ -370,7 +372,7 @@ GLOBAL_LIST_EMPTY(servers)
 		if(1) //Access rights menu
 			dat += "[temp_server.name] Access Rights<BR><BR>"
 			dat += "Consoles with Upload Access<BR>"
-			for(var/obj/machinery/computer/rdconsole/C in consoles)
+			for(var/obj/machinery/computer/rdconsole/C in linked_consoles)
 				if(C.syndicate != syndicate) // Флаг в действии 2
 					continue
 				var/turf/console_turf = get_turf(C)
@@ -380,7 +382,7 @@ GLOBAL_LIST_EMPTY(servers)
 				else
 					dat += " (Add)</A><BR>"
 			dat += "Consoles with Download Access<BR>"
-			for(var/obj/machinery/computer/rdconsole/C in consoles)
+			for(var/obj/machinery/computer/rdconsole/C in linked_consoles)
 				if(C.syndicate != syndicate) // Флаг в действии 3
 					continue
 				var/turf/console_turf = get_turf(C)
