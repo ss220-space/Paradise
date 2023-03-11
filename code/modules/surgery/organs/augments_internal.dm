@@ -47,6 +47,10 @@
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened
+	name = "Hardened anti drop implant"
+	emp_proof = TRUE
+
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
 	active = !active
 	if(active)

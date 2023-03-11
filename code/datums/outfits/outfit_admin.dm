@@ -398,6 +398,8 @@
 		/obj/item/ammo_box/a357 = 1
 	)
 
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened)
+
 	implants = list(/obj/item/implant/mindshield/ert)
 
 /datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
