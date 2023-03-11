@@ -316,7 +316,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(!user.advanced_unequip_if_possible(src))
+		if(!user.unEquip(src))
 			return 0
 
 	else

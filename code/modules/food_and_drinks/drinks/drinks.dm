@@ -38,12 +38,6 @@
 
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
-		if(!get_location_accessible(C, "mouth"))
-			if(C == user)
-				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-			else
-				to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
-			return FALSE
 
 		var/list/transfer_data = reagents.get_transferred_reagents(C, amount_per_transfer_from_this)
 		if(C.eat(src, user))
