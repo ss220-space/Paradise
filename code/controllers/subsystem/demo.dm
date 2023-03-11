@@ -111,9 +111,11 @@ SUBSYSTEM_DEF(demo)
 /datum/controller/subsystem/demo/Shutdown()
 	if(demo_started)
 		call(DEMO_WRITER, "demo_end")()
+		can_fire = FALSE
 
 /datum/controller/subsystem/demo/stat_entry(msg)
-	msg += "ALL: [format_size(last_size)] | RSC: [format_size(last_embedded_size)]"
+	var/demos_embed_tts = config.demos_embed_tts ? "on" : "off"
+	msg += "ALL: [format_size(last_size)] | RSC: [format_size(last_embedded_size)] | TTS: [demos_embed_tts]"
 	return ..(msg)
 
 /datum/controller/subsystem/demo/proc/format_size(size)
