@@ -25,5 +25,6 @@
 /datum/ui_module/atmos_control/ui_data(mob/user)
 	var/list/data = list()
 	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(GLOB.air_alarms, target_z=level_name_to_num(MAIN_STATION))
+	data["stationLevel"] = level_name_to_num(MAIN_STATION)
 
 	return data
