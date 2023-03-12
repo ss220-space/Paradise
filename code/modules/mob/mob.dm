@@ -1076,12 +1076,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
+	stat(null, "Current Map: [SSmapping.map_datum.name]")
+	if(SSmapping.next_map)
+		stat(null, "Next Map: [SSmapping.next_map.name]")
 	stat(null, "Round Time: [worldtime2text()]")
 	stat(null, "Station Time: [station_time_timestamp()]")
+	stat(null, "Server TPS: [world.fps]")
+	stat(null, "Desired Client FPS: [client?.prefs?.clientfps]")
 	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
 				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
 				"[round(SStime_track.time_dilation_avg,1)]%, " + \
 				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
+	stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
