@@ -16,6 +16,7 @@
 	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
 	burn_mod = 1.5
+	oxy_mod = 2
 	exotic_blood = "cryoxadone"
 	body_temperature = 273
 	toolspeedmod = 1.2 //20% slower
