@@ -266,6 +266,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach()
 	STOP_PROCESSING(SSobj, src)
+	for(var/obj/mecha/medical/odysseus/O in range(0, get_turf(src)))
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
+			S.detach()
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Destroy()
@@ -530,14 +533,20 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
 	name = "Additional system for the reproduction of reagents"
-	desc = "temp desc"
+	desc = "Upgrade for the syringe gun. Increases synthesis rate and maximum capacity. Requires a syringe gun to be installed first."
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "beaker_upgrade"
-	origin_tech = "materials=5;engineering=5;"
+	origin_tech = "materials=5;engineering=5;biotech=6"
 	energy_drain = 10
 	selectable = 0
 	var/improv_max_volume = 300
 	var/imrov_synth_speed = 20
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
+	..()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
+		return 1
+	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
 	..()
@@ -613,11 +622,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach(obj/mecha/M)
 	..()
-	for(var/obj/mecha/medical/odysseus/O)
-		O.step_in = improv_step_in
+	M.step_in = improv_step_in
 
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach()
-	for(var/obj/mecha/medical/odysseus/O)
+	for(var/obj/mecha/medical/odysseus/O in range(0, get_turf(src)))
 		O.step_in = initial(O.step_in)
-	STOP_PROCESSING(SSobj, src)
 	return ..()
