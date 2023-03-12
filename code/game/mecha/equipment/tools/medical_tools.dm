@@ -560,7 +560,6 @@
 		S.max_volume = initial(S.max_volume)
 		S.synth_speed = initial(S.synth_speed)
 		S.reagents.maximum_volume = S.max_volume
-	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
