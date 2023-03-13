@@ -2260,9 +2260,6 @@
 	remove_shadow_role()
 	remove_ninja_role()
 
-	log_admin("[key_name(current)] lost all antag roles")
-	message_admins("[key_name(current)] lost all antag roles")
-
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
