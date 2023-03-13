@@ -2094,7 +2094,174 @@
 		var/datum/antagonist/A = a
 		A.on_removal()
 
+/datum/mind/proc/remove_revolutionary_role()
+	if(src in SSticker.mode.revolutionaries)
+		SSticker.mode.remove_revolutionary(src)
+	if(src in SSticker.mode.head_revolutionaries)
+		SSticker.mode.remove_revolutionary(src)
 
+/datum/mind/proc/remove_cult_role()
+	if(src in SSticker.mode.cult)
+		SSticker.mode.remove_cultist(src)
+		special_role = null
+
+/datum/mind/proc/remove_clocker_role()
+	if(src in SSticker.mode.clockwork_cult)
+		SSticker.mode.remove_clocker(src)
+		special_role = null
+
+/datum/mind/proc/remove_wizard_role()
+	if(src in SSticker.mode.wizards)
+		SSticker.mode.wizards -= src
+		special_role = null
+		current.spellremove(current)
+		current.faction = list("Station")
+		SSticker.mode.update_wiz_icons_removed(src)
+	if(src in SSticker.mode.apprentices)
+		SSticker.mode.apprentices -= src
+		special_role = null
+		current.spellremove(current)
+		current.faction = list("Station")
+		SSticker.mode.update_wiz_icons_removed(src)
+
+/datum/mind/proc/remove_changeling_role()
+	if(src in SSticker.mode.changelings)
+		SSticker.mode.changelings -= src
+		special_role = null
+		if(changeling)
+			current.remove_changeling_powers()
+			qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
+			current.middleClickOverride = null
+			qdel(changeling)
+			changeling = null
+		SSticker.mode.update_change_icons_removed(src)
+
+/datum/mind/proc/remove_vampire_role()
+	if(src in SSticker.mode.vampires)
+		SSticker.mode.vampires -= src
+		special_role = null
+		if(vampire)
+			vampire.remove_vampire_powers()
+			qdel(vampire)
+			vampire = null
+		SSticker.mode.update_vampire_icons_removed(src)
+	if(src in SSticker.mode.vampire_enthralled)
+		SSticker.mode.remove_vampire_mind(src)
+		log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
+		message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+
+/datum/mind/proc/remove_syndicate_role()
+	if(src in SSticker.mode.syndicates)
+		SSticker.mode.syndicates -= src
+		SSticker.mode.update_synd_icons_removed(src)
+		special_role = null
+		for(var/datum/objective/nuclear/O in objectives)
+			objectives-=O
+			qdel(O)
+
+/datum/mind/proc/remove_event_role()
+	if(src in SSticker.mode.eventmiscs)
+		SSticker.mode.eventmiscs -= src
+		SSticker.mode.update_eventmisc_icons_removed(src)
+		special_role = null
+
+/datum/mind/proc/remove_devil_role()
+	if(src in SSticker.mode.devils)
+		if(istype(current,/mob/living/carbon/true_devil/))
+		else
+			SSticker.mode.devils -= src
+			SSticker.mode.update_devil_icons_removed(src)
+			special_role = null
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
+			if(issilicon(current))
+				var/mob/living/silicon/S = current
+				S.laws.clear_sixsixsix_laws()
+			devilinfo = null
+	else if(src in SSticker.mode.sintouched)
+		SSticker.mode.sintouched -= src
+
+/datum/mind/proc/remove_contractor_role()
+	if(has_antag_datum(/datum/antagonist/traitor/contractor))
+		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
+		var/memory = C.antag_memory // Need to preserve the codewords and such
+		// Clean up contractor stuff
+		var/obj/item/uplink/hidden/U = find_syndicate_uplink()
+		U?.contractor = null
+		C.silent = TRUE
+		remove_antag_datum(/datum/antagonist/traitor/contractor)
+		// Traitor them again
+		if(!has_antag_datum(/datum/antagonist/traitor, FALSE))
+			var/datum/antagonist/traitor/T = new()
+			T.give_objectives = FALSE
+			T.should_equip = FALSE
+			T.silent = TRUE
+			T.antag_memory += memory
+			add_antag_datum(T)
+
+/datum/mind/proc/remove_traitor_role()
+	if(has_antag_datum(/datum/antagonist/traitor/contractor))
+		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
+		// Clean up contractor stuff
+		var/obj/item/uplink/hidden/U = find_syndicate_uplink()
+		U?.contractor = null
+		C.silent = TRUE
+		remove_antag_datum(/datum/antagonist/traitor/contractor)
+
+	if(has_antag_datum(/datum/antagonist/traitor))
+		remove_antag_datum(/datum/antagonist/traitor)
+		current.client.chatOutput?.clear_syndicate_codes()
+
+	if(has_antag_datum(/datum/antagonist/mindslave))
+		var/mob/living/carbon/human/H = current
+		for(var/i in H.contents)
+			if(istype(i, /obj/item/implant/traitor))
+				qdel(i)
+				break
+
+/datum/mind/proc/remove_thief_role()
+	if(src in SSticker.mode.thieves)
+		SSticker.mode.remove_thief(src)
+
+/datum/mind/proc/remove_shadow_role()
+	SSticker.mode.update_shadow_icons_removed(src)
+	if(src in SSticker.mode.shadows)
+		SSticker.mode.shadows -= src
+		special_role = null
+		current.spellremove(current)
+		current.remove_language("Shadowling Hivemind")
+	else if(src in SSticker.mode.shadowling_thralls)
+		SSticker.mode.remove_thrall(src,0)
+
+/datum/mind/proc/remove_ninja_role()
+	if(src in SSticker.mode.space_ninjas)
+		SSticker.mode.remove_ninja(src, usr, TRUE)
+
+/datum/mind/proc/remove_all_antag_roles() // Except abductor, because it isnt implemented in admin panel
+	remove_revolutionary_role()
+	remove_cult_role()
+	remove_clocker_role()
+	remove_wizard_role()
+	remove_changeling_role()
+	remove_vampire_role()
+	remove_syndicate_role()
+	remove_event_role()
+	remove_devil_role()
+	remove_contractor_role()
+	remove_thief_role()
+	remove_shadow_role()
+	remove_ninja_role()
+
+	log_admin("[key_name(current)] lost all antag roles")
+	message_admins("[key_name(current)] lost all antag roles")
 
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
