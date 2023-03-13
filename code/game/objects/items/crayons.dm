@@ -118,8 +118,8 @@
 				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
 				qdel(src)
 
-	else
-		..()
+    else
+        ..()
 
 
 /obj/item/toy/crayon/red
