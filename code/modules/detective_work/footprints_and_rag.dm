@@ -44,7 +44,7 @@
 
 /obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area|mob, mob/user as mob,proximity)
 	if(!proximity) return
-	if(istype(A, /mob/) && user.zone_selected != "mouth") return
+	if(ismob(A) && user.zone_selected != "mouth") return
 	if(istype(A) && (src in user) && reagents.total_volume)
 		user.visible_message("[user] starts to wipe down [A] with [src]!")
 		if(do_after(user, wipespeed, target = A))
