@@ -2255,7 +2255,7 @@
 	remove_syndicate_role()
 	remove_event_role()
 	remove_devil_role()
-	remove_contractor_role()
+	remove_traitor_role()
 	remove_thief_role()
 	remove_shadow_role()
 	remove_ninja_role()
