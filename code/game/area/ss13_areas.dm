@@ -667,6 +667,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
  	name = "Atmospherics Distribution Loop"
  	icon_state = "atmos"
 
+/area/atmos/break_room
+	name = "Atmospherics Foyer"
+	icon_state = "atmos"
+
 // MAINTENANCE
 /area/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS
@@ -705,6 +709,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar Maintenance"
 	icon_state = "fsmaint"
 
+/area/maintenance/fsmaint3
+	name = "Cargo East Maintenance"
+	icon_state = "fsmaint"
+
+/area/maintenance/fsmaint4
+	name = "Cargo North Maintenance"
+	icon_state = "fsmaint"
+
 /area/maintenance/tourist
 	name = "Tourist Area Maintenance"
 	icon_state = "fsmaint"
@@ -725,16 +737,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Virology Maintenance"
 	icon_state = "asmaint"
 
+/area/maintenance/asmaint5
+	name = "Arrivals Maintenance"
+	icon_state = "asmaint"
+
 /area/maintenance/apmaint
 	name = "Cargo Maintenance"
 	icon_state = "apmaint"
 
 /area/maintenance/apmaint2
-	name = "South-West Secondary Maintenance"
+	name = "South-West Maintenance"
 	icon_state = "apmaint"
 
 /area/maintenance/maintcentral
-	name = "Central Maintenance"
+	name = "Bridge Maintenance"
 	icon_state = "central"
 
 /area/maintenance/maintcentral2
@@ -1543,6 +1559,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper South Solar Array"
 	icon_state = "aft"
 
+/area/solar/starboardaux
+	name = "\improper East Solar Array"
+	icon_state = "panelsS"
+
 /area/solar/starboard
 	name = "\improper South-East Solar Array"
 	icon_state = "panelsS"
@@ -1554,6 +1574,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/auxsolarport
 	name = "\improper North-West Solar Maintenance"
 	icon_state = "SolarcontrolA"
+
+/area/maintenance/starboardaux
+	name = "\improper East Solar Maintenance"
+	icon_state = "SolarcontrolS"
 
 /area/maintenance/starboardsolar
 	name = "\improper South-East Solar Maintenance"

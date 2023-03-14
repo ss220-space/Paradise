@@ -2,7 +2,7 @@
 //Remapped by BeebBeebBoob (https://github.com/BeebBeebBoob AKA BeebBeebBoob#2301)
 
 /datum/map/cerestation
-	name = "NSS Farragus"
+	name = "Cerestation"
 	map_path = "_maps/map_files/cerestation/cerestation.dmm"
 
 	station_name  = "NSS Farragus"
@@ -10,4 +10,4 @@
 	dock_name     = "NAS Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani "
+	starsys_name  = "Epsilon Eridani"
