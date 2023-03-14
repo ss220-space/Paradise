@@ -597,21 +597,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Central Command Report" = "Nanotrasen Update",
-		"Syndicate Communique" = "Syndicate Message",
-		"Space Wizard Federation Message" = "Sorcerous Message",
-		"Spider Clan Сommunique" = "Spider Clan Message",
-		"Enemy Communications" = "Unknown Message",
-		"Custom" = "Cryptic Message")
+	var/list/MsgType = list("Приказ Центрального Командования" = "Указания НаноТрейзэн",
+		"Коммюнике Синдиката" = "Сообщение от Синдиката",
+		"Сообщение Федерации Космических Волшебников" = "Магическое сообщение",
+		"Коммюнике клана Паука" = "Сообщение от клана Паука",
+		"Вражеская передача" = "Сообщение из неизвестного источника",
+		"Настраиваемое" = "Шифрованное сообщение")
 
-	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
-		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
-		"New Command Report Created" = 'sound/AI/commandreport.ogg')
+	var/list/MsgSound = list("Бип" = 'sound/misc/announce_dig.ogg',
+		"Перехвачена вражеская передача" = 'sound/AI/intercept2.ogg',
+		"Получено новое указание Командования" = 'sound/AI/commandreport.ogg')
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 
 	if(type == "Custom")
-		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
+		type = clean_input("What would you like the report type to be?", "Report Type", "Зашифрованная передача")
 
 	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
 	if(!customname)
@@ -628,8 +628,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input, customname)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
-			print_command_report(input, "Classified: [customname]")
+			GLOB.command_announcer.autosay("На все консоли связи доставлено секретное сообщение.")
+			print_command_report(input, "Секретно: [customname]")
 		else
 			return
 
