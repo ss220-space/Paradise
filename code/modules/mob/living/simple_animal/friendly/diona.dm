@@ -192,7 +192,7 @@
 		adult.add_language(L.name)
 	adult.regenerate_icons()
 
-	adult.name = "diona ([rand(100,999)])"
+	adult.name = "diona ([name])"
 	adult.real_name = adult.name
 	adult.ckey = ckey
 	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
