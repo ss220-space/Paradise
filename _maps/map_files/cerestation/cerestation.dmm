@@ -16297,6 +16297,11 @@
 "bzA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/pump,
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "bzB" = (
@@ -22100,6 +22105,7 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
