@@ -11899,14 +11899,6 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
-"bjB" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "bjD" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/lattice,
@@ -14980,7 +14972,6 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "buH" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
@@ -51287,11 +51278,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/west)
-"hvW" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "hwc" = (
 /obj/machinery/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
@@ -62718,16 +62704,6 @@
 	icon_state = "darkred"
 	},
 /area/security/podbay)
-"lEi" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "lEk" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -73069,7 +73045,6 @@
 /area/crew_quarters/kitchen)
 "ptK" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/machinery/reagentgrinder,
 /obj/item/radio/intercom{
 	pixel_y = 28;
@@ -77875,13 +77850,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/asmaint5)
-"raa" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/turf/space,
-/area/space)
 "ran" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -83537,11 +83505,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/asmaint5)
-"tbO" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/space,
-/area/space)
 "tbP" = (
 /obj/machinery/light{
 	dir = 1
@@ -110703,8 +110666,8 @@ ccW
 ccW
 rWw
 cdb
-raa
-tbO
+biI
+bnQ
 bnQ
 eVf
 uCu
@@ -121609,7 +121572,7 @@ xzd
 xzd
 xzd
 xzd
-lEi
+xzd
 xzd
 fsr
 dyn
@@ -130165,7 +130128,7 @@ buQ
 aYJ
 bhQ
 dcG
-bjB
+dcG
 dcG
 dcG
 dcG
@@ -150571,7 +150534,7 @@ lzH
 lzH
 lzH
 lzH
-hvW
+lzH
 lzH
 rNK
 euP
