@@ -9,7 +9,7 @@
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1, FALSE)
+	update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/spider_venom
@@ -222,6 +222,7 @@
 			var/datum/dna/D = data["dna"]
 			if(!D.species.is_small)
 				H.change_dna(D, TRUE, TRUE)
+				H.special_post_clone_handling()
 
 	return ..()
 

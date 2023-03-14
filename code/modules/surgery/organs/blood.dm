@@ -36,9 +36,9 @@
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
 					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), dna.species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type)
 				if(prob(5))
 					EyeBlurry(6)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
@@ -126,6 +126,15 @@
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
 				else
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+
+/mob/living/carbon/human/proc/check_internal_bleedings()
+	var/list/internals_list = list()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.internal_bleeding)
+			internals_list.Add(limb)
+	return internals_list
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)

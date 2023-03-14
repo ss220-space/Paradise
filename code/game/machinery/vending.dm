@@ -1254,6 +1254,7 @@
 					/obj/item/seeds/tower = 3,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
+					/obj/item/seeds/soya/olive = 3,
 					/obj/item/seeds/whitebeet = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
@@ -1397,6 +1398,8 @@
 					/obj/item/clothing/under/janimaid = 1,
 					/obj/item/clothing/under/jester = 1,
 					/obj/item/clothing/head/jester = 1,
+					/obj/item/clothing/under/pennywise = 1,
+					/obj/item/clothing/mask/gas/pennywise = 1,
 					/obj/item/clothing/under/pants/camo = 1,
 					/obj/item/clothing/mask/bandana = 1,
 					/obj/item/clothing/mask/bandana/black = 1,
@@ -1455,6 +1458,7 @@
 					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/food/condiment/saltshaker =5,
 					/obj/item/reagent_containers/food/condiment/peppermill =5,
+					/obj/item/reagent_containers/food/condiment/herbs = 2,
 					/obj/item/whetstone = 2, /obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
@@ -1779,7 +1783,7 @@
 	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access_txt = "1"
+	req_access_txt = "63"
 	products = list(
 		/obj/item/clothing/head/soft/sec		= 10,
 		/obj/item/clothing/head/soft/sec/corp	= 10,
@@ -1828,6 +1832,7 @@
 		/obj/item/clothing/under/pants/red 			= 10,
 		/obj/item/clothing/under/pants/track 		= 5,
 
+		//For brig physician
 		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
