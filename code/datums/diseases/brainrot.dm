@@ -13,7 +13,7 @@
 	severity = DANGEROUS
 	mutable = TRUE
 	mutation_reagents = list("mutagen", "neurotoxin2")
-	possible_mutations = list(/datum/disease/kuru, /datum/disease/advance/mind_restoration/, /datum/disease/transformation/jungle_fever)
+	possible_mutations = list(/datum/disease/kuru, /datum/disease/advance/preset/mind_restoration/, /datum/disease/transformation/jungle_fever)
 
 /datum/disease/brainrot/stage_act() //Removed toxloss because damaging diseases are pretty horrible. Last round it killed the entire station because the cure didn't work -- Urist -ACTUALLY Removed rather than commented out, I don't see it returning - RR
 	..()
