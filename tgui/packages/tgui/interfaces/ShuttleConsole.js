@@ -132,7 +132,8 @@ export const ShuttleConsoleContent = (props, context) => {
                   alert('destination' + destination);
                   act('set_destination', {
                     destination: getLocationIdByName(locations, value),
-                  })}}
+                  });
+                }}
               />
             )}
           </LabeledList.Item>
