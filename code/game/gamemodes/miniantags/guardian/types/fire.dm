@@ -91,6 +91,4 @@
 	summoner = summoned_by
 
 /obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination/choose_targets(mob/user = usr)
-	if(usr.loc == summoner)
-		usr = summoner
 	. = ..(summoner)
