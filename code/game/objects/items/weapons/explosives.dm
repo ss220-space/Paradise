@@ -8,6 +8,7 @@
 	display_timer = 0
 	origin_tech = "syndicate=1"
 	toolspeed = 1
+	var/min_time = 10
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/assembly_holder/nadeassembly = null
@@ -62,7 +63,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
-		newtime = clamp(newtime, 10, 60000)
+		newtime = clamp(newtime, min_time, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -250,6 +251,7 @@
 	name = "T4"
 	desc = "A wall breaching charge, containing fuel, metal oxide and metal powder mixed in just the right way. One hell of a combination. Effective against walls, ineffective against airlocks..."
 	det_time = 2
+	min_time = 2
 	icon_state = "t4breach0"
 	item_state = "t4breach"
 
