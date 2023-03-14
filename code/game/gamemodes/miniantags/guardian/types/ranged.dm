@@ -69,7 +69,7 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = INCORPOREAL_NORMAL
-			to_chat(src, "<span class='danger'>Запущен режим разведки.</span>")
+			to_chat(src, "<span class='danger'>Вы переключились в режим разведки.</span>")
 			toggle = TRUE
 	else
 		to_chat(src, "<span class='danger'>Нужно быть в хозяине для смены режимов!</span>")

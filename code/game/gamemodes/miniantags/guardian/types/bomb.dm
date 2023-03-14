@@ -47,7 +47,7 @@
 			to_chat(src, "<span class='warning'>Челноки не пригодны для минирования!</span>")
 			return FALSE
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
-		to_chat(src, "<span class='warning'>Бомбы не мусор!</span>")
+		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
 		return FALSE
 	return TRUE
 
@@ -81,7 +81,7 @@
 	if(get_dist(get_turf(src), get_turf(user)) > 1)
 		return
 	to_chat(user, "<span class='danger'> Это ловушка! [src] был заминирован!</span>")
-  
+
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)

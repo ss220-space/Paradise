@@ -7,7 +7,7 @@
 	melee_damage_type = TOX
 	armour_penetration = 100
 	playstyle_string = "Будучи <b>Поддержкой</b>, вы можете переключить свои базовые атаки в режим исцеления. Кроме того, нажатие Alt-кнопки на соседнем мобе деформирует его к вашему маяку в блюспейс пространстве с небольшой задержкой."
-	magic_fluff_string = "...и берете карту СМО, мощную силу жизни... и смерти."
+	magic_fluff_string = "...и берете карту Главного Врача, мощную силу жизни... и смерти."
 	tech_fluff_string = "Последовательность загрузки завершена. Медицинские модули активированы. Активированы модули блюпространства. Голопаразитный рой активирован."
 	bio_fluff_string = "Ваш рой скарабеев завершает мутацию и оживает, способный залечивать раны и путешествовать через блюспейс."
 	var/turf/simulated/floor/beacon
@@ -75,7 +75,7 @@
 			speed = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
-			to_chat(src, "<span class='danger'>Боевой режим переключен.</span>")
+			to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
@@ -83,7 +83,7 @@
 			speed = 1
 			melee_damage_lower = 0
 			melee_damage_upper = 0
-			to_chat(src, "<span class='danger'>Режим исцеления включен.</span>")
+			to_chat(src, "<span class='danger'>Вы переключились в режим исцеления.</span>")
 			toggle = TRUE
 	else
 		to_chat(src, "<span class='danger'>Нужно быть в хозяине для переключения режимов!</span>")
@@ -107,7 +107,7 @@
 			beacon_cooldown = world.time + default_beacon_cooldown
 
 	else
-		to_chat(src, "<span class='danger'>Моя сила на перезарядке! Нужно дождаться ещё [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд, пока я смогу переставить маяк.</span>")
+		to_chat(src, "<span class='danger'>Ваша сила на перезарядке! Нужно дождаться ещё [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд, пока вы сможете переставить маяк.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
@@ -116,19 +116,19 @@
 		to_chat(src, "<span class='danger'>Вы должны явить себя для телепортации вещей!</span>")
 		return
 	if(!beacon)
-		to_chat(src, "<span class='danger'>Мне нужно установить маяк чтобы телепортировать вещи!</span>")
+		to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'>Мне нужно быть рядом с целью!</span>")
+		to_chat(src, "<span class='danger'>Вам нужно быть рядом с целью!</span>")
 		return
 	if((A.anchored))
-		to_chat(src, "<span class='danger'>Цель прибита к полу. Телепортация невозможна.</span>")
+		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
 		return
 	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
 	if(do_mob(src, A, 50))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-				to_chat(src, "<span class='danger'>Мне нужно установить маяк чтобы телепортировать вещи!</span>")
+				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 				return
 			var/turf/T = beacon
 			if(T.is_safe())
@@ -140,7 +140,7 @@
 			to_chat(src, "<span class='danger'>Маячок не в безопасном месте, нужен кислород для хозяина.</span>")
 			return
 	else
-		to_chat(src, "<span class='danger'>Мне нужно стоять смирно!</span>")
+		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
 
 /obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend
 	name = "Быстрое исцеление"
@@ -164,9 +164,9 @@
 	. = ..()
 	for(var/target in targets)
 		if(target != summoner)
-			to_chat(user, "Это не мой хозяин.")
+			to_chat(user, "Это не ваш хозяин.")
 			return 0
-	to_chat(user, "Проверяю раны хозяина..")
+	to_chat(user, "Проверка ран хозяина..")
 	if(do_after(user, cast_time, target = summoner))
 		if(prob(chance_to_mend))
 			var/list/injures[] = list()
@@ -183,7 +183,7 @@
 			if(!available_cures.len)
 				return 0
 			var/random_cure = pick(available_cures)
-			to_chat(user, "Найдена травма. Пытаюсь вылечить..")
+			to_chat(user, "Найдена травма. Попытка исцеления..")
 			switch(random_cure)
 				if("bleedings")
 					var/obj/item/organ/external/limb = pick(injures["bleedings"])
