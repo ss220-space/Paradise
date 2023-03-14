@@ -61,7 +61,7 @@
 
 /mob/living/simple_animal/hostile/guardian/protector/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
-	if(prob(85)) //технически это 15% шанс блока.
+	if(prob(85)) //15% chance of block
 		if(summoner)
 			if(loc == summoner)
 				return

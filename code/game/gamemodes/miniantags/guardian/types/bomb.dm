@@ -97,7 +97,7 @@
 	playsound(get_turf(src),'sound/effects/bomb_activate.ogg', 200, 1)
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
 	user.ex_act(3)
-	user.ex_act(3) //Потому что я могу сделать это 2 раза, вместо прописи отдельного прока для 60 урона.
+	user.ex_act(3) //Probably should create separate proc for this
 	user.Weaken(3)
 	qdel(src)
 	qdel(src)
