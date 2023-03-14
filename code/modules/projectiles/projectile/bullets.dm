@@ -69,7 +69,7 @@
 /obj/item/projectile/bullet/weakbullet4
 	name = "rubber bullet"
 	damage = 5
-	stamina = 30
+	stamina = 35
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/toxinbullet
