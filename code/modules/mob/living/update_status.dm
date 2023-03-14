@@ -1,5 +1,5 @@
 /mob/living/update_blind_effects()
-	if(!has_vision(information_only=TRUE))
+	if(!(has_vision(information_only=TRUE) || dna.species.bodyflags & NO_EYES))
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 		throw_alert("blind", /obj/screen/alert/blind)
 		return 1
