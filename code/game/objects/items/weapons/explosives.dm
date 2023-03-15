@@ -8,7 +8,6 @@
 	display_timer = 0
 	origin_tech = "syndicate=1"
 	toolspeed = 1
-	var/min_time = 10
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/assembly_holder/nadeassembly = null
@@ -63,7 +62,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
-		newtime = clamp(newtime, min_time, 60000)
+		newtime = clamp(newtime, initial(det_time), 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
