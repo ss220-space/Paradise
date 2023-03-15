@@ -161,7 +161,12 @@
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
 
-		if(istype(I, /obj/item/clothing) && istype(initial(picked_item), /obj/item/clothing))
+		if(istype(I, /obj/item/clothing) && istype(initial(picked_item), /obj/item/clothing)) //it's work?
+			var/obj/item/clothing/CL = I
+			var/obj/item/clothing/PCL = picked_item
+			CL.flags_cover = initial(PCL.flags_cover)
+
+		if(src.chameleon_type == /obj/item/clothing/mask)
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
