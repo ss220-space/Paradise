@@ -253,7 +253,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		screen_center = new
 		screen_center.screen_loc = "CENTER,CENTER"
 		current_user.screen += screen_center
-
 		menu_holder_location = screen_center
 
 	//Blank
