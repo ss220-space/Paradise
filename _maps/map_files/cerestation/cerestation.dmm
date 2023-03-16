@@ -37524,6 +37524,7 @@
 /turf/simulated/mineral/ancient/outer,
 /area/engine/mechanic_workshop/hangar)
 "dmg" = (
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "dmk" = (
@@ -42467,10 +42468,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
-"eij" = (
-/obj/structure/lattice,
-/turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored/cere/command)
 "eil" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -62823,8 +62820,9 @@
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "lGk" = (
-/turf/space,
-/area/mine/unexplored/cere/civilian)
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/fore)
 "lGy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -72268,9 +72266,9 @@
 	},
 /area/toxins/misc_lab)
 "pfp" = (
-/obj/structure/lattice,
-/turf/simulated/mineral/ancient/outer,
-/area/gateway)
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/fore)
 "pfM" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -78175,9 +78173,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
-"rgN" = (
-/turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
 "rgO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange{
@@ -88943,9 +88938,6 @@
 	temperature = 80
 	},
 /area/toxins/xenobiology)
-"veA" = (
-/turf/space,
-/area/hallway/secondary/exit)
 "veO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -126494,7 +126486,7 @@ cGD
 cGD
 cGD
 aqC
-dmg
+lGk
 wBG
 hWs
 eAo
@@ -126751,7 +126743,7 @@ cLO
 cQi
 cTK
 aqC
-dmg
+pfp
 wBG
 hWs
 aWJ
@@ -127021,8 +127013,8 @@ abW
 abW
 cRv
 cRv
-eij
-eij
+cRv
+cRv
 lzH
 lzH
 lzH
@@ -127263,7 +127255,7 @@ abW
 abW
 abW
 abW
-ivS
+aKp
 diU
 bvF
 dud
@@ -127778,7 +127770,7 @@ bxw
 bvd
 bxx
 bAK
-ivS
+aKp
 aKp
 bES
 ugQ
@@ -128820,7 +128812,7 @@ cRv
 cRv
 cRv
 cRv
-dhs
+abE
 rNK
 rNK
 lzH
@@ -129078,7 +129070,7 @@ hSp
 hSp
 lTq
 cRv
-dhs
+abE
 rNK
 lzH
 fph
@@ -129335,7 +129327,7 @@ odM
 fqu
 vlj
 lTq
-dhs
+abE
 rNK
 lzH
 fph
@@ -129591,8 +129583,8 @@ ssi
 bjM
 fqu
 ptY
-pfp
-rgN
+lTq
+abE
 lzH
 lzH
 lWT
@@ -151013,10 +151005,10 @@ chk
 vgt
 chk
 vgt
-veA
-veA
-veA
-veA
+rNK
+rNK
+rNK
+rNK
 bhO
 bhO
 bhO
@@ -151788,7 +151780,7 @@ rNK
 rNK
 rNK
 rNK
-lGk
+rNK
 rNK
 rNK
 rNK
