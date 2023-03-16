@@ -138,6 +138,7 @@
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
 			to_chat(src, "<span class='danger'>Маячок не в безопасном месте, нужен кислород для хозяина.</span>")
+			return
 	else
 		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
 
