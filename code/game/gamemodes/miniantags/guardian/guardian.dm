@@ -181,7 +181,7 @@
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
-	cooldown = 1world.time + 10
+	cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
