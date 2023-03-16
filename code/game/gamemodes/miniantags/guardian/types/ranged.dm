@@ -38,7 +38,7 @@
 
 /mob/living/simple_animal/hostile/guardian/ranged/Stat()
 	..()
-	if(statpanel("Status"))
+	if(statpanel("Статус"))
 		stat(null, "Запас энергии: [max(round(energy, 0.1), 0)]/150")
 
 /mob/living/simple_animal/hostile/guardian/ranged/OpenFire(atom/A)

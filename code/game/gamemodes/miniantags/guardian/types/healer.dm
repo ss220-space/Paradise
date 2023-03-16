@@ -42,7 +42,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
 	..()
-	if(statpanel("Status"))
+	if(statpanel("Статус"))
 		if(beacon_cooldown >= world.time)
 			stat(null, "Перезарядка блюспейс маяка: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд")
 
