@@ -58,7 +58,7 @@
 		M.emote("flip")
 
 #define LAUGH_COOLDOWN 30 SECONDS
-//#define LAUGH_COOLDOWN_CMAG 10 SECONDS
+#define LAUGH_COOLDOWN_CMAG 10 SECONDS
 
 /obj/item/clown_recorder
 	name = "clown recorder"
