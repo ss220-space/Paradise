@@ -19,7 +19,7 @@
 
 /mob/living/simple_animal/hostile/guardian/assassin/Stat()
 	..()
-	if(statpanel("Status"))
+	if(statpanel("Статус"))
 		if(stealthcooldown >= world.time)
 			stat(null, "Время до невидимости: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд")
 
