@@ -131,11 +131,13 @@
 				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 				return
 			var/turf/T = beacon
-			new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
-			do_teleport(A, beacon, 0)
-			investigate_log("[key_name_log(src)] teleported [key_name_log(A)] to [COORD(beacon)].", INVESTIGATE_TELEPORTATION)
-			new /obj/effect/temp_visual/guardian/phase(get_turf(A))
-			return
+			if(T.is_safe())
+				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
+				do_teleport(A, beacon, 0)
+				investigate_log("[key_name_log(src)] teleported [key_name_log(A)] to [COORD(beacon)].", INVESTIGATE_TELEPORTATION)
+				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
+				return
+			to_chat(src, "<span class='danger'>Маячок не в безопасном месте, нужен кислород для хозяина.</span>")
 	else
 		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
 
