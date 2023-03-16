@@ -125,7 +125,7 @@
 		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
 		return
 	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
-	if(do_mob(src, A, 30))
+	if(do_mob(src, A, 3 SECONDS))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
