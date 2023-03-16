@@ -172,7 +172,7 @@
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
 		reset_perspective()
-		cooldown = 1
+		cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
@@ -181,7 +181,7 @@
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
-	cooldown = 1
+	cooldown = 1world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
