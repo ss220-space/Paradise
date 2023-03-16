@@ -17,15 +17,6 @@
 	. = ..()
 	updatestealthalert()
 
-/mob/living/simple_animal/hostile/guardian/assassin/Manifest()
-	if(cooldown > world.time)
-		return
-	if(!summoner)
-		return
-	if(loc == summoner)
-		forceMove(get_turf(summoner))
-		cooldown = world.time + 20
-
 /mob/living/simple_animal/hostile/guardian/assassin/Stat()
 	..()
 	if(statpanel("Status"))
