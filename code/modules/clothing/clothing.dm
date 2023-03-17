@@ -233,6 +233,7 @@
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
 	var/lighting_alpha
+	var/flash_protect_mod = NONE //For Tajaran veils, for using in OFF state.
 
 	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
@@ -895,7 +896,7 @@ BLIND     // can't see anything
 		"Neara" = 'icons/mob/species/monkey/neck.dmi',
 		"Stok" = 'icons/mob/species/monkey/neck.dmi'
 		)
-	
+
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!teleportation)
 		return ..()
@@ -909,7 +910,7 @@ BLIND     // can't see anything
 			if(T.density)
 				continue
 			if(T.x>world.maxx-3 || T.x<3)
-				continue			
+				continue
 			if(T.y>world.maxy-3 || T.y<3)
 				continue
 			turfs += T

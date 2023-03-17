@@ -593,6 +593,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 	tint = 0
+	flash_protect_mod = 1
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -609,6 +610,7 @@
 	name = "industrial veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
+	flash_protect_mod = 2
 
 /obj/item/clothing/glasses/tajblind/sci
 	name = "hi-tech veil"
@@ -628,15 +630,17 @@
 		if(up)
 			up = !up
 			tint = initial(tint)
+			flash_protect = initial(flash_protect)
 			to_chat(usr, "You activate [src], allowing you to see.")
 		else
 			up = !up
 			tint = 3
+			flash_protect = flash_protect_mod
 			to_chat(usr, "You deactivate [src], obscuring your vision.")
 		var/mob/living/carbon/user = usr
 		user.update_tint()
 		user.update_inv_glasses()
-		
+
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	name = "cucumber mask"
