@@ -110,6 +110,19 @@
 	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
+/obj/structure/spider/spiderling/attack_hand(atom/attacker)
+	. = ..()
+	var/mob/user = attacker
+	if(istype(user) && ishuman(user))
+		if (user.a_intent == INTENT_HELP)
+			visible_message("<span class='notice'>You gently pet the [src].</span>", "<span class='notice'>[user] pets [src].</span>")
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		else
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
+			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+			attack_generic(user, max_integrity/3)
+
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
 		loc = user.loc
