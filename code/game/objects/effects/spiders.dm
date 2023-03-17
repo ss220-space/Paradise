@@ -115,7 +115,7 @@
 	var/mob/user = attacker
 	if(istype(user) && ishuman(user))
 		if (user.a_intent == INTENT_HELP)
-			visible_message("<span class='notice'>You gently pet the [src].</span>", "<span class='notice'>[user] pets [src].</span>")
+			visible_message("<span class='notice'>Вы пощекотали брюшко [src.name].</span>", "<span class='notice'>[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name].</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
