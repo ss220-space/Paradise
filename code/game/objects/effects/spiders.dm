@@ -110,10 +110,9 @@
 	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
-/obj/structure/spider/spiderling/attack_hand(atom/attacker)
+/obj/structure/spider/spiderling/attack_hand(mob/living/user)
 	. = ..()
-	var/mob/user = attacker
-	if(istype(user) && ishuman(user))
+	if(ishuman(user))
 		if (user.a_intent == INTENT_HELP)
 			visible_message("<span class='notice'>Вы пощекотали брюшко [src.name].</span>", "<span class='notice'>[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name].</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
