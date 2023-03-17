@@ -203,7 +203,7 @@
 		if("howl", "howls")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "делает вид что воет[M ? " на [M]" : ""]!"
+				message = "делает вид, что воет[M ? " на [M]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
@@ -217,7 +217,7 @@
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "делает вид что рычит[M ? " на [M]" : ""]."
+				message = "делает вид, что рычит[M ? " на [M]" : ""]."
 				m_type = 1
 			else
 				message = "рычит[M ? " на [M]" : ""]."
@@ -226,7 +226,7 @@
 
 		if("purr", "purrs")
 			if(miming)
-				message = "делает вид что мурчит."
+				message = "делает вид, что мурчит."
 				m_type = 1
 			else
 				message = "мурчит."
@@ -235,7 +235,7 @@
 
 		if("purrl")
 			if(miming)
-				message = "делает вид что мурчит."
+				message = "делает вид, что мурчит."
 				m_type = 1
 			else
 				message = "мурчит."
@@ -278,7 +278,7 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "делает вид что [M ? "грохочет на [M]" : "грохочет"]."
+				message = "делает вид, что [M ? "грохочет на [M]" : "грохочет"]."
 				m_type = 1
 			else
 				message = "[M ? "грохочет на [M]" : "грохочет"]."
@@ -289,7 +289,7 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "делает вид что хлюпает[M ? " на [M]" : ""]."
+				message = "делает вид, что хлюпает[M ? " на [M]" : ""]."
 				m_type = 1
 			else
 				message = "хлюпает[M ? " на [M]" : ""]."
@@ -345,7 +345,7 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "делает вид что шипит[M ? " на [M]" : ""]."
+				message = "делает вид, что шипит[M ? " на [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
@@ -360,7 +360,7 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "делает вид что рычит[M ? " на [M]" : ""]."
+				message = "делает вид, что рычит[M ? " на [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
@@ -376,11 +376,11 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "взмахивает хвостом и бесшумно опускает его на пол[M ? " грозно смотря на [M]" : ""]."
+				message = "взмахивает хвостом и бесшумно опускает его на пол[M ? ", грозно смотря на [M]" : ""]."
 				m_type = 1
 			else
 				if(tail)
-					message = "ударяет хвостом[M ? " грозно смотря на [M]" : ""]."
+					message = "ударяет хвостом[M ? ", грозно смотря на [M]" : ""]."
 					m_type = 2
 					playsound(loc, 'sound/goonstation/voice/unathi/whip_short.ogg', 100)
 				else
@@ -392,11 +392,11 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "взмахивает хвостом и бесшумно опускает его на пол[M ? " грозно смотря на [M]" : ""]."
+				message = "взмахивает хвостом и бесшумно опускает его на пол[M ? ", грозно смотря на [M]" : ""]."
 				m_type = 1
 			else
 				if(tail)
-					message = "хлестает хвостом[M ? " грозно смотря на [M]" : ""]."
+					message = "хлестает хвостом[M ? ", грозно смотря на [M]" : ""]."
 					m_type = 2
 					playsound(loc, 'sound/goonstation/voice/unathi/whip.ogg', 100)
 				else
@@ -422,7 +422,7 @@
 			var/M = handle_emote_param(param)
 
 			if(miming)
-				message = "делает вид что шипит[M ? " на [M]" : ""]."
+				message = "делает вид, что шипит[M ? " на [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
