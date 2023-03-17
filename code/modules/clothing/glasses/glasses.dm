@@ -109,6 +109,33 @@
 	flags_cover = null
 	prescription_upgradable = 0
 
+/obj/item/clothing/glasses/meson/tajblind
+	name = "khaki veil"
+	icon_state = "tajblind_cargo"
+	item_state = "tajblind_cargo"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+		)
+
+/obj/item/clothing/glasses/meson/tajblind/night
+	name = "Night Vision veil"
+	icon_state = "tajblind_nv_engi"
+	item_state = "tajblind_nv_engi"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+/obj/item/clothing/glasses/meson/tajblind/attack_self()
+	toggle_veil()
+
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
@@ -142,6 +169,34 @@
 	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+
+/obj/item/clothing/glasses/science/tajblind
+	name = "hi-tech veil"
+	icon_state = "tajblind_sci"
+	item_state = "tajblind_sci"
+
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+		)
+
+/obj/item/clothing/glasses/science/tajblind/night
+	name = "hi-tech Night Vision veil"
+	icon_state = "tajblind_nv_sci"
+	item_state = "tajblind_nv_sci"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+/obj/item/clothing/glasses/science/tajblind/attack_self()
+	toggle_veil()
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -611,26 +666,6 @@
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 	flash_protect_mod = 2
-
-/obj/item/clothing/glasses/science/tajblind
-	name = "hi-tech veil"
-	icon_state = "tajblind_sci"
-	item_state = "tajblind_sci"
-
-/obj/item/clothing/glasses/meson/tajblind
-	name = "khaki veil"
-	icon_state = "tajblind_cargo"
-	item_state = "tajblind_cargo"
-
-/obj/item/clothing/glasses/meson/night/tajblind
-	name = "Night Vision veil"
-	icon_state = "tajblind_nv_engi"
-	item_state = "tajblind_nv_engi"
-
-/obj/item/clothing/glasses/science/night/tajblind
-	name = "hi-tech Night Vision veil"
-	icon_state = "tajblind_nv_sci"
-	item_state = "tajblind_nv_sci"
 
 /obj/item/clothing/glasses/tajblind/attack_self()
 	toggle_veil()
