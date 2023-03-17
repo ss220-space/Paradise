@@ -24,14 +24,6 @@
 	temperature = 300
 	},
 /area/ruin/unpowered)
-"jj" = (
-/obj/item/clothing/head/helmet/space/cult,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
 "jV" = (
 /mob/living/simple_animal/hostile/illusion/cult{
 	maxHealth = 200;
@@ -158,7 +150,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Cj" = (
-/obj/item/clothing/suit/hooded/cultrobes,
+/obj/item/clothing/head/helmet/space/cult,
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
 	nitrogen = 23;
@@ -274,6 +266,14 @@
 	temperature = 300
 	},
 /area/ruin/unpowered)
+"Mi" = (
+/obj/item/clothing/suit/hooded/cultrobes,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
 "Mt" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/engine/cult{
@@ -348,6 +348,16 @@
 	icon_state = "white_walls_corners"
 	},
 /area/ruin/unpowered)
+"RD" = (
+/mob/living/simple_animal/hostile/illusion/cult{
+	maxHealth = 200;
+	melee_damage_lower = 10;
+	melee_damage_upper = 25;
+	desc = "The deceived soul";
+	name = "The soul of the cultist"
+	},
+/turf/space,
+/area/template_noop)
 "TZ" = (
 /obj/structure/table/wood,
 /obj/item/spellbook/oneuse/fake_gib,
@@ -830,7 +840,7 @@ dJ
 Wh
 xZ
 Wh
-jj
+Cj
 Bg
 yu
 oc
@@ -1019,7 +1029,7 @@ CT
 xZ
 Wh
 MO
-Cj
+Mi
 yu
 oc
 oc
@@ -2011,7 +2021,7 @@ xv
 xv
 xv
 xv
-xv
+RD
 EI
 EI
 xv
