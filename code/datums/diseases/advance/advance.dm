@@ -88,11 +88,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/IsSame(datum/disease/advance/D)
 
 	if(!(istype(D, /datum/disease/advance)))
-		return 0
+		return FALSE
 
 	if(GetDiseaseID() != D.GetDiseaseID())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 // To add special resistances.
 /datum/disease/advance/cure(resistance=1)
@@ -162,8 +162,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!GLOB.archive_diseases[GetDiseaseID()])
 		if(new_name)
 			AssignName()
-		GLOB.archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
-		GLOB.archive_diseases[GetDiseaseID()] = new /datum/disease/advance(0, src, 1)
+		GLOB.archive_diseases[GetDiseaseID()] = src
 
 	var/datum/disease/advance/A = GLOB.archive_diseases[GetDiseaseID()]
 	AssignName(A.name)

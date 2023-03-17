@@ -315,7 +315,13 @@
 	name = "Rhinovirus culture bottle"
 	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/preset/cold/
+	spawned_disease = /datum/disease/advance/preset/cold
+
+/obj/item/reagent_containers/glass/bottle/stealth_necrosis
+	name = "stealth_necrosis"
+	desc = "stealth_necrosis"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/stealth_necrosis
 
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"

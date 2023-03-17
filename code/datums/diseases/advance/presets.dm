@@ -30,10 +30,10 @@
 /datum/disease/advance/preset/heal/New(var/process = 1, var/datum/disease/advance/D, var/copy = 0)
 	if(!D)
 		name = "Liver Enhancer"
-		mutable = TRUE
-		possible_mutations = list(/datum/disease/advance/preset/advanced_regeneration, /datum/disease/advance/preset/cold/)
 		symptoms = list(new/datum/symptom/heal)
 	..(process, D, copy)
+	mutable = TRUE
+	possible_mutations = list(/datum/disease/advance/preset/advanced_regeneration, /datum/disease/advance/preset/cold/)
 
 
 // Hullucigen
@@ -41,10 +41,10 @@
 /datum/disease/advance/preset/hullucigen/New(var/process = 1, var/datum/disease/advance/D, var/copy = 0)
 	if(!D)
 		name = "Reality Impairment"
-		mutable = TRUE
-		possible_mutations = list(/datum/disease/brainrot, /datum/disease/advance/preset/sensory_restoration)
 		symptoms = list(new/datum/symptom/hallucigen)
 	..(process, D, copy)
+	mutable = TRUE
+	possible_mutations = list(/datum/disease/brainrot, /datum/disease/advance/preset/sensory_restoration)
 
 
 // Sensory Restoration
@@ -79,11 +79,11 @@
 /datum/disease/advance/preset/stealth_necrosis/New(var/process = 1, var/datum/disease/advance/D, var/copy = 0)
 	if(!D)
 		name = "Necroeyrosis"
-		mutable = TRUE
-		mutation_reagents = list("mutagen", "histamine")
-		possible_mutations = list(/datum/disease/transformation/xeno)
 		symptoms = list(new/datum/symptom/flesh_eating, new/datum/symptom/viraladaptation, new/datum/symptom/youth, new/datum/symptom/dizzy)
 	..(process, D, copy)
+	mutable = TRUE
+	mutation_reagents = list("mutagen", "histamine")
+	possible_mutations = list(/datum/disease/transformation/xeno)
 
 
 //Facial Hypertrichosis + Voice Change + Itching
@@ -91,8 +91,8 @@
 /datum/disease/advance/preset/pre_kingstons/New(var/process = 1, var/datum/disease/advance/D, var/copy = 0)
 	if(!D)
 		name = "Neverlasting Stranger"
-		mutable = TRUE
-		mutation_reagents = list("mutagen", "radium")
-		possible_mutations = list(/datum/disease/kingstons)
 		symptoms = list(new/datum/symptom/beard, new/datum/symptom/voice_change, new/datum/symptom/itching)
 	..(process, D, copy)
+	mutable = TRUE
+	mutation_reagents = list("mutagen", "radium")
+	possible_mutations = list(/datum/disease/kingstons)
