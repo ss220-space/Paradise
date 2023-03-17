@@ -22,7 +22,7 @@
 	health = 5
 	blood_nutrients = 20
 	blood_volume = BLOOD_VOLUME_SURVIVE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
@@ -312,6 +312,9 @@
 	maxHealth = 15
 	health = 15
 	blood_nutrients = 30
+	mob_size = MOB_SIZE_SMALL
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 2)
+
 
 /mob/living/simple_animal/mouse/rat/color_pick()
 	if(!mouse_color)
@@ -404,7 +407,6 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	desc = "Очень миленький! Какие у него пушистые щечки!"
 	tts_seed = "Meepo"
 	turns_per_move = 2
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "полапал"
 	response_disarm = "аккуратно отодвинул"
 	response_harm   = "наступил на"
