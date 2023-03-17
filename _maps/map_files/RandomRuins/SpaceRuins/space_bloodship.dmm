@@ -24,6 +24,14 @@
 	temperature = 300
 	},
 /area/ruin/unpowered)
+"jj" = (
+/obj/item/clothing/head/helmet/space/cult,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
 "jV" = (
 /mob/living/simple_animal/hostile/illusion/cult{
 	maxHealth = 200;
@@ -56,7 +64,11 @@
 /area/ruin/unpowered)
 "oo" = (
 /obj/item/clothing/shoes/cult,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "pf" = (
 /obj/structure/table/wood,
@@ -147,7 +159,11 @@
 /area/ruin/unpowered)
 "Cj" = (
 /obj/item/clothing/suit/hooded/cultrobes,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "CJ" = (
 /turf/simulated/wall/shuttle/nosmooth,
@@ -309,8 +325,22 @@
 	},
 /area/ruin/unpowered)
 "NU" = (
-/obj/item/clothing/head/helmet/space/cult,
-/turf/simulated/floor/plating/asteroid/airless,
+/obj/effect/decal/cleanable/crayon{
+	color = "#cc3300";
+	desc = null
+	},
+/mob/living/simple_animal/hostile/illusion/cult{
+	maxHealth = 200;
+	melee_damage_lower = 10;
+	melee_damage_upper = 25;
+	desc = "The deceived soul";
+	name = "The soul of the cultist"
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Pz" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -749,7 +779,7 @@ oc
 oc
 oc
 yu
-Bg
+oo
 Bg
 qE
 Bg
@@ -800,7 +830,7 @@ dJ
 Wh
 xZ
 Wh
-Bg
+jj
 Bg
 yu
 oc
@@ -843,7 +873,7 @@ oc
 yu
 Bg
 Bg
-Wh
+NU
 Bg
 Bg
 Bg
@@ -941,7 +971,7 @@ Wh
 Bg
 Bg
 Bg
-Wh
+NU
 Bg
 Bg
 yu
@@ -989,7 +1019,7 @@ CT
 xZ
 Wh
 MO
-Bg
+Cj
 yu
 oc
 oc
@@ -1218,7 +1248,7 @@ xv
 xv
 xv
 EI
-Cj
+EI
 EI
 oc
 oc
@@ -1269,7 +1299,7 @@ xv
 xv
 EI
 EI
-oo
+EI
 xv
 xv
 xv
@@ -1550,7 +1580,7 @@ EI
 oc
 EI
 EI
-NU
+EI
 EI
 EI
 xv
