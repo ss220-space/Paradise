@@ -47,7 +47,7 @@
 /datum/gear/racial/taj/skill
 	display_name = "personnel veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built skill HUD."
-	path = /obj/item/clothing/glasses/hud/skill/tajblind
+	path = /obj/item/clothing/glasses/hud/skills/tajblind
 	allowed_roles = list("Head of Personnel", "Captain", "Nanotrasen Representative", "Blueshield")
 	cost = 2
 
