@@ -5,6 +5,10 @@
 	var/sentience_type = SENTIENCE_ORGANIC
 	//holder_type = /obj/item/holder/monkey	//Задыхается сидя на голове или в сумке, временно отключен
 
+/mob/living/carbon/human/lesser/Initialize(mapload, species)
+	icon = null
+	. = ..(mapload, species)
+
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	tts_seed = "Sniper"
