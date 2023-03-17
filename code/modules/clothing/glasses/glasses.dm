@@ -126,7 +126,7 @@
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/meson/night/tajblind
+/obj/item/clothing/glasses/meson/tajblind/night
 	name = "Night Vision veil"
 	icon_state = "tajblind_nv_engi"
 	item_state = "tajblind_nv_engi"
