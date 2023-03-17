@@ -26,19 +26,43 @@
 /datum/gear/racial/taj/sci
 	display_name = "hi-tech veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
-	path = /obj/item/clothing/glasses/tajblind/sci
+	path = /obj/item/clothing/glasses/science/tajblind
+	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Geneticist", "Bartender")
 	cost = 2
 
 /datum/gear/racial/taj/eng
 	display_name = "industrial veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind/eng
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Life Support Specialist", "Mechanic")
 	cost = 2
 
 /datum/gear/racial/taj/cargo
 	display_name = "khaki veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy!"
-	path = /obj/item/clothing/glasses/tajblind/cargo
+	path = /obj/item/clothing/glasses/meson/tajblind
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+	cost = 2
+
+/datum/gear/racial/taj/skill
+	display_name = "personnel veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built skill HUD."
+	path = /obj/item/clothing/glasses/hud/skill/tajblind
+	allowed_roles = list("Head of Personnel", "Captain", "Nanotrasen Representative", "Blueshield")
+	cost = 2
+
+/datum/gear/racial/taj/diagnostic
+	display_name = "robotic veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built diagnostic HUD."
+	path = /obj/item/clothing/glasses/hud/diagnostic/tajblind
+	allowed_roles = list("Research Director", "Roboticist")
+	cost = 2
+
+/datum/gear/racial/taj/hydroponic
+	display_name = "nature veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built hydroponic HUD."
+	path = /obj/item/clothing/glasses/hud/hydroponic/tajblind
+	allowed_roles = list("Chef", "Botanist")
 	cost = 2
 
 /datum/gear/racial/footwraps

@@ -591,9 +591,9 @@
 	item_state = "tajblind"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
+	flash_protect_mod = 1
 	up = 0
 	tint = 0
-	flash_protect_mod = 1
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -612,15 +612,25 @@
 	item_state = "tajblind_engi"
 	flash_protect_mod = 2
 
-/obj/item/clothing/glasses/tajblind/sci
+/obj/item/clothing/glasses/science/tajblind
 	name = "hi-tech veil"
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
 
-/obj/item/clothing/glasses/tajblind/cargo
+/obj/item/clothing/glasses/meson/tajblind
 	name = "khaki veil"
 	icon_state = "tajblind_cargo"
 	item_state = "tajblind_cargo"
+
+/obj/item/clothing/glasses/meson/night/tajblind
+	name = "Night Vision veil"
+	icon_state = "tajblind_nv_engi"
+	item_state = "tajblind_nv_engi"
+
+/obj/item/clothing/glasses/science/night/tajblind
+	name = "hi-tech Night Vision veil"
+	icon_state = "tajblind_nv_sci"
+	item_state = "tajblind_nv_sci"
 
 /obj/item/clothing/glasses/tajblind/attack_self()
 	toggle_veil()

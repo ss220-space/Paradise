@@ -285,3 +285,106 @@
 		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 	)
+/obj/item/clothing/glasses/hud/skills/tajblind
+	name = "personnel veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed skill HUD."
+	icon_state = "tajblind_skill"
+	item_state = "tajblind_skill"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/hud/diagnostic/tajblind
+	name = "robotic veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed diagnostic HUD."
+	icon_state = "tajblind_diag"
+	item_state = "tajblind_diag"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+	)
+/obj/item/clothing/glasses/hud/hydroponic/tajblind
+	name = "nature veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed hydroponic HUD."
+	icon_state = "tajblind_hydro"
+	item_state = "tajblind_hydro"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+	)
+/obj/item/clothing/glasses/hud/health/night/tajblind
+	name = "lightweight Night Vision veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
+	icon_state = "tajblind_nv_med"
+	item_state = "tajblind_nv_med"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+	)
+/obj/item/clothing/glasses/hud/security/night/tajblind
+	name = "sleek Night Vision veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed secutiry HUD."
+	icon_state = "tajblind_nv_sec"
+	item_state = "tajblind_nv_sec"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+	)
+/obj/item/clothing/glasses/hud/diagnostic/night/tajblind
+	name = "robotic Night Vision veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed diagnostic HUD."
+	icon_state = "tajblind_nv_diag"
+	item_state = "tajblind_nv_diag"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+	)
