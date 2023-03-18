@@ -55,9 +55,11 @@ GLOBAL_LIST_EMPTY(servers)
 	RefreshParts()
 
 /obj/machinery/r_n_d/server/Destroy()
-	GLOB.servers -= src
-	griefProtection()
+	GLOB.servers_list.Remove(src)
+	if(usr)
+	log_action(usr, "destroyed a [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
 	return ..()
+	griefProtection()
 
 /obj/machinery/r_n_d/server/RefreshParts()
 	var/tot_rating = 0
@@ -112,7 +114,7 @@ GLOBAL_LIST_EMPTY(servers)
 		delay = initial(delay)
 
 /obj/machinery/r_n_d/server/emp_act(severity)
-	GLOB.servers -= src
+	GLOB.servers_list.Remove(src)
 	griefProtection()
 	..()
 

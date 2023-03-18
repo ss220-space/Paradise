@@ -155,23 +155,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return
 
 /obj/machinery/computer/rdconsole/proc/sync_server(/obj/machinery/r_n_d/server/target)
-	for(var/obj/machinery/computer/rdconsole/S in GLOB.machines)
-		var/able_to_sync(list)
-		var/obj/machinery/r_n_d/server/s = S
+	for(var/obj/machinery/computer/rdconsole/C)
+		var/abletosync(list)
+		var/obj/machinery/r_n_d/server/S = S
 		var/turf/ST = get_turf (S)
 		if(S.local || same(z))
-			++ able_to_sync
+			S += abletosync.list()
 		else
 			return
 	for(var/obj/machinery/r_n_d/server/target)
-	var/target = input(target,"Pick a server to connect to.",null)as null|anything in able_to_sync.list()
-		input("Are you shure you want to connect to this server?") in list("Connect", "Cancel")
-			if("Cancel")
-				return
-			else
-				linked_server = target
-				target.linked_console |= src
-				sync = 1
+	var/target = input(target,"Pick a server to connect to.",null)as null|anything in abletosync.list()
+		var/choice = alert("Are you shure you want to connect to this server?", "R&D Console connettion.", "Continue", "Cancel")
+		if(choice == "Continue")
+			linked_server = target
+			target.linked_console |= src
+			sync = 1
+		else
+			return
 
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
@@ -297,9 +297,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
-		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
-			log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
-			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
+		//if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
+			//log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
+			//continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
 			server_processed = TRUE
@@ -308,7 +308,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
-	SStgui.update_uis(src)
+	return
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
