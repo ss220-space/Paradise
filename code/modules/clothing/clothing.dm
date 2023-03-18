@@ -233,7 +233,7 @@
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
 	var/lighting_alpha
-	var/flash_protect_mod = NONE //For Tajaran veils, for using in OFF state.
+	var/flash_protect_mod = 1 //For Tajaran veils ... or something cool with toggle_veil proc.
 
 	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
