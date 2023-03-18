@@ -25,21 +25,21 @@
 
 /datum/gear/racial/taj/sci
 	display_name = "hi-tech veil"
-	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built research and reagent scanner."
 	path = /obj/item/clothing/glasses/science/tajblind
 	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Geneticist", "Bartender")
 	cost = 2
 
 /datum/gear/racial/taj/eng
 	display_name = "industrial veil"
-	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built welding shield screen."
 	path = /obj/item/clothing/glasses/tajblind/eng
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Life Support Specialist", "Mechanic")
 	cost = 2
 
 /datum/gear/racial/taj/cargo
 	display_name = "khaki veil"
-	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy!"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy! This one has an in-built meson scanner."
 	path = /obj/item/clothing/glasses/meson/tajblind
 	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
 	cost = 2
@@ -47,7 +47,7 @@
 /datum/gear/racial/taj/skill
 	display_name = "personnel veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built skill HUD."
-	path = /obj/item/clothing/glasses/hud/skill/tajblind
+	path = /obj/item/clothing/glasses/hud/skills/tajblind
 	allowed_roles = list("Head of Personnel", "Captain", "Nanotrasen Representative", "Blueshield")
 	cost = 2
 

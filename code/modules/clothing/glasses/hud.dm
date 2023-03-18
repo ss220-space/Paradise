@@ -275,7 +275,7 @@
 
 /obj/item/clothing/glasses/hud/security/tajblind/night
 	name = "sleek Night Vision veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed secutiry HUD."
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed secutiry HUD. Allows see in dark, but why?"
 	icon_state = "tajblind_nv_sec"
 	item_state = "tajblind_nv_sec"
 	see_in_dark = 8
@@ -306,7 +306,7 @@
 
 /obj/item/clothing/glasses/hud/health/tajblind/night
 	name = "lightweight Night Vision veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD. Allows see in dark, but why?"
 	icon_state = "tajblind_nv_med"
 	item_state = "tajblind_nv_med"
 	see_in_dark = 8

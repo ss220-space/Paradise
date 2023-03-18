@@ -111,6 +111,7 @@
 
 /obj/item/clothing/glasses/meson/tajblind
 	name = "khaki veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed meson scanner."
 	icon_state = "tajblind_cargo"
 	item_state = "tajblind_cargo"
 	flags_cover = GLASSESCOVERSEYES
@@ -127,7 +128,8 @@
 		)
 
 /obj/item/clothing/glasses/meson/tajblind/night
-	name = "Night Vision veil"
+	name = "Night Vision meson veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed meson scanner. Allows see in dark, but why?"
 	icon_state = "tajblind_nv_engi"
 	item_state = "tajblind_nv_engi"
 	see_in_dark = 8
@@ -172,6 +174,7 @@
 
 /obj/item/clothing/glasses/science/tajblind
 	name = "hi-tech veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed research and reagent scanner."
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
 
@@ -190,6 +193,7 @@
 
 /obj/item/clothing/glasses/science/tajblind/night
 	name = "hi-tech Night Vision veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed research and reagent scanner. Allows see in dark, but why?"
 	icon_state = "tajblind_nv_sci"
 	item_state = "tajblind_nv_sci"
 	see_in_dark = 8
@@ -663,6 +667,7 @@
 
 /obj/item/clothing/glasses/tajblind/eng
 	name = "industrial veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed welding protective shield when veil is not active."
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 	flash_protect_mod = 2
