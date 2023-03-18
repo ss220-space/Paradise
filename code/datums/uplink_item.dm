@@ -181,6 +181,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/acrobatic_shoes
+	name = "Acrobatic Shoes"
+	desc = "A pair of modified clown shoes are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	reference = "AS"
+	item = /obj/item/clothing/shoes/bhop/clown
+	cost = 3
+	job = list("Clown")
+
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
@@ -1487,7 +1495,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
+	desc = "The Syndicate Surgical Bag comes with a complete set of everything you need for quality surgery, including a straitjacket and muzzle. The bag itself is unprecedentedly light, doesn't slow you down, and is completely silent."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
 	cost = 2

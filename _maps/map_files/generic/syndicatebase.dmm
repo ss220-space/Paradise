@@ -201,7 +201,7 @@
 	id_tag = "Syndie_vault"
 	},
 /obj/structure/falsewall/plastitanium{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -269,14 +269,12 @@
 /area/ruin/unpowered)
 "auQ" = (
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plating/asteroid/airless/cave,
 /area/ruin/unpowered)
 "avh" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -290,8 +288,6 @@
 "awy" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -476,17 +472,15 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aCz" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aCC" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -536,10 +530,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "aDa" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -680,7 +672,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aIk" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -700,7 +692,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/security{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1228,10 +1220,8 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aYF" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -1338,7 +1328,7 @@
 	id_tag = "taipan_exit_outer";
 	locked = 1;
 	name = "Secret Enter";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -1413,8 +1403,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "beL" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -1600,7 +1588,9 @@
 	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bmH" = (
@@ -1706,8 +1696,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/closet/secure_closet/medical2{
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
@@ -2216,7 +2205,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Research Director's office";
-	req_access_txt = "155"
+	req_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2264,7 +2253,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "156, 149"
+	req_access = list(156,149)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -2436,7 +2425,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2498,7 +2487,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2622,7 +2611,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Server Room";
-	req_access_txt = "155"
+	req_access = list(155)
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -3055,7 +3044,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cCi" = (
 /mob/living/simple_animal/mouse/gray{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -3094,7 +3083,7 @@
 	id_tag = "taipan_exit_airlock";
 	pixel_x = -25;
 	pixel_y = null;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_airpump = "taipan_exit_pump";
 	tag_chamber_sensor = "taipan_exit_sensor";
 	tag_exterior_door = "taipan_exit_outer";
@@ -3104,7 +3093,7 @@
 	id_tag = "taipan_exit_sensor";
 	pixel_x = -24;
 	pixel_y = 9;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -3797,10 +3786,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dnW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -3812,14 +3799,14 @@
 	id_tag = "taipan_exit_inner";
 	locked = 1;
 	name = "Secret Exit";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dou" = (
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -3996,7 +3983,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
@@ -4065,8 +4052,7 @@
 "dyd" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Bar storage";
-	req_access = null;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4161,8 +4147,7 @@
 /obj/structure/table/wood,
 /obj/structure/sign/barsign{
 	pixel_y = 32;
-	req_access = null;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/item/reagent_containers/food/drinks/bottle/absinthe,
 /turf/simulated/floor/plasteel{
@@ -4486,10 +4471,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dTo" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
@@ -4562,7 +4545,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4632,10 +4615,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ebj" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
@@ -4650,7 +4631,7 @@
 	name = "interior access button";
 	pixel_x = -24;
 	pixel_y = 24;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/falsewall/plastitanium,
 /turf/simulated/floor/plating,
@@ -4688,7 +4669,7 @@
 	id = "Syndie_teleport";
 	name = "Teleporter remote door-control";
 	pixel_y = 26;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -4732,7 +4713,7 @@
 	id_tag = "Syndie_vault"
 	},
 /obj/structure/falsewall/plastitanium{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -5046,8 +5027,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "eCj" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access = null;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/item/storage/box/buck,
 /obj/item/storage/box/buck,
@@ -5366,7 +5346,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "eMI" = (
 /obj/structure/falsewall/plastitanium{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -5488,7 +5468,7 @@
 	dir = 1;
 	icon_state = "left";
 	name = "Danger: Top Secret";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/effect/mine/stun,
 /obj/item/stack/sheet/metal,
@@ -5644,7 +5624,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/research{
 	name = "Research Airlock";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5860,7 +5840,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5897,7 +5877,7 @@
 	},
 /obj/item/folder/syndicate/yellow/full,
 /obj/structure/falsewall/plastitanium{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -5921,7 +5901,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Arrivals Post";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -5966,10 +5946,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "foL" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
@@ -5997,7 +5975,7 @@
 "fqF" = (
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -6089,10 +6067,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "fvk" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
@@ -6233,8 +6209,7 @@
 	faction = "syndicate";
 	name = "Teleporter turret controls";
 	pixel_y = 26;
-	req_access = null;
-	req_access_txt = "154";
+	req_access = list(154);
 	syndicate = 1
 	},
 /obj/structure/filingcabinet/chestdrawer,
@@ -6277,10 +6252,7 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "fGp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/syndicate/trap/mine{
-	color = "#2580f0";
-	icon_state = "x_white"
-	},
+/obj/effect/spawner/random_spawners/syndicate/trap/mine,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -6361,12 +6333,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "fKy" = (
@@ -6393,7 +6363,7 @@
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_mix_sensor" = "Tank")
+	sensors = list("syndie_base_mix_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6451,7 +6421,7 @@
 	color = "red";
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6503,7 +6473,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Morgue Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6563,7 +6533,7 @@
 	output_tag = "syndie_base_air_out";
 	pressure_setting = 2000;
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_air_sensor" = "Tank")
+	sensors = list("syndie_base_air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6611,7 +6581,7 @@
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_o2_sensor" = "Tank")
+	sensors = list("syndie_base_o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6641,7 +6611,7 @@
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_n2_sensor" = "Tank")
+	sensors = list("syndie_base_n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6744,10 +6714,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "fXY" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6771,7 +6739,7 @@
 "fZY" = (
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Arrivals Post";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6881,12 +6849,10 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gih" = (
@@ -6947,8 +6913,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gmy" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -7045,7 +7009,7 @@
 	name = "exterior access button";
 	pixel_x = -24;
 	pixel_y = -24;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -7065,10 +7029,8 @@
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "grR" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -7212,7 +7174,7 @@
 	dir = 2;
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -7300,7 +7262,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_space_base_virology";
 	pixel_x = 25;
-	req_access_txt = "149";
+	req_access = list(149);
 	tag_exterior_door = "syndicate_space_base_virology_exterior";
 	tag_interior_door = "syndicate_space_base_virology_interior"
 	},
@@ -7877,7 +7839,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7978,8 +7942,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "hgH" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -8023,7 +7985,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Morgue Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8118,7 +8080,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/janitorial)
@@ -8214,7 +8176,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/freezer{
 	name = "Freezer Airlock";
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8311,7 +8273,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/freezer{
 	name = "Freezer Airlock";
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8524,14 +8486,14 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -8661,7 +8623,7 @@
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_n2o_sensor" = "Tank")
+	sensors = list("syndie_base_n2o_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -9081,7 +9043,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Research Director's office";
-	req_access_txt = "155"
+	req_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9200,8 +9162,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Bar";
-	req_access = null;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -9243,7 +9204,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Riot Control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/shower{
 	dir = 4
@@ -9340,7 +9301,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "ikC" = (
 /obj/machinery/vending/cola/free{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -9364,7 +9325,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "imn" = (
 /obj/machinery/vending/coffee/free{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -9787,7 +9748,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9880,7 +9841,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9907,7 +9868,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -10293,7 +10254,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/research/glass{
 	name = "Research Airlock";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10441,7 +10402,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/random/toolbox,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jkz" = (
@@ -10549,7 +10512,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11358,11 +11321,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "kdF" = (
@@ -11437,8 +11396,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "kfY" = (
 /obj/structure/closet/secure_closet/injection{
-	req_access = null;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -11658,7 +11616,7 @@
 "kxP" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -11769,7 +11727,7 @@
 /obj/machinery/door/window{
 	color = "red";
 	name = "Kitchen";
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/machinery/smartfridge/syndie,
 /turf/simulated/floor/plasteel{
@@ -11869,7 +11827,7 @@
 "kFD" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -11962,8 +11920,7 @@
 "kJT" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Kitchen";
-	req_access = null;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -12525,7 +12482,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
@@ -12608,7 +12567,7 @@
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_tox_sensor" = "Tank")
+	sensors = list("syndie_base_tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -12650,8 +12609,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lnr" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = 32;
 	use_power = 1
 	},
@@ -12673,7 +12630,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12737,7 +12694,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "loU" = (
 /obj/machinery/computer/rdservercontrol{
-	req_access_txt = "155";
+	req_access = list(155);
 	servers = list(0027);
 	syndicate = 1
 	},
@@ -12870,7 +12827,7 @@
 	id_tag = "syndicate_space_base_virology_exterior";
 	locked = 1;
 	name = "Virology Lab Exterior Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13764,11 +13721,7 @@
 "mbY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -13836,7 +13789,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13907,7 +13860,7 @@
 	color = "red";
 	dir = 1;
 	name = "Hydroponics Desk";
-	req_access_txt = "148"
+	req_access = list(148)
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
@@ -14955,11 +14908,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ndo" = (
@@ -15488,10 +15437,8 @@
 /area/syndicate/unpowered/syndicate_space_base/main/west)
 "ntM" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
@@ -16009,8 +15956,6 @@
 "nGe" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -16144,7 +16089,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/atmos/glass{
 	name = "SMES room";
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16312,7 +16257,7 @@
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_co2_sensor" = "Tank")
+	sensors = list("syndie_base_co2_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -16494,7 +16439,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16564,10 +16509,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ocQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/syndicate/trap/mine{
-	color = "#2580f0";
-	icon_state = "x_white"
-	},
+/obj/effect/spawner/random_spawners/syndicate/trap/mine,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -16668,7 +16610,6 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "ojC" = (
-/obj/machinery/bluespace_beacon/syndicate,
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
 	dir = 8
@@ -16677,6 +16618,7 @@
 	color = "#d70000"
 	},
 /obj/effect/turf_decal/box/red,
+/obj/machinery/bluespace_beacon/syndicate/infiltrator,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16991,10 +16933,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ovD" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
@@ -17035,7 +16975,7 @@
 "oxn" = (
 /obj/machinery/door/morgue{
 	name = "Dungeon";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17067,7 +17007,7 @@
 	},
 /obj/machinery/computer/guestpass/syndicate{
 	pixel_y = 32;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17347,7 +17287,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/mouse/white{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -17505,7 +17445,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "oND" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -17581,7 +17521,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -17619,7 +17559,9 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "oTI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oTR" = (
@@ -18057,7 +17999,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18104,7 +18046,7 @@
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/item/folder,
 /obj/item/stamp/syndicate/taipan,
@@ -18188,7 +18130,9 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "ppf" = (
@@ -18504,7 +18448,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "pAd" = (
 /obj/machinery/vending/autodrobe{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -18780,8 +18724,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "pJT" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/beakers/bluespace,
@@ -18808,7 +18751,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "pKm" = (
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -18818,8 +18761,7 @@
 	id_with_download_string = "0027";
 	id_with_upload_string = "0027;1";
 	name = "ERR#UNKWN";
-	req_access = null;
-	req_access_txt = "155";
+	req_access = list(155);
 	server_id = 0027;
 	syndicate = 1
 	},
@@ -18833,10 +18775,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "pLA" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
@@ -18860,8 +18800,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/medical/syndicate_access{
-	req_access = null;
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18870,8 +18809,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "pME" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -19010,7 +18947,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/atmos{
 	name = "Atmos Airlock";
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -19224,7 +19161,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19666,8 +19603,7 @@
 "qsB" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /obj/item/extinguisher/mini,
 /turf/simulated/floor/plasteel{
@@ -19691,8 +19627,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /obj/item/storage/backpack/syndicate/engineer,
 /obj/item/holosign_creator/atmos,
@@ -20134,7 +20069,7 @@
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -20303,8 +20238,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qGq" = (
 /obj/structure/closet/secure_closet/medical2{
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/storage/box/bodybags,
 /obj/effect/turf_decal/tile/blue{
@@ -20763,7 +20697,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/security{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20796,7 +20730,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21339,7 +21273,7 @@
 	name = "exterior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -21376,7 +21310,7 @@
 	id_tag = "syndicate_space_base_virology_interior";
 	locked = 1;
 	name = "Virology Lab Interior Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -21447,7 +21381,7 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21529,7 +21463,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/item/radio/intercom/syndicate{
 	pixel_y = 25
@@ -21724,8 +21658,6 @@
 "rRZ" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/grenade{
 	active_power_usage = 1000;
-	color = "red";
-	icon_state = "x_white";
 	idle_power_usage = 200;
 	use_power = 1
 	},
@@ -22037,7 +21969,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "sfl" = (
 /obj/machinery/vending/suitdispenser{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -22110,7 +22042,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Creature Pen";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/remains/xeno,
 /mob/living/simple_animal/slime{
@@ -22123,7 +22055,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Creature Pen";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/blood/gibs/xeno/down,
 /mob/living/simple_animal/slime{
@@ -22204,8 +22136,7 @@
 "sml" = (
 /obj/machinery/clonepod/biomass{
 	radio_announce = 0;
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -22225,7 +22156,7 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -22233,7 +22164,9 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/storage/wallet/random,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "smz" = (
@@ -22252,7 +22185,7 @@
 	name = "Bolt Cell Doors";
 	normaldoorcontrol = 1;
 	pixel_x = -5;
-	req_access_txt = "154";
+	req_access = list(154);
 	specialfunctions = 4
 	},
 /obj/structure/table/reinforced,
@@ -22261,34 +22194,34 @@
 	name = "Armory remote door-control";
 	pixel_x = 5;
 	pixel_y = 8;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Syndie_teleport";
 	name = "Teleporter remote door-control";
 	pixel_x = -5;
 	pixel_y = 8;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Full_Lockdown";
 	name = "Stationwide Lockdown control";
 	pixel_x = -5;
 	pixel_y = -8;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Syndie_vault";
 	name = "Vault Blast Door-control";
 	pixel_x = 5;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Comms_privacy";
 	name = "Privacy shutters control";
 	pixel_x = 5;
 	pixel_y = -8;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
@@ -22351,8 +22284,7 @@
 	name = "Arrivals turret controls";
 	pixel_x = 30;
 	pixel_y = 6;
-	req_access = null;
-	req_access_txt = "154";
+	req_access = list(154);
 	syndicate = 1
 	},
 /obj/machinery/turretid/lethal{
@@ -22363,8 +22295,7 @@
 	name = "Armory turret controls";
 	pixel_x = 30;
 	pixel_y = -6;
-	req_access = null;
-	req_access_txt = "154";
+	req_access = list(154);
 	syndicate = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -22517,7 +22448,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/vending/toyliberationstation{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22624,7 +22555,9 @@
 "sJO" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22632,7 +22565,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "sLh" = (
 /obj/machinery/vending/hatdispenser{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -22643,7 +22576,9 @@
 "sLk" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "sLL" = (
@@ -22784,7 +22719,7 @@
 "sQr" = (
 /obj/machinery/door/airlock/syndicate/research/glass{
 	name = "Old Lab Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -22908,11 +22843,7 @@
 "sUQ" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "sVq" = (
@@ -22997,8 +22928,7 @@
 	faction = "syndicate";
 	name = "External turrets control panel";
 	pixel_y = 6;
-	req_access = null;
-	req_access_txt = "154";
+	req_access = list(154);
 	syndicate = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -23246,7 +23176,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tgr" = (
 /obj/machinery/vending/shoedispenser{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -23413,11 +23343,7 @@
 	throw_range = 2
 	},
 /obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "tob" = (
@@ -23611,7 +23537,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23658,7 +23584,7 @@
 /obj/machinery/door/airlock/syndicate/security/glass{
 	id_tag = "syndie_armory";
 	name = "Armoury Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -23679,7 +23605,7 @@
 /obj/machinery/door/airlock/syndicate/security/glass{
 	id_tag = "syndie_armory";
 	name = "Armoury Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -24254,9 +24180,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/medical/syndicate_access{
-	req_access = null;
-	req_access_txt = null;
-	req_one_access_txt = "156;149"
+	req_one_access_txt = list(156,149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24383,8 +24307,7 @@
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/vending/medical/syndicate_access{
-	req_access = null;
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24600,8 +24523,7 @@
 	faction = "syndicate";
 	name = "Armory turret controls";
 	pixel_y = 30;
-	req_access = null;
-	req_access_txt = "150";
+	req_access = list(150);
 	syndicate = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -24946,7 +24868,9 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ujO" = (
@@ -24979,7 +24903,9 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ulz" = (
@@ -25000,7 +24926,7 @@
 	dir = 2;
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -25019,7 +24945,7 @@
 	dir = 2;
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25052,7 +24978,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "umD" = (
@@ -25263,7 +25191,7 @@
 "uwh" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -25380,7 +25308,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/research{
 	name = "Research Airlock";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25475,10 +25403,8 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "uzu" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
@@ -25500,7 +25426,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -25561,7 +25487,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "uBn" = (
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate");
+	faction = list("neutral","syndicate");
 	name = "Борис"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -25628,7 +25554,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -25706,6 +25632,9 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	spawn_inside = /obj/structure/closet/crate/syndicate
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "uEU" = (
@@ -25737,7 +25666,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -26303,18 +26232,14 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uUK" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "uVo" = (
@@ -26376,7 +26301,7 @@
 "uXK" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -26426,7 +26351,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -26647,10 +26572,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "vdW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
@@ -26750,7 +26673,7 @@
 "vhP" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -26838,7 +26761,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/research/glass{
 	name = "Research Airlock";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27107,7 +27030,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -27314,7 +27237,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/syndicate{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27657,7 +27580,7 @@
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -27969,7 +27892,7 @@
 "wiT" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -27991,7 +27914,7 @@
 "wjm" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_x = -32
@@ -28709,7 +28632,7 @@
 "wBR" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -28748,13 +28671,13 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Riot Control";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -28863,10 +28786,8 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "wHe" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
@@ -29023,7 +28944,7 @@
 "wLO" = (
 /obj/machinery/door/airlock/hatch/syndicate/vault{
 	locked = null;
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "Syndie_vault"
@@ -29161,7 +29082,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29183,7 +29104,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29205,7 +29126,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -29337,7 +29258,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29587,8 +29508,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/robotics{
-	req_access = null;
-	req_access_txt = "155"
+	req_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29742,7 +29662,7 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "xgW" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29884,7 +29804,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Server Room";
-	req_access_txt = "155"
+	req_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29903,7 +29823,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo/glass{
 	name = "Cargo Airlock";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30419,7 +30339,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30554,8 +30474,6 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xHx" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "blue";
-	icon_state = "x_white";
 	use_power = 1
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -30569,8 +30487,6 @@
 "xIq" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -30620,8 +30536,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/suit_storage_unit/syndicate/secure{
-	req_access = null;
-	req_access_txt = "155"
+	req_access = list(155)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -30673,7 +30588,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30872,7 +30787,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31084,8 +30999,7 @@
 "xZn" = (
 /obj/machinery/crema_switch{
 	pixel_x = 26;
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
@@ -31250,7 +31164,7 @@
 "yfc" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -31319,8 +31233,6 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yhG" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -31424,7 +31336,7 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty{
