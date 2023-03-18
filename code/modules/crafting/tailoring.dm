@@ -269,7 +269,7 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/tajblind_cargo
-	name = "Mezon Tajaran Veil"
+	name = "Meson Tajaran Veil"
 	result = /obj/item/clothing/glasses/meson/tajblind
 	time = 15
 	tools = list(TOOL_WRENCH)
@@ -278,10 +278,10 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/tajblind_nv_engi
-	name = "Mezon Night Vision Tajaran Veil"
+	name = "Meson Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/meson/tajblind/night
 	time = 20
-	tools = list(TOOL_WRENCH, TOOL_WRENCH)
+	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/night = 1,
 				/obj/item/clothing/glasses/tajblind = 1,
 				/obj/item/stack/cable_coil = 5)
@@ -309,7 +309,7 @@
 	name = "Diagnostic Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/diagnostic/tajblind/night
 	time = 20
-	tools = list(TOOL_WRENCH, TOOL_WRENCH)
+	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/night = 1,
 				/obj/item/clothing/glasses/tajblind = 1,
 				/obj/item/stack/cable_coil = 5)
