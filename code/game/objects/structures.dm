@@ -82,8 +82,46 @@
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
+
+	clumse_stuff(climber)
+
 	climber = null
+
 	return TRUE
+
+/obj/structure/proc/clumse_stuff(var/mob/living/user)
+
+	var/slopchance = 80 //default for all human-sized livings
+	var/max_throws_count = 15 //for lag prevention
+	var/mob/living/carbon/human/man
+	if(ishuman(user))
+		man = user
+		if(/datum/dna/gene/disability/clumsy in man.active_genes)
+			slopchance = 100
+		if(man.mind.miming)
+			slopchance = 50
+
+	else if(user.mob_size > MOB_SIZE_HUMAN)
+		slopchance = 100
+	else if(user.mob_size < MOB_SIZE_HUMAN)
+		slopchance = 50
+
+	var/list/thrownatoms = list()
+
+	for(var/turf/T in view_or_range(0, src, "range")) //Preventing from rotating stuff in an inventory
+		for(var/atom/movable/AM in T)
+			if(!(AM == user || AM.anchored || isliving(AM)))
+				thrownatoms += AM
+			if(thrownatoms.len >= max_throws_count)
+				break
+
+	var/atom/throwtarget
+	for(var/am in thrownatoms)
+		if(prob(slopchance))
+			var/atom/movable/AM = am
+			throwtarget = get_edge_target_turf(user, get_dir(user, get_step_away(AM, user)))
+			AM.throw_at(target = throwtarget, range = 1, speed = 1, force = 0)
+
 
 /obj/structure/proc/structure_shaken()
 
