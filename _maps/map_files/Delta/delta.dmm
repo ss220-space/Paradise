@@ -17797,7 +17797,9 @@
 	dir = 8
 	},
 /obj/machinery/shower{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /obj/effect/turf_decal/siding/wideplating/end{
 	dir = 1
@@ -65123,7 +65125,9 @@
 	dir = 4
 	},
 /obj/machinery/shower{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -122308,7 +122312,9 @@
 /obj/structure/curtain/open/shower/security,
 /obj/item/restraints/handcuffs/pinkcuffs,
 /obj/machinery/shower{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -139024,7 +139030,9 @@
 	},
 /obj/structure/cable,
 /obj/machinery/shower{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /obj/structure/sink{
 	dir = 4;
