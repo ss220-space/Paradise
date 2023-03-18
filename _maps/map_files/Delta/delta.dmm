@@ -8476,7 +8476,8 @@
 "bdz" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = -2
+	pixel_y = -5;
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -81906,7 +81907,9 @@
 /area/quartermaster/storage)
 "mbs" = (
 /obj/structure/sink{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/carpet,
@@ -82107,7 +82110,9 @@
 /area/quartermaster/storage)
 "mdx" = (
 /obj/structure/sink{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/mirror{
@@ -97567,7 +97572,9 @@
 /area/maintenance/library)
 "psE" = (
 /obj/structure/sink{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
@@ -125136,7 +125143,9 @@
 /area/security/processing)
 "vmn" = (
 /obj/structure/sink{
-	dir = 1
+	dir = 1;
+	pixel_y = -5;
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
