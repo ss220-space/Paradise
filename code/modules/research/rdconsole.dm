@@ -155,15 +155,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return
 
 /obj/machinery/computer/rdconsole/proc/sync_server(/obj/machinery/r_n_d/server/target)
-	for(var/obj/machinery/computer/rdconsole/C)
-		var/abletosync(list)
-		var/obj/machinery/r_n_d/server/S = S
-		var/turf/ST = get_turf (S)
-		if(S.local || same(z))
-			S += abletosync.list()
-		else
-			return
-	for(var/obj/machinery/r_n_d/server/target)
+	var/abletosync(list)
+	for(var/obj/machines/r_n_d/server/S in GLOB.servers)
+		if(S.z == z)
+			abletosync += S
 	var/target = input(target,"Pick a server to connect to.",null)as null|anything in abletosync.list()
 		var/choice = alert("Are you shure you want to connect to this server?", "R&D Console connettion.", "Continue", "Cancel")
 		if(choice == "Continue")

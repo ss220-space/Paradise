@@ -24,11 +24,10 @@ GLOBAL_LIST_EMPTY(servers)
 	var/list/usage_logs
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
-	var/list/linked_servers = list()
 
 /obj/machinery/r_n_d/server/New()
 	..()
-	GLOB.servers += src
+	GLOB.servers_list.Add(src)
 	if(!logs_decryption_key)
 		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
