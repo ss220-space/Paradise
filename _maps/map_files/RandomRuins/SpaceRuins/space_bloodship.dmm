@@ -284,6 +284,13 @@
 /area/ruin/unpowered)
 "MO" = (
 /obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/mob/living/simple_animal/hostile/illusion/cult{
+	maxHealth = 350;
+	melee_damage_lower = 10;
+	melee_damage_upper = 25;
+	desc = "The deceived soul";
+	name = "The soul of the cultist"
+	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
 	nitrogen = 23;
@@ -300,7 +307,7 @@
 	desc = "Rusted and bloodstained medal. Given to who believes in... illegible to you, rust erased last words."
 	},
 /mob/living/simple_animal/hostile/illusion/cult{
-	maxHealth = 200;
+	maxHealth = 350;
 	melee_damage_lower = 10;
 	melee_damage_upper = 25;
 	desc = "The deceived soul";
@@ -325,12 +332,9 @@
 	},
 /area/ruin/unpowered)
 "NU" = (
-/obj/effect/decal/cleanable/crayon{
-	color = "#cc3300";
-	desc = null
-	},
+/obj/effect/decal/cleanable/blood/old,
 /mob/living/simple_animal/hostile/illusion/cult{
-	maxHealth = 200;
+	maxHealth = 350;
 	melee_damage_lower = 10;
 	melee_damage_upper = 25;
 	desc = "The deceived soul";
@@ -836,7 +840,7 @@ oc
 oc
 yu
 Bg
-dJ
+NU
 Wh
 xZ
 Wh
@@ -883,7 +887,7 @@ oc
 yu
 Bg
 Bg
-NU
+Wh
 Bg
 Bg
 Bg
@@ -981,7 +985,7 @@ Wh
 Bg
 Bg
 Bg
-NU
+Wh
 Bg
 Bg
 yu
@@ -1440,7 +1444,7 @@ sW
 Bg
 Bg
 qE
-jV
+Bg
 Bg
 sW
 GR
@@ -1487,7 +1491,7 @@ Bg
 sW
 Bg
 dJ
-Bg
+jV
 Bg
 Bg
 Dz
@@ -1712,7 +1716,7 @@ Bg
 sW
 Vn
 Bg
-Bg
+jV
 Bg
 Bg
 Bg
