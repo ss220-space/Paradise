@@ -93,6 +93,7 @@
 		return
 	var/slopchance = 80 //default for all human-sized livings
 	var/max_throws_count = 15 //for lag prevention
+	var/force_mult = 0.1 //коэффицент уменьшения урона при сбрасывании предмета
 
 	switch(user.mob_size)
 		if(MOB_SIZE_LARGE) slopchance = 100
@@ -120,12 +121,12 @@
 
 	var/atom/throwtarget
 	for(var/obj/item/AM in thrownatoms)
-		AM.force /= 10
-		AM.throwforce /= 10 //no killing using shards :lul:
+		AM.force *= force_mult
+		AM.throwforce *= force_mult //no killing using shards :lul:
 		throwtarget = get_edge_target_turf(user, get_dir(src, get_step_away(AM, src)))
 		AM.throw_at(target = throwtarget, range = 1, speed = 1)
-		AM.force = initial(AM.force)
-		AM.throwforce = initial(AM.throwforce)
+		AM.force /= force_mult
+		AM.throwforce /= force_mult
 
 
 /obj/structure/proc/structure_shaken()
