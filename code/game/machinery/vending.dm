@@ -1798,6 +1798,8 @@
 		/obj/item/clothing/head/beret/sec		= 10,
 		/obj/item/clothing/head/beret/sec/black	= 10,
 		/obj/item/clothing/head/officer		 	= 10,
+		/obj/item/clothing/head/beret/brigphys  = 5,
+		/obj/item/clothing/head/soft/brigphys   = 5,
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
@@ -1844,7 +1846,8 @@
 		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
-		/obj/item/clothing/suit/storage/brigdoc = 3
+		/obj/item/clothing/suit/storage/brigdoc = 3,
+		/obj/item/clothing/under/rank/security/brigmedical = 3
 		)
 
 
