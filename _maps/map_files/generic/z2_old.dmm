@@ -187,13 +187,9 @@
 /area/syndicate_mothership)
 "amT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible{
@@ -950,13 +946,9 @@
 /area/ninja/outpost)
 "aRB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -979,9 +971,7 @@
 	},
 /area/centcom/zone1)
 "aRV" = (
-/obj/effect/landmark{
-	name = "Holocarp Spawn"
-	},
+/obj/effect/landmark/traderstart_sol,
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
 	name = "Holodeck Projector Floor"
@@ -2948,9 +2938,7 @@
 /area/centcom/blops)
 "cEj" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark{
-	name = "Commando_Manual"
-	},
+/obj/effect/landmark/commando_manual,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -5048,13 +5036,9 @@
 "ebR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -5699,8 +5683,6 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
@@ -7751,8 +7733,6 @@
 /area/centcom/court)
 "fRZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/vault{
@@ -7771,9 +7751,7 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444"
 	},
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "fST" = (
@@ -7830,8 +7808,6 @@
 /area/holodeck/source_desert)
 "fVo" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -8210,8 +8186,6 @@
 /area/centcom/evac)
 "glr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
@@ -8268,9 +8242,7 @@
 "gmR" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/effect/landmark{
-	name = "traderstart_sol"
-	},
+/obj/effect/landmark/traderstart_sol,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
@@ -8470,8 +8442,6 @@
 /area/ninja/outside)
 "gwm" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/indestructible{
@@ -8693,9 +8663,7 @@
 /area/centcom/evac)
 "gDX" = (
 /obj/structure/chair,
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -9205,8 +9173,6 @@
 /area/admin)
 "gZG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -9427,8 +9393,6 @@
 /area/wizard_station)
 "hge" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10427,9 +10391,7 @@
 /area/admin)
 "hQw" = (
 /obj/structure/table/wood,
-/obj/effect/landmark{
-	name = "Teleport-Scroll"
-	},
+/obj/effect/landmark/teleport_scroll,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -30
 	},
@@ -10806,9 +10768,7 @@
 	},
 /area/centcom/zone3)
 "iiz" = (
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/syndieprisonwarp,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -11383,18 +11343,12 @@
 "izA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -11524,8 +11478,6 @@
 /area/space)
 "iFb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/indestructible{
@@ -11647,18 +11599,12 @@
 "iLw" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/space,
@@ -11948,8 +11894,6 @@
 /area/abductor_ship)
 "iVq" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -12024,9 +11968,7 @@
 	color = "#363636";
 	icon_state = "diagonal_edge"
 	},
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "jaa" = (
@@ -13133,19 +13075,13 @@
 "jKW" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/space,
@@ -13384,8 +13320,6 @@
 	operation_req_access = list(1)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/mech,
@@ -13444,8 +13378,6 @@
 	name = "Project 28u"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -13898,8 +13830,6 @@
 /area/centcom/zone2)
 "kps" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/sign/poster/contraband/communist_state{
@@ -13912,8 +13842,6 @@
 "kpU" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -14105,8 +14033,6 @@
 /area/abductor_ship)
 "kxr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/light/small{
@@ -15622,13 +15548,9 @@
 /area/centcom/evac)
 "lzH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -16276,8 +16198,6 @@
 "lVF" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -16867,9 +16787,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -17115,13 +17033,9 @@
 /area/centcom/zone1)
 "mAx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/light/small{
@@ -18026,9 +17940,7 @@
 	},
 /area/ussp_ship)
 "nfZ" = (
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/tdome/tdome1,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
 "ngp" = (
@@ -18173,19 +18085,13 @@
 "nlV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -18199,13 +18105,9 @@
 /area/abductor_ship)
 "nmI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -18466,9 +18368,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -18723,9 +18623,7 @@
 /turf/simulated/floor/carpet/red,
 /area/ninja/outpost)
 "nFE" = (
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/tdome/tdome2,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "nFJ" = (
@@ -18931,8 +18829,6 @@
 "nLt" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -19184,8 +19080,6 @@
 /area/chrono_ship)
 "nTH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -19662,8 +19556,6 @@
 /area/centcom/zone3)
 "ouq" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -20076,8 +19968,7 @@
 /obj/structure/chair/comfy/red{
 	color = "#FFFFFF"
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
@@ -20968,8 +20859,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
@@ -21782,9 +21672,7 @@
 	pixel_x = 11;
 	pixel_y = -9
 	},
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/tdome/tdome2,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "pLq" = (
@@ -21894,8 +21782,6 @@
 "pMu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -23430,9 +23316,7 @@
 	pixel_x = 12;
 	pixel_y = -10
 	},
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/tdome/tdome1,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
 "qRG" = (
@@ -23452,8 +23336,6 @@
 /area/centcom/court)
 "qSe" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible{
@@ -24373,14 +24255,10 @@
 "rwE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -24448,8 +24326,6 @@
 /area/ussp_ship)
 "rxX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -24608,8 +24484,6 @@
 "rDo" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/space,
@@ -24688,8 +24562,6 @@
 "rFZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -24859,8 +24731,6 @@
 /area/wizard_station)
 "rNq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/mecha/combat/durand/old{
@@ -25083,8 +24953,7 @@
 	color = "#FFFFFF";
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
@@ -25683,8 +25552,6 @@
 /area/syndicate_mothership)
 "smH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
@@ -26044,9 +25911,7 @@
 /area/syndicate_mothership)
 "szy" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/syndieprisonwarp,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -26130,8 +25995,6 @@
 "sBN" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible{
@@ -26149,8 +26012,6 @@
 	opacity = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -26428,9 +26289,7 @@
 	},
 /area/centcom/jail)
 "sMS" = (
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -27506,13 +27365,9 @@
 /area/centcom/specops)
 "tIi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -27741,9 +27596,7 @@
 /area/centcom/evac)
 "tMy" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark{
-	name = "ERT Director"
-	},
+/obj/effect/landmark/ert_director,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -27842,13 +27695,9 @@
 /area/centcom/specops)
 "tUp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -28325,12 +28174,8 @@
 	name = "Special Ops. Monitor";
 	network = list("ERT")
 	},
-/obj/effect/landmark{
-	name = "nukecode"
-	},
-/obj/effect/landmark{
-	name = "Commando_Manual"
-	},
+/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/commando_manual,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -28352,8 +28197,6 @@
 /area/syndicate_mothership)
 "ukI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
@@ -28799,18 +28642,12 @@
 "uFS" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/space,
@@ -28968,9 +28805,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -29011,8 +28846,6 @@
 /area/syndicate_mothership)
 "uPL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -30213,8 +30046,6 @@
 "vFk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -30292,9 +30123,7 @@
 	},
 /area/syndicate_mothership)
 "vHw" = (
-/obj/effect/landmark{
-	name = "Commando"
-	},
+/obj/effect/landmark/death_squard,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30320,8 +30149,6 @@
 /area/syndicate_mothership)
 "vIn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -30427,8 +30254,6 @@
 /area/centcom/specops)
 "vLb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -30485,9 +30310,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "vLT" = (
-/obj/effect/landmark{
-	name = "Marauder Exit"
-	},
+/obj/effect/landmark/marauder_exit,
 /turf/simulated/floor/indestructible{
 	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
@@ -31728,9 +31551,7 @@
 /area/space)
 "wCQ" = (
 /obj/structure/bed,
-/obj/effect/landmark{
-	name = "prisonwarp"
-	},
+/obj/effect/landmark/prisonwarp,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -32756,18 +32577,12 @@
 "xpy" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/space,
@@ -33023,8 +32838,6 @@
 /area/centcom/zone1)
 "xCf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/mecha/combat/durand/old{
@@ -33133,14 +32946,10 @@
 /area/syndicate_mothership)
 "xEt" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/indestructible{
@@ -33184,19 +32993,13 @@
 "xEX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/space,
@@ -33728,9 +33531,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "Syndicate Officer"
-	},
+/obj/effect/landmark/syndicate_officer,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -34204,9 +34005,7 @@
 "yjb" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/obj/effect/landmark/start{
-	name = "wizard"
-	},
+/obj/effect/landmark/wizard,
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "yje" = (

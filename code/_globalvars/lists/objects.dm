@@ -12,12 +12,14 @@ GLOBAL_LIST_INIT(airlocks, list())					//list of all airlocks
 GLOBAL_LIST_INIT(singularities, list())				//list of all singularities
 GLOBAL_LIST_INIT(janitorial_equipment, list())		//list of janitorial equipment
 GLOBAL_LIST_INIT(crafting_recipes, list()) //list of all crafting recipes
+GLOBAL_LIST_INIT(slime_potions, list()) //list of all slime potions
 GLOBAL_LIST_INIT(prisoncomputer_list, list())
 GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
 GLOBAL_LIST_INIT(cell_logs, list())
 GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
+GLOBAL_LIST_INIT(all_unique_areas, list()) // List of all unique areas. AKA areas with there_can_be_many = FALSE
 GLOBAL_LIST_INIT(machines, list())
 GLOBAL_LIST_INIT(syndiepads, list()) //list of all syndiepads
 GLOBAL_LIST_INIT(syndie_cargo_consoles, list()) //list of all syndie cargo consoles

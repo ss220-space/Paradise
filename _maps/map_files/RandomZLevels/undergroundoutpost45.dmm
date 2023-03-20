@@ -13,7 +13,7 @@
 /area/awaymission/UO45/central_hall)
 "ai" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28,7 +28,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ak" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55,7 +55,7 @@
 	pixel_x = 6;
 	pixel_y = -34
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "am" = (
@@ -70,7 +70,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "ao" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	tag = "icon-darkblue";
@@ -97,7 +97,7 @@
 	id_tag = "UO45_Elevator";
 	name = "Elevator Door"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "as" = (
@@ -109,7 +109,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "at" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "au" = (
@@ -120,7 +120,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "ax" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ay" = (
@@ -253,9 +253,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "aT" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "aU" = (
@@ -263,17 +261,13 @@
 	dir = 4;
 	tag = "icon-comfychair (EAST)"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/awaymission/UO45/central_hall)
 "aV" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -315,9 +309,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -351,15 +343,11 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "bf" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -368,9 +356,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -721,7 +707,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cc" = (
@@ -740,7 +726,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cf" = (
@@ -789,7 +775,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cm" = (
@@ -797,12 +783,12 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "co" = (
@@ -941,7 +927,7 @@
 "cD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/grille,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cE" = (
@@ -953,7 +939,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cG" = (
@@ -964,7 +950,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cI" = (
@@ -1040,7 +1026,7 @@
 	initialize_directions = 14;
 	tag = "icon-manifold-b-f (NORTH)"
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cQ" = (
@@ -1073,7 +1059,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cU" = (
@@ -1154,7 +1140,7 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "df" = (
@@ -1186,7 +1172,7 @@
 "dj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dk" = (
@@ -1194,7 +1180,7 @@
 	dir = 8;
 	on = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dl" = (
@@ -1291,8 +1277,6 @@
 /area/awaymission/UO45/central_hall)
 "dy" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -1302,7 +1286,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dz" = (
@@ -1469,14 +1453,12 @@
 /area/awaymission/UO45/central_hall)
 "dO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dP" = (
@@ -1747,8 +1729,6 @@
 /area/awaymission/UO45/central_hall)
 "eu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -1756,7 +1736,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ev" = (
@@ -2109,8 +2089,6 @@
 /area/awaymission/UO45/central_hall)
 "fi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2121,8 +2099,6 @@
 /area/awaymission/UO45/central_hall)
 "fj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2136,8 +2112,6 @@
 "fk" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2147,8 +2121,6 @@
 /area/awaymission/UO45/central_hall)
 "fl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2158,8 +2130,6 @@
 /area/awaymission/UO45/central_hall)
 "fm" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2246,8 +2216,6 @@
 /area/awaymission/UO45/central_hall)
 "fx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2265,8 +2233,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -2276,13 +2242,11 @@
 /area/awaymission/UO45/central_hall)
 "fz" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/gateaway)
 "fA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2409,14 +2373,12 @@
 /area/awaymission/UO45/crew_quarters)
 "fQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "fR" = (
@@ -2511,8 +2473,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2564,8 +2524,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2619,7 +2577,7 @@
 /obj/structure/table,
 /obj/item/radio/off,
 /obj/item/radio/off,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "gq" = (
@@ -2629,8 +2587,6 @@
 /area/awaymission/UO45/central_hall)
 "gr" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2745,8 +2701,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2814,8 +2768,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2824,7 +2776,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "gS" = (
@@ -3124,7 +3076,7 @@
 /obj/structure/sign/poster/official/safety_internals{
 	pixel_y = 32
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "hA" = (
@@ -3356,8 +3308,6 @@
 /area/awaymission/UO45/central_hall)
 "hY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3555,8 +3505,6 @@
 /area/awaymission/UO45/gateaway)
 "iw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3736,8 +3684,6 @@
 /area/awaymission/UO45/crew_quarters)
 "iN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -3747,13 +3693,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "iO" = (
 /obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "iP" = (
@@ -3778,8 +3724,6 @@
 /area/awaymission/UO45/gateaway)
 "iR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3966,8 +3910,6 @@
 /area/awaymission/UO45/gateaway)
 "jk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4139,7 +4081,7 @@
 /turf/simulated/wall/rust,
 /area/awaymission/UO45/crew_quarters)
 "jE" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "jF" = (
@@ -4264,8 +4206,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4275,7 +4215,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "jT" = (
@@ -4322,14 +4262,10 @@
 /area/awaymission/UO45/crew_quarters)
 "jX" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4347,8 +4283,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jY" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4365,8 +4299,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4380,8 +4312,6 @@
 /area/awaymission/UO45/central_hall)
 "ka" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4396,20 +4326,16 @@
 /area/awaymission/UO45/crew_quarters)
 "kb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "kc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4424,8 +4350,6 @@
 /area/awaymission/UO45/central_hall)
 "kd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -4442,8 +4366,6 @@
 "ke" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4564,8 +4486,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ku" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4595,8 +4515,6 @@
 /area/awaymission/UO45/crew_quarters)
 "kw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -4606,7 +4524,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "kx" = (
@@ -4916,8 +4834,6 @@
 /area/awaymission/UO45/research)
 "kZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5048,8 +4964,6 @@
 /area/awaymission/UO45/crew_quarters)
 "lm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5096,8 +5010,6 @@
 /area/awaymission/UO45/gateaway)
 "lq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5109,8 +5021,6 @@
 /area/awaymission/UO45/gateaway)
 "lr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -5118,8 +5028,6 @@
 /area/awaymission/UO45/gateaway)
 "ls" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5130,14 +5038,10 @@
 /area/awaymission/UO45/gateaway)
 "lt" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -5157,8 +5061,6 @@
 /area/awaymission/UO45/gateaway)
 "lu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5170,8 +5072,6 @@
 /area/awaymission/UO45/gateaway)
 "lv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5183,8 +5083,6 @@
 "lw" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5201,8 +5099,6 @@
 "lx" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5219,8 +5115,6 @@
 /area/awaymission/UO45/gateaway)
 "ly" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5235,8 +5129,6 @@
 /area/awaymission/UO45/gateaway)
 "lz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5249,8 +5141,6 @@
 /area/awaymission/UO45/gateaway)
 "lA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5261,8 +5151,6 @@
 /area/awaymission/UO45/gateaway)
 "lB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5284,8 +5172,6 @@
 /area/awaymission/UO45/gateaway)
 "lC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5303,8 +5189,6 @@
 "lD" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5321,8 +5205,6 @@
 /area/awaymission/UO45/gateaway)
 "lE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5336,14 +5218,10 @@
 /area/awaymission/UO45/gateaway)
 "lF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -5363,8 +5241,6 @@
 /area/awaymission/UO45/research)
 "lG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5401,8 +5277,6 @@
 /area/awaymission/UO45/research)
 "lI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5552,8 +5426,6 @@
 "lW" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5624,15 +5496,13 @@
 /area/awaymission/UO45/gateaway)
 "md" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "me" = (
@@ -5743,8 +5613,6 @@
 /area/awaymission/UO45/crew_quarters)
 "mq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5829,8 +5697,6 @@
 /area/awaymission/UO45/crew_quarters)
 "my" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5954,8 +5820,6 @@
 /area/awaymission/UO45/research)
 "mL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6201,8 +6065,6 @@
 /area/awaymission/UO45/engineering)
 "nk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6271,7 +6133,7 @@
 "nr" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "ns" = (
@@ -6286,8 +6148,6 @@
 /area/awaymission/UO45/research)
 "nt" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -6302,8 +6162,6 @@
 /area/awaymission/UO45/research)
 "nu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6317,8 +6175,6 @@
 /area/awaymission/UO45/research)
 "nv" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -6335,8 +6191,6 @@
 /area/awaymission/UO45/crew_quarters)
 "nw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6351,8 +6205,6 @@
 /area/awaymission/UO45/research)
 "nx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6437,8 +6289,6 @@
 /area/awaymission/UO45/crew_quarters)
 "nH" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -6446,8 +6296,6 @@
 /area/awaymission/UO45/engineering)
 "nI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6468,20 +6316,14 @@
 /area/awaymission/UO45/crew_quarters)
 "nK" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6489,8 +6331,6 @@
 /area/awaymission/UO45/engineering)
 "nL" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -6521,8 +6361,6 @@
 /area/awaymission/UO45/research)
 "nO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6632,8 +6470,6 @@
 /area/awaymission/UO45/research)
 "nW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -6686,8 +6522,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ob" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6704,8 +6538,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6723,8 +6555,6 @@
 /area/awaymission/UO45/crew_quarters)
 "od" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6744,8 +6574,6 @@
 "oe" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6762,8 +6590,6 @@
 /area/awaymission/UO45/crew_quarters)
 "of" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6786,8 +6612,6 @@
 /area/awaymission/UO45/crew_quarters)
 "og" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6802,8 +6626,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6818,8 +6640,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6844,8 +6664,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6863,8 +6681,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ok" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6881,8 +6697,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ol" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6907,8 +6721,6 @@
 /area/awaymission/UO45/engineering)
 "on" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6922,8 +6734,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6942,8 +6752,6 @@
 "op" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6960,8 +6768,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6969,14 +6775,10 @@
 /area/awaymission/UO45/engineering)
 "or" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6991,8 +6793,6 @@
 /area/awaymission/UO45/crew_quarters)
 "os" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -7008,14 +6808,12 @@
 /area/awaymission/UO45/crew_quarters)
 "ot" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ou" = (
@@ -7209,8 +7007,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oN" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7252,8 +7048,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7265,8 +7059,6 @@
 /area/awaymission/UO45/engineering)
 "oS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7277,8 +7069,6 @@
 /area/awaymission/UO45/engineering)
 "oT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7310,14 +7100,12 @@
 /area/awaymission/UO45/crew_quarters)
 "oV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "oW" = (
@@ -7409,8 +7197,6 @@
 /area/awaymission/UO45/research)
 "pd" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -7494,7 +7280,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -7564,8 +7350,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ps" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -7582,14 +7366,10 @@
 /area/awaymission/UO45/crew_quarters)
 "pu" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -7626,8 +7406,6 @@
 /area/awaymission/UO45/engineering)
 "pA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -7638,8 +7416,6 @@
 /area/awaymission/UO45/engineering)
 "pB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -7647,8 +7423,6 @@
 /area/awaymission/UO45/engineering)
 "pC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -7693,8 +7467,6 @@
 /area/awaymission/UO45/engineering)
 "pH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7834,20 +7606,16 @@
 /area/awaymission/UO45/crew_quarters)
 "pY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "pZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7863,7 +7631,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/poster/random_contraband,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "qb" = (
@@ -8129,14 +7897,10 @@
 /area/awaymission/UO45/engineering)
 "qE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -8165,8 +7929,6 @@
 /area/awaymission/UO45/engineering)
 "qG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -8291,8 +8053,6 @@
 /area/awaymission/UO45/research)
 "qP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -8384,7 +8144,7 @@
 /area/awaymission/UO45/research)
 "qW" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "qX" = (
@@ -8454,8 +8214,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8465,7 +8223,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rg" = (
@@ -8601,14 +8359,10 @@
 /area/awaymission/UO45/engineering)
 "rs" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -8655,7 +8409,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ry" = (
@@ -8686,8 +8440,6 @@
 /area/awaymission/UO45/research)
 "rB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8700,7 +8452,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rC" = (
@@ -8780,8 +8532,6 @@
 /area/awaymission/UO45/research)
 "rJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8791,7 +8541,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rK" = (
@@ -8804,8 +8554,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8816,13 +8564,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8839,8 +8585,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8858,14 +8602,10 @@
 /area/awaymission/UO45/crew_quarters)
 "rO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -8894,8 +8634,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8920,8 +8658,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8930,8 +8666,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8953,8 +8687,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8972,8 +8704,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rU" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8993,8 +8723,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9022,8 +8750,6 @@
 "rX" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9052,8 +8778,6 @@
 /area/awaymission/UO45/engineering)
 "rZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9065,8 +8789,6 @@
 /area/awaymission/UO45/engineering)
 "sa" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9092,8 +8814,6 @@
 /area/awaymission/UO45/engineering)
 "sc" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -9191,8 +8911,6 @@
 /area/awaymission/UO45/engineering)
 "sk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9376,8 +9094,6 @@
 /area/awaymission/UO45/crew_quarters)
 "sE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9494,8 +9210,6 @@
 /area/awaymission/UO45/engineering)
 "sP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9559,7 +9273,7 @@
 "sU" = (
 /obj/structure/closet,
 /obj/item/storage/belt/utility,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "sV" = (
@@ -9571,8 +9285,6 @@
 /area/awaymission/UO45/engineering)
 "sW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9638,7 +9350,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = -32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tf" = (
@@ -9665,8 +9377,6 @@
 /area/awaymission/UO45/engineering)
 "th" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9682,8 +9392,6 @@
 /area/awaymission/UO45/research)
 "ti" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -9710,8 +9418,6 @@
 /area/awaymission/UO45/research)
 "tl" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -9773,8 +9479,6 @@
 /area/awaymission/UO45/research)
 "ts" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9794,8 +9498,6 @@
 /area/awaymission/UO45/engineering)
 "tu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9832,8 +9534,6 @@
 /area/awaymission/UO45/engineering)
 "tx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9886,7 +9586,7 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tC" = (
@@ -9917,8 +9617,6 @@
 /area/awaymission/UO45/engineering)
 "tF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9967,7 +9665,7 @@
 	dir = 8;
 	tag = "icon-chair (WEST)"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "tL" = (
@@ -10001,8 +9699,6 @@
 /area/awaymission/UO45/research)
 "tP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10016,8 +9712,6 @@
 /area/awaymission/UO45/research)
 "tQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -10033,13 +9727,11 @@
 /area/awaymission/UO45/research)
 "tR" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "tS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10069,8 +9761,6 @@
 /area/awaymission/UO45/crew_quarters)
 "tV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -10088,8 +9778,6 @@
 /area/awaymission/UO45/research)
 "tW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10110,8 +9798,6 @@
 /area/awaymission/UO45/research)
 "tY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10184,8 +9870,6 @@
 "uf" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10242,8 +9926,6 @@
 /area/awaymission/UO45/engineering)
 "ul" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10351,7 +10033,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "uv" = (
@@ -10380,8 +10062,6 @@
 "uz" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10423,8 +10103,6 @@
 /area/awaymission/UO45/research)
 "uE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10449,8 +10127,6 @@
 /area/awaymission/UO45/engineering)
 "uH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10505,8 +10181,6 @@
 /area/awaymission/UO45/research)
 "uO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10591,8 +10265,6 @@
 /area/awaymission/UO45/engineering)
 "uX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10718,14 +10390,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "vk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10784,8 +10454,6 @@
 /area/awaymission/UO45/engineering)
 "vs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10810,8 +10478,6 @@
 /area/awaymission/UO45/mining)
 "vu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10826,8 +10492,6 @@
 /area/awaymission/UO45/engineering)
 "vv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -10840,8 +10504,6 @@
 /area/awaymission/UO45/engineering)
 "vw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10852,14 +10514,10 @@
 /area/awaymission/UO45/engineering)
 "vx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -10886,15 +10544,11 @@
 /area/awaymission/UO45/mining)
 "vz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10903,8 +10557,6 @@
 /area/awaymission/UO45/mining)
 "vA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10912,8 +10564,6 @@
 /area/awaymission/UO45/engineering)
 "vB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10936,8 +10586,6 @@
 /area/awaymission/UO45/engineering)
 "vD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -10993,8 +10641,6 @@
 "vO" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11017,8 +10663,6 @@
 "vQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11068,8 +10712,6 @@
 /area/awaymission/UO45/mining)
 "vV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11114,8 +10756,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11172,15 +10812,11 @@
 /area/awaymission/UO45/mining)
 "wh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -11195,8 +10831,6 @@
 /area/awaymission/UO45/engineering)
 "wi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11322,8 +10956,6 @@
 /area/awaymission/UO45/mining)
 "wv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11358,8 +10990,6 @@
 /area/awaymission/UO45/engineering)
 "wz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11407,8 +11037,6 @@
 /area/awaymission/UO45/mining)
 "wD" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -11428,8 +11056,6 @@
 /area/awaymission/UO45/engineering)
 "wG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -11453,8 +11079,6 @@
 /area/awaymission/UO45/engineering)
 "wJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11527,8 +11151,6 @@
 /area/awaymission/UO45/mining)
 "wQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11558,8 +11180,6 @@
 /area/awaymission/UO45/engineering)
 "wT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11650,8 +11270,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11682,8 +11300,6 @@
 /area/awaymission/UO45/engineering)
 "xb" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -11715,8 +11331,6 @@
 	pixel_y = -28
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -11749,8 +11363,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11841,7 +11453,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
@@ -11874,8 +11486,6 @@
 "xu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11918,7 +11528,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xA" = (
@@ -11928,8 +11538,6 @@
 	tag = "icon-manifold-r-f (WEST)"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11981,8 +11589,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -12002,8 +11608,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -12018,8 +11622,6 @@
 	req_access_txt = "201"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -12031,8 +11633,6 @@
 	on = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -12069,14 +11669,10 @@
 /area/awaymission/UO45/mining)
 "xS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},

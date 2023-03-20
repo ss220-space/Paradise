@@ -93,8 +93,8 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	unique_rename = 1
-	unique_reskin = 1
+	unique_rename = TRUE
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/detective/New()
 	..()
@@ -211,6 +211,13 @@
 	origin_tech = "combat=3"
 	can_suppress = 1
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
+
+/obj/item/gun/projectile/revolver/c36
+	name = ".36 revolver"
+	desc = "An old fashion .36 chambered revolver."
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
@@ -341,8 +348,8 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_rename = 1
-	unique_reskin = 1
+	unique_rename = TRUE
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
@@ -399,8 +406,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
 	sawn_desc = "I'm just here for the gasoline."
-	unique_rename = 0
-	unique_reskin = 0
+	unique_rename = FALSE
+	unique_reskin = FALSE
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)

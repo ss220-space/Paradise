@@ -1254,6 +1254,7 @@
 					/obj/item/seeds/tower = 3,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
+					/obj/item/seeds/soya/olive = 3,
 					/obj/item/seeds/whitebeet = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
@@ -1397,6 +1398,8 @@
 					/obj/item/clothing/under/janimaid = 1,
 					/obj/item/clothing/under/jester = 1,
 					/obj/item/clothing/head/jester = 1,
+					/obj/item/clothing/under/pennywise = 1,
+					/obj/item/clothing/mask/gas/pennywise = 1,
 					/obj/item/clothing/under/pants/camo = 1,
 					/obj/item/clothing/mask/bandana = 1,
 					/obj/item/clothing/mask/bandana/black = 1,
@@ -1492,7 +1495,7 @@
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
-	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
+	req_access = list(11,24) // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
@@ -1780,7 +1783,7 @@
 	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access_txt = "1"
+	req_access_txt = "63"
 	products = list(
 		/obj/item/clothing/head/soft/sec		= 10,
 		/obj/item/clothing/head/soft/sec/corp	= 10,
@@ -1829,6 +1832,7 @@
 		/obj/item/clothing/under/pants/red 			= 10,
 		/obj/item/clothing/under/pants/track 		= 5,
 
+		//For brig physician
 		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
@@ -2074,7 +2078,7 @@
 	desc = "Автомат-помощник по выдаче одежды Юридического Отдела."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access_txt = "38"
+	req_access = list(38)
 	products = list(
 		/obj/item/clothing/under/rank/internalaffairs = 10,
 		/obj/item/clothing/under/lawyer/female = 10,

@@ -2,7 +2,7 @@
 #define TS_MIDPOP_TRIGGER 60
 
 /datum/event/spider_terror
-	announceWhen = 240
+	announceWhen = 180
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
@@ -13,6 +13,7 @@
 /datum/event/spider_terror/announce()
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+		cancel_call_proc(usr)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
@@ -32,16 +33,16 @@
 	switch(infestation_type)
 		if(1)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 3
+			spawncount = 2
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 4
+			spawncount = 3
 		if(3)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
 		if(4)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 5
+			spawncount = 4
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Террора?", null, TRUE, source = spider_type)
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")

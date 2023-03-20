@@ -125,6 +125,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleaban,
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
+	/client/proc/select_next_map,
 	/client/proc/toggle_log_hrefs,
 	/client/proc/toggle_twitch_censor,
 	/client/proc/everyone_random,
@@ -175,6 +176,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmjit_debug_dump_deopts,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -1047,6 +1049,22 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		verbs -= /client/proc/readmin
 		GLOB.deadmins -= ckey
 		return
+
+/client/proc/select_next_map()
+	set name = "Select next map"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	var/list/all_maps = subtypesof(/datum/map)
+	var/next_map = input("Select next map:", "Next map", SSmapping.map_datum.type) as null|anything in all_maps
+
+	if(next_map)
+		message_admins("[key_name_admin(usr)] select [next_map] as next map")
+		log_admin("[key_name(usr)] select [next_map] as next map")
+		SSmapping.next_map = new next_map
+		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
