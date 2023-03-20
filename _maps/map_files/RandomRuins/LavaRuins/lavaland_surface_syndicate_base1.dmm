@@ -919,7 +919,7 @@
 /obj/machinery/turretid/lethal{
 	ailock = 1;
 	check_synth = 0;
-	control_area = "Syndicate Lavaland Primary Hallway";
+	control_area = /area/ruin/unpowered/syndicate_lava_base/main;
 	dir = 1;
 	faction = "syndicate";
 	name = "Base turret controls";

@@ -6204,7 +6204,7 @@
 "fFd" = (
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "Syndicate Space Teleporter";
+	control_area = /area/syndicate/unpowered/syndicate_space_base/teleporter;
 	dir = 1;
 	faction = "syndicate";
 	name = "Teleporter turret controls";
@@ -22278,7 +22278,7 @@
 "svC" = (
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "Syndicate Space Arrivals";
+	control_area = /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals;
 	dir = 1;
 	faction = "syndicate";
 	name = "Arrivals turret controls";
@@ -22924,7 +22924,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/turretid/lethal{
-	control_area = "Syndicate Space Turrets";
+	control_area = /area/syndicate/unpowered/syndicate_space_base/turrets;
 	faction = "syndicate";
 	name = "External turrets control panel";
 	pixel_y = 6;
@@ -24518,7 +24518,7 @@
 	},
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "Syndicate Space Armory";
+	control_area = /area/syndicate/unpowered/syndicate_space_base/armory;
 	dir = 1;
 	faction = "syndicate";
 	name = "Armory turret controls";

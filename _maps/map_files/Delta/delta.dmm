@@ -15897,7 +15897,7 @@
 "bLO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
+	control_area = /area/turret_protected/aisat_interior;
 	name = "AI Antechamber Turret Control";
 	pixel_y = 28;
 	req_access_txt = "75"
@@ -17384,7 +17384,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite";
+	control_area = /area/turret_protected/aisat;
 	name = "AI Antechamber Turret Control";
 	pixel_x = -32;
 	req_access_txt = "75"
@@ -17562,7 +17562,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite";
+	control_area = /area/turret_protected/aisat;
 	name = "AI Antechamber Turret Control";
 	pixel_x = 32;
 	req_access_txt = "75"
@@ -87622,10 +87622,6 @@
 	},
 /area/hydroponics)
 "nlf" = (
-/obj/machinery/door/airlock/glass{
-	name = "Hydroponics";
-	req_access_txt = "35"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 4;
@@ -87637,6 +87633,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/airlock{
+	name = "Hydroponics";
+	req_access = "35"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -92975,7 +92975,7 @@
 	dir = 1
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
+	control_area = /area/turret_protected/ai_upload;
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
 	req_access = list(75)
@@ -113770,7 +113770,7 @@
 "sNY" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/turretid/stun{
-	control_area = "\improper Telecoms Central Compartment";
+	control_area = /area/tcommsat/chamber;
 	name = "AI Antechamber Turret Control";
 	pixel_y = -26;
 	req_access_txt = "75"
