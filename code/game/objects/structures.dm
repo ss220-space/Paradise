@@ -82,7 +82,6 @@
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
-
 	clumse_stuff(climber)
 
 	climber = null
@@ -94,40 +93,40 @@
 		return
 	var/slopchance = 80 //default for all human-sized livings
 	var/max_throws_count = 15 //for lag prevention
+
+	switch(user.mob_size)
+		if(MOB_SIZE_LARGE) slopchance = 100
+		if(MOB_SIZE_SMALL) slopchance = 20
+		if(MOB_SIZE_TINY) slopchance = 10
+
 	if(ishuman(user) && user.mind)
 		var/mob/living/carbon/human/man
 		man = user
 		if(/datum/dna/gene/disability/clumsy in man.active_genes)
-			slopchance = 100
+			slopchance += 20
 		if(man.mind.miming)
-			slopchance = 50
-	else
-		switch(user.mob_size)
-			if(MOB_SIZE_LARGE) slopchance = 100
-			if(MOB_SIZE_SMALL) slopchance = 20
-			if(MOB_SIZE_TINY) slopchance = 10
+			slopchance -= 30
 
-	slopchance = clamp(slopchance,0,100)
+	slopchance = clamp(slopchance, 0, 100)
 
 	var/list/thrownatoms = list()
 
 	for(var/turf/T in range(0, src)) //Preventing from rotating stuff in an inventory
 		for(var/atom/movable/AM in T)
 			if(!(AM == user || AM.anchored || isliving(AM)))
-				thrownatoms += AM
+				if(prob(slopchance))
+					thrownatoms += AM
 			if(thrownatoms.len >= max_throws_count)
 				break
 
 	var/atom/throwtarget
 	for(var/obj/item/AM in thrownatoms)
-		if(prob(slopchance))
-			AM.force /= 10
-			AM.throwforce /= 10 //no killing using shards :lul:
-			spawn(0)
-				throwtarget = get_edge_target_turf(user, get_dir(src, get_step_away(AM, src)))
-			AM.throw_at(target = throwtarget, range = 1, speed = 1)
-			AM.force = initial(AM.force)
-			AM.throwforce = initial(AM.throwforce)
+		AM.force /= 10
+		AM.throwforce /= 10 //no killing using shards :lul:
+		throwtarget = get_edge_target_turf(user, get_dir(src, get_step_away(AM, src)))
+		AM.throw_at(target = throwtarget, range = 1, speed = 1)
+		AM.force = initial(AM.force)
+		AM.throwforce = initial(AM.throwforce)
 
 
 /obj/structure/proc/structure_shaken()
