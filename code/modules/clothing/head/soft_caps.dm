@@ -112,7 +112,8 @@
 	name = "brigphysic`s cap"
 	desc = "Кепи бригмедика"
 	icon_state = "brigphyssoft"
-	item_color = "bp"
+	item_state = "brigphyssoft"
+	item_color = "brigphys"
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/sec

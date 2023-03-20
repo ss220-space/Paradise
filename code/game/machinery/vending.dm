@@ -1823,6 +1823,7 @@
 
 		/obj/item/clothing/shoes/jackboots 				= 10,
 		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
+		/obj/item/clothing/shoes/jackboots/cross 		= 10,
 
 		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
 
