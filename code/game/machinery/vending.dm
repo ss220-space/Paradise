@@ -1496,7 +1496,7 @@
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
-	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
+	req_access = list(11,24) // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
@@ -2079,7 +2079,7 @@
 	desc = "Автомат-помощник по выдаче одежды Юридического Отдела."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access_txt = "38"
+	req_access = list(38)
 	products = list(
 		/obj/item/clothing/under/rank/internalaffairs = 10,
 		/obj/item/clothing/under/lawyer/female = 10,
