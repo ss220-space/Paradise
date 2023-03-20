@@ -100,12 +100,10 @@
 		if(MOB_SIZE_SMALL) slopchance = 20
 		if(MOB_SIZE_TINY) slopchance = 10
 
-	if(ishuman(user) && user.mind)
-		var/mob/living/carbon/human/man = user
-		if(/datum/dna/gene/disability/clumsy in man.active_genes)
-			slopchance += 20
-		if(man.mind.miming)
-			slopchance -= 30
+	if(/datum/dna/gene/disability/clumsy in user.active_genes)
+		slopchance += 20
+	if(user.mind?.miming)
+		slopchance -= 30
 
 	slopchance = clamp(slopchance, 1, 100)
 
@@ -113,11 +111,11 @@
 
 	for(var/turf/T in range(0, src)) //Preventing from rotating stuff in an inventory
 		for(var/atom/movable/AM in T)
-			if(!(AM == user || AM.anchored || isliving(AM)))
+			if(!AM.anchored && !isliving(AM))
 				if(prob(slopchance))
 					thrownatoms += AM
-				if(thrownatoms.len >= max_throws_count)
-					break
+					if(thrownatoms.len >= max_throws_count)
+						break
 
 	var/atom/throwtarget
 	for(var/obj/item/AM in thrownatoms)

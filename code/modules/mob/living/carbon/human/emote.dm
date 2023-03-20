@@ -433,7 +433,7 @@
 				message = "радостно танцу[pluralize_ru(src.gender,"ет","ют")]!"
 				m_type = 1
 				var/dance_time = 3 SECONDS
-				var/obj/structure/table = locate(/obj/structure/table) in src.loc
+				var/obj/structure/table/table = locate() in src.loc
 				if(table)
 					table.clumse_stuff(src)
 				spin(dance_time, pick(0.1 SECONDS, 0.2 SECONDS))

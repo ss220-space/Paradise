@@ -648,7 +648,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 		if(isliving(thrown_thing))
-			var/obj/structure/table = locate(/obj/structure/table) in target.loc
+			var/obj/structure/table/table = locate() in target.loc
 			if(table)
 				var/mob/living/victim = thrown_thing
 				table.clumse_stuff(victim)
