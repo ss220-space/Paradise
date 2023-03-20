@@ -100,14 +100,13 @@
 		if(MOB_SIZE_TINY) slopchance = 10
 
 	if(ishuman(user) && user.mind)
-		var/mob/living/carbon/human/man
-		man = user
+		var/mob/living/carbon/human/man = user
 		if(/datum/dna/gene/disability/clumsy in man.active_genes)
 			slopchance += 20
 		if(man.mind.miming)
 			slopchance -= 30
 
-	slopchance = clamp(slopchance, 0, 100)
+	slopchance = clamp(slopchance, 1, 100)
 
 	var/list/thrownatoms = list()
 
@@ -116,8 +115,8 @@
 			if(!(AM == user || AM.anchored || isliving(AM)))
 				if(prob(slopchance))
 					thrownatoms += AM
-			if(thrownatoms.len >= max_throws_count)
-				break
+				if(thrownatoms.len >= max_throws_count)
+					break
 
 	var/atom/throwtarget
 	for(var/obj/item/AM in thrownatoms)
