@@ -64,35 +64,6 @@
 	flash_protect = 1
 	tint = 1
 
-/obj/item/clothing/glasses/hud/health/tajblind
-	name = "lightweight veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
-	icon_state = "tajblind_med"
-	item_state = "tajblind_med"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/health/tajblind/night
-	name = "lightweight Night Vision veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD. Allows see in dark, but why?"
-	icon_state = "tajblind_nv_med"
-	item_state = "tajblind_nv_med"
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-/obj/item/clothing/glasses/hud/health/tajblind/attack_self()
-	toggle_veil()
-
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "Diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
@@ -128,35 +99,6 @@
 	item_state = "glasses"
 	flash_protect = 1
 	tint = 1
-
-/obj/item/clothing/glasses/hud/diagnostic/tajblind
-	name = "robotic veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed diagnostic HUD."
-	icon_state = "tajblind_diag"
-	item_state = "tajblind_diag"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/diagnostic/tajblind/night
-	name = "robotic Night Vision veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed diagnostic HUD."
-	icon_state = "tajblind_nv_diag"
-	item_state = "tajblind_nv_diag"
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-/obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self()
-	toggle_veil()
 
 /obj/item/clothing/glasses/hud/security
 	name = "\improper Security HUD"
@@ -228,35 +170,6 @@
 	desc = "A aviators with a HUD."
 	icon_state = "aviators"
 
-/obj/item/clothing/glasses/hud/security/tajblind
-	name = "sleek veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
-	icon_state = "tajblind_sec"
-	item_state = "tajblind_sec"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/security/tajblind/night
-	name = "sleek Night Vision veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed secutiry HUD. Allows see in dark, but why?"
-	icon_state = "tajblind_nv_sec"
-	item_state = "tajblind_nv_sec"
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-/obj/item/clothing/glasses/hud/security/tajblind/attack_self()
-	toggle_veil()
-
 /obj/item/clothing/glasses/hud/hydroponic
 	name = "Hydroponic HUD"
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
@@ -291,27 +204,6 @@
 	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
-
-/obj/item/clothing/glasses/hud/hydroponic/tajblind
-	name = "nature veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed hydroponic HUD."
-	icon_state = "tajblind_hydro"
-	item_state = "tajblind_hydro"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self()
-	toggle_veil()
 
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
@@ -349,24 +241,3 @@
 		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 	)
-
-/obj/item/clothing/glasses/hud/skills/tajblind
-	name = "personnel veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed skill HUD."
-	icon_state = "tajblind_skill"
-	item_state = "tajblind_skill"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/skills/tajblind/attack_self()
-	toggle_veil()

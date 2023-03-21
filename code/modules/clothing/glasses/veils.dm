@@ -156,7 +156,7 @@
 	to_chat(user, "<span class='notice'>You start unsecuring bolts on [src], trying to pull out a HUD from it.</span>")
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You succesfully pulled out HUD from [src]! HUD looks too worsen to be used again.</span>")
-		new/obj/item/clothing/glasses/hud/tajblind(get_mob(src))
+		new/obj/item/clothing/glasses/hud/tajblind(user.loc)
 		qdel(src)
 
 

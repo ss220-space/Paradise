@@ -109,34 +109,6 @@
 	flags_cover = null
 	prescription_upgradable = 0
 
-/obj/item/clothing/glasses/meson/tajblind
-	name = "khaki veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed meson scanner."
-	icon_state = "tajblind_cargo"
-	item_state = "tajblind_cargo"
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/meson/tajblind/night
-	name = "Night Vision meson veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed meson scanner. Allows see in dark, but why?"
-	icon_state = "tajblind_nv_engi"
-	item_state = "tajblind_nv_engi"
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-/obj/item/clothing/glasses/meson/tajblind/attack_self()
-	toggle_veil()
-
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
@@ -170,36 +142,6 @@
 	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-
-/obj/item/clothing/glasses/science/tajblind
-	name = "hi-tech veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed research and reagent scanner."
-	icon_state = "tajblind_sci"
-	item_state = "tajblind_sci"
-	actions_types = list(
-		/datum/action/item_action/toggle_research_scanner,
-		/datum/action/item_action/toggle
-		)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/science/tajblind/night
-	name = "hi-tech Night Vision veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed research and reagent scanner. Allows see in dark, but why?"
-	icon_state = "tajblind_nv_sci"
-	item_state = "tajblind_nv_sci"
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
-/obj/item/clothing/glasses/science/tajblind/attack_self()
-	toggle_veil()
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -641,49 +583,6 @@
 			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
 	..()
-
-/obj/item/clothing/glasses/tajblind
-	name = "embroidered veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
-	icon_state = "tajblind"
-	item_state = "tajblind"
-	actions_types = list(/datum/action/item_action/toggle)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/tajblind/eng
-	name = "industrial veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed welding protective shield when veil is not active."
-	icon_state = "tajblind_engi"
-	item_state = "tajblind_engi"
-	flash_protect_mod = 2
-
-/obj/item/clothing/glasses/tajblind/attack_self()
-	toggle_veil()
-
-/obj/item/clothing/glasses/proc/toggle_veil()
-	if(usr.canmove && !usr.incapacitated())
-		if(up)
-			up = !up
-			tint = initial(tint)
-			flash_protect = initial(flash_protect)
-			to_chat(usr, "You activate [src], allowing you to see.")
-		else
-			up = !up
-			tint = 3
-			flash_protect = flash_protect_mod
-			to_chat(usr, "You deactivate [src], obscuring your vision.")
-		var/mob/living/carbon/user = usr
-		user.update_tint()
-		user.update_inv_glasses()
 
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."

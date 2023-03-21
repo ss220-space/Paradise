@@ -1551,6 +1551,7 @@
 #include "code\modules\clothing\ears\ears.dm"
 #include "code\modules\clothing\glasses\glasses.dm"
 #include "code\modules\clothing\glasses\hud.dm"
+#include "code\modules\clothing\glasses\veils.dm"
 #include "code\modules\clothing\gloves\boxing.dm"
 #include "code\modules\clothing\gloves\color.dm"
 #include "code\modules\clothing\gloves\miscellaneous.dm"
