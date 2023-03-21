@@ -82,7 +82,7 @@
 /obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
 	var/mob/living/carbon/human/H
 	if(!gripped_item && proximity && target && ishuman(target))
-		H = target
+		var/mob/living/carbon/human/H = target
 		if(H.lying)
 			H.AdjustSleeping(-5)
 			if(H.sleeping == 0)
