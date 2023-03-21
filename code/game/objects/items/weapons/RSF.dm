@@ -19,7 +19,6 @@ RSF
 
 /obj/item/rsf/New()
 	..()
-	desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 	// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
 	configured_items[++configured_items.len] = list("Dosh", 50, /obj/item/stack/spacecash/c10)
 	configured_items[++configured_items.len] = list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass)
@@ -46,7 +45,6 @@ RSF
 
 /obj/item/rff/New()
 	..()
-	desc = "A RFF. It currently holds [matter]/30 fabrication-units."
     configured_items = list()
 	configured_items[++configured_items.len] = list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles)
 	configured_items[++configured_items.len] = list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut)
