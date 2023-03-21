@@ -627,7 +627,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input, customname)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("На все консоли связи доставлено секретное сообщение.")
+			GLOB.command_announcer.autosay("На все консоли связи доставлено засекреченное сообщение.")
 			print_command_report(input, "Секретно: [customname]")
 		else
 			return
