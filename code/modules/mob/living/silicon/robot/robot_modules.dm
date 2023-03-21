@@ -437,8 +437,6 @@
 
 	var/obj/item/rff/T = new /obj/item/rff(src)
 	T.matter = 30
-```?
-Так хотел скопировать же?
 	modules += T
 
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
