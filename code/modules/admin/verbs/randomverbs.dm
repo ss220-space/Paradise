@@ -603,9 +603,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Вражеская передача" = "Сообщение из неизвестного источника",
 		"Настраиваемое" = "Шифрованное сообщение")
 
-	var/list/MsgSound = list("Бип" = 'sound/misc/announce_dig.ogg',
-		"Перехвачена вражеская передача" = 'sound/AI/intercept2.ogg',
-		"Получено новое указание Командования" = 'sound/AI/commandreport.ogg')
+	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
+		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
+		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 
