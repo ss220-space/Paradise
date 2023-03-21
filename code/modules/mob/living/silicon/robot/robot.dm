@@ -98,6 +98,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/default_lamp_color = "#FFFFFF" //White color of the default lamp light
+	var/fire_light_modificator = 3 //Determines how bright fire emits light when on cyborg.
 
 	var/updating = 0 //portable camera camerachunk update
 
@@ -509,18 +511,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						Встроенное в вас LMG самостоятельно производит патроны используя вашу батарею. \
 						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
 
-	var/datum/robot_component/cell/C = R.components["power cell"]
-
-	var/obj/item/stock_parts/cell/CC = get_cell(M)
-	CC.loc = src
-	R.cell = new CC.type
-	C.installed = 1
-	C.wrapped = CC
-	C.install()
-	C.external_type = CC.type
-	C.brute_damage = 0
-	C.electronics_damage = 0
-	diag_hud_set_borgcell()
+	var/datum/robot_component/cell/cell_component = R.components["power cell"]
+	var/obj/item/stock_parts/cell/borg_cell = get_cell(M)
+	if(borg_cell)
+		QDEL_NULL(R.cell)
+		borg_cell.forceMove(R)
+		R.cell = borg_cell
+		cell_component.installed = 1
+		cell_component.external_type = borg_cell.type
+		cell_component.wrapped = borg_cell
+		cell_component.install()
+		cell_component.brute_damage = 0
+		cell_component.electronics_damage = 0
+		diag_hud_set_borgcell()
 
 	R.mmi = new /obj/item/mmi/robotic_brain/syndicate(M)
 	M.mind.transfer_to(R)
@@ -1027,9 +1030,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					qdel(D)
 				src.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(src.module)
 				src.module.rebuild()
-			if(src.module && istype(src.module, /obj/item/robot_module/medical))
-				for(var/obj/item/borg_defib/F in src.module.modules)
-					F.safety = 0
 			if(module)
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
@@ -1256,12 +1256,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			lamp_recharging = 0
 
 	else
-		set_light(light_range + lamp_intensity)
+		if(!on_fire)
+			set_light(light_range + lamp_intensity)
+		else
+			set_light(light_range + lamp_intensity + fire_light_modificator)
 
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"
 
 	update_icons()
+
+/mob/living/silicon/robot/ExtinguishMob()
+	..()
+	set_light(l_color = default_lamp_color)
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)

@@ -3,7 +3,8 @@
 	desc = "Маленькая космо-улиточка со своим космо-домиком. Прочная, тихая и медленная."
 	icon_state = "snail"
 	icon_living = "snail"
-	icon_dead = "snail-dead"
+	icon_dead = "snail_dead"
+	speak = list("Uhh.", "Hurrr.")
 	tts_seed = "Ladyvashj"
 	health = 100
 	maxHealth = 100
@@ -36,22 +37,36 @@
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
-		make_lube(oldLoc)
+		if(stat != DEAD)
+			make_wet_floor(oldLoc)
 
-/mob/living/simple_animal/snail/proc/make_lube(atom/oldLoc)
+/mob/living/simple_animal/snail/proc/make_wet_floor(atom/oldLoc)
 	if(oldLoc != src.loc)
-		reagents.add_reagent("lube",10)
+		reagents.add_reagent("water",10)
 		reagents.reaction(oldLoc, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 		reagents.remove_any(10)
 
+/mob/living/simple_animal/snail/lube
+	name = "space snail"
+	desc = "Маленькая космо-улиточка со своим космо-домиком. Прочная, тихая и медленная. И очень склизкая."
+	gold_core_spawnable = HOSTILE_SPAWN
+	faction = list("slime", "hostile")
+
+/mob/living/simple_animal/snail/lube/make_wet_floor(atom/oldLoc)
+	if(oldLoc != src.loc)
+		reagents.add_reagent("lube",10)
+		reagents.reaction(oldLoc, REAGENT_TOUCH, 10)
+		reagents.remove_any(10)
+
 /mob/living/simple_animal/turtle
-	name = "yeeslow"
-	desc = "Большая космочерепаха. Прочная, тихая и медленная. Но почему она склизкая?"
+	name = "черепаха"
+	desc = "Большая космочерепаха. Прочная, тихая и медленная."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "yeeslow"
 	icon_living = "yeeslow"
-	icon_dead = "yeeslow-dead"
+	icon_dead = "yeeslow_dead"
 	icon_resting = "yeeslow_scared"
+	speak = list("Uhh.", "Hurrr.")
 	tts_seed = "Ladyvashj"
 	health = 500
 	maxHealth = 500

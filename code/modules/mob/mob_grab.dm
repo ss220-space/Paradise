@@ -138,7 +138,7 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM))
+		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
 			affecting.drop_r_hand()
 			affecting.drop_l_hand()
 
@@ -236,7 +236,7 @@
 /obj/item/grab/proc/s_click(obj/screen/S)
 	if(!confirm())
 		return
-	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
+	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
 		return
 	if(state == GRAB_UPGRADING)
@@ -389,40 +389,48 @@
 
 
 	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
-		if(checkvalid(user, affecting)) //wut
-			var/mob/living/carbon/attacker = user
+		if(affecting.buckled)
+			to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
+			return
+		devoured(affecting, user)
 
-			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
-				return
+/obj/item/proc/devoured(mob/living/affecting, mob/living/carbon/user)
+	if(checkvalid(user, affecting)) //wut
+		var/mob/living/carbon/attacker = user
 
-			user.visible_message("<span class='danger'>[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting]!</span>")
+		user.visible_message("<span class='danger'>[user.name] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting.name]!</span>")
 
-			if(!do_after(user, checktime(user, affecting), target = affecting)) return
+		if(!do_after(user, checktime(user, affecting), target = user))//target = affecting))
+			user.visible_message("<span class='notice'>[user.name] прекраща[pluralize_ru(user.gender,"ет","ют")] поглощать [affecting.name]!</span>")
+			return FALSE
 
-			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
-				return
+		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
+		if(affecting.mind)
+			add_attack_logs(attacker, affecting, "Devoured")
+		if(user.mind.vampire)
+			user.adjust_nutrition(affecting.blood_nutrients)
+		else
+			user.adjust_nutrition(10 * affecting.health)
 
-			user.visible_message("<span class='danger'>[user] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting]!</span>")
-			if(affecting.mind)
-				add_attack_logs(attacker, affecting, "Devoured")
+		affecting.forceMove(user)
+		LAZYADD(attacker.stomach_contents, affecting)
+		qdel(src)
+		return TRUE
+	return FALSE
 
-			affecting.forceMove(user)
-			LAZYADD(attacker.stomach_contents, affecting)
-			qdel(src)
-
-/obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+/obj/item/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
+	if(ishuman(H) && attacker.mind.vampire && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
+		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
 	return 0
 
-/obj/item/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
+/obj/item/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
 	if(isalien(attacker))
 		return EAT_TIME_XENO //xenos get a speed boost
 

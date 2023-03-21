@@ -3,17 +3,17 @@
 	layer = LYING_MOB_LAYER
 
 /mob/living/simple_animal/hostile/guardian/beam
-	melee_damage_lower = 12
-	melee_damage_upper = 12
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	attacktext = "бьёт током"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'
 	damage_transfer = 0.6
 	range = 7
-	playstyle_string = "As a <b>Lightning</b> type, you will apply lightning chains to targets on attack and have a lightning chain to your summoner. Lightning chains will shock anyone near them."
-	magic_fluff_string = "..And draw the Tesla, a shocking, lethal source of power."
-	tech_fluff_string = "Boot sequence complete. Lightning modules active. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to electrify your enemies."
+	playstyle_string = "Как тип <b>Молния</b>, вы будете иметь связующую смертоносную цепь молнии к своему призывателю. Цепь молний поражает всех, кто находится рядом с ней. Так же с небольшим шансом вы будете накладывать эту цепь при ударе."
+	magic_fluff_string = "...и вытаскиваете Теслу, шокирующий, смертоносный источник энергии."
+	tech_fluff_string = "Последовательность загрузки завершена. Модуль молний активны. Голопаразитный рой в сети."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый наэлектризовать ваших врагов."
 	var/datum/beam/summonerchain
 	var/list/enemychains = list()
 	var/successfulshocks = 0
@@ -114,7 +114,7 @@
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
 						"<span class='italics'>You hear a heavy electrical crack.</span>" \
 					)
-				L.adjustFireLoss(1.2) //adds up very rapidly
+				L.adjustFireLoss(4)
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)

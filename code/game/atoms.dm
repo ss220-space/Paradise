@@ -437,6 +437,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/cmag_act()
+	return
+
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
 
@@ -446,6 +449,18 @@
 /atom/proc/rpd_blocksusage()
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
+
+// Wrapper, called by an RCD
+/atom/proc/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	if(rcd_mode == RCD_MODE_DECON)
+		return rcd_deconstruct_act(user, our_rcd)
+	return rcd_construct_act(user, our_rcd, rcd_mode)
+
+/atom/proc/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	return RCD_NO_ACT
+
+/atom/proc/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	return RCD_NO_ACT
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).

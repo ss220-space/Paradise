@@ -307,7 +307,8 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] Шаттл задержится на [cursetime / 600] минут.", "Системный сбой.", 'sound/misc/notice1.ogg')
+		var/curse_delay = cursetime / 600
+		GLOB.command_announcement.Announce("[message] Шаттл задерживается на [curse_delay] [declension_ru(curse_delay,"минуту","минуты","минут")].", "Системный сбой.", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift
@@ -533,6 +534,16 @@
 		var/mob/living/holder = loc
 		return prob(reflect_chance) && iscultist(holder) //so non-cultist can not reflect using this shield
 	return FALSE
+
+/obj/item/shield/mirror/equipped(mob/user, slot)
+	..()
+	if(!iscultist(user))
+		to_chat(user, "<span class='cultlarge'>Вы поднимаете щит и в его зеркальном отражение видите свою смерть</span>")
+		user.emote("scream")
+		user.unEquip(src, 1)
+		user.Confused(30)
+		user.Weaken(5)
+		user.EyeBlind(30)
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
