@@ -44,7 +44,21 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
-					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe"))
+					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini","flamingmoe",
+					"ethanol","cider","specialwhiskey","absinthe","hooch","mojito","sake","suicider","ginsonic","applejack",
+					"jackrose","drunkenblumpkin","eggnog","dragonsbreath","synthanol","robottears","trinary","servo",
+					"uplink","synthnsoda","synthignon","fruit_wine","bacchus_blessing","fernet","fernet_cola","rainbow_sky","champagne",
+					"aperol","jagermeister","schnaps","sambuka","bluecuracao","bitter","sheridan","black_blood","light_storm",
+					"cream_heaven","negroni","hirosima","nagasaki","chocolate_sheridan","panamian",
+					"pegu_club","jagermachine","blue_cybesauo","alcomender","amnesia","johnny","cosmospoliten","oldfashion",
+					"french_75","gydroseridan","milk_plus","teslasingylo","light","bees_knees","aviation","fizz","brandy_crusta",
+					"aperolspritz","sidecar","daiquiri","tuxedo","telegol","horse_neck","cuban_sunset","sake_bomb","blue_havai",
+					"woo_woo","mulled_wine","white_bear","vampiro","queen_mary","inabox","beer_berry_royal","sazerac","monako",
+					"irishempbomb","codelibre","blackicp","slime_drink","innocent_erp","nasty_slush","blue_lagoon","green_fairy",
+					"home_lebovsky","top_billing","trans_siberian_express","sun","tick_tack","uragan_shot","new_yorker",
+					"blue_moondrin","red_moondrin","pineapplejuice","poisonberryjuice","applejuice",
+					"grapejuice","cafe_mocha","chocolatepudding","vanillapudding","cherryshake","bluecherryshake","pumpkin_latte",
+					"gibbfloats","pumpkinjuice","blumpkinjuice","grapesoda","icecoco","alcohol_free_beer")) //holy fuck why so many
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

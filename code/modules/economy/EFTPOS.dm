@@ -29,6 +29,11 @@
 	transaction_amount = 500
 	duty_mode = TRUE
 
+/obj/item/eftpos/cyborg
+	name = "Service EFTPOS"
+	desc = "Swipe crew ID card to pay taxes."
+	transaction_purpose = "Payment for the glory of NanoTrasen!"
+
 /obj/item/paper/check
 	desc = "Printed by the financial terminal."
 	icon = 'icons/obj/bureaucracy.dmi'
