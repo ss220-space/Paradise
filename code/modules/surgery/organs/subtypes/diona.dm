@@ -155,6 +155,7 @@
 
 		if(istype(parent, /obj/item/organ/internal/brain))
 			var/obj/item/organ/internal/brain/brain = organ
+			nymph.random_name = 0
 			nymph.real_name = brain.brainmob.real_name
 			nymph.name = brain.brainmob.real_name
 			var/datum/mind/mind = brain.brainmob.mind
