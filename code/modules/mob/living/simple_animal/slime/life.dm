@@ -438,15 +438,15 @@
 						to_say = pick("Да…", "Вести…", "Идти…", "Следовать…", "Ползти…")
 					else if(Friends[who] > Friends[Leader]) // VIVA
 						Leader = who
-						to_say = "Да… Я [pick("идти…", "следовать…", "ползти…")] за [who]…"
+						to_say = "Да… Моя [pick("идти…", "следовать…", "ползти…")] за [who]…"
 					else
-						to_say = "Нет… Я [pick("идти…", "следовать…", "ползти…")] за [Leader]…"
+						to_say = "Нет… Моя [pick("идти…", "следовать…", "ползти…")] за [Leader]…"
 				else
 					if(Friends[who] >= SLIME_FRIENDSHIP_FOLLOW)
 						Leader = who
-						to_say = "Я " + pick("идти…", "следовать…", "ползти…")
+						to_say = "Моя " + pick("идти…", "следовать…", "ползти…")
 					else // Not friendly enough
-						to_say = pick("Нет…", "Я не идти")
+						to_say = pick("Нет…", "Моя не идти…")
 			else if(findtext(phrase, "stop") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоп") || findtext_char(phrase, "стой") || findtext_char(phrase, "стоять") || findtext_char(phrase, "хватит"))
 				if(buckled) // We are asked to stop feeding
 					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
@@ -467,28 +467,28 @@
 							to_say = "Хорошо…"
 				else if(Leader) // We are asked to stop following
 					if(Leader == who)
-						to_say = "Да… я [pick("ждать", "стоять")]…"
+						to_say = "Да… Моя [pick("ждать", "стоять")]…"
 						Leader = null
 					else
 						if(Friends[who] > Friends[Leader])
 							Leader = null
-							to_say = "Да… я [pick("стоп", "стоять")]…"
+							to_say = "Да… Моя [pick("ждать", "стоять")]…"
 						else
-							to_say = "Нет… [pick("всё равно", "буду", "хочу")] идти…"
+							to_say = "Нет… [pick("Всё равно", "Моя", "Хотеть")] идти…"
 			else if(findtext(phrase, "stay") || findtext_char(phrase, "сидеть") || findtext_char(phrase, "ждать") || findtext_char(phrase, "жди"))
 				if(Leader)
 					if (Leader == who)
 						holding_still = Friends[who] * 10
-						to_say = "Да… Я [pick("ждать", "стоять")]…"
+						to_say = "Да… Моя [pick("ждать", "стоять")]…"
 					else if(Friends[who] > Friends[Leader])
 						holding_still = (Friends[who] - Friends[Leader]) * 10
-						to_say = "Да… я [pick("ждать", "стоять")]…"
+						to_say = "Да… Моя [pick("ждать", "стоять")]…"
 					else
 						to_say = "Нет… [pick("всё равно", "буду", "хочу")] [pick("идти", "ходить", "следовать")]…"
 				else
 					if(Friends[who] >= SLIME_FRIENDSHIP_STAY)
 						holding_still = Friends[who] * 10
-						to_say = "Да… я [pick("ждать", "стоять")]…"
+						to_say = "Да… Моя [pick("ждать", "стоять")]…"
 					else
 						to_say = "Нет… не [pick("ждать", "стоять")]…"
 			else if(findtext(phrase, "attack") || findtext_char(phrase, "фас") || findtext_char(phrase, "бей") || findtext_char(phrase, "ешь") || findtext_char(phrase, "атакуй"))
@@ -505,7 +505,7 @@
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
 								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
-								to_say = "Ладно… я [pick("нападать", "атаковать", "кусать")] [Target]"
+								to_say = "Ладно… Моя [pick("нападать", "атаковать", "кусать")] [Target]"
 							else
 								to_say = "Нет… [pick("нравится", "любить")] [L]…"
 								--Friends[who] //Don't ask a slime to attack its friend
@@ -549,7 +549,7 @@
 			else if(nutrition < get_hunger_nutrition())
 				phrases += "Голодный…"
 				phrases += "Где еда?"
-				phrases += "Я хочу есть…"
+				phrases += "Моя хотеть есть…"
 			phrases += "Рррр…"
 			phrases += "Блоп…"
 			phrases += "Блорбл…"
