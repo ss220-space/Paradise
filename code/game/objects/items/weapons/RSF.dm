@@ -150,7 +150,7 @@ RSF
 			return
 		matter--
 		to_chat(user, "The RFF now holds [matter]/30 fabrication-units.")
-		desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		desc = "A [src]. It currently holds [matter]/30 fabrication-units."
 
 	to_chat(user, "Dispensing " + configured_items[mode][1] + "...")
 	playsound(loc, 'sound/machines/click.ogg', 10, 1)
