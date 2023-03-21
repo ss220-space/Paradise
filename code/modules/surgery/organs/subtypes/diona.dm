@@ -156,7 +156,7 @@
 		if(istype(organ, /obj/item/organ/internal/brain))
 			var/obj/item/organ/internal/brain/brain = organ
 			if(brain.brainmob)
-				nymph.random_name = 0
+				nymph.random_name = FALSE
 				nymph.real_name = brain.brainmob.real_name
 				nymph.name = brain.brainmob.real_name
 				var/datum/mind/mind = brain.brainmob.mind

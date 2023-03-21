@@ -45,8 +45,7 @@
 
 	a_intent = INTENT_HELP
 
-	var/random_name = 1
-
+	var/random_name = TRUE
 	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
