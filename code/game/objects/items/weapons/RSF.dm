@@ -45,7 +45,7 @@ RSF
 
 /obj/item/rff/New()
 	..()
-    configured_items = list()
+	configured_items = list()
 	configured_items[++configured_items.len] = list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles)
 	configured_items[++configured_items.len] = list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut)
 	configured_items[++configured_items.len] = list("Chiken soup", 3000, /obj/item/reagent_containers/food/drinks/chicken_soup)
