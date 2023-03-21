@@ -479,7 +479,7 @@
 				if(Leader)
 					if (Leader == who)
 						holding_still = Friends[who] * 10
-						to_say = "Да… я [pick("ждать", "стоять")]…"
+						to_say = "Да… Я [pick("ждать", "стоять")]…"
 					else if(Friends[who] > Friends[Leader])
 						holding_still = (Friends[who] - Friends[Leader]) * 10
 						to_say = "Да… я [pick("ждать", "стоять")]…"
