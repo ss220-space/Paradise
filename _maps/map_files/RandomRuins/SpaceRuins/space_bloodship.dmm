@@ -26,20 +26,17 @@
 /area/ruin/unpowered)
 "jV" = (
 /mob/living/simple_animal/hostile/illusion/cult{
-	maxHealth = 200;
-	melee_damage_lower = 10;
-	melee_damage_upper = 25;
+	deathmessage = "disappears into the air with a cry of agony";
 	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
 	name = "The soul of the cultist";
 	icon = 'icons/mob/mob.dmi';
-	icon_dead = "shade_dead";
 	icon_living = "shade";
 	icon_state = "shade";
-	deathmessage = "disappears into the air with a cry of agony";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	maxbodytemp = 1500;
-	minbodytemp = 0;
-	pressure_resistance = 200
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
 	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
@@ -109,6 +106,7 @@
 /area/ruin/unpowered)
 "vW" = (
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield,
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
 	nitrogen = 23;
@@ -211,32 +209,6 @@
 "EI" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"Fh" = (
-/mob/living/simple_animal/hostile/illusion/cult{
-	
-	maxHealth = 350;
-	melee_damage_lower = 10;
-	melee_damage_upper = 25;
-	desc = "The deceived soul";
-	name = "The soul of the cultist";
-	icon = 'icons/mob/mob.dmi';
-	icon_dead = "shade_dead";
-	icon_living = "shade";
-	icon_state = "shade";
-	deathmessage = "disappears into the air with a cry of agony";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	maxbodytemp = 1500;
-	minbodytemp = 0;
-	pressure_resistance = 200
-	},
-	/mob/living/simple_animal/hostile/illusion/cult()
-	return TRUE
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
 "GR" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 10;
@@ -293,6 +265,14 @@
 	temperature = 300
 	},
 /area/ruin/unpowered)
+"Mi" = (
+/obj/item/clothing/suit/hooded/cultrobes,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
 "Mt" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/engine/cult{
@@ -319,22 +299,17 @@
 	desc = "Rusted and bloodstained medal. Given to who believes in... illegible to you, rust erased last words."
 	},
 /mob/living/simple_animal/hostile/illusion/cult{
-	maxHealth = 350;
-	melee_damage_lower = 10;
-	melee_damage_upper = 25;
+	deathmessage = "disappears into the air with a cry of agony";
 	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
 	name = "The soul of the cultist";
 	icon = 'icons/mob/mob.dmi';
-	icon_dead = "shade_dead";
 	icon_living = "shade";
 	icon_state = "shade";
-	deathmessage = "disappears into the air with a cry of agony";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	maxbodytemp = 1500;
-	minbodytemp = 0;
-	pressure_resistance = 200
-	/mob/living/simple_animal/hostile/illusion/cult()
-	return TRUE
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
 	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
@@ -345,7 +320,7 @@
 "NA" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "NF" = (
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/engine/cult{
@@ -357,20 +332,17 @@
 "NU" = (
 /obj/effect/decal/cleanable/blood/old,
 /mob/living/simple_animal/hostile/illusion/cult{
-	maxHealth = 350;
-	melee_damage_lower = 10;
-	melee_damage_upper = 25;
+	deathmessage = "disappears into the air with a cry of agony";
 	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
 	name = "The soul of the cultist";
 	icon = 'icons/mob/mob.dmi';
-	icon_dead = "shade_dead";
 	icon_living = "shade";
 	icon_state = "shade";
-	deathmessage = "disappears into the air with a cry of agony";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	maxbodytemp = 1500;
-	minbodytemp = 0;
-	pressure_resistance = 200
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
 	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
@@ -382,6 +354,27 @@
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 6;
 	icon_state = "white_walls_corners"
+	},
+/area/ruin/unpowered)
+"RD" = (
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
 	},
 /area/ruin/unpowered)
 "TZ" = (
@@ -607,7 +600,6 @@ xv
 xv
 xv
 xv
-KY
 xv
 xv
 xv
@@ -624,7 +616,8 @@ xv
 xv
 xv
 xv
-KY
+xv
+xv
 xv
 xv
 oc
@@ -850,7 +843,7 @@ EI
 EI
 xv
 xv
-xv
+KY
 xv
 xv
 xv
@@ -861,7 +854,7 @@ EI
 oc
 oc
 yu
-Bg
+jV
 NU
 Wh
 xZ
@@ -1049,13 +1042,13 @@ EI
 oc
 oc
 yu
-vW
+Bg
 Bg
 CT
 xZ
 Wh
 MO
-Fh
+Mi
 yu
 oc
 oc
@@ -1097,11 +1090,11 @@ EI
 oc
 oc
 yu
-NU
+dJ
 Bg
 qE
 Bg
-dJ
+NU
 yu
 oc
 oc
@@ -1318,7 +1311,7 @@ Cb
 sW
 Dz
 sW
-dJ
+Bg
 Bg
 Bg
 sW
@@ -1367,7 +1360,7 @@ Jn
 sW
 jV
 Bg
-dJ
+Bg
 sW
 AW
 Yt
@@ -1407,8 +1400,8 @@ Dq
 Dz
 Bg
 sW
-Wh
-Wh
+dJ
+dJ
 Bg
 Bg
 sW
@@ -1458,12 +1451,12 @@ jV
 Bg
 Bg
 Bg
-jV
+Bg
 Bg
 Bg
 Bg
 sW
-jV
+Bg
 Bg
 qE
 Bg
@@ -1503,17 +1496,17 @@ Bg
 sW
 Bg
 Bg
+jV
 Bg
 Bg
 Bg
-dJ
 Bg
 Bg
-Bg
+jV
 sW
 Bg
-dJ
-jV
+RD
+Bg
 Bg
 Bg
 Dz
@@ -1593,7 +1586,7 @@ vK
 sW
 NF
 dJ
-Bg
+jV
 Dp
 Bg
 dJ
@@ -1654,7 +1647,7 @@ Bg
 Bg
 sW
 Bg
-dJ
+RD
 qE
 Mt
 Kp
@@ -1738,9 +1731,9 @@ Bg
 sW
 Vn
 Bg
-jV
 Bg
-dJ
+Bg
+Bg
 Bg
 Bg
 Bg
@@ -1748,7 +1741,7 @@ sW
 Bg
 Bg
 qE
-jV
+Bg
 Bg
 sW
 Pz
@@ -1783,8 +1776,8 @@ EE
 sW
 Bs
 sW
-Wh
-Wh
+dJ
+vW
 Bg
 Bg
 sW
@@ -1835,7 +1828,7 @@ iG
 Li
 Jn
 sW
-Bg
+jV
 Bg
 Bg
 sW
@@ -1883,7 +1876,7 @@ Cb
 Dz
 sW
 Bg
-dJ
+Bg
 Bg
 sW
 Dz
