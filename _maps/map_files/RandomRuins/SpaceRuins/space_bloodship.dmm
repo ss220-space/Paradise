@@ -36,7 +36,11 @@
 	icon_living = "shade";
 	icon_state = "shade";
 	deathmessage = "disappears into the air with a cry of agony";
-	flying = 1
+	flying = true;
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	maxbodytemp = 1500;
+	minbodytemp = 0;
+	pressure_resistance = 200
 	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
@@ -300,7 +304,11 @@
 	icon_living = "shade";
 	icon_state = "shade";
 	deathmessage = "disappears into the air with a cry of agony";
-	flying = 1
+	flying = true;
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	maxbodytemp = 1500;
+	minbodytemp = 0;
+	pressure_resistance = 200
 	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
@@ -333,7 +341,35 @@
 	icon_living = "shade";
 	icon_state = "shade";
 	deathmessage = "disappears into the air with a cry of agony";
-	flying = 1
+	flying = true;
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	maxbodytemp = 1500;
+	minbodytemp = 0;
+	pressure_resistance = 200
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"NY" = (
+/mob/living/simple_animal/hostile/illusion/cult{
+	maxHealth = 350;
+	melee_damage_lower = 10;
+	melee_damage_upper = 25;
+	desc = "The deceived soul";
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_dead = "shade_dead";
+	icon_living = "shade";
+	icon_state = "shade";
+	deathmessage = "disappears into the air with a cry of agony";
+	flying = true;
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	maxbodytemp = 1500;
+	minbodytemp = 0;
+	pressure_resistance = 200
 	},
 /turf/simulated/floor/engine/cult{
 	oxygen = 24;
@@ -1018,7 +1054,7 @@ CT
 xZ
 Wh
 MO
-Bg
+NY
 yu
 oc
 oc
@@ -1064,7 +1100,7 @@ NU
 Bg
 qE
 Bg
-NU
+dJ
 yu
 oc
 oc
@@ -1519,7 +1555,7 @@ WW
 Bg
 Bg
 Bg
-jV
+Bg
 Bg
 sW
 Bg
@@ -1798,7 +1834,7 @@ iG
 Li
 Jn
 sW
-jV
+Bg
 Bg
 Bg
 sW
