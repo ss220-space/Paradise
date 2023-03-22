@@ -15597,7 +15597,7 @@
 	master_tag = "viro_lab_airlock_control";
 	name = "Virology Lab Access Button";
 	pixel_y = -22;
-	req_access_txt = "39"
+	req_access = list(39)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -38240,7 +38240,7 @@
 	master_tag = "viro_lab_airlock_control";
 	name = "Virology Lab Access Button";
 	pixel_y = -22;
-	req_access_txt = "39"
+	req_access = list(39)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -44050,7 +44050,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	name = "High-Risk Modules";
-	req_access_txt = "20"
+	req_access = list(20)
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -46311,8 +46311,7 @@
 "gBj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Maintenance";
-	req_access_txt = "10";
-	req_one_access_txt = null
+	req_one_access = list(10)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -79735,7 +79734,7 @@
 /obj/machinery/door/window/brigdoor{
 	id = "Autolathe";
 	name = "Autolathe Access";
-	req_access_txt = "47";
+	req_access = list(47)
 	dir = 1
 	},
 /obj/item/stack/sheet/glass{
@@ -82644,7 +82643,7 @@
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	id_tag = "viro_lab_airlock_control";
 	name = "Virology Lab Access Console";
-	req_one_access_txt = "39";
+	req_one_access = list(39)
 	tag_exterior_door = "viro_lab_airlock_exterior";
 	tag_interior_door = "viro_lab_airlock_interior";
 	pixel_y = -26
@@ -91015,7 +91014,7 @@
 	base_state = "right";
 	icon_state = "right";
 	name = "Core Modules";
-	req_access_txt = "20"
+	req_access = list(20)
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
