@@ -869,6 +869,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/sambuka = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/bitter = 3,
 					/obj/item/reagent_containers/food/drinks/cans/beer = 6,
+					/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer = 6,
 					/obj/item/reagent_containers/food/drinks/cans/ale = 6,
 					/obj/item/reagent_containers/food/drinks/cans/synthanol = 15,
 					/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 4,
@@ -955,11 +956,11 @@
 	slogan_list = list("Попробуйте наш новый батончик с нугой!","Вдвое больше калорий за полцены!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "snack"
-	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/chips =6,
+	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/doshik = 6,/obj/item/reagent_containers/food/snacks/doshik_spicy = 6,/obj/item/reagent_containers/food/snacks/chips =6,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6,/obj/item/reagent_containers/food/snacks/pistachios =6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,/obj/item/reagent_containers/food/snacks/tastybread = 6)
 	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,/obj/item/reagent_containers/food/drinks/dry_ramen = 30,
+	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,/obj/item/reagent_containers/food/drinks/dry_ramen = 30,/obj/item/reagent_containers/food/snacks/doshik = 30,/obj/item/reagent_containers/food/snacks/doshik_spicy = 150,
 					/obj/item/reagent_containers/food/snacks/chips =25,/obj/item/reagent_containers/food/snacks/sosjerky = 30,/obj/item/reagent_containers/food/snacks/no_raisin = 20,
 					/obj/item/reagent_containers/food/snacks/pistachios = 35, /obj/item/reagent_containers/food/snacks/spacetwinkie = 30,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,/obj/item/reagent_containers/food/snacks/tastybread = 30)
 	refill_canister = /obj/item/vending_refill/snack
@@ -1541,6 +1542,13 @@
 					  /obj/item/tank/internals/emergency_oxygen = 6,
 					  /obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
+
+/obj/machinery/vending/sustenance/additional
+	desc = "Какого этот автомат тут оказался?!"
+	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12,
+					/obj/item/reagent_containers/food/drinks/ice = 6,
+					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
+	contraband = list(/obj/item/kitchen/knife=2)
 
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
