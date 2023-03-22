@@ -435,7 +435,7 @@
 	M.matter = 30
 	modules += M
 
-	var/obj/item/rff/T = new /obj/item/rff(src)
+	var/obj/item/rsf/rff/T = new /obj/item/rsf/rff(src)
 	T.matter = 30
 	modules += T
 
