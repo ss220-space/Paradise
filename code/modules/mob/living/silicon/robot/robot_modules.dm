@@ -431,13 +431,8 @@
 	modules += new /obj/item/eftpos/cyborg(src)
 	modules += new /obj/item/camera/spooky(src)
 
-	var/obj/item/rsf/M = new /obj/item/rsf(src)
-	M.matter = 30
-	modules += M
-
-	var/obj/item/rff/T = new /obj/item/rff(src)
-	T.matter = 30
-	modules += T
+	modules += new /obj/item/rsf(src)
+	modules += new /obj/item/rsf/rff(src)
 
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
