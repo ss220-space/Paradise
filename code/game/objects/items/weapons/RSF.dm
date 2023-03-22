@@ -35,8 +35,7 @@ RSF
 	name = "\improper Rapid-Food-Fabricator"
 	name_short = "RFF"
 	desc = "A device used to rapidly deploy delucious food!"
-	icon = 'icons/obj/rff.dmi'
-	icon_state = "rlf"
+	icon_state = "rff"
 
 /obj/item/rsf/rff/New()
 	..(should_fill = FALSE)
