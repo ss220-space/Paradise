@@ -338,7 +338,7 @@
 */
 /datum/map_template/ruin/space/blood_ship
 	id = "blood_ship"
-	suffix = "space_bloodshipp.dmm"
+	suffix = "blood_ship.dmm"
 	name = "Space bloodship "
 	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice." 
 
