@@ -31,6 +31,7 @@ RSF
 			list("Deck of cards", 50, /obj/item/deck/cards),
 			list("Prize ticket", 500, /obj/item/stack/tickets/five)
 		)
+		update_desc()
 
 /obj/item/rsf/rff
 	name = "\improper Rapid-Food-Fabricator"
@@ -49,6 +50,7 @@ RSF
 		list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga),
 		list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura)
 	)
+	update_desc()
 
 /obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
@@ -70,7 +72,10 @@ RSF
 	else
 		mode++
 	to_chat(user, "Changed dispensing mode to '" + configured_items[mode][1] + "'")
+	update_desc()
 
+/obj/item/rsf/proc/update_desc()
+	desc = initial(desc) + " Currently set to dispense '[configured_items[mode][1]]'."
 
 /obj/item/rsf/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
