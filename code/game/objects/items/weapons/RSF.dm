@@ -18,18 +18,19 @@ RSF
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/configured_items = list()
 
-/obj/item/rsf/New(should_fill = TRUE)
+/obj/item/rsf/New(use_rsf_list = TRUE)
 	..()
-	if(should_fill)
-		// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
-		configured_items[++configured_items.len] = list("Dosh", 50, /obj/item/stack/spacecash/c10)
-		configured_items[++configured_items.len] = list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass)
-		configured_items[++configured_items.len] = list("Paper", 50, /obj/item/paper)
-		configured_items[++configured_items.len] = list("Pen", 50, /obj/item/pen)
-		configured_items[++configured_items.len] = list("Dice Pack", 50, /obj/item/storage/pill_bottle/dice)
-		configured_items[++configured_items.len] = list("Cigarette", 50, /obj/item/clothing/mask/cigarette/menthol)
-		configured_items[++configured_items.len] = list("Deck of cards", 50, /obj/item/deck/cards)
-		configured_items[++configured_items.len] = list("Prize ticket", 500, /obj/item/stack/tickets/five)
+	if(use_rsf_list)
+		configured_items = list(
+			list("Dosh", 50, /obj/item/stack/spacecash/c10),
+			list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass),
+			list("Paper", 50, /obj/item/paper),
+			list("Pen", 50, /obj/item/pen),
+			list("Dice Pack", 50, /obj/item/storage/pill_bottle/dice),
+			list("Cigarette", 50, /obj/item/clothing/mask/cigarette/menthol),
+			list("Deck of cards", 50, /obj/item/deck/cards),
+			list("Prize ticket", 500, /obj/item/stack/tickets/five)
+		)
 
 /obj/item/rsf/rff
 	name = "\improper Rapid-Food-Fabricator"
@@ -38,15 +39,16 @@ RSF
 	icon_state = "rff"
 
 /obj/item/rsf/rff/New()
-	..(should_fill = FALSE)
-	// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
-	configured_items[++configured_items.len] = list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles)
-	configured_items[++configured_items.len] = list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut)
-	configured_items[++configured_items.len] = list("Chiken soup", 3000, /obj/item/reagent_containers/food/drinks/chicken_soup)
-	configured_items[++configured_items.len] = list("Tofu burger", 3000, /obj/item/reagent_containers/food/snacks/tofuburger)
-	configured_items[++configured_items.len] = list("Admiral Yamomoto's carp", 3000, /obj/item/reagent_containers/food/snacks/chinese/tao)
-	configured_items[++configured_items.len] = list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga)
-	configured_items[++configured_items.len] = list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura)
+	..(use_rsf_list = FALSE)
+	configured_items = list(
+		list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles),
+		list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut),
+		list("Chiken soup", 3000, /obj/item/reagent_containers/food/drinks/chicken_soup),
+		list("Tofu burger", 3000, /obj/item/reagent_containers/food/snacks/tofuburger),
+		list("Admiral Yamomoto's carp", 3000, /obj/item/reagent_containers/food/snacks/chinese/tao),
+		list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga),
+		list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura)
+	)
 
 /obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
@@ -63,7 +65,7 @@ RSF
 
 /obj/item/rsf/attack_self(mob/user as mob)
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	if(mode == configured_items.len)
+	if(mode >= configured_items.len)
 		mode = 1
 	else
 		mode++
