@@ -31,7 +31,7 @@
 
 /obj/item/eftpos/cyborg
 	name = "Service EFTPOS"
-	desc = "Swipe crew ID card to pay taxes."
+	desc = "Swipe a crew ID card to pay taxes."
 	transaction_purpose = "Payment for the glory of NanoTrasen!"
 
 /obj/item/paper/check
