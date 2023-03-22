@@ -485,7 +485,7 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
-	var/obj/item/gripper/G = locate(/obj/item/gripper/service) in modules
+	var/obj/item/gripper/service/G = locate() in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
