@@ -72,7 +72,7 @@
 
 /obj/item/gripper/service
 	name = "Card gripper"
-	desc = "A grasping tool used to take IDs for pay taxes and wake up drunken crewmates"
+	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
 	can_hold = list(/obj/item/card,
 					/obj/item/camera_film,
 					/obj/item/paper,
