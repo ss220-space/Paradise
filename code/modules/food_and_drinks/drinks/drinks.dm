@@ -302,6 +302,7 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
+	amount_per_transfer_from_this = 10
 	materials = list(MAT_METAL=1500)
 	volume = 100
 
