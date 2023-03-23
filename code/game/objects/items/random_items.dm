@@ -88,12 +88,12 @@
 /obj/item/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
+	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink/New()
 	..()
-	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
-	var/R = /datum/reagent/
-	if (prob(50 * special_drinks.len / (special_drinks.len + GLOB.drinks.len)))
+	var/datum/reagent/R
+	if (prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
 		R = pick(special_drinks)
 	else
 		R = pick(GLOB.drinks)
