@@ -17714,8 +17714,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "bye" = (
@@ -25857,8 +25856,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/radio/intercom{
 	name = "east station intercom (General)";
-	pixel_x = 28;
-	pixel_y = -2
+	pixel_x = 28
 	},
 /obj/machinery/light{
 	dir = 4
@@ -47990,8 +47988,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "eIt" = (
@@ -49326,7 +49323,7 @@
 "fij" = (
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
-	pixel_x = -32
+	pixel_x = -28
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -49758,8 +49755,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "fqS" = (
@@ -49823,7 +49819,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south fire alarm";
-	pixel_y = -25
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -50697,8 +50693,7 @@
 "fEO" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "fEP" = (
@@ -53514,7 +53509,7 @@
 	pixel_y = 1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
-	list_reagents = list("absinthe" = 0);
+	list_reagents = list("absinthe"=0);
 	pixel_x = 5;
 	pixel_y = 2
 	},
@@ -59089,8 +59084,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "iZc" = (
@@ -59309,8 +59303,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "jeW" = (
@@ -60863,7 +60856,7 @@
 "jPU" = (
 /obj/machinery/firealarm{
 	name = "north fire alarm";
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/structure/piano,
 /obj/structure/disposalpipe/segment{
@@ -63532,8 +63525,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "kQn" = (
@@ -66513,8 +66505,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "lUc" = (
@@ -66754,8 +66745,8 @@
 /area/toxins/xenobiology)
 "lZf" = (
 /obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = 32
+	name = "east station intercom (General)";
+	pixel_x = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -68275,8 +68266,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "mCt" = (
@@ -69664,7 +69654,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south fire alarm";
-	pixel_y = -25
+	pixel_y = -24
 	},
 /obj/machinery/light_switch{
 	name = "east light switch";
@@ -73900,8 +73890,7 @@
 "oSk" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+	icon_state = "pipe-j2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -73934,8 +73923,7 @@
 /obj/effect/landmark/start/bartender,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "oSB" = (
@@ -74911,14 +74899,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "pmY" = (
 /obj/machinery/newscaster{
-	name = "east newscaster";
-	pixel_y = 33
+	name = "north newscaster";
+	pixel_y = 34
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75951,8 +75938,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "pEN" = (
@@ -80914,8 +80900,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "rHL" = (
@@ -81224,10 +81209,8 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Civilian"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "rOK" = (
@@ -81376,7 +81359,7 @@
 "rRr" = (
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
-	pixel_y = 32
+	pixel_y = 28
 	},
 /obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/plasteel{
@@ -82641,7 +82624,7 @@
 /area/maintenance/engrooms)
 "ssn" = (
 /obj/machinery/light_switch{
-	name = "east light switch";
+	name = "west light switch";
 	pixel_x = -24
 	},
 /obj/machinery/door_control{
@@ -82848,13 +82831,12 @@
 "swO" = (
 /obj/machinery/vending/boozeomat,
 /obj/machinery/light_switch{
-	name = "west light switch";
+	name = "north light switch";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "swR" = (
@@ -83721,8 +83703,7 @@
 	dir = 10
 	},
 /obj/machinery/camera{
-	c_tag = "Holodeck";
-	dir = 6
+	c_tag = "Holodeck"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -84975,8 +84956,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "tnx" = (
@@ -85306,8 +85286,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "tuV" = (
@@ -90704,8 +90683,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "vwf" = (
@@ -91313,8 +91291,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "vLY" = (
@@ -91476,8 +91453,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "vON" = (
@@ -91636,8 +91612,8 @@
 /area/maintenance/engrooms)
 "vRr" = (
 /obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_x = 32
+	name = "east station intercom (General)";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -92367,8 +92343,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "wfx" = (
@@ -92489,6 +92464,7 @@
 "wgs" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south fire alarm";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -92506,8 +92482,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "wgy" = (
