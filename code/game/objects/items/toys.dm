@@ -29,7 +29,7 @@
 
 /obj/item/toy/examine(mob/user)
 	. = ..()
-	if(unique_toy_rename == 1)
+	if(unique_toy_rename)
 		. += "<span class='info'>Use a pen on it to rename it.</span>"
 
 /obj/item/toy/attackby(obj/item/K, mob/user, params)
@@ -913,7 +913,7 @@
 	var/bitesound = 'sound/weapons/bite.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
-	unique_toy_rename = 1
+	unique_toy_rename = TRUE
 
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
@@ -978,7 +978,7 @@
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
-	unique_toy_rename = 1
+	unique_toy_rename = TRUE
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
