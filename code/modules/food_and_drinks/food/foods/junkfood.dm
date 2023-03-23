@@ -111,9 +111,6 @@
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
 
-/obj/item/reagent_containers/food/snacks/doshik/New()
-	icon_state = "doshik-closed"
-
 /obj/item/reagent_containers/food/snacks/doshik_spicy
 	name = "Doshi Co Special"
 	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow. It seems to have hot spices in it."
@@ -125,9 +122,6 @@
 	tastes = list("doshi co" = 1, "pain" = 1, "pleasure" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
-
-/obj/item/reagent_containers/food/snacks/doshik_spicy/New()
-	icon_state = "doshikspicy-closed"
 
 //////////////////////
 //		Homemade	//

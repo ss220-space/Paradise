@@ -31,6 +31,18 @@
 	else
 		..()
 
+/obj/item/reagent_containers/food/snacks/New()
+	if(!opened)
+		update_icon()
+	else
+		return ..()
+
+/obj/item/reagent_containers/food/snacks/update_icon()
+	if(!opened)
+		icon_state = "[initial(icon_state)]-closed"
+	else
+		icon_state = "[initial(icon_state)]"
+
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
@@ -52,8 +64,8 @@
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
 	if(!opened)
 		opened = TRUE
-		icon_state = "[initial(icon_state)]"
 		to_chat(user, "<span class='notice'>You open the [src].</span>")
+		update_icon()
 		return ..()
 	else
 		return
