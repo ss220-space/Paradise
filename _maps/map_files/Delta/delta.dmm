@@ -5791,6 +5791,7 @@
 "aPO" = (
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
+/obj/item/stack/spacechips/c1000,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "aPS" = (
@@ -9912,6 +9913,7 @@
 /area/engine/supermatter)
 "boU" = (
 /obj/structure/table/wood/fancy/royalblack,
+/obj/item/stack/spacechips/c1000,
 /obj/item/trash/candle,
 /turf/simulated/floor/carpet/black,
 /area/maintenance/casino)
