@@ -691,7 +691,7 @@
 	name = "IV bag"
 	id = "iv_bag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 3000)
 	build_path = /obj/item/reagent_containers/iv_bag
 	category = list("initial", "Medical")
 
