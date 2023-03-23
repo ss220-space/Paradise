@@ -21,6 +21,7 @@
 	set category = "Object"
 	set src in usr
 
+
 	if(!usr.Adjacent(src) || !isliving(usr) || usr.incapacitated())
 		return
 	var/default = null
@@ -33,6 +34,7 @@
 	if(!usr.Adjacent(src))
 		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 		return
+
 	if((!ishuman(usr) || usr.incapacitated()) && !isrobot(usr))
 		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
 		return
