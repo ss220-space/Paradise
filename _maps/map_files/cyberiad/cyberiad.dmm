@@ -12924,16 +12924,15 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "bcO" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
 "bcP" = (
@@ -45389,18 +45388,17 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "dEN" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -49345,8 +49343,7 @@
 /area/security/customs)
 "fju" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -50567,6 +50564,9 @@
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
 	pixel_y = 28
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -54892,10 +54892,25 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "hwd" = (
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	name = "south bump";
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/alarm{
+	dir = 1;
 	pixel_y = -24
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -55326,6 +55341,12 @@
 	c_tag = "Dormitories Arcade";
 	dir = 6
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -55551,25 +55572,12 @@
 	},
 /area/medical/medbay2)
 "hIu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -56020,14 +56028,15 @@
 /area/maintenance/fsmaint)
 "hPo" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
 "hPz" = (
@@ -57758,6 +57767,18 @@
 /area/bridge)
 "ixO" = (
 /obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -59630,6 +59651,12 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66441,19 +66468,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
-"lSl" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/dorms)
 "lSM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/purple,
@@ -72805,6 +72819,18 @@
 /obj/machinery/atm{
 	pixel_y = -32
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -73153,9 +73179,12 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "oFg" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	icon_state = "pipe-j2"
+	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74237,9 +74266,13 @@
 	},
 /area/security/permabrig)
 "oWE" = (
-/obj/machinery/alarm{
-	dir = 1;
+/obj/machinery/power/apc{
+	name = "south bump";
 	pixel_y = -24
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -76717,25 +76750,6 @@
 	icon_state = "white"
 	},
 /area/toxins/explab)
-"pWO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/dorms)
 "pWV" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -90946,24 +90960,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/crew_quarters/kitchen)
-"vCz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/dorms)
 "vDd" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -93964,15 +93960,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"wMn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/dorms)
 "wMS" = (
 /obj/structure/sink{
 	dir = 8;
@@ -95121,16 +95108,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
-"xjO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/dorms)
 "xkn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -129723,12 +129700,12 @@ axe
 peJ
 aOI
 fju
-xjO
 jlJ
 jlJ
 jlJ
 jlJ
-pWO
+jlJ
+jlJ
 dEN
 aUQ
 aVC
@@ -129980,12 +129957,12 @@ axe
 hPe
 awl
 fDM
-wMn
+jlJ
 ngl
 prA
 eYX
 gyK
-vCz
+jlJ
 oxv
 aUQ
 aUQ
@@ -130237,13 +130214,13 @@ axe
 qbc
 roe
 oFg
-bcO
+jlJ
 vNf
 lKy
 eYX
 nza
-vCz
-aTb
+jlJ
+dEN
 aUQ
 nvB
 bJU
@@ -130494,13 +130471,13 @@ nqh
 tnx
 aOI
 hEa
-hPo
+jlJ
 vNf
 lKy
 eYX
 rQe
-vCz
-aTb
+jlJ
+dEN
 aUQ
 uwG
 rTR
@@ -130751,12 +130728,12 @@ aOI
 aOI
 aOI
 jlT
-hPo
+jlJ
 eYX
 eYX
 udp
 eYX
-vCz
+jlJ
 ixO
 aUQ
 uwG
@@ -131007,14 +130984,14 @@ aWK
 aWK
 aWK
 bbn
-aZs
-hPo
+bcO
+jlJ
 pyp
 lKy
 kmZ
 fCR
-vCz
-aTb
+jlJ
+dEN
 aUQ
 uGr
 spc
@@ -131264,14 +131241,14 @@ aWK
 aWJ
 aWK
 vkc
-aZs
-hPo
+bcO
+jlJ
 pyp
 lKy
 kmZ
 gwP
-vCz
-aTb
+jlJ
+dEN
 aUQ
 uGr
 foQ
@@ -131521,14 +131498,14 @@ lQr
 lQr
 lQr
 bbn
-aZs
-hPo
+bcO
+jlJ
 wiq
 sVJ
 kmZ
 fmn
-vCz
-aTb
+jlJ
+dEN
 aUS
 aUS
 aUS
@@ -131778,8 +131755,8 @@ tzr
 lJC
 qnX
 vxV
-aZs
-lSl
+hPo
+xcq
 xcq
 etf
 ggE
