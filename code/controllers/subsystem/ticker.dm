@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
+				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + config.vote_autotransfer_interval
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -162,6 +162,8 @@ SUBSYSTEM_DEF(ticker)
 					if("random")
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
+					if("vote")
+						SSvote.start_vote(new /datum/vote/map)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 
