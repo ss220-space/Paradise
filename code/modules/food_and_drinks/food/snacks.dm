@@ -34,9 +34,7 @@
 /obj/item/reagent_containers/food/snacks/New()
 	if(!opened)
 		update_icon()
-		..()
-	else
-		return ..()
+	..()
 
 /obj/item/reagent_containers/food/snacks/update_icon()
 	if(!opened)
