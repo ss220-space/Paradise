@@ -201,7 +201,7 @@
 	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_sec
+//datum/crafting_recipe/tajblind_sec
 	name = "Security Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/sec
 	time = 15
@@ -210,7 +210,7 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_nv_sec
+//datum/crafting_recipe/tajblind_nv_sec
 	name = "Security Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/sec/night
 	time = 20
@@ -220,7 +220,7 @@
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_med
+//datum/crafting_recipe/tajblind_med
 	name = "Medical Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/med
 	time = 15
@@ -229,7 +229,7 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_nv_med
+//datum/crafting_recipe/tajblind_nv_med
 	name = "Medical Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/med/night
 	time = 20
@@ -239,7 +239,7 @@
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_sci
+//datum/crafting_recipe/tajblind_sci
 	name = "Science Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/sci
 	time = 15
@@ -248,7 +248,7 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_nv_sci
+//datum/crafting_recipe/tajblind_nv_sci
 	name = "Science Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/sci/night
 	time = 20
@@ -258,7 +258,7 @@
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_engi
+//datum/crafting_recipe/tajblind_engi
 	name = "Engineering Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/engi
 	time = 15
@@ -268,7 +268,7 @@
 	blacklist = list(/obj/item/clothing/glasses/welding/superior)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_cargo
+//datum/crafting_recipe/tajblind_cargo
 	name = "Meson Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/meson
 	time = 15
@@ -277,7 +277,7 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_nv_engi
+//datum/crafting_recipe/tajblind_nv_engi
 	name = "Meson Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/meson/night
 	time = 20
@@ -287,7 +287,7 @@
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_skill
+//datum/crafting_recipe/tajblind_skill
 	name = "Skill Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/skill
 	time = 15
@@ -296,7 +296,7 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_diag
+//datum/crafting_recipe/tajblind_diag
 	name = "Diagnostic Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/diag
 	time = 15
@@ -305,7 +305,7 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_nv_diag
+//datum/crafting_recipe/tajblind_nv_diag
 	name = "Diagnostic Night Vision Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/diag/night
 	time = 20
@@ -315,7 +315,7 @@
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/tajblind_hydro
+//datum/crafting_recipe/tajblind_hydro
 	name = "Hydroponic Tajaran Veil"
 	result = /obj/item/clothing/glasses/hud/tajblind/hydro
 	time = 15

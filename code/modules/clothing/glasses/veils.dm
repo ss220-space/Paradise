@@ -4,7 +4,8 @@
 	icon_state = "tajblind"
 	item_state = "tajblind"
 	flags_cover = GLASSESCOVERSEYES
-	var/flash_protect_mod = 1
+	flash_protect = 1
+	tint = 2
 	var/HUD_assembly = null
 	actions_types = list(/datum/action/item_action/toggle)
 
@@ -18,24 +19,10 @@
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self()
-	toggle_veil()
-
-/obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil()
-	if(usr.canmove && !usr.incapacitated())
-		if(up)
-			up = !up
-			tint = initial(tint)
-			flash_protect = initial(flash_protect)
-			to_chat(usr, "You activate [src], allowing you to see.")
-		else
-			up = !up
-			tint = 3
-			flash_protect = flash_protect_mod
-			to_chat(usr, "You deactivate [src], obscuring your vision.")
-		var/mob/living/carbon/user = usr
-		user.update_tint()
-		user.update_inv_glasses()
+/obj/item/clothing/glasses/hud/tajblind/New()
+	..()
+	visor_toggling()
+	update_icon()
 
 /obj/item/clothing/glasses/hud/tajblind/item_action_slot_check(slot)
 	if(slot == slot_glasses)
@@ -46,7 +33,8 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed welding protective shield when veil is not active."
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
-	flash_protect_mod = 2
+	flash_protect = 2
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	HUD_assembly = /obj/item/clothing/glasses/welding
 
 /obj/item/clothing/glasses/hud/tajblind/meson
@@ -163,19 +151,14 @@
 
 //Now we try real crafts.
 
-/obj/item/clothing/glasses/hud/tajblind/AltClick(mob/user, slot)
-	if(user.canmove && !user.incapacitated())
-		if(user.client && (src in user.client.screen))
-			to_chat(user, "<span class='notice'>You need to take that [src.name] off before pulling HUD out from it.</span>")
-			return
-		if(HUD_assembly)
-			var/obj/item/clothing/glasses/hud/tajblind/A = new /obj/item/clothing/glasses/hud/tajblind
-			A.forceMove(src.loc)
-			to_chat(user, "<span class='notice'>With a simple click you pulled HUD out from [src].</span>")
-			var/obj/item/HUD_item = generate_HUD(user.loc)
-			user.put_in_hands(HUD_item)
-			qdel(src)
-		return
+/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+	if(HUD_assembly)
+		var/obj/item/clothing/glasses/hud/tajblind/A = new /obj/item/clothing/glasses/hud/tajblind
+		user.put_in_hands(A)
+		to_chat(user, "<span class='notice'>With a simple click you pulled HUD out from [src].</span>")
+		generate_HUD(user.loc)
+		qdel(src)
+	return
 
 /obj/item/clothing/glasses/hud/tajblind/proc/generate_HUD(atom/location)
 	if(HUD_assembly)
@@ -190,21 +173,59 @@
 			HUD_assembly = null
 			return
 
-/obj/item/clothing/glasses/proc/modify_HUD(atom/location)
-	if(modifiable)
-		if(istype(modifiable, /obj/item))
-			var/obj/item/moded_veil = modifiable
-			moded_veil.forceMove(location)
-			. = modifiable
-			modifiable = null
-			return
+/obj/item/clothing/glasses/hud/tajblind/attackby(var/obj/item/clothing/glasses/G as obj, mob/user as mob, params)
+	if(istype(G, /obj/item/clothing/glasses) && !HUD_assembly)
+		if(G.vision_flags == SEE_TURFS)
+			if(see_in_dark == 8)
+				new/obj/item/clothing/glasses/hud/tajblind/meson/night(user.loc)
+			else
+				new/obj/item/clothing/glasses/hud/tajblind/meson(user.loc)
+		else if(G.scan_reagents)
+			if(see_in_dark == 8)
+				new/obj/item/clothing/glasses/hud/tajblind/sci/night(user.loc)
+			else
+				new/obj/item/clothing/glasses/hud/tajblind/sci(user.loc)
+		to_chat(user, "<span class='notice'>You succesfully inserted new HUD in your [src.name]")
+		qdel(G)
+		qdel(src)
+		else
+			return FALSE
+	return
 
-/obj/item/clothing/glasses/hud/tajblind/attackby(var/obj/item/G, mob/user, params)
-	if(istype(G,/obj/item/clothing/glasses))
-		if(modifiable)
-			to_chat(user, "<span class='notice'>You succesfully put new HUD in your [src.name]")
-			var/obj/item/veil_item = modify_HUD(user.loc)
-			user.put_in_hands(veil_item)
-			qdel(G)
-			qdel(src)
+/obj/item/clothing/glasses/hud/tajblind/attackby(var/obj/item/clothing/glasses/hud/L as obj, mob/user as mob, params)
+	if(istype(L, /obj/item/clothing/glasses/hud) && !HUD_assembly)
+		if(L.HUDType == 4)
+			if(see_in_dark == 8)
+				new /obj/item/clothing/glasses/hud/tajblind/med/night
+			else
+				new /obj/item/clothing/glasses/hud/tajblind/med
+		else if(L.HUDType == 2)
+			if(see_in_dark == 8)
+				new /obj/item/clothing/glasses/hud/tajblind/sec/night
+			else
+				new /obj/item/clothing/glasses/hud/tajblind/sec
+		else if(L.HUDType == 5)
+			if(see_in_dark == 8)
+				new /obj/item/clothing/glasses/hud/tajblind/diag/night
+			else
+				new /obj/item/clothing/glasses/hud/tajblind/diag
+		else if(L.HUDType == 7)
+			new /obj/item/clothing/glasses/hud/tajblind/hydro
+		else if(L.HUDType == 1)
+			new /obj/item/clothing/glasses/hud/tajblind/skill
+		to_chat(user, "<span class='notice'>You succesfully inserted new HUD in your [src.name]")
+		qdel(L)
+		qdel(src)
+		else
+			return FALSE
+	return
+
+/obj/item/clothing/glasses/hud/tajblind/attackby(var/obj/item/clothing/glasses/welding/P as obj, mob/user as mob, params)
+	if(istype(P,/obj/item/clothing/glasses/welding) && !P.tint && !P.flash_protect)
+		new /obj/item/clothing/glasses/hud/tajblind/engi
+	to_chat(user, "<span class='notice'>You succesfully inserted new HUD in your [src.name]")
+	qdel(P)
+	qdel(src)
+	else
+		return FALSE
 	return
