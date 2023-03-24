@@ -565,6 +565,7 @@
 
 /obj/item/slimepotion/clothing
 	var/inapplicable_caption
+	var/applied_caption
 
 /obj/item/slimepotion/clothing/proc/can_apply()
 	return FALSE
@@ -579,6 +580,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "acidproof"
+	applied_caption = "acidproof"
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.acid < 100
@@ -600,7 +602,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "acidproof [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#022202", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
@@ -624,6 +626,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "laser proof"
+	applied_caption = "laserproof"
 
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.laser < 100
@@ -645,7 +648,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "laserproof [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#91723a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
@@ -669,6 +672,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "radiation proof"
+	applied_caption = "radiationproof"
 
 /obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.rad < 100
@@ -690,7 +694,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "radiationproof [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#e6e205", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
@@ -714,6 +718,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "bio proof"
+	applied_caption = "bioproof"
 
 /obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bio < 100
@@ -735,7 +740,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "bioproof [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#068a06", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
@@ -759,6 +764,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "explosion proof"
+	applied_caption = "explosionproof"
 
 /obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bomb < 100
@@ -780,7 +786,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "explosionproof [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
@@ -803,6 +809,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "with teleportation slime potion on it"
+	applied_caption = "teleportational"
 
 /obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
 	return !C.teleportation
@@ -824,7 +831,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "teleportational [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#def1de", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	C.teleportation = TRUE
@@ -842,6 +849,7 @@
 	origin_tech = "biotech=5"
 
 	inapplicable_caption = "damage proof"
+	applied_caption = "damageproof"
 
 /obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.melee < 100 || C.armor.bullet < 100
@@ -863,7 +871,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "damageproof [C.name]"
+	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
