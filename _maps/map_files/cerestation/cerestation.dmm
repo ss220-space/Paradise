@@ -14936,6 +14936,7 @@
 "bxx" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/item/toy/figure/hop,
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "bxy" = (
@@ -30523,8 +30524,7 @@
 /obj/structure/sign/poster/official/pda_ad{
 	pixel_x = -32
 	},
-/obj/item/toy/figure/hop,
-/obj/structure/table/wood,
+/obj/structure/filingcabinet,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "cLU" = (
@@ -85851,7 +85851,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint5)
 "vsu" = (
-/obj/structure/filingcabinet,
+/obj/machinery/vending/cart/free,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "vsv" = (
