@@ -592,12 +592,12 @@
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	C.slime_potions = id
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/item/slimepotion/clothing/MouseDrop(obj/over_object)
