@@ -493,10 +493,10 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0)
+		if(I.slowdown <= 0 || I.is_speedslimepotioned)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
-		I.slowdown = 0
+		I.is_speedslimepotioned = TRUE
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
