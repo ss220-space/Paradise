@@ -563,6 +563,9 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/clothing/proc/can_apply()
+	return FALSE
+
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
 	id = "Acid Proof"
@@ -571,6 +574,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
+
+/obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
+	return !istype(C.armor) || C.armor.acid < 100
 
 /obj/item/slimepotion/clothing/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
@@ -582,7 +588,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.acid == 100)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
 		return ..()
 	if(!is_already_improved(C))
@@ -613,6 +619,9 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
+/obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
+	return !istype(C.armor) || C.armor.laser < 100
+
 /obj/item/slimepotion/clothing/laserresistance/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -623,7 +632,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.laser >= 100)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already laser proof!</span>")
 		return ..()
 	if(!is_already_improved(C))
@@ -654,6 +663,9 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
+/obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
+	return !istype(C.armor) || C.armor.rad < 100
+
 /obj/item/slimepotion/clothing/radiation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -664,7 +676,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.rad == 100)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already Radiation proof!</span>")
 		return ..()
 	if(!is_already_improved(C))
@@ -695,6 +707,9 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
+/obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
+	return !istype(C.armor) || C.armor.bio < 100
+
 /obj/item/slimepotion/clothing/bio/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -705,7 +720,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.bio == 100)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already bio proof!</span>")
 		return ..()
 	if(!is_already_improved(C))
@@ -736,6 +751,9 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
+/obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
+	return !istype(C.armor) || C.armor.bomb < 100
+
 /obj/item/slimepotion/clothing/explosionresistencte/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -746,7 +764,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.bomb == 100)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already explosion proof!</span>")
 		return ..()
 	if(!is_already_improved(C))
@@ -776,6 +794,9 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
+/obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
+	return !C.teleportation
+
 /obj/item/slimepotion/clothing/teleportation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -786,7 +807,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(C.teleportation)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already with teleportation slime potion on it!</span>")
 		return ..()
 	if(!is_already_improved(C))
@@ -810,6 +831,9 @@
 	icon_state = "bottle10"
 	origin_tech = "biotech=5"
 
+/obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
+	return !istype(C.armor) || C.armor.melee < 100 || C.armor.bullet < 100
+
 /obj/item/slimepotion/clothing/damage/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -820,7 +844,7 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.melee == 100 && C.armor.bullet == 100)
+	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already damage proof!</span>")
 		return ..()
 	if(!is_already_improved(C))
