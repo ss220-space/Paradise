@@ -21,8 +21,7 @@
 	set category = "Object"
 	set src in usr
 
-
-	if(!usr.Adjacent(src) || !isliving(usr) || usr.incapacitated())
+	if(!usr.Adjacent(src) || !(ishuman(usr) || isrobot(usr)) || usr.incapacitated())
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
