@@ -568,6 +568,7 @@
 	var/applied_caption
 	var/applied_color
 	var/color_name
+	var/more_caption = "more "
 
 /obj/item/slimepotion/clothing/proc/can_apply()
 	return FALSE
@@ -611,7 +612,7 @@
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], acidproofing it.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/item/slimepotion/clothing/acidproof/MouseDrop(obj/over_object)
@@ -659,7 +660,7 @@
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it more laserproofing.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/item/slimepotion/clothing/laserresistance/MouseDrop(obj/over_object)
@@ -707,7 +708,7 @@
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it more radiationproof.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/item/slimepotion/clothing/radiation/MouseDrop(obj/over_object)
@@ -755,7 +756,7 @@
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it more bioproof.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/item/slimepotion/clothing/bio/MouseDrop(obj/over_object)
@@ -803,7 +804,7 @@
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it more explosionproof.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/item/slimepotion/clothing/explosionresistencte/MouseDrop(obj/over_object)
@@ -824,6 +825,7 @@
 	applied_caption = "teleportational"
 	applied_color = "#def1de"
 	color_name = "white"
+	more_caption = ""
 
 /obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
 	return !C.teleportation
@@ -849,7 +851,7 @@
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	C.teleportation = TRUE
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it teleportable.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 
@@ -892,7 +894,7 @@
 	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it more damageproof!.</span>")
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
 /obj/effect/timestop
