@@ -601,7 +601,7 @@
 	color_name = "darkgreen"
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
-	return !istype(C.armor) || C.armor.acid < 100
+	return C.armor.acid < 100
 
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
@@ -618,7 +618,7 @@
 	color_name = "beige"
 
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
-	return !istype(C.armor) || C.armor.laser < 100
+	return C.armor.laser < 100
 
 /obj/item/slimepotion/clothing/radiation
 	name = "radiation resistance slime potion"
@@ -635,7 +635,7 @@
 	color_name = "yellow"
 
 /obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
-	return !istype(C.armor) || C.armor.rad < 100
+	return C.armor.rad < 100
 
 /obj/item/slimepotion/clothing/bio
 	name = "bio resistance slime potion"
@@ -652,7 +652,7 @@
 	color_name = "green"
 
 /obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
-	return !istype(C.armor) || C.armor.bio < 100
+	return C.armor.bio < 100
 
 /obj/item/slimepotion/clothing/explosionresistencte
 	name = "explosion resistance slime potion"
@@ -669,7 +669,7 @@
 	color_name = "darkgrey"
 
 /obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
-	return !istype(C.armor) || C.armor.bomb < 100
+	return C.armor.bomb < 100
 
 /obj/item/slimepotion/clothing/teleportation
 	name = "teleportation slime potion"
@@ -709,7 +709,7 @@
 	color_name = "blue"
 
 /obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
-	return !istype(C.armor) || C.armor.melee < 100 || C.armor.bullet < 100
+	return C.armor.melee < 100 || C.armor.bullet < 100
 
 /obj/effect/timestop
 	anchored = 1
