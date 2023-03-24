@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(servers)
+GLOBAL_LIST_EMPTY(servers) /// Global list for all servers in the world
 #define UI_TAB_CONFIG "CONFIG"
 #define UI_TAB_LINKS "LINKS"
 
@@ -24,12 +24,19 @@ GLOBAL_LIST_EMPTY(servers)
 	var/list/usage_logs
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
+	var/static/connection_key = null
+
+/obj/machinery/tcomms/Initialize(mapload)
+	. = ..()
+	GLOB.tcomms_machines += src
 
 /obj/machinery/r_n_d/server/New()
 	..()
-	GLOB.servers_list.Add(src)
+	GLOB.servers.Add(src)
 	if(!logs_decryption_key)
 		logs_decryption_key = GenerateKey()
+	if(!connection_key)
+		connection_key = GenerateKey()
 	if(is_taipan(z))
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
@@ -54,11 +61,12 @@ GLOBAL_LIST_EMPTY(servers)
 	RefreshParts()
 
 /obj/machinery/r_n_d/server/Destroy()
-	GLOB.servers_list.Remove(src)
-	if(usr)
-	log_action(usr, "destroyed a [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
-	return ..()
+	GLOB.servers.Remove(src)
 	griefProtection()
+	return ..()
+
+/obj/machinery/tcomms/power_change()
+	..()
 
 /obj/machinery/r_n_d/server/RefreshParts()
 	var/tot_rating = 0
@@ -94,8 +102,6 @@ GLOBAL_LIST_EMPTY(servers)
 		if((T20C + 20) to (T0C + 70))
 			health = max(0, health - 1)
 	if(health <= 0)
-		/*griefProtection() This seems to get called twice before running any code that deletes/damages the server or it's files anwyay.
-							refreshParts and the hasReq procs that get called by this are laggy and do not need to be called by every server on the map every tick */
 		var/updateRD = 0
 		files.known_designs = list()
 		for(var/v in files.known_tech)
@@ -113,10 +119,8 @@ GLOBAL_LIST_EMPTY(servers)
 		delay = initial(delay)
 
 /obj/machinery/r_n_d/server/emp_act(severity)
-	GLOB.servers_list.Remove(src)
 	griefProtection()
 	..()
-
 
 /obj/machinery/r_n_d/server/ex_act(severity)
 	griefProtection()

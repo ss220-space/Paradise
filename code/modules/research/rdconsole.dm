@@ -155,19 +155,30 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return
 
 /obj/machinery/computer/rdconsole/proc/sync_server(/obj/machinery/r_n_d/server/target)
-	var/abletosync(list)
+	var/list/abletosync
 	for(var/obj/machines/r_n_d/server/S in GLOB.servers)
+		abletosync = list()
 		if(S.z == z)
 			abletosync += S
 	var/target = input(target,"Pick a server to connect to.",null)as null|anything in abletosync.list()
-		var/choice = alert("Are you shure you want to connect to this server?", "R&D Console connettion.", "Continue", "Cancel")
-		if(choice == "Continue")
-			linked_server = target
-			target.linked_console |= src
-			sync = 1
-		else
+		var/awaiting_input = input(usr, "Please input access key", "Security check") as text|null
+		if(awaiting_input != target.connection_key)
 			return
+		else
+			add_link()
 
+/obj/machinery/computer/rdconsole/proc/add_link(obj/machines/r_n_d/server/target)
+	linked_server = target
+	target.linked_console |= src
+	sync = TRUE
+	sync_research()
+
+/obj/machinery/tcomms/relay/proc/del_link()
+	if(linked_server)
+		linked_server.linked_consoles -= src
+		linked_server = null
+		sync = FALSE
+		reset_research()
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -292,9 +303,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
-		//if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
-			//log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
-			//continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
+/*		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
+			log_debug("[src.name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
+			continue */	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
 			server_processed = TRUE
@@ -318,6 +329,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(S.stat & NOPOWER)
+			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+			del_link()
+			SStgui.update_uis(src)
+
 	if(!linked_destroy)
 		return
 
@@ -409,6 +426,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!machine)
 		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
 		return
+
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(S.stat & NOPOWER)
+		del_link()
+		to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+		SStgui.update_uis(src)
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
@@ -652,13 +675,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			else
 				start_destroyer(usr)
 
-		//if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-			//if(!sync)
-				//to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-			//else
-				//add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
-				//griefProtection() //Putting this here because I dont trust the sync process
-				//addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
+/*		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
+			if(!sync)
+				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+			else
+				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
+				griefProtection() //Putting this here because I dont trust the sync process
+				addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)*/
 
 		if("togglesync")
 			sync_server()
