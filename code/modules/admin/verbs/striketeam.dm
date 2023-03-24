@@ -159,7 +159,4 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	else
 		new_commando.equipOutfit(/datum/outfit/admin/death_commando)
 
-	var/obj/item/implant/mindshield/ert/L = new/obj/item/implant/mindshield/ert(src)
-	L.implant(src)
-
-	return 1
+	return new_commando
