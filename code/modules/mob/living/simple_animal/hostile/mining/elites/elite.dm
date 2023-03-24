@@ -395,7 +395,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(M.z == z && M.client)
 				to_chat(M, "<span class='danger'>Thunder rumbles. Light glows in the distance. Something big happened... somewhere.</span>")
 				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, S = elite_sound)
-				M.flash_screen_color("#FF0000", 2.5 SECONDS)
+				// TODO: make screen red
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
 	if(times_won == 1)
@@ -451,9 +451,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "hierophant_wall_temp-0"
 	base_icon_state = "hierophant_wall_temp"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	duration = 50
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
@@ -462,17 +459,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_color = LIGHT_COLOR_PURE_RED
 	var/activator
 	var/ourelite
-
-/obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
-	. = ..()
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		QUEUE_SMOOTH(src)
-
-/obj/effect/temp_visual/elite_tumor_wall/Destroy()
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		QUEUE_SMOOTH_NEIGHBORS(src)
-	return ..()
 
 /obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
 	. = ..()

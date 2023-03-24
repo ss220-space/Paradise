@@ -250,55 +250,6 @@
 /datum/status_effect/terror/food_regen/tick()
 	owner.adjustBruteLoss(-(owner.maxHealth/20))
 
-/datum/status_effect/speedlegs/before_remove()
-	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
-		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
-		return FALSE
-	return TRUE
-
-/datum/status_effect/speedlegs/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
-	if(!owner.IsWeakened())
-		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
-		if(stacks >= 7)
-			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
-			owner.Weaken(6 SECONDS)
-			owner.emote("gasp")
-	cling.genetic_damage += stacks
-	cling = null
-
-/datum/status_effect/chainsaw_slaying
-	id = "chainsaw_slaying"
-	duration = 5 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/chainsaw
-
-/obj/screen/alert/status_effect/chainsaw
-	name = "Revved up!"
-	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
-	icon_state = "chainsaw"
-
-/datum/status_effect/chainsaw_slaying/on_apply()
-	. = ..()
-	if(.)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.physiology.brute_mod *= 0.8
-			H.physiology.burn_mod *= 0.8
-			H.physiology.stamina_mod *= 0.8
-		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
-		owner.add_stun_absorption("chainsaw", INFINITY, 4)
-		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
-
-/datum/status_effect/chainsaw_slaying/on_remove()
-	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
-	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
-		owner.remove_stun_absorption("chainsaw")
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod /= 0.8
-		H.physiology.burn_mod /=0.8
-		H.physiology.stamina_mod /= 0.8
 
 /datum/status_effect/hope
 	id = "hope"

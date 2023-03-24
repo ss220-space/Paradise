@@ -28,7 +28,7 @@
 	health = 1000
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	armour_penetration_percentage = 50
+	armour_penetration = 50
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
@@ -130,7 +130,6 @@
 		var/obj/item/projectile/H = new /obj/item/projectile/herald(startloc)
 		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
-		H.firer_source_atom = src
 		if(target)
 			H.original = target
 		H.fire(set_angle)
@@ -141,7 +140,6 @@
 		var/obj/item/projectile/H = new /obj/item/projectile/herald/teleshot(startloc)
 		H.preparePixelProjectile(marker, marker, startloc)
 		H.firer = src
-		H.firer_source_atom = src
 		if(target)
 			H.original = target
 		H.fire(set_angle)
@@ -312,7 +310,7 @@
 			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
 	if(do_after(usr, 2 SECONDS, target = usr))
 		var/turf/destination = get_turf(chosen)
-		if(QDELETED(chosen) || !usr|| HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
+		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
 		usr.visible_message("<span class='warning'>[usr] crawls into the [starting_mirror], and [usr.p_they()] disappear into it!</span>", \
 			"<span class='notice'>You crawl into the [starting_mirror]...</span>")

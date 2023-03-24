@@ -35,7 +35,6 @@
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
@@ -176,13 +175,12 @@
 	health = 50
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
-	armour_penetration_percentage = 50
+	armour_penetration = 50
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "falls to the ground."
 	status_flags = CANPUSH
@@ -222,7 +220,6 @@
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
 		L.Stun(1 SECONDS)
-		L.KnockDown(2.5 SECONDS)
 		L.adjustBruteLoss(rand(20,25))
 		latched = TRUE
 	if(!latched)

@@ -4,6 +4,7 @@
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/base_icon_state
 	var/duration = 10 //in deciseconds
 	var/randomdir = TRUE
 	var/timerid
