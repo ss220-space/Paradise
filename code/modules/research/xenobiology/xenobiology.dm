@@ -600,6 +600,12 @@
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
+/obj/item/slimepotion/clothing/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
 	id = "Acid Proof"
@@ -616,12 +622,6 @@
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.acid < 100
-
-/obj/item/slimepotion/clothing/acidproof/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
@@ -640,12 +640,6 @@
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.laser < 100
 
-/obj/item/slimepotion/clothing/laserresistance/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
-
 /obj/item/slimepotion/clothing/radiation
 	name = "radiation resistance slime potion"
 	id = "Radiation Resistance"
@@ -662,12 +656,6 @@
 
 /obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.rad < 100
-
-/obj/item/slimepotion/clothing/radiation/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/clothing/bio
 	name = "bio resistance slime potion"
@@ -686,12 +674,6 @@
 /obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bio < 100
 
-/obj/item/slimepotion/clothing/bio/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
-
 /obj/item/slimepotion/clothing/explosionresistencte
 	name = "explosion resistance slime potion"
 	id = "Explosion Resistance"
@@ -708,12 +690,6 @@
 
 /obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bomb < 100
-
-/obj/item/slimepotion/clothing/explosionresistencte/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/clothing/teleportation
 	name = "teleportation slime potion"
