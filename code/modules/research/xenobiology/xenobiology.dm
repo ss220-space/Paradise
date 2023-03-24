@@ -133,7 +133,7 @@
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
-/obj/item/slimepotion/proc/is_aldready_improved(obj/item/clothing/C)
+/obj/item/slimepotion/proc/is_already_improved(obj/item/clothing/C)
 	if(C.slime_potions)
 		for(var/Potion as obj in GLOB.slime_potions)
 			var/obj/item/slimepotion/S = Potion
@@ -585,7 +585,7 @@
 	if(istype(C.armor) && C.armor.acid == 100)
 		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
@@ -626,7 +626,7 @@
 	if(istype(C.armor) && C.armor.laser >= 100)
 		to_chat(user, "<span class='warning'>[C] is already laser proof!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
@@ -667,7 +667,7 @@
 	if(istype(C.armor) && C.armor.rad == 100)
 		to_chat(user, "<span class='warning'>[C] is already Radiation proof!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
@@ -708,7 +708,7 @@
 	if(istype(C.armor) && C.armor.bio == 100)
 		to_chat(user, "<span class='warning'>[C] is already bio proof!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
@@ -749,7 +749,7 @@
 	if(istype(C.armor) && C.armor.bomb == 100)
 		to_chat(user, "<span class='warning'>[C] is already explosion proof!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
@@ -789,7 +789,7 @@
 	if(C.teleportation)
 		to_chat(user, "<span class='warning'>[C] is already with teleportation slime potion on it!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
@@ -823,7 +823,7 @@
 	if(istype(C.armor) && C.armor.melee == 100 && C.armor.bullet == 100)
 		to_chat(user, "<span class='warning'>[C] is already damage proof!</span>")
 		return ..()
-	if(!is_aldready_improved(C))
+	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
