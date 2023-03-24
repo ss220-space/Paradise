@@ -6,7 +6,7 @@
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
-	var/is_improoved_by_potion = FALSE //used for xenobio potions
+	var/is_improved_by_potion = FALSE //used for xenobio potions
 	var/list/faction_restricted = null
 	var/teleportation = FALSE //used for xenobio potions
 	var/slime_potions

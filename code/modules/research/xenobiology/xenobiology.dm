@@ -542,8 +542,8 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(C.is_improoved_by_potion)
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+	if(C.is_improved_by_potion)
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 		return ..()
 
 	C.slime_potions = id
@@ -552,7 +552,7 @@
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	uses --
 	if(!uses)
 		qdel(src)
@@ -586,12 +586,12 @@
 		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "acidproof [C.name]"
 	C.add_atom_colour("#022202", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
@@ -623,16 +623,16 @@
 	if(istype(C, /obj/item/clothing/neck))
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
-	if(istype(C.armor) && C.armor.laser == 100)
+	if(istype(C.armor) && C.armor.laser >= 100)
 		to_chat(user, "<span class='warning'>[C] is already laser proof!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "laserproof [C.name]"
 	C.add_atom_colour("#91723a", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more laserproofing.</span>")
@@ -668,12 +668,12 @@
 		to_chat(user, "<span class='warning'>[C] is already Radiation proof!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "radiationproof [C.name]"
 	C.add_atom_colour("#e6e205", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more radiationproof.</span>")
@@ -709,12 +709,12 @@
 		to_chat(user, "<span class='warning'>[C] is already bio proof!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "bioproof [C.name]"
 	C.add_atom_colour("#068a06", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more bioproof.</span>")
@@ -750,12 +750,12 @@
 		to_chat(user, "<span class='warning'>[C] is already explosion proof!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "explosionproof [C.name]"
 	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosionproof.</span>")
@@ -790,12 +790,12 @@
 		to_chat(user, "<span class='warning'>[C] is already with teleportation slime potion on it!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "teleportational [C.name]"
 	C.add_atom_colour("#def1de", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	C.teleportation = TRUE
 	to_chat(user, "<span class='notice'>You slather the white gunk over [C], making it teleportable.</span>")
 	qdel(src)
@@ -824,12 +824,12 @@
 		to_chat(user, "<span class='warning'>[C] is already damage proof!</span>")
 		return ..()
 	if(!is_aldready_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
 	C.name = "damageproof [C.name]"
 	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
-	C.is_improoved_by_potion = TRUE
+	C.is_improved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more damageproof!.</span>")
