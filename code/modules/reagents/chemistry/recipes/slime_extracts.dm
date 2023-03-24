@@ -65,7 +65,7 @@
 
 /datum/chemical_reaction/slimepotionbio/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/bio/B = new
+	var/obj/item/slimepotion/clothing/bio/B = new
 	B.forceMove(get_turf(holder.my_atom))
 
 //Metal
@@ -518,7 +518,7 @@
 
 /datum/chemical_reaction/slimeacid/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/acidproof/A = new
+	var/obj/item/slimepotion/clothing/acidproof/A = new
 	A.forceMove(get_turf(holder.my_atom))
 
 //Oil
@@ -552,7 +552,7 @@
 
 /datum/chemical_reaction/slimepotionexplosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/explosionresistencte/E = new
+	var/obj/item/slimepotion/clothing/explosionresistencte/E = new
 	E.forceMove(get_turf(holder.my_atom))
 
 //Light Pink
@@ -607,7 +607,7 @@
 
 /datum/chemical_reaction/slimedamage/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/damage/D = new
+	var/obj/item/slimepotion/clothing/damage/D = new
 	D.forceMove(get_turf(holder.my_atom))
 
 //Bluespace
@@ -637,7 +637,7 @@
 
 /datum/chemical_reaction/slimeteleportation/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/teleportation/T = new
+	var/obj/item/slimepotion/clothing/teleportation/T = new
 	T.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecrystal
@@ -715,7 +715,7 @@
 
 /datum/chemical_reaction/slimepotionlaser/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/laserresistance/L = new
+	var/obj/item/slimepotion/clothing/laserresistance/L = new
 	L.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecamera
@@ -781,7 +781,7 @@
 
 /datum/chemical_reaction/slimepotionrad/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/radiation/R = new
+	var/obj/item/slimepotion/clothing/radiation/R = new
 	R.forceMove(get_turf(holder.my_atom))
 
 //Rainbow :o)

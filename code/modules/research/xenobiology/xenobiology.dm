@@ -133,7 +133,7 @@
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
-/obj/item/slimepotion/proc/is_already_improved(obj/item/clothing/C)
+/obj/item/slimepotion/clothing/proc/is_already_improved(obj/item/clothing/C)
 	if(C.slime_potions)
 		for(var/Potion as obj in GLOB.slime_potions)
 			var/obj/item/slimepotion/S = Potion
@@ -563,7 +563,7 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/acidproof
+/obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
 	id = "Acid Proof"
 	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
@@ -572,7 +572,7 @@
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -597,13 +597,13 @@
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
 	qdel(src)
 
-/obj/item/slimepotion/acidproof/MouseDrop(obj/over_object)
+/obj/item/slimepotion/clothing/acidproof/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/laserresistance
+/obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
 	id = "Laser Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -613,7 +613,7 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
-/obj/item/slimepotion/laserresistance/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/laserresistance/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -638,13 +638,13 @@
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more laserproofing.</span>")
 	qdel(src)
 
-/obj/item/slimepotion/laserresistance/MouseDrop(obj/over_object)
+/obj/item/slimepotion/clothing/laserresistance/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/radiation
+/obj/item/slimepotion/clothing/radiation
 	name = "radiation resistance slime potion"
 	id = "Radiation Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 40, "fire" = 0, "acid" = 0)
@@ -654,7 +654,7 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
-/obj/item/slimepotion/radiation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/radiation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -679,13 +679,13 @@
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more radiationproof.</span>")
 	qdel(src)
 
-/obj/item/slimepotion/radiation/MouseDrop(obj/over_object)
+/obj/item/slimepotion/clothing/radiation/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/bio
+/obj/item/slimepotion/clothing/bio
 	name = "bio resistance slime potion"
 	id = "Bio Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 40, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -695,7 +695,7 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
-/obj/item/slimepotion/bio/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/bio/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -720,13 +720,13 @@
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more bioproof.</span>")
 	qdel(src)
 
-/obj/item/slimepotion/bio/MouseDrop(obj/over_object)
+/obj/item/slimepotion/clothing/bio/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/explosionresistencte
+/obj/item/slimepotion/clothing/explosionresistencte
 	name = "explosion resistance slime potion"
 	id = "Explosion Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -736,7 +736,7 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
-/obj/item/slimepotion/explosionresistencte/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/explosionresistencte/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -761,13 +761,13 @@
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosionproof.</span>")
 	qdel(src)
 
-/obj/item/slimepotion/explosionresistencte/MouseDrop(obj/over_object)
+/obj/item/slimepotion/clothing/explosionresistencte/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/teleportation
+/obj/item/slimepotion/clothing/teleportation
 	name = "teleportation slime potion"
 	id = "Teleportation Resistance"
 	desc = "A potent chemical mix that provides a small chance to teleport when taking damage."
@@ -776,7 +776,7 @@
 	origin_tech = "biotech=5"
 	var/uses = 1
 
-/obj/item/slimepotion/teleportation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/teleportation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
@@ -801,7 +801,7 @@
 	qdel(src)
 
 
-/obj/item/slimepotion/damage
+/obj/item/slimepotion/clothing/damage
 	name = "Physical damage resistance slime potion"
 	id = "Damage Resistance"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -810,7 +810,7 @@
 	icon_state = "bottle10"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/damage/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/damage/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
 		return
