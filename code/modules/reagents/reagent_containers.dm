@@ -34,7 +34,7 @@
 		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 		return
 
-	if((!ishuman(usr) || usr.incapacitated()) && !isrobot(usr))
+	if(usr.incapacitated())
 		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
 		return
 
