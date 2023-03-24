@@ -516,59 +516,13 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/fireproof
-	name = "slime chill potion"
-	id = "Fire Resistance"
-	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
-	origin_tech = "biotech=5"
-	resistance_flags = FIRE_PROOF
-	var/uses = 3
-
-/obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!uses)
-		qdel(src)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
-		return ..()
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(C.is_improved_by_potion)
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-		return ..()
-
-	C.slime_potions = id
-	C.name = "fireproofed [C.name]"
-	C.add_atom_colour("#000080", WASHABLE_COLOUR_PRIORITY)
-	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	C.heat_protection = C.body_parts_covered
-	C.resistance_flags |= FIRE_PROOF
-	C.is_improved_by_potion = TRUE
-	uses --
-	if(!uses)
-		qdel(src)
-
-/obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
-
 /obj/item/slimepotion/clothing
 	var/inapplicable_caption
 	var/applied_caption
 	var/applied_color
 	var/color_name
 	var/more_caption = "more "
+	var/uses = 1
 
 /obj/item/slimepotion/clothing/proc/can_apply()
 	return FALSE
@@ -579,6 +533,9 @@
 
 /obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	if(!proximity_flag)
+		return
+	if(!uses)
+		qdel(src)
 		return
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
@@ -598,13 +555,38 @@
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
 	apply_effect(C)
-	qdel(src)
+	uses -= 1
+	if (!uses)
+		qdel(src)
 
 /obj/item/slimepotion/clothing/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/clothing/fireproof
+	name = "slime chill potion"
+	id = "Fire Resistance"
+	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "fireproof"
+	applied_caption = "fireproof"
+	applied_color = "#000080"
+	color_name = "blue"
+	more_caption = ""
+	uses = 3
+
+/obj/item/slimepotion/clothing/fireproof/can_apply(obj/item/clothing/C)
+	return C.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
+/obj/item/slimepotion/clothing/fireproof/apply_effect(obj/item/clothing/C)
+	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	C.heat_protection = C.body_parts_covered
+	C.resistance_flags |= FIRE_PROOF
 
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"

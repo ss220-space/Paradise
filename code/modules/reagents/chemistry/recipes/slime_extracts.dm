@@ -289,7 +289,7 @@
 
 /datum/chemical_reaction/slimefireproof/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/fireproof/P = new
+	var/obj/item/slimepotion/clothing/fireproof/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 //Orange
