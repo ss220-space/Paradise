@@ -573,6 +573,10 @@
 /obj/item/slimepotion/clothing/proc/can_apply()
 	return FALSE
 
+/obj/item/slimepotion/clothing/proc/apply_effect(obj/item/clothing/C)
+	var/datum/armor/current_armor = C.armor
+	C.armor = current_armor.attachArmor(armor)
+
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
 	id = "Acid Proof"
@@ -610,8 +614,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
@@ -658,8 +661,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
@@ -706,8 +708,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
@@ -754,8 +755,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
@@ -802,8 +802,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
@@ -830,6 +829,9 @@
 /obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
 	return !C.teleportation
 
+/obj/item/slimepotion/clothing/teleportation/apply_effect(obj/item/clothing/C)
+	C.teleportation = TRUE
+
 /obj/item/slimepotion/clothing/teleportation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	..()
 	if(!proximity_flag)
@@ -850,7 +852,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	C.teleportation = TRUE
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
@@ -892,8 +894,7 @@
 	C.name = "[applied_caption] [C.name]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	C.is_improved_by_potion = TRUE
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	apply_effect(C)
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
 	qdel(src)
 
