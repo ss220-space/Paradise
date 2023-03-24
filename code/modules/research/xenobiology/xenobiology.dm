@@ -524,6 +524,11 @@
 	var/more_caption = "more "
 	var/uses = 1
 
+/obj/item/slimepotion/clothing/fireproof/examine(mob/user)
+	. = ..()
+	if (uses > 1)
+		. += "Uses left: [uses]."
+
 /obj/item/slimepotion/clothing/proc/can_apply()
 	return FALSE
 
@@ -567,7 +572,7 @@
 /obj/item/slimepotion/clothing/fireproof
 	name = "slime chill potion"
 	id = "Fire Resistance"
-	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
+	desc = "A potent chemical mix that will fireproof any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	origin_tech = "biotech=5"
