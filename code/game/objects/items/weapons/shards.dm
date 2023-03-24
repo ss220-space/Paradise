@@ -19,6 +19,7 @@
 	var/cooldown = 0
 	var/icon_prefix
 	var/obj/item/stack/sheet/welded_type = /obj/item/stack/sheet/glass
+	var/plasmashard = FALSE
 
 /obj/item/shard/suicide_act(mob/user)
 		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -63,6 +64,16 @@
 	if(istype(I, /obj/item/lightreplacer))
 		I.attackby(src, user)
 		return
+	if(istype(I, /obj/item/stack/sheet/cloth))
+		var/obj/item/stack/sheet/cloth/CL = I
+		CL.use(1)
+		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
+		if(plasmashard)
+			new /obj/item/kitchen/knife/glassshiv/plasmaglassshiv(user.loc)
+			qdel(src)
+		else
+			new /obj/item/kitchen/knife/glassshiv(user.loc)
+			qdel(src)
 	return ..()
 
 /obj/item/shard/welder_act(mob/user, obj/item/I)
@@ -102,3 +113,4 @@
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	icon_prefix = "plasma"
 	welded_type = /obj/item/stack/sheet/plasmaglass
+	plasmashard = TRUE
