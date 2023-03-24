@@ -105,7 +105,7 @@
 	list_reagents = list("nutriment" = 8, "protein" = 3, "soysauce" = 1)
 	tastes = list("corn" = 1, "meat" = 2, "beans" = 1)
 	bitesize = 4
-	foodtype = FRIED | GRAIN | MEAT
+	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/cheeseburrito
 	name = "Cheese burrito"
@@ -115,7 +115,7 @@
 	list_reagents = list("nutriment" = 10, "soysauce" = 2)
 	tastes = list("corn" = 1, "beans" = 1, "cheese" = 2)
 	bitesize = 4
-	foodtype = FRIED | GRAIN | DAIRY
+	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/plasmaburrito
 	name = "Fuego Plasma Burrito"
@@ -125,7 +125,7 @@
 	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "capsaicin" = 4)
 	tastes = list("corn" = 1, "beans" = 1, "chili" = 2)
 	bitesize = 4
-	foodtype = FRIED | GRAIN
+	foodtype = GRAIN | VEGETABLES
 
 //////////////////////
 //		Chinese		//

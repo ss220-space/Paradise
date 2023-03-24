@@ -146,8 +146,8 @@
 	icon_state = "fathersoup"
 	filling_color = "#f85210"
 	trash = /obj/item/trash/pan
-	list_reagents = list("nutriment" = 8, "plantmatter" = 3, "water" = 10, "thermite" = 2, "capsaicin" = 10)
-	tastes = list("chili" = 1, "tears" = 3, "tomato" = 1, "black pepper" = 2, "pain" = 1)
+	list_reagents = list("nutriment" = 8, "plantmatter" = 3, "water" = 2, "thermite" = 2, "capsaicin" = 10)
+	tastes = list("chili" = 2, "tears" = 1, "tomato" = 1, "black pepper" = 2, "<span class='userdanger'><b>PAIN</b></span>" = 3)
 	foodtype = VEGETABLES | GROSS
 	bitesize = 5
 
