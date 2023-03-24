@@ -510,7 +510,7 @@
 	var/more_caption = "more "
 	var/uses = 1
 
-/obj/item/slimepotion/clothing/fireproof/examine(mob/user)
+/obj/item/slimepotion/clothing/examine(mob/user)
 	. = ..()
 	if (uses > 1)
 		. += "Uses left: [uses]."
