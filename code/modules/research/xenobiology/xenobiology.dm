@@ -528,8 +528,7 @@
 	return FALSE
 
 /obj/item/slimepotion/clothing/proc/apply_effect(obj/item/clothing/C)
-	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)
+	C.armor = C.armor.attachArmor(armor)
 
 /obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	if(!proximity_flag)
