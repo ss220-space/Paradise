@@ -617,7 +617,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle4"
 	origin_tech = "biotech=5"
-	var/uses = 1
 
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.laser < 100
@@ -661,7 +660,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle6"
 	origin_tech = "biotech=5"
-	var/uses = 1
 
 /obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.rad < 100
@@ -705,7 +703,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle7"
 	origin_tech = "biotech=5"
-	var/uses = 1
 
 /obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bio < 100
@@ -749,7 +746,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle9"
 	origin_tech = "biotech=5"
-	var/uses = 1
 
 /obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bomb < 100
@@ -792,7 +788,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle5"
 	origin_tech = "biotech=5"
-	var/uses = 1
 
 /obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
 	return !C.teleportation
