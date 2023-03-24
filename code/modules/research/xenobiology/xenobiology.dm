@@ -133,20 +133,6 @@
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
-/obj/item/slimepotion/clothing/proc/is_already_improved(obj/item/clothing/C)
-	if(C.slime_potions)
-		for(var/Potion as obj in GLOB.slime_potions)
-			var/obj/item/slimepotion/S = Potion
-			if(S.id == C.slime_potions)
-				C.slime_potions = null
-				C.name = initial(C.name)
-				var/datum/armor/current_armor = C.armor
-				C.armor = current_armor.detachArmor(S.armor)
-				C.teleportation = initial(C.teleportation)
-				return FALSE
-	else
-		return TRUE
-
 /obj/item/slimepotion/slime/docility
 	name = "docility potion"
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
@@ -535,6 +521,9 @@
 /obj/item/slimepotion/clothing/proc/apply_effect(obj/item/clothing/C)
 	C.armor = C.armor.attachArmor(armor)
 
+/obj/item/slimepotion/clothing/proc/cancel_effect(obj/item/clothing/C)
+	C.armor = C.armor.detachArmor(armor)
+
 /obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
@@ -550,14 +539,14 @@
 	if(!can_apply(C))
 		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return
-	if(!is_already_improved(C))
+	if(C.applied_slime_potion)
+		C.applied_slime_potion.cancel_effect(C)
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
 
 	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
+	C.applied_slime_potion = locate(src.type) in GLOB.slime_potions
+	C.name = "[applied_caption] [initial(C.name)]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
 	apply_effect(C)
 	uses -= 1
 	if (!uses)
@@ -591,6 +580,11 @@
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF
+
+/obj/item/slimepotion/clothing/fireproof/cancel_effect(obj/item/clothing/C)
+	C.max_heat_protection_temperature = initial(C.max_heat_protection_temperature)
+	C.heat_protection = initial(C.heat_protection)
+	C.resistance_flags = initial(C.resistance_flags)
 
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
@@ -696,6 +690,9 @@
 
 /obj/item/slimepotion/clothing/teleportation/apply_effect(obj/item/clothing/C)
 	C.teleportation = TRUE
+
+/obj/item/slimepotion/clothing/teleportation/cancel_effect(obj/item/clothing/C)
+	C.teleportation = initial(C.teleportation)
 
 /obj/item/slimepotion/clothing/damage
 	name = "Physical damage resistance slime potion"
