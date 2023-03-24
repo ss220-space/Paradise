@@ -61,6 +61,8 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
+	/// Do we need to switch pacifism after Greentext
+	var/toggle_pacifism = TRUE
 
 	var/list/randomtips = list()
 	var/list/memetips = list()
@@ -139,6 +141,10 @@ SUBSYSTEM_DEF(ticker)
 			declare_completion()
 			if(!SSmapping.next_map) //Next map already selected by admin
 				var/list/all_maps = subtypesof(/datum/map)
+				for(var/i in 1 to all_maps.len)
+					var/datum/map/map_check = all_maps[i]
+					if(map_check.admin_only)
+						all_maps -= map_check
 				switch(config.map_rotate)
 					if("rotate")
 						for(var/i in 1 to all_maps.len)
@@ -526,6 +532,9 @@ SUBSYSTEM_DEF(ticker)
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
+
+	if(toggle_pacifism)
+		GLOB.pacifism_after_gt = TRUE
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
