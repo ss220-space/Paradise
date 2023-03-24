@@ -612,7 +612,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
 	name = "improved exosuit control system"
-	desc = "A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
+	desc = "Equipment for medical exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
