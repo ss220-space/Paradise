@@ -11096,7 +11096,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "aVI" = (
@@ -12596,7 +12596,9 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bbn" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	layer = 4.1
+	},
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -17710,7 +17712,6 @@
 "byd" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -21056,7 +21057,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "bJW" = (
@@ -42283,11 +42284,16 @@
 	},
 /area/atmos)
 "dhN" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
+/obj/structure/urinal{
+	pixel_y = 32
 	},
-/turf/simulated/wall,
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
 /area/crew_quarters/toilet)
 "dhP" = (
 /obj/structure/grille/broken,
@@ -45191,16 +45197,6 @@
 /mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex/hall)
-"dzw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hydroponics)
 "dzL" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -46292,6 +46288,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
+"dZk" = (
+/obj/machinery/door/airlock{
+	name = "Unisex Restrooms"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/crew_quarters/toilet)
 "eaa" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -48837,7 +48841,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "eYj" = (
@@ -49345,6 +49349,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -49675,12 +49683,7 @@
 	name = "Unit 1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/crew_quarters/toilet)
-"foQ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "foX" = (
@@ -49749,7 +49752,6 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -50323,8 +50325,12 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/light_switch{
+	name = "west light switch";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "fAS" = (
@@ -54082,7 +54088,11 @@
 	},
 /area/maintenance/medroom)
 "hfa" = (
-/mob/living/simple_animal/hostile/retaliate/goat,
+/mob/living/simple_animal/hostile/retaliate/goat{
+	desc = "Старый козёл, настало время накормить им экипаж.";
+	name = "Боря";
+	real_name = "Боря"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -63347,7 +63357,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "kMO" = (
@@ -65862,6 +65872,9 @@
 "lJC" = (
 /obj/structure/table,
 /obj/item/clothing/under/swimsuit/red,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "lJE" = (
@@ -66322,14 +66335,6 @@
 "lQb" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
-"lQr" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
-/area/crew_quarters/dorms)
 "lQx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -69670,10 +69675,6 @@
 	name = "south fire alarm";
 	pixel_y = -24
 	},
-/obj/machinery/light_switch{
-	name = "east light switch";
-	pixel_x = 24
-	},
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 8;
@@ -69685,7 +69686,7 @@
 /obj/item/soap,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "ngl" = (
@@ -70241,9 +70242,9 @@
 	dir = 5
 	},
 /mob/living/simple_animal/crab/Coffee{
-	desc = "Master of the GYM";
-	name = "Billy Crabington";
-	real_name = "Billy Crabington"
+	desc = "Босс КАЧАЛКИ";
+	name = "Билли Крабингтон";
+	real_name = "Билли Крабингтон"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70366,8 +70367,12 @@
 "nvB" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "nvI" = (
@@ -70675,7 +70680,7 @@
 	},
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "nDg" = (
@@ -77154,9 +77159,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -77165,7 +77167,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "qeZ" = (
@@ -77578,6 +77580,9 @@
 "qnX" = (
 /obj/structure/window/reinforced,
 /obj/machinery/vending/cola,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "qog" = (
@@ -77605,7 +77610,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "qoR" = (
@@ -81515,7 +81520,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "rUc" = (
@@ -82447,6 +82452,9 @@
 	layer = 2.9
 	},
 /obj/structure/closet/athletic_mixed,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "snL" = (
@@ -82489,7 +82497,7 @@
 "spc" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "spo" = (
@@ -82498,7 +82506,7 @@
 	name = "Unit B"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "spt" = (
@@ -82637,10 +82645,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "ssn" = (
-/obj/machinery/light_switch{
-	name = "west light switch";
-	pixel_x = -24
-	},
 /obj/machinery/door_control{
 	id = "toilet_unit1";
 	name = "Door Bolt Control";
@@ -82650,7 +82654,7 @@
 	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "ssI" = (
@@ -82772,7 +82776,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "swi" = (
@@ -83740,7 +83744,7 @@
 	name = "Unit C"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "sQD" = (
@@ -84308,6 +84312,17 @@
 	icon_state = "blue"
 	},
 /area/maintenance/medroom)
+"tct" = (
+/obj/structure/sink{
+	pixel_y = 16
+	},
+/obj/structure/mirror{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/crew_quarters/toilet)
 "tcx" = (
 /obj/machinery/light_construct/small{
 	dir = 8
@@ -85297,7 +85312,6 @@
 /area/medical/sleeper)
 "tuw" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -85586,6 +85600,9 @@
 "tzr" = (
 /obj/effect/landmark/start/civilian,
 /obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -87183,8 +87200,8 @@
 /area/maintenance/livingcomplex)
 "ugO" = (
 /obj/structure/reagent_dispensers/fueltank{
-	desc = "Вагончик с топливом, кажется он пуст. Кто и зачем его сюда притащил?";
-	reagent_id = null
+	desc = "Вагончик с топливом. Достаточно лёгкий, видать пустой. Интересно, кто его тут оставил...";
+	tank_volume = 0
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -87935,14 +87952,8 @@
 /turf/simulated/wall,
 /area/maintenance/medroom)
 "uwG" = (
-/obj/structure/sink{
-	pixel_y = 16
-	},
-/obj/structure/mirror{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "uwK" = (
@@ -88271,7 +88282,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "uEy" = (
@@ -88406,7 +88417,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "uGz" = (
@@ -90151,9 +90162,11 @@
 	},
 /area/medical/cryo)
 "vkc" = (
-/obj/structure/window/reinforced,
 /mob/living/simple_animal/hostile/carp/koi{
 	name = "Jeremy"
+	},
+/obj/structure/window/reinforced{
+	layer = 4.1
 	},
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
@@ -90815,7 +90828,9 @@
 	},
 /area/crew_quarters/dorms)
 "vxV" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	layer = 4.1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "rampbottom"
@@ -96533,7 +96548,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/toilet)
 "xQs" = (
@@ -129451,7 +129466,7 @@ aZs
 aZs
 iek
 aUQ
-foQ
+uwG
 eYb
 fAO
 swa
@@ -130478,11 +130493,11 @@ eYX
 rQe
 jlJ
 dEN
-aUQ
+dZk
 uwG
 rTR
 aUQ
-dhN
+aUQ
 aUQ
 aUN
 bnM
@@ -130736,8 +130751,8 @@ eYX
 jlJ
 ixO
 aUQ
+tct
 uwG
-foQ
 spo
 nDb
 aUQ
@@ -131250,8 +131265,8 @@ gwP
 jlJ
 dEN
 aUQ
-uGr
-foQ
+dhN
+uwG
 sQr
 uEv
 aUS
@@ -131493,10 +131508,10 @@ aEv
 qXT
 aOI
 aWK
-lQr
-lQr
-lQr
-lQr
+aWK
+aWK
+aWK
+aWK
 bbn
 bcO
 jlJ
@@ -138199,7 +138214,7 @@ kxK
 sfe
 wrX
 bqa
-dzw
+bqa
 bqa
 bqa
 bqa
@@ -138456,7 +138471,7 @@ beb
 pmY
 wrX
 bqa
-dzw
+bqa
 bqa
 bqa
 bqa
