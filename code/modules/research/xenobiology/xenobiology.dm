@@ -563,6 +563,9 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/clothing
+	var/inapplicable_caption
+
 /obj/item/slimepotion/clothing/proc/can_apply()
 	return FALSE
 
@@ -574,6 +577,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
+
+	inapplicable_caption = "acidproof"
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.acid < 100
@@ -589,7 +594,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
@@ -618,6 +623,8 @@
 	icon_state = "bottle4"
 	origin_tech = "biotech=5"
 
+	inapplicable_caption = "laser proof"
+
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.laser < 100
 
@@ -632,7 +639,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already laser proof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
@@ -661,6 +668,8 @@
 	icon_state = "bottle6"
 	origin_tech = "biotech=5"
 
+	inapplicable_caption = "radiation proof"
+
 /obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.rad < 100
 
@@ -675,7 +684,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already Radiation proof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
@@ -704,6 +713,8 @@
 	icon_state = "bottle7"
 	origin_tech = "biotech=5"
 
+	inapplicable_caption = "bio proof"
+
 /obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bio < 100
 
@@ -718,7 +729,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already bio proof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
@@ -747,6 +758,8 @@
 	icon_state = "bottle9"
 	origin_tech = "biotech=5"
 
+	inapplicable_caption = "explosion proof"
+
 /obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bomb < 100
 
@@ -761,7 +774,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already explosion proof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
@@ -789,6 +802,8 @@
 	icon_state = "bottle5"
 	origin_tech = "biotech=5"
 
+	inapplicable_caption = "with teleportation slime potion on it"
+
 /obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
 	return !C.teleportation
 
@@ -803,7 +818,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already with teleportation slime potion on it!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
@@ -826,6 +841,8 @@
 	icon_state = "bottle10"
 	origin_tech = "biotech=5"
 
+	inapplicable_caption = "damage proof"
+
 /obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.melee < 100 || C.armor.bullet < 100
 
@@ -840,7 +857,7 @@
 		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already damage proof!</span>")
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
 		return ..()
 	if(!is_already_improved(C))
 		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
