@@ -577,6 +577,29 @@
 	var/datum/armor/current_armor = C.armor
 	C.armor = current_armor.attachArmor(armor)
 
+/obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(istype(C, /obj/item/clothing/neck))
+		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
+		return
+	if(!can_apply(C))
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
+		return
+	if(!is_already_improved(C))
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
+
+	C.slime_potions = id
+	C.name = "[applied_caption] [C.name]"
+	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
+	C.is_improved_by_potion = TRUE
+	apply_effect(C)
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
+	qdel(src)
+
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
 	id = "Acid Proof"
@@ -593,30 +616,6 @@
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.acid < 100
-
-/obj/item/slimepotion/clothing/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
 
 /obj/item/slimepotion/clothing/acidproof/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
@@ -641,30 +640,6 @@
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.laser < 100
 
-/obj/item/slimepotion/clothing/laserresistance/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
-
 /obj/item/slimepotion/clothing/laserresistance/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
@@ -687,30 +662,6 @@
 
 /obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.rad < 100
-
-/obj/item/slimepotion/clothing/radiation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
 
 /obj/item/slimepotion/clothing/radiation/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
@@ -735,30 +686,6 @@
 /obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bio < 100
 
-/obj/item/slimepotion/clothing/bio/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
-
 /obj/item/slimepotion/clothing/bio/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
@@ -781,30 +708,6 @@
 
 /obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.bomb < 100
-
-/obj/item/slimepotion/clothing/explosionresistencte/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
 
 /obj/item/slimepotion/clothing/explosionresistencte/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
@@ -832,31 +735,6 @@
 /obj/item/slimepotion/clothing/teleportation/apply_effect(obj/item/clothing/C)
 	C.teleportation = TRUE
 
-/obj/item/slimepotion/clothing/teleportation/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
-
-
 /obj/item/slimepotion/clothing/damage
 	name = "Physical damage resistance slime potion"
 	id = "Damage Resistance"
@@ -873,30 +751,6 @@
 
 /obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
 	return !istype(C.armor) || C.armor.melee < 100 || C.armor.bullet < 100
-
-/obj/item/slimepotion/clothing/damage/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
-	if(istype(C, /obj/item/clothing/neck))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
-		return
-	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
-		return ..()
-	if(!is_already_improved(C))
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
-
-	C.slime_potions = id
-	C.name = "[applied_caption] [C.name]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	C.is_improved_by_potion = TRUE
-	apply_effect(C)
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
-	qdel(src)
 
 /obj/effect/timestop
 	anchored = 1
