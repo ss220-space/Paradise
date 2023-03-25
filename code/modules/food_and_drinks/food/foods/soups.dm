@@ -140,17 +140,6 @@
 	tastes = list("potato" = 1, "pickles" = 1, "rice" = 1, "Russia" = 1)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/soup/fathersoup
-	name = "Father's soup"
-	desc = "A hellish meal. It's better to refuse politely."
-	icon_state = "fathersoup"
-	filling_color = "#f85210"
-	trash = /obj/item/trash/pan
-	list_reagents = list("nutriment" = 8, "plantmatter" = 3, "water" = 2, "thermite" = 2, "capsaicin" = 10)
-	tastes = list("chili" = 2, "tears" = 1, "tomato" = 1, "black pepper" = 2, "<span class='userdanger'><b>PAIN</b></span>" = 3)
-	foodtype = VEGETABLES | GROSS
-	bitesize = 5
-
 //////////////////////
 //		Stews		//
 //////////////////////

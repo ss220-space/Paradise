@@ -277,12 +277,3 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/lizard
 
-/datum/recipe/grill/fathersoup
-	reagents = list("flour" = 10, "blackpepper" = 5)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/grown/garlic,
-		/obj/item/reagent_containers/food/snacks/grown/ghost_chili,
-		/obj/item/reagent_containers/food/snacks/grown/tomato,
-		/obj/item/reagent_containers/food/snacks/soup/tomatosoup
-	)
-	result = /obj/item/reagent_containers/food/snacks/soup/fathersoup
