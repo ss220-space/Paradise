@@ -368,16 +368,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
 	visible_message("<span class='warning'>[src] begins to convulse violently before beginning to dissipate.</span>")
 	visible_message("<span class='warning'>As [src] closes, something is forced up from down below.</span>")
-	var/lootloc = boosted ? new /obj/structure/closet/crate/necropolis/tendril(loc) : loc
-	if(mychild.loot_drop != null && prob(50))
-		new mychild.loot_drop(lootloc)
-	else
-		new /obj/item/tumor_shard(lootloc)
+	var/lootloc = loc
 	if(boosted)
+		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
+		if(prob(50))
+			new /obj/item/tumor_shard(lootloc)
 		// var/obj/structure/closet/crate/necropolis/tendril/lootbox = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
+	new mychild.loot_drop(lootloc)
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
@@ -387,6 +387,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		clear_activator(activator)
 	to_chat(mychild, "<span class='danger'>You have won the fight. Elite tumor has been defended once again.</span>")
 	qdel(mychild)
+	mychild = null
 	if(boosted)
 		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
