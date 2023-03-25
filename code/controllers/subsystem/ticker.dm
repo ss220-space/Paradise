@@ -166,8 +166,8 @@ SUBSYSTEM_DEF(ticker)
 						SSvote.start_vote(new /datum/vote/map)
 					else
 						SSmapping.next_map = SSmapping.map_datum
-
-			to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+			if(SSmapping.next_map)
+				to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()

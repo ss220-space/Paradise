@@ -11,6 +11,7 @@ export const VotePanel = (props, context) => {
     user_vote,
     counts,
     show_counts,
+    show_cancel,
   } = data;
   return (
     <Window>
@@ -27,6 +28,13 @@ export const VotePanel = (props, context) => {
                 selected={choice === user_vote} />
             </Box>
           ))}
+          {!!show_cancel && (
+            <Box key={"Cancel"}>
+              <Button
+                content={"Cancel"}
+                onClick={() => act("cancel")} />
+            </Box>
+          )}
         </Section>
       </Window.Content>
     </Window>

@@ -18,6 +18,10 @@
 	question = "Map Vote"
 	vote_type_text = "map"
 
+/datum/vote/map/New()
+	..()
+	no_dead_vote = FALSE
+
 /datum/vote/map/generate_choices()
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x

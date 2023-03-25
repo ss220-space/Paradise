@@ -15,6 +15,10 @@
 	var/vote_result_type = VOTE_RESULT_TYPE_MAJORITY
 	/// Was this vote custom started?
 	var/is_custom = FALSE
+	/// Is dead players allowed to vote
+	var/no_dead_vote = FALSE
+	/// Is we muted OOC for vote, and it should be enabled
+	var/ooc_auto_muted = 0
 	/// Choices available in the vote
 	var/list/choices = list()
 	// Assoc list of [ckeys => choice] who have voted. We dont want to hold client refs.
@@ -34,6 +38,8 @@
 
 	is_custom = _is_custom
 
+	no_dead_vote = config.vote_no_dead
+
 	// If we have no choices, dynamically generate them
 	if(!length(choices))
 		generate_choices()
@@ -48,6 +54,13 @@
 
 	else if(usr)
 		log_admin("[capitalize(vote_type_text)] vote started by [key_name(usr)].")
+
+	if(config.ooc_allowed)
+		ooc_auto_muted = TRUE
+		config.ooc_allowed = FALSE
+		to_chat(world, "<b>The OOC channel has been automatically disabled due to a vote.</b>")
+		log_admin("OOC was toggled automatically due to a vote.")
+		message_admins("OOC has been toggled off automatically.")
 
 	log_vote(text)
 	started_time = world.time
@@ -121,20 +134,22 @@
 
 /datum/vote/proc/tick()
 	if(remaining() == 0)
-		// Announce result
 		var/result = calculate_result()
 		handle_result(result)
 		qdel(src)
 
 
 /datum/vote/Destroy(force)
-	// Should always be true but ehhhhhhh
 	if(SSvote.active_vote == src)
 		SSvote.active_vote = null
+		if(ooc_auto_muted && !config.ooc_allowed)
+			config.ooc_allowed = TRUE
+			to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")
+			log_admin("OOC was toggled automatically due to vote end.")
+			message_admins("OOC has been toggled on automatically.")
 	return ..()
 
 
-// Override on children
 /datum/vote/proc/handle_result(result)
 	return
 
@@ -176,13 +191,16 @@
 		data["counts"] = counts
 	else
 		data["show_counts"] = FALSE
-		data["counts"] = list() // No TGUI exploiting for you
+		data["counts"] = list()
 
 	return data
 
 /datum/vote/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
+
+	if(no_dead_vote && (usr.stat == DEAD || istype((usr), /mob/living/simple_animal)) && !usr.client.holder)
+		return FALSE
 
 	. = TRUE
 
@@ -192,4 +210,8 @@
 				voted[usr.ckey] = params["target"]
 			else
 				message_admins("<span class='boldannounce'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
+		if("cancel")
+			if(check_rights(R_ADMIN))
+				log_and_message_admins("Canceled a vote")
+				qdel(SSVote.active_vote)
 

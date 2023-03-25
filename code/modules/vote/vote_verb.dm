@@ -58,4 +58,24 @@
 	V.show_counts = (c2 == "Yes")
 	V.vote_result_type = c3
 	SSvote.start_vote(V)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Vote") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/togglevotedead()
+	set category = "Server"
+	set desc = "Toggle Dead Vote."
+	set name = "Toggle Dead Vote"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(!SSvote.active_vote)
+		to_chat(usr, "There is no active vote!")
+		return
+
+	SSvote.active_vote.no_dead_vote = !SSvote.active_vote.no_dead_vote
+	if(SSvote.active_vote.no_dead_vote)
+		to_chat(world, "<B>Dead Vote has been disabled!</B>")
+	else
+		to_chat(world, "<B>Dead Vote has been enabled!</B>")
+	log_and_message_admins("toggled Dead Vote.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead Vote") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
