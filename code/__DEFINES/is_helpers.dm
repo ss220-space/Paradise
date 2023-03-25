@@ -14,6 +14,11 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+GLOBAL_LIST_INIT(not_an_item_types, typecacheof(list(
+	/obj/item/grab)))
+
+#define is_really_item(I) (!is_type_in_typecache(I, GLOB.not_an_item_types))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
