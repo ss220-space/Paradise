@@ -39,7 +39,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define SYNC_SERVER 40
 #define DECONSTRUCT_DELAY 24
 #define SYNC_DEVICE_DELAY 20
-#define RESET_RESEARCH_DELAY 20
+#define RESET_RESEARCH_DELAY 60
 #define IMPRINTER_DELAY 16
 
 // SUBMENU_MAIN also used by other menus
@@ -74,7 +74,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null	//Linked Destructive Analyzer
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
-	var/obj/machinery/r_n_d/server/linked_server //Linked Server
+	var/obj/machinery/r_n_d/server/linked_server = null  //Linked Server
 
 	var/screen = 1.0	//Which screen is currently showing.
 
@@ -167,18 +167,38 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		else
 			add_link()
 
-/obj/machinery/computer/rdconsole/proc/add_link(obj/machines/r_n_d/server/target)
+/obj/machinery/computer/rdconsole/proc/add_link(/obj/machinery/r_n_d/server/target)
 	linked_server = target
-	target.linked_console |= src
 	sync = TRUE
-	sync_research()
 
-/obj/machinery/tcomms/relay/proc/del_link()
+/obj/machinery/computer/rdconsole/proc/del_link()
 	if(linked_server)
-		linked_server.linked_consoles -= src
 		linked_server = null
 		sync = FALSE
 		reset_research()
+		add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
+		addtimer(CALLBACK(src, .proc/reset_research), RESET_RESEARCH_DELAY)
+
+/obj/machinery/computer/rdconsole/proc/check_link(/obj/machinery/r_n_d/server/target)
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(!linked_server)
+			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+			return
+		else(target.stat & NOPOWER)
+			del_link()
+			to_chat(usr, "<span class='danger'>Connection to the network is lost!</span>")
+			SStgui.update_uis(src)
+
+/obj/machinery/computer/rdconsole/proc/reset_research()
+	qdel(files)
+	files = new /datum/research(src)
+	clear_wait_message()
+	SStgui.update_uis(src)
+
+/obj/machinery/computer/rdconsole/proc/find_devices()
+	SyncRDevices()
+	clear_wait_message()
+	SStgui.update_uis(src)
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -294,7 +314,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(t_disk && t_disk.stored)
 		files.AddTech2Known(t_disk.stored)
 	SStgui.update_uis(src)
-	sync_research()
 	griefProtection() //Update centcom too
 
 /obj/machinery/computer/rdconsole/proc/sync_research()
@@ -316,25 +335,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			S.produce_heat(100)
 	return
 
-/obj/machinery/computer/rdconsole/proc/reset_research()
-	qdel(files)
-	files = new /datum/research(src)
-	clear_wait_message()
-	sync_research()
-	SStgui.update_uis(src)
-
-/obj/machinery/computer/rdconsole/proc/find_devices()
-	SyncRDevices()
-	clear_wait_message()
-	SStgui.update_uis(src)
-
 /obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-		if(S.stat & NOPOWER)
-			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-			del_link()
-			SStgui.update_uis(src)
-
 	if(!linked_destroy)
 		return
 
@@ -363,7 +364,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("[linked_destroy.icon_closed]_process", linked_destroy)
 	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech, user), DECONSTRUCT_DELAY)
-	sync_research()
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -415,7 +415,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
-	sync_research()
 	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
@@ -426,12 +425,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!machine)
 		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
 		return
-
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-		if(S.stat & NOPOWER)
-		del_link()
-		to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-		SStgui.update_uis(src)
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
@@ -590,8 +583,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			selected_category = "Viewing Category [next_category]"
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
+			check_link()
 			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, .proc/update_from_disk), TECH_UPDATE_DELAY)
+			sync_research()
 
 		if("clear_tech") //Erase data on the technology disk.
 			if(t_disk)
@@ -608,6 +603,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
 			// Somehow this href makes me very nervous
+			check_link()
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
 				t_disk.name = "[t_disk.default_name] \[[known]\]"
@@ -617,8 +613,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			submenu = SUBMENU_MAIN
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
+			check_link()
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
 			addtimer(CALLBACK(src, .proc/update_from_disk), DESIGN_UPDATE_DELAY)
+			sync_research()
+
 
 		if("clear_design") //Erases data on the design disk.
 			if(d_disk)
@@ -635,10 +634,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
+			check_link()
 			var/datum/design/design = files.known_designs[params["id"]]
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-				return
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
 			menu = MENU_DISK
@@ -656,24 +653,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					menu = MENU_DESTROY
 
 		if("maxresearch")
+			check_link()
 			if(!check_rights(R_ADMIN))
-				return
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 				return
 			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
 			Maximize()
+			sync_research()
 			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-				return
-			else
-				start_destroyer(usr)
+			check_link()
+			start_destroyer(usr)
+			sync_research()
 
 /*		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
@@ -687,20 +681,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			sync_server()
 			add_wait_message("Syncing with server...", SYNC_SERVER)
 			addtimer(CALLBACK(src, .proc/sync_server), SYNC_SERVER)
+			sync_research()
 
 		if("build") //Causes the Protolathe to build something.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-				return
-			else
-				start_machine(linked_lathe, params["id"], text2num(params["amount"]))
+			check_link()
+			sync_research()
+			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
 
 		if("imprint") //Causes the Circuit Imprinter to build something.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-				return
-			else
-				start_machine(linked_imprinter, params["id"], text2num(params["amount"]))
+			check_link()
+			sync_research()
+			start_machine(linked_imprinter, params["id"], text2num(params["amount"]))
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
@@ -742,17 +733,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(linked_imprinter)
 						linked_imprinter.linked_console = null
 						linked_imprinter = null
-
-		if("reset") //Reset the R&D console's database.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-				return
+				if("server")
+					if(linked_server)
+						del_link()
+/*		if("reset") //Reset the R&D console's database. //2 much risks to let this option exist
+			check_link()
 			griefProtection()
 			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, .proc/reset_research), RESET_RESEARCH_DELAY)
-
+*/
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
 			var/compare
