@@ -380,8 +380,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/onEliteWon()
 	to_chat(mychild, "<span class='danger'>You have won the fight. Elite tumor has been defended once again.</span>")
-	spawn(100)
-		qdel(mychild)
+	sleep(100)
+	qdel(mychild)
 	activity = TUMOR_INACTIVE
 	icon_state = "tumor"
 	if(activator)
