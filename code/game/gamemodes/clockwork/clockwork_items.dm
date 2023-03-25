@@ -233,30 +233,39 @@
 	if(enchant_type)
 		overlays += "ratvarian_spear0_overlay_[enchant_type]"
 
-/obj/item/twohanded/ratvarian_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(wielded)
-		return ..()
-	return FALSE
+/obj/item/twohanded/ratvarian_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(isliving(hit_atom))
+		var/mob/living/living = hit_atom
+		if(isclocker(living))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
+			if(!living.restrained() && living.put_in_active_hand(src))
+				living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
+			else
+				living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
+		else
+			..()
+	else
+		..()
 
 /obj/item/twohanded/ratvarian_spear/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
+		user.emote("scream")
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
 			human.embed_item_inside(src)
-			user.emote("scream")
+			to_chat(user, "<span class='danger'>[src] pierces into your body!</span>")
 			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
 		else
 			user.remove_from_mob(src)
-			user.emote("scream")
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
 	..()
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(!wielded || !isliving(target))
+	if(!proximity || !wielded || !isliving(target))
 		return
-	if(!proximity)
+	if(isclocker(target))
 		return
 	var/mob/living/living = target
 	switch(enchant_type)
@@ -279,6 +288,15 @@
 			add_attack_logs(user, living, "Point-EMP with [src]")
 			deplete_spell()
 
+/obj/item/twohanded/ratvarian_spear/pickup(mob/living/user)
+	. = ..()
+	if(!isclocker(user))
+		to_chat(user, "<span class='clocklarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		user.Confused(10)
+		user.Jitter(6)
+
+//Ratvarian borg spear
 /obj/item/clock_borg_spear
 	name = "ratvarian spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
@@ -304,9 +322,9 @@
 
 /obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(!isliving(target))
+	if(!proximity || !isliving(target))
 		return
-	if(!proximity)
+	if(isclocker(target))
 		return
 	var/mob/living/living = target
 	switch(enchant_type)
@@ -329,7 +347,7 @@
 			add_attack_logs(user, living, "Point-EMP with [src]")
 			deplete_spell()
 
-
+//Clock hammer
 /obj/item/twohanded/clock_hammer
 	name = "hammer clock"
 	desc = "A heavy hammer of an elder god. Used to shine like in past times."
@@ -359,29 +377,53 @@
 	if(enchant_type)
 		overlays += "clock_hammer0_overlay_[enchant_type]"
 
-/obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, def_zone)
-	. = ..()
+/obj/item/twohanded/clock_hammer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(isliving(hit_atom))
+		var/mob/living/living = hit_atom
+		if(isclocker(living))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
+			if(!living.restrained() && living.put_in_active_hand(src))
+				living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
+			else
+				living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
+		else
+			..()
+	else
+		..()
+
+/obj/item/twohanded/clock_hammer/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
-		target = user
-		to_chat(user, "<span class='clocklarge'>\"Don't hit yourself.\"</span>")
-		target.adjustBruteLoss(25)
-		user.remove_from_mob(src)
+		user.Weaken(5)
+		user.unEquip(src, 1)
+		user.emote("scream")
+		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [M]!</span>",
+		"<span class='clocklarge'>\"Don't hit yourself.\"</span>")
+
+		var/wforce = rand(force_unwielded, force_wielded)
+		if(ishuman(user))
+			var/mob/living/carbon/human/human = user
+			human.apply_damage(wforce, BRUTE, "head")
+		else
+			user.adjustBruteLoss(wforce)
 		return
-	if(!wielded)
+	..()
+
+/obj/item/twohanded/clock_hammer/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!proximity || !wielded || !isliving(target))
 		return
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	if(isclocker(target))
+		return
+	var/mob/living/living = target
 	switch(enchant_type)
 		if(KNOCKOFF_SPELL)
-			if(isclocker(target))
-				return
-			target.throw_at(throw_target, 200, 20, user) // vroom
+			var/atom/throw_target = get_edge_target_turf(living, user.dir)
+			living.throw_at(throw_target, 200, 20, user) // vroom
 			add_attack_logs(user, target, "Knocked-off with [src]")
 			deplete_spell()
 		if(CRUSH_SPELL)
-			if(isclocker(target))
-				return
-			if(ishuman(target))
-				var/mob/living/carbon/human/human = target
+			if(ishuman(living))
+				var/mob/living/carbon/human/human = living
 				var/obj/item/rod = human.null_rod_check()
 				if(rod)
 					human.visible_message("<span class='danger'>[human]'s [rod] shines as it deflects magic from [user]!</span>")
@@ -390,13 +432,22 @@
 				var/obj/item/organ/external/BP = pick(human.bodyparts)
 				BP.emp_act(EMP_HEAVY)
 				BP.fracture()
-			if(isrobot(target))
+			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = target
 				var/datum/robot_component/RC = pick(robot.components)
 				RC.destroy()
 			add_attack_logs(user, target, "Crushed with [src]")
 			deplete_spell()
 
+/obj/item/twohanded/clock_hammer/pickup(mob/living/user)
+	. = ..()
+	if(!isclocker(user))
+		to_chat(user, "<span class='clocklarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		user.Confused(10)
+		user.Jitter(6)
+
+//Clock sword
 /obj/item/melee/clock_sword
 	name = "rustless sword"
 	desc = "A simplish sword that barely made for fighting, but still has some powders to give."
@@ -426,6 +477,20 @@
 	if(enchant_type)
 		overlays += "clock_sword_overlay_[enchant_type]"
 
+/obj/item/melee/clock_sword/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(isliving(hit_atom))
+		var/mob/living/living = hit_atom
+		if(isclocker(living))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
+			if(!living.restrained() && living.put_in_active_hand(src))
+				living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
+			else
+				living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
+		else
+			..()
+	else
+		..()
+
 /obj/item/melee/clock_sword/attack_self(mob/user)
 	. = ..()
 	if(!isclocker(user))
@@ -449,25 +514,51 @@
 	swordsman = FALSE
 	deplete_spell()
 
+/obj/item/melee/clock_sword/attack(mob/living/M, mob/living/user, def_zone)
+	if(!isclocker(user))
+		user.emote("scream")
+		if(ishuman(user))
+			var/mob/living/carbon/human/human = user
+			human.embed_item_inside(src)
+			to_chat(user, "<span class='danger'>[src] pierces into your body!</span>")
+			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
+		else
+			user.remove_from_mob(src)
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		return
+	..()
+
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity_flag) //no, you can't just tear skin just by looking. You need to attack.
+	if(!proximity_flag || !isliving(target))
 		return
-	if(enchant_type == BLOODSHED_SPELL && ishuman(target))
+	if(isclocker(target))
+		return
+	if(ishuman(target))
 		var/mob/living/carbon/human/human = target
-		var/obj/item/organ/external/BP = pick(human.bodyparts)
-		to_chat(user, "<span class='warning'> You tear through [human]'s skin releasing the blood from [human.p_their()] [BP.name]!</span>")
-		human.custom_pain("Your skin tears in [BP.name] from [src]!")
-		playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-		BP.internal_bleeding = TRUE
-		human.blood_volume = max(human.blood_volume - 100, 0)
-		var/splatter_dir = get_dir(user, human)
-		blood_color = human.dna.species.blood_color
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
-		deplete_spell()
-	if(swordsman && isliving(target))
+		if(enchant_type == BLOODSHED_SPELL && human.dna && !(NO_BLOOD in human.dna.species.species_traits))
+			var/obj/item/organ/external/BP = pick(human.bodyparts)
+			to_chat(user, "<span class='warning'> You tear through [human]'s skin releasing the blood from [human.p_their()] [BP.name]!</span>")
+			human.custom_pain("Your skin tears in [BP.name] from [src]!")
+			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
+			BP.internal_bleeding = TRUE
+			human.blood_volume = max(human.blood_volume - 100, 0)
+			var/splatter_dir = get_dir(user, human)
+			blood_color = human.dna.species.blood_color
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
+			deplete_spell()
+	if(swordsman)
 		user.changeNext_move(CLICK_CD_RAPID)
 
+/obj/item/melee/clock_sword/pickup(mob/living/user)
+	. = ..()
+	if(!isclocker(user))
+		to_chat(user, "<span class='clocklarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		user.Confused(10)
+		user.Jitter(6)
+
+//Buckler
 /obj/item/shield/clock_buckler
 	name = "brass buckler"
 	desc = "Small shield that protects on arm only. But with the right use it can protect a full body."
@@ -497,19 +588,36 @@
 
 /obj/item/shield/clock_buckler/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(!isclocker(user))
+	if(!proximity || !isliving(target))
 		return
-	if(!proximity) //how you can push someone without getting to them close?
+	if(isclocker(target))
 		return
-	if(enchant_type == PUSHOFF_SPELL && isliving(target))
-		var/mob/living/liv = target
+	if(enchant_type == PUSHOFF_SPELL)
+		var/mob/living/living = target
 		if(prob(60))
-			liv.AdjustStunned(1)
+			living.AdjustStunned(1)
 		else
 			var/atom/throw_target = get_edge_target_turf(target, user.dir)
-			liv.throw_at(throw_target, 2, 5, spin = FALSE)
-			liv.AdjustConfused(3)
+			living.throw_at(throw_target, 2, 5, spin = FALSE)
+			living.AdjustConfused(3)
 		deplete_spell()
+
+/obj/item/shield/clock_buckler/equipped(mob/living/user, slot)
+	. = ..()
+	if(!isclocker(user))
+		if(!iscultist(user))
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+			user.visible_message("<span class='warning'>As [user] picks [src] up, it flickers off their arms!</span>", "<span class='warning'>The buckler flicker off your arms, leaving only nausea!</span>")
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.vomit()
+				C.Weaken(5)
+		else
+			to_chat(user, "<span class='clocklarge'>\"Did you like having head?\"</span>")
+			to_chat(user, "<span class='userdanger'>The buckler suddenly hits you in the head!</span>")
+			user.emote("scream")
+			user.apply_damage(10, BRUTE, "head")
+		user.remove_from_mob(src)
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -543,7 +651,7 @@
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/carbon = user
-		if(carbon.wear_suit != src)
+		if(carbon.wear_suit != src || !isclocker(carbon))
 			return
 		if(enchant_type == INVIS_SPELL)
 			if(carbon.wear_suit != src)
@@ -589,6 +697,23 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
+
+/obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot)
+	. = ..()
+	if(!isclocker(user))
+		if(!iscultist(user))
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+			user.visible_message("<span class='warning'>As [user] picks [src] up, it flickers off their arms!</span>", "<span class='warning'>The robe flicker off your arms, leaving only nausea!</span>")
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.vomit()
+				C.Weaken(5)
+		else
+			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
+			user.emote("scream")
+			user.apply_damage(7, BURN, "chest")
+			user.IgniteMob()
+		user.remove_from_mob(src)
 
 // Clockwork Armour. Basically greater robe with more and better spells.
 /obj/item/clothing/suit/armor/clockwork
@@ -686,7 +811,6 @@
 	armor = normal_armor
 	flags &= ~NODROP
 	deplete_spell()
-
 
 /obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot)
 	. = ..()
@@ -811,6 +935,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot)
 	. = ..()
@@ -1000,17 +1125,110 @@
 		return
 	to_chat(user, "<span class='warning'>You have to find a dead body to fill a vessel.</span>")
 
-/obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
+/obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user)
+	// capturing robotic brains
+	if(istype(O, /obj/item/mmi/robotic_brain/clockwork) && !istype(src, /obj/item/mmi/robotic_brain/clockwork))
+		if(!isclocker(user))
+			user.Weaken(5)
+			user.emote("scream")
+			to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+			to_chat(user, "<span class='clocklarge'>\"Don't even try.\"</span>")
+			return
+		else
+			var/mob/living/carbon/brain/b_mob
+			var/obj/item/mmi/robotic_brain/brain = src
+			var/obj/item/mmi/robotic_brain/clockwork/vessel = O
+			b_mob = brain.brainmob
+
+			if(vessel.brainmob.key)
+				to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
+				return
+			if(!(b_mob && b_mob.key))
+				to_chat(user, "<span class='clock'>\"This brain has no soul to catch.\"</span>")
+				return
+			if(jobban_isbanned(b_mob, ROLE_CLOCKER) || jobban_isbanned(b_mob, ROLE_SYNDICATE))
+				to_chat(user, "<span class='warning'>A mysterious force prevents you from claiming [b_mob]'s mind.</span>")
+				return
+			if(vessel.searching)
+				to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
+				return
+
+			playsound(brain, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
+			user.visible_message("<span class='warning'>[user] starts pressing [vessel] to [b_mob]'s brain, ripping through the cables and components</span>", \
+			"<span class='clock'>You start extracting [b_mob]'s consciousness from [b_mob.p_their()] brain.</span>")
+
+			if(do_after(user, 40, target = brain))
+				if(vessel.searching)
+					to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
+					return
+				user.visible_message("<span class='warning'>[user] pressed [vessel] through [b_mob]'s brain and extracted something!", \
+				"<span class='clock'>You extracted [b_mob]'s consciousness, trapping it in the soul vessel.")
+				vessel.try_to_transfer(b_mob)
+				vessel.searching = TRUE
+				qdel(brain)
+				return TRUE
+			return
+	// chaplain purifying
+	else if(istype(O, /obj/item/storage/bible) && istype(src, /obj/item/mmi/robotic_brain/clockwork) && !isclocker(user) && user.mind.isholy)
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 40, target = src))
 			var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
 			if(brainmob.key)
+				to_chat(brainmob, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar \
+				and the memories of your time as their servant with it.</span>")
 				SSticker.mode.remove_clocker(brainmob.mind)
 				purified.transfer_identity(brainmob)
 			qdel(src)
+		return
+	else
+		..()
 
+/obj/item/organ/internal/brain/attackby(obj/item/O, mob/user)
+	// capturing organic brains
+	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
+		if(!isclocker(user))
+			user.Weaken(5)
+			user.emote("scream")
+			to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+			to_chat(user, "<span class='clocklarge'>\"Don't even try.\"</span>")
+			return
+		else
+			var/mob/living/carbon/brain/b_mob
+			var/obj/item/organ/internal/brain/brain = src
+			var/obj/item/mmi/robotic_brain/clockwork/vessel = O
+			b_mob = brain.brainmob
+
+			if(vessel.brainmob.key)
+				to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
+				return
+			if(!(b_mob && b_mob.key))
+				to_chat(user, "<span class='clock'>\"This brain has no soul to catch.\"</span>")
+				return
+			if(jobban_isbanned(b_mob, ROLE_CLOCKER) || jobban_isbanned(b_mob, ROLE_SYNDICATE))
+				to_chat(user, "<span class='warning'>A mysterious force prevents you from claiming [b_mob]'s mind.</span>")
+				return
+			if(vessel.searching)
+				to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
+				return
+
+			playsound(brain, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
+			user.visible_message("<span class='warning'>[user] starts pressing [vessel] to [b_mob]'s brain, ripping through its tissue</span>", \
+			"<span class='clock'>You start extracting [b_mob]'s consciousness from [b_mob.p_their()] brain.</span>")
+
+			if(do_after(user, 40, target = brain))
+				if(vessel.searching)
+					to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
+					return
+				user.visible_message("<span class='warning'>[user] pressed [vessel] through [b_mob]'s brain and extracted something!", \
+				"<span class='clock'>You extracted [b_mob]'s consciousness, trapping it in the soul vessel.")
+				vessel.try_to_transfer(b_mob)
+				vessel.searching = TRUE
+				qdel(brain)
+				return TRUE
+			return
+	else
+		..()
 
 /obj/item/mmi/robotic_brain/clockwork/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
@@ -1028,37 +1246,42 @@
 	if(brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 		return
+	var/mob/living/carbon/human/H = M
+	if(!(H.client && H.ghost_can_reenter()))
+		to_chat(user, "<span class='clock'>\"This body has no soul to catch.\"</span>")
+		return
 	if(jobban_isbanned(M, ROLE_CLOCKER) || jobban_isbanned(M, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from claiming [M]'s mind.</span>")
 		return
-	var/mob/living/carbon/human/H = M
 	if(H.stat == CONSCIOUS)
 		to_chat(user, "<span class='warning'>[H] must be dead or unconscious for you to claim [H.p_their()] mind!</span>")
 		return
 	if(H.has_brain_worms())
 		to_chat(user, "<span class='warning'>[H] is corrupted by an alien intelligence and cannot claim [H.p_their()] mind!</span>")
 		return
-	if(!H.bodyparts_by_name["head"])
-		to_chat(user, "<span class='warning'>[H] has no head, and thus no mind to claim!</span>")
-		return
 	if(!H.get_int_organ(/obj/item/organ/internal/brain))
-		to_chat(user, "<span class='warning'>[H] has no brain, and thus no mind to claim!</span>")
+		if(!H.get_int_organ(/obj/item/mmi/robotic_brain))
+			to_chat(user, "<span class='warning'>[H] has no brain, and thus no mind to claim!</span>")
+			return
+	if(searching)
+		to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
 		return
 
-	user.visible_message("<span class='warning'>[user] starts pressing [src] to [H]'s head, ripping through the skull</span>", \
+	user.visible_message("<span class='warning'>[user] starts pressing [src] to [H]'s body, ripping through the flesh</span>", \
 	"<span class='clock'>You start extracting [H]'s consciousness from [H.p_their()] body.</span>")
-	if(searching)
-		return
+
 	if(do_after(user, 40, target = src))
-		user.visible_message("<span class='warning'>[user] pressed [src] through [H]'s skull and extracted the brain!", \
+		user.visible_message("<span class='warning'>[user] pressed [src] through [H]'s body and extracted the brain!", \
 		"<span class='clock'>You extracted [H]'s consciousness, trapping it in the soul vessel.")
 		if(searching)
+			to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
 			return
 		searching = TRUE
 		try_to_transfer(H)
 		return TRUE
-	return
 
+
+//Clockwork module
 /obj/item/borg/upgrade/clockwork
 	name = "Clockwork Module"
 	desc = "An unique brass board, used by cyborg warriors."
@@ -1112,17 +1335,24 @@
 /obj/item/clockwork/marauder/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
-		var/obj/item/mmi/robotic_brain/clockwork/soul = I
-		if(!soul.brainmob.mind)
-			to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
+		if(!isclocker(user))
+			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soul vessel into the marauder shell.</span>")
+			user.Confused(10)
+			user.Jitter(6)
 			return
-		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
-		soul.brainmob.mind.transfer_to(cog)
-		playsound(cog, 'sound/effects/constructform.ogg', 50)
-		user.unEquip(soul)
-		qdel(soul)
-		qdel(src)
+		else
+			var/obj/item/mmi/robotic_brain/clockwork/soul = I
+			if(!soul.brainmob.mind)
+				to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
+				return
+			var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
+			soul.brainmob.mind.transfer_to(cog)
+			playsound(cog, 'sound/effects/constructform.ogg', 50)
+			user.unEquip(soul)
+			qdel(soul)
+			qdel(src)
 
+//Shard
 /obj/item/clockwork/shard
 	name = "A brass shard"
 	desc = "Unique crystal powered by some unknown magic."
@@ -1179,6 +1409,21 @@
 				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(user))
 	return
 
+/obj/item/clockwork/shard/attack(mob/living/M, mob/living/user, def_zone)
+	if(!isclocker(user))
+		if(ishuman(user))
+			var/mob/living/carbon/human/human = user
+			human.embed_item_inside(src)
+			human.emote("scream")
+			to_chat(user, "<span class='danger'>[src] pierces into your body!</span>")
+			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
+		else
+			user.remove_from_mob(src)
+			user.emote("scream")
+			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		return
+	..()
+
 /obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!ishuman(target) || !isclocker(user))
@@ -1195,6 +1440,14 @@
 			human.revive()
 			human.set_species(/datum/species/golem/clockwork)
 			to_chat(human, "<span class='clocklarge'><b>\"You are back once again.\"</b></span>")
+
+/obj/item/clockwork/shard/pickup(mob/living/user)
+	. = ..()
+	if(!isclocker(user))
+		to_chat(user, "<span class='clocklarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		user.Confused(10)
+		user.Jitter(6)
 
 /obj/item/clockwork/shard/proc/give_ghost(var/mob/living/carbon/human/golem)
 	set waitfor = FALSE
