@@ -419,6 +419,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
 		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
 		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
+		E.mind.store_memory("I now share the loyalties of [user].  I am expected not to intentionally sabotage their faction unless commanded to!")
 		if(user.mind.special_role)
 			E.maxHealth = 300
 			E.health = 300
