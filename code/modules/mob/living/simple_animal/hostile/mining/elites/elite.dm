@@ -237,7 +237,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
-	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, .proc/onEliteLoss)
 	INVOKE_ASYNC(src, .proc/arena_checks)
 	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
