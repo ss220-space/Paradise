@@ -242,5 +242,8 @@
 	id = "monsternest"
 	description = "A cave of several tunnels, housing the local fauna deep underground."
 	suffix = "lavaland_surface_monster_nest.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
 
 
