@@ -105,8 +105,8 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece)
-		if(user.drop_item() && !(I.flags & ABSTRACT))
+	else if(open && !showpiece && !(I.flags & ABSTRACT))
+		if(user.drop_item())
 			I.forceMove(src)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
