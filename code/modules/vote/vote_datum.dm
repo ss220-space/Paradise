@@ -57,10 +57,7 @@
 
 	if(config.ooc_allowed)
 		ooc_auto_muted = TRUE
-		config.ooc_allowed = FALSE
-		to_chat(world, "<b>The OOC channel has been automatically disabled due to a vote.</b>")
-		log_admin("OOC was toggled automatically due to a vote.")
-		message_admins("OOC has been toggled off automatically.")
+		toggle_ooc()
 
 	log_vote(text)
 	started_time = world.time
@@ -143,10 +140,7 @@
 	if(SSvote.active_vote == src)
 		SSvote.active_vote = null
 		if(ooc_auto_muted && !config.ooc_allowed)
-			config.ooc_allowed = TRUE
-			to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")
-			log_admin("OOC was toggled automatically due to vote end.")
-			message_admins("OOC has been toggled on automatically.")
+			toggle_ooc()
 	return ..()
 
 
@@ -193,6 +187,8 @@
 		data["show_counts"] = FALSE
 		data["counts"] = list()
 
+	data["show_cancel"] = check_rights(R_ADMIN, FALSE, user)
+
 	return data
 
 /datum/vote/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -212,6 +208,7 @@
 				message_admins("<span class='boldannounce'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 		if("cancel")
 			if(check_rights(R_ADMIN))
+				to_chat(world, "<b>The vote has been canceled.</b>")
 				log_and_message_admins("Canceled a vote")
-				qdel(SSVote.active_vote)
+				qdel(src)
 
