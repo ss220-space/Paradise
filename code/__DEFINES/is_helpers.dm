@@ -14,8 +14,6 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
-#define is_really_item(I) (!(I.flags & ABSTRACT))
-
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
