@@ -95,10 +95,33 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 2, "sugar" = 4)
+	list_reagents = list("protein" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
 	foodtype = JUNKFOOD | GRAIN
 
+/obj/item/reagent_containers/food/snacks/doshik
+	name = "Doshi Co"
+	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow."
+	icon_state = "doshik"
+	trash = /obj/item/trash/doshik
+	filling_color = "#d1a62f"
+	junkiness = 20
+	list_reagents = list("protein" = 3, "sugar" = 1)
+	tastes = list("doshi co" = 1, "pleasure" = 1)
+	foodtype = JUNKFOOD | MEAT
+	opened = FALSE
+
+/obj/item/reagent_containers/food/snacks/doshik_spicy
+	name = "Doshi Co Special"
+	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow. It seems to have hot spices in it."
+	icon_state = "doshikspicy"
+	trash = /obj/item/trash/doshik
+	filling_color = "#d16a2f"
+	junkiness = 20
+	list_reagents = list("protein" = 3, "sugar" = 1, "capsaicin" = 5)
+	tastes = list("doshi co" = 1, "pain" = 1, "pleasure" = 1)
+	foodtype = JUNKFOOD | MEAT
+	opened = FALSE
 
 //////////////////////
 //		Homemade	//

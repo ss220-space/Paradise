@@ -137,7 +137,7 @@
 	if(C.slime_potions)
 		for(var/Potion as obj in GLOB.slime_potions)
 			var/obj/item/slimepotion/S = Potion
-			if(S.id == C.slime_potions)	
+			if(S.id == C.slime_potions)
 				C.slime_potions = null
 				C.name = initial(C.name)
 				var/datum/armor/current_armor = C.armor
@@ -209,7 +209,7 @@
 	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
 		if(SM.master_commander)
@@ -257,10 +257,10 @@
 		var/mob/living/simple_animal/SM = M
 
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
-		to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
+		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
@@ -281,7 +281,7 @@
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+			to_chat(user, "<span class='notice'>[M] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
 			qdel(src)
 
@@ -308,7 +308,11 @@
 	if(ismonkeybasic(M) && !M.ckey)
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
-		to_chat(user, "<span class='notice'>Вы предлагаете [src] зелье разума [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
+		if(LF.sentience_type != sentience_type)
+			to_chat(user, "<span class='warning'>[LF] совершенно безразлично смотрит на [src.name] в ваших руках.</span>")
+			return ..()
+
+		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?"
@@ -600,7 +604,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/laserresistance
-	name = "laser resistance slime potion."
+	name = "laser resistance slime potion"
 	id = "Laser Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
@@ -641,7 +645,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/radiation
-	name = "radiation resistance slime potion."
+	name = "radiation resistance slime potion"
 	id = "Radiation Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 40, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
@@ -682,7 +686,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/bio
-	name = "bio resistance slime potion."
+	name = "bio resistance slime potion"
 	id = "Bio Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 40, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
@@ -723,7 +727,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/explosionresistencte
-	name = "explosion resistance slime potion."
+	name = "explosion resistance slime potion"
 	id = "Explosion Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
@@ -753,7 +757,7 @@
 	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)	
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosionproof.</span>")
 	qdel(src)
 
@@ -823,7 +827,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "damagepoof [C.name]"
+	C.name = "damageproof [C.name]"
 	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
