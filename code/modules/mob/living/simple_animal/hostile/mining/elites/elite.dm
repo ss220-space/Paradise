@@ -372,7 +372,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		if(prob(50))
 			new /obj/item/tumor_shard(lootloc)
-		// var/obj/structure/closet/crate/necropolis/tendril/lootbox = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
