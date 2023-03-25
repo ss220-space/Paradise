@@ -232,8 +232,8 @@
 /obj/machinery/smartfridge/survival_pod/update_icon()
 	return
 
-/obj/machinery/smartfridge/survival_pod/accept_check(obj/item/I)
-	return isitem(I) && !(I.flags & ABSTRACT)
+/obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
+	return isitem(O) && !(O.flags & ABSTRACT)
 
 /obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
 	return FALSE
