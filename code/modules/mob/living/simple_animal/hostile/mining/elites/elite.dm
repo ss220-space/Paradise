@@ -368,45 +368,30 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
 	visible_message("<span class='warning'>[src] begins to convulse violently before beginning to dissipate.</span>")
 	visible_message("<span class='warning'>As [src] closes, something is forced up from down below.</span>")
-	var/obj/structure/closet/crate/necropolis/tendril/lootbox = new /obj/structure/closet/crate/necropolis/tendril(loc)
+	var/lootloc = boosted ? new /obj/structure/closet/crate/necropolis/tendril(loc) : loc
+	if(mychild.loot_drop != null && prob(50))
+		new mychild.loot_drop(lootloc)
+	else
+		new /obj/item/tumor_shard(lootloc)
 	if(boosted)
-		if(mychild.loot_drop != null && prob(50))
-			new mychild.loot_drop(lootbox)
-		else
-			new /obj/item/tumor_shard(lootbox)
+		// var/obj/structure/closet/crate/necropolis/tendril/lootbox = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
-	activity = TUMOR_PASSIVE
+	activity = TUMOR_INACTIVE
+	icon_state = "tumor"
 	if(activator)
 		clear_activator(activator)
-	mychild.revive()
+	to_chat(mychild, "<span class='danger'>You have won the fight. Elite tumor has been defended once again.</span>")
+	qdel(mychild)
 	if(boosted)
 		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
-		mychild.maxHealth = mychild.maxHealth * 0.4
-		mychild.health = mychild.maxHealth
-		var/sound/elite_sound = sound('sound/magic/wandodeath.ogg')
-		var/turf/T = get_turf(src)
-		for(var/mob/M in GLOB.player_list)
-			if(M.z == z && M.client)
-				to_chat(M, "<span class='danger'>Thunder rumbles. Light glows in the distance. Something big happened... somewhere.</span>")
-				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, S = elite_sound)
-				// TODO: make screen red
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
-	if(times_won == 1)
-		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-		to_chat(mychild, "<span class='warning'><As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
-			Despite this inferno being your home, you feel as if you aren't welcome here anymore.\n\
-			Without any guidance, your purpose is now for you to decide.</span>")
-		to_chat(mychild, "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.\n\
-			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
-			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
-		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
 	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/tumor_shard
@@ -449,8 +434,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
-	icon_state = "hierophant_wall_temp-0"
-	base_icon_state = "hierophant_wall_temp"
+	icon_state = "wall"
+	base_icon_state = "wall"
 	duration = 50
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
@@ -460,6 +445,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/activator
 	var/ourelite
 
+/obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
+	. = ..()
+	queue_smooth_neighbors(src)
+	queue_smooth(src)
+
+/obj/effect/temp_visual/elite_tumor_wall/Destroy()
+	queue_smooth_neighbors(src)
+	return ..()
+
 /obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(isliving(mover))
@@ -467,7 +461,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/item/gps/internal/tumor
 	icon_state = null
-	gpstag = "Cancerous Signal"
+	gpstag = "Mysterious Signal"
 	desc = "Ghosts in a fauna? That's cancerous!"
 	invisibility = 100
 
