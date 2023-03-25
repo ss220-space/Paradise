@@ -216,11 +216,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				audible_message("<span class='userdanger'>The stirring sounds increase in volume!</span>")
 				elitemind = pick(candidates)
 				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
-				to_chat(elitemind, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\n\
-					Your attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\n\
-					While the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
-					If you want to win, you'll have to use your powers in creative ways to ensure the kill. It's suggested you try using them all as soon as possible.\n\
-					Should you win, you'll receive extra information regarding what to do after. Good luck!</b>")
+				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лаваленда.\nЧерез несоклько секунд вы появитесь сильным монстром, что бы биться с призвавшим насмерть.\n\
+					Вы можете выбирать разные атаки нажимая на кнопки в верхнем левом углу экрана и нажимая на цели или тайлы возле них, что бы атаковать.\n\
+					Хоть и оппонент снаряжен шахтерской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
+					Если вы захотите победить, вам приедтся использовать свои способности с умом. Вам лучше ознакомиться с ними всеми так быстро, насколько возможно.\n\
+					Good luck!</b>")
 				addtimer(CALLBACK(src, .proc/spawn_elite, elitemind), 10 SECONDS)
 			else
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
@@ -385,14 +385,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(activator)
 		clear_activator(activator)
 	to_chat(mychild, "<span class='danger'>You have won the fight. Elite tumor has been defended once again.</span>")
-	qdel(mychild)
-	mychild = null
+	var/obj/structure/elite_tumor/copy = new(loc)
 	if(boosted)
+		copy.boosted = TRUE
+		copy.icon_state = "advanced_tumor"
 		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
 	qdel(GetComponent(/datum/component/proximity_monitor))
+	qdel(src)
 
 /obj/item/tumor_shard
 	name = "tumor shard"
@@ -416,18 +418,18 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
-		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
-		E.mind.store_memory("I now share the loyalties of [user].  I am expected not to intentionally sabotage their faction unless commanded to!")
+		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
+		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не сабботировать фракцию хозяина, пока вам не прикажут!</span>")
+		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не сабботировать фракцию хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
 			E.maxHealth = 300
 			E.health = 300
+			E.del_on_death = TRUE
 		else
 			E.maxHealth = 200
 			E.health = 200
 			E.revive_cooldown = TRUE
 		E.sentience_type = SENTIENCE_ORGANIC
-		E.del_on_death = TRUE
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[src] only works on the corpse of a sentient lavaland elite.</span>")
