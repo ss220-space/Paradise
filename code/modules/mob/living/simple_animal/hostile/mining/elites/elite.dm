@@ -384,7 +384,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "tumor"
 	if(activator)
 		clear_activator(activator)
-	sleep(100)
+	sleep(300)
 	qdel(mychild)
 	var/obj/structure/elite_tumor/copy = new(loc)
 	if(boosted)
