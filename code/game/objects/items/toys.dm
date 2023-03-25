@@ -2141,9 +2141,8 @@
 	name = "desk toy master"
 	desc = "A object that does not exist. Parent Item"
 	icon = 'icons/obj/toy.dmi'
-
 	var/on = 0
-	var/activation_sound = 'sound/effects/buttonclick.ogg'
+	var/activation_sound = 'sound/items/buttonclick.ogg'
 
 /obj/item/toy/desk/update_icon()
 	if(on)
@@ -2153,7 +2152,7 @@
 
 /obj/item/toy/desk/attack_self(mob/user)
 	on = !on
-	if(on && activation_sound)
+	if(activation_sound)
 		playsound(src.loc, activation_sound, 75, 1)
 	update_icon()
 	return 1
@@ -2177,30 +2176,51 @@
 	else
 		rotate()
 
-/obj/item/toy/desk/newtoncradle
-	name = "\improper Newton's cradle"
-	desc = "A ancient 21th century super-weapon model demonstrating that Sir Isaac Newton is the deadliest sonuvabitch in space."
-	icon_state = "newtoncradle"
-
-/obj/item/toy/desk/fan
-	name = "office fan"
-	desc = "Your greatest fan."
-	icon_state= "fan"
-	var/datum/looping_sound/fanblowing/soundloop
-
-/*/obj/item/toy/desk/fan/proc/blow()
-	if(on == 1)
-		soundloop.start()
-	else
-		soundloop.stop()
-*/
-
 /obj/item/toy/desk/officetoy
 	name = "office toy"
 	desc = "A generic microfusion powered office desk toy. Only generates magnetism and ennui."
 	icon_state= "desktoy"
-
 /obj/item/toy/desk/dippingbird
 	name = "dipping bird toy"
 	desc = "A ancient human bird idol, worshipped by clerks and desk jockeys."
 	icon_state= "dippybird"
+/obj/item/toy/desk/newtoncradle
+	name = "\improper Newton's cradle"
+	desc = "A ancient 21th century super-weapon model demonstrating that Sir Isaac Newton is the deadliest sonuvabitch in space."
+	icon_state = "newtoncradle"
+	var/datum/looping_sound/newtonballs/soundloop
+
+/obj/item/toy/desk/newtoncradle/New()
+	..()
+	soundloop = new(list(src), FALSE)
+
+/obj/item/toy/desk/newtoncradle/attack_self(mob/user)
+	on = !on
+	update_icon()
+	if(on)
+		soundloop.start()
+	else
+		soundloop.stop()
+
+/obj/item/toy/desk/fan
+	name = "office fan"
+	desc = "Your greatest fan"
+	icon_state = "fan"
+	var/datum/looping_sound/fanblow/soundloop
+
+/obj/item/toy/desk/fan/New()
+	..()
+	soundloop = new(list(src), FALSE)
+
+/obj/item/toy/desk/fan/attack_self(mob/user)
+	on = !on
+	update_icon()
+	if(on)
+		soundloop.start()
+	else
+		soundloop.stop()
+
+
+
+
+
