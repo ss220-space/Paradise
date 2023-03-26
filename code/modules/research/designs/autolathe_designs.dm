@@ -527,6 +527,14 @@
 	build_path = /obj/item/ammo_box/c38
 	category = list("initial", "Security")
 
+/datum/design/c38hp
+	name = "Speed Loader (.38 Hollow-Point)"
+	id = "c38hp"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/ammo_box/c38/hp
+	category = list("hacked", "Security")
+
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"
@@ -677,6 +685,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
 	build_path = /obj/item/reagent_containers/applicator
+	category = list("initial", "Medical")
+
+/datum/design/iv_bag
+	name = "IV bag"
+	id = "iv_bag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 3000)
+	build_path = /obj/item/reagent_containers/iv_bag
 	category = list("initial", "Medical")
 
 /datum/design/prox_sensor
