@@ -161,6 +161,7 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("bun" = 2)
 	bitesize = 2
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/flatbread
 	name = "flatbread"
