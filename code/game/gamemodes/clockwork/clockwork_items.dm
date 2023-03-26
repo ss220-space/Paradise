@@ -238,10 +238,11 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		playsound(src, 'sound/weapons/throwtap.ogg', 50)
 		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
+			do_sparks(5, TRUE, living)
 			living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
 		return
 	. = ..()
@@ -386,10 +387,11 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		playsound(src, 'sound/weapons/throwtap.ogg', 50)
 		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
+			do_sparks(5, TRUE, living)
 			living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
 		return
 	. = ..()
@@ -489,10 +491,11 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		playsound(src, 'sound/weapons/throwtap.ogg', 50)
 		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
+			do_sparks(5, TRUE, living)
 			living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
 		return
 	. = ..()

@@ -47,6 +47,7 @@
 		return
 	if(brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
+		do_sparks(5, TRUE, user)
 	else
 		to_chat(user, "<span class='warning'>You have to find a dead body to fill a vessel.</span>")
 
@@ -83,6 +84,7 @@
 		playsound(brain, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		user.visible_message("<span class='warning'>[user] starts pressing [vessel] to [b_mob]'s brain, ripping through the cables and components</span>", \
 		"<span class='clock'>You start extracting [b_mob]'s consciousness from [b_mob.p_their()] brain.</span>")
+		do_sparks(5, TRUE, brain)
 
 		if(do_after(user, 40, target = brain))
 			if(vessel.searching)
@@ -141,6 +143,7 @@
 	playsound(brain, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 	user.visible_message("<span class='warning'>[user] starts pressing [vessel] to [b_mob]'s brain, ripping through its tissue</span>", \
 	"<span class='clock'>You start extracting [b_mob]'s consciousness from [b_mob.p_their()] brain.</span>")
+	do_sparks(5, TRUE, brain)
 
 	if(do_after(user, 40, target = brain))
 		if(vessel.searching)
@@ -190,6 +193,7 @@
 
 	user.visible_message("<span class='warning'>[user] starts pressing [src] to [M]'s body, ripping through the surface</span>", \
 	"<span class='clock'>You start extracting [M]'s consciousness from [M.p_their()] body.</span>")
+	do_sparks(5, TRUE, M)
 
 	if(do_after(user, 90, target = M))
 		user.visible_message("<span class='warning'>[user] pressed [src] through [M]'s body and extracted the brain!", \
