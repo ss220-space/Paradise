@@ -62,6 +62,9 @@
 			to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 			to_chat(user, "<span class='clocklarge'>\"Don't even try.\"</span>")
 			return
+		if(isdrone(user))
+			to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
+			return
 
 		var/mob/living/carbon/brain/b_mob
 		var/obj/item/mmi/robotic_brain/brain = src
@@ -121,6 +124,9 @@
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		to_chat(user, "<span class='clocklarge'>\"Don't even try.\"</span>")
 		return
+	if(isdrone(user))
+		to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
+		return
 
 	var/mob/living/carbon/brain/b_mob
 	var/obj/item/organ/internal/brain/brain = src
@@ -168,6 +174,9 @@
 		return ..()
 
 	if(M == user)
+		return
+	if(isdrone(user))
+		to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
 		return
 	if(brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")

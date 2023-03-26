@@ -1158,6 +1158,9 @@
 			user.Jitter(6)
 			return
 		else
+			if(isdrone(user))
+				to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
+				return
 			var/obj/item/mmi/robotic_brain/clockwork/soul = I
 			if(!soul.brainmob.mind)
 				to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
