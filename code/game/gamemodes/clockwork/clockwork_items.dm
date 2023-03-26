@@ -786,11 +786,11 @@
 		user.emote("scream")
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/carbon = user
 	switch(enchant_type)
 		if(ARMOR_SPELL)
-			if(!iscarbon(user))
-				return
-			var/mob/living/carbon/carbon = user
 			if(carbon.wear_suit != src)
 				return
 			user.visible_message("<span class='danger'>[user] concentrates as [user.p_their()] curiass shifts his plates!</span>",
@@ -803,6 +803,8 @@
 			set_light(1.5, 0.8, COLOR_RED)
 			addtimer(CALLBACK(src, .proc/reset_armor, user), 12 SECONDS)
 		if(FLASH_SPELL)
+			if(carbon.wear_suit != src)
+				return
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
 			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 0.2 SECONDS)
