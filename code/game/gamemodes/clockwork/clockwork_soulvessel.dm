@@ -13,8 +13,9 @@
 	clock = TRUE
 
 /obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target)
-	for(var/obj/item/I in target)
-		target.unEquip(I)
+	if(ishuman(target))
+		for(var/obj/item/I in target)
+			target.unEquip(I)
 	if(target.client && target.ghost_can_reenter())
 		transfer_personality(target)
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
@@ -69,7 +70,7 @@
 		if(vessel.brainmob.key)
 			to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 			return
-		if(!(b_mob && b_mob.key))
+		if(!length(brain.client_mobs_in_contents))
 			to_chat(user, "<span class='clock'>\"This brain has no soul to catch.\"</span>")
 			return
 		if(jobban_isbanned(b_mob, ROLE_CLOCKER) || jobban_isbanned(b_mob, ROLE_SYNDICATE))
@@ -90,10 +91,9 @@
 			user.visible_message("<span class='warning'>[user] pressed [vessel] through [b_mob]'s brain and extracted something!", \
 			"<span class='clock'>You extracted [b_mob]'s consciousness, trapping it in the soul vessel.")
 			vessel.try_to_transfer(b_mob)
-			vessel.searching = TRUE
 			qdel(brain)
 			return TRUE
-		return
+		return FALSE
 
 	// chaplain purifying
 	if(istype(O, /obj/item/storage/bible) && istype(src, /obj/item/mmi/robotic_brain/clockwork) && !isclocker(user) && user.mind.isholy)
@@ -106,8 +106,8 @@
 				purified.transfer_identity(brainmob)
 			qdel(src)
 			return TRUE
-		return
-	..()
+		return FALSE
+	. = ..()
 
 /obj/item/organ/internal/brain/attackby(obj/item/O, mob/user)
 	// capturing organic brains
@@ -128,7 +128,7 @@
 	if(vessel.brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 		return
-	if(!(b_mob && b_mob.key))
+	if(!length(brain.client_mobs_in_contents))
 		to_chat(user, "<span class='clock'>\"This brain has no soul to catch.\"</span>")
 		return
 	if(jobban_isbanned(b_mob, ROLE_CLOCKER) || jobban_isbanned(b_mob, ROLE_SYNDICATE))
@@ -149,56 +149,56 @@
 		user.visible_message("<span class='warning'>[user] pressed [vessel] through [b_mob]'s brain and extracted something!", \
 		"<span class='clock'>You extracted [b_mob]'s consciousness, trapping it in the soul vessel.")
 		vessel.try_to_transfer(b_mob)
-		vessel.searching = TRUE
 		qdel(brain)
 		return TRUE
-	return
+	return FALSE
 
 /obj/item/mmi/robotic_brain/clockwork/attack(mob/living/M, mob/living/user, def_zone)
-	if(!ishuman(M))
-		return ..()
+	// catching souls of dead/unconscious carbons and robots
 	if(!isclocker(user))
 		user.Weaken(5)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		to_chat(user, "<span class='clocklarge'>\"Don't even try.\"</span>")
 		return
+	if(isanimal(M))
+		return ..()
 
 	if(M == user)
 		return
 	if(brainmob.key)
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 		return
-	var/mob/living/carbon/human/H = M
-	if(!(H.client && H.ghost_can_reenter()))
+	if(!length(M.client_mobs_in_contents))
 		to_chat(user, "<span class='clock'>\"This body has no soul to catch.\"</span>")
 		return
 	if(jobban_isbanned(M, ROLE_CLOCKER) || jobban_isbanned(M, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from claiming [M]'s mind.</span>")
 		return
-	if(H.stat == CONSCIOUS)
-		to_chat(user, "<span class='warning'>[H] must be dead or unconscious for you to claim [H.p_their()] mind!</span>")
+	if(M.stat == CONSCIOUS)
+		to_chat(user, "<span class='warning'>[M] must be dead or unconscious for you to claim [M.p_their()] mind!</span>")
 		return
-	if(H.has_brain_worms())
-		to_chat(user, "<span class='warning'>[H] is corrupted by an alien intelligence and cannot claim [H.p_their()] mind!</span>")
+	if(iscarbon(M) && M.has_brain_worms())
+		to_chat(user, "<span class='warning'>[M] is corrupted by an alien intelligence and cannot claim [M.p_their()] mind!</span>")
 		return
-	if(!H.get_int_organ(/obj/item/organ/internal/brain))
-		if(!H.get_int_organ(/obj/item/mmi/robotic_brain))
-			to_chat(user, "<span class='warning'>[H] has no brain, and thus no mind to claim!</span>")
-			return
+	if(isrobot(M) && !(locate(/obj/item/mmi/robotic_brain) in M))
+		to_chat(user, "<span class='warning'>[M] has no brain, and thus no mind to claim!</span>")
+		return
 	if(searching)
 		to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
 		return
 
-	user.visible_message("<span class='warning'>[user] starts pressing [src] to [H]'s body, ripping through the flesh</span>", \
-	"<span class='clock'>You start extracting [H]'s consciousness from [H.p_their()] body.</span>")
+	user.visible_message("<span class='warning'>[user] starts pressing [src] to [M]'s body, ripping through the surface</span>", \
+	"<span class='clock'>You start extracting [M]'s consciousness from [M.p_their()] body.</span>")
 
-	if(do_after(user, 40, target = H))
-		user.visible_message("<span class='warning'>[user] pressed [src] through [H]'s body and extracted the brain!", \
-		"<span class='clock'>You extracted [H]'s consciousness, trapping it in the soul vessel.")
+	if(do_after(user, 90, target = M))
+		user.visible_message("<span class='warning'>[user] pressed [src] through [M]'s body and extracted the brain!", \
+		"<span class='clock'>You extracted [M]'s consciousness, trapping it in the soul vessel.")
 		if(searching)
 			to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
 			return
-		searching = TRUE
-		try_to_transfer(H)
-	return
+		try_to_transfer(M)
+		return TRUE
+	return FALSE
+
+	. = ..()

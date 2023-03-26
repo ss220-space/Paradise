@@ -244,7 +244,7 @@
 		else
 			living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
 		return
-	..()
+	. = ..()
 
 /obj/item/twohanded/ratvarian_spear/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
@@ -257,7 +257,7 @@
 			user.remove_from_mob(src)
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
-	..()
+	. = ..()
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -270,14 +270,14 @@
 		if(CONFUSE_SPELL)
 			if(!iscarbon(target))
 				return
-			var/mob/living/carbon/living = target
-			if(living.mind && living.mind.isholy)
-				to_chat(living, "<span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
+			var/mob/living/carbon/carbon = target
+			if(carbon.mind?.isholy)
+				to_chat(carbon, "<span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
 				deplete_spell()
 				return
-			living.AdjustConfused(15)
-			to_chat(living, "<span class='danger'>Your mind blanks for a moment!</span>")
-			add_attack_logs(user, living, "Inflicted confusion with [src]")
+			carbon.AdjustConfused(15)
+			to_chat(carbon, "<span class='danger'>Your mind blanks for a moment!</span>")
+			add_attack_logs(user, carbon, "Inflicted confusion with [src]")
 			deplete_spell()
 		if(DISABLE_SPELL)
 			new /obj/effect/temp_visual/emp/clock(get_turf(src))
@@ -332,14 +332,14 @@
 		if(CONFUSE_SPELL)
 			if(!iscarbon(target))
 				return
-			var/mob/living/carbon/living = target
-			if(living.mind && living.mind.isholy)
-				to_chat(living, "<span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
+			var/mob/living/carbon/carbon = target
+			if(carbon.mind?.isholy)
+				to_chat(carbon, "<span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
 				deplete_spell()
 				return
-			living.AdjustConfused(15)
-			to_chat(living, "<span class='danger'>Your mind blanks for a moment!</span>")
-			add_attack_logs(user, living, "Inflicted confusion with [src]")
+			carbon.AdjustConfused(15)
+			to_chat(carbon, "<span class='danger'>Your mind blanks for a moment!</span>")
+			add_attack_logs(user, carbon, "Inflicted confusion with [src]")
 			deplete_spell()
 		if(DISABLE_SPELL)
 			new /obj/effect/temp_visual/emp/clock(get_turf(src))
@@ -392,7 +392,7 @@
 		else
 			living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
 		return
-	..()
+	. = ..()
 
 /obj/item/twohanded/clock_hammer/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
@@ -409,7 +409,7 @@
 		else
 			user.adjustBruteLoss(wforce)
 		return
-	..()
+	. = ..()
 
 /obj/item/twohanded/clock_hammer/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -495,7 +495,7 @@
 		else
 			living.visible_message("<span class='warning'>[src] bounces off of [living], as if repelled by an unseen force!</span>")
 		return
-	..()
+	. = ..()
 
 /obj/item/melee/clock_sword/attack_self(mob/user)
 	. = ..()
@@ -531,7 +531,7 @@
 			user.remove_from_mob(src)
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
-	..()
+	. = ..()
 
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -1220,7 +1220,7 @@
 			user.remove_from_mob(src)
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
-	..()
+	. = ..()
 
 /obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
