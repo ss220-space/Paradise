@@ -93,17 +93,13 @@
 /datum/action/item_action/organ_action/diona_brain_evacuation
 	name = "Evacuation"
 	check_flags = 0
-	desc = "Leave body as a nymph. (!Если использовать, пока живы, то лишитесь роли антагониста!)"
+	desc = "Leave body as a nymph."
 
 /datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
 	. = ..()
-	var/confirm1 = alert("Are we sure that we want to exit our body as a nymph?","Confirm evacuation","Yes","No")
-	if(confirm1 == "No")
+	var/confirm = alert("Вы уверены, что хотите покинуть свое тело как нимфа? (!Если использовать, пока живы, то лишитесь роли антагониста!)","Confirm evacuation","Yes","No")
+	if(confirm == "No")
 		return
-	else
-		var/confirm2 = alert("Are we REALLY sure? We will loose some of our important memories.","Confirm evacuation","No","Yes")
-		if(confirm2 == "No")
-			return
 
 	if(. && istype(target, /obj/item/organ/internal/brain/diona))
 		var/is_dead = owner.is_dead()
