@@ -91,7 +91,7 @@
 	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize()
-	..()
+	. = ..()
 	var/datum/reagent/R
 	if (prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
 		R = pick(special_drinks)
