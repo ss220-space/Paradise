@@ -161,7 +161,7 @@
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		to_chat(user, "<span class='clocklarge'>\"Don't even try.\"</span>")
 		return
-	if(isanimal(M))
+	if(isanimal(M) || isAI(M) || ispAI(M))
 		return ..()
 
 	if(M == user)
@@ -200,5 +200,3 @@
 		try_to_transfer(M)
 		return TRUE
 	return FALSE
-
-	. = ..()
