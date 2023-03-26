@@ -792,29 +792,31 @@
 	switch(enchant_type)
 		if(ARMOR_SPELL)
 			if(carbon.wear_suit != src)
+				to_chat(carbon, "<span class='notice'>You should wear [src]!</span>")
 				return
-			user.visible_message("<span class='danger'>[user] concentrates as [user.p_their()] curiass shifts his plates!</span>",
+			carbon.visible_message("<span class='danger'>[carbon] concentrates as [carbon.p_their()] curiass shifts his plates!</span>",
 			"<span class='notice'>The [src.name] becomes more hardened as the plates becomes to shift for any attack!</span>")
 			//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 			armor = harden_armor
 			flags |= NODROP
 			enchant_type = CASTING_SPELL
-			add_attack_logs(user, user, "Hardened [src]", ATKLOG_ALL)
+			add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
 			set_light(1.5, 0.8, COLOR_RED)
-			addtimer(CALLBACK(src, .proc/reset_armor, user), 12 SECONDS)
+			addtimer(CALLBACK(src, .proc/reset_armor, carbon), 12 SECONDS)
 		if(FLASH_SPELL)
 			if(carbon.wear_suit != src)
+				to_chat(carbon, "<span class='notice'>You should wear [src]!</span>")
 				return
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
 			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 0.2 SECONDS)
-			user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
-			for(var/mob/living/carbon/M in oviewers(3, user))
+			carbon.visible_message("<span class='disarm'>[carbon]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+			for(var/mob/living/carbon/M in oviewers(3, carbon))
 				if(isclocker(M))
 					return
 				if(M.flash_eyes(2, 1))
 					M.AdjustConfused(5)
-					add_attack_logs(user, M, "Flashed with [src]")
+					add_attack_logs(carbon, M, "Flashed with [src]")
 			deplete_spell()
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
@@ -862,21 +864,32 @@
 	. = ..()
 	if(!isclocker(user))
 		return
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human = user
 	switch(enchant_type)
 		if(FASTPUNCH_SPELL)
-			if(user.mind.martial_art)
-				to_chat(user, "<span class='warning'>You're too powerful to use it!</span>")
+			if(human.gloves != src)
+				to_chat(human, "<span class='notice'>You should wear [src]!</span>")
 				return
-			to_chat(user, "<span class='notice'>You fastening gloves making your moves agile!</span>")
+			if(human.mind.martial_art)
+				to_chat(human, "<span class='warning'>You're too powerful to use it!</span>")
+				return
+			flags |= NODROP
+			to_chat(human, "<span class='notice'>You fastening gloves making your moves agile!</span>")
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
-			add_attack_logs(user, user, "North-starred [src]", ATKLOG_ALL)
+			add_attack_logs(human, human, "North-starred [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, .proc/reset), 6 SECONDS)
 		if(FIRE_SPELL)
-			user.visible_message("<span class='danger'>[user]'s gloves starts to burn!</span>", "<span class='notice>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
+			if(human.gloves != src)
+				to_chat(human, "<span class='notice'>You should wear [src]!</span>")
+				return
+			flags |= NODROP
+			to_chat(human, "<span class='notice'>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
-			add_attack_logs(user, user, "Fire-casted [src]", ATKLOG_ALL)
+			add_attack_logs(human, human, "Fire-casted [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, .proc/reset), 5 SECONDS)
 
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
@@ -916,6 +929,7 @@
 /obj/item/clothing/gloves/clockwork/proc/reset()
 	north_star = FALSE
 	fire_casting = FALSE
+	flags &= ~NODROP
 	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
 	deplete_spell()
 
