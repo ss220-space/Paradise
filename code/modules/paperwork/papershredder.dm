@@ -14,6 +14,7 @@
 		/obj/item/newspaper = 3,
 		/obj/item/card/id = 3,
 		/obj/item/paper_bundle = 3,
+		/obj/item/folder = 4
 		)
 
 /obj/machinery/papershredder/attackby(obj/item/W, mob/user)
@@ -98,34 +99,14 @@
 
 
 /obj/item/shredded_paper/attackby(obj/item/W as obj, mob/user)
-	if(istype(W, /obj/item/lighter))
-		burnpaper(W, user)
+	if(resistance_flags & ON_FIRE)
+		return
+	if(is_hot(W, user))
+		user.visible_message("<span class='danger'>\The [user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+		"<span class='danger'>You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+		fire_act()
 	else
 		..()
-
-
-//obj/item/shredded_paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	//..()
-	//if(!(resistance_flags & FIRE_PROOF))
-
-/obj/item/shredded_paper/proc/burnpaper(obj/item/lighter/P, mob/user)
-	if(user.restrained())
-		return
-	if(!P.lit)
-		to_chat(user, "<span class='warning'>\The [P] is not lit.</span>")
-		return
-	user.visible_message("<span class='warning'>\The [user] holds \the [P] up to \the [src]. It looks like \he's trying to burn it!</span>", \
-		"<span class='warning'>You hold \the [P] up to \the [src], burning it slowly.</span>")
-	if(!do_after(user,20, src))
-		to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
-		return
-	user.visible_message("<span class='danger'>\The [user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-		"<span class='danger'>You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
-	FireBurn()
-
-/obj/item/shredded_paper/proc/FireBurn()
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	qdel(src)
 
 /obj/item/shredded_paper
 	name = "shredded paper"
@@ -133,9 +114,12 @@
 	icon_state = "shredded_paper"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
+	layer = 4
+	max_integrity = 25
 	throw_range = 3
 	throw_speed = 2
 
-/obj/item/shredded_paper/New()
-	..()
-	if(prob(65)) color = pick("#7c7c7c","#505050", "#665858")
+/obj/item/shredded_paper/Initialize()
+	. = ..()
+	if(prob(65)) color = pick("#7c7c7c","#e7e4e4", "#aeacc9")
