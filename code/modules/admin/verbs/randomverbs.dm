@@ -601,7 +601,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Сообщение Федерации Космических Волшебников" = "Магическое сообщение",
 		"Коммюнике клана Паука" = "Сообщение от клана Паука",
 		"Вражеская передача" = "Сообщение из неизвестного источника",
-		"Настраиваемое" = "Шифрованное сообщение")
+		"Custom" = "Шифрованное сообщение")
 
 	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
 		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
