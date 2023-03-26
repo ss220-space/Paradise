@@ -2141,6 +2141,7 @@
 	name = "desk toy master"
 	desc = "A object that does not exist. Parent Item"
 	icon = 'icons/obj/toy.dmi'
+	layer = ABOVE_MOB_LAYER
 	var/on = 0
 	var/activation_sound = 'sound/items/buttonclick.ogg'
 
@@ -2190,7 +2191,7 @@
 	icon_state = "newtoncradle"
 	var/datum/looping_sound/newtonballs/soundloop
 
-/obj/item/toy/desk/newtoncradle/New()
+/obj/item/toy/desk/newtoncradle/Initialize()
 	..()
 	soundloop = new(list(src), FALSE)
 
@@ -2208,7 +2209,7 @@
 	icon_state = "fan"
 	var/datum/looping_sound/fanblow/soundloop
 
-/obj/item/toy/desk/fan/New()
+/obj/item/toy/desk/fan/Initialize()
 	..()
 	soundloop = new(list(src), FALSE)
 
