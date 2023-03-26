@@ -80,10 +80,10 @@
 "ao" = (
 /obj/structure/table/reinforced,
 /mob/living/simple_animal/bot/secbot/griefsky{
-	pixel_x = 16;
-	pixel_y = 16;
 	faction = list("syndicate");
-	loot = list(/obj/item/melee/energy/sword)
+	loot = list(/obj/item/melee/energy/sword);
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -121,9 +121,15 @@
 "au" = (
 /obj/machinery/door/airlock/syndicate/security,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+	icon_state = "floor13"
 	},
 /area/awaymission/spacebattle/syndicate2)
+"av" = (
+/obj/item/chair,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "aw" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -320,10 +326,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -474,12 +480,11 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "bE" = (
-/obj/structure/rack,
-/obj/item/tank/jetpack/oxygen,
-/obj/item/tank/jetpack/oxygen,
-/obj/item/tank/jetpack/oxygen,
-/turf/simulated/floor/mineral/titanium,
-/area/awaymission/spacebattle/storage)
+/obj/item/storage/firstaid/o2,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/spacebattle/medbay)
 "bF" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/space,
@@ -545,6 +550,12 @@
 	icon_state = "floor3"
 	},
 /area/awaymission/spacebattle/syndicate2)
+"bN" = (
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "bO" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/hypospray/safety,
@@ -585,10 +596,6 @@
 /area/awaymission/spacebattle/server)
 "bV" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/item/reagent_containers/food/snacks/beans,
@@ -634,7 +641,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public,
+/obj/machinery/vending/cola/free,
+/obj/structure/door_assembly/door_assembly_public,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cc" = (
@@ -655,8 +663,8 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
 	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)";
-	layer = 3.5
+	layer = 3.5;
+	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -756,12 +764,12 @@
 "cv" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure{
+	anchored = 1;
 	chat_color_name = "Very Hi-tech Machine";
+	density = 1;
 	desc = "You totally don't give a shit what is this.";
 	icon = 'icons/obj/tcomms.dmi';
-	icon_state = "core";
-	density = 1;
-	anchored = 1
+	icon_state = "core"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
@@ -774,8 +782,8 @@
 /obj/item/storage/box/syndidonkpockets,
 /obj/item/gps{
 	gpstag = "SPYBUG";
-	layer = 2.9;
-	icon_state = "gps-b"
+	icon_state = "gps-b";
+	layer = 2.9
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -797,7 +805,7 @@
 /obj/item/storage/secure/briefcase/syndie,
 /obj/item/clothing/under/syndicate/tacticool,
 /obj/item/clothing/mask/balaclava,
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "cB" = (
@@ -894,12 +902,12 @@
 /obj/structure/closet/coffin/sarcophagus,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/coin/gold{
-	pixel_y = -6;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = -6
 	},
 /obj/item/coin/gold{
-	pixel_y = -5;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = -5
 	},
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
@@ -955,10 +963,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -1123,6 +1131,7 @@
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
 	icon_state = "secureeng1";
+	locked = 0;
 	opened = 1
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1221,8 +1230,8 @@
 "dP" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	name = "Battle Lockdown";
-	id_tag = "1ShipLock"
+	id_tag = "1ShipLock";
+	name = "Battle Lockdown"
 	},
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	id_tag = "right";
@@ -1293,7 +1302,7 @@
 	layer = 4
 	},
 /turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "eb" = (
 /obj/machinery/gateway{
 	dir = 4;
@@ -1302,10 +1311,32 @@
 /obj/machinery/field/containment,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "ec" = (
+/obj/item/coin/uranium,
+/obj/item/coin/uranium{
+	pixel_x = 9
+	},
+/obj/item/coin/uranium{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/coin/uranium{
+	pixel_x = -10;
+	pixel_y = 5
+	},
+/obj/item/coin/uranium{
+	pixel_x = -5
+	},
+/obj/item/clothing/gloves/ring/uranium{
+	pixel_x = 1;
+	pixel_y = 8
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 11
+	},
+/obj/structure/closet/crate/radiation,
 /obj/effect/turf_decal/bot,
-/obj/structure/statue/uranium/nuke,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -1367,7 +1398,7 @@
 /obj/machinery/gateway,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "el" = (
 /obj/machinery/gateway{
 	dir = 6
@@ -1377,7 +1408,7 @@
 	state = 2
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "em" = (
 /obj/structure/closet/crate/syndicate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1400,16 +1431,16 @@
 /area/awaymission/spacebattle/syndicate4)
 "er" = (
 /obj/machinery/door/airlock/highsecurity/red{
+	id = "GATE";
 	req_access_txt = "150";
-	req_one_access_txt = "150";
-	id = "GATE"
+	req_one_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "GATE";
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "et" = (
 /turf/simulated/wall/shuttle,
 /area/awaymission/spacebattle/sec_storage)
@@ -1473,8 +1504,8 @@
 	tag = ""
 	},
 /obj/structure/closet/hydrant{
-	pixel_y = 32;
-	opened = 1
+	opened = 1;
+	pixel_y = 32
 	},
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer,
 /turf/simulated/floor/plasteel{
@@ -1517,8 +1548,8 @@
 	},
 /area/awaymission/spacebattle/bridge)
 "eL" = (
-/obj/effect/landmark/tiles/damageturf,
 /obj/structure/table/reinforced,
+/obj/item/clothing/head/collectable/captain,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -1648,10 +1679,10 @@
 "fh" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	icon_keyboard = "";
 	icon_screen = "telescreen";
 	icon_state = "telescreen_console";
-	name = "Broken Computer";
-	icon_keyboard = ""
+	name = "Broken Computer"
 	},
 /turf/simulated/wall/shuttle,
 /area/awaymission/spacebattle/bridge)
@@ -1830,6 +1861,10 @@
 	},
 /turf/space,
 /area/space)
+"fG" = (
+/obj/item/stack/packageWrap,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/engine)
 "fH" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2311,8 +2346,8 @@
 /area/awaymission/spacebattle/syndicate7)
 "gM" = (
 /obj/machinery/door/airlock/external{
-	locked = 1;
-	id_tag = "right_inner"
+	id_tag = "right_inner";
+	locked = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -2356,12 +2391,12 @@
 /area/awaymission/spacebattle/medbay)
 "gS" = (
 /obj/structure{
+	anchored = 1;
 	chat_color_name = "Very Hi-tech Machine";
+	density = 1;
 	desc = "You totally don't give a shit what is this.";
 	icon = 'icons/obj/tcomms.dmi';
-	icon_state = "core";
-	density = 1;
-	anchored = 1
+	icon_state = "core"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
@@ -2573,9 +2608,11 @@
 /turf/space,
 /area/space)
 "hw" = (
-/obj/structure/curtain/medical,
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
+	},
+/obj/structure/curtain/medical{
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2740,6 +2777,7 @@
 /area/awaymission/spacebattle/sec_storage)
 "hX" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
+/obj/item/handheld_defibrillator,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2803,8 +2841,8 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
-	basecolor = "#030303"
+	basecolor = "#030303";
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 1
@@ -2902,7 +2940,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "iq" = (
 /obj/structure/lattice,
 /turf/space,
@@ -3048,9 +3086,9 @@
 /area/awaymission/spacebattle/syndicate5)
 "iN" = (
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs";
-	dir = 8
+	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway3)
 "iO" = (
@@ -3069,6 +3107,10 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate6)
+"iS" = (
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/server)
 "iT" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -3133,9 +3175,7 @@
 /area/awaymission)
 "jh" = (
 /obj/effect/turf_decal/delivery,
-/mob/living/simple_animal/hostile/mimic{
-	faction = list("syndicate")
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -3215,11 +3255,20 @@
 /area/awaymission/spacebattle/syndicate7)
 "jq" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "jr" = (
 /turf/simulated/wall/r_wall,
 /area/awaymission)
+"js" = (
+/obj/machinery/computer/shuttle,
+/obj/item/paper/spacebattle/mimics,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "jt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3262,7 +3311,7 @@
 	dir = 6;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "jw" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -3399,11 +3448,11 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	health = 0;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100;
-	health = 0
+	reqpower = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -3454,6 +3503,13 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway6)
+"jW" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/clothing/head/helmet/swat/syndicate,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "jY" = (
 /obj/item/ammo_casing/c10mm,
 /obj/structure/cable{
@@ -3523,7 +3579,7 @@
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/ranged_space{
-	id = "cargo"
+	id = "QM"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -3597,12 +3653,13 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ks" = (
-/obj/machinery/power/apc{
-	pixel_y = -24
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 2000;
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret3)
@@ -3621,9 +3678,9 @@
 	},
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs";
-	dir = 8
+	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway11)
 "kx" = (
@@ -3705,6 +3762,17 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway13)
+"kJ" = (
+/obj/item/stack/sheet/mineral/titanium,
+/obj/effect/landmark/tiles/damageturf{
+	pixel_y = 32
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/prhallway1)
 "kK" = (
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
 	faction = "syndicate";
@@ -3866,7 +3934,7 @@
 	dir = 10;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "le" = (
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
@@ -4103,8 +4171,8 @@
 	},
 /obj/structure/window/full/shuttle/gray,
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
-	dir = 8
+	dir = 8;
+	layer = 3.1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -4166,16 +4234,13 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "me" = (
 /obj/structure/table/reinforced,
 /obj/structure/closet/medical_wall{
-	pixel_y = -31;
-	opened = 1
+	opened = 1;
+	pixel_y = -31
 	},
 /obj/item/stack/medical/ointment,
 /turf/simulated/floor/plasteel{
@@ -4195,7 +4260,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "mh" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4470,8 +4535,8 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
 	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)";
-	layer = 3.5
+	layer = 3.5;
+	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
@@ -4512,6 +4577,7 @@
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
 	icon_state = "secureeng1";
+	locked = 0;
 	opened = 1
 	},
 /obj/structure/sign/nosmoking_1{
@@ -4566,8 +4632,8 @@
 /area/awaymission/spacebattle/engine)
 "ne" = (
 /obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "xeno2";
-	dir = 1
+	dir = 1;
+	icon_state = "xeno2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
@@ -4614,7 +4680,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "no" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4781,7 +4847,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/ammo_box/magazine/pistolm9mm,
+/obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret4)
 "nG" = (
@@ -4882,11 +4948,9 @@
 /area/awaymission/spacebattle/syndicate4)
 "nV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/mining/glass{
-	glass = 0;
+/obj/machinery/door/airlock/highsecurity{
 	locked = 1;
-	name = "Cargo Bay";
-	opacity = 1
+	name = "Cargo Bay"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -4995,7 +5059,6 @@
 /area/awaymission/spacebattle/sec_storage)
 "op" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
 "or" = (
@@ -5099,12 +5162,12 @@
 /area/awaymission/spacebattle/engine)
 "oI" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory{
+	armour_penetration = 20;
 	health = 400;
 	loot = list(/obj/effect/decal/cleanable/ash,/obj/item/documents/syndicate/blue);
 	maxHealth = 400;
 	name = "Syndicate Commander";
-	speed = 2;
-	armour_penetration = 20
+	speed = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
@@ -5161,6 +5224,9 @@
 /area/awaymission/spacebattle/hallway3)
 "oO" = (
 /obj/effect/decal/cleanable/shreds,
+/obj/structure/sign/poster/ripped{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -5190,7 +5256,7 @@
 /obj/machinery/field/containment,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "oT" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -5261,7 +5327,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "pe" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -5274,7 +5340,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "pf" = (
 /obj/effect/turf_decal/stripes{
 	dir = 6
@@ -5323,10 +5389,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -5381,12 +5447,12 @@
 	dir = 4
 	},
 /obj/structure{
+	anchored = 1;
 	chat_color_name = "Very Hi-tech Machine";
+	density = 1;
 	desc = "You totally don't give a shit what is this.";
 	icon = 'icons/obj/tcomms.dmi';
-	icon_state = "core";
-	density = 1;
-	anchored = 1
+	icon_state = "core"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
@@ -5565,12 +5631,12 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "qh" = (
-/obj/effect/turf_decal/siding/blue,
-/obj/structure/curtain/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/machinery/computer/shuttle,
+/obj/item/paper/check/spacebattle/voxcap3,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
-/area/awaymission/spacebattle/medbay)
+/area/awaymission/spacebattle/syndicate2)
 "qi" = (
 /obj/machinery/door/airlock/public,
 /obj/structure/cable{
@@ -5578,9 +5644,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor/closed{
-	layer = 3.2
-	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "qj" = (
@@ -5791,6 +5855,9 @@
 /obj/machinery/smartfridge/dish{
 	opacity = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
 "qP" = (
@@ -5997,10 +6064,10 @@
 /area/awaymission/spacebattle/hallway11)
 "rv" = (
 /obj/machinery/door_control{
-	pixel_x = -32;
-	pixel_y = 32;
+	id = "1ShipLock";
 	name = "Battle lockdown";
-	id = "1ShipLock"
+	pixel_x = -32;
+	pixel_y = 32
 	},
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
 	faction = "syndicate";
@@ -6054,6 +6121,14 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/prhallway1)
+"rC" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "rD" = (
 /obj/structure/window/plasmareinforced,
 /turf/simulated/wall/shuttle/nodiagonal,
@@ -6182,6 +6257,7 @@
 /area/awaymission/spacebattle/living)
 "rV" = (
 /obj/machinery/power/apc{
+	cell_type = 2000;
 	pixel_y = -24
 	},
 /obj/structure/cable{
@@ -6246,14 +6322,11 @@
 /area/awaymission/spacebattle/living)
 "sf" = (
 /obj/structure/closet/crate/secure/bin,
-/obj/item/ammo_box/magazine/pistolm9mm,
-/obj/item/ammo_box/magazine/pistolm9mm,
-/obj/item/ammo_box/magazine/pistolm9mm,
-/obj/item/ammo_box/magazine/pistolm9mm,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
 	icon_state = "enforcer_red"
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
 "sg" = (
@@ -6320,8 +6393,8 @@
 	desc = "A remote control-switch for the pod doors.";
 	id = "SpaceBattlePodbay1";
 	name = "Pod Door Control";
-	pixel_y = -40;
-	pixel_x = 40
+	pixel_x = 40;
+	pixel_y = -40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6540,8 +6613,8 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
 	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)";
-	layer = 3.7
+	layer = 3.7;
+	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -6561,6 +6634,14 @@
 	},
 /turf/space,
 /area/space)
+"ta" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/spacebattle/voxcap1,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/awaymission/spacebattle/syndicate2)
 "tb" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -6586,12 +6667,10 @@
 /area/awaymission/spacebattle/hallway9)
 "td" = (
 /obj/effect/turf_decal/bot,
-/mob/living/simple_animal/hostile/mimic{
-	faction = list("syndicate")
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/clothing/suit/armor/bulletproof,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -6685,6 +6764,7 @@
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
 	icon_state = "secureeng1";
+	locked = 0;
 	opened = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -6721,8 +6801,8 @@
 "tt" = (
 /obj/machinery/door_control{
 	id = "CentralSyn";
-	pixel_y = 5;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 5
 	},
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -6830,11 +6910,9 @@
 /area/awaymission/spacebattle/hallway8)
 "tG" = (
 /obj/machinery/door/airlock,
-/obj/machinery/door/firedoor/closed{
-	layer = 3.2
-	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/prhallway5)
 "tH" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -6979,14 +7057,17 @@
 /area/awaymission/spacebattle/sec_storage)
 "tZ" = (
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee{
+	id = "armory"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway10)
 "ua" = (
 /obj/machinery/vending/wallmed{
-	pixel_x = 32;
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal=1,/obj/item/reagent_containers/syringe/antiviral=3,/obj/item/reagent_containers/food/pill/tox=1);
+	pixel_x = 32;
 	products = list(/obj/item/stack/medical/bruise_pack=1,/obj/item/stack/medical/ointment=1,/obj/item/reagent_containers/hypospray/autoinjector=2,/obj/item/healthanalyzer=1)
 	},
 /turf/simulated/floor/plasteel{
@@ -7006,19 +7087,19 @@
 "ug" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1;
-	pixel_y = -19;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = -19
 	},
 /obj/machinery/power/grounding_rod{
 	anchored = 1;
+	layer = 2.8;
 	pixel_x = 1;
-	pixel_y = 8;
-	layer = 2.8
+	pixel_y = 8
 	},
 /obj/structure/cryofeed{
+	layer = 2.8;
 	pixel_x = -6;
-	pixel_y = 5;
-	layer = 2.8
+	pixel_y = 5
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/spacebattle/hallway11)
@@ -7034,12 +7115,12 @@
 	dir = 1
 	},
 /obj/structure{
+	anchored = 1;
+	density = 1;
 	desc = "It appears to be broken SMES.";
 	icon = 'icons/obj/power.dmi';
 	icon_state = "smes";
-	name = "Nanotrasen PSU";
-	anchored = 1;
-	density = 1
+	name = "Nanotrasen PSU"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredalt"
@@ -7146,14 +7227,14 @@
 /area/space/nearstation)
 "uA" = (
 /obj/structure/cryofeed{
-	pixel_x = -6;
-	layer = 2.8
+	layer = 2.8;
+	pixel_x = -6
 	},
 /obj/machinery/power/grounding_rod{
 	anchored = 1;
-	pixel_y = 6;
+	layer = 2.7;
 	pixel_x = -9;
-	layer = 2.7
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7243,7 +7324,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
-/obj/item/gun/energy/spikethrower,
+/obj/item/paper/spacebattle/voxcap,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/awaymission/spacebattle/syndicate2)
 "uM" = (
@@ -7317,6 +7398,12 @@
 /obj/item/screwdriver,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/hallway6)
+"uY" = (
+/obj/structure/girder/reinforced,
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/sheet/mineral/titanium,
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/kitchen)
 "uZ" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
@@ -7326,6 +7413,9 @@
 	locked = 1;
 	name = "Cargo Bay";
 	opacity = 1
+	},
+/obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	id = "QM"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -7359,10 +7449,8 @@
 	},
 /area/awaymission/spacebattle/living)
 "vi" = (
-/obj/machinery/vending/cola/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/kitchen)
 "vj" = (
 /obj/structure/rack,
@@ -7464,7 +7552,9 @@
 /obj/structure/closet/crate/secure/weapon{
 	opened = 1
 	},
-/obj/item/storage/box/slug,
+/obj/item/storage/box/buck{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "vw" = (
@@ -7525,9 +7615,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
-	},
-/obj/effect/landmark{
-	name = "awaystart"
 	},
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/plasteel,
@@ -7705,7 +7792,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "we" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -7716,6 +7803,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway11)
+"wf" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/prhallway1)
 "wg" = (
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/southwest,
@@ -7873,7 +7969,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "wy" = (
 /obj/effect/turf_decal/stripes{
 	dir = 5
@@ -7974,7 +8070,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "wM" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/north{
@@ -8057,9 +8153,6 @@
 /area/awaymission/spacebattle/prhallway1)
 "wU" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/machinery/light{
 	dir = 8
@@ -8213,7 +8306,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/hallway6)
+/area/awaymission/spacebattle/hallway5)
 "xn" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
@@ -8366,6 +8459,7 @@
 /area/awaymission/spacebattle/freezing)
 "xF" = (
 /obj/structure/bed/roller,
+/obj/item/stack/medical/splint,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -8407,12 +8501,12 @@
 /area/awaymission/spacebattle/hallway13)
 "xM" = (
 /obj/structure{
+	anchored = 1;
+	density = 1;
 	desc = "It appears to be broken SMES.";
 	icon = 'icons/obj/power.dmi';
 	icon_state = "smes";
-	name = "Nanotrasen PSU";
-	anchored = 1;
-	density = 1
+	name = "Nanotrasen PSU"
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/spacebattle/engine)
@@ -8538,6 +8632,11 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
+/obj/machinery/vending/wallmed/syndicate{
+	contraband = list(/obj/item/reagent_containers/syringe/charcoal=2,/obj/item/reagent_containers/syringe/antiviral=0,/obj/item/reagent_containers/food/pill/tox=1);
+	pixel_x = 32;
+	products = list(/obj/item/stack/medical/bruise_pack=2,/obj/item/stack/medical/ointment=0,/obj/item/reagent_containers/hypospray/autoinjector=1,/obj/item/healthanalyzer=1,/obj/item/stack/medical/splint=1)
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -8566,6 +8665,7 @@
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
 	icon_state = "secureeng1";
+	locked = 0;
 	opened = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8719,7 +8819,7 @@
 	dir = 9;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "yB" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8963,6 +9063,10 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	icon_state = "xeno2"
 	},
+/obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
+	id = "armory"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -8983,8 +9087,8 @@
 	desc = "A remote control-switch for the pod doors.";
 	id = "SpaceBattlePodbay2";
 	name = "Pod Door Control";
-	pixel_y = -40;
-	pixel_x = 40
+	pixel_x = 40;
+	pixel_y = -40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9060,7 +9164,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/hallway13)
 "zB" = (
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
@@ -9077,6 +9181,10 @@
 /obj/structure/table/reinforced,
 /obj/structure/sign/nosmoking_1{
 	pixel_y = -32
+	},
+/obj/item/pipe,
+/obj/item/pipe{
+	pixel_x = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -9145,8 +9253,8 @@
 "zM" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	name = "Battle Lockdown";
-	id_tag = "1ShipLock"
+	id_tag = "1ShipLock";
+	name = "Battle Lockdown"
 	},
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	id_tag = "left";
@@ -9272,6 +9380,13 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/hallway11)
+"Ad" = (
+/obj/item/chair,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "Ae" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -9460,14 +9575,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
-"AJ" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
-	icon_state = "xeno2"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/prhallway4)
 "AK" = (
 /obj/machinery/door/airlock/syndicate/security,
 /turf/simulated/floor/shuttle{
@@ -9700,12 +9808,12 @@
 /area/awaymission/spacebattle/prhallway5)
 "Br" = (
 /obj/structure{
+	anchored = 1;
+	density = 1;
 	desc = "It appears to be broken SMES.";
 	icon = 'icons/obj/power.dmi';
 	icon_state = "smes";
-	name = "Nanotrasen PSU";
-	anchored = 1;
-	density = 1
+	name = "Nanotrasen PSU"
 	},
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/railing{
@@ -9765,9 +9873,7 @@
 /area/awaymission/spacebattle/cruiser)
 "Bx" = (
 /obj/machinery/door/airlock/syndicate/command,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "By" = (
 /turf/simulated/floor/plasteel{
@@ -9775,6 +9881,15 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/spacebattle/engine)
+"Bz" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/item/paper/spacebattle/voxcap2,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate2)
 "BA" = (
 /obj/machinery/door/airlock,
 /obj/machinery/door/firedoor,
@@ -9788,8 +9903,8 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
 	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)";
-	layer = 3.7
+	layer = 3.7;
+	tag = "icon-heater (NORTH)"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
@@ -9798,7 +9913,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/ammo_box/magazine/pistolm9mm,
+/obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret8)
 "BE" = (
@@ -9887,12 +10002,6 @@
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate3)
-"BO" = (
-/obj/machinery/suit_storage_unit/syndicate/secure,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate2)
 "BP" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9977,7 +10086,7 @@
 "BY" = (
 /obj/structure/lattice,
 /turf/space,
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "BZ" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/warning_stripes/yellow,
@@ -10031,7 +10140,9 @@
 /area/awaymission/spacebattle/syndicate2)
 "Cj" = (
 /obj/machinery/suit_storage_unit/syndicate{
-	magboots_type = /obj/item/clothing/shoes/magboots/syndie
+	magboots_type = /obj/item/clothing/shoes/magboots/syndie;
+	storage_type = null;
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -10071,7 +10182,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "Cp" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway10)
@@ -10086,6 +10197,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
+"Cs" = (
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/titanium,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "Ct" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
@@ -10098,7 +10216,7 @@
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/prhallway5)
 "Cu" = (
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee_space{
 	id = "toalet"
@@ -10110,8 +10228,8 @@
 /area/awaymission/spacebattle/hallway5)
 "Cv" = (
 /obj/machinery/door/airlock/external{
-	locked = 1;
-	id_tag = "left_inner"
+	id_tag = "left_inner";
+	locked = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -10121,7 +10239,6 @@
 /obj/machinery/conveyor/east/ccw{
 	dir = 2
 	},
-/obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "Cy" = (
@@ -10146,8 +10263,8 @@
 "CB" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
 	dir = 1;
+	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -10221,7 +10338,7 @@
 	dir = 6;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/hallway13)
 "CK" = (
 /obj/machinery/light{
 	dir = 8
@@ -10246,13 +10363,16 @@
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
 	icon_state = "secureeng1";
+	locked = 0;
 	opened = 1
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/spacebattle/engineering)
 "CO" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -10263,7 +10383,7 @@
 	id = "MainBridge"
 	},
 /turf/space,
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "CQ" = (
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/drone{
 	id = "CenterBridge"
@@ -10378,6 +10498,21 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway1)
+"Dn" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/door/firedoor/closed{
+	layer = 3.2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/prhallway4)
 "Do" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -10399,10 +10534,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -10495,8 +10630,8 @@
 "DB" = (
 /obj/structure/rack/gunrack,
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
 	dir = 1;
+	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -10524,7 +10659,7 @@
 	state = 2
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "DE" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/corpse/spacebattle/security,
@@ -10734,7 +10869,11 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/windoor_assembly,
-/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = -2;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11020,7 +11159,9 @@
 /area/awaymission/spacebattle/syndicate1)
 "Fa" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -11140,7 +11281,7 @@
 	},
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "Fq" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable/yellow{
@@ -11294,17 +11435,17 @@
 	},
 /area/awaymission/spacebattle/hallway3)
 "FL" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle{
-	aggro_vision_range = 12
-	},
 /obj/structure/sign/cargo{
 	pixel_x = -32
+	},
+/obj/machinery/door/firedoor/closed{
+	layer = 3.2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "FM" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -11394,9 +11535,9 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs";
-	dir = 8
+	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway3)
 "FZ" = (
@@ -11444,19 +11585,14 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway11)
 "Gf" = (
-/obj/machinery/door/airlock,
-/obj/machinery/door/firedoor/closed{
-	layer = 3.2
+/obj/structure/table,
+/obj/item/chair{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/prhallway2)
-"Gg" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
 	},
-/area/awaymission/spacebattle/syndicate3)
+/area/awaymission/spacebattle/kitchen)
 "Gh" = (
 /obj/structure/sign/poster/contraband/cc64k_ad{
 	pixel_y = 32
@@ -11583,6 +11719,13 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
+"Gt" = (
+/obj/machinery/suit_storage_unit{
+	state_open = 1;
+	storage_type = /obj/item/clothing/suit/space/hardsuit/ancient
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/server)
 "Gu" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -11700,10 +11843,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -11789,6 +11932,12 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway5)
+"Ha" = (
+/obj/item/crowbar/large,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "Hb" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -11845,11 +11994,9 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/door/firedoor/closed{
-	layer = 3.2
-	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/prhallway5)
 "Hj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -11872,7 +12019,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "Hl" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
@@ -12025,7 +12172,7 @@
 	state = 2
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "HI" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -12081,7 +12228,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "HQ" = (
 /obj/machinery/power/compressor{
 	comp_id = "incineratorturbine";
@@ -12146,8 +12293,8 @@
 	state_open = 1
 	},
 /obj/structure/window/reinforced/tinted{
-	pixel_y = -7;
-	layer = 3.1
+	layer = 3.1;
+	pixel_y = -7
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
@@ -12169,11 +12316,11 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	health = 0;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100;
-	health = 0
+	reqpower = 1
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RightTurret"
@@ -12187,7 +12334,7 @@
 	},
 /area/awaymission/spacebattle/kitchen)
 "Ik" = (
-/obj/structure/closet/crate/tape,
+/obj/structure/closet/crate/syndicate,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -12334,7 +12481,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "IG" = (
 /obj/machinery/door/airlock/syndicate/freezer,
 /turf/simulated/floor/shuttle{
@@ -12349,6 +12496,18 @@
 	icon_state = "floor13"
 	},
 /area/awaymission/spacebattle/syndicate2)
+"IJ" = (
+/obj/effect/turf_decal/delivery,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 100;
+	maxHealth = 100
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "IK" = (
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/plasteel{
@@ -12378,7 +12537,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "IN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger{
@@ -12419,8 +12578,8 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
 	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)";
-	layer = 3.7
+	layer = 3.7;
+	tag = "icon-heater (NORTH)"
 	},
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/shuttle/plating,
@@ -12613,8 +12772,8 @@
 	},
 /obj/structure/window/full/shuttle/gray,
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
-	dir = 1
+	dir = 1;
+	layer = 3.1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -12635,14 +12794,14 @@
 /area/awaymission/spacebattle/engine)
 "Jz" = (
 /obj/structure/cryofeed/right{
-	pixel_x = 6;
-	layer = 2.8
+	layer = 2.8;
+	pixel_x = 6
 	},
 /obj/machinery/power/grounding_rod{
 	anchored = 1;
+	layer = 2.7;
 	pixel_x = 9;
-	pixel_y = 6;
-	layer = 2.7
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12672,10 +12831,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -12714,7 +12873,7 @@
 "JL" = (
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission)
 "JM" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
@@ -12772,9 +12931,7 @@
 /area/awaymission/spacebattle/syndicate4)
 "JW" = (
 /obj/structure/rack,
-/obj/item/tank/jetpack/void,
-/obj/item/tank/jetpack/void,
-/obj/item/tank/jetpack/void,
+/obj/item/tank/jetpack/oxygen,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "JX" = (
@@ -12894,8 +13051,8 @@
 "Kq" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	name = "Battle Lockdown";
-	id_tag = "1ShipLock"
+	id_tag = "1ShipLock";
+	name = "Battle Lockdown"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -12960,13 +13117,10 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "Kz" = (
-/obj/structure/chair/comfy/shuttle/dark,
-/obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
-	faction = "syndicate";
-	id = "CenterBridge"
-	},
+/obj/structure/closet/crate/tape,
+/obj/item/storage/belt/security/webbing,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+	icon_state = "floor13"
 	},
 /area/awaymission/spacebattle/syndicate2)
 "KA" = (
@@ -13016,7 +13170,9 @@
 /area/awaymission/spacebattle/syndicate3)
 "KH" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -13085,7 +13241,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -13323,6 +13479,13 @@
 	tag = "icon-whiteblue (NORTH)"
 	},
 /area/awaymission/spacebattle/medbay)
+"Ly" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "Lz" = (
 /obj/item/storage/box/slug,
 /obj/structure/rack,
@@ -13424,11 +13587,9 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "LL" = (
-/obj/machinery/door/airlock/mining/glass{
-	glass = 0;
+/obj/machinery/door/airlock/highsecurity{
 	locked = 1;
-	name = "Cargo Bay";
-	opacity = 1
+	name = "Cargo Bay"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -13454,8 +13615,11 @@
 	},
 /area/awaymission/spacebattle/syndicate5)
 "LO" = (
-/turf/simulated/floor/engine/plasma,
-/area/awaymission/spacebattle/syndicate4)
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/utility,
+/obj/item/wrench,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "LP" = (
 /turf/space,
 /area/awaymission)
@@ -13473,10 +13637,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway1)
+"LR" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4;
+	icon_state = "xeno2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "LS" = (
 /obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "xeno2";
-	dir = 4
+	dir = 4;
+	icon_state = "xeno2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
@@ -13625,7 +13798,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "Mr" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/closed,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -13668,8 +13841,8 @@
 "Mx" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Quartermaster";
-	req_access_txt = "41";
-	opacity = 1
+	opacity = 1;
+	req_access_txt = "41"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -13678,9 +13851,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
 "Mz" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
 /obj/item/clothing/mask/cigarette/menthol,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
@@ -13815,7 +13985,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/spacebattle)
 "MV" = (
-/obj/item/ammo_box/magazine/pistolm9mm,
+/obj/item/ammo_box/magazine/m10mm,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -13945,6 +14115,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/hallway12)
+"Nn" = (
+/obj/machinery/door/airlock,
+/obj/machinery/door/firedoor/closed{
+	layer = 2.8
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/prhallway5)
 "No" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/grass,
@@ -14096,9 +14273,7 @@
 /area/awaymission/spacebattle/bridge)
 "NJ" = (
 /obj/effect/turf_decal/bot,
-/mob/living/simple_animal/hostile/mimic{
-	faction = list("syndicate")
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -14124,6 +14299,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
+"NM" = (
+/obj/structure/girder/reinforced,
+/obj/effect/landmark/tiles/damageturf{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/prhallway1)
 "NN" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /obj/structure/cable{
@@ -14161,8 +14343,9 @@
 /obj/effect/mine/sound/bwoink{
 	alpha = 0
 	},
-/obj/effect/mine/stun{
-	alpha = 0
+/obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
+	id = "CenterBridge"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -14202,11 +14385,9 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/door/firedoor/closed{
-	layer = 3.2
-	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway1)
 "NX" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 5;
@@ -14329,7 +14510,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "Ol" = (
 /obj/structure/closet/crate/engineering,
 /turf/simulated/floor/plasteel{
@@ -14385,10 +14566,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 8
@@ -14403,6 +14584,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/lighter/zippo,
+/obj/item/clothing/mask/cigarette/pipe/cobpipe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -14426,6 +14609,12 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate2)
+"Ox" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "Oy" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -14699,7 +14888,7 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "Pn" = (
 /obj/item/gun/energy/laser/retro/old,
 /obj/effect/landmark/tiles/damageturf,
@@ -14853,6 +15042,21 @@
 /obj/structure/window/full/reinforced/tinted,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle)
+"PI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle{
+	aggro_vision_range = 12
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/prhallway4)
 "PJ" = (
 /obj/effect/decal/cleanable/blood/oil/streak,
 /turf/simulated/floor/plasteel{
@@ -15014,8 +15218,8 @@
 "Qf" = (
 /obj/structure/closet/radiation,
 /obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_y = 32;
-	pixel_x = 32
+	pixel_x = 32;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -15063,6 +15267,9 @@
 /obj/effect/turf_decal/box,
 /obj/structure/mecha_wreckage/ripley/deathripley,
 /obj/effect/decal/cleanable/blood/oil/streak,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -15085,10 +15292,6 @@
 /area/awaymission/spacebattle/sec_storage)
 "Qo" = (
 /obj/item/restraints/handcuffs/cable,
-/obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
-	faction = "syndicate";
-	id = "armory"
-	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "Qp" = (
@@ -15196,10 +15399,11 @@
 /area/awaymission/spacebattle/engineering)
 "QB" = (
 /obj/machinery/vending/wallmed{
-	pixel_y = -32;
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal=1,/obj/item/reagent_containers/syringe/antiviral=1,/obj/item/reagent_containers/food/pill/tox=1);
-	products = list(/obj/item/stack/medical/bruise_pack=0,/obj/item/stack/medical/ointment=1,/obj/item/reagent_containers/hypospray/autoinjector=0,/obj/item/healthanalyzer=0)
+	pixel_y = -32;
+	products = list(/obj/item/stack/medical/bruise_pack=0,/obj/item/stack/medical/ointment=1,/obj/item/reagent_containers/hypospray/autoinjector=0,/obj/item/healthanalyzer=0,/obj/item/stack/medical/splint=1)
 	},
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -15208,13 +15412,13 @@
 "QC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
-	name = "starboard turret control";
-	id = "RightTurret"
+	id = "RightTurret";
+	name = "starboard turret control"
 	},
 /obj/machinery/door_control{
-	pixel_y = 8;
+	id = "LeftTurret";
 	name = "port side turret control";
-	id = "LeftTurret"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15372,6 +15576,15 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
+"QY" = (
+/obj/structure/chair,
+/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/ranged_space{
+	id = "MainBridge"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "QZ" = (
 /obj/structure/sign/directions/medical{
 	dir = 8;
@@ -15406,7 +15619,7 @@
 	dir = 10;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/hallway13)
 "Rc" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /turf/simulated/floor/shuttle{
@@ -15443,11 +15656,11 @@
 /area/awaymission/spacebattle/hallway6)
 "Rh" = (
 /obj/structure{
+	anchored = 1;
+	density = 1;
 	icon = 'icons/obj/machines/drone_fab.dmi';
 	icon_state = "drone_fab_idle";
-	name = "drone fabricator";
-	density = 1;
-	anchored = 1
+	name = "drone fabricator"
 	},
 /turf/simulated/floor/pod,
 /area/awaymission/spacebattle/syndicate6)
@@ -15456,10 +15669,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -15662,9 +15875,9 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs";
-	dir = 8
+	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway11)
 "RU" = (
@@ -15718,13 +15931,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
+"Sb" = (
+/obj/structure/window/full/shuttle{
+	anchored = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/prhallway5)
 "Sc" = (
 /obj/structure{
+	anchored = 1;
+	density = 1;
 	icon = 'icons/obj/machines/drone_fab.dmi';
 	icon_state = "drone_fab_idle";
-	name = "drone fabricator";
-	density = 1;
-	anchored = 1
+	name = "drone fabricator"
 	},
 /turf/simulated/floor/pod,
 /area/awaymission/spacebattle/syndicate5)
@@ -15800,10 +16021,10 @@
 /obj/machinery/porta_turret/centcom{
 	active_power_usage = 1;
 	enabled = 1;
+	idle_power_usage = 100;
 	lethal = 1;
 	name = "Space Defence Turret";
-	reqpower = 1;
-	idle_power_usage = 100
+	reqpower = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -15945,8 +16166,10 @@
 /area/space)
 "SJ" = (
 /obj/effect/turf_decal/siding/blue,
-/obj/structure/curtain/medical,
 /obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/curtain/medical{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -15979,10 +16202,10 @@
 	state = 2
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/spacebattle/sec_storage)
+/area/awaymission/spacebattle/cruiser)
 "SP" = (
 /obj/structure/shuttle/engine/router,
-/turf/simulated/floor/engine/plasma,
+/turf/simulated/floor/engine,
 /area/awaymission/spacebattle/syndicate4)
 "SR" = (
 /obj/structure/chair/comfy/shuttle/dark{
@@ -16115,6 +16338,19 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate4)
+"Tj" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/item/screwdriver,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/prhallway5)
 "Tk" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -4;
@@ -16170,6 +16406,15 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway3)
+"Tu" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/spacebattle/kitchen)
 "Tv" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/machinery/door/firedoor/closed{
@@ -16203,7 +16448,7 @@
 	name = "Secure Armory";
 	req_access_txt = "1"
 	},
-/obj/item/ammo_box/magazine/pistolm9mm,
+/obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16225,7 +16470,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/ammo_box/magazine/pistolm9mm,
+/obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret2)
 "TC" = (
@@ -16356,11 +16601,14 @@
 /obj/structure/sign/cargo{
 	pixel_x = -32
 	},
+/obj/machinery/door/firedoor/closed{
+	layer = 3.2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "TX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -16387,6 +16635,10 @@
 /area/space/nearstation)
 "Ub" = (
 /obj/structure/rack/gunrack,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 5;
+	pixel_y = -28
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -16395,6 +16647,9 @@
 /obj/effect/turf_decal/box,
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/decal/cleanable/blood/oil/streak,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -16436,8 +16691,10 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
 "Uj" = (
-/obj/structure/curtain/medical,
 /obj/effect/turf_decal/siding/blue,
+/obj/structure/curtain/medical{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -16709,9 +16966,11 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 6
 	},
-/obj/structure/curtain/medical,
 /obj/structure/window/reinforced/tinted{
 	dir = 4
+	},
+/obj/structure/curtain/medical{
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -16815,8 +17074,8 @@
 /area/awaymission/spacebattle/turret7)
 "Vi" = (
 /obj/structure/cryofeed/right{
-	pixel_y = 5;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 5
 	},
 /obj/effect/turf_decal/stripes/red/corner,
 /turf/simulated/floor/plasteel{
@@ -16849,13 +17108,13 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "Vn" = (
 /obj/structure/rack/gunrack,
 /obj/item/gun/energy/laser,
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
 	dir = 1;
+	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -16958,8 +17217,8 @@
 	},
 /obj/item/ammo_box/magazine/wt550m9/wtap,
 /obj/item/ammo_box/magazine/wt550m9/wtap{
-	pixel_y = -5;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret3)
@@ -17228,9 +17487,9 @@
 "Wp" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs";
-	dir = 8
+	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway11)
 "Wr" = (
@@ -17257,9 +17516,6 @@
 /area/awaymission/spacebattle/syndicate3)
 "Wu" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee{
-	id = "armory"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -17327,7 +17583,7 @@
 	dir = 5;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "WC" = (
 /turf/simulated/wall/shuttle/nosmooth,
 /area/awaymission/spacebattle/storage)
@@ -17498,9 +17754,9 @@
 /area/awaymission/spacebattle/living)
 "Xd" = (
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "rampbottom";
-	tag = "icon-stage_stairs";
-	dir = 8
+	tag = "icon-stage_stairs"
 	},
 /area/awaymission/spacebattle/hallway11)
 "Xf" = (
@@ -17618,6 +17874,10 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway3)
+"Xx" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/shuttle/plating,
+/area/awaymission/spacebattle/cruiser)
 "Xy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -17779,7 +18039,10 @@
 	},
 /area/awaymission/spacebattle/prhallway4)
 "XY" = (
-/obj/machinery/suit_storage_unit,
+/obj/machinery/suit_storage_unit{
+	helmet_type = /obj/item/clothing/head/helmet/space/vox/pressure;
+	suit_type = /obj/item/clothing/suit/space/vox/pressure
+	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/awaymission/spacebattle/syndicate2)
 "XZ" = (
@@ -18005,8 +18268,10 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "YE" = (
-/obj/item/storage/box/slug,
 /obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/storage/box/buck{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -18052,6 +18317,17 @@
 "YK" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway3)
+"YL" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/item/stack/sheet/mineral/titanium,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/awaymission/spacebattle/prhallway1)
 "YN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/structure/window/plasmareinforced{
@@ -18082,7 +18358,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/cruiser)
+/area/awaymission/spacebattle/hallway13)
 "YR" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1
@@ -18210,14 +18486,14 @@
 "Zo" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1;
+	layer = 2.8;
 	pixel_x = -1;
-	pixel_y = 8;
-	layer = 2.8
+	pixel_y = 8
 	},
 /obj/structure/cryofeed/right{
-	pixel_y = 5;
+	layer = 2.8;
 	pixel_x = 6;
-	layer = 2.8
+	pixel_y = 5
 	},
 /obj/machinery/power/grounding_rod{
 	anchored = 1;
@@ -18282,6 +18558,11 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway1)
+"Zw" = (
+/obj/structure/rack,
+/obj/item/tank/jetpack/improvised,
+/turf/simulated/floor/mineral/titanium,
+/area/awaymission/spacebattle/storage)
 "Zx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -18305,7 +18586,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/spacebattle/prhallway2)
+/area/awaymission/spacebattle/prhallway4)
 "Zz" = (
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/hallway6)
@@ -18367,8 +18648,8 @@
 /area/awaymission/spacebattle/bridge)
 "ZK" = (
 /obj/machinery/door/airlock/external{
-	locked = 1;
-	id = "1ShipLock"
+	id = "1ShipLock";
+	locked = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -18397,6 +18678,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/item/stack/medical/splint,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "ZO" = (
@@ -18447,7 +18729,7 @@
 "ZV" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/table/reinforced,
-/obj/item/clothing/glasses/welding/superior,
+/obj/item/clothing/glasses/meson/sunglasses,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -33770,7 +34052,7 @@ ab
 ab
 ab
 ep
-LO
+SP
 eP
 fZ
 kp
@@ -33780,7 +34062,7 @@ Ko
 kp
 HQ
 RG
-LO
+SP
 ep
 ab
 ab
@@ -34027,7 +34309,7 @@ ab
 ab
 ab
 ep
-LO
+SP
 Ar
 gA
 jw
@@ -34037,7 +34319,7 @@ jw
 jw
 Gj
 Ar
-LO
+SP
 ep
 ab
 ab
@@ -35054,7 +35336,7 @@ ab
 ab
 ab
 ep
-LO
+SP
 ep
 ab
 ab
@@ -35066,7 +35348,7 @@ ab
 ab
 ab
 ep
-LO
+SP
 ep
 ab
 ab
@@ -35311,7 +35593,7 @@ ab
 ab
 ab
 ep
-LO
+SP
 ep
 ab
 ab
@@ -35323,7 +35605,7 @@ ab
 ab
 ab
 ep
-LO
+SP
 ep
 ab
 ab
@@ -37626,7 +37908,7 @@ ab
 ab
 ab
 eH
-QS
+Zw
 Wj
 cR
 TQ
@@ -38401,7 +38683,7 @@ ga
 QS
 QS
 Kv
-bE
+JW
 QS
 Lt
 Pa
@@ -40453,7 +40735,7 @@ cS
 Aa
 dj
 cB
-Yg
+fG
 Lc
 Ey
 eH
@@ -40973,7 +41255,7 @@ ZV
 eH
 bC
 Vf
-sA
+Vo
 sA
 Ez
 dr
@@ -42244,7 +42526,7 @@ eH
 SO
 oS
 DD
-et
+eH
 BZ
 Zm
 in
@@ -42758,7 +43040,7 @@ eH
 HH
 eb
 el
-et
+eH
 jB
 AV
 AH
@@ -43012,10 +43294,10 @@ Ze
 ZN
 IK
 eH
-et
-et
-et
-et
+eH
+eH
+eH
+eH
 YH
 dR
 lC
@@ -43269,7 +43551,7 @@ kh
 SN
 pG
 Rb
-et
+eH
 oE
 vU
 Cw
@@ -43526,7 +43808,7 @@ zQ
 vF
 Zb
 zA
-et
+eH
 ey
 tJ
 Kj
@@ -43783,7 +44065,7 @@ md
 Cr
 NT
 YQ
-et
+eH
 Fo
 YD
 dE
@@ -44040,7 +44322,7 @@ Sd
 Mz
 Rf
 CJ
-et
+eH
 tg
 ZB
 TM
@@ -44297,7 +44579,7 @@ uu
 NT
 fk
 eH
-et
+eH
 et
 et
 et
@@ -45604,7 +45886,7 @@ eH
 eH
 eH
 Ct
-WH
+Nn
 lt
 ZD
 Ye
@@ -45836,7 +46118,7 @@ Qm
 eH
 Mn
 wT
-Gf
+We
 yA
 IF
 IF
@@ -46100,8 +46382,8 @@ Zy
 nm
 wK
 pe
-Zy
-Zy
+Dn
+PI
 Zy
 mg
 Vm
@@ -46109,7 +46391,7 @@ Hj
 AI
 Zy
 Zy
-Zy
+Dn
 pd
 Zy
 wd
@@ -46623,7 +46905,7 @@ Td
 eH
 Zp
 gF
-qh
+Uj
 gP
 gF
 Gy
@@ -46865,10 +47147,10 @@ eH
 rt
 jT
 eH
-dv
+QY
 Om
-Om
-en
+Gf
+cX
 cX
 dv
 Om
@@ -46886,9 +47168,9 @@ gR
 Qu
 gF
 gF
-ZQ
+Uf
 bh
-VT
+Tj
 CL
 eH
 ZD
@@ -47124,8 +47406,8 @@ wj
 eH
 dv
 dO
-Om
-en
+ZF
+Tu
 cX
 dv
 Om
@@ -47137,14 +47419,14 @@ Tq
 eH
 Zp
 dF
-qh
+Uj
 Lv
 gF
 gF
 gR
 lR
-Uf
-bh
+ZQ
+Xx
 Oy
 nr
 eH
@@ -47376,13 +47658,13 @@ Ac
 nu
 EX
 eH
-SU
-jT
+NM
+YL
 eH
 rT
-Om
-Om
-en
+Cs
+uY
+Ox
 cX
 dv
 Om
@@ -47396,14 +47678,14 @@ gt
 Pb
 UV
 hG
-gF
+bE
 Ah
 qN
 lQ
 bO
 eH
 VT
-wk
+Sb
 eH
 ZD
 Br
@@ -47633,14 +47915,14 @@ WN
 Zf
 Le
 eH
-SU
-jT
+kJ
+wf
 eH
 OS
-cX
-cX
-cX
-cX
+Mt
+Ox
+vi
+av
 cX
 cX
 cX
@@ -48158,7 +48440,7 @@ cX
 dv
 Om
 Om
-qp
+en
 eH
 ht
 Ab
@@ -48415,14 +48697,14 @@ cX
 dv
 dO
 Om
-en
+Ad
 eH
 fB
 TN
 eH
 KR
 gF
-qh
+Uj
 NK
 ZM
 qC
@@ -48672,7 +48954,7 @@ qA
 cX
 cX
 cX
-cX
+LR
 eH
 CW
 gh
@@ -49440,7 +49722,7 @@ fv
 kn
 op
 qO
-cX
+Ha
 Mt
 cX
 Ja
@@ -49969,7 +50251,7 @@ gx
 TV
 hD
 Xk
-hb
+Gt
 qF
 eH
 VT
@@ -50641,7 +50923,7 @@ at
 Qc
 aI
 jx
-BO
+aj
 jx
 aI
 KO
@@ -50741,7 +51023,7 @@ My
 hC
 Xk
 hb
-qF
+iS
 eH
 Zx
 SC
@@ -52024,7 +52306,7 @@ me
 Ht
 eH
 eH
-AJ
+LS
 WR
 eH
 RQ
@@ -52449,7 +52731,7 @@ Bx
 at
 Do
 zi
-Kz
+TD
 cj
 LI
 ab
@@ -52686,7 +52968,7 @@ aI
 bm
 aI
 Qb
-tS
+ta
 tS
 tS
 tS
@@ -53477,7 +53759,7 @@ em
 aI
 Jx
 uO
-aL
+qh
 LI
 ab
 ab
@@ -54081,7 +54363,7 @@ bh
 hR
 Py
 Fg
-jq
+LO
 eH
 og
 hU
@@ -54501,7 +54783,7 @@ hs
 aI
 Ik
 yl
-em
+Kz
 aI
 Ei
 ab
@@ -57059,7 +57341,7 @@ ab
 aI
 aI
 VZ
-VZ
+Bz
 th
 oQ
 YO
@@ -65037,7 +65319,7 @@ eF
 hr
 kb
 aK
-NJ
+Ly
 zW
 Sv
 eF
@@ -66583,7 +66865,7 @@ aK
 Mj
 cP
 ec
-jh
+jW
 eF
 yE
 kc
@@ -67618,11 +67900,11 @@ aD
 aD
 aA
 lK
-Gg
+Wt
 zf
 aD
 aA
-bs
+js
 ai
 aD
 aD
@@ -68123,7 +68405,7 @@ QK
 ut
 aK
 aU
-jh
+IJ
 Mj
 kl
 MG
@@ -69920,7 +70202,7 @@ eF
 hr
 kb
 aK
-NJ
+aU
 wy
 Dy
 eF
@@ -70178,7 +70460,7 @@ aD
 kb
 aU
 aK
-aU
+rC
 hj
 eF
 eF
@@ -70438,7 +70720,7 @@ aU
 aK
 hj
 eF
-QK
+bN
 eF
 eF
 eF
