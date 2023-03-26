@@ -60,11 +60,6 @@
 	name = "Snack bowl"
 	icon_state	= "snack_bowl"
 
-/obj/item/trash/pan
-	name = "Burned through pan"
-	icon_state = "pan"
-	throw_range = 3
-
 /obj/item/trash/fried_vox
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
