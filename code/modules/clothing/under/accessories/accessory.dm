@@ -774,11 +774,12 @@
 	if(istype(I, /obj/item/card/id))
 		if(access_id)
 			to_chat(user, "<span class='notice'>There is already \a [access_id] clipped onto \the [src]</span>")
-		user.drop_item()
-		I.forceMove(src)
-		access_id = I
-		to_chat(user, "<span class='notice'>\The [I] clips onto \the [src] snugly.</span>")
-		return
+		else
+			user.drop_item()
+			I.forceMove(src)
+			access_id = I
+			to_chat(user, "<span class='notice'>\The [I] clips onto \the [src] snugly.</span>")
+			return
 	. = ..()
 
 /obj/item/clothing/accessory/petcollar/GetAccess()
