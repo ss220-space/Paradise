@@ -328,6 +328,7 @@
 			O.robot_suit = src
 
 			if(O.mmi.clock) // so robots created from vessel have magic
+				O.UnlinkSelf()
 				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)
