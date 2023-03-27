@@ -60,122 +60,98 @@ export const AgentCardInfo = (props, context) => {
       <Section title="Card Info">
         <LabeledList>
           <LabeledList.Item
-            label="Name"
-            buttons={
-              <Button
-                content={registered_name ? registered_name : '[UNSET]'}
-                onClick={() => act('change_name')}
-              />
-            }
-          />
+            label="Name">
+            <Button
+              content={registered_name ? registered_name : '[UNSET]'}
+              onClick={() => act('change_name')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Sex"
-            buttons={
-              <Button
-                iconRight={false}
-                content={sex ? sex : '[UNSET]'}
-                onClick={() => act('change_sex')}
-              />
-            }
-          />
+            label="Sex">
+            <Button
+              iconRight={false}
+              content={sex ? sex : '[UNSET]'}
+              onClick={() => act('change_sex')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Age"
-            buttons={
-              <Button
-                content={age ? age : '[UNSET]'}
-                onClick={() => act('change_age')}
-              />
-            }
-          />
+            label="Age">
+            <Button
+              content={age ? age : '[UNSET]'}
+              onClick={() => act('change_age')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Rank"
-            buttons={
-              <Button
-                content={assignment ? assignment : '[UNSET]'}
-                onClick={() => act('change_occupation')}
-              />
-            }
-          />
+            label="Rank">
+            <Button
+              content={assignment ? assignment : '[UNSET]'}
+              onClick={() => act('change_occupation')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Fingerprints"
-            buttons={
-              <Button
-                content={fingerprint_hash ? fingerprint_hash : '[UNSET]'}
-                onClick={() => act('change_fingerprints')}
-              />
-            }
-          />
+            label="Fingerprints">
+            <Button
+              content={fingerprint_hash ? fingerprint_hash : '[UNSET]'}
+              onClick={() => act('change_fingerprints')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Blood Type"
-            buttons={
-              <Button
-                content={blood_type ? blood_type : '[UNSET]'}
-                onClick={() => act('change_blood_type')}
-              />
-            }
-          />
+            label="Blood Type">
+            <Button
+              content={blood_type ? blood_type : '[UNSET]'}
+              onClick={() => act('change_blood_type')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="DNA Hash"
-            buttons={
-              <Button
-                content={dna_hash ? dna_hash : '[UNSET]'}
-                onClick={() => act('change_dna_hash')}
-              />
-            }
-          />
+            label="DNA Hash">
+            <Button
+              content={dna_hash ? dna_hash : '[UNSET]'}
+              onClick={() => act('change_dna_hash')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Money Account"
-            buttons={
-              <Button
-                content={
-                  associated_account_number
-                    ? associated_account_number
-                    : '[UNSET]'
-                }
-                onClick={() => act('change_money_account')}
-              />
-            }
-          />
+            label="Money Account">
+            <Button
+              content={
+                associated_account_number
+                  ? associated_account_number
+                  : '[UNSET]'
+              }
+              onClick={() => act('change_money_account')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Photo"
-            buttons={
-              <Button
-                content={photo ? 'Update' : '[UNSET]'}
-                onClick={() => act('change_photo')}
-              />
-            }
-          />
+            label="Photo">
+            <Button
+              content={photo ? 'Update' : '[UNSET]'}
+              onClick={() => act('change_photo')}
+            />
+          </LabeledList.Item>
         </LabeledList>
       </Section>
       <Section title="Card Settings">
         <LabeledList>
           <LabeledList.Item
-            label="Card Info"
-            buttons={
-              <Button
-                content="Delete Card Info"
-                onClick={() => act('delete_info')}
-              />
-            }
-          />
+            label="Card Info">
+            <Button
+              content="Delete Card Info"
+              onClick={() => act('delete_info')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="Access"
-            buttons={
-              <Button
-                content="Reset Access"
-                onClick={() => act('clear_access')}
-              />
-            }
-          />
+            label="Access">
+            <Button
+              content="Reset Access"
+              onClick={() => act('clear_access')}
+            />
+          </LabeledList.Item>
           <LabeledList.Item
-            label="AI Tracking"
-            buttons={
-              <Button
-                content={ai_tracking ? 'Untrackable' : 'Trackable'}
-                onClick={() => act('change_ai_tracking')}
-              />
-            }
-          />
+            label="AI Tracking">
+            <Button
+              content={ai_tracking ? 'Untrackable' : 'Trackable'}
+              onClick={() => act('change_ai_tracking')}
+            />
+          </LabeledList.Item>
         </LabeledList>
       </Section>
     </Fragment>

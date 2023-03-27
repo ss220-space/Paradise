@@ -505,6 +505,7 @@
 		return
 	if(!registered_user)
 		return
+	. = TRUE
 	switch(action)
 		if("delete_info")
 			var/response = alert(registered_user, "Are you sure you want to delete all card info?","Delete Card Info", "No", "Yes")
@@ -603,6 +604,7 @@
 				"Security",
 				"Support",
 				"Command",
+				"Special",
 				"Custom",
 			)
 
@@ -626,6 +628,8 @@
 						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 					if("Command")
 						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+					if("Special")
+						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 					if("Custom")
 						new_rank = null
 			else if(department != "Civilian")
@@ -642,6 +646,8 @@
 						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 					if("Command")
 						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+					if("Special")
+						new_job = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 				new_rank = new_job
 
 			if(!Adjacent(registered_user))
@@ -726,7 +732,7 @@
 /obj/item/card/id/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "AgentCard", name, 500, 450, master_ui, state)
+		ui = new(user, src, ui_key, "AgentCard", name, 425, 500, master_ui, state)
 		ui.open()
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
@@ -734,6 +740,9 @@
 		return
 	if(!registered_user)
 		registered_user = user
+	if(!anyone)
+		if(user != registered_user)
+			return ..()
 	switch(alert("Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
 		if("Show")
 			return ..()
