@@ -528,11 +528,7 @@
 				access = initial_access.Copy() // Initial() doesn't work on lists
 				to_chat(registered_user, "<span class='notice'>Card access reset.</span>")
 		if("change_ai_tracking")
-			var/response = alert(registered_user, "Do you want this ID card to be trackable by AI's?", "Tracking", "No", "Yes")
-			if(response == "Yes")
-				untrackable = 0
-			else
-				untrackable = 1
+			untrackable = !untrackable
 			to_chat(registered_user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
 		if("change_name")
 			var/new_name = reject_bad_name(input(registered_user,"What name would you like to put on this card?","Agent Card Name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
@@ -713,7 +709,6 @@
 	data["fingerprint_hash"] = fingerprint_hash
 	data["photo"] = photo
 	data["ai_tracking"] = untrackable
-	data["appearance"] = icon_state
 	return data
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
