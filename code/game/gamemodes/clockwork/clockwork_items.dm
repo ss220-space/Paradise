@@ -1104,12 +1104,15 @@
 	desc = "An unique brass board, used by cyborg warriors."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
-	require_module = TRUE
-	instant_use = TRUE
 
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
 	if(..())
-		R.ratvar_act() // weak false
+		if(R.module?.type == /obj/item/robot_module/clockwork)
+			R.emp_protection = TRUE
+			R.speed = -0.5
+			R.pdahide = TRUE
+		else
+			R.ratvar_act()
 		R.opened = FALSE
 		R.locked = TRUE
 		return TRUE
