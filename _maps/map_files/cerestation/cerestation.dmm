@@ -1125,7 +1125,7 @@
 	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -20234,7 +20234,7 @@
 /obj/machinery/door/window/westright{
 	dir = 4;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -20827,7 +20827,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 2;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -30333,7 +30333,7 @@
 	base_state = "right";
 	icon_state = "right";
 	name = "Hydroponics";
-	req_access_txt = "35"
+	req_access = list(35)
 	},
 /obj/item/desk_bell{
 	pixel_x = 7;
@@ -33721,7 +33721,7 @@
 "dcS" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar";
-	req_access_txt = "12"
+	req_access = list(12)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -41487,7 +41487,7 @@
 "eNP" = (
 /obj/machinery/door/airlock{
 	name = "Crematorium";
-	req_access_txt = "27"
+	req_access = list(27)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -41651,7 +41651,7 @@
 "eRp" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance";
-	req_access_txt = "12"
+	req_access = list(12)
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
@@ -44747,7 +44747,7 @@
 "gat" = (
 /obj/machinery/door/airlock{
 	name = "Crematorium";
-	req_access_txt = "27"
+	req_access = list(27)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46805,7 +46805,7 @@
 "gNI" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49302,7 +49302,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	req_access_txt = "35"
+	req_access = list(35)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -53998,7 +53998,7 @@
 /area/engine/supermatter)
 "jAF" = (
 /obj/machinery/door/airlock/public/glass{
-	req_access_txt = "35";
+	req_access = list(35);
 	name = "Garden"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -55699,7 +55699,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	req_access_txt = "35"
+	req_access = list(35)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -62193,7 +62193,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -63949,7 +63949,7 @@
 "nnc" = (
 /obj/machinery/door/airlock/freezer{
 	name = "Freezer";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/freezer,
@@ -71439,7 +71439,7 @@
 /obj/machinery/door/window/westright{
 	dir = 2;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -71698,7 +71698,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -74218,7 +74218,7 @@
 /area/maintenance/asmaint5)
 "ran" = (
 /obj/machinery/door/airlock/public/glass{
-	req_access_txt = "35";
+	req_access = list(35);
 	name = "Garden"
 	},
 /obj/machinery/door/firedoor,
@@ -78553,7 +78553,7 @@
 /obj/machinery/door/window/westright{
 	dir = 2;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -79466,7 +79466,7 @@
 "sXs" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Hydroponics";
-	req_access_txt = "35"
+	req_access = list(35)
 	},
 /turf/simulated/floor/plating,
 /area/hydroponics)
@@ -79756,7 +79756,7 @@
 "tcM" = (
 /obj/machinery/door/airlock/freezer{
 	name = "Freezer";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/freezer,
@@ -82078,7 +82078,7 @@
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
 	name = "Hydroponics";
-	req_access_txt = "35"
+	req_access = list(35)
 	},
 /turf/simulated/floor/plating,
 /area/hydroponics)
@@ -84273,14 +84273,14 @@
 	base_state = "right";
 	icon_state = "right";
 	name = "Hydroponics";
-	req_access_txt = "35";
+	req_access = list(35);
 	dir = 2
 	},
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
 	icon_state = "right";
 	name = "Kitchen";
-	req_access_txt = "28";
+	req_access = list(28);
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
@@ -88093,7 +88093,7 @@
 "wmj" = (
 /obj/machinery/door/airlock{
 	name = "Chaplain's Office";
-	req_access_txt = "22"
+	req_access = list(22)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91899,7 +91899,7 @@
 /obj/machinery/door/window/westright{
 	dir = 4;
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -92174,13 +92174,13 @@
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
 	name = "Kitchen";
-	req_access_txt = "28";
+	req_access = list(28);
 	dir = 1
 	},
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
 	name = "Hydroponics";
-	req_access_txt = "35";
+	req_access = list(35);
 	dir = 2
 	},
 /obj/machinery/door/firedoor,
@@ -92595,7 +92595,7 @@
 	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
-	req_access_txt = "28"
+	req_access = list(28)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
