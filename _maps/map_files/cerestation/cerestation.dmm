@@ -47817,7 +47817,7 @@
 "hhz" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Hydroponics Garden";
-	req_one_access_txt = "35;28"
+	req_one_access = list(35,28)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80970,7 +80970,7 @@
 "tyR" = (
 /obj/machinery/smartfridge/secure{
 	name = "\improper Kitchen Delivery SmartFridge";
-	req_one_access_txt = "28;35"
+	req_one_access = list(28,35)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
