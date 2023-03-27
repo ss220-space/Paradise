@@ -10010,7 +10010,6 @@
 /area/civilian/barber)
 "beQ" = (
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/item/eftpos,
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
@@ -18134,7 +18133,6 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/item/candle,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -18161,7 +18159,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/table/wood,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -2;
