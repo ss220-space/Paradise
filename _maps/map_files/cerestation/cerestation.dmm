@@ -1531,6 +1531,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -1614,24 +1617,24 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "alg" = (
-/obj/machinery/door/window/brigdoor/southleft{
-	dir = 1;
-	req_access = list(63)
-	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "alh" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
-/obj/structure/closet/emcloset,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
 	c_tag = "Brig Labor Camp Airlock North";
 	dir = 8
@@ -2270,20 +2273,23 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "aok" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/security/prisonershuttle)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/entry/south)
 "aol" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aom" = (
@@ -35777,9 +35783,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "dqb" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -44695,6 +44698,15 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/engineering)
+"fZA" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry/south)
 "fZJ" = (
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -47090,6 +47102,15 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
+"gTA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/entry/south)
 "gTD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -50569,13 +50590,13 @@
 	},
 /area/security/warden)
 "ijl" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1;
-	name = "External airlock"
+/obj/machinery/light{
+	dir = 8
 	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
 /area/hallway/secondary/entry/south)
 "ijr" = (
 /obj/effect/turf_decal/stripes/line{
@@ -52949,7 +52970,9 @@
 	name = "port bay 2";
 	width = 5
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "jgl" = (
 /obj/machinery/camera{
@@ -53417,13 +53440,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "jpz" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/red/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_dock";
+	locked = 1;
+	name = "External airlock"
 	},
-/area/hallway/secondary/entry/south)
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/space)
 "jpC" = (
 /obj/structure/rack,
 /obj/structure/disposalpipe/segment{
@@ -55334,15 +55358,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "jYp" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_dock";
+	locked = 1;
+	name = "External airlock"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/secondary/entry/south)
+/turf/simulated/floor/plating,
+/area/space)
 "jYU" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -58269,11 +58292,8 @@
 /area/maintenance/disposal/westalt)
 "leg" = (
 /obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 8;
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59132,6 +59152,20 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
+"lte" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 7;
+	height = 15;
+	id = "trade_dock";
+	name = "port bay 4";
+	width = 18;
+	dheight = 1
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "ltk" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -61215,6 +61249,16 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/starboard)
+"mlg" = (
+/obj/machinery/door/window/brigdoor/southleft{
+	dir = 1;
+	req_access = list(63)
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/prisonershuttle)
 "mlu" = (
 /obj/structure/closet/crate,
 /obj/structure/disposalpipe/segment{
@@ -78293,11 +78337,19 @@
 	},
 /area/medical/virology)
 "syJ" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
-/area/hallway/secondary/entry/south)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/camera{
+	c_tag = "Brig Labor Camp Airlock North";
+	dir = 8
+	},
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
+/area/security/prisonershuttle)
 "szl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -78689,12 +78741,6 @@
 "sGg" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
@@ -83062,7 +83108,9 @@
 	name = "port bay 3";
 	width = 5
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "uqR" = (
 /obj/structure/cable{
@@ -92097,16 +92145,12 @@
 	},
 /area/maintenance/apmaint2)
 "xGW" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4";
-	width = 9
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/red/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
 	},
-/turf/space,
-/area/space)
+/area/hallway/secondary/entry/south)
 "xHo" = (
 /obj/machinery/light/small,
 /obj/structure/closet/emcloset,
@@ -106140,16 +106184,16 @@ rNK
 rNK
 rNK
 rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
 xEp
 xEp
 xEp
@@ -106397,16 +106441,16 @@ rNK
 rNK
 rNK
 rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
 xEp
 xEp
 xEp
@@ -106654,16 +106698,16 @@ rNK
 rNK
 rNK
 rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
 xEp
 xEp
 xEp
@@ -106911,16 +106955,16 @@ rNK
 rNK
 rNK
 rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
-jqn
 xEp
 xEp
 xEp
@@ -107168,7 +107212,6 @@ rNK
 rNK
 rNK
 rNK
-rNK
 jqn
 jqn
 jqn
@@ -107178,6 +107221,7 @@ jqn
 dqu
 jqn
 jqn
+rNK
 rNK
 rNK
 awE
@@ -107424,8 +107468,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-pVD
+nZp
 pVD
 arV
 mZH
@@ -107434,6 +107477,7 @@ cdL
 arV
 mZH
 arV
+pVD
 pVD
 pVD
 pVD
@@ -107681,8 +107725,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-pVD
+nZp
 aWm
 wFn
 mFT
@@ -107690,8 +107733,9 @@ qyS
 ale
 qyS
 mFT
-qyS
+wFn
 aoZ
+dqa
 dqa
 arV
 yfX
@@ -107938,16 +107982,16 @@ rNK
 rNK
 rNK
 cRv
-cRv
-pVD
+ivS
 doB
 ajA
 dpg
 qMd
+mlg
 alg
 sGg
 akC
-aok
+sGg
 apa
 vKV
 gYc
@@ -108195,12 +108239,12 @@ rNK
 rNK
 rNK
 cRv
-abW
-pVD
+ivS
 pPl
 ajB
 alW
 bTR
+syJ
 alh
 dqb
 iHo
@@ -129179,7 +129223,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+aZi
 rNK
 rNK
 rNK
@@ -130713,7 +130757,7 @@ rNK
 rNK
 rNK
 rNK
-aZi
+rNK
 rNK
 rNK
 rNK
@@ -130966,21 +131010,21 @@ rNK
 rNK
 xcc
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -131219,25 +131263,25 @@ dai
 mmF
 tYX
 uwf
-rNK
-rNK
+lzH
+lzH
 xcc
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -131476,25 +131520,25 @@ jqW
 koo
 spQ
 sHm
-lzH
-lzH
+rNK
+rNK
 xcc
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -131735,23 +131779,23 @@ spQ
 sHm
 rNK
 rNK
-xcc
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -131990,25 +132034,25 @@ tbP
 tuh
 spQ
 sHm
+nZp
+nZp
+nZp
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -132245,27 +132289,27 @@ hNb
 pLr
 gUa
 tuh
-spQ
+aok
+leg
+ijl
+xGW
 sHm
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+nZp
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -132502,27 +132546,27 @@ rAB
 mQN
 aIb
 ebV
-leg
-sHm
-sHm
-sHm
-sHm
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+eWu
+dbg
+dbg
+xQX
+uXr
+jYp
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -132759,27 +132803,27 @@ kQz
 pLr
 akn
 tWq
-spQ
-syJ
-jYp
-hDf
-sHm
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+eWu
+dbg
+dbg
+xQX
+uXr
+jpz
+lte
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -133018,25 +133062,25 @@ ewv
 tWq
 eWu
 dbg
-eWu
-jpz
+dbg
+rFJ
 sHm
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+nZp
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -133275,25 +133319,25 @@ mWg
 tWq
 eWu
 dbg
-eWu
-xQX
-ijl
-xGW
+gTA
+fZA
+sHm
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -133533,24 +133577,24 @@ tWq
 eWu
 dbg
 eWu
-rFJ
+vjb
 sHm
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -133793,21 +133837,21 @@ eWu
 hDf
 yjW
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -134050,21 +134094,21 @@ ckQ
 vjb
 sHm
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -134307,21 +134351,21 @@ cjs
 vjb
 sHm
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -138675,16 +138719,16 @@ jdC
 lqQ
 cJA
 xMQ
-rNK
-rNK
+jqn
+jqn
 uqP
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
 jfW
-rNK
-rNK
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -138932,16 +138976,16 @@ pKz
 heH
 jUc
 uTr
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -139189,16 +139233,16 @@ pMv
 haH
 pjX
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -139446,16 +139490,16 @@ wpW
 kyQ
 oba
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -139703,16 +139747,16 @@ ckp
 djw
 hJY
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -139960,16 +140004,16 @@ opl
 djw
 hJY
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -140217,16 +140261,16 @@ ckq
 djw
 fEC
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 jqn
 jqn
@@ -140474,16 +140518,16 @@ ckr
 ckW
 lXp
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 jqn
 jqn
@@ -140731,16 +140775,16 @@ vMR
 djw
 hJY
 xMQ
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 jqn
 jqn
@@ -140988,16 +141032,16 @@ kqg
 djw
 hJY
 csG
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 jqn
 jqn
@@ -141245,11 +141289,11 @@ dkc
 djw
 hJY
 csG
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
