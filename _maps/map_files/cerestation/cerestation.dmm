@@ -9267,7 +9267,6 @@
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
 	name = "disposal pipe - Library";
-	sort_type_txt = "16";
 	sortType = 16
 	},
 /turf/simulated/floor/carpet/green,
@@ -17232,7 +17231,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "disposal pipe - Chapel";
-	sort_type_txt = "17";
 	sortType = 17
 	},
 /turf/simulated/floor/carpet/green,
