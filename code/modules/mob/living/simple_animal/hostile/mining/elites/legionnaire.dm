@@ -326,6 +326,12 @@
 	/// Time at which the item becomes usable again
 	var/next_use_time
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire
+	health = 25
+	maxHealth = 25
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+
 /obj/item/crusher_trophy/legionnaire_spine/effect_desc()
 	return "mark detonation to have a <b>[bonus_value]%</b> chance to summon a loyal legion skull"
 
@@ -346,7 +352,7 @@
 		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
 		return
 	LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src] and summons a legion skull!</span>")
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/LegionSkull = new(LivingUser.loc)
+	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
