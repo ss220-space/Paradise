@@ -61,6 +61,8 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
+	/// Do we need to switch pacifism after Greentext
+	var/toggle_pacifism = TRUE
 
 	var/list/randomtips = list()
 	var/list/memetips = list()
@@ -121,7 +123,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
+				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + config.vote_autotransfer_interval
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -137,8 +139,19 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 
 			declare_completion()
+
+			spawn(50)
+				if(mode.station_was_nuked)
+					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
+				else
+					reboot_helper("Round ended.", "proper completion")
+
 			if(!SSmapping.next_map) //Next map already selected by admin
 				var/list/all_maps = subtypesof(/datum/map)
+				for(var/x in all_maps)
+					var/datum/map/M = x
+					if(initial(M.admin_only))
+						all_maps -= M
 				switch(config.map_rotate)
 					if("rotate")
 						for(var/i in 1 to all_maps.len)
@@ -149,16 +162,12 @@ SUBSYSTEM_DEF(ticker)
 					if("random")
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
+					if("vote")
+						SSvote.start_vote(new /datum/vote/map)
 					else
 						SSmapping.next_map = SSmapping.map_datum
-
-			spawn(50)
-				if(mode.station_was_nuked)
-					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
-				else
-					reboot_helper("Round ended.", "proper completion")
-
-			to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+			if(SSmapping.next_map)
+				to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -526,6 +535,9 @@ SUBSYSTEM_DEF(ticker)
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
+
+	if(toggle_pacifism)
+		GLOB.pacifism_after_gt = TRUE
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()

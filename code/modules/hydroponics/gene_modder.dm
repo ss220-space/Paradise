@@ -277,6 +277,13 @@
 			if(can_insert && istype(disk.gene, /datum/plant_gene/trait))
 				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
 			dat += "</div>"
+
+		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
+		dat += "<tr><td width='260px'>[seed.variant ? seed.variant : "None"]</td>"
+		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
+		if(seed.variant)
+			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
+		dat += "</tr></table></div>"
 	else
 		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
 	popup.set_content(dat)
@@ -367,7 +374,8 @@
 								gene.value = max(gene.value, min_wrate)
 							else if(istype(disk.gene, /datum/plant_gene/core/weed_chance))
 								gene.value = max(gene.value, min_wchance)
-						disk.update_name()
+						if(!HAS_TRAIT(disk, TRAIT_CMAGGED))
+							disk.update_name()
 						QDEL_NULL(seed)
 						update_icon()
 				if("replace")
@@ -391,6 +399,16 @@
 	else if(href_list["abort"])
 		operation = ""
 		target = null
+	else if(href_list["set_v"])
+		if(!seed)
+			return
+		seed.variant_prompt(usr, src)
+	else if(href_list["del_v"])
+		if(!seed)
+			return
+		seed.variant = null
+		seed.apply_variant_name()
+		to_chat(usr, "<span class='notice'>You remove the [seed.plantname]'s variant designation.</span>")
 
 	interact(usr)
 
@@ -456,23 +474,73 @@
 	return ..()
 
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		var/cleaning = FALSE
+		if(istype(W, /obj/item/reagent_containers/spray/cleaner))
+			var/obj/item/reagent_containers/spray/cleaner/C = W
+			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+				cleaning = TRUE
+			else
+				return
+		if(istype(W, /obj/item/soap))
+			cleaning = TRUE
+
+		if(!cleaning)
+			return
+		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the disc.</span>", "<span class='notice'>You start to clean the ooze off the disk.</span>")
+		if(do_after(user, 50, target = src))
+			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+			update_name()
+			update_desc()
+			update_icon_state()
 	..()
-	if(istype(W, /obj/item/pen))
+	if(istype(W, /obj/item/pen) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
 
-/obj/item/disk/plantgene/proc/update_name()
-	if(gene)
-		name = "[gene.get_name()] (Plant Data Disk)"
+/obj/item/disk/plantgene/proc/update_desc()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		desc = "Better keep this safe."
 	else
-		name = "plant data disk"
+		desc = initial(desc)
+
+/obj/item/disk/plantgene/proc/update_name()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		name = "nuclear authentication disk"
+	else
+		if(gene)
+			name = "[gene.get_name()] (Plant Data Disk)"
+		else
+			name = initial(name)
+
+/obj/item/disk/plantgene/proc/update_icon_state()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		icon_state = "nucleardisk"
+		overlays -= "datadisk_gene"
+	else
+		icon_state = initial(icon_state)
+		overlays += "datadisk_gene"
+
+/obj/item/disk/plantgene/cmag_act()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	update_name()
+	update_desc()
+	update_icon_state()
 
 /obj/item/disk/plantgene/attack_self(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
 	read_only = !read_only
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(isobserver(user) || ((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src)))
+			. += span_warning("Это не похоже на настоящий диск! Кроме того, коды аутенфикации запачканы бананиумом.")
+	else
+		. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
 
 
 /*

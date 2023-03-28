@@ -875,6 +875,26 @@
 	construction_time = 200
 	category = list("Exosuit Equipment")
 
+/datum/design/improved_exosuit_control_system
+    name = "Improved Exosuit Control System"
+    id = "mech_improved_exosuit_control_system"
+    build_type = MECHFAB
+    build_path = /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
+    req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
+    materials = list(MAT_METAL=15000,MAT_TITANIUM=2000,MAT_GOLD=1000)
+    construction_time = 200
+    category = list("Exosuit Equipment")
+
+/datum/design/syringe_gun_upgrade
+	name = "Additional System for the Reproduction of Reagents"
+	id = "mech_syringe_gun_upgrade"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	req_tech = list("materials" = 7, "engineering" = 6, "biotech" = 7, "bluespace" = 6, "toxins" = 6)
+	materials = list(MAT_METAL=8000,MAT_DIAMOND=1000,MAT_GLASS=1000,MAT_GOLD=1000,MAT_URANIUM=500,MAT_BLUESPACE=1000)
+	construction_time = 200
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_generator
 	name = "Exosuit Equipment (Plasma Generator)"
 	id = "mech_generator"
@@ -1134,6 +1154,17 @@
 	req_tech = list("combat" = 5, "materials" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_almg
+	name = "Exosuit Weapon (ALMG-90)"
+	desc = "Allows for the construction of ALMG-90."
+	id = "mech_ALMG"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "magnets" = 6, "powerstorage" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
+	materials = list(MAT_METAL=10000,MAT_GLASS=2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
