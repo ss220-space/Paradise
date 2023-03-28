@@ -281,7 +281,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		activator = null
 	else
 		mychild = null
-	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
+	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "activation"")
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 /obj/structure/elite_tumor/process()

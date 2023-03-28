@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
 	ROLE_CLOCKER = /datum/game_mode/clockwork,			// Clockwork Cultist
 	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
+	ROLE_ELITE,											// Lavaland Elite
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
@@ -70,7 +71,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_SHADOWLING = /datum/game_mode/shadowling, 		// Shadowling
 	ROLE_DEMON, 										// Slaguther demon
-	ROLE_ELITE,											// Lavaland Elite
 	ROLE_NINJA, 										// Space ninja
 	ROLE_THIEF = /datum/game_mode/thief,				// Thief
 	ROLE_TRADER, 										// Trader
