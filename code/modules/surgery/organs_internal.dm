@@ -278,17 +278,14 @@
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
+			var/treated_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+			var/treated_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+			if(treated_robotic || treated_organic)
+				if(I.damage)
+					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
+					I.damage = 0
 				I.surgeryize()
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
-					I.damage = 0
-				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
-					I.damage = 0
 
 	else if(current_type == "insert")
 		I = tool
