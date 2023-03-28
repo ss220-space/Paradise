@@ -46,6 +46,7 @@
 	emote_see = list("flutters its wings")
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
+	blood_nutrients = 30
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
 
@@ -286,6 +287,16 @@
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
+
+	if (buckled && icon_state == "parrot_fly")
+		icon_state = "parrot_sit"
+	else if (!buckled && icon_state == "parrot_sit")
+		icon_state = "parrot_fly"
+
+	if (floating && icon_state == "parrot_sit")
+		float(FALSE)
+	else if (!floating && icon_state == "parrot_fly")
+		float(TRUE)
 
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()

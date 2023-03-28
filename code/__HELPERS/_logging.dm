@@ -55,11 +55,16 @@ GLOBAL_PROTECT(log_end)
 	if(config.log_access)
 		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
+		if(new_client.ckey in GLOB.admin_datums)
+			var/datum/admins/admin = GLOB.admin_datums[new_client.ckey]
+			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(new_client)] ([admin.rank]) logged in[GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
 	if(config.log_access)
 		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
+		if(last_mob.ckey in GLOB.admin_datums)
+			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(last_mob)] logged out[GLOB.log_end]")
 
 /proc/log_say(text, mob/speaker)
 	if(config.log_say)
@@ -128,12 +133,13 @@ GLOBAL_PROTECT(log_end)
 	WRITE_LOG(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
 /proc/log_antag_objectives(datum/mind/Mind)
-	var/count = 1
-	for(var/datum/objective/objective in Mind.objectives)
+	if(length(Mind.objectives))
 		WRITE_LOG(GLOB.world_game_log, "GAME: Start objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
-		WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
+		var/count = 1
+		for(var/datum/objective/objective in Mind.objectives)
+			WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
+			count++
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
-		count++
 
 /proc/log_world(text)
 	if(config && !config.disable_root_log)

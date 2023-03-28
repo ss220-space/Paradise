@@ -255,7 +255,7 @@
 			. -= 0.5
 
 		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations) || (H.status_flags & GODMODE))
 			ignoreslow = TRUE
 
 		var/flight = H.flying	//Check for flight and flying items
@@ -265,15 +265,15 @@
 		if(H.status_flags & IGNORE_SPEED_CHANGES)
 			return .
 
-		if(H.wear_suit)
+		if(H.wear_suit && !H.wear_suit.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes)
+		if(!H.buckled && H.shoes && !H.shoes.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back)
+		if(H.back && !H.back.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+		if(H.l_hand && (H.l_hand.flags & HANDSLOW) && !H.l_hand.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+		if(H.r_hand && (H.r_hand.flags & HANDSLOW) && !H.r_hand.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.r_hand.slowdown)
 
 		if(ignoreslow)
@@ -421,7 +421,7 @@
 		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!</span>")
 		return FALSE
 	//Vampire code

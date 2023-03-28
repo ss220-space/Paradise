@@ -99,6 +99,9 @@
 /obj/machinery/portable_atmospherics/scrubber/return_air()
 	return air_contents
 
+/obj/machinery/portable_atmospherics/scrubber/return_analyzable_air()
+	return air_contents
+
 /obj/machinery/portable_atmospherics/scrubber/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
@@ -145,8 +148,7 @@
 
 		if("remove_tank")
 			if(holding)
-				holding.forceMove(get_turf(src))
-				holding = null
+				replace_tank(usr, FALSE)
 			update_icon()
 			return TRUE
 
@@ -185,12 +187,6 @@
 		icon_state = "scrubber:1"
 	else
 		icon_state = "scrubber:0"
-
-/obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user, params)
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
-		return
-	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
