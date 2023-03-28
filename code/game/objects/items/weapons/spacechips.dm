@@ -1,6 +1,6 @@
 /obj/item/stack/spacechips
-	name = "Chips"
-	desc = "Poker chips"
+	name = "Poker Chips"
+	desc = "Chips for playing poker"
 	icon = 'icons/goonstation/objects/pokerchips.dmi'
 	icon_state = "c1000"
 	hitsound = "swing_hit"
@@ -18,7 +18,7 @@
 	..()
 	update_icon()
 
-/obj/item/stack/spacechips/update_icon()
+/obj/item/stack/spacechips/update_icon()//changes icon depending on the amount of chips
 	..()
 	name = "[amount == max_amount ? "1000000" : amount] Chip[amount > 1 ? "s" : ""]"
 	if(amount >= 1 && amount <= 20)
@@ -54,6 +54,9 @@
 
 /obj/item/stack/spacechips/c1000
 	amount = 1000
+
+/obj/item/stack/spacechips/c5000
+	amount = 5000
 
 /obj/item/stack/spacechips/c1000000
 	amount = 1000000
