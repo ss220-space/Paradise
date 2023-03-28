@@ -465,7 +465,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/item/gps/internal/tumor
 	icon_state = null
-	gpstag = "Mysterious Signal"
+	gpstag = "Cancerous Signal"
 	desc = "Ghosts in a fauna? That's cancerous!"
 	invisibility = 100
 
