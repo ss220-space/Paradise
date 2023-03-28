@@ -246,6 +246,9 @@
 				var/can_treat_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
 				var/can_treat_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 				if(can_treat_robotic || can_treat_organic)
+					if(I.status & ORGAN_DEAD)
+						to_chat(user, "<span class='warning'>You can't treat [I]! Dead organs can't be treated with [tool_name]!</span>")
+						continue
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 						"You start treating damage to [target]'s [I.name] with [tool_name].")
 					if(can_treat_organic && !I.sterile)
@@ -282,6 +285,8 @@
 			var/treated_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
 			var/treated_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 			if(treated_robotic || treated_organic)
+				if(I.status & ORGAN_DEAD)
+					continue
 				if(I.damage)
 					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
