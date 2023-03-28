@@ -44,6 +44,7 @@
 	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE"
 	typepath = /obj/item/storage/box/snappops
 	cost = 100
+
 /datum/storeitem/space_chips
 	name = "Poker Chips"
 	desc = "Chips for playing poker"
