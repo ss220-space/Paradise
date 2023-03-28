@@ -190,7 +190,7 @@
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	if(my_mirror != null)
 		QDEL_NULL(my_mirror)
-	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/new_mirror = new /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror(loc)
+	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/new_mirror = new(loc)
 	my_mirror = new_mirror
 	my_mirror.my_master = src
 	my_mirror.faction = faction.Copy()

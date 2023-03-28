@@ -129,7 +129,7 @@
 	for(var/i in 1 to 2)
 		if(length(children_list) >= 8)
 			return
-		var/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/newchild = new /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child(loc)
+		var/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/newchild = new(loc)
 		newchild.GiveTarget(target)
 		newchild.faction = faction.Copy()
 		visible_message("<span class='danger'>[newchild] appears below [src]!</span>")

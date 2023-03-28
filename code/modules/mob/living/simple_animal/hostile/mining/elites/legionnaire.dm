@@ -183,7 +183,7 @@
 		icon_living = "legionnaire_headless"
 		icon_aggro = "legionnaire_headless"
 		visible_message("<span class='warning'>[src]'s head flies off!")
-		var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/newhead = new /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead(loc)
+		var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/newhead = new(loc)
 		newhead.GiveTarget(target)
 		newhead.faction = faction.Copy()
 		myhead = newhead
@@ -211,7 +211,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
 	ranged_cooldown = world.time + 2 SECONDS * revive_multiplier()
 	if(isnull(mypile))
-		var/obj/structure/legionnaire_bonfire/newpile = new /obj/structure/legionnaire_bonfire(loc)
+		var/obj/structure/legionnaire_bonfire/newpile = new(loc)
 		mypile = newpile
 		mypile.myowner = src
 		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, 1)
@@ -331,7 +331,7 @@
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(user.loc)
+	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(user.loc)
 	A.GiveTarget(target)
 	A.friends += user
 	A.faction = user.faction.Copy()
@@ -345,7 +345,7 @@
 		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
 		return
 	LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src] and summons a legion skull!</span>")
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/LegionSkull = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(LivingUser.loc)
+	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/LegionSkull = new(LivingUser.loc)
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
