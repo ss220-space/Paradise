@@ -63,7 +63,7 @@ REAGENT SCANNER
 			if(in_turf_object.level != 1)
 				continue
 
-			if(in_turf_object.invisibility == 101)
+			if(in_turf_object.invisibility == INVISIBILITY_MAXIMUM)
 				in_turf_object.invisibility = 0
 				in_turf_object.alpha = 128
 				in_turf_object.drain_act_protected = TRUE
@@ -71,7 +71,7 @@ REAGENT SCANNER
 					if(in_turf_object)
 						var/turf/objects_turf = in_turf_object.loc
 						if(objects_turf && objects_turf.intact)
-							in_turf_object.invisibility = 101
+							in_turf_object.invisibility = INVISIBILITY_MAXIMUM
 						in_turf_object.alpha = 255
 						in_turf_object.drain_act_protected = FALSE
 		for(var/mob/living/in_turf_mob in scan_turf.contents)

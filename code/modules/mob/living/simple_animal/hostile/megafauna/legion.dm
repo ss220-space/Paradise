@@ -150,4 +150,4 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The message repeats."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT

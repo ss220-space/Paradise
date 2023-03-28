@@ -5,7 +5,7 @@
 	var/totalPlayersReady = 0
 	universal_speak = 1
 
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	density = 0
 	stat = 2

@@ -87,7 +87,7 @@
 
 /obj/machinery/shield/cult/barrier/Initialize()
 	. = ..()
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/shield/cult/barrier/Destroy()
 	if(parent_rune && !QDELETED(parent_rune))
@@ -118,7 +118,7 @@
 		visible = TRUE
 	else // Currently visible
 		density = FALSE // Turn invisible
-		invisibility = INVISIBILITY_MAXIMUM
+		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
 	air_update_turf(1)

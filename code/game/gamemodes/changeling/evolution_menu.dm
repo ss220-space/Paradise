@@ -204,7 +204,7 @@
 			remove_language("Changeling")
 		if(hud_used)
 			hud_used.lingstingdisplay.icon_state = null
-			hud_used.lingstingdisplay.invisibility = 101
+			hud_used.lingstingdisplay.invisibility = INVISIBILITY_ABSTRACT
 
 /datum/changeling/proc/has_sting(datum/action/power)
 	for(var/datum/action/P in purchasedpowers)

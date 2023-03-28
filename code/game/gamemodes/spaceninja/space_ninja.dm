@@ -654,7 +654,7 @@
 				var/warning = cell.charge >= check_percentage ? "" : "_warning"
 				hud.ninja_energy_display.icon_state = "ninja_energy_display_[my_suit.color_choice][warning]"
 				hud.ninja_energy_display.maptext = "<div align='center' valign='middle' style='position:relative;'><font color='#FFFFFF' size='1'>[round(cell.charge)]</font></div>"
-				hud.ninja_energy_display.invisibility = my_suit.show_charge_UI ? 0 : 100
+				hud.ninja_energy_display.invisibility = my_suit.show_charge_UI ? 0 : INVISIBILITY_ABSTRACT
 			// Отображение концентрации
 			if(!hud.ninja_focus_display && owner.mind.martial_art && istype(owner.mind.martial_art, /datum/martial_art/ninja_martial_art))
 				creeping_widow = owner.mind.martial_art
@@ -666,7 +666,7 @@
 				hud.hidden_inventory_update()
 			if(creeping_widow && my_suit)	//На всякий случай.
 				hud.ninja_focus_display.icon_state = creeping_widow.has_focus ? "focus_active_[my_suit.color_choice]" : "focus"
-				hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : 100
+				hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : INVISIBILITY_ABSTRACT
 		else
 			owner.hud_used.remove_ninja_hud()
 
