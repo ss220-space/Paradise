@@ -1543,6 +1543,13 @@
 					  /obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
 
+/obj/machinery/vending/sustenance/additional
+	desc = "Какого этот автомат тут оказался?!"
+	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12,
+					/obj/item/reagent_containers/food/drinks/ice = 6,
+					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
+	contraband = list(/obj/item/kitchen/knife=2)
+
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
 	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."
@@ -1791,6 +1798,8 @@
 		/obj/item/clothing/head/beret/sec		= 10,
 		/obj/item/clothing/head/beret/sec/black	= 10,
 		/obj/item/clothing/head/officer		 	= 10,
+		/obj/item/clothing/head/beret/brigphys  = 5,
+		/obj/item/clothing/head/soft/brigphys   = 5,
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
@@ -1814,6 +1823,7 @@
 
 		/obj/item/clothing/shoes/jackboots 				= 10,
 		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
+		/obj/item/clothing/shoes/jackboots/cross 		= 10,
 
 		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
 
@@ -1837,7 +1847,8 @@
 		/obj/item/clothing/under/rank/security/brigphys = 3,
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
-		/obj/item/clothing/suit/storage/brigdoc = 3
+		/obj/item/clothing/suit/storage/brigdoc = 3,
+		/obj/item/clothing/under/rank/security/brigmedical = 3
 		)
 
 
