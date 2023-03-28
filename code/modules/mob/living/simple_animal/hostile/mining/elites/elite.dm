@@ -385,6 +385,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(activator)
 		clear_activator(activator)
 	sleep(300)
+	to_chat(mychild, "<span class='danger'>You have fulfilled your role and are going to a well-deserved rest.</span>")
 	qdel(mychild)
 	var/obj/structure/elite_tumor/copy = new(loc)
 	if(boosted)
