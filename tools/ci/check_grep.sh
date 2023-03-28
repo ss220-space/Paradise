@@ -101,7 +101,7 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/girder(?<type>[/\w]*),\n[^)]*?/ob
 	echo
     st=1
 fi;
-if grep -Pzo '"\w+" = \([^)]*?(/[^{]+\{[^}]*?((((?<var>\w+)\s*=.*);[^}]*?((\g{var})\s*=.*))+)[^}]*?\})+[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \([^)]*?(/[^{]+\{[^}]*?(((\n\s*(?<var>\w+)\s*=.*);[^}]*?\n\s*(\g{var})\s*=.*)+)[^}]*?\})+[^)]*?/area/.+\)' _maps/**/*.dmm;	then
     echo -e "${RED}ERROR: Found multiple set of same atom variable, please remove them.${NC}"
 	echo
     st=1
