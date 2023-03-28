@@ -11,9 +11,8 @@ REAGENT SCANNER
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
-	var/on = 0
+	var/on = FALSE
 	slot_flags = SLOT_BELT
-	w_class = 2
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -21,29 +20,24 @@ REAGENT SCANNER
 	var/scan_range = 1
 	var/pulse_duration = 10
 
-/obj/item/t_scanner/longer_pulse
-	pulse_duration = 50
-
 /obj/item/t_scanner/extended_range
 	scan_range = 3
-
-/obj/item/t_scanner/extended_range/longer_pulse
-	scan_range = 3
-	pulse_duration = 50
 
 /obj/item/t_scanner/Destroy()
 	if(on)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/t_scanner/attack_self(mob/user)
-
+/obj/item/t_scanner/proc/toggle_on()
 	on = !on
-	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
-
+	icon_state = copytext_char(icon_state, 1, -1) + "[on]"
 	if(on)
 		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
 
+/obj/item/t_scanner/attack_self(mob/user)
+	toggle_on()
 
 /obj/item/t_scanner/process()
 	if(!on)
@@ -52,43 +46,25 @@ REAGENT SCANNER
 	scan()
 
 /obj/item/t_scanner/proc/scan()
+	t_ray_scan(loc, pulse_duration, scan_range)
 
-	for(var/turf/scan_turf in range(scan_range, src.loc) )
-
-		if(!scan_turf.intact)
+/proc/t_ray_scan(mob/viewer, flick_time, distance)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	var/list/t_ray_images = list()
+	for(var/obj/O in orange(distance, viewer))
+		if(O.level != 1)
 			continue
 
-		for(var/obj/in_turf_object in scan_turf.contents)
-
-			if(in_turf_object.level != 1)
-				continue
-
-			if(in_turf_object.invisibility == INVISIBILITY_MAXIMUM)
-				in_turf_object.invisibility = 0
-				in_turf_object.alpha = 128
-				in_turf_object.drain_act_protected = TRUE
-				spawn(pulse_duration)
-					if(in_turf_object)
-						var/turf/objects_turf = in_turf_object.loc
-						if(objects_turf && objects_turf.intact)
-							in_turf_object.invisibility = INVISIBILITY_MAXIMUM
-						in_turf_object.alpha = 255
-						in_turf_object.drain_act_protected = FALSE
-		for(var/mob/living/in_turf_mob in scan_turf.contents)
-			var/oldalpha = in_turf_mob.alpha
-			if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
-				in_turf_mob.alpha = 255
-				spawn(10)
-					if(in_turf_mob)
-						in_turf_mob.alpha = oldalpha
-
-		var/mob/living/in_turf_mob = locate() in scan_turf
-
-		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
-			in_turf_mob.invisibility = 0
-			spawn(2)
-				if(in_turf_mob)
-					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
+		if(O.invisibility == INVISIBILITY_MAXIMUM)
+			var/image/I = new(loc = get_turf(O))
+			var/mutable_appearance/MA = new(O)
+			MA.alpha = 128
+			MA.dir = O.dir
+			I.appearance = MA
+			t_ray_images += I
+	if(length(t_ray_images))
+		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
 /obj/item/t_scanner/security
 	name = "Противо-маскировочное ТГц устройство"
