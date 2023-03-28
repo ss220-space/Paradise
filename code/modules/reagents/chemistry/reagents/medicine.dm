@@ -102,6 +102,8 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
+			if(I.status & ORGAN_DEAD)
+				I.status &= ~ORGAN_DEAD
 			I.heal_internal_damage(0.4)
 	return ..()
 
