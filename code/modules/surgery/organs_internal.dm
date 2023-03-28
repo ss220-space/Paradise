@@ -242,15 +242,16 @@
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					if(!(I.sterile))
+			if(I.damage)
+				var/can_treat_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+				var/can_treat_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+				if(can_treat_robotic || can_treat_organic)
+					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+						"You start treating damage to [target]'s [I.name] with [tool_name].")
+					if(can_treat_organic && !I.sterile)
 						spread_germs_to_organ(I, user, tool)
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-						"You start treating damage to [target]'s [I.name] with [tool_name].")
-				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-						"You start treating damage to [target]'s [I.name] with [tool_name].")
+				else
+					to_chat(user, "[I] can't be treated with [tool_name].")
 
 			else
 				to_chat(user, "[I] does not appear to be damaged.")
