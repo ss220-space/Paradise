@@ -267,10 +267,10 @@
 /datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
+		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/nanopaste))
 			tool_name = "[tool]" //what else do you call nanopaste medically?
 
