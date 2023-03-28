@@ -64,7 +64,7 @@
 		M.gets_drilled()
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/M = target
-		M.take_damage(50, BRUTE, MELEE, 1)
+		M.take_damage(50, BRUTE, "melee", 1)
 	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
 		var/mob/living/L = target
 		if(L.stat != DEAD)
