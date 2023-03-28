@@ -109431,7 +109431,6 @@
 /area/toxins/test_area)
 "tno" = (
 /obj/machinery/vending/coffee,
-/obj/machinery/vending/coffee,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
