@@ -126,7 +126,6 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
@@ -493,7 +492,6 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
@@ -801,7 +799,6 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
@@ -1034,7 +1031,6 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
@@ -1226,7 +1222,6 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
@@ -1398,7 +1393,6 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
