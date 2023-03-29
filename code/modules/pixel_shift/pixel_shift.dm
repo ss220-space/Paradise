@@ -38,15 +38,12 @@
 /mob/proc/pixel_shift(direction)
 	return
 
-/* Добавить больше мест, где вручную это вызывается
-/mob/living/set_pull_offsets(mob/living/pull_target, grab_state)
-	pull_target.unpixel_shift()
-	return ..()
-
-/mob/living/reset_pull_offsets(mob/living/pull_target, override)
-	pull_target.unpixel_shift()
-	return ..()
-*/
+/mob/living/Move_Pulled(atom/A)
+	. = ..()
+	if(!. || !isliving(A))
+		return
+	var/mob/living/pulled_mob = A
+	pulled_mob.unpixel_shift()
 
 /mob/living/pixel_shift(direction)
 	passthroughable = NONE
@@ -71,16 +68,22 @@
 	// Yes, I know this sets it to true for everything if more than one is matched.
 	// Movement doesn't check diagonals, and instead just checks EAST or WEST, depending on where you are for those.
 	if(pixel_y > PASSABLE_SHIFT_THRESHOLD)
-		passthroughable |= EAST | SOUTH | WEST
+		passthroughable = TRUE //ORIGINAL: |= EAST | SOUTH | WEST
 	if(pixel_x > PASSABLE_SHIFT_THRESHOLD)
-		passthroughable |= NORTH | SOUTH | WEST
+		passthroughable = TRUE //ORIGINAL: |= NORTH | SOUTH | WEST
 	if(pixel_y < -PASSABLE_SHIFT_THRESHOLD)
-		passthroughable |= NORTH | EAST | WEST
+		passthroughable = TRUE //ORIGINAL: |= NORTH | EAST | WEST
 	if(pixel_x < -PASSABLE_SHIFT_THRESHOLD)
-		passthroughable |= NORTH | EAST | SOUTH
+		passthroughable = TRUE //ORIGINAL: |= NORTH | EAST | SOUTH
+
+/mob/living/CanPass(atom/movable/mover, turf/target, height)
+	if(!istype(mover, /obj/item/projectile) && !mover.throwing && passthroughable)
+		return TRUE
+	return ..()
 
 /*
-
+TODO: Чтобы "не толкалка" работала корректно, нужны следующие рефакторы для корректной работы.
+https://github.com/tgstation/tgstation/pull/54924/files
 https://github.com/tgstation/tgstation/issues/48659
 https://github.com/Skyrat-SS13/Skyrat-tg/pull/6527
 

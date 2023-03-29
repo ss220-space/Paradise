@@ -244,6 +244,9 @@
 	..()
 	if(pullin)
 		pullin.update_icon(src)
+	if(isliving(pulling))
+		var/mob/living/pullee = pulling
+		pullee.unpixel_shift()
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -586,6 +589,7 @@
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
+		pulledby.unpixel_shift()
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
@@ -1101,6 +1105,7 @@
 			M.LAssailant = null
 		else
 			M.LAssailant = usr
+		unpixel_shift()
 
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
