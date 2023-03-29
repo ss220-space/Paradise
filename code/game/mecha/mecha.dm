@@ -202,6 +202,10 @@
 	if(src == target)
 		return
 
+	if(GLOB.pacifism_after_gt)
+		to_chat(user, "<span class='warning'>You don't want to harm!</span>")
+		return
+
 	var/dir_to_target = get_dir(src, target)
 	if(dir_to_target && !(dir_to_target & dir))//wrong direction
 		return
@@ -1005,6 +1009,11 @@
 		return cabin_air
 	return get_turf_air()
 
+/obj/mecha/return_analyzable_air()
+	if(use_internal_tank)
+		return cabin_air
+	return null
+
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
 	if(t_air)
@@ -1052,18 +1061,10 @@
 	return internal_tank.return_air()
 
 /obj/mecha/proc/toggle_lights()
-	lights = !lights
-	if(lights)
-		set_light(light_range + lights_power)
-	else
-		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	lights_action.Trigger()
 
 /obj/mecha/proc/toggle_internal_tank()
-	use_internal_tank = !use_internal_tank
-	occupant_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
-	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
+	internals_action.Trigger()
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)

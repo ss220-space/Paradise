@@ -5893,19 +5893,17 @@
 /turf/simulated/floor/wood,
 /area/centcom/specops)
 "cWR" = (
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/a40mm,
-/obj/item/ammo_box/a40mm,
 /obj/structure/rack,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18262,8 +18260,6 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
@@ -26630,27 +26626,12 @@
 	},
 /area/syndicate_mothership)
 "nIL" = (
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
 /obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41936,8 +41917,6 @@
 	operation_req_access = list(1)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/mech,

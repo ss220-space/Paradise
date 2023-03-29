@@ -638,6 +638,10 @@
 			M.Drowsy(20)
 	return ..() | update_flags
 
+/datum/reagent/medicine/morphine/syntmorphine
+	name = "Syntmorphine"
+	id = "syntmorphine"
+
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
@@ -657,7 +661,7 @@
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
+				if(ears.damage < 25 && prob(30))
 					ears.deaf = 0
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 		update_flags |= M.AdjustEarDamage(-1)
