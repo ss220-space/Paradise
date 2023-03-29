@@ -138,12 +138,12 @@
 		children_list += newchild
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
-	ranged_cooldown = world.time + 5 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
 	visible_message("<span class='warning'>[src] starts picking up speed!</span>")
 	color = "#FF0000"
 	speed = 0
 	move_to_delay = 3
-	addtimer(CALLBACK(src, .proc/reset_rage), 5 SECONDS)
+	addtimer(CALLBACK(src, .proc/reset_rage), 7 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/reset_rage()
 	color = "#FFFFFF"
