@@ -5403,7 +5403,7 @@
 	dir = 1;
 	locked = 0;
 	name = "Habitat APC";
-	pixel_y = 25
+	pixel_y = 25;
 	start_charge = 100
 	},
 /turf/simulated/floor/plasteel,
