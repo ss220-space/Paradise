@@ -29332,7 +29332,7 @@
 	aiControlDisabled = 1;
 	name = "Assault Pod";
 	opacity = 1;
-	req_one_access_txt = "150"
+	req_access_txt = "150"
 	},
 /obj/docking_port/mobile/assault_pod,
 /turf/simulated/floor/shuttle{
@@ -31849,7 +31849,7 @@
 	aiControlDisabled = 1;
 	name = "Assault Pod";
 	opacity = 1;
-	req_one_access_txt = "150"
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"

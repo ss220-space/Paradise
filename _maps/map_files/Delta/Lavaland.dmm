@@ -1997,7 +1997,7 @@
 	id_tag = "laborcamp_away2";
 	name = "Labor Camp Airlock";
 	req_access_txt = null;
-	req_one_access_txt = null
+	req_access_txt = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2037,7 +2037,7 @@
 	id_tag = "laborcamp_away2";
 	name = "Labor Camp Airlock";
 	req_access_txt = null;
-	req_one_access_txt = null
+	req_access_txt = null
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -2270,7 +2270,7 @@
 	id_tag = "laborcamp_away";
 	name = "Labor Camp Airlock";
 	req_access_txt = null;
-	req_one_access_txt = null
+	req_access_txt = null
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,

@@ -3323,7 +3323,7 @@
 	},
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -7145,7 +7145,7 @@
 	master_tag = "syndie_cargo_right_airlocks";
 	pixel_x = -1;
 	pixel_y = 29;
-	req_one_access_txt = "153"
+	req_access_txt = "153"
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -13174,7 +13174,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	req_one_access_txt = "114"
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13439,7 +13439,7 @@
 	master_tag = "syndie_cargo_right_airlocks";
 	pixel_x = -1;
 	pixel_y = 29;
-	req_one_access_txt = "153"
+	req_access_txt = "153"
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -23210,7 +23210,7 @@
 "mrX" = (
 /obj/machinery/computer/cryopod{
 	pixel_x = 32;
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -30620,7 +30620,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -31589,7 +31589,7 @@
 /area/centcom/zone1)
 "qdd" = (
 /obj/machinery/vending/engivend{
-	req_one_access_txt = "0"
+	req_access_txt = "0"
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
@@ -31740,7 +31740,7 @@
 /obj/item/flag/syndi,
 /obj/machinery/computer/cryopod{
 	pixel_x = 32;
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
@@ -33249,7 +33249,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_one_access_txt = "114"
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -33542,7 +33542,7 @@
 "rbh" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
@@ -35349,7 +35349,7 @@
 	master_tag = "syndie_cargo_left_airlocks";
 	pixel_x = -1;
 	pixel_y = 29;
-	req_one_access_txt = "153"
+	req_access_txt = "153"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -37853,7 +37853,7 @@
 	master_tag = "syndie_cargo_left_airlocks";
 	pixel_x = -1;
 	pixel_y = 29;
-	req_one_access_txt = "153"
+	req_access_txt = "153"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -39500,7 +39500,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_one_access_txt = "114"
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -43509,7 +43509,7 @@
 	aiControlDisabled = 1;
 	name = "Assault Pod";
 	opacity = 1;
-	req_one_access_txt = "150"
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -43939,7 +43939,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -44294,7 +44294,7 @@
 	aiControlDisabled = 1;
 	name = "Assault Pod";
 	opacity = 1;
-	req_one_access_txt = "150"
+	req_access_txt = "150"
 	},
 /obj/docking_port/mobile/assault_pod,
 /turf/simulated/floor/shuttle{
@@ -44420,7 +44420,7 @@
 	frequency = 1331;
 	master_tag = "vox_west_control";
 	pixel_x = -29;
-	req_one_access_txt = "152";
+	req_access_txt = "152";
 	wires = 1
 	},
 /obj/structure/fans/tiny,
@@ -46312,7 +46312,7 @@
 	frequency = 1331;
 	master_tag = "vox_west_control";
 	pixel_x = 28;
-	req_one_access_txt = "152";
+	req_access_txt = "152";
 	wires = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
@@ -46486,7 +46486,7 @@
 	frequency = 1331;
 	master_tag = "vox_east_control";
 	pixel_x = -30;
-	req_one_access_txt = "152";
+	req_access_txt = "152";
 	wires = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
