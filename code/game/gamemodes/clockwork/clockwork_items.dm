@@ -443,7 +443,7 @@
 				animal.emp_act(EMP_LIGHT)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
-				var/datum/robot_component/RC = pick(robot.components)
+				var/datum/robot_component/RC = robot.components[pick(robot.components)]
 				RC.destroy()
 			add_attack_logs(user, target, "Crushed with [src]")
 			deplete_spell()
