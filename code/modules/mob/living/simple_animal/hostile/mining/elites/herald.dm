@@ -35,7 +35,7 @@
 	attacktext = "preaches to"
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"
-	speed = 2
+	speed = 1.6
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
@@ -198,8 +198,8 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
 	desc = "This fiendish work of magic copies the herald's attacks.  Seems logical to smash it."
-	health = 60
-	maxHealth = 60
+	health = 170
+	maxHealth = 170
 	icon_state = "herald_mirror"
 	icon_aggro = "herald_mirror"
 	deathmessage = "shatters violently!"
