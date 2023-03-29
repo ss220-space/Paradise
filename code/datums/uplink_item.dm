@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/gbs
 	name = "GBS virus bottle"
-	desc = "A bottle containing Gravitokinetic Bipotential SADS culture."
+	desc = "A bottle containing Gravitokinetic Bipotential SADS culture. Also known as GBS, extremely deadly virus."
 	reference = "GBS"
 	item = /obj/item/reagent_containers/glass/bottle/gbs
 	cost = 12
