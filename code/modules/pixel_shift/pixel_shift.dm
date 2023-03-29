@@ -68,31 +68,18 @@
 	// Yes, I know this sets it to true for everything if more than one is matched.
 	// Movement doesn't check diagonals, and instead just checks EAST or WEST, depending on where you are for those.
 	if(pixel_y > PASSABLE_SHIFT_THRESHOLD)
-		passthroughable = TRUE //ORIGINAL: |= EAST | SOUTH | WEST
+		passthroughable |= EAST | SOUTH | WEST
 	if(pixel_x > PASSABLE_SHIFT_THRESHOLD)
-		passthroughable = TRUE //ORIGINAL: |= NORTH | SOUTH | WEST
+		passthroughable |= NORTH | SOUTH | WEST
 	if(pixel_y < -PASSABLE_SHIFT_THRESHOLD)
-		passthroughable = TRUE //ORIGINAL: |= NORTH | EAST | WEST
+		passthroughable |= NORTH | EAST | WEST
 	if(pixel_x < -PASSABLE_SHIFT_THRESHOLD)
-		passthroughable = TRUE //ORIGINAL: |= NORTH | EAST | SOUTH
+		passthroughable |= NORTH | EAST | SOUTH
 
 /mob/living/CanPass(atom/movable/mover, turf/target, height)
-	if(!istype(mover, /obj/item/projectile) && !mover.throwing && passthroughable)
+	if(!istype(mover, /obj/item/projectile) && !mover.throwing && passthroughable & get_dir(src, mover))
 		return TRUE
 	return ..()
-
-/*
-TODO: Чтобы "не толкалка" работала корректно, нужны следующие рефакторы для корректной работы.
-https://github.com/tgstation/tgstation/pull/54924/files
-https://github.com/tgstation/tgstation/issues/48659
-https://github.com/Skyrat-SS13/Skyrat-tg/pull/6527
-
-/mob/living/CanPass(atom/movable/mover, border_dir)
-	// Make sure to not allow projectiles of any kind past where they normally wouldn't.
-	if(!istype(mover, /obj/projectile) && !mover.throwing && passthroughable & border_dir)
-		return TRUE
-	return ..()
-*/
 
 #undef MAXIMUM_PIXEL_SHIFT
 #undef PASSABLE_SHIFT_THRESHOLD
