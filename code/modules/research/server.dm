@@ -14,7 +14,7 @@
 	var/heat_gen = 100
 	var/heating_power = 40000
 	var/delay = 10
-	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
+	req_one_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
 	var/list/usage_logs
@@ -27,7 +27,7 @@
 		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
 		syndicate = 1
-		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+		req_one_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 		icon_state = "syndie_server"
 		icon_open = "syndie_server_o"
 		icon_closed = "syndie_server"
@@ -253,7 +253,7 @@
 	. = ..()
 	if(is_taipan(z))
 		syndicate = 1
-		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+		req_one_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)
 	if(..())

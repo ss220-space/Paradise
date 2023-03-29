@@ -5,7 +5,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	origin_tech = "engineering=2;programming=1"
-	req_access = list(ACCESS_ENGINE)
+	req_one_access = list(ACCESS_ENGINE)
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set
@@ -111,7 +111,7 @@
 
 /obj/item/airlock_electronics/syndicate
 	name = "suspicious airlock electronics"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 /// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/syndie_door_accesses_list = list()
 	region_min = REGION_TAIPAN

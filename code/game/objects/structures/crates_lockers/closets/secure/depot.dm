@@ -4,7 +4,7 @@
 	desc = ""
 	locked = 0
 	anchored = 1
-	req_access = list()
+	req_one_access = list()
 	max_integrity = 250
 	icon_state = "secure1"
 	icon_closed = "secure"
@@ -63,5 +63,5 @@
 		ignore_use = FALSE
 
 /obj/structure/closet/secure_closet/syndicate/depot/armory
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	is_armory = TRUE

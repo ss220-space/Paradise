@@ -86,7 +86,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 
-	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
+	req_one_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
@@ -175,7 +175,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ui_theme = "syndicate"
 		icon_screen = "syndie_rdcomp"
 		icon_keyboard = "syndie_key"
-		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
+		req_one_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
 	if(!id)
@@ -224,7 +224,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		req_access = list()
+		req_one_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
@@ -966,7 +966,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 2
-	req_access = list(ACCESS_ROBOTICS)
+	req_one_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
@@ -979,14 +979,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
-	req_access = list(ACCESS_MECHANIC)
+	req_one_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 5
-	req_access = list()
+	req_one_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
 
 #undef TECH_UPDATE_DELAY

@@ -890,7 +890,7 @@
 	refill_canister = /obj/item/vending_refill/boozeomat
 
 /obj/machinery/vending/boozeomat/syndicate_access
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/coffee
 	name = "\improper Hot Drinks machine"
@@ -1022,7 +1022,7 @@
 	name = "\improper Liberation Station"
 	desc = "An overwhelming amount of <b>ancient patriotism</b> washes over you just by looking at the machine."
 	icon_state = "liberationstation"
-	req_access_txt = "1"
+	req_one_access = list(1)
 	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!","Be a patriot today, pick up a gun!","Quality weapons for cheap prices!","Better dead than red!")
 	ads_list = list("Float like an astronaut, sting like a bullet!","Express your second amendment today!","Guns don't kill people, but you can!","Who needs responsibilities when you have guns?")
 	vend_reply = "Remember the name: Liberation Station!"
@@ -1116,7 +1116,7 @@
 	icon_state = "med"
 	icon_deny = "med-deny"
 	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
-	req_access = list(ACCESS_MEDICAL)
+	req_one_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
 					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide = 3, /obj/item/reagent_containers/glass/bottle/saline = 5,
@@ -1135,7 +1135,7 @@
 	name = "\improper SyndiMed Plus"
 	icon_state = "syndi-big-med"
 	icon_deny = "syndi-big-med-deny"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/medical/syndicate_access/beamgun
 	premium = list(/obj/item/gun/medbeam = 1)
@@ -1166,7 +1166,7 @@
 	icon_state = "syndimed"
 	icon_deny = "syndimed-deny"
 	ads_list = list("Иди и оборви несколько жизней!","Лучшее снаряжение для вашего корабля","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
-	req_access_txt = "150"
+	req_one_access = list(150)
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
 
@@ -1176,7 +1176,7 @@
 	ads_list = list("Круши черепа капиталистов!","Отбей несколько голов!","Не забывай, вредительство - полезно!","Твое оружие здесь.","Наручники!","Стоять, подонок!","Не бей меня, брат!","Убей их, брат.","Почему бы не съесть пончик?")
 	icon_state = "sec"
 	icon_deny = "sec-deny"
-	req_access_txt = "1"
+	req_one_access = list(1)
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
@@ -1190,7 +1190,7 @@
 	ads_list = list("Соблюдай чистоту на стрельбище!","Даже я стреляю лучше тебя!","Почему так косо, бухой что ли?!","Техника безопасности нам не писана, да?","1 из 10 попаданий... А ты хорош!","Инструктор это твой папочка!","Эй, ты куда целишься?!")
 	icon_state = "sectraining"
 	icon_deny = "sectraining-deny"
-	req_access_txt = "1"
+	req_one_access = list(1)
 	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
 				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
@@ -1496,7 +1496,7 @@
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
-	req_access = list(11,24) // Engineers and atmos techs can use this
+	req_one_access = list(11,24) // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
@@ -1507,7 +1507,7 @@
 	desc = "Everything you need for do-it-yourself station repair."
 	icon_state = "engi"
 	icon_deny = "engi-deny"
-	req_access_txt = "11"
+	req_one_access = list(11)
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,/obj/item/clothing/under/rank/engineer = 4,/obj/item/clothing/shoes/workboots = 4,/obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12,/obj/item/wirecutters = 12,/obj/item/multitool = 12,/obj/item/wrench = 12,/obj/item/t_scanner = 12,
@@ -1521,7 +1521,7 @@
 	desc = "All the tools you need to create your own robot army."
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
-	req_access_txt = "29"
+	req_one_access = list(29)
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
 					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/internals/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
@@ -1611,7 +1611,7 @@
 	ads_list = list("Make them beep-boop like a robot should!","Robotisation is NOT a crime!","Nyoom!")
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
-	req_access_txt = "150"
+	req_one_access = list(150)
 	products = list(/obj/item/robot_parts/robot_suit = 2,
 					/obj/item/robot_parts/chest = 2,
 					/obj/item/robot_parts/head = 2,
@@ -1791,7 +1791,7 @@
 	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access_txt = "63"
+	req_one_access = list(63)
 	products = list(
 		/obj/item/clothing/head/soft/sec		= 10,
 		/obj/item/clothing/head/soft/sec/corp	= 10,
@@ -1859,7 +1859,7 @@
 	desc = "Автомат-помощник по выдаче одежды Медицинского Отдела."
 	icon_state = "clothes-dep-med"
 	//slogan_list += list()
-	req_access_txt = "5"
+	req_one_access = list(5)
 	products = list(
 		/obj/item/clothing/head/beret/med  			= 10,
 		/obj/item/clothing/head/surgery/purple 		= 10,
@@ -1946,7 +1946,7 @@
 	name = "\improper Departament Engineering ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Инженерного Отдела."
 	icon_state = "clothes-dep-eng"
-	req_access_txt = "11"
+	req_one_access = list(11)
 	//slogan_list += list()
 	products = list(
 		/obj/item/clothing/head/hardhat = 10,
@@ -1997,7 +1997,7 @@
 	desc = "Автомат-помощник по выдаче одежды Научного Отдела."
 	icon_state = "clothes-dep-sci"
 	//slogan_list += list()
-	req_access_txt = "47"
+	req_one_access = list(47)
 	products = list(
 		/obj/item/clothing/head/beret/purple_normal = 10,
 		/obj/item/clothing/head/beret/purple = 10,
@@ -2045,7 +2045,7 @@
 	desc = "Автомат-помощник по выдаче одежды Отдела Поставок."
 	icon_state = "clothes-dep-car"
 	//slogan_list += list()
-	req_access_txt = "48"
+	req_one_access = list(48)
 	products = list(
 		/obj/item/clothing/head/soft = 10,
 
@@ -2090,7 +2090,7 @@
 	desc = "Автомат-помощник по выдаче одежды Юридического Отдела."
 	icon_state = "clothes-dep-sec"
 	//slogan_list += list()
-	req_access = list(38)
+	req_one_access = list(38)
 	products = list(
 		/obj/item/clothing/under/rank/internalaffairs = 10,
 		/obj/item/clothing/under/lawyer/female = 10,
@@ -2142,7 +2142,6 @@
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
 	icon_state = "clothes"
 	//slogan_list += list()
-	req_access_txt = "0"
 	products = list()
 	refill_canister = /obj/item/vending_refill/
 
@@ -2151,7 +2150,7 @@
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела церкви."
 	icon_state = "clothes-dep-car"
 	//slogan_list += list()
-	req_access_txt = "22"
+	req_one_access = list(22)
 	products = list(
 		/obj/item/clothing/under/rank/chaplain = 5,
 		/obj/item/clothing/suit/witchhunter = 2,
@@ -2181,7 +2180,7 @@
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
 	icon_state = "clothes"
 	//slogan_list += list()
-	req_access_txt = "35"
+	req_one_access = list(35)
 	products = list(
 		/obj/item/clothing/under/rank/hydroponics = 5,
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,

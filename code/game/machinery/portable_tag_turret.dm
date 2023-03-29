@@ -13,7 +13,7 @@
 	has_cover = FALSE
 	always_up = TRUE
 	raised = TRUE
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
+	req_one_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
 
 /obj/machinery/porta_turret/tag/red
 

@@ -163,7 +163,7 @@
 /obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
-	req_access = list()
+	req_one_access = list()
 
 	products = list(/obj/item/stack/medical/splint = 2,
 					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 2,

@@ -2,7 +2,7 @@
 	icon = 'icons/atmos/vent_scrubber.dmi'
 	icon_state = "map_scrubber"
 
-	req_one_access_txt = "24;10"
+	req_one_access = list(10,24)
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"

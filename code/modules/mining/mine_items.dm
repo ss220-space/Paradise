@@ -47,7 +47,7 @@
 	icon_opened = "miningsecopen"
 	icon_broken = "miningsecbroken"
 	icon_off = "miningsecoff"
-	req_access = list(ACCESS_MINING)
+	req_one_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()
 	new /obj/item/stack/sheet/mineral/sandbags(src, 5)

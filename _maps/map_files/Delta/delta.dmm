@@ -7268,7 +7268,6 @@
 /obj/machinery/door/airlock/highsecurity{
 	heat_proof = 1;
 	name = "Waste Incinerator";
-	req_access_txt = null;
 	req_one_access = list(12,24,39)
 	},
 /turf/simulated/floor/engine,
@@ -29760,8 +29759,7 @@
 	desc = "A remote control switch for the medbay foyer.";
 	id = "MedbayFoyerPort";
 	name = "Medbay Doors Control";
-	normaldoorcontrol = 1;
-	req_access_txt = null
+	normaldoorcontrol = 1
 	},
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -44138,8 +44136,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/research{
-	name = "Research Division Access";
-	req_access_txt = null
+	name = "Research Division Access"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -63495,7 +63492,6 @@
 /obj/machinery/door/airlock/highsecurity{
 	heat_proof = 1;
 	name = "Waste Incinerator";
-	req_access_txt = null;
 	req_one_access = list(12,24,39)
 	},
 /obj/machinery/door/firedoor,
@@ -78580,8 +78576,7 @@
 	name = "Left Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -6;
-	pixel_y = 7;
-	req_access_txt = null
+	pixel_y = 7
 	},
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -78598,8 +78593,7 @@
 	name = "Right Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = 6;
-	pixel_y = 7;
-	req_access_txt = null
+	pixel_y = 7
 	},
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -95172,8 +95166,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/research{
-	name = "Research Division Access";
-	req_access_txt = null
+	name = "Research Division Access"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)

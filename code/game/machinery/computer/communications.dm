@@ -15,7 +15,7 @@
 	desc = "This allows the Captain to contact Central Command, or change the alert level. It also allows the command staff to call the Escape Shuttle."
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
-	req_access = list(ACCESS_HEADS)
+	req_one_access = list(ACCESS_HEADS)
 	circuit = /obj/item/circuitboard/communications
 	var/list/messagetitle = list()
 	var/list/messagetext = list()

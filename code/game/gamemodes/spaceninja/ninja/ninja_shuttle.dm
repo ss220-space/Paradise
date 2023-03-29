@@ -3,7 +3,7 @@
 	desc = "Used to call and send the \"Ombra\" shuttle."
 	icon_keyboard = "generic_key"
 	icon_screen = "ninja_shuttle"
-	req_access = list()
+	req_one_access = list()
 	bubble_icon = "syndibot"
 	shuttleId = "ombra"
 	possible_destinations = "ombra_home;ombra_away;ombra_custom"

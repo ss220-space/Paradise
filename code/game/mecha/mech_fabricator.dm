@@ -66,7 +66,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	if(is_taipan(z))
-		req_access = list(ACCESS_SYNDICATE)
+		req_one_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
@@ -488,7 +488,7 @@
 /obj/machinery/mecha_part_fabricator/spacepod
 	name = "spacepod fabricator"
 	allowed_design_types = PODFAB
-	req_access = list(ACCESS_MECHANIC)
+	req_one_access = list(ACCESS_MECHANIC)
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()
@@ -525,7 +525,7 @@
 /obj/machinery/mecha_part_fabricator/syndicate
 	name = "Syndicate exosuit fabricator"
 	desc = "Nothing is being built."
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	ui_theme = "nologo"
 
 /obj/machinery/mecha_part_fabricator/syndicate/New()

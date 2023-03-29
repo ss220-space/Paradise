@@ -146,7 +146,7 @@
 /obj/structure/closet/secure_closet/syndicate
 	name = "Syndicate Locker"
 	desc = "It's an immobile card-locked storage unit. A big 'S' letter on it indicates that it belongs to the syndicate."
-	req_access = list(150)
+	req_one_access = list(150)
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	max_integrity = 300
 	icon_state = "syndicate_secure1"
@@ -157,7 +157,7 @@
 	icon_off = "syndicate_secure_off"
 
 /obj/structure/closet/secure_closet/syndicate/comms_officer
-	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
+	req_one_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
 	name = "Syndicate Comms Officer's Locker"
 
 /obj/structure/closet/secure_closet/syndicate/comms_officer/populate_contents()
@@ -186,7 +186,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/research_director
 	name = "Syndicate Research Director's Locker"
-	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+	req_one_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "syndicate_rd_secure1"
 	icon_closed = "syndicate_rd_secure"
 	icon_locked = "syndicate_rd_secure1"
@@ -219,7 +219,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/cargo
 	name = "Syndicate Cargo Technician's Locker"
-	req_access = list(ACCESS_SYNDICATE_CARGO)
+	req_one_access = list(ACCESS_SYNDICATE_CARGO)
 	icon_state = "syndicate_cargo_secure1"
 	icon_closed = "syndicate_cargo_secure"
 	icon_locked = "syndicate_cargo_secure1"
@@ -243,7 +243,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/medbay
 	name = "Syndicate Medical Doctor's Locker"
-	req_access = list(ACCESS_SYNDICATE_MEDICAL)
+	req_one_access = list(ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndicate_med_secure1"
 	icon_closed = "syndicate_med_secure"
 	icon_locked = "syndicate_med_secure1"
@@ -297,7 +297,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/chef
 	name = "Syndicate Chef's Locker"
-	req_access = list(ACCESS_SYNDICATE_KITCHEN)
+	req_one_access = list(ACCESS_SYNDICATE_KITCHEN)
 	icon_state = "syndicate_fridge_secure1"
 	icon_closed = "syndicate_fridge_secure"
 	icon_locked = "syndicate_fridge_secure1"

@@ -26,7 +26,7 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
-	req_access = list(ACCESS_KITCHEN)
+	req_one_access = list(ACCESS_KITCHEN)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
 	for(var/i in 1 to 3)
@@ -36,12 +36,12 @@
 
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
-	req_access = list()
+	req_one_access = list()
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
 	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
-	req_access = list()
+	req_one_access = list()
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/populate_contents()
 	for(var/i = 0, i < 5, i++)
@@ -96,7 +96,7 @@
 	icon_opened = "fridgeopen"
 	icon_broken = "fridgebroken"
 	icon_off = "fridge1"
-	req_access = list(ACCESS_HEADS_VAULT)
+	req_one_access = list(ACCESS_HEADS_VAULT)
 
 /obj/structure/closet/secure_closet/freezer/money/populate_contents()
 	for(var/i in 1 to 3)

@@ -7,7 +7,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_MEDICAL)
+	req_one_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/medical1/populate_contents()
 	new /obj/item/storage/box/autoinjectors(src)
@@ -34,7 +34,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_SURGERY)
+	req_one_access = list(ACCESS_SURGERY)
 
 /obj/structure/closet/secure_closet/medical2/populate_contents()
 	new /obj/item/tank/internals/anesthetic(src)
@@ -47,7 +47,7 @@
 
 /obj/structure/closet/secure_closet/medical3
 	name = "medical doctor's locker"
-	req_access = list(ACCESS_SURGERY)
+	req_one_access = list(ACCESS_SURGERY)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -86,7 +86,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_MEDICAL)
+	req_one_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/exam/populate_contents()
 	new /obj/item/storage/box/syringes(src)
@@ -128,7 +128,7 @@
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
-	req_access = list(ACCESS_PSYCHIATRIST)
+	req_one_access = list(ACCESS_PSYCHIATRIST)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -151,7 +151,7 @@
 
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
-	req_access = list(ACCESS_CMO)
+	req_one_access = list(ACCESS_CMO)
 	icon_state = "cmosecure1"
 	icon_closed = "cmosecure"
 	icon_locked = "cmosecure1"
@@ -199,7 +199,7 @@
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
-	req_access = list(ACCESS_SURGERY)
+	req_one_access = list(ACCESS_SURGERY)
 
 /obj/structure/closet/secure_closet/animal/populate_contents()
 	new /obj/item/assembly/signaler(src)
@@ -217,7 +217,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_CHEMISTRY)
+	req_one_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/chemical/populate_contents()
 	new /obj/item/storage/box/pillbottles(src)
@@ -238,7 +238,7 @@
 	anchored = 1
 	density = 0
 	wall_mounted = 1
-	req_access = list(ACCESS_MEDICAL)
+	req_one_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/medical_wall/update_icon()
 	if(broken)
@@ -261,7 +261,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_PARAMEDIC)
+	req_one_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
 	new /obj/item/clothing/suit/space/eva/paramedic(src)
@@ -280,7 +280,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "chemicalbroken"
 	icon_off = "chemicaloff"
-	req_access = list(ACCESS_CHEMISTRY)
+	req_one_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/reagents/populate_contents()
 	new /obj/item/reagent_containers/glass/bottle/reagent/phenol(src)

@@ -744,7 +744,7 @@
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
-	req_access = list()
+	req_one_access = list()
 	circuit = /obj/item/circuitboard/shuttle
 	var/destination
 	var/shuttleId
@@ -883,7 +883,7 @@
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		src.req_access = list()
+		src.req_one_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
@@ -965,7 +965,7 @@
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
-	req_access = list(ACCESS_CENT_GENERAL)
+	req_one_access = list(ACCESS_CENT_GENERAL)
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away;admin_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -993,7 +993,7 @@
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/trade/sol
-	req_access = list(ACCESS_TRADE_SOL)
+	req_one_access = list(ACCESS_TRADE_SOL)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
 

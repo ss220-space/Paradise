@@ -199,7 +199,7 @@
 	id_tag = "Syndie_vault"
 	},
 /obj/structure/falsewall/plastitanium{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -464,7 +464,7 @@
 "aCC" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -624,7 +624,7 @@
 	icon_state = "on";
 	id = "air_in";
 	on = 1;
-	req_one_access_txt = "159,156"
+	req_one_access = list(156,159)
 	},
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
@@ -648,7 +648,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aIk" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -666,7 +666,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/security{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1266,7 +1266,7 @@
 	id_tag = "taipan_exit_outer";
 	locked = 1;
 	name = "Secret Enter";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -1610,7 +1610,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/closet/secure_closet/medical2{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
@@ -2081,7 +2081,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Research Director's office";
-	req_access = list(155)
+	req_one_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2129,7 +2129,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(156,149)
+	req_one_access = list(156,149)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -2299,7 +2299,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2361,7 +2361,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2483,7 +2483,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Server Room";
-	req_access = list(155)
+	req_one_access = list(155)
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -2943,7 +2943,7 @@
 	id_tag = "taipan_exit_airlock";
 	pixel_x = -25;
 	pixel_y = null;
-	req_access = list(150);
+	req_one_access = list(150);
 	tag_airpump = "taipan_exit_pump";
 	tag_chamber_sensor = "taipan_exit_sensor";
 	tag_exterior_door = "taipan_exit_outer";
@@ -2953,7 +2953,7 @@
 	id_tag = "taipan_exit_sensor";
 	pixel_x = -24;
 	pixel_y = 9;
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -3647,14 +3647,14 @@
 	id_tag = "taipan_exit_inner";
 	locked = 1;
 	name = "Secret Exit";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dou" = (
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -3815,7 +3815,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
@@ -3876,7 +3876,7 @@
 "dyd" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Bar storage";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3967,7 +3967,7 @@
 /obj/structure/table/wood,
 /obj/structure/sign/barsign{
 	pixel_y = 32;
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /obj/item/reagent_containers/food/drinks/bottle/absinthe,
 /turf/simulated/floor/plasteel{
@@ -4355,7 +4355,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4441,7 +4441,7 @@
 	name = "interior access button";
 	pixel_x = -24;
 	pixel_y = 24;
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/structure/falsewall/plastitanium,
 /turf/simulated/floor/plating,
@@ -4479,7 +4479,7 @@
 	id = "Syndie_teleport";
 	name = "Teleporter remote door-control";
 	pixel_y = 26;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -4523,7 +4523,7 @@
 	id_tag = "Syndie_vault"
 	},
 /obj/structure/falsewall/plastitanium{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -4671,7 +4671,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "esH" = (
 /obj/structure/closet/secure_closet/personal/patient{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/item/clothing/head/wizard/fake{
 	desc = "Это что принадлежит местной мартышке?";
@@ -4829,7 +4829,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "eCj" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /obj/item/storage/box/buck,
 /obj/item/storage/box/buck,
@@ -5134,7 +5134,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "eMI" = (
 /obj/structure/falsewall/plastitanium{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -5252,7 +5252,7 @@
 	dir = 1;
 	icon_state = "left";
 	name = "Danger: Top Secret";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/effect/mine/stun,
 /obj/item/stack/sheet/metal,
@@ -5406,7 +5406,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/research{
 	name = "Research Airlock";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5620,7 +5620,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5657,7 +5657,7 @@
 	},
 /obj/item/folder/syndicate/yellow/full,
 /obj/structure/falsewall/plastitanium{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/vault)
@@ -5681,7 +5681,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Arrivals Post";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -5755,7 +5755,7 @@
 "fqF" = (
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -5981,7 +5981,7 @@
 	faction = "syndicate";
 	name = "Teleporter turret controls";
 	pixel_y = 26;
-	req_access = list(154);
+	req_one_access = list(154);
 	syndicate = 1
 	},
 /obj/structure/filingcabinet/chestdrawer,
@@ -6090,7 +6090,7 @@
 	id = "CargoPrivacy";
 	name = "Privacy shutters control";
 	pixel_x = 24;
-	req_one_access_txt = "157"
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6130,7 +6130,7 @@
 	input_tag = "syndie_base_mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_mix_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6189,7 +6189,7 @@
 	color = "red";
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6241,7 +6241,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Morgue Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6300,7 +6300,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "syndie_base_air_out";
 	pressure_setting = 2000;
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6348,7 +6348,7 @@
 	input_tag = "syndie_base_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6378,7 +6378,7 @@
 	input_tag = "syndie_base_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6507,7 +6507,7 @@
 "fZY" = (
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Arrivals Post";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6771,7 +6771,7 @@
 	name = "exterior access button";
 	pixel_x = -24;
 	pixel_y = -24;
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6936,7 +6936,7 @@
 	dir = 2;
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -7022,7 +7022,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_space_base_virology";
 	pixel_x = 25;
-	req_access = list(149);
+	req_one_access = list(149);
 	tag_exterior_door = "syndicate_space_base_virology_exterior";
 	tag_interior_door = "syndicate_space_base_virology_interior"
 	},
@@ -7725,7 +7725,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Morgue Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7814,7 +7814,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/janitorial)
@@ -7897,7 +7897,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Animal Pen";
-	req_one_access_txt = "148"
+	req_one_access = list(148)
 	},
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/grass,
@@ -7910,7 +7910,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/freezer{
 	name = "Freezer Airlock";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8001,7 +8001,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/freezer{
 	name = "Freezer Airlock";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8202,14 +8202,14 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -8338,7 +8338,7 @@
 	input_tag = "syndie_base_n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_n2o_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -8490,7 +8490,7 @@
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "hRV" = (
 /obj/machinery/door/airlock/hatch{
-	req_one_access_txt = "156"
+	req_one_access = list(156)
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -8751,7 +8751,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Research Director's office";
-	req_access = list(155)
+	req_one_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8870,7 +8870,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Bar";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8890,7 +8890,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 2;
-	req_one_access_txt = "158"
+	req_one_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8910,7 +8910,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Riot Control";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/shower{
 	dir = 4
@@ -8954,7 +8954,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 2;
-	req_one_access_txt = "158"
+	req_one_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8966,7 +8966,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 2;
-	req_one_access_txt = "158"
+	req_one_access = list(158)
 	},
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice,
 /turf/simulated/floor/plasteel{
@@ -9005,7 +9005,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "ikC" = (
 /obj/machinery/vending/cola/free{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -9029,7 +9029,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "imn" = (
 /obj/machinery/vending/coffee/free{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -9448,7 +9448,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9541,7 +9541,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command/glass{
 	name = "Arrivals Teleporter";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9566,7 +9566,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -9942,7 +9942,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/research/glass{
 	name = "Research Airlock";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10196,7 +10196,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11062,7 +11062,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "kfY" = (
 /obj/structure/closet/secure_closet/injection{
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -11280,7 +11280,7 @@
 "kxP" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -11387,7 +11387,7 @@
 /obj/machinery/door/window{
 	color = "red";
 	name = "Kitchen";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /obj/machinery/smartfridge/syndie,
 /turf/simulated/floor/plasteel{
@@ -11481,7 +11481,7 @@
 "kFD" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -11566,7 +11566,7 @@
 "kJT" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Kitchen";
-	req_access = list(158)
+	req_one_access = list(158)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -11720,7 +11720,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/engineering{
 	name = "Atmospherics storage";
-	req_one_access_txt = "156;159"
+	req_one_access = list(156,159)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12078,7 +12078,7 @@
 	id = "SyndieRnDPrivacy";
 	name = "Privacy shutters control";
 	pixel_x = 24;
-	req_one_access_txt = "156"
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12188,7 +12188,7 @@
 	input_tag = "syndie_base_tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -12252,7 +12252,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12316,7 +12316,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "loU" = (
 /obj/machinery/computer/rdservercontrol{
-	req_access = list(155);
+	req_one_access = list(155);
 	servers = list(0027);
 	syndicate = 1
 	},
@@ -12443,7 +12443,7 @@
 	id_tag = "syndicate_space_base_virology_exterior";
 	locked = 1;
 	name = "Virology Lab Exterior Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13383,7 +13383,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13433,7 +13433,7 @@
 "mfU" = (
 /obj/machinery/door/airlock/syndicate/public/glass{
 	name = "Hydroponics";
-	req_one_access_txt = "148"
+	req_one_access = list(148)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13452,7 +13452,7 @@
 	color = "red";
 	dir = 1;
 	name = "Hydroponics Desk";
-	req_access = list(148)
+	req_one_access = list(148)
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
@@ -15549,7 +15549,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/atmos/glass{
 	name = "SMES room";
-	req_access = list(159)
+	req_one_access = list(159)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15716,7 +15716,7 @@
 	input_tag = "syndie_base_co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
-	req_one_access_txt = "159";
+	req_one_access = list(159);
 	sensors = list("syndie_base_co2_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -15893,7 +15893,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16411,7 +16411,7 @@
 "oxn" = (
 /obj/machinery/door/morgue{
 	name = "Dungeon";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16441,7 +16441,7 @@
 	},
 /obj/machinery/computer/guestpass/syndicate{
 	pixel_y = 32;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16869,7 +16869,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "oND" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -16945,7 +16945,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -17413,7 +17413,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17458,7 +17458,7 @@
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/item/folder,
 /obj/item/stamp/syndicate/taipan,
@@ -17769,7 +17769,7 @@
 	color = "red";
 	dir = 8;
 	name = "Coroner";
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17840,7 +17840,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "pAd" = (
 /obj/machinery/vending/autodrobe{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -17938,7 +17938,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/atmos/glass{
 	name = "Atmospherics";
-	req_one_access_txt = "156;159"
+	req_one_access = list(156,159)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -18106,7 +18106,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "pJT" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/beakers/bluespace,
@@ -18143,7 +18143,7 @@
 	id_with_download_string = "0027";
 	id_with_upload_string = "0027;1";
 	name = "ERR#UNKWN";
-	req_access = list(155);
+	req_one_access = list(155);
 	server_id = 0027;
 	syndicate = 1
 	},
@@ -18180,7 +18180,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/medical/syndicate_access{
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18323,7 +18323,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/atmos{
 	name = "Atmos Airlock";
-	req_access = list(159)
+	req_one_access = list(159)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -18517,7 +18517,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18947,7 +18947,7 @@
 "qsB" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = list(159)
+	req_one_access = list(159)
 	},
 /obj/item/extinguisher/mini,
 /turf/simulated/floor/plasteel{
@@ -18971,7 +18971,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = list(159)
+	req_one_access = list(159)
 	},
 /obj/item/storage/backpack/syndicate/engineer,
 /obj/item/holosign_creator/atmos,
@@ -19154,7 +19154,7 @@
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "qzc" = (
 /obj/machinery/vending/tool{
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -19167,7 +19167,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "qzw" = (
 /obj/machinery/vending/engivend{
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -19391,7 +19391,7 @@
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -19476,7 +19476,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qFx" = (
 /obj/structure/closet/secure_closet/personal/patient{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19544,7 +19544,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qGq" = (
 /obj/structure/closet/secure_closet/medical2{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/item/storage/box/bodybags,
 /obj/effect/turf_decal/tile/blue{
@@ -19774,7 +19774,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
-	req_one_access_txt = "156"
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19989,7 +19989,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/security{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20018,7 +20018,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20547,7 +20547,7 @@
 	name = "exterior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -20580,7 +20580,7 @@
 	id_tag = "syndicate_space_base_virology_interior";
 	locked = 1;
 	name = "Virology Lab Interior Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -20649,7 +20649,7 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -20729,7 +20729,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/item/radio/intercom/syndicate{
 	pixel_y = 25
@@ -20938,7 +20938,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 8;
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/item/implanter/freedom{
 	pixel_x = 5;
@@ -21205,7 +21205,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "sfl" = (
 /obj/machinery/vending/suitdispenser{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -21278,7 +21278,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Creature Pen";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/remains/xeno,
 /mob/living/simple_animal/slime{
@@ -21291,7 +21291,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Creature Pen";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/cleanable/blood/gibs/xeno/down,
 /mob/living/simple_animal/slime{
@@ -21362,7 +21362,7 @@
 "sml" = (
 /obj/machinery/clonepod/biomass{
 	radio_announce = 0;
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -21382,7 +21382,7 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21411,7 +21411,7 @@
 	name = "Bolt Cell Doors";
 	normaldoorcontrol = 1;
 	pixel_x = -5;
-	req_access = list(154);
+	req_one_access = list(154);
 	specialfunctions = 4
 	},
 /obj/structure/table/reinforced,
@@ -21420,34 +21420,34 @@
 	name = "Armory remote door-control";
 	pixel_x = 5;
 	pixel_y = 8;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Syndie_teleport";
 	name = "Teleporter remote door-control";
 	pixel_x = -5;
 	pixel_y = 8;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Full_Lockdown";
 	name = "Stationwide Lockdown control";
 	pixel_x = -5;
 	pixel_y = -8;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Syndie_vault";
 	name = "Vault Blast Door-control";
 	pixel_x = 5;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door_control{
 	id = "Comms_privacy";
 	name = "Privacy shutters control";
 	pixel_x = 5;
 	pixel_y = -8;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
@@ -21508,7 +21508,7 @@
 	name = "Arrivals turret controls";
 	pixel_x = 30;
 	pixel_y = 6;
-	req_access = list(154);
+	req_one_access = list(154);
 	syndicate = 1
 	},
 /obj/machinery/turretid/lethal{
@@ -21519,7 +21519,7 @@
 	name = "Armory turret controls";
 	pixel_x = 30;
 	pixel_y = -6;
-	req_access = list(154);
+	req_one_access = list(154);
 	syndicate = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -21639,7 +21639,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 8;
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/item/organ/internal/cyberimp/brain/anti_stun,
 /turf/simulated/floor/mineral/plastitanium,
@@ -21670,7 +21670,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/vending/toyliberationstation{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21787,7 +21787,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "sLh" = (
 /obj/machinery/vending/hatdispenser{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -21941,7 +21941,7 @@
 "sQr" = (
 /obj/machinery/door/airlock/syndicate/research/glass{
 	name = "Old Lab Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -22148,7 +22148,7 @@
 	faction = "syndicate";
 	name = "External turrets control panel";
 	pixel_y = 6;
-	req_access = list(154);
+	req_one_access = list(154);
 	syndicate = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -22388,7 +22388,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tgr" = (
 /obj/machinery/vending/shoedispenser{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
@@ -22741,7 +22741,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Comms Officer's Office";
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22786,7 +22786,7 @@
 /obj/machinery/door/airlock/syndicate/security/glass{
 	id_tag = "syndie_armory";
 	name = "Armoury Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22805,7 +22805,7 @@
 /obj/machinery/door/airlock/syndicate/security/glass{
 	id_tag = "syndie_armory";
 	name = "Armoury Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -22860,7 +22860,7 @@
 	name = "Privacy shutters control";
 	pixel_x = 5;
 	pixel_y = 8;
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -23007,7 +23007,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tET" = (
 /obj/machinery/door/airlock/hatch{
-	req_one_access_txt = "149"
+	req_one_access = list(149)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -23342,7 +23342,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/medical/syndicate_access{
-	req_one_access_txt = list(156,149)
+	req_one_access = list(149,156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23469,7 +23469,7 @@
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/vending/medical/syndicate_access{
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23683,7 +23683,7 @@
 	faction = "syndicate";
 	name = "Armory turret controls";
 	pixel_y = 30;
-	req_access = list(150);
+	req_one_access = list(150);
 	syndicate = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -24074,7 +24074,7 @@
 	dir = 2;
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -24093,7 +24093,7 @@
 	dir = 2;
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -24331,7 +24331,7 @@
 "uwh" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -24444,7 +24444,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/research{
 	name = "Research Airlock";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24556,7 +24556,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -24676,7 +24676,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -24774,7 +24774,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -25255,7 +25255,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "uSX" = (
 /obj/machinery/door/airlock/hatch{
-	req_one_access_txt = "149"
+	req_one_access = list(149)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -25296,7 +25296,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 8;
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
@@ -25318,7 +25318,7 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -25385,7 +25385,7 @@
 "uXK" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -25431,7 +25431,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -25735,7 +25735,7 @@
 "vhP" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -25817,7 +25817,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/research/glass{
 	name = "Research Airlock";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26082,7 +26082,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -26287,7 +26287,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/syndicate{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26618,7 +26618,7 @@
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -26918,7 +26918,7 @@
 "wiT" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -26940,7 +26940,7 @@
 "wjm" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_x = -32
@@ -26978,7 +26978,7 @@
 	dir = 2;
 	icon_state = "left";
 	name = "Cryo Tank Storage";
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -27585,7 +27585,7 @@
 	id = "surgery1_privacy";
 	name = "Privacy shutters control";
 	pixel_x = 22;
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27632,7 +27632,7 @@
 	id = "surgery2_privacy";
 	name = "Privacy shutters control";
 	pixel_x = 22;
-	req_one_access_txt = "150"
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27642,7 +27642,7 @@
 "wBR" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -27681,13 +27681,13 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Riot Control";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	dir = 8;
 	name = "Riot Control";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -27948,7 +27948,7 @@
 "wLO" = (
 /obj/machinery/door/airlock/hatch/syndicate/vault{
 	locked = null;
-	req_access = list(154)
+	req_one_access = list(154)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "Syndie_vault"
@@ -28080,7 +28080,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28100,7 +28100,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical{
 	name = "Surgery Airlock";
-	req_access = list(149)
+	req_one_access = list(149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28122,7 +28122,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -28246,7 +28246,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/medical/glass{
 	name = "Medbay Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28307,7 +28307,7 @@
 	name = "Privacy shutters control";
 	pixel_x = 5;
 	pixel_y = 6;
-	req_one_access_txt = "157"
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28429,7 +28429,7 @@
 	id = "CargoPrivacy";
 	name = "Privacy shutters control";
 	pixel_y = -24;
-	req_one_access_txt = "157"
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28496,7 +28496,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/robotics{
-	req_access = list(155)
+	req_one_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28648,7 +28648,7 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "xgW" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28784,7 +28784,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Server Room";
-	req_access = list(155)
+	req_one_access = list(155)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28801,7 +28801,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo/glass{
 	name = "Cargo Airlock";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29305,7 +29305,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29494,7 +29494,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/suit_storage_unit/syndicate/secure{
-	req_access = list(155)
+	req_one_access = list(155)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -29733,7 +29733,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/cargo{
 	name = "Cargo Airlock";
-	req_access = list(157)
+	req_one_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29943,7 +29943,7 @@
 "xZn" = (
 /obj/machinery/crema_switch{
 	pixel_x = 26;
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
@@ -30104,7 +30104,7 @@
 "yfc" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
-	req_access = list(150)
+	req_one_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30272,7 +30272,7 @@
 	color = "#d70000";
 	dir = 1;
 	name = "Riot Control";
-	req_access = list(156)
+	req_one_access = list(156)
 	},
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty{

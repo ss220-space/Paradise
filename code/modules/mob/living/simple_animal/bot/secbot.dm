@@ -475,4 +475,4 @@
 	..()
 
 /obj/machinery/bot_core/secbot
-	req_access = list(ACCESS_SECURITY)
+	req_one_access = list(ACCESS_SECURITY)

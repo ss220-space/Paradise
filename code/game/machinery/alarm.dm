@@ -124,7 +124,7 @@
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server

@@ -12,7 +12,7 @@
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_PURE_CYAN
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	var/window_height = 400 // should be roughly 100 per section. Allow extra space for the lockout alert.
 	var/window_width = 400
@@ -146,7 +146,7 @@
 
 /obj/machinery/computer/syndicate_depot/doors
 	name = "depot door control computer"
-	req_access = list()
+	req_one_access = list()
 	window_height = 300
 	var/pub_access = FALSE
 
@@ -193,7 +193,7 @@
 /obj/machinery/computer/syndicate_depot/selfdestruct
 	name = "reactor control computer"
 	icon_screen = "explosive"
-	req_access = list()
+	req_one_access = list()
 	alerts_when_broken = TRUE
 	window_height = 200 // this might appear big, but it has to have space for the lockout alert
 
@@ -223,7 +223,7 @@
 /obj/machinery/computer/syndicate_depot/shieldcontrol
 	name = "shield control computer"
 	icon_screen = "accelerator"
-	req_access = list(ACCESS_SYNDICATE_LEADER)
+	req_one_access = list(ACCESS_SYNDICATE_LEADER)
 	alerts_when_broken = TRUE
 	window_height = 280
 	var/area/syndicate_depot/perimeter/perimeterarea
@@ -287,7 +287,7 @@
 /obj/machinery/computer/syndicate_depot/syndiecomms
 	name = "syndicate communications computer"
 	icon_screen = "syndishuttle"
-	req_access = list()
+	req_one_access = list()
 	alerts_when_broken = TRUE
 	window_height = 300
 	var/message_sent = FALSE
@@ -407,7 +407,7 @@
 	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
-	req_access = list(154)
+	req_one_access = list(154)
 	circuit = /obj/item/circuitboard/syndicate_teleporter
 	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 
@@ -561,7 +561,7 @@
 /obj/machinery/computer/syndicate_depot/aiterminal
 	name = "syndicate ai terminal"
 	icon_screen = "command"
-	req_access = list()
+	req_one_access = list()
 	window_height = 750 // has to be very tall since it has many sections which can expand
 
 /obj/machinery/computer/syndicate_depot/aiterminal/ui_data(mob/user)
