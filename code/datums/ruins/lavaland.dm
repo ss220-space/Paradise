@@ -245,5 +245,3 @@
 	cost = 5
 	allow_duplicates = FALSE
 
-
-

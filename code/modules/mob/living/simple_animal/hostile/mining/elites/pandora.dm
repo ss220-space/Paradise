@@ -123,7 +123,7 @@
 	for(var/mob/living/M in orange(7, src))
 		if(M.faction_check_mob(src))
 			continue
-		if(M.stat = DEAD)
+		if(M.stat == DEAD)
 			continue
 		if(active_chasers >= MAX_CHASERS)
 			return
