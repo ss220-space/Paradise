@@ -1084,9 +1084,7 @@
 	},
 /area/centcom/zone1)
 "aWu" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -18116,9 +18114,7 @@
 	},
 /area/ussp_ship)
 "nnr" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -28188,9 +28184,7 @@
 	},
 /area/centcom/specops)
 "uky" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
@@ -29782,9 +29776,7 @@
 	},
 /area/centcom/jail)
 "vyk" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
 	icon_state = "stage_bleft"
 	},

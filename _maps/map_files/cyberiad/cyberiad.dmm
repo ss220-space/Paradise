@@ -59105,8 +59105,7 @@
 "cLS" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engine Room";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -63366,8 +63365,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Maintenance";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -63970,8 +63968,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -64139,8 +64136,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engine Room";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -64572,8 +64568,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engine Room";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -64898,8 +64893,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engine Room";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67116,8 +67110,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
-	req_access = list(10);
-	req_access_txt = null
+	req_access = list(10)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

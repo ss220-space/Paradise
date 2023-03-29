@@ -5093,9 +5093,7 @@
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
 "czh" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -10799,9 +10797,7 @@
 	},
 /area/centcom/evac)
 "fGE" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -19969,9 +19965,7 @@
 	},
 /area/centcom/supply)
 "kPd" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
 	color = "#791500";
@@ -39717,9 +39711,7 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "tTV" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -40146,9 +40138,7 @@
 	},
 /area/centcom/zone3)
 "ufa" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = null
-	},
+/obj/machinery/vending/boozeomat,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
