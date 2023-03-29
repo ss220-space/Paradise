@@ -6084,7 +6084,7 @@
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	layer = 2.9;
-	name = "Enforcer magazine"
+	name = "Enforcer magazine";
 	req_one_access = list(114)
 	},
 /obj/item/ammo_box/magazine/enforcer/lethal,
