@@ -180,7 +180,7 @@
 	icon_state = "gshell"
 	projectile_type = /obj/item/projectile/bullet/pellet
 	pellets = 6
-	variance = 18
+	variance = 17
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
@@ -189,7 +189,7 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
-	variance = 18
+	variance = 17
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
