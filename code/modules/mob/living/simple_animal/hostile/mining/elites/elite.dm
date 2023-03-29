@@ -97,6 +97,8 @@
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
+/mob/living/simple_animal/hostile/asteroid/elite/can_die()
+	return ..() && health <= 0
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
