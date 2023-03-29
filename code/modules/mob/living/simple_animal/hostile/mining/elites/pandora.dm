@@ -123,6 +123,8 @@
 	for(var/mob/living/M in orange(7, src))
 		if(M.faction_check_mob(src))
 			continue
+		if(M.stat = DEAD)
+			continue
 		if(active_chasers >= MAX_CHASERS)
 			return
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(loc, src, M, chaser_speed, FALSE)

@@ -127,7 +127,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, is_teleshot, is_trishot)
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
-		var/obj/item/projectile/H = new /obj/item/projectile/herald(startloc)
+		var/obj/item/projectile/herald/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
 		if(target)
@@ -137,7 +137,7 @@
 			shoot_projectile(marker, set_angle + 15, FALSE, FALSE)
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
-		var/obj/item/projectile/H = new /obj/item/projectile/herald/teleshot(startloc)
+		var/obj/item/projectile/herald/teleshot/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, startloc)
 		H.firer = src
 		if(target)
@@ -154,7 +154,7 @@
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)
-		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
+		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 2 SECONDS, TRUE)
 		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1 SECONDS)
 		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1.2 SECONDS)
 
