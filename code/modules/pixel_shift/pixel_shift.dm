@@ -79,7 +79,11 @@
 	if(pixel_x < -PASSABLE_SHIFT_THRESHOLD)
 		passthroughable |= NORTH | EAST | SOUTH
 
-/* https://github.com/Skyrat-SS13/Skyrat-tg/pull/6527
+/*
+
+https://github.com/tgstation/tgstation/issues/48659
+https://github.com/Skyrat-SS13/Skyrat-tg/pull/6527
+
 /mob/living/CanPass(atom/movable/mover, border_dir)
 	// Make sure to not allow projectiles of any kind past where they normally wouldn't.
 	if(!istype(mover, /obj/projectile) && !mover.throwing && passthroughable & border_dir)
